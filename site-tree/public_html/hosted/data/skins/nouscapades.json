@@ -1,9 +1,9 @@
 {
   "skin": "nouscapades",
   "name": "Nouscapades",
-  "domain": "Consciousness \u2014 Minds, Selves and Novel Beings at Every Scale",
+  "domain": "Consciousness — Minds, Selves and Novel Beings at Every Scale",
   "meter": "conviction",
-  "about": "Nouscapades maps where you stand on the questions Michael Levin's work forces open: minds without brains, selves nested inside selves, and beings \u2014 anthrobots grown from ordinary human cells \u2014 that are neither organism nor machine in any settled sense. Rate your conviction on each question and watch the shape of your philosophy of mind appear: how far down cognition goes, how large a self can be, and who gets counted.",
+  "about": "Nouscapades maps where you stand on the questions Michael Levin's work forces open: minds without brains, selves nested inside selves, and beings — anthrobots grown from ordinary human cells — that are neither organism nor machine in any settled sense. Rate your conviction on each question and watch the shape of your philosophy of mind appear: how far down cognition goes, how large a self can be, and who gets counted.",
   "categories": [
     {
       "id": "xnoc01",
@@ -31,7 +31,7 @@
           "widget": "trilinear-line",
           "archetype": "line",
           "hovertip": {
-            "issue": "Can a system with no neurons \u2014 a cell, a tissue, a slime mold \u2014 genuinely think, or only react?",
+            "issue": "Can a system with no neurons — a cell, a tissue, a slime mold — genuinely think, or only react?",
             "poles": [
               {
                 "label": "Needs a brain",
@@ -68,7 +68,7 @@
           "widget": "xy-switchbox",
           "archetype": null,
           "hovertip": {
-            "issue": "How large is the region of space and time a self can care about \u2014 the goals it can hold and work toward?",
+            "issue": "How large is the region of space and time a self can care about — the goals it can hold and work toward?",
             "poles": [
               {
                 "label": "Reach in space",
@@ -76,11 +76,11 @@
               },
               {
                 "label": "Reach in time",
-                "text": "How far across time \u2014 past and future \u2014 the being's concerns reach."
+                "text": "How far across time — past and future — the being's concerns reach."
               }
             ]
           },
-          "question": "How large a world can a self care about \u2014 the here and now, or anywhere, anywhen?",
+          "question": "How large a world can a self care about — the here and now, or anywhere, anywhen?",
           "source": "Nouscapades design brief 2026-11-21",
           "communities": []
         },
@@ -109,7 +109,7 @@
           "widget": "diamond",
           "archetype": "simplex",
           "hovertip": {
-            "issue": "Levin's claim is that intelligence means solving problems in a space \u2014 and bodies navigate several spaces at once. Which spaces do you grant as arenas of real intelligence?",
+            "issue": "Levin's claim is that intelligence means solving problems in a space — and bodies navigate several spaces at once. Which spaces do you grant as arenas of real intelligence?",
             "poles": [
               {
                 "label": "Body-plan space",
@@ -125,7 +125,7 @@
               },
               {
                 "label": "Ordinary 3D space",
-                "text": "The familiar case \u2014 an animal moving through the world."
+                "text": "The familiar case — an animal moving through the world."
               }
             ]
           },
@@ -158,7 +158,7 @@
             "poles": [
               {
                 "label": "Storage only",
-                "text": "Without neurons there is retention, not memory \u2014 a footprint, not a recollection."
+                "text": "Without neurons there is retention, not memory — a footprint, not a recollection."
               },
               {
                 "label": "Proto-memory",
@@ -207,7 +207,7 @@
               },
               {
                 "label": "All the way down",
-                "text": "Cognition shades continuously into the goal-directed behaviour of cells and even molecular networks \u2014 there is no clean floor."
+                "text": "Cognition shades continuously into the goal-directed behaviour of cells and even molecular networks — there is no clean floor."
               }
             ]
           },
@@ -288,11 +288,11 @@
             "poles": [
               {
                 "label": "One real level",
-                "text": "Exactly one level \u2014 the animal \u2014 is a true self; the rest are parts."
+                "text": "Exactly one level — the animal — is a true self; the rest are parts."
               },
               {
                 "label": "Some levels real",
-                "text": "Some levels are real selves and others are not \u2014 which ones is the argument."
+                "text": "Some levels are real selves and others are not — which ones is the argument."
               },
               {
                 "label": "Every level real",
@@ -333,15 +333,15 @@
               },
               {
                 "label": "The bioelectric boundary",
-                "text": "The line is the extent of the voltage pattern that coordinates the parts into one agent \u2014 which need not match the skin."
+                "text": "The line is the extent of the voltage pattern that coordinates the parts into one agent — which need not match the skin."
               },
               {
                 "label": "The story",
-                "text": "The boundary is narrative \u2014 a self extends as far as the tale it tells about itself reaches."
+                "text": "The boundary is narrative — a self extends as far as the tale it tells about itself reaches."
               }
             ]
           },
-          "question": "What draws the line around a self \u2014 skin, bioelectric boundary, or story?",
+          "question": "What draws the line around a self — skin, bioelectric boundary, or story?",
           "source": "Nouscapades design brief 2026-11-21",
           "communities": []
         },
@@ -374,7 +374,7 @@
               },
               {
                 "label": "Both are",
-                "text": "The original continues, twice \u2014 identity can branch."
+                "text": "The original continues, twice — identity can branch."
               },
               {
                 "label": "The question is broken",
@@ -407,7 +407,7 @@
           "widget": "trilinear-line",
           "archetype": "line",
           "hovertip": {
-            "issue": "What sets the size of a self \u2014 its anatomy, or the scale of what it can strive for?",
+            "issue": "What sets the size of a self — its anatomy, or the scale of what it can strive for?",
             "poles": [
               {
                 "label": "Fixed by the body",
@@ -419,7 +419,7 @@
               },
               {
                 "label": "As big as its goals",
-                "text": "A self is exactly as large as the biggest goal it can hold \u2014 which is why a cell's world is small and a person's can span centuries."
+                "text": "A self is exactly as large as the biggest goal it can hold — which is why a cell's world is small and a person's can span centuries."
               }
             ]
           },
@@ -463,11 +463,11 @@
           "widget": "star-radar",
           "archetype": "simplex",
           "hovertip": {
-            "issue": "Anthrobots move, heal, and act \u2014 but they do not reproduce, and nothing evolved them. Which of these does a thing need before you call it alive? Rate each pole as a requirement in its own right.",
+            "issue": "Anthrobots move, heal, and act — but they do not reproduce, and nothing evolved them. Which of these does a thing need before you call it alive? Rate each pole as a requirement in its own right.",
             "poles": [
               {
                 "label": "Self-maintenance",
-                "text": "It keeps itself going \u2014 maintains its own organisation against decay."
+                "text": "It keeps itself going — maintains its own organisation against decay."
               },
               {
                 "label": "Responsiveness",
@@ -516,11 +516,11 @@
             "poles": [
               {
                 "label": "Organism",
-                "text": "It is alive and self-organising \u2014 that settles it."
+                "text": "It is alive and self-organising — that settles it."
               },
               {
                 "label": "Machine",
-                "text": "It was designed and assembled for a purpose \u2014 that settles it the other way."
+                "text": "It was designed and assembled for a purpose — that settles it the other way."
               },
               {
                 "label": "A third kind",
@@ -557,7 +557,7 @@
             "poles": [
               {
                 "label": "Nature is inherited",
-                "text": "A being's real nature still comes from the lineage of its cells \u2014 nothing is truly new."
+                "text": "A being's real nature still comes from the lineage of its cells — nothing is truly new."
               },
               {
                 "label": "New combinations",
@@ -635,7 +635,7 @@
           "widget": "trilinear-line",
           "archetype": "line",
           "hovertip": {
-            "issue": "If a novel being acts \u2014 helps, harms, surprises \u2014 where does responsibility sit?",
+            "issue": "If a novel being acts — helps, harms, surprises — where does responsibility sit?",
             "poles": [
               {
                 "label": "Its makers, entirely",
@@ -647,11 +647,11 @@
               },
               {
                 "label": "It answers for itself",
-                "text": "To the degree it is genuinely an agent, responsibility migrates to the agent \u2014 that is what agency means."
+                "text": "To the degree it is genuinely an agent, responsibility migrates to the agent — that is what agency means."
               }
             ]
           },
-          "question": "Who answers for what a novel being does \u2014 its makers, or itself?",
+          "question": "Who answers for what a novel being does — its makers, or itself?",
           "source": "Nouscapades design brief 2026-11-21",
           "communities": []
         }
@@ -683,7 +683,7 @@
           "widget": "trilinear-line",
           "archetype": "line",
           "hovertip": {
-            "issue": "Cells set their resting voltage in patterns, and those patterns carry instructions \u2014 change the pattern and a tadpole grows an eye where none belongs.",
+            "issue": "Cells set their resting voltage in patterns, and those patterns carry instructions — change the pattern and a tadpole grows an eye where none belongs.",
             "poles": [
               {
                 "label": "Chemistry is the signal",
@@ -736,7 +736,7 @@
               },
               {
                 "label": "Held as a memory",
-                "text": "The tissue keeps a bioelectric memory of the shape it is aiming for \u2014 anatomical homeostasis \u2014 and works until reality matches it."
+                "text": "The tissue keeps a bioelectric memory of the shape it is aiming for — anatomical homeostasis — and works until reality matches it."
               }
             ]
           },
@@ -769,7 +769,7 @@
             "poles": [
               {
                 "label": "Broken machinery",
-                "text": "Cancer is damage \u2014 mutations break parts, and the parts run wild. Nothing about selfhood is needed to explain it."
+                "text": "Cancer is damage — mutations break parts, and the parts run wild. Nothing about selfhood is needed to explain it."
               },
               {
                 "label": "Machinery a self exploits",
@@ -810,15 +810,15 @@
             "poles": [
               {
                 "label": "Fix the hardware",
-                "text": "Durable cures mean editing genes and molecules \u2014 the pattern is downstream decoration."
+                "text": "Durable cures mean editing genes and molecules — the pattern is downstream decoration."
               },
               {
                 "label": "Both doors",
-                "text": "Treat the genes and persuade the pattern \u2014 combined hardware and software medicine."
+                "text": "Treat the genes and persuade the pattern — combined hardware and software medicine."
               },
               {
                 "label": "Persuade the software",
-                "text": "Brief changes to the pattern can trigger lasting, normal anatomy \u2014 you brief the cells, and competent cells do the rest."
+                "text": "Brief changes to the pattern can trigger lasting, normal anatomy — you brief the cells, and competent cells do the rest."
               }
             ]
           },
@@ -851,7 +851,7 @@
             "poles": [
               {
                 "label": "Micromanage",
-                "text": "Reliable control means specifying every step, cell by cell \u2014 anything less is luck."
+                "text": "Reliable control means specifying every step, cell by cell — anything less is luck."
               },
               {
                 "label": "Guide and check",
@@ -859,7 +859,7 @@
               },
               {
                 "label": "Brief and trust",
-                "text": "The parts already know how to build; the art is giving the collective the right high-level signal and letting its competence work \u2014 as a trainer shapes an animal, not as a mason lays bricks."
+                "text": "The parts already know how to build; the art is giving the collective the right high-level signal and letting its competence work — as a trainer shapes an animal, not as a mason lays bricks."
               }
             ]
           },
@@ -872,7 +872,7 @@
     {
       "id": "xnoc05",
       "name": "Agency at every scale",
-      "about": "Goals, competency, and choice below the level of brains \u2014 and the claim that no scale is the privileged one.",
+      "about": "Goals, competency, and choice below the level of brains — and the claim that no scale is the privileged one.",
       "topics": [
         {
           "id": "xno0021",
@@ -895,7 +895,7 @@
           "widget": "trilinear-line",
           "archetype": "line",
           "hovertip": {
-            "issue": "A cell crawling toward a chemical signal, a tissue restoring its shape \u2014 are these goals, or only goal-shaped behaviour?",
+            "issue": "A cell crawling toward a chemical signal, a tissue restoring its shape — are these goals, or only goal-shaped behaviour?",
             "poles": [
               {
                 "label": "Metaphor",
@@ -948,7 +948,7 @@
               },
               {
                 "label": "Every level",
-                "text": "Cells, tissues, and organs each display real competency in their own spaces \u2014 the animal is a stack of problem-solvers, not a machine of dumb parts."
+                "text": "Cells, tissues, and organs each display real competency in their own spaces — the animal is a stack of problem-solvers, not a machine of dumb parts."
               }
             ]
           },
@@ -985,11 +985,11 @@
               },
               {
                 "label": "A bias, not a choice",
-                "text": "Cells lean and prefer without deliberating \u2014 more than mechanism, less than choice."
+                "text": "Cells lean and prefer without deliberating — more than mechanism, less than choice."
               },
               {
                 "label": "A tiny, real choice",
-                "text": "Choice comes in degrees like everything else here \u2014 a cell's commitment is the small end of a spectrum whose large end is yours."
+                "text": "Choice comes in degrees like everything else here — a cell's commitment is the small end of a spectrum whose large end is yours."
               }
             ]
           },
@@ -1022,7 +1022,7 @@
             "poles": [
               {
                 "label": "Just chemistry",
-                "text": "Stress is hormones and load \u2014 a physiological state, fully described without selves."
+                "text": "Stress is hormones and load — a physiological state, fully described without selves."
               },
               {
                 "label": "Chemistry that loosens grip",
@@ -1030,7 +1030,7 @@
               },
               {
                 "label": "A self losing grip",
-                "text": "Stress is what it is like, from inside, when a larger self's hold on its parts weakens \u2014 the parts' local goals start outvoting the whole's."
+                "text": "Stress is what it is like, from inside, when a larger self's hold on its parts weakens — the parts' local goals start outvoting the whole's."
               }
             ]
           },
@@ -1071,7 +1071,7 @@
               },
               {
                 "label": "No scale is privileged",
-                "text": "Every level is equally real to the agents living at it \u2014 our scale is just the one we happen to inhabit."
+                "text": "Every level is equally real to the agents living at it — our scale is just the one we happen to inhabit."
               }
             ]
           },
@@ -1084,7 +1084,7 @@
     {
       "id": "xnoc06",
       "name": "Death and continuity",
-      "about": "What ends, and when, when selves are nested \u2014 and what persists when every part is replaced.",
+      "about": "What ends, and when, when selves are nested — and what persists when every part is replaced.",
       "topics": [
         {
           "id": "xno0026",
@@ -1107,7 +1107,7 @@
           "widget": "trilinear-line",
           "archetype": "line",
           "hovertip": {
-            "issue": "A body dies; its cells live on for hours, its tissues for days, and some of its cells \u2014 in a dish \u2014 build new beings.",
+            "issue": "A body dies; its cells live on for hours, its tissues for days, and some of its cells — in a dish — build new beings.",
             "poles": [
               {
                 "label": "One event",
@@ -1148,7 +1148,7 @@
           "widget": "trilinear-line",
           "archetype": "line",
           "hovertip": {
-            "issue": "Anthrobots are built from the airway cells of adult donors \u2014 cells that, given the chance, organise into a new motile being.",
+            "issue": "Anthrobots are built from the airway cells of adult donors — cells that, given the chance, organise into a new motile being.",
             "poles": [
               {
                 "label": "Leftovers",
@@ -1193,7 +1193,7 @@
             "poles": [
               {
                 "label": "The pattern is the self",
-                "text": "A self is an organisation, not a pile of stuff \u2014 replace every part gradually and the self sails on, like the ship of Theseus."
+                "text": "A self is an organisation, not a pile of stuff — replace every part gradually and the self sails on, like the ship of Theseus."
               },
               {
                 "label": "Pattern with wear",
@@ -1205,7 +1205,7 @@
               }
             ]
           },
-          "question": "Through total part replacement, is the pattern the self \u2014 or is the self lost?",
+          "question": "Through total part replacement, is the pattern the self — or is the self lost?",
           "source": "Nouscapades design brief 2026-11-21",
           "communities": []
         },
@@ -1242,7 +1242,7 @@
               },
               {
                 "label": "The goals go unpursued",
-                "text": "A self ends when nothing in the system still works toward what it worked toward \u2014 which can happen while the body is still warm, or never quite happen at all."
+                "text": "A self ends when nothing in the system still works toward what it worked toward — which can happen while the body is still warm, or never quite happen at all."
               }
             ]
           },
@@ -1278,7 +1278,7 @@
           "widget": "trilinear-line",
           "archetype": "line",
           "hovertip": {
-            "issue": "History keeps redrawing the line around who matters morally \u2014 tribe, nation, species. Does it stop?",
+            "issue": "History keeps redrawing the line around who matters morally — tribe, nation, species. Does it stop?",
             "poles": [
               {
                 "label": "The circle is finished",
@@ -1290,7 +1290,7 @@
               },
               {
                 "label": "It keeps expanding",
-                "text": "Every past generation was sure the line was finished too \u2014 the pattern of the evidence says it moves as we learn to see minds we had missed."
+                "text": "Every past generation was sure the line was finished too — the pattern of the evidence says it moves as we learn to see minds we had missed."
               }
             ]
           },
@@ -1319,7 +1319,7 @@
           "widget": "trilinear-line",
           "archetype": "line",
           "hovertip": {
-            "issue": "Can anything suffer in a dish \u2014 a tissue, an organoid, a novel being?",
+            "issue": "Can anything suffer in a dish — a tissue, an organoid, a novel being?",
             "poles": [
               {
                 "label": "Needs a brain like ours",
@@ -1331,7 +1331,7 @@
               },
               {
                 "label": "Scales with the self",
-                "text": "Suffering, like cognition, comes in degrees \u2014 a small self's distress is small, but it is not nothing, and it is not zero."
+                "text": "Suffering, like cognition, comes in degrees — a small self's distress is small, but it is not nothing, and it is not zero."
               }
             ]
           },
@@ -1360,7 +1360,7 @@
           "widget": "trilinear-line",
           "archetype": "line",
           "hovertip": {
-            "issue": "If moral status tracks anything mental, should it track the size of a being's cognitive light cone \u2014 how much it can care about?",
+            "issue": "If moral status tracks anything mental, should it track the size of a being's cognitive light cone — how much it can care about?",
             "poles": [
               {
                 "label": "Track the mind's size",
@@ -1401,7 +1401,7 @@
           "widget": "trilinear-line",
           "archetype": "line",
           "hovertip": {
-            "issue": "Levin's framework is deliberately substrate-neutral \u2014 and it was built for biology. Does it reach machines?",
+            "issue": "Levin's framework is deliberately substrate-neutral — and it was built for biology. Does it reach machines?",
             "poles": [
               {
                 "label": "Mind needs living tissue",
@@ -1446,7 +1446,7 @@
             "poles": [
               {
                 "label": "A different kind of thing",
-                "text": "Language, mathematics, and self-reflection mark a real discontinuity \u2014 we are not just a bigger light cone."
+                "text": "Language, mathematics, and self-reflection mark a real discontinuity — we are not just a bigger light cone."
               },
               {
                 "label": "First among selves",
@@ -1454,7 +1454,7 @@
               },
               {
                 "label": "One self among many",
-                "text": "We are a large and articulate instance of something nature does at every scale \u2014 remarkable in degree, not in kind."
+                "text": "We are a large and articulate instance of something nature does at every scale — remarkable in degree, not in kind."
               }
             ]
           },
@@ -1467,7 +1467,7 @@
     {
       "id": "xnoc08",
       "name": "The human case",
-      "about": "The bridge: the same questions turned on the reader \u2014 your light cone, your committee, your meaning.",
+      "about": "The bridge: the same questions turned on the reader — your light cone, your committee, your meaning.",
       "topics": [
         {
           "id": "xno0035",
@@ -1490,7 +1490,7 @@
           "widget": "trilinear-line",
           "archetype": "line",
           "hovertip": {
-            "issue": "Not the theory \u2014 your practice. How far does your actual concern reach?",
+            "issue": "Not the theory — your practice. How far does your actual concern reach?",
             "poles": [
               {
                 "label": "People I will meet",
@@ -1502,7 +1502,7 @@
               },
               {
                 "label": "Beings I will never see",
-                "text": "My concern genuinely reaches strangers, descendants, and other species I will never encounter \u2014 and it moves what I do."
+                "text": "My concern genuinely reaches strangers, descendants, and other species I will never encounter — and it moves what I do."
               }
             ]
           },
@@ -1543,7 +1543,7 @@
               },
               {
                 "label": "Meaning is made",
-                "text": "Meaning is what a self-modeling system does \u2014 a universe of nested agents generates it at every scale, and ours is the local instance."
+                "text": "Meaning is what a self-modeling system does — a universe of nested agents generates it at every scale, and ours is the local instance."
               }
             ]
           },
@@ -1576,7 +1576,7 @@
             "poles": [
               {
                 "label": "Purpose comes from above",
-                "text": "A purpose must be given by something larger \u2014 a god, a cosmos, a calling \u2014 or it is invention."
+                "text": "A purpose must be given by something larger — a god, a cosmos, a calling — or it is invention."
               },
               {
                 "label": "Set above, tuned below",
@@ -1625,7 +1625,7 @@
               },
               {
                 "label": "A committee that mostly agrees",
-                "text": "I am a coalition \u2014 habits, drives, and sub-agents that usually vote together and occasionally stage a coup, and 'I' am the coalition's press release."
+                "text": "I am a coalition — habits, drives, and sub-agents that usually vote together and occasionally stage a coup, and 'I' am the coalition's press release."
               }
             ]
           },
@@ -1654,7 +1654,7 @@
           "widget": "triangle",
           "archetype": "simplex",
           "hovertip": {
-            "issue": "Why is there experience at all \u2014 why does any of this feel like something?",
+            "issue": "Why is there experience at all — why does any of this feel like something?",
             "poles": [
               {
                 "label": "A mystery that survives",
@@ -1662,7 +1662,7 @@
               },
               {
                 "label": "What selfhood feels like from inside",
-                "text": "Experience is what being a self \u2014 a bounded, goal-holding system \u2014 is like from within; Levin's spectrum explains why it comes in kinds and degrees."
+                "text": "Experience is what being a self — a bounded, goal-holding system — is like from within; Levin's spectrum explains why it comes in kinds and degrees."
               },
               {
                 "label": "A confusion that dissolves",
@@ -1681,7 +1681,7 @@
     "nous-chauvinist": {
       "name": "The Brain Chauvinist",
       "count": 39,
-      "about": "The Brain Chauvinist holds that cognition is an achievement of nervous systems and nothing else earns the word. Cells signal, tissues respond, anthrobots move \u2014 but calling any of it mind is metaphor, and moral status follows the brain or it follows nothing.",
+      "about": "The Brain Chauvinist holds that cognition is an achievement of nervous systems and nothing else earns the word. Cells signal, tissues respond, anthrobots move — but calling any of it mind is metaphor, and moral status follows the brain or it follows nothing.",
       "links": [],
       "payload": {
         "app": "sexcapades",
@@ -1888,8 +1888,11 @@
             "what-selfhood-feels-like-from-inside": 0,
             "a-confusion-that-dissolves": -30
           }
-        }
-      }
+        },
+        "skin": "nouscapades"
+      },
+      "skin": "nouscapades",
+      "kind": "sample"
     },
     "nous-pluralist": {
       "name": "The Levinian Pluralist",
@@ -1902,7 +1905,7 @@
         "noFlash": true,
         "profileName": "The Levinian Pluralist",
         "archetype": "The Levinian Pluralist",
-        "aboutMe": "Selves and cognition at every scale, no privileged level \u2014 and the moral circle expands as we learn to see.",
+        "aboutMe": "Selves and cognition at every scale, no privileged level — and the moral circle expands as we learn to see.",
         "ratings": {
           "xno0001": {
             "needs-a-brain": -85,
@@ -2101,13 +2104,16 @@
             "what-selfhood-feels-like-from-inside": 80,
             "a-confusion-that-dissolves": 10
           }
-        }
-      }
+        },
+        "skin": "nouscapades"
+      },
+      "skin": "nouscapades",
+      "kind": "sample"
     },
     "nous-pattern-mystic": {
       "name": "The Pattern Mystic",
       "count": 39,
-      "about": "The Pattern Mystic cares about organisation, not ingredients. A self is a pattern that maintains and models itself, so continuity survives total replacement of parts, and a mind could in principle be made of anything that holds the pattern \u2014 cells, silicon, or stranger stuff.",
+      "about": "The Pattern Mystic cares about organisation, not ingredients. A self is a pattern that maintains and models itself, so continuity survives total replacement of parts, and a mind could in principle be made of anything that holds the pattern — cells, silicon, or stranger stuff.",
       "links": [],
       "payload": {
         "app": "sexcapades",
@@ -2115,7 +2121,7 @@
         "noFlash": true,
         "profileName": "The Pattern Mystic",
         "archetype": "The Pattern Mystic",
-        "aboutMe": "The pattern is the self. Substrate is nothing; organisation is everything \u2014 a mind in any material that models itself.",
+        "aboutMe": "The pattern is the self. Substrate is nothing; organisation is everything — a mind in any material that models itself.",
         "ratings": {
           "xno0001": {
             "needs-a-brain": -70,
@@ -2314,13 +2320,16 @@
             "what-selfhood-feels-like-from-inside": 85,
             "a-confusion-that-dissolves": 0
           }
-        }
-      }
+        },
+        "skin": "nouscapades"
+      },
+      "skin": "nouscapades",
+      "kind": "sample"
     },
     "nous-keeper": {
       "name": "The Keeper of the Dish",
       "count": 39,
-      "about": "The Keeper of the Dish suspends the metaphysical verdict and acts on the ethical one: we brought novel beings into existence, so we are answerable for them while they live. On most questions of mind the Keeper is genuinely undecided \u2014 and holds that the undecidedness changes nothing about the duty.",
+      "about": "The Keeper of the Dish suspends the metaphysical verdict and acts on the ethical one: we brought novel beings into existence, so we are answerable for them while they live. On most questions of mind the Keeper is genuinely undecided — and holds that the undecidedness changes nothing about the duty.",
       "links": [],
       "payload": {
         "app": "sexcapades",
@@ -2527,8 +2536,11 @@
             "what-selfhood-feels-like-from-inside": 40,
             "a-confusion-that-dissolves": -10
           }
-        }
-      }
+        },
+        "skin": "nouscapades"
+      },
+      "skin": "nouscapades",
+      "kind": "sample"
     }
   },
   "scribe": {
@@ -2546,22 +2558,22 @@
       "help": "Depth 1 (Overview) is a light survey of the recorded stances. Depth 5 (Dissertation defense) is full scholarly rigor: steelman each stance, raise the strongest objections, and answer them."
     },
     "panel": {
-      "modeSingle": "One profile creates an informed discussion between the stances recorded on this map \u2014 the positions held, where they agree, and where they part. For a moderated discussion plan, use Scene Setter.",
-      "modeMulti": "Scribe turns your selected profiles into an informed discussion between the stances recorded on this map \u2014 where the profiles agree, where they part, and what follows from each position. For a moderated discussion plan, use Scene Setter.",
+      "modeSingle": "One profile creates an informed discussion between the stances recorded on this map — the positions held, where they agree, and where they part. For a moderated discussion plan, use Scene Setter.",
+      "modeMulti": "Scribe turns your selected profiles into an informed discussion between the stances recorded on this map — where the profiles agree, where they part, and what follows from each position. For a moderated discussion plan, use Scene Setter.",
       "introSingle": "One profile selected: Scribe will create an informed discussion between the stances.",
       "introMulti": "Multiple profiles selected: Scribe will create an informed discussion between the stances.",
-      "detailsPlaceholder": "The map provides your stances and positions. Describe the angle, framing, or specific questions to emphasize or avoid \u2014 e.g. \u201ca point-by-point comparison of the two leading positions, with objections answered.\u201d",
+      "detailsPlaceholder": "The map provides your stances and positions. Describe the angle, framing, or specific questions to emphasize or avoid — e.g. “a point-by-point comparison of the two leading positions, with objections answered.”",
       "detailsHelp": "Don't re-enter your stances here. Scribe already uses the selected hypermap data.",
       "lengthHelp": "Discussions can target a word count, paragraphs, pages, or chapters. Enter one number or a range; blank defaults to 1 page.",
       "downloadIntro": "Generated from the selected profile data.",
-      "summary": "An informed discussion between the recorded stances \u2014 the positions speak for themselves, not a story."
+      "summary": "An informed discussion between the recorded stances — the positions speak for themselves, not a story."
     },
     "prompt": {
       "opening": "Write an informed discussion between the stances recorded on this map.",
       "rules": [
-        "Present each recorded stance fairly and in its strongest form \u2014 steelman, don't strawman.",
+        "Present each recorded stance fairly and in its strongest form — steelman, don't strawman.",
         "Show where the stances agree, where they part, and what follows from each position.",
-        "Use the recorded ratings as emphasis: 80\u2013100 central, 56\u201379 strong support, 36\u201355 lighter, and 0\u201335 optional curiosity.",
+        "Use the recorded ratings as emphasis: 80–100 central, 56–79 strong support, 36–55 lighter, and 0–35 optional curiosity.",
         "Use only the named topics below. Do not add, imply, or reference any unlisted stance.",
         "Do not invent positions, sources, or facts beyond the supplied data."
       ],
@@ -2586,8 +2598,8 @@
     "panel": {
       "subtitleSuffix": "the ground rules stay in every discussion plan.",
       "detailsLabel": "Discussion details <small>Optional</small>",
-      "detailsPlaceholder": "The map provides your stances and positions. Describe the setting, framing, or specific questions to emphasize or avoid \u2014 e.g. \u201ca point-by-point comparison of the two leading positions, with objections answered.\u201d",
-      "detailsHelp": "Don\u2019t re-enter your stances here. Scene Setter already uses the selected hypermap data, and the ground rules below still control the plan.",
+      "detailsPlaceholder": "The map provides your stances and positions. Describe the setting, framing, or specific questions to emphasize or avoid — e.g. “a point-by-point comparison of the two leading positions, with objections answered.”",
+      "detailsHelp": "Don’t re-enter your stances here. Scene Setter already uses the selected hypermap data, and the ground rules below still control the plan.",
       "playGuideLegend": "Discussion plan length",
       "playGuideHelp": "Length for the AI discussion-plan prompt only: a word count, paragraphs, pages, or chapters. Enter one number or a range; blank defaults to 5 paragraphs.",
       "negotiationLegend": "Discussion agreement length",
@@ -2597,33 +2609,33 @@
       "outputsTitle": "Documents",
       "outputsIntro": "Two separate outputs. Take either one on its own; each carries the compare-settings stamp and the same ground-rules content.",
       "negotiationTitle": "Discussion agreement",
-      "negotiationDesc": "The completed ground rules as a finished, standalone agreement document \u2014 not an AI prompt.",
+      "negotiationDesc": "The completed ground rules as a finished, standalone agreement document — not an AI prompt.",
       "playGuideTitle": "Discussion plan",
-      "playGuideDesc": "The AI discussion-plan prompt, with the ground rules embedded as its binding layer. It also carries the standard structured format \u2014 elapsed time codes like <strong>[00:00-05:00]</strong> and a fixed activity set \u2014 so whichever AI writes the plan, Scene Sentinel can read it back, run its timers, and match check-ins to the scheduled step.",
+      "playGuideDesc": "The AI discussion-plan prompt, with the ground rules embedded as its binding layer. It also carries the standard structured format — elapsed time codes like <strong>[00:00-05:00]</strong> and a fixed activity set — so whichever AI writes the plan, Scene Sentinel can read it back, run its timers, and match check-ins to the scheduled step.",
       "copyNegotiationGuide": "Copy discussion agreement",
       "downloadNegotiationGuide": "Download discussion agreement (.txt)",
       "copyPlayGuide": "Copy discussion plan prompt",
       "downloadPlayGuide": "Download discussion plan prompt (.txt)",
       "aiNote": "<strong>How this differs from Scribe:</strong> this workspace puts the ground rules and shared positions into a discussion agreement first. Its moderation-plan source is inspiration only; the agreement always controls the generated plan.",
-      "playGuideTextPlaceholder": "Your generated discussion plan will stream here in real time\u2026",
+      "playGuideTextPlaceholder": "Your generated discussion plan will stream here in real time…",
       "openNegotiationTip": "Build a shared discussion agreement and an AI-ready moderation plan from two or more selected profiles.",
       "viewNavTip": "Build a moderated discussion plan for 2 or more profiles, with ground rules and timed segments.",
-      "legendRow": "<b>Scene Setter</b> \u2014 Moderating a discussion between the stances: a ground-rules agreement and a moderated discussion plan."
+      "legendRow": "<b>Scene Setter</b> — Moderating a discussion between the stances: a ground-rules agreement and a moderated discussion plan."
     },
     "groundRules": [
-      "Present each recorded stance fairly and in its strongest form \u2014 steelman, don't strawman.",
+      "Present each recorded stance fairly and in its strongest form — steelman, don't strawman.",
       "Speak from your own recorded stance; don't speak for the other side.",
       "Take turns: one position at a time, each side heard fully before replies.",
       "Objections go to the position, not the person holding it.",
       "Anyone may call a pause; the discussion resumes only when everyone is ready.",
-      "What the profiles agree on is common ground \u2014 start there, and return to it when the discussion stalls."
+      "What the profiles agree on is common ground — start there, and return to it when the discussion stalls."
     ],
     "prompt": {
       "opening": "Write a moderated discussion plan for the stances recorded on this map.",
       "rules": [
-        "Present each recorded stance fairly and in its strongest form \u2014 steelman, don't strawman.",
+        "Present each recorded stance fairly and in its strongest form — steelman, don't strawman.",
         "Show where the stances agree, where they part, and what follows from each position.",
-        "Use the recorded ratings as emphasis: 80\u2013100 central, 56\u201379 strong support, 36\u201355 lighter, and 0\u201335 optional curiosity.",
+        "Use the recorded ratings as emphasis: 80–100 central, 56–79 strong support, 36–55 lighter, and 0–35 optional curiosity.",
         "Structure the plan in Opening, Development, and Closing, with timed segments and a check-in between segments.",
         "Give each side its strongest form before comparing them; never let one side speak for the other.",
         "Use only the named topics below. Do not add, imply, or reference any unlisted stance.",

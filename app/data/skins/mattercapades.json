@@ -2,7 +2,7 @@
   "skin": "mattercapades",
   "meter": "understanding",
   "name": "Mattercapades",
-  "about": "Mattercapades is an interactive hypermap for rating and visualizing where you stand on the stuff the world is made of and the energy that moves it \u2014 materials, power, and what to build with them \u2014 and comparing your positions with another person's, choice by choice, on the same picture. Build a personal profile, see where your choices meet and where they part, use Scribe to write up the build you'd back, and Scene Setter to plan how it gets made \u2014 all in the same shared vocabulary.",
+  "about": "Mattercapades is an interactive hypermap for rating and visualizing where you stand on the stuff the world is made of and the energy that moves it — materials, power, and what to build with them — and comparing your positions with another person's, choice by choice, on the same picture. Build a personal profile, see where your choices meet and where they part, use Scribe to write up the build you'd back, and Scene Setter to plan how it gets made — all in the same shared vocabulary.",
   "scribe": {
     "genre": "discussion",
     "output": "discussion",
@@ -18,22 +18,22 @@
       "help": "Depth 1 (Overview) is a light survey of the recorded stances. Depth 5 (Dissertation defense) is full scholarly rigor: steelman each stance, raise the strongest objections, and answer them."
     },
     "panel": {
-      "modeSingle": "One profile creates an informed discussion between the stances recorded on this map \u2014 the positions held, where they agree, and where they part. For a moderated discussion plan, use Scene Setter.",
-      "modeMulti": "Scribe turns your selected profiles into an informed discussion between the stances recorded on this map \u2014 where the profiles agree, where they part, and what follows from each position. For a moderated discussion plan, use Scene Setter.",
+      "modeSingle": "One profile creates an informed discussion between the stances recorded on this map — the positions held, where they agree, and where they part. For a moderated discussion plan, use Scene Setter.",
+      "modeMulti": "Scribe turns your selected profiles into an informed discussion between the stances recorded on this map — where the profiles agree, where they part, and what follows from each position. For a moderated discussion plan, use Scene Setter.",
       "introSingle": "One profile selected: Scribe will create an informed discussion between the stances.",
       "introMulti": "Multiple profiles selected: Scribe will create an informed discussion between the stances.",
-      "detailsPlaceholder": "The map provides your stances and positions. Describe the angle, framing, or specific questions to emphasize or avoid \u2014 e.g. \u201ca point-by-point comparison of the two leading positions, with objections answered.\u201d",
+      "detailsPlaceholder": "The map provides your stances and positions. Describe the angle, framing, or specific questions to emphasize or avoid — e.g. “a point-by-point comparison of the two leading positions, with objections answered.”",
       "detailsHelp": "Don't re-enter your stances here. Scribe already uses the selected hypermap data.",
       "lengthHelp": "Discussions can target a word count, paragraphs, pages, or chapters. Enter one number or a range; blank defaults to 1 page.",
       "downloadIntro": "Generated from the selected profile data.",
-      "summary": "An informed discussion between the recorded stances \u2014 the positions speak for themselves, not a story."
+      "summary": "An informed discussion between the recorded stances — the positions speak for themselves, not a story."
     },
     "prompt": {
       "opening": "Write an informed discussion between the stances recorded on this map.",
       "rules": [
-        "Present each recorded stance fairly and in its strongest form \u2014 steelman, don't strawman.",
+        "Present each recorded stance fairly and in its strongest form — steelman, don't strawman.",
         "Show where the stances agree, where they part, and what follows from each position.",
-        "Use the recorded ratings as emphasis: 80\u2013100 central, 56\u201379 strong support, 36\u201355 lighter, and 0\u201335 optional curiosity.",
+        "Use the recorded ratings as emphasis: 80–100 central, 56–79 strong support, 36–55 lighter, and 0–35 optional curiosity.",
         "Use only the named topics below. Do not add, imply, or reference any unlisted stance.",
         "Do not invent positions, sources, or facts beyond the supplied data."
       ],
@@ -58,8 +58,8 @@
     "panel": {
       "subtitleSuffix": "the ground rules stay in every discussion plan.",
       "detailsLabel": "Discussion details <small>Optional</small>",
-      "detailsPlaceholder": "The map provides your stances and positions. Describe the setting, framing, or specific questions to emphasize or avoid \u2014 e.g. \u201ca point-by-point comparison of the two leading positions, with objections answered.\u201d",
-      "detailsHelp": "Don\u2019t re-enter your stances here. Scene Setter already uses the selected hypermap data, and the ground rules below still control the plan.",
+      "detailsPlaceholder": "The map provides your stances and positions. Describe the setting, framing, or specific questions to emphasize or avoid — e.g. “a point-by-point comparison of the two leading positions, with objections answered.”",
+      "detailsHelp": "Don’t re-enter your stances here. Scene Setter already uses the selected hypermap data, and the ground rules below still control the plan.",
       "playGuideLegend": "Discussion plan length",
       "playGuideHelp": "Length for the AI discussion-plan prompt only: a word count, paragraphs, pages, or chapters. Enter one number or a range; blank defaults to 5 paragraphs.",
       "negotiationLegend": "Discussion agreement length",
@@ -69,33 +69,33 @@
       "outputsTitle": "Documents",
       "outputsIntro": "Two separate outputs. Take either one on its own; each carries the compare-settings stamp and the same ground-rules content.",
       "negotiationTitle": "Discussion agreement",
-      "negotiationDesc": "The completed ground rules as a finished, standalone agreement document \u2014 not an AI prompt.",
+      "negotiationDesc": "The completed ground rules as a finished, standalone agreement document — not an AI prompt.",
       "playGuideTitle": "Discussion plan",
-      "playGuideDesc": "The AI discussion-plan prompt, with the ground rules embedded as its binding layer. It also carries the standard structured format \u2014 elapsed time codes like <strong>[00:00-05:00]</strong> and a fixed activity set \u2014 so whichever AI writes the plan, Scene Sentinel can read it back, run its timers, and match check-ins to the scheduled step.",
+      "playGuideDesc": "The AI discussion-plan prompt, with the ground rules embedded as its binding layer. It also carries the standard structured format — elapsed time codes like <strong>[00:00-05:00]</strong> and a fixed activity set — so whichever AI writes the plan, Scene Sentinel can read it back, run its timers, and match check-ins to the scheduled step.",
       "copyNegotiationGuide": "Copy discussion agreement",
       "downloadNegotiationGuide": "Download discussion agreement (.txt)",
       "copyPlayGuide": "Copy discussion plan prompt",
       "downloadPlayGuide": "Download discussion plan prompt (.txt)",
       "aiNote": "<strong>How this differs from Scribe:</strong> this workspace puts the ground rules and shared positions into a discussion agreement first. Its moderation-plan source is inspiration only; the agreement always controls the generated plan.",
-      "playGuideTextPlaceholder": "Your generated discussion plan will stream here in real time\u2026",
+      "playGuideTextPlaceholder": "Your generated discussion plan will stream here in real time…",
       "openNegotiationTip": "Build a shared discussion agreement and an AI-ready moderation plan from two or more selected profiles.",
       "viewNavTip": "Build a moderated discussion plan for 2 or more profiles, with ground rules and timed segments.",
-      "legendRow": "<b>Scene Setter</b> \u2014 Moderating a discussion between the stances: a ground-rules agreement and a moderated discussion plan."
+      "legendRow": "<b>Scene Setter</b> — Moderating a discussion between the stances: a ground-rules agreement and a moderated discussion plan."
     },
     "groundRules": [
-      "Present each recorded stance fairly and in its strongest form \u2014 steelman, don't strawman.",
+      "Present each recorded stance fairly and in its strongest form — steelman, don't strawman.",
       "Speak from your own recorded stance; don't speak for the other side.",
       "Take turns: one position at a time, each side heard fully before replies.",
       "Objections go to the position, not the person holding it.",
       "Anyone may call a pause; the discussion resumes only when everyone is ready.",
-      "What the profiles agree on is common ground \u2014 start there, and return to it when the discussion stalls."
+      "What the profiles agree on is common ground — start there, and return to it when the discussion stalls."
     ],
     "prompt": {
       "opening": "Write a moderated discussion plan for the stances recorded on this map.",
       "rules": [
-        "Present each recorded stance fairly and in its strongest form \u2014 steelman, don't strawman.",
+        "Present each recorded stance fairly and in its strongest form — steelman, don't strawman.",
         "Show where the stances agree, where they part, and what follows from each position.",
-        "Use the recorded ratings as emphasis: 80\u2013100 central, 56\u201379 strong support, 36\u201355 lighter, and 0\u201335 optional curiosity.",
+        "Use the recorded ratings as emphasis: 80–100 central, 56–79 strong support, 36–55 lighter, and 0–35 optional curiosity.",
         "Structure the plan in Opening, Development, and Closing, with timed segments and a check-in between segments.",
         "Give each side its strongest form before comparing them; never let one side speak for the other.",
         "Use only the named topics below. Do not add, imply, or reference any unlisted stance.",
@@ -116,7 +116,7 @@
       "help": "Enabled phases are added to the generated moderation prompt as a Discussion structure section, in opening, development, closing order. Turn a phase off to leave it out."
     }
   },
-  "domain": "Applied Physics \u2014 Materials & Quantum Technologies",
+  "domain": "Applied Physics — Materials & Quantum Technologies",
   "categories": [
     {
       "id": "xmac01",
@@ -161,7 +161,7 @@
             ]
           },
           "question": "Is the goal of applied physics microscopic understanding or record-breaking device performance?",
-          "source": "BRIEFING_MATTERCAPADES_TAXONOMY.md \u00a72.1",
+          "source": "BRIEFING_MATTERCAPADES_TAXONOMY.md §2.1",
           "communities": [
             {
               "network": "Stack Exchange",
@@ -204,7 +204,7 @@
               },
               {
                 "label": "Design-build loop",
-                "text": "Compute, synthesize, measure, repeat \u2014 the loop is the method."
+                "text": "Compute, synthesize, measure, repeat — the loop is the method."
               },
               {
                 "label": "Edisonian Empirical Synthesis",
@@ -213,7 +213,7 @@
             ]
           },
           "question": "Do you discover new materials on a supercomputer or by mixing chemicals in the lab?",
-          "source": "BRIEFING_MATTERCAPADES_TAXONOMY.md \u00a72.2",
+          "source": "BRIEFING_MATTERCAPADES_TAXONOMY.md §2.2",
           "communities": [
             {
               "network": "Stack Exchange",
@@ -265,7 +265,7 @@
             ]
           },
           "question": "Do you prefer exploring exotic low-temperature physics or scalable room-temperature devices?",
-          "source": "BRIEFING_MATTERCAPADES_TAXONOMY.md \u00a72.3"
+          "source": "BRIEFING_MATTERCAPADES_TAXONOMY.md §2.3"
         },
         {
           "id": "xma0004",
@@ -292,7 +292,7 @@
             "poles": [
               {
                 "label": "Fundamental",
-                "text": "the physics itself is the point \u2014 understanding how the world works, even inside an applied context; the device is a way of learning."
+                "text": "the physics itself is the point — understanding how the world works, even inside an applied context; the device is a way of learning."
               },
               {
                 "label": "Use-inspired",
@@ -300,12 +300,12 @@
               },
               {
                 "label": "Applied",
-                "text": "the application is the point \u2014 solving a real problem, building something useful; the physics is a means to an end."
+                "text": "the application is the point — solving a real problem, building something useful; the physics is a means to an end."
               }
             ]
           },
           "question": "Even inside applied physics, do you lean toward the fundamental or the applied?",
-          "source": "BRIEFING_MATTERCAPADES_TAXONOMY.md \u00a72.4"
+          "source": "BRIEFING_MATTERCAPADES_TAXONOMY.md §2.4"
         }
       ]
     },
@@ -360,7 +360,7 @@
             ]
           },
           "question": "Where does your primary applied physics heart reside?",
-          "source": "BRIEFING_MATTERCAPADES_TAXONOMY.md \u00a72.1",
+          "source": "BRIEFING_MATTERCAPADES_TAXONOMY.md §2.1",
           "communities": [
             {
               "network": "Stack Exchange",
@@ -399,7 +399,7 @@
             "poles": [
               {
                 "label": "Continue",
-                "text": "miniaturization keeps going \u2014 smaller, denser, more capable; the trend continues down to the atomic limit."
+                "text": "miniaturization keeps going — smaller, denser, more capable; the trend continues down to the atomic limit."
               },
               {
                 "label": "Slowing, not stopped",
@@ -407,12 +407,12 @@
               },
               {
                 "label": "Plateau",
-                "text": "we have hit the wall \u2014 atomic limits, quantum tunneling, heat dissipation; miniaturization is over and the future is elsewhere."
+                "text": "we have hit the wall — atomic limits, quantum tunneling, heat dissipation; miniaturization is over and the future is elsewhere."
               }
             ]
           },
           "question": "Does miniaturization keep going, or have we hit the wall?",
-          "source": "BRIEFING_MATTERCAPADES_TAXONOMY.md \u00a72.2",
+          "source": "BRIEFING_MATTERCAPADES_TAXONOMY.md §2.2",
           "communities": [
             {
               "network": "Stack Exchange",
@@ -451,7 +451,7 @@
             "poles": [
               {
                 "label": "Reliability",
-                "text": "it has to work every time, for years, in the field \u2014 robustness beats peak numbers."
+                "text": "it has to work every time, for years, in the field — robustness beats peak numbers."
               },
               {
                 "label": "Performance within reliability bounds",
@@ -459,12 +459,12 @@
               },
               {
                 "label": "Performance",
-                "text": "peak numbers are what matter \u2014 the fastest, the most efficient, the record-breaking, even if it is fragile."
+                "text": "peak numbers are what matter — the fastest, the most efficient, the record-breaking, even if it is fragile."
               }
             ]
           },
           "question": "Do you optimize for reliability or for peak performance?",
-          "source": "BRIEFING_MATTERCAPADES_TAXONOMY.md \u00a72.3"
+          "source": "BRIEFING_MATTERCAPADES_TAXONOMY.md §2.3"
         }
       ]
     },
@@ -519,7 +519,7 @@
             ]
           },
           "question": "Which physical platform will win the quantum computing race?",
-          "source": "BRIEFING_MATTERCAPADES_TAXONOMY.md \u00a73.1",
+          "source": "BRIEFING_MATTERCAPADES_TAXONOMY.md §3.1",
           "communities": [
             {
               "network": "Stack Exchange",
@@ -576,7 +576,7 @@
             ]
           },
           "question": "Can noisy quantum computers provide real value, or is error correction essential?",
-          "source": "BRIEFING_MATTERCAPADES_TAXONOMY.md \u00a73.2",
+          "source": "BRIEFING_MATTERCAPADES_TAXONOMY.md §3.2",
           "communities": [
             {
               "network": "Stack Exchange",
@@ -633,7 +633,7 @@
             ]
           },
           "question": "Which will change the world more: quantum computation or quantum sensing?",
-          "source": "BRIEFING_MATTERCAPADES_TAXONOMY.md \u00a73.3",
+          "source": "BRIEFING_MATTERCAPADES_TAXONOMY.md §3.3",
           "communities": [
             {
               "network": "Stack Exchange",
@@ -677,7 +677,7 @@
             "poles": [
               {
                 "label": "Hype",
-                "text": "quantum is the next revolution \u2014 the breakthroughs are real, the timeline is short, the investment is justified."
+                "text": "quantum is the next revolution — the breakthroughs are real, the timeline is short, the investment is justified."
               },
               {
                 "label": "Cautious optimism",
@@ -685,12 +685,12 @@
               },
               {
                 "label": "Reality",
-                "text": "quantum is oversold \u2014 the timelines are fantasy, the breakthroughs are incremental, the money is chasing a mirage."
+                "text": "quantum is oversold — the timelines are fantasy, the breakthroughs are incremental, the money is chasing a mirage."
               }
             ]
           },
           "question": "Is quantum technology a revolution or a bubble?",
-          "source": "BRIEFING_MATTERCAPADES_TAXONOMY.md \u00a73.4",
+          "source": "BRIEFING_MATTERCAPADES_TAXONOMY.md §3.4",
           "communities": [
             {
               "network": "Stack Exchange",
@@ -745,16 +745,16 @@
               },
               {
                 "label": "Fission",
-                "text": "Proven, dense, baseload \u2014 but the waste and the fear."
+                "text": "Proven, dense, baseload — but the waste and the fear."
               },
               {
                 "label": "Renewables",
-                "text": "Solar, wind, distributed \u2014 but intermittent and land-hungry."
+                "text": "Solar, wind, distributed — but intermittent and land-hungry."
               }
             ]
           },
           "question": "Which energy source powers the future?",
-          "source": "BRIEFING_MATTERCAPADES_TAXONOMY.md \u00a74.1",
+          "source": "BRIEFING_MATTERCAPADES_TAXONOMY.md §4.1",
           "communities": [
             {
               "network": "Stack Exchange",
@@ -806,7 +806,7 @@
             ]
           },
           "question": "Will fusion energy be commercialized via magnetic confinement or inertial laser compression?",
-          "source": "BRIEFING_MATTERCAPADES_TAXONOMY.md \u00a74.2",
+          "source": "BRIEFING_MATTERCAPADES_TAXONOMY.md §4.2",
           "communities": [
             {
               "network": "Stack Exchange",
@@ -850,7 +850,7 @@
             ]
           },
           "question": "Should clean energy rely on centralized high-density nuclear/fusion or distributed solid-state solar/storage?",
-          "source": "BRIEFING_MATTERCAPADES_TAXONOMY.md \u00a74.3",
+          "source": "BRIEFING_MATTERCAPADES_TAXONOMY.md §4.3",
           "communities": [
             {
               "network": "Stack Exchange",
@@ -889,7 +889,7 @@
             "poles": [
               {
                 "label": "Short-Duration",
-                "text": "Batteries \u2014 lithium, solid-state, flow; hours of storage, the workhorse of daily cycling."
+                "text": "Batteries — lithium, solid-state, flow; hours of storage, the workhorse of daily cycling."
               },
               {
                 "label": "Layered durations",
@@ -902,7 +902,7 @@
             ]
           },
           "question": "Do you store energy for hours or for seasons?",
-          "source": "BRIEFING_MATTERCAPADES_TAXONOMY.md \u00a74.4",
+          "source": "BRIEFING_MATTERCAPADES_TAXONOMY.md §4.4",
           "communities": [
             {
               "network": "Stack Exchange",
@@ -941,7 +941,7 @@
             "poles": [
               {
                 "label": "Efficiency",
-                "text": "the most efficient device wins \u2014 squeeze every percent, the physics is the point."
+                "text": "the most efficient device wins — squeeze every percent, the physics is the point."
               },
               {
                 "label": "Efficiency at a price point",
@@ -949,12 +949,12 @@
               },
               {
                 "label": "Cost",
-                "text": "the cheapest device wins \u2014 cost per watt, cost per unit; economics beats efficiency."
+                "text": "the cheapest device wins — cost per watt, cost per unit; economics beats efficiency."
               }
             ]
           },
           "question": "Do you optimize for efficiency or for cost?",
-          "source": "BRIEFING_MATTERCAPADES_TAXONOMY.md \u00a74.5"
+          "source": "BRIEFING_MATTERCAPADES_TAXONOMY.md §4.5"
         }
       ]
     },
@@ -988,20 +988,20 @@
             "poles": [
               {
                 "label": "Natural",
-                "text": "nature's materials \u2014 wood, silk, bone, the materials evolution built; work with what exists."
+                "text": "nature's materials — wood, silk, bone, the materials evolution built; work with what exists."
               },
               {
                 "label": "Biomimicry",
-                "text": "Engineering inspired by nature's materials \u2014 neither raw natural nor designed from scratch."
+                "text": "Engineering inspired by nature's materials — neither raw natural nor designed from scratch."
               },
               {
                 "label": "Engineered",
-                "text": "designed materials \u2014 metamaterials, composites, alloys; build what nature never made."
+                "text": "designed materials — metamaterials, composites, alloys; build what nature never made."
               }
             ]
           },
           "question": "Do you work with nature's materials or build your own?",
-          "source": "BRIEFING_MATTERCAPADES_TAXONOMY.md \u00a75.1",
+          "source": "BRIEFING_MATTERCAPADES_TAXONOMY.md §5.1",
           "communities": [
             {
               "network": "Stack Exchange",
@@ -1040,7 +1040,7 @@
             "poles": [
               {
                 "label": "Revolution",
-                "text": "graphene and 2D materials change everything \u2014 the thinnest, strongest, most conductive materials ever made; a new era."
+                "text": "graphene and 2D materials change everything — the thinnest, strongest, most conductive materials ever made; a new era."
               },
               {
                 "label": "Useful, not revolutionary",
@@ -1048,12 +1048,12 @@
               },
               {
                 "label": "Hype",
-                "text": "graphene is oversold \u2014 a decade of promises, no killer app; the Nobel was for the physics, not the product."
+                "text": "graphene is oversold — a decade of promises, no killer app; the Nobel was for the physics, not the product."
               }
             ]
           },
           "question": "Are 2D materials a revolution or a hype cycle?",
-          "source": "BRIEFING_MATTERCAPADES_TAXONOMY.md \u00a75.2",
+          "source": "BRIEFING_MATTERCAPADES_TAXONOMY.md §5.2",
           "communities": [
             {
               "network": "Stack Exchange",
@@ -1105,7 +1105,7 @@
             ]
           },
           "question": "Should we pursue room-temperature superconductors or deploy high-$T_c$ liquid nitrogen systems?",
-          "source": "BRIEFING_MATTERCAPADES_TAXONOMY.md \u00a75.3",
+          "source": "BRIEFING_MATTERCAPADES_TAXONOMY.md §5.3",
           "communities": [
             {
               "network": "Stack Exchange",
@@ -1157,7 +1157,7 @@
             ]
           },
           "question": "Do you control waves with active electronic chips or passive geometric metamaterials?",
-          "source": "BRIEFING_MATTERCAPADES_TAXONOMY.md \u00a75.4",
+          "source": "BRIEFING_MATTERCAPADES_TAXONOMY.md §5.4",
           "communities": [
             {
               "network": "Stack Exchange",
@@ -1209,7 +1209,7 @@
             ]
           },
           "question": "Do you build nanostructures by carving top-down or assembling bottom-up?",
-          "source": "BRIEFING_MATTERCAPADES_TAXONOMY.md \u00a75.5",
+          "source": "BRIEFING_MATTERCAPADES_TAXONOMY.md §5.5",
           "communities": [
             {
               "network": "Stack Exchange",
@@ -1261,7 +1261,7 @@
             ]
           },
           "question": "Does the future of computing belong to silicon scaling or beyond-silicon materials?",
-          "source": "BRIEFING_MATTERCAPADES_TAXONOMY.md \u00a75.6",
+          "source": "BRIEFING_MATTERCAPADES_TAXONOMY.md §5.6",
           "communities": [
             {
               "network": "Stack Exchange",
@@ -1307,7 +1307,7 @@
             "poles": [
               {
                 "label": "Physics of Life",
-                "text": "physics applied to biology \u2014 use physical tools to understand living systems; biology is the subject, physics is the method."
+                "text": "physics applied to biology — use physical tools to understand living systems; biology is the subject, physics is the method."
               },
               {
                 "label": "Method, not reduction",
@@ -1315,12 +1315,12 @@
               },
               {
                 "label": "Life as Physics",
-                "text": "living systems ARE physical systems \u2014 the laws of physics explain life itself; biology reduces to physics."
+                "text": "living systems ARE physical systems — the laws of physics explain life itself; biology reduces to physics."
               }
             ]
           },
           "question": "Is biophysics physics applied to life, or life explained by physics?",
-          "source": "BRIEFING_MATTERCAPADES_TAXONOMY.md \u00a76.1",
+          "source": "BRIEFING_MATTERCAPADES_TAXONOMY.md §6.1",
           "communities": [
             {
               "network": "Stack Exchange",
@@ -1355,16 +1355,16 @@
             "poles": [
               {
                 "label": "Therapy",
-                "text": "treat the patient \u2014 radiation therapy, proton beams, focused ultrasound; physics that heals."
+                "text": "treat the patient — radiation therapy, proton beams, focused ultrasound; physics that heals."
               },
               {
                 "label": "Diagnostics",
-                "text": "see inside the patient \u2014 MRI, PET, CT, imaging; physics that reveals."
+                "text": "see inside the patient — MRI, PET, CT, imaging; physics that reveals."
               }
             ]
           },
           "question": "Does medical physics treat or diagnose?",
-          "source": "BRIEFING_MATTERCAPADES_TAXONOMY.md \u00a76.2",
+          "source": "BRIEFING_MATTERCAPADES_TAXONOMY.md §6.2",
           "communities": [
             {
               "network": "Stack Exchange",
@@ -1403,7 +1403,7 @@
             "poles": [
               {
                 "label": "Resolution",
-                "text": "see more clearly \u2014 sharper images, finer detail, the physics of seeing."
+                "text": "see more clearly — sharper images, finer detail, the physics of seeing."
               },
               {
                 "label": "Resolution at the dose limit",
@@ -1411,12 +1411,12 @@
               },
               {
                 "label": "Dose",
-                "text": "do less harm \u2014 lower radiation, safer scans; the patient comes first."
+                "text": "do less harm — lower radiation, safer scans; the patient comes first."
               }
             ]
           },
           "question": "Do you push for sharper images or lower doses?",
-          "source": "BRIEFING_MATTERCAPADES_TAXONOMY.md \u00a76.3",
+          "source": "BRIEFING_MATTERCAPADES_TAXONOMY.md §6.3",
           "communities": [
             {
               "network": "Stack Exchange",
@@ -1455,7 +1455,7 @@
             "poles": [
               {
                 "label": "Industry",
-                "text": "build products, ship them, make money \u2014 the applied physicist in the company."
+                "text": "build products, ship them, make money — the applied physicist in the company."
               },
               {
                 "label": "Straddling both",
@@ -1463,12 +1463,12 @@
               },
               {
                 "label": "Academia",
-                "text": "publish papers, teach students, chase knowledge \u2014 the applied physicist in the university."
+                "text": "publish papers, teach students, chase knowledge — the applied physicist in the university."
               }
             ]
           },
           "question": "Do you do applied physics in industry or in academia?",
-          "source": "BRIEFING_MATTERCAPADES_TAXONOMY.md \u00a76.4"
+          "source": "BRIEFING_MATTERCAPADES_TAXONOMY.md §6.4"
         },
         {
           "id": "xma0027",
@@ -1495,7 +1495,7 @@
             "poles": [
               {
                 "label": "Proud Applied Physicist",
-                "text": "Grounding in Maxwell, Schr\u00f6dinger, thermodynamics, and quantum mechanics provides a deeper, first-principles insight that specialized engineers lack."
+                "text": "Grounding in Maxwell, Schrödinger, thermodynamics, and quantum mechanics provides a deeper, first-principles insight that specialized engineers lack."
               },
               {
                 "label": "Physicist-engineer",
@@ -1508,7 +1508,7 @@
             ]
           },
           "question": "Do you view yourself as a physicist solving practical problems or as a high-level engineer?",
-          "source": "BRIEFING_MATTERCAPADES_TAXONOMY.md \u00a76.5"
+          "source": "BRIEFING_MATTERCAPADES_TAXONOMY.md §6.5"
         },
         {
           "id": "xma0028",
@@ -1548,7 +1548,7 @@
             ]
           },
           "question": "Should breakthrough applied physics be patented for commercial spin-outs or published openly?",
-          "source": "BRIEFING_MATTERCAPADES_TAXONOMY.md \u00a76.6"
+          "source": "BRIEFING_MATTERCAPADES_TAXONOMY.md §6.6"
         },
         {
           "id": "xma0029",
@@ -1571,7 +1571,7 @@
           "widget": "trilinear-line",
           "archetype": "line",
           "hovertip": {
-            "issue": "What is the ultimate triumph of applied physics \u2014 a product, a prototype, or a paper?",
+            "issue": "What is the ultimate triumph of applied physics — a product, a prototype, or a paper?",
             "poles": [
               {
                 "label": "Product",
@@ -1587,8 +1587,8 @@
               }
             ]
           },
-          "question": "What is the ultimate triumph of applied physics \u2014 a product, a prototype, or a paper?",
-          "source": "BRIEFING_MATTERCAPADES_TAXONOMY.md \u00a76.7"
+          "question": "What is the ultimate triumph of applied physics — a product, a prototype, or a paper?",
+          "source": "BRIEFING_MATTERCAPADES_TAXONOMY.md §6.7"
         }
       ]
     }
@@ -3577,7 +3577,7 @@
       "about": "Argues that nuclear power is an essential part of low-carbon energy: dense, reliable, and proven at scale, able to run day and night regardless of weather. The stance is that decarbonization without nuclear is slower and harder than with it.",
       "links": [
         {
-          "label": "World Nuclear Association \u2014 Nuclear Power in the World Today",
+          "label": "World Nuclear Association — Nuclear Power in the World Today",
           "url": "https://world-nuclear.org/information-library/current-and-future-generation/nuclear-power-in-the-world-today"
         }
       ],
@@ -3714,8 +3714,11 @@
             "prototype": 50,
             "paper": 20
           }
-        }
-      }
+        },
+        "skin": "mattercapades"
+      },
+      "skin": "mattercapades",
+      "kind": "sample"
     },
     "mat-renewables": {
       "name": "The Renewables Advocate",
@@ -3723,11 +3726,11 @@
       "about": "Argues that wind, solar, hydro, and geothermal energy are the path forward: clean, abundant, and getting cheaper every year. The stance is that renewables plus storage can carry the energy transition.",
       "links": [
         {
-          "label": "U.S. Dept. of Energy \u2014 Renewable Energy",
+          "label": "U.S. Dept. of Energy — Renewable Energy",
           "url": "https://www.energy.gov/eere/renewable-energy"
         },
         {
-          "label": "International Energy Agency \u2014 Renewables",
+          "label": "International Energy Agency — Renewables",
           "url": "https://www.iea.org/energy-system/renewables"
         }
       ],
@@ -3864,16 +3867,19 @@
             "prototype": 50,
             "paper": 10
           }
-        }
-      }
+        },
+        "skin": "mattercapades"
+      },
+      "skin": "mattercapades",
+      "kind": "sample"
     },
     "mat-fusion": {
       "name": "The Fusion Optimist",
       "count": 25,
-      "about": "Believes fusion \u2014 fusing light nuclei the way the Sun does \u2014 is the long-term answer to clean energy: near-limitless fuel, no long-lived waste, and no carbon. The stance is that the engineering is hard but the physics is sound, and the payoff justifies the wait.",
+      "about": "Believes fusion — fusing light nuclei the way the Sun does — is the long-term answer to clean energy: near-limitless fuel, no long-lived waste, and no carbon. The stance is that the engineering is hard but the physics is sound, and the payoff justifies the wait.",
       "links": [
         {
-          "label": "ITER \u2014 Fusion Energy",
+          "label": "ITER — Fusion Energy",
           "url": "https://www.iter.org/"
         }
       ],
@@ -4010,8 +4016,11 @@
             "prototype": 70,
             "paper": 50
           }
-        }
-      }
+        },
+        "skin": "mattercapades"
+      },
+      "skin": "mattercapades",
+      "kind": "sample"
     },
     "mat-quantum": {
       "name": "The Quantum Technologist",
@@ -4019,7 +4028,7 @@
       "about": "Champions technologies built directly on quantum mechanics: quantum computers, quantum sensors, and quantum communications. The stance is that controlling single atoms and photons will open capabilities classical devices cannot match.",
       "links": [
         {
-          "label": "National Quantum Initiative \u2014 quantum.gov",
+          "label": "National Quantum Initiative — quantum.gov",
           "url": "https://www.quantum.gov/"
         }
       ],
@@ -4157,8 +4166,11 @@
             "prototype": 70,
             "paper": 70
           }
-        }
-      }
+        },
+        "skin": "mattercapades"
+      },
+      "skin": "mattercapades",
+      "kind": "sample"
     },
     "mat-pragmatist": {
       "name": "The Device-First Pragmatist",
@@ -4166,7 +4178,7 @@
       "about": "Judges energy and technology by what actually works in the field: deployed devices, cost, reliability, and maintenance, rather than by ideology or promise. If a device does the job affordably and durably, it wins; if it does not, no amount of elegance saves it.",
       "links": [
         {
-          "label": "IEEE Spectrum \u2014 Technology and Engineering News",
+          "label": "IEEE Spectrum — Technology and Engineering News",
           "url": "https://spectrum.ieee.org/"
         }
       ],
@@ -4303,8 +4315,11 @@
             "prototype": 50,
             "paper": -20
           }
-        }
-      }
+        },
+        "skin": "mattercapades"
+      },
+      "skin": "mattercapades",
+      "kind": "sample"
     }
   }
 }

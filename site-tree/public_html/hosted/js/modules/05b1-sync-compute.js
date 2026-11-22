@@ -1826,9 +1826,11 @@
                 genders: bb(rt[id]), orientations: iv(ot[id])
             };
         }
-        const sxPairCache = new Map;
+        var sxPairCache = new Map();
         function sxInvalidatePairs() {
-            sxPairCache.clear();
+            if (sxPairCache && typeof sxPairCache.clear === "function") {
+                sxPairCache.clear();
+            }
         }
         function sxPairByIds(idA, idB, sxSettings) {
             if (!vt[idA] || !vt[idB] || idA === idB) return null;

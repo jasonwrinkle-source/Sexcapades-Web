@@ -1,5 +1,5 @@
         // --- 2D XY Role Switch-Box State & Widget ---
-        let sxSwitchboxState = {
+        var sxSwitchboxState = {
             topicId: null,
             give: 0,
             receive: 0,

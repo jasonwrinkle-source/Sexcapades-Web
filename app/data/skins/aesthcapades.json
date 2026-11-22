@@ -2,7 +2,7 @@
   "skin": "aesthcapades",
   "meter": "taste",
   "name": "Aesthcapades",
-  "about": "Aesthcapades is an interactive hypermap for rating and visualizing what moves you \u2014 the art, music, stories, and flavors you love, and the taste you trust \u2014 and comparing your sensibility with another person's, liking by liking, on the same picture. Build a personal profile, see where your tastes meet and where they part, use Scribe to write the review you'd give, and Scene Setter to plan what to see, hear, and taste together \u2014 all in the same shared vocabulary.",
+  "about": "Aesthcapades is an interactive hypermap for rating and visualizing what moves you — the art, music, stories, and flavors you love, and the taste you trust — and comparing your sensibility with another person's, liking by liking, on the same picture. Build a personal profile, see where your tastes meet and where they part, use Scribe to write the review you'd give, and Scene Setter to plan what to see, hear, and taste together — all in the same shared vocabulary.",
   "scribe": {
     "genre": "discussion",
     "output": "discussion",
@@ -18,22 +18,22 @@
       "help": "Depth 1 (Overview) is a light survey of the recorded stances. Depth 5 (Dissertation defense) is full scholarly rigor: steelman each stance, raise the strongest objections, and answer them."
     },
     "panel": {
-      "modeSingle": "One profile creates an informed discussion between the stances recorded on this map \u2014 the positions held, where they agree, and where they part. For a moderated discussion plan, use Scene Setter.",
-      "modeMulti": "Scribe turns your selected profiles into an informed discussion between the stances recorded on this map \u2014 where the profiles agree, where they part, and what follows from each position. For a moderated discussion plan, use Scene Setter.",
+      "modeSingle": "One profile creates an informed discussion between the stances recorded on this map — the positions held, where they agree, and where they part. For a moderated discussion plan, use Scene Setter.",
+      "modeMulti": "Scribe turns your selected profiles into an informed discussion between the stances recorded on this map — where the profiles agree, where they part, and what follows from each position. For a moderated discussion plan, use Scene Setter.",
       "introSingle": "One profile selected: Scribe will create an informed discussion between the stances.",
       "introMulti": "Multiple profiles selected: Scribe will create an informed discussion between the stances.",
-      "detailsPlaceholder": "The map provides your stances and positions. Describe the angle, framing, or specific questions to emphasize or avoid \u2014 e.g. \u201ca point-by-point comparison of the two leading positions, with objections answered.\u201d",
+      "detailsPlaceholder": "The map provides your stances and positions. Describe the angle, framing, or specific questions to emphasize or avoid — e.g. “a point-by-point comparison of the two leading positions, with objections answered.”",
       "detailsHelp": "Don't re-enter your stances here. Scribe already uses the selected hypermap data.",
       "lengthHelp": "Discussions can target a word count, paragraphs, pages, or chapters. Enter one number or a range; blank defaults to 1 page.",
       "downloadIntro": "Generated from the selected profile data.",
-      "summary": "An informed discussion between the recorded stances \u2014 the positions speak for themselves, not a story."
+      "summary": "An informed discussion between the recorded stances — the positions speak for themselves, not a story."
     },
     "prompt": {
       "opening": "Write an informed discussion between the stances recorded on this map.",
       "rules": [
-        "Present each recorded stance fairly and in its strongest form \u2014 steelman, don't strawman.",
+        "Present each recorded stance fairly and in its strongest form — steelman, don't strawman.",
         "Show where the stances agree, where they part, and what follows from each position.",
-        "Use the recorded ratings as emphasis: 80\u2013100 central, 56\u201379 strong support, 36\u201355 lighter, and 0\u201335 optional curiosity.",
+        "Use the recorded ratings as emphasis: 80–100 central, 56–79 strong support, 36–55 lighter, and 0–35 optional curiosity.",
         "Use only the named topics below. Do not add, imply, or reference any unlisted stance.",
         "Do not invent positions, sources, or facts beyond the supplied data."
       ],
@@ -58,8 +58,8 @@
     "panel": {
       "subtitleSuffix": "the ground rules stay in every discussion plan.",
       "detailsLabel": "Discussion details <small>Optional</small>",
-      "detailsPlaceholder": "The map provides your stances and positions. Describe the setting, framing, or specific questions to emphasize or avoid \u2014 e.g. \u201ca point-by-point comparison of the two leading positions, with objections answered.\u201d",
-      "detailsHelp": "Don\u2019t re-enter your stances here. Scene Setter already uses the selected hypermap data, and the ground rules below still control the plan.",
+      "detailsPlaceholder": "The map provides your stances and positions. Describe the setting, framing, or specific questions to emphasize or avoid — e.g. “a point-by-point comparison of the two leading positions, with objections answered.”",
+      "detailsHelp": "Don’t re-enter your stances here. Scene Setter already uses the selected hypermap data, and the ground rules below still control the plan.",
       "playGuideLegend": "Discussion plan length",
       "playGuideHelp": "Length for the AI discussion-plan prompt only: a word count, paragraphs, pages, or chapters. Enter one number or a range; blank defaults to 5 paragraphs.",
       "negotiationLegend": "Discussion agreement length",
@@ -69,33 +69,33 @@
       "outputsTitle": "Documents",
       "outputsIntro": "Two separate outputs. Take either one on its own; each carries the compare-settings stamp and the same ground-rules content.",
       "negotiationTitle": "Discussion agreement",
-      "negotiationDesc": "The completed ground rules as a finished, standalone agreement document \u2014 not an AI prompt.",
+      "negotiationDesc": "The completed ground rules as a finished, standalone agreement document — not an AI prompt.",
       "playGuideTitle": "Discussion plan",
-      "playGuideDesc": "The AI discussion-plan prompt, with the ground rules embedded as its binding layer. It also carries the standard structured format \u2014 elapsed time codes like <strong>[00:00-05:00]</strong> and a fixed activity set \u2014 so whichever AI writes the plan, Scene Sentinel can read it back, run its timers, and match check-ins to the scheduled step.",
+      "playGuideDesc": "The AI discussion-plan prompt, with the ground rules embedded as its binding layer. It also carries the standard structured format — elapsed time codes like <strong>[00:00-05:00]</strong> and a fixed activity set — so whichever AI writes the plan, Scene Sentinel can read it back, run its timers, and match check-ins to the scheduled step.",
       "copyNegotiationGuide": "Copy discussion agreement",
       "downloadNegotiationGuide": "Download discussion agreement (.txt)",
       "copyPlayGuide": "Copy discussion plan prompt",
       "downloadPlayGuide": "Download discussion plan prompt (.txt)",
       "aiNote": "<strong>How this differs from Scribe:</strong> this workspace puts the ground rules and shared positions into a discussion agreement first. Its moderation-plan source is inspiration only; the agreement always controls the generated plan.",
-      "playGuideTextPlaceholder": "Your generated discussion plan will stream here in real time\u2026",
+      "playGuideTextPlaceholder": "Your generated discussion plan will stream here in real time…",
       "openNegotiationTip": "Build a shared discussion agreement and an AI-ready moderation plan from two or more selected profiles.",
       "viewNavTip": "Build a moderated discussion plan for 2 or more profiles, with ground rules and timed segments.",
-      "legendRow": "<b>Scene Setter</b> \u2014 Moderating a discussion between the stances: a ground-rules agreement and a moderated discussion plan."
+      "legendRow": "<b>Scene Setter</b> — Moderating a discussion between the stances: a ground-rules agreement and a moderated discussion plan."
     },
     "groundRules": [
-      "Present each recorded stance fairly and in its strongest form \u2014 steelman, don't strawman.",
+      "Present each recorded stance fairly and in its strongest form — steelman, don't strawman.",
       "Speak from your own recorded stance; don't speak for the other side.",
       "Take turns: one position at a time, each side heard fully before replies.",
       "Objections go to the position, not the person holding it.",
       "Anyone may call a pause; the discussion resumes only when everyone is ready.",
-      "What the profiles agree on is common ground \u2014 start there, and return to it when the discussion stalls."
+      "What the profiles agree on is common ground — start there, and return to it when the discussion stalls."
     ],
     "prompt": {
       "opening": "Write a moderated discussion plan for the stances recorded on this map.",
       "rules": [
-        "Present each recorded stance fairly and in its strongest form \u2014 steelman, don't strawman.",
+        "Present each recorded stance fairly and in its strongest form — steelman, don't strawman.",
         "Show where the stances agree, where they part, and what follows from each position.",
-        "Use the recorded ratings as emphasis: 80\u2013100 central, 56\u201379 strong support, 36\u201355 lighter, and 0\u201335 optional curiosity.",
+        "Use the recorded ratings as emphasis: 80–100 central, 56–79 strong support, 36–55 lighter, and 0–35 optional curiosity.",
         "Structure the plan in Opening, Development, and Closing, with timed segments and a check-in between segments.",
         "Give each side its strongest form before comparing them; never let one side speak for the other.",
         "Use only the named topics below. Do not add, imply, or reference any unlisted stance.",
@@ -116,7 +116,7 @@
       "help": "Enabled phases are added to the generated moderation prompt as a Discussion structure section, in opening, development, closing order. Turn a phase off to leave it out."
     }
   },
-  "domain": "Aesthetics \u2014 Taste Preferences & Judgments of Beauty",
+  "domain": "Aesthetics — Taste Preferences & Judgments of Beauty",
   "categories": [
     {
       "id": "xaec01",
@@ -161,7 +161,7 @@
             ]
           },
           "question": "How much do you want art to look like the world vs. depart from it?",
-          "source": "BRIEFING_AESTHCAPADES_TAXONOMY.md \u00a71.1",
+          "source": "BRIEFING_AESTHCAPADES_TAXONOMY.md §1.1",
           "communities": [
             {
               "network": "Reddit",
@@ -205,7 +205,7 @@
             ]
           },
           "question": "Do you trust the old masters or the new edge?",
-          "source": "BRIEFING_AESTHCAPADES_TAXONOMY.md \u00a71.2",
+          "source": "BRIEFING_AESTHCAPADES_TAXONOMY.md §1.2",
           "communities": [
             {
               "network": "Reddit",
@@ -252,7 +252,7 @@
             ]
           },
           "question": "What is a photograph for?",
-          "source": "BRIEFING_AESTHCAPADES_TAXONOMY.md \u00a71.3",
+          "source": "BRIEFING_AESTHCAPADES_TAXONOMY.md §1.3",
           "communities": [
             {
               "network": "Reddit",
@@ -304,7 +304,7 @@
             ]
           },
           "question": "Do you prefer art you can feel or art that's seamless?",
-          "source": "BRIEFING_AESTHCAPADES_TAXONOMY.md \u00a71.4",
+          "source": "BRIEFING_AESTHCAPADES_TAXONOMY.md §1.4",
           "communities": [
             {
               "network": "Reddit",
@@ -358,7 +358,7 @@
             ]
           },
           "question": "Do you listen for the lyrics or the sound?",
-          "source": "BRIEFING_AESTHCAPADES_TAXONOMY.md \u00a72.1",
+          "source": "BRIEFING_AESTHCAPADES_TAXONOMY.md §2.1",
           "communities": [
             {
               "network": "Reddit",
@@ -397,7 +397,7 @@
             ]
           },
           "question": "The room or the record?",
-          "source": "BRIEFING_AESTHCAPADES_TAXONOMY.md \u00a72.2",
+          "source": "BRIEFING_AESTHCAPADES_TAXONOMY.md §2.2",
           "communities": [
             {
               "network": "Reddit",
@@ -444,7 +444,7 @@
             ]
           },
           "question": "Where does your ear live?",
-          "source": "BRIEFING_AESTHCAPADES_TAXONOMY.md \u00a72.3",
+          "source": "BRIEFING_AESTHCAPADES_TAXONOMY.md §2.3",
           "communities": [
             {
               "network": "Reddit",
@@ -498,7 +498,7 @@
             ]
           },
           "question": "Do you read for the story or the sentence?",
-          "source": "BRIEFING_AESTHCAPADES_TAXONOMY.md \u00a73.1",
+          "source": "BRIEFING_AESTHCAPADES_TAXONOMY.md §3.1",
           "communities": [
             {
               "network": "Reddit",
@@ -528,7 +528,7 @@
           "widget": "trilinear-line",
           "archetype": "line",
           "hovertip": {
-            "issue": "What carries a story \u2014 what happens, or who it happens to?",
+            "issue": "What carries a story — what happens, or who it happens to?",
             "poles": [
               {
                 "label": "Plot",
@@ -544,8 +544,8 @@
               }
             ]
           },
-          "question": "What carries a story for you \u2014 what happens, or who it happens to?",
-          "source": "BRIEFING_AESTHCAPADES_TAXONOMY.md \u00a73.2",
+          "question": "What carries a story for you — what happens, or who it happens to?",
+          "source": "BRIEFING_AESTHCAPADES_TAXONOMY.md §3.2",
           "communities": [
             {
               "network": "Reddit",
@@ -584,7 +584,7 @@
             ]
           },
           "question": "Which medium do you prefer for story?",
-          "source": "BRIEFING_AESTHCAPADES_TAXONOMY.md \u00a73.3",
+          "source": "BRIEFING_AESTHCAPADES_TAXONOMY.md §3.3",
           "communities": [
             {
               "network": "Reddit",
@@ -638,7 +638,7 @@
             ]
           },
           "question": "Attitudes toward makeup, grooming, cosmetic procedures, enhancement.",
-          "source": "BRIEFING_AESTHCAPADES_TAXONOMY.md \u00a74.1",
+          "source": "BRIEFING_AESTHCAPADES_TAXONOMY.md §4.1",
           "communities": [
             {
               "network": "Reddit",
@@ -685,7 +685,7 @@
             ]
           },
           "question": "How much is enough, on the body?",
-          "source": "BRIEFING_AESTHCAPADES_TAXONOMY.md \u00a74.2",
+          "source": "BRIEFING_AESTHCAPADES_TAXONOMY.md §4.2",
           "communities": [
             {
               "network": "Reddit",
@@ -732,7 +732,7 @@
             ]
           },
           "question": "Do you dress to say something, or to belong?",
-          "source": "BRIEFING_AESTHCAPADES_TAXONOMY.md \u00a74.3",
+          "source": "BRIEFING_AESTHCAPADES_TAXONOMY.md §4.3",
           "communities": [
             {
               "network": "Reddit",
@@ -786,7 +786,7 @@
             ]
           },
           "question": "Glass and steel, or stone and arch?",
-          "source": "BRIEFING_AESTHCAPADES_TAXONOMY.md \u00a75.1",
+          "source": "BRIEFING_AESTHCAPADES_TAXONOMY.md §5.1",
           "communities": [
             {
               "network": "Reddit",
@@ -833,7 +833,7 @@
             ]
           },
           "question": "How much stuff does a room need to feel like home?",
-          "source": "BRIEFING_AESTHCAPADES_TAXONOMY.md \u00a75.2",
+          "source": "BRIEFING_AESTHCAPADES_TAXONOMY.md §5.2",
           "communities": [
             {
               "network": "Reddit",
@@ -859,7 +859,7 @@
           "widget": "linear-sliders",
           "archetype": null,
           "hovertip": {
-            "issue": "Which landscapes move you \u2014 the skyline or the wilderness?",
+            "issue": "Which landscapes move you — the skyline or the wilderness?",
             "poles": [
               {
                 "label": "Urban",
@@ -871,8 +871,8 @@
               }
             ]
           },
-          "question": "Which landscapes move you \u2014 the skyline or the wilderness?",
-          "source": "BRIEFING_AESTHCAPADES_TAXONOMY.md \u00a75.3",
+          "question": "Which landscapes move you — the skyline or the wilderness?",
+          "source": "BRIEFING_AESTHCAPADES_TAXONOMY.md §5.3",
           "communities": [
             {
               "network": "Reddit",
@@ -909,7 +909,7 @@
           "widget": "triangle",
           "archetype": "simplex",
           "hovertip": {
-            "issue": "Where do you place your taste \u2014 the canon, the mainstream, or the gutter?",
+            "issue": "Where do you place your taste — the canon, the mainstream, or the gutter?",
             "poles": [
               {
                 "label": "High",
@@ -925,8 +925,8 @@
               }
             ]
           },
-          "question": "Where do you place your taste \u2014 the canon, the mainstream, or the gutter?",
-          "source": "BRIEFING_AESTHCAPADES_TAXONOMY.md \u00a76.1",
+          "question": "Where do you place your taste — the canon, the mainstream, or the gutter?",
+          "source": "BRIEFING_AESTHCAPADES_TAXONOMY.md §6.1",
           "communities": [
             {
               "network": "Reddit",
@@ -983,7 +983,7 @@
             ]
           },
           "question": "When the canon and your gut disagree, who wins?",
-          "source": "BRIEFING_AESTHCAPADES_TAXONOMY.md \u00a76.2",
+          "source": "BRIEFING_AESTHCAPADES_TAXONOMY.md §6.2",
           "communities": [
             {
               "network": "Reddit",
@@ -1034,8 +1034,8 @@
               }
             ]
           },
-          "question": "The meta-aesthetic stance \u2014 the one that predicts most of the others.",
-          "source": "BRIEFING_AESTHCAPADES_TAXONOMY.md \u00a76.3",
+          "question": "The meta-aesthetic stance — the one that predicts most of the others.",
+          "source": "BRIEFING_AESTHCAPADES_TAXONOMY.md §6.3",
           "communities": [
             {
               "network": "Reddit",
@@ -1087,7 +1087,7 @@
             ]
           },
           "question": "Do you love kitsch, love it ironically, or not at all?",
-          "source": "BRIEFING_AESTHCAPADES_TAXONOMY.md \u00a76.4",
+          "source": "BRIEFING_AESTHCAPADES_TAXONOMY.md §6.4",
           "communities": [
             {
               "network": "Reddit",
@@ -1152,7 +1152,7 @@
             ]
           },
           "question": "What kind of beauty moves you?",
-          "source": "BRIEFING_AESTHCAPADES_TAXONOMY.md \u00a76.5",
+          "source": "BRIEFING_AESTHCAPADES_TAXONOMY.md §6.5",
           "communities": [
             {
               "network": "Reddit",
@@ -1204,7 +1204,7 @@
             ]
           },
           "question": "Do you prefer imperfection or flawlessness?",
-          "source": "BRIEFING_AESTHCAPADES_TAXONOMY.md \u00a76.6",
+          "source": "BRIEFING_AESTHCAPADES_TAXONOMY.md §6.6",
           "communities": [
             {
               "network": "Reddit",
@@ -1268,7 +1268,7 @@
             ]
           },
           "question": "Do you want the weird restaurant or the safe place? The classic friends-compatibility axis.",
-          "source": "BRIEFING_AESTHCAPADES_TAXONOMY.md \u00a77.1",
+          "source": "BRIEFING_AESTHCAPADES_TAXONOMY.md §7.1",
           "communities": [
             {
               "network": "Reddit",
@@ -1315,7 +1315,7 @@
             ]
           },
           "question": "How much heat do you want? Spice tolerance as a preference axis.",
-          "source": "BRIEFING_AESTHCAPADES_TAXONOMY.md \u00a77.2",
+          "source": "BRIEFING_AESTHCAPADES_TAXONOMY.md §7.2",
           "communities": [
             {
               "network": "Reddit",
@@ -1362,7 +1362,7 @@
             ]
           },
           "question": "What register of food do you live in?",
-          "source": "BRIEFING_AESTHCAPADES_TAXONOMY.md \u00a77.3",
+          "source": "BRIEFING_AESTHCAPADES_TAXONOMY.md §7.3",
           "communities": [
             {
               "network": "Reddit",
@@ -1425,7 +1425,7 @@
             ]
           },
           "question": "The five basic tastes, as a five-pole star. How much do you seek each one?",
-          "source": "BRIEFING_AESTHCAPADES_TAXONOMY.md \u00a77.4",
+          "source": "BRIEFING_AESTHCAPADES_TAXONOMY.md §7.4",
           "communities": [
             {
               "network": "Reddit",
@@ -1471,7 +1471,7 @@
           "widget": "heptad-radar",
           "archetype": "simplex",
           "hovertip": {
-            "issue": "What do you eat \u2014 and what won't you?",
+            "issue": "What do you eat — and what won't you?",
             "poles": [
               {
                 "label": "Carnivore",
@@ -1503,8 +1503,8 @@
               }
             ]
           },
-          "question": "What do you eat \u2014 and what won't you?",
-          "source": "BRIEFING_AESTHCAPADES_TAXONOMY.md \u00a77.5",
+          "question": "What do you eat — and what won't you?",
+          "source": "BRIEFING_AESTHCAPADES_TAXONOMY.md §7.5",
           "communities": [
             {
               "network": "Reddit",
@@ -1536,7 +1536,7 @@
             ]
           },
           "question": "How strictly do you follow keto?",
-          "source": "BRIEFING_AESTHCAPADES_TAXONOMY.md \u00a77.6",
+          "source": "BRIEFING_AESTHCAPADES_TAXONOMY.md §7.6",
           "communities": [
             {
               "network": "Reddit",
@@ -1575,7 +1575,7 @@
             ]
           },
           "question": "Do you prefer to cook, or to be cooked for?",
-          "source": "BRIEFING_AESTHCAPADES_TAXONOMY.md \u00a77.7",
+          "source": "BRIEFING_AESTHCAPADES_TAXONOMY.md §7.7",
           "communities": [
             {
               "network": "Reddit",
@@ -1622,7 +1622,7 @@
             ]
           },
           "question": "Is food fuel or feast?",
-          "source": "BRIEFING_AESTHCAPADES_TAXONOMY.md \u00a77.8",
+          "source": "BRIEFING_AESTHCAPADES_TAXONOMY.md §7.8",
           "communities": [
             {
               "network": "Reddit",
@@ -1669,7 +1669,7 @@
             ]
           },
           "question": "Do you cook by tradition or by experiment?",
-          "source": "BRIEFING_AESTHCAPADES_TAXONOMY.md \u00a77.9",
+          "source": "BRIEFING_AESTHCAPADES_TAXONOMY.md §7.9",
           "communities": [
             {
               "network": "Reddit",
@@ -3713,7 +3713,7 @@
       "about": "Classicism looks back to the art and literature of ancient Greece and Rome as the model of excellence, valuing order, balance, clarity and restraint over emotional excess. In visual art it favours idealized forms, harmonious composition and measured proportion.",
       "links": [
         {
-          "label": "Tate \u2014 Classicism",
+          "label": "Tate — Classicism",
           "url": "https://www.tate.org.uk/art/art-terms/c/classicism"
         }
       ],
@@ -3878,8 +3878,11 @@
             "experimental-fusion": -60,
             "rooted-fusion": -40
           }
-        }
-      }
+        },
+        "skin": "aesthcapades"
+      },
+      "skin": "aesthcapades",
+      "kind": "sample"
     },
     "aesth-romanticism": {
       "name": "Romanticism",
@@ -3887,7 +3890,7 @@
       "about": "Romanticism prized intense feeling, imagination and the individual over reason and classical rules. Its art and literature celebrate nature, the sublime, heroism and the exotic, often with dramatic colour and movement.",
       "links": [
         {
-          "label": "Tate \u2014 Romanticism",
+          "label": "Tate — Romanticism",
           "url": "https://www.tate.org.uk/art/art-terms/r/romanticism"
         }
       ],
@@ -4052,8 +4055,11 @@
             "experimental-fusion": 50,
             "rooted-fusion": 80
           }
-        }
-      }
+        },
+        "skin": "aesthcapades"
+      },
+      "skin": "aesthcapades",
+      "kind": "sample"
     },
     "aesth-modernism": {
       "name": "Modernism",
@@ -4061,7 +4067,7 @@
       "about": "Modernism was the early-20th-century break with traditional forms, as artists and writers experimented with abstraction, fragmentation and new techniques to capture modern life. It rejected academic realism in favour of innovation and self-conscious form.",
       "links": [
         {
-          "label": "Tate \u2014 Modernism",
+          "label": "Tate — Modernism",
           "url": "https://www.tate.org.uk/art/art-terms/m/modernism"
         }
       ],
@@ -4226,8 +4232,11 @@
             "experimental-fusion": 80,
             "rooted-fusion": -20
           }
-        }
-      }
+        },
+        "skin": "aesthcapades"
+      },
+      "skin": "aesthcapades",
+      "kind": "sample"
     },
     "aesth-postmodernism": {
       "name": "Postmodernism",
@@ -4235,7 +4244,7 @@
       "about": "Postmodernism questions the idea of a single true style or grand narrative, mixing high and popular culture, irony, pastiche and quotation. It treats styles as material to borrow and remix rather than rules to follow.",
       "links": [
         {
-          "label": "Tate \u2014 Postmodernism",
+          "label": "Tate — Postmodernism",
           "url": "https://www.tate.org.uk/art/art-terms/p/postmodernism"
         }
       ],
@@ -4400,8 +4409,11 @@
             "experimental-fusion": 90,
             "rooted-fusion": -70
           }
-        }
-      }
+        },
+        "skin": "aesthcapades"
+      },
+      "skin": "aesthcapades",
+      "kind": "sample"
     },
     "aesth-omnivore": {
       "name": "The Cultural Omnivore",
@@ -4409,7 +4421,7 @@
       "about": "The cultural omnivore is a sociological concept: someone whose tastes span both high culture and popular culture, from opera to pop music, rather than sticking to one level. Sociologist Richard Peterson coined the term in 1992 to describe how cultural elites had stopped being snobs and become broad in their tastes.",
       "links": [
         {
-          "label": "EBSCO Research Starters \u2014 Cultural Omnivorousness",
+          "label": "EBSCO Research Starters — Cultural Omnivorousness",
           "url": "https://www.ebsco.com/research-starters/arts-and-entertainment/cultural-omnivorousness"
         }
       ],
@@ -4574,8 +4586,11 @@
             "experimental-fusion": 70,
             "rooted-fusion": 80
           }
-        }
-      }
+        },
+        "skin": "aesthcapades"
+      },
+      "skin": "aesthcapades",
+      "kind": "sample"
     }
   }
 }

@@ -2,7 +2,7 @@
   "skin": "chemcapades",
   "meter": "understanding",
   "name": "Chemcapades",
-  "about": "Chemcapades is an interactive hypermap for rating and visualizing how molecules combine \u2014 what things are made of, how they change, and what they can become \u2014 and comparing your chemistry with another person's, reaction by reaction, on the same picture. Build a personal profile, see where your chemistry meets and where it parts, use Scribe to write the synthesis you'd run, and Scene Setter to plan the work at the bench \u2014 all in the same shared vocabulary.",
+  "about": "Chemcapades is an interactive hypermap for rating and visualizing how molecules combine — what things are made of, how they change, and what they can become — and comparing your chemistry with another person's, reaction by reaction, on the same picture. Build a personal profile, see where your chemistry meets and where it parts, use Scribe to write the synthesis you'd run, and Scene Setter to plan the work at the bench — all in the same shared vocabulary.",
   "scribe": {
     "genre": "discussion",
     "output": "discussion",
@@ -18,22 +18,22 @@
       "help": "Depth 1 (Overview) is a light survey of the recorded stances. Depth 5 (Dissertation defense) is full scholarly rigor: steelman each stance, raise the strongest objections, and answer them."
     },
     "panel": {
-      "modeSingle": "One profile creates an informed discussion between the stances recorded on this map \u2014 the positions held, where they agree, and where they part. For a moderated discussion plan, use Scene Setter.",
-      "modeMulti": "Scribe turns your selected profiles into an informed discussion between the stances recorded on this map \u2014 where the profiles agree, where they part, and what follows from each position. For a moderated discussion plan, use Scene Setter.",
+      "modeSingle": "One profile creates an informed discussion between the stances recorded on this map — the positions held, where they agree, and where they part. For a moderated discussion plan, use Scene Setter.",
+      "modeMulti": "Scribe turns your selected profiles into an informed discussion between the stances recorded on this map — where the profiles agree, where they part, and what follows from each position. For a moderated discussion plan, use Scene Setter.",
       "introSingle": "One profile selected: Scribe will create an informed discussion between the stances.",
       "introMulti": "Multiple profiles selected: Scribe will create an informed discussion between the stances.",
-      "detailsPlaceholder": "The map provides your stances and positions. Describe the angle, framing, or specific questions to emphasize or avoid \u2014 e.g. \u201ca point-by-point comparison of the two leading positions, with objections answered.\u201d",
+      "detailsPlaceholder": "The map provides your stances and positions. Describe the angle, framing, or specific questions to emphasize or avoid — e.g. “a point-by-point comparison of the two leading positions, with objections answered.”",
       "detailsHelp": "Don't re-enter your stances here. Scribe already uses the selected hypermap data.",
       "lengthHelp": "Discussions can target a word count, paragraphs, pages, or chapters. Enter one number or a range; blank defaults to 1 page.",
       "downloadIntro": "Generated from the selected profile data.",
-      "summary": "An informed discussion between the recorded stances \u2014 the positions speak for themselves, not a story."
+      "summary": "An informed discussion between the recorded stances — the positions speak for themselves, not a story."
     },
     "prompt": {
       "opening": "Write an informed discussion between the stances recorded on this map.",
       "rules": [
-        "Present each recorded stance fairly and in its strongest form \u2014 steelman, don't strawman.",
+        "Present each recorded stance fairly and in its strongest form — steelman, don't strawman.",
         "Show where the stances agree, where they part, and what follows from each position.",
-        "Use the recorded ratings as emphasis: 80\u2013100 central, 56\u201379 strong support, 36\u201355 lighter, and 0\u201335 optional curiosity.",
+        "Use the recorded ratings as emphasis: 80–100 central, 56–79 strong support, 36–55 lighter, and 0–35 optional curiosity.",
         "Use only the named topics below. Do not add, imply, or reference any unlisted stance.",
         "Do not invent positions, sources, or facts beyond the supplied data."
       ],
@@ -58,8 +58,8 @@
     "panel": {
       "subtitleSuffix": "the ground rules stay in every discussion plan.",
       "detailsLabel": "Discussion details <small>Optional</small>",
-      "detailsPlaceholder": "The map provides your stances and positions. Describe the setting, framing, or specific questions to emphasize or avoid \u2014 e.g. \u201ca point-by-point comparison of the two leading positions, with objections answered.\u201d",
-      "detailsHelp": "Don\u2019t re-enter your stances here. Scene Setter already uses the selected hypermap data, and the ground rules below still control the plan.",
+      "detailsPlaceholder": "The map provides your stances and positions. Describe the setting, framing, or specific questions to emphasize or avoid — e.g. “a point-by-point comparison of the two leading positions, with objections answered.”",
+      "detailsHelp": "Don’t re-enter your stances here. Scene Setter already uses the selected hypermap data, and the ground rules below still control the plan.",
       "playGuideLegend": "Discussion plan length",
       "playGuideHelp": "Length for the AI discussion-plan prompt only: a word count, paragraphs, pages, or chapters. Enter one number or a range; blank defaults to 5 paragraphs.",
       "negotiationLegend": "Discussion agreement length",
@@ -69,33 +69,33 @@
       "outputsTitle": "Documents",
       "outputsIntro": "Two separate outputs. Take either one on its own; each carries the compare-settings stamp and the same ground-rules content.",
       "negotiationTitle": "Discussion agreement",
-      "negotiationDesc": "The completed ground rules as a finished, standalone agreement document \u2014 not an AI prompt.",
+      "negotiationDesc": "The completed ground rules as a finished, standalone agreement document — not an AI prompt.",
       "playGuideTitle": "Discussion plan",
-      "playGuideDesc": "The AI discussion-plan prompt, with the ground rules embedded as its binding layer. It also carries the standard structured format \u2014 elapsed time codes like <strong>[00:00-05:00]</strong> and a fixed activity set \u2014 so whichever AI writes the plan, Scene Sentinel can read it back, run its timers, and match check-ins to the scheduled step.",
+      "playGuideDesc": "The AI discussion-plan prompt, with the ground rules embedded as its binding layer. It also carries the standard structured format — elapsed time codes like <strong>[00:00-05:00]</strong> and a fixed activity set — so whichever AI writes the plan, Scene Sentinel can read it back, run its timers, and match check-ins to the scheduled step.",
       "copyNegotiationGuide": "Copy discussion agreement",
       "downloadNegotiationGuide": "Download discussion agreement (.txt)",
       "copyPlayGuide": "Copy discussion plan prompt",
       "downloadPlayGuide": "Download discussion plan prompt (.txt)",
       "aiNote": "<strong>How this differs from Scribe:</strong> this workspace puts the ground rules and shared positions into a discussion agreement first. Its moderation-plan source is inspiration only; the agreement always controls the generated plan.",
-      "playGuideTextPlaceholder": "Your generated discussion plan will stream here in real time\u2026",
+      "playGuideTextPlaceholder": "Your generated discussion plan will stream here in real time…",
       "openNegotiationTip": "Build a shared discussion agreement and an AI-ready moderation plan from two or more selected profiles.",
       "viewNavTip": "Build a moderated discussion plan for 2 or more profiles, with ground rules and timed segments.",
-      "legendRow": "<b>Scene Setter</b> \u2014 Moderating a discussion between the stances: a ground-rules agreement and a moderated discussion plan."
+      "legendRow": "<b>Scene Setter</b> — Moderating a discussion between the stances: a ground-rules agreement and a moderated discussion plan."
     },
     "groundRules": [
-      "Present each recorded stance fairly and in its strongest form \u2014 steelman, don't strawman.",
+      "Present each recorded stance fairly and in its strongest form — steelman, don't strawman.",
       "Speak from your own recorded stance; don't speak for the other side.",
       "Take turns: one position at a time, each side heard fully before replies.",
       "Objections go to the position, not the person holding it.",
       "Anyone may call a pause; the discussion resumes only when everyone is ready.",
-      "What the profiles agree on is common ground \u2014 start there, and return to it when the discussion stalls."
+      "What the profiles agree on is common ground — start there, and return to it when the discussion stalls."
     ],
     "prompt": {
       "opening": "Write a moderated discussion plan for the stances recorded on this map.",
       "rules": [
-        "Present each recorded stance fairly and in its strongest form \u2014 steelman, don't strawman.",
+        "Present each recorded stance fairly and in its strongest form — steelman, don't strawman.",
         "Show where the stances agree, where they part, and what follows from each position.",
-        "Use the recorded ratings as emphasis: 80\u2013100 central, 56\u201379 strong support, 36\u201355 lighter, and 0\u201335 optional curiosity.",
+        "Use the recorded ratings as emphasis: 80–100 central, 56–79 strong support, 36–55 lighter, and 0–35 optional curiosity.",
         "Structure the plan in Opening, Development, and Closing, with timed segments and a check-in between segments.",
         "Give each side its strongest form before comparing them; never let one side speak for the other.",
         "Use only the named topics below. Do not add, imply, or reference any unlisted stance.",
@@ -116,7 +116,7 @@
       "help": "Enabled phases are added to the generated moderation prompt as a Discussion structure section, in opening, development, closing order. Turn a phase off to leave it out."
     }
   },
-  "domain": "Chemistry \u2014 the Science of Matter",
+  "domain": "Chemistry — the Science of Matter",
   "categories": [
     {
       "id": "xchc01",
@@ -146,7 +146,7 @@
             ]
           },
           "question": "How strongly do you anchor chemical reasoning in strict stoichiometric conservation versus approximate, open-system, or non-stoichiometric defect regimes?",
-          "source": "Gemini revised (new topic \u2014 the calibrated monopole baseline; answers the v1 Open Question on monopole calibration in part \u2014 see Open Question 2).",
+          "source": "Gemini revised (new topic — the calibrated monopole baseline; answers the v1 Open Question on monopole calibration in part — see Open Question 2).",
           "communities": [
             {
               "network": "Stack Exchange",
@@ -198,7 +198,7 @@
             ]
           },
           "question": "When a chemist draws a line between two atoms, are they depicting a physical feature of the universe, an emergent structural pattern, or a pedagogical shorthand?",
-          "source": "Merged \u2014 Gemini 1 (triad) + YoBiche 1.2 (dipole). Gemini revised (v2): re-tagged TRIANGLE \u2192 LINE; poles reordered with Pattern-Realism as the explicit middle pole.",
+          "source": "Merged — Gemini 1 (triad) + YoBiche 1.2 (dipole). Gemini revised (v2): re-tagged TRIANGLE → LINE; poles reordered with Pattern-Realism as the explicit middle pole.",
           "communities": [
             {
               "network": "Stack Exchange",
@@ -237,7 +237,7 @@
             "poles": [
               {
                 "label": "Mathematical Constructs (Unobservable)",
-                "text": "Orbitals are one-electron wavefunctions (\u03c8), artifacts of the Hartree-Fock approximation that cannot be observed in multi-electron systems."
+                "text": "Orbitals are one-electron wavefunctions (ψ), artifacts of the Hartree-Fock approximation that cannot be observed in multi-electron systems."
               },
               {
                 "label": "Working realism",
@@ -250,7 +250,7 @@
             ]
           },
           "question": "Are orbitals real, or just math?",
-          "source": "Merged \u2014 Gemini 2 + YoBiche 1.3. Same topic; Gemini's detail (STM, the cuprite d-orbital claim) kept, YoBiche's plain framing kept in the question. Gemini revised (v2): widget canonicalized to the gap flag.",
+          "source": "Merged — Gemini 2 + YoBiche 1.3. Same topic; Gemini's detail (STM, the cuprite d-orbital claim) kept, YoBiche's plain framing kept in the question. Gemini revised (v2): widget canonicalized to the gap flag.",
           "communities": [
             {
               "network": "Stack Exchange",
@@ -318,7 +318,7 @@
             ]
           },
           "question": "Is chemistry fundamentally just applied physics, or does it possess autonomous laws and irreducible entities of its own?",
-          "source": "Merged \u2014 Gemini 3 (tetrad) + YoBiche 1.1 (triad). Gemini's tetrad is richer; YoBiche's Pluralism added as a fifth pole. Gemini revised (v2): drops Pluralism, returning the topic to a tetrad on \"quad-compass\" \u2014 v2 does NOT follow her there; the pentad is kept. Her \"quad-compass\" assignment does not fit a 5-pole topic. See Open Question 8 \u2014 Jason to rule.",
+          "source": "Merged — Gemini 3 (tetrad) + YoBiche 1.1 (triad). Gemini's tetrad is richer; YoBiche's Pluralism added as a fifth pole. Gemini revised (v2): drops Pluralism, returning the topic to a tetrad on \"quad-compass\" — v2 does NOT follow her there; the pentad is kept. Her \"quad-compass\" assignment does not fit a 5-pole topic. See Open Question 8 — Jason to rule.",
           "communities": [
             {
               "network": "Stack Exchange",
@@ -417,12 +417,12 @@
               },
               {
                 "label": "Emergent Pattern",
-                "text": "A molecule is a stable pattern that emerges from quantum interactions. It is neither a bare thing nor a mere label \u2014 it is what the interactions settle into."
+                "text": "A molecule is a stable pattern that emerges from quantum interactions. It is neither a bare thing nor a mere label — it is what the interactions settle into."
               }
             ]
           },
           "question": "What is a molecule, really?",
-          "source": "YoBiche 1.4. Gemini revised (v2): dropped this topic; v2 restores it \u2014 a remap must not silently delete taxonomy.",
+          "source": "YoBiche 1.4. Gemini revised (v2): dropped this topic; v2 restores it — a remap must not silently delete taxonomy.",
           "communities": [
             {
               "network": "Stack Exchange",
@@ -497,7 +497,7 @@
             ]
           },
           "question": "Which periodic table is the right one?",
-          "source": "Merged \u2014 Gemini 5 (pentad) + YoBiche 5.1 (triad). Gemini's pentad is richer; YoBiche's triad (Traditional Mendeleev / Left-Step / Alternative Forms) is subsumed \u2014 her Traditional is Gemini's Medium-Long Form, her Left-Step is Gemini's Left-Step, her Alternative Forms are Gemini's 3D/Spiral and Property-Cluster poles. Gemini revised (v2): widget canonicalized to \"star-radar\".",
+          "source": "Merged — Gemini 5 (pentad) + YoBiche 5.1 (triad). Gemini's pentad is richer; YoBiche's triad (Traditional Mendeleev / Left-Step / Alternative Forms) is subsumed — her Traditional is Gemini's Medium-Long Form, her Left-Step is Gemini's Left-Step, her Alternative Forms are Gemini's 3D/Spiral and Property-Cluster poles. Gemini revised (v2): widget canonicalized to \"star-radar\".",
           "communities": [
             {
               "network": "Stack Exchange",
@@ -518,11 +518,11 @@
           "poles": [
             {
               "key": "sc-y-la-ac",
-              "label": "Sc\u2013Y\u2013La\u2013Ac"
+              "label": "Sc–Y–La–Ac"
             },
             {
               "key": "sc-y-lu-lr",
-              "label": "Sc\u2013Y\u2013Lu\u2013Lr"
+              "label": "Sc–Y–Lu–Lr"
             },
             {
               "key": "bifurcated-indeterminate",
@@ -536,12 +536,12 @@
             "issue": "Which elements truly belong beneath Scandium and Yttrium in Group 3 of the Periodic Table?",
             "poles": [
               {
-                "label": "Sc\u2013Y\u2013La\u2013Ac",
-                "text": "Preserves historical continuity and treats the 14 f-block elements as Ce\u2013Lu and Th\u2013Lr."
+                "label": "Sc–Y–La–Ac",
+                "text": "Preserves historical continuity and treats the 14 f-block elements as Ce–Lu and Th–Lr."
               },
               {
-                "label": "Sc\u2013Y\u2013Lu\u2013Lr",
-                "text": "Aligns with d-block electronic configurations (d\u00b9) and periodic trends in atomic radii and melting points."
+                "label": "Sc–Y–Lu–Lr",
+                "text": "Aligns with d-block electronic configurations (d¹) and periodic trends in atomic radii and melting points."
               },
               {
                 "label": "Bifurcated / Indeterminate (15-Element f-Block)",
@@ -579,30 +579,30 @@
             },
             {
               "key": "relativistic-breakdown",
-              "label": "Relativistic Breakdown (Z \u2248 137\u2013173)"
+              "label": "Relativistic Breakdown (Z ≈ 137–173)"
             }
           ],
           "widget": "trilinear-sliders",
           "archetype": null,
           "approx": "two-limit gauge rendered as independent sliders; real window-gauge is follow-up work",
           "hovertip": {
-            "issue": "Where and why does the Periodic Table come to an end \u2014 at the limits of nuclear stability or the breakdown of atomic electron shells?",
+            "issue": "Where and why does the Periodic Table come to an end — at the limits of nuclear stability or the breakdown of atomic electron shells?",
             "poles": [
               {
                 "label": "Nuclear-Limit Termination",
-                "text": "Synthesis halts around Z \u2248 120\u2013126 due to spontaneous fission and vanishing nuclear half-lives before chemistry can even occur."
+                "text": "Synthesis halts around Z ≈ 120–126 due to spontaneous fission and vanishing nuclear half-lives before chemistry can even occur."
               },
               {
                 "label": "Superheavy Island of Stability (Viable Frontier Window)",
                 "text": "Nuclear shell closures (\"Islands of Stability\") will permit long-lived superheavy elements with novel, discoverable chemistry."
               },
               {
-                "label": "Relativistic Breakdown (Z \u2248 137\u2013173)",
+                "label": "Relativistic Breakdown (Z ≈ 137–173)",
                 "text": "Extreme spin-orbit coupling and 1s orbital collapse destroy periodicity, rendering chemical behavior unrecognizable."
               }
             ]
           },
-          "question": "Where and why does the Periodic Table come to an end \u2014 at the limits of nuclear stability or the breakdown of atomic electron shells?",
+          "question": "Where and why does the Periodic Table come to an end — at the limits of nuclear stability or the breakdown of atomic electron shells?",
           "source": "Gemini 7. Gemini revised (v2): poles reordered with the Island of Stability as the explicit middle (the viable window between the two failure limits), matching the gauge semantics; widget canonicalized to the gap flag.",
           "communities": [
             {
@@ -653,7 +653,7 @@
               },
               {
                 "label": "Mnemonic & Predictive Pragmatism",
-                "text": "Arrow pushing is a formalized grammar for predicting products \u2014 whether electrons \"actually\" move that way is secondary to its predictive success."
+                "text": "Arrow pushing is a formalized grammar for predicting products — whether electrons \"actually\" move that way is secondary to its predictive success."
               },
               {
                 "label": "Kinetic & Spectroscopic Skepticism",
@@ -662,7 +662,7 @@
             ]
           },
           "question": "Are curved-arrow reaction mechanisms literal depictions of molecular events or merely a syntactic grammar for predicting products?",
-          "source": "Gemini 8. Gemini revised (v2): widget corrected from \"triangle\" to \"trilinear-sliders\" \u2014 the triad is multi-affinity, not a closed blend.",
+          "source": "Gemini 8. Gemini revised (v2): widget corrected from \"triangle\" to \"trilinear-sliders\" — the triad is multi-affinity, not a closed blend.",
           "communities": [
             {
               "network": "Stack Exchange",
@@ -727,7 +727,7 @@
             ]
           },
           "question": "Does theory lead the bench, or the bench lead theory?",
-          "source": "Merged \u2014 Gemini 9 (tetrad) + YoBiche 3.1 (triad). Gemini's tetrad is richer; YoBiche's Symbiotic third pole is preserved as the Synergistic Loop, and Gemini adds Self-Driving Labs as a fourth pole. Gemini revised (v2): widget corrected from \"diamond\" to \"quad-sliders\".",
+          "source": "Merged — Gemini 9 (tetrad) + YoBiche 3.1 (triad). Gemini's tetrad is richer; YoBiche's Symbiotic third pole is preserved as the Synergistic Loop, and Gemini adds Self-Driving Labs as a fourth pole. Gemini revised (v2): widget corrected from \"diamond\" to \"quad-sliders\".",
           "communities": [
             {
               "network": "Stack Exchange",
@@ -836,7 +836,7 @@
             ]
           },
           "question": "Is \"chemical intuition\" a vital form of tacit expertise or a romanticized form of cognitive bias that data science should replace?",
-          "source": "Gemini 11. Gemini revised (v2): re-tagged TRIANGLE \u2192 LINE; poles reordered with Explainable Cheminformatics as the explicit middle pole.",
+          "source": "Gemini 11. Gemini revised (v2): re-tagged TRIANGLE → LINE; poles reordered with Explainable Cheminformatics as the explicit middle pole.",
           "communities": [
             {
               "network": "Stack Exchange",
@@ -880,7 +880,7 @@
             ]
           },
           "question": "Do discoveries come from accidents or from plans?",
-          "source": "YoBiche 3.3. Gemini revised (v2): dropped this topic; v2 restores it \u2014 a remap must not silently delete taxonomy.",
+          "source": "YoBiche 3.3. Gemini revised (v2): dropped this topic; v2 restores it — a remap must not silently delete taxonomy.",
           "communities": [
             {
               "network": "Stack Exchange",
@@ -947,7 +947,7 @@
             ]
           },
           "question": "Is chemistry an autonomous creative powerhouse, the central hub of all sciences, or increasingly a service provider to neighboring fields?",
-          "source": "Merged \u2014 Gemini 12 (tetrad) + YoBiche 2.2 (dipole). Gemini's tetrad is richer; YoBiche's dipole (Central vs Service) is subsumed into its first and third poles. Gemini revised (v2): widget corrected from \"diamond\" to \"quad-compass\" \u2014 the tetrad is genuinely two crossed axes.",
+          "source": "Merged — Gemini 12 (tetrad) + YoBiche 2.2 (dipole). Gemini's tetrad is richer; YoBiche's dipole (Central vs Service) is subsumed into its first and third poles. Gemini revised (v2): widget corrected from \"diamond\" to \"quad-compass\" — the tetrad is genuinely two crossed axes.",
           "communities": [
             {
               "network": "Stack Exchange",
@@ -1015,7 +1015,7 @@
             ]
           },
           "question": "Which branch is home?",
-          "source": "Merged \u2014 Gemini 13 (pentad) + YoBiche 2.1 (pentad). The same five branches; Gemini's culture descriptions kept, YoBiche's plain framing kept in the question. Gemini revised (v2): widget canonicalized to \"star-radar\".",
+          "source": "Merged — Gemini 13 (pentad) + YoBiche 2.1 (pentad). The same five branches; Gemini's culture descriptions kept, YoBiche's plain framing kept in the question. Gemini revised (v2): widget canonicalized to \"star-radar\".",
           "communities": [
             {
               "network": "Stack Exchange",
@@ -1115,7 +1115,7 @@
           "widget": "trilinear-line",
           "archetype": "line",
           "hovertip": {
-            "issue": "What counts as a \"good\" chemical reaction \u2014 one that unlocks a novel bond disconnection on a milligram scale, or one that is robust, safe, and scalable?",
+            "issue": "What counts as a \"good\" chemical reaction — one that unlocks a novel bond disconnection on a milligram scale, or one that is robust, safe, and scalable?",
             "poles": [
               {
                 "label": "Academic Discovery Ethos",
@@ -1131,7 +1131,7 @@
               }
             ]
           },
-          "question": "What counts as a \"good\" chemical reaction \u2014 one that unlocks a novel bond disconnection on a milligram scale, or one that is robust, safe, and scalable?",
+          "question": "What counts as a \"good\" chemical reaction — one that unlocks a novel bond disconnection on a milligram scale, or one that is robust, safe, and scalable?",
           "source": "Gemini 15. Gemini revised (v2): widget canonicalized to the gap flag.",
           "communities": [
             {
@@ -1175,7 +1175,7 @@
               },
               {
                 "label": "Use-inspired",
-                "text": "Fundamental questions chosen for the uses they open \u2014 Pasteur's quadrant."
+                "text": "Fundamental questions chosen for the uses they open — Pasteur's quadrant."
               },
               {
                 "label": "Applied",
@@ -1184,7 +1184,7 @@
             ]
           },
           "question": "Do you do chemistry to understand, or to make?",
-          "source": "YoBiche 2.3. Gemini revised (v2): dropped this topic; v2 restores it \u2014 a remap must not silently delete taxonomy.",
+          "source": "YoBiche 2.3. Gemini revised (v2): dropped this topic; v2 restores it — a remap must not silently delete taxonomy.",
           "communities": [
             {
               "network": "Stack Exchange",
@@ -1251,7 +1251,7 @@
             ]
           },
           "question": "Should environmental sustainability constrain fundamental reaction discovery from day one, or be addressed downstream during industrial optimization?",
-          "source": "Merged \u2014 Gemini 16 (tetrad) + YoBiche 4.1 (dipole). Gemini's tetrad is richer; YoBiche's dipole (Synthetic vs Green) is subsumed \u2014 her Synthetic is Gemini's Pragmatic Sustainability and Unfettered Inquiry poles, her Green is Gemini's Strict Green-By-Design. Gemini revised (v2): widget corrected from \"diamond\" to \"quad-compass\" \u2014 the tetrad is genuinely two crossed axes.",
+          "source": "Merged — Gemini 16 (tetrad) + YoBiche 4.1 (dipole). Gemini's tetrad is richer; YoBiche's dipole (Synthetic vs Green) is subsumed — her Synthetic is Gemini's Pragmatic Sustainability and Unfettered Inquiry poles, her Green is Gemini's Strict Green-By-Design. Gemini revised (v2): widget corrected from \"diamond\" to \"quad-compass\" — the tetrad is genuinely two crossed axes.",
           "communities": [
             {
               "network": "Stack Exchange",
@@ -1303,7 +1303,7 @@
             ]
           },
           "question": "Where is the healthy boundary between institutional safety compliance, competence-based mentorship, and frontier hazard tolerance?",
-          "source": "Merged \u2014 Gemini 17 (triad) + YoBiche 4.2 (dipole). Gemini's triad is richer; YoBiche's dipole (Safety vs Discovery) is subsumed \u2014 her Safety is Gemini's Zero-Harm, her Discovery is Gemini's Frontier Risk, and Gemini adds Competence-Based as the third pole. Gemini revised (v2): re-tagged TRIANGLE \u2192 LINE; poles reordered with Competence-Based as the explicit middle pole. This answers the flag v1 left open \u2014 if Jason reads it as a LINE, flip it; her revision flips it.",
+          "source": "Merged — Gemini 17 (triad) + YoBiche 4.2 (dipole). Gemini's triad is richer; YoBiche's dipole (Safety vs Discovery) is subsumed — her Safety is Gemini's Zero-Harm, her Discovery is Gemini's Frontier Risk, and Gemini adds Competence-Based as the third pole. Gemini revised (v2): re-tagged TRIANGLE → LINE; poles reordered with Competence-Based as the explicit middle pole. This answers the flag v1 left open — if Jason reads it as a LINE, flip it; her revision flips it.",
           "communities": [
             {
               "network": "Stack Exchange",
@@ -1355,7 +1355,7 @@
             ]
           },
           "question": "How does the public see chemistry?",
-          "source": "YoBiche 4.3. (Distinct from 5.4: this topic is how the public SEES chemistry; 5.4 is what chemists should DO about it.) Gemini revised (v2): dropped this topic; v2 restores it \u2014 a remap must not silently delete taxonomy.",
+          "source": "YoBiche 4.3. (Distinct from 5.4: this topic is how the public SEES chemistry; 5.4 is what chemists should DO about it.) Gemini revised (v2): dropped this topic; v2 restores it — a remap must not silently delete taxonomy.",
           "communities": [
             {
               "network": "Stack Exchange",
@@ -1497,7 +1497,7 @@
             "poles": [
               {
                 "label": "Thermodynamic / Equilibrium Primacy",
-                "text": "Matter inevitably seeks its lowest free-energy basin (\u0394G); understanding stability, phase diagrams, and equilibrium governs the long-term fate of systems."
+                "text": "Matter inevitably seeks its lowest free-energy basin (ΔG); understanding stability, phase diagrams, and equilibrium governs the long-term fate of systems."
               },
               {
                 "label": "Case by case",
@@ -1505,7 +1505,7 @@
               },
               {
                 "label": "Kinetic / Metastable Primacy",
-                "text": "Almost everything interesting in chemistry and life exists in kinetically trapped, metastable states; barrier heights (\u0394G\u2021) and catalysts rule reality."
+                "text": "Almost everything interesting in chemistry and life exists in kinetically trapped, metastable states; barrier heights (ΔG‡) and catalysts rule reality."
               }
             ]
           },
@@ -1557,7 +1557,7 @@
             ]
           },
           "question": "In your preferred reaction design and mechanistic intuition, do you gravitate toward electron-rich donor chemistry, electron-deficient acceptor activation, amphoteric/ambiphilic \"switch\" reagents, or inert/non-coordinating regimes?",
-          "source": "Gemini revised (new topic \u2014 the donor/acceptor dyad; the \"xy-switchbox\" donor/acceptor mapping is RULED fine by Jason, 2026-11-15: the switchbox covers donor/acceptor role pairs, not just give/receive).",
+          "source": "Gemini revised (new topic — the donor/acceptor dyad; the \"xy-switchbox\" donor/acceptor mapping is RULED fine by Jason, 2026-11-15: the switchbox covers donor/acceptor role pairs, not just give/receive).",
           "communities": [
             {
               "network": "Stack Exchange",
@@ -1614,7 +1614,7 @@
             ]
           },
           "question": "Can complex chemical emergence and the origins of life be understood by studying purified reactions in isolation, or only through messy, coupled reaction networks?",
-          "source": "Gemini 21. Gemini revised (v2): re-tagged TRIANGLE \u2192 LINE; poles reordered with Systems Chemistry as the explicit middle pole.",
+          "source": "Gemini 21. Gemini revised (v2): re-tagged TRIANGLE → LINE; poles reordered with Systems Chemistry as the explicit middle pole.",
           "communities": [
             {
               "network": "Stack Exchange",
@@ -1666,7 +1666,7 @@
             ]
           },
           "question": "Which catalytic paradigm holds the greatest promise for the future of sustainable chemical manufacturing and molecular control?",
-          "source": "Gemini 22. Gemini revised (v2): widget corrected from \"triangle\" to \"trilinear-sliders\" \u2014 the triad is multi-affinity, not a closed blend.",
+          "source": "Gemini 22. Gemini revised (v2): widget corrected from \"triangle\" to \"trilinear-sliders\" — the triad is multi-affinity, not a closed blend.",
           "communities": [
             {
               "network": "Stack Exchange",
@@ -1714,11 +1714,11 @@
               },
               {
                 "label": "Scaffolds that self-assemble",
-                "text": "Covalent frames that do their work by self-assembling \u2014 the MOF pattern."
+                "text": "Covalent frames that do their work by self-assembling — the MOF pattern."
               },
               {
                 "label": "Non-Covalent Self-Assembly",
-                "text": "Hydrogen bonding, \u03c0-stacking, host-guest chemistry, and mechanical bonds (rotaxanes/catenanes) unlock adaptive, reversible, \"smart\" matter."
+                "text": "Hydrogen bonding, π-stacking, host-guest chemistry, and mechanical bonds (rotaxanes/catenanes) unlock adaptive, reversible, \"smart\" matter."
               }
             ]
           },
@@ -1747,7 +1747,7 @@
     {
       "id": "xchc07",
       "name": "Codification, Pedagogy & the Chemical Life",
-      "about": "How is chemical knowledge codified, taught to novices, validated by the community \u2014 and how do you live as a chemist?",
+      "about": "How is chemical knowledge codified, taught to novices, validated by the community — and how do you live as a chemist?",
       "topics": [
         {
           "id": "xch0030",
@@ -1852,7 +1852,7 @@
             ]
           },
           "question": "What is the most effective pedagogical sequence for introducing students to the molecular world without overwhelming them?",
-          "source": "Gemini 25. Gemini revised (v2): widget corrected from \"diamond\" to \"quad-compass\" \u2014 the tetrad is genuinely two crossed axes.",
+          "source": "Gemini 25. Gemini revised (v2): widget corrected from \"diamond\" to \"quad-compass\" — the tetrad is genuinely two crossed axes.",
           "communities": [
             {
               "network": "Stack Exchange",
@@ -1904,7 +1904,7 @@
             ]
           },
           "question": "Does modern chemical publishing reward superficial substrate-scope proliferation at the expense of deep mechanistic understanding and reproducibility?",
-          "source": "Gemini 26. Gemini revised (v2): widget corrected from \"triangle\" to \"trilinear-sliders\" \u2014 the triad is multi-affinity, not a closed blend.",
+          "source": "Gemini 26. Gemini revised (v2): widget corrected from \"triangle\" to \"trilinear-sliders\" — the triad is multi-affinity, not a closed blend.",
           "communities": [
             {
               "network": "Stack Exchange",
@@ -1956,7 +1956,7 @@
             ]
           },
           "question": "Do you value teaching, research, or both equally?",
-          "source": "YoBiche 6.1. Gemini revised (v2): dropped this topic; v2 restores it with its LINE tag \u2014 a remap must not silently delete taxonomy.",
+          "source": "YoBiche 6.1. Gemini revised (v2): dropped this topic; v2 restores it with its LINE tag — a remap must not silently delete taxonomy.",
           "communities": [
             {
               "network": "Stack Exchange",
@@ -2008,7 +2008,7 @@
             ]
           },
           "question": "Do you work alone or together?",
-          "source": "YoBiche 6.2. Gemini revised (v2): dropped this topic; v2 restores it \u2014 a remap must not silently delete taxonomy.",
+          "source": "YoBiche 6.2. Gemini revised (v2): dropped this topic; v2 restores it — a remap must not silently delete taxonomy.",
           "communities": [
             {
               "network": "Stack Exchange",
@@ -2060,7 +2060,7 @@
             ]
           },
           "question": "Do you publish openly, or patent and protect?",
-          "source": "YoBiche 6.3. Gemini revised (v2): dropped this topic; v2 restores it \u2014 a remap must not silently delete taxonomy.",
+          "source": "YoBiche 6.3. Gemini revised (v2): dropped this topic; v2 restores it — a remap must not silently delete taxonomy.",
           "communities": [
             {
               "network": "Stack Exchange",
@@ -2112,7 +2112,7 @@
             ]
           },
           "question": "Do you work with your hands, or let machines do it?",
-          "source": "YoBiche 6.4. Gemini revised (v2): dropped this topic; v2 restores it \u2014 a remap must not silently delete taxonomy.",
+          "source": "YoBiche 6.4. Gemini revised (v2): dropped this topic; v2 restores it — a remap must not silently delete taxonomy.",
           "communities": [
             {
               "network": "Stack Exchange",
@@ -2166,7 +2166,7 @@
               },
               {
                 "label": "Green Hydrogen & Ammonia Carriers",
-                "text": "High-density chemical bonds (H\u2082, NH\u2083) are indispensable for heavy transport, steelmaking, and seasonal grid storage."
+                "text": "High-density chemical bonds (H₂, NH₃) are indispensable for heavy transport, steelmaking, and seasonal grid storage."
               },
               {
                 "label": "Electrosynthesis & Photoredox Revolution",
@@ -2174,7 +2174,7 @@
               },
               {
                 "label": "Artificial Photosynthesis / Solar Fuels",
-                "text": "Direct catalytic reduction of CO\u2082 and H\u2082O into liquid hydrocarbons is the ultimate closed-loop chemical goal."
+                "text": "Direct catalytic reduction of CO₂ and H₂O into liquid hydrocarbons is the ultimate closed-loop chemical goal."
               }
             ]
           },
@@ -2231,7 +2231,7 @@
             ]
           },
           "question": "Are reticular crystalline frameworks (MOFs/COFs) the future of tailored materials, or do scalable polymers and adaptive soft matter hold the real-world edge?",
-          "source": "Gemini 28. Gemini revised (v2): widget corrected from \"triangle\" to \"trilinear-sliders\" \u2014 the three material classes are independent affinities, not a zero-sum blend. The TRIANGLE tag is kept (three independent corners); the correction is to the widget, not the tag.",
+          "source": "Gemini 28. Gemini revised (v2): widget corrected from \"triangle\" to \"trilinear-sliders\" — the three material classes are independent affinities, not a zero-sum blend. The TRIANGLE tag is kept (three independent corners); the correction is to the widget, not the tag.",
           "communities": [
             {
               "network": "Stack Exchange",
@@ -2348,7 +2348,7 @@
             ]
           },
           "question": "Is the chemical toolkit of life assembled abundantly in interstellar space, or does it require rare, specialized planetary geochemistry?",
-          "source": "Gemini 30. Gemini revised (v2): dropped this topic; v2 restores it \u2014 a remap must not silently delete taxonomy.",
+          "source": "Gemini 30. Gemini revised (v2): dropped this topic; v2 restores it — a remap must not silently delete taxonomy.",
           "communities": [
             {
               "network": "Stack Exchange",
@@ -4509,7 +4509,7 @@
       "about": "Studies carbon-containing compounds: their structures, properties, reactions, and how to build them. Organic chemistry is the science behind most medicines, plastics, dyes, and fuels.",
       "links": [
         {
-          "label": "American Chemical Society \u2014 Organic Chemistry",
+          "label": "American Chemical Society — Organic Chemistry",
           "url": "https://www.acs.org/education/what-is-chemistry/areas-of-chemistry/organic-chemistry.html"
         }
       ],
@@ -4683,8 +4683,11 @@
             "dna-encoded-libraries-ultra-large-virtual-screening": 40,
             "new-modalities": 60
           }
-        }
-      }
+        },
+        "skin": "chemcapades"
+      },
+      "skin": "chemcapades",
+      "kind": "sample"
     },
     "che-physical": {
       "name": "The Physical Chemist",
@@ -4692,7 +4695,7 @@
       "about": "Applies physics and mathematics to chemical systems, studying how matter behaves, how energy flows, and how fast reactions run. It covers thermodynamics, kinetics, quantum chemistry, and spectroscopy.",
       "links": [
         {
-          "label": "American Chemical Society \u2014 Physical Chemistry",
+          "label": "American Chemical Society — Physical Chemistry",
           "url": "https://www.acs.org/education/what-is-chemistry/areas-of-chemistry/physical-chemistry.html"
         }
       ],
@@ -4867,8 +4870,11 @@
             "planetary-specific-geochemical-bottlenecks": 40,
             "cosmic-kit-planetary-filter": 70
           }
-        }
-      }
+        },
+        "skin": "chemcapades"
+      },
+      "skin": "chemcapades",
+      "kind": "sample"
     },
     "che-inorganic": {
       "name": "The Inorganic Chemist",
@@ -4876,7 +4882,7 @@
       "about": "Studies compounds that are not mainly carbon-based, including metals, minerals, salts, and organometallic compounds. The field underpins catalysts, pigments, semiconductors, and many industrial materials.",
       "links": [
         {
-          "label": "American Chemical Society \u2014 Inorganic Chemistry",
+          "label": "American Chemical Society — Inorganic Chemistry",
           "url": "https://www.acs.org/education/what-is-chemistry/areas-of-chemistry/inorganic-chemistry.html"
         }
       ],
@@ -5051,8 +5057,11 @@
             "classical-polymers-composites": 40,
             "hybrid-soft-matter-biomimetic-materials": 50
           }
-        }
-      }
+        },
+        "skin": "chemcapades"
+      },
+      "skin": "chemcapades",
+      "kind": "sample"
     },
     "che-biochemist": {
       "name": "The Biochemist",
@@ -5064,7 +5073,7 @@
           "url": "https://www.asbmb.org/"
         },
         {
-          "label": "American Chemical Society \u2014 Biochemistry",
+          "label": "American Chemical Society — Biochemistry",
           "url": "https://www.acs.org/education/what-is-chemistry/areas-of-chemistry/biochemistry.html"
         }
       ],
@@ -5237,8 +5246,11 @@
             "planetary-specific-geochemical-bottlenecks": 60,
             "cosmic-kit-planetary-filter": 90
           }
-        }
-      }
+        },
+        "skin": "chemcapades"
+      },
+      "skin": "chemcapades",
+      "kind": "sample"
     },
     "che-analytical": {
       "name": "The Analytical Chemist",
@@ -5246,7 +5258,7 @@
       "about": "Identifies what substances are present in a sample and measures how much of each there is. Analytical chemistry develops the instruments and separation methods used in forensics, environmental testing, drug development, and quality control.",
       "links": [
         {
-          "label": "American Chemical Society \u2014 Analytical Chemistry",
+          "label": "American Chemical Society — Analytical Chemistry",
           "url": "https://www.acs.org/education/what-is-chemistry/areas-of-chemistry/analytical-chemistry.html"
         }
       ],
@@ -5421,8 +5433,11 @@
             "automated": 85,
             "hybrid-workflow": 65
           }
-        }
-      }
+        },
+        "skin": "chemcapades"
+      },
+      "skin": "chemcapades",
+      "kind": "sample"
     }
   }
 }

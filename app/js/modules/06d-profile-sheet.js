@@ -118,7 +118,7 @@
                 const [e, t] = await Promise.all([ Aw(), Mw(n) ]), r = e && e[n];
                 if (!r || r.name !== i || r.count !== a || !r.payload || !0 !== r.payload.noFlash) throw new Error("The bundled sample is invalid.");
                 const o = JSON.parse(JSON.stringify(r.payload));
-                o.profileName = i, o.sampleProfile = !0, o.skin = o.skin || (typeof window !== "undefined" && window.__SX_ACTIVE_SKIN) || "sexcapades";
+                o.profileName = i, o.sampleProfile = !0, o.skin = o.skin || r.skin || t.dataset.sampleSkin || (typeof window !== "undefined" && window.__SX_ACTIVE_SKIN) || "sexcapades";
                 if (r.kind !== "sample" || !t) {
                     const archPhoto = typeof sxMakeArchetypePhoto === "function" ? sxMakeArchetypePhoto(r.name || i, o.skin) : null;
                     if (archPhoto) o.photos = [ archPhoto ];
@@ -129,6 +129,7 @@
                 const s = wx(o, {
                     autoSelect: !0
                 });
+                if (s && typeof Vt === "function") { Vt(s); }
                 Zy[n] = s, Ew();
             } catch (e) {
                 t.disabled = !1, r && (r.textContent = `${a} rated topics`), tS(e.message || "Could not load that profile.", {

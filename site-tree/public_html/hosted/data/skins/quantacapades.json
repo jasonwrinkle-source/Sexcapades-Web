@@ -2,7 +2,7 @@
   "skin": "quantacapades",
   "meter": "understanding",
   "name": "Quantacapades",
-  "about": "Quantacapades is an interactive hypermap for rating and visualizing where you stand on the strangeness at the bottom of things \u2014 what the quantum world is, how the universe began, what emerges from it \u2014 and comparing your positions with another person's, interpretation by interpretation, on the same picture. Build a personal profile, see where your physics meets and where it parts, use Scribe to write the universe you'd argue for, and Scene Setter to plan the conversation that tests it \u2014 all in the same shared vocabulary.",
+  "about": "Quantacapades is an interactive hypermap for rating and visualizing where you stand on the strangeness at the bottom of things — what the quantum world is, how the universe began, what emerges from it — and comparing your positions with another person's, interpretation by interpretation, on the same picture. Build a personal profile, see where your physics meets and where it parts, use Scribe to write the universe you'd argue for, and Scene Setter to plan the conversation that tests it — all in the same shared vocabulary.",
   "scribe": {
     "genre": "discussion",
     "output": "discussion",
@@ -18,22 +18,22 @@
       "help": "Depth 1 (Overview) is a light survey of the recorded stances. Depth 5 (Dissertation defense) is full scholarly rigor: steelman each stance, raise the strongest objections, and answer them."
     },
     "panel": {
-      "modeSingle": "One profile creates an informed discussion between the stances recorded on this map \u2014 the positions held, where they agree, and where they part. For a moderated discussion plan, use Scene Setter.",
-      "modeMulti": "Scribe turns your selected profiles into an informed discussion between the stances recorded on this map \u2014 where the profiles agree, where they part, and what follows from each position. For a moderated discussion plan, use Scene Setter.",
+      "modeSingle": "One profile creates an informed discussion between the stances recorded on this map — the positions held, where they agree, and where they part. For a moderated discussion plan, use Scene Setter.",
+      "modeMulti": "Scribe turns your selected profiles into an informed discussion between the stances recorded on this map — where the profiles agree, where they part, and what follows from each position. For a moderated discussion plan, use Scene Setter.",
       "introSingle": "One profile selected: Scribe will create an informed discussion between the stances.",
       "introMulti": "Multiple profiles selected: Scribe will create an informed discussion between the stances.",
-      "detailsPlaceholder": "The map provides your stances and positions. Describe the angle, framing, or specific questions to emphasize or avoid \u2014 e.g. \u201ca point-by-point comparison of the two leading positions, with objections answered.\u201d",
+      "detailsPlaceholder": "The map provides your stances and positions. Describe the angle, framing, or specific questions to emphasize or avoid — e.g. “a point-by-point comparison of the two leading positions, with objections answered.”",
       "detailsHelp": "Don't re-enter your stances here. Scribe already uses the selected hypermap data.",
       "lengthHelp": "Discussions can target a word count, paragraphs, pages, or chapters. Enter one number or a range; blank defaults to 1 page.",
       "downloadIntro": "Generated from the selected profile data.",
-      "summary": "An informed discussion between the recorded stances \u2014 the positions speak for themselves, not a story."
+      "summary": "An informed discussion between the recorded stances — the positions speak for themselves, not a story."
     },
     "prompt": {
       "opening": "Write an informed discussion between the stances recorded on this map.",
       "rules": [
-        "Present each recorded stance fairly and in its strongest form \u2014 steelman, don't strawman.",
+        "Present each recorded stance fairly and in its strongest form — steelman, don't strawman.",
         "Show where the stances agree, where they part, and what follows from each position.",
-        "Use the recorded ratings as emphasis: 80\u2013100 central, 56\u201379 strong support, 36\u201355 lighter, and 0\u201335 optional curiosity.",
+        "Use the recorded ratings as emphasis: 80–100 central, 56–79 strong support, 36–55 lighter, and 0–35 optional curiosity.",
         "Use only the named topics below. Do not add, imply, or reference any unlisted stance.",
         "Do not invent positions, sources, or facts beyond the supplied data."
       ],
@@ -58,8 +58,8 @@
     "panel": {
       "subtitleSuffix": "the ground rules stay in every discussion plan.",
       "detailsLabel": "Discussion details <small>Optional</small>",
-      "detailsPlaceholder": "The map provides your stances and positions. Describe the setting, framing, or specific questions to emphasize or avoid \u2014 e.g. \u201ca point-by-point comparison of the two leading positions, with objections answered.\u201d",
-      "detailsHelp": "Don\u2019t re-enter your stances here. Scene Setter already uses the selected hypermap data, and the ground rules below still control the plan.",
+      "detailsPlaceholder": "The map provides your stances and positions. Describe the setting, framing, or specific questions to emphasize or avoid — e.g. “a point-by-point comparison of the two leading positions, with objections answered.”",
+      "detailsHelp": "Don’t re-enter your stances here. Scene Setter already uses the selected hypermap data, and the ground rules below still control the plan.",
       "playGuideLegend": "Discussion plan length",
       "playGuideHelp": "Length for the AI discussion-plan prompt only: a word count, paragraphs, pages, or chapters. Enter one number or a range; blank defaults to 5 paragraphs.",
       "negotiationLegend": "Discussion agreement length",
@@ -69,33 +69,33 @@
       "outputsTitle": "Documents",
       "outputsIntro": "Two separate outputs. Take either one on its own; each carries the compare-settings stamp and the same ground-rules content.",
       "negotiationTitle": "Discussion agreement",
-      "negotiationDesc": "The completed ground rules as a finished, standalone agreement document \u2014 not an AI prompt.",
+      "negotiationDesc": "The completed ground rules as a finished, standalone agreement document — not an AI prompt.",
       "playGuideTitle": "Discussion plan",
-      "playGuideDesc": "The AI discussion-plan prompt, with the ground rules embedded as its binding layer. It also carries the standard structured format \u2014 elapsed time codes like <strong>[00:00-05:00]</strong> and a fixed activity set \u2014 so whichever AI writes the plan, Scene Sentinel can read it back, run its timers, and match check-ins to the scheduled step.",
+      "playGuideDesc": "The AI discussion-plan prompt, with the ground rules embedded as its binding layer. It also carries the standard structured format — elapsed time codes like <strong>[00:00-05:00]</strong> and a fixed activity set — so whichever AI writes the plan, Scene Sentinel can read it back, run its timers, and match check-ins to the scheduled step.",
       "copyNegotiationGuide": "Copy discussion agreement",
       "downloadNegotiationGuide": "Download discussion agreement (.txt)",
       "copyPlayGuide": "Copy discussion plan prompt",
       "downloadPlayGuide": "Download discussion plan prompt (.txt)",
       "aiNote": "<strong>How this differs from Scribe:</strong> this workspace puts the ground rules and shared positions into a discussion agreement first. Its moderation-plan source is inspiration only; the agreement always controls the generated plan.",
-      "playGuideTextPlaceholder": "Your generated discussion plan will stream here in real time\u2026",
+      "playGuideTextPlaceholder": "Your generated discussion plan will stream here in real time…",
       "openNegotiationTip": "Build a shared discussion agreement and an AI-ready moderation plan from two or more selected profiles.",
       "viewNavTip": "Build a moderated discussion plan for 2 or more profiles, with ground rules and timed segments.",
-      "legendRow": "<b>Scene Setter</b> \u2014 Moderating a discussion between the stances: a ground-rules agreement and a moderated discussion plan."
+      "legendRow": "<b>Scene Setter</b> — Moderating a discussion between the stances: a ground-rules agreement and a moderated discussion plan."
     },
     "groundRules": [
-      "Present each recorded stance fairly and in its strongest form \u2014 steelman, don't strawman.",
+      "Present each recorded stance fairly and in its strongest form — steelman, don't strawman.",
       "Speak from your own recorded stance; don't speak for the other side.",
       "Take turns: one position at a time, each side heard fully before replies.",
       "Objections go to the position, not the person holding it.",
       "Anyone may call a pause; the discussion resumes only when everyone is ready.",
-      "What the profiles agree on is common ground \u2014 start there, and return to it when the discussion stalls."
+      "What the profiles agree on is common ground — start there, and return to it when the discussion stalls."
     ],
     "prompt": {
       "opening": "Write a moderated discussion plan for the stances recorded on this map.",
       "rules": [
-        "Present each recorded stance fairly and in its strongest form \u2014 steelman, don't strawman.",
+        "Present each recorded stance fairly and in its strongest form — steelman, don't strawman.",
         "Show where the stances agree, where they part, and what follows from each position.",
-        "Use the recorded ratings as emphasis: 80\u2013100 central, 56\u201379 strong support, 36\u201355 lighter, and 0\u201335 optional curiosity.",
+        "Use the recorded ratings as emphasis: 80–100 central, 56–79 strong support, 36–55 lighter, and 0–35 optional curiosity.",
         "Structure the plan in Opening, Development, and Closing, with timed segments and a check-in between segments.",
         "Give each side its strongest form before comparing them; never let one side speak for the other.",
         "Use only the named topics below. Do not add, imply, or reference any unlisted stance.",
@@ -116,7 +116,7 @@
       "help": "Enabled phases are added to the generated moderation prompt as a Discussion structure section, in opening, development, closing order. Turn a phase off to leave it out."
     }
   },
-  "domain": "Theoretical Physics \u2014 the pen-and-paper, blackboard, and chalk world where mathematical structure attempts to unveil the foundational architecture of physical reality",
+  "domain": "Theoretical Physics — the pen-and-paper, blackboard, and chalk world where mathematical structure attempts to unveil the foundational architecture of physical reality",
   "categories": [
     {
       "id": "xquc01",
@@ -169,7 +169,7 @@
             ]
           },
           "question": "What is the true nature of the quantum state?",
-          "source": "BRIEFING_QUANTACAPADES_TAXONOMY.md \u00a72.1.1 \u2014 Both versions (Antigravity 1.1; YoBiche's tetrad) \u2014 Antigravity's framing kept.",
+          "source": "BRIEFING_QUANTACAPADES_TAXONOMY.md §2.1.1 — Both versions (Antigravity 1.1; YoBiche's tetrad) — Antigravity's framing kept.",
           "communities": [
             {
               "network": "Stack Exchange",
@@ -190,15 +190,15 @@
           "poles": [
             {
               "key": "psi-ontic",
-              "label": "\u03c8-Ontic"
+              "label": "ψ-Ontic"
             },
             {
               "key": "agnostic",
-              "label": "\u03c8-Agnostic"
+              "label": "ψ-Agnostic"
             },
             {
               "key": "psi-epistemic",
-              "label": "\u03c8-Epistemic"
+              "label": "ψ-Epistemic"
             }
           ],
           "widget": "trilinear-line",
@@ -207,21 +207,21 @@
             "issue": "Is the wavefunction physical reality or human ignorance?",
             "poles": [
               {
-                "label": "\u03c8-Ontic",
+                "label": "ψ-Ontic",
                 "text": "The quantum wavefunction is an objective, physically real entity existing in the world."
               },
               {
-                "label": "\u03c8-Agnostic",
+                "label": "ψ-Agnostic",
                 "text": "Uncommitted on what the wavefunction is; it works either way."
               },
               {
-                "label": "\u03c8-Epistemic",
+                "label": "ψ-Epistemic",
                 "text": "The wavefunction is merely a mathematical tool representing incomplete human knowledge or belief."
               }
             ]
           },
           "question": "Is the wavefunction physical reality or human ignorance?",
-          "source": "BRIEFING_QUANTACAPADES_TAXONOMY.md \u00a72.1.2 \u2014 Antigravity 1.2 (YoBiche did not cover this).",
+          "source": "BRIEFING_QUANTACAPADES_TAXONOMY.md §2.1.2 — Antigravity 1.2 (YoBiche did not cover this).",
           "communities": [
             {
               "network": "Stack Exchange",
@@ -260,11 +260,11 @@
             "poles": [
               {
                 "label": "Collapse",
-                "text": "The wavefunction physically collapses on measurement; objective dynamical collapse theories (GRW, Penrose-Di\u00f3si) where gravity or non-linear terms collapse the state at a critical mass/threshold."
+                "text": "The wavefunction physically collapses on measurement; objective dynamical collapse theories (GRW, Penrose-Diósi) where gravity or non-linear terms collapse the state at a critical mass/threshold."
               },
               {
                 "label": "Decoherence",
-                "text": "No collapse; the Schr\u00f6dinger equation never breaks; entanglement with the environment creates the appearance of collapse."
+                "text": "No collapse; the Schrödinger equation never breaks; entanglement with the environment creates the appearance of collapse."
               },
               {
                 "label": "No-Collapse",
@@ -273,7 +273,7 @@
             ]
           },
           "question": "What happens when you measure?",
-          "source": "BRIEFING_QUANTACAPADES_TAXONOMY.md \u00a72.1.3 \u2014 YoBiche (Antigravity 1.3 covered the same ground as a dipole \u2014 Objective Collapse vs. Pure Unitary Decoherence \u2014 folded into this triad).",
+          "source": "BRIEFING_QUANTACAPADES_TAXONOMY.md §2.1.3 — YoBiche (Antigravity 1.3 covered the same ground as a dipole — Objective Collapse vs. Pure Unitary Decoherence — folded into this triad).",
           "communities": [
             {
               "network": "Stack Exchange",
@@ -325,7 +325,7 @@
             ]
           },
           "question": "Is the universe deterministic or intrinsically random?",
-          "source": "BRIEFING_QUANTACAPADES_TAXONOMY.md \u00a72.1.4 \u2014 Both versions (Antigravity 5.2; YoBiche's dipole) \u2014 Antigravity's framing kept.",
+          "source": "BRIEFING_QUANTACAPADES_TAXONOMY.md §2.1.4 — Both versions (Antigravity 5.2; YoBiche's dipole) — Antigravity's framing kept.",
           "communities": [
             {
               "network": "Stack Exchange",
@@ -377,7 +377,7 @@
             ]
           },
           "question": "Faced with Bell's inequality, do you abandon locality or counterfactual realism?",
-          "source": "BRIEFING_QUANTACAPADES_TAXONOMY.md \u00a72.1.5 \u2014 Both versions (Antigravity 1.4; YoBiche's dipole) \u2014 Antigravity's framing kept.",
+          "source": "BRIEFING_QUANTACAPADES_TAXONOMY.md §2.1.5 — Both versions (Antigravity 1.4; YoBiche's dipole) — Antigravity's framing kept.",
           "communities": [
             {
               "network": "Stack Exchange",
@@ -444,7 +444,7 @@
             ]
           },
           "question": "How will quantum gravity be solved?",
-          "source": "BRIEFING_QUANTACAPADES_TAXONOMY.md \u00a72.2.1 \u2014 Antigravity 2.1 (YoBiche had this as a dipole; the tetrad is richer).",
+          "source": "BRIEFING_QUANTACAPADES_TAXONOMY.md §2.2.1 — Antigravity 2.1 (YoBiche had this as a dipole; the tetrad is richer).",
           "communities": [
             {
               "network": "Stack Exchange",
@@ -496,7 +496,7 @@
             ]
           },
           "question": "Is spacetime fundamental or an emergent collective phenomenon?",
-          "source": "BRIEFING_QUANTACAPADES_TAXONOMY.md \u00a72.2.2 \u2014 Both versions (Antigravity 2.2; YoBiche's dipole).",
+          "source": "BRIEFING_QUANTACAPADES_TAXONOMY.md §2.2.2 — Both versions (Antigravity 2.2; YoBiche's dipole).",
           "communities": [
             {
               "network": "Stack Exchange",
@@ -548,7 +548,7 @@
             ]
           },
           "question": "Do superpartners exist in nature?",
-          "source": "BRIEFING_QUANTACAPADES_TAXONOMY.md \u00a72.2.3 \u2014 Antigravity 2.3 (YoBiche did not cover this).",
+          "source": "BRIEFING_QUANTACAPADES_TAXONOMY.md §2.2.3 — Antigravity 2.3 (YoBiche did not cover this).",
           "communities": [
             {
               "network": "Stack Exchange",
@@ -600,7 +600,7 @@
             ]
           },
           "question": "Do quantum effects prevent gravitational singularities?",
-          "source": "BRIEFING_QUANTACAPADES_TAXONOMY.md \u00a72.2.4 \u2014 Antigravity 2.4 (YoBiche did not cover this).",
+          "source": "BRIEFING_QUANTACAPADES_TAXONOMY.md §2.2.4 — Antigravity 2.4 (YoBiche did not cover this).",
           "communities": [
             {
               "network": "Stack Exchange",
@@ -639,7 +639,7 @@
             "poles": [
               {
                 "label": "GUT",
-                "text": "Pursue grand unification \u2014 the strong, weak, and electromagnetic forces unify at high energy; find the single gauge group."
+                "text": "Pursue grand unification — the strong, weak, and electromagnetic forces unify at high energy; find the single gauge group."
               },
               {
                 "label": "EFT now, GUT as horizon",
@@ -647,12 +647,12 @@
               },
               {
                 "label": "EFT",
-                "text": "Work with effective field theories \u2014 each energy scale has its own theory, and that is fine; unification is a mirage."
+                "text": "Work with effective field theories — each energy scale has its own theory, and that is fine; unification is a mirage."
               }
             ]
           },
           "question": "Do you chase unification, or work scale by scale?",
-          "source": "BRIEFING_QUANTACAPADES_TAXONOMY.md \u00a72.2.5 \u2014 YoBiche (Antigravity did not cover this as a separate topic; her 6.2 is the companion TOE vs. EFT topic).",
+          "source": "BRIEFING_QUANTACAPADES_TAXONOMY.md §2.2.5 — YoBiche (Antigravity did not cover this as a separate topic; her 6.2 is the companion TOE vs. EFT topic).",
           "communities": [
             {
               "network": "Stack Exchange",
@@ -704,7 +704,7 @@
             ]
           },
           "question": "Is a final Theory of Everything achievable?",
-          "source": "BRIEFING_QUANTACAPADES_TAXONOMY.md \u00a72.2.6 \u2014 Antigravity 6.2 (YoBiche's 2.5 is the companion GUT vs. EFT topic \u2014 GUT unifies three forces, TOE unifies all four; a person can believe in one and not the other).",
+          "source": "BRIEFING_QUANTACAPADES_TAXONOMY.md §2.2.6 — Antigravity 6.2 (YoBiche's 2.5 is the companion GUT vs. EFT topic — GUT unifies three forces, TOE unifies all four; a person can believe in one and not the other).",
           "communities": [
             {
               "network": "Stack Exchange",
@@ -746,7 +746,7 @@
           "widget": "triangle",
           "archetype": null,
           "hovertip": {
-            "issue": "How did the universe begin \u2014 or did it?",
+            "issue": "How did the universe begin — or did it?",
             "poles": [
               {
                 "label": "Big Bang",
@@ -762,8 +762,8 @@
               }
             ]
           },
-          "question": "How did the universe begin \u2014 or did it?",
-          "source": "BRIEFING_QUANTACAPADES_TAXONOMY.md \u00a72.3.1 \u2014 YoBiche (Antigravity did not cover this).",
+          "question": "How did the universe begin — or did it?",
+          "source": "BRIEFING_QUANTACAPADES_TAXONOMY.md §2.3.1 — YoBiche (Antigravity did not cover this).",
           "communities": [
             {
               "network": "Stack Exchange",
@@ -815,7 +815,7 @@
             ]
           },
           "question": "Is dark matter missing mass or missing gravity?",
-          "source": "BRIEFING_QUANTACAPADES_TAXONOMY.md \u00a72.3.2 \u2014 Both versions (Antigravity 3.4; YoBiche's dipole).",
+          "source": "BRIEFING_QUANTACAPADES_TAXONOMY.md §2.3.2 — Both versions (Antigravity 3.4; YoBiche's dipole).",
           "communities": [
             {
               "network": "Stack Exchange",
@@ -854,7 +854,7 @@
             "poles": [
               {
                 "label": "Constant",
-                "text": "Dark energy is the cosmological constant $\\Lambda$ \u2014 a fixed energy density of empty space, unchanging through cosmic time."
+                "text": "Dark energy is the cosmological constant $\\Lambda$ — a fixed energy density of empty space, unchanging through cosmic time."
               },
               {
                 "label": "Slowly dynamical",
@@ -867,7 +867,7 @@
             ]
           },
           "question": "Is dark energy a constant of nature or a changing field?",
-          "source": "BRIEFING_QUANTACAPADES_TAXONOMY.md \u00a72.3.3 \u2014 YoBiche (Antigravity did not cover this; her 3.3 is the companion question of why $\\Lambda$ has its value).",
+          "source": "BRIEFING_QUANTACAPADES_TAXONOMY.md §2.3.3 — YoBiche (Antigravity did not cover this; her 3.3 is the companion question of why $\\Lambda$ has its value).",
           "communities": [
             {
               "network": "Stack Exchange",
@@ -919,7 +919,7 @@
             ]
           },
           "question": "What explains the cosmological constant?",
-          "source": "BRIEFING_QUANTACAPADES_TAXONOMY.md \u00a72.3.4 \u2014 Antigravity 3.3 (YoBiche did not cover this).",
+          "source": "BRIEFING_QUANTACAPADES_TAXONOMY.md §2.3.4 — Antigravity 3.3 (YoBiche did not cover this).",
           "communities": [
             {
               "network": "Stack Exchange",
@@ -958,7 +958,7 @@
             "poles": [
               {
                 "label": "Multiverse",
-                "text": "Other universes exist \u2014 eternal inflation, string landscape, many-worlds; our universe is one of many."
+                "text": "Other universes exist — eternal inflation, string landscape, many-worlds; our universe is one of many."
               },
               {
                 "label": "Undecided",
@@ -971,7 +971,7 @@
             ]
           },
           "question": "Are there other universes?",
-          "source": "BRIEFING_QUANTACAPADES_TAXONOMY.md \u00a72.3.5 \u2014 YoBiche (Antigravity did not cover this as a separate topic; the multiverse appears as a pole in her 3.3).",
+          "source": "BRIEFING_QUANTACAPADES_TAXONOMY.md §2.3.5 — YoBiche (Antigravity did not cover this as a separate topic; the multiverse appears as a pole in her 3.3).",
           "communities": [
             {
               "network": "Stack Exchange",
@@ -1023,7 +1023,7 @@
             ]
           },
           "question": "Why does time have a direction?",
-          "source": "BRIEFING_QUANTACAPADES_TAXONOMY.md \u00a72.3.6 \u2014 Antigravity 3.2 (YoBiche did not cover this).",
+          "source": "BRIEFING_QUANTACAPADES_TAXONOMY.md §2.3.6 — Antigravity 3.2 (YoBiche did not cover this).",
           "communities": [
             {
               "network": "Stack Exchange",
@@ -1075,7 +1075,7 @@
             ]
           },
           "question": "Does time flow, or is reality an unchanging 4D block?",
-          "source": "BRIEFING_QUANTACAPADES_TAXONOMY.md \u00a72.3.7 \u2014 Both versions (Antigravity 3.1; YoBiche's dipole).",
+          "source": "BRIEFING_QUANTACAPADES_TAXONOMY.md §2.3.7 — Both versions (Antigravity 3.1; YoBiche's dipole).",
           "communities": [
             {
               "network": "Stack Exchange",
@@ -1134,7 +1134,7 @@
             ]
           },
           "question": "Where does fundamental physical reality live?",
-          "source": "BRIEFING_QUANTACAPADES_TAXONOMY.md \u00a72.4.1 \u2014 Antigravity 4.3 (YoBiche had this as a dipole \u2014 Reductionism vs. Emergence; the triad adds Duality).",
+          "source": "BRIEFING_QUANTACAPADES_TAXONOMY.md §2.4.1 — Antigravity 4.3 (YoBiche had this as a dipole — Reductionism vs. Emergence; the triad adds Duality).",
           "communities": [
             {
               "network": "Stack Exchange",
@@ -1173,7 +1173,7 @@
             "poles": [
               {
                 "label": "Fundamental (\"It from Bit\")",
-                "text": "Information is the basic stuff of reality; matter and spacetime emerge from it \u2014 Wheeler."
+                "text": "Information is the basic stuff of reality; matter and spacetime emerge from it — Wheeler."
               },
               {
                 "label": "Information as structure",
@@ -1186,7 +1186,7 @@
             ]
           },
           "question": "Is information the stuff of reality, or just a way of describing it?",
-          "source": "BRIEFING_QUANTACAPADES_TAXONOMY.md \u00a72.4.2 \u2014 YoBiche (Antigravity did not cover this).",
+          "source": "BRIEFING_QUANTACAPADES_TAXONOMY.md §2.4.2 — YoBiche (Antigravity did not cover this).",
           "communities": [
             {
               "network": "Stack Exchange",
@@ -1248,7 +1248,7 @@
             ]
           },
           "question": "Do physical theories describe reality, or just predict observations?",
-          "source": "BRIEFING_QUANTACAPADES_TAXONOMY.md \u00a72.4.3 \u2014 YoBiche (Antigravity did not cover this).",
+          "source": "BRIEFING_QUANTACAPADES_TAXONOMY.md §2.4.3 — YoBiche (Antigravity did not cover this).",
           "communities": [
             {
               "network": "Stack Exchange",
@@ -1267,7 +1267,7 @@
     {
       "id": "xquc05",
       "name": "Symmetry & Fine-Tuning",
-      "about": "Symmetry, naturalness, anthropic reasoning, and whether beauty should guide theory \u2014 plus the black hole information paradox.",
+      "about": "Symmetry, naturalness, anthropic reasoning, and whether beauty should guide theory — plus the black hole information paradox.",
       "topics": [
         {
           "id": "xqu0022",
@@ -1294,12 +1294,12 @@
               },
               {
                 "label": "Broken",
-                "text": "Symmetry breaking is where the physics lives; the interesting phenomena come from symmetries being broken \u2014 Higgs, spontaneous symmetry breaking."
+                "text": "Symmetry breaking is where the physics lives; the interesting phenomena come from symmetries being broken — Higgs, spontaneous symmetry breaking."
               }
             ]
           },
           "question": "Is symmetry the foundation, or is its breaking where the action is?",
-          "source": "BRIEFING_QUANTACAPADES_TAXONOMY.md \u00a72.5.1 \u2014 YoBiche (Antigravity did not cover this).",
+          "source": "BRIEFING_QUANTACAPADES_TAXONOMY.md §2.5.1 — YoBiche (Antigravity did not cover this).",
           "communities": [
             {
               "network": "Stack Exchange",
@@ -1351,7 +1351,7 @@
             ]
           },
           "question": "Is fine-tuning a crisis or a fact of nature?",
-          "source": "BRIEFING_QUANTACAPADES_TAXONOMY.md \u00a72.5.2 \u2014 Both versions (Antigravity 4.2; YoBiche's dipole).",
+          "source": "BRIEFING_QUANTACAPADES_TAXONOMY.md §2.5.2 — Both versions (Antigravity 4.2; YoBiche's dipole).",
           "communities": [
             {
               "network": "Stack Exchange",
@@ -1390,7 +1390,7 @@
             "poles": [
               {
                 "label": "Accept",
-                "text": "Anthropic reasoning is legitimate \u2014 we observe a universe compatible with our existence, and that constrains the parameters."
+                "text": "Anthropic reasoning is legitimate — we observe a universe compatible with our existence, and that constrains the parameters."
               },
               {
                 "label": "Weak anthropic only",
@@ -1398,12 +1398,12 @@
               },
               {
                 "label": "Reject",
-                "text": "Anthropic reasoning is a cop-out \u2014 it explains nothing and can't be tested; it is giving up on finding the real mechanism."
+                "text": "Anthropic reasoning is a cop-out — it explains nothing and can't be tested; it is giving up on finding the real mechanism."
               }
             ]
           },
           "question": "Is anthropic reasoning legitimate physics?",
-          "source": "BRIEFING_QUANTACAPADES_TAXONOMY.md \u00a72.5.3 \u2014 YoBiche (Antigravity did not cover this as a separate topic; the anthropic multiverse appears as a pole in her 3.4).",
+          "source": "BRIEFING_QUANTACAPADES_TAXONOMY.md §2.5.3 — YoBiche (Antigravity did not cover this as a separate topic; the anthropic multiverse appears as a pole in her 3.4).",
           "communities": [
             {
               "network": "Stack Exchange",
@@ -1447,7 +1447,7 @@
             ]
           },
           "question": "Should beauty or falsifiability guide theoretical physics?",
-          "source": "BRIEFING_QUANTACAPADES_TAXONOMY.md \u00a72.5.4 \u2014 Merged (Antigravity 4.1 framed it as Beauty vs. Falsifiability; YoBiche as Trust vs. Distrust of beauty \u2014 the same axis, both framings kept).",
+          "source": "BRIEFING_QUANTACAPADES_TAXONOMY.md §2.5.4 — Merged (Antigravity 4.1 framed it as Beauty vs. Falsifiability; YoBiche as Trust vs. Distrust of beauty — the same axis, both framings kept).",
           "communities": [
             {
               "network": "Stack Exchange",
@@ -1499,7 +1499,7 @@
             ]
           },
           "question": "What is the fate of black hole information?",
-          "source": "BRIEFING_QUANTACAPADES_TAXONOMY.md \u00a72.5.5 \u2014 Antigravity 5.1 (YoBiche did not cover this).",
+          "source": "BRIEFING_QUANTACAPADES_TAXONOMY.md §2.5.5 — Antigravity 5.1 (YoBiche did not cover this).",
           "communities": [
             {
               "network": "Stack Exchange",
@@ -1560,7 +1560,7 @@
             ]
           },
           "question": "How do you derive physical truth?",
-          "source": "BRIEFING_QUANTACAPADES_TAXONOMY.md \u00a72.6.1 \u2014 Antigravity 6.1 (YoBiche did not cover this)."
+          "source": "BRIEFING_QUANTACAPADES_TAXONOMY.md §2.6.1 — Antigravity 6.1 (YoBiche did not cover this)."
         },
         {
           "id": "xqu0028",
@@ -1587,7 +1587,7 @@
             "poles": [
               {
                 "label": "Discovered",
-                "text": "Mathematics is out there, we find it \u2014 the laws of physics are written in the language of mathematics because math is real."
+                "text": "Mathematics is out there, we find it — the laws of physics are written in the language of mathematics because math is real."
               },
               {
                 "label": "Invented, then discovered",
@@ -1595,12 +1595,12 @@
               },
               {
                 "label": "Invented",
-                "text": "Mathematics is a human construction \u2014 a tool we built, and its fit to physics is something we engineered."
+                "text": "Mathematics is a human construction — a tool we built, and its fit to physics is something we engineered."
               }
             ]
           },
           "question": "Is mathematics discovered or invented?",
-          "source": "BRIEFING_QUANTACAPADES_TAXONOMY.md \u00a72.6.2 \u2014 YoBiche (Antigravity did not cover this).",
+          "source": "BRIEFING_QUANTACAPADES_TAXONOMY.md §2.6.2 — YoBiche (Antigravity did not cover this).",
           "communities": [
             {
               "network": "Stack Exchange",
@@ -1639,7 +1639,7 @@
             "poles": [
               {
                 "label": "Theory",
-                "text": "Work on the deep structure \u2014 the fundamental laws, the mathematical framework."
+                "text": "Work on the deep structure — the fundamental laws, the mathematical framework."
               },
               {
                 "label": "Theory at the phenomena",
@@ -1647,12 +1647,12 @@
               },
               {
                 "label": "Phenomenology",
-                "text": "Work on the phenomena \u2014 fit the data, build models that predict what experiments will see."
+                "text": "Work on the phenomena — fit the data, build models that predict what experiments will see."
               }
             ]
           },
           "question": "Do you work on the theory or the phenomena?",
-          "source": "BRIEFING_QUANTACAPADES_TAXONOMY.md \u00a72.6.3 \u2014 YoBiche (Antigravity did not cover this)."
+          "source": "BRIEFING_QUANTACAPADES_TAXONOMY.md §2.6.3 — YoBiche (Antigravity did not cover this)."
         },
         {
           "id": "xqu0030",
@@ -1679,7 +1679,7 @@
             "poles": [
               {
                 "label": "Solitude",
-                "text": "The lone theorist \u2014 pen, blackboard, long walks, thinking alone."
+                "text": "The lone theorist — pen, blackboard, long walks, thinking alone."
               },
               {
                 "label": "Solo stretches in a team",
@@ -1687,12 +1687,12 @@
               },
               {
                 "label": "Collaboration",
-                "text": "The seminar, the co-author, the group \u2014 physics is done together."
+                "text": "The seminar, the co-author, the group — physics is done together."
               }
             ]
           },
           "question": "Do you think alone or together?",
-          "source": "BRIEFING_QUANTACAPADES_TAXONOMY.md \u00a72.6.4 \u2014 YoBiche (Antigravity did not cover this)."
+          "source": "BRIEFING_QUANTACAPADES_TAXONOMY.md §2.6.4 — YoBiche (Antigravity did not cover this)."
         }
       ]
     }
@@ -3690,10 +3690,10 @@
     "quanta-copenhagen": {
       "name": "Copenhagen interpretation",
       "count": 25,
-      "about": "The Copenhagen interpretation, associated with Bohr and Heisenberg, holds that the wavefunction is a complete description of a quantum system and that measurement collapses it to a single outcome, with probabilities given by the Born rule. It treats complementary descriptions \u2014 wave and particle, position and momentum \u2014 as both needed and mutually exclusive.",
+      "about": "The Copenhagen interpretation, associated with Bohr and Heisenberg, holds that the wavefunction is a complete description of a quantum system and that measurement collapses it to a single outcome, with probabilities given by the Born rule. It treats complementary descriptions — wave and particle, position and momentum — as both needed and mutually exclusive.",
       "links": [
         {
-          "label": "Stanford Encyclopedia of Philosophy \u2014 The Copenhagen Interpretation of Quantum Mechanics",
+          "label": "Stanford Encyclopedia of Philosophy — The Copenhagen Interpretation of Quantum Mechanics",
           "url": "https://plato.stanford.edu/entries/qm-copenhagen/"
         }
       ],
@@ -3829,8 +3829,11 @@
             "invented": 20,
             "invented-then-discovered": 60
           }
-        }
-      }
+        },
+        "skin": "quantacapades"
+      },
+      "skin": "quantacapades",
+      "kind": "sample"
     },
     "quanta-many-worlds": {
       "name": "Many-Worlds interpretation",
@@ -3838,7 +3841,7 @@
       "about": "The Many-Worlds interpretation, due to Hugh Everett, holds that the wavefunction never collapses: every possible outcome of a measurement actually happens, each in its own branching world. What looks like a random single outcome is just the branch of reality that this observer happens to be in.",
       "links": [
         {
-          "label": "Stanford Encyclopedia of Philosophy \u2014 Everett's Relative-State Formulation of Quantum Mechanics",
+          "label": "Stanford Encyclopedia of Philosophy — Everett's Relative-State Formulation of Quantum Mechanics",
           "url": "https://plato.stanford.edu/entries/qm-manyworlds/"
         }
       ],
@@ -3974,16 +3977,19 @@
             "invented": -30,
             "invented-then-discovered": 20
           }
-        }
-      }
+        },
+        "skin": "quantacapades"
+      },
+      "skin": "quantacapades",
+      "kind": "sample"
     },
     "quanta-bohm": {
       "name": "De Broglie-Bohm interpretation",
       "count": 25,
-      "about": "The De Broglie\u2013Bohm (pilot-wave) interpretation holds that particles always have definite positions, guided by a wavefunction that acts as a pilot wave. It is fully deterministic \u2014 randomness comes only from ignorance of the initial positions \u2014 at the price of explicit nonlocality, with distant particles influencing each other instantly.",
+      "about": "The De Broglie–Bohm (pilot-wave) interpretation holds that particles always have definite positions, guided by a wavefunction that acts as a pilot wave. It is fully deterministic — randomness comes only from ignorance of the initial positions — at the price of explicit nonlocality, with distant particles influencing each other instantly.",
       "links": [
         {
-          "label": "Stanford Encyclopedia of Philosophy \u2014 Bohmian Mechanics",
+          "label": "Stanford Encyclopedia of Philosophy — Bohmian Mechanics",
           "url": "https://plato.stanford.edu/entries/qm-bohm/"
         }
       ],
@@ -4119,8 +4125,11 @@
             "invented": -10,
             "invented-then-discovered": 60
           }
-        }
-      }
+        },
+        "skin": "quantacapades"
+      },
+      "skin": "quantacapades",
+      "kind": "sample"
     },
     "quanta-qbism": {
       "name": "QBism",
@@ -4128,7 +4137,7 @@
       "about": "QBism (Quantum Bayesianism) holds that a quantum state is not a property of the world but an agent's personal degrees of belief about the outcomes of their future actions on the world. Probabilities are subjective and Bayesian; measurement is an agent acting and experiencing a result, not a physical collapse happening out there.",
       "links": [
         {
-          "label": "Stanford Encyclopedia of Philosophy \u2014 Quantum Bayesianism (QBism)",
+          "label": "Stanford Encyclopedia of Philosophy — Quantum Bayesianism (QBism)",
           "url": "https://plato.stanford.edu/entries/quantum-bayesian/"
         }
       ],
@@ -4264,8 +4273,11 @@
             "invented": 30,
             "invented-then-discovered": 50
           }
-        }
-      }
+        },
+        "skin": "quantacapades"
+      },
+      "skin": "quantacapades",
+      "kind": "sample"
     }
   }
 }

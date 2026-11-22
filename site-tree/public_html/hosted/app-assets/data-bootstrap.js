@@ -22160,6 +22160,2283 @@ function* sxRunNodeSettle(scCtx, blitSess) {
     sxUpdateOverlapLinks();
 }
 
+        /* --- Widget approachability: one shared pole-label system (T5/T6/T3/T7) ---
+           Every polygon widget except the triangle draws its pole names
+           the same way: rotated to the tangent of the circumscribing
+           circle at the vertex (tangent = vertex angle + 90°, normalised
+           to (-90, 90] so no label is ever upside-down), centred 13px out
+           from the vertex along the vertex direction, in one font (bold
+           9px system-ui). A long name slides along that tangent to stay
+           on the canvas; it steps inward only when the tangent cannot
+           save it. The triangle keeps horizontal labels outside its
+           vertices. Each drawn label is recorded on canvas.__sxLabelRects
+           (axis-aligned box + angle + pole key + full name) for the
+           canvas hover hit-test (seam B). */
+        const SX_POLE_LABEL_FONT = "bold 9px system-ui, sans-serif";
+        const SX_POLE_LABEL_OFFSET = 13;
+        function sxNormTangentDeg(deg) {
+            let d = deg;
+            while (d > 90) d -= 180;
+            while (d <= -90) d += 180;
+            return d;
+        }
+        function sxRecordPoleLabelRect(canvas, text, x, y, w, h, angleDeg, key, name, ax, ay, tw, th) {
+            if (!canvas || !text) return;
+            if (!canvas.__sxLabelRects) canvas.__sxLabelRects = [];
+            canvas.__sxLabelRects.push({
+                text: text,
+                name: name || text,
+                x: Math.round(x * 10) / 10,
+                y: Math.round(y * 10) / 10,
+                w: Math.round(w * 10) / 10,
+                h: Math.round(h * 10) / 10,
+                angle: Math.round(angleDeg * 10) / 10,
+                key: key || "",
+                /* Rotated hit-test frame: anchor + unrotated half-extents.
+                   The axis-aligned box above is the clamp/probe record; the
+                   hit test uses the true rotated shape so long steep labels
+                   don't claim the whole canvas. Defaults = the box itself. */
+                ax: (ax !== undefined ? Math.round(ax * 10) / 10 : Math.round((x + w / 2) * 10) / 10),
+                ay: (ay !== undefined ? Math.round(ay * 10) / 10 : Math.round((y + h / 2) * 10) / 10),
+                tw: (tw !== undefined ? Math.round(tw * 10) / 10 : Math.round(w * 10) / 10),
+                th: (th !== undefined ? Math.round(th * 10) / 10 : Math.round(h * 10) / 10)
+            });
+        }
+        function sxDrawPoleLabelAt(ctx, canvas, ax, ay, angleDeg, text, color, key, name, radialRad, maxWidth) {
+            if (!ctx || !canvas || !text) return;
+            const W = canvas.width, H = canvas.height;
+            const theta = (angleDeg * Math.PI) / 180;
+            ctx.save();
+            ctx.font = SX_POLE_LABEL_FONT;
+            ctx.textAlign = "center";
+            ctx.textBaseline = "middle";
+            // A name longer than the gap to the next pole wraps, and the
+            // extra lines stack outward so they stay on their own slot.
+            let lines = [text];
+            if (maxWidth > 0 && ctx.measureText(text).width > maxWidth) lines = sxWrapPoleLines(ctx, text, maxWidth);
+            // Hot List only: the pole's number is the last line of the
+            // same rotated label, so it sits under the name. A canvas
+            // without the map (placard, popup) draws the name alone.
+            const sxNum = canvas.__sxPoleValMap && key != null ? canvas.__sxPoleValMap[key] : null;
+            if (sxNum) lines.push(String(sxNum));
+            const lineH = 11;
+            const tw = Math.max.apply(null, lines.map(l => ctx.measureText(l).width).concat([1]));
+            const th = lines.length * lineH;
+            if (lines.length > 1 && typeof radialRad === "number") {
+                const extra = (lines.length - 1) * lineH / 2;
+                ax += Math.cos(radialRad) * extra;
+                ay += Math.sin(radialRad) * extra;
+            }
+            const c = Math.abs(Math.cos(theta)), s = Math.abs(Math.sin(theta));
+            const bw = tw * c + th * s, bh = tw * s + th * c;
+            const pad = 2;
+            if (typeof radialRad === "number") {
+                // Stay on the circumcircle. Slide along the tangent first
+                // so a long name moves sideways around the rim. Only the
+                // leftover, the part the tangent cannot fix, steps inward.
+                const ux = Math.cos(radialRad), uy = Math.sin(radialRad);
+                const tx = -uy, ty = ux;
+                const overflow = (x, y) => ({
+                    dx: x < bw / 2 + pad ? bw / 2 + pad - x : x > W - bw / 2 - pad ? W - bw / 2 - pad - x : 0,
+                    dy: y < bh / 2 + pad ? bh / 2 + pad - y : y > H - bh / 2 - pad ? H - bh / 2 - pad - y : 0
+                });
+                let corr = overflow(ax, ay);
+                const slide = corr.dx * tx + corr.dy * ty;
+                ax += tx * slide;
+                ay += ty * slide;
+                corr = overflow(ax, ay);
+                const inward = corr.dx * ux + corr.dy * uy;
+                if (inward < 0) { ax += ux * inward; ay += uy * inward; }
+                corr = overflow(ax, ay);
+                ax += corr.dx;
+                ay += corr.dy;
+            } else {
+                ax = Math.max(bw / 2 + pad, Math.min(W - bw / 2 - pad, ax));
+                ay = Math.max(bh / 2 + pad, Math.min(H - bh / 2 - pad, ay));
+            }
+            ctx.translate(ax, ay);
+            ctx.rotate(theta);
+            ctx.fillStyle = color;
+            // Line 0 sits at the top of the rotated text, so the name
+            // reads in order. The block center was already shifted outward.
+            lines.forEach((ln, i) => {
+                ctx.fillText(ln, 0, (i - (lines.length - 1) / 2) * lineH);
+            });
+            ctx.restore();
+            sxRecordPoleLabelRect(canvas, lines.join(" "), ax - bw / 2, ay - bh / 2, bw, bh, angleDeg, key, name, ax, ay, tw, th);
+        }
+        function sxDrawPoleLabel(ctx, canvas, vx, vy, angleRad, text, color, key, name, nPoles, radius) {
+            if (!ctx || !canvas || !text) return;
+            const tangentDeg = sxNormTangentDeg((angleRad * 180) / Math.PI + 90);
+            const dx = Math.cos(angleRad), dy = Math.sin(angleRad);
+            const labelR = (Number(radius) || 0) + SX_POLE_LABEL_OFFSET;
+            const slot = nPoles >= 3 && labelR > 0 ? Math.max(36, labelR * 2 * Math.PI / nPoles * 0.82) : 0;
+            sxDrawPoleLabelAt(ctx, canvas, vx + dx * SX_POLE_LABEL_OFFSET, vy + dy * SX_POLE_LABEL_OFFSET, tangentDeg, text, color, key, name || text, angleRad, slot);
+        }
+        function sxPoleLabels(shape, n) {
+            // Label, else pole key, else "" — never a "Pole N" fallback (T7).
+            const out = [];
+            for (let k = 0; k < n; k++) {
+                out.push((shape && shape.labels && shape.labels[k]) || (shape && shape.keys && shape.keys[k]) || "");
+            }
+            return out;
+        }
+        function sxShortAxisWord(label) {
+            // "X-Axis (Give / Electron-Pair Donor)" -> "X-Axis"; a plain
+            // verb like "overpower" passes through unchanged (T4/T2).
+            const s = String(label || "");
+            if (!s) return "";
+            const cut = s.indexOf(" (");
+            return (cut >= 0 ? s.slice(0, cut) : s).trim();
+        }
+        function sxShortRoleWord(label, fallback) {
+            // Parenthetical last word: "X-Axis (Give / Electron-Pair
+            // Donor)" -> "Donor"; plain "Give"/"Receive" -> "Giver"/"Receiver".
+            const s = String(label || "");
+            if (!s) return fallback;
+            const m = /\(([^)]*)\)\s*$/.exec(s);
+            const inner = m ? m[1] : s;
+            const parts = inner.split("/").map(x => x.trim()).filter(Boolean);
+            const last = parts.length ? parts[parts.length - 1] : inner;
+            const words = last.split(/\s+/).filter(Boolean);
+            const w = words.length ? words[words.length - 1] : fallback;
+            if (/^give$/i.test(w)) return "Giver";
+            if (/^receive$/i.test(w)) return "Receiver";
+            return w;
+        }
+        function sxSwitchboxRoleWords(topicId) {
+            // Short role words from the topic's own labels; the classic
+            // Sexcapades names apply only on the Sexcapades skin (T2).
+            const classic = !window.__SX_ACTIVE_SKIN || window.__SX_ACTIVE_SKIN === "sexcapades";
+            let g = "Giver", r = "Receiver";
+            if (topicId && typeof Ge === "function") {
+                const shape = Ge(topicId);
+                if (shape && shape.labels) {
+                    if (shape.labels[0]) g = sxShortRoleWord(shape.labels[0], "Giver");
+                    if (shape.labels[1]) r = sxShortRoleWord(shape.labels[1], "Receiver");
+                }
+            }
+            return { g: g, r: r, classic: classic };
+        }
+        function sxSetSwitchboxQuadrants(topicId) {
+            const words = sxSwitchboxRoleWords(topicId);
+            const names = words.classic
+                ? { tl: "Bottom / Receiver", tr: "Versatile Switch", bl: "Hard Red Limit", br: "Top / Giver" }
+                : { tl: words.r + " only", tr: "Both " + words.g + " + " + words.r, bl: "Neither (limit)", br: words.g + " only" };
+            const set = (cls, text) => {
+                const el = document.querySelector("#markSwitchboxWrap " + cls + " .mark-quad-name");
+                if (el) el.textContent = text;
+            };
+            set(".mark-quad-tl", names.tl);
+            set(".mark-quad-tr", names.tr);
+            set(".mark-quad-bl", names.bl);
+            set(".mark-quad-br", names.br);
+        }
+        function sxPoleLine(topicId, key) {
+            // One pole's "Label — text" line. Skin-registered topics come
+            // first (loader); Sexcapades give/receive uses the custom
+            // wording where it exists (Ge labels are the topic's own verbs,
+            // e.g. "overpower" / "be overpowered"), else the ruled
+            // "Give — <topic> / Receive — <topic>" form (Q2).
+            if (!topicId || !key) return null;
+            if (typeof window.__SX_POLE_LINE_FOR === "function") {
+                const line = window.__SX_POLE_LINE_FOR(topicId, key);
+                if (line) return line;
+            }
+            if (typeof Ge === "function") {
+                const shape = Ge(topicId);
+                if (key === "give" || key === "receive") {
+                    const idx = key === "give" ? 0 : 1;
+                    const verb = shape && shape.labels && shape.labels[idx];
+                    if (verb && verb !== "give" && verb !== "receive") return (key === "give" ? "Give — " : "Receive — ") + verb;
+                    let name = "";
+                    const rec = (typeof qn !== "undefined" && qn[topicId]) || null;
+                    if (rec) name = rec.label || rec.name || "";
+                    if (!name) {
+                        const t = e.byId("markMenuTitle");
+                        if (t) name = t.textContent.replace(/\s*\(tray\)\s*$/i, "").replace(/\s*\([^)]*\)\s*$/, "").trim();
+                    }
+                    return (key === "give" ? "Give — " : "Receive — ") + (name || topicId);
+                }
+                if (shape && shape.keys && shape.labels) {
+                    const idx = shape.keys.indexOf(key);
+                    if (idx !== -1 && shape.labels[idx]) return shape.labels[idx];
+                    if (shape.poleKeys) {
+                        const pIdx = shape.poleKeys.indexOf(key);
+                        if (pIdx !== -1 && shape.labels[pIdx]) return shape.labels[pIdx];
+                    }
+                }
+            }
+            return null;
+        }
+        function sxSetPoleTip(el, topicId, key) {
+            if (!el) return;
+            const line = sxPoleLine(topicId, key);
+            if (line) {
+                el.setAttribute("data-ui-tooltip", line);
+                const sep = line.indexOf(" — ");
+                const name = sep !== -1 ? line.slice(0, sep).trim() : (el.textContent?.trim() || key);
+                const def = sep !== -1 ? line.slice(sep + 3).trim() : line;
+                el.setAttribute("data-tooltip-name", name);
+                el.setAttribute("data-tooltip-definition", def);
+                el.setAttribute("data-tooltip-tap-first", "");
+                el.dataset.ratingTooltip = line;
+            } else {
+                el.removeAttribute("data-ui-tooltip");
+                el.removeAttribute("data-tooltip-name");
+                el.removeAttribute("data-tooltip-definition");
+                el.removeAttribute("data-tooltip-tap-first");
+                delete el.dataset.ratingTooltip;
+            }
+        }
+        function sxSetMeterLine(wrap, topicId) {
+            // T9: label the intensity slider with the metered word, from
+            // the skin JSON (per-skin default word, per-topic override).
+            // Suppress the redundant "What this measures: ..." line.
+            if (!wrap) return;
+            const existingLine = wrap.querySelector(":scope > .sx-meter-line");
+            if (existingLine) existingLine.remove();
+
+            const word = (typeof window.__SX_METER_FOR_TOPIC === "function") ? window.__SX_METER_FOR_TOPIC(topicId) : null;
+            const labelText = word ? (word.charAt(0).toUpperCase() + word.slice(1)) : "Intensity";
+
+            // Update any slider label in this wrap or the dialog stage
+            const labels = wrap.querySelectorAll(".mark-tri-slider-label");
+            labels.forEach(l => { l.textContent = labelText; });
+            const directLabel = wrap.querySelector(".mark-tri-slider-label");
+            if (!directLabel) {
+                // If wrap is parent container or dialog, search within it
+                const stageLabels = document.querySelectorAll("#hotListWidgetDialog .mark-tri-slider-label, #markMenu .mark-tri-slider-label");
+                stageLabels.forEach(l => {
+                    if (wrap.contains(l)) l.textContent = labelText;
+                });
+            }
+        }
+        function sxHitPoleLabel(canvas, evt) {
+            const rects = canvas.__sxLabelRects;
+            if (!rects || !rects.length) return null;
+            const rect = canvas.getBoundingClientRect();
+            const px = (evt.clientX - rect.left) * (canvas.width / rect.width);
+            const py = (evt.clientY - rect.top) * (canvas.height / rect.height);
+            for (let i = 0; i < rects.length; i++) {
+                const r = rects[i];
+                if (!Number.isFinite(r.ax) || !Number.isFinite(r.ay) || !Number.isFinite(r.tw) || !Number.isFinite(r.th)) continue;
+                // Point in the label's own (rotated) frame: rotate the
+                // offset by -angle, then test against the unrotated box.
+                const theta = ((r.angle || 0) * Math.PI) / 180;
+                const dx = px - r.ax, dy = py - r.ay;
+                const c = Math.cos(-theta), s = Math.sin(-theta);
+                const lx = dx * c - dy * s, ly = dx * s + dy * c;
+                if (Math.abs(lx) <= r.tw / 2 + 2 && Math.abs(ly) <= r.th / 2 + 2) return r;
+            }
+            return null;
+        }
+        function sxBindPoleHover(canvas, getDragging) {
+            // Seam B: hovering a canvas pole label shows that pole's line;
+            // hovering empty canvas shows nothing. Skipped while dragging.
+            if (!canvas || canvas.dataset.poleHoverBound) return;
+            canvas.dataset.poleHoverBound = "1";
+            canvas.addEventListener("pointermove", (evt) => {
+                if ((getDragging && getDragging()) || typeof window.__SX_TIP_SHOW !== "function") return;
+                const hit = sxHitPoleLabel(canvas, evt);
+                if (!hit) {
+                    if (typeof window.__SX_TIP_HIDE === "function") window.__SX_TIP_HIDE();
+                    return;
+                }
+                // The popup canvas carries its own hover topic (set fresh
+                // on every open); placard canvases never set it and keep
+                // resolving via Qr, the placard's current topic.
+                const line = sxPoleLine(canvas.__sxHoverTopicId || Qr, hit.key);
+                if (line) window.__SX_TIP_SHOW(canvas, hit.name || hit.text, line, evt.clientX, evt.clientY);
+                else if (typeof window.__SX_TIP_HIDE === "function") window.__SX_TIP_HIDE();
+            });
+            canvas.addEventListener("pointerleave", () => {
+                if (typeof window.__SX_TIP_HIDE === "function") window.__SX_TIP_HIDE();
+            });
+        }
+
+        function sxGetTriVertices(width, height) {
+            // Pole 0 (Red, bottom-left), Pole 1 (Green, top center / middle position), Pole 2 (Blue, bottom-right)
+            // Label margins (2026-11-18, placard triad fix): the triangle
+            // sits INSIDE the canvas with room left OUTSIDE it for
+            // horizontal pole labels — a band above the top vertex and a
+            // two-line band below the base — so no label ever runs
+            // diagonally along an edge, cramped against the fill.
+            // Regular N-gon ruling (2026-11-19): the triangle is
+            // EQUILATERAL — one uniform scale on both axes, the same
+            // discipline the tetrad/radar widgets get from their circle
+            // geometry. (The old fractional-x vertices made a tall
+            // isosceles: on the 240px popup canvas the sides measured
+            // 167px against a 110px base.) The side is set by whichever
+            // of the label-banded height or the canvas width runs out
+            // first, and the triangle is centred in what remains.
+            const top = 36, bottom = 46, sidePad = 16;
+            const availH = Math.max(0, height - top - bottom);
+            let side = availH * 2 / Math.sqrt(3);
+            const maxSide = Math.max(0, width - 2 * sidePad);
+            if (side > maxSide) side = maxSide;
+            const triH = side * Math.sqrt(3) / 2;
+            const apexY = top + (availH - triH) / 2;
+            const baseY = apexY + triH;
+            const cx = width / 2, half = side / 2;
+            return {
+                V0: { x: cx - half, y: baseY },
+                V1: { x: cx, y: apexY },
+                V2: { x: cx + half, y: baseY }
+            };
+        }
+
+        function sxPointToBarycentric(px, py, V0, V1, V2) {
+            const det = (V1.y - V2.y) * (V0.x - V2.x) + (V2.x - V1.x) * (V0.y - V2.y);
+            if (Math.abs(det) < 1e-5) return { w0: 1 / 3, w1: 1 / 3, w2: 1 / 3 };
+            let w0 = ((V1.y - V2.y) * (px - V2.x) + (V2.x - V1.x) * (py - V2.y)) / det;
+            let w1 = ((V2.y - V0.y) * (px - V2.x) + (V0.x - V2.x) * (py - V2.y)) / det;
+            let w2 = 1 - w0 - w1;
+            w0 = Math.max(0, w0);
+            w1 = Math.max(0, w1);
+            w2 = Math.max(0, w2);
+            const sum = w0 + w1 + w2;
+            if (sum > 0) {
+                w0 /= sum;
+                w1 /= sum;
+                w2 /= sum;
+            } else {
+                w0 = 1 / 3; w1 = 1 / 3; w2 = 1 / 3;
+            }
+            return { w0, w1, w2 };
+        }
+
+        function sxWrapPoleLines(ctx, text, maxWidth) {
+            // Break on spaces only. A single long word stays whole so a
+            // name is never cut mid-letter just to fit the slot.
+            const words = String(text || "").split(/\s+/).filter(Boolean);
+            if (!words.length) return [""];
+            if (ctx.measureText(words.join(" ")).width <= maxWidth) return [words.join(" ")];
+            const lines = [];
+            let cur = "";
+            words.forEach(w => {
+                const trial = cur ? cur + " " + w : w;
+                if (ctx.measureText(trial).width <= maxWidth || !cur) cur = trial;
+                else { lines.push(cur); cur = w; }
+            });
+            if (cur) lines.push(cur);
+            return lines;
+        }
+        function sxWrapLabelLines(ctx, text, maxWidth) {
+            // Greedy word wrap at the shared pole-label font; a single
+            // over-long word is hard-split so it can never overflow.
+            const words = String(text || "").split(/\s+/).filter(Boolean);
+            const lines = [];
+            let cur = "";
+            const pushWord = (w) => {
+                while (ctx.measureText(w).width > maxWidth && w.length > 1) {
+                    let cut = 1;
+                    while (cut < w.length && ctx.measureText(w.slice(0, cut + 1)).width <= maxWidth) cut++;
+                    lines.push(w.slice(0, cut));
+                    w = w.slice(cut);
+                }
+                if (w) {
+                    const trial = cur ? cur + " " + w : w;
+                    if (ctx.measureText(trial).width <= maxWidth || !cur) cur = trial;
+                    else { lines.push(cur); cur = w; }
+                }
+            };
+            words.forEach(pushWord);
+            if (cur) lines.push(cur);
+            return lines.length ? lines : [""];
+        }
+        function sxDrawTriPoleLabel(ctx, canvas, cx, cy, text, color, key, maxWidth, above) {
+            // Horizontal exterior triad label (2026-11-18): never rotated,
+            // never along an edge. `above` stacks the wrapped block so it
+            // ends just above the vertex; otherwise it starts just below
+            // it. The block is centred on the vertex x, clamped to its
+            // own half of the canvas, and recorded as one axis-aligned
+            // rect (angle 0) for the hover hit-test.
+            if (!ctx || !canvas || !text) return;
+            ctx.save();
+            ctx.font = SX_POLE_LABEL_FONT;
+            ctx.textAlign = "center";
+            ctx.textBaseline = "middle";
+            const lines = sxWrapLabelLines(ctx, text, Math.max(30, maxWidth));
+            const sxNum = canvas.__sxPoleValMap && key != null ? canvas.__sxPoleValMap[key] : null;
+            if (sxNum) lines.push(String(sxNum));
+            const lineH = 11;
+            const blockW = Math.max.apply(null, lines.map(l => ctx.measureText(l).width).concat([1]));
+            const half = blockW / 2;
+            const ccx = Math.max(half + 3, Math.min(canvas.width - half - 3, cx));
+            const blockH = lines.length * lineH;
+            const topY = above ? (cy - 14 - blockH) : (cy + 14);
+            ctx.fillStyle = color;
+            lines.forEach((ln, i) => {
+                ctx.fillText(ln, ccx, topY + i * lineH + lineH / 2);
+            });
+            ctx.restore();
+            sxRecordPoleLabelRect(canvas, lines.join(" "), ccx - half, topY, blockW, blockH, 0, key, text, ccx, topY + blockH / 2, blockW, blockH);
+        }
+
+
+        // Signed-intensity model (2026-11-19, Jason's ruling): for the
+        // radar/tetrad families the intensity of a pole vector is its
+        // strongest value WITH its sign — negative intensity is aversion
+        // to the topic as a whole, while the proportions (each value over
+        // the signed intensity) describe the blend. Draws render the
+        // proportions at the widget's fixed frame, so sweeping intensity
+        // rescales the stored numbers without moving the shape.
+        function sxSignedIntensity(vals) {
+            let best = 0;
+            for (let i = 0; i < vals.length; i++) {
+                const v = Number(vals[i]) || 0;
+                if (Math.abs(v) > Math.abs(best)) best = v;
+            }
+            return best;
+        }
+        // Triad intensity, matching the placard's derivation: the sign of
+        // the sum carried on the magnitude of the absolute sum, so a
+        // mixed-sign vector keeps its magnitude when the sum cancels.
+        function sxTriSignedIntensity(vals) {
+            let sum = 0, sumAbs = 0;
+            for (let i = 0; i < vals.length; i++) {
+                const v = Number(vals[i]) || 0;
+                sum += v; sumAbs += Math.abs(v);
+            }
+            if (!sumAbs) return 0;
+            return sum < 0 ? -sumAbs : sumAbs;
+        }
+        // (n+1) intensity (Jason, 2026-11-19). The pole numbers are the
+        // leanings. `intensity` on the rating object is the extra number:
+        // relevance, signed, negative meaning aversion to the topic as a
+        // whole. Missing on old ratings: seed it from today's derivation
+        // (compass = sum, triad = signed absolute sum, radar = signed
+        // strongest) so the slider still reads the number it read before.
+        // The slider writes only this field. Scoring reads this number
+        // as relevance and does not fold it back into the poles.
+        function sxFamilyOf(shape) {
+            if (!shape || shape.single) return null;
+            const widget = shape.widget || "";
+            if (widget === "xy-switchbox" || widget === "monopole-slider" || widget === "trilinear-sliders") return null;
+            if (widget === "quad-compass") return "compass";
+            if (widget === "triangle" || shape.triangle) return "triad";
+            const n = (shape.keys || []).length;
+            if (n >= 4 || shape.tetrad || shape.pentad || shape.hexad || shape.heptad || shape.octad) return "radar";
+            if (n === 3) return "triad";
+            return null;
+        }
+        function sxDerivedFromVals(vals, family) {
+            if (family === "compass") {
+                let s = 0;
+                for (let i = 0; i < vals.length; i++) s += Number(vals[i]) || 0;
+                return Math.round(s);
+            }
+            if (family === "triad") return Math.round(sxTriSignedIntensity(vals));
+            return Math.round(sxSignedIntensity(vals));
+        }
+        function sxPersistIntensity(topicId, value, profileId) {
+            const v = Math.max(-400, Math.min(400, Math.round(Number(value) || 0)));
+            To(topicId, "intensity", v, !1, profileId || null);
+            return v;
+        }
+        function sxWidenIntensitySlider(slider, value) {
+            if (!slider) return;
+            const lim = Math.max(100, Math.abs(Math.round(Number(value) || 0)));
+            slider.min = String(-lim);
+            slider.max = String(lim);
+            slider.value = String(Math.round(Number(value) || 0));
+        }
+        // Brightness ramps with |intensity| up to full at ±100. Zero is
+        // the dim don't-care floor. Negative uses each channel's complement.
+        function sxIntensityRGB(r, g, b, intensity) {
+            const v = Number(intensity) || 0;
+            const mag = Math.min(1, Math.abs(v) / 100);
+            const br = 0.28 + 0.72 * mag;
+            let R = r, G = g, B = b;
+            if (v < 0) { R = 255 - r; G = 255 - g; B = 255 - b; }
+            return "rgb(" + Math.round(R * br) + "," + Math.round(G * br) + "," + Math.round(B * br) + ")";
+        }
+        const sxIntensitySeeded = new Set;
+        function sxSeedProfileIntensities(profileId) {
+            if (!profileId || sxIntensitySeeded.has(profileId) || typeof vt === "undefined" || !vt[profileId]) return;
+            sxIntensitySeeded.add(profileId);
+            const bag = vt[profileId];
+            Object.keys(bag).forEach(topicId => {
+                const raw = bag[topicId];
+                if (!raw || typeof raw !== "object" || Object.prototype.hasOwnProperty.call(raw, "intensity")) return;
+                // Line topics have no widget family below; their
+                // derivation is the stance's own size, so seed |line|
+                // and a line topic carries its (n+1) like any other.
+                if (Number.isFinite(Number(raw.line))) {
+                    sxPersistIntensity(topicId, Math.abs(Number(raw.line)), profileId);
+                    return;
+                }
+                const shape = Ge(topicId, profileId);
+                const family = sxFamilyOf(shape);
+                if (!family) return;
+                const keys = shape.keys || [];
+                const rec = ca(topicId, profileId);
+                if (!keys.some(k => rec[k + "Known"])) return;
+                const vals = keys.map(k => rec[k + "Known"] ? rec[k] : 0);
+                sxPersistIntensity(topicId, sxDerivedFromVals(vals, family), profileId);
+            });
+        }
+        function sxAdoptIntensity(state, rec, derived, slider, sliderOut, topicId, profileId) {
+            let intensity;
+            if (rec && rec.intensityKnown) intensity = Math.round(Number(rec.intensity) || 0);
+            else {
+                intensity = Math.round(Number(derived) || 0);
+                if (intensity && topicId) sxPersistIntensity(topicId, intensity, profileId);
+            }
+            if (state) state.intensity = intensity;
+            sxWidenIntensitySlider(slider, intensity);
+            if (sliderOut) sliderOut.textContent = String(Math.round(intensity));
+            return intensity;
+        }
+
+        function sxFindClosestAxis(px, py, cx, cy, vertices, currentValues, handleRadius = 22) {
+            let bestHandleIdx = null, bestHandleDist = handleRadius;
+            if (currentValues && currentValues.length) {
+                vertices.forEach((v, idx) => {
+                    const s = Math.max(0, Math.min(100, Math.abs(currentValues[idx] || 0))) / 100;
+                    const vx = cx + (v.x - cx) * s, vy = cy + (v.y - cy) * s;
+                    const d = Math.hypot(px - vx, py - vy);
+                    if (d < bestHandleDist) {
+                        bestHandleDist = d;
+                        bestHandleIdx = idx;
+                    }
+                });
+                if (bestHandleIdx !== null) return bestHandleIdx;
+            }
+
+            const clickAngle = Math.atan2(py - cy, px - cx);
+            let bestAngleIdx = 0, minAngleDiff = Infinity;
+            vertices.forEach((v, idx) => {
+                let diff = (clickAngle - v.angle) % (2 * Math.PI);
+                if (diff < -Math.PI) diff += 2 * Math.PI;
+                if (diff > Math.PI) diff -= 2 * Math.PI;
+                const absDiff = Math.abs(diff);
+                if (absDiff < minAngleDiff) {
+                    minAngleDiff = absDiff;
+                    bestAngleIdx = idx;
+                }
+            });
+            return bestAngleIdx;
+        }
+
+        function sxClosestVertexByAngle(px, py, cx, cy, vertices) {
+            const ptrAngle = Math.atan2(py - cy, px - cx);
+            let best = 0, bestD = Infinity;
+            for (let i = 0; i < vertices.length; i++) {
+                let d = Math.abs(vertices[i].angle - ptrAngle);
+                if (d > Math.PI) d = 2 * Math.PI - d;
+                if (d < bestD) { bestD = d; best = i; }
+            }
+            return best;
+        }
+
+        function sxGetRegularPolygonVertices(width, height, n, margin = 24) {
+            const cx = width / 2, cy = height / 2;
+            const r = Math.min(width, height) / 2 - margin;
+            const vertices = [];
+            for (let k = 0; k < n; k++) {
+                const angle = -Math.PI / 2 + k * (2 * Math.PI / n);
+                vertices.push({ x: cx + r * Math.cos(angle), y: cy + r * Math.sin(angle), angle });
+            }
+            return { cx, cy, r, vertices };
+        }
+
+        function sxDrawRadarPolygonWidget(canvas, shape, state, poleCount, getVerticesFn, colors) {
+            if (!canvas) return;
+            const ctx = canvas.getContext("2d");
+            if (!ctx) return;
+            const width = canvas.width, height = canvas.height;
+            ctx.clearRect(0, 0, width, height);
+
+            const { cx, cy, r, vertices } = getVerticesFn(width, height);
+
+            // 1. Concentric reference polygon rings (25%, 50%, 75%, 100%)
+            [0.25, 0.5, 0.75, 1.0].forEach(frac => {
+                ctx.beginPath();
+                for (let k = 0; k < poleCount; k++) {
+                    const angle = vertices[k].angle;
+                    const x = cx + r * frac * Math.cos(angle);
+                    const y = cy + r * frac * Math.sin(angle);
+                    if (k === 0) ctx.moveTo(x, y);
+                    else ctx.lineTo(x, y);
+                }
+                ctx.closePath();
+                ctx.lineWidth = frac === 1.0 ? 1.5 : 0.8;
+                ctx.strokeStyle = frac === 1.0 ? "rgba(255, 255, 255, 0.45)" : "rgba(255, 255, 255, 0.15)";
+                ctx.stroke();
+            });
+
+            // 2. Radial spoke axes from center to each vertex
+            ctx.beginPath();
+            ctx.lineWidth = 1;
+            ctx.setLineDash([2, 2]);
+            ctx.strokeStyle = "rgba(255, 255, 255, 0.3)";
+            for (let k = 0; k < poleCount; k++) {
+                ctx.moveTo(cx, cy);
+                ctx.lineTo(vertices[k].x, vertices[k].y);
+            }
+            ctx.stroke();
+            ctx.setLineDash([]);
+
+            // 3. Deformed Polygon from active ratings
+            const pVals = [];
+            for (let k = 0; k < poleCount; k++) pVals.push(state["p" + k]);
+            const sxMaxAbs = Math.abs(sxSignedIntensity(pVals));
+            const s = pVals.map(val => (sxMaxAbs > 0 ? Math.abs(val) / sxMaxAbs : 0));
+
+            const polyPts = vertices.map((v, k) => ({
+                x: cx + (v.x - cx) * s[k],
+                y: cy + (v.y - cy) * s[k]
+            }));
+
+            const maxVal = sxSignedIntensity(pVals);
+            const polyCol = sxIntensityRGB(61, 168, 116, state.intensity != null ? state.intensity : maxVal);
+
+            // Filled shape
+            ctx.beginPath();
+            polyPts.forEach((pt, k) => {
+                if (k === 0) ctx.moveTo(pt.x, pt.y);
+                else ctx.lineTo(pt.x, pt.y);
+            });
+            ctx.closePath();
+            ctx.fillStyle = polyCol;
+            ctx.globalAlpha = 0.45;
+            ctx.fill();
+            ctx.globalAlpha = 1.0;
+            ctx.lineWidth = 2;
+            ctx.strokeStyle = "#ffffff";
+            ctx.stroke();
+
+            // 4. Pole vertex handles
+            polyPts.forEach((pt, idx) => {
+                ctx.beginPath();
+                ctx.arc(pt.x, pt.y, 5.5, 0, 2 * Math.PI);
+                ctx.fillStyle = colors[idx];
+                ctx.fill();
+                ctx.lineWidth = 1.5;
+                ctx.strokeStyle = "#ffffff";
+                ctx.stroke();
+            });
+
+            // 5. Pole Labels — tangent-rotated (T5).
+            canvas.__sxLabelRects = [];
+            const labels = sxPoleLabels(shape, poleCount);
+            vertices.forEach((v, idx) => {
+                sxDrawPoleLabel(ctx, canvas, v.x, v.y, v.angle, labels[idx], colors[idx], shape && shape.keys && shape.keys[idx], labels[idx], poleCount, r);
+            });
+        }
+
+        function sxApplyPolygonRatings(topicId, state, poleCount) {
+            if (!topicId) return;
+            const shape = Ge(topicId);
+            if (!shape || !shape.keys || shape.keys.length < poleCount) return;
+            sxPersistIntensity(topicId, state.intensity);
+            for (let k = 0; k < poleCount; k++) {
+                To(topicId, shape.keys[k], Math.round(state["p" + k]), k === poleCount - 1);
+            }
+            sxSyncMarkRatings(topicId);
+        }
+
+        function sxClearPolygonRatings(topicId, poleCount) {
+            if (!topicId) return;
+            const shape = Ge(topicId);
+            if (!shape || !shape.keys || shape.keys.length < poleCount) return;
+            Fo(topicId, "intensity", !1);
+            for (let k = 0; k < poleCount; k++) {
+                Fo(topicId, shape.keys[k], k === poleCount - 1);
+            }
+            sxSyncMarkRatings(topicId);
+        }
+
+        function sxBindPolygonRadarWidget({
+            canvasId,
+            sliderId,
+            clearBtnId,
+            intensityOutId,
+            state,
+            poleCount,
+            getVerticesFn,
+            drawFn,
+            applyFn,
+            clearFn
+        }) {
+            const canvas = e.byId(canvasId);
+            const slider = e.byId(sliderId);
+            const clearBtn = e.byId(clearBtnId);
+            if (!canvas || canvas.dataset.bound) return;
+            canvas.dataset.bound = "1";
+            sxBindPoleHover(canvas, () => state.isDragging);
+
+            const updateFromPointer = (evt) => {
+                const rect = canvas.getBoundingClientRect();
+                const clientX = evt.clientX !== undefined ? evt.clientX : (evt.touches && evt.touches[0] ? evt.touches[0].clientX : 0);
+                const clientY = evt.clientY !== undefined ? evt.clientY : (evt.touches && evt.touches[0] ? evt.touches[0].clientY : 0);
+                const px = (clientX - rect.left) * (canvas.width / rect.width);
+                const py = (clientY - rect.top) * (canvas.height / rect.height);
+
+                const { cx, cy, r, vertices } = getVerticesFn(canvas.width, canvas.height);
+                const curVals = [];
+                for (let k = 0; k < poleCount; k++) curVals.push(state["p" + k]);
+                const isAllZero = curVals.every(v => !v);
+
+                if (state.activeVertex === null) {
+                    state.activeVertex = sxFindClosestAxis(px, py, cx, cy, vertices, isAllZero ? null : curVals, 22);
+                }
+
+                if (state.dragFromZero && !state.vertexLocked) {
+                    state.activeVertex = sxClosestVertexByAngle(px, py, cx, cy, vertices);
+                }
+
+                const v = state.activeVertex;
+                const angle = vertices[v].angle;
+                const cosA = Math.cos(angle), sinA = Math.sin(angle);
+                const dot = (px - cx) * cosA + (py - cy) * sinA;
+                const val = Math.max(0, Math.min(100, Math.round((dot / r) * 100)));
+
+                if ((isAllZero || (state.dragFromZero && !state.vertexLocked)) && val > 0) {
+                    const base = Math.max(20, Math.round(val * 0.5));
+                    for (let k = 0; k < poleCount; k++) {
+                        state[`p${k}`] = (k === v) ? val : base;
+                    }
+                    if (val > base) state.vertexLocked = true;
+                } else {
+                    state[`p${v}`] = val;
+                }
+
+                const pVals = [];
+                for (let k = 0; k < poleCount; k++) pVals.push(state["p" + k]);
+                const maxVal = sxSignedIntensity(pVals);
+                if (slider) slider.value = String(Math.round(maxVal));
+                const out = e.byId(intensityOutId);
+                if (out) out.textContent = String(Math.round(maxVal));
+
+                if (Qr) {
+                    const shape = Ge(Qr);
+                    drawFn(canvas, shape, state);
+                    applyFn(Qr);
+                }
+            };
+
+            canvas.addEventListener("pointerdown", (evt) => {
+                state.isDragging = !0;
+                state.activeVertex = null;
+                state.vertexLocked = !1;
+                let allZero = true;
+                for (let k = 0; k < poleCount; k++) {
+                    if (state["p" + k]) { allZero = false; break; }
+                }
+                state.dragFromZero = allZero;
+                canvas.setPointerCapture(evt.pointerId);
+                updateFromPointer(evt);
+            });
+
+            canvas.addEventListener("pointermove", (evt) => {
+                if (!state.isDragging) return;
+                updateFromPointer(evt);
+            });
+
+            const stopDrag = (evt) => {
+                if (state.isDragging) {
+                    state.isDragging = !1;
+                    state.activeVertex = null;
+                    try { canvas.releasePointerCapture(evt.pointerId); } catch (ignore) {}
+                }
+            };
+            canvas.addEventListener("pointerup", stopDrag);
+            canvas.addEventListener("pointercancel", stopDrag);
+
+            canvas.addEventListener("wheel", (evt) => {
+                evt.preventDefault();
+                evt.stopPropagation();
+                const step = (evt.shiftKey ? 5 : 1) * (evt.deltaY < 0 ? 1 : -1);
+                state.intensity = Math.max(-400, Math.min(400, Math.round((Number(state.intensity) || 0) + step)));
+                if (slider) slider.value = String(Math.round(state.intensity));
+                const out = e.byId(intensityOutId);
+                if (out) out.textContent = String(Math.round(state.intensity));
+                if (Qr) {
+                    const shape = Ge(Qr);
+                    drawFn(canvas, shape, state);
+                    applyFn(Qr);
+                }
+            }, { passive: false });
+
+            if (slider) {
+                slider.addEventListener("input", () => {
+                    const val = Math.max(-400, Math.min(400, Math.round(Number(slider.value) || 0)));
+                    state.intensity = val;
+                    const out = e.byId(intensityOutId);
+                    out && (out.textContent = String(val));
+                    if (Qr) {
+                        const shape = Ge(Qr);
+                        drawFn(canvas, shape, state);
+                        applyFn(Qr);
+                    }
+                });
+            }
+
+            if (clearBtn) {
+                clearBtn.addEventListener("click", () => {
+                    if (Qr) {
+                        clearFn(Qr);
+                    }
+                });
+            }
+        }
+
+
+        var sxTriState = {
+            topicId: null,
+            w0: 1 / 3,
+            w1: 1 / 3,
+            w2: 1 / 3,
+            intensity: 0,
+            isDragging: !1
+        };
+
+        function sxDrawTriangleWidget(canvas, shape, weights, intensity) {
+            if (typeof intensity !== "number" && weights && typeof weights.intensity === "number") intensity = weights.intensity;
+            if (!canvas) return;
+            const ctx = canvas.getContext("2d");
+            if (!ctx) return;
+            const width = canvas.width, height = canvas.height;
+            ctx.clearRect(0, 0, width, height);
+
+            const { V0, V1, V2 } = sxGetTriVertices(width, height);
+            const det = (V1.y - V2.y) * (V0.x - V2.x) + (V2.x - V1.x) * (V0.y - V2.y);
+
+            // 1. Barycentric RGB color gradient fill
+            const minX = Math.floor(Math.min(V0.x, V1.x, V2.x));
+            const maxX = Math.ceil(Math.max(V0.x, V1.x, V2.x));
+            const minY = Math.floor(Math.min(V0.y, V1.y, V2.y));
+            const maxY = Math.ceil(Math.max(V0.y, V1.y, V2.y));
+            const bw = maxX - minX, bh = maxY - minY;
+
+            // 1. Barycentric RGB color gradient fill — cached per canvas
+            // (2026-11-18, puck-drag smoothness): the gradient depends
+            // only on canvas size + intensity brightness, never on the
+            // puck position, so rebuilding it pixel-by-pixel on every
+            // pointermove was the drag jank. Rebuild only when the key
+            // (size x rounded intensity) changes; otherwise reuse.
+            const sxIntSigned = typeof intensity === "number" ? intensity : 0;
+            const absInt = Math.abs(sxIntSigned);
+            const gradKey = width + "x" + height + "x" + Math.round(sxIntSigned);
+            let grad = canvas.__sxTriGradient;
+            if ((!grad || grad.key !== gradKey) && bw > 0 && bh > 0 && Math.abs(det) > 1e-5) {
+                const offCanvas = document.createElement("canvas");
+                offCanvas.width = bw;
+                offCanvas.height = bh;
+                const offCtx = offCanvas.getContext("2d");
+                const imgData = offCtx.createImageData(bw, bh);
+                const data = imgData.data;
+
+                // Intensity scales gradient brightness. Full at ±100.
+                // Negative intensity paints each pole's complement.
+                const br = 0.28 + 0.72 * Math.min(1, absInt / 100);
+                const sxNeg = (typeof intensity === "number" ? intensity : 0) < 0;
+                const sxPoleRGB = [[240, 35, 45], [25, 225, 70], [35, 70, 245]].map(c => sxNeg ? c.map(ch => 255 - ch) : c);
+
+                for (let y = minY; y < maxY; y++) {
+                    for (let x = minX; x < maxX; x++) {
+                        const w0 = ((V1.y - V2.y) * (x - V2.x) + (V2.x - V1.x) * (y - V2.y)) / det;
+                        const w1 = ((V2.y - V0.y) * (x - V2.x) + (V0.x - V2.x) * (y - V2.y)) / det;
+                        const w2 = 1 - w0 - w1;
+                        if (w0 >= -0.01 && w1 >= -0.01 && w2 >= -0.01) {
+                            const cw0 = Math.max(0, w0), cw1 = Math.max(0, w1), cw2 = Math.max(0, w2);
+                            const sum = cw0 + cw1 + cw2;
+                            const nw0 = sum > 0 ? cw0 / sum : 1/3;
+                            const nw1 = sum > 0 ? cw1 / sum : 1/3;
+                            const nw2 = sum > 0 ? cw2 / sum : 1/3;
+                            // Pole 0 = Red, pole 1 = Green, pole 2 = Blue.
+                            // Negative intensity has already swapped each
+                            // pole to its complement.
+                            const r = (nw0 * sxPoleRGB[0][0] + nw1 * sxPoleRGB[1][0] + nw2 * sxPoleRGB[2][0]) * br;
+                            const g = (nw0 * sxPoleRGB[0][1] + nw1 * sxPoleRGB[1][1] + nw2 * sxPoleRGB[2][1]) * br;
+                            const b = (nw0 * sxPoleRGB[0][2] + nw1 * sxPoleRGB[1][2] + nw2 * sxPoleRGB[2][2]) * br;
+                            const idx = ((y - minY) * bw + (x - minX)) * 4;
+                            data[idx] = Math.round(r);
+                            data[idx + 1] = Math.round(g);
+                            data[idx + 2] = Math.round(b);
+                            data[idx + 3] = 230; // 90% opacity
+                        }
+                    }
+                }
+                offCtx.putImageData(imgData, 0, 0);
+                grad = canvas.__sxTriGradient = { key: gradKey, img: offCanvas, minX: minX, minY: minY };
+            }
+
+            if (grad && grad.img) {
+                ctx.save();
+                ctx.beginPath();
+                ctx.moveTo(V0.x, V0.y);
+                ctx.lineTo(V1.x, V1.y);
+                ctx.lineTo(V2.x, V2.y);
+                ctx.closePath();
+                ctx.clip();
+                ctx.drawImage(grad.img, grad.minX, grad.minY);
+                ctx.restore();
+            }
+
+            // 2. Triangle Frame & grid lines
+            ctx.beginPath();
+            ctx.moveTo(V0.x, V0.y);
+            ctx.lineTo(V1.x, V1.y);
+            ctx.lineTo(V2.x, V2.y);
+            ctx.closePath();
+            ctx.lineWidth = 1.8;
+            ctx.strokeStyle = "rgba(255, 255, 255, 0.45)";
+            ctx.stroke();
+
+            // Centroid grid lines
+            const cx = (V0.x + V1.x + V2.x) / 3;
+            const cy = (V0.y + V1.y + V2.y) / 3;
+            ctx.beginPath();
+            ctx.moveTo(V0.x, V0.y); ctx.lineTo(cx, cy);
+            ctx.moveTo(V1.x, V1.y); ctx.lineTo(cx, cy);
+            ctx.moveTo(V2.x, V2.y); ctx.lineTo(cx, cy);
+            ctx.lineWidth = 1;
+            ctx.setLineDash([2, 2]);
+            ctx.strokeStyle = "rgba(255, 255, 255, 0.35)";
+            ctx.stroke();
+            ctx.setLineDash([]);
+
+            // 3. Colored Pole Dots (Red, Green, Blue)
+            // Pole 0: Red
+            ctx.beginPath();
+            ctx.arc(V0.x, V0.y, 4.5, 0, 2 * Math.PI);
+            ctx.fillStyle = "#ef4444";
+            ctx.fill();
+            ctx.lineWidth = 1.2;
+            ctx.strokeStyle = "#ffffff";
+            ctx.stroke();
+
+            // Pole 1: Green (Middle position)
+            ctx.beginPath();
+            ctx.arc(V1.x, V1.y, 4.5, 0, 2 * Math.PI);
+            ctx.fillStyle = "#22c55e";
+            ctx.fill();
+            ctx.lineWidth = 1.2;
+            ctx.strokeStyle = "#ffffff";
+            ctx.stroke();
+
+            // Pole 2: Blue
+            ctx.beginPath();
+            ctx.arc(V2.x, V2.y, 4.5, 0, 2 * Math.PI);
+            ctx.fillStyle = "#3b82f6";
+            ctx.fill();
+            ctx.lineWidth = 1.2;
+            ctx.strokeStyle = "#ffffff";
+            ctx.stroke();
+
+            // 4. Pole labels (matching RGB colors) — horizontal and
+            // EXTERIOR to the triangle (2026-11-18): the old shared
+            // tangent rotation ran the long bottom labels diagonally
+            // along the edges, cramped against the fill. Green sits in
+            // one wrapped block above the top vertex; red and blue sit
+            // in wrapped blocks below their base vertices, each clamped
+            // to its own half of the canvas so they never overlap.
+            canvas.__sxLabelRects = [];
+            const labels = sxPoleLabels(shape, 3);
+            const triCols = ["#ef4444", "#22c55e", "#3b82f6"];
+            const triKeys = shape && shape.keys;
+            sxDrawTriPoleLabel(ctx, canvas, V1.x, V1.y, labels[1], triCols[1], triKeys && triKeys[1], width - 24, true);
+            const triHalfW = width / 2 - 14;
+            sxDrawTriPoleLabel(ctx, canvas, V0.x, V0.y, labels[0], triCols[0], triKeys && triKeys[0], triHalfW, false);
+            sxDrawTriPoleLabel(ctx, canvas, V2.x, V2.y, labels[2], triCols[2], triKeys && triKeys[2], triHalfW, false);
+
+            // 5. Active point puck position
+            const w0 = weights.w0, w1 = weights.w1, w2 = weights.w2;
+            const px = w0 * V0.x + w1 * V1.x + w2 * V2.x;
+            const py = w0 * V0.y + w1 * V1.y + w2 * V2.y;
+
+            // Halo glow for puck
+            ctx.beginPath();
+            ctx.arc(px, py, 11, 0, 2 * Math.PI);
+            ctx.fillStyle = "rgba(255, 255, 255, 0.45)";
+            ctx.fill();
+
+            // Solid puck
+            ctx.beginPath();
+            ctx.arc(px, py, 6, 0, 2 * Math.PI);
+            ctx.fillStyle = "#ffffff";
+            ctx.fill();
+            ctx.lineWidth = 1.8;
+            ctx.strokeStyle = "#0f172a";
+            ctx.stroke();
+        }
+
+        function sxApplyTriRatings(topicId, skipSync) {
+            if (!topicId) return;
+            const shape = Ge(topicId);
+            if (!shape || !shape.keys || shape.keys.length < 3) return;
+            const { w0, w1, w2, intensity } = sxTriState;
+            // Leanings are the weights on a 0–100 scale. Intensity is stored
+            // beside them and is not baked back into the pole numbers.
+            const v0 = Math.round(w0 * 100);
+            const v1 = Math.round(w1 * 100);
+            const v2 = Math.round(w2 * 100);
+            sxPersistIntensity(topicId, intensity);
+            To(topicId, shape.keys[0], v0, !1);
+            To(topicId, shape.keys[1], v1, !1);
+            To(topicId, shape.keys[2], v2, !0);
+            // During a drag the caller passes skipSync: the full placard
+            // re-sync re-derives the weights from the stored INTEGER
+            // ratings and redraws the triangle a second time, so the
+            // puck fought the pointer in quantized jumps on every move.
+            // Live drags write the ratings only; the drag-end call (no
+            // skipSync) does the one full sync.
+            if (!skipSync) sxSyncMarkRatings(topicId);
+        }
+
+        function sxClearTriRatings(topicId) {
+            if (!topicId) return;
+            const shape = Ge(topicId);
+            if (!shape || !shape.keys || shape.keys.length < 3) return;
+            Fo(topicId, "intensity", !1);
+            Fo(topicId, shape.keys[0], !1);
+            Fo(topicId, shape.keys[1], !1);
+            Fo(topicId, shape.keys[2], !0);
+            sxSyncMarkRatings(topicId);
+        }
+
+        // --- 4-Pole Tetrad Radar / Diamond Deformation State & Widget ---
+        var sxTetradState = {
+            topicId: null,
+            intensity: 0,
+            p0: 0,
+            p1: 0,
+            p2: 0,
+            p3: 0,
+            // Shape = pole values as ratios to the max (max = 1). Saved
+            // whenever the values are non-zero, so the intensity slider can
+            // restore the same shape after being taken to 0 (where the
+            // values themselves are all 0 and the shape would be lost).
+            shape: null,
+            activeVertex: null,
+            isDragging: !1,
+            dragFromZero: !1,
+            vertexLocked: !1
+        };
+
+        const SX_TETRAD_COLORS = ["#22c55e", "#eab308", "#ef4444", "#3b82f6"];
+
+        function sxGetTetradVertices(width, height) {
+            const poly = sxGetRegularPolygonVertices(width, height, 4);
+            return {
+                cx: poly.cx, cy: poly.cy, r: poly.r,
+                P0: poly.vertices[0],
+                P1: poly.vertices[1],
+                P2: poly.vertices[2],
+                P3: poly.vertices[3],
+                vertices: poly.vertices
+            };
+        }
+
+        function sxDrawTetradWidget(canvas, shape, state) {
+            sxDrawRadarPolygonWidget(canvas, shape, state, 4, sxGetTetradVertices, SX_TETRAD_COLORS);
+        }
+
+        function sxApplyTetradRatings(topicId) {
+            sxApplyPolygonRatings(topicId, sxTetradState, 4);
+        }
+
+        function sxClearTetradRatings(topicId) {
+            sxClearPolygonRatings(topicId, 4);
+        }
+
+        // --- 4-Pole Political Compass (quad-compass) State & Widget ---
+        // A square with two axes: horizontal = economic (left/right),
+        // vertical = authority (authoritarian top / libertarian bottom).
+        // One draggable point. Pole order is the JSON's, clockwise from
+        // top-left: keys[0] = top-left, keys[1] = top-right,
+        // keys[2] = bottom-right, keys[3] = bottom-left.
+        // Storage: the four values are bilinear weights x intensity, so
+        // they sum to the intensity (0..100) and the point is recoverable
+        // from them: u = (v1 + v2) / I, v = (v2 + v3) / I, I = sum.
+        var sxCompassState = {
+            topicId: null,
+            u: 0.5, v: 0.5, intensity: 0,
+            isDragging: !1
+        };
+
+        // Corner colors in JSON pole order (top-left, top-right,
+        // bottom-right, bottom-left) — same four colors as the tetrad.
+        const SX_COMPASS_COLORS = ["#22c55e", "#eab308", "#ef4444", "#3b82f6"];
+
+        function sxCompassShortLabel(label) {
+            // "Authoritarian Left (State Socialism)" -> "Auth Left".
+            // The canvas corners are too narrow for the full labels;
+            // the full labels stay in the readout rows below the canvas.
+            const s = String(label || "");
+            const cut = s.indexOf(" (");
+            const base = cut >= 0 ? s.slice(0, cut) : s;
+            return base.replace("Authoritarian", "Auth").replace("Libertarian", "Lib");
+        }
+
+        function sxGetCompassSquare(width, height) {
+            // Square with room for the corner labels outside it.
+            const s = Math.max(40, Math.min(width - 110, height - 80));
+            const cx = width / 2, cy = height / 2;
+            return { cx, cy, s, x0: cx - s / 2, y0: cy - s / 2, x1: cx + s / 2, y1: cy + s / 2 };
+        }
+
+        function sxCompassPointToUV(px, py, sq) {
+            const u = Math.max(0, Math.min(1, (px - sq.x0) / sq.s));
+            const v = Math.max(0, Math.min(1, (py - sq.y0) / sq.s));
+            return { u, v };
+        }
+
+        function sxCompassValuesFromPoint(u, v, intensity) {
+            const I = Math.max(-100, Math.min(100, intensity));
+            const vals = [
+                Math.round((1 - u) * (1 - v) * I),
+                Math.round(u * (1 - v) * I),
+                Math.round(u * v * I),
+                Math.round((1 - u) * v * I)
+            ];
+            // Per-key rounding can leave the sum off by 1-2; fold the
+            // residual into the largest value so the four values sum to
+            // the intensity exactly (the storage shape's invariant).
+            const residual = Math.round(I) - (vals[0] + vals[1] + vals[2] + vals[3]);
+            if (residual !== 0) {
+                let maxIdx = 0;
+                for (let k = 1; k < 4; k++) if (Math.abs(vals[k]) > Math.abs(vals[maxIdx])) maxIdx = k;
+                vals[maxIdx] = Math.max(-100, Math.min(100, vals[maxIdx] + residual));
+            }
+            return vals;
+        }
+
+        function sxCompassPointFromValues(r0, r1, r2, r3) {
+            const vals = [r0, r1, r2, r3].map(n => Math.max(-100, Math.min(100, Number(n) || 0)));
+            const I = Math.max(-100, Math.min(100, vals[0] + vals[1] + vals[2] + vals[3]));
+            if (I === 0) return { u: 0.5, v: 0.5, intensity: 0 };
+            return {
+                u: Math.max(0, Math.min(1, (vals[1] + vals[2]) / I)),
+                v: Math.max(0, Math.min(1, (vals[2] + vals[3]) / I)),
+                intensity: I
+            };
+        }
+
+        function sxDrawCompassWidget(canvas, shape, state) {
+            if (!canvas) return;
+            const ctx = canvas.getContext("2d");
+            if (!ctx) return;
+            const width = canvas.width, height = canvas.height;
+            ctx.clearRect(0, 0, width, height);
+
+            const sq = sxGetCompassSquare(width, height);
+            const { cx, cy, s, x0, y0, x1, y1 } = sq;
+            const u = (state && typeof state.u === "number") ? state.u : 0.5;
+            const v = (state && typeof state.v === "number") ? state.v : 0.5;
+            const px = x0 + u * s, py = y0 + v * s;
+
+            // 1. Tinted quadrant backgrounds. Brightness follows the stored
+            // intensity; a negative intensity uses each quadrant's complement.
+            const sxBr = 0.28 + 0.72 * Math.min(1, Math.abs(Number(state && state.intensity) || 0) / 100);
+            const sxNeg = (Number(state && state.intensity) || 0) < 0;
+            const sxQuad = sxNeg
+                ? [[221, 58, 161], [21, 76, 247], [16, 187, 187], [196, 125, 209]]
+                : [[34, 197, 94], [234, 179, 8], [239, 68, 68], [59, 130, 246]];
+            const tints = sxQuad.map(c => "rgba(" + c[0] + "," + c[1] + "," + c[2] + "," + (0.10 * sxBr).toFixed(3) + ")");
+            ctx.fillStyle = tints[0]; ctx.fillRect(x0, y0, s / 2, s / 2);
+            ctx.fillStyle = tints[1]; ctx.fillRect(cx, y0, s / 2, s / 2);
+            ctx.fillStyle = tints[2]; ctx.fillRect(cx, cy, s / 2, s / 2);
+            ctx.fillStyle = tints[3]; ctx.fillRect(x0, cy, s / 2, s / 2);
+
+            // 2. Gridlines at 25/50/75% + square frame
+            [0.25, 0.5, 0.75].forEach(frac => {
+                ctx.beginPath();
+                ctx.moveTo(x0 + s * frac, y0); ctx.lineTo(x0 + s * frac, y1);
+                ctx.moveTo(x0, y0 + s * frac); ctx.lineTo(x1, y0 + s * frac);
+                ctx.lineWidth = 0.8;
+                ctx.strokeStyle = "rgba(255, 255, 255, 0.15)";
+                ctx.stroke();
+            });
+            ctx.beginPath();
+            ctx.rect(x0, y0, s, s);
+            ctx.lineWidth = 1.5;
+            ctx.strokeStyle = "rgba(255, 255, 255, 0.45)";
+            ctx.stroke();
+
+            // 3. Crosshair axes (dashed)
+            ctx.beginPath();
+            ctx.moveTo(cx, y0); ctx.lineTo(cx, y1);
+            ctx.moveTo(x0, cy); ctx.lineTo(x1, cy);
+            ctx.lineWidth = 1;
+            ctx.setLineDash([2, 2]);
+            ctx.strokeStyle = "rgba(255, 255, 255, 0.3)";
+            ctx.stroke();
+            ctx.setLineDash([]);
+
+            // 4. Axis captions — from the topic's axes (T1). A compass
+            // topic without axes draws no captions: the old hardcoded
+            // "Economic"/"Authority" was live-wrong on Chemcapades.
+            const axes = (shape && shape.axes) || null;
+            ctx.font = "9px system-ui, sans-serif";
+            if (axes && axes[0]) {
+                ctx.textAlign = "center"; ctx.textBaseline = "bottom";
+                ctx.fillStyle = "rgba(255, 255, 255, 0.45)";
+                ctx.fillText(axes[0], cx, y1 - 4);
+            }
+            if (axes && axes[1]) {
+                ctx.save();
+                ctx.translate(x0 + 10, cy);
+                ctx.rotate(-Math.PI / 2);
+                ctx.textAlign = "center"; ctx.textBaseline = "bottom";
+                ctx.fillStyle = "rgba(255, 255, 255, 0.45)";
+                ctx.fillText(axes[1], 0, -4);
+                ctx.restore();
+            }
+
+            // 5. Corner labels ride the tangent of the square's
+            // circumscribing circle (Jason, 2026-11-19). The short form
+            // is drawn; the full label is the hover name.
+            canvas.__sxLabelRects = [];
+            const labels = sxPoleLabels(shape, 4);
+            const short = labels.map(l => sxCompassShortLabel(l));
+            const corners = [
+                { x: x0, y: y0 },
+                { x: x1, y: y0 },
+                { x: x1, y: y1 },
+                { x: x0, y: y1 }
+            ];
+            corners.forEach((corner, idx) => {
+                sxDrawPoleLabel(ctx, canvas, corner.x, corner.y, Math.atan2(corner.y - cy, corner.x - cx), short[idx], SX_COMPASS_COLORS[idx], shape && shape.keys && shape.keys[idx], labels[idx], 4, Math.hypot(x0 - cx, y0 - cy));
+            });
+
+            // 6. Draggable point puck (same pattern as the triangle widget)
+            ctx.beginPath();
+            ctx.arc(px, py, 11, 0, 2 * Math.PI);
+            ctx.fillStyle = "rgba(255, 255, 255, 0.45)";
+            ctx.fill();
+            ctx.beginPath();
+            ctx.arc(px, py, 6, 0, 2 * Math.PI);
+            ctx.fillStyle = "#ffffff";
+            ctx.fill();
+            ctx.lineWidth = 1.8;
+            ctx.strokeStyle = "#0f172a";
+            ctx.stroke();
+        }
+
+        function sxApplyCompassRatings(topicId) {
+            if (!topicId) return;
+            const shape = Ge(topicId);
+            if (!shape || !shape.keys || shape.keys.length < 4) return;
+            // The point is the leaning, stored at a fixed 100 scale so a
+            // later intensity change does not move the four pole numbers.
+            const vals = sxCompassValuesFromPoint(sxCompassState.u, sxCompassState.v, 100);
+            sxPersistIntensity(topicId, sxCompassState.intensity);
+            To(topicId, shape.keys[0], vals[0], !1);
+            To(topicId, shape.keys[1], vals[1], !1);
+            To(topicId, shape.keys[2], vals[2], !1);
+            To(topicId, shape.keys[3], vals[3], !0);
+            sxSyncMarkRatings(topicId);
+        }
+
+        function sxClearCompassRatings(topicId) {
+            if (!topicId) return;
+            const shape = Ge(topicId);
+            if (!shape || !shape.keys || shape.keys.length < 4) return;
+            Fo(topicId, "intensity", !1);
+            Fo(topicId, shape.keys[0], !1);
+            Fo(topicId, shape.keys[1], !1);
+            Fo(topicId, shape.keys[2], !1);
+            Fo(topicId, shape.keys[3], !0);
+            sxSyncMarkRatings(topicId);
+        }
+
+        function sxBindCompassWidget() {
+            const canvas = e.byId("markCompassCanvas");
+            const slider = e.byId("markCompassIntensity");
+            const clearBtn = e.byId("markCompassClear");
+            if (!canvas || canvas.dataset.bound) return;
+            canvas.dataset.bound = "1";
+            sxBindPoleHover(canvas, () => sxCompassState.isDragging);
+
+            const updatePointFromPointer = (evt) => {
+                const rect = canvas.getBoundingClientRect();
+                const clientX = evt.clientX !== undefined ? evt.clientX : (evt.touches && evt.touches[0] ? evt.touches[0].clientX : 0);
+                const clientY = evt.clientY !== undefined ? evt.clientY : (evt.touches && evt.touches[0] ? evt.touches[0].clientY : 0);
+                const px = (clientX - rect.left) * (canvas.width / rect.width);
+                const py = (clientY - rect.top) * (canvas.height / rect.height);
+                const sq = sxGetCompassSquare(canvas.width, canvas.height);
+                const { u, v } = sxCompassPointToUV(px, py, sq);
+                sxCompassState.u = u;
+                sxCompassState.v = v;
+                if (!sxCompassState.intensity) {
+                    sxCompassState.intensity = 70;
+                    if (slider) slider.value = "70";
+                    const out = e.byId("markCompassIntensityOut");
+                    out && (out.textContent = "70");
+                }
+                if (Qr) {
+                    const shape = Ge(Qr);
+                    sxDrawCompassWidget(canvas, shape, sxCompassState);
+                    sxApplyCompassRatings(Qr);
+                }
+            };
+
+            canvas.addEventListener("pointerdown", (evt) => {
+                sxCompassState.isDragging = !0;
+                canvas.setPointerCapture(evt.pointerId);
+                updatePointFromPointer(evt);
+            });
+            canvas.addEventListener("pointermove", (evt) => {
+                if (!sxCompassState.isDragging) return;
+                updatePointFromPointer(evt);
+            });
+            const stopDrag = (evt) => {
+                if (sxCompassState.isDragging) {
+                    sxCompassState.isDragging = !1;
+                    try { canvas.releasePointerCapture(evt.pointerId); } catch (ignore) {}
+                }
+            };
+            canvas.addEventListener("pointerup", stopDrag);
+            canvas.addEventListener("pointercancel", stopDrag);
+
+            // Mouse wheel scales the intensity (sum), point unchanged
+            canvas.addEventListener("wheel", (evt) => {
+                evt.preventDefault();
+                evt.stopPropagation();
+                const step = (evt.shiftKey ? 5 : 1) * (evt.deltaY < 0 ? 1 : -1);
+                sxCompassState.intensity = Math.max(-400, Math.min(400, Math.round((Number(sxCompassState.intensity) || 0) + step)));
+                if (slider) slider.value = String(Math.round(sxCompassState.intensity));
+                const out = e.byId("markCompassIntensityOut");
+                out && (out.textContent = String(Math.round(sxCompassState.intensity)));
+                if (Qr) {
+                    sxPersistIntensity(Qr, sxCompassState.intensity);
+                    const shape = Ge(Qr);
+                    sxDrawCompassWidget(canvas, shape, sxCompassState);
+                }
+            }, { passive: false });
+
+            if (slider) {
+                slider.addEventListener("input", () => {
+                    sxCompassState.intensity = Math.max(-400, Math.min(400, Math.round(Number(slider.value) || 0)));
+                    const out = e.byId("markCompassIntensityOut");
+                    out && (out.textContent = String(Math.round(sxCompassState.intensity)));
+                    if (Qr) {
+                        sxPersistIntensity(Qr, sxCompassState.intensity);
+                        const shape = Ge(Qr);
+                        sxDrawCompassWidget(canvas, shape, sxCompassState);
+                    }
+                });
+            }
+
+            if (clearBtn) {
+                clearBtn.addEventListener("click", () => {
+                    if (Qr) {
+                        sxClearCompassRatings(Qr);
+                    }
+                });
+            }
+        }
+
+        function sxBindTetradWidget() {
+            sxBindPolygonRadarWidget({
+                canvasId: "markTetradCanvas",
+                sliderId: "markTetradIntensity",
+                clearBtnId: "markTetradClear",
+                intensityOutId: "markTetradIntensityOut",
+                state: sxTetradState,
+                poleCount: 4,
+                getVerticesFn: sxGetTetradVertices,
+                drawFn: sxDrawTetradWidget,
+                applyFn: sxApplyTetradRatings,
+                clearFn: sxClearTetradRatings
+            });
+        }
+
+        // --- 5-Pole Pentad Radar / Star Deformation State & Widget ---
+        var sxPentadState = {
+            topicId: null,
+            intensity: 0,
+            p0: 0, p1: 0, p2: 0, p3: 0, p4: 0,
+            shape: null,
+            activeVertex: null,
+            isDragging: !1,
+            dragFromZero: !1,
+            vertexLocked: !1
+        };
+
+        const SX_PENTAD_COLORS = ["#a855f7", "#06b6d4", "#f59e0b", "#ef4444", "#22c55e"];
+
+        function sxGetPentadVertices(width, height) {
+            return sxGetRegularPolygonVertices(width, height, 5);
+        }
+
+        function sxDrawPentadWidget(canvas, shape, state) {
+            sxDrawRadarPolygonWidget(canvas, shape, state, 5, sxGetPentadVertices, SX_PENTAD_COLORS);
+        }
+
+        function sxApplyPentadRatings(topicId) {
+            sxApplyPolygonRatings(topicId, sxPentadState, 5);
+        }
+
+        function sxClearPentadRatings(topicId) {
+            sxClearPolygonRatings(topicId, 5);
+        }
+
+        function sxBindPentadWidget() {
+            sxBindPolygonRadarWidget({
+                canvasId: "markPentadCanvas",
+                sliderId: "markPentadIntensity",
+                clearBtnId: "markPentadClear",
+                intensityOutId: "markPentadIntensityOut",
+                state: sxPentadState,
+                poleCount: 5,
+                getVerticesFn: sxGetPentadVertices,
+                drawFn: sxDrawPentadWidget,
+                applyFn: sxApplyPentadRatings,
+                clearFn: sxClearPentadRatings
+            });
+        }
+
+        // --- 6-Pole Hexad Radar Deformation State & Widget ---
+        var sxHexadState = {
+            topicId: null,
+            intensity: 0,
+            p0: 0, p1: 0, p2: 0, p3: 0, p4: 0, p5: 0,
+            shape: null,
+            activeVertex: null,
+            isDragging: !1,
+            dragFromZero: !1,
+            vertexLocked: !1
+        };
+
+        const SX_HEXAD_COLORS = ["#22c55e", "#06b6d4", "#6366f1", "#ef4444", "#f97316", "#eab308"];
+
+        function sxGetHexadVertices(width, height) {
+            return sxGetRegularPolygonVertices(width, height, 6);
+        }
+
+        function sxDrawHexadWidget(canvas, shape, state) {
+            sxDrawRadarPolygonWidget(canvas, shape, state, 6, sxGetHexadVertices, SX_HEXAD_COLORS);
+        }
+
+        function sxApplyHexadRatings(topicId) {
+            sxApplyPolygonRatings(topicId, sxHexadState, 6);
+        }
+
+        function sxClearHexadRatings(topicId) {
+            sxClearPolygonRatings(topicId, 6);
+        }
+
+        function sxBindHexadWidget() {
+            sxBindPolygonRadarWidget({
+                canvasId: "markHexadCanvas",
+                sliderId: "markHexadIntensity",
+                clearBtnId: "markHexadClear",
+                intensityOutId: "markHexadIntensityOut",
+                state: sxHexadState,
+                poleCount: 6,
+                getVerticesFn: sxGetHexadVertices,
+                drawFn: sxDrawHexadWidget,
+                applyFn: sxApplyHexadRatings,
+                clearFn: sxClearHexadRatings
+            });
+        }
+
+        // --- 7-Pole Heptad Radar Deformation State & Widget ---
+        var sxHeptadState = {
+            topicId: null,
+            intensity: 0,
+            p0: 0, p1: 0, p2: 0, p3: 0, p4: 0, p5: 0, p6: 0,
+            shape: null,
+            activeVertex: null,
+            isDragging: !1,
+            dragFromZero: !1,
+            vertexLocked: !1
+        };
+
+        const SX_HEPTAD_COLORS = ["#22c55e", "#06b6d4", "#3b82f6", "#6366f1", "#a855f7", "#ec4899", "#f97316"];
+
+        function sxGetHeptadVertices(width, height) {
+            return sxGetRegularPolygonVertices(width, height, 7);
+        }
+
+        function sxDrawHeptadWidget(canvas, shape, state) {
+            sxDrawRadarPolygonWidget(canvas, shape, state, 7, sxGetHeptadVertices, SX_HEPTAD_COLORS);
+        }
+
+        function sxApplyHeptadRatings(topicId) {
+            sxApplyPolygonRatings(topicId, sxHeptadState, 7);
+        }
+
+        function sxClearHeptadRatings(topicId) {
+            sxClearPolygonRatings(topicId, 7);
+        }
+
+        function sxBindHeptadWidget() {
+            sxBindPolygonRadarWidget({
+                canvasId: "markHeptadCanvas",
+                sliderId: "markHeptadIntensity",
+                clearBtnId: "markHeptadClear",
+                intensityOutId: "markHeptadIntensityOut",
+                state: sxHeptadState,
+                poleCount: 7,
+                getVerticesFn: sxGetHeptadVertices,
+                drawFn: sxDrawHeptadWidget,
+                applyFn: sxApplyHeptadRatings,
+                clearFn: sxClearHeptadRatings
+            });
+        }
+
+        // --- 8-Pole Octad Radar Deformation State & Widget ---
+        var sxOctadState = {
+            topicId: null,
+            intensity: 0,
+            p0: 0, p1: 0, p2: 0, p3: 0, p4: 0, p5: 0, p6: 0, p7: 0,
+            shape: null,
+            activeVertex: null,
+            isDragging: !1,
+            dragFromZero: !1,
+            vertexLocked: !1
+        };
+
+        const SX_OCTAD_COLORS = ["#22c55e", "#10b981", "#06b6d4", "#3b82f6", "#6366f1", "#a855f7", "#ec4899", "#f97316"];
+
+        function sxGetOctadVertices(width, height) {
+            return sxGetRegularPolygonVertices(width, height, 8);
+        }
+
+        function sxDrawOctadWidget(canvas, shape, state) {
+            sxDrawRadarPolygonWidget(canvas, shape, state, 8, sxGetOctadVertices, SX_OCTAD_COLORS);
+        }
+
+        function sxApplyOctadRatings(topicId) {
+            sxApplyPolygonRatings(topicId, sxOctadState, 8);
+        }
+
+        function sxClearOctadRatings(topicId) {
+            sxClearPolygonRatings(topicId, 8);
+        }
+
+        function sxBindOctadWidget() {
+            sxBindPolygonRadarWidget({
+                canvasId: "markOctadCanvas",
+                sliderId: "markOctadIntensity",
+                clearBtnId: "markOctadClear",
+                intensityOutId: "markOctadIntensityOut",
+                state: sxOctadState,
+                poleCount: 8,
+                getVerticesFn: sxGetOctadVertices,
+                drawFn: sxDrawOctadWidget,
+                applyFn: sxApplyOctadRatings,
+                clearFn: sxClearOctadRatings
+            });
+        }
+
+        window.sxOpenHotListWidgetPopup = function(topicId, profileId, root) {
+            const dlg = root || e.byId("hotListWidgetDialog");
+            if (!dlg || !topicId) return;
+            // A Hot List row passes its own inline host. The second call
+            // only redraws, so a rating change does not rebind the canvas.
+            if (root && root.__sxRedraw) return void root.__sxRedraw();
+            const pick = (id, sel) => root ? (dlg.matches && dlg.matches(sel) ? dlg : dlg.querySelector(sel)) : e.byId(id);
+            // Hot List freeze fix (2026-11-15): pId may be the empty-template id
+            // on a fresh boot. The first write mints a real profile, so every
+            // handler re-resolves the id before reading/writing — otherwise
+            // reads keep hitting the empty template and the readout never moves.
+            // An explicitly passed real profile id is preserved as-is.
+            let pId = profileId || Vi();
+            const freshPid = () => (profileId && profileId !== Et) ? profileId : Vi();
+            const shape = Ge(topicId, pId);
+            const item = qn[topicId] || Xn(topicId) || (at[pId] || {})[topicId] || {};
+            const titleEl = pick("hotListWidgetTitle", ".outline-inline-title");
+            const badgeEl = pick("hotListWidgetBadge", ".outline-inline-badge");
+            const descEl = pick("hotListWidgetDesc", ".outline-inline-desc");
+            const canvas = pick("hotListWidgetCanvas", ".outline-inline-canvas");
+            const slider = pick("hotListWidgetIntensity", ".outline-inline-slider");
+            const sliderOut = pick("hotListWidgetIntensityOut", ".outline-inline-out");
+            const readoutEl = pick("hotListWidgetReadout", ".outline-inline-readout");
+            const clearBtn = pick("hotListWidgetClear", ".outline-inline-clear");
+            const closeBtn = pick("closeHotListWidgetBtn", ".outline-inline-close");
+            const doneBtn = pick("doneHotListWidgetBtn", ".outline-inline-done");
+            if (!canvas) return;
+            if (root) canvas.__sxInline = true;
+
+            const label = item.label || item.name || topicId;
+            titleEl && (titleEl.textContent = label);
+            descEl && (descEl.textContent = lo(item));
+
+            const isOctad = Boolean(shape.octad || (shape.keys && shape.keys.length === 8));
+            const isHeptad = Boolean(shape.heptad || (shape.keys && shape.keys.length === 7));
+            const isHexad = Boolean(shape.hexad || (shape.keys && shape.keys.length === 6));
+            const isPentad = Boolean(shape.pentad || (shape.keys && shape.keys.length === 5));
+            const isCompass = shape.widget === "quad-compass";
+            const isTetrad = !isCompass && Boolean(shape.tetrad || (shape.keys && shape.keys.length === 4));
+            const isTriad = Boolean(shape.triangle || (shape.keys && shape.keys.length === 3));
+            const is2Pole = !isOctad && !isHeptad && !isHexad && !isPentad && !isTetrad && !isTriad;
+            // The xy-switchbox has no intensity dimension at all (its two
+            // axes are signed already): the generic intensity slider and
+            // wheel must not rescale its values.
+            const isSwitch = is2Pole && !isCompass && !shape.single;
+            if (slider) slider.disabled = isSwitch;
+
+            badgeEl && (badgeEl.textContent = isCompass ? "Political Compass" : isOctad ? "8-Pole Octad" : isHeptad ? "7-Pole Heptad" : isHexad ? "6-Pole Hexad" : isPentad ? "5-Pole Pentad" : isTetrad ? "4-Pole Tetrad" : isTriad ? "3-Pole Triad" : (shape.single ? "Monopole" : "2D Role Switch-Box"));
+
+            const keys = shape.keys || [];
+            if (readoutEl) {
+                readoutEl.innerHTML = "";
+                readoutEl.style.display = "none";
+                readoutEl.hidden = true;
+            }
+            const valSpans = [];
+            keys.forEach((k, idx) => {
+                const statBox = document.createElement("div");
+                statBox.className = "mark-tri-stat";
+                const pName = shape.labels[idx] || k;
+                const pCol = isOctad ? SX_OCTAD_COLORS[idx] : isHeptad ? SX_HEPTAD_COLORS[idx] : isHexad ? SX_HEXAD_COLORS[idx] : isPentad ? SX_PENTAD_COLORS[idx] : isCompass ? SX_COMPASS_COLORS[idx] : isTetrad ? ["#22c55e", "#eab308", "#ef4444", "#3b82f6"][idx] : isTriad ? ["#ef4444", "#22c55e", "#3b82f6"][idx] : ["#22c55e", "#3b82f6"][idx];
+                statBox.innerHTML = `<span style="color:${pCol}">${pName}</span>: <b style="color:${pCol}">0</b>`;
+                // Seam A: the pole name span carries the pole's hovertip line.
+                sxSetPoleTip(statBox.querySelector("span"), topicId, k);
+                readoutEl && readoutEl.append(statBox);
+                valSpans.push(statBox.querySelector("b"));
+            });
+
+            const syncReadouts = () => {
+                const curRec = ca(topicId, pId);
+                keys.forEach((k, idx) => {
+                    const isK = curRec[k + "Known"];
+                    const v = isK ? Math.round(curRec[k]) : "—";
+                    if (valSpans[idx]) valSpans[idx].textContent = String(v);
+                });
+            };
+
+            const redraw = () => {
+                pId = freshPid();
+                sxSeedProfileIntensities(pId);
+                const curRec = ca(topicId, pId);
+                const vals = keys.map(k => (curRec[k + "Known"] ? curRec[k] : 0));
+                if (canvas.__sxInline) {
+                    const map = {};
+                    keys.forEach((k) => { if (curRec[k + "Known"]) map[k] = String(Math.round(curRec[k])); });
+                    canvas.__sxPoleValMap = map;
+                }
+                const maxVal = sxSignedIntensity(vals);
+                // The slider reads the stored +1. A rating that has never
+                // stored one is seeded from the old derivation so the
+                // number on the slider does not jump.
+                const family = isCompass ? "compass" : isTriad ? "triad" : "radar";
+                const derived = isSwitch ? 0 : sxDerivedFromVals(vals, family);
+                const sliderVal = !isSwitch && curRec.intensityKnown ? Math.round(Number(curRec.intensity) || 0) : derived;
+                if (!isSwitch) {
+                    // The derived intensity can exceed the slider's static
+                    // ±100 range (triad sums reach ±300, compass sums ±400):
+                    // widen the range to cover it before assigning, or the
+                    // element silently clamps and misreads the stored blend
+                    // (Adam readback defect, finisher 2026-11-19).
+                    if (slider) {
+                        const lim = Math.max(100, Math.abs(Math.round(sliderVal)));
+                        slider.min = String(-lim);
+                        slider.max = String(lim);
+                        slider.value = String(Math.round(sliderVal));
+                    }
+                    sliderOut && (sliderOut.textContent = String(Math.round(sliderVal)));
+                }
+                syncReadouts();
+
+                if (isCompass) {
+                    const pt = sxCompassPointFromValues(vals[0], vals[1], vals[2], vals[3]);
+                    pt.intensity = sliderVal;
+                    sxDrawCompassWidget(canvas, shape, pt);
+                } else if (isOctad) {
+                    sxDrawOctadWidget(canvas, shape, {
+                        p0: vals[0], p1: vals[1], p2: vals[2], p3: vals[3], p4: vals[4], p5: vals[5], p6: vals[6], p7: vals[7], intensity: sliderVal
+                    });
+                } else if (isHeptad) {
+                    sxDrawHeptadWidget(canvas, shape, {
+                        p0: vals[0], p1: vals[1], p2: vals[2], p3: vals[3], p4: vals[4], p5: vals[5], p6: vals[6], intensity: sliderVal
+                    });
+                } else if (isHexad) {
+                    sxDrawHexadWidget(canvas, shape, {
+                        p0: vals[0], p1: vals[1], p2: vals[2], p3: vals[3], p4: vals[4], p5: vals[5], intensity: sliderVal
+                    });
+                } else if (isPentad) {
+                    sxDrawPentadWidget(canvas, shape, {
+                        p0: vals[0], p1: vals[1], p2: vals[2], p3: vals[3], p4: vals[4], intensity: sliderVal
+                    });
+                } else if (isTetrad) {
+                    sxDrawTetradWidget(canvas, shape, {
+                        p0: vals[0], p1: vals[1], p2: vals[2], p3: vals[3], intensity: sliderVal
+                    });
+                } else if (isTriad) {
+                    // 2026-11-18 (puck-drag smoothness): the weights must
+                    // sum to 1 — the draw places the puck at w0*V0 +
+                    // w1*V1 + w2*V2, so the old raw vals/100 (summing to
+                    // intensity/100, e.g. 0.7) dragged the puck toward the
+                    // canvas origin, and let it jump whenever the
+                    // intensity changed mid-drag. Normalised by absolute
+                    // value, mirroring the placard's derivation.
+                    const sumAbs = Math.abs(vals[0]) + Math.abs(vals[1]) + Math.abs(vals[2]);
+                    const nw = sumAbs > 0 ? [Math.abs(vals[0]) / sumAbs, Math.abs(vals[1]) / sumAbs, Math.abs(vals[2]) / sumAbs] : [1 / 3, 1 / 3, 1 / 3];
+                    sxDrawTriangleWidget(canvas, shape, {
+                        x: 0, y: 0, w0: nw[0], w1: nw[1], w2: nw[2], intensity: sliderVal
+                    });
+                } else {
+                    sxDrawSwitchboxWidget(canvas, shape, {
+                        give: curRec.giveKnown ? curRec.give : 0,
+                        receive: curRec.receiveKnown ? curRec.receive : 0
+                    });
+                }
+            };
+
+            redraw();
+
+            // The inline row sits on top of the map. Repainting the map
+            // on every click (Mr) is what made the widget feel late: the
+            // list already covers the map, and closing the list paints it.
+            // Ss would also draw this same canvas a second time.
+            const paintRow = () => {
+                if (root) return;
+                const row = Ro && Ro.querySelector(`.outline-row[data-outline-id="${CSS.escape(topicId)}"]`);
+                row && Ss(row);
+            };
+            const finishGesture = () => {
+                if (root) {
+                    try { ws(); } catch (err) {}
+                    return;
+                }
+                Mr();
+                paintRow();
+            };
+
+            let activeIdx = null, isDragging = false;
+
+            // Hot List popup meter line + pole tips (2026-11-16): the
+            // same T9 line and hover seams as the placard. The meter
+            // line lives in the widget stage (above the canvas); the
+            // hover topic is refreshed on every open because the canvas
+            // is persistent while the bind is once-only (dataset guard).
+            sxSetMeterLine(pick("hotListWidgetStage", ".outline-inline-widget"), topicId);
+            canvas.__sxHoverTopicId = topicId;
+            sxBindPoleHover(canvas, () => isDragging);
+            const onPointer = (evt) => {
+                pId = freshPid();
+                const rect = canvas.getBoundingClientRect();
+                const clientX = evt.clientX !== undefined ? evt.clientX : (evt.touches && evt.touches[0] ? evt.touches[0].clientX : 0);
+                const clientY = evt.clientY !== undefined ? evt.clientY : (evt.touches && evt.touches[0] ? evt.touches[0].clientY : 0);
+                const px = (clientX - rect.left) * (canvas.width / rect.width);
+                const py = (clientY - rect.top) * (canvas.height / rect.height);
+
+                if (isOctad || isHeptad || isHexad || isPentad || isTetrad) {
+                    const getVerts = isOctad ? sxGetOctadVertices : isHeptad ? sxGetHeptadVertices : isHexad ? sxGetHexadVertices : isPentad ? sxGetPentadVertices : sxGetTetradVertices;
+                    const { cx, cy, r, vertices } = getVerts(canvas.width, canvas.height);
+                    const curRec = ca(topicId, pId);
+                    const curVals = keys.map(k => (curRec[k + "Known"] ? curRec[k] : 0));
+                    const isAllZero = curVals.every(v => !v);
+
+                    if (activeIdx === null) {
+                        activeIdx = sxFindClosestAxis(px, py, cx, cy, vertices, isAllZero ? null : curVals, 22);
+                    }
+                    const v = vertices[activeIdx];
+                    const angle = v.angle;
+                    const dot = (px - cx) * Math.cos(angle) + (py - cy) * Math.sin(angle);
+                    const val = Math.max(0, Math.min(100, Math.round((dot / r) * 100)));
+
+                    if (isAllZero && val > 0) {
+                        const base = Math.max(20, Math.round(val * 0.5));
+                        keys.forEach((k, idx) => {
+                            To(topicId, k, (idx === activeIdx) ? val : base, !1, pId);
+                        });
+                    } else {
+                        To(topicId, keys[activeIdx], val, !1, pId);
+                    }
+                    redraw();
+                    paintRow();
+                } else if (isCompass) {
+                    const sq = sxGetCompassSquare(canvas.width, canvas.height);
+                    const { u, v } = sxCompassPointToUV(px, py, sq);
+                    const vals = sxCompassValuesFromPoint(u, v, 100);
+                    keys.forEach((k, idx) => To(topicId, k, vals[idx], !1, pId));
+                    redraw();
+                    paintRow();
+                } else if (isTriad) {
+                    const { V0, V1, V2 } = sxGetTriVertices(canvas.width, canvas.height);
+                    const { w0, w1, w2 } = sxPointToBarycentric(px, py, V0, V1, V2);
+                    To(topicId, keys[0], Math.round(w0 * 100), !1, pId);
+                    To(topicId, keys[1], Math.round(w1 * 100), !1, pId);
+                    To(topicId, keys[2], Math.round(w2 * 100), !1, pId);
+                    redraw();
+                    paintRow();
+                } else if (is2Pole && !shape.single) {
+                    const cx = canvas.width / 2, cy = canvas.height / 2;
+                    const r = Math.min(cx, cy) - 22;
+                    let dx = px - cx, dy = py - cy;
+                    if (Math.hypot(dx, dy) < 6) { dx = 0; dy = 0; }
+                    const g = Math.max(-100, Math.min(100, Math.round((dx / r) * 100)));
+                    const recv = Math.max(-100, Math.min(100, Math.round((-dy / r) * 100)));
+                    To(topicId, "give", g, !1, pId);
+                    To(topicId, "receive", recv, !1, pId);
+                    redraw();
+                    paintRow();
+                }
+            };
+
+            const onDown = (evt) => {
+                const hit = sxHitPoleLabel(canvas, evt);
+                if (hit && evt.pointerType !== "mouse") {
+                    const line = sxPoleLine(canvas.__sxHoverTopicId || Qr, hit.key);
+                    if (line) {
+                        window.__SX_TIP_SHOW(canvas, hit.name || hit.text, line, evt.clientX, evt.clientY);
+                        return;
+                    }
+                }
+                isDragging = true;
+                activeIdx = null;
+                try { canvas.setPointerCapture(evt.pointerId); } catch(e) {}
+                onPointer(evt);
+            };
+            const onMove = (evt) => { if (isDragging) onPointer(evt); };
+            const onUp = (evt) => {
+                if (isDragging) {
+                    isDragging = false;
+                    activeIdx = null;
+                    try { canvas.releasePointerCapture(evt.pointerId); } catch(e) {}
+                    finishGesture();
+                }
+            };
+
+            canvas.onpointerdown = onDown;
+            canvas.onpointermove = onMove;
+            canvas.onpointerup = onUp;
+            canvas.onpointercancel = onUp;
+
+            // Wheel sets intensity. On the Hot List the listener is the
+            // whole widget, so the vertical slider and the canvas share
+            // it, and the list does not scroll underneath. The popup
+            // keeps the listener on its canvas and still repaints the
+            // map; the Hot List does not, because the list covers it.
+            const onWheel = (evt) => {
+                pId = freshPid();
+                evt.preventDefault();
+                evt.stopPropagation();
+                if (isSwitch) return;
+                const step = (evt.shiftKey ? 5 : 1) * (evt.deltaY < 0 ? 1 : -1);
+                const curRec = ca(topicId, pId);
+                const vals = keys.map(k => (curRec[k + "Known"] ? curRec[k] : 0));
+                const family = isCompass ? "compass" : isTriad ? "triad" : "radar";
+                const cur = curRec.intensityKnown ? Number(curRec.intensity) || 0 : sxDerivedFromVals(vals, family);
+                sxPersistIntensity(topicId, cur + step, pId);
+                redraw();
+                if (root) {
+                    clearTimeout(root.__sxWheelWs);
+                    root.__sxWheelWs = setTimeout(() => { try { ws(); } catch (err) {} }, 200);
+                } else {
+                    Mr();
+                    paintRow();
+                }
+            };
+            if (root) root.onwheel = onWheel;
+            else canvas.onwheel = onWheel;
+
+            if (slider) {
+                slider.oninput = () => {
+                    pId = freshPid();
+                    if (isSwitch) return;
+                    // The slider edits only the stored +1. Pole numbers stay.
+                    sxPersistIntensity(topicId, Number(slider.value), pId);
+                    redraw();
+                    paintRow();
+                };
+                slider.onchange = () => {
+                    finishGesture();
+                };
+            }
+
+            if (clearBtn) {
+                clearBtn.onclick = () => {
+                    Fo(topicId, "intensity", !1, pId);
+                    keys.forEach((k, idx) => Fo(topicId, k, !root && idx === keys.length - 1, pId));
+                    redraw();
+                    if (root) finishGesture();
+                    else paintRow();
+                };
+            }
+
+            if (root) {
+                root.__sxRedraw = redraw;
+                return;
+            }
+            const closeDialog = () => {
+                try { dlg.close(); } catch (e) { dlg.hidden = true; }
+                Mr();
+            };
+            closeBtn && (closeBtn.onclick = closeDialog);
+            doneBtn && (doneBtn.onclick = closeDialog);
+
+            try {
+                if (typeof dlg.showModal === "function") dlg.showModal();
+                else dlg.hidden = false;
+            } catch (err) {
+                dlg.hidden = false;
+            }
+        };
+
+        function sxBindTriangleWidget() {
+            const canvas = e.byId("markTriangleCanvas");
+            const slider = e.byId("markTriangleIntensity");
+            const clearBtn = e.byId("markTriangleClear");
+            if (!canvas || canvas.dataset.bound) return;
+            canvas.dataset.bound = "1";
+            sxBindPoleHover(canvas, () => sxTriState.isDragging);
+
+            const updatePointFromPointer = (evt) => {
+                const rect = canvas.getBoundingClientRect();
+                const clientX = evt.clientX !== undefined ? evt.clientX : (evt.touches && evt.touches[0] ? evt.touches[0].clientX : 0);
+                const clientY = evt.clientY !== undefined ? evt.clientY : (evt.touches && evt.touches[0] ? evt.touches[0].clientY : 0);
+                const px = (clientX - rect.left) * (canvas.width / rect.width);
+                const py = (clientY - rect.top) * (canvas.height / rect.height);
+                const { V0, V1, V2 } = sxGetTriVertices(canvas.width, canvas.height);
+                const { w0, w1, w2 } = sxPointToBarycentric(px, py, V0, V1, V2);
+                sxTriState.w0 = w0;
+                sxTriState.w1 = w1;
+                sxTriState.w2 = w2;
+                if (!sxTriState.intensity) {
+                    sxTriState.intensity = 70;
+                    if (slider) slider.value = "70";
+                    const out = e.byId("markTriangleIntensityOut");
+                    out && (out.textContent = "70");
+                }
+                if (Qr) {
+                    const shape = Ge(Qr);
+                    sxDrawTriangleWidget(canvas, shape, sxTriState, sxTriState.intensity);
+                    // Live drag (2026-11-18): the puck follows the pointer
+                    // from sxTriState alone — cheap text updates for the
+                    // three readout values, and the rating write coalesced
+                    // to one per animation frame, WITHOUT the full placard
+                    // re-sync (that re-derived the weights from stored
+                    // integers and redrew the triangle a second time, so
+                    // the puck jumped in quantized steps on every move).
+                    // The full sync runs once, on drag end (stopDrag).
+                    const v0El = e.byId("markTriVal0"), v1El = e.byId("markTriVal1"), v2El = e.byId("markTriVal2");
+                    if (v0El) v0El.textContent = String(Math.round(sxTriState.w0 * sxTriState.intensity));
+                    if (v1El) v1El.textContent = String(Math.round(sxTriState.w1 * sxTriState.intensity));
+                    if (v2El) v2El.textContent = String(Math.round(sxTriState.w2 * sxTriState.intensity));
+                    if (!sxTriState.__sxApplyRaf) {
+                        sxTriState.__sxApplyRaf = requestAnimationFrame(() => {
+                            sxTriState.__sxApplyRaf = 0;
+                            if (Qr) sxApplyTriRatings(Qr, true);
+                        });
+                    }
+                }
+            };
+
+            canvas.addEventListener("pointerdown", (evt) => {
+                sxTriState.isDragging = !0;
+                canvas.setPointerCapture(evt.pointerId);
+                updatePointFromPointer(evt);
+            });
+            canvas.addEventListener("pointermove", (evt) => {
+                if (!sxTriState.isDragging) return;
+                updatePointFromPointer(evt);
+            });
+            const stopDrag = (evt) => {
+                if (sxTriState.isDragging) {
+                    sxTriState.isDragging = !1;
+                    try { canvas.releasePointerCapture(evt.pointerId); } catch (ignore) {}
+                    // Flush any coalesced live write, then the one full
+                    // placard sync for the finished drag.
+                    if (sxTriState.__sxApplyRaf) { cancelAnimationFrame(sxTriState.__sxApplyRaf); sxTriState.__sxApplyRaf = 0; }
+                    if (Qr) sxApplyTriRatings(Qr);
+                }
+            };
+            canvas.addEventListener("pointerup", stopDrag);
+            canvas.addEventListener("pointercancel", stopDrag);
+
+            // Mouse wheel adjustments on canvas directly adjust intensity
+            canvas.addEventListener("wheel", (evt) => {
+                evt.preventDefault();
+                evt.stopPropagation();
+                const step = (evt.shiftKey ? 5 : 1) * (evt.deltaY < 0 ? 1 : -1);
+                const current = typeof sxTriState.intensity === "number" ? sxTriState.intensity : 0;
+                sxTriState.intensity = Math.max(-400, Math.min(400, Math.round(current + step)));
+                if (slider) slider.value = String(Math.round(sxTriState.intensity));
+                const out = e.byId("markTriangleIntensityOut");
+                out && (out.textContent = String(Math.round(sxTriState.intensity)));
+                if (Qr) {
+                    sxPersistIntensity(Qr, sxTriState.intensity);
+                    const shape = Ge(Qr);
+                    sxDrawTriangleWidget(canvas, shape, sxTriState, sxTriState.intensity);
+                }
+            }, { passive: false });
+
+            if (slider) {
+                slider.addEventListener("input", () => {
+                    sxTriState.intensity = Math.max(-400, Math.min(400, Math.round(Number(slider.value) || 0)));
+                    const out = e.byId("markTriangleIntensityOut");
+                    out && (out.textContent = String(Math.round(sxTriState.intensity)));
+                    if (Qr) {
+                        sxPersistIntensity(Qr, sxTriState.intensity);
+                        const shape = Ge(Qr);
+                        sxDrawTriangleWidget(canvas, shape, sxTriState, sxTriState.intensity);
+                    }
+                });
+            }
+
+            if (clearBtn) {
+                clearBtn.addEventListener("click", () => {
+                    if (Qr) {
+                        sxClearTriRatings(Qr);
+                    }
+                });
+            }
+        }
+
+
+        // --- 2D XY Role Switch-Box State & Widget ---
+        var sxSwitchboxState = {
+            topicId: null,
+            give: 0,
+            receive: 0,
+            isDragging: false
+        };
+
+        function sxGetSwitchboxRole(give, receive, topicId) {
+            const g = Math.round(give), r = Math.round(receive);
+            const words = sxSwitchboxRoleWords(topicId);
+            if (g === 0 && r === 0) return "Neutral / Open";
+            if (g > 20 && r > 20) return words.classic ? "Versatile Switch" : "Both " + words.g + " + " + words.r;
+            if (g < -20 && r < -20) return words.classic ? "Hard Red Limit" : "Neither (limit)";
+            if (g > 20 && r < -20) return words.classic ? "Dedicated Top / Giver" : words.g + " only";
+            if (g < -20 && r > 20) return words.classic ? "Dedicated Bottom / Receiver" : words.r + " only";
+            if (g > 20 && Math.abs(r) <= 20) return words.classic ? "Top Leaning" : words.g + " leaning";
+            if (r > 20 && Math.abs(g) <= 20) return words.classic ? "Bottom Leaning" : words.r + " leaning";
+            if (g < -20 && Math.abs(r) <= 20) return words.classic ? "Give Limit" : words.g + " limit";
+            if (r < -20 && Math.abs(g) <= 20) return words.classic ? "Receive Limit" : words.r + " limit";
+            return "Moderate Engagement";
+        }
+
+        function sxDrawSwitchboxWidget(canvas, shape, state) {
+            if (!canvas) return;
+            const ctx = canvas.getContext("2d");
+            if (!ctx) return;
+            const width = canvas.width, height = canvas.height;
+            ctx.clearRect(0, 0, width, height);
+
+            const cx = width / 2, cy = height / 2;
+            const pad = 22;
+            const r = Math.min(cx, cy) - pad;
+
+            // 1. Tinted Quadrant Backgrounds
+            // QI (Top-Right: +Give, +Receive -> Versatile Switch)
+            ctx.fillStyle = "rgba(34, 197, 94, 0.12)";
+            ctx.fillRect(cx, cy - r, r, r);
+
+            // QII (Top-Left: -Give, +Receive -> Bottom / Receiver)
+            ctx.fillStyle = "rgba(59, 130, 246, 0.10)";
+            ctx.fillRect(cx - r, cy - r, r, r);
+
+            // QIII (Bottom-Left: -Give, -Receive -> Hard Limit)
+            ctx.fillStyle = "rgba(239, 68, 68, 0.12)";
+            ctx.fillRect(cx - r, cy, r, r);
+
+            // QIV (Bottom-Right: +Give, -Receive -> Top / Giver)
+            ctx.fillStyle = "rgba(234, 179, 8, 0.10)";
+            ctx.fillRect(cx, cy, r, r);
+
+            // 2. Reference Grid & Border
+            ctx.lineWidth = 1;
+            ctx.strokeStyle = "rgba(255, 255, 255, 0.28)";
+            ctx.strokeRect(cx - r, cy - r, 2 * r, 2 * r);
+
+            // Grid lines at +/- 50
+            ctx.setLineDash([2, 2]);
+            ctx.strokeStyle = "rgba(255, 255, 255, 0.14)";
+            ctx.beginPath();
+            ctx.moveTo(cx - r * 0.5, cy - r); ctx.lineTo(cx - r * 0.5, cy + r);
+            ctx.moveTo(cx + r * 0.5, cy - r); ctx.lineTo(cx + r * 0.5, cy + r);
+            ctx.moveTo(cx - r, cy - r * 0.5); ctx.lineTo(cx + r, cy - r * 0.5);
+            ctx.moveTo(cx - r, cy + r * 0.5); ctx.lineTo(cx + r, cy + r * 0.5);
+            ctx.stroke();
+
+            // Diagonal switch line Y = X (Top-Right to Bottom-Left)
+            ctx.beginPath();
+            ctx.moveTo(cx - r, cy + r);
+            ctx.lineTo(cx + r, cy - r);
+            ctx.strokeStyle = "rgba(56, 189, 248, 0.35)";
+            ctx.stroke();
+            ctx.setLineDash([]);
+
+            // 3. Main Crosshairs
+            ctx.beginPath();
+            ctx.moveTo(cx - r, cy); ctx.lineTo(cx + r, cy);
+            ctx.moveTo(cx, cy - r); ctx.lineTo(cx, cy + r);
+            ctx.lineWidth = 1.2;
+            ctx.strokeStyle = "rgba(255, 255, 255, 0.45)";
+            ctx.stroke();
+
+            // Deadband center circle
+            ctx.beginPath();
+            ctx.arc(cx, cy, 4, 0, 2 * Math.PI);
+            ctx.strokeStyle = "rgba(255, 255, 255, 0.4)";
+            ctx.stroke();
+
+            // 4. Pole Axis Labels — short axis words on canvas (T2/T4);
+            // the full names live in the readout rows + hovertips. Side
+            // labels run vertical (tangent, 90°) so they fit the 190px
+            // canvas instead of clipping past its edge (T3).
+            canvas.__sxLabelRects = [];
+            const giveFull = (shape && shape.labels && shape.labels[0]) || "Give";
+            const recvFull = (shape && shape.labels && shape.labels[1]) || "Receive";
+            const giveLabel = sxShortAxisWord(giveFull);
+            const recvLabel = sxShortAxisWord(recvFull);
+
+            // Top (+Receive) — horizontal
+            sxDrawPoleLabelAt(ctx, canvas, cx, cy - r - 9, 0, `+ ${recvLabel}`, "#4ade80", "receive", recvFull);
+            // Bottom (-Receive Limit) — horizontal
+            sxDrawPoleLabelAt(ctx, canvas, cx, cy + r + 9, 0, `- ${recvLabel} Limit`, "#f87171", "receive", recvFull);
+            // Right (+Give) — vertical
+            sxDrawPoleLabelAt(ctx, canvas, cx + r + 9, cy, 90, `+ ${giveLabel}`, "#4ade80", "give", giveFull);
+            // Left (-Give Limit) — vertical
+            sxDrawPoleLabelAt(ctx, canvas, cx - r - 9, cy, 90, `- ${giveLabel} Limit`, "#f87171", "give", giveFull);
+
+            // 5. Active Puck Position
+            const isUnrated = Boolean(state.isUnrated);
+            const g = Math.max(-100, Math.min(100, state.give || 0));
+            const recvVal = Math.max(-100, Math.min(100, state.receive || 0));
+            const px = cx + (g / 100) * r;
+            const py = cy - (recvVal / 100) * r; // screen y is inverted
+
+            if (isUnrated) {
+                // Unrated ghost prompt
+                ctx.beginPath();
+                ctx.arc(cx, cy, 7.5, 0, 2 * Math.PI);
+                ctx.lineWidth = 1.5;
+                ctx.setLineDash([3, 3]);
+                ctx.strokeStyle = "rgba(255, 255, 255, 0.75)";
+                ctx.stroke();
+                ctx.setLineDash([]);
+                ctx.font = "italic 9px system-ui, sans-serif";
+                ctx.textAlign = "center";
+                ctx.textBaseline = "middle";
+                ctx.fillStyle = "rgba(255, 255, 255, 0.65)";
+                ctx.fillText("Click to rate", cx, cy - 14);
+            } else {
+                // Puck color
+                let puckCol = "#94a3b8";
+                if (g === 0 && recvVal === 0) {
+                    puckCol = "rgba(255, 255, 255, 0.6)";
+                } else if (g >= 0 && recvVal >= 0) {
+                    puckCol = "#22c55e"; // Green versatile switch
+                } else if (g <= 0 && recvVal <= 0) {
+                    puckCol = "#ef4444"; // Red limit
+                } else if (g > 0 && recvVal < 0) {
+                    puckCol = "#eab308"; // Top yellow
+                } else {
+                    puckCol = "#3b82f6"; // Bottom blue
+                }
+
+                // Glow
+                ctx.beginPath();
+                ctx.arc(px, py, 11, 0, 2 * Math.PI);
+                ctx.fillStyle = puckCol;
+                ctx.globalAlpha = 0.35;
+                ctx.fill();
+                ctx.globalAlpha = 1.0;
+
+                // Puck body
+                ctx.beginPath();
+                ctx.arc(px, py, 6.5, 0, 2 * Math.PI);
+                ctx.fillStyle = puckCol;
+                ctx.fill();
+                ctx.lineWidth = 1.8;
+                ctx.strokeStyle = "#ffffff";
+                ctx.stroke();
+            }
+        }
+
+        function sxUpdateSwitchboxReadouts(give, receive, isUnrated = false) {
+            const gVal = e.byId("markSwitchboxGiveVal");
+            const rVal = e.byId("markSwitchboxRecvVal");
+            const roleVal = e.byId("markSwitchboxRoleVal");
+            if (isUnrated) {
+                if (gVal) gVal.textContent = "Unrated";
+                if (rVal) rVal.textContent = "Unrated";
+                if (roleVal) roleVal.textContent = "Unrated (click box to rate)";
+            } else {
+                if (gVal) gVal.textContent = String(Math.round(give));
+                if (rVal) rVal.textContent = String(Math.round(receive));
+                if (roleVal) roleVal.textContent = sxGetSwitchboxRole(give, receive, sxSwitchboxState.topicId);
+            }
+        }
+
+        function sxBindSwitchboxWidget() {
+            const canvas = e.byId("markSwitchboxCanvas");
+            const clearBtn = e.byId("markSwitchboxClear");
+            if (!canvas || canvas.dataset.bound) return;
+            canvas.dataset.bound = "1";
+            sxBindPoleHover(canvas, () => sxSwitchboxState.isDragging);
+
+            const updateFromPointer = (evt) => {
+                const rect = canvas.getBoundingClientRect();
+                const clientX = evt.clientX !== undefined ? evt.clientX : (evt.touches && evt.touches[0] ? evt.touches[0].clientX : 0);
+                const clientY = evt.clientY !== undefined ? evt.clientY : (evt.touches && evt.touches[0] ? evt.touches[0].clientY : 0);
+                const px = (clientX - rect.left) * (canvas.width / rect.width);
+                const py = (clientY - rect.top) * (canvas.height / rect.height);
+                const cx = canvas.width / 2, cy = canvas.height / 2;
+                const r = Math.min(cx, cy) - 22;
+
+                // Deadband center snap (within 6px)
+                let dx = px - cx, dy = py - cy;
+                if (Math.hypot(dx, dy) < 6) {
+                    dx = 0; dy = 0;
+                }
+                const g = Math.max(-100, Math.min(100, Math.round((dx / r) * 100)));
+                const recv = Math.max(-100, Math.min(100, Math.round((-dy / r) * 100)));
+
+                sxSwitchboxState.give = g;
+                sxSwitchboxState.receive = recv;
+                sxSwitchboxState.isUnrated = false;
+
+                if (Qr) {
+                    const shape = Ge(Qr);
+                    sxDrawSwitchboxWidget(canvas, shape, sxSwitchboxState);
+                    To(Qr, "give", g, !1);
+                    To(Qr, "receive", recv, !1);
+                    sxUpdateSwitchboxReadouts(g, recv, false);
+                }
+            };
+
+            canvas.addEventListener("pointerdown", (evt) => {
+                sxSwitchboxState.isDragging = !0;
+                try { canvas.setPointerCapture(evt.pointerId); } catch (e) {}
+                updateFromPointer(evt);
+            });
+            canvas.addEventListener("pointermove", (evt) => {
+                if (!sxSwitchboxState.isDragging) return;
+                updateFromPointer(evt);
+            });
+            const stopDrag = (evt) => {
+                if (sxSwitchboxState.isDragging) {
+                    sxSwitchboxState.isDragging = !1;
+                    try { canvas.releasePointerCapture(evt.pointerId); } catch (e) {}
+                    if (Qr) {
+                        Mr();
+                    }
+                }
+            };
+            canvas.addEventListener("pointerup", stopDrag);
+            canvas.addEventListener("pointercancel", stopDrag);
+
+            if (clearBtn) {
+                clearBtn.addEventListener("click", () => {
+                    if (Qr) {
+                        Fo(Qr, "give", !1);
+                        Fo(Qr, "receive", !0);
+                        sxSwitchboxState.give = 0;
+                        sxSwitchboxState.receive = 0;
+                        sxSwitchboxState.isUnrated = true;
+                        const shape = Ge(Qr);
+                        sxDrawSwitchboxWidget(canvas, shape, sxSwitchboxState);
+                        sxUpdateSwitchboxReadouts(0, 0, true);
+                        sxSyncMarkRatings(Qr);
+                    }
+                });
+            }
+        }
+
         function* Ar(i = {}) {
             // JOB B GLIDE FIX — previous-positions capture: read the live
             // node positions BEFORE sxVaultCaptureCurrent() runs. The vault
@@ -25398,2283 +27675,6 @@ function* sxRunNodeSettle(scCtx, blitSess) {
         }, !0), window.__sxOnKey( e => {
             "Escape" === e.key && ((!Ur || Ur.hidden) ? so() : oo());
         });
-
-        /* --- Widget approachability: one shared pole-label system (T5/T6/T3/T7) ---
-           Every polygon widget except the triangle draws its pole names
-           the same way: rotated to the tangent of the circumscribing
-           circle at the vertex (tangent = vertex angle + 90°, normalised
-           to (-90, 90] so no label is ever upside-down), centred 13px out
-           from the vertex along the vertex direction, in one font (bold
-           9px system-ui). A long name slides along that tangent to stay
-           on the canvas; it steps inward only when the tangent cannot
-           save it. The triangle keeps horizontal labels outside its
-           vertices. Each drawn label is recorded on canvas.__sxLabelRects
-           (axis-aligned box + angle + pole key + full name) for the
-           canvas hover hit-test (seam B). */
-        const SX_POLE_LABEL_FONT = "bold 9px system-ui, sans-serif";
-        const SX_POLE_LABEL_OFFSET = 13;
-        function sxNormTangentDeg(deg) {
-            let d = deg;
-            while (d > 90) d -= 180;
-            while (d <= -90) d += 180;
-            return d;
-        }
-        function sxRecordPoleLabelRect(canvas, text, x, y, w, h, angleDeg, key, name, ax, ay, tw, th) {
-            if (!canvas || !text) return;
-            if (!canvas.__sxLabelRects) canvas.__sxLabelRects = [];
-            canvas.__sxLabelRects.push({
-                text: text,
-                name: name || text,
-                x: Math.round(x * 10) / 10,
-                y: Math.round(y * 10) / 10,
-                w: Math.round(w * 10) / 10,
-                h: Math.round(h * 10) / 10,
-                angle: Math.round(angleDeg * 10) / 10,
-                key: key || "",
-                /* Rotated hit-test frame: anchor + unrotated half-extents.
-                   The axis-aligned box above is the clamp/probe record; the
-                   hit test uses the true rotated shape so long steep labels
-                   don't claim the whole canvas. Defaults = the box itself. */
-                ax: (ax !== undefined ? Math.round(ax * 10) / 10 : Math.round((x + w / 2) * 10) / 10),
-                ay: (ay !== undefined ? Math.round(ay * 10) / 10 : Math.round((y + h / 2) * 10) / 10),
-                tw: (tw !== undefined ? Math.round(tw * 10) / 10 : Math.round(w * 10) / 10),
-                th: (th !== undefined ? Math.round(th * 10) / 10 : Math.round(h * 10) / 10)
-            });
-        }
-        function sxDrawPoleLabelAt(ctx, canvas, ax, ay, angleDeg, text, color, key, name, radialRad, maxWidth) {
-            if (!ctx || !canvas || !text) return;
-            const W = canvas.width, H = canvas.height;
-            const theta = (angleDeg * Math.PI) / 180;
-            ctx.save();
-            ctx.font = SX_POLE_LABEL_FONT;
-            ctx.textAlign = "center";
-            ctx.textBaseline = "middle";
-            // A name longer than the gap to the next pole wraps, and the
-            // extra lines stack outward so they stay on their own slot.
-            let lines = [text];
-            if (maxWidth > 0 && ctx.measureText(text).width > maxWidth) lines = sxWrapPoleLines(ctx, text, maxWidth);
-            // Hot List only: the pole's number is the last line of the
-            // same rotated label, so it sits under the name. A canvas
-            // without the map (placard, popup) draws the name alone.
-            const sxNum = canvas.__sxPoleValMap && key != null ? canvas.__sxPoleValMap[key] : null;
-            if (sxNum) lines.push(String(sxNum));
-            const lineH = 11;
-            const tw = Math.max.apply(null, lines.map(l => ctx.measureText(l).width).concat([1]));
-            const th = lines.length * lineH;
-            if (lines.length > 1 && typeof radialRad === "number") {
-                const extra = (lines.length - 1) * lineH / 2;
-                ax += Math.cos(radialRad) * extra;
-                ay += Math.sin(radialRad) * extra;
-            }
-            const c = Math.abs(Math.cos(theta)), s = Math.abs(Math.sin(theta));
-            const bw = tw * c + th * s, bh = tw * s + th * c;
-            const pad = 2;
-            if (typeof radialRad === "number") {
-                // Stay on the circumcircle. Slide along the tangent first
-                // so a long name moves sideways around the rim. Only the
-                // leftover, the part the tangent cannot fix, steps inward.
-                const ux = Math.cos(radialRad), uy = Math.sin(radialRad);
-                const tx = -uy, ty = ux;
-                const overflow = (x, y) => ({
-                    dx: x < bw / 2 + pad ? bw / 2 + pad - x : x > W - bw / 2 - pad ? W - bw / 2 - pad - x : 0,
-                    dy: y < bh / 2 + pad ? bh / 2 + pad - y : y > H - bh / 2 - pad ? H - bh / 2 - pad - y : 0
-                });
-                let corr = overflow(ax, ay);
-                const slide = corr.dx * tx + corr.dy * ty;
-                ax += tx * slide;
-                ay += ty * slide;
-                corr = overflow(ax, ay);
-                const inward = corr.dx * ux + corr.dy * uy;
-                if (inward < 0) { ax += ux * inward; ay += uy * inward; }
-                corr = overflow(ax, ay);
-                ax += corr.dx;
-                ay += corr.dy;
-            } else {
-                ax = Math.max(bw / 2 + pad, Math.min(W - bw / 2 - pad, ax));
-                ay = Math.max(bh / 2 + pad, Math.min(H - bh / 2 - pad, ay));
-            }
-            ctx.translate(ax, ay);
-            ctx.rotate(theta);
-            ctx.fillStyle = color;
-            // Line 0 sits at the top of the rotated text, so the name
-            // reads in order. The block center was already shifted outward.
-            lines.forEach((ln, i) => {
-                ctx.fillText(ln, 0, (i - (lines.length - 1) / 2) * lineH);
-            });
-            ctx.restore();
-            sxRecordPoleLabelRect(canvas, lines.join(" "), ax - bw / 2, ay - bh / 2, bw, bh, angleDeg, key, name, ax, ay, tw, th);
-        }
-        function sxDrawPoleLabel(ctx, canvas, vx, vy, angleRad, text, color, key, name, nPoles, radius) {
-            if (!ctx || !canvas || !text) return;
-            const tangentDeg = sxNormTangentDeg((angleRad * 180) / Math.PI + 90);
-            const dx = Math.cos(angleRad), dy = Math.sin(angleRad);
-            const labelR = (Number(radius) || 0) + SX_POLE_LABEL_OFFSET;
-            const slot = nPoles >= 3 && labelR > 0 ? Math.max(36, labelR * 2 * Math.PI / nPoles * 0.82) : 0;
-            sxDrawPoleLabelAt(ctx, canvas, vx + dx * SX_POLE_LABEL_OFFSET, vy + dy * SX_POLE_LABEL_OFFSET, tangentDeg, text, color, key, name || text, angleRad, slot);
-        }
-        function sxPoleLabels(shape, n) {
-            // Label, else pole key, else "" — never a "Pole N" fallback (T7).
-            const out = [];
-            for (let k = 0; k < n; k++) {
-                out.push((shape && shape.labels && shape.labels[k]) || (shape && shape.keys && shape.keys[k]) || "");
-            }
-            return out;
-        }
-        function sxShortAxisWord(label) {
-            // "X-Axis (Give / Electron-Pair Donor)" -> "X-Axis"; a plain
-            // verb like "overpower" passes through unchanged (T4/T2).
-            const s = String(label || "");
-            if (!s) return "";
-            const cut = s.indexOf(" (");
-            return (cut >= 0 ? s.slice(0, cut) : s).trim();
-        }
-        function sxShortRoleWord(label, fallback) {
-            // Parenthetical last word: "X-Axis (Give / Electron-Pair
-            // Donor)" -> "Donor"; plain "Give"/"Receive" -> "Giver"/"Receiver".
-            const s = String(label || "");
-            if (!s) return fallback;
-            const m = /\(([^)]*)\)\s*$/.exec(s);
-            const inner = m ? m[1] : s;
-            const parts = inner.split("/").map(x => x.trim()).filter(Boolean);
-            const last = parts.length ? parts[parts.length - 1] : inner;
-            const words = last.split(/\s+/).filter(Boolean);
-            const w = words.length ? words[words.length - 1] : fallback;
-            if (/^give$/i.test(w)) return "Giver";
-            if (/^receive$/i.test(w)) return "Receiver";
-            return w;
-        }
-        function sxSwitchboxRoleWords(topicId) {
-            // Short role words from the topic's own labels; the classic
-            // Sexcapades names apply only on the Sexcapades skin (T2).
-            const classic = !window.__SX_ACTIVE_SKIN || window.__SX_ACTIVE_SKIN === "sexcapades";
-            let g = "Giver", r = "Receiver";
-            if (topicId && typeof Ge === "function") {
-                const shape = Ge(topicId);
-                if (shape && shape.labels) {
-                    if (shape.labels[0]) g = sxShortRoleWord(shape.labels[0], "Giver");
-                    if (shape.labels[1]) r = sxShortRoleWord(shape.labels[1], "Receiver");
-                }
-            }
-            return { g: g, r: r, classic: classic };
-        }
-        function sxSetSwitchboxQuadrants(topicId) {
-            const words = sxSwitchboxRoleWords(topicId);
-            const names = words.classic
-                ? { tl: "Bottom / Receiver", tr: "Versatile Switch", bl: "Hard Red Limit", br: "Top / Giver" }
-                : { tl: words.r + " only", tr: "Both " + words.g + " + " + words.r, bl: "Neither (limit)", br: words.g + " only" };
-            const set = (cls, text) => {
-                const el = document.querySelector("#markSwitchboxWrap " + cls + " .mark-quad-name");
-                if (el) el.textContent = text;
-            };
-            set(".mark-quad-tl", names.tl);
-            set(".mark-quad-tr", names.tr);
-            set(".mark-quad-bl", names.bl);
-            set(".mark-quad-br", names.br);
-        }
-        function sxPoleLine(topicId, key) {
-            // One pole's "Label — text" line. Skin-registered topics come
-            // first (loader); Sexcapades give/receive uses the custom
-            // wording where it exists (Ge labels are the topic's own verbs,
-            // e.g. "overpower" / "be overpowered"), else the ruled
-            // "Give — <topic> / Receive — <topic>" form (Q2).
-            if (!topicId || !key) return null;
-            if (typeof window.__SX_POLE_LINE_FOR === "function") {
-                const line = window.__SX_POLE_LINE_FOR(topicId, key);
-                if (line) return line;
-            }
-            if (typeof Ge === "function") {
-                const shape = Ge(topicId);
-                if (key === "give" || key === "receive") {
-                    const idx = key === "give" ? 0 : 1;
-                    const verb = shape && shape.labels && shape.labels[idx];
-                    if (verb && verb !== "give" && verb !== "receive") return (key === "give" ? "Give — " : "Receive — ") + verb;
-                    let name = "";
-                    const rec = (typeof qn !== "undefined" && qn[topicId]) || null;
-                    if (rec) name = rec.label || rec.name || "";
-                    if (!name) {
-                        const t = e.byId("markMenuTitle");
-                        if (t) name = t.textContent.replace(/\s*\(tray\)\s*$/i, "").replace(/\s*\([^)]*\)\s*$/, "").trim();
-                    }
-                    return (key === "give" ? "Give — " : "Receive — ") + (name || topicId);
-                }
-                if (shape && shape.keys && shape.labels) {
-                    const idx = shape.keys.indexOf(key);
-                    if (idx !== -1 && shape.labels[idx]) return shape.labels[idx];
-                    if (shape.poleKeys) {
-                        const pIdx = shape.poleKeys.indexOf(key);
-                        if (pIdx !== -1 && shape.labels[pIdx]) return shape.labels[pIdx];
-                    }
-                }
-            }
-            return null;
-        }
-        function sxSetPoleTip(el, topicId, key) {
-            if (!el) return;
-            const line = sxPoleLine(topicId, key);
-            if (line) {
-                el.setAttribute("data-ui-tooltip", line);
-                const sep = line.indexOf(" — ");
-                const name = sep !== -1 ? line.slice(0, sep).trim() : (el.textContent?.trim() || key);
-                const def = sep !== -1 ? line.slice(sep + 3).trim() : line;
-                el.setAttribute("data-tooltip-name", name);
-                el.setAttribute("data-tooltip-definition", def);
-                el.setAttribute("data-tooltip-tap-first", "");
-                el.dataset.ratingTooltip = line;
-            } else {
-                el.removeAttribute("data-ui-tooltip");
-                el.removeAttribute("data-tooltip-name");
-                el.removeAttribute("data-tooltip-definition");
-                el.removeAttribute("data-tooltip-tap-first");
-                delete el.dataset.ratingTooltip;
-            }
-        }
-        function sxSetMeterLine(wrap, topicId) {
-            // T9: label the intensity slider with the metered word, from
-            // the skin JSON (per-skin default word, per-topic override).
-            // Suppress the redundant "What this measures: ..." line.
-            if (!wrap) return;
-            const existingLine = wrap.querySelector(":scope > .sx-meter-line");
-            if (existingLine) existingLine.remove();
-
-            const word = (typeof window.__SX_METER_FOR_TOPIC === "function") ? window.__SX_METER_FOR_TOPIC(topicId) : null;
-            const labelText = word ? (word.charAt(0).toUpperCase() + word.slice(1)) : "Intensity";
-
-            // Update any slider label in this wrap or the dialog stage
-            const labels = wrap.querySelectorAll(".mark-tri-slider-label");
-            labels.forEach(l => { l.textContent = labelText; });
-            const directLabel = wrap.querySelector(".mark-tri-slider-label");
-            if (!directLabel) {
-                // If wrap is parent container or dialog, search within it
-                const stageLabels = document.querySelectorAll("#hotListWidgetDialog .mark-tri-slider-label, #markMenu .mark-tri-slider-label");
-                stageLabels.forEach(l => {
-                    if (wrap.contains(l)) l.textContent = labelText;
-                });
-            }
-        }
-        function sxHitPoleLabel(canvas, evt) {
-            const rects = canvas.__sxLabelRects;
-            if (!rects || !rects.length) return null;
-            const rect = canvas.getBoundingClientRect();
-            const px = (evt.clientX - rect.left) * (canvas.width / rect.width);
-            const py = (evt.clientY - rect.top) * (canvas.height / rect.height);
-            for (let i = 0; i < rects.length; i++) {
-                const r = rects[i];
-                if (!Number.isFinite(r.ax) || !Number.isFinite(r.ay) || !Number.isFinite(r.tw) || !Number.isFinite(r.th)) continue;
-                // Point in the label's own (rotated) frame: rotate the
-                // offset by -angle, then test against the unrotated box.
-                const theta = ((r.angle || 0) * Math.PI) / 180;
-                const dx = px - r.ax, dy = py - r.ay;
-                const c = Math.cos(-theta), s = Math.sin(-theta);
-                const lx = dx * c - dy * s, ly = dx * s + dy * c;
-                if (Math.abs(lx) <= r.tw / 2 + 2 && Math.abs(ly) <= r.th / 2 + 2) return r;
-            }
-            return null;
-        }
-        function sxBindPoleHover(canvas, getDragging) {
-            // Seam B: hovering a canvas pole label shows that pole's line;
-            // hovering empty canvas shows nothing. Skipped while dragging.
-            if (!canvas || canvas.dataset.poleHoverBound) return;
-            canvas.dataset.poleHoverBound = "1";
-            canvas.addEventListener("pointermove", (evt) => {
-                if ((getDragging && getDragging()) || typeof window.__SX_TIP_SHOW !== "function") return;
-                const hit = sxHitPoleLabel(canvas, evt);
-                if (!hit) {
-                    if (typeof window.__SX_TIP_HIDE === "function") window.__SX_TIP_HIDE();
-                    return;
-                }
-                // The popup canvas carries its own hover topic (set fresh
-                // on every open); placard canvases never set it and keep
-                // resolving via Qr, the placard's current topic.
-                const line = sxPoleLine(canvas.__sxHoverTopicId || Qr, hit.key);
-                if (line) window.__SX_TIP_SHOW(canvas, hit.name || hit.text, line, evt.clientX, evt.clientY);
-                else if (typeof window.__SX_TIP_HIDE === "function") window.__SX_TIP_HIDE();
-            });
-            canvas.addEventListener("pointerleave", () => {
-                if (typeof window.__SX_TIP_HIDE === "function") window.__SX_TIP_HIDE();
-            });
-        }
-
-        function sxGetTriVertices(width, height) {
-            // Pole 0 (Red, bottom-left), Pole 1 (Green, top center / middle position), Pole 2 (Blue, bottom-right)
-            // Label margins (2026-11-18, placard triad fix): the triangle
-            // sits INSIDE the canvas with room left OUTSIDE it for
-            // horizontal pole labels — a band above the top vertex and a
-            // two-line band below the base — so no label ever runs
-            // diagonally along an edge, cramped against the fill.
-            // Regular N-gon ruling (2026-11-19): the triangle is
-            // EQUILATERAL — one uniform scale on both axes, the same
-            // discipline the tetrad/radar widgets get from their circle
-            // geometry. (The old fractional-x vertices made a tall
-            // isosceles: on the 240px popup canvas the sides measured
-            // 167px against a 110px base.) The side is set by whichever
-            // of the label-banded height or the canvas width runs out
-            // first, and the triangle is centred in what remains.
-            const top = 36, bottom = 46, sidePad = 16;
-            const availH = Math.max(0, height - top - bottom);
-            let side = availH * 2 / Math.sqrt(3);
-            const maxSide = Math.max(0, width - 2 * sidePad);
-            if (side > maxSide) side = maxSide;
-            const triH = side * Math.sqrt(3) / 2;
-            const apexY = top + (availH - triH) / 2;
-            const baseY = apexY + triH;
-            const cx = width / 2, half = side / 2;
-            return {
-                V0: { x: cx - half, y: baseY },
-                V1: { x: cx, y: apexY },
-                V2: { x: cx + half, y: baseY }
-            };
-        }
-
-        function sxPointToBarycentric(px, py, V0, V1, V2) {
-            const det = (V1.y - V2.y) * (V0.x - V2.x) + (V2.x - V1.x) * (V0.y - V2.y);
-            if (Math.abs(det) < 1e-5) return { w0: 1 / 3, w1: 1 / 3, w2: 1 / 3 };
-            let w0 = ((V1.y - V2.y) * (px - V2.x) + (V2.x - V1.x) * (py - V2.y)) / det;
-            let w1 = ((V2.y - V0.y) * (px - V2.x) + (V0.x - V2.x) * (py - V2.y)) / det;
-            let w2 = 1 - w0 - w1;
-            w0 = Math.max(0, w0);
-            w1 = Math.max(0, w1);
-            w2 = Math.max(0, w2);
-            const sum = w0 + w1 + w2;
-            if (sum > 0) {
-                w0 /= sum;
-                w1 /= sum;
-                w2 /= sum;
-            } else {
-                w0 = 1 / 3; w1 = 1 / 3; w2 = 1 / 3;
-            }
-            return { w0, w1, w2 };
-        }
-
-        function sxWrapPoleLines(ctx, text, maxWidth) {
-            // Break on spaces only. A single long word stays whole so a
-            // name is never cut mid-letter just to fit the slot.
-            const words = String(text || "").split(/\s+/).filter(Boolean);
-            if (!words.length) return [""];
-            if (ctx.measureText(words.join(" ")).width <= maxWidth) return [words.join(" ")];
-            const lines = [];
-            let cur = "";
-            words.forEach(w => {
-                const trial = cur ? cur + " " + w : w;
-                if (ctx.measureText(trial).width <= maxWidth || !cur) cur = trial;
-                else { lines.push(cur); cur = w; }
-            });
-            if (cur) lines.push(cur);
-            return lines;
-        }
-        function sxWrapLabelLines(ctx, text, maxWidth) {
-            // Greedy word wrap at the shared pole-label font; a single
-            // over-long word is hard-split so it can never overflow.
-            const words = String(text || "").split(/\s+/).filter(Boolean);
-            const lines = [];
-            let cur = "";
-            const pushWord = (w) => {
-                while (ctx.measureText(w).width > maxWidth && w.length > 1) {
-                    let cut = 1;
-                    while (cut < w.length && ctx.measureText(w.slice(0, cut + 1)).width <= maxWidth) cut++;
-                    lines.push(w.slice(0, cut));
-                    w = w.slice(cut);
-                }
-                if (w) {
-                    const trial = cur ? cur + " " + w : w;
-                    if (ctx.measureText(trial).width <= maxWidth || !cur) cur = trial;
-                    else { lines.push(cur); cur = w; }
-                }
-            };
-            words.forEach(pushWord);
-            if (cur) lines.push(cur);
-            return lines.length ? lines : [""];
-        }
-        function sxDrawTriPoleLabel(ctx, canvas, cx, cy, text, color, key, maxWidth, above) {
-            // Horizontal exterior triad label (2026-11-18): never rotated,
-            // never along an edge. `above` stacks the wrapped block so it
-            // ends just above the vertex; otherwise it starts just below
-            // it. The block is centred on the vertex x, clamped to its
-            // own half of the canvas, and recorded as one axis-aligned
-            // rect (angle 0) for the hover hit-test.
-            if (!ctx || !canvas || !text) return;
-            ctx.save();
-            ctx.font = SX_POLE_LABEL_FONT;
-            ctx.textAlign = "center";
-            ctx.textBaseline = "middle";
-            const lines = sxWrapLabelLines(ctx, text, Math.max(30, maxWidth));
-            const sxNum = canvas.__sxPoleValMap && key != null ? canvas.__sxPoleValMap[key] : null;
-            if (sxNum) lines.push(String(sxNum));
-            const lineH = 11;
-            const blockW = Math.max.apply(null, lines.map(l => ctx.measureText(l).width).concat([1]));
-            const half = blockW / 2;
-            const ccx = Math.max(half + 3, Math.min(canvas.width - half - 3, cx));
-            const blockH = lines.length * lineH;
-            const topY = above ? (cy - 14 - blockH) : (cy + 14);
-            ctx.fillStyle = color;
-            lines.forEach((ln, i) => {
-                ctx.fillText(ln, ccx, topY + i * lineH + lineH / 2);
-            });
-            ctx.restore();
-            sxRecordPoleLabelRect(canvas, lines.join(" "), ccx - half, topY, blockW, blockH, 0, key, text, ccx, topY + blockH / 2, blockW, blockH);
-        }
-
-
-        // Signed-intensity model (2026-11-19, Jason's ruling): for the
-        // radar/tetrad families the intensity of a pole vector is its
-        // strongest value WITH its sign — negative intensity is aversion
-        // to the topic as a whole, while the proportions (each value over
-        // the signed intensity) describe the blend. Draws render the
-        // proportions at the widget's fixed frame, so sweeping intensity
-        // rescales the stored numbers without moving the shape.
-        function sxSignedIntensity(vals) {
-            let best = 0;
-            for (let i = 0; i < vals.length; i++) {
-                const v = Number(vals[i]) || 0;
-                if (Math.abs(v) > Math.abs(best)) best = v;
-            }
-            return best;
-        }
-        // Triad intensity, matching the placard's derivation: the sign of
-        // the sum carried on the magnitude of the absolute sum, so a
-        // mixed-sign vector keeps its magnitude when the sum cancels.
-        function sxTriSignedIntensity(vals) {
-            let sum = 0, sumAbs = 0;
-            for (let i = 0; i < vals.length; i++) {
-                const v = Number(vals[i]) || 0;
-                sum += v; sumAbs += Math.abs(v);
-            }
-            if (!sumAbs) return 0;
-            return sum < 0 ? -sumAbs : sumAbs;
-        }
-        // (n+1) intensity (Jason, 2026-11-19). The pole numbers are the
-        // leanings. `intensity` on the rating object is the extra number:
-        // relevance, signed, negative meaning aversion to the topic as a
-        // whole. Missing on old ratings: seed it from today's derivation
-        // (compass = sum, triad = signed absolute sum, radar = signed
-        // strongest) so the slider still reads the number it read before.
-        // The slider writes only this field. Scoring reads this number
-        // as relevance and does not fold it back into the poles.
-        function sxFamilyOf(shape) {
-            if (!shape || shape.single) return null;
-            const widget = shape.widget || "";
-            if (widget === "xy-switchbox" || widget === "monopole-slider" || widget === "trilinear-sliders") return null;
-            if (widget === "quad-compass") return "compass";
-            if (widget === "triangle" || shape.triangle) return "triad";
-            const n = (shape.keys || []).length;
-            if (n >= 4 || shape.tetrad || shape.pentad || shape.hexad || shape.heptad || shape.octad) return "radar";
-            if (n === 3) return "triad";
-            return null;
-        }
-        function sxDerivedFromVals(vals, family) {
-            if (family === "compass") {
-                let s = 0;
-                for (let i = 0; i < vals.length; i++) s += Number(vals[i]) || 0;
-                return Math.round(s);
-            }
-            if (family === "triad") return Math.round(sxTriSignedIntensity(vals));
-            return Math.round(sxSignedIntensity(vals));
-        }
-        function sxPersistIntensity(topicId, value, profileId) {
-            const v = Math.max(-400, Math.min(400, Math.round(Number(value) || 0)));
-            To(topicId, "intensity", v, !1, profileId || null);
-            return v;
-        }
-        function sxWidenIntensitySlider(slider, value) {
-            if (!slider) return;
-            const lim = Math.max(100, Math.abs(Math.round(Number(value) || 0)));
-            slider.min = String(-lim);
-            slider.max = String(lim);
-            slider.value = String(Math.round(Number(value) || 0));
-        }
-        // Brightness ramps with |intensity| up to full at ±100. Zero is
-        // the dim don't-care floor. Negative uses each channel's complement.
-        function sxIntensityRGB(r, g, b, intensity) {
-            const v = Number(intensity) || 0;
-            const mag = Math.min(1, Math.abs(v) / 100);
-            const br = 0.28 + 0.72 * mag;
-            let R = r, G = g, B = b;
-            if (v < 0) { R = 255 - r; G = 255 - g; B = 255 - b; }
-            return "rgb(" + Math.round(R * br) + "," + Math.round(G * br) + "," + Math.round(B * br) + ")";
-        }
-        const sxIntensitySeeded = new Set;
-        function sxSeedProfileIntensities(profileId) {
-            if (!profileId || sxIntensitySeeded.has(profileId) || typeof vt === "undefined" || !vt[profileId]) return;
-            sxIntensitySeeded.add(profileId);
-            const bag = vt[profileId];
-            Object.keys(bag).forEach(topicId => {
-                const raw = bag[topicId];
-                if (!raw || typeof raw !== "object" || Object.prototype.hasOwnProperty.call(raw, "intensity")) return;
-                // Line topics have no widget family below; their
-                // derivation is the stance's own size, so seed |line|
-                // and a line topic carries its (n+1) like any other.
-                if (Number.isFinite(Number(raw.line))) {
-                    sxPersistIntensity(topicId, Math.abs(Number(raw.line)), profileId);
-                    return;
-                }
-                const shape = Ge(topicId, profileId);
-                const family = sxFamilyOf(shape);
-                if (!family) return;
-                const keys = shape.keys || [];
-                const rec = ca(topicId, profileId);
-                if (!keys.some(k => rec[k + "Known"])) return;
-                const vals = keys.map(k => rec[k + "Known"] ? rec[k] : 0);
-                sxPersistIntensity(topicId, sxDerivedFromVals(vals, family), profileId);
-            });
-        }
-        function sxAdoptIntensity(state, rec, derived, slider, sliderOut, topicId, profileId) {
-            let intensity;
-            if (rec && rec.intensityKnown) intensity = Math.round(Number(rec.intensity) || 0);
-            else {
-                intensity = Math.round(Number(derived) || 0);
-                if (intensity && topicId) sxPersistIntensity(topicId, intensity, profileId);
-            }
-            if (state) state.intensity = intensity;
-            sxWidenIntensitySlider(slider, intensity);
-            if (sliderOut) sliderOut.textContent = String(Math.round(intensity));
-            return intensity;
-        }
-
-        function sxFindClosestAxis(px, py, cx, cy, vertices, currentValues, handleRadius = 22) {
-            let bestHandleIdx = null, bestHandleDist = handleRadius;
-            if (currentValues && currentValues.length) {
-                vertices.forEach((v, idx) => {
-                    const s = Math.max(0, Math.min(100, Math.abs(currentValues[idx] || 0))) / 100;
-                    const vx = cx + (v.x - cx) * s, vy = cy + (v.y - cy) * s;
-                    const d = Math.hypot(px - vx, py - vy);
-                    if (d < bestHandleDist) {
-                        bestHandleDist = d;
-                        bestHandleIdx = idx;
-                    }
-                });
-                if (bestHandleIdx !== null) return bestHandleIdx;
-            }
-
-            const clickAngle = Math.atan2(py - cy, px - cx);
-            let bestAngleIdx = 0, minAngleDiff = Infinity;
-            vertices.forEach((v, idx) => {
-                let diff = (clickAngle - v.angle) % (2 * Math.PI);
-                if (diff < -Math.PI) diff += 2 * Math.PI;
-                if (diff > Math.PI) diff -= 2 * Math.PI;
-                const absDiff = Math.abs(diff);
-                if (absDiff < minAngleDiff) {
-                    minAngleDiff = absDiff;
-                    bestAngleIdx = idx;
-                }
-            });
-            return bestAngleIdx;
-        }
-
-        function sxClosestVertexByAngle(px, py, cx, cy, vertices) {
-            const ptrAngle = Math.atan2(py - cy, px - cx);
-            let best = 0, bestD = Infinity;
-            for (let i = 0; i < vertices.length; i++) {
-                let d = Math.abs(vertices[i].angle - ptrAngle);
-                if (d > Math.PI) d = 2 * Math.PI - d;
-                if (d < bestD) { bestD = d; best = i; }
-            }
-            return best;
-        }
-
-        function sxGetRegularPolygonVertices(width, height, n, margin = 24) {
-            const cx = width / 2, cy = height / 2;
-            const r = Math.min(width, height) / 2 - margin;
-            const vertices = [];
-            for (let k = 0; k < n; k++) {
-                const angle = -Math.PI / 2 + k * (2 * Math.PI / n);
-                vertices.push({ x: cx + r * Math.cos(angle), y: cy + r * Math.sin(angle), angle });
-            }
-            return { cx, cy, r, vertices };
-        }
-
-        function sxDrawRadarPolygonWidget(canvas, shape, state, poleCount, getVerticesFn, colors) {
-            if (!canvas) return;
-            const ctx = canvas.getContext("2d");
-            if (!ctx) return;
-            const width = canvas.width, height = canvas.height;
-            ctx.clearRect(0, 0, width, height);
-
-            const { cx, cy, r, vertices } = getVerticesFn(width, height);
-
-            // 1. Concentric reference polygon rings (25%, 50%, 75%, 100%)
-            [0.25, 0.5, 0.75, 1.0].forEach(frac => {
-                ctx.beginPath();
-                for (let k = 0; k < poleCount; k++) {
-                    const angle = vertices[k].angle;
-                    const x = cx + r * frac * Math.cos(angle);
-                    const y = cy + r * frac * Math.sin(angle);
-                    if (k === 0) ctx.moveTo(x, y);
-                    else ctx.lineTo(x, y);
-                }
-                ctx.closePath();
-                ctx.lineWidth = frac === 1.0 ? 1.5 : 0.8;
-                ctx.strokeStyle = frac === 1.0 ? "rgba(255, 255, 255, 0.45)" : "rgba(255, 255, 255, 0.15)";
-                ctx.stroke();
-            });
-
-            // 2. Radial spoke axes from center to each vertex
-            ctx.beginPath();
-            ctx.lineWidth = 1;
-            ctx.setLineDash([2, 2]);
-            ctx.strokeStyle = "rgba(255, 255, 255, 0.3)";
-            for (let k = 0; k < poleCount; k++) {
-                ctx.moveTo(cx, cy);
-                ctx.lineTo(vertices[k].x, vertices[k].y);
-            }
-            ctx.stroke();
-            ctx.setLineDash([]);
-
-            // 3. Deformed Polygon from active ratings
-            const pVals = [];
-            for (let k = 0; k < poleCount; k++) pVals.push(state["p" + k]);
-            const sxMaxAbs = Math.abs(sxSignedIntensity(pVals));
-            const s = pVals.map(val => (sxMaxAbs > 0 ? Math.abs(val) / sxMaxAbs : 0));
-
-            const polyPts = vertices.map((v, k) => ({
-                x: cx + (v.x - cx) * s[k],
-                y: cy + (v.y - cy) * s[k]
-            }));
-
-            const maxVal = sxSignedIntensity(pVals);
-            const polyCol = sxIntensityRGB(61, 168, 116, state.intensity != null ? state.intensity : maxVal);
-
-            // Filled shape
-            ctx.beginPath();
-            polyPts.forEach((pt, k) => {
-                if (k === 0) ctx.moveTo(pt.x, pt.y);
-                else ctx.lineTo(pt.x, pt.y);
-            });
-            ctx.closePath();
-            ctx.fillStyle = polyCol;
-            ctx.globalAlpha = 0.45;
-            ctx.fill();
-            ctx.globalAlpha = 1.0;
-            ctx.lineWidth = 2;
-            ctx.strokeStyle = "#ffffff";
-            ctx.stroke();
-
-            // 4. Pole vertex handles
-            polyPts.forEach((pt, idx) => {
-                ctx.beginPath();
-                ctx.arc(pt.x, pt.y, 5.5, 0, 2 * Math.PI);
-                ctx.fillStyle = colors[idx];
-                ctx.fill();
-                ctx.lineWidth = 1.5;
-                ctx.strokeStyle = "#ffffff";
-                ctx.stroke();
-            });
-
-            // 5. Pole Labels — tangent-rotated (T5).
-            canvas.__sxLabelRects = [];
-            const labels = sxPoleLabels(shape, poleCount);
-            vertices.forEach((v, idx) => {
-                sxDrawPoleLabel(ctx, canvas, v.x, v.y, v.angle, labels[idx], colors[idx], shape && shape.keys && shape.keys[idx], labels[idx], poleCount, r);
-            });
-        }
-
-        function sxApplyPolygonRatings(topicId, state, poleCount) {
-            if (!topicId) return;
-            const shape = Ge(topicId);
-            if (!shape || !shape.keys || shape.keys.length < poleCount) return;
-            sxPersistIntensity(topicId, state.intensity);
-            for (let k = 0; k < poleCount; k++) {
-                To(topicId, shape.keys[k], Math.round(state["p" + k]), k === poleCount - 1);
-            }
-            sxSyncMarkRatings(topicId);
-        }
-
-        function sxClearPolygonRatings(topicId, poleCount) {
-            if (!topicId) return;
-            const shape = Ge(topicId);
-            if (!shape || !shape.keys || shape.keys.length < poleCount) return;
-            Fo(topicId, "intensity", !1);
-            for (let k = 0; k < poleCount; k++) {
-                Fo(topicId, shape.keys[k], k === poleCount - 1);
-            }
-            sxSyncMarkRatings(topicId);
-        }
-
-        function sxBindPolygonRadarWidget({
-            canvasId,
-            sliderId,
-            clearBtnId,
-            intensityOutId,
-            state,
-            poleCount,
-            getVerticesFn,
-            drawFn,
-            applyFn,
-            clearFn
-        }) {
-            const canvas = e.byId(canvasId);
-            const slider = e.byId(sliderId);
-            const clearBtn = e.byId(clearBtnId);
-            if (!canvas || canvas.dataset.bound) return;
-            canvas.dataset.bound = "1";
-            sxBindPoleHover(canvas, () => state.isDragging);
-
-            const updateFromPointer = (evt) => {
-                const rect = canvas.getBoundingClientRect();
-                const clientX = evt.clientX !== undefined ? evt.clientX : (evt.touches && evt.touches[0] ? evt.touches[0].clientX : 0);
-                const clientY = evt.clientY !== undefined ? evt.clientY : (evt.touches && evt.touches[0] ? evt.touches[0].clientY : 0);
-                const px = (clientX - rect.left) * (canvas.width / rect.width);
-                const py = (clientY - rect.top) * (canvas.height / rect.height);
-
-                const { cx, cy, r, vertices } = getVerticesFn(canvas.width, canvas.height);
-                const curVals = [];
-                for (let k = 0; k < poleCount; k++) curVals.push(state["p" + k]);
-                const isAllZero = curVals.every(v => !v);
-
-                if (state.activeVertex === null) {
-                    state.activeVertex = sxFindClosestAxis(px, py, cx, cy, vertices, isAllZero ? null : curVals, 22);
-                }
-
-                if (state.dragFromZero && !state.vertexLocked) {
-                    state.activeVertex = sxClosestVertexByAngle(px, py, cx, cy, vertices);
-                }
-
-                const v = state.activeVertex;
-                const angle = vertices[v].angle;
-                const cosA = Math.cos(angle), sinA = Math.sin(angle);
-                const dot = (px - cx) * cosA + (py - cy) * sinA;
-                const val = Math.max(0, Math.min(100, Math.round((dot / r) * 100)));
-
-                if ((isAllZero || (state.dragFromZero && !state.vertexLocked)) && val > 0) {
-                    const base = Math.max(20, Math.round(val * 0.5));
-                    for (let k = 0; k < poleCount; k++) {
-                        state[`p${k}`] = (k === v) ? val : base;
-                    }
-                    if (val > base) state.vertexLocked = true;
-                } else {
-                    state[`p${v}`] = val;
-                }
-
-                const pVals = [];
-                for (let k = 0; k < poleCount; k++) pVals.push(state["p" + k]);
-                const maxVal = sxSignedIntensity(pVals);
-                if (slider) slider.value = String(Math.round(maxVal));
-                const out = e.byId(intensityOutId);
-                if (out) out.textContent = String(Math.round(maxVal));
-
-                if (Qr) {
-                    const shape = Ge(Qr);
-                    drawFn(canvas, shape, state);
-                    applyFn(Qr);
-                }
-            };
-
-            canvas.addEventListener("pointerdown", (evt) => {
-                state.isDragging = !0;
-                state.activeVertex = null;
-                state.vertexLocked = !1;
-                let allZero = true;
-                for (let k = 0; k < poleCount; k++) {
-                    if (state["p" + k]) { allZero = false; break; }
-                }
-                state.dragFromZero = allZero;
-                canvas.setPointerCapture(evt.pointerId);
-                updateFromPointer(evt);
-            });
-
-            canvas.addEventListener("pointermove", (evt) => {
-                if (!state.isDragging) return;
-                updateFromPointer(evt);
-            });
-
-            const stopDrag = (evt) => {
-                if (state.isDragging) {
-                    state.isDragging = !1;
-                    state.activeVertex = null;
-                    try { canvas.releasePointerCapture(evt.pointerId); } catch (ignore) {}
-                }
-            };
-            canvas.addEventListener("pointerup", stopDrag);
-            canvas.addEventListener("pointercancel", stopDrag);
-
-            canvas.addEventListener("wheel", (evt) => {
-                evt.preventDefault();
-                evt.stopPropagation();
-                const step = (evt.shiftKey ? 5 : 1) * (evt.deltaY < 0 ? 1 : -1);
-                state.intensity = Math.max(-400, Math.min(400, Math.round((Number(state.intensity) || 0) + step)));
-                if (slider) slider.value = String(Math.round(state.intensity));
-                const out = e.byId(intensityOutId);
-                if (out) out.textContent = String(Math.round(state.intensity));
-                if (Qr) {
-                    const shape = Ge(Qr);
-                    drawFn(canvas, shape, state);
-                    applyFn(Qr);
-                }
-            }, { passive: false });
-
-            if (slider) {
-                slider.addEventListener("input", () => {
-                    const val = Math.max(-400, Math.min(400, Math.round(Number(slider.value) || 0)));
-                    state.intensity = val;
-                    const out = e.byId(intensityOutId);
-                    out && (out.textContent = String(val));
-                    if (Qr) {
-                        const shape = Ge(Qr);
-                        drawFn(canvas, shape, state);
-                        applyFn(Qr);
-                    }
-                });
-            }
-
-            if (clearBtn) {
-                clearBtn.addEventListener("click", () => {
-                    if (Qr) {
-                        clearFn(Qr);
-                    }
-                });
-            }
-        }
-
-
-        let sxTriState = {
-            topicId: null,
-            w0: 1 / 3,
-            w1: 1 / 3,
-            w2: 1 / 3,
-            intensity: 0,
-            isDragging: !1
-        };
-
-        function sxDrawTriangleWidget(canvas, shape, weights, intensity) {
-            if (typeof intensity !== "number" && weights && typeof weights.intensity === "number") intensity = weights.intensity;
-            if (!canvas) return;
-            const ctx = canvas.getContext("2d");
-            if (!ctx) return;
-            const width = canvas.width, height = canvas.height;
-            ctx.clearRect(0, 0, width, height);
-
-            const { V0, V1, V2 } = sxGetTriVertices(width, height);
-            const det = (V1.y - V2.y) * (V0.x - V2.x) + (V2.x - V1.x) * (V0.y - V2.y);
-
-            // 1. Barycentric RGB color gradient fill
-            const minX = Math.floor(Math.min(V0.x, V1.x, V2.x));
-            const maxX = Math.ceil(Math.max(V0.x, V1.x, V2.x));
-            const minY = Math.floor(Math.min(V0.y, V1.y, V2.y));
-            const maxY = Math.ceil(Math.max(V0.y, V1.y, V2.y));
-            const bw = maxX - minX, bh = maxY - minY;
-
-            // 1. Barycentric RGB color gradient fill — cached per canvas
-            // (2026-11-18, puck-drag smoothness): the gradient depends
-            // only on canvas size + intensity brightness, never on the
-            // puck position, so rebuilding it pixel-by-pixel on every
-            // pointermove was the drag jank. Rebuild only when the key
-            // (size x rounded intensity) changes; otherwise reuse.
-            const sxIntSigned = typeof intensity === "number" ? intensity : 0;
-            const absInt = Math.abs(sxIntSigned);
-            const gradKey = width + "x" + height + "x" + Math.round(sxIntSigned);
-            let grad = canvas.__sxTriGradient;
-            if ((!grad || grad.key !== gradKey) && bw > 0 && bh > 0 && Math.abs(det) > 1e-5) {
-                const offCanvas = document.createElement("canvas");
-                offCanvas.width = bw;
-                offCanvas.height = bh;
-                const offCtx = offCanvas.getContext("2d");
-                const imgData = offCtx.createImageData(bw, bh);
-                const data = imgData.data;
-
-                // Intensity scales gradient brightness. Full at ±100.
-                // Negative intensity paints each pole's complement.
-                const br = 0.28 + 0.72 * Math.min(1, absInt / 100);
-                const sxNeg = (typeof intensity === "number" ? intensity : 0) < 0;
-                const sxPoleRGB = [[240, 35, 45], [25, 225, 70], [35, 70, 245]].map(c => sxNeg ? c.map(ch => 255 - ch) : c);
-
-                for (let y = minY; y < maxY; y++) {
-                    for (let x = minX; x < maxX; x++) {
-                        const w0 = ((V1.y - V2.y) * (x - V2.x) + (V2.x - V1.x) * (y - V2.y)) / det;
-                        const w1 = ((V2.y - V0.y) * (x - V2.x) + (V0.x - V2.x) * (y - V2.y)) / det;
-                        const w2 = 1 - w0 - w1;
-                        if (w0 >= -0.01 && w1 >= -0.01 && w2 >= -0.01) {
-                            const cw0 = Math.max(0, w0), cw1 = Math.max(0, w1), cw2 = Math.max(0, w2);
-                            const sum = cw0 + cw1 + cw2;
-                            const nw0 = sum > 0 ? cw0 / sum : 1/3;
-                            const nw1 = sum > 0 ? cw1 / sum : 1/3;
-                            const nw2 = sum > 0 ? cw2 / sum : 1/3;
-                            // Pole 0 = Red, pole 1 = Green, pole 2 = Blue.
-                            // Negative intensity has already swapped each
-                            // pole to its complement.
-                            const r = (nw0 * sxPoleRGB[0][0] + nw1 * sxPoleRGB[1][0] + nw2 * sxPoleRGB[2][0]) * br;
-                            const g = (nw0 * sxPoleRGB[0][1] + nw1 * sxPoleRGB[1][1] + nw2 * sxPoleRGB[2][1]) * br;
-                            const b = (nw0 * sxPoleRGB[0][2] + nw1 * sxPoleRGB[1][2] + nw2 * sxPoleRGB[2][2]) * br;
-                            const idx = ((y - minY) * bw + (x - minX)) * 4;
-                            data[idx] = Math.round(r);
-                            data[idx + 1] = Math.round(g);
-                            data[idx + 2] = Math.round(b);
-                            data[idx + 3] = 230; // 90% opacity
-                        }
-                    }
-                }
-                offCtx.putImageData(imgData, 0, 0);
-                grad = canvas.__sxTriGradient = { key: gradKey, img: offCanvas, minX: minX, minY: minY };
-            }
-
-            if (grad && grad.img) {
-                ctx.save();
-                ctx.beginPath();
-                ctx.moveTo(V0.x, V0.y);
-                ctx.lineTo(V1.x, V1.y);
-                ctx.lineTo(V2.x, V2.y);
-                ctx.closePath();
-                ctx.clip();
-                ctx.drawImage(grad.img, grad.minX, grad.minY);
-                ctx.restore();
-            }
-
-            // 2. Triangle Frame & grid lines
-            ctx.beginPath();
-            ctx.moveTo(V0.x, V0.y);
-            ctx.lineTo(V1.x, V1.y);
-            ctx.lineTo(V2.x, V2.y);
-            ctx.closePath();
-            ctx.lineWidth = 1.8;
-            ctx.strokeStyle = "rgba(255, 255, 255, 0.45)";
-            ctx.stroke();
-
-            // Centroid grid lines
-            const cx = (V0.x + V1.x + V2.x) / 3;
-            const cy = (V0.y + V1.y + V2.y) / 3;
-            ctx.beginPath();
-            ctx.moveTo(V0.x, V0.y); ctx.lineTo(cx, cy);
-            ctx.moveTo(V1.x, V1.y); ctx.lineTo(cx, cy);
-            ctx.moveTo(V2.x, V2.y); ctx.lineTo(cx, cy);
-            ctx.lineWidth = 1;
-            ctx.setLineDash([2, 2]);
-            ctx.strokeStyle = "rgba(255, 255, 255, 0.35)";
-            ctx.stroke();
-            ctx.setLineDash([]);
-
-            // 3. Colored Pole Dots (Red, Green, Blue)
-            // Pole 0: Red
-            ctx.beginPath();
-            ctx.arc(V0.x, V0.y, 4.5, 0, 2 * Math.PI);
-            ctx.fillStyle = "#ef4444";
-            ctx.fill();
-            ctx.lineWidth = 1.2;
-            ctx.strokeStyle = "#ffffff";
-            ctx.stroke();
-
-            // Pole 1: Green (Middle position)
-            ctx.beginPath();
-            ctx.arc(V1.x, V1.y, 4.5, 0, 2 * Math.PI);
-            ctx.fillStyle = "#22c55e";
-            ctx.fill();
-            ctx.lineWidth = 1.2;
-            ctx.strokeStyle = "#ffffff";
-            ctx.stroke();
-
-            // Pole 2: Blue
-            ctx.beginPath();
-            ctx.arc(V2.x, V2.y, 4.5, 0, 2 * Math.PI);
-            ctx.fillStyle = "#3b82f6";
-            ctx.fill();
-            ctx.lineWidth = 1.2;
-            ctx.strokeStyle = "#ffffff";
-            ctx.stroke();
-
-            // 4. Pole labels (matching RGB colors) — horizontal and
-            // EXTERIOR to the triangle (2026-11-18): the old shared
-            // tangent rotation ran the long bottom labels diagonally
-            // along the edges, cramped against the fill. Green sits in
-            // one wrapped block above the top vertex; red and blue sit
-            // in wrapped blocks below their base vertices, each clamped
-            // to its own half of the canvas so they never overlap.
-            canvas.__sxLabelRects = [];
-            const labels = sxPoleLabels(shape, 3);
-            const triCols = ["#ef4444", "#22c55e", "#3b82f6"];
-            const triKeys = shape && shape.keys;
-            sxDrawTriPoleLabel(ctx, canvas, V1.x, V1.y, labels[1], triCols[1], triKeys && triKeys[1], width - 24, true);
-            const triHalfW = width / 2 - 14;
-            sxDrawTriPoleLabel(ctx, canvas, V0.x, V0.y, labels[0], triCols[0], triKeys && triKeys[0], triHalfW, false);
-            sxDrawTriPoleLabel(ctx, canvas, V2.x, V2.y, labels[2], triCols[2], triKeys && triKeys[2], triHalfW, false);
-
-            // 5. Active point puck position
-            const w0 = weights.w0, w1 = weights.w1, w2 = weights.w2;
-            const px = w0 * V0.x + w1 * V1.x + w2 * V2.x;
-            const py = w0 * V0.y + w1 * V1.y + w2 * V2.y;
-
-            // Halo glow for puck
-            ctx.beginPath();
-            ctx.arc(px, py, 11, 0, 2 * Math.PI);
-            ctx.fillStyle = "rgba(255, 255, 255, 0.45)";
-            ctx.fill();
-
-            // Solid puck
-            ctx.beginPath();
-            ctx.arc(px, py, 6, 0, 2 * Math.PI);
-            ctx.fillStyle = "#ffffff";
-            ctx.fill();
-            ctx.lineWidth = 1.8;
-            ctx.strokeStyle = "#0f172a";
-            ctx.stroke();
-        }
-
-        function sxApplyTriRatings(topicId, skipSync) {
-            if (!topicId) return;
-            const shape = Ge(topicId);
-            if (!shape || !shape.keys || shape.keys.length < 3) return;
-            const { w0, w1, w2, intensity } = sxTriState;
-            // Leanings are the weights on a 0–100 scale. Intensity is stored
-            // beside them and is not baked back into the pole numbers.
-            const v0 = Math.round(w0 * 100);
-            const v1 = Math.round(w1 * 100);
-            const v2 = Math.round(w2 * 100);
-            sxPersistIntensity(topicId, intensity);
-            To(topicId, shape.keys[0], v0, !1);
-            To(topicId, shape.keys[1], v1, !1);
-            To(topicId, shape.keys[2], v2, !0);
-            // During a drag the caller passes skipSync: the full placard
-            // re-sync re-derives the weights from the stored INTEGER
-            // ratings and redraws the triangle a second time, so the
-            // puck fought the pointer in quantized jumps on every move.
-            // Live drags write the ratings only; the drag-end call (no
-            // skipSync) does the one full sync.
-            if (!skipSync) sxSyncMarkRatings(topicId);
-        }
-
-        function sxClearTriRatings(topicId) {
-            if (!topicId) return;
-            const shape = Ge(topicId);
-            if (!shape || !shape.keys || shape.keys.length < 3) return;
-            Fo(topicId, "intensity", !1);
-            Fo(topicId, shape.keys[0], !1);
-            Fo(topicId, shape.keys[1], !1);
-            Fo(topicId, shape.keys[2], !0);
-            sxSyncMarkRatings(topicId);
-        }
-
-        // --- 4-Pole Tetrad Radar / Diamond Deformation State & Widget ---
-        let sxTetradState = {
-            topicId: null,
-            intensity: 0,
-            p0: 0,
-            p1: 0,
-            p2: 0,
-            p3: 0,
-            // Shape = pole values as ratios to the max (max = 1). Saved
-            // whenever the values are non-zero, so the intensity slider can
-            // restore the same shape after being taken to 0 (where the
-            // values themselves are all 0 and the shape would be lost).
-            shape: null,
-            activeVertex: null,
-            isDragging: !1,
-            dragFromZero: !1,
-            vertexLocked: !1
-        };
-
-        const SX_TETRAD_COLORS = ["#22c55e", "#eab308", "#ef4444", "#3b82f6"];
-
-        function sxGetTetradVertices(width, height) {
-            const poly = sxGetRegularPolygonVertices(width, height, 4);
-            return {
-                cx: poly.cx, cy: poly.cy, r: poly.r,
-                P0: poly.vertices[0],
-                P1: poly.vertices[1],
-                P2: poly.vertices[2],
-                P3: poly.vertices[3],
-                vertices: poly.vertices
-            };
-        }
-
-        function sxDrawTetradWidget(canvas, shape, state) {
-            sxDrawRadarPolygonWidget(canvas, shape, state, 4, sxGetTetradVertices, SX_TETRAD_COLORS);
-        }
-
-        function sxApplyTetradRatings(topicId) {
-            sxApplyPolygonRatings(topicId, sxTetradState, 4);
-        }
-
-        function sxClearTetradRatings(topicId) {
-            sxClearPolygonRatings(topicId, 4);
-        }
-
-        // --- 4-Pole Political Compass (quad-compass) State & Widget ---
-        // A square with two axes: horizontal = economic (left/right),
-        // vertical = authority (authoritarian top / libertarian bottom).
-        // One draggable point. Pole order is the JSON's, clockwise from
-        // top-left: keys[0] = top-left, keys[1] = top-right,
-        // keys[2] = bottom-right, keys[3] = bottom-left.
-        // Storage: the four values are bilinear weights x intensity, so
-        // they sum to the intensity (0..100) and the point is recoverable
-        // from them: u = (v1 + v2) / I, v = (v2 + v3) / I, I = sum.
-        let sxCompassState = {
-            topicId: null,
-            u: 0.5, v: 0.5, intensity: 0,
-            isDragging: !1
-        };
-
-        // Corner colors in JSON pole order (top-left, top-right,
-        // bottom-right, bottom-left) — same four colors as the tetrad.
-        const SX_COMPASS_COLORS = ["#22c55e", "#eab308", "#ef4444", "#3b82f6"];
-
-        function sxCompassShortLabel(label) {
-            // "Authoritarian Left (State Socialism)" -> "Auth Left".
-            // The canvas corners are too narrow for the full labels;
-            // the full labels stay in the readout rows below the canvas.
-            const s = String(label || "");
-            const cut = s.indexOf(" (");
-            const base = cut >= 0 ? s.slice(0, cut) : s;
-            return base.replace("Authoritarian", "Auth").replace("Libertarian", "Lib");
-        }
-
-        function sxGetCompassSquare(width, height) {
-            // Square with room for the corner labels outside it.
-            const s = Math.max(40, Math.min(width - 110, height - 80));
-            const cx = width / 2, cy = height / 2;
-            return { cx, cy, s, x0: cx - s / 2, y0: cy - s / 2, x1: cx + s / 2, y1: cy + s / 2 };
-        }
-
-        function sxCompassPointToUV(px, py, sq) {
-            const u = Math.max(0, Math.min(1, (px - sq.x0) / sq.s));
-            const v = Math.max(0, Math.min(1, (py - sq.y0) / sq.s));
-            return { u, v };
-        }
-
-        function sxCompassValuesFromPoint(u, v, intensity) {
-            const I = Math.max(-100, Math.min(100, intensity));
-            const vals = [
-                Math.round((1 - u) * (1 - v) * I),
-                Math.round(u * (1 - v) * I),
-                Math.round(u * v * I),
-                Math.round((1 - u) * v * I)
-            ];
-            // Per-key rounding can leave the sum off by 1-2; fold the
-            // residual into the largest value so the four values sum to
-            // the intensity exactly (the storage shape's invariant).
-            const residual = Math.round(I) - (vals[0] + vals[1] + vals[2] + vals[3]);
-            if (residual !== 0) {
-                let maxIdx = 0;
-                for (let k = 1; k < 4; k++) if (Math.abs(vals[k]) > Math.abs(vals[maxIdx])) maxIdx = k;
-                vals[maxIdx] = Math.max(-100, Math.min(100, vals[maxIdx] + residual));
-            }
-            return vals;
-        }
-
-        function sxCompassPointFromValues(r0, r1, r2, r3) {
-            const vals = [r0, r1, r2, r3].map(n => Math.max(-100, Math.min(100, Number(n) || 0)));
-            const I = Math.max(-100, Math.min(100, vals[0] + vals[1] + vals[2] + vals[3]));
-            if (I === 0) return { u: 0.5, v: 0.5, intensity: 0 };
-            return {
-                u: Math.max(0, Math.min(1, (vals[1] + vals[2]) / I)),
-                v: Math.max(0, Math.min(1, (vals[2] + vals[3]) / I)),
-                intensity: I
-            };
-        }
-
-        function sxDrawCompassWidget(canvas, shape, state) {
-            if (!canvas) return;
-            const ctx = canvas.getContext("2d");
-            if (!ctx) return;
-            const width = canvas.width, height = canvas.height;
-            ctx.clearRect(0, 0, width, height);
-
-            const sq = sxGetCompassSquare(width, height);
-            const { cx, cy, s, x0, y0, x1, y1 } = sq;
-            const u = (state && typeof state.u === "number") ? state.u : 0.5;
-            const v = (state && typeof state.v === "number") ? state.v : 0.5;
-            const px = x0 + u * s, py = y0 + v * s;
-
-            // 1. Tinted quadrant backgrounds. Brightness follows the stored
-            // intensity; a negative intensity uses each quadrant's complement.
-            const sxBr = 0.28 + 0.72 * Math.min(1, Math.abs(Number(state && state.intensity) || 0) / 100);
-            const sxNeg = (Number(state && state.intensity) || 0) < 0;
-            const sxQuad = sxNeg
-                ? [[221, 58, 161], [21, 76, 247], [16, 187, 187], [196, 125, 209]]
-                : [[34, 197, 94], [234, 179, 8], [239, 68, 68], [59, 130, 246]];
-            const tints = sxQuad.map(c => "rgba(" + c[0] + "," + c[1] + "," + c[2] + "," + (0.10 * sxBr).toFixed(3) + ")");
-            ctx.fillStyle = tints[0]; ctx.fillRect(x0, y0, s / 2, s / 2);
-            ctx.fillStyle = tints[1]; ctx.fillRect(cx, y0, s / 2, s / 2);
-            ctx.fillStyle = tints[2]; ctx.fillRect(cx, cy, s / 2, s / 2);
-            ctx.fillStyle = tints[3]; ctx.fillRect(x0, cy, s / 2, s / 2);
-
-            // 2. Gridlines at 25/50/75% + square frame
-            [0.25, 0.5, 0.75].forEach(frac => {
-                ctx.beginPath();
-                ctx.moveTo(x0 + s * frac, y0); ctx.lineTo(x0 + s * frac, y1);
-                ctx.moveTo(x0, y0 + s * frac); ctx.lineTo(x1, y0 + s * frac);
-                ctx.lineWidth = 0.8;
-                ctx.strokeStyle = "rgba(255, 255, 255, 0.15)";
-                ctx.stroke();
-            });
-            ctx.beginPath();
-            ctx.rect(x0, y0, s, s);
-            ctx.lineWidth = 1.5;
-            ctx.strokeStyle = "rgba(255, 255, 255, 0.45)";
-            ctx.stroke();
-
-            // 3. Crosshair axes (dashed)
-            ctx.beginPath();
-            ctx.moveTo(cx, y0); ctx.lineTo(cx, y1);
-            ctx.moveTo(x0, cy); ctx.lineTo(x1, cy);
-            ctx.lineWidth = 1;
-            ctx.setLineDash([2, 2]);
-            ctx.strokeStyle = "rgba(255, 255, 255, 0.3)";
-            ctx.stroke();
-            ctx.setLineDash([]);
-
-            // 4. Axis captions — from the topic's axes (T1). A compass
-            // topic without axes draws no captions: the old hardcoded
-            // "Economic"/"Authority" was live-wrong on Chemcapades.
-            const axes = (shape && shape.axes) || null;
-            ctx.font = "9px system-ui, sans-serif";
-            if (axes && axes[0]) {
-                ctx.textAlign = "center"; ctx.textBaseline = "bottom";
-                ctx.fillStyle = "rgba(255, 255, 255, 0.45)";
-                ctx.fillText(axes[0], cx, y1 - 4);
-            }
-            if (axes && axes[1]) {
-                ctx.save();
-                ctx.translate(x0 + 10, cy);
-                ctx.rotate(-Math.PI / 2);
-                ctx.textAlign = "center"; ctx.textBaseline = "bottom";
-                ctx.fillStyle = "rgba(255, 255, 255, 0.45)";
-                ctx.fillText(axes[1], 0, -4);
-                ctx.restore();
-            }
-
-            // 5. Corner labels ride the tangent of the square's
-            // circumscribing circle (Jason, 2026-11-19). The short form
-            // is drawn; the full label is the hover name.
-            canvas.__sxLabelRects = [];
-            const labels = sxPoleLabels(shape, 4);
-            const short = labels.map(l => sxCompassShortLabel(l));
-            const corners = [
-                { x: x0, y: y0 },
-                { x: x1, y: y0 },
-                { x: x1, y: y1 },
-                { x: x0, y: y1 }
-            ];
-            corners.forEach((corner, idx) => {
-                sxDrawPoleLabel(ctx, canvas, corner.x, corner.y, Math.atan2(corner.y - cy, corner.x - cx), short[idx], SX_COMPASS_COLORS[idx], shape && shape.keys && shape.keys[idx], labels[idx], 4, Math.hypot(x0 - cx, y0 - cy));
-            });
-
-            // 6. Draggable point puck (same pattern as the triangle widget)
-            ctx.beginPath();
-            ctx.arc(px, py, 11, 0, 2 * Math.PI);
-            ctx.fillStyle = "rgba(255, 255, 255, 0.45)";
-            ctx.fill();
-            ctx.beginPath();
-            ctx.arc(px, py, 6, 0, 2 * Math.PI);
-            ctx.fillStyle = "#ffffff";
-            ctx.fill();
-            ctx.lineWidth = 1.8;
-            ctx.strokeStyle = "#0f172a";
-            ctx.stroke();
-        }
-
-        function sxApplyCompassRatings(topicId) {
-            if (!topicId) return;
-            const shape = Ge(topicId);
-            if (!shape || !shape.keys || shape.keys.length < 4) return;
-            // The point is the leaning, stored at a fixed 100 scale so a
-            // later intensity change does not move the four pole numbers.
-            const vals = sxCompassValuesFromPoint(sxCompassState.u, sxCompassState.v, 100);
-            sxPersistIntensity(topicId, sxCompassState.intensity);
-            To(topicId, shape.keys[0], vals[0], !1);
-            To(topicId, shape.keys[1], vals[1], !1);
-            To(topicId, shape.keys[2], vals[2], !1);
-            To(topicId, shape.keys[3], vals[3], !0);
-            sxSyncMarkRatings(topicId);
-        }
-
-        function sxClearCompassRatings(topicId) {
-            if (!topicId) return;
-            const shape = Ge(topicId);
-            if (!shape || !shape.keys || shape.keys.length < 4) return;
-            Fo(topicId, "intensity", !1);
-            Fo(topicId, shape.keys[0], !1);
-            Fo(topicId, shape.keys[1], !1);
-            Fo(topicId, shape.keys[2], !1);
-            Fo(topicId, shape.keys[3], !0);
-            sxSyncMarkRatings(topicId);
-        }
-
-        function sxBindCompassWidget() {
-            const canvas = e.byId("markCompassCanvas");
-            const slider = e.byId("markCompassIntensity");
-            const clearBtn = e.byId("markCompassClear");
-            if (!canvas || canvas.dataset.bound) return;
-            canvas.dataset.bound = "1";
-            sxBindPoleHover(canvas, () => sxCompassState.isDragging);
-
-            const updatePointFromPointer = (evt) => {
-                const rect = canvas.getBoundingClientRect();
-                const clientX = evt.clientX !== undefined ? evt.clientX : (evt.touches && evt.touches[0] ? evt.touches[0].clientX : 0);
-                const clientY = evt.clientY !== undefined ? evt.clientY : (evt.touches && evt.touches[0] ? evt.touches[0].clientY : 0);
-                const px = (clientX - rect.left) * (canvas.width / rect.width);
-                const py = (clientY - rect.top) * (canvas.height / rect.height);
-                const sq = sxGetCompassSquare(canvas.width, canvas.height);
-                const { u, v } = sxCompassPointToUV(px, py, sq);
-                sxCompassState.u = u;
-                sxCompassState.v = v;
-                if (!sxCompassState.intensity) {
-                    sxCompassState.intensity = 70;
-                    if (slider) slider.value = "70";
-                    const out = e.byId("markCompassIntensityOut");
-                    out && (out.textContent = "70");
-                }
-                if (Qr) {
-                    const shape = Ge(Qr);
-                    sxDrawCompassWidget(canvas, shape, sxCompassState);
-                    sxApplyCompassRatings(Qr);
-                }
-            };
-
-            canvas.addEventListener("pointerdown", (evt) => {
-                sxCompassState.isDragging = !0;
-                canvas.setPointerCapture(evt.pointerId);
-                updatePointFromPointer(evt);
-            });
-            canvas.addEventListener("pointermove", (evt) => {
-                if (!sxCompassState.isDragging) return;
-                updatePointFromPointer(evt);
-            });
-            const stopDrag = (evt) => {
-                if (sxCompassState.isDragging) {
-                    sxCompassState.isDragging = !1;
-                    try { canvas.releasePointerCapture(evt.pointerId); } catch (ignore) {}
-                }
-            };
-            canvas.addEventListener("pointerup", stopDrag);
-            canvas.addEventListener("pointercancel", stopDrag);
-
-            // Mouse wheel scales the intensity (sum), point unchanged
-            canvas.addEventListener("wheel", (evt) => {
-                evt.preventDefault();
-                evt.stopPropagation();
-                const step = (evt.shiftKey ? 5 : 1) * (evt.deltaY < 0 ? 1 : -1);
-                sxCompassState.intensity = Math.max(-400, Math.min(400, Math.round((Number(sxCompassState.intensity) || 0) + step)));
-                if (slider) slider.value = String(Math.round(sxCompassState.intensity));
-                const out = e.byId("markCompassIntensityOut");
-                out && (out.textContent = String(Math.round(sxCompassState.intensity)));
-                if (Qr) {
-                    sxPersistIntensity(Qr, sxCompassState.intensity);
-                    const shape = Ge(Qr);
-                    sxDrawCompassWidget(canvas, shape, sxCompassState);
-                }
-            }, { passive: false });
-
-            if (slider) {
-                slider.addEventListener("input", () => {
-                    sxCompassState.intensity = Math.max(-400, Math.min(400, Math.round(Number(slider.value) || 0)));
-                    const out = e.byId("markCompassIntensityOut");
-                    out && (out.textContent = String(Math.round(sxCompassState.intensity)));
-                    if (Qr) {
-                        sxPersistIntensity(Qr, sxCompassState.intensity);
-                        const shape = Ge(Qr);
-                        sxDrawCompassWidget(canvas, shape, sxCompassState);
-                    }
-                });
-            }
-
-            if (clearBtn) {
-                clearBtn.addEventListener("click", () => {
-                    if (Qr) {
-                        sxClearCompassRatings(Qr);
-                    }
-                });
-            }
-        }
-
-        function sxBindTetradWidget() {
-            sxBindPolygonRadarWidget({
-                canvasId: "markTetradCanvas",
-                sliderId: "markTetradIntensity",
-                clearBtnId: "markTetradClear",
-                intensityOutId: "markTetradIntensityOut",
-                state: sxTetradState,
-                poleCount: 4,
-                getVerticesFn: sxGetTetradVertices,
-                drawFn: sxDrawTetradWidget,
-                applyFn: sxApplyTetradRatings,
-                clearFn: sxClearTetradRatings
-            });
-        }
-
-        // --- 5-Pole Pentad Radar / Star Deformation State & Widget ---
-        let sxPentadState = {
-            topicId: null,
-            intensity: 0,
-            p0: 0, p1: 0, p2: 0, p3: 0, p4: 0,
-            shape: null,
-            activeVertex: null,
-            isDragging: !1,
-            dragFromZero: !1,
-            vertexLocked: !1
-        };
-
-        const SX_PENTAD_COLORS = ["#a855f7", "#06b6d4", "#f59e0b", "#ef4444", "#22c55e"];
-
-        function sxGetPentadVertices(width, height) {
-            return sxGetRegularPolygonVertices(width, height, 5);
-        }
-
-        function sxDrawPentadWidget(canvas, shape, state) {
-            sxDrawRadarPolygonWidget(canvas, shape, state, 5, sxGetPentadVertices, SX_PENTAD_COLORS);
-        }
-
-        function sxApplyPentadRatings(topicId) {
-            sxApplyPolygonRatings(topicId, sxPentadState, 5);
-        }
-
-        function sxClearPentadRatings(topicId) {
-            sxClearPolygonRatings(topicId, 5);
-        }
-
-        function sxBindPentadWidget() {
-            sxBindPolygonRadarWidget({
-                canvasId: "markPentadCanvas",
-                sliderId: "markPentadIntensity",
-                clearBtnId: "markPentadClear",
-                intensityOutId: "markPentadIntensityOut",
-                state: sxPentadState,
-                poleCount: 5,
-                getVerticesFn: sxGetPentadVertices,
-                drawFn: sxDrawPentadWidget,
-                applyFn: sxApplyPentadRatings,
-                clearFn: sxClearPentadRatings
-            });
-        }
-
-        // --- 6-Pole Hexad Radar Deformation State & Widget ---
-        let sxHexadState = {
-            topicId: null,
-            intensity: 0,
-            p0: 0, p1: 0, p2: 0, p3: 0, p4: 0, p5: 0,
-            shape: null,
-            activeVertex: null,
-            isDragging: !1,
-            dragFromZero: !1,
-            vertexLocked: !1
-        };
-
-        const SX_HEXAD_COLORS = ["#22c55e", "#06b6d4", "#6366f1", "#ef4444", "#f97316", "#eab308"];
-
-        function sxGetHexadVertices(width, height) {
-            return sxGetRegularPolygonVertices(width, height, 6);
-        }
-
-        function sxDrawHexadWidget(canvas, shape, state) {
-            sxDrawRadarPolygonWidget(canvas, shape, state, 6, sxGetHexadVertices, SX_HEXAD_COLORS);
-        }
-
-        function sxApplyHexadRatings(topicId) {
-            sxApplyPolygonRatings(topicId, sxHexadState, 6);
-        }
-
-        function sxClearHexadRatings(topicId) {
-            sxClearPolygonRatings(topicId, 6);
-        }
-
-        function sxBindHexadWidget() {
-            sxBindPolygonRadarWidget({
-                canvasId: "markHexadCanvas",
-                sliderId: "markHexadIntensity",
-                clearBtnId: "markHexadClear",
-                intensityOutId: "markHexadIntensityOut",
-                state: sxHexadState,
-                poleCount: 6,
-                getVerticesFn: sxGetHexadVertices,
-                drawFn: sxDrawHexadWidget,
-                applyFn: sxApplyHexadRatings,
-                clearFn: sxClearHexadRatings
-            });
-        }
-
-        // --- 7-Pole Heptad Radar Deformation State & Widget ---
-        let sxHeptadState = {
-            topicId: null,
-            intensity: 0,
-            p0: 0, p1: 0, p2: 0, p3: 0, p4: 0, p5: 0, p6: 0,
-            shape: null,
-            activeVertex: null,
-            isDragging: !1,
-            dragFromZero: !1,
-            vertexLocked: !1
-        };
-
-        const SX_HEPTAD_COLORS = ["#22c55e", "#06b6d4", "#3b82f6", "#6366f1", "#a855f7", "#ec4899", "#f97316"];
-
-        function sxGetHeptadVertices(width, height) {
-            return sxGetRegularPolygonVertices(width, height, 7);
-        }
-
-        function sxDrawHeptadWidget(canvas, shape, state) {
-            sxDrawRadarPolygonWidget(canvas, shape, state, 7, sxGetHeptadVertices, SX_HEPTAD_COLORS);
-        }
-
-        function sxApplyHeptadRatings(topicId) {
-            sxApplyPolygonRatings(topicId, sxHeptadState, 7);
-        }
-
-        function sxClearHeptadRatings(topicId) {
-            sxClearPolygonRatings(topicId, 7);
-        }
-
-        function sxBindHeptadWidget() {
-            sxBindPolygonRadarWidget({
-                canvasId: "markHeptadCanvas",
-                sliderId: "markHeptadIntensity",
-                clearBtnId: "markHeptadClear",
-                intensityOutId: "markHeptadIntensityOut",
-                state: sxHeptadState,
-                poleCount: 7,
-                getVerticesFn: sxGetHeptadVertices,
-                drawFn: sxDrawHeptadWidget,
-                applyFn: sxApplyHeptadRatings,
-                clearFn: sxClearHeptadRatings
-            });
-        }
-
-        // --- 8-Pole Octad Radar Deformation State & Widget ---
-        let sxOctadState = {
-            topicId: null,
-            intensity: 0,
-            p0: 0, p1: 0, p2: 0, p3: 0, p4: 0, p5: 0, p6: 0, p7: 0,
-            shape: null,
-            activeVertex: null,
-            isDragging: !1,
-            dragFromZero: !1,
-            vertexLocked: !1
-        };
-
-        const SX_OCTAD_COLORS = ["#22c55e", "#10b981", "#06b6d4", "#3b82f6", "#6366f1", "#a855f7", "#ec4899", "#f97316"];
-
-        function sxGetOctadVertices(width, height) {
-            return sxGetRegularPolygonVertices(width, height, 8);
-        }
-
-        function sxDrawOctadWidget(canvas, shape, state) {
-            sxDrawRadarPolygonWidget(canvas, shape, state, 8, sxGetOctadVertices, SX_OCTAD_COLORS);
-        }
-
-        function sxApplyOctadRatings(topicId) {
-            sxApplyPolygonRatings(topicId, sxOctadState, 8);
-        }
-
-        function sxClearOctadRatings(topicId) {
-            sxClearPolygonRatings(topicId, 8);
-        }
-
-        function sxBindOctadWidget() {
-            sxBindPolygonRadarWidget({
-                canvasId: "markOctadCanvas",
-                sliderId: "markOctadIntensity",
-                clearBtnId: "markOctadClear",
-                intensityOutId: "markOctadIntensityOut",
-                state: sxOctadState,
-                poleCount: 8,
-                getVerticesFn: sxGetOctadVertices,
-                drawFn: sxDrawOctadWidget,
-                applyFn: sxApplyOctadRatings,
-                clearFn: sxClearOctadRatings
-            });
-        }
-
-        window.sxOpenHotListWidgetPopup = function(topicId, profileId, root) {
-            const dlg = root || e.byId("hotListWidgetDialog");
-            if (!dlg || !topicId) return;
-            // A Hot List row passes its own inline host. The second call
-            // only redraws, so a rating change does not rebind the canvas.
-            if (root && root.__sxRedraw) return void root.__sxRedraw();
-            const pick = (id, sel) => root ? (dlg.matches && dlg.matches(sel) ? dlg : dlg.querySelector(sel)) : e.byId(id);
-            // Hot List freeze fix (2026-11-15): pId may be the empty-template id
-            // on a fresh boot. The first write mints a real profile, so every
-            // handler re-resolves the id before reading/writing — otherwise
-            // reads keep hitting the empty template and the readout never moves.
-            // An explicitly passed real profile id is preserved as-is.
-            let pId = profileId || Vi();
-            const freshPid = () => (profileId && profileId !== Et) ? profileId : Vi();
-            const shape = Ge(topicId, pId);
-            const item = qn[topicId] || Xn(topicId) || (at[pId] || {})[topicId] || {};
-            const titleEl = pick("hotListWidgetTitle", ".outline-inline-title");
-            const badgeEl = pick("hotListWidgetBadge", ".outline-inline-badge");
-            const descEl = pick("hotListWidgetDesc", ".outline-inline-desc");
-            const canvas = pick("hotListWidgetCanvas", ".outline-inline-canvas");
-            const slider = pick("hotListWidgetIntensity", ".outline-inline-slider");
-            const sliderOut = pick("hotListWidgetIntensityOut", ".outline-inline-out");
-            const readoutEl = pick("hotListWidgetReadout", ".outline-inline-readout");
-            const clearBtn = pick("hotListWidgetClear", ".outline-inline-clear");
-            const closeBtn = pick("closeHotListWidgetBtn", ".outline-inline-close");
-            const doneBtn = pick("doneHotListWidgetBtn", ".outline-inline-done");
-            if (!canvas) return;
-            if (root) canvas.__sxInline = true;
-
-            const label = item.label || item.name || topicId;
-            titleEl && (titleEl.textContent = label);
-            descEl && (descEl.textContent = lo(item));
-
-            const isOctad = Boolean(shape.octad || (shape.keys && shape.keys.length === 8));
-            const isHeptad = Boolean(shape.heptad || (shape.keys && shape.keys.length === 7));
-            const isHexad = Boolean(shape.hexad || (shape.keys && shape.keys.length === 6));
-            const isPentad = Boolean(shape.pentad || (shape.keys && shape.keys.length === 5));
-            const isCompass = shape.widget === "quad-compass";
-            const isTetrad = !isCompass && Boolean(shape.tetrad || (shape.keys && shape.keys.length === 4));
-            const isTriad = Boolean(shape.triangle || (shape.keys && shape.keys.length === 3));
-            const is2Pole = !isOctad && !isHeptad && !isHexad && !isPentad && !isTetrad && !isTriad;
-            // The xy-switchbox has no intensity dimension at all (its two
-            // axes are signed already): the generic intensity slider and
-            // wheel must not rescale its values.
-            const isSwitch = is2Pole && !isCompass && !shape.single;
-            if (slider) slider.disabled = isSwitch;
-
-            badgeEl && (badgeEl.textContent = isCompass ? "Political Compass" : isOctad ? "8-Pole Octad" : isHeptad ? "7-Pole Heptad" : isHexad ? "6-Pole Hexad" : isPentad ? "5-Pole Pentad" : isTetrad ? "4-Pole Tetrad" : isTriad ? "3-Pole Triad" : (shape.single ? "Monopole" : "2D Role Switch-Box"));
-
-            const keys = shape.keys || [];
-            if (readoutEl) {
-                readoutEl.innerHTML = "";
-                readoutEl.style.display = "none";
-                readoutEl.hidden = true;
-            }
-            const valSpans = [];
-            keys.forEach((k, idx) => {
-                const statBox = document.createElement("div");
-                statBox.className = "mark-tri-stat";
-                const pName = shape.labels[idx] || k;
-                const pCol = isOctad ? SX_OCTAD_COLORS[idx] : isHeptad ? SX_HEPTAD_COLORS[idx] : isHexad ? SX_HEXAD_COLORS[idx] : isPentad ? SX_PENTAD_COLORS[idx] : isCompass ? SX_COMPASS_COLORS[idx] : isTetrad ? ["#22c55e", "#eab308", "#ef4444", "#3b82f6"][idx] : isTriad ? ["#ef4444", "#22c55e", "#3b82f6"][idx] : ["#22c55e", "#3b82f6"][idx];
-                statBox.innerHTML = `<span style="color:${pCol}">${pName}</span>: <b style="color:${pCol}">0</b>`;
-                // Seam A: the pole name span carries the pole's hovertip line.
-                sxSetPoleTip(statBox.querySelector("span"), topicId, k);
-                readoutEl && readoutEl.append(statBox);
-                valSpans.push(statBox.querySelector("b"));
-            });
-
-            const syncReadouts = () => {
-                const curRec = ca(topicId, pId);
-                keys.forEach((k, idx) => {
-                    const isK = curRec[k + "Known"];
-                    const v = isK ? Math.round(curRec[k]) : "—";
-                    if (valSpans[idx]) valSpans[idx].textContent = String(v);
-                });
-            };
-
-            const redraw = () => {
-                pId = freshPid();
-                sxSeedProfileIntensities(pId);
-                const curRec = ca(topicId, pId);
-                const vals = keys.map(k => (curRec[k + "Known"] ? curRec[k] : 0));
-                if (canvas.__sxInline) {
-                    const map = {};
-                    keys.forEach((k) => { if (curRec[k + "Known"]) map[k] = String(Math.round(curRec[k])); });
-                    canvas.__sxPoleValMap = map;
-                }
-                const maxVal = sxSignedIntensity(vals);
-                // The slider reads the stored +1. A rating that has never
-                // stored one is seeded from the old derivation so the
-                // number on the slider does not jump.
-                const family = isCompass ? "compass" : isTriad ? "triad" : "radar";
-                const derived = isSwitch ? 0 : sxDerivedFromVals(vals, family);
-                const sliderVal = !isSwitch && curRec.intensityKnown ? Math.round(Number(curRec.intensity) || 0) : derived;
-                if (!isSwitch) {
-                    // The derived intensity can exceed the slider's static
-                    // ±100 range (triad sums reach ±300, compass sums ±400):
-                    // widen the range to cover it before assigning, or the
-                    // element silently clamps and misreads the stored blend
-                    // (Adam readback defect, finisher 2026-11-19).
-                    if (slider) {
-                        const lim = Math.max(100, Math.abs(Math.round(sliderVal)));
-                        slider.min = String(-lim);
-                        slider.max = String(lim);
-                        slider.value = String(Math.round(sliderVal));
-                    }
-                    sliderOut && (sliderOut.textContent = String(Math.round(sliderVal)));
-                }
-                syncReadouts();
-
-                if (isCompass) {
-                    const pt = sxCompassPointFromValues(vals[0], vals[1], vals[2], vals[3]);
-                    pt.intensity = sliderVal;
-                    sxDrawCompassWidget(canvas, shape, pt);
-                } else if (isOctad) {
-                    sxDrawOctadWidget(canvas, shape, {
-                        p0: vals[0], p1: vals[1], p2: vals[2], p3: vals[3], p4: vals[4], p5: vals[5], p6: vals[6], p7: vals[7], intensity: sliderVal
-                    });
-                } else if (isHeptad) {
-                    sxDrawHeptadWidget(canvas, shape, {
-                        p0: vals[0], p1: vals[1], p2: vals[2], p3: vals[3], p4: vals[4], p5: vals[5], p6: vals[6], intensity: sliderVal
-                    });
-                } else if (isHexad) {
-                    sxDrawHexadWidget(canvas, shape, {
-                        p0: vals[0], p1: vals[1], p2: vals[2], p3: vals[3], p4: vals[4], p5: vals[5], intensity: sliderVal
-                    });
-                } else if (isPentad) {
-                    sxDrawPentadWidget(canvas, shape, {
-                        p0: vals[0], p1: vals[1], p2: vals[2], p3: vals[3], p4: vals[4], intensity: sliderVal
-                    });
-                } else if (isTetrad) {
-                    sxDrawTetradWidget(canvas, shape, {
-                        p0: vals[0], p1: vals[1], p2: vals[2], p3: vals[3], intensity: sliderVal
-                    });
-                } else if (isTriad) {
-                    // 2026-11-18 (puck-drag smoothness): the weights must
-                    // sum to 1 — the draw places the puck at w0*V0 +
-                    // w1*V1 + w2*V2, so the old raw vals/100 (summing to
-                    // intensity/100, e.g. 0.7) dragged the puck toward the
-                    // canvas origin, and let it jump whenever the
-                    // intensity changed mid-drag. Normalised by absolute
-                    // value, mirroring the placard's derivation.
-                    const sumAbs = Math.abs(vals[0]) + Math.abs(vals[1]) + Math.abs(vals[2]);
-                    const nw = sumAbs > 0 ? [Math.abs(vals[0]) / sumAbs, Math.abs(vals[1]) / sumAbs, Math.abs(vals[2]) / sumAbs] : [1 / 3, 1 / 3, 1 / 3];
-                    sxDrawTriangleWidget(canvas, shape, {
-                        x: 0, y: 0, w0: nw[0], w1: nw[1], w2: nw[2], intensity: sliderVal
-                    });
-                } else {
-                    sxDrawSwitchboxWidget(canvas, shape, {
-                        give: curRec.giveKnown ? curRec.give : 0,
-                        receive: curRec.receiveKnown ? curRec.receive : 0
-                    });
-                }
-            };
-
-            redraw();
-
-            // The inline row sits on top of the map. Repainting the map
-            // on every click (Mr) is what made the widget feel late: the
-            // list already covers the map, and closing the list paints it.
-            // Ss would also draw this same canvas a second time.
-            const paintRow = () => {
-                if (root) return;
-                const row = Ro && Ro.querySelector(`.outline-row[data-outline-id="${CSS.escape(topicId)}"]`);
-                row && Ss(row);
-            };
-            const finishGesture = () => {
-                if (root) {
-                    try { ws(); } catch (err) {}
-                    return;
-                }
-                Mr();
-                paintRow();
-            };
-
-            let activeIdx = null, isDragging = false;
-
-            // Hot List popup meter line + pole tips (2026-11-16): the
-            // same T9 line and hover seams as the placard. The meter
-            // line lives in the widget stage (above the canvas); the
-            // hover topic is refreshed on every open because the canvas
-            // is persistent while the bind is once-only (dataset guard).
-            sxSetMeterLine(pick("hotListWidgetStage", ".outline-inline-widget"), topicId);
-            canvas.__sxHoverTopicId = topicId;
-            sxBindPoleHover(canvas, () => isDragging);
-            const onPointer = (evt) => {
-                pId = freshPid();
-                const rect = canvas.getBoundingClientRect();
-                const clientX = evt.clientX !== undefined ? evt.clientX : (evt.touches && evt.touches[0] ? evt.touches[0].clientX : 0);
-                const clientY = evt.clientY !== undefined ? evt.clientY : (evt.touches && evt.touches[0] ? evt.touches[0].clientY : 0);
-                const px = (clientX - rect.left) * (canvas.width / rect.width);
-                const py = (clientY - rect.top) * (canvas.height / rect.height);
-
-                if (isOctad || isHeptad || isHexad || isPentad || isTetrad) {
-                    const getVerts = isOctad ? sxGetOctadVertices : isHeptad ? sxGetHeptadVertices : isHexad ? sxGetHexadVertices : isPentad ? sxGetPentadVertices : sxGetTetradVertices;
-                    const { cx, cy, r, vertices } = getVerts(canvas.width, canvas.height);
-                    const curRec = ca(topicId, pId);
-                    const curVals = keys.map(k => (curRec[k + "Known"] ? curRec[k] : 0));
-                    const isAllZero = curVals.every(v => !v);
-
-                    if (activeIdx === null) {
-                        activeIdx = sxFindClosestAxis(px, py, cx, cy, vertices, isAllZero ? null : curVals, 22);
-                    }
-                    const v = vertices[activeIdx];
-                    const angle = v.angle;
-                    const dot = (px - cx) * Math.cos(angle) + (py - cy) * Math.sin(angle);
-                    const val = Math.max(0, Math.min(100, Math.round((dot / r) * 100)));
-
-                    if (isAllZero && val > 0) {
-                        const base = Math.max(20, Math.round(val * 0.5));
-                        keys.forEach((k, idx) => {
-                            To(topicId, k, (idx === activeIdx) ? val : base, !1, pId);
-                        });
-                    } else {
-                        To(topicId, keys[activeIdx], val, !1, pId);
-                    }
-                    redraw();
-                    paintRow();
-                } else if (isCompass) {
-                    const sq = sxGetCompassSquare(canvas.width, canvas.height);
-                    const { u, v } = sxCompassPointToUV(px, py, sq);
-                    const vals = sxCompassValuesFromPoint(u, v, 100);
-                    keys.forEach((k, idx) => To(topicId, k, vals[idx], !1, pId));
-                    redraw();
-                    paintRow();
-                } else if (isTriad) {
-                    const { V0, V1, V2 } = sxGetTriVertices(canvas.width, canvas.height);
-                    const { w0, w1, w2 } = sxPointToBarycentric(px, py, V0, V1, V2);
-                    To(topicId, keys[0], Math.round(w0 * 100), !1, pId);
-                    To(topicId, keys[1], Math.round(w1 * 100), !1, pId);
-                    To(topicId, keys[2], Math.round(w2 * 100), !1, pId);
-                    redraw();
-                    paintRow();
-                } else if (is2Pole && !shape.single) {
-                    const cx = canvas.width / 2, cy = canvas.height / 2;
-                    const r = Math.min(cx, cy) - 22;
-                    let dx = px - cx, dy = py - cy;
-                    if (Math.hypot(dx, dy) < 6) { dx = 0; dy = 0; }
-                    const g = Math.max(-100, Math.min(100, Math.round((dx / r) * 100)));
-                    const recv = Math.max(-100, Math.min(100, Math.round((-dy / r) * 100)));
-                    To(topicId, "give", g, !1, pId);
-                    To(topicId, "receive", recv, !1, pId);
-                    redraw();
-                    paintRow();
-                }
-            };
-
-            const onDown = (evt) => {
-                const hit = sxHitPoleLabel(canvas, evt);
-                if (hit && evt.pointerType !== "mouse") {
-                    const line = sxPoleLine(canvas.__sxHoverTopicId || Qr, hit.key);
-                    if (line) {
-                        window.__SX_TIP_SHOW(canvas, hit.name || hit.text, line, evt.clientX, evt.clientY);
-                        return;
-                    }
-                }
-                isDragging = true;
-                activeIdx = null;
-                try { canvas.setPointerCapture(evt.pointerId); } catch(e) {}
-                onPointer(evt);
-            };
-            const onMove = (evt) => { if (isDragging) onPointer(evt); };
-            const onUp = (evt) => {
-                if (isDragging) {
-                    isDragging = false;
-                    activeIdx = null;
-                    try { canvas.releasePointerCapture(evt.pointerId); } catch(e) {}
-                    finishGesture();
-                }
-            };
-
-            canvas.onpointerdown = onDown;
-            canvas.onpointermove = onMove;
-            canvas.onpointerup = onUp;
-            canvas.onpointercancel = onUp;
-
-            // Wheel sets intensity. On the Hot List the listener is the
-            // whole widget, so the vertical slider and the canvas share
-            // it, and the list does not scroll underneath. The popup
-            // keeps the listener on its canvas and still repaints the
-            // map; the Hot List does not, because the list covers it.
-            const onWheel = (evt) => {
-                pId = freshPid();
-                evt.preventDefault();
-                evt.stopPropagation();
-                if (isSwitch) return;
-                const step = (evt.shiftKey ? 5 : 1) * (evt.deltaY < 0 ? 1 : -1);
-                const curRec = ca(topicId, pId);
-                const vals = keys.map(k => (curRec[k + "Known"] ? curRec[k] : 0));
-                const family = isCompass ? "compass" : isTriad ? "triad" : "radar";
-                const cur = curRec.intensityKnown ? Number(curRec.intensity) || 0 : sxDerivedFromVals(vals, family);
-                sxPersistIntensity(topicId, cur + step, pId);
-                redraw();
-                if (root) {
-                    clearTimeout(root.__sxWheelWs);
-                    root.__sxWheelWs = setTimeout(() => { try { ws(); } catch (err) {} }, 200);
-                } else {
-                    Mr();
-                    paintRow();
-                }
-            };
-            if (root) root.onwheel = onWheel;
-            else canvas.onwheel = onWheel;
-
-            if (slider) {
-                slider.oninput = () => {
-                    pId = freshPid();
-                    if (isSwitch) return;
-                    // The slider edits only the stored +1. Pole numbers stay.
-                    sxPersistIntensity(topicId, Number(slider.value), pId);
-                    redraw();
-                    paintRow();
-                };
-                slider.onchange = () => {
-                    finishGesture();
-                };
-            }
-
-            if (clearBtn) {
-                clearBtn.onclick = () => {
-                    Fo(topicId, "intensity", !1, pId);
-                    keys.forEach((k, idx) => Fo(topicId, k, !root && idx === keys.length - 1, pId));
-                    redraw();
-                    if (root) finishGesture();
-                    else paintRow();
-                };
-            }
-
-            if (root) {
-                root.__sxRedraw = redraw;
-                return;
-            }
-            const closeDialog = () => {
-                try { dlg.close(); } catch (e) { dlg.hidden = true; }
-                Mr();
-            };
-            closeBtn && (closeBtn.onclick = closeDialog);
-            doneBtn && (doneBtn.onclick = closeDialog);
-
-            try {
-                if (typeof dlg.showModal === "function") dlg.showModal();
-                else dlg.hidden = false;
-            } catch (err) {
-                dlg.hidden = false;
-            }
-        };
-
-        function sxBindTriangleWidget() {
-            const canvas = e.byId("markTriangleCanvas");
-            const slider = e.byId("markTriangleIntensity");
-            const clearBtn = e.byId("markTriangleClear");
-            if (!canvas || canvas.dataset.bound) return;
-            canvas.dataset.bound = "1";
-            sxBindPoleHover(canvas, () => sxTriState.isDragging);
-
-            const updatePointFromPointer = (evt) => {
-                const rect = canvas.getBoundingClientRect();
-                const clientX = evt.clientX !== undefined ? evt.clientX : (evt.touches && evt.touches[0] ? evt.touches[0].clientX : 0);
-                const clientY = evt.clientY !== undefined ? evt.clientY : (evt.touches && evt.touches[0] ? evt.touches[0].clientY : 0);
-                const px = (clientX - rect.left) * (canvas.width / rect.width);
-                const py = (clientY - rect.top) * (canvas.height / rect.height);
-                const { V0, V1, V2 } = sxGetTriVertices(canvas.width, canvas.height);
-                const { w0, w1, w2 } = sxPointToBarycentric(px, py, V0, V1, V2);
-                sxTriState.w0 = w0;
-                sxTriState.w1 = w1;
-                sxTriState.w2 = w2;
-                if (!sxTriState.intensity) {
-                    sxTriState.intensity = 70;
-                    if (slider) slider.value = "70";
-                    const out = e.byId("markTriangleIntensityOut");
-                    out && (out.textContent = "70");
-                }
-                if (Qr) {
-                    const shape = Ge(Qr);
-                    sxDrawTriangleWidget(canvas, shape, sxTriState, sxTriState.intensity);
-                    // Live drag (2026-11-18): the puck follows the pointer
-                    // from sxTriState alone — cheap text updates for the
-                    // three readout values, and the rating write coalesced
-                    // to one per animation frame, WITHOUT the full placard
-                    // re-sync (that re-derived the weights from stored
-                    // integers and redrew the triangle a second time, so
-                    // the puck jumped in quantized steps on every move).
-                    // The full sync runs once, on drag end (stopDrag).
-                    const v0El = e.byId("markTriVal0"), v1El = e.byId("markTriVal1"), v2El = e.byId("markTriVal2");
-                    if (v0El) v0El.textContent = String(Math.round(sxTriState.w0 * sxTriState.intensity));
-                    if (v1El) v1El.textContent = String(Math.round(sxTriState.w1 * sxTriState.intensity));
-                    if (v2El) v2El.textContent = String(Math.round(sxTriState.w2 * sxTriState.intensity));
-                    if (!sxTriState.__sxApplyRaf) {
-                        sxTriState.__sxApplyRaf = requestAnimationFrame(() => {
-                            sxTriState.__sxApplyRaf = 0;
-                            if (Qr) sxApplyTriRatings(Qr, true);
-                        });
-                    }
-                }
-            };
-
-            canvas.addEventListener("pointerdown", (evt) => {
-                sxTriState.isDragging = !0;
-                canvas.setPointerCapture(evt.pointerId);
-                updatePointFromPointer(evt);
-            });
-            canvas.addEventListener("pointermove", (evt) => {
-                if (!sxTriState.isDragging) return;
-                updatePointFromPointer(evt);
-            });
-            const stopDrag = (evt) => {
-                if (sxTriState.isDragging) {
-                    sxTriState.isDragging = !1;
-                    try { canvas.releasePointerCapture(evt.pointerId); } catch (ignore) {}
-                    // Flush any coalesced live write, then the one full
-                    // placard sync for the finished drag.
-                    if (sxTriState.__sxApplyRaf) { cancelAnimationFrame(sxTriState.__sxApplyRaf); sxTriState.__sxApplyRaf = 0; }
-                    if (Qr) sxApplyTriRatings(Qr);
-                }
-            };
-            canvas.addEventListener("pointerup", stopDrag);
-            canvas.addEventListener("pointercancel", stopDrag);
-
-            // Mouse wheel adjustments on canvas directly adjust intensity
-            canvas.addEventListener("wheel", (evt) => {
-                evt.preventDefault();
-                evt.stopPropagation();
-                const step = (evt.shiftKey ? 5 : 1) * (evt.deltaY < 0 ? 1 : -1);
-                const current = typeof sxTriState.intensity === "number" ? sxTriState.intensity : 0;
-                sxTriState.intensity = Math.max(-400, Math.min(400, Math.round(current + step)));
-                if (slider) slider.value = String(Math.round(sxTriState.intensity));
-                const out = e.byId("markTriangleIntensityOut");
-                out && (out.textContent = String(Math.round(sxTriState.intensity)));
-                if (Qr) {
-                    sxPersistIntensity(Qr, sxTriState.intensity);
-                    const shape = Ge(Qr);
-                    sxDrawTriangleWidget(canvas, shape, sxTriState, sxTriState.intensity);
-                }
-            }, { passive: false });
-
-            if (slider) {
-                slider.addEventListener("input", () => {
-                    sxTriState.intensity = Math.max(-400, Math.min(400, Math.round(Number(slider.value) || 0)));
-                    const out = e.byId("markTriangleIntensityOut");
-                    out && (out.textContent = String(Math.round(sxTriState.intensity)));
-                    if (Qr) {
-                        sxPersistIntensity(Qr, sxTriState.intensity);
-                        const shape = Ge(Qr);
-                        sxDrawTriangleWidget(canvas, shape, sxTriState, sxTriState.intensity);
-                    }
-                });
-            }
-
-            if (clearBtn) {
-                clearBtn.addEventListener("click", () => {
-                    if (Qr) {
-                        sxClearTriRatings(Qr);
-                    }
-                });
-            }
-        }
-
-
-        // --- 2D XY Role Switch-Box State & Widget ---
-        let sxSwitchboxState = {
-            topicId: null,
-            give: 0,
-            receive: 0,
-            isDragging: false
-        };
-
-        function sxGetSwitchboxRole(give, receive, topicId) {
-            const g = Math.round(give), r = Math.round(receive);
-            const words = sxSwitchboxRoleWords(topicId);
-            if (g === 0 && r === 0) return "Neutral / Open";
-            if (g > 20 && r > 20) return words.classic ? "Versatile Switch" : "Both " + words.g + " + " + words.r;
-            if (g < -20 && r < -20) return words.classic ? "Hard Red Limit" : "Neither (limit)";
-            if (g > 20 && r < -20) return words.classic ? "Dedicated Top / Giver" : words.g + " only";
-            if (g < -20 && r > 20) return words.classic ? "Dedicated Bottom / Receiver" : words.r + " only";
-            if (g > 20 && Math.abs(r) <= 20) return words.classic ? "Top Leaning" : words.g + " leaning";
-            if (r > 20 && Math.abs(g) <= 20) return words.classic ? "Bottom Leaning" : words.r + " leaning";
-            if (g < -20 && Math.abs(r) <= 20) return words.classic ? "Give Limit" : words.g + " limit";
-            if (r < -20 && Math.abs(g) <= 20) return words.classic ? "Receive Limit" : words.r + " limit";
-            return "Moderate Engagement";
-        }
-
-        function sxDrawSwitchboxWidget(canvas, shape, state) {
-            if (!canvas) return;
-            const ctx = canvas.getContext("2d");
-            if (!ctx) return;
-            const width = canvas.width, height = canvas.height;
-            ctx.clearRect(0, 0, width, height);
-
-            const cx = width / 2, cy = height / 2;
-            const pad = 22;
-            const r = Math.min(cx, cy) - pad;
-
-            // 1. Tinted Quadrant Backgrounds
-            // QI (Top-Right: +Give, +Receive -> Versatile Switch)
-            ctx.fillStyle = "rgba(34, 197, 94, 0.12)";
-            ctx.fillRect(cx, cy - r, r, r);
-
-            // QII (Top-Left: -Give, +Receive -> Bottom / Receiver)
-            ctx.fillStyle = "rgba(59, 130, 246, 0.10)";
-            ctx.fillRect(cx - r, cy - r, r, r);
-
-            // QIII (Bottom-Left: -Give, -Receive -> Hard Limit)
-            ctx.fillStyle = "rgba(239, 68, 68, 0.12)";
-            ctx.fillRect(cx - r, cy, r, r);
-
-            // QIV (Bottom-Right: +Give, -Receive -> Top / Giver)
-            ctx.fillStyle = "rgba(234, 179, 8, 0.10)";
-            ctx.fillRect(cx, cy, r, r);
-
-            // 2. Reference Grid & Border
-            ctx.lineWidth = 1;
-            ctx.strokeStyle = "rgba(255, 255, 255, 0.28)";
-            ctx.strokeRect(cx - r, cy - r, 2 * r, 2 * r);
-
-            // Grid lines at +/- 50
-            ctx.setLineDash([2, 2]);
-            ctx.strokeStyle = "rgba(255, 255, 255, 0.14)";
-            ctx.beginPath();
-            ctx.moveTo(cx - r * 0.5, cy - r); ctx.lineTo(cx - r * 0.5, cy + r);
-            ctx.moveTo(cx + r * 0.5, cy - r); ctx.lineTo(cx + r * 0.5, cy + r);
-            ctx.moveTo(cx - r, cy - r * 0.5); ctx.lineTo(cx + r, cy - r * 0.5);
-            ctx.moveTo(cx - r, cy + r * 0.5); ctx.lineTo(cx + r, cy + r * 0.5);
-            ctx.stroke();
-
-            // Diagonal switch line Y = X (Top-Right to Bottom-Left)
-            ctx.beginPath();
-            ctx.moveTo(cx - r, cy + r);
-            ctx.lineTo(cx + r, cy - r);
-            ctx.strokeStyle = "rgba(56, 189, 248, 0.35)";
-            ctx.stroke();
-            ctx.setLineDash([]);
-
-            // 3. Main Crosshairs
-            ctx.beginPath();
-            ctx.moveTo(cx - r, cy); ctx.lineTo(cx + r, cy);
-            ctx.moveTo(cx, cy - r); ctx.lineTo(cx, cy + r);
-            ctx.lineWidth = 1.2;
-            ctx.strokeStyle = "rgba(255, 255, 255, 0.45)";
-            ctx.stroke();
-
-            // Deadband center circle
-            ctx.beginPath();
-            ctx.arc(cx, cy, 4, 0, 2 * Math.PI);
-            ctx.strokeStyle = "rgba(255, 255, 255, 0.4)";
-            ctx.stroke();
-
-            // 4. Pole Axis Labels — short axis words on canvas (T2/T4);
-            // the full names live in the readout rows + hovertips. Side
-            // labels run vertical (tangent, 90°) so they fit the 190px
-            // canvas instead of clipping past its edge (T3).
-            canvas.__sxLabelRects = [];
-            const giveFull = (shape && shape.labels && shape.labels[0]) || "Give";
-            const recvFull = (shape && shape.labels && shape.labels[1]) || "Receive";
-            const giveLabel = sxShortAxisWord(giveFull);
-            const recvLabel = sxShortAxisWord(recvFull);
-
-            // Top (+Receive) — horizontal
-            sxDrawPoleLabelAt(ctx, canvas, cx, cy - r - 9, 0, `+ ${recvLabel}`, "#4ade80", "receive", recvFull);
-            // Bottom (-Receive Limit) — horizontal
-            sxDrawPoleLabelAt(ctx, canvas, cx, cy + r + 9, 0, `- ${recvLabel} Limit`, "#f87171", "receive", recvFull);
-            // Right (+Give) — vertical
-            sxDrawPoleLabelAt(ctx, canvas, cx + r + 9, cy, 90, `+ ${giveLabel}`, "#4ade80", "give", giveFull);
-            // Left (-Give Limit) — vertical
-            sxDrawPoleLabelAt(ctx, canvas, cx - r - 9, cy, 90, `- ${giveLabel} Limit`, "#f87171", "give", giveFull);
-
-            // 5. Active Puck Position
-            const isUnrated = Boolean(state.isUnrated);
-            const g = Math.max(-100, Math.min(100, state.give || 0));
-            const recvVal = Math.max(-100, Math.min(100, state.receive || 0));
-            const px = cx + (g / 100) * r;
-            const py = cy - (recvVal / 100) * r; // screen y is inverted
-
-            if (isUnrated) {
-                // Unrated ghost prompt
-                ctx.beginPath();
-                ctx.arc(cx, cy, 7.5, 0, 2 * Math.PI);
-                ctx.lineWidth = 1.5;
-                ctx.setLineDash([3, 3]);
-                ctx.strokeStyle = "rgba(255, 255, 255, 0.75)";
-                ctx.stroke();
-                ctx.setLineDash([]);
-                ctx.font = "italic 9px system-ui, sans-serif";
-                ctx.textAlign = "center";
-                ctx.textBaseline = "middle";
-                ctx.fillStyle = "rgba(255, 255, 255, 0.65)";
-                ctx.fillText("Click to rate", cx, cy - 14);
-            } else {
-                // Puck color
-                let puckCol = "#94a3b8";
-                if (g === 0 && recvVal === 0) {
-                    puckCol = "rgba(255, 255, 255, 0.6)";
-                } else if (g >= 0 && recvVal >= 0) {
-                    puckCol = "#22c55e"; // Green versatile switch
-                } else if (g <= 0 && recvVal <= 0) {
-                    puckCol = "#ef4444"; // Red limit
-                } else if (g > 0 && recvVal < 0) {
-                    puckCol = "#eab308"; // Top yellow
-                } else {
-                    puckCol = "#3b82f6"; // Bottom blue
-                }
-
-                // Glow
-                ctx.beginPath();
-                ctx.arc(px, py, 11, 0, 2 * Math.PI);
-                ctx.fillStyle = puckCol;
-                ctx.globalAlpha = 0.35;
-                ctx.fill();
-                ctx.globalAlpha = 1.0;
-
-                // Puck body
-                ctx.beginPath();
-                ctx.arc(px, py, 6.5, 0, 2 * Math.PI);
-                ctx.fillStyle = puckCol;
-                ctx.fill();
-                ctx.lineWidth = 1.8;
-                ctx.strokeStyle = "#ffffff";
-                ctx.stroke();
-            }
-        }
-
-        function sxUpdateSwitchboxReadouts(give, receive, isUnrated = false) {
-            const gVal = e.byId("markSwitchboxGiveVal");
-            const rVal = e.byId("markSwitchboxRecvVal");
-            const roleVal = e.byId("markSwitchboxRoleVal");
-            if (isUnrated) {
-                if (gVal) gVal.textContent = "Unrated";
-                if (rVal) rVal.textContent = "Unrated";
-                if (roleVal) roleVal.textContent = "Unrated (click box to rate)";
-            } else {
-                if (gVal) gVal.textContent = String(Math.round(give));
-                if (rVal) rVal.textContent = String(Math.round(receive));
-                if (roleVal) roleVal.textContent = sxGetSwitchboxRole(give, receive, sxSwitchboxState.topicId);
-            }
-        }
-
-        function sxBindSwitchboxWidget() {
-            const canvas = e.byId("markSwitchboxCanvas");
-            const clearBtn = e.byId("markSwitchboxClear");
-            if (!canvas || canvas.dataset.bound) return;
-            canvas.dataset.bound = "1";
-            sxBindPoleHover(canvas, () => sxSwitchboxState.isDragging);
-
-            const updateFromPointer = (evt) => {
-                const rect = canvas.getBoundingClientRect();
-                const clientX = evt.clientX !== undefined ? evt.clientX : (evt.touches && evt.touches[0] ? evt.touches[0].clientX : 0);
-                const clientY = evt.clientY !== undefined ? evt.clientY : (evt.touches && evt.touches[0] ? evt.touches[0].clientY : 0);
-                const px = (clientX - rect.left) * (canvas.width / rect.width);
-                const py = (clientY - rect.top) * (canvas.height / rect.height);
-                const cx = canvas.width / 2, cy = canvas.height / 2;
-                const r = Math.min(cx, cy) - 22;
-
-                // Deadband center snap (within 6px)
-                let dx = px - cx, dy = py - cy;
-                if (Math.hypot(dx, dy) < 6) {
-                    dx = 0; dy = 0;
-                }
-                const g = Math.max(-100, Math.min(100, Math.round((dx / r) * 100)));
-                const recv = Math.max(-100, Math.min(100, Math.round((-dy / r) * 100)));
-
-                sxSwitchboxState.give = g;
-                sxSwitchboxState.receive = recv;
-                sxSwitchboxState.isUnrated = false;
-
-                if (Qr) {
-                    const shape = Ge(Qr);
-                    sxDrawSwitchboxWidget(canvas, shape, sxSwitchboxState);
-                    To(Qr, "give", g, !1);
-                    To(Qr, "receive", recv, !1);
-                    sxUpdateSwitchboxReadouts(g, recv, false);
-                }
-            };
-
-            canvas.addEventListener("pointerdown", (evt) => {
-                sxSwitchboxState.isDragging = !0;
-                try { canvas.setPointerCapture(evt.pointerId); } catch (e) {}
-                updateFromPointer(evt);
-            });
-            canvas.addEventListener("pointermove", (evt) => {
-                if (!sxSwitchboxState.isDragging) return;
-                updateFromPointer(evt);
-            });
-            const stopDrag = (evt) => {
-                if (sxSwitchboxState.isDragging) {
-                    sxSwitchboxState.isDragging = !1;
-                    try { canvas.releasePointerCapture(evt.pointerId); } catch (e) {}
-                    if (Qr) {
-                        Mr();
-                    }
-                }
-            };
-            canvas.addEventListener("pointerup", stopDrag);
-            canvas.addEventListener("pointercancel", stopDrag);
-
-            if (clearBtn) {
-                clearBtn.addEventListener("click", () => {
-                    if (Qr) {
-                        Fo(Qr, "give", !1);
-                        Fo(Qr, "receive", !0);
-                        sxSwitchboxState.give = 0;
-                        sxSwitchboxState.receive = 0;
-                        sxSwitchboxState.isUnrated = true;
-                        const shape = Ge(Qr);
-                        sxDrawSwitchboxWidget(canvas, shape, sxSwitchboxState);
-                        sxUpdateSwitchboxReadouts(0, 0, true);
-                        sxSyncMarkRatings(Qr);
-                    }
-                });
-            }
-        }
 
         const Do = e.byId("outlineDialog"), Ro = e.byId("outlineSections"), Oo = e.byId("outlineProfileName"), Bo = e.byId("outlineHeaderCount"), jo = e.byId("outlineProgressText"), qo = e.byId("outlineProgressBar"), Ho = e.byId("outlineTimerToggle"), Wo = e.byId("outlineTimerReset"), Uo = e.byId("outlineShowRated");
         // P1 refactor (Build 2026-10-18_2227): outline-row DOM helpers.
@@ -32798,9 +32798,11 @@ zlRenderRows(), t.length ? d(Math.max(0, t.findIndex(e => e.value === s)), {
                 genders: bb(rt[id]), orientations: iv(ot[id])
             };
         }
-        const sxPairCache = new Map;
+        var sxPairCache = new Map();
         function sxInvalidatePairs() {
-            sxPairCache.clear();
+            if (sxPairCache && typeof sxPairCache.clear === "function") {
+                sxPairCache.clear();
+            }
         }
         function sxPairByIds(idA, idB, sxSettings) {
             if (!vt[idA] || !vt[idB] || idA === idB) return null;
@@ -43810,7 +43812,7 @@ yk([ "Spitting", "Spit play", "Being spit on", "Spitting on someone" ], "t0341")
                 const [e, t] = await Promise.all([ Aw(), Mw(n) ]), r = e && e[n];
                 if (!r || r.name !== i || r.count !== a || !r.payload || !0 !== r.payload.noFlash) throw new Error("The bundled sample is invalid.");
                 const o = JSON.parse(JSON.stringify(r.payload));
-                o.profileName = i, o.sampleProfile = !0, o.skin = o.skin || (typeof window !== "undefined" && window.__SX_ACTIVE_SKIN) || "sexcapades";
+                o.profileName = i, o.sampleProfile = !0, o.skin = o.skin || r.skin || t.dataset.sampleSkin || (typeof window !== "undefined" && window.__SX_ACTIVE_SKIN) || "sexcapades";
                 if (r.kind !== "sample" || !t) {
                     const archPhoto = typeof sxMakeArchetypePhoto === "function" ? sxMakeArchetypePhoto(r.name || i, o.skin) : null;
                     if (archPhoto) o.photos = [ archPhoto ];
@@ -43821,6 +43823,7 @@ yk([ "Spitting", "Spit play", "Being spit on", "Spitting on someone" ], "t0341")
                 const s = wx(o, {
                     autoSelect: !0
                 });
+                if (s && typeof Vt === "function") { Vt(s); }
                 Zy[n] = s, Ew();
             } catch (e) {
                 t.disabled = !1, r && (r.textContent = `${a} rated topics`), tS(e.message || "Could not load that profile.", {
@@ -45158,7 +45161,7 @@ yk([ "Spitting", "Spit play", "Being spit on", "Spitting on someone" ], "t0341")
                 noFlash: !0 === e.noFlash,
                 hasAttentionState: p,
                 attentionState: e.importAttention
-            }), zt(c), sxMergeSaveNow(c), Lo(c) && Mr(), Ig(""), xg.textContent = "", n.quiet || (o !== i && tS(`Imported as ${o}`),
+            }), (e.sampleProfile ? Vt(c) : (zt(c), sxMergeSaveNow(c))), Lo(c) && Mr(), Ig(""), xg.textContent = "", n.quiet || (o !== i && tS(`Imported as ${o}`),
             od(c).length && t.setTimeout(() => bw(c), 0)), u ? tS(`Blind import kept ${u.kept} mutual ${1 === u.kept ? "match" : "matches"} across the ${u.groupSize}-profile comparison group and permanently discarded ${u.discarded} non-matching incoming ${1 === u.discarded ? "topic" : "topics"} from memory. The shared file is unchanged.`, {
                 persistent: !0
             }) : !0 === e.blind && tS("This profile was set up for a blind comparison, but no comparison group was selected first, so the full profile was loaded instead. To do a blind comparison: select the profiles you want to compare first, then import this file again.", {

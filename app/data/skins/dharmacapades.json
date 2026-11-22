@@ -1,7 +1,7 @@
 {
   "categories": [
     {
-      "about": "The foundational concepts of the Dharmic and Taoic traditions \u2014 karma, samsara, dharma, and the Dao.",
+      "about": "The foundational concepts of the Dharmic and Taoic traditions — karma, samsara, dharma, and the Dao.",
       "id": "xdhc01",
       "name": "Dharma & The Way",
       "topics": [
@@ -42,7 +42,7 @@
           ],
           "question": "How do you understand karma?",
           "risk": false,
-          "source": "BRIEFING_DHARMACAPADES_TAXONOMY.md \u00a71.1",
+          "source": "BRIEFING_DHARMACAPADES_TAXONOMY.md §1.1",
           "widget": "trilinear-line",
           "communities": [
             {
@@ -104,7 +104,7 @@
           ],
           "question": "What do you do about the cycle of rebirth?",
           "risk": false,
-          "source": "BRIEFING_DHARMACAPADES_TAXONOMY.md \u00a71.2",
+          "source": "BRIEFING_DHARMACAPADES_TAXONOMY.md §1.2",
           "widget": "triangle",
           "communities": [
             {
@@ -166,7 +166,7 @@
           ],
           "question": "What is Buddhism to you?",
           "risk": false,
-          "source": "BRIEFING_DHARMACAPADES_TAXONOMY.md \u00a71.3",
+          "source": "BRIEFING_DHARMACAPADES_TAXONOMY.md §1.3",
           "widget": "triangle",
           "communities": [
             {
@@ -226,7 +226,7 @@
           ],
           "question": "How do you balance duty, wealth, pleasure, and liberation?",
           "risk": false,
-          "source": "BRIEFING_DHARMACAPADES_TAXONOMY.md \u00a71.4",
+          "source": "BRIEFING_DHARMACAPADES_TAXONOMY.md §1.4",
           "widget": "diamond",
           "communities": [
             {
@@ -278,7 +278,7 @@
           ],
           "question": "How do you balance social duty, natural spontaneity, and spiritual detachment?",
           "risk": false,
-          "source": "BRIEFING_DHARMACAPADES_TAXONOMY.md \u00a71.5",
+          "source": "BRIEFING_DHARMACAPADES_TAXONOMY.md §1.5",
           "widget": "triangle",
           "communities": [
             {
@@ -375,7 +375,7 @@
           ],
           "question": "Which archetypal energies do you balance?",
           "risk": false,
-          "source": "BRIEFING_DHARMACAPADES_TAXONOMY.md \u00a71.6",
+          "source": "BRIEFING_DHARMACAPADES_TAXONOMY.md §1.6",
           "widget": "octad-radar",
           "communities": [
             {
@@ -422,7 +422,7 @@
           ],
           "question": "Which guna dominates your temperament and practice?",
           "risk": false,
-          "source": "BRIEFING_DHARMACAPADES_TAXONOMY.md \u00a71.7",
+          "source": "BRIEFING_DHARMACAPADES_TAXONOMY.md §1.7",
           "widget": "triangle",
           "communities": [
             {
@@ -440,7 +440,7 @@
         {
           "archetype": "simplex",
           "hovertip": {
-            "issue": "Which element do you work with most \u2014 in your body, your practice, your cosmology?",
+            "issue": "Which element do you work with most — in your body, your practice, your cosmology?",
             "poles": [
               {
                 "label": "Earth (Prithvi)",
@@ -488,9 +488,9 @@
               "label": "Ether (Akasha)"
             }
           ],
-          "question": "Which element do you work with most \u2014 in your body, your practice, your cosmology?",
+          "question": "Which element do you work with most — in your body, your practice, your cosmology?",
           "risk": false,
-          "source": "BRIEFING_DHARMACAPADES_TAXONOMY.md \u00a71.8",
+          "source": "BRIEFING_DHARMACAPADES_TAXONOMY.md §1.8",
           "widget": "star-radar",
           "communities": [
             {
@@ -508,7 +508,7 @@
       ]
     },
     {
-      "about": "What liberation is, and how awakening comes \u2014 suddenly or gradually, self or no-self.",
+      "about": "What liberation is, and how awakening comes — suddenly or gradually, self or no-self.",
       "id": "xdhc02",
       "name": "Liberation & Enlightenment",
       "topics": [
@@ -549,7 +549,7 @@
           ],
           "question": "What is liberation?",
           "risk": false,
-          "source": "BRIEFING_DHARMACAPADES_TAXONOMY.md \u00a72.1",
+          "source": "BRIEFING_DHARMACAPADES_TAXONOMY.md §2.1",
           "widget": "triangle",
           "communities": [
             {
@@ -611,7 +611,7 @@
           ],
           "question": "Does awakening come all at once, or piece by piece?",
           "risk": false,
-          "source": "BRIEFING_DHARMACAPADES_TAXONOMY.md \u00a72.2",
+          "source": "BRIEFING_DHARMACAPADES_TAXONOMY.md §2.2",
           "widget": "trilinear-line",
           "communities": [
             {
@@ -647,7 +647,7 @@
               },
               {
                 "label": "Pudgala",
-                "text": "A person, neither self nor no-self \u2014 the inexpressible bearer of karma."
+                "text": "A person, neither self nor no-self — the inexpressible bearer of karma."
               },
               {
                 "label": "Anatta",
@@ -673,7 +673,7 @@
           ],
           "question": "Is there a self, or isn't there? The core metaphysical divide.",
           "risk": false,
-          "source": "BRIEFING_DHARMACAPADES_TAXONOMY.md \u00a72.3",
+          "source": "BRIEFING_DHARMACAPADES_TAXONOMY.md §2.3",
           "widget": "trilinear-line",
           "communities": [
             {
@@ -701,7 +701,7 @@
       ]
     },
     {
-      "about": "The practices \u2014 yoga, meditation, tantra, kundalini, wu wei \u2014 and the paths that carry them.",
+      "about": "The practices — yoga, meditation, tantra, kundalini, wu wei — and the paths that carry them.",
       "id": "xdhc03",
       "name": "Practice & Discipline",
       "topics": [
@@ -758,7 +758,7 @@
           ],
           "question": "Which dimension of yoga do you practice?",
           "risk": false,
-          "source": "BRIEFING_DHARMACAPADES_TAXONOMY.md \u00a73.1",
+          "source": "BRIEFING_DHARMACAPADES_TAXONOMY.md §3.1",
           "widget": "star-radar",
           "communities": [
             {
@@ -817,7 +817,7 @@
           ],
           "question": "Do you meditate to calm the mind, or to see through it?",
           "risk": false,
-          "source": "BRIEFING_DHARMACAPADES_TAXONOMY.md \u00a73.2",
+          "source": "BRIEFING_DHARMACAPADES_TAXONOMY.md §3.2",
           "widget": "linear-sliders",
           "communities": [
             {
@@ -840,7 +840,7 @@
         {
           "archetype": "line",
           "hovertip": {
-            "issue": "Which tantra \u2014 the one that breaks the rules, or the one that works within them?",
+            "issue": "Which tantra — the one that breaks the rules, or the one that works within them?",
             "poles": [
               {
                 "label": "Left-hand",
@@ -872,9 +872,9 @@
               "label": "Right-hand"
             }
           ],
-          "question": "Which tantra \u2014 the one that breaks the rules, or the one that works within them?",
+          "question": "Which tantra — the one that breaks the rules, or the one that works within them?",
           "risk": false,
-          "source": "BRIEFING_DHARMACAPADES_TAXONOMY.md \u00a73.3",
+          "source": "BRIEFING_DHARMACAPADES_TAXONOMY.md §3.3",
           "widget": "trilinear-line",
           "communities": [
             {
@@ -902,7 +902,7 @@
         {
           "archetype": null,
           "hovertip": {
-            "issue": "Is kundalini awakening or danger \u2014 or both?",
+            "issue": "Is kundalini awakening or danger — or both?",
             "poles": [
               {
                 "label": "Awakening",
@@ -926,9 +926,9 @@
               "label": "Danger"
             }
           ],
-          "question": "Is kundalini awakening or danger \u2014 or both?",
+          "question": "Is kundalini awakening or danger — or both?",
           "risk": false,
-          "source": "BRIEFING_DHARMACAPADES_TAXONOMY.md \u00a73.4",
+          "source": "BRIEFING_DHARMACAPADES_TAXONOMY.md §3.4",
           "widget": "linear-sliders",
           "communities": [
             {
@@ -1025,7 +1025,7 @@
           ],
           "question": "How much do you emphasize each limb of the Path?",
           "risk": false,
-          "source": "BRIEFING_DHARMACAPADES_TAXONOMY.md \u00a73.5",
+          "source": "BRIEFING_DHARMACAPADES_TAXONOMY.md §3.5",
           "widget": "octad-radar",
           "communities": [
             {
@@ -1077,7 +1077,7 @@
           ],
           "question": "Do you act by effortless alignment or deliberate striving?",
           "risk": false,
-          "source": "BRIEFING_DHARMACAPADES_TAXONOMY.md \u00a73.6",
+          "source": "BRIEFING_DHARMACAPADES_TAXONOMY.md §3.6",
           "widget": "trilinear-line",
           "communities": [
             {
@@ -1163,7 +1163,7 @@
           ],
           "question": "Which yoga is your path?",
           "risk": false,
-          "source": "BRIEFING_DHARMACAPADES_TAXONOMY.md \u00a73.7",
+          "source": "BRIEFING_DHARMACAPADES_TAXONOMY.md §3.7",
           "widget": "hexad-radar",
           "communities": [
             {
@@ -1186,14 +1186,14 @@
       ]
     },
     {
-      "about": "What the divine is \u2014 personal gods, impersonal principle, no gods at all \u2014 and who the Buddha is.",
+      "about": "What the divine is — personal gods, impersonal principle, no gods at all — and who the Buddha is.",
       "id": "xdhc04",
       "name": "Deity & The Divine",
       "topics": [
         {
           "archetype": "simplex",
           "hovertip": {
-            "issue": "What is the divine \u2014 or is there one?",
+            "issue": "What is the divine — or is there one?",
             "poles": [
               {
                 "label": "Personal Theism",
@@ -1233,9 +1233,9 @@
               "label": "Atheism / Materialism"
             }
           ],
-          "question": "What is the divine \u2014 or is there one?",
+          "question": "What is the divine — or is there one?",
           "risk": false,
-          "source": "BRIEFING_DHARMACAPADES_TAXONOMY.md \u00a74.1",
+          "source": "BRIEFING_DHARMACAPADES_TAXONOMY.md §4.1",
           "widget": "diamond",
           "communities": [
             {
@@ -1263,7 +1263,7 @@
         {
           "archetype": "line",
           "hovertip": {
-            "issue": "How do you conceive the ultimate \u2014 as a person, or as a principle?",
+            "issue": "How do you conceive the ultimate — as a person, or as a principle?",
             "poles": [
               {
                 "label": "Saguna",
@@ -1295,9 +1295,9 @@
               "label": "Nirguna"
             }
           ],
-          "question": "How do you conceive the ultimate \u2014 as a person, or as a principle?",
+          "question": "How do you conceive the ultimate — as a person, or as a principle?",
           "risk": false,
-          "source": "BRIEFING_DHARMACAPADES_TAXONOMY.md \u00a74.2",
+          "source": "BRIEFING_DHARMACAPADES_TAXONOMY.md §4.2",
           "widget": "trilinear-line",
           "communities": [
             {
@@ -1315,7 +1315,7 @@
         {
           "archetype": null,
           "hovertip": {
-            "issue": "Who \u2014 or what \u2014 is the Buddha?",
+            "issue": "Who — or what — is the Buddha?",
             "poles": [
               {
                 "label": "Historical Buddha",
@@ -1347,9 +1347,9 @@
               "label": "Buddha-nature"
             }
           ],
-          "question": "Who \u2014 or what \u2014 is the Buddha?",
+          "question": "Who — or what — is the Buddha?",
           "risk": false,
-          "source": "BRIEFING_DHARMACAPADES_TAXONOMY.md \u00a74.3",
+          "source": "BRIEFING_DHARMACAPADES_TAXONOMY.md §4.3",
           "widget": "triangle",
           "communities": [
             {
@@ -1408,7 +1408,7 @@
           ],
           "question": "Which school's non-violence do you hold?",
           "risk": false,
-          "source": "BRIEFING_DHARMACAPADES_TAXONOMY.md \u00a75.1",
+          "source": "BRIEFING_DHARMACAPADES_TAXONOMY.md §5.1",
           "widget": "triangle",
           "communities": [
             {
@@ -1470,7 +1470,7 @@
           ],
           "question": "Are the ethical precepts commandments, or compass points?",
           "risk": false,
-          "source": "BRIEFING_DHARMACAPADES_TAXONOMY.md \u00a75.2",
+          "source": "BRIEFING_DHARMACAPADES_TAXONOMY.md §5.2",
           "widget": "trilinear-line",
           "communities": [
             {
@@ -1488,7 +1488,7 @@
         {
           "archetype": null,
           "hovertip": {
-            "issue": "The two wings of the bodhisattva path \u2014 which do you emphasize?",
+            "issue": "The two wings of the bodhisattva path — which do you emphasize?",
             "poles": [
               {
                 "label": "Karuna",
@@ -1512,9 +1512,9 @@
               "label": "Prajna"
             }
           ],
-          "question": "The two wings of the bodhisattva path \u2014 which do you emphasize?",
+          "question": "The two wings of the bodhisattva path — which do you emphasize?",
           "risk": false,
-          "source": "BRIEFING_DHARMACAPADES_TAXONOMY.md \u00a75.3",
+          "source": "BRIEFING_DHARMACAPADES_TAXONOMY.md §5.3",
           "widget": "linear-sliders",
           "communities": [
             {
@@ -1573,7 +1573,7 @@
           ],
           "question": "Do you need a guru?",
           "risk": false,
-          "source": "BRIEFING_DHARMACAPADES_TAXONOMY.md \u00a76.1",
+          "source": "BRIEFING_DHARMACAPADES_TAXONOMY.md §6.1",
           "widget": "trilinear-line",
           "communities": [
             {
@@ -1601,7 +1601,7 @@
         {
           "archetype": "line",
           "hovertip": {
-            "issue": "Where do you practice \u2014 in the monastery, or in the marketplace?",
+            "issue": "Where do you practice — in the monastery, or in the marketplace?",
             "poles": [
               {
                 "label": "Monastic",
@@ -1633,9 +1633,9 @@
               "label": "Lay"
             }
           ],
-          "question": "Where do you practice \u2014 in the monastery, or in the marketplace?",
+          "question": "Where do you practice — in the monastery, or in the marketplace?",
           "risk": false,
-          "source": "BRIEFING_DHARMACAPADES_TAXONOMY.md \u00a76.2",
+          "source": "BRIEFING_DHARMACAPADES_TAXONOMY.md §6.2",
           "widget": "trilinear-line",
           "communities": [
             {
@@ -1687,7 +1687,7 @@
           ],
           "question": "Do you stay in one school, or borrow across them?",
           "risk": false,
-          "source": "BRIEFING_DHARMACAPADES_TAXONOMY.md \u00a76.3",
+          "source": "BRIEFING_DHARMACAPADES_TAXONOMY.md §6.3",
           "widget": "trilinear-line",
           "communities": [
             {
@@ -1749,7 +1749,7 @@
           ],
           "question": "Do you live as a householder or a renouncer?",
           "risk": false,
-          "source": "BRIEFING_DHARMACAPADES_TAXONOMY.md \u00a76.4",
+          "source": "BRIEFING_DHARMACAPADES_TAXONOMY.md §6.4",
           "widget": "trilinear-line",
           "communities": [
             {
@@ -1777,9 +1777,9 @@
       ]
     }
   ],
-  "domain": "Eastern Religions \u2014 Dharmic & Taoic Traditions",
+  "domain": "Eastern Religions — Dharmic & Taoic Traditions",
   "name": "Dharmacapades",
-  "about": "Dharmacapades is an interactive hypermap for rating and visualizing how you walk the path \u2014 practice, conduct, liberation, and what you hold sacred \u2014 and comparing your way with another person's, step by step, on the same picture. Build a personal profile, see where your paths meet and where they part, use Scribe to write the practice you'd keep, and Scene Setter to plan a conversation about the way forward \u2014 all in the same shared vocabulary.",
+  "about": "Dharmacapades is an interactive hypermap for rating and visualizing how you walk the path — practice, conduct, liberation, and what you hold sacred — and comparing your way with another person's, step by step, on the same picture. Build a personal profile, see where your paths meet and where they part, use Scribe to write the practice you'd keep, and Scene Setter to plan a conversation about the way forward — all in the same shared vocabulary.",
   "scribe": {
     "genre": "discussion",
     "output": "discussion",
@@ -1795,22 +1795,22 @@
       "help": "Depth 1 (Overview) is a light survey of the recorded stances. Depth 5 (Dissertation defense) is full scholarly rigor: steelman each stance, raise the strongest objections, and answer them."
     },
     "panel": {
-      "modeSingle": "One profile creates an informed discussion between the stances recorded on this map \u2014 the positions held, where they agree, and where they part. For a moderated discussion plan, use Scene Setter.",
-      "modeMulti": "Scribe turns your selected profiles into an informed discussion between the stances recorded on this map \u2014 where the profiles agree, where they part, and what follows from each position. For a moderated discussion plan, use Scene Setter.",
+      "modeSingle": "One profile creates an informed discussion between the stances recorded on this map — the positions held, where they agree, and where they part. For a moderated discussion plan, use Scene Setter.",
+      "modeMulti": "Scribe turns your selected profiles into an informed discussion between the stances recorded on this map — where the profiles agree, where they part, and what follows from each position. For a moderated discussion plan, use Scene Setter.",
       "introSingle": "One profile selected: Scribe will create an informed discussion between the stances.",
       "introMulti": "Multiple profiles selected: Scribe will create an informed discussion between the stances.",
-      "detailsPlaceholder": "The map provides your stances and positions. Describe the angle, framing, or specific questions to emphasize or avoid \u2014 e.g. \u201ca point-by-point comparison of the two leading positions, with objections answered.\u201d",
+      "detailsPlaceholder": "The map provides your stances and positions. Describe the angle, framing, or specific questions to emphasize or avoid — e.g. “a point-by-point comparison of the two leading positions, with objections answered.”",
       "detailsHelp": "Don't re-enter your stances here. Scribe already uses the selected hypermap data.",
       "lengthHelp": "Discussions can target a word count, paragraphs, pages, or chapters. Enter one number or a range; blank defaults to 1 page.",
       "downloadIntro": "Generated from the selected profile data.",
-      "summary": "An informed discussion between the recorded stances \u2014 the positions speak for themselves, not a story."
+      "summary": "An informed discussion between the recorded stances — the positions speak for themselves, not a story."
     },
     "prompt": {
       "opening": "Write an informed discussion between the stances recorded on this map.",
       "rules": [
-        "Present each recorded stance fairly and in its strongest form \u2014 steelman, don't strawman.",
+        "Present each recorded stance fairly and in its strongest form — steelman, don't strawman.",
         "Show where the stances agree, where they part, and what follows from each position.",
-        "Use the recorded ratings as emphasis: 80\u2013100 central, 56\u201379 strong support, 36\u201355 lighter, and 0\u201335 optional curiosity.",
+        "Use the recorded ratings as emphasis: 80–100 central, 56–79 strong support, 36–55 lighter, and 0–35 optional curiosity.",
         "Use only the named topics below. Do not add, imply, or reference any unlisted stance.",
         "Do not invent positions, sources, or facts beyond the supplied data."
       ],
@@ -1835,8 +1835,8 @@
     "panel": {
       "subtitleSuffix": "the ground rules stay in every discussion plan.",
       "detailsLabel": "Discussion details <small>Optional</small>",
-      "detailsPlaceholder": "The map provides your stances and positions. Describe the setting, framing, or specific questions to emphasize or avoid \u2014 e.g. \u201ca point-by-point comparison of the two leading positions, with objections answered.\u201d",
-      "detailsHelp": "Don\u2019t re-enter your stances here. Scene Setter already uses the selected hypermap data, and the ground rules below still control the plan.",
+      "detailsPlaceholder": "The map provides your stances and positions. Describe the setting, framing, or specific questions to emphasize or avoid — e.g. “a point-by-point comparison of the two leading positions, with objections answered.”",
+      "detailsHelp": "Don’t re-enter your stances here. Scene Setter already uses the selected hypermap data, and the ground rules below still control the plan.",
       "playGuideLegend": "Discussion plan length",
       "playGuideHelp": "Length for the AI discussion-plan prompt only: a word count, paragraphs, pages, or chapters. Enter one number or a range; blank defaults to 5 paragraphs.",
       "negotiationLegend": "Discussion agreement length",
@@ -1846,33 +1846,33 @@
       "outputsTitle": "Documents",
       "outputsIntro": "Two separate outputs. Take either one on its own; each carries the compare-settings stamp and the same ground-rules content.",
       "negotiationTitle": "Discussion agreement",
-      "negotiationDesc": "The completed ground rules as a finished, standalone agreement document \u2014 not an AI prompt.",
+      "negotiationDesc": "The completed ground rules as a finished, standalone agreement document — not an AI prompt.",
       "playGuideTitle": "Discussion plan",
-      "playGuideDesc": "The AI discussion-plan prompt, with the ground rules embedded as its binding layer. It also carries the standard structured format \u2014 elapsed time codes like <strong>[00:00-05:00]</strong> and a fixed activity set \u2014 so whichever AI writes the plan, Scene Sentinel can read it back, run its timers, and match check-ins to the scheduled step.",
+      "playGuideDesc": "The AI discussion-plan prompt, with the ground rules embedded as its binding layer. It also carries the standard structured format — elapsed time codes like <strong>[00:00-05:00]</strong> and a fixed activity set — so whichever AI writes the plan, Scene Sentinel can read it back, run its timers, and match check-ins to the scheduled step.",
       "copyNegotiationGuide": "Copy discussion agreement",
       "downloadNegotiationGuide": "Download discussion agreement (.txt)",
       "copyPlayGuide": "Copy discussion plan prompt",
       "downloadPlayGuide": "Download discussion plan prompt (.txt)",
       "aiNote": "<strong>How this differs from Scribe:</strong> this workspace puts the ground rules and shared positions into a discussion agreement first. Its moderation-plan source is inspiration only; the agreement always controls the generated plan.",
-      "playGuideTextPlaceholder": "Your generated discussion plan will stream here in real time\u2026",
+      "playGuideTextPlaceholder": "Your generated discussion plan will stream here in real time…",
       "openNegotiationTip": "Build a shared discussion agreement and an AI-ready moderation plan from two or more selected profiles.",
       "viewNavTip": "Build a moderated discussion plan for 2 or more profiles, with ground rules and timed segments.",
-      "legendRow": "<b>Scene Setter</b> \u2014 Moderating a discussion between the stances: a ground-rules agreement and a moderated discussion plan."
+      "legendRow": "<b>Scene Setter</b> — Moderating a discussion between the stances: a ground-rules agreement and a moderated discussion plan."
     },
     "groundRules": [
-      "Present each recorded stance fairly and in its strongest form \u2014 steelman, don't strawman.",
+      "Present each recorded stance fairly and in its strongest form — steelman, don't strawman.",
       "Speak from your own recorded stance; don't speak for the other side.",
       "Take turns: one position at a time, each side heard fully before replies.",
       "Objections go to the position, not the person holding it.",
       "Anyone may call a pause; the discussion resumes only when everyone is ready.",
-      "What the profiles agree on is common ground \u2014 start there, and return to it when the discussion stalls."
+      "What the profiles agree on is common ground — start there, and return to it when the discussion stalls."
     ],
     "prompt": {
       "opening": "Write a moderated discussion plan for the stances recorded on this map.",
       "rules": [
-        "Present each recorded stance fairly and in its strongest form \u2014 steelman, don't strawman.",
+        "Present each recorded stance fairly and in its strongest form — steelman, don't strawman.",
         "Show where the stances agree, where they part, and what follows from each position.",
-        "Use the recorded ratings as emphasis: 80\u2013100 central, 56\u201379 strong support, 36\u201355 lighter, and 0\u201335 optional curiosity.",
+        "Use the recorded ratings as emphasis: 80–100 central, 56–79 strong support, 36–55 lighter, and 0–35 optional curiosity.",
         "Structure the plan in Opening, Development, and Closing, with timed segments and a check-in between segments.",
         "Give each side its strongest form before comparing them; never let one side speak for the other.",
         "Use only the named topics below. Do not add, imply, or reference any unlisted stance.",
@@ -3867,7 +3867,7 @@
       "about": "Theravada, the 'Teaching of the Elders', is the oldest surviving school of Buddhism, rooted in the Pali Canon and practised mainly in Sri Lanka and Southeast Asia. Its path centres on the Four Noble Truths, the Noble Eightfold Path and meditation leading to awakening.",
       "links": [
         {
-          "label": "Access to Insight \u2014 Readings in Theravada Buddhism",
+          "label": "Access to Insight — Readings in Theravada Buddhism",
           "url": "https://www.accesstoinsight.org/"
         }
       ],
@@ -4002,8 +4002,11 @@
             "sannyasa": 80,
             "vanaprastha": -20
           }
-        }
-      }
+        },
+        "skin": "dharmacapades"
+      },
+      "skin": "dharmacapades",
+      "kind": "sample"
     },
     "dharma-zen": {
       "name": "Zen Buddhism",
@@ -4146,8 +4149,11 @@
             "sannyasa": 40,
             "vanaprastha": 80
           }
-        }
-      }
+        },
+        "skin": "dharmacapades"
+      },
+      "skin": "dharmacapades",
+      "kind": "sample"
     },
     "dharma-pure-land": {
       "name": "Pure Land Buddhism",
@@ -4290,8 +4296,11 @@
             "sannyasa": -10,
             "vanaprastha": 20
           }
-        }
-      }
+        },
+        "skin": "dharmacapades"
+      },
+      "skin": "dharmacapades",
+      "kind": "sample"
     },
     "dharma-tibetan": {
       "name": "Tibetan Buddhism",
@@ -4438,8 +4447,11 @@
             "sannyasa": 60,
             "vanaprastha": 40
           }
-        }
-      }
+        },
+        "skin": "dharmacapades"
+      },
+      "skin": "dharmacapades",
+      "kind": "sample"
     }
   }
 }

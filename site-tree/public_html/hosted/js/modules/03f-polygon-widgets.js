@@ -1,4 +1,4 @@
-        let sxTriState = {
+        var sxTriState = {
             topicId: null,
             w0: 1 / 3,
             w1: 1 / 3,
@@ -213,7 +213,7 @@
         }
 
         // --- 4-Pole Tetrad Radar / Diamond Deformation State & Widget ---
-        let sxTetradState = {
+        var sxTetradState = {
             topicId: null,
             intensity: 0,
             p0: 0,
@@ -266,7 +266,7 @@
         // Storage: the four values are bilinear weights x intensity, so
         // they sum to the intensity (0..100) and the point is recoverable
         // from them: u = (v1 + v2) / I, v = (v2 + v3) / I, I = sum.
-        let sxCompassState = {
+        var sxCompassState = {
             topicId: null,
             u: 0.5, v: 0.5, intensity: 0,
             isDragging: !1
@@ -561,7 +561,7 @@
         }
 
         // --- 5-Pole Pentad Radar / Star Deformation State & Widget ---
-        let sxPentadState = {
+        var sxPentadState = {
             topicId: null,
             intensity: 0,
             p0: 0, p1: 0, p2: 0, p3: 0, p4: 0,
@@ -606,7 +606,7 @@
         }
 
         // --- 6-Pole Hexad Radar Deformation State & Widget ---
-        let sxHexadState = {
+        var sxHexadState = {
             topicId: null,
             intensity: 0,
             p0: 0, p1: 0, p2: 0, p3: 0, p4: 0, p5: 0,
@@ -651,7 +651,7 @@
         }
 
         // --- 7-Pole Heptad Radar Deformation State & Widget ---
-        let sxHeptadState = {
+        var sxHeptadState = {
             topicId: null,
             intensity: 0,
             p0: 0, p1: 0, p2: 0, p3: 0, p4: 0, p5: 0, p6: 0,
@@ -696,7 +696,7 @@
         }
 
         // --- 8-Pole Octad Radar Deformation State & Widget ---
-        let sxOctadState = {
+        var sxOctadState = {
             topicId: null,
             intensity: 0,
             p0: 0, p1: 0, p2: 0, p3: 0, p4: 0, p5: 0, p6: 0, p7: 0,

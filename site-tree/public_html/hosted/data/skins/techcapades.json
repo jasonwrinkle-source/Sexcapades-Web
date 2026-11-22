@@ -2,7 +2,7 @@
   "skin": "techcapades",
   "meter": "stance",
   "name": "Techcapades",
-  "about": "Techcapades is an interactive hypermap for rating and visualizing where you stand on the machines we're building \u2014 intelligence, privacy, attention, and who they serve \u2014 and comparing your positions with another person's, stance by stance, on the same picture. Build a personal profile, see where you meet and where you part, use Scribe to write the future you'd want, and Scene Setter to plan the conversation about what to build next \u2014 all in the same shared vocabulary.",
+  "about": "Techcapades is an interactive hypermap for rating and visualizing where you stand on the machines we're building — intelligence, privacy, attention, and who they serve — and comparing your positions with another person's, stance by stance, on the same picture. Build a personal profile, see where you meet and where you part, use Scribe to write the future you'd want, and Scene Setter to plan the conversation about what to build next — all in the same shared vocabulary.",
   "scribe": {
     "genre": "discussion",
     "output": "discussion",
@@ -18,22 +18,22 @@
       "help": "Depth 1 (Overview) is a light survey of the recorded stances. Depth 5 (Dissertation defense) is full scholarly rigor: steelman each stance, raise the strongest objections, and answer them."
     },
     "panel": {
-      "modeSingle": "One profile creates an informed discussion between the stances recorded on this map \u2014 the positions held, where they agree, and where they part. For a moderated discussion plan, use Scene Setter.",
-      "modeMulti": "Scribe turns your selected profiles into an informed discussion between the stances recorded on this map \u2014 where the profiles agree, where they part, and what follows from each position. For a moderated discussion plan, use Scene Setter.",
+      "modeSingle": "One profile creates an informed discussion between the stances recorded on this map — the positions held, where they agree, and where they part. For a moderated discussion plan, use Scene Setter.",
+      "modeMulti": "Scribe turns your selected profiles into an informed discussion between the stances recorded on this map — where the profiles agree, where they part, and what follows from each position. For a moderated discussion plan, use Scene Setter.",
       "introSingle": "One profile selected: Scribe will create an informed discussion between the stances.",
       "introMulti": "Multiple profiles selected: Scribe will create an informed discussion between the stances.",
-      "detailsPlaceholder": "The map provides your stances and positions. Describe the angle, framing, or specific questions to emphasize or avoid \u2014 e.g. \u201ca point-by-point comparison of the two leading positions, with objections answered.\u201d",
+      "detailsPlaceholder": "The map provides your stances and positions. Describe the angle, framing, or specific questions to emphasize or avoid — e.g. “a point-by-point comparison of the two leading positions, with objections answered.”",
       "detailsHelp": "Don't re-enter your stances here. Scribe already uses the selected hypermap data.",
       "lengthHelp": "Discussions can target a word count, paragraphs, pages, or chapters. Enter one number or a range; blank defaults to 1 page.",
       "downloadIntro": "Generated from the selected profile data.",
-      "summary": "An informed discussion between the recorded stances \u2014 the positions speak for themselves, not a story."
+      "summary": "An informed discussion between the recorded stances — the positions speak for themselves, not a story."
     },
     "prompt": {
       "opening": "Write an informed discussion between the stances recorded on this map.",
       "rules": [
-        "Present each recorded stance fairly and in its strongest form \u2014 steelman, don't strawman.",
+        "Present each recorded stance fairly and in its strongest form — steelman, don't strawman.",
         "Show where the stances agree, where they part, and what follows from each position.",
-        "Use the recorded ratings as emphasis: 80\u2013100 central, 56\u201379 strong support, 36\u201355 lighter, and 0\u201335 optional curiosity.",
+        "Use the recorded ratings as emphasis: 80–100 central, 56–79 strong support, 36–55 lighter, and 0–35 optional curiosity.",
         "Use only the named topics below. Do not add, imply, or reference any unlisted stance.",
         "Do not invent positions, sources, or facts beyond the supplied data."
       ],
@@ -58,8 +58,8 @@
     "panel": {
       "subtitleSuffix": "the ground rules stay in every discussion plan.",
       "detailsLabel": "Discussion details <small>Optional</small>",
-      "detailsPlaceholder": "The map provides your stances and positions. Describe the setting, framing, or specific questions to emphasize or avoid \u2014 e.g. \u201ca point-by-point comparison of the two leading positions, with objections answered.\u201d",
-      "detailsHelp": "Don\u2019t re-enter your stances here. Scene Setter already uses the selected hypermap data, and the ground rules below still control the plan.",
+      "detailsPlaceholder": "The map provides your stances and positions. Describe the setting, framing, or specific questions to emphasize or avoid — e.g. “a point-by-point comparison of the two leading positions, with objections answered.”",
+      "detailsHelp": "Don’t re-enter your stances here. Scene Setter already uses the selected hypermap data, and the ground rules below still control the plan.",
       "playGuideLegend": "Discussion plan length",
       "playGuideHelp": "Length for the AI discussion-plan prompt only: a word count, paragraphs, pages, or chapters. Enter one number or a range; blank defaults to 5 paragraphs.",
       "negotiationLegend": "Discussion agreement length",
@@ -69,33 +69,33 @@
       "outputsTitle": "Documents",
       "outputsIntro": "Two separate outputs. Take either one on its own; each carries the compare-settings stamp and the same ground-rules content.",
       "negotiationTitle": "Discussion agreement",
-      "negotiationDesc": "The completed ground rules as a finished, standalone agreement document \u2014 not an AI prompt.",
+      "negotiationDesc": "The completed ground rules as a finished, standalone agreement document — not an AI prompt.",
       "playGuideTitle": "Discussion plan",
-      "playGuideDesc": "The AI discussion-plan prompt, with the ground rules embedded as its binding layer. It also carries the standard structured format \u2014 elapsed time codes like <strong>[00:00-05:00]</strong> and a fixed activity set \u2014 so whichever AI writes the plan, Scene Sentinel can read it back, run its timers, and match check-ins to the scheduled step.",
+      "playGuideDesc": "The AI discussion-plan prompt, with the ground rules embedded as its binding layer. It also carries the standard structured format — elapsed time codes like <strong>[00:00-05:00]</strong> and a fixed activity set — so whichever AI writes the plan, Scene Sentinel can read it back, run its timers, and match check-ins to the scheduled step.",
       "copyNegotiationGuide": "Copy discussion agreement",
       "downloadNegotiationGuide": "Download discussion agreement (.txt)",
       "copyPlayGuide": "Copy discussion plan prompt",
       "downloadPlayGuide": "Download discussion plan prompt (.txt)",
       "aiNote": "<strong>How this differs from Scribe:</strong> this workspace puts the ground rules and shared positions into a discussion agreement first. Its moderation-plan source is inspiration only; the agreement always controls the generated plan.",
-      "playGuideTextPlaceholder": "Your generated discussion plan will stream here in real time\u2026",
+      "playGuideTextPlaceholder": "Your generated discussion plan will stream here in real time…",
       "openNegotiationTip": "Build a shared discussion agreement and an AI-ready moderation plan from two or more selected profiles.",
       "viewNavTip": "Build a moderated discussion plan for 2 or more profiles, with ground rules and timed segments.",
-      "legendRow": "<b>Scene Setter</b> \u2014 Moderating a discussion between the stances: a ground-rules agreement and a moderated discussion plan."
+      "legendRow": "<b>Scene Setter</b> — Moderating a discussion between the stances: a ground-rules agreement and a moderated discussion plan."
     },
     "groundRules": [
-      "Present each recorded stance fairly and in its strongest form \u2014 steelman, don't strawman.",
+      "Present each recorded stance fairly and in its strongest form — steelman, don't strawman.",
       "Speak from your own recorded stance; don't speak for the other side.",
       "Take turns: one position at a time, each side heard fully before replies.",
       "Objections go to the position, not the person holding it.",
       "Anyone may call a pause; the discussion resumes only when everyone is ready.",
-      "What the profiles agree on is common ground \u2014 start there, and return to it when the discussion stalls."
+      "What the profiles agree on is common ground — start there, and return to it when the discussion stalls."
     ],
     "prompt": {
       "opening": "Write a moderated discussion plan for the stances recorded on this map.",
       "rules": [
-        "Present each recorded stance fairly and in its strongest form \u2014 steelman, don't strawman.",
+        "Present each recorded stance fairly and in its strongest form — steelman, don't strawman.",
         "Show where the stances agree, where they part, and what follows from each position.",
-        "Use the recorded ratings as emphasis: 80\u2013100 central, 56\u201379 strong support, 36\u201355 lighter, and 0\u201335 optional curiosity.",
+        "Use the recorded ratings as emphasis: 80–100 central, 56–79 strong support, 36–55 lighter, and 0–35 optional curiosity.",
         "Structure the plan in Opening, Development, and Closing, with timed segments and a check-in between segments.",
         "Give each side its strongest form before comparing them; never let one side speak for the other.",
         "Use only the named topics below. Do not add, imply, or reference any unlisted stance.",
@@ -116,12 +116,12 @@
       "help": "Enabled phases are added to the generated moderation prompt as a Discussion structure section, in opening, development, closing order. Turn a phase off to leave it out."
     }
   },
-  "domain": "Technology & Digital Life \u2014 AI, Privacy & Living with the Machines",
+  "domain": "Technology & Digital Life — AI, Privacy & Living with the Machines",
   "categories": [
     {
       "id": "xtec01",
       "name": "AI & Intelligence",
-      "about": "What you think of AI \u2014 its impact, its autonomy, and whether its weights should be open.",
+      "about": "What you think of AI — its impact, its autonomy, and whether its weights should be open.",
       "topics": [
         {
           "id": "xte0001",
@@ -177,7 +177,7 @@
             ]
           },
           "question": "Where do you see AI's impact landing?",
-          "source": "BRIEFING_TECHCAPADES_TAXONOMY.md \u00a72, topic 1.1",
+          "source": "BRIEFING_TECHCAPADES_TAXONOMY.md §2, topic 1.1",
           "communities": [
             {
               "network": "Reddit",
@@ -234,7 +234,7 @@
             ]
           },
           "question": "How much autonomy should AI have?",
-          "source": "BRIEFING_TECHCAPADES_TAXONOMY.md \u00a72, topic 1.2",
+          "source": "BRIEFING_TECHCAPADES_TAXONOMY.md §2, topic 1.2",
           "communities": [
             {
               "network": "Reddit",
@@ -291,7 +291,7 @@
             ]
           },
           "question": "Should AI weights be open or guarded?",
-          "source": "BRIEFING_TECHCAPADES_TAXONOMY.md \u00a72, topic 1.3",
+          "source": "BRIEFING_TECHCAPADES_TAXONOMY.md §2, topic 1.3",
           "communities": [
             {
               "network": "Reddit",
@@ -354,8 +354,8 @@
               }
             ]
           },
-          "question": "The classic tradeoff \u2014 what do you give up, and what do you get?",
-          "source": "BRIEFING_TECHCAPADES_TAXONOMY.md \u00a72, topic 2.1",
+          "question": "The classic tradeoff — what do you give up, and what do you get?",
+          "source": "BRIEFING_TECHCAPADES_TAXONOMY.md §2, topic 2.1",
           "communities": [
             {
               "network": "Reddit",
@@ -407,7 +407,7 @@
             ]
           },
           "question": "Do you trust the companies that hold your data?",
-          "source": "BRIEFING_TECHCAPADES_TAXONOMY.md \u00a72, topic 2.2",
+          "source": "BRIEFING_TECHCAPADES_TAXONOMY.md §2, topic 2.2",
           "communities": [
             {
               "network": "Reddit",
@@ -459,7 +459,7 @@
             ]
           },
           "question": "When safety and freedom conflict, which wins?",
-          "source": "BRIEFING_TECHCAPADES_TAXONOMY.md \u00a72, topic 2.3",
+          "source": "BRIEFING_TECHCAPADES_TAXONOMY.md §2, topic 2.3",
           "communities": [
             {
               "network": "Reddit",
@@ -511,7 +511,7 @@
             ]
           },
           "question": "Do you own your computing or rent it?",
-          "source": "BRIEFING_TECHCAPADES_TAXONOMY.md \u00a72, topic 2.4",
+          "source": "BRIEFING_TECHCAPADES_TAXONOMY.md §2, topic 2.4",
           "communities": [
             {
               "network": "Reddit",
@@ -570,7 +570,7 @@
             ]
           },
           "question": "How much of your day lives behind a screen?",
-          "source": "BRIEFING_TECHCAPADES_TAXONOMY.md \u00a72, topic 3.1",
+          "source": "BRIEFING_TECHCAPADES_TAXONOMY.md §2, topic 3.1",
           "communities": [
             {
               "network": "Reddit",
@@ -608,7 +608,7 @@
               },
               {
                 "label": "Digest",
-                "text": "Notifications batched into a scheduled summary \u2014 neither live interruption nor silence."
+                "text": "Notifications batched into a scheduled summary — neither live interruption nor silence."
               },
               {
                 "label": "All off",
@@ -617,7 +617,7 @@
             ]
           },
           "question": "How interruptible are you?",
-          "source": "BRIEFING_TECHCAPADES_TAXONOMY.md \u00a72, topic 3.2",
+          "source": "BRIEFING_TECHCAPADES_TAXONOMY.md §2, topic 3.2",
           "communities": [
             {
               "network": "Reddit",
@@ -664,7 +664,7 @@
             ]
           },
           "question": "Do you step away from the screen, and how often?",
-          "source": "BRIEFING_TECHCAPADES_TAXONOMY.md \u00a72, topic 3.3",
+          "source": "BRIEFING_TECHCAPADES_TAXONOMY.md §2, topic 3.3",
           "communities": [
             {
               "network": "Reddit",
@@ -718,7 +718,7 @@
             ]
           },
           "question": "What do you think of social media?",
-          "source": "BRIEFING_TECHCAPADES_TAXONOMY.md \u00a72, topic 4.1",
+          "source": "BRIEFING_TECHCAPADES_TAXONOMY.md §2, topic 4.1",
           "communities": [
             {
               "network": "Reddit",
@@ -765,7 +765,7 @@
             ]
           },
           "question": "Where do your real relationships live?",
-          "source": "BRIEFING_TECHCAPADES_TAXONOMY.md \u00a72, topic 4.2",
+          "source": "BRIEFING_TECHCAPADES_TAXONOMY.md §2, topic 4.2",
           "communities": [
             {
               "network": "Reddit",
@@ -812,7 +812,7 @@
             ]
           },
           "question": "How do you participate online?",
-          "source": "BRIEFING_TECHCAPADES_TAXONOMY.md \u00a72, topic 4.3",
+          "source": "BRIEFING_TECHCAPADES_TAXONOMY.md §2, topic 4.3",
           "communities": [
             {
               "network": "Reddit",
@@ -859,7 +859,7 @@
             ]
           },
           "question": "Are you open to emotional or intimate connections with synthetic agents?",
-          "source": "BRIEFING_TECHCAPADES_TAXONOMY.md \u00a72, topic 4.4",
+          "source": "BRIEFING_TECHCAPADES_TAXONOMY.md §2, topic 4.4",
           "communities": [
             {
               "network": "Reddit",
@@ -883,7 +883,7 @@
     {
       "id": "xtec05",
       "name": "Digital Identity & Self",
-      "about": "Who you are when you are digital \u2014 your name, your face, and your archive.",
+      "about": "Who you are when you are digital — your name, your face, and your archive.",
       "topics": [
         {
           "id": "xte0015",
@@ -923,7 +923,7 @@
             ]
           },
           "question": "Do you use your real name online?",
-          "source": "BRIEFING_TECHCAPADES_TAXONOMY.md \u00a72, topic 5.1",
+          "source": "BRIEFING_TECHCAPADES_TAXONOMY.md §2, topic 5.1",
           "communities": [
             {
               "network": "Reddit",
@@ -970,7 +970,7 @@
             ]
           },
           "question": "How do you present yourself online?",
-          "source": "BRIEFING_TECHCAPADES_TAXONOMY.md \u00a72, topic 5.2",
+          "source": "BRIEFING_TECHCAPADES_TAXONOMY.md §2, topic 5.2",
           "communities": [
             {
               "network": "Reddit",
@@ -1017,7 +1017,7 @@
             ]
           },
           "question": "What happens to your data when you die?",
-          "source": "BRIEFING_TECHCAPADES_TAXONOMY.md \u00a72, topic 5.3",
+          "source": "BRIEFING_TECHCAPADES_TAXONOMY.md §2, topic 5.3",
           "communities": [
             {
               "network": "Reddit",
@@ -1071,7 +1071,7 @@
             ]
           },
           "question": "Does automation take your job, or give you your life back?",
-          "source": "BRIEFING_TECHCAPADES_TAXONOMY.md \u00a72, topic 6.1",
+          "source": "BRIEFING_TECHCAPADES_TAXONOMY.md §2, topic 6.1",
           "communities": [
             {
               "network": "Reddit",
@@ -1128,7 +1128,7 @@
             ]
           },
           "question": "Would you enhance yourself with technology?",
-          "source": "BRIEFING_TECHCAPADES_TAXONOMY.md \u00a72, topic 6.2",
+          "source": "BRIEFING_TECHCAPADES_TAXONOMY.md §2, topic 6.2",
           "communities": [
             {
               "network": "Reddit",
@@ -1175,7 +1175,7 @@
             ]
           },
           "question": "Should we build faster, or pump the brakes?",
-          "source": "BRIEFING_TECHCAPADES_TAXONOMY.md \u00a72, topic 6.3",
+          "source": "BRIEFING_TECHCAPADES_TAXONOMY.md §2, topic 6.3",
           "communities": [
             {
               "network": "Reddit",
@@ -3063,7 +3063,7 @@
       "about": "The accelerationist holds that technological progress, especially in AI, should be pushed forward as fast as possible, believing rapid development is the best route to abundance and human flourishing. It opposes slowing or heavily restricting technological advance.",
       "links": [
         {
-          "label": "Wikipedia \u2014 Effective Accelerationism",
+          "label": "Wikipedia — Effective Accelerationism",
           "url": "https://en.wikipedia.org/wiki/Effective_accelerationism"
         }
       ],
@@ -3162,8 +3162,11 @@
             "decelerate": -90,
             "differential-pace": -85
           }
-        }
-      }
+        },
+        "skin": "techcapades"
+      },
+      "skin": "techcapades",
+      "kind": "sample"
     },
     "tec-safety": {
       "name": "The AI Safety Advocate",
@@ -3269,8 +3272,11 @@
             "decelerate": 90,
             "differential-pace": -75
           }
-        }
-      }
+        },
+        "skin": "techcapades"
+      },
+      "skin": "techcapades",
+      "kind": "sample"
     },
     "tec-privacy": {
       "name": "The Privacy Defender",
@@ -3278,7 +3284,7 @@
       "about": "The privacy defender holds that personal data and communications should stay under the individual's control, not harvested or surveilled by companies or governments. They value encryption, data minimization and strong legal protections.",
       "links": [
         {
-          "label": "Electronic Frontier Foundation \u2014 Privacy",
+          "label": "Electronic Frontier Foundation — Privacy",
           "url": "https://www.eff.org/issues/privacy"
         }
       ],
@@ -3377,20 +3383,23 @@
             "decelerate": 50,
             "differential-pace": 10
           }
-        }
-      }
+        },
+        "skin": "techcapades"
+      },
+      "skin": "techcapades",
+      "kind": "sample"
     },
     "tec-commons": {
       "name": "The Open-Source Commons Builder",
       "count": 16,
-      "about": "The open-source commons builder believes software \u2014 and knowledge \u2014 should be freely shared, studied, modified and redistributed. They contribute to and rely on open licences and collaborative communities rather than closed, proprietary systems.",
+      "about": "The open-source commons builder believes software — and knowledge — should be freely shared, studied, modified and redistributed. They contribute to and rely on open licences and collaborative communities rather than closed, proprietary systems.",
       "links": [
         {
           "label": "Open Source Initiative",
           "url": "https://opensource.org/"
         },
         {
-          "label": "Wikipedia \u2014 Open-Source Software",
+          "label": "Wikipedia — Open-Source Software",
           "url": "https://en.wikipedia.org/wiki/Open-source_software"
         }
       ],
@@ -3484,8 +3493,11 @@
             "decelerate": -40,
             "differential-pace": 0
           }
-        }
-      }
+        },
+        "skin": "techcapades"
+      },
+      "skin": "techcapades",
+      "kind": "sample"
     },
     "tec-minimalist": {
       "name": "The Digital Minimalist",
@@ -3493,7 +3505,7 @@
       "about": "The digital minimalist holds that technology should serve a life well lived, not consume it. They deliberately cut back on apps, feeds and screen time to keep only the tools that clearly support their values.",
       "links": [
         {
-          "label": "Cal Newport \u2014 Digital Minimalism",
+          "label": "Cal Newport — Digital Minimalism",
           "url": "https://www.calnewport.com/books/digital-minimalism/"
         }
       ],
@@ -3585,8 +3597,11 @@
             "decelerate": 70,
             "differential-pace": -20
           }
-        }
-      }
+        },
+        "skin": "techcapades"
+      },
+      "skin": "techcapades",
+      "kind": "sample"
     }
   }
 }

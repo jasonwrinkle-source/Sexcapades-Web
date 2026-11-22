@@ -501,7 +501,7 @@
     setManifestForSkin(data.skin);
     activeSkin = data.skin;
     setAboutDescription(data.name, data.about);
-    setSamples(data.samples);
+    setSamples(data.samples, data.skin);
     setScribe(data.scribe);
     setSceneSetter(data.sceneSetter);
     if (data.popularity) window.__SEXCAPADES_POPULARITY_DATA = data.popularity;
@@ -617,7 +617,7 @@
   function registerSexcapadesWidgets() {
     return sexcapadesData().then(function (data) {
       registerWidgets(data);
-      setSamples(data.samples);
+      setSamples(data.samples, "sexcapades");
       setScribe(data.scribe);
       setSceneSetter(data.sceneSetter);
       bootApplySexcapades(data);
@@ -745,7 +745,7 @@
     }
   }
 
-  function setSamples(samples) {
+  function setSamples(samples, skinId) {
     /* Per-skin archetypes and samples (2026-11-16): the skin JSON's
        `samples` section is the single source (the old inline
        __EMBEDDED_SAMPLE_PROFILES block is deleted from the entrypoints).
@@ -769,8 +769,18 @@
     var target = window.SEXCAPADES_SAMPLE_PROFILES;
     if (!target || typeof target !== "object") { window.SEXCAPADES_SAMPLE_PROFILES = {}; target = window.SEXCAPADES_SAMPLE_PROFILES; }
     Object.keys(target).forEach(function (k) { delete target[k]; });
+    var curSkin = skinId || currentSkinId();
     if (samples && typeof samples === "object") {
-      Object.keys(samples).forEach(function (k) { target[k] = samples[k]; });
+      Object.keys(samples).forEach(function (k) {
+        var s = samples[k];
+        if (s && typeof s === "object") {
+          s.skin = s.skin || curSkin;
+          if (s.payload && typeof s.payload === "object") {
+            s.payload.skin = s.payload.skin || curSkin;
+          }
+        }
+        target[k] = s;
+      });
     }
     mergeLocalSamplesInto(target);
     rebuildSampleMenu(target);
@@ -1108,6 +1118,7 @@
         var isArchetype = entry.kind !== "sample";
         btn.setAttribute("data-sample-name", entry.name || key);
         btn.setAttribute("data-sample-count", String(count));
+        btn.setAttribute("data-sample-skin", entry.skin || (entry.payload && entry.payload.skin) || currentSkinId());
         if (entry.photo) {
           var img = document.createElement("img");
           img.alt = "";

@@ -3478,8 +3478,11 @@
             "phased-encore": -45,
             "work-for-life": 85
           }
-        }
-      }
+        },
+        "skin": "vocapades"
+      },
+      "skin": "vocapades",
+      "kind": "sample"
     },
     "voc-climber": {
       "name": "The Ambitious Climber",
@@ -3586,8 +3589,11 @@
             "phased-encore": 90,
             "work-for-life": 40
           }
-        }
-      }
+        },
+        "skin": "vocapades"
+      },
+      "skin": "vocapades",
+      "kind": "sample"
     },
     "voc-security": {
       "name": "The Security Seeker",
@@ -3694,8 +3700,11 @@
             "phased-encore": -40,
             "work-for-life": -60
           }
-        }
-      }
+        },
+        "skin": "vocapades"
+      },
+      "skin": "vocapades",
+      "kind": "sample"
     },
     "voc-balance": {
       "name": "The Balance Keeper",
@@ -3807,8 +3816,11 @@
             "phased-encore": -20,
             "work-for-life": -50
           }
-        }
-      }
+        },
+        "skin": "vocapades"
+      },
+      "skin": "vocapades",
+      "kind": "sample"
     },
     "voc-craftsman": {
       "name": "The Master Craftsman",
@@ -3920,8 +3932,11 @@
             "phased-encore": 20,
             "work-for-life": 60
           }
-        }
-      }
+        },
+        "skin": "vocapades"
+      },
+      "skin": "vocapades",
+      "kind": "sample"
     },
     "voc-founder": {
       "name": "The Founder",
@@ -4028,8 +4043,11 @@
             "flexible": -10,
             "firm": -40
           }
-        }
-      }
+        },
+        "skin": "vocapades"
+      },
+      "skin": "vocapades",
+      "kind": "sample"
     }
   }
 }

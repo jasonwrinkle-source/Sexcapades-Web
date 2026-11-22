@@ -2,7 +2,7 @@
   "skin": "expericapades",
   "meter": "experience",
   "name": "Expericapades",
-  "about": "Expericapades is an interactive hypermap for rating and visualizing how experiments should be run \u2014 what counts as evidence, how sure is sure enough, and what a good discovery takes \u2014 and comparing your standards with another person's, judgment by judgment, on the same picture. Build a personal profile, see where your standards meet and where they part, use Scribe to write the experiment you'd run, and Scene Setter to plan the collaboration that runs it \u2014 all in the same shared vocabulary.",
+  "about": "Expericapades is an interactive hypermap for rating and visualizing how experiments should be run — what counts as evidence, how sure is sure enough, and what a good discovery takes — and comparing your standards with another person's, judgment by judgment, on the same picture. Build a personal profile, see where your standards meet and where they part, use Scribe to write the experiment you'd run, and Scene Setter to plan the collaboration that runs it — all in the same shared vocabulary.",
   "scribe": {
     "genre": "discussion",
     "output": "discussion",
@@ -18,22 +18,22 @@
       "help": "Depth 1 (Overview) is a light survey of the recorded stances. Depth 5 (Dissertation defense) is full scholarly rigor: steelman each stance, raise the strongest objections, and answer them."
     },
     "panel": {
-      "modeSingle": "One profile creates an informed discussion between the stances recorded on this map \u2014 the positions held, where they agree, and where they part. For a moderated discussion plan, use Scene Setter.",
-      "modeMulti": "Scribe turns your selected profiles into an informed discussion between the stances recorded on this map \u2014 where the profiles agree, where they part, and what follows from each position. For a moderated discussion plan, use Scene Setter.",
+      "modeSingle": "One profile creates an informed discussion between the stances recorded on this map — the positions held, where they agree, and where they part. For a moderated discussion plan, use Scene Setter.",
+      "modeMulti": "Scribe turns your selected profiles into an informed discussion between the stances recorded on this map — where the profiles agree, where they part, and what follows from each position. For a moderated discussion plan, use Scene Setter.",
       "introSingle": "One profile selected: Scribe will create an informed discussion between the stances.",
       "introMulti": "Multiple profiles selected: Scribe will create an informed discussion between the stances.",
-      "detailsPlaceholder": "The map provides your stances and positions. Describe the angle, framing, or specific questions to emphasize or avoid \u2014 e.g. \u201ca point-by-point comparison of the two leading positions, with objections answered.\u201d",
+      "detailsPlaceholder": "The map provides your stances and positions. Describe the angle, framing, or specific questions to emphasize or avoid — e.g. “a point-by-point comparison of the two leading positions, with objections answered.”",
       "detailsHelp": "Don't re-enter your stances here. Scribe already uses the selected hypermap data.",
       "lengthHelp": "Discussions can target a word count, paragraphs, pages, or chapters. Enter one number or a range; blank defaults to 1 page.",
       "downloadIntro": "Generated from the selected profile data.",
-      "summary": "An informed discussion between the recorded stances \u2014 the positions speak for themselves, not a story."
+      "summary": "An informed discussion between the recorded stances — the positions speak for themselves, not a story."
     },
     "prompt": {
       "opening": "Write an informed discussion between the stances recorded on this map.",
       "rules": [
-        "Present each recorded stance fairly and in its strongest form \u2014 steelman, don't strawman.",
+        "Present each recorded stance fairly and in its strongest form — steelman, don't strawman.",
         "Show where the stances agree, where they part, and what follows from each position.",
-        "Use the recorded ratings as emphasis: 80\u2013100 central, 56\u201379 strong support, 36\u201355 lighter, and 0\u201335 optional curiosity.",
+        "Use the recorded ratings as emphasis: 80–100 central, 56–79 strong support, 36–55 lighter, and 0–35 optional curiosity.",
         "Use only the named topics below. Do not add, imply, or reference any unlisted stance.",
         "Do not invent positions, sources, or facts beyond the supplied data."
       ],
@@ -58,8 +58,8 @@
     "panel": {
       "subtitleSuffix": "the ground rules stay in every discussion plan.",
       "detailsLabel": "Discussion details <small>Optional</small>",
-      "detailsPlaceholder": "The map provides your stances and positions. Describe the setting, framing, or specific questions to emphasize or avoid \u2014 e.g. \u201ca point-by-point comparison of the two leading positions, with objections answered.\u201d",
-      "detailsHelp": "Don\u2019t re-enter your stances here. Scene Setter already uses the selected hypermap data, and the ground rules below still control the plan.",
+      "detailsPlaceholder": "The map provides your stances and positions. Describe the setting, framing, or specific questions to emphasize or avoid — e.g. “a point-by-point comparison of the two leading positions, with objections answered.”",
+      "detailsHelp": "Don’t re-enter your stances here. Scene Setter already uses the selected hypermap data, and the ground rules below still control the plan.",
       "playGuideLegend": "Discussion plan length",
       "playGuideHelp": "Length for the AI discussion-plan prompt only: a word count, paragraphs, pages, or chapters. Enter one number or a range; blank defaults to 5 paragraphs.",
       "negotiationLegend": "Discussion agreement length",
@@ -69,33 +69,33 @@
       "outputsTitle": "Documents",
       "outputsIntro": "Two separate outputs. Take either one on its own; each carries the compare-settings stamp and the same ground-rules content.",
       "negotiationTitle": "Discussion agreement",
-      "negotiationDesc": "The completed ground rules as a finished, standalone agreement document \u2014 not an AI prompt.",
+      "negotiationDesc": "The completed ground rules as a finished, standalone agreement document — not an AI prompt.",
       "playGuideTitle": "Discussion plan",
-      "playGuideDesc": "The AI discussion-plan prompt, with the ground rules embedded as its binding layer. It also carries the standard structured format \u2014 elapsed time codes like <strong>[00:00-05:00]</strong> and a fixed activity set \u2014 so whichever AI writes the plan, Scene Sentinel can read it back, run its timers, and match check-ins to the scheduled step.",
+      "playGuideDesc": "The AI discussion-plan prompt, with the ground rules embedded as its binding layer. It also carries the standard structured format — elapsed time codes like <strong>[00:00-05:00]</strong> and a fixed activity set — so whichever AI writes the plan, Scene Sentinel can read it back, run its timers, and match check-ins to the scheduled step.",
       "copyNegotiationGuide": "Copy discussion agreement",
       "downloadNegotiationGuide": "Download discussion agreement (.txt)",
       "copyPlayGuide": "Copy discussion plan prompt",
       "downloadPlayGuide": "Download discussion plan prompt (.txt)",
       "aiNote": "<strong>How this differs from Scribe:</strong> this workspace puts the ground rules and shared positions into a discussion agreement first. Its moderation-plan source is inspiration only; the agreement always controls the generated plan.",
-      "playGuideTextPlaceholder": "Your generated discussion plan will stream here in real time\u2026",
+      "playGuideTextPlaceholder": "Your generated discussion plan will stream here in real time…",
       "openNegotiationTip": "Build a shared discussion agreement and an AI-ready moderation plan from two or more selected profiles.",
       "viewNavTip": "Build a moderated discussion plan for 2 or more profiles, with ground rules and timed segments.",
-      "legendRow": "<b>Scene Setter</b> \u2014 Moderating a discussion between the stances: a ground-rules agreement and a moderated discussion plan."
+      "legendRow": "<b>Scene Setter</b> — Moderating a discussion between the stances: a ground-rules agreement and a moderated discussion plan."
     },
     "groundRules": [
-      "Present each recorded stance fairly and in its strongest form \u2014 steelman, don't strawman.",
+      "Present each recorded stance fairly and in its strongest form — steelman, don't strawman.",
       "Speak from your own recorded stance; don't speak for the other side.",
       "Take turns: one position at a time, each side heard fully before replies.",
       "Objections go to the position, not the person holding it.",
       "Anyone may call a pause; the discussion resumes only when everyone is ready.",
-      "What the profiles agree on is common ground \u2014 start there, and return to it when the discussion stalls."
+      "What the profiles agree on is common ground — start there, and return to it when the discussion stalls."
     ],
     "prompt": {
       "opening": "Write a moderated discussion plan for the stances recorded on this map.",
       "rules": [
-        "Present each recorded stance fairly and in its strongest form \u2014 steelman, don't strawman.",
+        "Present each recorded stance fairly and in its strongest form — steelman, don't strawman.",
         "Show where the stances agree, where they part, and what follows from each position.",
-        "Use the recorded ratings as emphasis: 80\u2013100 central, 56\u201379 strong support, 36\u201355 lighter, and 0\u201335 optional curiosity.",
+        "Use the recorded ratings as emphasis: 80–100 central, 56–79 strong support, 36–55 lighter, and 0–35 optional curiosity.",
         "Structure the plan in Opening, Development, and Closing, with timed segments and a check-in between segments.",
         "Give each side its strongest form before comparing them; never let one side speak for the other.",
         "Use only the named topics below. Do not add, imply, or reference any unlisted stance.",
@@ -116,7 +116,7 @@
       "help": "Enabled phases are added to the generated moderation prompt as a Discussion structure section, in opening, development, closing order. Turn a phase off to leave it out."
     }
   },
-  "domain": "Experimental Physics \u2014 the world of the detector, the ultra-high vacuum chamber, the cryogenic dilution refrigerator, and the particle collider",
+  "domain": "Experimental Physics — the world of the detector, the ultra-high vacuum chamber, the cryogenic dilution refrigerator, and the particle collider",
   "categories": [
     {
       "id": "xexc01",
@@ -161,7 +161,7 @@
             ]
           },
           "question": "Do you design experiments to test theories or to explore the unknown?",
-          "source": "BRIEFING_EXPERICAPADES_TAXONOMY.md \u00a72.1.1 \u2014 Merged \u2014 both versions covered this; Antigravity's framing kept.",
+          "source": "BRIEFING_EXPERICAPADES_TAXONOMY.md §2.1.1 — Merged — both versions covered this; Antigravity's framing kept.",
           "communities": [
             {
               "network": "Stack Exchange",
@@ -210,7 +210,7 @@
             "poles": [
               {
                 "label": "Precision",
-                "text": "measure one thing exquisitely well \u2014 the tenth decimal place, the single clean number."
+                "text": "measure one thing exquisitely well — the tenth decimal place, the single clean number."
               },
               {
                 "label": "Balanced programme",
@@ -218,12 +218,12 @@
               },
               {
                 "label": "Exploration",
-                "text": "cover new ground \u2014 new energies, new regimes, new phenomena, even if the numbers are rough."
+                "text": "cover new ground — new energies, new regimes, new phenomena, even if the numbers are rough."
               }
             ]
           },
           "question": "Do you measure one thing perfectly, or find new things roughly?",
-          "source": "BRIEFING_EXPERICAPADES_TAXONOMY.md \u00a72.1.2 \u2014 YoBiche.",
+          "source": "BRIEFING_EXPERICAPADES_TAXONOMY.md §2.1.2 — YoBiche.",
           "communities": [
             {
               "network": "Stack Exchange",
@@ -272,7 +272,7 @@
             "poles": [
               {
                 "label": "Big Science",
-                "text": "Megaprojects: CERN LHC, LIGO, James Webb, DUNE \u2014 3,000-person collaborations, billion-dollar budgets, decadal timelines."
+                "text": "Megaprojects: CERN LHC, LIGO, James Webb, DUNE — 3,000-person collaborations, billion-dollar budgets, decadal timelines."
               },
               {
                 "label": "Medium-Scale",
@@ -285,7 +285,7 @@
             ]
           },
           "question": "Does fundamental discovery come from giant colliders, mid-size facilities, or tabletop lasers?",
-          "source": "BRIEFING_EXPERICAPADES_TAXONOMY.md \u00a72.1.3 \u2014 Merged \u2014 Antigravity's dipole (Big Science vs Tabletop) with YoBiche's Medium-Scale pole added.",
+          "source": "BRIEFING_EXPERICAPADES_TAXONOMY.md §2.1.3 — Merged — Antigravity's dipole (Big Science vs Tabletop) with YoBiche's Medium-Scale pole added.",
           "communities": [
             {
               "network": "Stack Exchange",
@@ -347,7 +347,7 @@
             ]
           },
           "question": "Which frontier offers the greatest promise for new physics?",
-          "source": "BRIEFING_EXPERICAPADES_TAXONOMY.md \u00a72.1.4 \u2014 Antigravity 1.3.",
+          "source": "BRIEFING_EXPERICAPADES_TAXONOMY.md §2.1.4 — Antigravity 1.3.",
           "communities": [
             {
               "network": "Stack Exchange",
@@ -396,7 +396,7 @@
             "poles": [
               {
                 "label": "Crisis",
-                "text": "reproducibility is in trouble \u2014 too many results don't replicate, too much depends on one lab, one setup, one person."
+                "text": "reproducibility is in trouble — too many results don't replicate, too much depends on one lab, one setup, one person."
               },
               {
                 "label": "Moderate concern",
@@ -404,12 +404,12 @@
               },
               {
                 "label": "Confidence",
-                "text": "the system works \u2014 independent replication is the norm, and the failures get caught."
+                "text": "the system works — independent replication is the norm, and the failures get caught."
               }
             ]
           },
           "question": "Is experimental physics in a reproducibility crisis, or is the system working?",
-          "source": "BRIEFING_EXPERICAPADES_TAXONOMY.md \u00a72.1.5 \u2014 YoBiche.",
+          "source": "BRIEFING_EXPERICAPADES_TAXONOMY.md §2.1.5 — YoBiche.",
           "communities": [
             {
               "network": "Stack Exchange",
@@ -478,7 +478,7 @@
             ]
           },
           "question": "Should physicists build their own instruments from raw metal or integrate commercial hardware?",
-          "source": "BRIEFING_EXPERICAPADES_TAXONOMY.md \u00a72.2.1 \u2014 Antigravity 2.1.",
+          "source": "BRIEFING_EXPERICAPADES_TAXONOMY.md §2.2.1 — Antigravity 2.1.",
           "communities": [
             {
               "network": "Stack Exchange",
@@ -535,7 +535,7 @@
             ]
           },
           "question": "Do you actively smash the system or passively listen for rare signals?",
-          "source": "BRIEFING_EXPERICAPADES_TAXONOMY.md \u00a72.2.2 \u2014 Antigravity 2.2.",
+          "source": "BRIEFING_EXPERICAPADES_TAXONOMY.md §2.2.2 — Antigravity 2.2.",
           "communities": [
             {
               "network": "Stack Exchange",
@@ -583,7 +583,7 @@
             "poles": [
               {
                 "label": "Photonics & Optical Interferometry",
-                "text": "Laser frequency combs, Fabry-P\u00e9rot cavities, single-photon avalanche detectors, spectroscopy."
+                "text": "Laser frequency combs, Fabry-Pérot cavities, single-photon avalanche detectors, spectroscopy."
               },
               {
                 "label": "Superconducting & Cryogenic Sensors",
@@ -600,7 +600,7 @@
             ]
           },
           "question": "Which detector modality do you trust most?",
-          "source": "BRIEFING_EXPERICAPADES_TAXONOMY.md \u00a72.2.3 \u2014 Antigravity 2.3.",
+          "source": "BRIEFING_EXPERICAPADES_TAXONOMY.md §2.2.3 — Antigravity 2.3.",
           "communities": [
             {
               "network": "Stack Exchange",
@@ -657,7 +657,7 @@
             ]
           },
           "question": "Do you build one detector for everything, one for a single measurement, or a hybrid?",
-          "source": "BRIEFING_EXPERICAPADES_TAXONOMY.md \u00a72.2.4 \u2014 YoBiche.",
+          "source": "BRIEFING_EXPERICAPADES_TAXONOMY.md §2.2.4 — YoBiche.",
           "communities": [
             {
               "network": "Stack Exchange",
@@ -697,16 +697,16 @@
             "poles": [
               {
                 "label": "Sensitivity",
-                "text": "push the detector to see fainter signals \u2014 lower thresholds, better resolution, more gain."
+                "text": "push the detector to see fainter signals — lower thresholds, better resolution, more gain."
               },
               {
                 "label": "Background",
-                "text": "push the shielding to kill the noise \u2014 cleaner materials, deeper underground, better vetoes."
+                "text": "push the shielding to kill the noise — cleaner materials, deeper underground, better vetoes."
               }
             ]
           },
           "question": "Do you chase fainter signals, or quieter backgrounds?",
-          "source": "BRIEFING_EXPERICAPADES_TAXONOMY.md \u00a72.2.5 \u2014 YoBiche.",
+          "source": "BRIEFING_EXPERICAPADES_TAXONOMY.md §2.2.5 — YoBiche.",
           "communities": [
             {
               "network": "Stack Exchange",
@@ -746,16 +746,16 @@
             "poles": [
               {
                 "label": "In situ",
-                "text": "calibrate in place, in the real detector, with the real beam and the real conditions \u2014 messy but honest."
+                "text": "calibrate in place, in the real detector, with the real beam and the real conditions — messy but honest."
               },
               {
                 "label": "Test beam",
-                "text": "calibrate on a dedicated beamline, controlled and clean \u2014 precise but not quite the real thing."
+                "text": "calibrate on a dedicated beamline, controlled and clean — precise but not quite the real thing."
               }
             ]
           },
           "question": "Do you calibrate where the detector lives, or on a clean test beam?",
-          "source": "BRIEFING_EXPERICAPADES_TAXONOMY.md \u00a72.2.6 \u2014 YoBiche.",
+          "source": "BRIEFING_EXPERICAPADES_TAXONOMY.md §2.2.6 — YoBiche.",
           "communities": [
             {
               "network": "Stack Exchange",
@@ -799,7 +799,7 @@
             "poles": [
               {
                 "label": "Upgrade",
-                "text": "keep the detector you have and make it better \u2014 new electronics, new sensors, incremental improvement."
+                "text": "keep the detector you have and make it better — new electronics, new sensors, incremental improvement."
               },
               {
                 "label": "Phased upgrade",
@@ -807,12 +807,12 @@
               },
               {
                 "label": "New build",
-                "text": "tear it down and start over \u2014 the old design has hit its limit, only a fresh instrument will do."
+                "text": "tear it down and start over — the old design has hit its limit, only a fresh instrument will do."
               }
             ]
           },
           "question": "Do you upgrade the detector you have, or build a new one?",
-          "source": "BRIEFING_EXPERICAPADES_TAXONOMY.md \u00a72.2.7 \u2014 YoBiche.",
+          "source": "BRIEFING_EXPERICAPADES_TAXONOMY.md §2.2.7 — YoBiche.",
           "communities": [
             {
               "network": "Stack Exchange",
@@ -876,7 +876,7 @@
             ]
           },
           "question": "Does a physical discovery require 5-sigma, or is Bayesian evidence sufficient?",
-          "source": "BRIEFING_EXPERICAPADES_TAXONOMY.md \u00a72.3.1 \u2014 Merged \u2014 both versions covered this; Antigravity's framing kept.",
+          "source": "BRIEFING_EXPERICAPADES_TAXONOMY.md §2.3.1 — Merged — both versions covered this; Antigravity's framing kept.",
           "communities": [
             {
               "network": "Stack Exchange",
@@ -924,7 +924,7 @@
               },
               {
                 "label": "Null as Information",
-                "text": "A null is simply data \u2014 neither heroic nor shameful."
+                "text": "A null is simply data — neither heroic nor shameful."
               },
               {
                 "label": "Null as Frustrating Stagnation",
@@ -933,7 +933,7 @@
             ]
           },
           "question": "Are null results a triumph of exclusion or a disappointment?",
-          "source": "BRIEFING_EXPERICAPADES_TAXONOMY.md \u00a72.3.2 \u2014 Merged \u2014 both versions covered this; Antigravity's framing kept.",
+          "source": "BRIEFING_EXPERICAPADES_TAXONOMY.md §2.3.2 — Merged — both versions covered this; Antigravity's framing kept.",
           "communities": [
             {
               "network": "Stack Exchange",
@@ -990,7 +990,7 @@
             ]
           },
           "question": "Should experimental data be strictly blinded or openly examined?",
-          "source": "BRIEFING_EXPERICAPADES_TAXONOMY.md \u00a72.3.3 \u2014 Merged \u2014 both versions covered this; Antigravity's framing kept.",
+          "source": "BRIEFING_EXPERICAPADES_TAXONOMY.md §2.3.3 — Merged — both versions covered this; Antigravity's framing kept.",
           "communities": [
             {
               "network": "Stack Exchange",
@@ -1039,7 +1039,7 @@
             ]
           },
           "question": "In the laboratory, is your greatest foe systematic bias or statistical noise?",
-          "source": "BRIEFING_EXPERICAPADES_TAXONOMY.md \u00a72.3.4 \u2014 Merged \u2014 both versions covered this; Antigravity's framing kept.",
+          "source": "BRIEFING_EXPERICAPADES_TAXONOMY.md §2.3.4 — Merged — both versions covered this; Antigravity's framing kept.",
           "communities": [
             {
               "network": "Stack Exchange",
@@ -1083,7 +1083,7 @@
             "poles": [
               {
                 "label": "Signal",
-                "text": "it's real \u2014 the anomaly is a genuine physical effect, and the systematics have been checked."
+                "text": "it's real — the anomaly is a genuine physical effect, and the systematics have been checked."
               },
               {
                 "label": "Undecided",
@@ -1091,12 +1091,12 @@
               },
               {
                 "label": "Systematics",
-                "text": "it's an artifact \u2014 a loose cable, a calibration drift, a background you haven't modelled yet."
+                "text": "it's an artifact — a loose cable, a calibration drift, a background you haven't modelled yet."
               }
             ]
           },
           "question": "When something unexpected shows up, is it a signal or a systematic?",
-          "source": "BRIEFING_EXPERICAPADES_TAXONOMY.md \u00a72.3.5 \u2014 YoBiche.",
+          "source": "BRIEFING_EXPERICAPADES_TAXONOMY.md §2.3.5 — YoBiche.",
           "communities": [
             {
               "network": "Stack Exchange",
@@ -1153,7 +1153,7 @@
             ]
           },
           "question": "When an experimental anomaly appears, do you chase it or doubt it?",
-          "source": "BRIEFING_EXPERICAPADES_TAXONOMY.md \u00a72.3.6 \u2014 Antigravity 5.1.",
+          "source": "BRIEFING_EXPERICAPADES_TAXONOMY.md §2.3.6 — Antigravity 5.1.",
           "communities": [
             {
               "network": "Stack Exchange",
@@ -1177,7 +1177,7 @@
     {
       "id": "xexc04",
       "name": "Environment & Extremes",
-      "about": "The extreme environments \u2014 cold, vacuum, field, depth \u2014 where experiments live.",
+      "about": "The extreme environments — cold, vacuum, field, depth — where experiments live.",
       "topics": [
         {
           "id": "xex0019",
@@ -1225,7 +1225,7 @@
             ]
           },
           "question": "Which extreme environment defines your laboratory home?",
-          "source": "BRIEFING_EXPERICAPADES_TAXONOMY.md \u00a72.4.1 \u2014 Antigravity 4.1.",
+          "source": "BRIEFING_EXPERICAPADES_TAXONOMY.md §2.4.1 — Antigravity 4.1.",
           "communities": [
             {
               "network": "Stack Exchange",
@@ -1282,7 +1282,7 @@
             ]
           },
           "question": "Does your experiment belong in a vibration-free basement or the wild elements?",
-          "source": "BRIEFING_EXPERICAPADES_TAXONOMY.md \u00a72.4.2 \u2014 Antigravity 4.2.",
+          "source": "BRIEFING_EXPERICAPADES_TAXONOMY.md §2.4.2 — Antigravity 4.2.",
           "communities": [
             {
               "network": "Stack Exchange",
@@ -1346,7 +1346,7 @@
             ]
           },
           "question": "Should raw experimental data be open to the world immediately?",
-          "source": "BRIEFING_EXPERICAPADES_TAXONOMY.md \u00a72.5.1 \u2014 Merged \u2014 both versions covered this; Antigravity's framing kept.",
+          "source": "BRIEFING_EXPERICAPADES_TAXONOMY.md §2.5.1 — Merged — both versions covered this; Antigravity's framing kept.",
           "communities": [
             {
               "network": "Reddit",
@@ -1400,7 +1400,7 @@
             "poles": [
               {
                 "label": "Model-dependent",
-                "text": "analyse the data through a specific theoretical model \u2014 you know what you're looking for, and the analysis is tuned to find it."
+                "text": "analyse the data through a specific theoretical model — you know what you're looking for, and the analysis is tuned to find it."
               },
               {
                 "label": "Blind search, model fit",
@@ -1408,12 +1408,12 @@
               },
               {
                 "label": "Model-independent",
-                "text": "analyse the data without assuming a model \u2014 let the data speak, and see what falls out."
+                "text": "analyse the data without assuming a model — let the data speak, and see what falls out."
               }
             ]
           },
           "question": "Do you analyse through a model, or let the data speak for itself?",
-          "source": "BRIEFING_EXPERICAPADES_TAXONOMY.md \u00a72.5.2 \u2014 YoBiche.",
+          "source": "BRIEFING_EXPERICAPADES_TAXONOMY.md §2.5.2 — YoBiche.",
           "communities": [
             {
               "network": "Reddit",
@@ -1462,7 +1462,7 @@
             "poles": [
               {
                 "label": "Trust",
-                "text": "machine learning finds patterns humans miss \u2014 let the classifier do its work, and trust the result."
+                "text": "machine learning finds patterns humans miss — let the classifier do its work, and trust the result."
               },
               {
                 "label": "Selective verification",
@@ -1470,12 +1470,12 @@
               },
               {
                 "label": "Verify",
-                "text": "a black box is not an answer \u2014 check every ML result against physics, against simulation, against a cut-based analysis."
+                "text": "a black box is not an answer — check every ML result against physics, against simulation, against a cut-based analysis."
               }
             ]
           },
           "question": "Do you trust the machine learning, or verify everything it says?",
-          "source": "BRIEFING_EXPERICAPADES_TAXONOMY.md \u00a72.5.3 \u2014 YoBiche.",
+          "source": "BRIEFING_EXPERICAPADES_TAXONOMY.md §2.5.3 — YoBiche.",
           "communities": [
             {
               "network": "Reddit",
@@ -1537,7 +1537,7 @@
             ]
           },
           "question": "Do you prefer the power of massive collaborations or small-lab independence?",
-          "source": "BRIEFING_EXPERICAPADES_TAXONOMY.md \u00a72.5.4 \u2014 Merged \u2014 both versions covered this; Antigravity's framing kept (her 6.1).",
+          "source": "BRIEFING_EXPERICAPADES_TAXONOMY.md §2.5.4 — Merged — both versions covered this; Antigravity's framing kept (her 6.1).",
           "communities": [
             {
               "network": "Reddit",
@@ -1589,7 +1589,7 @@
             ]
           },
           "question": "Do you race the other labs, join them, or do both at once?",
-          "source": "BRIEFING_EXPERICAPADES_TAXONOMY.md \u00a72.5.5 \u2014 YoBiche.",
+          "source": "BRIEFING_EXPERICAPADES_TAXONOMY.md §2.5.5 — YoBiche.",
           "communities": [
             {
               "network": "Reddit",
@@ -1635,7 +1635,7 @@
             "poles": [
               {
                 "label": "First",
-                "text": "being first matters \u2014 the discovery belongs to whoever publishes first, and the race is the point."
+                "text": "being first matters — the discovery belongs to whoever publishes first, and the race is the point."
               },
               {
                 "label": "Named leads, team credit",
@@ -1643,12 +1643,12 @@
               },
               {
                 "label": "Team",
-                "text": "the team matters \u2014 the discovery belongs to everyone who built the detector, ran the shifts, and wrote the code."
+                "text": "the team matters — the discovery belongs to everyone who built the detector, ran the shifts, and wrote the code."
               }
             ]
           },
           "question": "Does the credit go to whoever is first, or to the whole team?",
-          "source": "BRIEFING_EXPERICAPADES_TAXONOMY.md \u00a72.6.1 \u2014 YoBiche.",
+          "source": "BRIEFING_EXPERICAPADES_TAXONOMY.md §2.6.1 — YoBiche.",
           "communities": [
             {
               "network": "Reddit",
@@ -1695,7 +1695,7 @@
             ]
           },
           "question": "Are you at your best turning a wrench on the beamline or analyzing data at a desk?",
-          "source": "BRIEFING_EXPERICAPADES_TAXONOMY.md \u00a72.6.2 \u2014 Antigravity 6.2.",
+          "source": "BRIEFING_EXPERICAPADES_TAXONOMY.md §2.6.2 — Antigravity 6.2.",
           "communities": [
             {
               "network": "Reddit",
@@ -1742,7 +1742,7 @@
             ]
           },
           "question": "Do you work to confirm theorists' models or to humiliate them with data?",
-          "source": "BRIEFING_EXPERICAPADES_TAXONOMY.md \u00a72.6.3 \u2014 Antigravity 6.3.",
+          "source": "BRIEFING_EXPERICAPADES_TAXONOMY.md §2.6.3 — Antigravity 6.3.",
           "communities": [
             {
               "network": "Reddit",
@@ -1776,7 +1776,7 @@
             "poles": [
               {
                 "label": "Lab",
-                "text": "the controlled environment \u2014 the bench, the cleanroom, the beamline, everything under your control."
+                "text": "the controlled environment — the bench, the cleanroom, the beamline, everything under your control."
               },
               {
                 "label": "Split appointment",
@@ -1784,12 +1784,12 @@
               },
               {
                 "label": "Field",
-                "text": "the real world \u2014 the mountaintop, the ice sheet, the balloon, the ocean, where nature sets the conditions."
+                "text": "the real world — the mountaintop, the ice sheet, the balloon, the ocean, where nature sets the conditions."
               }
             ]
           },
           "question": "Do you work in the lab, or out in the field?",
-          "source": "BRIEFING_EXPERICAPADES_TAXONOMY.md \u00a72.6.4 \u2014 YoBiche.",
+          "source": "BRIEFING_EXPERICAPADES_TAXONOMY.md §2.6.4 — YoBiche.",
           "communities": [
             {
               "network": "Reddit",
@@ -1823,7 +1823,7 @@
             "poles": [
               {
                 "label": "Hands-on",
-                "text": "you are there \u2014 you touch the detector, you turn the knobs, you hear the pump."
+                "text": "you are there — you touch the detector, you turn the knobs, you hear the pump."
               },
               {
                 "label": "Hybrid rotation",
@@ -1831,12 +1831,12 @@
               },
               {
                 "label": "Remote",
-                "text": "you run it from a desk \u2014 the shift is a screen, the detector is a thousand miles away, and the data comes to you."
+                "text": "you run it from a desk — the shift is a screen, the detector is a thousand miles away, and the data comes to you."
               }
             ]
           },
           "question": "Do you work hands-on at the detector, or run it remotely?",
-          "source": "BRIEFING_EXPERICAPADES_TAXONOMY.md \u00a72.6.5 \u2014 YoBiche.",
+          "source": "BRIEFING_EXPERICAPADES_TAXONOMY.md §2.6.5 — YoBiche.",
           "communities": [
             {
               "network": "Reddit",
@@ -1870,7 +1870,7 @@
             "poles": [
               {
                 "label": "Love it",
-                "text": "the night shift is the best part \u2014 the lab at 3 a.m., just you and the detector, the data coming in live."
+                "text": "the night shift is the best part — the lab at 3 a.m., just you and the detector, the data coming in live."
               },
               {
                 "label": "Tolerate it",
@@ -1878,12 +1878,12 @@
               },
               {
                 "label": "Hate it",
-                "text": "the night shift is the price you pay \u2014 sleep-deprived, cold coffee, waiting for a beam that may not come."
+                "text": "the night shift is the price you pay — sleep-deprived, cold coffee, waiting for a beam that may not come."
               }
             ]
           },
           "question": "Do you love the night shift, or endure it?",
-          "source": "BRIEFING_EXPERICAPADES_TAXONOMY.md \u00a72.6.6 \u2014 YoBiche.",
+          "source": "BRIEFING_EXPERICAPADES_TAXONOMY.md §2.6.6 — YoBiche.",
           "communities": [
             {
               "network": "Reddit",
@@ -3903,7 +3903,7 @@
       "about": "Works with giant particle accelerators such as the Large Hadron Collider, smashing particles together at near-light speed to study the fundamental particles and forces of nature. It is team science at the largest scale physics allows.",
       "links": [
         {
-          "label": "CERN \u2014 The Large Hadron Collider",
+          "label": "CERN — The Large Hadron Collider",
           "url": "https://home.cern/science/accelerators/large-hadron-collider"
         }
       ],
@@ -4054,8 +4054,11 @@
             "remote": 20,
             "hybrid-rotation": 40
           }
-        }
-      }
+        },
+        "skin": "expericapades"
+      },
+      "skin": "expericapades",
+      "kind": "sample"
     },
     "exp-tabletop": {
       "name": "The Tabletop Precision Physicist",
@@ -4063,7 +4066,7 @@
       "about": "Tests the laws of physics with small, exquisitely precise bench-top experiments rather than giant machines: atomic clocks, interferometers, and traps that measure nature's constants to many decimal places. A tiny discrepancy here can overturn a theory.",
       "links": [
         {
-          "label": "NIST \u2014 Physical Measurement Laboratory",
+          "label": "NIST — Physical Measurement Laboratory",
           "url": "https://www.nist.gov/pml"
         }
       ],
@@ -4214,8 +4217,11 @@
             "remote": 0,
             "hybrid-rotation": 10
           }
-        }
-      }
+        },
+        "skin": "expericapades"
+      },
+      "skin": "expericapades",
+      "kind": "sample"
     },
     "exp-cosmic": {
       "name": "The Cosmic Frontier Observer",
@@ -4223,7 +4229,7 @@
       "about": "Studies the universe at the largest scales using telescopes, satellites, and cosmic-ray and gravitational-wave detectors. The questions are the biggest ones: dark matter, dark energy, and how the cosmos began and evolves.",
       "links": [
         {
-          "label": "NASA \u2014 Astrophysics",
+          "label": "NASA — Astrophysics",
           "url": "https://science.nasa.gov/astrophysics/"
         }
       ],
@@ -4374,8 +4380,11 @@
             "remote": 70,
             "hybrid-rotation": 60
           }
-        }
-      }
+        },
+        "skin": "expericapades"
+      },
+      "skin": "expericapades",
+      "kind": "sample"
     },
     "exp-anomaly-hunter": {
       "name": "The Discovery-Driven Anomaly Hunter",
@@ -4383,7 +4392,7 @@
       "about": "Hunts for results that do not fit the current theory, treating each unexplained discrepancy as a possible clue to new physics. Where most physicists confirm what is known, the anomaly hunter looks for where it breaks.",
       "links": [
         {
-          "label": "CERN \u2014 The Standard Model (and what lies beyond it)",
+          "label": "CERN — The Standard Model (and what lies beyond it)",
           "url": "https://home.cern/science/physics/standard-model"
         }
       ],
@@ -4534,8 +4543,11 @@
             "remote": 50,
             "hybrid-rotation": 100
           }
-        }
-      }
+        },
+        "skin": "expericapades"
+      },
+      "skin": "expericapades",
+      "kind": "sample"
     }
   }
 }

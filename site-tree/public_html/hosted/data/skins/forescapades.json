@@ -15,7 +15,7 @@
                 "poles": [
                   {
                     "label": "One God, indivisible",
-                    "text": "One God, indivisible \u2014 the Trinity is rejected"
+                    "text": "One God, indivisible — the Trinity is rejected"
                   },
                   {
                     "label": "Modalism",
@@ -45,7 +45,7 @@
               ],
               "question": "Is God one being in three persons, and what does that mean for how we know God?",
               "risk": false,
-              "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md \u00a74 (t0001)",
+              "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md §4 (t0001)",
               "widget": "trilinear-line",
               "communities": [
                 {
@@ -76,7 +76,7 @@
                   },
                   {
                     "label": "Through the Son",
-                    "text": "The Spirit proceeds from the Father through the Son \u2014 the historic mediating formula (per Filium)."
+                    "text": "The Spirit proceeds from the Father through the Son — the historic mediating formula (per Filium)."
                   },
                   {
                     "label": "Father alone",
@@ -102,7 +102,7 @@
               ],
               "question": "Does the Holy Spirit proceed from the Father alone, or from the Father and the Son?",
               "risk": false,
-              "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md \u00a74 (t0002)",
+              "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md §4 (t0002)",
               "widget": "trilinear-line",
               "communities": [
                 {
@@ -143,7 +143,7 @@
               ],
               "question": "How does God make Himself known, and is natural knowledge sufficient for salvation?",
               "risk": false,
-              "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md \u00a74 (t0058)",
+              "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md §4 (t0058)",
               "type": "single",
               "widget": "monopole-slider",
               "communities": [
@@ -201,7 +201,7 @@
               ],
               "question": "How should anthropomorphic descriptions of God (hands, face, throne) in scripture be understood?",
               "risk": false,
-              "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md \u00a74 (t0077)",
+              "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md §4 (t0077)",
               "widget": "trilinear-line",
               "communities": [
                 {
@@ -230,7 +230,7 @@
             {
               "archetype": "simplex",
               "hovertip": {
-                "issue": "Who is Jesus Christ \u2014 truly God, truly man, or both \u2014 and how do the two natures relate?",
+                "issue": "Who is Jesus Christ — truly God, truly man, or both — and how do the two natures relate?",
                 "poles": [
                   {
                     "label": "True God and true man",
@@ -262,9 +262,9 @@
                   "label": "Jewish teacher, not Messiah"
                 }
               ],
-              "question": "Who is Jesus Christ \u2014 truly God, truly man, or both \u2014 and how do the two natures relate?",
+              "question": "Who is Jesus Christ — truly God, truly man, or both — and how do the two natures relate?",
               "risk": false,
-              "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md \u00a74 (t0003)",
+              "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md §4 (t0003)",
               "widget": "triangle",
               "communities": [
                 {
@@ -321,7 +321,7 @@
               ],
               "question": "Was Jesus conceived by the Holy Spirit and born of the Virgin Mary?",
               "risk": false,
-              "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md \u00a74 (t0004)",
+              "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md §4 (t0004)",
               "widget": "trilinear-line",
               "communities": [
                 {
@@ -347,7 +347,7 @@
                   },
                   {
                     "label": "Spiritual resurrection",
-                    "text": "Christ rose, but not bodily \u2014 a spiritual rising."
+                    "text": "Christ rose, but not bodily — a spiritual rising."
                   },
                   {
                     "label": "Jesus did not rise",
@@ -373,7 +373,7 @@
               ],
               "question": "Did Christ truly rise bodily from the dead, and what does his resurrection mean for ours?",
               "risk": false,
-              "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md \u00a74 (t0005)",
+              "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md §4 (t0005)",
               "widget": "trilinear-line",
               "communities": [
                 {
@@ -397,7 +397,7 @@
             {
               "archetype": "line",
               "hovertip": {
-                "issue": "How did God make the world \u2014 in six days, over ages, or is the manner not defined?",
+                "issue": "How did God make the world — in six days, over ages, or is the manner not defined?",
                 "poles": [
                   {
                     "label": "Created in six days",
@@ -429,9 +429,9 @@
                   "label": "God creates; manner not defined"
                 }
               ],
-              "question": "How did God make the world \u2014 in six days, over ages, or is the manner not defined?",
+              "question": "How did God make the world — in six days, over ages, or is the manner not defined?",
               "risk": false,
-              "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md \u00a74 (t0006)",
+              "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md §4 (t0006)",
               "widget": "trilinear-line",
               "communities": [
                 {
@@ -472,7 +472,7 @@
               ],
               "question": "If God governs all things, why does he allow suffering and evil?",
               "risk": false,
-              "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md \u00a74 (t0007)",
+              "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md §4 (t0007)",
               "type": "single",
               "widget": "monopole-slider",
               "communities": [
@@ -506,7 +506,7 @@
             {
               "archetype": null,
               "hovertip": {
-                "issue": "What happened to human nature in the Fall \u2014 is Adam's guilt inherited, or only its effects?",
+                "issue": "What happened to human nature in the Fall — is Adam's guilt inherited, or only its effects?",
                 "poles": [
                   {
                     "label": "Original sin inherited",
@@ -538,9 +538,9 @@
                   "label": "No inherited sin"
                 }
               ],
-              "question": "What happened to human nature in the Fall \u2014 is Adam's guilt inherited, or only its effects?",
+              "question": "What happened to human nature in the Fall — is Adam's guilt inherited, or only its effects?",
               "risk": false,
-              "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md \u00a74 (t0008)",
+              "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md §4 (t0008)",
               "widget": "trilinear-line",
               "communities": [
                 {
@@ -569,7 +569,7 @@
             {
               "archetype": "simplex",
               "hovertip": {
-                "issue": "Has the Messiah come, or is he still to come \u2014 and who is he?",
+                "issue": "Has the Messiah come, or is he still to come — and who is he?",
                 "poles": [
                   {
                     "label": "Messiah not yet come",
@@ -601,9 +601,9 @@
                   "label": "Jesus the Messiah, God incarnate"
                 }
               ],
-              "question": "Has the Messiah come, or is he still to come \u2014 and who is he?",
+              "question": "Has the Messiah come, or is he still to come — and who is he?",
               "risk": false,
-              "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md \u00a74 (t0060)",
+              "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md §4 (t0060)",
               "widget": "triangle",
               "communities": [
                 {
@@ -636,7 +636,7 @@
             {
               "archetype": "simplex",
               "hovertip": {
-                "issue": "What is God's covenant \u2014 with Israel, with all who believe, or with humanity?",
+                "issue": "What is God's covenant — with Israel, with all who believe, or with humanity?",
                 "poles": [
                   {
                     "label": "Covenant with Israel eternal",
@@ -668,9 +668,9 @@
                   "label": "Covenant renewed in Islam"
                 }
               ],
-              "question": "What is God's covenant \u2014 with Israel, with all who believe, or with humanity?",
+              "question": "What is God's covenant — with Israel, with all who believe, or with humanity?",
               "risk": false,
-              "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md \u00a74 (t0061)",
+              "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md §4 (t0061)",
               "widget": "triangle",
               "communities": [
                 {
@@ -737,7 +737,7 @@
               ],
               "question": "Is circumcision a required sign of the covenant?",
               "risk": false,
-              "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md \u00a74 (t0072)",
+              "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md §4 (t0072)",
               "widget": "trilinear-line",
               "communities": [
                 {
@@ -794,7 +794,7 @@
               ],
               "question": "Is divine covenantal election restricted to an ethnic/ancestral lineage, or open universally to all humanity?",
               "risk": false,
-              "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md \u00a74 (t0081)",
+              "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md §4 (t0081)",
               "widget": "trilinear-line",
               "communities": [
                 {
@@ -851,7 +851,7 @@
               ],
               "question": "Have later divine covenants replaced, abrogated, or fulfilled prior covenants made with earlier communities?",
               "risk": false,
-              "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md \u00a74 (t0082)",
+              "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md §4 (t0082)",
               "widget": "trilinear-line",
               "communities": [
                 {
@@ -918,7 +918,7 @@
               ],
               "question": "Does the physical territory of the Holy Land / Jerusalem possess an enduring, unique divine holiness and covenantal status?",
               "risk": false,
-              "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md \u00a74 (t0085)",
+              "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md §4 (t0085)",
               "widget": "trilinear-line",
               "communities": [
                 {
@@ -942,7 +942,7 @@
             {
               "archetype": null,
               "hovertip": {
-                "issue": "Which Abrahamic faith carries the true covenant \u2014 Judaism, Christianity, or Islam?",
+                "issue": "Which Abrahamic faith carries the true covenant — Judaism, Christianity, or Islam?",
                 "poles": [
                   {
                     "label": "Judaism",
@@ -974,9 +974,9 @@
                   "label": "Islam (Tawhid / Final Prophethood)"
                 }
               ],
-              "question": "Which Abrahamic faith carries the true covenant \u2014 Judaism, Christianity, or Islam?",
+              "question": "Which Abrahamic faith carries the true covenant — Judaism, Christianity, or Islam?",
               "risk": false,
-              "source": "BRIEFING_FORESCAPADES_TAXONOMY.md \u00a73.1.1",
+              "source": "BRIEFING_FORESCAPADES_TAXONOMY.md §3.1.1",
               "widget": "triangle",
               "communities": [
                 {
@@ -1082,7 +1082,7 @@
               ],
               "question": "What are the six articles of Islamic faith?",
               "risk": false,
-              "source": "BRIEFING_FORESCAPADES_TAXONOMY.md \u00a73.3.1",
+              "source": "BRIEFING_FORESCAPADES_TAXONOMY.md §3.3.1",
               "widget": "hexad-radar",
               "communities": [
                 {
@@ -1171,7 +1171,7 @@
               ],
               "question": "Which of the seven archangels and planetary spheres governs your spiritual life?",
               "risk": false,
-              "source": "BRIEFING_FORESCAPADES_TAXONOMY.md \u00a73.4.1",
+              "source": "BRIEFING_FORESCAPADES_TAXONOMY.md §3.4.1",
               "widget": "heptad-radar",
               "communities": [
                 {
@@ -1269,7 +1269,7 @@
               ],
               "question": "Which covenantal manifestation of Abraham anchors your faith?",
               "risk": false,
-              "source": "BRIEFING_FORESCAPADES_TAXONOMY.md \u00a73.5.1",
+              "source": "BRIEFING_FORESCAPADES_TAXONOMY.md §3.5.1",
               "widget": "octad-radar",
               "communities": [
                 {
@@ -1353,7 +1353,7 @@
               ],
               "question": "Is Scripture alone the rule of faith, or Scripture together with Tradition?",
               "risk": false,
-              "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md \u00a74 (t0009)",
+              "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md §4 (t0009)",
               "widget": "trilinear-line",
               "communities": [
                 {
@@ -1376,7 +1376,7 @@
             {
               "archetype": "simplex",
               "hovertip": {
-                "issue": "Which books count as Scripture \u2014 the Tanakh, the Christian Bible, or the Qur'an?",
+                "issue": "Which books count as Scripture — the Tanakh, the Christian Bible, or the Qur'an?",
                 "poles": [
                   {
                     "label": "The canon is the Tanakh",
@@ -1408,9 +1408,9 @@
                   "label": "The canon is the Qur'an"
                 }
               ],
-              "question": "Which books count as Scripture \u2014 the Tanakh, the Christian Bible, or the Qur'an?",
+              "question": "Which books count as Scripture — the Tanakh, the Christian Bible, or the Qur'an?",
               "risk": false,
-              "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md \u00a74 (t0010)",
+              "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md §4 (t0010)",
               "widget": "triangle",
               "communities": [
                 {
@@ -1467,7 +1467,7 @@
               ],
               "question": "Is Scripture without error in everything it affirms, or only in what God intended to teach for salvation?",
               "risk": false,
-              "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md \u00a74 (t0011)",
+              "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md §4 (t0011)",
               "widget": "trilinear-line",
               "communities": [
                 {
@@ -1490,7 +1490,7 @@
             {
               "archetype": "line",
               "hovertip": {
-                "issue": "Who interprets Scripture rightly \u2014 the Church's Magisterium, the Church as a whole, or Scripture itself?",
+                "issue": "Who interprets Scripture rightly — the Church's Magisterium, the Church as a whole, or Scripture itself?",
                 "poles": [
                   {
                     "label": "The authoritative teachers interpret",
@@ -1498,7 +1498,7 @@
                   },
                   {
                     "label": "The whole community interprets",
-                    "text": "The whole Church, gathered, is the interpreter \u2014 not teachers alone, not the bare text alone."
+                    "text": "The whole Church, gathered, is the interpreter — not teachers alone, not the bare text alone."
                   },
                   {
                     "label": "The text interprets itself",
@@ -1522,9 +1522,9 @@
                   "label": "The text interprets itself"
                 }
               ],
-              "question": "Who interprets Scripture rightly \u2014 the Church's Magisterium, the Church as a whole, or Scripture itself?",
+              "question": "Who interprets Scripture rightly — the Church's Magisterium, the Church as a whole, or Scripture itself?",
               "risk": false,
-              "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md \u00a74 (t0012)",
+              "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md §4 (t0012)",
               "widget": "trilinear-line",
               "communities": [
                 {
@@ -1591,7 +1591,7 @@
               ],
               "question": "Is Tradition a second, co-equal source of revelation alongside Scripture, or only a subordinate witness?",
               "risk": false,
-              "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md \u00a74 (t0013)",
+              "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md §4 (t0013)",
               "widget": "trilinear-line",
               "communities": [
                 {
@@ -1657,7 +1657,7 @@
               ],
               "question": "How should scripture be read?",
               "risk": false,
-              "source": "BRIEFING_FORESCAPADES_TAXONOMY.md \u00a73.2.1",
+              "source": "BRIEFING_FORESCAPADES_TAXONOMY.md §3.2.1",
               "widget": "diamond",
               "communities": [
                 {
@@ -1696,7 +1696,7 @@
             {
               "archetype": "simplex",
               "hovertip": {
-                "issue": "What is the Torah \u2014 God's revealed law, given at Sinai, written and oral?",
+                "issue": "What is the Torah — God's revealed law, given at Sinai, written and oral?",
                 "poles": [
                   {
                     "label": "Written and Oral Torah eternal",
@@ -1728,9 +1728,9 @@
                   "label": "Torah altered; Qur'an supersedes"
                 }
               ],
-              "question": "What is the Torah \u2014 God's revealed law, given at Sinai, written and oral?",
+              "question": "What is the Torah — God's revealed law, given at Sinai, written and oral?",
               "risk": false,
-              "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md \u00a74 (t0062)",
+              "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md §4 (t0062)",
               "widget": "triangle",
               "communities": [
                 {
@@ -1753,7 +1753,7 @@
             {
               "archetype": "line",
               "hovertip": {
-                "issue": "What is the Qur'an \u2014 God's literal word, revealed to Muhammad?",
+                "issue": "What is the Qur'an — God's literal word, revealed to Muhammad?",
                 "poles": [
                   {
                     "label": "God's literal word",
@@ -1785,9 +1785,9 @@
                   "label": "Not divine revelation"
                 }
               ],
-              "question": "What is the Qur'an \u2014 God's literal word, revealed to Muhammad?",
+              "question": "What is the Qur'an — God's literal word, revealed to Muhammad?",
               "risk": false,
-              "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md \u00a74 (t0063)",
+              "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md §4 (t0063)",
               "widget": "trilinear-line",
               "communities": [
                 {
@@ -1810,7 +1810,7 @@
             {
               "archetype": null,
               "hovertip": {
-                "issue": "Is halakha \u2014 Jewish law from Torah and rabbinic tradition \u2014 binding?",
+                "issue": "Is halakha — Jewish law from Torah and rabbinic tradition — binding?",
                 "poles": [
                   {
                     "label": "Binding law",
@@ -1842,9 +1842,9 @@
                   "label": "Guide, interpreted by conscience"
                 }
               ],
-              "question": "Is halakha \u2014 Jewish law from Torah and rabbinic tradition \u2014 binding?",
+              "question": "Is halakha — Jewish law from Torah and rabbinic tradition — binding?",
               "risk": false,
-              "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md \u00a74 (t0065)",
+              "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md §4 (t0065)",
               "widget": "trilinear-line",
               "communities": [
                 {
@@ -1862,7 +1862,7 @@
             {
               "archetype": null,
               "hovertip": {
-                "issue": "Is sharia \u2014 Islamic law from Qur'an, Sunnah, and scholarship \u2014 binding?",
+                "issue": "Is sharia — Islamic law from Qur'an, Sunnah, and scholarship — binding?",
                 "poles": [
                   {
                     "label": "Sharia (Islamic law)",
@@ -1878,9 +1878,9 @@
                   "label": "Sharia (Islamic law)"
                 }
               ],
-              "question": "Is sharia \u2014 Islamic law from Qur'an, Sunnah, and scholarship \u2014 binding?",
+              "question": "Is sharia — Islamic law from Qur'an, Sunnah, and scholarship — binding?",
               "risk": false,
-              "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md \u00a74 (t0066)",
+              "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md §4 (t0066)",
               "type": "single",
               "widget": "monopole-slider",
               "communities": [
@@ -1939,7 +1939,7 @@
               ],
               "question": "Does the Bishop of Rome hold primacy of jurisdiction over the whole Church, and is he infallible?",
               "risk": false,
-              "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md \u00a74 (t0014)",
+              "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md §4 (t0014)",
               "widget": "trilinear-line",
               "communities": [
                 {
@@ -1957,7 +1957,7 @@
             {
               "archetype": null,
               "hovertip": {
-                "issue": "Which councils are authoritative \u2014 all twenty-one, only the seven, or none as a rule over Scripture?",
+                "issue": "Which councils are authoritative — all twenty-one, only the seven, or none as a rule over Scripture?",
                 "poles": [
                   {
                     "label": "Twenty-one councils",
@@ -1989,9 +1989,9 @@
                   "label": "Councils may err"
                 }
               ],
-              "question": "Which councils are authoritative \u2014 all twenty-one, only the seven, or none as a rule over Scripture?",
+              "question": "Which councils are authoritative — all twenty-one, only the seven, or none as a rule over Scripture?",
               "risk": false,
-              "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md \u00a74 (t0015)",
+              "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md §4 (t0015)",
               "widget": "trilinear-line",
               "communities": [
                 {
@@ -2043,7 +2043,7 @@
               ],
               "question": "Must bishops stand in unbroken succession from the apostles, or is succession doctrinal fidelity?",
               "risk": false,
-              "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md \u00a74 (t0016)",
+              "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md §4 (t0016)",
               "widget": "trilinear-line",
               "communities": [
                 {
@@ -2095,7 +2095,7 @@
               ],
               "question": "Who may be ordained, in what orders, and must priests be celibate?",
               "risk": false,
-              "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md \u00a74 (t0017)",
+              "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md §4 (t0017)",
               "widget": "trilinear-line",
               "communities": [
                 {
@@ -2147,7 +2147,7 @@
               ],
               "question": "Is the Imamate a divinely appointed, infallible succession after Muhammad?",
               "risk": false,
-              "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md \u00a74 (t0074)",
+              "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md §4 (t0074)",
               "widget": "trilinear-line",
               "communities": [
                 {
@@ -2205,7 +2205,7 @@
               ],
               "question": "Has prophecy ended, and is there a final prophet after Jesus?",
               "risk": false,
-              "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md \u00a74 (t0064)",
+              "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md §4 (t0064)",
               "widget": "triangle",
               "communities": [
                 {
@@ -2262,7 +2262,7 @@
               ],
               "question": "Are divine prophets protected by God from committing major sins, errors, or moral failure (Ismah)?",
               "risk": false,
-              "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md \u00a74 (t0078)",
+              "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md §4 (t0078)",
               "widget": "trilinear-line",
               "communities": [
                 {
@@ -2288,7 +2288,7 @@
         {
           "archetype": "line",
           "hovertip": {
-            "issue": "What is the religious community \u2014 one visible communion, or the people of God wherever they gather?",
+            "issue": "What is the religious community — one visible communion, or the people of God wherever they gather?",
             "poles": [
               {
                 "label": "One visible communion",
@@ -2320,9 +2320,9 @@
               "label": "People of God in congregations"
             }
           ],
-          "question": "What is the religious community \u2014 one visible communion, or the people of God wherever they gather?",
+          "question": "What is the religious community — one visible communion, or the people of God wherever they gather?",
           "risk": false,
-          "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md \u00a74 (t0025)",
+          "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md §4 (t0025)",
           "widget": "trilinear-line",
           "communities": [
             {
@@ -2340,19 +2340,19 @@
         {
           "archetype": "simplex",
           "hovertip": {
-            "issue": "Who governs the Church \u2014 bishops, presbyteries of elders, or the congregation itself?",
+            "issue": "Who governs the Church — bishops, presbyteries of elders, or the congregation itself?",
             "poles": [
               {
                 "label": "Episcopal",
-                "text": "Episcopal \u2014 bishops govern"
+                "text": "Episcopal — bishops govern"
               },
               {
                 "label": "Presbyterian",
-                "text": "Presbyterian \u2014 elders in graded assemblies govern"
+                "text": "Presbyterian — elders in graded assemblies govern"
               },
               {
                 "label": "Congregational",
-                "text": "Congregational / decentralised \u2014 each community governs itself, led by its teachers"
+                "text": "Congregational / decentralised — each community governs itself, led by its teachers"
               }
             ]
           },
@@ -2372,9 +2372,9 @@
               "label": "Congregational"
             }
           ],
-          "question": "Who governs the Church \u2014 bishops, presbyteries of elders, or the congregation itself?",
+          "question": "Who governs the Church — bishops, presbyteries of elders, or the congregation itself?",
           "risk": false,
-          "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md \u00a74 (t0026)",
+          "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md §4 (t0026)",
           "widget": "triangle",
           "communities": [
             {
@@ -2426,7 +2426,7 @@
           ],
           "question": "How should members relate to practitioners of other Abrahamic faiths?",
           "risk": false,
-          "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md \u00a74 (t0076)",
+          "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md §4 (t0076)",
           "widget": "trilinear-line",
           "communities": [
             {
@@ -2478,7 +2478,7 @@
           ],
           "question": "May women be ordained to the priesthood and pastorate, or is ordination reserved to men?",
           "risk": false,
-          "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md \u00a74 (t0027)",
+          "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md §4 (t0027)",
           "widget": "trilinear-line",
           "communities": [
             {
@@ -2514,7 +2514,7 @@
           ],
           "question": "How does the Church discipline its members, and who counts as a member?",
           "risk": false,
-          "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md \u00a74 (t0028)",
+          "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md §4 (t0028)",
           "type": "single",
           "widget": "monopole-slider",
           "communities": [
@@ -2533,7 +2533,7 @@
         {
           "archetype": null,
           "hovertip": {
-            "issue": "What happens to one who leaves the faith \u2014 are they still a member?",
+            "issue": "What happens to one who leaves the faith — are they still a member?",
             "poles": [
               {
                 "label": "Still a member",
@@ -2565,9 +2565,9 @@
               "label": "Excluded, penalty severe"
             }
           ],
-          "question": "What happens to one who leaves the faith \u2014 are they still a member?",
+          "question": "What happens to one who leaves the faith — are they still a member?",
           "risk": false,
-          "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md \u00a74 (t0073)",
+          "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md §4 (t0073)",
           "widget": "trilinear-line",
           "communities": [
             {
@@ -2619,7 +2619,7 @@
           ],
           "question": "How does one join the community, and is identity matrilineal, by faith, or by confession?",
           "risk": false,
-          "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md \u00a74 (t0075)",
+          "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md §4 (t0075)",
           "widget": "triangle",
           "communities": [
             {
@@ -2671,7 +2671,7 @@
           ],
           "question": "Should religious leadership be chosen by communal consultation or by divine designation?",
           "risk": false,
-          "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md \u00a74 (t0079)",
+          "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md §4 (t0079)",
           "widget": "trilinear-line",
           "communities": [
             {
@@ -2703,7 +2703,7 @@
               },
               {
                 "label": "Faith formed by love",
-                "text": "Justified by faith \u2014 a faith that works through love and deeds."
+                "text": "Justified by faith — a faith that works through love and deeds."
               },
               {
                 "label": "Made right by faith and works",
@@ -2729,7 +2729,7 @@
           ],
           "question": "Are we justified by faith alone, or by faith and works together in grace?",
           "risk": false,
-          "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md \u00a74 (t0018)",
+          "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md §4 (t0018)",
           "widget": "trilinear-line",
           "communities": [
             {
@@ -2752,7 +2752,7 @@
         {
           "archetype": null,
           "hovertip": {
-            "issue": "Does grace compel, enable, or cooperate with the human will \u2014 and can it be resisted?",
+            "issue": "Does grace compel, enable, or cooperate with the human will — and can it be resisted?",
             "poles": [
               {
                 "label": "Irresistible grace",
@@ -2784,9 +2784,9 @@
               "label": "Prevenient grace"
             }
           ],
-          "question": "Does grace compel, enable, or cooperate with the human will \u2014 and can it be resisted?",
+          "question": "Does grace compel, enable, or cooperate with the human will — and can it be resisted?",
           "risk": false,
-          "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md \u00a74 (t0019)",
+          "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md §4 (t0019)",
           "widget": "trilinear-line",
           "communities": [
             {
@@ -2843,7 +2843,7 @@
           ],
           "question": "Does God elect unconditionally, elect to salvation only, or elect on the basis of foreseen faith?",
           "risk": false,
-          "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md \u00a74 (t0020)",
+          "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md §4 (t0020)",
           "widget": "trilinear-line",
           "communities": [
             {
@@ -2866,7 +2866,7 @@
         {
           "archetype": "simplex",
           "hovertip": {
-            "issue": "How does Christ's death save \u2014 by satisfying divine justice, by ransom and victory, or both?",
+            "issue": "How does Christ's death save — by satisfying divine justice, by ransom and victory, or both?",
             "poles": [
               {
                 "label": "Satisfaction (vicarious atonement)",
@@ -2898,9 +2898,9 @@
               "label": "Repentance and good deeds"
             }
           ],
-          "question": "How does Christ's death save \u2014 by satisfying divine justice, by ransom and victory, or both?",
+          "question": "How does Christ's death save — by satisfying divine justice, by ransom and victory, or both?",
           "risk": false,
-          "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md \u00a74 (t0021)",
+          "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md §4 (t0021)",
           "widget": "triangle",
           "communities": [
             {
@@ -2957,7 +2957,7 @@
           ],
           "question": "Can salvation be lost once received, or do true believers persevere to the end?",
           "risk": false,
-          "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md \u00a74 (t0022)",
+          "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md §4 (t0022)",
           "widget": "trilinear-line",
           "communities": [
             {
@@ -2980,7 +2980,7 @@
         {
           "archetype": "line",
           "hovertip": {
-            "issue": "How is a person forgiven \u2014 by repentance, prayer, and good deeds?",
+            "issue": "How is a person forgiven — by repentance, prayer, and good deeds?",
             "poles": [
               {
                 "label": "Repentance, prayer, good deeds",
@@ -2988,7 +2988,7 @@
               },
               {
                 "label": "Faith working through repentance",
-                "text": "Forgiveness is by faith in Christ \u2014 a faith that necessarily repents, prays, and does good."
+                "text": "Forgiveness is by faith in Christ — a faith that necessarily repents, prays, and does good."
               },
               {
                 "label": "Repentance and faith in Christ",
@@ -3012,9 +3012,9 @@
               "label": "Repentance and faith in Christ"
             }
           ],
-          "question": "How is a person forgiven \u2014 by repentance, prayer, and good deeds?",
+          "question": "How is a person forgiven — by repentance, prayer, and good deeds?",
           "risk": false,
-          "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md \u00a74 (t0069)",
+          "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md §4 (t0069)",
           "widget": "trilinear-line",
           "communities": [
             {
@@ -3041,7 +3041,7 @@
             "poles": [
               {
                 "label": "Purgatory",
-                "text": "Purgatory \u2014 a final purification after death"
+                "text": "Purgatory — a final purification after death"
               },
               {
                 "label": "Intermediate state, no purgatory",
@@ -3071,7 +3071,7 @@
           ],
           "question": "Is there a purification after death for those who die in God's grace but imperfectly purified?",
           "risk": false,
-          "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md \u00a74 (t0023)",
+          "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md §4 (t0023)",
           "widget": "trilinear-line",
           "communities": [
             {
@@ -3128,7 +3128,7 @@
           ],
           "question": "Should Mary and the saints be venerated and asked for intercession, or is Christ alone the mediator?",
           "risk": false,
-          "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md \u00a74 (t0024)",
+          "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md §4 (t0024)",
           "widget": "trilinear-line",
           "communities": [
             {
@@ -3185,7 +3185,7 @@
           ],
           "question": "How is a person made right with God?",
           "risk": false,
-          "source": "BRIEFING_FORESCAPADES_TAXONOMY.md \u00a73.1.2",
+          "source": "BRIEFING_FORESCAPADES_TAXONOMY.md §3.1.2",
           "widget": "triangle",
           "communities": [
             {
@@ -3214,7 +3214,7 @@
         {
           "archetype": "line",
           "hovertip": {
-            "issue": "How many sacraments did Christ institute \u2014 seven, or two?",
+            "issue": "How many sacraments did Christ institute — seven, or two?",
             "poles": [
               {
                 "label": "Seven sacraments",
@@ -3246,9 +3246,9 @@
               "label": "Two sacraments (or ordinances)"
             }
           ],
-          "question": "How many sacraments did Christ institute \u2014 seven, or two?",
+          "question": "How many sacraments did Christ institute — seven, or two?",
           "risk": false,
-          "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md \u00a74 (t0029)",
+          "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md §4 (t0029)",
           "widget": "trilinear-line",
           "communities": [
             {
@@ -3266,7 +3266,7 @@
         {
           "archetype": null,
           "hovertip": {
-            "issue": "Who should be baptized, how, and what does Baptism do \u2014 regenerate, seal, or symbolize?",
+            "issue": "Who should be baptized, how, and what does Baptism do — regenerate, seal, or symbolize?",
             "poles": [
               {
                 "label": "Infant baptism regenerates",
@@ -3298,9 +3298,9 @@
               "label": "Believers' baptism by immersion"
             }
           ],
-          "question": "Who should be baptized, how, and what does Baptism do \u2014 regenerate, seal, or symbolize?",
+          "question": "Who should be baptized, how, and what does Baptism do — regenerate, seal, or symbolize?",
           "risk": false,
-          "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md \u00a74 (t0030)",
+          "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md §4 (t0030)",
           "widget": "trilinear-line",
           "communities": [
             {
@@ -3352,7 +3352,7 @@
           ],
           "question": "Is Christ truly present in the bread and wine, spiritually present to faith, or is the meal a memorial only?",
           "risk": false,
-          "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md \u00a74 (t0031)",
+          "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md §4 (t0031)",
           "widget": "trilinear-line",
           "communities": [
             {
@@ -3404,7 +3404,7 @@
           ],
           "question": "Must sins be confessed to a priest who absolves, or is confession made to God directly?",
           "risk": false,
-          "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md \u00a74 (t0032)",
+          "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md §4 (t0032)",
           "widget": "trilinear-line",
           "communities": [
             {
@@ -3426,11 +3426,11 @@
             "poles": [
               {
                 "label": "Frequent celebration",
-                "text": "Affinity for celebrating the Eucharist frequently \u2014 weekly or more."
+                "text": "Affinity for celebrating the Eucharist frequently — weekly or more."
               },
               {
                 "label": "Lay administration",
-                "text": "Affinity for administration beyond the ordained \u2014 lay presidency or distribution."
+                "text": "Affinity for administration beyond the ordained — lay presidency or distribution."
               }
             ]
           },
@@ -3448,7 +3448,7 @@
           ],
           "question": "How often should the Eucharist be celebrated, and who may administer it?",
           "risk": false,
-          "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md \u00a74 (t0059)",
+          "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md §4 (t0059)",
           "type": "single",
           "widget": "xy-switchbox",
           "communities": [
@@ -3501,7 +3501,7 @@
           ],
           "question": "Should worship follow a set liturgy, or be free and extemporaneous?",
           "risk": false,
-          "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md \u00a74 (t0046)",
+          "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md §4 (t0046)",
           "widget": "trilinear-line",
           "communities": [
             {
@@ -3563,7 +3563,7 @@
           ],
           "question": "May images of Christ and the saints be set up and venerated in worship?",
           "risk": false,
-          "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md \u00a74 (t0047)",
+          "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md §4 (t0047)",
           "widget": "trilinear-line",
           "communities": [
             {
@@ -3581,7 +3581,7 @@
         {
           "archetype": "line",
           "hovertip": {
-            "issue": "What music belongs in worship \u2014 chant, hymns, or contemporary song?",
+            "issue": "What music belongs in worship — chant, hymns, or contemporary song?",
             "poles": [
               {
                 "label": "Music is part of worship",
@@ -3613,9 +3613,9 @@
               "label": "Music is prohibited in worship"
             }
           ],
-          "question": "What music belongs in worship \u2014 chant, hymns, or contemporary song?",
+          "question": "What music belongs in worship — chant, hymns, or contemporary song?",
           "risk": false,
-          "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md \u00a74 (t0048)",
+          "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md §4 (t0048)",
           "widget": "trilinear-line",
           "communities": [
             {
@@ -3677,7 +3677,7 @@
           ],
           "question": "Must daily communication with God follow standardized, obligatory daily prayer liturgies?",
           "risk": false,
-          "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md \u00a74 (t0049)",
+          "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md §4 (t0049)",
           "widget": "trilinear-line",
           "communities": [
             {
@@ -3729,7 +3729,7 @@
           ],
           "question": "Have the miraculous gifts of the Spirit ceased, or do they continue today?",
           "risk": false,
-          "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md \u00a74 (t0050)",
+          "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md §4 (t0050)",
           "widget": "trilinear-line",
           "communities": [
             {
@@ -3747,7 +3747,7 @@
         {
           "archetype": null,
           "hovertip": {
-            "issue": "How are Christmas and Easter kept \u2014 as great feasts of the Church, or as simple commemorations?",
+            "issue": "How are Christmas and Easter kept — as great feasts of the Church, or as simple commemorations?",
             "poles": [
               {
                 "label": "Christmas and Easter observance",
@@ -3763,9 +3763,9 @@
               "label": "Christmas and Easter observance"
             }
           ],
-          "question": "How are Christmas and Easter kept \u2014 as great feasts of the Church, or as simple commemorations?",
+          "question": "How are Christmas and Easter kept — as great feasts of the Church, or as simple commemorations?",
           "risk": false,
-          "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md \u00a74 (t0051)",
+          "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md §4 (t0051)",
           "type": "single",
           "widget": "monopole-slider",
           "communities": [
@@ -3818,7 +3818,7 @@
           ],
           "question": "Are there prescribed communal fasts, or is fasting a voluntary private discipline?",
           "risk": false,
-          "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md \u00a74 (t0052)",
+          "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md §4 (t0052)",
           "widget": "trilinear-line",
           "communities": [
             {
@@ -3866,7 +3866,7 @@
         {
           "archetype": "simplex",
           "hovertip": {
-            "issue": "Which day is holy \u2014 Shabbat, Sunday, or Friday?",
+            "issue": "Which day is holy — Shabbat, Sunday, or Friday?",
             "poles": [
               {
                 "label": "Shabbat",
@@ -3898,9 +3898,9 @@
               "label": "Friday"
             }
           ],
-          "question": "Which day is holy \u2014 Shabbat, Sunday, or Friday?",
+          "question": "Which day is holy — Shabbat, Sunday, or Friday?",
           "risk": false,
-          "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md \u00a74 (t0068)",
+          "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md §4 (t0068)",
           "widget": "triangle",
           "communities": [
             {
@@ -3982,7 +3982,7 @@
           ],
           "question": "Is physical journeying to a specific geographical holy sanctuary mandatory for every able believer?",
           "risk": false,
-          "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md \u00a74 (t0084)",
+          "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md §4 (t0084)",
           "widget": "trilinear-line",
           "communities": [
             {
@@ -4040,7 +4040,7 @@
             {
               "archetype": "line",
               "hovertip": {
-                "issue": "What is marriage \u2014 a covenant of one man and one woman, or of two people?",
+                "issue": "What is marriage — a covenant of one man and one woman, or of two people?",
                 "poles": [
                   {
                     "label": "One man and one woman",
@@ -4072,9 +4072,9 @@
                   "label": "Two people"
                 }
               ],
-              "question": "What is marriage \u2014 a covenant of one man and one woman, or of two people?",
+              "question": "What is marriage — a covenant of one man and one woman, or of two people?",
               "risk": false,
-              "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md \u00a74 (t0033)",
+              "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md §4 (t0033)",
               "widget": "trilinear-line",
               "communities": [
                 {
@@ -4126,7 +4126,7 @@
               ],
               "question": "May a marriage be dissolved, and may a divorced person remarry?",
               "risk": false,
-              "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md \u00a74 (t0034)",
+              "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md §4 (t0034)",
               "widget": "trilinear-line",
               "communities": [
                 {
@@ -4178,7 +4178,7 @@
               ],
               "question": "Is artificial contraception permitted within marriage, or must every marital act remain open to life?",
               "risk": false,
-              "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md \u00a74 (t0035)",
+              "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md §4 (t0035)",
               "widget": "trilinear-line",
               "communities": [
                 {
@@ -4230,7 +4230,7 @@
               ],
               "question": "May a man have more than one wife?",
               "risk": false,
-              "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md \u00a74 (t0067)",
+              "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md §4 (t0067)",
               "widget": "trilinear-line",
               "communities": [
                 {
@@ -4282,7 +4282,7 @@
               ],
               "question": "Is sexual expression reserved to marriage between a man and a woman, or can same-sex relationships be affirmed?",
               "risk": false,
-              "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md \u00a74 (t0037)",
+              "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md §4 (t0037)",
               "widget": "trilinear-line",
               "communities": [
                 {
@@ -4340,7 +4340,7 @@
               ],
               "question": "Is abortion ever permitted, and if so, in what circumstances?",
               "risk": false,
-              "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md \u00a74 (t0036)",
+              "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md §4 (t0036)",
               "widget": "trilinear-line",
               "communities": [
                 {
@@ -4376,7 +4376,7 @@
               ],
               "question": "May a person's life be intentionally ended to relieve suffering, or is life God's from conception to natural death?",
               "risk": false,
-              "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md \u00a74 (t0038)",
+              "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md §4 (t0038)",
               "type": "single",
               "widget": "monopole-slider",
               "communities": [
@@ -4429,7 +4429,7 @@
               ],
               "question": "May the state put a person to death as punishment?",
               "risk": false,
-              "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md \u00a74 (t0039)",
+              "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md §4 (t0039)",
               "widget": "trilinear-line",
               "communities": [
                 {
@@ -4481,7 +4481,7 @@
               ],
               "question": "May Christians bear arms and wage war in a just cause, or is war always evil?",
               "risk": false,
-              "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md \u00a74 (t0040)",
+              "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md §4 (t0040)",
               "widget": "trilinear-line",
               "communities": [
                 {
@@ -4539,7 +4539,7 @@
               ],
               "question": "Must Christians give a tenth of their income, or give proportionately as they are able?",
               "risk": false,
-              "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md \u00a74 (t0043)",
+              "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md §4 (t0043)",
               "widget": "trilinear-line",
               "communities": [
                 {
@@ -4591,7 +4591,7 @@
               ],
               "question": "Is gambling morally acceptable in moderation, or opposed as destructive stewardship?",
               "risk": false,
-              "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md \u00a74 (t0044)",
+              "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md §4 (t0044)",
               "widget": "trilinear-line",
               "communities": [
                 {
@@ -4643,7 +4643,7 @@
               ],
               "question": "Is the charging or paying of financial interest on loans strictly prohibited as usury, or ethically permitted?",
               "risk": false,
-              "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md \u00a74 (t0083)",
+              "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md §4 (t0083)",
               "widget": "trilinear-line",
               "communities": [
                 {
@@ -4706,7 +4706,7 @@
               ],
               "question": "Is drinking alcohol forbidden, or is moderation the rule?",
               "risk": false,
-              "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md \u00a74 (t0041)",
+              "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md §4 (t0041)",
               "widget": "trilinear-line",
               "communities": [
                 {
@@ -4734,7 +4734,7 @@
             {
               "archetype": "line",
               "hovertip": {
-                "issue": "How strictly must Sunday be kept \u2014 a day of worship and rest, or a day of worship only?",
+                "issue": "How strictly must Sunday be kept — a day of worship and rest, or a day of worship only?",
                 "poles": [
                   {
                     "label": "Sunday is kept holy",
@@ -4766,9 +4766,9 @@
                   "label": "Sunday is for worship"
                 }
               ],
-              "question": "How strictly must Sunday be kept \u2014 a day of worship and rest, or a day of worship only?",
+              "question": "How strictly must Sunday be kept — a day of worship and rest, or a day of worship only?",
               "risk": false,
-              "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md \u00a74 (t0042)",
+              "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md §4 (t0042)",
               "widget": "trilinear-line",
               "communities": [
                 {
@@ -4824,7 +4824,7 @@
               ],
               "question": "May a Christian swear a lawful oath calling on God as witness?",
               "risk": false,
-              "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md \u00a74 (t0045)",
+              "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md §4 (t0045)",
               "type": "single",
               "widget": "monopole-slider",
               "communities": [
@@ -4843,7 +4843,7 @@
             {
               "archetype": null,
               "hovertip": {
-                "issue": "How should one dress modestly \u2014 and is covering the head required?",
+                "issue": "How should one dress modestly — and is covering the head required?",
                 "poles": [
                   {
                     "label": "Modesty and head covering required",
@@ -4875,9 +4875,9 @@
                   "label": "No dress code prescribed"
                 }
               ],
-              "question": "How should one dress modestly \u2014 and is covering the head required?",
+              "question": "How should one dress modestly — and is covering the head required?",
               "risk": false,
-              "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md \u00a74 (t0070)",
+              "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md §4 (t0070)",
               "widget": "trilinear-line",
               "communities": [
                 {
@@ -4895,7 +4895,7 @@
             {
               "archetype": "line",
               "hovertip": {
-                "issue": "What may be eaten \u2014 are kosher and halal dietary laws binding?",
+                "issue": "What may be eaten — are kosher and halal dietary laws binding?",
                 "poles": [
                   {
                     "label": "Dietary law is binding",
@@ -4927,9 +4927,9 @@
                   "label": "No dietary law"
                 }
               ],
-              "question": "What may be eaten \u2014 are kosher and halal dietary laws binding?",
+              "question": "What may be eaten — are kosher and halal dietary laws binding?",
               "risk": false,
-              "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md \u00a74 (t0071)",
+              "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md §4 (t0071)",
               "widget": "trilinear-line",
               "communities": [
                 {
@@ -5004,7 +5004,7 @@
           ],
           "question": "Will Christ return openly in glory to judge the living and the dead?",
           "risk": false,
-          "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md \u00a74 (t0053)",
+          "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md §4 (t0053)",
           "widget": "trilinear-line",
           "communities": [
             {
@@ -5061,7 +5061,7 @@
           ],
           "question": "Is there a literal thousand-year earthly reign of Christ before the Last Judgment?",
           "risk": false,
-          "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md \u00a74 (t0054)",
+          "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md §4 (t0054)",
           "widget": "trilinear-line",
           "communities": [
             {
@@ -5118,7 +5118,7 @@
           ],
           "question": "Will an eschatological redeemer known as the Mahdi arise before the end of the world to restore justice?",
           "risk": false,
-          "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md \u00a74 (t0080)",
+          "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md §4 (t0080)",
           "widget": "triangle",
           "communities": [
             {
@@ -5149,7 +5149,7 @@
               },
               {
                 "label": "Annihilation",
-                "text": "The lost finally cease to exist \u2014 neither eternal torment nor eventual release."
+                "text": "The lost finally cease to exist — neither eternal torment nor eventual release."
               },
               {
                 "label": "Hell is a temporary purification",
@@ -5175,7 +5175,7 @@
           ],
           "question": "Is hell an eternal state of separation from God, freely chosen by persisting in sin?",
           "risk": false,
-          "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md \u00a74 (t0055)",
+          "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md §4 (t0055)",
           "widget": "trilinear-line",
           "communities": [
             {
@@ -5198,7 +5198,7 @@
         {
           "archetype": null,
           "hovertip": {
-            "issue": "What is heaven \u2014 perfect life with God, and will there be a new heaven and a new earth?",
+            "issue": "What is heaven — perfect life with God, and will there be a new heaven and a new earth?",
             "poles": [
               {
                 "label": "Heaven and the new creation",
@@ -5214,9 +5214,9 @@
               "label": "Heaven and the new creation"
             }
           ],
-          "question": "What is heaven \u2014 perfect life with God, and will there be a new heaven and a new earth?",
+          "question": "What is heaven — perfect life with God, and will there be a new heaven and a new earth?",
           "risk": false,
-          "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md \u00a74 (t0056)",
+          "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md §4 (t0056)",
           "type": "single",
           "widget": "monopole-slider",
           "communities": [
@@ -5240,7 +5240,7 @@
         {
           "archetype": null,
           "hovertip": {
-            "issue": "What happens to the soul between death and the resurrection \u2014 purification, a foretaste, or heaven and hell at once?",
+            "issue": "What happens to the soul between death and the resurrection — purification, a foretaste, or heaven and hell at once?",
             "poles": [
               {
                 "label": "Purification before heaven",
@@ -5272,9 +5272,9 @@
               "label": "Heaven or hell immediately"
             }
           ],
-          "question": "What happens to the soul between death and the resurrection \u2014 purification, a foretaste, or heaven and hell at once?",
+          "question": "What happens to the soul between death and the resurrection — purification, a foretaste, or heaven and hell at once?",
           "risk": false,
-          "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md \u00a74 (t0057)",
+          "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md §4 (t0057)",
           "widget": "trilinear-line",
           "communities": [
             {
@@ -5297,9 +5297,9 @@
       ]
     }
   ],
-  "domain": "The Abrahamic Faiths \u2014 Judaism, Christianity, and Islam",
+  "domain": "The Abrahamic Faiths — Judaism, Christianity, and Islam",
   "name": "Forescapades",
-  "about": "Forescapades is an interactive hypermap for rating and visualizing what you believe about God, scripture, and the life of faith \u2014 and comparing your convictions with another person's, belief by belief, on the same picture. Build a personal profile, see where your faiths meet and where they part, use Scribe to write out what you hold true, and Scene Setter to plan a conversation about what matters most \u2014 all in the same shared vocabulary.",
+  "about": "Forescapades is an interactive hypermap for rating and visualizing what you believe about God, scripture, and the life of faith — and comparing your convictions with another person's, belief by belief, on the same picture. Build a personal profile, see where your faiths meet and where they part, use Scribe to write out what you hold true, and Scene Setter to plan a conversation about what matters most — all in the same shared vocabulary.",
   "scribe": {
     "genre": "discussion",
     "output": "discussion",
@@ -5315,22 +5315,22 @@
       "help": "Depth 1 (Overview) is a light survey of the recorded stances. Depth 5 (Dissertation defense) is full scholarly rigor: steelman each stance, raise the strongest objections, and answer them."
     },
     "panel": {
-      "modeSingle": "One profile creates an informed discussion between the stances recorded on this map \u2014 the positions held, where they agree, and where they part. For a moderated discussion plan, use Scene Setter.",
-      "modeMulti": "Scribe turns your selected profiles into an informed discussion between the stances recorded on this map \u2014 where the profiles agree, where they part, and what follows from each position. For a moderated discussion plan, use Scene Setter.",
+      "modeSingle": "One profile creates an informed discussion between the stances recorded on this map — the positions held, where they agree, and where they part. For a moderated discussion plan, use Scene Setter.",
+      "modeMulti": "Scribe turns your selected profiles into an informed discussion between the stances recorded on this map — where the profiles agree, where they part, and what follows from each position. For a moderated discussion plan, use Scene Setter.",
       "introSingle": "One profile selected: Scribe will create an informed discussion between the stances.",
       "introMulti": "Multiple profiles selected: Scribe will create an informed discussion between the stances.",
-      "detailsPlaceholder": "The map provides your stances and positions. Describe the angle, framing, or specific questions to emphasize or avoid \u2014 e.g. \u201ca point-by-point comparison of the two leading positions, with objections answered.\u201d",
+      "detailsPlaceholder": "The map provides your stances and positions. Describe the angle, framing, or specific questions to emphasize or avoid — e.g. “a point-by-point comparison of the two leading positions, with objections answered.”",
       "detailsHelp": "Don't re-enter your stances here. Scribe already uses the selected hypermap data.",
       "lengthHelp": "Discussions can target a word count, paragraphs, pages, or chapters. Enter one number or a range; blank defaults to 1 page.",
       "downloadIntro": "Generated from the selected profile data.",
-      "summary": "An informed discussion between the recorded stances \u2014 the positions speak for themselves, not a story."
+      "summary": "An informed discussion between the recorded stances — the positions speak for themselves, not a story."
     },
     "prompt": {
       "opening": "Write an informed discussion between the stances recorded on this map.",
       "rules": [
-        "Present each recorded stance fairly and in its strongest form \u2014 steelman, don't strawman.",
+        "Present each recorded stance fairly and in its strongest form — steelman, don't strawman.",
         "Show where the stances agree, where they part, and what follows from each position.",
-        "Use the recorded ratings as emphasis: 80\u2013100 central, 56\u201379 strong support, 36\u201355 lighter, and 0\u201335 optional curiosity.",
+        "Use the recorded ratings as emphasis: 80–100 central, 56–79 strong support, 36–55 lighter, and 0–35 optional curiosity.",
         "Use only the named topics below. Do not add, imply, or reference any unlisted stance.",
         "Do not invent positions, sources, or facts beyond the supplied data."
       ],
@@ -5355,8 +5355,8 @@
     "panel": {
       "subtitleSuffix": "the ground rules stay in every discussion plan.",
       "detailsLabel": "Discussion details <small>Optional</small>",
-      "detailsPlaceholder": "The map provides your stances and positions. Describe the setting, framing, or specific questions to emphasize or avoid \u2014 e.g. \u201ca point-by-point comparison of the two leading positions, with objections answered.\u201d",
-      "detailsHelp": "Don\u2019t re-enter your stances here. Scene Setter already uses the selected hypermap data, and the ground rules below still control the plan.",
+      "detailsPlaceholder": "The map provides your stances and positions. Describe the setting, framing, or specific questions to emphasize or avoid — e.g. “a point-by-point comparison of the two leading positions, with objections answered.”",
+      "detailsHelp": "Don’t re-enter your stances here. Scene Setter already uses the selected hypermap data, and the ground rules below still control the plan.",
       "playGuideLegend": "Discussion plan length",
       "playGuideHelp": "Length for the AI discussion-plan prompt only: a word count, paragraphs, pages, or chapters. Enter one number or a range; blank defaults to 5 paragraphs.",
       "negotiationLegend": "Discussion agreement length",
@@ -5366,33 +5366,33 @@
       "outputsTitle": "Documents",
       "outputsIntro": "Two separate outputs. Take either one on its own; each carries the compare-settings stamp and the same ground-rules content.",
       "negotiationTitle": "Discussion agreement",
-      "negotiationDesc": "The completed ground rules as a finished, standalone agreement document \u2014 not an AI prompt.",
+      "negotiationDesc": "The completed ground rules as a finished, standalone agreement document — not an AI prompt.",
       "playGuideTitle": "Discussion plan",
-      "playGuideDesc": "The AI discussion-plan prompt, with the ground rules embedded as its binding layer. It also carries the standard structured format \u2014 elapsed time codes like <strong>[00:00-05:00]</strong> and a fixed activity set \u2014 so whichever AI writes the plan, Scene Sentinel can read it back, run its timers, and match check-ins to the scheduled step.",
+      "playGuideDesc": "The AI discussion-plan prompt, with the ground rules embedded as its binding layer. It also carries the standard structured format — elapsed time codes like <strong>[00:00-05:00]</strong> and a fixed activity set — so whichever AI writes the plan, Scene Sentinel can read it back, run its timers, and match check-ins to the scheduled step.",
       "copyNegotiationGuide": "Copy discussion agreement",
       "downloadNegotiationGuide": "Download discussion agreement (.txt)",
       "copyPlayGuide": "Copy discussion plan prompt",
       "downloadPlayGuide": "Download discussion plan prompt (.txt)",
       "aiNote": "<strong>How this differs from Scribe:</strong> this workspace puts the ground rules and shared positions into a discussion agreement first. Its moderation-plan source is inspiration only; the agreement always controls the generated plan.",
-      "playGuideTextPlaceholder": "Your generated discussion plan will stream here in real time\u2026",
+      "playGuideTextPlaceholder": "Your generated discussion plan will stream here in real time…",
       "openNegotiationTip": "Build a shared discussion agreement and an AI-ready moderation plan from two or more selected profiles.",
       "viewNavTip": "Build a moderated discussion plan for 2 or more profiles, with ground rules and timed segments.",
-      "legendRow": "<b>Scene Setter</b> \u2014 Moderating a discussion between the stances: a ground-rules agreement and a moderated discussion plan."
+      "legendRow": "<b>Scene Setter</b> — Moderating a discussion between the stances: a ground-rules agreement and a moderated discussion plan."
     },
     "groundRules": [
-      "Present each recorded stance fairly and in its strongest form \u2014 steelman, don't strawman.",
+      "Present each recorded stance fairly and in its strongest form — steelman, don't strawman.",
       "Speak from your own recorded stance; don't speak for the other side.",
       "Take turns: one position at a time, each side heard fully before replies.",
       "Objections go to the position, not the person holding it.",
       "Anyone may call a pause; the discussion resumes only when everyone is ready.",
-      "What the profiles agree on is common ground \u2014 start there, and return to it when the discussion stalls."
+      "What the profiles agree on is common ground — start there, and return to it when the discussion stalls."
     ],
     "prompt": {
       "opening": "Write a moderated discussion plan for the stances recorded on this map.",
       "rules": [
-        "Present each recorded stance fairly and in its strongest form \u2014 steelman, don't strawman.",
+        "Present each recorded stance fairly and in its strongest form — steelman, don't strawman.",
         "Show where the stances agree, where they part, and what follows from each position.",
-        "Use the recorded ratings as emphasis: 80\u2013100 central, 56\u201379 strong support, 36\u201355 lighter, and 0\u201335 optional curiosity.",
+        "Use the recorded ratings as emphasis: 80–100 central, 56–79 strong support, 36–55 lighter, and 0–35 optional curiosity.",
         "Structure the plan in Opening, Development, and Closing, with timed segments and a check-in between segments.",
         "Give each side its strongest form before comparing them; never let one side speak for the other.",
         "Use only the named topics below. Do not add, imply, or reference any unlisted stance.",
@@ -8487,8 +8487,11 @@
             "hell-is-a-temporary-purification": -60,
             "annihilation": -45
           }
-        }
-      }
+        },
+        "skin": "forescapades"
+      },
+      "skin": "forescapades",
+      "kind": "sample"
     },
     "for-orthodox": {
       "name": "Eastern Orthodox creed",
@@ -8698,8 +8701,11 @@
             "hell-is-a-temporary-purification": -40,
             "annihilation": -10
           }
-        }
-      }
+        },
+        "skin": "forescapades"
+      },
+      "skin": "forescapades",
+      "kind": "sample"
     },
     "for-lutheran": {
       "name": "Lutheran creed",
@@ -8711,7 +8717,7 @@
           "url": "https://www.elca.org"
         },
         {
-          "label": "The Lutheran Church\u2014Missouri Synod",
+          "label": "The Lutheran Church—Missouri Synod",
           "url": "https://www.lcms.org"
         }
       ],
@@ -8721,7 +8727,7 @@
         "noFlash": true,
         "profileName": "Lutheran creed",
         "archetype": "Lutheran creed",
-        "aboutMe": "The Lutheran creed: Scripture alone, grace alone, faith alone, as confessed in the Augsburg Confession \u2014 infant baptism, the real presence, and the priesthood of all believers.",
+        "aboutMe": "The Lutheran creed: Scripture alone, grace alone, faith alone, as confessed in the Augsburg Confession — infant baptism, the real presence, and the priesthood of all believers.",
         "ratings": {
           "xfo0007": {
             "one-god-indivisible": -80,
@@ -8913,8 +8919,11 @@
             "hell-is-a-temporary-purification": -80,
             "annihilation": -70
           }
-        }
-      }
+        },
+        "skin": "forescapades"
+      },
+      "skin": "forescapades",
+      "kind": "sample"
     },
     "for-reformed": {
       "name": "Reformed creed",
@@ -8932,7 +8941,7 @@
         "noFlash": true,
         "profileName": "Reformed creed",
         "archetype": "Reformed creed",
-        "aboutMe": "The Reformed creed: Scripture alone and the sovereignty of God, as confessed at Westminster \u2014 unconditional election, the spiritual presence at the Table, and government by elders.",
+        "aboutMe": "The Reformed creed: Scripture alone and the sovereignty of God, as confessed at Westminster — unconditional election, the spiritual presence at the Table, and government by elders.",
         "ratings": {
           "xfo0007": {
             "one-god-indivisible": -80,
@@ -9124,8 +9133,11 @@
             "hell-is-a-temporary-purification": -80,
             "annihilation": -70
           }
-        }
-      }
+        },
+        "skin": "forescapades"
+      },
+      "skin": "forescapades",
+      "kind": "sample"
     },
     "for-baptist": {
       "name": "Baptist creed",
@@ -9339,8 +9351,11 @@
             "hell-is-a-temporary-purification": -80,
             "annihilation": -70
           }
-        }
-      }
+        },
+        "skin": "forescapades"
+      },
+      "skin": "forescapades",
+      "kind": "sample"
     },
     "for-methodist": {
       "name": "Methodist creed",
@@ -9550,8 +9565,11 @@
             "hell-is-a-temporary-purification": -70,
             "annihilation": -55
           }
-        }
-      }
+        },
+        "skin": "forescapades"
+      },
+      "skin": "forescapades",
+      "kind": "sample"
     },
     "for-jewish": {
       "name": "Orthodox Jewish creed",
@@ -9761,8 +9779,11 @@
             "hell-is-a-temporary-purification": 70,
             "annihilation": -30
           }
-        }
-      }
+        },
+        "skin": "forescapades"
+      },
+      "skin": "forescapades",
+      "kind": "sample"
     },
     "for-muslim": {
       "name": "Sunni Muslim creed",
@@ -9770,7 +9791,7 @@
       "about": "Sunni Muslims, the large majority of the world's Muslims, believe in one God (Allah) and that Muhammad is His final prophet, and follow the Qur'an together with the Sunnah (the Prophet's example) as recorded in the hadith. Their faith is structured around the Five Pillars, the declaration of faith, prayer, almsgiving, fasting in Ramadan, and pilgrimage to Mecca, and guided by the four major schools of Islamic law.",
       "links": [
         {
-          "label": "ISNA \u2014 Islamic Society of North America",
+          "label": "ISNA — Islamic Society of North America",
           "url": "https://isna.net/"
         }
       ],
@@ -9986,8 +10007,11 @@
             "future-descendant-of-muhammad": 85,
             "rejection-of-the-mahdi": -75
           }
-        }
-      }
+        },
+        "skin": "forescapades"
+      },
+      "skin": "forescapades",
+      "kind": "sample"
     }
   }
 }
