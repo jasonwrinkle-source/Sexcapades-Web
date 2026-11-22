@@ -26482,7 +26482,6 @@ function* sxRunNodeSettle(scCtx, blitSess) {
         function sxClearTetradRatings(topicId) {
             sxClearPolygonRatings(topicId, 4);
         }
-        }
 
         // --- 4-Pole Political Compass (quad-compass) State & Widget ---
         // A square with two axes: horizontal = economic (left/right),
