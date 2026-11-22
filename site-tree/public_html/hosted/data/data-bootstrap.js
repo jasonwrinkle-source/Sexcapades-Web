@@ -3346,6 +3346,1010 @@ const TAXONOMY_CATEGORIES = [];
             link && (event.key === "Enter" || event.key === " ") && focusRelationLink(link, event);
         }, !0);
 
+// ---- Flexcapades Static Alias Tables & Dictionaries (02g1-alias-tables.js) ----
+// Extracted from 02g-definitions-ratings.js for startup speed, modularity, and clean JIT indexing.
+// Contains static topic alias maps, skin category colors & glyphs, icon geometries,
+// hanky color palettes, and direction role labels.
+
+
+const ie = {
+            "decorative rope": "Shibari",
+            "japanese-inspired bondage": "Shibari",
+            "suspension bondage": "Suspension",
+            "cuffs & straps": "Bondage",
+            "spreader bars": "Bondage",
+            "tape wrapping": "Bondage",
+            mummification: "Bondage",
+            "furniture restraint": "Bondage",
+            "blindfolded restraint": "Bondage",
+            "escape / immobilization": "Bondage",
+            "paddles & straps": "Impact play",
+            "riding crops": "Impact play",
+            canes: "Caning",
+            "switches & implements": "Impact play",
+            "needle / piercing play": "Needle play",
+            "heavy marking": "Cutting",
+            "wax & temperature play": "Wax play",
+            "ice & cold play": "Ice play",
+            electrostimulation: "Sensation play",
+            "sensory deprivation": "Sensation play",
+            "sensory overload": "Sensation play",
+            "feathers & light touch": "Sensation play",
+            "soundscapes & music": "Sensation play",
+            "massage & oils": "Massage",
+            "dominant role": "Dominance",
+            "submissive role": "Submission",
+            slave: "Master/slave",
+            "owner & property": "Master/slave",
+            "caregiver & little roles": "Age play",
+            "age play between adults": "Age play",
+            "pet handler": "Pet play",
+            "puppy play": "Puppy play",
+            "pony play": "Pony Play",
+            "doctor / patient": "Doctor/nurse",
+            "teacher / student": "Teacher/student",
+            "boss / employee": "Boss/secretary",
+            "captivity scenarios": "Kidnapping",
+            "consensual non-consent": "CNC",
+            "interrogation scenes": "Interrogation",
+            "police roleplay": "Police",
+            "military roleplay": "Military",
+            "religious roleplay": "Religious",
+            "historical roleplay": "Historical",
+            "latex & rubber": "Latex",
+            "lingerie & stockings": "Lingerie",
+            uniforms: "Uniform",
+            "heels & boots": "Boots",
+            diapers: "Diapers",
+            "feet & footwear": "Feet",
+            "muscle worship": "Worship",
+            buttocks: "Ass worship",
+            genderplay: "Feminization",
+            sissification: "Sissy",
+            "humiliation language": "Humiliation",
+            "mindfucks & uncertainty": "Fear Play",
+            objectification: "Objectification",
+            degradation: "Degradation",
+            "fear play": "Fear Play",
+            begging: "Begging",
+            "watching & being watched": "Voyeurism",
+            "performance for a partner": "Exhibitionism",
+            "public / outdoor exposure": "Exhibitionism",
+            "exhibition / voyeurism": "Exhibitionism",
+            threesomes: "Threesome",
+            "group encounters": "Threesome",
+            "cuckold / hotwife": "Hotwife",
+            "polyamory with kink": "Polyamory",
+            "anal fingering": "Anal play",
+            rimming: "Anal play",
+            "anal beads & plugs": "Anal play",
+            "vaginal fisting": "Fisting",
+            "anal fisting": "Fisting",
+            facesitting: "Ass worship",
+            "chastity devices": "Chastity",
+            "orgasm control": "Cum control",
+            "cum eating instructions": "CEI",
+            "jerk-off instruction": "JOI",
+            "foot worship": "Foot worship",
+            "body worship": "Body worship",
+            "blood play": "Blood play",
+            watersports: "Watersports",
+            "scat play": "Scat",
+            "spiritual play": "Religious",
+            "mythical creatures": "Fantasy",
+            aliens: "Sci-fi",
+            "furry transformation fantasy": "Furry",
+            crossdressing: "Crossdressing"
+        };
+
+const ue = [ [ "Power exchange", "Psychological dynamics" ], [ "Power exchange", "Service & ritual" ], [ "Power exchange", "Roleplay & identity" ], [ "Bondage & restriction", "Impact, pain & body modification" ], [ "Bondage & restriction", "Sensation & atmosphere" ], [ "Impact, pain & body modification", "Primal & pursuit" ], [ "Impact, pain & body modification", "Connection & aftercare" ], [ "Sensation & atmosphere", "Clothing, materials & objects" ], [ "Sensation & atmosphere", "Body focus & appearance" ], [ "Roleplay & identity", "Fantasy & transformation" ], [ "Roleplay & identity", "Clothing, materials & objects" ], [ "Clothing, materials & objects", "Body focus & appearance" ], [ "Psychological dynamics", "Primal & pursuit" ], [ "Psychological dynamics", "Connection & aftercare" ], [ "Watching, exposure & settings", "Partner configurations" ], [ "Watching, exposure & settings", "Clothing, materials & objects" ], [ "Partner configurations", "Sex acts" ], [ "Partner configurations", "Fantasy & transformation" ], [ "Sex acts", "Positions" ], [ "Sex acts", "Orgasm & reproductive play" ], [ "Sex acts", "Fluids & messy play" ], [ "Orgasm & reproductive play", "Fluids & messy play" ], [ "Primal & pursuit", "Fantasy & transformation" ], [ "Service & ritual", "Connection & aftercare" ] ];
+
+const he = [ [ "t0281", "t0240" ] ];
+        const ge = {
+            "Power exchange": {
+                color: "#ef806e",
+                glyph: '<path class="icon-glyph" d="M5 17 7 8l5 5 5-5 2 9Z M7 20h10"/>'
+            },
+            "Bondage & restriction": {
+                color: "#ee925f",
+                glyph: '<path class="icon-glyph" d="M9.5 14.5 7 17a3 3 0 0 1-4-4l3-3a3 3 0 0 1 4-.2 M14.5 9.5 17 7a3 3 0 0 1 4 4l-3 3a3 3 0 0 1-4 .2 M8.5 15.5l7-7"/>'
+            },
+            "Impact, pain & body modification": {
+                color: "#e5a45e",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            "Sensation & atmosphere": {
+                color: "#d7c15c",
+                glyph: '<path class="icon-glyph" d="M3 12c3-6 5 6 8 0s5 6 10 0"/>'
+            },
+            "Roleplay & identity": {
+                color: "#a8c766",
+                glyph: '<path class="icon-glyph" d="M4 7c4-2 6 1 8 1s4-3 8-1v6c0 5-4 8-8 8s-8-3-8-8Zm3 4h2m6 0h2m-8 5c2 1 4 1 6 0"/>'
+            },
+            "Clothing, materials & objects": {
+                color: "#82c66e",
+                glyph: '<path class="icon-glyph" d="M9 5a3 3 0 1 1 5 2l-1 1 8 6H3l8-6 M3 14v4h18v-4"/>'
+            },
+            "Body focus & appearance": {
+                color: "#55c48a",
+                glyph: '<path class="icon-glyph" d="M12 3a3 3 0 1 0 0 6 3 3 0 0 0 0-6ZM6 21v-5a6 6 0 0 1 12 0v5 M9 13l3 3 3-3"/>'
+            },
+            "Psychological dynamics": {
+                color: "#55c4a8",
+                glyph: '<path class="icon-glyph" d="M9 4a4 4 0 0 0-3 6 4 4 0 0 0 1 7 4 4 0 0 0 5 3V6a3 3 0 0 0-3-2Zm6 0a4 4 0 0 1 3 6 4 4 0 0 1-1 7 4 4 0 0 1-5 3 M7 10h3m4 3h3"/>'
+            },
+            "Watching, exposure & settings": {
+                color: "#59beca",
+                glyph: '<path class="icon-glyph" d="M2 12s4-6 10-6 10 6 10 6-4 6-10 6S2 12 2 12Z"/><circle class="icon-glyph" cx="12" cy="12" r="2.5"/>'
+            },
+            "Partner configurations": {
+                color: "#5ab0da",
+                glyph: '<path class="icon-glyph" d="M8 11a3 3 0 1 0 0-6 3 3 0 0 0 0 6Zm8 0a3 3 0 1 0 0-6 3 3 0 0 0 0 6ZM3 21v-4a5 5 0 0 1 10 0v4m-2-7a5 5 0 0 1 10 3v4"/>'
+            },
+            "Sex acts": {
+                color: "#6ca8df",
+                glyph: '<path class="icon-glyph" d="M20 8c0 6-8 11-8 11S4 14 4 8a4 4 0 0 1 7-3l1 1 1-1a4 4 0 0 1 7 3Z"/>'
+            },
+            Positions: {
+                color: "#809cdf",
+                glyph: '<path class="icon-glyph" d="M5 7h12m0 0-3-3m3 3-3 3M19 17H7m0 0 3-3m-3 3 3 3"/>'
+            },
+            "Orgasm & reproductive play": {
+                color: "#9a91df",
+                glyph: '<path class="icon-glyph" d="M12 2v5m0 10v5M2 12h5m10 0h5M5 5l3 3m8 8 3 3m0-14-3 3M8 16l-3 3"/><circle class="icon-glyph" cx="12" cy="12" r="3"/>'
+            },
+            "Fluids & messy play": {
+                color: "#b188dd",
+                glyph: '<path class="icon-glyph" d="M12 3S6 10 6 15a6 6 0 0 0 12 0c0-5-6-12-6-12Z M9 16c.5 1.5 1.5 2 3 2"/>'
+            },
+            "Primal & pursuit": {
+                color: "#c985d2",
+                glyph: '<path class="icon-glyph" d="M8 11c-3 0-4-4-2-5s4 2 4 4m6 1c3 0 4-4 2-5s-4 2-4 4M12 9c-2 0-5 5-5 8 0 2 2 3 5 1 3 2 5 1 5-1 0-3-3-8-5-8Z"/>'
+            },
+            "Service & ritual": {
+                color: "#da7dbd",
+                glyph: '<path class="icon-glyph" d="M6 16h12M8 16v-3a4 4 0 0 1 8 0v3m-9 4h10M12 4v3"/>'
+            },
+            "Fantasy & transformation": {
+                color: "#e17da6",
+                glyph: '<path class="icon-glyph" d="m5 19 10-10m-8 8 2 2m5-14 1.5 3L19 9l-3 1.5L15 14l-1.5-3L10 9.5 13 8Z"/>'
+            },
+            "Connection & aftercare": {
+                color: "#ea7f8b",
+                glyph: '<path class="icon-glyph" d="M12 20S4 15 4 9a4 4 0 0 1 7-3l1 1 1-1a4 4 0 0 1 7 3c0 6-8 11-8 11Z M8 13h2l1-3 2 6 1-3h2"/>'
+            },
+            /* Flexcapades skin categories: Chemcapades (8). Star glyph shared;
+               distinct colors carry the category identity on the map. */
+            "Ontology & Metaphysics of the Chemical World": {
+                color: "#7ec8e3",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            "The Periodic System & Classification": {
+                color: "#9b8cf2",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            "Epistemology, Explanation & Modeling": {
+                color: "#63c2c8",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            "Disciplinary Identity & Sub-Disciplinary Cultures": {
+                color: "#82c66e",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            "Ethics, Sustainability & Lab Safety": {
+                color: "#e5a45e",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            "Kinetics, Thermodynamics & Emergent Complexity": {
+                color: "#ef806e",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            "Codification, Pedagogy & the Chemical Life": {
+                color: "#d7c15c",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            "Materials, Energy & the Molecular Frontier": {
+                color: "#5ab0da",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            /* Flexcapades skin categories: Aesthcapades (7). Star glyph shared; distinct colors carry the category identity on the map. */
+            "Visual Art": {
+                color: "#7ec8e3",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            "Music & Sound": {
+                color: "#9b8cf2",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            "Story & Word": {
+                color: "#63c2c8",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            "Beauty & Adornment": {
+                color: "#82c66e",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            "Space & Place": {
+                color: "#e5a45e",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            "Taste & Judgment": {
+                color: "#ef806e",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            "Food & Flavor": {
+                color: "#d7c15c",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            /* Flexcapades skin categories: Dharmacapades (6). Star glyph shared; distinct colors carry the category identity on the map. */
+            "Dharma & The Way": {
+                color: "#9b8cf2",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            "Liberation & Enlightenment": {
+                color: "#63c2c8",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            "Practice & Discipline": {
+                color: "#82c66e",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            "Deity & The Divine": {
+                color: "#e5a45e",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            "Ethics & Conduct": {
+                color: "#ef806e",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            "Community & Lineage": {
+                color: "#d7c15c",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            /* Flexcapades skin categories: Expericapades (6). Star glyph shared; distinct colors carry the category identity on the map. */
+            "Mission & Discovery Strategy": {
+                color: "#63c2c8",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            "Detectors & Instruments": {
+                color: "#82c66e",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            "Data, Noise & Standards of Discovery": {
+                color: "#e5a45e",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            "Environment & Extremes": {
+                color: "#ef806e",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            "Data, Analysis & Openness": {
+                color: "#d7c15c",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            "The Experimental Life & Lab Culture": {
+                color: "#5ab0da",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            /* Flexcapades skin categories: Forescapades (7, real v2.4 categories). Star glyph shared; distinct colors carry the category identity on the map. */
+            "God": {
+                color: "#ef806e",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            "Scripture & Authority": {
+                color: "#e5a45e",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            "Community & Leadership": {
+                color: "#d7c15c",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            "Salvation & Grace": {
+                color: "#82c66e",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            "Ritual & Worship": {
+                color: "#5ab0da",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            "Life & Morality": {
+                color: "#7ec8e3",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            "Last Things": {
+                color: "#9b8cf2",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            /* Flexcapades skin categories: Mattercapades (6). Star glyph shared; distinct colors carry the category identity on the map. */
+            "The Applied Physics Philosophy & Strategy": {
+                color: "#e5a45e",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            "Domains & Scale": {
+                color: "#ef806e",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            "Quantum Technology & Hardware": {
+                color: "#d7c15c",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            "Energy, Power & Clean Technology": {
+                color: "#5ab0da",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            "Materials & Fabrication": {
+                color: "#7ec8e3",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            "Life, Medicine & the Applied Life": {
+                color: "#9b8cf2",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            /* Flexcapades skin categories: Philoscapades (6). Star glyph shared; distinct colors carry the category identity on the map. */
+            "Epistemology & Theory of Truth": {
+                color: "#ef806e",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            "Metaphysics & Ontology": {
+                color: "#d7c15c",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            "Axiology & Normative Ethics": {
+                color: "#5ab0da",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            "Philosophy of Mind & Consciousness": {
+                color: "#7ec8e3",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            "Existentialism & The Human Condition": {
+                color: "#9b8cf2",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            "Political Philosophy & Justice": {
+                color: "#63c2c8",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            /* Flexcapades skin categories: Poliscapades (8, real draft categories). Star glyph shared; distinct colors carry the category identity on the map. */
+            "The Economy": {
+                color: "#d7c15c",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            "Health & Care": {
+                color: "#63c2c8",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            "Climate, Energy & Environment": {
+                color: "#82c66e",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            "Immigration & Borders": {
+                color: "#e5a45e",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            "Democracy & Government": {
+                color: "#ef806e",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            "Rights & Freedoms": {
+                color: "#9b8cf2",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            "Education & Culture": {
+                color: "#5ab0da",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            "Foreign Policy & Defense": {
+                color: "#7ec8e3",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            /* Flexcapades skin categories: Praxicapades (6). Star glyph shared; distinct colors carry the category identity on the map. */
+            "The Art of Modeling": {
+                color: "#5ab0da",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            "Computation & Method": {
+                color: "#7ec8e3",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            "Domains & Arenas": {
+                color: "#9b8cf2",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            "Uncertainty & Data": {
+                color: "#63c2c8",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            "Rigor & Validation": {
+                color: "#82c66e",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            "The Applied Life": {
+                color: "#e5a45e",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            /* Flexcapades skin categories: Quantacapades (6). Star glyph shared; distinct colors carry the category identity on the map. */
+            "Foundations & Interpretation": {
+                color: "#7ec8e3",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            "Quantum Gravity & Spacetime": {
+                color: "#9b8cf2",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            "Cosmology & the Universe": {
+                color: "#63c2c8",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            "Emergence & Information": {
+                color: "#82c66e",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            "Symmetry & Fine-Tuning": {
+                color: "#e5a45e",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            "The Life of a Theorist": {
+                color: "#ef806e",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            /* Flexcapades skin categories: Simulcapades (6). Star glyph shared; distinct colors carry the category identity on the map. */
+            "The Epistemology of Simulation": {
+                color: "#9b8cf2",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            "Methods": {
+                color: "#63c2c8",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            "Scale, Discretization & Time": {
+                color: "#82c66e",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            "The Machine & The Code": {
+                color: "#e5a45e",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            "Trust, Error & Reproducibility": {
+                color: "#ef806e",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            "The Computational Life": {
+                color: "#d7c15c",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            /* Flexcapades skin categories: Techcapades (6). Star glyph shared; distinct colors carry the category identity on the map. */
+            "AI & Intelligence": {
+                color: "#63c2c8",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            "Privacy & Surveillance": {
+                color: "#82c66e",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            "Screens & Attention": {
+                color: "#e5a45e",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            "Connection & Social Media": {
+                color: "#ef806e",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            "Digital Identity & Self": {
+                color: "#d7c15c",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            "The Machine Future": {
+                color: "#5ab0da",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            /* Flexcapades skin categories: Theoricapades (6). Star glyph shared; distinct colors carry the category identity on the map. */
+            "Foundations & Ontology": {
+                color: "#82c66e",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            "Method & Style": {
+                color: "#e5a45e",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            "Branches & Territory": {
+                color: "#ef806e",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            "Proof & Verification": {
+                color: "#d7c15c",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            "Beauty & Reality": {
+                color: "#5ab0da",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            "The Mathematical Life": {
+                color: "#7ec8e3",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            /* Flexcapades skin categories: Vocapades (6). Star glyph shared; distinct colors carry the category identity on the map. */
+            "Purpose & Meaning": {
+                color: "#e5a45e",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            "Effort & Ambition": {
+                color: "#ef806e",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            "Place & Mode": {
+                color: "#d7c15c",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            "Structure & Authority": {
+                color: "#5ab0da",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            "Reward & Security": {
+                color: "#7ec8e3",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            "Identity & Boundaries": {
+                color: "#9b8cf2",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+        };
+
+        const me = e => `<path class="icon-glyph" d="${e}"/>`, fe = (e, t, n) => `<circle class="icon-glyph" cx="${e}" cy="${t}" r="${n}"/>`, ye = {
+            compass: me("M8 2v12M2 8h12m-4-2-2 2-2 2 2-2Z"),
+            checklist: me("M3 3h10v10H3Zm2 3 1 1 2-2m-3 5 1 1 2-2m2-3h2m-2 4h2"),
+            key: me("M9 5a3 3 0 1 1-2 5l-4 4m2-2 1 1m1-3 1 1"),
+            ring: fe(8, 8, 4) + me("M8 1v3m0 8v3"),
+            medal: me("M5 2l3 4 3-4m-6 0h6M8 6l1.5 3 3.5.5-2.5 2.5.5 3-3-1.5L5 15l.5-3-2.5-2.5L6.5 9Z"),
+            scale: me("M8 2v12M4 4h8M3 5 1 9h4L3 5Zm10 0-2 9h4l-2-9M5 14h6"),
+            hands: me("M2 10c2-2 3-1 4 1l2 2 2-2c1-2 2-3 4-1M4 6v4m3-6v7m5-5v4"),
+            stage: me("M2 4h12v9H2Zm0 3h12M5 4l2 3m3-3 2 3"),
+            infinity: me("M2 8c2-4 4-4 6 0s4 4 6 0-4-4-6 0-4 4-6 0Z"),
+            coil: me("M3 12c0-7 10-8 10-3 0 4-7 4-7 1 0-2 4-3 7-1"),
+            bow: me("M8 7C5 2 1 3 3 7c-2 4 2 5 5 1 3 4 7 3 5-1 2-4-2-5-5 0Zm0 1-2 6m2-6 2 6"),
+            knot: me("M3 5c3-3 7 3 10 0M3 11c3 3 7-3 10 0M5 3l6 10m0-10L5 13"),
+            cuffs: fe(5, 8, 3) + fe(11, 8, 3) + me("M8 8h0"),
+            spreader: me("M2 8h12M4 5v6m8-6v6"),
+            tape: fe(7, 8, 5) + fe(7, 8, 2) + me("m11 11 3 3"),
+            mouth: me("M2 8c3-3 9-3 12 0-3 4-9 4-12 0Zm3 0h6"),
+            cocoon: me("M8 1c4 3 4 11 0 14-4-3-4-11 0-14Zm-3 4 6 2m-6 2 6 2"),
+            chair: me("M4 2v7h8V5m-8 4v5m8-5v5M3 12h10"),
+            blindfold: me("M2 6c4-2 8-2 12 0v4c-4 2-8 2-12 0Zm2 2h2m4 0h2"),
+            lock: me("M4 7h8v7H4Zm2 0V5a2 2 0 0 1 4 0v2m-2 3v1.5"),
+            hand: me("M4 8V4m2 4V2m2 6V3m2 5V5m0 1c3-2 4 0 2 3l-2 4H6c-2-1-3-3-3-5V6"),
+            paddle: me("M3 3c2-2 6 2 4 4l-2 2Zm3 5 7 6"),
+            tassel: me("M4 2c7 2 7 6 2 7m0 0 1 5m0-5 3 5m-4-5-2 5"),
+            cane: me("M11 4c0-3 4-3 4 0M11 4 5 14"),
+            crop: me("M3 13 11 5m0 0 2-3 2 2-3 2m-8 4 2 2m-3 1c-2-1-2-3 0-3"),
+            lash: me("M3 3c8 1 11 6 4 11m0 0 1-4m-1 4 4-1"),
+            clamp: me("M3 4h3l2 4 2-4h3M5 4v8m6-8v8M3 12h3m4 0h3"),
+            claw: me("M3 4c0 5 2 7 3 9M8 3c-1 5 0 7 1 10m4-9c-2 4-2 6-1 9"),
+            comb: me("M3 3h10v4H3Zm2 4v6m2-6v5m2-5v6m2-6v5"),
+            needle: me("M3 13 12 4m0 0 2-2m-2 2 2 2M4 11l2 2"),
+            target: fe(8, 8, 5) + fe(8, 8, 2) + me("M8 1v2m0 10v2"),
+            shield: me("M8 2 13 4v4c0 3-2 5-5 6-3-1-5-3-5-6V4Zm-2 6 2 2 3-4"),
+            flame: me("M8 14c-4-2-4-6-1-9 0 3 2 2 2-3 4 4 5 8-1 12Zm0 0c-2-1-2-3 0-5 2 2 2 4 0 5"),
+            snow: me("M8 1v14M2 4l12 8M14 4 2 12M5 2l3 2 3-2m-6 12 3-2 3 2"),
+            feather: me("M3 14C3 7 7 2 14 2c0 7-5 11-11 12Zm2-3 6-6M5 8h4m-2 2v-4"),
+            bolt: me("M9 1 4 9h4l-1 6 5-8H8Z"),
+            stripes: me("M2 4h12M2 8h12M2 12h12m-9-9v2m3 2v2m3 2v2"),
+            muted: me("M3 6h3l3-3v10l-3-3H3Zm8 0 3 4m0-4-3 4"),
+            burst: me("M8 1v4m0 6v4M1 8h4m6 0h4M3 3l3 3m4 4 3 3m0-10-3 3M6 10l-3 3"),
+            whisper: me("M2 5c4-3 8-3 12 0M4 8c3-2 5-2 8 0m-6 3h4"),
+            note: me("M6 3v8m0-6 7-2v7M3 13a3 2 0 1 0 3-2m4 1a3 2 0 1 0 3-2"),
+            mirror: me("M4 2h8v11H4Zm2 3 4-1m-4 4 4-1M8 13v2"),
+            moon: me("M11 2a6 6 0 1 0 3 10 6 6 0 0 1-3-10Z"),
+            perfume: me("M6 2h4v3H6Zm-2 5h8v7H4Zm5 2c2 0 3 1 3 2"),
+            energy: me("M8 1v14M5 4c0-2 6-2 6 0s-6 2-6 4 6 2 6 4-6 2-6 4") + fe(8, 4, 1) + fe(8, 8, 1) + fe(8, 12, 1),
+            badge: me("M8 2 10 5l4 1-2 3 .5 4-4-.5L5 14l-1-4-2-3 4-2Z"),
+            cradle: me("M3 7c1 5 9 5 10 0M2 7h12M5 12l-1 2m7-2 1 2"),
+            clock: fe(8, 8, 5) + me("M8 5v3l2 2"),
+            paw: me("M5 7C3 7 2.5 4.5 4 4s2.5 1 2.5 2.5m4.5.5c2 0 2.5-2.5 1-3s-2.5 1-2.5 2.5M8 6.5c-1.5 0-3.5 3.2-3.5 5 0 1.5 1.5 2 3.5.5 2 1.5 3.5 1 3.5-.5 0-1.8-2-5-3.5-5Z"),
+            horse: me("M4 13V6l4-4 4 3-1 8H7m-3-7L2 3m10 2 2-2M7 7h1"),
+            dog: me("M4 5 2 2v7c0 4 3 5 6 5s6-1 6-5V2l-2 3M6 8h0m4 0h0m-4 3h4"),
+            house: me("M2 8 8 2l6 6v6H9v-4H7v4H2Z"),
+            cross: me("M6 2h4v4h4v4h-4v4H6v-4H2V6h4Z"),
+            book: me("M2 3h5c1 0 1 1 1 2v9c0-1-1-2-2-2H2Zm12 0H9c-1 0-1 1-1 2v9c0-1 1-2 2-2h4Z"),
+            cage: me("M3 3h10v11H3Zm3 0v11m4-11v11M2 6h12"),
+            consent: me("M3 9l3 3 7-8M2 4h5m4 8h3"),
+            horns: me("M3 3c0 4 2 6 5 6s5-2 5-6m-9 9c2 2 6 2 8 0M6 7 4 4m6 3 2-3"),
+            fangs: me("M3 5c3 2 7 2 10 0l-2 8-3-3-3 3Z"),
+            scroll: me("M4 2h8v12H4c-3 0-3-4 0-4h8M5 5h5M5 8h4"),
+            hide: me("M3 4 6 2l2 2 2-2 3 2-1 4 1 4-4 2-2-2-4 2-2-4 1-4Z"),
+            droplet: me("M8 2S4 7 4 10a4 4 0 0 0 8 0c0-3-4-8-4-8Z"),
+            stocking: me("M6 2h5v7c0 3-2 5-5 5H3v-3h3Z"),
+            uniform: me("M4 3 7 2l1 3 1-3 3 1 2 3-2 2v6H4V8L2 6Z"),
+            heel: me("M3 3h6c0 5 2 7 5 8v3H8v-2H3Z"),
+            hood: me("M8 2c4 1 6 5 5 11H3C2 7 4 3 8 2Zm-3 7h2m2 0h2"),
+            harness: me("M3 3l10 10M13 3 3 13M4 8h8M8 4v8"),
+            diaper: me("M3 4h10l-2 9H5Zm0 2 4 3m6-3-4 3"),
+            fork: me("M4 2v5m2-5v5M4 5h2v9m5-12v12m0-5h3"),
+            fur: me("M2 12 5 3l2 5 2-6 2 6 3-5-1 10Z"),
+            beads: me("M2 8c3-6 9-6 12 0") + fe(4, 6, 1) + fe(8, 4, 1) + fe(12, 6, 1) + fe(8, 12, 1),
+            pump: me("M3 13V6h7v7M5 6V3h3v3m2 2 3-3m0 0v5m0 0 2 2"),
+            shower: me("M3 6c0-4 6-4 6 0m0 0h4M7 9v1m3-1v2m3-2v1M6 13v1m4-1v1"),
+            hanger: me("M6 3.5a2 2 0 1 1 3.5 1.3L9 5.5 14 9H2l5-3.5M2 9v2.5h12V9"),
+            foot: me("M5 14c-3-2-1-7 1-9 2-3 5-1 4 2-1 4 4 4 3 6-2 2-6 2-8 1"),
+            glove: me("M4 9V4m2 5V2m2 7V3m2 6V4m0 2c3-2 4 1 2 3l-2 4H6c-2-1-3-2-3-4"),
+            chest: fe(6, 8, 3) + fe(10, 8, 3) + me("M3 12c3 2 7 2 10 0"),
+            curves: me("M4 3c5 0 3 10 8 10M12 3C7 3 9 13 4 13"),
+            resize: me("M2 5V2h3M2 2l4 4m8-1V2h-3m3 0-4 4M2 11v3h3m-3 0 4-4m8 1v3h-3m3 0-4-4"),
+            muscle: me("M4 10c2-4 2-6 4-7v4c3-2 6 0 6 3 0 4-4 5-8 4-3-1-4-3-2-4Z"),
+            tattoo: me("M8 3c5 0 5 8 0 8-4 0-4-5-1-5 3 0 3 8-3 8"),
+            belly: me("M8 2c4 3 5 9 2 12M8 2C4 5 3 11 6 14M5 9h6"),
+            star: me("M8 2l1.8 3.8L14 7l-3 2.8.8 4.2L8 12l-3.8 2 .8-4.2L2 7l4.2-1.2Z"),
+            downTalk: me("M2 3h12v8H8l-3 3v-3H2Zm3 3h6M5 8h4"),
+            shards: me("M8 2 6 7 2 8l4 2-1 4 3-2 3 2-1-4 4-2-4-1Z"),
+            speech: me("M2 3h12v8H7l-3.5 2v-2H2Zm3 3h6m-6 2h4"),
+            cube: me("m8 2 5 3v6l-5 3-5-3V5Zm-5 3 5 3 5-3M8 8v6"),
+            pendulum: me("M3 2h10M8 2v5") + fe(8, 10, 3),
+            eye: me("M1 8C4 4 12 4 15 8C12 12 4 12 1 8Z") + fe(8, 8, 1.6),
+            question: me("M5 5c0-4 7-4 7 0 0 3-4 2-4 5m0 3h0"),
+            hourglass: me("M4 2h8M4 14h8M5 2c0 4 2 4 3 6-1 2-3 2-3 6m6-12c0 4-2 4-3 6 1 2 3 2 3 6"),
+            keyhole: fe(8, 6, 3) + me("m7 9-1 5h4L9 9"),
+            watch: me("M2 8C5 4 11 4 16 8C11 12 5 12 2 8Zm7-4v8"),
+            partnerEye: me("M1 7C4 4 12 4 15 7C12 10 4 10 1 7Z") + fe(8, 7, 1.5) + me("M5 13h6"),
+            camera: me("M2 5h3l1-2h4l1 2h3v8H2Z") + fe(8, 9, 2.3),
+            video: me("M2 4h9v8H2Zm9 3 3-2v6l-3-2Z"),
+            spotlight: me("M6 2h4l2 5-4 7-4-7Zm-2 5h8M2 14h12"),
+            tree: me("M8 2 3 9h3l-2 3h4v3h2v-3h3l-2-3h2Z"),
+            pin: me("M8 14S4 9 4 6a4 4 0 0 1 8 0c0 3-4 8-4 8Z") + fe(8, 6, 1.5),
+            curtains: me("M2 2h12M4 3c0 6-2 9-2 11h4V3m6 0c0 6 2 9 2 11h-4V3"),
+            binocular: me("M3 5h3l1 3v4H2Zm10 0h-3L9 8v4h5ZM7 8h2"),
+            split: me("M8 14 3 9c-4-4 2-8 5-4 3-4 9 0 5 4Zm0-9v9"),
+            trio: me("M3 13v-2a3 3 0 0 1 6 0v2m-3-6a2 2 0 1 0 0-4 2 2 0 0 0 0 4m4 6v-2a3 3 0 0 1 4-3m-2-2a2 2 0 1 0 0-4"),
+            crowd: me("M2 13c0-4 3-5 6-3 3-2 6-1 6 3M4 7a2 2 0 1 1 0-4m4 5a2 2 0 1 1 0-4m4 3a2 2 0 1 1 0-4"),
+            swap: me("M2 5h9m0 0L9 3m2 2L9 7m5 4H5m0 0 2-2m-2 2 2 2"),
+            stag: me("M4 13V6L2 3m2 3 3-3m5 10V6l2-3m-2 3-3-3M6 9h4"),
+            triangle: me("M8 2 14 13H2Zm0 3v5m0 2h0"),
+            knot3: fe(8, 5, 3) + fe(5, 10, 3) + fe(11, 10, 3),
+            tray: me("M2 11h12M4 11c0-5 8-5 8 0M8 4V2m-5 12h10"),
+            many: me("M2 13c0-3 2-4 4-4s4 1 4 4m0 0c0-3 2-4 4-4M6 7a2 2 0 1 0 0-4m6 4a2 2 0 1 0 0-4"),
+            homeHeart: me("M2 8 8 2l6 6v6H2Z M8 12S5 10 5 8c0-2 2-2 3-1 1-1 3-1 3 1 0 2-3 4-3 4Z"),
+            finger: me("M6 13V5c0-2 3-2 3 0v4l2-1c2 0 3 2 2 4l-2 2H8Z"),
+            tongue: me("M3 6c3 3 7 3 10 0M6 9v2c0 4 5 4 5 0V9"),
+            cream: me("M3 12c0-3 2-4 4-4-1-3 4-5 4-1 3 1 3 5 0 6Z"),
+            arrowMouth: me("M2 8c3-3 7-3 10 0-3 3-7 3-10 0Zm8-5 4 5-4 5"),
+            splash: me("M8 2v4m-5 1 3 2m7-2-3 2M5 13c1-3 5-3 6 0"),
+            mouthHand: me("M2 6c3-2 7-2 10 0-3 3-7 3-10 0m10 6c2-3 4-2 3 1l-1 2"),
+            fist: me("M4 9V5m2 4V3m2 6V4m2 5V5m0 1c3-1 4 1 2 4l-2 4H6L3 10"),
+            fistLock: me("M3 8h10v6H3Zm2 0V6a3 3 0 0 1 6 0v2M8 11h0"),
+            handMotion: me("M3 12c2-5 5-7 9-8m-1-2 2 2-2 2M4 8l2 2-2 2"),
+            strap: me("M3 4h10v3H3Zm2 3v7m6-7v7"),
+            patHeart: me("M8 14S3 11 3 7c0-3 4-4 5-1 1-3 5-2 5 1 0 4-5 7-5 7Zm-6-1 4-3"),
+            spray: me("M4 12c2-5 6-5 8 0M8 2v3M3 4l2 2m8-2-2 2"),
+            enter: me("M3 3h7v3h3v4h-3v3H3Zm2 5h6M8 6l3 2-3 2"),
+            dial: fe(8, 8, 5) + me("M8 8l3-3M8 2v2m4 1 1-1"),
+            barred: me("M3 2h10v12H3Zm0 4h10m-7-4v12m4-12v12"),
+            edge: me("M2 11c3-6 9-6 12 0M4 8v4m4-6v6m4-4v4"),
+            lure: me("M2 5c4-3 8-3 12 0M5 8c2-2 4-2 6 0M8 10v4"),
+            seed: me("M8 14V8c0-4 4-5 6-5 0 4-2 6-6 5C4 8 2 6 2 3c4 0 6 2 6 5"),
+            egg: me("M8 2c3 0 5 6 5 9 0 4-10 4-10 0 0-3 2-9 5-9Z"),
+            water: me("M2 10c2-3 4 3 6 0s4 3 6 0M8 2S5 6 5 8"),
+            drops: me("M5 3S2 7 2 9a3 3 0 0 0 6 0c0-2-3-6-3-6Zm7 4s-2 3-2 4a2 2 0 0 0 4 0c0-1-2-4-2-4Z"),
+            bowl: me("M2 8h12c0 4-3 6-6 6s-6-2-6-6Zm3-3c1-2 2 2 3 0s2 2 3 0"),
+            bowArrow: me("M3 2c5 3 5 9 0 12M4 8h10m-3-3 3 3-3 3"),
+            chase: me("M2 11c3-6 7-6 12 0M3 5h3m2-2h3m1 2h2"),
+            wrestle: me("M5 5a2 2 0 1 0 0-4m6 4a2 2 0 1 0 0-4M2 14l3-6 3 3 3-3 3 6M5 8l3-2 3 2"),
+            calendar: me("M3 3h10v11H3Zm0 4h10M5 1v4m6-4v4M6 10l2 2 3-3"),
+            candle: me("M5 6h6v8H5Zm3-5c2 2 2 3 0 5-2-2-2-3 0-5"),
+            lotus: me("M8 13c-4-1-6-4-6-7 3 0 5 1 6 4 1-3 3-6 6-7 1 4 0 7-3 9 2-1 4-1 6 0-1 4-4 7-9 7Z"),
+            rose: me("M8 8c-5-1-4-6 0-5 4-1 5 4 0 5Zm0 0v6m0-3-3-1m3 2 3-2"),
+            stranger: me("M8 2a3 3 0 1 0 0 6 3 3 0 0 0 0-6ZM3 14c0-4 10-4 10 0M4 6h8"),
+            ufo: me("M3 8c1-4 9-4 10 0m-11 0h12c0 4-12 4-12 0M6 5c0-3 4-3 4 0"),
+            swapBody: me("M4 4h8m0 0-2-2m2 2-2 2M12 12H4m0 0 2-2m-2 2 2 2M5 7v2m6-2v2"),
+            ribbon: me("M5 2h6v5l-3 2-3-2Zm1 6-2 6 4-2 4 2-2-6"),
+            hug: me("M5 6a2 2 0 1 0 0-4m6 4a2 2 0 1 0 0-4M2 13c1-5 4-6 6-2 2-4 5-3 6 2M4 8l4 4 4-4"),
+            cloud: me("M4 12c-4 0-3-6 1-6 1-5 8-4 8 1 4 0 4 5 0 5Z"),
+            chat: me("M2 3h12v8H7l-3.5 2v-2H2Zm3 3h6m-6 2h4"),
+            cup: me("M3 5h8v6a3 3 0 0 1-3 3H6a3 3 0 0 1-3-3Zm8 1h2c2 0 2 4 0 4h-2"),
+            bed: me("M2 6h12v7M3 13V4h4v4h7M3 9h11"),
+            standing: me("M6 3a2 2 0 1 0 0-2m5 2a2 2 0 1 0 0-2M6 5v5l-2 4m2-4 2 4m3-9v5l-2 4m2-4 2 4M7 7h3"),
+            heart: me("M14 5.5c0 4-6 7.5-6 7.5S2 9.5 2 5.5a3 3 0 0 1 5-2L8 4l1-1a3 3 0 0 1 5 2.5Z"),
+            arrows: me("M2 5h9m0 0L9 3m2 2L9 7m3 4H5m0 0 2-2m-2 2 2 2")
+        };
+
+        const be = {
+"Power exchange": [ "compass", "checklist", "ring", "medal", "scale", "hands", "stage", "infinity" ],
+            "Bondage & restriction": [ "coil", "bow", "knot", "cuffs", "spreader", "tape", "mouth", "cocoon", "chair", "blindfold", "key", "lock" ],
+            "Impact, pain & body modification": [ "hand", "paddle", "tassel", "cane", "crop", "lash", "clamp", "claw", "comb", "needle", "target", "shield" ],
+            "Sensation & atmosphere": [ "flame", "snow", "feather", "bolt", "stripes", "muted", "burst", "whisper", "note", "mirror", "moon", "perfume", "energy" ],
+            "Roleplay & identity": [ "badge", "cradle", "clock", "paw", "horse", "dog", "house", "cross", "book", "cage", "consent", "horns", "fangs", "scroll" ],
+            "Clothing, materials & objects": [ "hide", "droplet", "stocking", "uniform", "heel", "hood", "harness", "diaper", "fork", "fur", "beads", "pump", "shower", "ribbon" ],
+            "Body focus & appearance": [ "foot", "glove", "comb", "chest", "curves", "hands", "resize", "muscle", "tattoo", "belly" ],
+            "Psychological dynamics": [ "star", "downTalk", "shards", "speech", "cube", "pendulum", "eye", "question", "hourglass", "keyhole" ],
+            "Watching, exposure & settings": [ "watch", "camera", "spotlight", "tree", "curtains" ],
+            "Partner configurations": [ "trio", "crowd", "swap", "stag", "knot3", "tray", "many", "clock" ],
+            "Sex acts": [ "finger", "tongue", "cream", "arrowMouth", "chair", "splash", "mouthHand", "fist", "fistLock", "handMotion", "strap", "spray", "glove", "ring", "mouth", "enter" ],
+            Positions: [ "knot3", "horse", "dog", "bed", "swap", "hug", "standing" ],
+            "Orgasm & reproductive play": [ "dial", "barred", "lock", "edge", "lure", "seed", "cradle", "egg" ],
+            "Fluids & messy play": [ "water", "cradle", "target", "drops" ],
+            "Primal & pursuit": [ "bowArrow", "chase", "wrestle", "claw" ],
+            "Service & ritual": [ "hands", "house", "checklist", "comb", "hanger", "key", "calendar", "candle", "lotus" ],
+            "Fantasy & transformation": [ "heart", "rose", "stranger", "keyhole", "horns", "ufo", "resize", "swapBody", "paw", "arrows", "hanger", "ribbon", "star" ],
+            "Connection & aftercare": [ "chat", "hug", "cup", "cloud", "star", "checklist", "moon", "calendar" ]
+        };
+
+const we = {
+            "Power exchange": "crown",
+            "Bondage & restriction": "chain links",
+            "Impact, pain & body modification": "paddle",
+            "Sensation & atmosphere": "wave",
+            "Roleplay & identity": "mask",
+            "Clothing, materials & objects": "hanger",
+            "Body focus & appearance": "person",
+            "Psychological dynamics": "brain",
+            "Watching, exposure & settings": "eye",
+            "Partner configurations": "two people",
+            "Sex acts": "heart",
+            Positions: "opposing arrows",
+            "Orgasm & reproductive play": "burst",
+            "Fluids & messy play": "droplet",
+            "Primal & pursuit": "paw",
+            "Service & ritual": "service bell",
+            "Fantasy & transformation": "wand and spark",
+            "Connection & aftercare": "heart and pulse"
+        }, ke = {
+            downTalk: "speech bubble",
+            partnerEye: "eye and partner",
+            arrowMouth: "arrow and mouth",
+            mouthHand: "mouth and hand",
+            fistLock: "locked fist",
+            handMotion: "moving hand",
+            patHeart: "hand and heart",
+            bowArrow: "bow and arrow",
+            homeHeart: "home and heart",
+            swapBody: "swapping figures",
+            knot3: "three linked circles",
+            many: "group of people",
+            cream: "cream swirl",
+            enter: "entering arrow",
+            barred: "barred frame",
+            edge: "rising arcs",
+            lure: "rippled lines",
+            seed: "sprouting seed",
+            drops: "two droplets",
+            watch: "watching eye",
+            hide: "animal hide",
+            curves: "body curves",
+            resize: "expanding arrows",
+            downTalk: "speech bubble",
+            keyhole: "keyhole",
+            split: "split heart",
+            cradle: "cradle",
+            standing: "two standing figures",
+            arrows: "crossing arrows",
+            energy: "energy flow",
+            lotus: "lotus"
+        };
+
+const Se = {
+            black: "black",
+            darkBlue: "dark blue",
+            lightBlue: "light blue",
+            red: "red",
+            grey: "gray",
+            yellow: "yellow",
+            brown: "brown",
+            purple: "purple",
+            orange: "orange",
+            white: "white",
+            pink: "pink",
+            green: "green",
+            hunterGreen: "hunter green",
+            neutral: "neutral gray",
+            noCode: "dark charcoal"
+        };
+
+const Ee = Object.freeze({
+            Materials: "stripes",
+            Footwear: "heel",
+            "Uniforms & costumes": "uniform",
+            "Lingerie & hosiery": "stocking",
+            Undergarments: "ribbon",
+            "Masks & headwear": "hood",
+            "Objects/toys": "beads",
+            "Hand spanking": "hand",
+            "Flexible implements": "tassel",
+            "Rigid implements": "paddle",
+            "Clamps & pinching": "clamp",
+            "Cutting & piercing": "needle",
+            "Genital pain": "target",
+            Extreme: "flame",
+            "Head hair": "comb",
+            "Facial & body hair": "fur",
+            "Lower body": "foot",
+            Torso: "chest",
+            Face: "mirror",
+            "Body type": "curves",
+            Worship: "hands",
+            "Caregiver & little roles": "cradle",
+            Authority: "badge",
+            Captivity: "cage",
+            Animal: "paw",
+            "Historical & fantasy": "scroll",
+            "Flexible ties": "coil",
+            Restraints: "cuffs",
+            "Tape & wrapping": "tape",
+            Sensory: "blindfold",
+            Confinement: "cocoon",
+            "Challenge bondage": "hourglass",
+            Specialty: "harness",
+            Oral: "mouth",
+            Anal: "ring",
+            Manual: "finger",
+            Insertion: "enter",
+            Fluids: "droplet",
+            Humiliation: "downTalk",
+            Intimidation: "horns",
+            "Mind control": "pendulum",
+            Emotional: "heart",
+            Vulnerability: "keyhole",
+            Verbal: "speech"
+        });
+
+const Ce = {
+            black: {
+                color: "#111514",
+                labelStroke: "#dce1dd"
+            },
+            darkBlue: {
+                color: "#2f6fd3",
+                labelStroke: "#18202b"
+            },
+            lightBlue: {
+                color: "#69bdf0",
+                labelStroke: "#17242c"
+            },
+            red: {
+                color: "#e55252",
+                labelStroke: "#2b1718"
+            },
+            grey: {
+                color: "#929a96",
+                labelStroke: "#1c211e"
+            },
+            yellow: {
+                color: "#f0cf3f",
+                labelStroke: "#2e2812"
+            },
+            brown: {
+                color: "#a86a3e",
+                labelStroke: "#251a14"
+            },
+            purple: {
+                color: "#ad62d4",
+                labelStroke: "#241629"
+            },
+            orange: {
+                color: "#ed8a2c",
+                labelStroke: "#2a1d12"
+            },
+            white: {
+                color: "#f2f0e8",
+                labelStroke: "#242925"
+            },
+            pink: {
+                color: "#ed7db7",
+                labelStroke: "#2a1822"
+            },
+            green: {
+                color: "#4cba73",
+                labelStroke: "#17261d"
+            },
+            hunterGreen: {
+                color: "#28734d",
+                labelStroke: "#d9e1dc"
+            },
+            neutral: {
+                color: "#aeb5b0",
+                labelStroke: "#1b201d"
+            }
+        }, Me = {
+            "Power exchange": "hunterGreen",
+            "Bondage & restriction": "grey",
+            "Impact, pain & body modification": "black",
+            "Service & ritual": "green"
+        }, Ie = new Map;
+        Object.entries({
+            black: [ "Temperature", "Electrical Play", "Sensory overload", "Consensual non-consent fantasy", "Fear Play", "Interrogation", "Blood play", "Wrestling", "Biting & scratching" ],
+            darkBlue: [ "Anal beads", "Anal fingering", "Rimming", "Anal sex" ],
+            lightBlue: [ "Facefucking", "Facesitting", "Facials", "Fingering mouths", "Oral sex" ],
+            red: [ "Vaginal fisting", "Anal fisting" ],
+            grey: [ "Sensory deprivation", "Captivity / kidnapping" ],
+            yellow: [ "Watersports" ],
+            brown: [],
+            purple: [ "Needle Play", "Body Modification" ],
+            orange: [ "Penetration" ],
+            white: [ "Handjobs" ],
+            pink: [ "Pumps", "Pegging" ],
+            green: [ "Group service", "Spiritual play" ],
+            hunterGreen: [ "Authority roles", "Caregiver roles (adults)", "Age play between adults", "Pet play", "Pony Play", "Puppy play", "Owner & property", "Doctor/Nurse Play", "Teacher / student roleplay", "Hunter / prey" ],
+            neutral: [ "Tantra / energy play" ]
+        }).forEach(([e, t]) => t.forEach(t => Ie.set(t, e)));
+        const Pe = {
+            key: "noCode",
+            color: "#232726",
+            lineColor: "#78817e",
+            labelColor: "#aeb5b0",
+            labelStroke: "#1b201d"
+        };
+
+        const We = {
+"cat-power-exchange": [ "dom", "sub" ],
+            "cat-bondage-restriction": [ "restrains", "restrained" ],
+            "cat-impact-pain-body-modification": [ "applies", "receives" ],
+            "cat-sensation-atmosphere": [ "stimulates", "experiences" ],
+            "cat-roleplay-identity": [ "leads", "follows" ],
+            "cat-clothing-materials-objects": [ "admires", "wears / uses" ],
+            "cat-body-focus-appearance": [ "displays", "admires" ],
+            "cat-psychological-dynamics": [ "influences", "experiences" ],
+            "cat-watching-exposure-settings": [ "watches", "is watched" ],
+            "cat-partner-configurations": [ "arranges", "joins" ],
+            "cat-sex-acts": [ "performs", "receives" ],
+            "cat-positions": [ "initiates", "joins" ],
+            "cat-orgasm-reproductive-play": [ "controls", "is controlled" ],
+            "cat-fluids-messy-play": [ "releases / uses", "receives" ],
+            "cat-primal-pursuit": [ "hunter", "prey" ],
+            "cat-service-ritual": [ "serves", "is served" ],
+            "cat-fantasy-transformation": [ "transforms", "is transformed" ],
+            "cat-connection-aftercare": [ "cares", "is cared for" ],
+            "t0006": [ "grants", "begs" ],
+            "t0003": [ "wears", "admires" ],
+            "topic-gangbang-fantasy": [ "fucks in group", "is fucked by group" ],
+            "t0045": [ "captures", "escapes" ],
+            "t0097": [ "pushes", "endures" ],
+            "t0127": [ "authority", "subordinate" ],
+            "topic-caregiver-roles-adults": [ "caregiver", "little" ],
+            "topic-age-play-between-adults": [ "plays older", "plays younger" ],
+            "topic-pet-play": [ "handler", "pet" ],
+            "topic-pony-play": [ "trainer", "pony" ],
+            "topic-puppy-play": [ "handler", "pup" ],
+            "t0131": [ "owner", "property" ],
+            "topic-doctor-nurse-play": [ "clinician", "patient" ],
+            "topic-teacher-student-roleplay": [ "teacher", "student" ],
+            "topic-captivity-kidnapping": [ "captures", "is captured" ],
+            "topic-consensual-non-consent-fantasy": [ "overpowers", "is overpowered" ],
+            "t0153": [ "wears", "admires" ],
+            "t0152": [ "wears", "admires" ],
+            "t0181": [ "wears", "admires" ],
+            "t0176": [ "wears", "admires" ],
+            "t0166": [ "wears", "admires" ],
+            "topic-masks-hoods": [ "admires", "wears" ],
+            "t0196": [ "wears", "admires" ],
+            "t0185": [ "admires", "wears" ],
+            "t0162": [ "admires", "wears" ],
+            "t0236": [ "is modified", "admires" ],
+            "t0237": [ "worships", "is worshipped" ],
+            "t0220": [ "worships", "is worshipped" ],
+            "topic-feet-footwear": [ "worships", "is worshipped" ],
+            "t0222": [ "adores", "is adored" ],
+            "t0234": [ "plays big", "plays small" ],
+            "t0266": [ "watches", "is watched" ],
+            "t0270": [ "exhibits", "watches" ],
+            "t0316": [ "makes squirt", "squirts" ],
+            "t0328": [ "locks", "is locked" ],
+            "t0332": [ "surrogate", "parent" ],
+            "t0351": [ "hunter", "prey" ],
+            "t0352": [ "chase (be the chaser)", "be chased" ],
+            "t0353": [ "wrestle down", "be wrestled down" ],
+            "t0354": [ "bite & scratch", "be bitten & scratched" ],
+            "t0381": [ "big", "small" ],
+            "t0385": [ "wears", "admires" ],
+            "t0375": [ "accepts", "surrenders" ]
+        };
+        const SX_SUBSUMED_BASE_TOPIC_IDS = {
+            "FemDom": "t0009", "D/s": "t0010", "Brats": "t0012", "Switching": "t0014", "Male Authority": "t0015",
+            "Ongoing dynamics": "t0008", "24/7": "t0013", "Romantic surrender": "t0375",
+            "Hotwife": "t0288",
+            "Rope bondage": "t0022", "Cuffs": "t0025", "Bondage tape": "t0029", "Mummification": "t0032", "Tape": "t0033",
+            "Blindfold": "t0034", "Caging": "t0037", "Encasement": "t0038", "Sleepsacks": "t0039", "Immobilization": "t0040",
+            "Suspension Bondage": "t0043", "Bondage art": "t0050", "Texture contrast": "t0102", "Sensory deprivation": "t0103",
+            "Sensory overload": "t0104", "ASMR & whispering": "t0105", "Scent": "t0109", "Hands": "t0201",
+            "Hands & gloves": "t0202", "Feet": "t0213", "Buttocks": "t0218", "Breasts": "t0220", "Pregnancy focus": "t0222",
+            "Hair": "t0203", "Long Hair": "t0204", "Facial Hair": "t0208", "Beards": "t0209", "Body Hair": "t0210", "Pubic Hair": "t0211", "Muscles": "t0231"
+        };
+
         const f = Object.freeze([ "Orgasm & reproductive play", "Power exchange", "Service & ritual", "Connection & aftercare", "Psychological dynamics", "Primal & pursuit", "Impact, pain & body modification", "Bondage & restriction", "Sensation & atmosphere", "Body focus & appearance", "Clothing, materials & objects", "Roleplay & identity", "Fantasy & transformation", "Watching, exposure & settings", "Partner configurations", "Positions", "Sex acts", "Fluids & messy play" ]), y = new Map;
         f.forEach((e, t) => {
             h.some(t => t.name === e) && y.set(e, t);
@@ -3820,95 +4824,6 @@ const TAXONOMY_CATEGORIES = [];
                 e.hidden = !t, e.textContent = t ? `average ${ne(te.mean)} ± ${ne(te.sd)} min from ${Math.round(te.n)} explorers` : "";
             });
         }();
-        const ie = {
-            "decorative rope": "Shibari",
-            "japanese-inspired bondage": "Shibari",
-            "suspension bondage": "Suspension",
-            "cuffs & straps": "Bondage",
-            "spreader bars": "Bondage",
-            "tape wrapping": "Bondage",
-            mummification: "Bondage",
-            "furniture restraint": "Bondage",
-            "blindfolded restraint": "Bondage",
-            "escape / immobilization": "Bondage",
-            "paddles & straps": "Impact play",
-            "riding crops": "Impact play",
-            canes: "Caning",
-            "switches & implements": "Impact play",
-            "needle / piercing play": "Needle play",
-            "heavy marking": "Cutting",
-            "wax & temperature play": "Wax play",
-            "ice & cold play": "Ice play",
-            electrostimulation: "Sensation play",
-            "sensory deprivation": "Sensation play",
-            "sensory overload": "Sensation play",
-            "feathers & light touch": "Sensation play",
-            "soundscapes & music": "Sensation play",
-            "massage & oils": "Massage",
-            "dominant role": "Dominance",
-            "submissive role": "Submission",
-            slave: "Master/slave",
-            "owner & property": "Master/slave",
-            "caregiver & little roles": "Age play",
-            "age play between adults": "Age play",
-            "pet handler": "Pet play",
-            "puppy play": "Puppy play",
-            "pony play": "Pony Play",
-            "doctor / patient": "Doctor/nurse",
-            "teacher / student": "Teacher/student",
-            "boss / employee": "Boss/secretary",
-            "captivity scenarios": "Kidnapping",
-            "consensual non-consent": "CNC",
-            "interrogation scenes": "Interrogation",
-            "police roleplay": "Police",
-            "military roleplay": "Military",
-            "religious roleplay": "Religious",
-            "historical roleplay": "Historical",
-            "latex & rubber": "Latex",
-            "lingerie & stockings": "Lingerie",
-            uniforms: "Uniform",
-            "heels & boots": "Boots",
-            diapers: "Diapers",
-            "feet & footwear": "Feet",
-            "muscle worship": "Worship",
-            buttocks: "Ass worship",
-            genderplay: "Feminization",
-            sissification: "Sissy",
-            "humiliation language": "Humiliation",
-            "mindfucks & uncertainty": "Fear Play",
-            objectification: "Objectification",
-            degradation: "Degradation",
-            "fear play": "Fear Play",
-            begging: "Begging",
-            "watching & being watched": "Voyeurism",
-            "performance for a partner": "Exhibitionism",
-            "public / outdoor exposure": "Exhibitionism",
-            "exhibition / voyeurism": "Exhibitionism",
-            threesomes: "Threesome",
-            "group encounters": "Threesome",
-            "cuckold / hotwife": "Hotwife",
-            "polyamory with kink": "Polyamory",
-            "anal fingering": "Anal play",
-            rimming: "Anal play",
-            "anal beads & plugs": "Anal play",
-            "vaginal fisting": "Fisting",
-            "anal fisting": "Fisting",
-            facesitting: "Ass worship",
-            "chastity devices": "Chastity",
-            "orgasm control": "Cum control",
-            "cum eating instructions": "CEI",
-            "jerk-off instruction": "JOI",
-            "foot worship": "Foot worship",
-            "body worship": "Body worship",
-            "blood play": "Blood play",
-            watersports: "Watersports",
-            "scat play": "Scat",
-            "spiritual play": "Religious",
-            "mythical creatures": "Fantasy",
-            aliens: "Sci-fi",
-            "furry transformation fantasy": "Furry",
-            crossdressing: "Crossdressing"
-        };
         function re(e) {
             const t = Array.isArray(e) ? e : [], n = new Set;
             return t.map(e => {
@@ -3934,7 +4849,6 @@ const TAXONOMY_CATEGORIES = [];
         function de(e, t) {
             return ce(e, t)[0] || null;
         }
-        const ue = [ [ "Power exchange", "Psychological dynamics" ], [ "Power exchange", "Service & ritual" ], [ "Power exchange", "Roleplay & identity" ], [ "Bondage & restriction", "Impact, pain & body modification" ], [ "Bondage & restriction", "Sensation & atmosphere" ], [ "Impact, pain & body modification", "Primal & pursuit" ], [ "Impact, pain & body modification", "Connection & aftercare" ], [ "Sensation & atmosphere", "Clothing, materials & objects" ], [ "Sensation & atmosphere", "Body focus & appearance" ], [ "Roleplay & identity", "Fantasy & transformation" ], [ "Roleplay & identity", "Clothing, materials & objects" ], [ "Clothing, materials & objects", "Body focus & appearance" ], [ "Psychological dynamics", "Primal & pursuit" ], [ "Psychological dynamics", "Connection & aftercare" ], [ "Watching, exposure & settings", "Partner configurations" ], [ "Watching, exposure & settings", "Clothing, materials & objects" ], [ "Partner configurations", "Sex acts" ], [ "Partner configurations", "Fantasy & transformation" ], [ "Sex acts", "Positions" ], [ "Sex acts", "Orgasm & reproductive play" ], [ "Sex acts", "Fluids & messy play" ], [ "Orgasm & reproductive play", "Fluids & messy play" ], [ "Primal & pursuit", "Fantasy & transformation" ], [ "Service & ritual", "Connection & aftercare" ] ];
         function pe(e) {
             const t = new Set, n = [];
             return (e || []).forEach(e => {
@@ -3943,699 +4857,11 @@ const TAXONOMY_CATEGORIES = [];
                 t.has(i) || (t.add(i), n.push(e));
             }), n;
         }
-        const he = [ [ "t0281", "t0240" ] ], ge = {
-            "Power exchange": {
-                color: "#ef806e",
-                glyph: '<path class="icon-glyph" d="M5 17 7 8l5 5 5-5 2 9Z M7 20h10"/>'
-            },
-            "Bondage & restriction": {
-                color: "#ee925f",
-                glyph: '<path class="icon-glyph" d="M9.5 14.5 7 17a3 3 0 0 1-4-4l3-3a3 3 0 0 1 4-.2 M14.5 9.5 17 7a3 3 0 0 1 4 4l-3 3a3 3 0 0 1-4 .2 M8.5 15.5l7-7"/>'
-            },
-            "Impact, pain & body modification": {
-                color: "#e5a45e",
-                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
-            },
-            "Sensation & atmosphere": {
-                color: "#d7c15c",
-                glyph: '<path class="icon-glyph" d="M3 12c3-6 5 6 8 0s5 6 10 0"/>'
-            },
-            "Roleplay & identity": {
-                color: "#a8c766",
-                glyph: '<path class="icon-glyph" d="M4 7c4-2 6 1 8 1s4-3 8-1v6c0 5-4 8-8 8s-8-3-8-8Zm3 4h2m6 0h2m-8 5c2 1 4 1 6 0"/>'
-            },
-            "Clothing, materials & objects": {
-                color: "#82c66e",
-                glyph: '<path class="icon-glyph" d="M9 5a3 3 0 1 1 5 2l-1 1 8 6H3l8-6 M3 14v4h18v-4"/>'
-            },
-            "Body focus & appearance": {
-                color: "#55c48a",
-                glyph: '<path class="icon-glyph" d="M12 3a3 3 0 1 0 0 6 3 3 0 0 0 0-6ZM6 21v-5a6 6 0 0 1 12 0v5 M9 13l3 3 3-3"/>'
-            },
-            "Psychological dynamics": {
-                color: "#55c4a8",
-                glyph: '<path class="icon-glyph" d="M9 4a4 4 0 0 0-3 6 4 4 0 0 0 1 7 4 4 0 0 0 5 3V6a3 3 0 0 0-3-2Zm6 0a4 4 0 0 1 3 6 4 4 0 0 1-1 7 4 4 0 0 1-5 3 M7 10h3m4 3h3"/>'
-            },
-            "Watching, exposure & settings": {
-                color: "#59beca",
-                glyph: '<path class="icon-glyph" d="M2 12s4-6 10-6 10 6 10 6-4 6-10 6S2 12 2 12Z"/><circle class="icon-glyph" cx="12" cy="12" r="2.5"/>'
-            },
-            "Partner configurations": {
-                color: "#5ab0da",
-                glyph: '<path class="icon-glyph" d="M8 11a3 3 0 1 0 0-6 3 3 0 0 0 0 6Zm8 0a3 3 0 1 0 0-6 3 3 0 0 0 0 6ZM3 21v-4a5 5 0 0 1 10 0v4m-2-7a5 5 0 0 1 10 3v4"/>'
-            },
-            "Sex acts": {
-                color: "#6ca8df",
-                glyph: '<path class="icon-glyph" d="M20 8c0 6-8 11-8 11S4 14 4 8a4 4 0 0 1 7-3l1 1 1-1a4 4 0 0 1 7 3Z"/>'
-            },
-            Positions: {
-                color: "#809cdf",
-                glyph: '<path class="icon-glyph" d="M5 7h12m0 0-3-3m3 3-3 3M19 17H7m0 0 3-3m-3 3 3 3"/>'
-            },
-            "Orgasm & reproductive play": {
-                color: "#9a91df",
-                glyph: '<path class="icon-glyph" d="M12 2v5m0 10v5M2 12h5m10 0h5M5 5l3 3m8 8 3 3m0-14-3 3M8 16l-3 3"/><circle class="icon-glyph" cx="12" cy="12" r="3"/>'
-            },
-            "Fluids & messy play": {
-                color: "#b188dd",
-                glyph: '<path class="icon-glyph" d="M12 3S6 10 6 15a6 6 0 0 0 12 0c0-5-6-12-6-12Z M9 16c.5 1.5 1.5 2 3 2"/>'
-            },
-            "Primal & pursuit": {
-                color: "#c985d2",
-                glyph: '<path class="icon-glyph" d="M8 11c-3 0-4-4-2-5s4 2 4 4m6 1c3 0 4-4 2-5s-4 2-4 4M12 9c-2 0-5 5-5 8 0 2 2 3 5 1 3 2 5 1 5-1 0-3-3-8-5-8Z"/>'
-            },
-            "Service & ritual": {
-                color: "#da7dbd",
-                glyph: '<path class="icon-glyph" d="M6 16h12M8 16v-3a4 4 0 0 1 8 0v3m-9 4h10M12 4v3"/>'
-            },
-            "Fantasy & transformation": {
-                color: "#e17da6",
-                glyph: '<path class="icon-glyph" d="m5 19 10-10m-8 8 2 2m5-14 1.5 3L19 9l-3 1.5L15 14l-1.5-3L10 9.5 13 8Z"/>'
-            },
-            "Connection & aftercare": {
-                color: "#ea7f8b",
-                glyph: '<path class="icon-glyph" d="M12 20S4 15 4 9a4 4 0 0 1 7-3l1 1 1-1a4 4 0 0 1 7 3c0 6-8 11-8 11Z M8 13h2l1-3 2 6 1-3h2"/>'
-            },
-            /* Flexcapades skin categories: Chemcapades (8). Star glyph shared;
-               distinct colors carry the category identity on the map. */
-            "Ontology & Metaphysics of the Chemical World": {
-                color: "#7ec8e3",
-                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
-            },
-            "The Periodic System & Classification": {
-                color: "#9b8cf2",
-                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
-            },
-            "Epistemology, Explanation & Modeling": {
-                color: "#63c2c8",
-                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
-            },
-            "Disciplinary Identity & Sub-Disciplinary Cultures": {
-                color: "#82c66e",
-                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
-            },
-            "Ethics, Sustainability & Lab Safety": {
-                color: "#e5a45e",
-                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
-            },
-            "Kinetics, Thermodynamics & Emergent Complexity": {
-                color: "#ef806e",
-                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
-            },
-            "Codification, Pedagogy & the Chemical Life": {
-                color: "#d7c15c",
-                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
-            },
-            "Materials, Energy & the Molecular Frontier": {
-                color: "#5ab0da",
-                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
-            },
-            /* Flexcapades skin categories: Aesthcapades (7). Star glyph shared; distinct colors carry the category identity on the map. */
-            "Visual Art": {
-                color: "#7ec8e3",
-                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
-            },
-            "Music & Sound": {
-                color: "#9b8cf2",
-                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
-            },
-            "Story & Word": {
-                color: "#63c2c8",
-                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
-            },
-            "Beauty & Adornment": {
-                color: "#82c66e",
-                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
-            },
-            "Space & Place": {
-                color: "#e5a45e",
-                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
-            },
-            "Taste & Judgment": {
-                color: "#ef806e",
-                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
-            },
-            "Food & Flavor": {
-                color: "#d7c15c",
-                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
-            },
-            /* Flexcapades skin categories: Dharmacapades (6). Star glyph shared; distinct colors carry the category identity on the map. */
-            "Dharma & The Way": {
-                color: "#9b8cf2",
-                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
-            },
-            "Liberation & Enlightenment": {
-                color: "#63c2c8",
-                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
-            },
-            "Practice & Discipline": {
-                color: "#82c66e",
-                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
-            },
-            "Deity & The Divine": {
-                color: "#e5a45e",
-                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
-            },
-            "Ethics & Conduct": {
-                color: "#ef806e",
-                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
-            },
-            "Community & Lineage": {
-                color: "#d7c15c",
-                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
-            },
-            /* Flexcapades skin categories: Expericapades (6). Star glyph shared; distinct colors carry the category identity on the map. */
-            "Mission & Discovery Strategy": {
-                color: "#63c2c8",
-                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
-            },
-            "Detectors & Instruments": {
-                color: "#82c66e",
-                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
-            },
-            "Data, Noise & Standards of Discovery": {
-                color: "#e5a45e",
-                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
-            },
-            "Environment & Extremes": {
-                color: "#ef806e",
-                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
-            },
-            "Data, Analysis & Openness": {
-                color: "#d7c15c",
-                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
-            },
-            "The Experimental Life & Lab Culture": {
-                color: "#5ab0da",
-                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
-            },
-            /* Flexcapades skin categories: Forescapades (7, real v2.4 categories). Star glyph shared; distinct colors carry the category identity on the map. */
-            "God": {
-                color: "#ef806e",
-                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
-            },
-            "Scripture & Authority": {
-                color: "#e5a45e",
-                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
-            },
-            "Community & Leadership": {
-                color: "#d7c15c",
-                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
-            },
-            "Salvation & Grace": {
-                color: "#82c66e",
-                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
-            },
-            "Ritual & Worship": {
-                color: "#5ab0da",
-                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
-            },
-            "Life & Morality": {
-                color: "#7ec8e3",
-                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
-            },
-            "Last Things": {
-                color: "#9b8cf2",
-                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
-            },
-            /* Flexcapades skin categories: Mattercapades (6). Star glyph shared; distinct colors carry the category identity on the map. */
-            "The Applied Physics Philosophy & Strategy": {
-                color: "#e5a45e",
-                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
-            },
-            "Domains & Scale": {
-                color: "#ef806e",
-                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
-            },
-            "Quantum Technology & Hardware": {
-                color: "#d7c15c",
-                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
-            },
-            "Energy, Power & Clean Technology": {
-                color: "#5ab0da",
-                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
-            },
-            "Materials & Fabrication": {
-                color: "#7ec8e3",
-                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
-            },
-            "Life, Medicine & the Applied Life": {
-                color: "#9b8cf2",
-                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
-            },
-            /* Flexcapades skin categories: Philoscapades (6). Star glyph shared; distinct colors carry the category identity on the map. */
-            "Epistemology & Theory of Truth": {
-                color: "#ef806e",
-                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
-            },
-            "Metaphysics & Ontology": {
-                color: "#d7c15c",
-                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
-            },
-            "Axiology & Normative Ethics": {
-                color: "#5ab0da",
-                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
-            },
-            "Philosophy of Mind & Consciousness": {
-                color: "#7ec8e3",
-                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
-            },
-            "Existentialism & The Human Condition": {
-                color: "#9b8cf2",
-                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
-            },
-            "Political Philosophy & Justice": {
-                color: "#63c2c8",
-                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
-            },
-            /* Flexcapades skin categories: Poliscapades (8, real draft categories). Star glyph shared; distinct colors carry the category identity on the map. */
-            "The Economy": {
-                color: "#d7c15c",
-                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
-            },
-            "Health & Care": {
-                color: "#63c2c8",
-                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
-            },
-            "Climate, Energy & Environment": {
-                color: "#82c66e",
-                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
-            },
-            "Immigration & Borders": {
-                color: "#e5a45e",
-                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
-            },
-            "Democracy & Government": {
-                color: "#ef806e",
-                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
-            },
-            "Rights & Freedoms": {
-                color: "#9b8cf2",
-                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
-            },
-            "Education & Culture": {
-                color: "#5ab0da",
-                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
-            },
-            "Foreign Policy & Defense": {
-                color: "#7ec8e3",
-                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
-            },
-            /* Flexcapades skin categories: Praxicapades (6). Star glyph shared; distinct colors carry the category identity on the map. */
-            "The Art of Modeling": {
-                color: "#5ab0da",
-                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
-            },
-            "Computation & Method": {
-                color: "#7ec8e3",
-                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
-            },
-            "Domains & Arenas": {
-                color: "#9b8cf2",
-                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
-            },
-            "Uncertainty & Data": {
-                color: "#63c2c8",
-                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
-            },
-            "Rigor & Validation": {
-                color: "#82c66e",
-                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
-            },
-            "The Applied Life": {
-                color: "#e5a45e",
-                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
-            },
-            /* Flexcapades skin categories: Quantacapades (6). Star glyph shared; distinct colors carry the category identity on the map. */
-            "Foundations & Interpretation": {
-                color: "#7ec8e3",
-                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
-            },
-            "Quantum Gravity & Spacetime": {
-                color: "#9b8cf2",
-                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
-            },
-            "Cosmology & the Universe": {
-                color: "#63c2c8",
-                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
-            },
-            "Emergence & Information": {
-                color: "#82c66e",
-                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
-            },
-            "Symmetry & Fine-Tuning": {
-                color: "#e5a45e",
-                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
-            },
-            "The Life of a Theorist": {
-                color: "#ef806e",
-                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
-            },
-            /* Flexcapades skin categories: Simulcapades (6). Star glyph shared; distinct colors carry the category identity on the map. */
-            "The Epistemology of Simulation": {
-                color: "#9b8cf2",
-                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
-            },
-            "Methods": {
-                color: "#63c2c8",
-                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
-            },
-            "Scale, Discretization & Time": {
-                color: "#82c66e",
-                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
-            },
-            "The Machine & The Code": {
-                color: "#e5a45e",
-                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
-            },
-            "Trust, Error & Reproducibility": {
-                color: "#ef806e",
-                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
-            },
-            "The Computational Life": {
-                color: "#d7c15c",
-                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
-            },
-            /* Flexcapades skin categories: Techcapades (6). Star glyph shared; distinct colors carry the category identity on the map. */
-            "AI & Intelligence": {
-                color: "#63c2c8",
-                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
-            },
-            "Privacy & Surveillance": {
-                color: "#82c66e",
-                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
-            },
-            "Screens & Attention": {
-                color: "#e5a45e",
-                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
-            },
-            "Connection & Social Media": {
-                color: "#ef806e",
-                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
-            },
-            "Digital Identity & Self": {
-                color: "#d7c15c",
-                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
-            },
-            "The Machine Future": {
-                color: "#5ab0da",
-                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
-            },
-            /* Flexcapades skin categories: Theoricapades (6). Star glyph shared; distinct colors carry the category identity on the map. */
-            "Foundations & Ontology": {
-                color: "#82c66e",
-                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
-            },
-            "Method & Style": {
-                color: "#e5a45e",
-                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
-            },
-            "Branches & Territory": {
-                color: "#ef806e",
-                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
-            },
-            "Proof & Verification": {
-                color: "#d7c15c",
-                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
-            },
-            "Beauty & Reality": {
-                color: "#5ab0da",
-                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
-            },
-            "The Mathematical Life": {
-                color: "#7ec8e3",
-                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
-            },
-            /* Flexcapades skin categories: Vocapades (6). Star glyph shared; distinct colors carry the category identity on the map. */
-            "Purpose & Meaning": {
-                color: "#e5a45e",
-                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
-            },
-            "Effort & Ambition": {
-                color: "#ef806e",
-                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
-            },
-            "Place & Mode": {
-                color: "#d7c15c",
-                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
-            },
-            "Structure & Authority": {
-                color: "#5ab0da",
-                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
-            },
-            "Reward & Security": {
-                color: "#7ec8e3",
-                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
-            },
-            "Identity & Boundaries": {
-                color: "#9b8cf2",
-                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
-            },
-        }, me = e => `<path class="icon-glyph" d="${e}"/>`, fe = (e, t, n) => `<circle class="icon-glyph" cx="${e}" cy="${t}" r="${n}"/>`, ye = {
-            compass: me("M8 2v12M2 8h12m-4-2-2 2-2 2 2-2Z"),
-            checklist: me("M3 3h10v10H3Zm2 3 1 1 2-2m-3 5 1 1 2-2m2-3h2m-2 4h2"),
-            key: me("M9 5a3 3 0 1 1-2 5l-4 4m2-2 1 1m1-3 1 1"),
-            ring: fe(8, 8, 4) + me("M8 1v3m0 8v3"),
-            medal: me("M5 2l3 4 3-4m-6 0h6M8 6l1.5 3 3.5.5-2.5 2.5.5 3-3-1.5L5 15l.5-3-2.5-2.5L6.5 9Z"),
-            scale: me("M8 2v12M4 4h8M3 5 1 9h4L3 5Zm10 0-2 9h4l-2-9M5 14h6"),
-            hands: me("M2 10c2-2 3-1 4 1l2 2 2-2c1-2 2-3 4-1M4 6v4m3-6v7m5-5v4"),
-            stage: me("M2 4h12v9H2Zm0 3h12M5 4l2 3m3-3 2 3"),
-            infinity: me("M2 8c2-4 4-4 6 0s4 4 6 0-4-4-6 0-4 4-6 0Z"),
-            coil: me("M3 12c0-7 10-8 10-3 0 4-7 4-7 1 0-2 4-3 7-1"),
-            bow: me("M8 7C5 2 1 3 3 7c-2 4 2 5 5 1 3 4 7 3 5-1 2-4-2-5-5 0Zm0 1-2 6m2-6 2 6"),
-            knot: me("M3 5c3-3 7 3 10 0M3 11c3 3 7-3 10 0M5 3l6 10m0-10L5 13"),
-            cuffs: fe(5, 8, 3) + fe(11, 8, 3) + me("M8 8h0"),
-            spreader: me("M2 8h12M4 5v6m8-6v6"),
-            tape: fe(7, 8, 5) + fe(7, 8, 2) + me("m11 11 3 3"),
-            mouth: me("M2 8c3-3 9-3 12 0-3 4-9 4-12 0Zm3 0h6"),
-            cocoon: me("M8 1c4 3 4 11 0 14-4-3-4-11 0-14Zm-3 4 6 2m-6 2 6 2"),
-            chair: me("M4 2v7h8V5m-8 4v5m8-5v5M3 12h10"),
-            blindfold: me("M2 6c4-2 8-2 12 0v4c-4 2-8 2-12 0Zm2 2h2m4 0h2"),
-            lock: me("M4 7h8v7H4Zm2 0V5a2 2 0 0 1 4 0v2m-2 3v1.5"),
-            hand: me("M4 8V4m2 4V2m2 6V3m2 5V5m0 1c3-2 4 0 2 3l-2 4H6c-2-1-3-3-3-5V6"),
-            paddle: me("M3 3c2-2 6 2 4 4l-2 2Zm3 5 7 6"),
-            tassel: me("M4 2c7 2 7 6 2 7m0 0 1 5m0-5 3 5m-4-5-2 5"),
-            cane: me("M11 4c0-3 4-3 4 0M11 4 5 14"),
-            crop: me("M3 13 11 5m0 0 2-3 2 2-3 2m-8 4 2 2m-3 1c-2-1-2-3 0-3"),
-            lash: me("M3 3c8 1 11 6 4 11m0 0 1-4m-1 4 4-1"),
-            clamp: me("M3 4h3l2 4 2-4h3M5 4v8m6-8v8M3 12h3m4 0h3"),
-            claw: me("M3 4c0 5 2 7 3 9M8 3c-1 5 0 7 1 10m4-9c-2 4-2 6-1 9"),
-            comb: me("M3 3h10v4H3Zm2 4v6m2-6v5m2-5v6m2-6v5"),
-            needle: me("M3 13 12 4m0 0 2-2m-2 2 2 2M4 11l2 2"),
-            target: fe(8, 8, 5) + fe(8, 8, 2) + me("M8 1v2m0 10v2"),
-            shield: me("M8 2 13 4v4c0 3-2 5-5 6-3-1-5-3-5-6V4Zm-2 6 2 2 3-4"),
-            flame: me("M8 14c-4-2-4-6-1-9 0 3 2 2 2-3 4 4 5 8-1 12Zm0 0c-2-1-2-3 0-5 2 2 2 4 0 5"),
-            snow: me("M8 1v14M2 4l12 8M14 4 2 12M5 2l3 2 3-2m-6 12 3-2 3 2"),
-            feather: me("M3 14C3 7 7 2 14 2c0 7-5 11-11 12Zm2-3 6-6M5 8h4m-2 2v-4"),
-            bolt: me("M9 1 4 9h4l-1 6 5-8H8Z"),
-            stripes: me("M2 4h12M2 8h12M2 12h12m-9-9v2m3 2v2m3 2v2"),
-            muted: me("M3 6h3l3-3v10l-3-3H3Zm8 0 3 4m0-4-3 4"),
-            burst: me("M8 1v4m0 6v4M1 8h4m6 0h4M3 3l3 3m4 4 3 3m0-10-3 3M6 10l-3 3"),
-            whisper: me("M2 5c4-3 8-3 12 0M4 8c3-2 5-2 8 0m-6 3h4"),
-            note: me("M6 3v8m0-6 7-2v7M3 13a3 2 0 1 0 3-2m4 1a3 2 0 1 0 3-2"),
-            mirror: me("M4 2h8v11H4Zm2 3 4-1m-4 4 4-1M8 13v2"),
-            moon: me("M11 2a6 6 0 1 0 3 10 6 6 0 0 1-3-10Z"),
-            perfume: me("M6 2h4v3H6Zm-2 5h8v7H4Zm5 2c2 0 3 1 3 2"),
-            energy: me("M8 1v14M5 4c0-2 6-2 6 0s-6 2-6 4 6 2 6 4-6 2-6 4") + fe(8, 4, 1) + fe(8, 8, 1) + fe(8, 12, 1),
-            badge: me("M8 2 10 5l4 1-2 3 .5 4-4-.5L5 14l-1-4-2-3 4-2Z"),
-            cradle: me("M3 7c1 5 9 5 10 0M2 7h12M5 12l-1 2m7-2 1 2"),
-            clock: fe(8, 8, 5) + me("M8 5v3l2 2"),
-            paw: me("M5 7C3 7 2.5 4.5 4 4s2.5 1 2.5 2.5m4.5.5c2 0 2.5-2.5 1-3s-2.5 1-2.5 2.5M8 6.5c-1.5 0-3.5 3.2-3.5 5 0 1.5 1.5 2 3.5.5 2 1.5 3.5 1 3.5-.5 0-1.8-2-5-3.5-5Z"),
-            horse: me("M4 13V6l4-4 4 3-1 8H7m-3-7L2 3m10 2 2-2M7 7h1"),
-            dog: me("M4 5 2 2v7c0 4 3 5 6 5s6-1 6-5V2l-2 3M6 8h0m4 0h0m-4 3h4"),
-            house: me("M2 8 8 2l6 6v6H9v-4H7v4H2Z"),
-            cross: me("M6 2h4v4h4v4h-4v4H6v-4H2V6h4Z"),
-            book: me("M2 3h5c1 0 1 1 1 2v9c0-1-1-2-2-2H2Zm12 0H9c-1 0-1 1-1 2v9c0-1 1-2 2-2h4Z"),
-            cage: me("M3 3h10v11H3Zm3 0v11m4-11v11M2 6h12"),
-            consent: me("M3 9l3 3 7-8M2 4h5m4 8h3"),
-            horns: me("M3 3c0 4 2 6 5 6s5-2 5-6m-9 9c2 2 6 2 8 0M6 7 4 4m6 3 2-3"),
-            fangs: me("M3 5c3 2 7 2 10 0l-2 8-3-3-3 3Z"),
-            scroll: me("M4 2h8v12H4c-3 0-3-4 0-4h8M5 5h5M5 8h4"),
-            hide: me("M3 4 6 2l2 2 2-2 3 2-1 4 1 4-4 2-2-2-4 2-2-4 1-4Z"),
-            droplet: me("M8 2S4 7 4 10a4 4 0 0 0 8 0c0-3-4-8-4-8Z"),
-            stocking: me("M6 2h5v7c0 3-2 5-5 5H3v-3h3Z"),
-            uniform: me("M4 3 7 2l1 3 1-3 3 1 2 3-2 2v6H4V8L2 6Z"),
-            heel: me("M3 3h6c0 5 2 7 5 8v3H8v-2H3Z"),
-            hood: me("M8 2c4 1 6 5 5 11H3C2 7 4 3 8 2Zm-3 7h2m2 0h2"),
-            harness: me("M3 3l10 10M13 3 3 13M4 8h8M8 4v8"),
-            diaper: me("M3 4h10l-2 9H5Zm0 2 4 3m6-3-4 3"),
-            fork: me("M4 2v5m2-5v5M4 5h2v9m5-12v12m0-5h3"),
-            fur: me("M2 12 5 3l2 5 2-6 2 6 3-5-1 10Z"),
-            beads: me("M2 8c3-6 9-6 12 0") + fe(4, 6, 1) + fe(8, 4, 1) + fe(12, 6, 1) + fe(8, 12, 1),
-            pump: me("M3 13V6h7v7M5 6V3h3v3m2 2 3-3m0 0v5m0 0 2 2"),
-            shower: me("M3 6c0-4 6-4 6 0m0 0h4M7 9v1m3-1v2m3-2v1M6 13v1m4-1v1"),
-            hanger: me("M6 3.5a2 2 0 1 1 3.5 1.3L9 5.5 14 9H2l5-3.5M2 9v2.5h12V9"),
-            foot: me("M5 14c-3-2-1-7 1-9 2-3 5-1 4 2-1 4 4 4 3 6-2 2-6 2-8 1"),
-            glove: me("M4 9V4m2 5V2m2 7V3m2 6V4m0 2c3-2 4 1 2 3l-2 4H6c-2-1-3-2-3-4"),
-            chest: fe(6, 8, 3) + fe(10, 8, 3) + me("M3 12c3 2 7 2 10 0"),
-            curves: me("M4 3c5 0 3 10 8 10M12 3C7 3 9 13 4 13"),
-            resize: me("M2 5V2h3M2 2l4 4m8-1V2h-3m3 0-4 4M2 11v3h3m-3 0 4-4m8 1v3h-3m3 0-4-4"),
-            muscle: me("M4 10c2-4 2-6 4-7v4c3-2 6 0 6 3 0 4-4 5-8 4-3-1-4-3-2-4Z"),
-            tattoo: me("M8 3c5 0 5 8 0 8-4 0-4-5-1-5 3 0 3 8-3 8"),
-            belly: me("M8 2c4 3 5 9 2 12M8 2C4 5 3 11 6 14M5 9h6"),
-            star: me("M8 2l1.8 3.8L14 7l-3 2.8.8 4.2L8 12l-3.8 2 .8-4.2L2 7l4.2-1.2Z"),
-            downTalk: me("M2 3h12v8H8l-3 3v-3H2Zm3 3h6M5 8h4"),
-            shards: me("M8 2 6 7 2 8l4 2-1 4 3-2 3 2-1-4 4-2-4-1Z"),
-            speech: me("M2 3h12v8H7l-3.5 2v-2H2Zm3 3h6m-6 2h4"),
-            cube: me("m8 2 5 3v6l-5 3-5-3V5Zm-5 3 5 3 5-3M8 8v6"),
-            pendulum: me("M3 2h10M8 2v5") + fe(8, 10, 3),
-            eye: me("M1 8C4 4 12 4 15 8C12 12 4 12 1 8Z") + fe(8, 8, 1.6),
-            question: me("M5 5c0-4 7-4 7 0 0 3-4 2-4 5m0 3h0"),
-            hourglass: me("M4 2h8M4 14h8M5 2c0 4 2 4 3 6-1 2-3 2-3 6m6-12c0 4-2 4-3 6 1 2 3 2 3 6"),
-            keyhole: fe(8, 6, 3) + me("m7 9-1 5h4L9 9"),
-            watch: me("M2 8C5 4 11 4 16 8C11 12 5 12 2 8Zm7-4v8"),
-            partnerEye: me("M1 7C4 4 12 4 15 7C12 10 4 10 1 7Z") + fe(8, 7, 1.5) + me("M5 13h6"),
-            camera: me("M2 5h3l1-2h4l1 2h3v8H2Z") + fe(8, 9, 2.3),
-            video: me("M2 4h9v8H2Zm9 3 3-2v6l-3-2Z"),
-            spotlight: me("M6 2h4l2 5-4 7-4-7Zm-2 5h8M2 14h12"),
-            tree: me("M8 2 3 9h3l-2 3h4v3h2v-3h3l-2-3h2Z"),
-            pin: me("M8 14S4 9 4 6a4 4 0 0 1 8 0c0 3-4 8-4 8Z") + fe(8, 6, 1.5),
-            curtains: me("M2 2h12M4 3c0 6-2 9-2 11h4V3m6 0c0 6 2 9 2 11h-4V3"),
-            binocular: me("M3 5h3l1 3v4H2Zm10 0h-3L9 8v4h5ZM7 8h2"),
-            split: me("M8 14 3 9c-4-4 2-8 5-4 3-4 9 0 5 4Zm0-9v9"),
-            trio: me("M3 13v-2a3 3 0 0 1 6 0v2m-3-6a2 2 0 1 0 0-4 2 2 0 0 0 0 4m4 6v-2a3 3 0 0 1 4-3m-2-2a2 2 0 1 0 0-4"),
-            crowd: me("M2 13c0-4 3-5 6-3 3-2 6-1 6 3M4 7a2 2 0 1 1 0-4m4 5a2 2 0 1 1 0-4m4 3a2 2 0 1 1 0-4"),
-            swap: me("M2 5h9m0 0L9 3m2 2L9 7m5 4H5m0 0 2-2m-2 2 2 2"),
-            stag: me("M4 13V6L2 3m2 3 3-3m5 10V6l2-3m-2 3-3-3M6 9h4"),
-            triangle: me("M8 2 14 13H2Zm0 3v5m0 2h0"),
-            knot3: fe(8, 5, 3) + fe(5, 10, 3) + fe(11, 10, 3),
-            tray: me("M2 11h12M4 11c0-5 8-5 8 0M8 4V2m-5 12h10"),
-            many: me("M2 13c0-3 2-4 4-4s4 1 4 4m0 0c0-3 2-4 4-4M6 7a2 2 0 1 0 0-4m6 4a2 2 0 1 0 0-4"),
-            homeHeart: me("M2 8 8 2l6 6v6H2Z M8 12S5 10 5 8c0-2 2-2 3-1 1-1 3-1 3 1 0 2-3 4-3 4Z"),
-            finger: me("M6 13V5c0-2 3-2 3 0v4l2-1c2 0 3 2 2 4l-2 2H8Z"),
-            tongue: me("M3 6c3 3 7 3 10 0M6 9v2c0 4 5 4 5 0V9"),
-            cream: me("M3 12c0-3 2-4 4-4-1-3 4-5 4-1 3 1 3 5 0 6Z"),
-            arrowMouth: me("M2 8c3-3 7-3 10 0-3 3-7 3-10 0Zm8-5 4 5-4 5"),
-            splash: me("M8 2v4m-5 1 3 2m7-2-3 2M5 13c1-3 5-3 6 0"),
-            mouthHand: me("M2 6c3-2 7-2 10 0-3 3-7 3-10 0m10 6c2-3 4-2 3 1l-1 2"),
-            fist: me("M4 9V5m2 4V3m2 6V4m2 5V5m0 1c3-1 4 1 2 4l-2 4H6L3 10"),
-            fistLock: me("M3 8h10v6H3Zm2 0V6a3 3 0 0 1 6 0v2M8 11h0"),
-            handMotion: me("M3 12c2-5 5-7 9-8m-1-2 2 2-2 2M4 8l2 2-2 2"),
-            strap: me("M3 4h10v3H3Zm2 3v7m6-7v7"),
-            patHeart: me("M8 14S3 11 3 7c0-3 4-4 5-1 1-3 5-2 5 1 0 4-5 7-5 7Zm-6-1 4-3"),
-            spray: me("M4 12c2-5 6-5 8 0M8 2v3M3 4l2 2m8-2-2 2"),
-            enter: me("M3 3h7v3h3v4h-3v3H3Zm2 5h6M8 6l3 2-3 2"),
-            dial: fe(8, 8, 5) + me("M8 8l3-3M8 2v2m4 1 1-1"),
-            barred: me("M3 2h10v12H3Zm0 4h10m-7-4v12m4-12v12"),
-            edge: me("M2 11c3-6 9-6 12 0M4 8v4m4-6v6m4-4v4"),
-            lure: me("M2 5c4-3 8-3 12 0M5 8c2-2 4-2 6 0M8 10v4"),
-            seed: me("M8 14V8c0-4 4-5 6-5 0 4-2 6-6 5C4 8 2 6 2 3c4 0 6 2 6 5"),
-            egg: me("M8 2c3 0 5 6 5 9 0 4-10 4-10 0 0-3 2-9 5-9Z"),
-            water: me("M2 10c2-3 4 3 6 0s4 3 6 0M8 2S5 6 5 8"),
-            drops: me("M5 3S2 7 2 9a3 3 0 0 0 6 0c0-2-3-6-3-6Zm7 4s-2 3-2 4a2 2 0 0 0 4 0c0-1-2-4-2-4Z"),
-            bowl: me("M2 8h12c0 4-3 6-6 6s-6-2-6-6Zm3-3c1-2 2 2 3 0s2 2 3 0"),
-            bowArrow: me("M3 2c5 3 5 9 0 12M4 8h10m-3-3 3 3-3 3"),
-            chase: me("M2 11c3-6 7-6 12 0M3 5h3m2-2h3m1 2h2"),
-            wrestle: me("M5 5a2 2 0 1 0 0-4m6 4a2 2 0 1 0 0-4M2 14l3-6 3 3 3-3 3 6M5 8l3-2 3 2"),
-            calendar: me("M3 3h10v11H3Zm0 4h10M5 1v4m6-4v4M6 10l2 2 3-3"),
-            candle: me("M5 6h6v8H5Zm3-5c2 2 2 3 0 5-2-2-2-3 0-5"),
-            lotus: me("M8 13c-4-1-6-4-6-7 3 0 5 1 6 4 1-3 3-6 6-7 1 4 0 7-3 9 2-1 4-1 6 0-1 4-4 7-9 7Z"),
-            rose: me("M8 8c-5-1-4-6 0-5 4-1 5 4 0 5Zm0 0v6m0-3-3-1m3 2 3-2"),
-            stranger: me("M8 2a3 3 0 1 0 0 6 3 3 0 0 0 0-6ZM3 14c0-4 10-4 10 0M4 6h8"),
-            ufo: me("M3 8c1-4 9-4 10 0m-11 0h12c0 4-12 4-12 0M6 5c0-3 4-3 4 0"),
-            swapBody: me("M4 4h8m0 0-2-2m2 2-2 2M12 12H4m0 0 2-2m-2 2 2 2M5 7v2m6-2v2"),
-            ribbon: me("M5 2h6v5l-3 2-3-2Zm1 6-2 6 4-2 4 2-2-6"),
-            hug: me("M5 6a2 2 0 1 0 0-4m6 4a2 2 0 1 0 0-4M2 13c1-5 4-6 6-2 2-4 5-3 6 2M4 8l4 4 4-4"),
-            cloud: me("M4 12c-4 0-3-6 1-6 1-5 8-4 8 1 4 0 4 5 0 5Z"),
-            chat: me("M2 3h12v8H7l-3.5 2v-2H2Zm3 3h6m-6 2h4"),
-            cup: me("M3 5h8v6a3 3 0 0 1-3 3H6a3 3 0 0 1-3-3Zm8 1h2c2 0 2 4 0 4h-2"),
-            bed: me("M2 6h12v7M3 13V4h4v4h7M3 9h11"),
-            standing: me("M6 3a2 2 0 1 0 0-2m5 2a2 2 0 1 0 0-2M6 5v5l-2 4m2-4 2 4m3-9v5l-2 4m2-4 2 4M7 7h3"),
-            heart: me("M14 5.5c0 4-6 7.5-6 7.5S2 9.5 2 5.5a3 3 0 0 1 5-2L8 4l1-1a3 3 0 0 1 5 2.5Z"),
-            arrows: me("M2 5h9m0 0L9 3m2 2L9 7m3 4H5m0 0 2-2m-2 2 2 2")
-        }, be = {
-            "Power exchange": [ "compass", "checklist", "ring", "medal", "scale", "hands", "stage", "infinity" ],
-            "Bondage & restriction": [ "coil", "bow", "knot", "cuffs", "spreader", "tape", "mouth", "cocoon", "chair", "blindfold", "key", "lock" ],
-            "Impact, pain & body modification": [ "hand", "paddle", "tassel", "cane", "crop", "lash", "clamp", "claw", "comb", "needle", "target", "shield" ],
-            "Sensation & atmosphere": [ "flame", "snow", "feather", "bolt", "stripes", "muted", "burst", "whisper", "note", "mirror", "moon", "perfume", "energy" ],
-            "Roleplay & identity": [ "badge", "cradle", "clock", "paw", "horse", "dog", "house", "cross", "book", "cage", "consent", "horns", "fangs", "scroll" ],
-            "Clothing, materials & objects": [ "hide", "droplet", "stocking", "uniform", "heel", "hood", "harness", "diaper", "fork", "fur", "beads", "pump", "shower", "ribbon" ],
-            "Body focus & appearance": [ "foot", "glove", "comb", "chest", "curves", "hands", "resize", "muscle", "tattoo", "belly" ],
-            "Psychological dynamics": [ "star", "downTalk", "shards", "speech", "cube", "pendulum", "eye", "question", "hourglass", "keyhole" ],
-            "Watching, exposure & settings": [ "watch", "camera", "spotlight", "tree", "curtains" ],
-            "Partner configurations": [ "trio", "crowd", "swap", "stag", "knot3", "tray", "many", "clock" ],
-            "Sex acts": [ "finger", "tongue", "cream", "arrowMouth", "chair", "splash", "mouthHand", "fist", "fistLock", "handMotion", "strap", "spray", "glove", "ring", "mouth", "enter" ],
-            Positions: [ "knot3", "horse", "dog", "bed", "swap", "hug", "standing" ],
-            "Orgasm & reproductive play": [ "dial", "barred", "lock", "edge", "lure", "seed", "cradle", "egg" ],
-            "Fluids & messy play": [ "water", "cradle", "target", "drops" ],
-            "Primal & pursuit": [ "bowArrow", "chase", "wrestle", "claw" ],
-            "Service & ritual": [ "hands", "house", "checklist", "comb", "hanger", "key", "calendar", "candle", "lotus" ],
-            "Fantasy & transformation": [ "heart", "rose", "stranger", "keyhole", "horns", "ufo", "resize", "swapBody", "paw", "arrows", "hanger", "ribbon", "star" ],
-            "Connection & aftercare": [ "chat", "hug", "cup", "cloud", "star", "checklist", "moon", "calendar" ]
-        }, ve = new Map;
+        const ve = new Map;
         b.forEach(e => e.topics.forEach((t, n) => ve.set(e.name + "\0" + t, (be[e.name] || [])[n] || "star")));
-        const we = {
-            "Power exchange": "crown",
-            "Bondage & restriction": "chain links",
-            "Impact, pain & body modification": "paddle",
-            "Sensation & atmosphere": "wave",
-            "Roleplay & identity": "mask",
-            "Clothing, materials & objects": "hanger",
-            "Body focus & appearance": "person",
-            "Psychological dynamics": "brain",
-            "Watching, exposure & settings": "eye",
-            "Partner configurations": "two people",
-            "Sex acts": "heart",
-            Positions: "opposing arrows",
-            "Orgasm & reproductive play": "burst",
-            "Fluids & messy play": "droplet",
-            "Primal & pursuit": "paw",
-            "Service & ritual": "service bell",
-            "Fantasy & transformation": "wand and spark",
-            "Connection & aftercare": "heart and pulse"
-        }, ke = {
-            downTalk: "speech bubble",
-            partnerEye: "eye and partner",
-            arrowMouth: "arrow and mouth",
-            mouthHand: "mouth and hand",
-            fistLock: "locked fist",
-            handMotion: "moving hand",
-            patHeart: "hand and heart",
-            bowArrow: "bow and arrow",
-            homeHeart: "home and heart",
-            swapBody: "swapping figures",
-            knot3: "three linked circles",
-            many: "group of people",
-            cream: "cream swirl",
-            enter: "entering arrow",
-            barred: "barred frame",
-            edge: "rising arcs",
-            lure: "rippled lines",
-            seed: "sprouting seed",
-            drops: "two droplets",
-            watch: "watching eye",
-            hide: "animal hide",
-            curves: "body curves",
-            resize: "expanding arrows",
-            downTalk: "speech bubble",
-            keyhole: "keyhole",
-            split: "split heart",
-            cradle: "cradle",
-            standing: "two standing figures",
-            arrows: "crossing arrows",
-            energy: "energy flow",
-            lotus: "lotus"
-        };
         function xe(e) {
             return ke[e] || e.replace(/([a-z])([A-Z])/g, "$1 $2").replace(/\d+/g, "").trim();
         }
-        const Se = {
-            black: "black",
-            darkBlue: "dark blue",
-            lightBlue: "light blue",
-            red: "red",
-            grey: "gray",
-            yellow: "yellow",
-            brown: "brown",
-            purple: "purple",
-            orange: "orange",
-            white: "white",
-            pink: "pink",
-            green: "green",
-            hunterGreen: "hunter green",
-            neutral: "neutral gray",
-            noCode: "dark charcoal"
-        };
         function $e(e, t, n, i, a) {
             const r = [ `${"Category" === e.kind ? we[e.branch] || "branch symbol" : xe(t.key)}: ${"Category" === e.kind ? "branch" : "topic"} symbol for ${e.label}.` ], o = Se[i.key] || "hanky";
             t && t.glyphFallback && r.push("The star symbol is shown because no symbol is assigned here.");
@@ -4646,52 +4872,6 @@ const TAXONOMY_CATEGORIES = [];
             r.join(" ");
         }
         
-        const Ee = Object.freeze({
-            Materials: "stripes",
-            Footwear: "heel",
-            "Uniforms & costumes": "uniform",
-            "Lingerie & hosiery": "stocking",
-            Undergarments: "ribbon",
-            "Masks & headwear": "hood",
-            "Objects/toys": "beads",
-            "Hand spanking": "hand",
-            "Flexible implements": "tassel",
-            "Rigid implements": "paddle",
-            "Clamps & pinching": "clamp",
-            "Cutting & piercing": "needle",
-            "Genital pain": "target",
-            Extreme: "flame",
-            "Head hair": "comb",
-            "Facial & body hair": "fur",
-            "Lower body": "foot",
-            Torso: "chest",
-            Face: "mirror",
-            "Body type": "curves",
-            Worship: "hands",
-            "Caregiver & little roles": "cradle",
-            Authority: "badge",
-            Captivity: "cage",
-            Animal: "paw",
-            "Historical & fantasy": "scroll",
-            "Flexible ties": "coil",
-            Restraints: "cuffs",
-            "Tape & wrapping": "tape",
-            Sensory: "blindfold",
-            Confinement: "cocoon",
-            "Challenge bondage": "hourglass",
-            Specialty: "harness",
-            Oral: "mouth",
-            Anal: "ring",
-            Manual: "finger",
-            Insertion: "enter",
-            Fluids: "droplet",
-            Humiliation: "downTalk",
-            Intimidation: "horns",
-            "Mind control": "pendulum",
-            Emotional: "heart",
-            Vulnerability: "keyhole",
-            Verbal: "speech"
-        });
         function Ae(e, t) {
             const n = Ee[e] || "star", _glyphFallback = !(e in Ee) || !(n in ye), i = ge[t] || {};
             const c = h.find(c => c.name === t), s = c && (c.subcategories || []).find(s => s.name === e), p = s ? fpSub(s.topics, t) : null;
@@ -4763,92 +4943,6 @@ const TAXONOMY_CATEGORIES = [];
                 mixed: s
             };
         }
-        const Ce = {
-            black: {
-                color: "#111514",
-                labelStroke: "#dce1dd"
-            },
-            darkBlue: {
-                color: "#2f6fd3",
-                labelStroke: "#18202b"
-            },
-            lightBlue: {
-                color: "#69bdf0",
-                labelStroke: "#17242c"
-            },
-            red: {
-                color: "#e55252",
-                labelStroke: "#2b1718"
-            },
-            grey: {
-                color: "#929a96",
-                labelStroke: "#1c211e"
-            },
-            yellow: {
-                color: "#f0cf3f",
-                labelStroke: "#2e2812"
-            },
-            brown: {
-                color: "#a86a3e",
-                labelStroke: "#251a14"
-            },
-            purple: {
-                color: "#ad62d4",
-                labelStroke: "#241629"
-            },
-            orange: {
-                color: "#ed8a2c",
-                labelStroke: "#2a1d12"
-            },
-            white: {
-                color: "#f2f0e8",
-                labelStroke: "#242925"
-            },
-            pink: {
-                color: "#ed7db7",
-                labelStroke: "#2a1822"
-            },
-            green: {
-                color: "#4cba73",
-                labelStroke: "#17261d"
-            },
-            hunterGreen: {
-                color: "#28734d",
-                labelStroke: "#d9e1dc"
-            },
-            neutral: {
-                color: "#aeb5b0",
-                labelStroke: "#1b201d"
-            }
-        }, Me = {
-            "Power exchange": "hunterGreen",
-            "Bondage & restriction": "grey",
-            "Impact, pain & body modification": "black",
-            "Service & ritual": "green"
-        }, Ie = new Map;
-        Object.entries({
-            black: [ "Temperature", "Electrical Play", "Sensory overload", "Consensual non-consent fantasy", "Fear Play", "Interrogation", "Blood play", "Wrestling", "Biting & scratching" ],
-            darkBlue: [ "Anal beads", "Anal fingering", "Rimming", "Anal sex" ],
-            lightBlue: [ "Facefucking", "Facesitting", "Facials", "Fingering mouths", "Oral sex" ],
-            red: [ "Vaginal fisting", "Anal fisting" ],
-            grey: [ "Sensory deprivation", "Captivity / kidnapping" ],
-            yellow: [ "Watersports" ],
-            brown: [],
-            purple: [ "Needle Play", "Body Modification" ],
-            orange: [ "Penetration" ],
-            white: [ "Handjobs" ],
-            pink: [ "Pumps", "Pegging" ],
-            green: [ "Group service", "Spiritual play" ],
-            hunterGreen: [ "Authority roles", "Caregiver roles (adults)", "Age play between adults", "Pet play", "Pony Play", "Puppy play", "Owner & property", "Doctor/Nurse Play", "Teacher / student roleplay", "Hunter / prey" ],
-            neutral: [ "Tantra / energy play" ]
-        }).forEach(([e, t]) => t.forEach(t => Ie.set(t, e)));
-        const Pe = {
-            key: "noCode",
-            color: "#232726",
-            lineColor: "#78817e",
-            labelColor: "#aeb5b0",
-            labelStroke: "#1b201d"
-        };
         function Le(e, t) {
             const n = Ie.get(e) || Me[t];
             if (!n) return {
@@ -4928,742 +5022,6 @@ const TAXONOMY_CATEGORIES = [];
             };
         }
         h.forEach(e => e.topics.forEach(t => _e.set(e.name + "\0" + t, De++)));
-        const Be = {
-            aella: {
-                label: "Aella Big Kink Survey",
-                url: "https://github.com/austeane/aella-survey-site/blob/HEAD/data/Big%20Kink%20Survey%20(970k%20cleaned).md"
-            },
-            kinktest: {
-                label: "KinkTest list",
-                url: "https://kinktest.org/list-of-kinks-the-definitions-of-most-commonpopular-kinks.html"
-            },
-            checklist: {
-                label: "Yes / No / Maybe checklist",
-                url: "https://www.scribd.com/document/879070084/Yes-No-Maybe-Kink-List"
-            }
-        }, je = {
-            "Power exchange": {
-                sources: [ "aella", "kinktest", "checklist" ],
-                description: "Ways partners may negotiate authority, obedience, rules, symbols, rewards, and discipline."
-            },
-            "Bondage & restriction": {
-                sources: [ "aella", "kinktest", "checklist" ],
-                description: "Restraining movement or access with rope, cuffs, wrapping, furniture, gags, or related methods."
-            },
-            "Impact, pain & body modification": {
-                sources: [ "aella", "kinktest", "checklist" ],
-                description: "Impact, pain, marking, or body-modification interests. These topics call for specialized knowledge and explicit risk discussion."
-            },
-            "Sensation & atmosphere": {
-                sources: [ "aella", "kinktest", "checklist" ],
-                description: "Changing touch, temperature, sound, light, texture, or sensory input to shape an experience."
-            },
-            "Roleplay & identity": {
-                sources: [ "aella", "kinktest", "checklist" ],
-                description: "Consensual adult roles, characters, and scenarios used to explore identity, authority, care, or fantasy."
-            },
-            "Clothing, materials & objects": {
-                sources: [ "aella", "kinktest" ],
-                description: "Interest centered on particular garments, materials, toys, or objects and how they look, feel, or are used."
-            },
-            "Body focus & appearance": {
-                sources: [ "aella", "kinktest", "checklist" ],
-                description: "Attraction or attention focused on a body part, body type, appearance state, scent, or form of adornment."
-            },
-            "Psychological dynamics": {
-                sources: [ "aella", "kinktest", "checklist" ],
-                description: "Verbal, emotional, and imaginative dynamics such as praise, humiliation, suspense, fear, or altered-control fantasy."
-            },
-            "Watching, exposure & settings": {
-                sources: [ "aella", "kinktest", "checklist" ],
-                description: "Consensual interests involving being seen, watching, recording privately, performing, or using a particular setting."
-            },
-            "Partner configurations": {
-                sources: [ "aella", "kinktest", "checklist" ],
-                description: "Interests involving more than two people or a negotiated non-monogamous configuration."
-            },
-            "Sex acts": {
-                sources: [ "aella", "kinktest", "checklist" ],
-                description: "Specific sexual activities. Give and receive can be rated independently wherever direction matters."
-            },
-            Positions: {
-                sources: [ "aella" ],
-                description: "Positions listed in the Aella survey instrument, treated here as separate prompts for discussion."
-            },
-            "Orgasm & reproductive play": {
-                sources: [ "aella", "kinktest", "checklist" ],
-                description: "Interests involving arousal timing, orgasm, or consensual reproductive fantasy rather than an assumption of real-world intent."
-            },
-            "Fluids & messy play": {
-                sources: [ "aella", "kinktest", "checklist" ],
-                description: "Body-fluid or messy-play interests. Boundaries, barriers, hygiene, and specific risks should be discussed explicitly."
-            },
-            "Primal & pursuit": {
-                sources: [ "checklist" ],
-                description: "Instinctive or pursuit-focused play such as negotiated chasing, wrestling, hunter/prey roles, biting, or scratching."
-            },
-            "Service & ritual": {
-                sources: [ "checklist" ],
-                description: "Structured service, etiquette, permission, grooming, tasks, and ceremonies within a negotiated dynamic."
-            },
-            "Fantasy & transformation": {
-                sources: [ "aella", "kinktest", "checklist" ],
-                description: "Fictional narratives, creatures, identity play, and imagined changes in body, scale, or form."
-            },
-            "Connection & aftercare": {
-                sources: [ "checklist" ],
-                description: "Ways partners reconnect, recover, reflect, and care for one another during and after an experience."
-            }
-        }, qe = {
-            "Protocols": "Agreed rules that shape how someone speaks, dresses, asks permission, completes tasks, or behaves in a power-exchange relationship or scene.",
-            "Ownership language": "Calling someone “mine,” “owned,” “property,” or similar words to make the power exchange feel possessive and real while both people are choosing the dynamic.",
-            "Collars & symbols": "Wearing a collar, ring, bracelet, tag, or other item that represents a dominant/submissive bond, a role, or a commitment.",
-            "Reward & correction": "The person in charge rewards wanted behavior and corrects behavior that breaks the agreed rules, using attention, privileges, tasks, or other consequences.",
-            Discipline: "One person enforces agreed rules by assigning consequences such as extra tasks, loss of privileges, scolding, or physical punishment.",
-            Begging: "One person pleads for touch, sex, permission, release, or another desired thing while the other decides whether and when to grant it.",
-            "Scene-based roles": "Taking dominant and submissive roles for a particular sexual or kink scene, then ending those roles when the scene is over.",
-            "Ongoing dynamics": "Keeping a power exchange active beyond individual scenes, so agreed authority, service, rules, or rituals continue through everyday life.",
-            "Rope bondage": "Tying someone with rope to limit movement, hold a pose, create pressure, or make the restraint itself part of the erotic experience.",
-            "Decorative rope": "One partner gives the rope — ties decorative knots, patterns, and lines on the body — while the other receives it: is tied and wears the rope, mainly for how it looks and feels rather than to be immobilized.",
-            "Japanese bondage": "A rope-bondage style influenced by Japanese kinbaku or shibari, using deliberate patterns, tension, positions, and often a strong visual or emotional focus.",
-            "Cuffs & straps": "Fastening wrists, ankles, thighs, or other body parts with cuffs or straps so movement is restricted or controlled.",
-            "Spreaders & bars": "Attaching the wrists, ankles, or legs to a rigid bar that keeps them held apart and makes closing or pulling them together difficult.",
-            "Tape & wrapping": "Using bondage tape, plastic wrap, or another wrapping material around part of the body to hold limbs together or create a tight, enclosed feeling.",
-            Gags: "Putting a gag in or over someone’s mouth to limit speech, change their sounds, or emphasize helplessness and control.",
-            Mummification: "Wrapping most of someone’s body in plastic wrap, tape, cloth, or bandages until they are tightly enclosed and largely unable to move.",
-            "Furniture restraint": "Securing someone to a bed, bench, chair, frame, cage, or purpose-built piece of bondage furniture so the object holds their position.",
-            "Blindfolded restraint": "Restraining someone while their eyes are covered, combining limited movement with not being able to see what is coming.",
-            "Escape play": "Tying or locking someone up and making the struggle to get free part of the scene, whether escape is genuinely possible or only roleplayed.",
-            Immobilization: "Restraining someone so thoroughly that they can move very little or not at all, often by fixing several limbs or the whole body in place.",
-            Spanking: "Striking someone’s buttocks with an open hand for sting, heat, sound, movement, punishment, or added intensity during sex.",
-            "Paddles & straps": "Hitting the buttocks or other fleshy areas with a flat paddle or flexible strap, producing anything from a broad thud to a sharp sting.",
-            Flogging: "Swinging a multi-tailed flogger against the body in repeated strokes that can feel soft and rhythmic or heavy and painful.",
-            Caning: "Striking the body with a thin, rigid cane that delivers a narrow, sharp sensation and can leave distinct lines.",
-            "Riding crops": "Striking with a short, semi-rigid riding crop, using its narrow shaft or leather flap to create precise, sharp stings and focused impacts.",
-            Whips: "Striking with a flexible whip—often a single-tail—whose traveling loop and fast-moving tip can produce a sharp crack, sting, or narrow line.",
-            Clamps: "Clipping adjustable or spring-loaded clamps onto nipples, genitals, or other pinched skin to create steady pressure and pain.",
-            "Hair pulling": "Gripping and pulling someone’s hair during a scene or sexual activity to guide their head, add pain, intensify control, or create a firm physical hold.",
-            "Needles & piercing": "Putting sterile needles through or into the skin, or making temporary or permanent piercings, as the focus of the scene.",
-            Sounding: "Urethral sounding is the insertion of smooth metal or silicone rods into the urethra for sexual stimulation. It is a higher-risk practice requiring sterile technique, specialized knowledge, appropriate lubrication, and explicit negotiation.",
-            "Heavy marking": "Hitting, biting, scratching, suctioning, or otherwise working the skin hard enough to leave bruises, welts, scratches, or other visible marks.",
-            "Extreme endurance": "One partner endures intense pain, difficult positions, repeated impact, or prolonged stimulation while the other pushes their agreed physical or mental limits.",
-            "Temperature": "Dripping warm wax onto skin or using controlled heat and cold to create sudden temperature sensations across the body.",
-            "Cold Touch": "Running ice, chilled metal, cold hands, or cool air over the skin, sometimes alternating it with warmth or sexual touch.",
-            Tickling: "Touching sensitive areas lightly or rapidly to make someone squirm, laugh, lose composure, or struggle against restraint.",
-            "Electrical Play": "Applying controlled electrical pulses with an E-stim device or violet wand so the body feels tingling, tapping, pulsing, or sharper shocks.",
-            "Texture contrast": "Moving very different materials—such as fur, leather, metal, rope, feathers, or rough fabric—across the skin to emphasize how each feels.",
-            "Sensory deprivation": "Removing or reducing sight, sound, movement, or touch so someone has less information and becomes more focused on the sensations that remain.",
-            "Sensory overload": "Giving many strong sensations at once—such as noise, light, touch, vibration, pain, or sexual stimulation—until it becomes deliberately overwhelming.",
-            "ASMR & whispering": "Using close whispers, soft mouth sounds, breath, scratching, or other quiet repetitive sounds to create tingles, calm, or erotic intimacy.",
-            "Music": "Using music, voices, rhythms, sound effects, or deliberate silence to set the pace and emotional tone of a scene.",
-            Mirrors: "Positioning mirrors so someone can watch themselves or their partner during sex, bondage, dressing, or another scene.",
-            "Low light": "Using dim lamps, candles, darkness, or shadows to change what can be seen and make the scene feel private, suspenseful, or intimate.",
-            Scent: "One partner gives a scent — wears perfume, leather, sweat, incense — the other receives it: smells, breathes it in.",
-            "Tantra / energy play": "Using tantric or energy-focused practices—such as synchronized breathing, sustained eye contact, slow touch, visualization, pelvic-floor control, meditation, and the deliberate circulation or exchange of felt energy—to build embodied presence, arousal, intimacy, or altered states within a kink scene.",
-            "Spiritual play": "Treating consensual sexuality or kink as an intentional spiritual or devotional practice through ceremony, invocation, vows, offerings, sex magic, or symbolic roles, with the meaning and boundaries negotiated by everyone involved.",
-            "Authority roles": "Roleplaying a power-unequal relationship such as boss/employee, officer/civilian, or ruler/subject, with one adult giving orders and the other obeying.",
-            "Caregiver roles (adults)": "One adult plays a nurturing, protective, or supervisory caregiver and the other adult plays the person being looked after.",
-            "Age play between adults": "Adults roleplay being different ages or use age-coded behavior, clothes, speech, or rules; every person involved is an adult regardless of the role.",
-            "Pet play": "One adult takes on the behavior and status of a pet while another acts as owner, handler, trainer, or companion.",
-            "Pony Play": "A form of pet play in which someone acts like a pony through posture, tack, pulling a cart, dressage-style movement, or training.",
-            "Puppy play": "A form of pet play in which someone acts like a puppy through crawling, barking, playing, wearing pup gear, or responding to a handler.",
-            "Owner & property": "One partner takes the owner role — calling the other “mine,” setting agreed rules, or directing their service and display — while the other takes the property role: is claimed, kept, and used within the chosen dynamic.",
-            "Doctor/Nurse Play": "Adults act out a medical exam or treatment, with one playing a doctor or nurse and the other playing the patient.",
-            "Teacher / student roleplay": "Adults act out a classroom or tutoring dynamic in which a teacher gives lessons, tests, rules, praise, or punishment to an adult student.",
-            "Captivity / kidnapping": "One partner captures the other — abducts, restrains, transports, confines, or guards them in roleplay — while the other is captured and acts unable to leave; all real participants agreed to the scene.",
-            "Consensual non-consent fantasy": "Adults agree in advance to act out resistance, force, or refusal as part of a scene, even though the real encounter is chosen and controlled by them.",
-            "Creature fantasy": "Roleplaying sex or intimacy with a fictional nonhuman creature, or pretending that one participant is such a creature.",
-            "Vampires & gothic": "Using vampire roles, biting, blood imagery, dark clothing, candlelight, crypts, or other gothic elements as the erotic fantasy.",
-            "Historical fantasy": "Roleplaying adults in another time period—such as a royal court, pirate ship, manor, or wartime setting—with period-inspired roles and clothing.",
-            Leather: "Wearing, touching, smelling, or using leather clothing and gear such as harnesses, boots, gloves, straps, or jackets as part of attraction or play.",
-            "Latex": "Wearing tight latex or rubber clothing, or enjoying its shine, smell, pressure, squeak, and slick feel against the body.",
-            "Lingerie": "Wearing or admiring bras, panties, corsets, garters, stockings, and similar garments as part of dressing up, teasing, or sex.",
-            Uniforms: "Wearing a recognizable work, military, school-style, service, or authority uniform to create a look or support a roleplay.",
-            "Heels & boots": "Wearing, touching, admiring, or being controlled with high heels, tall boots, or heavy footwear as the focus of attraction or a scene.",
-            "Masks & hoods": "Covering part or all of the face or head to hide identity, change appearance, restrict sight or sound, or create a depersonalized feeling.",
-            Harnesses: "Wearing straps fitted around the chest, hips, thighs, or genitals for appearance, attachment points, restraint, or holding a toy.",
-            Diapers: "Adults wear, use, change, or are placed in diapers as part of regression, caregiving, humiliation, comfort, or bodily-control play.",
-            "Food / messy play": "Putting edible food on bodies, feeding each other, eating from the body, or smearing and pouring foods such as cream, syrup, cake, or fruit so taste and mess become part of sexual play.",
-            Fur: "Wearing, touching, or rubbing real or faux fur because its softness, warmth, animal association, or appearance is arousing.",
-            "Anal beads": "Inserting a connected string of beads into the anus and pulling them out slowly or during orgasm for a sequence of stretching sensations.",
-            Pumps: "Using a vacuum pump on nipples, the penis, vulva, clitoris, or other tissue to draw in blood, create swelling, and increase sensitivity.",
-            Showerheads: "Using a handheld or directed stream of water against the genitals or other sensitive areas for pressure and stimulation.",
-            "Costume transformation": "One partner gives a costume — dresses the other in clothing, a wig, makeup, prosthetics, or accessories — while the other receives it: is dressed and transformed into a character or type of person.",
-            "Feet & footwear": "Focusing attraction or sexual attention on bare feet, toes, socks, shoes, or boots through looking, touching, licking, smelling, or worship.",
-            "Hands & gloves": "Focusing attraction on hands, fingers, nails, or gloves through watching, touching, kissing, sucking, or having them used during sex.",
-            Hair: "Focusing attraction on the look, smell, texture, length, styling, or handling of someone’s hair.",
-            Breasts: "Focusing sexual attention on breasts or nipples through looking, touching, sucking, squeezing, rubbing, or using them during sex.",
-            Buttocks: "Focusing sexual attention on someone’s ass through looking, touching, squeezing, licking, spanking, or penetration.",
-            "Body worship": "Lavishly kissing, licking, touching, praising, or serving someone’s body—or a chosen part of it—as if it deserves devotion.",
-            "Size contrast": "Making a difference in height, weight, strength, penis size, or imagined scale central to the attraction or power dynamic.",
-            "Muscle Worship": "Admiring, touching, kissing, flexing for, or verbally praising a muscular body as the focus of the scene.",
-            "Tattoo & body modification focus": "Being attracted to tattoos, piercings, scars, stretched ears, implants, or other deliberate changes to someone’s body.",
-            "Pregnancy focus": "Finding a pregnant body, rounded belly, lactation, or the physical idea of pregnancy sexually compelling.",
-            "Scent & sweat": "Enjoying the smell or taste of a partner’s natural body odor and sweat, often after exercise or sex.",
-            "Praise (in scene)": "Using sincere compliments, affectionate worship, and enthusiastic approval during play to make someone feel desired, cherished, or exceptionally good.",
-            "Humiliation language": "Using agreed insulting, embarrassing, or belittling words to make someone feel exposed, small, dirty, or controlled during play.",
-            Degradation: "Treating someone in an agreed demeaning way through words, posture, tasks, object-like use, mess, or denial of status.",
-            "Dirty talk": "Speaking explicitly about bodies, sex acts, desires, commands, or fantasies during flirting, sex, or a scene.",
-            Objectification: "Treating a person as a body part, toy, piece of furniture, display item, or tool for someone else’s pleasure within the roleplay.",
-            "Hypnosis & mind-control fantasy": "Using hypnotic language, triggers, repetition, or roleplay to create the fantasy that someone’s thoughts or actions are being controlled.",
-            "Fear Play": "Creating a controlled feeling of danger, dread, or helplessness through threats, darkness, weapons as props, pursuit, or not knowing what comes next.",
-            Interrogation: "One person questions another under pressure, using commands, restraint, threats, or discomfort while the other resists or gives up information in character.",
-            "Anticipation": "Delaying or hiding what will happen next so waiting, uncertainty, and mounting tension become part of the arousal.",
-            "Secrets": "One person gives a secret — reveals desires, fantasies, embarrassing thoughts — while the other receives it: listens, questions, or commands.",
-            "Watching & being watched": "One partner watches the other undress, masturbate, have sex, or perform another intimate act; the watched partner knows and agrees to the audience.",
-            "Private Media": "Taking, posing for, or recording intimate photos or video meant to stay within the participants’ agreed private audience.",
-            "Performance for a partner": "Stripping, masturbating, dancing, posing, or performing a sexual act mainly for a partner who is watching.",
-            "Public Play": "Having sex or doing kink outdoors in a secluded place, or doing something discreet in public — such as hidden touch or remote-toy play — for the thrill of almost being noticed without involving nonconsenting people.",
-            "Exhibition / voyeurism": "One partner exhibits — exposes their body or performs sexual activity for an audience — while the other watches; any enacted “secret” watching is roleplayed by consenting adults.",
-            "Cuckold / hotwife fantasy": "Fantasizing that one partner has sex with someone else while the other knows, watches, hears details, or experiences jealousy and arousal.",
-            Threesomes: "Sexual activity involving three adults at the same time, in whatever combination of genders and roles they choose.",
-            "Group encounters": "Sexual or kink activity involving more than three adults, with attention moving among several people or scenes.",
-            Swinging: "Couples consensually have sex with other people or couples, together or separately, usually as recreational partner swapping rather than a romantic relationship.",
-            "Cuckold / hotwife": "A relationship, fantasy, or scene in which one partner has sex with someone else while the other knows, encourages, watches, hears details, joins in, or eroticizes jealousy, denial, submission, or humiliation.",
-            "Polyamory with kink": "Maintaining multiple consensual romantic or sexual relationships while also sharing BDSM roles, scenes, rules, or power dynamics.",
-            "Group service": "Service is given and received: one side gives service to the group, the other receives it.",
-            Gangbang: "One partner receives a gangbang — is the sexual focus of several adults — the others give it.",
-            Hotwifing: "A married or partnered woman has sex with other people with her partner’s knowledge and encouragement, usually without humiliation being required.",
-            "Anal fingering": "Putting one or more fingers into the anus and moving, curling, or pressing them to stimulate the anus, rectum, or prostate.",
-            Rimming: "Licking, kissing, or using the tongue on and around someone’s anus.",
-            Creampies: "Ejaculating semen inside a vagina or anus and leaving it there, or roleplaying that act with a toy or simulated fluid.",
-            Facefucking: "Thrusting a penis or strap-on in and out of someone’s mouth with the penetrating partner controlling much of the pace and depth.",
-            Facesitting: "Sitting or lowering the vulva, anus, or clothed crotch over someone’s face so they use their mouth and tongue from underneath.",
-            Facials: "Ejaculating semen onto a consenting partner's face, where the placement, visual display, mess, taste, or power dynamic is part of the sexual act.",
-            "Fingering mouths": "Putting one or more fingers into someone’s mouth for them to lick or suck, or to control how their mouth opens and moves.",
-            "Vaginal fisting": "Slowly inserting the whole hand, usually with fingers gathered together, into the vagina for intense fullness and stretching.",
-            "Anal fisting": "Slowly inserting the whole hand, usually with fingers gathered together, into the anus and rectum for intense fullness and stretching.",
-            "Hair pulling during sex": "Gripping and pulling a partner’s hair during sexual activity to guide their head, add pain, or intensify control.",
-            Handjobs: "Stroking, squeezing, or rubbing a penis with a hand to create sexual pleasure and often orgasm.",
-            Pegging: "A woman wears a strap-on dildo and fucks a partner anally with it; a man or nonbinary person can wear the strap-on and do the same thing.",
-            "Spanking during sex": "Slapping someone’s buttocks with an open hand while fucking, oral sex, or other sexual activity is happening.",
-            Squirting: "One partner squirts — expels fluid through the urethra during arousal or orgasm — while the other makes them squirt through stimulation and may use the fluid as part of the scene.",
-            "Vaginal fingering": "Putting one or more fingers into the vagina and moving, curling, or pressing them to stimulate the vaginal walls, G-spot area, or cervix.",
-            "Anal sex": "Putting a penis, strap-on, dildo, or other penetrative toy into someone’s anus and thrusting or moving it there.",
-            "Oral sex": "Using the mouth, lips, and tongue to stimulate a penis, vulva, or anus.",
-            Penetration: "Putting a penis, fingers, fist, dildo, strap-on, or another toy inside the vagina or anus and moving or holding it there.",
-            69: "Two people perform oral sex on each other at the same time, with each person’s mouth at the other’s genitals.",
-            Cowgirl: "One person lies down while the receiving partner straddles them facing forward and controls the motion during vaginal or anal penetration.",
-            Doggystyle: "The receiving partner is on hands and knees or bent forward while the penetrating partner enters from behind.",
-            Missionary: "The receiving partner lies on their back while the penetrating partner faces them from above or between their legs.",
-            "Reverse cowgirl": "One person lies down while the receiving partner straddles them facing away and controls the motion during penetration.",
-            Spooning: "Both partners lie on their sides facing the same direction while the partner behind penetrates, rubs, or reaches around the partner in front.",
-            "Standing up": "Partners have sex while one or both are standing, using a wall, furniture, lifting, or balance to hold the position.",
-            "Orgasm control": "One person decides when, how, or whether another person may orgasm, often using commands, pacing, stopping, or permission.",
-            "Orgasm denial": "Keeping someone aroused while deliberately preventing orgasm for a set time, a scene, or an ongoing dynamic.",
-            Chastity: "Restricting access to someone’s genitals or sexual release, often with a wearable device, while a partner controls when it may be removed.",
-            Edging: "Bringing someone close to orgasm, backing off before they climax, and repeating the cycle to prolong arousal.",
-            Teasing: "Building desire with partial touch, exposure, words, or near-contact while deliberately delaying the stimulation or release the person wants.",
-            "Breeding / pregnancy fantasy": "One partner impregnates — gives sperm by ejaculating inside and gives the pregnancy — while the other is impregnated: receives the sperm and is or becomes pregnant in the fantasy, whether or not pregnancy is actually possible or intended.",
-            "Surrogacy fantasy": "One partner gives the surrogacy — carries the pregnancy for the other — the other receives it: the intended parent.",
-            "Oviposition fantasy": "One partner gives eggs — lays them — the other receives them, in a fictional fantasy often involving toys, inflation, or imagined creatures.",
-            Watersports: "Urinating on a partner, being urinated on, watching someone urinate, or otherwise making urine part of sexual play.",
-            Lactation: "One partner gives breast milk — expresses it — the other receives it: sucks, licks, drinks.",
-            "Squirt play": "Using fluid released during squirting as part of sex, including watching it, feeling it on bodies, or deliberately making a mess with it.",
-            "Blood play": "Making, seeing, tasting, or using blood during a scene, often through controlled cutting, needles, or an existing menstrual flow.",
-            Spit: "Spitting on a partner’s face, body, or genitals, spitting into their mouth, making them spit, or being spat on as a consensual act of humiliation, possession, intimacy, or messy play.",
-            "Age gap": "Sexual or romantic attraction centered on a substantial age difference between two legally adult partners, whether the person is drawn to being the older or the younger partner. Unlike age play, the age difference is real rather than an acted role.",
-            "Celebrity fantasy": "Imagining sexual or romantic contact with a real celebrity or other famous public figure. The fantasy centers on that person’s public identity and remains separate from any expectation of real-world access or consent.",
-            "Messy food play": "Smearing, pouring, sitting in, or covering bodies with foods such as cream, syrup, cake, or fruit, then touching, licking, or having sex in the mess.",
-            "Hunter / prey": "One partner hunts — tracks, chases, catches, pins, or claims — while the other is hunted: runs, hides, resists, struggles, or is caught, often with raw growling, grabbing, biting, or rough sex.",
-            "Chase scenes": "One partner gives the chase — pursues — the other receives it: is chased, caught.",
-            "Wrestling": "One partner gives the fight or struggle — initiates the grappling, pinning, or contest for position — while the other receives it: engages, resists, and physically struggles back.",
-            "Biting & scratching": "Using teeth and fingernails on the body to create marks, pain, pressure, or an animalistic feeling.",
-            "Acts of service": "Doing useful or pleasing things for someone—such as preparing gear, bringing drinks, cleaning, or following instructions—as an expression of devotion or submission.",
-            "Domestic service": "Cooking, cleaning, laundry, errands, and other household work are performed for a partner as part of an agreed service dynamic.",
-            "Formal etiquette": "Following prescribed manners, titles, posture, speech, dress, or rituals to show respect and reinforce roles.",
-            "Grooming rituals": "Bathing, shaving, brushing hair, applying lotion, dressing, or otherwise caring for a partner’s body in a structured way.",
-            "Dressing a partner": "Choosing and putting clothes, lingerie, uniforms, gear, or accessories on someone else as an act of control, care, display, or service.",
-            "Permission rituals": "Permission is given and received: one person asks for and receives permission (to speak, touch, sit, eat, orgasm, leave), the other gives it.",
-            "Daily tasks": "Assigning recurring chores, exercises, messages, journaling, or acts of service that someone completes as part of the dynamic.",
-            "Ceremonial scenes": "Using deliberate steps, symbols, spoken words, clothing, positions, or objects to make a scene feel like a formal ritual.",
-            "Spiritual play": "Practicing sacred sexuality or ritualized kink as an intentional spiritual or devotional act, using elements such as ceremony, prayer or invocation, vows, offerings, sex magic, symbolic roles, and states of surrender, devotion, transformation, or communion; the sacred meaning is part of what participants are doing, not just decorative atmosphere.",
-            "Romantic surrender": "One person willingly gives themselves over emotionally and physically to a trusted partner, with devotion and being claimed as the heart of the fantasy.",
-            "Seduction scenarios": "One partner gives the seduction — tempts, pursues, or gradually wins the other over — while the other receives it: is courted, enticed, and gives in to sex or a role.",
-            "Strangers fantasy": "Pretending not to know each other, meeting as strangers, and letting attraction lead to an anonymous-feeling encounter.",
-            "Secret identity": "Roleplaying that someone has a hidden name, job, power, costume, or double life that is revealed or used during the scene.",
-            "Mythical creatures": "Roleplaying gods, demons, angels, elves, merfolk, werewolves, or other beings from myth and fantasy in an erotic scenario.",
-            Aliens: "Roleplaying an encounter with extraterrestrials, often involving abduction, examination, unfamiliar anatomy, or first contact.",
-            "Growth / shrinking fantasy": "Imagining or roleplaying that one person becomes enormous or tiny, changing who can overpower, hold, worship, or use whom.",
-            "Body-swapping fantasy": "Imagining that two people exchange bodies and then explore the unfamiliar body, identity, or relationships from the other person’s perspective.",
-            "Furry transformation fantasy": "Imagining or roleplaying a person changing into an anthropomorphic animal, often with fur, paws, ears, a muzzle, tail, or animal instincts.",
-            "Gender Play": "Playing with a different gender role, name, presentation, body fantasy, or set of expectations as part of erotic exploration.",
-            Crossdressing: "Wearing clothes, lingerie, makeup, or accessories culturally associated with another gender because the transformation or presentation is exciting.",
-            Sissification: "One partner gives the sissification — feminizes the other through clothing, names, posture, tasks, or roles — while the other receives it: is sissified.",
-            "Kidnapping fantasy (consensual)": "Adults agree to roleplay that one person is abducted, restrained, transported, or held captive while acting as though the capture is against their will.",
-            "Verbal check-ins": "Pausing or checking in with words during a scene to ask how someone feels, whether the intensity is right, and whether they want to continue or change anything.",
-            "Cuddling": "Holding, stroking, kissing, or lying close together after a scene to help the body settle and restore affectionate connection.",
-            "Nourishment": "Offering water, electrolytes, snacks, or a meal after intense play so participants can recover physically.",
-            "Quiet decompression": "Sitting or lying somewhere calm with low stimulation while breathing, resting, and letting the intensity of the scene fade.",
-            "Praise (aftercare)": "Telling someone after an intense or vulnerable scene that they did well, are cared for, are not being judged, and are emotionally safe.",
-            "Post-scene review": "Talking after the scene about what felt good, what did not, any surprises, and what each person would keep or change next time.",
-            "Solitude": "Giving someone time alone after a scene because quiet privacy, rather than touch or conversation, is what helps them recover.",
-            "Next-day check-in": "Contacting each other the following day to ask about emotions, soreness, marks, regrets, needs, and how the experience feels in hindsight.",
-            "Needle Play": "Using sterile needles to pierce or decorate the skin during a scene, including temporary play piercing, arranged needle patterns, and an erotic focus on piercings; it requires specialized training, sterile technique, sharps handling, and explicit negotiation.",
-            "Rope bondage": "Tying someone with rope to restrain movement, hold a pose, create pressure, or make the rope itself part of the erotic experience, including decorative ties, hemp rope, Japanese shibari or kinbaku, and historically inspired hojojutsu forms.",
-            Corsets: "Wearing, admiring, lacing, cinching, or progressively training with a corset because the garment, the transformed silhouette, the pressure, or the act of being tightly laced is erotic.",
-            "Body Modification": "Erotic interest in tattoos, piercings, scarification, implants, or other deliberate changes to the body, including having modifications, admiring them on others, or making their creation part of a negotiated scene.",
-            "Vintage Porn": "Erotic interest in pornography from an earlier era or made in an antique style, including Victorian erotic imagery, vintage magazines, films, photography, costumes, and period aesthetics.",
-            Primal: "Instinctive, animalistic play centered on raw movement and emotion, such as growling, chasing, wrestling, biting, scratching, pinning, or rough sex within negotiated limits.",
-            Smoking: "Erotic interest in a person smoking or in the sight, smell, taste, ritual, or control of smoke and smoking items such as cigarettes or cigars; everyone present should consent to smoke exposure.",
-            "Religious Play": "Consensual adult roleplay that eroticizes religious authority, confession, worship, ritual, blasphemy, clergy roles, or sacred and profane imagery without implying anyone's real beliefs are available for use without consent.",
-            "Mental Bondage": "Restraining someone through commands, rules, expectations, hypnosis-style suggestion, or the understanding that they must remain still, rather than through physical restraints.",
-            "Affectionate Cruelty": "Combining deliberately harsh treatment—such as pain, humiliation, denial, or strict control—with tenderness, praise, reassurance, or loving attention so cruelty and care are felt together.",
-            Pirates: "Erotic roleplay involving adult pirates, captains, crews, captives, treasure, ships, costumes, mutiny, or swashbuckling power struggles, with any capture or coercion agreed in advance.",
-            Clowns: "Erotic attraction to clown makeup, costumes, performance, exaggerated characters, or clown roleplay, which may involve humor, embarrassment, transformation, or controlled fear.",
-            Robots: "Erotic robot or cyborg roleplay involving mechanical movement, programmed behavior, remote control, commands, obedience, transformation, or attraction to artificial bodies.",
-            Formicophilia: "Erotic arousal from the sensation or idea of insects crawling on the body; any real-animal contact needs careful attention to bites, stings, allergies, hygiene, and the welfare of the animals.",
-            Forniphilia: "Erotic arousal from being used as furniture — a human table, chair, footstool, or stand — or from using a consenting partner that way; weight, balance, breathing, circulation, and how long someone can safely hold a position all need care.",
-            Graphoerotica: "Writing or drawing words, names, instructions, ownership marks, symbols, or pictures on a consenting person's skin for decoration, humiliation, objectification, or a feeling of being claimed.",
-            Bellydancing: "Erotic interest in performing or watching belly dance, especially its hip, torso, and abdominal movements, costumes, rhythm, display, and the focused attention between performer and viewer.",
-            Chocolate: "Using chocolate as part of erotic food play by feeding, tasting, smearing, drizzling, licking, or covering skin with it, with allergies, temperature, cleanup, and where it is safe to place food discussed first.",
-            Librarians: "Erotic roleplay built around an adult librarian and patron, using books, research, enforced quiet, rules, overdue consequences, authority, or a reserved public persona that changes in private.",
-            Inflatables: "Erotic interest in inflatable objects or the process of inflation, including their size, pressure, texture, sound, buoyancy, body contact, sitting or riding, or controlled deflation.",
-            "Cell Popping": "A permanent body-modification practice in which a heated sterile needle or similar tool makes small dot burns in the skin, often arranged as a pattern; it carries burn, infection, and scarring risks and requires specialized knowledge and explicit consent.",
-            FemDom: "A woman takes the dominant role, directing, controlling, disciplining, or using a consenting submissive partner in a scene or ongoing power exchange.",
-            "D/s": "Dominance and submission is a negotiated power exchange in which one person exercises agreed authority and another willingly submits to it.",
-            "Ordered To Masturbate": "A dominant tells a submissive when, where, or how to masturbate, may watch or direct the technique, and may control whether orgasm is allowed.",
-            Brats: "A brat playfully resists, teases, talks back, or breaks minor agreed rules to provoke attention, correction, or a contest of wills with a dominant.",
-            "24/7": "A power-exchange relationship in which agreed dominant and submissive roles remain active throughout daily life rather than only during individual scenes.",
-            Switching: "A switch enjoys both dominant and submissive roles and may change roles between partners, between scenes, or within the same encounter.",
-            "Male Authority": "An adult man takes an authority role and gives orders, sets rules, or directs a consenting partner who chooses to submit to him.",
-            "Behavior Modification": "Using agreed rewards, consequences, routines, and repetition to encourage or discourage specific behaviors within a power-exchange relationship.",
-            "Female Supremacy": "A negotiated dynamic or fantasy in which women are treated as superior and hold authority over consenting partners who accept subordinate roles.",
-            "Play Punishment": "A consensual punishment performed for erotic enjoyment, such as a spanking, scolding, task, or denied privilege, rather than to correct a genuine offense.",
-            "Bathroom Use Control": "One person controls when or how another may use the toilet, including requiring permission, waiting, scheduled access, or supervised use within agreed limits.",
-            "Domestic Discipline": "Partners agree that one has authority to enforce household or relationship rules through consequences such as lectures, chores, loss of privileges, or spanking.",
-            "Pro Domme": "A professional dominatrix provides paid, negotiated BDSM services such as bondage, discipline, humiliation, or fetish play, typically without promising conventional sexual intercourse.",
-            "Caging/Confinement": "Placing someone in a cage, crate, cell, closet, or other enclosed space so their movement and ability to leave are controlled for the scene.",
-            "Anal Hooks": "A curved hook is inserted into the anus and may be attached to rope or another restraint to control posture or create pressure; it requires careful, informed use.",
-            "Breast Bondage": "Rope, straps, bands, or tape are tied around or across the breasts to compress, lift, separate, display, or restrict them.",
-            "Suspension Bondage": "Rope or specialized gear supports some or all of a restrained person's body above the floor, making load placement and trained rigging essential.",
-            "Bondage Art": "Creating or appreciating visually elaborate restraint, especially decorative rope patterns and posed bodies, where composition and appearance are central to the experience.",
-            "Bondage Tape": "Special tape that sticks to itself rather than skin is wrapped around limbs or the body to restrict movement, bind body parts together, or create encasement.",
-            "Predicament Bondage": "A person is restrained so avoiding discomfort in one position causes discomfort elsewhere, forcing them to choose between limited, difficult options.",
-            "Duct Tape": "Using duct tape to bind, wrap, gag, or immobilize someone; because it adheres strongly, skin, hair, circulation, breathing, and safe removal require particular care.",
-            "Speech restriction": "Limiting someone's ability or permission to speak through a gag, commands, required phrases, silence rules, or consequences for talking.",
-            "Self-Bondage": "A person restrains themself for erotic pleasure without a partner physically present, making reliable release methods and emergency planning especially important.",
-            Armbinders: "A sleeve, leather device, or rigid restraint holds both arms together behind the back, often from wrists toward elbows, sharply limiting upper-body movement.",
-            "Scarf bondage": "Using scarves or other soft fabric to tie wrists, ankles, limbs, or the body, combining restraint with the fabric's texture and appearance.",
-            "Medieval Devices": "Using replicas or fantasies of stocks, pillories, racks, cages, shackles, or other historical restraint and punishment devices in consensual adult play.",
-            "Hair Bondage": "A person's hair is braided, tied, or attached to rope, furniture, or another restraint so head position or movement is controlled through the hair.",
-            Waterbondage: "Bondage performed in, near, or with water, such as restraining someone in a bath or under controlled spray; breathing, slipping, and rapid release are critical concerns.",
-            "Encasement Fetish": "Erotic enjoyment of being tightly enclosed, or enclosing someone, in latex, fabric, plastic, a sleepsack, vacuum bed, or another full-body covering.",
-            "Cling Film": "Wrapping parts of the body in household plastic film to compress, immobilize, or create a smooth enclosed appearance while keeping breathing and circulation unobstructed.",
-            "Crucifixion Play": "A consenting adult is restrained with arms extended on a cross-shaped frame or in a cruciform position, emphasizing exposure, endurance, symbolism, or helplessness.",
-            Sleepsacks: "A close-fitting fabric, leather, latex, or rubber sack encloses most of the body and limits limb movement while leaving planned access and a safe airway.",
-            Pain: "Giving or receiving deliberately controlled physical discomfort because the sting, ache, intensity, endorphin response, or power exchange is erotically satisfying.",
-            "Clit Spanking": "Striking the external clitoris or vulva with fingers or a small implement to create sharp, focused genital sensation, with intensity kept carefully controlled.",
-            Sadism: "Erotic enjoyment of consensually causing pain, humiliation, fear, or intense sensation to a partner who has chosen to receive it.",
-            "Impact Play": "Striking the body with hands or implements such as paddles, floggers, canes, straps, or whips to create pain, sound, marks, rhythm, or submission.",
-            Bruises: "Finding bruises erotically appealing, whether from receiving them, giving carefully negotiated impact that creates them, or admiring existing marks on a partner.",
-            "Cock and Ball Torture": "Applying controlled pain or pressure to the penis and testicles through squeezing, slapping, binding, stretching, impact, clamps, or specialized devices.",
-            "Breast Spanking": "Striking the breasts with an open hand or suitable implement to create sting, thud, movement, redness, or a sense of rough handling.",
-            "Pussy Spanking": "Striking the external vulva or pubic mound with a hand or suitable implement to create focused sting, heat, or humiliation.",
-            "Knife Play": "Using a knife as a negotiated prop against or near the body for fear, control, sensation, clothing removal, or symbolic threat without unplanned cutting.",
-            "Tit Slapping": "Slapping the breasts with an open hand so they sting, move, redden, or feel roughly handled during a scene or sexual activity.",
-            "Belt Whippings": "Striking a partner with the flat or end portion of a belt to create a broad thud, sharper sting, lines, or punishment imagery.",
-            Pinching: "Squeezing skin between fingers, nails, clips, or another tool to create localized pressure or pain on nipples, thighs, genitals, or other body areas.",
-            "OTK Spanking": "One adult lies or bends over another person's lap while their buttocks are spanked, combining impact with restraint, exposure, and punishment imagery.",
-            "Cock Slapping": "Striking a penis with an open hand or fingers to create sharp genital sensation, humiliation, or rough sexual play within carefully agreed intensity.",
-            "Corporal Punishment": "Using physical punishment such as spanking, caning, strapping, or paddling within a negotiated authority role or disciplinary scene.",
-            Clothespins: "Clipping clothespins onto nipples, genitals, or folds of skin to create sustained pinching pressure and a sharper sensation when they are removed.",
-            "Fire Play": "Passing controlled flame near or briefly over prepared skin, or using burning materials under trained conditions, to create heat, fear, and visual intensity.",
-            "Breast Whipping": "Striking the breasts with a whip or flexible implement to create focused sting, movement, redness, or marks; it is more intense than ordinary breast slapping.",
-            Ballbusting: "Kicking, kneeing, squeezing, slapping, or otherwise inflicting negotiated pain on the testicles as the central focus of a scene.",
-            Cutting: "Making deliberate shallow cuts in the skin as part of a negotiated scene, sometimes for blood, pain, marks, or design; it carries infection, scarring, and injury risks.",
-            "Pressure points": "Pressing specific sensitive areas, nerves, or muscle junctions with fingers or tools to create concentrated pain, control movement, or compel a response.",
-            Figging: "Inserting peeled fresh ginger into the anus or vagina so its oils create a strong warming or burning sensation that intensifies with muscle movement.",
-            "Ball Kicking": "Kicking or tapping the testicles at a negotiated intensity for pain, vulnerability, shock, or submission, with substantial injury risk at higher force.",
-            Scarification: "Creating intentional permanent scars through cutting, abrasion, or branding so the healing pattern becomes body art; this requires professional-grade knowledge and care.",
-            Trampling: "Standing, stepping, or walking on a partner's body, ranging from light barefoot pressure to carefully distributed weight with footwear.",
-            Waterboarding: "Simulating drowning by restraining a person and applying water over the face or airway; even consensual versions are exceptionally high risk and require specialized expertise.",
-            "Corset Piercing": "Placing temporary surface piercings in two parallel rows and lacing ribbon through them to create the appearance of a corset on the skin.",
-            Kicking: "Striking a consenting partner with the foot or lower leg to create impact, pain, fear, or rough-treatment dynamics while avoiding vulnerable organs and joints.",
-            "Fire Flogging": "Using a specialized flogger with burning fuel on its falls so controlled flame contacts or passes near the body, combining impact and heat in advanced fire play.",
-            Bastinado: "Striking the soles of the feet with a cane, rod, strap, or similar implement, producing concentrated pain in a sensitive area.",
-            "Abrasion Play": "Rubbing, scraping, or scratching the skin with rough materials, brushes, fingernails, or textured tools to create raw, burning, or prickling sensation.",
-            "Flesh Hooks": "Sterile hooks are pierced through skin and may support tension, weights, or suspension; this invasive practice requires expert technique, infection control, and emergency planning.",
-            Staples: "Applying sterile skin staples as temporary body decoration, restraint points, or pain stimulus during advanced play, with medical-grade technique and removal required.",
-            "Percussion Play": "Rhythmically tapping or drumming on the body with hands, fingers, padded tools, or massage percussion to create vibration, impact, and a trance-like cadence.",
-            "Fish Hooks": "Using fishhook-shaped objects as piercing jewelry, skin attachments, or threatening props; actual piercing requires sterile, barbless equipment and expert handling.",
-            "Violet Wand": "A violet wand passes high-voltage, low-current electricity through glass electrodes to create visible sparks and sensations ranging from soft tingling to sharp static bites.",
-            "Wartenberg Pinwheels": "Rolling a small wheel of radiating metal pins across the skin to create a line of prickling, scratching, or sharply focused sensations.",
-            "Panty-Sniffing": "Smelling worn underwear because the garment, a partner's body scent, and the intimacy or humiliation associated with it are sexually arousing.",
-            "Tens Unit": "Using a TENS-style electrical stimulation unit with adhesive electrodes to send controlled pulses through muscles or skin as an erotic sensation.",
-            Smothering: "Covering or pressing over someone's mouth and nose with a hand, body part, pillow, or material to create breath restriction or helplessness; it is high risk.",
-            Cupping: "Placing suction cups on the body to pull skin and tissue upward, creating pressure, warmth, temporary circular marks, and heightened sensitivity.",
-            Auralism: "Sexual arousal centered on sound, such as moans, dirty talk, breathing, commands, whispers, impact noises, or the sounds of sexual activity.",
-            "Vampire gloves": "Leather or fabric gloves fitted with short metal points are stroked, dragged, or tapped over skin to create fine scratching and prickling sensations.",
-            "1950s Household": "Adults roleplay an idealized mid-century household in which one partner acts as the authoritative head and another as the obedient homemaker, often with strict gendered rules.",
-            DDlg: "Daddy Dom/little girl is an adult caregiver and age-play dynamic in which one partner takes a protective or authoritative daddy role and another adult takes a little-girl role.",
-            "Medical Play": "Adults roleplay examinations or procedures using medical roles, instruments, positioning, exposure, restraint, or clinical language for erotic effect.",
-            Dollification: "Transforming or treating a consenting adult like a doll through makeup, clothing, fixed poses, restricted movement, display, objectification, or commands to remain still.",
-            "Mommy/girl": "Two adults use a caregiver and age-play dynamic in which one takes a nurturing or controlling mommy role and the other takes a younger-coded girl role.",
-            "Sister/Brother Roleplay": "Consenting adults pretend to be siblings and eroticize the fictional taboo or familiarity; the scenario does not imply a real family relationship.",
-            "Damsels In Distress": "An adult roleplays being captured, trapped, tied up, threatened, or waiting to be rescued, while another plays the captor, villain, or rescuer.",
-            ABDL: "Adult baby/diaper lover interests include adults wearing or using diapers, receiving caregiving, regressing into a baby-like role, or enjoying diapers apart from age play.",
-            Superheroes: "Adults roleplay heroes, villains, sidekicks, rescues, captures, secret identities, superpowers, costumes, and comic-book struggles in an erotic scenario.",
-            "Victorian Lifestyles": "Erotic roleplay inspired by idealized Victorian dress, manners, class hierarchy, household service, courtship, discipline, or strict social roles.",
-            "Piggy Play": "A form of pet or humiliation play in which an adult acts like a pig through crawling, snorting, eating from a bowl, wearing gear, or being called pig-related names.",
-            Infantilism: "An adult adopts baby-like behavior, clothing, speech, dependence, or caregiving needs for comfort or erotic roleplay; all participants remain adults.",
-            Gor: "Roleplay based on the fictional world of John Norman's Gor novels, commonly involving highly structured master/slave roles, ritualized positions, service, and ownership fantasy.",
-            "High Heels": "Wearing or admiring high-heeled shoes because their shape, sound, posture, height, or association with display and authority is sexually exciting.",
-            "Pantyhose/Stockings": "Wearing, touching, smelling, or admiring pantyhose and stockings for their sheer appearance, tight fit, texture, or association with legs and lingerie.",
-            Fishnets: "Wearing or admiring fishnet stockings, bodysuits, or sleeves because the open mesh frames the skin and creates a distinctive texture and erotic look.",
-            Skirts: "Wearing, lifting, looking under, or admiring skirts because of their movement, exposure potential, gendered presentation, or access to the body beneath.",
-            "Schoolgirl Uniform": "Adults wear or admire a school-inspired uniform such as a pleated skirt, blouse, tie, or knee socks as a costume for adult roleplay.",
-            Cosplay: "Dressing as a fictional character and bringing that character's appearance, personality, powers, or relationships into erotic play or attraction.",
-            Lace: "Wearing, touching, or admiring lace because its delicate pattern, transparency, texture, and association with lingerie or formal clothing are arousing.",
-            "Knee High Socks": "Wearing or admiring socks that rise to the knee because they frame the legs, create a uniform-like look, or add a soft fabric texture.",
-            "Glass Dildos": "Using a smooth, nonporous dildo made of body-safe glass for vaginal or anal penetration, firm pressure, curved stimulation, or carefully controlled temperature play.",
-            Glasses: "Wearing or admiring eyeglasses because they shape the face, suggest a particular persona, or form part of an intellectual, strict, shy, or professional look.",
-            "Business Suits": "Wearing or admiring tailored suits, shirts, ties, skirts, and formal office clothing because they convey polish, status, professionalism, or authority.",
-            "Military Uniforms": "Wearing or admiring military-style uniforms because their structure, insignia, boots, discipline, and association with rank or authority are erotically compelling.",
-            "NylonLegs & Feet": "Focusing on legs and feet covered in nylon stockings or pantyhose, including their sheen, scent, texture, compression, and appearance through the fabric.",
-            "Sissy Panties": "A consenting adult wears feminine-coded panties as part of feminization, sissification, humiliation, gender play, or simply enjoyment of the garment.",
-            Silk: "Wearing, touching, rubbing, or being bound with silk because its smooth, cool, lightweight texture and glossy appearance are sexually appealing.",
-            Hoods: "Wearing or placing a hood over the head to alter identity, appearance, sight, sound, or a sense of enclosure, objectification, and control.",
-            Gloves: "Wearing, touching, or admiring gloves made of leather, latex, lace, fabric, or another material because of their look, feel, scent, or role-based meaning.",
-            "Lycra/Spandex": "Wearing or admiring tight stretch garments that cling to the body, emphasize its shape, and create smooth compression and a slick athletic appearance.",
-            Kilts: "Wearing or admiring kilts because of their pleats, cultural or masculine associations, bare-leg styling, movement, and potential access beneath the garment.",
-            Satin: "Wearing, touching, or rubbing satin because its glossy surface, fluid drape, and smooth sliding feel against skin are erotically appealing.",
-            "Gas Masks": "Wearing or admiring gas masks for their industrial appearance, hidden identity, breathing sounds, enclosed feeling, or dystopian roleplay; filters must not obstruct safe breathing.",
-            PVC: "Wearing or admiring shiny polyvinyl clothing because it tightly shapes the body and has a slick, glossy, sometimes squeaking surface.",
-            Socks: "Wearing, touching, smelling, or admiring socks because of their fabric, warmth, association with feet, signs of wear, or particular style.",
-            Military: "Erotic interest in military aesthetics such as uniforms, boots, rank, drills, discipline, command structures, barracks, or adult soldier roleplay.",
-            Steampunk: "Wearing or admiring Victorian-industrial costumes with corsets, goggles, brass, leather, gears, and imagined machinery as part of erotic fantasy or roleplay.",
-            Geisha: "Adult costume roleplay inspired by the stylized dress, makeup, music, and hospitality arts associated with geisha, without treating a real culture as automatic sexual consent.",
-            Boot: "Wearing, touching, smelling, licking, polishing, or admiring a boot because of its material, shape, authority symbolism, or connection to the wearer's body.",
-            Velvet: "Wearing, stroking, or rubbing velvet because its dense soft pile changes direction under the hand and creates a rich visual and tactile sensation.",
-            Metal: "Wearing, touching, or being restrained with metal clothing, jewelry, chains, armor, or hardware because of its weight, coldness, hardness, sound, or appearance.",
-            Vinyl: "Wearing or admiring glossy vinyl clothing because it clings to the body and has a smooth, shiny, artificial surface associated with fetish fashion.",
-            Petticoats: "Wearing or admiring layered petticoats because their volume, rustle, softness, vintage femininity, and effect on a skirt's shape are arousing.",
-            Zentai: "Wearing or admiring a skin-tight full-body suit that covers the limbs, torso, and often the head, creating total-body color, smoothness, anonymity, or enclosure.",
-            Denim: "Wearing, touching, smelling, or admiring denim because of its rugged texture, tight fit, seams, worn appearance, or association with jeans and workwear.",
-            Chaps: "Wearing or admiring leather or fabric leg coverings that leave the buttocks or crotch partly exposed, often evoking cowboys, bikers, or leather culture.",
-            Retifism: "A shoe fetish in which footwear itself, especially its shape, material, smell, wearing, handling, or the feet associated with it, is a primary source of arousal.",
-            "Big Tits": "Sexual attraction focused on large breasts, including their size, weight, movement, cleavage, appearance, and how they feel or are used during sex.",
-            "Older Women": "Sexual or romantic attraction to adult women who are older than the admirer, with age, maturity, appearance, experience, or authority forming part of the appeal.",
-            BBW: "Attraction to big beautiful women, generally meaning larger or fat adult women whose body size, curves, softness, weight, or confidence is celebrated.",
-            "Foot Worship": "Kissing, licking, massaging, smelling, praising, or serving a partner's feet as objects of devotion, submission, or sexual focus.",
-            Pigtails: "Attraction to hair worn in two tied sections because of its movement, symmetry, playfulness, or use as handles during consensual play between adults.",
-            Lipstick: "Wearing or admiring lipstick because of its color, gloss, scent, application ritual, feminine presentation, kiss marks, or smearing during sexual activity.",
-            Legs: "Sexual attraction focused on the shape, length, muscle, skin, movement, or presentation of legs, including looking, touching, kissing, or being wrapped by them.",
-            Tongues: "Sexual attraction focused on tongues, including watching them move, licking, kissing, sucking, oral sex, or being deliberately shown a tongue.",
-            Makeup: "Wearing, applying, watching, or admiring cosmetics because they transform the face or body, create a persona, or become smeared during play.",
-            "Long Hair": "Attraction to long hair because of its appearance, scent, texture, movement, styling, or how it can be touched, wrapped, pulled, or draped over the body.",
-            Freckles: "Sexual or aesthetic attraction to freckles on the face or body, including looking at, tracing, kissing, or praising the marked skin.",
-            BBC: "A porn-derived racialized fantasy centered on a Black man's supposedly large penis; it can reduce people to race and anatomy, so real partners should define the language and boundaries they welcome.",
-            "Older Men": "Sexual or romantic attraction to adult men who are older than the admirer, with age, maturity, appearance, experience, or authority forming part of the appeal.",
-            "Uncut Cock": "Sexual attraction focused on an uncircumcised penis, including the foreskin's appearance, movement, texture, scent, and role in masturbation or oral sex.",
-            "Toes and Feet": "Sexual attraction focused on bare feet and toes through looking, touching, licking, sucking, smelling, massaging, trampling, or having them used during sex.",
-            Muscles: "Sexual attraction focused on muscular size, definition, strength, flexing, movement, or the feeling of a powerful body during touch and sex.",
-            Beards: "Sexual attraction focused on facial hair, including its appearance, texture, scent, masculinity, grooming, or sensation against skin during kissing or oral sex.",
-            "Pubic Hair": "Sexual attraction focused on pubic hair, including its natural appearance, texture, scent, grooming style, or sensation against the face and body.",
-            "Boot Worship": "Kissing, licking, kneeling before, polishing, smelling, or otherwise serving a partner's boots as an expression of fetish, reverence, humiliation, or submission.",
-            "Large Labia": "Sexual attraction focused on prominent inner or outer labia, including their shape, size, movement, appearance, and sensation during touch or oral sex.",
-            Depilation: "Removing body or pubic hair from oneself or a partner by shaving, waxing, or another method, with the grooming process or smooth result forming part of the erotic interest.",
-            "Facial Hair": "Sexual attraction focused on beards, mustaches, stubble, or other facial hair because of its look, texture, scent, grooming, or sensation against skin.",
-            Armpits: "Sexual attraction focused on armpits through looking, smelling, licking, touching, hair, sweat, or the vulnerability of exposed underarms.",
-            "Body Hair": "Sexual attraction focused on hair on the chest, back, arms, legs, abdomen, or other body areas because of its look, texture, scent, or naturalness.",
-            Hands: "Sexual attraction focused on hands, fingers, nails, veins, strength, movement, or the ways hands touch, restrain, penetrate, or perform skilled actions.",
-            "Bald Girls": "Attraction to adult women with shaved or naturally bald heads, with the smooth scalp, exposed facial features, appearance, or transformation forming part of the appeal.",
-            Braces: "Attraction to dental braces on an adult, including their metallic appearance, effect on a smile, texture, or association with a particular style or transformation.",
-            "Head Shaving": "Shaving one's own or a partner's head, with the transformation, surrender of appearance control, sound of clippers, exposed scalp, or smooth result providing the erotic charge.",
-            "Tearing off Clothing": "Ripping, cutting, or forcefully pulling clothes from a consenting partner to create urgency, destruction, exposure, and the feeling of being overcome.",
-            Trust: "The erotic or emotional intensity that comes from knowingly placing vulnerability, control, safety, or secrets in a partner's hands and having that responsibility honored.",
-            Attention: "One person becomes the deliberate focus of another's gaze, praise, service, questions, touch, or sexual effort, or gives that concentrated attention to a partner.",
-            "Mind Fucks": "Using suggestion, staged events, uncertainty, deception within agreed limits, or psychological pressure to make a partner temporarily question what is happening or what will happen next.",
-            "Female Humiliation": "Humiliating a consenting woman through agreed words, exposure, objectification, tasks, or treatment that targets her role or presentation as female.",
-            Crying: "Making, watching, or experiencing tears during consensual play because of intense emotion, pain, relief, humiliation, catharsis, or surrender.",
-            "small penis humiliation": "Using agreed teasing, insults, comparison, denial, or exposure focused on a penis being small, often to create embarrassment, submission, or erotic inadequacy.",
-            Fear: "Erotic arousal from feeling scared or from frightening a consenting partner through suspense, threats, pursuit, intimidating props, darkness, or controlled uncertainty.",
-            Tears: "Finding tears themselves erotically or emotionally compelling, whether they result from pain, overwhelm, humiliation, relief, joy, or catharsis in a consensual scene.",
-            Blushing: "Arousal from causing, noticing, or experiencing visible embarrassment and flushed skin through attention, compliments, exposure, teasing, or explicit conversation.",
-            "Emotional Sadism": "Deriving erotic satisfaction from consensually causing emotional discomfort such as embarrassment, jealousy, shame, helplessness, or tears within clearly negotiated limits.",
-            Dacryphilia: "Sexual arousal centered on tears or crying, including making a partner cry consensually, being made to cry, or watching and comforting someone who cries during play.",
-            "Military Interrogation": "Adults roleplay a military captor questioning a prisoner using rank, commands, restraint, threats, or simulated pressure, with coercive elements agreed in advance.",
-            Sexting: "Exchanging sexually explicit messages, fantasies, commands, photos, audio, or video by phone or online to flirt, direct play, or share arousal at a distance.",
-            Burlesque: "Performing or watching a theatrical striptease that uses costume, dance, humor, posing, and gradual reveal rather than simply removing clothes quickly.",
-            "Sex in the cemetery": "Consensual sexual activity or roleplay set in a cemetery for its taboo, gothic, death-related, or outdoor atmosphere, while respecting laws, privacy, and gravesites.",
-            "Pin-Ups": "Attraction to stylized glamour images or poses inspired by classic pin-up art, often featuring playful expressions, retro clothing, stockings, and deliberate display.",
-            "Fetish Models": "Attraction to adults who pose in fetish clothing or scenes, such as latex, leather, bondage, heels, or BDSM imagery, whether in photos, video, or live performance.",
-            "FMF threesomes": "Sex involving three adults—two women and one man—at the same time, with activities and attention arranged according to everyone's individual interests and boundaries.",
-            "Interracial Sex": "Sex between consenting adults of different racial identities, where the difference may be part of the attraction without making racial stereotypes or slurs automatic.",
-            Hotwife: "A partnered woman has sex with other people with her partner's knowledge and encouragement, while the partner may watch, hear details, participate, or simply enjoy her freedom.",
-            "Cuckold Humiliation": "A consenting partner is erotically humiliated about their partner having sex with someone else, often through comparison, denial, teasing, watching, or being assigned a subordinate role.",
-            "Mutual Masturbation": "Two or more people masturbate themselves while together, often watching, touching, talking to, or matching the pace of the others without necessarily having penetrative sex.",
-            "Morning Sex": "Sexual activity soon after waking, often emphasizing sleepy intimacy, spontaneous arousal, natural body scent, or beginning the day with touch and orgasm.",
-            "Anal Training": "Gradually preparing the anus to comfortably accept fingers, plugs, toys, a penis, or larger objects through repeated relaxation, lubrication, controlled stretching, and increasing sizes.",
-            "Fucking Machines": "Motorized devices move a dildo or other attachment in repeated thrusts while a person controls the speed, depth, angle, or restraint of the partner receiving it.",
-            "Nipple Play": "Stimulating nipples and surrounding breast or chest tissue through rubbing, sucking, licking, pinching, twisting, vibration, clamps, temperature, or impact.",
-            "Road Head": "One adult performs oral sex on another in a vehicle, commonly while it is parked or traveling; involving the driver creates severe distraction and public-exposure risks.",
-            "Vaginal Stretching": "Gradually widening the vagina with fingers, toys, fists, or increasingly large objects to create fullness, accommodate insertion, or enjoy the stretching sensation.",
-            "Vacuum pumping": "Placing a cylinder or cup over genitals or other tissue and removing air to create suction, swelling, increased blood flow, and heightened sensitivity.",
-            "Large objects": "Vaginal or anal penetration with objects notably larger than usual fingers, penises, or toys, emphasizing fullness and stretching through slow, prepared insertion.",
-            "Urethral Fucking": "Repeated penetration or movement inside the urethra with a sound, plug, catheter-like toy, or other purpose-made instrument; it is invasive and medically high risk.",
-            Catheters: "Inserting a sterile tube through the urethra into the bladder for medical-themed play, control of urination, or internal sensation; improper use can cause serious injury or infection.",
-            Queening: "A person sits or kneels over a partner's face, usually presenting the vulva for oral sex and using posture or body weight to emphasize dominance.",
-            "Gorean Slave Positions": "A submissive adopts formal poses described in Gor-inspired roleplay to display the body, await orders, present for service, or demonstrate obedience to a master.",
-            "Edge Play": "An umbrella term for activities near a person's physical, emotional, or social limits, where consequences or uncertainty may be unusually serious and require advanced negotiation.",
-            "Cock Milking": "Stimulating a penis or prostate to extract semen or produce orgasm, often with the receiving person restrained, controlled, repeatedly drained, or treated like a source of fluid.",
-            "Tease & Denial": "Bringing someone toward sexual release with touch, toys, words, or display and then withholding, interrupting, or delaying the stimulation or orgasm they want.",
-            "Anal Chastity": "Restricting anal access or penetration through rules, plugs, locks, or wearable devices while another person controls when the anus may be used or left empty.",
-            Enemas: "Introducing liquid into the rectum through a nozzle or tube and then expelling it, whether for preparation, fullness, cleansing ritual, control, or humiliation play.",
-            Breastfeeding: "One adult sucks milk directly from another adult's breast or chest, combining lactation with feeding, nurturing, intimacy, service, or erotic mouth-to-nipple contact.",
-            "Creampie Cleanup": "Licking, sucking, wiping, or otherwise removing semen from a partner's vagina, anus, body, or another person's genitals after internal ejaculation.",
-            "Toilet slave": "A submissive role in which an adult is used for urine, feces, spitting, cleanup, or toilet-related service and humiliation within explicitly negotiated boundaries.",
-            Liquor: "Using the taste, smell, ritual, or imagery of alcohol in erotic play, such as feeding drinks or pouring liquor on skin; intoxication can undermine valid consent.",
-            Douching: "Flushing the vagina or rectum with liquid as preparation, cleansing ritual, control, or fetish activity; unnecessary or harsh solutions can irritate tissue and disrupt healthy flora.",
-            Nyotaimori: "Serving sushi or other food from the body of a reclining, usually nude adult model, making display, stillness, service, and eating from skin part of the scene.",
-            Klismaphilia: "Sexual arousal from enemas, including giving or receiving rectal fluid, holding it, expelling it, watching the process, or eroticizing the medical and control aspects.",
-            "Being Overpowered": "A consenting person is physically dominated, pinned, restrained, lifted, or forced into position so they can feel another person's superior strength and control.",
-            Manhandling: "Grabbing, moving, pinning, carrying, throwing onto furniture, or forcefully repositioning a consenting partner to create roughness and physical control.",
-            "Pursuit & Capture": "One adult chases another, catches them, brings them to the ground or restrains them, and claims them within a negotiated predator-and-prey scenario.",
-            "Foot Massage": "Rubbing, kneading, pressing, and handling a partner's feet to provide pleasure, care, service, relaxation, or erotic attention to the feet.",
-            "Domestic Servitude": "A submissive performs ongoing household labor such as cooking, cleaning, laundry, organization, and errands as service to a dominant partner.",
-            "French Maids": "An adult wears a stylized maid costume and performs cleaning, serving, obedience, flirtation, or punishment roleplay for a partner acting as employer or guest.",
-            Maid: "An adult takes a domestic servant role by cleaning, dressing in maid attire, following household orders, serving refreshments, or being inspected and corrected.",
-            Crawling: "A consenting adult moves on hands and knees at another person's command, often to express submission, animal roleplay, exposure, service, or reduced status.",
-            "Boot Blacking": "Cleaning, conditioning, polishing, and shining a partner's leather boots as skilled service, fetish handling, ritual devotion, or a formal part of leather culture.",
-            "Erotic Literature": "Reading or listening to sexually explicit fiction for arousal, fantasy, self-discovery, shared entertainment, or ideas for consensual play.",
-            Anime: "Erotic interest in the visual style, characters, costumes, scenarios, or fan culture of Japanese animation, whether through adult characters, art, cosplay, or roleplay.",
-            Hentai: "Sexually explicit drawn or animated material in a Japanese comics or animation style, featuring fictional characters and acts intended for adult audiences.",
-            "Writing Erotica": "Creating sexually explicit fiction, scenes, dialogue, or fantasies for personal arousal, creative expression, a partner, or an audience.",
-            Transvestism: "An older term for erotic cross-dressing: wearing clothing associated with another gender because the presentation, transformation, or fabric itself is sexually exciting.",
-            Androgyny: "Attraction to or enjoyment of a presentation that blends or obscures conventionally masculine and feminine traits through body, clothing, hair, voice, or manner.",
-            Butches: "Attraction to butch adults whose gender presentation emphasizes masculinity, toughness, confidence, style, or roles associated with butch identity.",
-            Psycholagny: "Sexual arousal generated primarily by thoughts, fantasies, memories, words, or imagined scenarios rather than by direct physical stimulation.",
-            Affection: "Giving or receiving warm emotional and physical care through kissing, cuddling, praise, reassurance, tenderness, and loving attention before, during, or after play."
-        }, He = {
-            "Power exchange": [ "authority", "authority" ],
-            "Bondage & restriction": [ "restraint", "restraint" ],
-            "Impact, pain & body modification": [ "impact or pain", "impact or pain" ],
-            "Sensation & atmosphere": [ "sensation", "sensation" ],
-            "Roleplay & identity": [ "role or scenario", "role or scenario" ],
-            "Clothing, materials & objects": [ "garment, material, or object", "garment, material, or object" ],
-            "Body focus & appearance": [ "attention or admiration", "attention or admiration" ],
-            "Psychological dynamics": [ "words or psychological pressure", "words or psychological pressure" ],
-            "Watching, exposure & settings": [ "attention or a view", "attention or a view" ],
-            "Partner configurations": [ "partner arrangement", "partner arrangement" ],
-            "Sex acts": [ "sexual act", "sexual act" ],
-            Positions: [ "sexual position", "sexual position" ],
-            "Orgasm & reproductive play": [ "orgasm control or reproductive fantasy", "orgasm control or reproductive fantasy" ],
-            "Fluids & messy play": [ "body fluid or mess", "body fluid or mess" ],
-            "Primal & pursuit": [ "the chase", "the chase" ],
-            "Service & ritual": [ "service or ritual", "service or ritual" ],
-            "Fantasy & transformation": [ "fantasy or transformation", "fantasy or transformation" ],
-            "Connection & aftercare": [ "care or reassurance", "care or reassurance" ],
-            "Collars & symbols": [ "collar or symbol", "collar or symbol" ],
-            "Reward & correction": [ "reward or correction", "being rewarded or corrected" ],
-            Discipline: [ "discipline or consequence", "being disciplined or facing consequences" ],
-            Begging: [ "plea or request", "decision or permission" ],
-            "Rope bondage": [ "rope restraint", "rope restraint" ],
-            "Decorative rope": [ "decorative rope", "decorative rope" ],
-            "Japanese bondage": [ "kinbaku or shibari rope", "kinbaku or shibari rope" ],
-            "Cuffs & straps": [ "cuff or strap restraint", "cuff or strap restraint" ],
-            "Spreaders & bars": [ "spreader-bar restraint", "spreader-bar restraint" ],
-            "Tape & wrapping": [ "tape or wrapping restraint", "tape or wrapping restraint" ],
-            Gags: [ "gag", "gag" ],
-            Mummification: [ "full-body wrapping", "full-body wrapping" ],
-            "Furniture restraint": [ "furniture restraint", "furniture restraint" ],
-            "Blindfolded restraint": [ "blindfolded restraint", "blindfolded restraint" ],
-            "Escape play": [ "escape challenge", "escape attempt" ],
-            Immobilization: [ "immobilization", "immobilization" ],
-            Spanking: [ "open-hand impact", "open-hand impact" ],
-            "Paddles & straps": [ "paddle or strap impact", "paddle or strap impact" ],
-            Flogging: [ "flogger strokes", "flogger strokes" ],
-            Caning: [ "cane strikes", "cane strikes" ],
-            "Riding crops": [ "riding-crop strikes", "riding-crop strikes" ],
-            Whips: [ "whip strikes", "whip strikes" ],
-            Clamps: [ "clamp pressure", "clamp pressure" ],
-            "Hair pulling": [ "hair pulling", "having your hair pulled" ],
-            "Needle Play": [ "needles or piercing", "needles or piercing" ],
-            Sounding: [ "urethral sound", "urethral sound" ],
-            "Heavy marking": [ "marks", "marks" ],
-            "Extreme endurance": [ "intense challenge", "intense pain or stimulation" ],
-            "Temperature": [ "heat or cold", "heat or cold" ],
-            "Cold Touch": [ "cold touch", "cold touch" ],
-            Tickling: [ "tickling", "being tickled" ],
-            "Electrical Play": [ "electrical stimulation", "electrical stimulation" ],
-            "Sensory deprivation": [ "reduced sensory input", "reduced sensory input" ],
-            "Sensory overload": [ "intense sensory input", "intense sensory input" ],
-            "ASMR & whispering": [ "whispers or ASMR sounds", "whispers or ASMR sounds" ],
-            Scent: [ "scent", "scent" ],
-            "Tantra / energy play": [ "tantric practice or energy work", "tantric practice or energy work" ],
-            "Authority roles": [ "authority", "authority" ],
-            "Caregiver roles (adults)": [ "care or supervision", "care or supervision" ],
-            "Age play between adults": [ "older role", "younger role" ],
-            "Pet play": [ "pet role", "handling or ownership" ],
-            "Pony Play": [ "pony role", "training or handling" ],
-            "Puppy play": [ "pup role", "training or handling" ],
-            "Owner & property": [ "ownership", "ownership" ],
-            "Doctor/Nurse Play": [ "medical roleplay", "medical roleplay" ],
-            "Teacher / student roleplay": [ "lesson or authority", "lesson or authority" ],
-            "Captivity / kidnapping": [ "capture", "capture or confinement" ],
-            "Consensual non-consent fantasy": [ "overpowering a partner (in fantasy)", "being overpowered (in fantasy)" ],
-            "Captivity / kidnapping": [ "capturing & holding a partner captive", "being captured & held captive" ],
-            Leather: [ "leather", "leather" ],
-            "Latex": [ "latex or rubber", "latex or rubber" ],
-            "Lingerie": [ "lingerie or stockings", "lingerie or stockings" ],
-            Uniforms: [ "uniform", "uniform" ],
-            "Heels & boots": [ "heels or boots", "heels or boots" ],
-            "Masks & hoods": [ "mask or hood", "mask or hood" ],
-            Harnesses: [ "harness", "harness" ],
-            Diapers: [ "diaper", "diaper" ],
-            "Food / messy play": [ "food or mess", "food or mess" ],
-            Fur: [ "fur", "fur" ],
-            "Anal beads": [ "anal beads", "anal beads" ],
-            Pumps: [ "vacuum pumping", "vacuum pumping" ],
-            Showerheads: [ "water stimulation", "water stimulation" ],
-            "Costume transformation": [ "costume", "costume" ],
-            "Feet & footwear": [ "attention to feet or footwear", "attention to feet or footwear" ],
-            "Hands & gloves": [ "attention to hands or gloves", "attention to hands or gloves" ],
-            Hair: [ "attention to hair", "attention to hair" ],
-            Breasts: [ "attention to breasts or nipples", "attention to breasts or nipples" ],
-            Buttocks: [ "attention to buttocks", "attention to buttocks" ],
-            "Body worship": [ "body worship", "body worship" ],
-            "Muscle Worship": [ "muscle worship", "muscle worship" ],
-            "Body Modification": [ "tattoo or body modification", "tattoo or body modification" ],
-            "Praise (in scene)": [ "praise", "praise" ],
-            "Humiliation language": [ "humiliating words", "humiliating words aimed at you" ],
-            Degradation: [ "degrading treatment", "being degraded" ],
-            "Dirty talk": [ "explicit words", "explicit words" ],
-            Objectification: [ "treating a partner as an object", "being treated as an object" ],
-            "Hypnosis & mind-control fantasy": [ "hypnotic suggestions or control", "being hypnotized or mind-controlled (in fantasy)" ],
-            "Fear Play": [ "scaring a partner", "being frightened" ],
-            Interrogation: [ "questions & pressure", "being questioned under pressure" ],
-            "Secrets": [ "a partner's confession or secrets", "confessing your own secrets" ],
-            "Watching & being watched": [ "attention or a view", "attention or a view" ],
-            "Private Media": [ "intimate image or video", "intimate image or video" ],
-            "Performance for a partner": [ "sexual performance", "sexual performance" ],
-            "Exhibition / voyeurism": [ "performance or exposure", "performance or exposure" ],
-            "Cuckold / hotwife": [ "outside-partner sex", "knowledge, details, or a view of outside-partner sex" ],
-            "Group service": [ "serving a group", "being served by a group" ],
-            Gangbang: [ "participating in a gangbang", "being the focus of a gangbang" ],
-            "Age gap": [ "older partner", "younger partner" ],
-            "Anal fingering": [ "fingers", "fingers in the anus" ],
-            Rimming: [ "mouth and tongue", "oral stimulation of the anus" ],
-            Creampies: [ "semen", "semen inside" ],
-            Facefucking: [ "oral penetration", "penis or strap-on in the mouth" ],
-            Facesitting: [ "genitals, anus, or crotch", "genitals, anus, or body weight on the face" ],
-            Facials: [ "semen", "semen on the face" ],
-            "Fingering mouths": [ "fingers", "fingers in the mouth" ],
-            "Vaginal fisting": [ "hand", "hand in the vagina" ],
-            "Anal fisting": [ "hand", "hand in the anus or rectum" ],
-            Handjobs: [ "hand stimulation", "hand stimulation of the penis" ],
-            Pegging: [ "strap-on penetration", "strap-on in the anus" ],
-            Squirting: [ "squirt fluid", "stimulation that causes squirting" ],
-            "Vaginal fingering": [ "fingers", "fingers in the vagina" ],
-            "Anal sex": [ "anal penetration", "penis, strap-on, or toy in the anus" ],
-            "Oral sex": [ "oral stimulation", "mouth and tongue on the genitals or anus" ],
-            Penetration: [ "penetration", "penis, fingers, fist, or toy inside" ],
-            "Orgasm control": [ "orgasm permission or control", "having your orgasms controlled" ],
-            "Orgasm denial": [ "orgasm denial", "denied orgasm" ],
-            Chastity: [ "chastity control", "restricted access or release" ],
-            Edging: [ "near-orgasm stimulation", "near-orgasm stimulation" ],
-            Teasing: [ "teasing stimulation", "teasing stimulation" ],
-            "Breeding / pregnancy fantasy": [ "sperm", "sperm or pregnancy" ],
-            "Surrogacy fantasy": [ "pregnancy", "pregnancy carried by a surrogate" ],
-            "Oviposition fantasy": [ "eggs", "eggs" ],
-            Watersports: [ "urine", "urine" ],
-            Lactation: [ "breast milk", "breast milk" ],
-            "Blood play": [ "blood", "blood" ],
-            Spit: [ "saliva", "saliva" ],
-            "Hunter / prey": [ "the hunt — pursuing & catching your prey", "being hunted, chased & caught" ],
-            "Chase scenes": [ "pursuing & catching", "being pursued & caught" ],
-            "Wrestling": [ "grappling & pinning", "being grappled & pinned" ],
-            "Biting & scratching": [ "bites & scratches", "bites & scratches on your skin" ],
-            "Acts of service": [ "service", "service" ],
-            "Domestic service": [ "household work", "household work" ],
-            "Grooming rituals": [ "grooming or bodily care", "grooming or bodily care" ],
-            "Dressing a partner": [ "clothes, lingerie, or gear", "clothes, lingerie, or gear" ],
-            "Permission rituals": [ "permission", "permission" ],
-            "Daily tasks": [ "task", "task" ],
-            "Spiritual play": [ "sacred ritual or spiritual experience", "sacred ritual or spiritual experience" ],
-            "Romantic surrender": [ "surrender or devotion", "surrender or devotion" ],
-            "Seduction scenarios": [ "seduction", "seduction" ],
-            "Growth / shrinking fantasy": [ "size contrast", "size contrast" ],
-            Crossdressing: [ "gendered clothing or presentation", "gendered clothing or presentation" ],
-            "Celebrity fantasy": [ "celebrity fantasy", "celebrity fantasy" ],
-            Sissification: [ "feminizing a partner", "being feminized" ],
-            "Nourishment": [ "food or drink", "food or drink" ],
-            "Praise (aftercare)": [ "praise or reassurance", "praise or reassurance" ]
-        }, We = {
-            "cat-power-exchange": [ "dom", "sub" ],
-            "cat-bondage-restriction": [ "restrains", "restrained" ],
-            "cat-impact-pain-body-modification": [ "applies", "receives" ],
-            "cat-sensation-atmosphere": [ "stimulates", "experiences" ],
-            "cat-roleplay-identity": [ "leads", "follows" ],
-            "cat-clothing-materials-objects": [ "admires", "wears / uses" ],
-            "cat-body-focus-appearance": [ "displays", "admires" ],
-            "cat-psychological-dynamics": [ "influences", "experiences" ],
-            "cat-watching-exposure-settings": [ "watches", "is watched" ],
-            "cat-partner-configurations": [ "arranges", "joins" ],
-            "cat-sex-acts": [ "performs", "receives" ],
-            "cat-positions": [ "initiates", "joins" ],
-            "cat-orgasm-reproductive-play": [ "controls", "is controlled" ],
-            "cat-fluids-messy-play": [ "releases / uses", "receives" ],
-            "cat-primal-pursuit": [ "hunter", "prey" ],
-            "cat-service-ritual": [ "serves", "is served" ],
-            "cat-fantasy-transformation": [ "transforms", "is transformed" ],
-            "cat-connection-aftercare": [ "cares", "is cared for" ],
-            "t0006": [ "grants", "begs" ],
-            "t0003": [ "wears", "admires" ],
-            "topic-gangbang-fantasy": [ "fucks in group", "is fucked by group" ],
-            "t0045": [ "captures", "escapes" ],
-            "t0097": [ "pushes", "endures" ],
-            "t0127": [ "authority", "subordinate" ],
-            "topic-caregiver-roles-adults": [ "caregiver", "little" ],
-            "topic-age-play-between-adults": [ "plays older", "plays younger" ],
-            "topic-pet-play": [ "handler", "pet" ],
-            "topic-pony-play": [ "trainer", "pony" ],
-            "topic-puppy-play": [ "handler", "pup" ],
-            "t0131": [ "owner", "property" ],
-            "topic-doctor-nurse-play": [ "clinician", "patient" ],
-            "topic-teacher-student-roleplay": [ "teacher", "student" ],
-            "topic-captivity-kidnapping": [ "captures", "is captured" ],
-            "topic-consensual-non-consent-fantasy": [ "overpowers", "is overpowered" ],
-            "t0153": [ "wears", "admires" ],
-            "t0152": [ "wears", "admires" ],
-            "t0181": [ "wears", "admires" ],
-            "t0176": [ "wears", "admires" ],
-            "t0166": [ "wears", "admires" ],
-            "topic-masks-hoods": [ "admires", "wears" ],
-            "t0196": [ "wears", "admires" ],
-            "t0185": [ "admires", "wears" ],
-            "t0162": [ "admires", "wears" ],
-            "t0236": [ "is modified", "admires" ],
-            "t0237": [ "worships", "is worshipped" ],
-            "t0220": [ "worships", "is worshipped" ],
-            "topic-feet-footwear": [ "worships", "is worshipped" ],
-            "t0222": [ "adores", "is adored" ],
-            "t0234": [ "plays big", "plays small" ],
-            "t0266": [ "watches", "is watched" ],
-            "t0270": [ "exhibits", "watches" ],
-            "t0316": [ "makes squirt", "squirts" ],
-            "t0328": [ "locks", "is locked" ],
-            "t0332": [ "surrogate", "parent" ],
-            "t0351": [ "hunter", "prey" ],
-            "t0352": [ "chase (be the chaser)", "be chased" ],
-            "t0353": [ "wrestle down", "be wrestled down" ],
-            "t0354": [ "bite & scratch", "be bitten & scratched" ],
-            "t0381": [ "big", "small" ],
-            "t0385": [ "wears", "admires" ],
-            "t0375": [ "accepts", "surrenders" ]
-        };
-        const SX_SUBSUMED_BASE_TOPIC_IDS = {
-            "FemDom": "t0009", "D/s": "t0010", "Brats": "t0012", "Switching": "t0014", "Male Authority": "t0015",
-            "Ongoing dynamics": "t0008", "24/7": "t0013", "Romantic surrender": "t0375",
-            "Hotwife": "t0288",
-            "Rope bondage": "t0022", "Cuffs": "t0025", "Bondage tape": "t0029", "Mummification": "t0032", "Tape": "t0033",
-            "Blindfold": "t0034", "Caging": "t0037", "Encasement": "t0038", "Sleepsacks": "t0039", "Immobilization": "t0040",
-            "Suspension Bondage": "t0043", "Bondage art": "t0050", "Texture contrast": "t0102", "Sensory deprivation": "t0103",
-            "Sensory overload": "t0104", "ASMR & whispering": "t0105", "Scent": "t0109", "Hands": "t0201",
-            "Hands & gloves": "t0202", "Feet": "t0213", "Buttocks": "t0218", "Breasts": "t0220", "Pregnancy focus": "t0222",
-            "Hair": "t0203", "Long Hair": "t0204", "Facial Hair": "t0208", "Beards": "t0209", "Body Hair": "t0210", "Pubic Hair": "t0211", "Muscles": "t0231"
-        };
         function Wn(e) {
             if (e && "object" == typeof e && e.id) return e.id;
             const t = sxName(e);

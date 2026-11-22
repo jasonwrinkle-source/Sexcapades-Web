@@ -16,6 +16,7 @@ parts = [
     "02e-font-ladder.js",
     "02f-spoke-geometry.js",
     "02d-selection-marking.js",
+    "02g1-alias-tables.js",
     "02g-definitions-ratings.js",
     "02h-inner-opener.js",
     "02i-taxonomy-catalog.js",
