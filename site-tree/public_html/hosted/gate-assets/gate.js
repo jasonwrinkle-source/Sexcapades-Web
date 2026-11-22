@@ -747,6 +747,169 @@
           });
         })();
 
+        // Flexcapades Skin Menu parity for Gate
+        (function() {
+          var LONG_PRESS_MS = 600;
+          var MOVE_CANCEL_PX = 12;
+          var header = document.getElementById("gateAppHeader");
+          var titleBtn = document.getElementById("gateAppAboutBtn");
+          var menu = document.getElementById("skinMenu");
+          var note = document.getElementById("skinNote");
+          if (!header || !menu) return;
+
+          var holdTimer = null;
+          var holdPointerId = null;
+          var holdX = 0, holdY = 0;
+          var holdFired = false;
+          var swallowClick = false;
+          var noteTimer = null;
+
+          function menuOpen() { return !menu.hidden; }
+
+          function showNote(text) {
+            if (!note) return;
+            note.textContent = text;
+            note.hidden = false;
+            if (noteTimer) clearTimeout(noteTimer);
+            noteTimer = setTimeout(function () {
+              note.hidden = true;
+              noteTimer = null;
+            }, 5000);
+          }
+          if (note) note.addEventListener("click", function () {
+            note.hidden = true;
+            if (noteTimer) { clearTimeout(noteTimer); noteTimer = null; }
+          });
+
+          function positionMenu(x, y) {
+            menu.style.visibility = "hidden";
+            menu.hidden = false;
+            var mw = menu.offsetWidth, mh = menu.offsetHeight;
+            var left = Math.max(8, Math.min(x, window.innerWidth - mw - 8));
+            var top = y + 8;
+            if (top + mh > window.innerHeight - 8) top = Math.max(8, y - mh - 8);
+            menu.style.left = left + "px";
+            menu.style.top = top + "px";
+            menu.style.visibility = "";
+          }
+
+          var activeSkin = (function() {
+            var host = window.location.hostname.toLowerCase();
+            if (host === "sexcapades.io" || host === "www.sexcapades.io" || host === "sex.capades.io") return "sexcapades";
+            if (/\.capades\.io$/.test(host)) {
+              var p = host.split(".")[0];
+              var rev = { sex: "sexcapades", polis: "poliscapades", fores: "forescapades", philo: "philoscapades", aesth: "aesthcapades", voca: "vocapades", tech: "techcapades", dharma: "dharmacapades", theori: "theoricapades", praxi: "praxicapades", quanta: "quantacapades", experi: "expericapades", simul: "simulcapades", matter: "mattercapades", chem: "chemcapades", nous: "nouscapades" };
+              if (rev[p]) return rev[p];
+            }
+            if (gateSkinPrefix && GATE_SKINS[gateSkinPrefix]) return GATE_SKINS[gateSkinPrefix][0].toLowerCase();
+            return "sexcapades";
+          })();
+
+          function markCurrent(skin) {
+            menu.querySelectorAll("[data-skin]").forEach(function (it) {
+              it.setAttribute("aria-checked", it.getAttribute("data-skin") === skin ? "true" : "false");
+            });
+          }
+
+          function openMenu(x, y, swallow, targetEl) {
+            if (targetEl && targetEl.getBoundingClientRect) {
+              var r = targetEl.getBoundingClientRect();
+              x = r.left;
+              y = r.bottom;
+            }
+            positionMenu(x, y);
+            if (swallow) {
+              swallowClick = true;
+              var clearOnce = function () { setTimeout(function () { swallowClick = false; }, 0); };
+              document.addEventListener("pointerup", clearOnce, { once: true });
+              document.addEventListener("pointercancel", clearOnce, { once: true });
+            }
+            var cur = menu.querySelector('[data-skin="' + activeSkin + '"]') || menu.querySelector('[data-skin="sexcapades"]');
+            if (cur) { try { cur.focus({ preventScroll: true }); } catch (e) { cur.focus(); } }
+            markCurrent(activeSkin);
+          }
+
+          function closeMenu() {
+            if (!menuOpen()) return;
+            menu.hidden = true;
+          }
+
+          var SKIN_SUBDOMAIN = { sexcapades: "sex", poliscapades: "polis", forescapades: "fores", philoscapades: "philo", aesthcapades: "aesth", vocapades: "voca", techcapades: "tech", dharmacapades: "dharma", theoricapades: "theori", praxicapades: "praxi", quantacapades: "quanta", expericapades: "experi", simulcapades: "simul", mattercapades: "matter", chemcapades: "chem", nouscapades: "nous" };
+
+          function choose(item) {
+            if (!item) return;
+            var skin = item.getAttribute("data-skin");
+            closeMenu();
+            var prefix = SKIN_SUBDOMAIN[skin];
+            if (prefix) {
+              window.location.href = "https://" + prefix + ".capades.io/";
+              return;
+            }
+            showNote("Switching to " + skin + "...");
+          }
+
+          menu.addEventListener("click", function(e) {
+            var it = e.target && e.target.closest ? e.target.closest("[data-skin]") : null;
+            if (it && menu.contains(it)) choose(it);
+          });
+
+          // Shift+Click on the header title or header bar opens the skin menu instantly
+          header.addEventListener("click", function(ev) {
+            if (swallowClick) {
+              ev.preventDefault();
+              ev.stopPropagation();
+              return;
+            }
+            if (ev.shiftKey) {
+              ev.preventDefault();
+              ev.stopPropagation();
+              openMenu(ev.clientX, ev.clientY, false, ev.target);
+            }
+          }, true);
+
+          // Long press on header
+          function cancelHold() {
+            if (holdTimer) { clearTimeout(holdTimer); holdTimer = null; }
+            holdPointerId = null;
+            holdFired = false;
+          }
+
+          header.addEventListener("pointerdown", function(ev) {
+            if (ev.pointerType === "mouse" && ev.button !== 0) return;
+            if (menuOpen()) return;
+            holdPointerId = ev.pointerId;
+            holdX = ev.clientX;
+            holdY = ev.clientY;
+            holdFired = false;
+            holdTimer = setTimeout(function() {
+              holdFired = true;
+              openMenu(holdX, holdY, true, ev.target);
+            }, LONG_PRESS_MS);
+          });
+
+          header.addEventListener("pointermove", function(ev) {
+            if (holdPointerId !== ev.pointerId) return;
+            var dx = ev.clientX - holdX, dy = ev.clientY - holdY;
+            if (dx * dx + dy * dy > MOVE_CANCEL_PX * MOVE_CANCEL_PX) cancelHold();
+          });
+
+          header.addEventListener("pointerup", cancelHold);
+          header.addEventListener("pointercancel", cancelHold);
+
+          document.addEventListener("click", function(ev) {
+            if (menuOpen() && !menu.contains(ev.target) && !header.contains(ev.target)) {
+              closeMenu();
+            }
+          });
+
+          document.addEventListener("keydown", function(ev) {
+            if (menuOpen() && ev.key === "Escape") {
+              closeMenu();
+              if (titleBtn) titleBtn.focus();
+            }
+          });
+        })();
+
       }());
     
 /* ---- inline block 3 (document order) ---- */
