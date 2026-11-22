@@ -978,7 +978,8 @@
         const eaBase = {
             photoRadius: ea.photoRadius,
             glanceRadii: ea.glanceRadii.slice(),
-            spokeStartRadius: ea.spokeStartRadius
+            spokeStartRadius: ea.spokeStartRadius,
+            lineStartRadius: ea.lineStartRadius
         };
         function centerRingScale() {
             const v = Number(mn && mn.centerRingScale);
@@ -1169,6 +1170,16 @@
             const GLANCE_INNER_CLEARANCE = 5.73, w = midlineStrokeWidth(), innerEdge = ea.photoRadius + GLANCE_INNER_CLEARANCE, r2 = v => Math.round(v * 100) / 100;
             ea.glanceRadii = [ r2(innerEdge + 5 * w / 2), r2(innerEdge + 3 * w / 2), r2(innerEdge + w / 2) ];
             ea.spokeStartRadius = r2(innerEdge + 3 * w);
+            // Label-anchor tracking (fix 2026-11-22): lineStartRadius
+            // was frozen while the photo and rings scale with
+            // centerRingScale, so at larger center sizes the gen-1
+            // names started inside the rings and ran over them and
+            // the avatar. The label base now follows the ring's outer
+            // edge (spokeStartRadius) outward, preserving the frozen
+            // baseline gap (lineStartRadius - spokeStartRadius =
+            // 174.86); it never moves inward from the frozen anchor,
+            // so the 1.0 layout is byte-identical.
+            ea.lineStartRadius = r2(Math.max(eaBase.lineStartRadius, ea.spokeStartRadius + (eaBase.lineStartRadius - eaBase.spokeStartRadius)));
             document.documentElement.style.setProperty("--glance-ring-width", String(w));
             // FQ2-BAKEIN (A4, position driver): the center "+N branches"
             // toggle follows the center ring. At scale 1 its fixed Y
