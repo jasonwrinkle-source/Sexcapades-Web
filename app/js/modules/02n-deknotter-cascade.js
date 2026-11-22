@@ -97,6 +97,12 @@ import {
     throwBracketSnapshot,
     diagSnapshot
 } from './02n1-deknotter-diagnostics.js';
+import {
+    dkValidatePhaseRatios,
+    dkComputeLadderSchedule,
+    dkConvertRenderedToOverride,
+    dkEvaluateCrossingDrop
+} from './02n2-deknotter-solver.js';
 
         let lastKeptSnapshot;
         function captureKept(dk, refreshKeptFit, name) {
@@ -540,7 +546,7 @@ import {
             const throwCenterRadius = eaBase.photoRadius * centerRingScale();
             const throwBranchTarget = throwCenterRadius * SX_SCORE.THROW_BRANCH;
             const throwSubcatTarget = throwCenterRadius * SX_SCORE.THROW_SUBCAT;
-            const throwConvert = (curLen, delivered, target) => sxLenConvert(curLen, delivered, target);
+            const throwConvert = (curLen, delivered, target) => dkConvertRenderedToOverride(curLen, delivered, target);
             const branchCurEntry = snapshot && snapshot.branchOverrides
                 ? snapshot.branchOverrides[name] : null;
             const branchCurLen = branchCurEntry && Number(branchCurEntry.length) > 0
@@ -646,8 +652,9 @@ import {
                 throwRec.throws = attempt;
                 let after = null;
                 try { after = await dk.measureCloud(name); } catch (e) { after = null; }
-                const drop = null != throwRec.before && throwRec.before > 0 && null != after && Number.isFinite(after) ? (throwRec.before - after) / throwRec.before : null;
-                const substantial = null != drop && drop > SX_SCORE.THROW_REPEAT_DROP;
+                const evalResult = dkEvaluateCrossingDrop(throwRec.before, after, SX_SCORE.THROW_REPEAT_DROP);
+                const drop = evalResult.drop;
+                const substantial = evalResult.substantial;
                 throwRec.attempts.push({ attempt: attempt, after: after, drop: drop, substantial: substantial });
                 throwRec.finalAfter = after, throwRec.substantial = substantial;
                 dkLog.push({ type: "throw-repeat-check", branch: name, attempt: attempt, before: throwRec.before, after: after, drop: drop, substantial: substantial });

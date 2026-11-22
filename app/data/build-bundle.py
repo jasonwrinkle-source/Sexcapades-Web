@@ -27,6 +27,7 @@ parts = [
     "02l-deknotter-session.js",
     "02m-fit-targets.js",
     "02n1-deknotter-diagnostics.js",
+    "02n2-deknotter-solver.js",
     "02n-deknotter-cascade.js",
     "02o-ratings-scales.js",
     "02p-spoke-selection.js",
