@@ -880,7 +880,21 @@ __sxInit(function initScribeGeminiBYOK() {
           try {
             await narratePlayGeminiUnary(audioEndpoint, payload, audioAbortController ? audioAbortController.signal : null, modelName);
           } catch (uErr) {
+            if (token !== narrateGenToken) { isProcessing = false; return; }
             console.warn("[Live Story Narrator] Unary failed:", uErr.message);
+            // Safety-filter block fallback: if safety or content filter blocked TTS audio output,
+            // fall back to browser native SpeechSynthesis for this sentence so playback continues smoothly.
+            if (window.speechSynthesis && typeof window.SpeechSynthesisUtterance !== "undefined") {
+              try {
+                await new Promise(function(resolve) {
+                  var utt = new SpeechSynthesisUtterance(sentence.trim());
+                  utt.rate = typeof getNarrateSpeed === "function" ? getNarrateSpeed() : 1.0;
+                  utt.onend = function() { resolve(); };
+                  utt.onerror = function() { resolve(); };
+                  window.speechSynthesis.speak(utt);
+                });
+              } catch (_) {}
+            }
           }
         }
       }
@@ -1393,17 +1407,48 @@ __sxInit(function initScribeGeminiBYOK() {
 
       if (!narrationSucceeded) {
         var errText = lastAudioErr ? lastAudioErr.message : "Failed to generate audio stream.";
-        console.error("[Scribe Audio Narration Failed]", errText);
-        if (narrateStatus) {
-          narrateStatus.textContent = "Voice narration failed: " + errText;
-          narrateStatus.style.color = "#f87171";
+        console.warn("[Scribe Audio Narration] Cloud TTS blocked or failed (" + errText + "), attempting SpeechSynthesis fallback…");
+        if (window.speechSynthesis && typeof window.SpeechSynthesisUtterance !== "undefined") {
+          try {
+            if (narrateStatus) {
+              narrateStatus.textContent = "Narrating with local device speech…";
+              narrateStatus.style.color = "#4ade80";
+            }
+            var uttAll = new SpeechSynthesisUtterance(text);
+            uttAll.rate = getNarrateSpeed();
+            uttAll.onend = function() {
+              if (narrateStatus) narrateStatus.textContent = "Narration finished.";
+              if (startNarrateBtn) { startNarrateBtn.textContent = "▶ Start Narration"; startNarrateBtn.disabled = false; }
+              if (stopNarrateBtn) stopNarrateBtn.hidden = true;
+            };
+            uttAll.onerror = function() {
+              if (narrateStatus) {
+                narrateStatus.textContent = "Voice narration failed: " + errText;
+                narrateStatus.style.color = "#f87171";
+              }
+              if (startNarrateBtn) { startNarrateBtn.textContent = "▶ Start Narration"; startNarrateBtn.disabled = false; }
+            };
+            window.speechSynthesis.speak(uttAll);
+            narrationSucceeded = true;
+            if (startNarrateBtn) { startNarrateBtn.textContent = "Restart Narration"; startNarrateBtn.disabled = false; }
+            if (stopNarrateBtn) stopNarrateBtn.hidden = false;
+          } catch (synthErr) {
+            console.error("[Scribe SpeechSynthesis fallback failed]", synthErr);
+          }
         }
-        if (startNarrateBtn) {
-          startNarrateBtn.textContent = "▶ Start Narration";
-          startNarrateBtn.disabled = false;
+        if (!narrationSucceeded) {
+          console.error("[Scribe Audio Narration Failed]", errText);
+          if (narrateStatus) {
+            narrateStatus.textContent = "Voice narration failed: " + errText;
+            narrateStatus.style.color = "#f87171";
+          }
+          if (startNarrateBtn) {
+            startNarrateBtn.textContent = "▶ Start Narration";
+            startNarrateBtn.disabled = false;
+          }
+          if (stopNarrateBtn) stopNarrateBtn.hidden = true;
+          if (pauseNarrateBtn) pauseNarrateBtn.hidden = true;
         }
-        if (stopNarrateBtn) stopNarrateBtn.hidden = true;
-        if (pauseNarrateBtn) pauseNarrateBtn.hidden = true;
       }
     });
   }
