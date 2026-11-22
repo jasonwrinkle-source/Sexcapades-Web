@@ -207,7 +207,10 @@
             }
             const S = Sa(d, v, p), $ = ka(u, w, x.giveKnown ? ba(x.give) : "Unrated", { tapFirst: !0 }), E = ka(u, k, x.receiveKnown ? ba(x.receive) : "Unrated", { tapFirst: !0 }), A = null != hubD ? hubD / 2 : sxIconRadius(sxD > 1 ? sxD - 1 : 1), C = null != leafD ? leafD / 2 : sxIconRadius(sxD), {sx0: M, sy0: I, sx1: P, sy1: L} = Ga.trimToIcons(e, t, n, i, A, C), T = (m ? "" : `<line class="hanky-midline-outline" x1="${M}" y1="${I}" x2="${P}" y2="${L}" stroke="${Ga.OUTLINE_COLOR}" stroke-width="${Ga.CLOUD_OUTLINE_WIDTH(f, sxD)}" stroke-linecap="butt" opacity="0.9" pointer-events="none"/>`) + `<line class="hanky-midline${m ? " hanky-none" : ""}" x1="${M}" y1="${I}" x2="${P}" y2="${L}" stroke="${y}" stroke-width="${sxSW}"${b} opacity="1" stroke-linecap="butt"${S}/>`, F = Boolean(o), N = Boolean(s);
             if (!l || !F && !N) return T;
-            const _ = F ? o : s, D = N ? s : o, R = Ga.tipWidth(f), O = Ga.cloudBaseWidth(h, c) * (mapFontScale() * sxF / 3), B = Ga.segment(M, I, P, L), j = P - M, q = L - I, H = f / 2, W = Ga.splitInnerHalf(f, sxD);
+            // Flank rule (Jason, 2026-11-22): each stem wears only its own
+            // flank's color; a one-sided rating leaves the absent flank's stem
+            // in the neutral seam color instead of spreading the rated color.
+            const _ = F ? o : Ga.NO_CODE_COLOR, D = N ? s : Ga.NO_CODE_COLOR, R = Ga.tipWidth(f), O = Ga.cloudBaseWidth(h, c) * (mapFontScale() * sxF / 3), B = Ga.segment(M, I, P, L), j = P - M, q = L - I, H = f / 2, W = Ga.splitInnerHalf(f, sxD);
             const fs = typeof sxFontSize === "function" ? sxFontSize(sxD) : 14;
             const nameW = typeof Za !== "undefined" && Za.measure ? Za.measure(u || "", fs, "topic") : ((u || "").length * 7);
             const U = SpokeGeometry.flankPaths(M, I, j, q, B.nx, B.ny, O, R, W, W, "outerFirst", SpokeGeometry.buildBaseCircle(e, t, A), {
