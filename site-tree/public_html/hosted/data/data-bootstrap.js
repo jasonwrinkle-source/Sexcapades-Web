@@ -2257,6 +2257,11 @@ const TAXONOMY_CATEGORIES = [];
         })();
         window.SpokeGeometry = SpokeGeometry;
         /* ================= SpokeGeometry module — END ================= */
+        // Hanky off the map (Jason, 2026-11-22): on the Sexcapades skin
+        // the spoke midline wears the same neutral seam the vanilla skins
+        // use; a topic's hanky code colors its placard instead (03e1).
+        // True whenever the active skin is not a vanilla skin.
+        const sxSexSkin = () => !(typeof window !== "undefined" && window.__SX_SKIN_PREFIX && "sex" !== window.__SX_SKIN_PREFIX);
         const Ga = Object.freeze({
             WIDTH: 18,
             TIP_FRACTION: 0,
@@ -2358,6 +2363,7 @@ const TAXONOMY_CATEGORIES = [];
             return null;
         }
         function Ka(e, t, n, i, a, r, o, s, l, c, d, u = 48, p = Ga.FALLBACK_COLOR, g = !0, m = "", f = null, y = null, b = null, v = !1, w = !0, k = h.length, bc = null, sxLeafD = null, sxDepth = null) {
+            if (sxSexSkin()) v = !0;
             Ra(e);
             const sxD = null != sxDepth ? sxDepth : sxLeafD === sxIconDiameter(1) ? 1 : sxLeafD === sxIconDiameter(3) ? 3 : 2, sxF = sxFontFactor(sxD), sxSW = sxStrokeWidth(sxD);
             const x = Rt || Qi() ? null : Vi(), S = Rt ? null : x || function(e) {
@@ -4866,7 +4872,7 @@ const Ce = {
             const r = [ `${"Category" === e.kind ? we[e.branch] || "branch symbol" : xe(t.key)}: ${"Category" === e.kind ? "branch" : "topic"} symbol for ${e.label}.` ], o = Se[i.key] || "hanky";
             t && t.glyphFallback && r.push("The star symbol is shown because no symbol is assigned here.");
             return "Category" === e.kind ? r.push("noCode" === i.key ? "Dark-charcoal icon: no children have a hanky code." : `${o} icon: predominant hanky color among coded child topics${i.mixed ? "; dashed spoke means the coded children vary widely" : ""}.`) : r.push("noCode" === i.key ? "Dark-charcoal icon: this topic has no hanky code." : `${o} icon: this topic’s hanky-code color.`), 
-            r.push(null === n ? "Spoke color follows the hanky code; a dashed charcoal spoke means no code." : "Green-to-yellow-to-red spoke: current rating colors."), 
+            r.push(null === n ? "The spoke's center line is a neutral seam; the rating colors live on the spoke's flanks." : "Green-to-yellow-to-red spoke: current rating colors."), 
             "favorite" === a ? r.push("★ marks a Favorite.") : "notinterested" === a ? r.push("⊘ marks Not Interested: not for this person, but not a hard boundary.") : "limit" === a && r.push("× marks a hard Limit."), 
             e.risk && r.push("* marks a higher-risk practice needing specialized knowledge and explicit negotiation."), 
             r.join(" ");
@@ -7351,7 +7357,7 @@ const Ce = {
             const r = [ `${"Category" === e.kind ? we[e.branch] || "branch symbol" : xe(t.key)}: ${"Category" === e.kind ? "branch" : "topic"} symbol for ${e.label}.` ], o = Se[i.key] || "hanky";
             t && t.glyphFallback && r.push("The star symbol is shown because no symbol is assigned here.");
             return "Category" === e.kind ? r.push("noCode" === i.key ? "Dark-charcoal icon: no children have a hanky code." : `${o} icon: predominant hanky color among coded child topics${i.mixed ? "; dashed spoke means the coded children vary widely" : ""}.`) : r.push("noCode" === i.key ? "Dark-charcoal icon: this topic has no hanky code." : `${o} icon: this topic’s hanky-code color.`), 
-            r.push(null === n ? "Spoke color follows the hanky code; a dashed charcoal spoke means no code." : "Green-to-yellow-to-red spoke: current rating colors."), 
+            r.push(null === n ? "The spoke's center line is a neutral seam; the rating colors live on the spoke's flanks." : "Green-to-yellow-to-red spoke: current rating colors."), 
             "favorite" === a ? r.push("★ marks a Favorite.") : "notinterested" === a ? r.push("⊘ marks Not Interested: not for this person, but not a hard boundary.") : "limit" === a && r.push("× marks a hard Limit."), 
             e.risk && r.push("* marks a higher-risk practice needing specialized knowledge and explicit negotiation."), 
             r.join(" ");
@@ -16542,6 +16548,7 @@ function dkEvaluateCrossingDrop(before, after, threshold = 0.75) {
             return null;
         }
         function Ka(e, t, n, i, a, r, o, s, l, c, d, u = 48, p = Ga.FALLBACK_COLOR, g = !0, m = "", f = null, y = null, b = null, v = !1, w = !0, k = h.length, bc = null, sxLeafD = null, sxDepth = null) {
+            if (sxSexSkin()) v = !0;
             Ra(e);
             const sxD = null != sxDepth ? sxDepth : sxLeafD === sxIconDiameter(1) ? 1 : sxLeafD === sxIconDiameter(3) ? 3 : 2, sxF = sxFontFactor(sxD), sxSW = sxStrokeWidth(sxD);
             const x = Rt || Qi() ? null : Vi(), S = Rt ? null : x || function(e) {
@@ -21032,7 +21039,7 @@ function dkEvaluateCrossingDrop(before, after, threshold = 0.75) {
         // module doc).
         const renderKinkLine = (e, t, n, i, a, r, o, s, l, c, d, u, p, h = pr.categoryIcon, g = 48, hubD = null, leafD = null, sxDepth = null) => {
             const sxD = null != sxDepth ? sxDepth : leafD === sxIconDiameter(3) ? 3 : 2, sxF = sxFontFactor(sxD), sxSW = sxStrokeWidth(sxD);
-            const m = "noCode" === a, f = Ga.WIDTH;
+            const m = "noCode" === a || sxSexSkin(), f = Ga.WIDTH;
             const shape = typeof Ge === "function" ? Ge(d, p) : null;
             const isTriple = Boolean(shape && shape.keys && shape.keys.length === 3);
             let y = m ? Ga.NO_CODE_COLOR : r || Ga.NO_CODE_COLOR;
@@ -28649,6 +28656,39 @@ function* sxRunNodeSettle(scCtx, blitSess) {
             Pr.querySelector('[data-topic-flag="fantasy"]').setAttribute("aria-pressed", String(Boolean(Je[Vi()]?.[e])));
             Pr.querySelector('[data-topic-flag="tried"]').setAttribute("aria-pressed", String(Boolean(et[Vi()]?.[e])));
             Pr.dataset.openedAt = String(performance.now());
+            // Hanky code lives on the placard now (Jason, 2026-11-22):
+            // on the Sexcapades skin a coded topic's sheet wears its
+            // hanky color as the background, and the sheet's paper/ink
+            // pair is set to whichever of the two gives the text the
+            // better contrast against that color. Uncoded topics and
+            // every vanilla skin keep the standard sheet.
+            (function () {
+                const chip = document.getElementById("markHanky"), sw = document.getElementById("markHankySwatch"), tx = document.getElementById("markHankyText");
+                let key = null;
+                if (sxSexSkin() && typeof Ie !== "undefined" && r && r.label) {
+                    key = Ie.get(r.label) || null;
+                    if (!key) for (const [nm, k] of Ie) if (nm.toLowerCase() === String(r.label).toLowerCase()) { key = k; break; }
+                }
+                const hex = key && typeof Ce !== "undefined" && Ce[key] ? Ce[key].color : null;
+                if (hex) {
+                    const lin = [1, 3, 5].map(off => { const c = parseInt(hex.slice(off, off + 2), 16) / 255; return c <= .03928 ? c / 12.92 : Math.pow((c + .055) / 1.055, 2.4); });
+                    const lum = .2126 * lin[0] + .7152 * lin[1] + .0722 * lin[2];
+                    const darkFg = (lum + .05) / .0588, lightFg = .97 / (lum + .05);
+                    Pr.classList.add("hanky-backed");
+                    Pr.style.setProperty("--hanky-bg", hex);
+                    Pr.style.setProperty("--paper", darkFg >= lightFg ? "#151816" : "#f4f6f2");
+                    Pr.style.setProperty("--ink", darkFg >= lightFg ? "#f4f6f2" : "#151816");
+                    Pr.dataset.hankyKey = key;
+                    if (chip) { chip.hidden = !1; if (sw) sw.style.background = hex; if (tx) tx.textContent = "Hanky code: " + ((typeof Se !== "undefined" && Se[key]) || key); }
+                } else {
+                    Pr.classList.remove("hanky-backed");
+                    Pr.style.removeProperty("--hanky-bg");
+                    Pr.style.removeProperty("--paper");
+                    Pr.style.removeProperty("--ink");
+                    Pr.removeAttribute("data-hanky-key");
+                    if (chip) chip.hidden = !0;
+                }
+            })();
             Pr.hidden = !1;
             sxSyncMarkRatings(e);
             if (innerWidth <= 620) Pr.style.removeProperty("left"), Pr.style.removeProperty("top"); else {
