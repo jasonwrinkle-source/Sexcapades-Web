@@ -1298,6 +1298,39 @@
             Pr.querySelector('[data-topic-flag="fantasy"]').setAttribute("aria-pressed", String(Boolean(Je[Vi()]?.[e])));
             Pr.querySelector('[data-topic-flag="tried"]').setAttribute("aria-pressed", String(Boolean(et[Vi()]?.[e])));
             Pr.dataset.openedAt = String(performance.now());
+            // Hanky code lives on the placard now (Jason, 2026-11-22):
+            // on the Sexcapades skin a coded topic's sheet wears its
+            // hanky color as the background, and the sheet's paper/ink
+            // pair is set to whichever of the two gives the text the
+            // better contrast against that color. Uncoded topics and
+            // every vanilla skin keep the standard sheet.
+            (function () {
+                const chip = document.getElementById("markHanky"), sw = document.getElementById("markHankySwatch"), tx = document.getElementById("markHankyText");
+                let key = null;
+                if (sxSexSkin() && typeof Ie !== "undefined" && r && r.label) {
+                    key = Ie.get(r.label) || null;
+                    if (!key) for (const [nm, k] of Ie) if (nm.toLowerCase() === String(r.label).toLowerCase()) { key = k; break; }
+                }
+                const hex = key && typeof Ce !== "undefined" && Ce[key] ? Ce[key].color : null;
+                if (hex) {
+                    const lin = [1, 3, 5].map(off => { const c = parseInt(hex.slice(off, off + 2), 16) / 255; return c <= .03928 ? c / 12.92 : Math.pow((c + .055) / 1.055, 2.4); });
+                    const lum = .2126 * lin[0] + .7152 * lin[1] + .0722 * lin[2];
+                    const darkFg = (lum + .05) / .0588, lightFg = .97 / (lum + .05);
+                    Pr.classList.add("hanky-backed");
+                    Pr.style.setProperty("--hanky-bg", hex);
+                    Pr.style.setProperty("--paper", darkFg >= lightFg ? "#151816" : "#f4f6f2");
+                    Pr.style.setProperty("--ink", darkFg >= lightFg ? "#f4f6f2" : "#151816");
+                    Pr.dataset.hankyKey = key;
+                    if (chip) { chip.hidden = !1; if (sw) sw.style.background = hex; if (tx) tx.textContent = "Hanky code: " + ((typeof Se !== "undefined" && Se[key]) || key); }
+                } else {
+                    Pr.classList.remove("hanky-backed");
+                    Pr.style.removeProperty("--hanky-bg");
+                    Pr.style.removeProperty("--paper");
+                    Pr.style.removeProperty("--ink");
+                    Pr.removeAttribute("data-hanky-key");
+                    if (chip) chip.hidden = !0;
+                }
+            })();
             Pr.hidden = !1;
             sxSyncMarkRatings(e);
             if (innerWidth <= 620) Pr.style.removeProperty("left"), Pr.style.removeProperty("top"); else {

@@ -507,6 +507,11 @@
         })();
         window.SpokeGeometry = SpokeGeometry;
         /* ================= SpokeGeometry module — END ================= */
+        // Hanky off the map (Jason, 2026-11-22): on the Sexcapades skin
+        // the spoke midline wears the same neutral seam the vanilla skins
+        // use; a topic's hanky code colors its placard instead (03e1).
+        // True whenever the active skin is not a vanilla skin.
+        const sxSexSkin = () => !(typeof window !== "undefined" && window.__SX_SKIN_PREFIX && "sex" !== window.__SX_SKIN_PREFIX);
         const Ga = Object.freeze({
             WIDTH: 18,
             TIP_FRACTION: 0,
@@ -608,6 +613,7 @@
             return null;
         }
         function Ka(e, t, n, i, a, r, o, s, l, c, d, u = 48, p = Ga.FALLBACK_COLOR, g = !0, m = "", f = null, y = null, b = null, v = !1, w = !0, k = h.length, bc = null, sxLeafD = null, sxDepth = null) {
+            if (sxSexSkin()) v = !0;
             Ra(e);
             const sxD = null != sxDepth ? sxDepth : sxLeafD === sxIconDiameter(1) ? 1 : sxLeafD === sxIconDiameter(3) ? 3 : 2, sxF = sxFontFactor(sxD), sxSW = sxStrokeWidth(sxD);
             const x = Rt || Qi() ? null : Vi(), S = Rt ? null : x || function(e) {

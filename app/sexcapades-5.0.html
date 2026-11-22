@@ -1517,7 +1517,7 @@ window.__sxProgressWidget=function(refs){
 <div class="legend-row"><span aria-hidden="true" class="legend-heat-chip is-green"></span><span><b>Green-leaning</b> — the topics rated inside mostly say Hot topics</span></div> <!-- FQ2-BAKEIN: legend heat row "Want to do" -> "Hot topics" -->
 <div class="legend-row"><span aria-hidden="true" class="legend-heat-chip is-yellow"></span><span><b>Yellow</b> — the inside ratings are mixed, or mostly Curiosity?</span></div> <!-- FQ2-BAKEIN: legend heat row "Curious about" -> "Curiosity?" -->
 <div class="legend-row"><span aria-hidden="true" class="legend-heat-chip is-red"></span><span><b>Red-leaning</b> — the topics rated inside mostly say Not topics</span></div> <!-- FQ2-BAKEIN: legend heat row "No" -> "Not topics" -->
-<p class="legend-section-sub">The stronger the average, the deeper the color. Favorites pull a branch toward green; Hard Limits and Not Interested pull it toward red. A branch with nothing rated inside yet keeps its plain hanky color (gray when it has no code) — no heat until something inside it is rated.</p>
+<p class="legend-section-sub">The stronger the average, the deeper the color. Favorites pull a branch toward green; Hard Limits and Not Interested pull it toward red. A branch with nothing rated inside yet keeps its plain neutral color — no heat until something inside it is rated.</p>
 </section>
 <section class="legend-section" data-legend-entry="marks">
 <div class="legend-section-title">Topic markers</div>
@@ -1539,13 +1539,13 @@ window.__sxProgressWidget=function(refs){
 <div class="legend-section-title">Lines and navigation</div>
 <div class="legend-row"><span aria-hidden="true" class="legend-line"></span><span><b>Solid topic line</b> — tap the line to select its branch; tap the topic's icon or label to select the topic and open its rating sliders</span></div>
 <div class="legend-row"><span aria-hidden="true" class="legend-line overlap"></span><span><b>Fine white dots</b> — related branch overlap</span></div>
-<div class="legend-row"><span aria-hidden="true" class="legend-no-hanky"></span><span><b>Dark-charcoal dashed</b> — no hanky code</span></div>
+<div class="legend-row"><span aria-hidden="true" class="legend-no-hanky"></span><span><b>Dark-charcoal dashed</b> — the spoke's neutral center seam, on every skin</span></div>
 </section>
 <section class="legend-section" data-legend-entry="gen1-lines">
 <div class="legend-section-title">Kink categories</div>
-<div class="legend-row"><span aria-hidden="true" class="legend-gen1-line"></span><span><b>Solid hanky color</b> — predominant color among coded children</span></div>
-<div class="legend-row"><span aria-hidden="true" class="legend-gen1-line mixed"></span><span><b>Dashed hanky color</b> — mixed children with no clear majority</span></div>
-<div class="legend-row"><span aria-hidden="true" class="legend-gen1-line none"></span><span><b>Dark-charcoal dashed</b> — no hanky-coded children</span></div>
+<div class="legend-row"><span aria-hidden="true" class="legend-gen1-line"></span><span><b>Neutral seam</b> — the center line of every category spoke, on every skin</span></div>
+<div class="legend-row"><span aria-hidden="true" class="legend-gen1-line mixed"></span><span><b>Hanky code</b> — a topic's code colors its placard when you open the topic; the chart below explains the colors</span></div>
+<div class="legend-row"><span aria-hidden="true" class="legend-gen1-line none"></span><span><b>Dark-charcoal dashed</b> — the category seam when nothing inside is rated</span></div>
 </section>
 <section class="legend-section" data-legend-entry="other">
 <div class="legend-section-title">Other markers</div>
@@ -2825,6 +2825,7 @@ window.__sxProgressWidget=function(refs){
 </div>
 <button aria-label="Close topic details" class="mark-menu-close" id="closeMarkMenu" type="button">×</button>
 </div>
+<div class="mark-hanky" hidden="" id="markHanky"><span aria-hidden="true" class="mark-hanky-swatch" id="markHankySwatch"></span><span id="markHankyText"></span></div>
 <p class="mark-description" id="markDescription"></p>
 <div class="mark-prevalence" hidden="" id="markPrevalence"><strong>How common is this?</strong><span id="markPrevalenceText"></span><small id="markPrevalenceSource"></small></div>
 <div class="mark-community-ratings" hidden="" id="markCommunityRatings"><strong>Community ratings</strong><div id="markCommunityRatingsBody"></div></div>

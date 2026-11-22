@@ -192,7 +192,7 @@
         // module doc).
         const renderKinkLine = (e, t, n, i, a, r, o, s, l, c, d, u, p, h = pr.categoryIcon, g = 48, hubD = null, leafD = null, sxDepth = null) => {
             const sxD = null != sxDepth ? sxDepth : leafD === sxIconDiameter(3) ? 3 : 2, sxF = sxFontFactor(sxD), sxSW = sxStrokeWidth(sxD);
-            const m = "noCode" === a, f = Ga.WIDTH;
+            const m = "noCode" === a || sxSexSkin(), f = Ga.WIDTH;
             const shape = typeof Ge === "function" ? Ge(d, p) : null;
             const isTriple = Boolean(shape && shape.keys && shape.keys.length === 3);
             let y = m ? Ga.NO_CODE_COLOR : r || Ga.NO_CODE_COLOR;
