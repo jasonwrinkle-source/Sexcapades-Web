@@ -199,6 +199,9 @@
                     try { await window.sxPaintPromise; } catch (_) {}
                 }
                 await yieldNow();
+                if (typeof window.__sxFocusApproximatedBranch === "function") {
+                    window.__sxFocusApproximatedBranch(name);
+                }
                 let activeKey = null;
                 if (typeof window.__sxGetActiveNodeKey === "function") {
                     activeKey = window.__sxGetActiveNodeKey();

@@ -11129,6 +11129,9 @@ const Ce = {
                     try { await window.sxPaintPromise; } catch (_) {}
                 }
                 await yieldNow();
+                if (typeof window.__sxFocusApproximatedBranch === "function") {
+                    window.__sxFocusApproximatedBranch(name);
+                }
                 let activeKey = null;
                 if (typeof window.__sxGetActiveNodeKey === "function") {
                     activeKey = window.__sxGetActiveNodeKey();
@@ -12135,8 +12138,9 @@ function dkEvaluateCrossingDrop(before, after, threshold = 0.75) {
             // is recorded on report.throwRadii (fields added
             // only) and in the run log.
             const throwCenterRadius = eaBase.photoRadius * centerRingScale();
-            const throwBranchTarget = Math.max(preDelivered && Number.isFinite(preDelivered.branch) && preDelivered.branch > 0 ? preDelivered.branch * 1.75 : 0, throwCenterRadius * SX_SCORE.THROW_BRANCH, 100000);
-            const throwSubcatTarget = throwCenterRadius * SX_SCORE.THROW_SUBCAT;
+            const attemptMultiplier = 1 + (attempt - 1) * 0.35;
+            const throwBranchTarget = Math.max(preDelivered && Number.isFinite(preDelivered.branch) && preDelivered.branch > 0 ? preDelivered.branch * 1.75 : 0, throwCenterRadius * SX_SCORE.THROW_BRANCH, 100000) * attemptMultiplier;
+            const throwSubcatTarget = throwCenterRadius * SX_SCORE.THROW_SUBCAT * attemptMultiplier;
             const throwConvert = (curLen, delivered, target) => dkConvertRenderedToOverride(curLen, delivered, target);
             const branchCurEntry = snapshot && snapshot.branchOverrides
                 ? snapshot.branchOverrides[name] : null;
@@ -12206,6 +12210,7 @@ function dkEvaluateCrossingDrop(before, after, threshold = 0.75) {
             });
             await runPhase("throw", throwPatch, mark, opts, dk, name, preDelivered, tax, report, diagCaptureFields, witnessTrippingLabel, WITNESS_EPS, WITNESS_ONE_STEP);
             await focusThrowedActiveNode(name);
+            if (typeof window.__sxFocusApproximatedBranch === "function") window.__sxFocusApproximatedBranch(name);
             }
         async function stepThrowRepeated(name, preDelivered, tax, report, staged, runPhase, opts, dk, diagCaptureFields, witnessTrippingLabel, WITNESS_EPS, WITNESS_ONE_STEP) {
             // THROW REPEAT (ruled 2026-11-06, Jason): the throw
@@ -12240,7 +12245,7 @@ function dkEvaluateCrossingDrop(before, after, threshold = 0.75) {
             const throwRec = { before: throwBefore, attempts: [], throws: 0, substantial: !1, finalAfter: null };
             report.throwRepeat = throwRec;
             for (let attempt = 1; attempt <= 1 + SX_SCORE.THROW_REPEAT_MAX_EXTRA; attempt++) {
-                await stepThrow(name, preDelivered, tax, report, staged, runPhase, opts, dk, diagCaptureFields, witnessTrippingLabel, WITNESS_EPS, WITNESS_ONE_STEP);
+                await stepThrow(name, preDelivered, tax, report, staged, runPhase, opts, dk, diagCaptureFields, witnessTrippingLabel, WITNESS_EPS, WITNESS_ONE_STEP, attempt);
                 throwRec.throws = attempt;
                 let after = null;
                 try { after = await dk.measureCloud(name); } catch (e) { after = null; }
@@ -12391,7 +12396,7 @@ function dkEvaluateCrossingDrop(before, after, threshold = 0.75) {
             // improve-or-hold gate below still judges the
             // end state exactly as before and is the only
             // whole-run revert left.
-            if (null != prevPhaseCloud && null != record.cloud && Number.isFinite(prevPhaseCloud) && Number.isFinite(record.cloud)) {
+            if ("throw" !== phaseName && null != prevPhaseCloud && null != record.cloud && Number.isFinite(prevPhaseCloud) && Number.isFinite(record.cloud)) {
                 const gateTol = SX_SCORE.GATE_TOL;
                 if (record.cloud > prevPhaseCloud + gateTol) {
                     const trippedRatios = { requested: record.requestedRatios, delivered: record.deliveredRatios };
@@ -27010,12 +27015,17 @@ function* sxRunNodeSettle(scCtx, blitSess) {
                 if (sp.cloud !== branch || !sp.seg) return;
                 const id = "center" === sp.kind ? sp.cloud : (sp.entry && sp.entry.rec && (sp.entry.rec.id || sp.entry.rec.label)) || sp.cloud;
                 if ("center" === sp.kind) anchor = sp.seg[1];
-                lines.push({ k: ("center" === sp.kind ? "c:" : "sp:") + id, x1: sp.seg[0].x, y1: sp.seg[0].y, x2: sp.seg[1].x, y2: sp.seg[1].y, w: Math.max(14, F * .3), s: "#67e8f9", o: .85 });
+                lines.push({ k: ("center" === sp.kind ? "c:" : "sp:") + id, x1: sp.seg[0].x, y1: sp.seg[0].y, x2: sp.seg[1].x, y2: sp.seg[1].y, w: Math.max(16, F * .35), s: "#38bdf8", o: .95 });
             });
             geo.topics.forEach(e2 => {
                 if (e2.cloud !== branch) return;
                 const id = (e2.rec && (e2.rec.id || e2.rec.label)) || "";
-                if (e2.S) lines.push({ k: "S:" + id, x1: e2.S[0].x, y1: e2.S[0].y, x2: e2.S[1].x, y2: e2.S[1].y, w: e2.F || F, s: "#67e8f9", o: .30 });
+                if (e2.S) {
+                    // Underlay border for high contrast
+                    lines.push({ k: "Sb:" + id, x1: e2.S[0].x, y1: e2.S[0].y, x2: e2.S[1].x, y2: e2.S[1].y, w: (e2.F || F) + 8, s: "#02131b", o: .95 });
+                    // Vibrant high-contrast paddle pill
+                    lines.push({ k: "S:" + id, x1: e2.S[0].x, y1: e2.S[0].y, x2: e2.S[1].x, y2: e2.S[1].y, w: e2.F || F, s: "#06b6d4", o: .85 });
+                }
                 if (e2.M) {
                     // Leaf spoke line abuts the icon's inside edge
                     // (ruled 2026-11-13, Jason): the midline runs out
@@ -27027,14 +27037,18 @@ function* sxRunNodeSettle(scCtx, blitSess) {
                         const dx = e2.node.x - e2.M[0].x, dy = e2.node.y - e2.M[0].y, len = Math.hypot(dx, dy), r = Math.max(26, F * .45);
                         if (len > r) { x2 = e2.node.x - dx / len * r; y2 = e2.node.y - dy / len * r; }
                     }
-                    lines.push({ k: "M:" + id, x1: e2.M[0].x, y1: e2.M[0].y, x2: x2, y2: y2, w: Math.max(8, F * .1), s: "#a5f3fc", o: .55 });
+                    lines.push({ k: "M:" + id, x1: e2.M[0].x, y1: e2.M[0].y, x2: x2, y2: y2, w: Math.max(10, F * .18), s: "#ffffff", o: .95 });
                 }
-                if (e2.node) circles.push({ k: "n:" + id, cx: e2.node.x, cy: e2.node.y, r: Math.max(26, F * .45), f: "#a5f3fc", o: .95 });
+                if (e2.node) {
+                    circles.push({ k: "nb:" + id, cx: e2.node.x, cy: e2.node.y, r: Math.max(30, F * .52), f: "#02131b", o: 1.0 });
+                    circles.push({ k: "n:" + id, cx: e2.node.x, cy: e2.node.y, r: Math.max(26, F * .45), f: "#a5f3fc", o: 1.0 });
+                }
             });
             geo.spokes.forEach(sp => {
                 if (sp.cloud !== branch || "sub" !== sp.kind || !sp.seg) return;
                 const id = (sp.entry && sp.entry.rec && (sp.entry.rec.id || sp.entry.rec.label)) || sp.cloud;
-                circles.push({ k: "s:" + id, cx: sp.seg[1].x, cy: sp.seg[1].y, r: Math.max(30, F * .6), f: "#67e8f9", o: .9 });
+                circles.push({ k: "sb:" + id, cx: sp.seg[1].x, cy: sp.seg[1].y, r: Math.max(36, F * .72), f: "#02131b", o: 1.0 });
+                circles.push({ k: "s:" + id, cx: sp.seg[1].x, cy: sp.seg[1].y, r: Math.max(30, F * .6), f: "#38bdf8", o: 1.0 });
             });
             return { F: F, lines: lines, circles: circles, anchor: anchor };
         }
@@ -27070,7 +27084,54 @@ function* sxRunNodeSettle(scCtx, blitSess) {
                 anchor: a.anchor && b.anchor ? { x: ln(a.anchor.x, b.anchor.x), y: ln(a.anchor.y, b.anchor.y) } : b.anchor
             };
         }
+        function sxFocusApproximatedBranch(branch, snap) {
+            if (!snap) snap = window.__sxLastInterimSnap;
+            if (!snap) return;
+            let minX = Infinity, minY = Infinity, maxX = -Infinity, maxY = -Infinity;
+            const add = (x, y) => {
+                if (!Number.isFinite(x) || !Number.isFinite(y)) return;
+                minX = Math.min(minX, x); maxX = Math.max(maxX, x);
+                minY = Math.min(minY, y); maxY = Math.max(maxY, y);
+            };
+            if (snap.anchor) add(snap.anchor.x, snap.anchor.y);
+            (snap.circles || []).forEach(c => {
+                add(c.cx - c.r, c.cy - c.r);
+                add(c.cx + c.r, c.cy + c.r);
+            });
+            (snap.lines || []).forEach(l => {
+                if (l.k && l.k.startsWith("c:")) {
+                    add(l.x2, l.y2);
+                } else {
+                    add(l.x1, l.y1);
+                    add(l.x2, l.y2);
+                }
+            });
+            if (!Number.isFinite(minX) || !Number.isFinite(maxX)) return;
+            const spanX = Math.max(0, maxX - minX), spanY = Math.max(0, maxY - minY);
+            const padX = Math.max(4800, spanX * 0.16);
+            const padY = Math.max(4800, spanY * 0.16);
+            minX -= padX; maxX += padX;
+            minY -= padY; maxY += padY;
+            const bw = Math.max(6400, maxX - minX);
+            const bh = Math.max(6400, maxY - minY);
+            const cx = (minX + maxX) / 2;
+            const cy = (minY + maxY) / 2;
+            const svg = document.getElementById("mapSvg");
+            const vb = (svg && svg.viewBox && svg.viewBox.baseVal && svg.viewBox.baseVal.width > 0) ? svg.viewBox.baseVal : { x: 0, y: 0, width: 1800, height: 1240 };
+            const fitScale = Math.min((vb.width * 0.86) / bw, (vb.height * 0.78) / bh);
+            const targetScale = Math.max(1e-9, Math.min(2, fitScale));
+            const tx = (vb.x + vb.width / 2) - cx * targetScale;
+            const ty = (vb.y + vb.height / 2) - cy * targetScale;
+            if (typeof window.__sxPanZoomCamera === "function") {
+                window.__sxPanZoomCamera(targetScale, tx, ty);
+            }
+        }
+        window.__sxFocusApproximatedBranch = sxFocusApproximatedBranch;
+
         function sxCapDraw(layer, branch, snap) {
+            window.__sxLastInterimSnap = snap;
+            window.__sxLastInterimBranch = branch;
+            try { sxFocusApproximatedBranch(branch, snap); } catch (_) {}
             // Toggle OFF: draw instantly, exactly as before (no tween
             // state left running). Toggle ON: tween from the last
             // displayed snapshot over 0.5s (ease-out cubic, matching

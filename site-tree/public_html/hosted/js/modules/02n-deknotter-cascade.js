@@ -544,8 +544,9 @@ import {
             // is recorded on report.throwRadii (fields added
             // only) and in the run log.
             const throwCenterRadius = eaBase.photoRadius * centerRingScale();
-            const throwBranchTarget = Math.max(preDelivered && Number.isFinite(preDelivered.branch) && preDelivered.branch > 0 ? preDelivered.branch * 1.75 : 0, throwCenterRadius * SX_SCORE.THROW_BRANCH, 100000);
-            const throwSubcatTarget = throwCenterRadius * SX_SCORE.THROW_SUBCAT;
+            const attemptMultiplier = 1 + (attempt - 1) * 0.35;
+            const throwBranchTarget = Math.max(preDelivered && Number.isFinite(preDelivered.branch) && preDelivered.branch > 0 ? preDelivered.branch * 1.75 : 0, throwCenterRadius * SX_SCORE.THROW_BRANCH, 100000) * attemptMultiplier;
+            const throwSubcatTarget = throwCenterRadius * SX_SCORE.THROW_SUBCAT * attemptMultiplier;
             const throwConvert = (curLen, delivered, target) => dkConvertRenderedToOverride(curLen, delivered, target);
             const branchCurEntry = snapshot && snapshot.branchOverrides
                 ? snapshot.branchOverrides[name] : null;
@@ -615,6 +616,7 @@ import {
             });
             await runPhase("throw", throwPatch, mark, opts, dk, name, preDelivered, tax, report, diagCaptureFields, witnessTrippingLabel, WITNESS_EPS, WITNESS_ONE_STEP);
             await focusThrowedActiveNode(name);
+            if (typeof window.__sxFocusApproximatedBranch === "function") window.__sxFocusApproximatedBranch(name);
             }
         async function stepThrowRepeated(name, preDelivered, tax, report, staged, runPhase, opts, dk, diagCaptureFields, witnessTrippingLabel, WITNESS_EPS, WITNESS_ONE_STEP) {
             // THROW REPEAT (ruled 2026-11-06, Jason): the throw
@@ -649,7 +651,7 @@ import {
             const throwRec = { before: throwBefore, attempts: [], throws: 0, substantial: !1, finalAfter: null };
             report.throwRepeat = throwRec;
             for (let attempt = 1; attempt <= 1 + SX_SCORE.THROW_REPEAT_MAX_EXTRA; attempt++) {
-                await stepThrow(name, preDelivered, tax, report, staged, runPhase, opts, dk, diagCaptureFields, witnessTrippingLabel, WITNESS_EPS, WITNESS_ONE_STEP);
+                await stepThrow(name, preDelivered, tax, report, staged, runPhase, opts, dk, diagCaptureFields, witnessTrippingLabel, WITNESS_EPS, WITNESS_ONE_STEP, attempt);
                 throwRec.throws = attempt;
                 let after = null;
                 try { after = await dk.measureCloud(name); } catch (e) { after = null; }
@@ -800,7 +802,7 @@ import {
             // improve-or-hold gate below still judges the
             // end state exactly as before and is the only
             // whole-run revert left.
-            if (null != prevPhaseCloud && null != record.cloud && Number.isFinite(prevPhaseCloud) && Number.isFinite(record.cloud)) {
+            if ("throw" !== phaseName && null != prevPhaseCloud && null != record.cloud && Number.isFinite(prevPhaseCloud) && Number.isFinite(record.cloud)) {
                 const gateTol = SX_SCORE.GATE_TOL;
                 if (record.cloud > prevPhaseCloud + gateTol) {
                     const trippedRatios = { requested: record.requestedRatios, delivered: record.deliveredRatios };
