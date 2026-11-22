@@ -219,10 +219,13 @@
       } else {
         console.log("[Harness] Sexcapades bundle detected in", Math.round(performance.now() - start), "ms.");
       }
-      if (window.__SX_BOOT_SKIN_READY && typeof window.__SX_BOOT_SKIN_READY.then === "function") {
+      const skinPromise = (typeof window.__SX_WHEN_SKIN_READY === "function")
+        ? window.__SX_WHEN_SKIN_READY()
+        : (window.__SX_BOOT_SKIN_READY && typeof window.__SX_BOOT_SKIN_READY.then === "function" ? window.__SX_BOOT_SKIN_READY : null);
+      if (skinPromise) {
         try {
           const skin = await Promise.race([
-            window.__SX_BOOT_SKIN_READY,
+            skinPromise,
             new Promise((_, reject) => setTimeout(() => reject(new Error("Skin boot timeout")), 5000))
           ]);
           console.log("[Harness] Boot skin ready:", skin);

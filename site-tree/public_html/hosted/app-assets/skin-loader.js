@@ -39,6 +39,84 @@
   var activeSkin = "sexcapades";
   var aboutOriginalHTML = null; // captured Sexcapades About copy, for restore
 
+  /* ---- Skin Loading Lifecycle Gate & Guard (2026-11-21) ----
+     Provides a deterministic lifecycle gate: window.__SX_WHEN_SKIN_READY(cb).
+     - Resolves the boot race where window.__SX_BOOT_SKIN_READY was undefined
+       for 1-3s before boot resolved; now initialized immediately as a Promise.
+     - Callers can pass a callback cb(skinId) and/or await the returned Promise.
+     - When a skin is loaded and idle, callbacks execute immediately.
+     - When a skin boot or switch is in-flight, callers are queued and executed
+       in order once the layout, terms, and outline finish sync.
+     - Fast consecutive switches are generation-guarded via currentSwitchGen so
+       stale intermediate fetches cannot overwrite the latest active skin. */
+  var skinReadyCallbacks = [];
+  var isSkinTransitioning = true;
+  var currentSwitchGen = 0;
+  var bootReadyResolve = null;
+  var bootReadyReject = null;
+  var bootReadyPromise = new Promise(function (resolve, reject) {
+    bootReadyResolve = resolve;
+    bootReadyReject = reject;
+  });
+  window.__SX_BOOT_SKIN_READY = bootReadyPromise;
+
+  var currentReadyPromise = null;
+  var currentResolve = null;
+
+  function markSkinTransitionStart() {
+    isSkinTransitioning = true;
+    currentReadyPromise = new Promise(function (resolve) {
+      currentResolve = resolve;
+    });
+  }
+  markSkinTransitionStart();
+
+  function markSkinTransitionEnd(skinId) {
+    isSkinTransitioning = false;
+    var resolvedSkin = skinId || activeSkin || "sexcapades";
+    activeSkin = resolvedSkin;
+    window.__SX_ACTIVE_SKIN = resolvedSkin;
+    if (bootReadyResolve) {
+      bootReadyResolve(resolvedSkin);
+      bootReadyResolve = null;
+      bootReadyReject = null;
+    }
+    if (currentResolve) {
+      currentResolve(resolvedSkin);
+      currentResolve = null;
+    }
+    currentReadyPromise = Promise.resolve(resolvedSkin);
+    window.__SX_BOOT_SKIN_READY = currentReadyPromise;
+
+    var cbs = skinReadyCallbacks.slice();
+    skinReadyCallbacks = [];
+    cbs.forEach(function (cb) {
+      try {
+        cb(resolvedSkin);
+      } catch (e) {
+        if (typeof console !== "undefined" && console.error) console.error("[FlexcapadesSkins] error in __SX_WHEN_SKIN_READY callback:", e);
+      }
+    });
+  }
+
+  function whenSkinReady(cb) {
+    var p = isSkinTransitioning ? currentReadyPromise : Promise.resolve(activeSkin || currentSkinId());
+    if (typeof cb === "function") {
+      if (isSkinTransitioning) {
+        skinReadyCallbacks.push(cb);
+      } else {
+        try {
+          cb(activeSkin || currentSkinId());
+        } catch (e) {
+          if (typeof console !== "undefined" && console.error) console.error(e);
+        }
+      }
+    }
+    return p;
+  }
+
+  window.__SX_WHEN_SKIN_READY = whenSkinReady;
+
   /* Sample profiles live in the skin JSONs (2026-11-16): the loader owns
      window.SEXCAPADES_SAMPLE_PROFILES and mutates it IN PLACE — never
      replaces it — because 06d's Aw() caches the object on first use and
@@ -1490,6 +1568,9 @@
   }
 
   function loadSkin(skinId, displayName) {
+    var thisGen = ++currentSwitchGen;
+    markSkinTransitionStart();
+
     if (skinId === "sexcapades") {
       /* Gate follows the skin (2026-11-16): switching to Sexcapades
          in-app gates when the gate hasn't been passed. On a sex host
@@ -1497,7 +1578,11 @@
          the pass is there; on a vanilla host the switch is the first
          gate moment. The gate returns with ?verified=1&skin=sexcapades,
          and the boot below restores the selection. */
-      if (!hasGatePass()) { redirectToGateForSkin("sexcapades"); return Promise.resolve("sexcapades"); }
+      if (!hasGatePass()) {
+        redirectToGateForSkin("sexcapades");
+        markSkinTransitionEnd(activeSkin || "sexcapades");
+        return Promise.resolve("sexcapades");
+      }
       /* Skin switch (2026-11-17): clear the old skin's profiles off the
          viewport (kept in memory — they restore on switch-back). */
       if (typeof window.__SX_CLEAR_VIEWPORT_PROFILES === "function") window.__SX_CLEAR_VIEWPORT_PROFILES(activeSkin);
@@ -1508,19 +1593,26 @@
             return r.json();
           }).then(function (data) { cache["sexcapades"] = data; return data; });
       return sexPromise.then(function (data) {
+        if (thisGen !== currentSwitchGen) return activeSkin;
         applySkin(data);
         setBrand("sexcapades", data.name || "Sexcapades");
         sxArmSwitchPaint();
         return Promise.resolve(rerender()).then(function () {
+          if (thisGen !== currentSwitchGen) return activeSkin;
           /* Switch-back restores the remembered Sexcapades profile, if any. */
           if (typeof window.__SX_RESTORE_VIEWPORT_PROFILES === "function") window.__SX_RESTORE_VIEWPORT_PROFILES("sexcapades");
           sxArmSwitchPaint();
           applySexcapadesLayout(data);
           applyTerms("sexcapades", data);
           rebuildOutlineIfOpen();
+          markSkinTransitionEnd("sexcapades");
           return "sexcapades";
         });
-      }, function (err) { window.__SX_FORCE_UNRATED_TREE = false; throw err; });
+      }, function (err) {
+        window.__SX_FORCE_UNRATED_TREE = false;
+        if (thisGen === currentSwitchGen) markSkinTransitionEnd(activeSkin || "sexcapades");
+        throw err;
+      });
     }
     var url = SKIN_DIR + skinId + ".json";
     var p = cache[skinId]
@@ -1530,6 +1622,7 @@
           return r.json();
         }).then(function (data) { cache[skinId] = data; return data; });
     return p.then(function (data) {
+      if (thisGen !== currentSwitchGen) return activeSkin;
       /* Skin switch (2026-11-17): clear the old skin's profiles off the
          viewport (kept in memory — they restore on switch-back). */
       if (typeof window.__SX_CLEAR_VIEWPORT_PROFILES === "function") window.__SX_CLEAR_VIEWPORT_PROFILES(activeSkin);
@@ -1537,6 +1630,7 @@
       setBrand(skinId, displayName || data.name);
       sxArmSwitchPaint();
       return Promise.resolve(rerender()).then(function () {
+        if (thisGen !== currentSwitchGen) return activeSkin;
         /* Switch-back restores the remembered profile for this skin, if any. */
         if (typeof window.__SX_RESTORE_VIEWPORT_PROFILES === "function") window.__SX_RESTORE_VIEWPORT_PROFILES(skinId);
         /* The layout import repaints: arm it too, so it paints the
@@ -1545,14 +1639,24 @@
         applyDefaultLayout(data);
         applyTerms(skinId, data);
         rebuildOutlineIfOpen();
+        markSkinTransitionEnd(skinId);
         return skinId;
-      }, function (err) { window.__SX_FORCE_UNRATED_TREE = false; throw err; });
+      }, function (err) {
+        window.__SX_FORCE_UNRATED_TREE = false;
+        if (thisGen === currentSwitchGen) markSkinTransitionEnd(activeSkin || "sexcapades");
+        throw err;
+      });
+    }, function (err) {
+      if (thisGen === currentSwitchGen) markSkinTransitionEnd(activeSkin || "sexcapades");
+      throw err;
     });
   }
 
   window.FlexcapadesSkins = {
     load: loadSkin,
-    active: function () { return activeSkin; }
+    active: function () { return activeSkin; },
+    whenReady: whenSkinReady,
+    isTransitioning: function () { return isSkinTransitioning; }
   };
 
   /* Boot seam: register the sexcapades.json widget configs so the 17
@@ -1611,8 +1715,8 @@
           registerSexcapadesWidgets();
           setBrand("sexcapades");
           setManifestForSkin("sexcapades");
-          window.__SX_BOOT_SKIN_READY = Promise.resolve("sexcapades");
           if (typeof window.__SX_REBUILD_OUTLINE === "function") window.__SX_REBUILD_OUTLINE();
+          markSkinTransitionEnd("sexcapades");
         }
         return;
       }
@@ -1626,7 +1730,7 @@
           applyDefaultLayout(data);
           applyTerms(boot, data);
           rebuildOutlineIfOpen();
-          window.__SX_BOOT_SKIN_READY = Promise.resolve(boot);
+          markSkinTransitionEnd(boot);
           return boot;
         });
       }).catch(function (err) {
@@ -1634,8 +1738,8 @@
         registerSexcapadesWidgets();
         setBrand("sexcapades");
         setManifestForSkin("sexcapades");
-        window.__SX_BOOT_SKIN_READY = Promise.resolve("sexcapades");
         if (typeof window.__SX_REBUILD_OUTLINE === "function") window.__SX_REBUILD_OUTLINE();
+        markSkinTransitionEnd("sexcapades");
       });
     }, 25);
   })();
