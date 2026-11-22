@@ -1692,201 +1692,554 @@
         "aboutMe": "Mind is what brains do. Everything below is mechanism, however elegant, and the new beings in the dish are sophisticated tissue.",
         "ratings": {
           "xno0001": {
-            "needs-a-brain": 85,
-            "needs-only-a-problem": -85,
-            "brain-like-organization": -70
+            "advocacy": {
+              "needs-a-brain": 85,
+              "needs-only-a-problem": -85,
+              "brain-like-organization": -70,
+              "intensity": 85
+            },
+            "receptivity": {
+              "needs-a-brain": 30,
+              "needs-only-a-problem": -30,
+              "brain-like-organization": -24,
+              "intensity": 30
+            }
           },
           "xno0002": {
-            "reach-in-space": -55,
-            "reach-in-time": -35
+            "advocacy": {
+              "reach-in-space": -55,
+              "reach-in-time": -35,
+              "intensity": -55
+            },
+            "receptivity": {
+              "reach-in-space": -19,
+              "reach-in-time": -12,
+              "intensity": -19
+            }
           },
           "xno0003": {
-            "body-plan-space": -40,
-            "physiological-space": -30,
-            "gene-expression-space": -50,
-            "ordinary-3d-space": 90
+            "advocacy": {
+              "body-plan-space": -40,
+              "physiological-space": -30,
+              "gene-expression-space": -50,
+              "ordinary-3d-space": 90,
+              "intensity": 90
+            },
+            "receptivity": {
+              "body-plan-space": -14,
+              "physiological-space": -10,
+              "gene-expression-space": -18,
+              "ordinary-3d-space": 31,
+              "intensity": 31
+            }
           },
           "xno0004": {
-            "storage-only": 70,
-            "real-memory": -70,
-            "proto-memory": -40
+            "advocacy": {
+              "storage-only": 70,
+              "real-memory": -70,
+              "proto-memory": -40,
+              "intensity": 70
+            },
+            "receptivity": {
+              "storage-only": 24,
+              "real-memory": -24,
+              "proto-memory": -14,
+              "intensity": 24
+            }
           },
           "xno0005": {
-            "stops-at-brains": 90,
-            "all-the-way-down": -90,
-            "bottoms-out-at-cells": -80
+            "advocacy": {
+              "stops-at-brains": 90,
+              "all-the-way-down": -90,
+              "bottoms-out-at-cells": -80,
+              "intensity": 90
+            },
+            "receptivity": {
+              "stops-at-brains": 31,
+              "all-the-way-down": -31,
+              "bottoms-out-at-cells": -28,
+              "intensity": 31
+            }
           },
           "xno0006": {
-            "a-switch": 75,
-            "a-spectrum": -75,
-            "a-few-kinds": -50
+            "advocacy": {
+              "a-switch": 75,
+              "a-spectrum": -75,
+              "a-few-kinds": -50,
+              "intensity": 75
+            },
+            "receptivity": {
+              "a-switch": 26,
+              "a-spectrum": -26,
+              "a-few-kinds": -18,
+              "intensity": 26
+            }
           },
           "xno0007": {
-            "one-real-level": 70,
-            "every-level-real": -70,
-            "some-levels-real": -40
+            "advocacy": {
+              "one-real-level": 70,
+              "every-level-real": -70,
+              "some-levels-real": -40,
+              "intensity": 70
+            },
+            "receptivity": {
+              "one-real-level": 24,
+              "every-level-real": -24,
+              "some-levels-real": -14,
+              "intensity": 24
+            }
           },
           "xno0008": {
-            "the-skin": 85,
-            "the-bioelectric-boundary": -30,
-            "the-story": -10
+            "advocacy": {
+              "the-skin": 85,
+              "the-bioelectric-boundary": -30,
+              "the-story": -10,
+              "intensity": 85
+            },
+            "receptivity": {
+              "the-skin": 30,
+              "the-bioelectric-boundary": -10,
+              "the-story": -4,
+              "intensity": 30
+            }
           },
           "xno0009": {
-            "neither-is-the-original": 60,
-            "both-are": -20,
-            "the-question-is-broken": 10
+            "advocacy": {
+              "neither-is-the-original": 60,
+              "both-are": -20,
+              "the-question-is-broken": 10,
+              "intensity": 60
+            },
+            "receptivity": {
+              "neither-is-the-original": 21,
+              "both-are": -7,
+              "the-question-is-broken": 4,
+              "intensity": 21
+            }
           },
           "xno0010": {
-            "fixed-by-the-body": 60,
-            "as-big-as-its-goals": -60,
-            "set-by-its-niche": -20
+            "advocacy": {
+              "fixed-by-the-body": 60,
+              "as-big-as-its-goals": -60,
+              "set-by-its-niche": -20,
+              "intensity": 60
+            },
+            "receptivity": {
+              "fixed-by-the-body": 21,
+              "as-big-as-its-goals": -21,
+              "set-by-its-niche": -7,
+              "intensity": 21
+            }
           },
           "xno0011": {
-            "self-maintenance": 70,
-            "responsiveness": 60,
-            "goal-pursuit": 20,
-            "a-pattern-that-persists": 30,
-            "reproduction": 90
+            "advocacy": {
+              "self-maintenance": 70,
+              "responsiveness": 60,
+              "goal-pursuit": 20,
+              "a-pattern-that-persists": 30,
+              "reproduction": 90,
+              "intensity": 90
+            },
+            "receptivity": {
+              "self-maintenance": 24,
+              "responsiveness": 21,
+              "goal-pursuit": 7,
+              "a-pattern-that-persists": 10,
+              "reproduction": 31,
+              "intensity": 31
+            }
           },
           "xno0012": {
-            "organism": -30,
-            "machine": 80,
-            "a-third-kind": -40
+            "advocacy": {
+              "organism": -30,
+              "machine": 80,
+              "a-third-kind": -40,
+              "intensity": 80
+            },
+            "receptivity": {
+              "organism": -10,
+              "machine": 28,
+              "a-third-kind": -14,
+              "intensity": 28
+            }
           },
           "xno0013": {
-            "nature-is-inherited": 55,
-            "genuinely-new": -55,
-            "new-combinations": -10
+            "advocacy": {
+              "nature-is-inherited": 55,
+              "genuinely-new": -55,
+              "new-combinations": -10,
+              "intensity": 55
+            },
+            "receptivity": {
+              "nature-is-inherited": 19,
+              "genuinely-new": -19,
+              "new-combinations": -4,
+              "intensity": 19
+            }
           },
           "xno0014": {
-            "nothing-special": 70,
-            "stewardship": -10,
-            "full-standing": -40
+            "advocacy": {
+              "nothing-special": 70,
+              "stewardship": -10,
+              "full-standing": -40,
+              "intensity": 70
+            },
+            "receptivity": {
+              "nothing-special": 24,
+              "stewardship": -4,
+              "full-standing": -14,
+              "intensity": 24
+            }
           },
           "xno0015": {
-            "its-makers-entirely": 80,
-            "it-answers-for-itself": -80,
-            "shared": -60
+            "advocacy": {
+              "its-makers-entirely": 80,
+              "it-answers-for-itself": -80,
+              "shared": -60,
+              "intensity": 80
+            },
+            "receptivity": {
+              "its-makers-entirely": 28,
+              "it-answers-for-itself": -28,
+              "shared": -21,
+              "intensity": 28
+            }
           },
           "xno0016": {
-            "chemistry-is-the-signal": 75,
-            "voltage-is-a-code": -75,
-            "both-carry-the-signal": -50
+            "advocacy": {
+              "chemistry-is-the-signal": 75,
+              "voltage-is-a-code": -75,
+              "both-carry-the-signal": -50,
+              "intensity": 75
+            },
+            "receptivity": {
+              "chemistry-is-the-signal": 26,
+              "voltage-is-a-code": -26,
+              "both-carry-the-signal": -18,
+              "intensity": 26
+            }
           },
           "xno0017": {
-            "read-off-the-genes": 70,
-            "held-as-a-memory": -70,
-            "written-in-both": -40
+            "advocacy": {
+              "read-off-the-genes": 70,
+              "held-as-a-memory": -70,
+              "written-in-both": -40,
+              "intensity": 70
+            },
+            "receptivity": {
+              "read-off-the-genes": 24,
+              "held-as-a-memory": -24,
+              "written-in-both": -14,
+              "intensity": 24
+            }
           },
           "xno0018": {
-            "broken-machinery": 65,
-            "a-smaller-self": -65,
-            "machinery-a-self-exploits": -30
+            "advocacy": {
+              "broken-machinery": 65,
+              "a-smaller-self": -65,
+              "machinery-a-self-exploits": -30,
+              "intensity": 65
+            },
+            "receptivity": {
+              "broken-machinery": 23,
+              "a-smaller-self": -23,
+              "machinery-a-self-exploits": -10,
+              "intensity": 23
+            }
           },
           "xno0019": {
-            "fix-the-hardware": 60,
-            "persuade-the-software": -60,
-            "both-doors": -20
+            "advocacy": {
+              "fix-the-hardware": 60,
+              "persuade-the-software": -60,
+              "both-doors": -20,
+              "intensity": 60
+            },
+            "receptivity": {
+              "fix-the-hardware": 21,
+              "persuade-the-software": -21,
+              "both-doors": -7,
+              "intensity": 21
+            }
           },
           "xno0020": {
-            "micromanage": 55,
-            "brief-and-trust": -55,
-            "guide-and-check": -10
+            "advocacy": {
+              "micromanage": 55,
+              "brief-and-trust": -55,
+              "guide-and-check": -10,
+              "intensity": 55
+            },
+            "receptivity": {
+              "micromanage": 19,
+              "brief-and-trust": -19,
+              "guide-and-check": -4,
+              "intensity": 19
+            }
           },
           "xno0021": {
-            "metaphor": 85,
-            "literal-goals": -85,
-            "as-if-goals": -70
+            "advocacy": {
+              "metaphor": 85,
+              "literal-goals": -85,
+              "as-if-goals": -70,
+              "intensity": 85
+            },
+            "receptivity": {
+              "metaphor": 30,
+              "literal-goals": -30,
+              "as-if-goals": -24,
+              "intensity": 30
+            }
           },
           "xno0022": {
-            "only-the-whole-animal": 70,
-            "every-level": -70,
-            "some-levels": -40
+            "advocacy": {
+              "only-the-whole-animal": 70,
+              "every-level": -70,
+              "some-levels": -40,
+              "intensity": 70
+            },
+            "receptivity": {
+              "only-the-whole-animal": 24,
+              "every-level": -24,
+              "some-levels": -14,
+              "intensity": 24
+            }
           },
           "xno0023": {
-            "choice-needs-a-mind": 85,
-            "a-tiny-real-choice": -85,
-            "a-bias-not-a-choice": -70
+            "advocacy": {
+              "choice-needs-a-mind": 85,
+              "a-tiny-real-choice": -85,
+              "a-bias-not-a-choice": -70,
+              "intensity": 85
+            },
+            "receptivity": {
+              "choice-needs-a-mind": 30,
+              "a-tiny-real-choice": -30,
+              "a-bias-not-a-choice": -24,
+              "intensity": 30
+            }
           },
           "xno0024": {
-            "just-chemistry": 60,
-            "a-self-losing-grip": -60,
-            "chemistry-that-loosens-grip": -20
+            "advocacy": {
+              "just-chemistry": 60,
+              "a-self-losing-grip": -60,
+              "chemistry-that-loosens-grip": -20,
+              "intensity": 60
+            },
+            "receptivity": {
+              "just-chemistry": 21,
+              "a-self-losing-grip": -21,
+              "chemistry-that-loosens-grip": -7,
+              "intensity": 21
+            }
           },
           "xno0025": {
-            "the-human-scale-is-real": 80,
-            "no-scale-is-privileged": -80,
-            "some-scales-earn-it": -60
+            "advocacy": {
+              "the-human-scale-is-real": 80,
+              "no-scale-is-privileged": -80,
+              "some-scales-earn-it": -60,
+              "intensity": 80
+            },
+            "receptivity": {
+              "the-human-scale-is-real": 28,
+              "no-scale-is-privileged": -28,
+              "some-scales-earn-it": -21,
+              "intensity": 28
+            }
           },
           "xno0026": {
-            "one-event": 65,
-            "many-deaths": -65,
-            "a-main-death-and-stragglers": -30
+            "advocacy": {
+              "one-event": 65,
+              "many-deaths": -65,
+              "a-main-death-and-stragglers": -30,
+              "intensity": 65
+            },
+            "receptivity": {
+              "one-event": 23,
+              "many-deaths": -23,
+              "a-main-death-and-stragglers": -10,
+              "intensity": 23
+            }
           },
           "xno0027": {
-            "leftovers": 75,
-            "selves-in-their-own-right": -75,
-            "selves-on-parole": -50
+            "advocacy": {
+              "leftovers": 75,
+              "selves-in-their-own-right": -75,
+              "selves-on-parole": -50,
+              "intensity": 75
+            },
+            "receptivity": {
+              "leftovers": 26,
+              "selves-in-their-own-right": -26,
+              "selves-on-parole": -18,
+              "intensity": 26
+            }
           },
           "xno0028": {
-            "the-pattern-is-the-self": -40,
-            "replace-the-parts-lose-the-self": 40,
-            "pattern-with-wear": 20
+            "advocacy": {
+              "the-pattern-is-the-self": -40,
+              "replace-the-parts-lose-the-self": 40,
+              "pattern-with-wear": 20,
+              "intensity": -40
+            },
+            "receptivity": {
+              "the-pattern-is-the-self": -14,
+              "replace-the-parts-lose-the-self": 14,
+              "pattern-with-wear": 7,
+              "intensity": -14
+            }
           },
           "xno0029": {
-            "the-pattern-stops": 30,
-            "the-parts-scatter": 80,
-            "the-goals-go-unpursued": -10
+            "advocacy": {
+              "the-pattern-stops": 30,
+              "the-parts-scatter": 80,
+              "the-goals-go-unpursued": -10,
+              "intensity": 80
+            },
+            "receptivity": {
+              "the-pattern-stops": 10,
+              "the-parts-scatter": 28,
+              "the-goals-go-unpursued": -4,
+              "intensity": 28
+            }
           },
           "xno0030": {
-            "the-circle-is-finished": 70,
-            "it-keeps-expanding": -70,
-            "expanding-with-edges": -40
+            "advocacy": {
+              "the-circle-is-finished": 70,
+              "it-keeps-expanding": -70,
+              "expanding-with-edges": -40,
+              "intensity": 70
+            },
+            "receptivity": {
+              "the-circle-is-finished": 24,
+              "it-keeps-expanding": -24,
+              "expanding-with-edges": -14,
+              "intensity": 24
+            }
           },
           "xno0031": {
-            "needs-a-brain-like-ours": 80,
-            "scales-with-the-self": -80,
-            "a-dim-analogue": -60
+            "advocacy": {
+              "needs-a-brain-like-ours": 80,
+              "scales-with-the-self": -80,
+              "a-dim-analogue": -60,
+              "intensity": 80
+            },
+            "receptivity": {
+              "needs-a-brain-like-ours": 28,
+              "scales-with-the-self": -28,
+              "a-dim-analogue": -21,
+              "intensity": 28
+            }
           },
           "xno0032": {
-            "track-the-minds-size": 50,
-            "size-is-irrelevant": -50,
-            "one-factor-among-several": 0
+            "advocacy": {
+              "track-the-minds-size": 50,
+              "size-is-irrelevant": -50,
+              "one-factor-among-several": 0,
+              "intensity": 50
+            },
+            "receptivity": {
+              "track-the-minds-size": 18,
+              "size-is-irrelevant": -18,
+              "one-factor-among-several": 0,
+              "intensity": 18
+            }
           },
           "xno0033": {
-            "mind-needs-living-tissue": 85,
-            "any-substrate-that-models-itself": -85,
-            "the-right-organization": -70
+            "advocacy": {
+              "mind-needs-living-tissue": 85,
+              "any-substrate-that-models-itself": -85,
+              "the-right-organization": -70,
+              "intensity": 85
+            },
+            "receptivity": {
+              "mind-needs-living-tissue": 30,
+              "any-substrate-that-models-itself": -30,
+              "the-right-organization": -24,
+              "intensity": 30
+            }
           },
           "xno0034": {
-            "a-different-kind-of-thing": 85,
-            "one-self-among-many": -85,
-            "first-among-selves": -70
+            "advocacy": {
+              "a-different-kind-of-thing": 85,
+              "one-self-among-many": -85,
+              "first-among-selves": -70,
+              "intensity": 85
+            },
+            "receptivity": {
+              "a-different-kind-of-thing": 30,
+              "one-self-among-many": -30,
+              "first-among-selves": -24,
+              "intensity": 30
+            }
           },
           "xno0035": {
-            "people-i-will-meet": 50,
-            "beings-i-will-never-see": -50,
-            "beings-i-affect": 0
+            "advocacy": {
+              "people-i-will-meet": 50,
+              "beings-i-will-never-see": -50,
+              "beings-i-affect": 0,
+              "intensity": 50
+            },
+            "receptivity": {
+              "people-i-will-meet": 18,
+              "beings-i-will-never-see": -18,
+              "beings-i-affect": 0,
+              "intensity": 18
+            }
           },
           "xno0036": {
-            "meaning-is-found": -10,
-            "meaning-is-made": 10,
-            "found-and-made": 80
+            "advocacy": {
+              "meaning-is-found": -10,
+              "meaning-is-made": 10,
+              "found-and-made": 80,
+              "intensity": 80
+            },
+            "receptivity": {
+              "meaning-is-found": -4,
+              "meaning-is-made": 4,
+              "found-and-made": 28,
+              "intensity": 28
+            }
           },
           "xno0037": {
-            "purpose-comes-from-above": 20,
-            "purpose-is-generated-at-every-scale": -20,
-            "set-above-tuned-below": 60
+            "advocacy": {
+              "purpose-comes-from-above": 20,
+              "purpose-is-generated-at-every-scale": -20,
+              "set-above-tuned-below": 60,
+              "intensity": 60
+            },
+            "receptivity": {
+              "purpose-comes-from-above": 7,
+              "purpose-is-generated-at-every-scale": -7,
+              "set-above-tuned-below": 21,
+              "intensity": 21
+            }
           },
           "xno0038": {
-            "one-unified-self": 55,
-            "a-committee-that-mostly-agrees": -55,
-            "a-chair-and-a-committee": -10
+            "advocacy": {
+              "one-unified-self": 55,
+              "a-committee-that-mostly-agrees": -55,
+              "a-chair-and-a-committee": -10,
+              "intensity": 55
+            },
+            "receptivity": {
+              "one-unified-self": 19,
+              "a-committee-that-mostly-agrees": -19,
+              "a-chair-and-a-committee": -4,
+              "intensity": 19
+            }
           },
           "xno0039": {
-            "a-mystery-that-survives": 70,
-            "what-selfhood-feels-like-from-inside": 0,
-            "a-confusion-that-dissolves": -30
+            "advocacy": {
+              "a-mystery-that-survives": 70,
+              "what-selfhood-feels-like-from-inside": 0,
+              "a-confusion-that-dissolves": -30,
+              "intensity": 70
+            },
+            "receptivity": {
+              "a-mystery-that-survives": 24,
+              "what-selfhood-feels-like-from-inside": 0,
+              "a-confusion-that-dissolves": -10,
+              "intensity": 24
+            }
           }
         },
         "skin": "nouscapades"
@@ -1908,201 +2261,554 @@
         "aboutMe": "Selves and cognition at every scale, no privileged level — and the moral circle expands as we learn to see.",
         "ratings": {
           "xno0001": {
-            "needs-a-brain": -85,
-            "needs-only-a-problem": 85,
-            "brain-like-organization": -70
+            "advocacy": {
+              "needs-a-brain": -85,
+              "needs-only-a-problem": 85,
+              "brain-like-organization": -70,
+              "intensity": -85
+            },
+            "receptivity": {
+              "needs-a-brain": -68,
+              "needs-only-a-problem": 68,
+              "brain-like-organization": -56,
+              "intensity": -68
+            }
           },
           "xno0002": {
-            "reach-in-space": 85,
-            "reach-in-time": 80
+            "advocacy": {
+              "reach-in-space": 85,
+              "reach-in-time": 80,
+              "intensity": 85
+            },
+            "receptivity": {
+              "reach-in-space": 68,
+              "reach-in-time": 64,
+              "intensity": 68
+            }
           },
           "xno0003": {
-            "body-plan-space": 80,
-            "physiological-space": 70,
-            "gene-expression-space": 60,
-            "ordinary-3d-space": 70
+            "advocacy": {
+              "body-plan-space": 80,
+              "physiological-space": 70,
+              "gene-expression-space": 60,
+              "ordinary-3d-space": 70,
+              "intensity": 80
+            },
+            "receptivity": {
+              "body-plan-space": 64,
+              "physiological-space": 56,
+              "gene-expression-space": 48,
+              "ordinary-3d-space": 56,
+              "intensity": 64
+            }
           },
           "xno0004": {
-            "storage-only": -85,
-            "real-memory": 85,
-            "proto-memory": -70
+            "advocacy": {
+              "storage-only": -85,
+              "real-memory": 85,
+              "proto-memory": -70,
+              "intensity": -85
+            },
+            "receptivity": {
+              "storage-only": -68,
+              "real-memory": 68,
+              "proto-memory": -56,
+              "intensity": -68
+            }
           },
           "xno0005": {
-            "stops-at-brains": -90,
-            "all-the-way-down": 90,
-            "bottoms-out-at-cells": -80
+            "advocacy": {
+              "stops-at-brains": -90,
+              "all-the-way-down": 90,
+              "bottoms-out-at-cells": -80,
+              "intensity": -90
+            },
+            "receptivity": {
+              "stops-at-brains": -72,
+              "all-the-way-down": 72,
+              "bottoms-out-at-cells": -64,
+              "intensity": -72
+            }
           },
           "xno0006": {
-            "a-switch": -90,
-            "a-spectrum": 90,
-            "a-few-kinds": -80
+            "advocacy": {
+              "a-switch": -90,
+              "a-spectrum": 90,
+              "a-few-kinds": -80,
+              "intensity": -90
+            },
+            "receptivity": {
+              "a-switch": -72,
+              "a-spectrum": 72,
+              "a-few-kinds": -64,
+              "intensity": -72
+            }
           },
           "xno0007": {
-            "one-real-level": -88,
-            "every-level-real": 88,
-            "some-levels-real": -76
+            "advocacy": {
+              "one-real-level": -88,
+              "every-level-real": 88,
+              "some-levels-real": -76,
+              "intensity": -88
+            },
+            "receptivity": {
+              "one-real-level": -70,
+              "every-level-real": 70,
+              "some-levels-real": -61,
+              "intensity": -70
+            }
           },
           "xno0008": {
-            "the-skin": 20,
-            "the-bioelectric-boundary": 85,
-            "the-story": 40
+            "advocacy": {
+              "the-skin": 20,
+              "the-bioelectric-boundary": 85,
+              "the-story": 40,
+              "intensity": 85
+            },
+            "receptivity": {
+              "the-skin": 16,
+              "the-bioelectric-boundary": 68,
+              "the-story": 32,
+              "intensity": 68
+            }
           },
           "xno0009": {
-            "neither-is-the-original": -10,
-            "both-are": 60,
-            "the-question-is-broken": 50
+            "advocacy": {
+              "neither-is-the-original": -10,
+              "both-are": 60,
+              "the-question-is-broken": 50,
+              "intensity": 60
+            },
+            "receptivity": {
+              "neither-is-the-original": -8,
+              "both-are": 48,
+              "the-question-is-broken": 40,
+              "intensity": 48
+            }
           },
           "xno0010": {
-            "fixed-by-the-body": -85,
-            "as-big-as-its-goals": 85,
-            "set-by-its-niche": -70
+            "advocacy": {
+              "fixed-by-the-body": -85,
+              "as-big-as-its-goals": 85,
+              "set-by-its-niche": -70,
+              "intensity": -85
+            },
+            "receptivity": {
+              "fixed-by-the-body": -68,
+              "as-big-as-its-goals": 68,
+              "set-by-its-niche": -56,
+              "intensity": -68
+            }
           },
           "xno0011": {
-            "self-maintenance": 85,
-            "responsiveness": 80,
-            "goal-pursuit": 90,
-            "a-pattern-that-persists": 85,
-            "reproduction": 40
+            "advocacy": {
+              "self-maintenance": 85,
+              "responsiveness": 80,
+              "goal-pursuit": 90,
+              "a-pattern-that-persists": 85,
+              "reproduction": 40,
+              "intensity": 90
+            },
+            "receptivity": {
+              "self-maintenance": 68,
+              "responsiveness": 64,
+              "goal-pursuit": 72,
+              "a-pattern-that-persists": 68,
+              "reproduction": 32,
+              "intensity": 72
+            }
           },
           "xno0012": {
-            "organism": 30,
-            "machine": -20,
-            "a-third-kind": 85
+            "advocacy": {
+              "organism": 30,
+              "machine": -20,
+              "a-third-kind": 85,
+              "intensity": 85
+            },
+            "receptivity": {
+              "organism": 24,
+              "machine": -16,
+              "a-third-kind": 68,
+              "intensity": 68
+            }
           },
           "xno0013": {
-            "nature-is-inherited": -75,
-            "genuinely-new": 75,
-            "new-combinations": -50
+            "advocacy": {
+              "nature-is-inherited": -75,
+              "genuinely-new": 75,
+              "new-combinations": -50,
+              "intensity": -75
+            },
+            "receptivity": {
+              "nature-is-inherited": -60,
+              "genuinely-new": 60,
+              "new-combinations": -40,
+              "intensity": -60
+            }
           },
           "xno0014": {
-            "nothing-special": 0,
-            "stewardship": 60,
-            "full-standing": 60
+            "advocacy": {
+              "nothing-special": 0,
+              "stewardship": 60,
+              "full-standing": 60,
+              "intensity": 60
+            },
+            "receptivity": {
+              "nothing-special": 0,
+              "stewardship": 48,
+              "full-standing": 48,
+              "intensity": 48
+            }
           },
           "xno0015": {
-            "its-makers-entirely": -55,
-            "it-answers-for-itself": 55,
-            "shared": -10
+            "advocacy": {
+              "its-makers-entirely": -55,
+              "it-answers-for-itself": 55,
+              "shared": -10,
+              "intensity": -55
+            },
+            "receptivity": {
+              "its-makers-entirely": -44,
+              "it-answers-for-itself": 44,
+              "shared": -8,
+              "intensity": -44
+            }
           },
           "xno0016": {
-            "chemistry-is-the-signal": -88,
-            "voltage-is-a-code": 88,
-            "both-carry-the-signal": -76
+            "advocacy": {
+              "chemistry-is-the-signal": -88,
+              "voltage-is-a-code": 88,
+              "both-carry-the-signal": -76,
+              "intensity": -88
+            },
+            "receptivity": {
+              "chemistry-is-the-signal": -70,
+              "voltage-is-a-code": 70,
+              "both-carry-the-signal": -61,
+              "intensity": -70
+            }
           },
           "xno0017": {
-            "read-off-the-genes": -90,
-            "held-as-a-memory": 90,
-            "written-in-both": -80
+            "advocacy": {
+              "read-off-the-genes": -90,
+              "held-as-a-memory": 90,
+              "written-in-both": -80,
+              "intensity": -90
+            },
+            "receptivity": {
+              "read-off-the-genes": -72,
+              "held-as-a-memory": 72,
+              "written-in-both": -64,
+              "intensity": -72
+            }
           },
           "xno0018": {
-            "broken-machinery": -85,
-            "a-smaller-self": 85,
-            "machinery-a-self-exploits": -70
+            "advocacy": {
+              "broken-machinery": -85,
+              "a-smaller-self": 85,
+              "machinery-a-self-exploits": -70,
+              "intensity": -85
+            },
+            "receptivity": {
+              "broken-machinery": -68,
+              "a-smaller-self": 68,
+              "machinery-a-self-exploits": -56,
+              "intensity": -68
+            }
           },
           "xno0019": {
-            "fix-the-hardware": -85,
-            "persuade-the-software": 85,
-            "both-doors": -70
+            "advocacy": {
+              "fix-the-hardware": -85,
+              "persuade-the-software": 85,
+              "both-doors": -70,
+              "intensity": -85
+            },
+            "receptivity": {
+              "fix-the-hardware": -68,
+              "persuade-the-software": 68,
+              "both-doors": -56,
+              "intensity": -68
+            }
           },
           "xno0020": {
-            "micromanage": -88,
-            "brief-and-trust": 88,
-            "guide-and-check": -76
+            "advocacy": {
+              "micromanage": -88,
+              "brief-and-trust": 88,
+              "guide-and-check": -76,
+              "intensity": -88
+            },
+            "receptivity": {
+              "micromanage": -70,
+              "brief-and-trust": 70,
+              "guide-and-check": -61,
+              "intensity": -70
+            }
           },
           "xno0021": {
-            "metaphor": -90,
-            "literal-goals": 90,
-            "as-if-goals": -80
+            "advocacy": {
+              "metaphor": -90,
+              "literal-goals": 90,
+              "as-if-goals": -80,
+              "intensity": -90
+            },
+            "receptivity": {
+              "metaphor": -72,
+              "literal-goals": 72,
+              "as-if-goals": -64,
+              "intensity": -72
+            }
           },
           "xno0022": {
-            "only-the-whole-animal": -90,
-            "every-level": 90,
-            "some-levels": -80
+            "advocacy": {
+              "only-the-whole-animal": -90,
+              "every-level": 90,
+              "some-levels": -80,
+              "intensity": -90
+            },
+            "receptivity": {
+              "only-the-whole-animal": -72,
+              "every-level": 72,
+              "some-levels": -64,
+              "intensity": -72
+            }
           },
           "xno0023": {
-            "choice-needs-a-mind": -80,
-            "a-tiny-real-choice": 80,
-            "a-bias-not-a-choice": -60
+            "advocacy": {
+              "choice-needs-a-mind": -80,
+              "a-tiny-real-choice": 80,
+              "a-bias-not-a-choice": -60,
+              "intensity": -80
+            },
+            "receptivity": {
+              "choice-needs-a-mind": -64,
+              "a-tiny-real-choice": 64,
+              "a-bias-not-a-choice": -48,
+              "intensity": -64
+            }
           },
           "xno0024": {
-            "just-chemistry": -75,
-            "a-self-losing-grip": 75,
-            "chemistry-that-loosens-grip": -50
+            "advocacy": {
+              "just-chemistry": -75,
+              "a-self-losing-grip": 75,
+              "chemistry-that-loosens-grip": -50,
+              "intensity": -75
+            },
+            "receptivity": {
+              "just-chemistry": -60,
+              "a-self-losing-grip": 60,
+              "chemistry-that-loosens-grip": -40,
+              "intensity": -60
+            }
           },
           "xno0025": {
-            "the-human-scale-is-real": -92,
-            "no-scale-is-privileged": 92,
-            "some-scales-earn-it": -84
+            "advocacy": {
+              "the-human-scale-is-real": -92,
+              "no-scale-is-privileged": 92,
+              "some-scales-earn-it": -84,
+              "intensity": -92
+            },
+            "receptivity": {
+              "the-human-scale-is-real": -74,
+              "no-scale-is-privileged": 74,
+              "some-scales-earn-it": -67,
+              "intensity": -74
+            }
           },
           "xno0026": {
-            "one-event": -85,
-            "many-deaths": 85,
-            "a-main-death-and-stragglers": -70
+            "advocacy": {
+              "one-event": -85,
+              "many-deaths": 85,
+              "a-main-death-and-stragglers": -70,
+              "intensity": -85
+            },
+            "receptivity": {
+              "one-event": -68,
+              "many-deaths": 68,
+              "a-main-death-and-stragglers": -56,
+              "intensity": -68
+            }
           },
           "xno0027": {
-            "leftovers": -85,
-            "selves-in-their-own-right": 85,
-            "selves-on-parole": -70
+            "advocacy": {
+              "leftovers": -85,
+              "selves-in-their-own-right": 85,
+              "selves-on-parole": -70,
+              "intensity": -85
+            },
+            "receptivity": {
+              "leftovers": -68,
+              "selves-in-their-own-right": 68,
+              "selves-on-parole": -56,
+              "intensity": -68
+            }
           },
           "xno0028": {
-            "the-pattern-is-the-self": 70,
-            "replace-the-parts-lose-the-self": -70,
-            "pattern-with-wear": -40
+            "advocacy": {
+              "the-pattern-is-the-self": 70,
+              "replace-the-parts-lose-the-self": -70,
+              "pattern-with-wear": -40,
+              "intensity": 70
+            },
+            "receptivity": {
+              "the-pattern-is-the-self": 56,
+              "replace-the-parts-lose-the-self": -56,
+              "pattern-with-wear": -32,
+              "intensity": 56
+            }
           },
           "xno0029": {
-            "the-pattern-stops": 70,
-            "the-parts-scatter": 20,
-            "the-goals-go-unpursued": 60
+            "advocacy": {
+              "the-pattern-stops": 70,
+              "the-parts-scatter": 20,
+              "the-goals-go-unpursued": 60,
+              "intensity": 70
+            },
+            "receptivity": {
+              "the-pattern-stops": 56,
+              "the-parts-scatter": 16,
+              "the-goals-go-unpursued": 48,
+              "intensity": 56
+            }
           },
           "xno0030": {
-            "the-circle-is-finished": -85,
-            "it-keeps-expanding": 85,
-            "expanding-with-edges": -70
+            "advocacy": {
+              "the-circle-is-finished": -85,
+              "it-keeps-expanding": 85,
+              "expanding-with-edges": -70,
+              "intensity": -85
+            },
+            "receptivity": {
+              "the-circle-is-finished": -68,
+              "it-keeps-expanding": 68,
+              "expanding-with-edges": -56,
+              "intensity": -68
+            }
           },
           "xno0031": {
-            "needs-a-brain-like-ours": -80,
-            "scales-with-the-self": 80,
-            "a-dim-analogue": -60
+            "advocacy": {
+              "needs-a-brain-like-ours": -80,
+              "scales-with-the-self": 80,
+              "a-dim-analogue": -60,
+              "intensity": -80
+            },
+            "receptivity": {
+              "needs-a-brain-like-ours": -64,
+              "scales-with-the-self": 64,
+              "a-dim-analogue": -48,
+              "intensity": -64
+            }
           },
           "xno0032": {
-            "track-the-minds-size": 40,
-            "size-is-irrelevant": -40,
-            "one-factor-among-several": 20
+            "advocacy": {
+              "track-the-minds-size": 40,
+              "size-is-irrelevant": -40,
+              "one-factor-among-several": 20,
+              "intensity": 40
+            },
+            "receptivity": {
+              "track-the-minds-size": 32,
+              "size-is-irrelevant": -32,
+              "one-factor-among-several": 16,
+              "intensity": 32
+            }
           },
           "xno0033": {
-            "mind-needs-living-tissue": -70,
-            "any-substrate-that-models-itself": 70,
-            "the-right-organization": -40
+            "advocacy": {
+              "mind-needs-living-tissue": -70,
+              "any-substrate-that-models-itself": 70,
+              "the-right-organization": -40,
+              "intensity": -70
+            },
+            "receptivity": {
+              "mind-needs-living-tissue": -56,
+              "any-substrate-that-models-itself": 56,
+              "the-right-organization": -32,
+              "intensity": -56
+            }
           },
           "xno0034": {
-            "a-different-kind-of-thing": -85,
-            "one-self-among-many": 85,
-            "first-among-selves": -70
+            "advocacy": {
+              "a-different-kind-of-thing": -85,
+              "one-self-among-many": 85,
+              "first-among-selves": -70,
+              "intensity": -85
+            },
+            "receptivity": {
+              "a-different-kind-of-thing": -68,
+              "one-self-among-many": 68,
+              "first-among-selves": -56,
+              "intensity": -68
+            }
           },
           "xno0035": {
-            "people-i-will-meet": -70,
-            "beings-i-will-never-see": 70,
-            "beings-i-affect": -40
+            "advocacy": {
+              "people-i-will-meet": -70,
+              "beings-i-will-never-see": 70,
+              "beings-i-affect": -40,
+              "intensity": -70
+            },
+            "receptivity": {
+              "people-i-will-meet": -56,
+              "beings-i-will-never-see": 56,
+              "beings-i-affect": -32,
+              "intensity": -56
+            }
           },
           "xno0036": {
-            "meaning-is-found": -70,
-            "meaning-is-made": 70,
-            "found-and-made": -40
+            "advocacy": {
+              "meaning-is-found": -70,
+              "meaning-is-made": 70,
+              "found-and-made": -40,
+              "intensity": -70
+            },
+            "receptivity": {
+              "meaning-is-found": -56,
+              "meaning-is-made": 56,
+              "found-and-made": -32,
+              "intensity": -56
+            }
           },
           "xno0037": {
-            "purpose-comes-from-above": -88,
-            "purpose-is-generated-at-every-scale": 88,
-            "set-above-tuned-below": -76
+            "advocacy": {
+              "purpose-comes-from-above": -88,
+              "purpose-is-generated-at-every-scale": 88,
+              "set-above-tuned-below": -76,
+              "intensity": -88
+            },
+            "receptivity": {
+              "purpose-comes-from-above": -70,
+              "purpose-is-generated-at-every-scale": 70,
+              "set-above-tuned-below": -61,
+              "intensity": -70
+            }
           },
           "xno0038": {
-            "one-unified-self": -75,
-            "a-committee-that-mostly-agrees": 75,
-            "a-chair-and-a-committee": -50
+            "advocacy": {
+              "one-unified-self": -75,
+              "a-committee-that-mostly-agrees": 75,
+              "a-chair-and-a-committee": -50,
+              "intensity": -75
+            },
+            "receptivity": {
+              "one-unified-self": -60,
+              "a-committee-that-mostly-agrees": 60,
+              "a-chair-and-a-committee": -40,
+              "intensity": -60
+            }
           },
           "xno0039": {
-            "a-mystery-that-survives": 20,
-            "what-selfhood-feels-like-from-inside": 80,
-            "a-confusion-that-dissolves": 10
+            "advocacy": {
+              "a-mystery-that-survives": 20,
+              "what-selfhood-feels-like-from-inside": 80,
+              "a-confusion-that-dissolves": 10,
+              "intensity": 80
+            },
+            "receptivity": {
+              "a-mystery-that-survives": 16,
+              "what-selfhood-feels-like-from-inside": 64,
+              "a-confusion-that-dissolves": 8,
+              "intensity": 64
+            }
           }
         },
         "skin": "nouscapades"
@@ -2124,201 +2830,554 @@
         "aboutMe": "The pattern is the self. Substrate is nothing; organisation is everything — a mind in any material that models itself.",
         "ratings": {
           "xno0001": {
-            "needs-a-brain": -70,
-            "needs-only-a-problem": 70,
-            "brain-like-organization": -40
+            "advocacy": {
+              "needs-a-brain": -70,
+              "needs-only-a-problem": 70,
+              "brain-like-organization": -40,
+              "intensity": -70
+            },
+            "receptivity": {
+              "needs-a-brain": -49,
+              "needs-only-a-problem": 49,
+              "brain-like-organization": -28,
+              "intensity": -49
+            }
           },
           "xno0002": {
-            "reach-in-space": 50,
-            "reach-in-time": 95
+            "advocacy": {
+              "reach-in-space": 50,
+              "reach-in-time": 95,
+              "intensity": 95
+            },
+            "receptivity": {
+              "reach-in-space": 35,
+              "reach-in-time": 66,
+              "intensity": 66
+            }
           },
           "xno0003": {
-            "body-plan-space": 60,
-            "physiological-space": 50,
-            "gene-expression-space": 40,
-            "ordinary-3d-space": 60
+            "advocacy": {
+              "body-plan-space": 60,
+              "physiological-space": 50,
+              "gene-expression-space": 40,
+              "ordinary-3d-space": 60,
+              "intensity": 60
+            },
+            "receptivity": {
+              "body-plan-space": 42,
+              "physiological-space": 35,
+              "gene-expression-space": 28,
+              "ordinary-3d-space": 42,
+              "intensity": 42
+            }
           },
           "xno0004": {
-            "storage-only": -65,
-            "real-memory": 65,
-            "proto-memory": -30
+            "advocacy": {
+              "storage-only": -65,
+              "real-memory": 65,
+              "proto-memory": -30,
+              "intensity": -65
+            },
+            "receptivity": {
+              "storage-only": -46,
+              "real-memory": 46,
+              "proto-memory": -21,
+              "intensity": -46
+            }
           },
           "xno0005": {
-            "stops-at-brains": -80,
-            "all-the-way-down": 80,
-            "bottoms-out-at-cells": -60
+            "advocacy": {
+              "stops-at-brains": -80,
+              "all-the-way-down": 80,
+              "bottoms-out-at-cells": -60,
+              "intensity": -80
+            },
+            "receptivity": {
+              "stops-at-brains": -56,
+              "all-the-way-down": 56,
+              "bottoms-out-at-cells": -42,
+              "intensity": -56
+            }
           },
           "xno0006": {
-            "a-switch": -85,
-            "a-spectrum": 85,
-            "a-few-kinds": -70
+            "advocacy": {
+              "a-switch": -85,
+              "a-spectrum": 85,
+              "a-few-kinds": -70,
+              "intensity": -85
+            },
+            "receptivity": {
+              "a-switch": -59,
+              "a-spectrum": 59,
+              "a-few-kinds": -49,
+              "intensity": -59
+            }
           },
           "xno0007": {
-            "one-real-level": -80,
-            "every-level-real": 80,
-            "some-levels-real": -60
+            "advocacy": {
+              "one-real-level": -80,
+              "every-level-real": 80,
+              "some-levels-real": -60,
+              "intensity": -80
+            },
+            "receptivity": {
+              "one-real-level": -56,
+              "every-level-real": 56,
+              "some-levels-real": -42,
+              "intensity": -56
+            }
           },
           "xno0008": {
-            "the-skin": 10,
-            "the-bioelectric-boundary": 50,
-            "the-story": 80
+            "advocacy": {
+              "the-skin": 10,
+              "the-bioelectric-boundary": 50,
+              "the-story": 80,
+              "intensity": 80
+            },
+            "receptivity": {
+              "the-skin": 7,
+              "the-bioelectric-boundary": 35,
+              "the-story": 56,
+              "intensity": 56
+            }
           },
           "xno0009": {
-            "neither-is-the-original": 0,
-            "both-are": 70,
-            "the-question-is-broken": 40
+            "advocacy": {
+              "neither-is-the-original": 0,
+              "both-are": 70,
+              "the-question-is-broken": 40,
+              "intensity": 70
+            },
+            "receptivity": {
+              "neither-is-the-original": 0,
+              "both-are": 49,
+              "the-question-is-broken": 28,
+              "intensity": 49
+            }
           },
           "xno0010": {
-            "fixed-by-the-body": -80,
-            "as-big-as-its-goals": 80,
-            "set-by-its-niche": -60
+            "advocacy": {
+              "fixed-by-the-body": -80,
+              "as-big-as-its-goals": 80,
+              "set-by-its-niche": -60,
+              "intensity": -80
+            },
+            "receptivity": {
+              "fixed-by-the-body": -56,
+              "as-big-as-its-goals": 56,
+              "set-by-its-niche": -42,
+              "intensity": -56
+            }
           },
           "xno0011": {
-            "self-maintenance": 60,
-            "responsiveness": 60,
-            "goal-pursuit": 70,
-            "a-pattern-that-persists": 95,
-            "reproduction": 10
+            "advocacy": {
+              "self-maintenance": 60,
+              "responsiveness": 60,
+              "goal-pursuit": 70,
+              "a-pattern-that-persists": 95,
+              "reproduction": 10,
+              "intensity": 95
+            },
+            "receptivity": {
+              "self-maintenance": 42,
+              "responsiveness": 42,
+              "goal-pursuit": 49,
+              "a-pattern-that-persists": 66,
+              "reproduction": 7,
+              "intensity": 66
+            }
           },
           "xno0012": {
-            "organism": 40,
-            "machine": -30,
-            "a-third-kind": 70
+            "advocacy": {
+              "organism": 40,
+              "machine": -30,
+              "a-third-kind": 70,
+              "intensity": 70
+            },
+            "receptivity": {
+              "organism": 28,
+              "machine": -21,
+              "a-third-kind": 49,
+              "intensity": 49
+            }
           },
           "xno0013": {
-            "nature-is-inherited": -65,
-            "genuinely-new": 65,
-            "new-combinations": -30
+            "advocacy": {
+              "nature-is-inherited": -65,
+              "genuinely-new": 65,
+              "new-combinations": -30,
+              "intensity": -65
+            },
+            "receptivity": {
+              "nature-is-inherited": -46,
+              "genuinely-new": 46,
+              "new-combinations": -21,
+              "intensity": -46
+            }
           },
           "xno0014": {
-            "nothing-special": -10,
-            "stewardship": 50,
-            "full-standing": 50
+            "advocacy": {
+              "nothing-special": -10,
+              "stewardship": 50,
+              "full-standing": 50,
+              "intensity": 50
+            },
+            "receptivity": {
+              "nothing-special": -7,
+              "stewardship": 35,
+              "full-standing": 35,
+              "intensity": 35
+            }
           },
           "xno0015": {
-            "its-makers-entirely": -60,
-            "it-answers-for-itself": 60,
-            "shared": -20
+            "advocacy": {
+              "its-makers-entirely": -60,
+              "it-answers-for-itself": 60,
+              "shared": -20,
+              "intensity": -60
+            },
+            "receptivity": {
+              "its-makers-entirely": -42,
+              "it-answers-for-itself": 42,
+              "shared": -14,
+              "intensity": -42
+            }
           },
           "xno0016": {
-            "chemistry-is-the-signal": -45,
-            "voltage-is-a-code": 45,
-            "both-carry-the-signal": 10
+            "advocacy": {
+              "chemistry-is-the-signal": -45,
+              "voltage-is-a-code": 45,
+              "both-carry-the-signal": 10,
+              "intensity": -45
+            },
+            "receptivity": {
+              "chemistry-is-the-signal": -31,
+              "voltage-is-a-code": 31,
+              "both-carry-the-signal": 7,
+              "intensity": -31
+            }
           },
           "xno0017": {
-            "read-off-the-genes": -85,
-            "held-as-a-memory": 85,
-            "written-in-both": -70
+            "advocacy": {
+              "read-off-the-genes": -85,
+              "held-as-a-memory": 85,
+              "written-in-both": -70,
+              "intensity": -85
+            },
+            "receptivity": {
+              "read-off-the-genes": -59,
+              "held-as-a-memory": 59,
+              "written-in-both": -49,
+              "intensity": -59
+            }
           },
           "xno0018": {
-            "broken-machinery": -70,
-            "a-smaller-self": 70,
-            "machinery-a-self-exploits": -40
+            "advocacy": {
+              "broken-machinery": -70,
+              "a-smaller-self": 70,
+              "machinery-a-self-exploits": -40,
+              "intensity": -70
+            },
+            "receptivity": {
+              "broken-machinery": -49,
+              "a-smaller-self": 49,
+              "machinery-a-self-exploits": -28,
+              "intensity": -49
+            }
           },
           "xno0019": {
-            "fix-the-hardware": -75,
-            "persuade-the-software": 75,
-            "both-doors": -50
+            "advocacy": {
+              "fix-the-hardware": -75,
+              "persuade-the-software": 75,
+              "both-doors": -50,
+              "intensity": -75
+            },
+            "receptivity": {
+              "fix-the-hardware": -52,
+              "persuade-the-software": 52,
+              "both-doors": -35,
+              "intensity": -52
+            }
           },
           "xno0020": {
-            "micromanage": -70,
-            "brief-and-trust": 70,
-            "guide-and-check": -40
+            "advocacy": {
+              "micromanage": -70,
+              "brief-and-trust": 70,
+              "guide-and-check": -40,
+              "intensity": -70
+            },
+            "receptivity": {
+              "micromanage": -49,
+              "brief-and-trust": 49,
+              "guide-and-check": -28,
+              "intensity": -49
+            }
           },
           "xno0021": {
-            "metaphor": -75,
-            "literal-goals": 75,
-            "as-if-goals": -50
+            "advocacy": {
+              "metaphor": -75,
+              "literal-goals": 75,
+              "as-if-goals": -50,
+              "intensity": -75
+            },
+            "receptivity": {
+              "metaphor": -52,
+              "literal-goals": 52,
+              "as-if-goals": -35,
+              "intensity": -52
+            }
           },
           "xno0022": {
-            "only-the-whole-animal": -70,
-            "every-level": 70,
-            "some-levels": -40
+            "advocacy": {
+              "only-the-whole-animal": -70,
+              "every-level": 70,
+              "some-levels": -40,
+              "intensity": -70
+            },
+            "receptivity": {
+              "only-the-whole-animal": -49,
+              "every-level": 49,
+              "some-levels": -28,
+              "intensity": -49
+            }
           },
           "xno0023": {
-            "choice-needs-a-mind": -65,
-            "a-tiny-real-choice": 65,
-            "a-bias-not-a-choice": -30
+            "advocacy": {
+              "choice-needs-a-mind": -65,
+              "a-tiny-real-choice": 65,
+              "a-bias-not-a-choice": -30,
+              "intensity": -65
+            },
+            "receptivity": {
+              "choice-needs-a-mind": -46,
+              "a-tiny-real-choice": 46,
+              "a-bias-not-a-choice": -21,
+              "intensity": -46
+            }
           },
           "xno0024": {
-            "just-chemistry": -70,
-            "a-self-losing-grip": 70,
-            "chemistry-that-loosens-grip": -40
+            "advocacy": {
+              "just-chemistry": -70,
+              "a-self-losing-grip": 70,
+              "chemistry-that-loosens-grip": -40,
+              "intensity": -70
+            },
+            "receptivity": {
+              "just-chemistry": -49,
+              "a-self-losing-grip": 49,
+              "chemistry-that-loosens-grip": -28,
+              "intensity": -49
+            }
           },
           "xno0025": {
-            "the-human-scale-is-real": -85,
-            "no-scale-is-privileged": 85,
-            "some-scales-earn-it": -70
+            "advocacy": {
+              "the-human-scale-is-real": -85,
+              "no-scale-is-privileged": 85,
+              "some-scales-earn-it": -70,
+              "intensity": -85
+            },
+            "receptivity": {
+              "the-human-scale-is-real": -59,
+              "no-scale-is-privileged": 59,
+              "some-scales-earn-it": -49,
+              "intensity": -59
+            }
           },
           "xno0026": {
-            "one-event": -75,
-            "many-deaths": 75,
-            "a-main-death-and-stragglers": -50
+            "advocacy": {
+              "one-event": -75,
+              "many-deaths": 75,
+              "a-main-death-and-stragglers": -50,
+              "intensity": -75
+            },
+            "receptivity": {
+              "one-event": -52,
+              "many-deaths": 52,
+              "a-main-death-and-stragglers": -35,
+              "intensity": -52
+            }
           },
           "xno0027": {
-            "leftovers": -80,
-            "selves-in-their-own-right": 80,
-            "selves-on-parole": -60
+            "advocacy": {
+              "leftovers": -80,
+              "selves-in-their-own-right": 80,
+              "selves-on-parole": -60,
+              "intensity": -80
+            },
+            "receptivity": {
+              "leftovers": -56,
+              "selves-in-their-own-right": 56,
+              "selves-on-parole": -42,
+              "intensity": -56
+            }
           },
           "xno0028": {
-            "the-pattern-is-the-self": 95,
-            "replace-the-parts-lose-the-self": -95,
-            "pattern-with-wear": -90
+            "advocacy": {
+              "the-pattern-is-the-self": 95,
+              "replace-the-parts-lose-the-self": -95,
+              "pattern-with-wear": -90,
+              "intensity": 95
+            },
+            "receptivity": {
+              "the-pattern-is-the-self": 66,
+              "replace-the-parts-lose-the-self": -66,
+              "pattern-with-wear": -63,
+              "intensity": 66
+            }
           },
           "xno0029": {
-            "the-pattern-stops": 90,
-            "the-parts-scatter": 10,
-            "the-goals-go-unpursued": 40
+            "advocacy": {
+              "the-pattern-stops": 90,
+              "the-parts-scatter": 10,
+              "the-goals-go-unpursued": 40,
+              "intensity": 90
+            },
+            "receptivity": {
+              "the-pattern-stops": 63,
+              "the-parts-scatter": 7,
+              "the-goals-go-unpursued": 28,
+              "intensity": 63
+            }
           },
           "xno0030": {
-            "the-circle-is-finished": -75,
-            "it-keeps-expanding": 75,
-            "expanding-with-edges": -50
+            "advocacy": {
+              "the-circle-is-finished": -75,
+              "it-keeps-expanding": 75,
+              "expanding-with-edges": -50,
+              "intensity": -75
+            },
+            "receptivity": {
+              "the-circle-is-finished": -52,
+              "it-keeps-expanding": 52,
+              "expanding-with-edges": -35,
+              "intensity": -52
+            }
           },
           "xno0031": {
-            "needs-a-brain-like-ours": -70,
-            "scales-with-the-self": 70,
-            "a-dim-analogue": -40
+            "advocacy": {
+              "needs-a-brain-like-ours": -70,
+              "scales-with-the-self": 70,
+              "a-dim-analogue": -40,
+              "intensity": -70
+            },
+            "receptivity": {
+              "needs-a-brain-like-ours": -49,
+              "scales-with-the-self": 49,
+              "a-dim-analogue": -28,
+              "intensity": -49
+            }
           },
           "xno0032": {
-            "track-the-minds-size": -20,
-            "size-is-irrelevant": 20,
-            "one-factor-among-several": 60
+            "advocacy": {
+              "track-the-minds-size": -20,
+              "size-is-irrelevant": 20,
+              "one-factor-among-several": 60,
+              "intensity": 60
+            },
+            "receptivity": {
+              "track-the-minds-size": -14,
+              "size-is-irrelevant": 14,
+              "one-factor-among-several": 42,
+              "intensity": 42
+            }
           },
           "xno0033": {
-            "mind-needs-living-tissue": -95,
-            "any-substrate-that-models-itself": 95,
-            "the-right-organization": -90
+            "advocacy": {
+              "mind-needs-living-tissue": -95,
+              "any-substrate-that-models-itself": 95,
+              "the-right-organization": -90,
+              "intensity": -95
+            },
+            "receptivity": {
+              "mind-needs-living-tissue": -66,
+              "any-substrate-that-models-itself": 66,
+              "the-right-organization": -63,
+              "intensity": -66
+            }
           },
           "xno0034": {
-            "a-different-kind-of-thing": -75,
-            "one-self-among-many": 75,
-            "first-among-selves": -50
+            "advocacy": {
+              "a-different-kind-of-thing": -75,
+              "one-self-among-many": 75,
+              "first-among-selves": -50,
+              "intensity": -75
+            },
+            "receptivity": {
+              "a-different-kind-of-thing": -52,
+              "one-self-among-many": 52,
+              "first-among-selves": -35,
+              "intensity": -52
+            }
           },
           "xno0035": {
-            "people-i-will-meet": -80,
-            "beings-i-will-never-see": 80,
-            "beings-i-affect": -60
+            "advocacy": {
+              "people-i-will-meet": -80,
+              "beings-i-will-never-see": 80,
+              "beings-i-affect": -60,
+              "intensity": -80
+            },
+            "receptivity": {
+              "people-i-will-meet": -56,
+              "beings-i-will-never-see": 56,
+              "beings-i-affect": -42,
+              "intensity": -56
+            }
           },
           "xno0036": {
-            "meaning-is-found": -75,
-            "meaning-is-made": 75,
-            "found-and-made": -50
+            "advocacy": {
+              "meaning-is-found": -75,
+              "meaning-is-made": 75,
+              "found-and-made": -50,
+              "intensity": -75
+            },
+            "receptivity": {
+              "meaning-is-found": -52,
+              "meaning-is-made": 52,
+              "found-and-made": -35,
+              "intensity": -52
+            }
           },
           "xno0037": {
-            "purpose-comes-from-above": -70,
-            "purpose-is-generated-at-every-scale": 70,
-            "set-above-tuned-below": -40
+            "advocacy": {
+              "purpose-comes-from-above": -70,
+              "purpose-is-generated-at-every-scale": 70,
+              "set-above-tuned-below": -40,
+              "intensity": -70
+            },
+            "receptivity": {
+              "purpose-comes-from-above": -49,
+              "purpose-is-generated-at-every-scale": 49,
+              "set-above-tuned-below": -28,
+              "intensity": -49
+            }
           },
           "xno0038": {
-            "one-unified-self": -85,
-            "a-committee-that-mostly-agrees": 85,
-            "a-chair-and-a-committee": -70
+            "advocacy": {
+              "one-unified-self": -85,
+              "a-committee-that-mostly-agrees": 85,
+              "a-chair-and-a-committee": -70,
+              "intensity": -85
+            },
+            "receptivity": {
+              "one-unified-self": -59,
+              "a-committee-that-mostly-agrees": 59,
+              "a-chair-and-a-committee": -49,
+              "intensity": -59
+            }
           },
           "xno0039": {
-            "a-mystery-that-survives": 30,
-            "what-selfhood-feels-like-from-inside": 85,
-            "a-confusion-that-dissolves": 0
+            "advocacy": {
+              "a-mystery-that-survives": 30,
+              "what-selfhood-feels-like-from-inside": 85,
+              "a-confusion-that-dissolves": 0,
+              "intensity": 85
+            },
+            "receptivity": {
+              "a-mystery-that-survives": 21,
+              "what-selfhood-feels-like-from-inside": 59,
+              "a-confusion-that-dissolves": 0,
+              "intensity": 59
+            }
           }
         },
         "skin": "nouscapades"
@@ -2340,201 +3399,554 @@
         "aboutMe": "Unsure what anthrobots are, and certain it doesn't settle what we owe them. Stewardship first; metaphysics later.",
         "ratings": {
           "xno0001": {
-            "needs-a-brain": -30,
-            "needs-only-a-problem": 30,
-            "brain-like-organization": 40
+            "advocacy": {
+              "needs-a-brain": -30,
+              "needs-only-a-problem": 30,
+              "brain-like-organization": 40,
+              "intensity": 40
+            },
+            "receptivity": {
+              "needs-a-brain": -20,
+              "needs-only-a-problem": 20,
+              "brain-like-organization": 26,
+              "intensity": 26
+            }
           },
           "xno0002": {
-            "reach-in-space": -75,
-            "reach-in-time": -55
+            "advocacy": {
+              "reach-in-space": -75,
+              "reach-in-time": -55,
+              "intensity": -75
+            },
+            "receptivity": {
+              "reach-in-space": -49,
+              "reach-in-time": -36,
+              "intensity": -49
+            }
           },
           "xno0003": {
-            "body-plan-space": 30,
-            "physiological-space": 30,
-            "gene-expression-space": 20,
-            "ordinary-3d-space": 50
+            "advocacy": {
+              "body-plan-space": 30,
+              "physiological-space": 30,
+              "gene-expression-space": 20,
+              "ordinary-3d-space": 50,
+              "intensity": 50
+            },
+            "receptivity": {
+              "body-plan-space": 20,
+              "physiological-space": 20,
+              "gene-expression-space": 13,
+              "ordinary-3d-space": 32,
+              "intensity": 32
+            }
           },
           "xno0004": {
-            "storage-only": -35,
-            "real-memory": 35,
-            "proto-memory": 30
+            "advocacy": {
+              "storage-only": -35,
+              "real-memory": 35,
+              "proto-memory": 30,
+              "intensity": -35
+            },
+            "receptivity": {
+              "storage-only": -23,
+              "real-memory": 23,
+              "proto-memory": 20,
+              "intensity": -23
+            }
           },
           "xno0005": {
-            "stops-at-brains": -40,
-            "all-the-way-down": 40,
-            "bottoms-out-at-cells": 20
+            "advocacy": {
+              "stops-at-brains": -40,
+              "all-the-way-down": 40,
+              "bottoms-out-at-cells": 20,
+              "intensity": -40
+            },
+            "receptivity": {
+              "stops-at-brains": -26,
+              "all-the-way-down": 26,
+              "bottoms-out-at-cells": 13,
+              "intensity": -26
+            }
           },
           "xno0006": {
-            "a-switch": -45,
-            "a-spectrum": 45,
-            "a-few-kinds": 10
+            "advocacy": {
+              "a-switch": -45,
+              "a-spectrum": 45,
+              "a-few-kinds": 10,
+              "intensity": -45
+            },
+            "receptivity": {
+              "a-switch": -29,
+              "a-spectrum": 29,
+              "a-few-kinds": 6,
+              "intensity": -29
+            }
           },
           "xno0007": {
-            "one-real-level": -40,
-            "every-level-real": 40,
-            "some-levels-real": 20
+            "advocacy": {
+              "one-real-level": -40,
+              "every-level-real": 40,
+              "some-levels-real": 20,
+              "intensity": -40
+            },
+            "receptivity": {
+              "one-real-level": -26,
+              "every-level-real": 26,
+              "some-levels-real": 13,
+              "intensity": -26
+            }
           },
           "xno0008": {
-            "the-skin": 40,
-            "the-bioelectric-boundary": 40,
-            "the-story": 30
+            "advocacy": {
+              "the-skin": 40,
+              "the-bioelectric-boundary": 40,
+              "the-story": 30,
+              "intensity": 40
+            },
+            "receptivity": {
+              "the-skin": 26,
+              "the-bioelectric-boundary": 26,
+              "the-story": 20,
+              "intensity": 26
+            }
           },
           "xno0009": {
-            "neither-is-the-original": 20,
-            "both-are": 20,
-            "the-question-is-broken": 40
+            "advocacy": {
+              "neither-is-the-original": 20,
+              "both-are": 20,
+              "the-question-is-broken": 40,
+              "intensity": 40
+            },
+            "receptivity": {
+              "neither-is-the-original": 13,
+              "both-are": 13,
+              "the-question-is-broken": 26,
+              "intensity": 26
+            }
           },
           "xno0010": {
-            "fixed-by-the-body": -35,
-            "as-big-as-its-goals": 35,
-            "set-by-its-niche": 30
+            "advocacy": {
+              "fixed-by-the-body": -35,
+              "as-big-as-its-goals": 35,
+              "set-by-its-niche": 30,
+              "intensity": -35
+            },
+            "receptivity": {
+              "fixed-by-the-body": -23,
+              "as-big-as-its-goals": 23,
+              "set-by-its-niche": 20,
+              "intensity": -23
+            }
           },
           "xno0011": {
-            "self-maintenance": 70,
-            "responsiveness": 70,
-            "goal-pursuit": 60,
-            "a-pattern-that-persists": 60,
-            "reproduction": 30
+            "advocacy": {
+              "self-maintenance": 70,
+              "responsiveness": 70,
+              "goal-pursuit": 60,
+              "a-pattern-that-persists": 60,
+              "reproduction": 30,
+              "intensity": 70
+            },
+            "receptivity": {
+              "self-maintenance": 46,
+              "responsiveness": 46,
+              "goal-pursuit": 39,
+              "a-pattern-that-persists": 39,
+              "reproduction": 20,
+              "intensity": 46
+            }
           },
           "xno0012": {
-            "organism": 20,
-            "machine": 10,
-            "a-third-kind": 60
+            "advocacy": {
+              "organism": 20,
+              "machine": 10,
+              "a-third-kind": 60,
+              "intensity": 60
+            },
+            "receptivity": {
+              "organism": 13,
+              "machine": 6,
+              "a-third-kind": 39,
+              "intensity": 39
+            }
           },
           "xno0013": {
-            "nature-is-inherited": -45,
-            "genuinely-new": 45,
-            "new-combinations": 10
+            "advocacy": {
+              "nature-is-inherited": -45,
+              "genuinely-new": 45,
+              "new-combinations": 10,
+              "intensity": -45
+            },
+            "receptivity": {
+              "nature-is-inherited": -29,
+              "genuinely-new": 29,
+              "new-combinations": 6,
+              "intensity": -29
+            }
           },
           "xno0014": {
-            "nothing-special": -30,
-            "stewardship": 95,
-            "full-standing": 20
+            "advocacy": {
+              "nothing-special": -30,
+              "stewardship": 95,
+              "full-standing": 20,
+              "intensity": 95
+            },
+            "receptivity": {
+              "nothing-special": -20,
+              "stewardship": 62,
+              "full-standing": 13,
+              "intensity": 62
+            }
           },
           "xno0015": {
-            "its-makers-entirely": 55,
-            "it-answers-for-itself": -55,
-            "shared": -10
+            "advocacy": {
+              "its-makers-entirely": 55,
+              "it-answers-for-itself": -55,
+              "shared": -10,
+              "intensity": 55
+            },
+            "receptivity": {
+              "its-makers-entirely": 36,
+              "it-answers-for-itself": -36,
+              "shared": -6,
+              "intensity": 36
+            }
           },
           "xno0016": {
-            "chemistry-is-the-signal": -40,
-            "voltage-is-a-code": 40,
-            "both-carry-the-signal": 20
+            "advocacy": {
+              "chemistry-is-the-signal": -40,
+              "voltage-is-a-code": 40,
+              "both-carry-the-signal": 20,
+              "intensity": -40
+            },
+            "receptivity": {
+              "chemistry-is-the-signal": -26,
+              "voltage-is-a-code": 26,
+              "both-carry-the-signal": 13,
+              "intensity": -26
+            }
           },
           "xno0017": {
-            "read-off-the-genes": -45,
-            "held-as-a-memory": 45,
-            "written-in-both": 10
+            "advocacy": {
+              "read-off-the-genes": -45,
+              "held-as-a-memory": 45,
+              "written-in-both": 10,
+              "intensity": -45
+            },
+            "receptivity": {
+              "read-off-the-genes": -29,
+              "held-as-a-memory": 29,
+              "written-in-both": 6,
+              "intensity": -29
+            }
           },
           "xno0018": {
-            "broken-machinery": -40,
-            "a-smaller-self": 40,
-            "machinery-a-self-exploits": 20
+            "advocacy": {
+              "broken-machinery": -40,
+              "a-smaller-self": 40,
+              "machinery-a-self-exploits": 20,
+              "intensity": -40
+            },
+            "receptivity": {
+              "broken-machinery": -26,
+              "a-smaller-self": 26,
+              "machinery-a-self-exploits": 13,
+              "intensity": -26
+            }
           },
           "xno0019": {
-            "fix-the-hardware": -50,
-            "persuade-the-software": 50,
-            "both-doors": 0
+            "advocacy": {
+              "fix-the-hardware": -50,
+              "persuade-the-software": 50,
+              "both-doors": 0,
+              "intensity": -50
+            },
+            "receptivity": {
+              "fix-the-hardware": -32,
+              "persuade-the-software": 32,
+              "both-doors": 0,
+              "intensity": -32
+            }
           },
           "xno0020": {
-            "micromanage": -55,
-            "brief-and-trust": 55,
-            "guide-and-check": -10
+            "advocacy": {
+              "micromanage": -55,
+              "brief-and-trust": 55,
+              "guide-and-check": -10,
+              "intensity": -55
+            },
+            "receptivity": {
+              "micromanage": -36,
+              "brief-and-trust": 36,
+              "guide-and-check": -6,
+              "intensity": -36
+            }
           },
           "xno0021": {
-            "metaphor": -40,
-            "literal-goals": 40,
-            "as-if-goals": 20
+            "advocacy": {
+              "metaphor": -40,
+              "literal-goals": 40,
+              "as-if-goals": 20,
+              "intensity": -40
+            },
+            "receptivity": {
+              "metaphor": -26,
+              "literal-goals": 26,
+              "as-if-goals": 13,
+              "intensity": -26
+            }
           },
           "xno0022": {
-            "only-the-whole-animal": -45,
-            "every-level": 45,
-            "some-levels": 10
+            "advocacy": {
+              "only-the-whole-animal": -45,
+              "every-level": 45,
+              "some-levels": 10,
+              "intensity": -45
+            },
+            "receptivity": {
+              "only-the-whole-animal": -29,
+              "every-level": 29,
+              "some-levels": 6,
+              "intensity": -29
+            }
           },
           "xno0023": {
-            "choice-needs-a-mind": -30,
-            "a-tiny-real-choice": 30,
-            "a-bias-not-a-choice": 40
+            "advocacy": {
+              "choice-needs-a-mind": -30,
+              "a-tiny-real-choice": 30,
+              "a-bias-not-a-choice": 40,
+              "intensity": 40
+            },
+            "receptivity": {
+              "choice-needs-a-mind": -20,
+              "a-tiny-real-choice": 20,
+              "a-bias-not-a-choice": 26,
+              "intensity": 26
+            }
           },
           "xno0024": {
-            "just-chemistry": -35,
-            "a-self-losing-grip": 35,
-            "chemistry-that-loosens-grip": 30
+            "advocacy": {
+              "just-chemistry": -35,
+              "a-self-losing-grip": 35,
+              "chemistry-that-loosens-grip": 30,
+              "intensity": -35
+            },
+            "receptivity": {
+              "just-chemistry": -23,
+              "a-self-losing-grip": 23,
+              "chemistry-that-loosens-grip": 20,
+              "intensity": -23
+            }
           },
           "xno0025": {
-            "the-human-scale-is-real": -50,
-            "no-scale-is-privileged": 50,
-            "some-scales-earn-it": 0
+            "advocacy": {
+              "the-human-scale-is-real": -50,
+              "no-scale-is-privileged": 50,
+              "some-scales-earn-it": 0,
+              "intensity": -50
+            },
+            "receptivity": {
+              "the-human-scale-is-real": -32,
+              "no-scale-is-privileged": 32,
+              "some-scales-earn-it": 0,
+              "intensity": -32
+            }
           },
           "xno0026": {
-            "one-event": -45,
-            "many-deaths": 45,
-            "a-main-death-and-stragglers": 10
+            "advocacy": {
+              "one-event": -45,
+              "many-deaths": 45,
+              "a-main-death-and-stragglers": 10,
+              "intensity": -45
+            },
+            "receptivity": {
+              "one-event": -29,
+              "many-deaths": 29,
+              "a-main-death-and-stragglers": 6,
+              "intensity": -29
+            }
           },
           "xno0027": {
-            "leftovers": -55,
-            "selves-in-their-own-right": 55,
-            "selves-on-parole": -10
+            "advocacy": {
+              "leftovers": -55,
+              "selves-in-their-own-right": 55,
+              "selves-on-parole": -10,
+              "intensity": -55
+            },
+            "receptivity": {
+              "leftovers": -36,
+              "selves-in-their-own-right": 36,
+              "selves-on-parole": -6,
+              "intensity": -36
+            }
           },
           "xno0028": {
-            "the-pattern-is-the-self": 30,
-            "replace-the-parts-lose-the-self": -30,
-            "pattern-with-wear": 40
+            "advocacy": {
+              "the-pattern-is-the-self": 30,
+              "replace-the-parts-lose-the-self": -30,
+              "pattern-with-wear": 40,
+              "intensity": 40
+            },
+            "receptivity": {
+              "the-pattern-is-the-self": 20,
+              "replace-the-parts-lose-the-self": -20,
+              "pattern-with-wear": 26,
+              "intensity": 26
+            }
           },
           "xno0029": {
-            "the-pattern-stops": 40,
-            "the-parts-scatter": 30,
-            "the-goals-go-unpursued": 50
+            "advocacy": {
+              "the-pattern-stops": 40,
+              "the-parts-scatter": 30,
+              "the-goals-go-unpursued": 50,
+              "intensity": 50
+            },
+            "receptivity": {
+              "the-pattern-stops": 26,
+              "the-parts-scatter": 20,
+              "the-goals-go-unpursued": 32,
+              "intensity": 32
+            }
           },
           "xno0030": {
-            "the-circle-is-finished": -65,
-            "it-keeps-expanding": 65,
-            "expanding-with-edges": -30
+            "advocacy": {
+              "the-circle-is-finished": -65,
+              "it-keeps-expanding": 65,
+              "expanding-with-edges": -30,
+              "intensity": -65
+            },
+            "receptivity": {
+              "the-circle-is-finished": -42,
+              "it-keeps-expanding": 42,
+              "expanding-with-edges": -20,
+              "intensity": -42
+            }
           },
           "xno0031": {
-            "needs-a-brain-like-ours": -60,
-            "scales-with-the-self": 60,
-            "a-dim-analogue": -20
+            "advocacy": {
+              "needs-a-brain-like-ours": -60,
+              "scales-with-the-self": 60,
+              "a-dim-analogue": -20,
+              "intensity": -60
+            },
+            "receptivity": {
+              "needs-a-brain-like-ours": -39,
+              "scales-with-the-self": 39,
+              "a-dim-analogue": -13,
+              "intensity": -39
+            }
           },
           "xno0032": {
-            "track-the-minds-size": -55,
-            "size-is-irrelevant": 55,
-            "one-factor-among-several": -10
+            "advocacy": {
+              "track-the-minds-size": -55,
+              "size-is-irrelevant": 55,
+              "one-factor-among-several": -10,
+              "intensity": -55
+            },
+            "receptivity": {
+              "track-the-minds-size": -36,
+              "size-is-irrelevant": 36,
+              "one-factor-among-several": -6,
+              "intensity": -36
+            }
           },
           "xno0033": {
-            "mind-needs-living-tissue": -35,
-            "any-substrate-that-models-itself": 35,
-            "the-right-organization": 30
+            "advocacy": {
+              "mind-needs-living-tissue": -35,
+              "any-substrate-that-models-itself": 35,
+              "the-right-organization": 30,
+              "intensity": -35
+            },
+            "receptivity": {
+              "mind-needs-living-tissue": -23,
+              "any-substrate-that-models-itself": 23,
+              "the-right-organization": 20,
+              "intensity": -23
+            }
           },
           "xno0034": {
-            "a-different-kind-of-thing": -45,
-            "one-self-among-many": 45,
-            "first-among-selves": 10
+            "advocacy": {
+              "a-different-kind-of-thing": -45,
+              "one-self-among-many": 45,
+              "first-among-selves": 10,
+              "intensity": -45
+            },
+            "receptivity": {
+              "a-different-kind-of-thing": -29,
+              "one-self-among-many": 29,
+              "first-among-selves": 6,
+              "intensity": -29
+            }
           },
           "xno0035": {
-            "people-i-will-meet": -75,
-            "beings-i-will-never-see": 75,
-            "beings-i-affect": -50
+            "advocacy": {
+              "people-i-will-meet": -75,
+              "beings-i-will-never-see": 75,
+              "beings-i-affect": -50,
+              "intensity": -75
+            },
+            "receptivity": {
+              "people-i-will-meet": -49,
+              "beings-i-will-never-see": 49,
+              "beings-i-affect": -32,
+              "intensity": -49
+            }
           },
           "xno0036": {
-            "meaning-is-found": -50,
-            "meaning-is-made": 50,
-            "found-and-made": 0
+            "advocacy": {
+              "meaning-is-found": -50,
+              "meaning-is-made": 50,
+              "found-and-made": 0,
+              "intensity": -50
+            },
+            "receptivity": {
+              "meaning-is-found": -32,
+              "meaning-is-made": 32,
+              "found-and-made": 0,
+              "intensity": -32
+            }
           },
           "xno0037": {
-            "purpose-comes-from-above": -30,
-            "purpose-is-generated-at-every-scale": 30,
-            "set-above-tuned-below": 40
+            "advocacy": {
+              "purpose-comes-from-above": -30,
+              "purpose-is-generated-at-every-scale": 30,
+              "set-above-tuned-below": 40,
+              "intensity": 40
+            },
+            "receptivity": {
+              "purpose-comes-from-above": -20,
+              "purpose-is-generated-at-every-scale": 20,
+              "set-above-tuned-below": 26,
+              "intensity": 26
+            }
           },
           "xno0038": {
-            "one-unified-self": -40,
-            "a-committee-that-mostly-agrees": 40,
-            "a-chair-and-a-committee": 20
+            "advocacy": {
+              "one-unified-self": -40,
+              "a-committee-that-mostly-agrees": 40,
+              "a-chair-and-a-committee": 20,
+              "intensity": -40
+            },
+            "receptivity": {
+              "one-unified-self": -26,
+              "a-committee-that-mostly-agrees": 26,
+              "a-chair-and-a-committee": 13,
+              "intensity": -26
+            }
           },
           "xno0039": {
-            "a-mystery-that-survives": 50,
-            "what-selfhood-feels-like-from-inside": 40,
-            "a-confusion-that-dissolves": -10
+            "advocacy": {
+              "a-mystery-that-survives": 50,
+              "what-selfhood-feels-like-from-inside": 40,
+              "a-confusion-that-dissolves": -10,
+              "intensity": 50
+            },
+            "receptivity": {
+              "a-mystery-that-survives": 32,
+              "what-selfhood-feels-like-from-inside": 26,
+              "a-confusion-that-dissolves": -6,
+              "intensity": 32
+            }
           }
         },
         "skin": "nouscapades"

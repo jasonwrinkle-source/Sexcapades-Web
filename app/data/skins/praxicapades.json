@@ -3505,122 +3505,332 @@
         "aboutMe": "Belief is a probability, updated by evidence: priors made explicit, uncertainty quantified, decisions by expected loss.",
         "ratings": {
           "xpr0001": {
-            "generality": 50,
-            "realism": 40,
-            "precision": 60
+            "advocacy": {
+              "generality": 50,
+              "realism": 40,
+              "precision": 60,
+              "intensity": 60
+            },
+            "receptivity": {
+              "generality": 42,
+              "realism": 34,
+              "precision": 51,
+              "intensity": 51
+            }
           },
           "xpr0002": {
-            "deterministic": -40,
-            "stochastic": 80,
-            "laws-with-noise": -20
+            "advocacy": {
+              "deterministic": -40,
+              "stochastic": 80,
+              "laws-with-noise": -20,
+              "intensity": 80
+            },
+            "receptivity": {
+              "deterministic": -34,
+              "stochastic": 68,
+              "laws-with-noise": -17,
+              "intensity": 68
+            }
           },
           "xpr0003": {
-            "continuous": 50,
-            "discrete": 30,
-            "hybrid-models": 80
+            "advocacy": {
+              "continuous": 50,
+              "discrete": 30,
+              "hybrid-models": 80,
+              "intensity": 80
+            },
+            "receptivity": {
+              "continuous": 42,
+              "discrete": 26,
+              "hybrid-models": 68,
+              "intensity": 68
+            }
           },
           "xpr0004": {
-            "deductive-first-principles": 20,
-            "inductive-data-driven-surrogates": 70,
-            "physics-informed-hybrid": 50
+            "advocacy": {
+              "deductive-first-principles": 20,
+              "inductive-data-driven-surrogates": 70,
+              "physics-informed-hybrid": 50,
+              "intensity": 70
+            },
+            "receptivity": {
+              "deductive-first-principles": 17,
+              "inductive-data-driven-surrogates": 60,
+              "physics-informed-hybrid": 42,
+              "intensity": 60
+            }
           },
           "xpr0005": {
-            "linear-approximations": 30,
-            "nonlinear-reality": 50,
-            "linearize-then-check": 80
+            "advocacy": {
+              "linear-approximations": 30,
+              "nonlinear-reality": 50,
+              "linearize-then-check": 80,
+              "intensity": 80
+            },
+            "receptivity": {
+              "linear-approximations": 26,
+              "nonlinear-reality": 42,
+              "linearize-then-check": 68,
+              "intensity": 68
+            }
           },
           "xpr0006": {
-            "grid-mesh-pde-solvers": 20,
-            "particle-monte-carlo-methods": 85,
-            "discrete-networks-agent-simulators": 40,
-            "neural-operators-ai-surrogates": 50
+            "advocacy": {
+              "grid-mesh-pde-solvers": 20,
+              "particle-monte-carlo-methods": 85,
+              "discrete-networks-agent-simulators": 40,
+              "neural-operators-ai-surrogates": 50,
+              "intensity": 85
+            },
+            "receptivity": {
+              "grid-mesh-pde-solvers": 17,
+              "particle-monte-carlo-methods": 72,
+              "discrete-networks-agent-simulators": 34,
+              "neural-operators-ai-surrogates": 42,
+              "intensity": 72
+            }
           },
           "xpr0007": {
-            "analytic": 30,
-            "numerical": 70,
-            "analytic-where-possible": 60
+            "advocacy": {
+              "analytic": 30,
+              "numerical": 70,
+              "analytic-where-possible": 60,
+              "intensity": 70
+            },
+            "receptivity": {
+              "analytic": 26,
+              "numerical": 60,
+              "analytic-where-possible": 51,
+              "intensity": 60
+            }
           },
           "xpr0008": {
-            "simulation": 60,
-            "theory": 40,
-            "each-arbitrates-the-other": 80
+            "advocacy": {
+              "simulation": 60,
+              "theory": 40,
+              "each-arbitrates-the-other": 80,
+              "intensity": 80
+            },
+            "receptivity": {
+              "simulation": 51,
+              "theory": 34,
+              "each-arbitrates-the-other": 68,
+              "intensity": 68
+            }
           },
           "xpr0009": {
-            "exact": -20,
-            "heuristic": 60,
-            "heuristic-verified": 20
+            "advocacy": {
+              "exact": -20,
+              "heuristic": 60,
+              "heuristic-verified": 20,
+              "intensity": 60
+            },
+            "receptivity": {
+              "exact": -17,
+              "heuristic": 51,
+              "heuristic-verified": 17,
+              "intensity": 51
+            }
           },
           "xpr0010": {
-            "physical-continua-geophysical-fluids": 30,
-            "biological-ecological-epidemic-dynamics": 70,
-            "economic-financial-game-theoretic-flows": 60,
-            "engineering-control-cybernetics": 30,
-            "information-tensors-machine-intelligence": 60
+            "advocacy": {
+              "physical-continua-geophysical-fluids": 30,
+              "biological-ecological-epidemic-dynamics": 70,
+              "economic-financial-game-theoretic-flows": 60,
+              "engineering-control-cybernetics": 30,
+              "information-tensors-machine-intelligence": 60,
+              "intensity": 70
+            },
+            "receptivity": {
+              "physical-continua-geophysical-fluids": 26,
+              "biological-ecological-epidemic-dynamics": 60,
+              "economic-financial-game-theoretic-flows": 51,
+              "engineering-control-cybernetics": 26,
+              "information-tensors-machine-intelligence": 51,
+              "intensity": 60
+            }
           },
           "xpr0011": {
-            "pure": -20,
-            "applied": 60,
-            "use-inspired": 20
+            "advocacy": {
+              "pure": -20,
+              "applied": 60,
+              "use-inspired": 20,
+              "intensity": 60
+            },
+            "receptivity": {
+              "pure": -17,
+              "applied": 51,
+              "use-inspired": 17,
+              "intensity": 51
+            }
           },
           "xpr0012": {
-            "interdisciplinary": 70,
-            "domain-specific": 20,
-            "t-shaped": 50
+            "advocacy": {
+              "interdisciplinary": 70,
+              "domain-specific": 20,
+              "t-shaped": 50,
+              "intensity": 70
+            },
+            "receptivity": {
+              "interdisciplinary": 60,
+              "domain-specific": 17,
+              "t-shaped": 42,
+              "intensity": 60
+            }
           },
           "xpr0013": {
-            "aleatoric-uncertainty": 70,
-            "epistemic-parameter-uncertainty": 90,
-            "structural-model-misspecification": 60,
-            "knightian-ambiguity-extreme-regimes": 40
+            "advocacy": {
+              "aleatoric-uncertainty": 70,
+              "epistemic-parameter-uncertainty": 90,
+              "structural-model-misspecification": 60,
+              "knightian-ambiguity-extreme-regimes": 40,
+              "intensity": 90
+            },
+            "receptivity": {
+              "aleatoric-uncertainty": 60,
+              "epistemic-parameter-uncertainty": 76,
+              "structural-model-misspecification": 51,
+              "knightian-ambiguity-extreme-regimes": 34,
+              "intensity": 76
+            }
           },
           "xpr0014": {
-            "forward-simulation": 30,
-            "real-time-data-assimilation": 85,
-            "inverse-problem-parameter-identification": 80
+            "advocacy": {
+              "forward-simulation": 30,
+              "real-time-data-assimilation": 85,
+              "inverse-problem-parameter-identification": 80,
+              "intensity": 85
+            },
+            "receptivity": {
+              "forward-simulation": 26,
+              "real-time-data-assimilation": 72,
+              "inverse-problem-parameter-identification": 68,
+              "intensity": 72
+            }
           },
           "xpr0015": {
-            "bayesian-updating": 95,
-            "frequentist-objective-likelihood": -85,
-            "both-toolkits": -80
+            "advocacy": {
+              "bayesian-updating": 95,
+              "frequentist-objective-likelihood": -85,
+              "both-toolkits": -80,
+              "intensity": 95
+            },
+            "receptivity": {
+              "bayesian-updating": 81,
+              "frequentist-objective-likelihood": -72,
+              "both-toolkits": -68,
+              "intensity": 81
+            }
           },
           "xpr0016": {
-            "big-data": 60,
-            "small-data": 30,
-            "right-sized-data": 70
+            "advocacy": {
+              "big-data": 60,
+              "small-data": 30,
+              "right-sized-data": 70,
+              "intensity": 70
+            },
+            "receptivity": {
+              "big-data": 51,
+              "small-data": 26,
+              "right-sized-data": 60,
+              "intensity": 60
+            }
           },
           "xpr0017": {
-            "pure-rigor-analysis-of-pdes": -20,
-            "pragmatic-engineering-utility": 60,
-            "rigorous-enough-to-trust": 20
+            "advocacy": {
+              "pure-rigor-analysis-of-pdes": -20,
+              "pragmatic-engineering-utility": 60,
+              "rigorous-enough-to-trust": 20,
+              "intensity": 60
+            },
+            "receptivity": {
+              "pure-rigor-analysis-of-pdes": -17,
+              "pragmatic-engineering-utility": 51,
+              "rigorous-enough-to-trust": 17,
+              "intensity": 51
+            }
           },
           "xpr0018": {
-            "elegance": 40,
-            "effectiveness": 70,
-            "elegant-because-effective": 70
+            "advocacy": {
+              "elegance": 40,
+              "effectiveness": 70,
+              "elegant-because-effective": 70,
+              "intensity": 70
+            },
+            "receptivity": {
+              "elegance": 34,
+              "effectiveness": 60,
+              "elegant-because-effective": 60,
+              "intensity": 60
+            }
           },
           "xpr0019": {
-            "general": 70,
-            "specific": 30,
-            "general-method-bespoke-fit": 60
+            "advocacy": {
+              "general": 70,
+              "specific": 30,
+              "general-method-bespoke-fit": 60,
+              "intensity": 70
+            },
+            "receptivity": {
+              "general": 60,
+              "specific": 26,
+              "general-method-bespoke-fit": 51,
+              "intensity": 60
+            }
           },
           "xpr0020": {
-            "occam-s-minimalist-toy-model": 50,
-            "multi-physics-high-fidelity-ensemble": 40,
-            "as-complex-as-needed": 90
+            "advocacy": {
+              "occam-s-minimalist-toy-model": 50,
+              "multi-physics-high-fidelity-ensemble": 40,
+              "as-complex-as-needed": 90,
+              "intensity": 90
+            },
+            "receptivity": {
+              "occam-s-minimalist-toy-model": 42,
+              "multi-physics-high-fidelity-ensemble": 34,
+              "as-complex-as-needed": 76,
+              "intensity": 76
+            }
           },
           "xpr0021": {
-            "mechanistic-understanding": 50,
-            "predictive-supremacy": 70,
-            "understanding-through-prediction": 80
+            "advocacy": {
+              "mechanistic-understanding": 50,
+              "predictive-supremacy": 70,
+              "understanding-through-prediction": 80,
+              "intensity": 80
+            },
+            "receptivity": {
+              "mechanistic-understanding": 42,
+              "predictive-supremacy": 60,
+              "understanding-through-prediction": 68,
+              "intensity": 68
+            }
           },
           "xpr0022": {
-            "industry-national-labs-tech-giants": 30,
-            "university-academia": 60,
-            "between-lab-and-campus": 70
+            "advocacy": {
+              "industry-national-labs-tech-giants": 30,
+              "university-academia": 60,
+              "between-lab-and-campus": 70,
+              "intensity": 70
+            },
+            "receptivity": {
+              "industry-national-labs-tech-giants": 26,
+              "university-academia": 51,
+              "between-lab-and-campus": 60,
+              "intensity": 60
+            }
           },
           "xpr0026": {
-            "impact": 60,
-            "publication": 50
+            "advocacy": {
+              "impact": 60,
+              "publication": 50,
+              "intensity": 60
+            },
+            "receptivity": {
+              "impact": 51,
+              "publication": 42,
+              "intensity": 51
+            }
           }
         },
         "skin": "praxicapades"
@@ -3647,122 +3857,332 @@
         "aboutMe": "Probability is long-run frequency, not belief: likelihoods, confidence intervals, and procedures with guaranteed error rates.",
         "ratings": {
           "xpr0001": {
-            "generality": 60,
-            "realism": 50,
-            "precision": 70
+            "advocacy": {
+              "generality": 60,
+              "realism": 50,
+              "precision": 70,
+              "intensity": 70
+            },
+            "receptivity": {
+              "generality": 36,
+              "realism": 30,
+              "precision": 42,
+              "intensity": 42
+            }
           },
           "xpr0002": {
-            "deterministic": 40,
-            "stochastic": 60,
-            "laws-with-noise": 80
+            "advocacy": {
+              "deterministic": 40,
+              "stochastic": 60,
+              "laws-with-noise": 80,
+              "intensity": 80
+            },
+            "receptivity": {
+              "deterministic": 24,
+              "stochastic": 36,
+              "laws-with-noise": 48,
+              "intensity": 48
+            }
           },
           "xpr0003": {
-            "continuous": 60,
-            "discrete": 20,
-            "hybrid-models": 60
+            "advocacy": {
+              "continuous": 60,
+              "discrete": 20,
+              "hybrid-models": 60,
+              "intensity": 60
+            },
+            "receptivity": {
+              "continuous": 36,
+              "discrete": 12,
+              "hybrid-models": 36,
+              "intensity": 36
+            }
           },
           "xpr0004": {
-            "deductive-first-principles": 60,
-            "inductive-data-driven-surrogates": 20,
-            "physics-informed-hybrid": 60
+            "advocacy": {
+              "deductive-first-principles": 60,
+              "inductive-data-driven-surrogates": 20,
+              "physics-informed-hybrid": 60,
+              "intensity": 60
+            },
+            "receptivity": {
+              "deductive-first-principles": 36,
+              "inductive-data-driven-surrogates": 12,
+              "physics-informed-hybrid": 36,
+              "intensity": 36
+            }
           },
           "xpr0005": {
-            "linear-approximations": 50,
-            "nonlinear-reality": 40,
-            "linearize-then-check": 90
+            "advocacy": {
+              "linear-approximations": 50,
+              "nonlinear-reality": 40,
+              "linearize-then-check": 90,
+              "intensity": 90
+            },
+            "receptivity": {
+              "linear-approximations": 30,
+              "nonlinear-reality": 24,
+              "linearize-then-check": 54,
+              "intensity": 54
+            }
           },
           "xpr0006": {
-            "grid-mesh-pde-solvers": 60,
-            "particle-monte-carlo-methods": 50,
-            "discrete-networks-agent-simulators": 20,
-            "neural-operators-ai-surrogates": -30
+            "advocacy": {
+              "grid-mesh-pde-solvers": 60,
+              "particle-monte-carlo-methods": 50,
+              "discrete-networks-agent-simulators": 20,
+              "neural-operators-ai-surrogates": -30,
+              "intensity": 60
+            },
+            "receptivity": {
+              "grid-mesh-pde-solvers": 36,
+              "particle-monte-carlo-methods": 30,
+              "discrete-networks-agent-simulators": 12,
+              "neural-operators-ai-surrogates": -18,
+              "intensity": 36
+            }
           },
           "xpr0007": {
-            "analytic": 70,
-            "numerical": 40,
-            "analytic-where-possible": 70
+            "advocacy": {
+              "analytic": 70,
+              "numerical": 40,
+              "analytic-where-possible": 70,
+              "intensity": 70
+            },
+            "receptivity": {
+              "analytic": 42,
+              "numerical": 24,
+              "analytic-where-possible": 42,
+              "intensity": 42
+            }
           },
           "xpr0008": {
-            "simulation": 30,
-            "theory": 70,
-            "each-arbitrates-the-other": 60
+            "advocacy": {
+              "simulation": 30,
+              "theory": 70,
+              "each-arbitrates-the-other": 60,
+              "intensity": 70
+            },
+            "receptivity": {
+              "simulation": 18,
+              "theory": 42,
+              "each-arbitrates-the-other": 36,
+              "intensity": 42
+            }
           },
           "xpr0009": {
-            "exact": 70,
-            "heuristic": 10,
-            "heuristic-verified": 40
+            "advocacy": {
+              "exact": 70,
+              "heuristic": 10,
+              "heuristic-verified": 40,
+              "intensity": 70
+            },
+            "receptivity": {
+              "exact": 42,
+              "heuristic": 6,
+              "heuristic-verified": 24,
+              "intensity": 42
+            }
           },
           "xpr0010": {
-            "physical-continua-geophysical-fluids": 60,
-            "biological-ecological-epidemic-dynamics": 40,
-            "economic-financial-game-theoretic-flows": 40,
-            "engineering-control-cybernetics": 50,
-            "information-tensors-machine-intelligence": 30
+            "advocacy": {
+              "physical-continua-geophysical-fluids": 60,
+              "biological-ecological-epidemic-dynamics": 40,
+              "economic-financial-game-theoretic-flows": 40,
+              "engineering-control-cybernetics": 50,
+              "information-tensors-machine-intelligence": 30,
+              "intensity": 60
+            },
+            "receptivity": {
+              "physical-continua-geophysical-fluids": 36,
+              "biological-ecological-epidemic-dynamics": 24,
+              "economic-financial-game-theoretic-flows": 24,
+              "engineering-control-cybernetics": 30,
+              "information-tensors-machine-intelligence": 18,
+              "intensity": 36
+            }
           },
           "xpr0011": {
-            "pure": 40,
-            "applied": 40,
-            "use-inspired": 100
+            "advocacy": {
+              "pure": 40,
+              "applied": 40,
+              "use-inspired": 100,
+              "intensity": 100
+            },
+            "receptivity": {
+              "pure": 24,
+              "applied": 24,
+              "use-inspired": 60,
+              "intensity": 60
+            }
           },
           "xpr0012": {
-            "interdisciplinary": 30,
-            "domain-specific": 60,
-            "t-shaped": 70
+            "advocacy": {
+              "interdisciplinary": 30,
+              "domain-specific": 60,
+              "t-shaped": 70,
+              "intensity": 70
+            },
+            "receptivity": {
+              "interdisciplinary": 18,
+              "domain-specific": 36,
+              "t-shaped": 42,
+              "intensity": 42
+            }
           },
           "xpr0013": {
-            "aleatoric-uncertainty": 80,
-            "epistemic-parameter-uncertainty": 30,
-            "structural-model-misspecification": 50,
-            "knightian-ambiguity-extreme-regimes": 20
+            "advocacy": {
+              "aleatoric-uncertainty": 80,
+              "epistemic-parameter-uncertainty": 30,
+              "structural-model-misspecification": 50,
+              "knightian-ambiguity-extreme-regimes": 20,
+              "intensity": 80
+            },
+            "receptivity": {
+              "aleatoric-uncertainty": 48,
+              "epistemic-parameter-uncertainty": 18,
+              "structural-model-misspecification": 30,
+              "knightian-ambiguity-extreme-regimes": 12,
+              "intensity": 48
+            }
           },
           "xpr0014": {
-            "forward-simulation": 60,
-            "real-time-data-assimilation": 40,
-            "inverse-problem-parameter-identification": 60
+            "advocacy": {
+              "forward-simulation": 60,
+              "real-time-data-assimilation": 40,
+              "inverse-problem-parameter-identification": 60,
+              "intensity": 60
+            },
+            "receptivity": {
+              "forward-simulation": 36,
+              "real-time-data-assimilation": 24,
+              "inverse-problem-parameter-identification": 36,
+              "intensity": 36
+            }
           },
           "xpr0015": {
-            "bayesian-updating": -85,
-            "frequentist-objective-likelihood": 95,
-            "both-toolkits": -80
+            "advocacy": {
+              "bayesian-updating": -85,
+              "frequentist-objective-likelihood": 95,
+              "both-toolkits": -80,
+              "intensity": 95
+            },
+            "receptivity": {
+              "bayesian-updating": -51,
+              "frequentist-objective-likelihood": 57,
+              "both-toolkits": -48,
+              "intensity": 57
+            }
           },
           "xpr0016": {
-            "big-data": 50,
-            "small-data": 40,
-            "right-sized-data": 90
+            "advocacy": {
+              "big-data": 50,
+              "small-data": 40,
+              "right-sized-data": 90,
+              "intensity": 90
+            },
+            "receptivity": {
+              "big-data": 30,
+              "small-data": 24,
+              "right-sized-data": 54,
+              "intensity": 54
+            }
           },
           "xpr0017": {
-            "pure-rigor-analysis-of-pdes": 70,
-            "pragmatic-engineering-utility": 20,
-            "rigorous-enough-to-trust": 50
+            "advocacy": {
+              "pure-rigor-analysis-of-pdes": 70,
+              "pragmatic-engineering-utility": 20,
+              "rigorous-enough-to-trust": 50,
+              "intensity": 70
+            },
+            "receptivity": {
+              "pure-rigor-analysis-of-pdes": 42,
+              "pragmatic-engineering-utility": 12,
+              "rigorous-enough-to-trust": 30,
+              "intensity": 42
+            }
           },
           "xpr0018": {
-            "elegance": 50,
-            "effectiveness": 50,
-            "elegant-because-effective": 100
+            "advocacy": {
+              "elegance": 50,
+              "effectiveness": 50,
+              "elegant-because-effective": 100,
+              "intensity": 100
+            },
+            "receptivity": {
+              "elegance": 30,
+              "effectiveness": 30,
+              "elegant-because-effective": 60,
+              "intensity": 60
+            }
           },
           "xpr0019": {
-            "general": 60,
-            "specific": 40,
-            "general-method-bespoke-fit": 80
+            "advocacy": {
+              "general": 60,
+              "specific": 40,
+              "general-method-bespoke-fit": 80,
+              "intensity": 80
+            },
+            "receptivity": {
+              "general": 36,
+              "specific": 24,
+              "general-method-bespoke-fit": 48,
+              "intensity": 48
+            }
           },
           "xpr0020": {
-            "occam-s-minimalist-toy-model": 70,
-            "multi-physics-high-fidelity-ensemble": 20,
-            "as-complex-as-needed": 50
+            "advocacy": {
+              "occam-s-minimalist-toy-model": 70,
+              "multi-physics-high-fidelity-ensemble": 20,
+              "as-complex-as-needed": 50,
+              "intensity": 70
+            },
+            "receptivity": {
+              "occam-s-minimalist-toy-model": 42,
+              "multi-physics-high-fidelity-ensemble": 12,
+              "as-complex-as-needed": 30,
+              "intensity": 42
+            }
           },
           "xpr0021": {
-            "mechanistic-understanding": 60,
-            "predictive-supremacy": 50,
-            "understanding-through-prediction": 90
+            "advocacy": {
+              "mechanistic-understanding": 60,
+              "predictive-supremacy": 50,
+              "understanding-through-prediction": 90,
+              "intensity": 90
+            },
+            "receptivity": {
+              "mechanistic-understanding": 36,
+              "predictive-supremacy": 30,
+              "understanding-through-prediction": 54,
+              "intensity": 54
+            }
           },
           "xpr0022": {
-            "industry-national-labs-tech-giants": 20,
-            "university-academia": 70,
-            "between-lab-and-campus": 50
+            "advocacy": {
+              "industry-national-labs-tech-giants": 20,
+              "university-academia": 70,
+              "between-lab-and-campus": 50,
+              "intensity": 70
+            },
+            "receptivity": {
+              "industry-national-labs-tech-giants": 12,
+              "university-academia": 42,
+              "between-lab-and-campus": 30,
+              "intensity": 42
+            }
           },
           "xpr0026": {
-            "impact": 40,
-            "publication": 70
+            "advocacy": {
+              "impact": 40,
+              "publication": 70,
+              "intensity": 70
+            },
+            "receptivity": {
+              "impact": 24,
+              "publication": 42,
+              "intensity": 42
+            }
           }
         },
         "skin": "praxicapades"
@@ -3784,122 +4204,332 @@
         "aboutMe": "Start from conservation laws and derive: a model earns trust by deduction from physics, not by fitting data.",
         "ratings": {
           "xpr0001": {
-            "generality": 80,
-            "realism": 70,
-            "precision": 50
+            "advocacy": {
+              "generality": 80,
+              "realism": 70,
+              "precision": 50,
+              "intensity": 80
+            },
+            "receptivity": {
+              "generality": 44,
+              "realism": 38,
+              "precision": 28,
+              "intensity": 44
+            }
           },
           "xpr0002": {
-            "deterministic": 70,
-            "stochastic": -20,
-            "laws-with-noise": 10
+            "advocacy": {
+              "deterministic": 70,
+              "stochastic": -20,
+              "laws-with-noise": 10,
+              "intensity": 70
+            },
+            "receptivity": {
+              "deterministic": 38,
+              "stochastic": -11,
+              "laws-with-noise": 6,
+              "intensity": 38
+            }
           },
           "xpr0003": {
-            "continuous": 80,
-            "discrete": -30,
-            "hybrid-models": -10
+            "advocacy": {
+              "continuous": 80,
+              "discrete": -30,
+              "hybrid-models": -10,
+              "intensity": 80
+            },
+            "receptivity": {
+              "continuous": 44,
+              "discrete": -16,
+              "hybrid-models": -6,
+              "intensity": 44
+            }
           },
           "xpr0004": {
-            "deductive-first-principles": 95,
-            "inductive-data-driven-surrogates": -80,
-            "physics-informed-hybrid": -75
+            "advocacy": {
+              "deductive-first-principles": 95,
+              "inductive-data-driven-surrogates": -80,
+              "physics-informed-hybrid": -75,
+              "intensity": 95
+            },
+            "receptivity": {
+              "deductive-first-principles": 52,
+              "inductive-data-driven-surrogates": -44,
+              "physics-informed-hybrid": -41,
+              "intensity": 52
+            }
           },
           "xpr0005": {
-            "linear-approximations": 20,
-            "nonlinear-reality": 80,
-            "linearize-then-check": 40
+            "advocacy": {
+              "linear-approximations": 20,
+              "nonlinear-reality": 80,
+              "linearize-then-check": 40,
+              "intensity": 80
+            },
+            "receptivity": {
+              "linear-approximations": 11,
+              "nonlinear-reality": 44,
+              "linearize-then-check": 22,
+              "intensity": 44
+            }
           },
           "xpr0006": {
-            "grid-mesh-pde-solvers": 80,
-            "particle-monte-carlo-methods": 30,
-            "discrete-networks-agent-simulators": -20,
-            "neural-operators-ai-surrogates": -70
+            "advocacy": {
+              "grid-mesh-pde-solvers": 80,
+              "particle-monte-carlo-methods": 30,
+              "discrete-networks-agent-simulators": -20,
+              "neural-operators-ai-surrogates": -70,
+              "intensity": 80
+            },
+            "receptivity": {
+              "grid-mesh-pde-solvers": 44,
+              "particle-monte-carlo-methods": 16,
+              "discrete-networks-agent-simulators": -11,
+              "neural-operators-ai-surrogates": -38,
+              "intensity": 44
+            }
           },
           "xpr0007": {
-            "analytic": 85,
-            "numerical": 20,
-            "analytic-where-possible": 35
+            "advocacy": {
+              "analytic": 85,
+              "numerical": 20,
+              "analytic-where-possible": 35,
+              "intensity": 85
+            },
+            "receptivity": {
+              "analytic": 47,
+              "numerical": 11,
+              "analytic-where-possible": 19,
+              "intensity": 47
+            }
           },
           "xpr0008": {
-            "simulation": -40,
-            "theory": 90,
-            "each-arbitrates-the-other": -30
+            "advocacy": {
+              "simulation": -40,
+              "theory": 90,
+              "each-arbitrates-the-other": -30,
+              "intensity": 90
+            },
+            "receptivity": {
+              "simulation": -22,
+              "theory": 50,
+              "each-arbitrates-the-other": -16,
+              "intensity": 50
+            }
           },
           "xpr0009": {
-            "exact": 80,
-            "heuristic": -40,
-            "heuristic-verified": -20
+            "advocacy": {
+              "exact": 80,
+              "heuristic": -40,
+              "heuristic-verified": -20,
+              "intensity": 80
+            },
+            "receptivity": {
+              "exact": 44,
+              "heuristic": -22,
+              "heuristic-verified": -11,
+              "intensity": 44
+            }
           },
           "xpr0010": {
-            "physical-continua-geophysical-fluids": 80,
-            "biological-ecological-epidemic-dynamics": 20,
-            "economic-financial-game-theoretic-flows": 10,
-            "engineering-control-cybernetics": 30,
-            "information-tensors-machine-intelligence": 40
+            "advocacy": {
+              "physical-continua-geophysical-fluids": 80,
+              "biological-ecological-epidemic-dynamics": 20,
+              "economic-financial-game-theoretic-flows": 10,
+              "engineering-control-cybernetics": 30,
+              "information-tensors-machine-intelligence": 40,
+              "intensity": 80
+            },
+            "receptivity": {
+              "physical-continua-geophysical-fluids": 44,
+              "biological-ecological-epidemic-dynamics": 11,
+              "economic-financial-game-theoretic-flows": 6,
+              "engineering-control-cybernetics": 16,
+              "information-tensors-machine-intelligence": 22,
+              "intensity": 44
+            }
           },
           "xpr0011": {
-            "pure": 70,
-            "applied": -10,
-            "use-inspired": 20
+            "advocacy": {
+              "pure": 70,
+              "applied": -10,
+              "use-inspired": 20,
+              "intensity": 70
+            },
+            "receptivity": {
+              "pure": 38,
+              "applied": -6,
+              "use-inspired": 11,
+              "intensity": 38
+            }
           },
           "xpr0012": {
-            "interdisciplinary": 20,
-            "domain-specific": 70,
-            "t-shaped": 50
+            "advocacy": {
+              "interdisciplinary": 20,
+              "domain-specific": 70,
+              "t-shaped": 50,
+              "intensity": 70
+            },
+            "receptivity": {
+              "interdisciplinary": 11,
+              "domain-specific": 38,
+              "t-shaped": 28,
+              "intensity": 38
+            }
           },
           "xpr0013": {
-            "aleatoric-uncertainty": 30,
-            "epistemic-parameter-uncertainty": 40,
-            "structural-model-misspecification": 80,
-            "knightian-ambiguity-extreme-regimes": 30
+            "advocacy": {
+              "aleatoric-uncertainty": 30,
+              "epistemic-parameter-uncertainty": 40,
+              "structural-model-misspecification": 80,
+              "knightian-ambiguity-extreme-regimes": 30,
+              "intensity": 80
+            },
+            "receptivity": {
+              "aleatoric-uncertainty": 16,
+              "epistemic-parameter-uncertainty": 22,
+              "structural-model-misspecification": 44,
+              "knightian-ambiguity-extreme-regimes": 16,
+              "intensity": 44
+            }
           },
           "xpr0014": {
-            "forward-simulation": 80,
-            "real-time-data-assimilation": 10,
-            "inverse-problem-parameter-identification": 30
+            "advocacy": {
+              "forward-simulation": 80,
+              "real-time-data-assimilation": 10,
+              "inverse-problem-parameter-identification": 30,
+              "intensity": 80
+            },
+            "receptivity": {
+              "forward-simulation": 44,
+              "real-time-data-assimilation": 6,
+              "inverse-problem-parameter-identification": 16,
+              "intensity": 44
+            }
           },
           "xpr0015": {
-            "bayesian-updating": 20,
-            "frequentist-objective-likelihood": 40,
-            "both-toolkits": 80
+            "advocacy": {
+              "bayesian-updating": 20,
+              "frequentist-objective-likelihood": 40,
+              "both-toolkits": 80,
+              "intensity": 80
+            },
+            "receptivity": {
+              "bayesian-updating": 11,
+              "frequentist-objective-likelihood": 22,
+              "both-toolkits": 44,
+              "intensity": 44
+            }
           },
           "xpr0016": {
-            "big-data": -40,
-            "small-data": 70,
-            "right-sized-data": -10
+            "advocacy": {
+              "big-data": -40,
+              "small-data": 70,
+              "right-sized-data": -10,
+              "intensity": 70
+            },
+            "receptivity": {
+              "big-data": -22,
+              "small-data": 38,
+              "right-sized-data": -6,
+              "intensity": 38
+            }
           },
           "xpr0017": {
-            "pure-rigor-analysis-of-pdes": 90,
-            "pragmatic-engineering-utility": -50,
-            "rigorous-enough-to-trust": -40
+            "advocacy": {
+              "pure-rigor-analysis-of-pdes": 90,
+              "pragmatic-engineering-utility": -50,
+              "rigorous-enough-to-trust": -40,
+              "intensity": 90
+            },
+            "receptivity": {
+              "pure-rigor-analysis-of-pdes": 50,
+              "pragmatic-engineering-utility": -28,
+              "rigorous-enough-to-trust": -22,
+              "intensity": 50
+            }
           },
           "xpr0018": {
-            "elegance": 85,
-            "effectiveness": 20,
-            "elegant-because-effective": 35
+            "advocacy": {
+              "elegance": 85,
+              "effectiveness": 20,
+              "elegant-because-effective": 35,
+              "intensity": 85
+            },
+            "receptivity": {
+              "elegance": 47,
+              "effectiveness": 11,
+              "elegant-because-effective": 19,
+              "intensity": 47
+            }
           },
           "xpr0019": {
-            "general": 85,
-            "specific": 10,
-            "general-method-bespoke-fit": 25
+            "advocacy": {
+              "general": 85,
+              "specific": 10,
+              "general-method-bespoke-fit": 25,
+              "intensity": 85
+            },
+            "receptivity": {
+              "general": 47,
+              "specific": 6,
+              "general-method-bespoke-fit": 14,
+              "intensity": 47
+            }
           },
           "xpr0020": {
-            "occam-s-minimalist-toy-model": 85,
-            "multi-physics-high-fidelity-ensemble": -50,
-            "as-complex-as-needed": -35
+            "advocacy": {
+              "occam-s-minimalist-toy-model": 85,
+              "multi-physics-high-fidelity-ensemble": -50,
+              "as-complex-as-needed": -35,
+              "intensity": 85
+            },
+            "receptivity": {
+              "occam-s-minimalist-toy-model": 47,
+              "multi-physics-high-fidelity-ensemble": -28,
+              "as-complex-as-needed": -19,
+              "intensity": 47
+            }
           },
           "xpr0021": {
-            "mechanistic-understanding": 95,
-            "predictive-supremacy": -30,
-            "understanding-through-prediction": -25
+            "advocacy": {
+              "mechanistic-understanding": 95,
+              "predictive-supremacy": -30,
+              "understanding-through-prediction": -25,
+              "intensity": 95
+            },
+            "receptivity": {
+              "mechanistic-understanding": 52,
+              "predictive-supremacy": -16,
+              "understanding-through-prediction": -14,
+              "intensity": 52
+            }
           },
           "xpr0022": {
-            "industry-national-labs-tech-giants": -40,
-            "university-academia": 85,
-            "between-lab-and-campus": -25
+            "advocacy": {
+              "industry-national-labs-tech-giants": -40,
+              "university-academia": 85,
+              "between-lab-and-campus": -25,
+              "intensity": 85
+            },
+            "receptivity": {
+              "industry-national-labs-tech-giants": -22,
+              "university-academia": 47,
+              "between-lab-and-campus": -14,
+              "intensity": 47
+            }
           },
           "xpr0026": {
-            "impact": 10,
-            "publication": 85
+            "advocacy": {
+              "impact": 10,
+              "publication": 85,
+              "intensity": 85
+            },
+            "receptivity": {
+              "impact": 6,
+              "publication": 47,
+              "intensity": 47
+            }
           }
         },
         "skin": "praxicapades"
@@ -3926,122 +4556,332 @@
         "aboutMe": "Compute first: high-fidelity simulation and learned surrogates are how hard problems actually get solved.",
         "ratings": {
           "xpr0001": {
-            "generality": 30,
-            "realism": 80,
-            "precision": 60
+            "advocacy": {
+              "generality": 30,
+              "realism": 80,
+              "precision": 60,
+              "intensity": 80
+            },
+            "receptivity": {
+              "generality": 21,
+              "realism": 56,
+              "precision": 42,
+              "intensity": 56
+            }
           },
           "xpr0002": {
-            "deterministic": 20,
-            "stochastic": 60,
-            "laws-with-noise": 60
+            "advocacy": {
+              "deterministic": 20,
+              "stochastic": 60,
+              "laws-with-noise": 60,
+              "intensity": 60
+            },
+            "receptivity": {
+              "deterministic": 14,
+              "stochastic": 42,
+              "laws-with-noise": 42,
+              "intensity": 42
+            }
           },
           "xpr0003": {
-            "continuous": 40,
-            "discrete": 60,
-            "hybrid-models": 80
+            "advocacy": {
+              "continuous": 40,
+              "discrete": 60,
+              "hybrid-models": 80,
+              "intensity": 80
+            },
+            "receptivity": {
+              "continuous": 28,
+              "discrete": 42,
+              "hybrid-models": 56,
+              "intensity": 56
+            }
           },
           "xpr0004": {
-            "deductive-first-principles": 10,
-            "inductive-data-driven-surrogates": 80,
-            "physics-informed-hybrid": 30
+            "advocacy": {
+              "deductive-first-principles": 10,
+              "inductive-data-driven-surrogates": 80,
+              "physics-informed-hybrid": 30,
+              "intensity": 80
+            },
+            "receptivity": {
+              "deductive-first-principles": 7,
+              "inductive-data-driven-surrogates": 56,
+              "physics-informed-hybrid": 21,
+              "intensity": 56
+            }
           },
           "xpr0005": {
-            "linear-approximations": -30,
-            "nonlinear-reality": 80,
-            "linearize-then-check": -10
+            "advocacy": {
+              "linear-approximations": -30,
+              "nonlinear-reality": 80,
+              "linearize-then-check": -10,
+              "intensity": 80
+            },
+            "receptivity": {
+              "linear-approximations": -21,
+              "nonlinear-reality": 56,
+              "linearize-then-check": -7,
+              "intensity": 56
+            }
           },
           "xpr0006": {
-            "grid-mesh-pde-solvers": 60,
-            "particle-monte-carlo-methods": 70,
-            "discrete-networks-agent-simulators": 50,
-            "neural-operators-ai-surrogates": 85
+            "advocacy": {
+              "grid-mesh-pde-solvers": 60,
+              "particle-monte-carlo-methods": 70,
+              "discrete-networks-agent-simulators": 50,
+              "neural-operators-ai-surrogates": 85,
+              "intensity": 85
+            },
+            "receptivity": {
+              "grid-mesh-pde-solvers": 42,
+              "particle-monte-carlo-methods": 49,
+              "discrete-networks-agent-simulators": 35,
+              "neural-operators-ai-surrogates": 59,
+              "intensity": 59
+            }
           },
           "xpr0007": {
-            "analytic": -30,
-            "numerical": 90,
-            "analytic-where-possible": -20
+            "advocacy": {
+              "analytic": -30,
+              "numerical": 90,
+              "analytic-where-possible": -20,
+              "intensity": 90
+            },
+            "receptivity": {
+              "analytic": -21,
+              "numerical": 63,
+              "analytic-where-possible": -14,
+              "intensity": 63
+            }
           },
           "xpr0008": {
-            "simulation": 90,
-            "theory": -30,
-            "each-arbitrates-the-other": -20
+            "advocacy": {
+              "simulation": 90,
+              "theory": -30,
+              "each-arbitrates-the-other": -20,
+              "intensity": 90
+            },
+            "receptivity": {
+              "simulation": 63,
+              "theory": -21,
+              "each-arbitrates-the-other": -14,
+              "intensity": 63
+            }
           },
           "xpr0009": {
-            "exact": -10,
-            "heuristic": 70,
-            "heuristic-verified": 20
+            "advocacy": {
+              "exact": -10,
+              "heuristic": 70,
+              "heuristic-verified": 20,
+              "intensity": 70
+            },
+            "receptivity": {
+              "exact": -7,
+              "heuristic": 49,
+              "heuristic-verified": 14,
+              "intensity": 49
+            }
           },
           "xpr0010": {
-            "physical-continua-geophysical-fluids": 70,
-            "biological-ecological-epidemic-dynamics": 50,
-            "economic-financial-game-theoretic-flows": 40,
-            "engineering-control-cybernetics": 60,
-            "information-tensors-machine-intelligence": 80
+            "advocacy": {
+              "physical-continua-geophysical-fluids": 70,
+              "biological-ecological-epidemic-dynamics": 50,
+              "economic-financial-game-theoretic-flows": 40,
+              "engineering-control-cybernetics": 60,
+              "information-tensors-machine-intelligence": 80,
+              "intensity": 80
+            },
+            "receptivity": {
+              "physical-continua-geophysical-fluids": 49,
+              "biological-ecological-epidemic-dynamics": 35,
+              "economic-financial-game-theoretic-flows": 28,
+              "engineering-control-cybernetics": 42,
+              "information-tensors-machine-intelligence": 56,
+              "intensity": 56
+            }
           },
           "xpr0011": {
-            "pure": -40,
-            "applied": 80,
-            "use-inspired": -20
+            "advocacy": {
+              "pure": -40,
+              "applied": 80,
+              "use-inspired": -20,
+              "intensity": 80
+            },
+            "receptivity": {
+              "pure": -28,
+              "applied": 56,
+              "use-inspired": -14,
+              "intensity": 56
+            }
           },
           "xpr0012": {
-            "interdisciplinary": 70,
-            "domain-specific": 30,
-            "t-shaped": 60
+            "advocacy": {
+              "interdisciplinary": 70,
+              "domain-specific": 30,
+              "t-shaped": 60,
+              "intensity": 70
+            },
+            "receptivity": {
+              "interdisciplinary": 49,
+              "domain-specific": 21,
+              "t-shaped": 42,
+              "intensity": 49
+            }
           },
           "xpr0013": {
-            "aleatoric-uncertainty": 50,
-            "epistemic-parameter-uncertainty": 60,
-            "structural-model-misspecification": 70,
-            "knightian-ambiguity-extreme-regimes": 50
+            "advocacy": {
+              "aleatoric-uncertainty": 50,
+              "epistemic-parameter-uncertainty": 60,
+              "structural-model-misspecification": 70,
+              "knightian-ambiguity-extreme-regimes": 50,
+              "intensity": 70
+            },
+            "receptivity": {
+              "aleatoric-uncertainty": 35,
+              "epistemic-parameter-uncertainty": 42,
+              "structural-model-misspecification": 49,
+              "knightian-ambiguity-extreme-regimes": 35,
+              "intensity": 49
+            }
           },
           "xpr0014": {
-            "forward-simulation": 80,
-            "real-time-data-assimilation": 60,
-            "inverse-problem-parameter-identification": 50
+            "advocacy": {
+              "forward-simulation": 80,
+              "real-time-data-assimilation": 60,
+              "inverse-problem-parameter-identification": 50,
+              "intensity": 80
+            },
+            "receptivity": {
+              "forward-simulation": 56,
+              "real-time-data-assimilation": 42,
+              "inverse-problem-parameter-identification": 35,
+              "intensity": 56
+            }
           },
           "xpr0015": {
-            "bayesian-updating": 50,
-            "frequentist-objective-likelihood": 20,
-            "both-toolkits": 70
+            "advocacy": {
+              "bayesian-updating": 50,
+              "frequentist-objective-likelihood": 20,
+              "both-toolkits": 70,
+              "intensity": 70
+            },
+            "receptivity": {
+              "bayesian-updating": 35,
+              "frequentist-objective-likelihood": 14,
+              "both-toolkits": 49,
+              "intensity": 49
+            }
           },
           "xpr0016": {
-            "big-data": 85,
-            "small-data": -30,
-            "right-sized-data": -15
+            "advocacy": {
+              "big-data": 85,
+              "small-data": -30,
+              "right-sized-data": -15,
+              "intensity": 85
+            },
+            "receptivity": {
+              "big-data": 59,
+              "small-data": -21,
+              "right-sized-data": -10,
+              "intensity": 59
+            }
           },
           "xpr0017": {
-            "pure-rigor-analysis-of-pdes": -40,
-            "pragmatic-engineering-utility": 80,
-            "rigorous-enough-to-trust": -20
+            "advocacy": {
+              "pure-rigor-analysis-of-pdes": -40,
+              "pragmatic-engineering-utility": 80,
+              "rigorous-enough-to-trust": -20,
+              "intensity": 80
+            },
+            "receptivity": {
+              "pure-rigor-analysis-of-pdes": -28,
+              "pragmatic-engineering-utility": 56,
+              "rigorous-enough-to-trust": -14,
+              "intensity": 56
+            }
           },
           "xpr0018": {
-            "elegance": 10,
-            "effectiveness": 85,
-            "elegant-because-effective": 25
+            "advocacy": {
+              "elegance": 10,
+              "effectiveness": 85,
+              "elegant-because-effective": 25,
+              "intensity": 85
+            },
+            "receptivity": {
+              "elegance": 7,
+              "effectiveness": 59,
+              "elegant-because-effective": 18,
+              "intensity": 59
+            }
           },
           "xpr0019": {
-            "general": 30,
-            "specific": 70,
-            "general-method-bespoke-fit": 60
+            "advocacy": {
+              "general": 30,
+              "specific": 70,
+              "general-method-bespoke-fit": 60,
+              "intensity": 70
+            },
+            "receptivity": {
+              "general": 21,
+              "specific": 49,
+              "general-method-bespoke-fit": 42,
+              "intensity": 49
+            }
           },
           "xpr0020": {
-            "occam-s-minimalist-toy-model": -40,
-            "multi-physics-high-fidelity-ensemble": 90,
-            "as-complex-as-needed": -30
+            "advocacy": {
+              "occam-s-minimalist-toy-model": -40,
+              "multi-physics-high-fidelity-ensemble": 90,
+              "as-complex-as-needed": -30,
+              "intensity": 90
+            },
+            "receptivity": {
+              "occam-s-minimalist-toy-model": -28,
+              "multi-physics-high-fidelity-ensemble": 63,
+              "as-complex-as-needed": -21,
+              "intensity": 63
+            }
           },
           "xpr0021": {
-            "mechanistic-understanding": 20,
-            "predictive-supremacy": 85,
-            "understanding-through-prediction": 35
+            "advocacy": {
+              "mechanistic-understanding": 20,
+              "predictive-supremacy": 85,
+              "understanding-through-prediction": 35,
+              "intensity": 85
+            },
+            "receptivity": {
+              "mechanistic-understanding": 14,
+              "predictive-supremacy": 59,
+              "understanding-through-prediction": 24,
+              "intensity": 59
+            }
           },
           "xpr0022": {
-            "industry-national-labs-tech-giants": 70,
-            "university-academia": 30,
-            "between-lab-and-campus": 60
+            "advocacy": {
+              "industry-national-labs-tech-giants": 70,
+              "university-academia": 30,
+              "between-lab-and-campus": 60,
+              "intensity": 70
+            },
+            "receptivity": {
+              "industry-national-labs-tech-giants": 49,
+              "university-academia": 21,
+              "between-lab-and-campus": 42,
+              "intensity": 49
+            }
           },
           "xpr0026": {
-            "impact": 70,
-            "publication": 40
+            "advocacy": {
+              "impact": 70,
+              "publication": 40,
+              "intensity": 70
+            },
+            "receptivity": {
+              "impact": 49,
+              "publication": 28,
+              "intensity": 49
+            }
           }
         },
         "skin": "praxicapades"
@@ -4068,122 +4908,332 @@
         "aboutMe": "Does it work? A model is judged by the decision it improves and the system it ships - rigor serves utility, not the reverse.",
         "ratings": {
           "xpr0001": {
-            "generality": 20,
-            "realism": 70,
-            "precision": 50
+            "advocacy": {
+              "generality": 20,
+              "realism": 70,
+              "precision": 50,
+              "intensity": 70
+            },
+            "receptivity": {
+              "generality": 15,
+              "realism": 52,
+              "precision": 38,
+              "intensity": 52
+            }
           },
           "xpr0002": {
-            "deterministic": 30,
-            "stochastic": 40,
-            "laws-with-noise": 90
+            "advocacy": {
+              "deterministic": 30,
+              "stochastic": 40,
+              "laws-with-noise": 90,
+              "intensity": 90
+            },
+            "receptivity": {
+              "deterministic": 22,
+              "stochastic": 30,
+              "laws-with-noise": 68,
+              "intensity": 68
+            }
           },
           "xpr0003": {
-            "continuous": 40,
-            "discrete": 50,
-            "hybrid-models": 90
+            "advocacy": {
+              "continuous": 40,
+              "discrete": 50,
+              "hybrid-models": 90,
+              "intensity": 90
+            },
+            "receptivity": {
+              "continuous": 30,
+              "discrete": 38,
+              "hybrid-models": 68,
+              "intensity": 68
+            }
           },
           "xpr0004": {
-            "deductive-first-principles": 10,
-            "inductive-data-driven-surrogates": 70,
-            "physics-informed-hybrid": 40
+            "advocacy": {
+              "deductive-first-principles": 10,
+              "inductive-data-driven-surrogates": 70,
+              "physics-informed-hybrid": 40,
+              "intensity": 70
+            },
+            "receptivity": {
+              "deductive-first-principles": 8,
+              "inductive-data-driven-surrogates": 52,
+              "physics-informed-hybrid": 30,
+              "intensity": 52
+            }
           },
           "xpr0005": {
-            "linear-approximations": 60,
-            "nonlinear-reality": 40,
-            "linearize-then-check": 80
+            "advocacy": {
+              "linear-approximations": 60,
+              "nonlinear-reality": 40,
+              "linearize-then-check": 80,
+              "intensity": 80
+            },
+            "receptivity": {
+              "linear-approximations": 45,
+              "nonlinear-reality": 30,
+              "linearize-then-check": 60,
+              "intensity": 60
+            }
           },
           "xpr0006": {
-            "grid-mesh-pde-solvers": 50,
-            "particle-monte-carlo-methods": 40,
-            "discrete-networks-agent-simulators": 60,
-            "neural-operators-ai-surrogates": 60
+            "advocacy": {
+              "grid-mesh-pde-solvers": 50,
+              "particle-monte-carlo-methods": 40,
+              "discrete-networks-agent-simulators": 60,
+              "neural-operators-ai-surrogates": 60,
+              "intensity": 60
+            },
+            "receptivity": {
+              "grid-mesh-pde-solvers": 38,
+              "particle-monte-carlo-methods": 30,
+              "discrete-networks-agent-simulators": 45,
+              "neural-operators-ai-surrogates": 45,
+              "intensity": 45
+            }
           },
           "xpr0007": {
-            "analytic": 20,
-            "numerical": 80,
-            "analytic-where-possible": 40
+            "advocacy": {
+              "analytic": 20,
+              "numerical": 80,
+              "analytic-where-possible": 40,
+              "intensity": 80
+            },
+            "receptivity": {
+              "analytic": 15,
+              "numerical": 60,
+              "analytic-where-possible": 30,
+              "intensity": 60
+            }
           },
           "xpr0008": {
-            "simulation": 70,
-            "theory": 20,
-            "each-arbitrates-the-other": 50
+            "advocacy": {
+              "simulation": 70,
+              "theory": 20,
+              "each-arbitrates-the-other": 50,
+              "intensity": 70
+            },
+            "receptivity": {
+              "simulation": 52,
+              "theory": 15,
+              "each-arbitrates-the-other": 38,
+              "intensity": 52
+            }
           },
           "xpr0009": {
-            "exact": 10,
-            "heuristic": 85,
-            "heuristic-verified": 25
+            "advocacy": {
+              "exact": 10,
+              "heuristic": 85,
+              "heuristic-verified": 25,
+              "intensity": 85
+            },
+            "receptivity": {
+              "exact": 8,
+              "heuristic": 64,
+              "heuristic-verified": 19,
+              "intensity": 64
+            }
           },
           "xpr0010": {
-            "physical-continua-geophysical-fluids": 50,
-            "biological-ecological-epidemic-dynamics": 40,
-            "economic-financial-game-theoretic-flows": 50,
-            "engineering-control-cybernetics": 90,
-            "information-tensors-machine-intelligence": 60
+            "advocacy": {
+              "physical-continua-geophysical-fluids": 50,
+              "biological-ecological-epidemic-dynamics": 40,
+              "economic-financial-game-theoretic-flows": 50,
+              "engineering-control-cybernetics": 90,
+              "information-tensors-machine-intelligence": 60,
+              "intensity": 90
+            },
+            "receptivity": {
+              "physical-continua-geophysical-fluids": 38,
+              "biological-ecological-epidemic-dynamics": 30,
+              "economic-financial-game-theoretic-flows": 38,
+              "engineering-control-cybernetics": 68,
+              "information-tensors-machine-intelligence": 45,
+              "intensity": 68
+            }
           },
           "xpr0011": {
-            "pure": -60,
-            "applied": 90,
-            "use-inspired": -50
+            "advocacy": {
+              "pure": -60,
+              "applied": 90,
+              "use-inspired": -50,
+              "intensity": 90
+            },
+            "receptivity": {
+              "pure": -45,
+              "applied": 68,
+              "use-inspired": -38,
+              "intensity": 68
+            }
           },
           "xpr0012": {
-            "interdisciplinary": 80,
-            "domain-specific": 20,
-            "t-shaped": 40
+            "advocacy": {
+              "interdisciplinary": 80,
+              "domain-specific": 20,
+              "t-shaped": 40,
+              "intensity": 80
+            },
+            "receptivity": {
+              "interdisciplinary": 60,
+              "domain-specific": 15,
+              "t-shaped": 30,
+              "intensity": 60
+            }
           },
           "xpr0013": {
-            "aleatoric-uncertainty": 40,
-            "epistemic-parameter-uncertainty": 50,
-            "structural-model-misspecification": 60,
-            "knightian-ambiguity-extreme-regimes": 60
+            "advocacy": {
+              "aleatoric-uncertainty": 40,
+              "epistemic-parameter-uncertainty": 50,
+              "structural-model-misspecification": 60,
+              "knightian-ambiguity-extreme-regimes": 60,
+              "intensity": 60
+            },
+            "receptivity": {
+              "aleatoric-uncertainty": 30,
+              "epistemic-parameter-uncertainty": 38,
+              "structural-model-misspecification": 45,
+              "knightian-ambiguity-extreme-regimes": 45,
+              "intensity": 45
+            }
           },
           "xpr0014": {
-            "forward-simulation": 50,
-            "real-time-data-assimilation": 80,
-            "inverse-problem-parameter-identification": 60
+            "advocacy": {
+              "forward-simulation": 50,
+              "real-time-data-assimilation": 80,
+              "inverse-problem-parameter-identification": 60,
+              "intensity": 80
+            },
+            "receptivity": {
+              "forward-simulation": 38,
+              "real-time-data-assimilation": 60,
+              "inverse-problem-parameter-identification": 45,
+              "intensity": 60
+            }
           },
           "xpr0015": {
-            "bayesian-updating": 40,
-            "frequentist-objective-likelihood": 40,
-            "both-toolkits": 100
+            "advocacy": {
+              "bayesian-updating": 40,
+              "frequentist-objective-likelihood": 40,
+              "both-toolkits": 100,
+              "intensity": 100
+            },
+            "receptivity": {
+              "bayesian-updating": 30,
+              "frequentist-objective-likelihood": 30,
+              "both-toolkits": 75,
+              "intensity": 75
+            }
           },
           "xpr0016": {
-            "big-data": 60,
-            "small-data": 40,
-            "right-sized-data": 80
+            "advocacy": {
+              "big-data": 60,
+              "small-data": 40,
+              "right-sized-data": 80,
+              "intensity": 80
+            },
+            "receptivity": {
+              "big-data": 45,
+              "small-data": 30,
+              "right-sized-data": 60,
+              "intensity": 60
+            }
           },
           "xpr0017": {
-            "pure-rigor-analysis-of-pdes": -70,
-            "pragmatic-engineering-utility": 95,
-            "rigorous-enough-to-trust": -65
+            "advocacy": {
+              "pure-rigor-analysis-of-pdes": -70,
+              "pragmatic-engineering-utility": 95,
+              "rigorous-enough-to-trust": -65,
+              "intensity": 95
+            },
+            "receptivity": {
+              "pure-rigor-analysis-of-pdes": -52,
+              "pragmatic-engineering-utility": 71,
+              "rigorous-enough-to-trust": -49,
+              "intensity": 71
+            }
           },
           "xpr0018": {
-            "elegance": -20,
-            "effectiveness": 95,
-            "elegant-because-effective": -15
+            "advocacy": {
+              "elegance": -20,
+              "effectiveness": 95,
+              "elegant-because-effective": -15,
+              "intensity": 95
+            },
+            "receptivity": {
+              "elegance": -15,
+              "effectiveness": 71,
+              "elegant-because-effective": -11,
+              "intensity": 71
+            }
           },
           "xpr0019": {
-            "general": 20,
-            "specific": 80,
-            "general-method-bespoke-fit": 40
+            "advocacy": {
+              "general": 20,
+              "specific": 80,
+              "general-method-bespoke-fit": 40,
+              "intensity": 80
+            },
+            "receptivity": {
+              "general": 15,
+              "specific": 60,
+              "general-method-bespoke-fit": 30,
+              "intensity": 60
+            }
           },
           "xpr0020": {
-            "occam-s-minimalist-toy-model": 40,
-            "multi-physics-high-fidelity-ensemble": 50,
-            "as-complex-as-needed": 90
+            "advocacy": {
+              "occam-s-minimalist-toy-model": 40,
+              "multi-physics-high-fidelity-ensemble": 50,
+              "as-complex-as-needed": 90,
+              "intensity": 90
+            },
+            "receptivity": {
+              "occam-s-minimalist-toy-model": 30,
+              "multi-physics-high-fidelity-ensemble": 38,
+              "as-complex-as-needed": 68,
+              "intensity": 68
+            }
           },
           "xpr0021": {
-            "mechanistic-understanding": 30,
-            "predictive-supremacy": 80,
-            "understanding-through-prediction": 50
+            "advocacy": {
+              "mechanistic-understanding": 30,
+              "predictive-supremacy": 80,
+              "understanding-through-prediction": 50,
+              "intensity": 80
+            },
+            "receptivity": {
+              "mechanistic-understanding": 22,
+              "predictive-supremacy": 60,
+              "understanding-through-prediction": 38,
+              "intensity": 60
+            }
           },
           "xpr0022": {
-            "industry-national-labs-tech-giants": 80,
-            "university-academia": -30,
-            "between-lab-and-campus": -10
+            "advocacy": {
+              "industry-national-labs-tech-giants": 80,
+              "university-academia": -30,
+              "between-lab-and-campus": -10,
+              "intensity": 80
+            },
+            "receptivity": {
+              "industry-national-labs-tech-giants": 60,
+              "university-academia": -22,
+              "between-lab-and-campus": -8,
+              "intensity": 60
+            }
           },
           "xpr0026": {
-            "impact": 90,
-            "publication": 10
+            "advocacy": {
+              "impact": 90,
+              "publication": 10,
+              "intensity": 90
+            },
+            "receptivity": {
+              "impact": 68,
+              "publication": 8,
+              "intensity": 68
+            }
           }
         },
         "skin": "praxicapades"

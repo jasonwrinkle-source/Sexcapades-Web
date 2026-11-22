@@ -9565,196 +9565,548 @@
         "aboutMe": "The Democratic Party platform: an active federal government that taxes the wealthy, protects the safety net and the ACA, acts urgently on climate, and defends voting access, abortion rights, and a path to citizenship.",
         "ratings": {
           "xpo0001": {
-            "the-state-command-redistribution": 55,
-            "the-market-capital-price-discovery": 10,
-            "the-commons-civil-society-mutual-aid": 40
+            "advocacy": {
+              "the-state-command-redistribution": 55,
+              "the-market-capital-price-discovery": 10,
+              "the-commons-civil-society-mutual-aid": 40,
+              "intensity": 55
+            },
+            "receptivity": {
+              "the-state-command-redistribution": 22,
+              "the-market-capital-price-discovery": 4,
+              "the-commons-civil-society-mutual-aid": 16,
+              "intensity": 22
+            }
           },
           "xpo0015": {
-            "higher-taxes-on-the-wealthy": 85,
-            "lower-taxes-across-the-board": -70,
-            "moderate-flatter-rates": -55
+            "advocacy": {
+              "higher-taxes-on-the-wealthy": 85,
+              "lower-taxes-across-the-board": -70,
+              "moderate-flatter-rates": -55,
+              "intensity": 85
+            },
+            "receptivity": {
+              "higher-taxes-on-the-wealthy": 34,
+              "lower-taxes-across-the-board": -28,
+              "moderate-flatter-rates": -22,
+              "intensity": 34
+            }
           },
           "xpo0016": {
-            "close-loopholes-tax-more": 80,
-            "cut-corporate-taxes": -60,
-            "competitive-rate-fewer-loopholes": -40
+            "advocacy": {
+              "close-loopholes-tax-more": 80,
+              "cut-corporate-taxes": -60,
+              "competitive-rate-fewer-loopholes": -40,
+              "intensity": 80
+            },
+            "receptivity": {
+              "close-loopholes-tax-more": 32,
+              "cut-corporate-taxes": -24,
+              "competitive-rate-fewer-loopholes": -16,
+              "intensity": 32
+            }
           },
           "xpo0017": {
-            "invest-generously": 75,
-            "cut-spending-to-balance": -60,
-            "spend-but-bend-the-curve": -35
+            "advocacy": {
+              "invest-generously": 75,
+              "cut-spending-to-balance": -60,
+              "spend-but-bend-the-curve": -35,
+              "intensity": 75
+            },
+            "receptivity": {
+              "invest-generously": 30,
+              "cut-spending-to-balance": -24,
+              "spend-but-bend-the-curve": -14,
+              "intensity": 30
+            }
           },
           "xpo0019": {
-            "reduce-inequality": 80,
-            "market-outcome": -65,
-            "ease-inequality-at-the-margins": -45
+            "advocacy": {
+              "reduce-inequality": 80,
+              "market-outcome": -65,
+              "ease-inequality-at-the-margins": -45,
+              "intensity": 80
+            },
+            "receptivity": {
+              "reduce-inequality": 32,
+              "market-outcome": -26,
+              "ease-inequality-at-the-margins": -18,
+              "intensity": 32
+            }
           },
           "xpo0020": {
-            "free-trade": 10,
-            "protective-tariffs": 50,
-            "fair-trade": 60
+            "advocacy": {
+              "free-trade": 10,
+              "protective-tariffs": 50,
+              "fair-trade": 60,
+              "intensity": 60
+            },
+            "receptivity": {
+              "free-trade": 4,
+              "protective-tariffs": 20,
+              "fair-trade": 24,
+              "intensity": 24
+            }
           },
           "xpo0023": {
-            "independent-central-bank": 70,
-            "abolish-the-fed": -70,
-            "constrain-the-fed": -40
+            "advocacy": {
+              "independent-central-bank": 70,
+              "abolish-the-fed": -70,
+              "constrain-the-fed": -40,
+              "intensity": 70
+            },
+            "receptivity": {
+              "independent-central-bank": 28,
+              "abolish-the-fed": -28,
+              "constrain-the-fed": -16,
+              "intensity": 28
+            }
           },
           "xpo0013": {
-            "higher-federal-floor": 85,
-            "no-federal-floor": -80,
-            "a-modest-federal-floor": -65
+            "advocacy": {
+              "higher-federal-floor": 85,
+              "no-federal-floor": -80,
+              "a-modest-federal-floor": -65,
+              "intensity": 85
+            },
+            "receptivity": {
+              "higher-federal-floor": 34,
+              "no-federal-floor": -32,
+              "a-modest-federal-floor": -26,
+              "intensity": 34
+            }
           },
           "xpo0026": {
-            "protect-and-expand": 85,
-            "phase-it-out": -85,
-            "preserve-with-reforms": -70
+            "advocacy": {
+              "protect-and-expand": 85,
+              "phase-it-out": -85,
+              "preserve-with-reforms": -70,
+              "intensity": 85
+            },
+            "receptivity": {
+              "protect-and-expand": 34,
+              "phase-it-out": -34,
+              "preserve-with-reforms": -28,
+              "intensity": 34
+            }
           },
           "xpo0027": {
-            "strong-safety-net": 85,
-            "no-federal-welfare": -80,
-            "a-limited-safety-net": -65
+            "advocacy": {
+              "strong-safety-net": 85,
+              "no-federal-welfare": -80,
+              "a-limited-safety-net": -65,
+              "intensity": 85
+            },
+            "receptivity": {
+              "strong-safety-net": 34,
+              "no-federal-welfare": -32,
+              "a-limited-safety-net": -26,
+              "intensity": 34
+            }
           },
           "xpo0029": {
-            "private-financing": -40,
-            "guaranteed-coverage": 85
+            "advocacy": {
+              "private-financing": -40,
+              "guaranteed-coverage": 85,
+              "intensity": 85
+            },
+            "receptivity": {
+              "private-financing": -16,
+              "guaranteed-coverage": 34,
+              "intensity": 34
+            }
           },
           "xpo0030": {
-            "negotiate-and-cap-prices": 85,
-            "leave-prices-to-the-market": -75,
-            "negotiate-the-worst-excesses": -60
+            "advocacy": {
+              "negotiate-and-cap-prices": 85,
+              "leave-prices-to-the-market": -75,
+              "negotiate-the-worst-excesses": -60,
+              "intensity": 85
+            },
+            "receptivity": {
+              "negotiate-and-cap-prices": 34,
+              "leave-prices-to-the-market": -30,
+              "negotiate-the-worst-excesses": -24,
+              "intensity": 34
+            }
           },
           "xpo0031": {
-            "protect-and-expand": 80,
-            "replace-with-universal": 30,
-            "leave-to-the-market": -75
+            "advocacy": {
+              "protect-and-expand": 80,
+              "replace-with-universal": 30,
+              "leave-to-the-market": -75,
+              "intensity": 80
+            },
+            "receptivity": {
+              "protect-and-expand": 32,
+              "replace-with-universal": 12,
+              "leave-to-the-market": -30,
+              "intensity": 32
+            }
           },
           "xpo0036": {
-            "urgent-action": 90,
-            "no-government-action": -85,
-            "gradual-market-led-action": -75
+            "advocacy": {
+              "urgent-action": 90,
+              "no-government-action": -85,
+              "gradual-market-led-action": -75,
+              "intensity": 90
+            },
+            "receptivity": {
+              "urgent-action": 36,
+              "no-government-action": -34,
+              "gradual-market-led-action": -30,
+              "intensity": 36
+            }
           },
           "xpo0037": {
-            "drill-and-expand": -55,
-            "phase-out": 60,
-            "all-of-the-above-in-transition": -15
+            "advocacy": {
+              "drill-and-expand": -55,
+              "phase-out": 60,
+              "all-of-the-above-in-transition": -15,
+              "intensity": 60
+            },
+            "receptivity": {
+              "drill-and-expand": -22,
+              "phase-out": 24,
+              "all-of-the-above-in-transition": -6,
+              "intensity": 24
+            }
           },
           "xpo0039": {
-            "massive-public-investment": 80,
-            "let-the-market-decide": -70,
-            "incentives-not-mandates": -50
+            "advocacy": {
+              "massive-public-investment": 80,
+              "let-the-market-decide": -70,
+              "incentives-not-mandates": -50,
+              "intensity": 80
+            },
+            "receptivity": {
+              "massive-public-investment": 32,
+              "let-the-market-decide": -28,
+              "incentives-not-mandates": -20,
+              "intensity": 32
+            }
           },
           "xpo0044": {
-            "wall-and-hard-enforcement": -60,
-            "technology-agents-pathways": 75
+            "advocacy": {
+              "wall-and-hard-enforcement": -60,
+              "technology-agents-pathways": 75,
+              "intensity": 75
+            },
+            "receptivity": {
+              "wall-and-hard-enforcement": -24,
+              "technology-agents-pathways": 30,
+              "intensity": 30
+            }
           },
           "xpo0045": {
-            "mass-deportation": -85,
-            "removal-after-fair-process": 80,
-            "prioritized-removal": -65
+            "advocacy": {
+              "mass-deportation": -85,
+              "removal-after-fair-process": 80,
+              "prioritized-removal": -65,
+              "intensity": -85
+            },
+            "receptivity": {
+              "mass-deportation": -34,
+              "removal-after-fair-process": 32,
+              "prioritized-removal": -26,
+              "intensity": -34
+            }
           },
           "xpo0048": {
-            "path-to-citizenship": 90,
-            "enforcement-only-no-amnesty": -85,
-            "legal-status-without-citizenship": -75
+            "advocacy": {
+              "path-to-citizenship": 90,
+              "enforcement-only-no-amnesty": -85,
+              "legal-status-without-citizenship": -75,
+              "intensity": 90
+            },
+            "receptivity": {
+              "path-to-citizenship": 36,
+              "enforcement-only-no-amnesty": -34,
+              "legal-status-without-citizenship": -30,
+              "intensity": 36
+            }
           },
           "xpo0049": {
-            "keep-birthright-citizenship": 85,
-            "end-it": -85,
-            "restrict-it-at-the-edges": -70
+            "advocacy": {
+              "keep-birthright-citizenship": 85,
+              "end-it": -85,
+              "restrict-it-at-the-edges": -70,
+              "intensity": 85
+            },
+            "receptivity": {
+              "keep-birthright-citizenship": 34,
+              "end-it": -34,
+              "restrict-it-at-the-edges": -28,
+              "intensity": 34
+            }
           },
           "xpo0051": {
-            "expand-access-no-id": 90,
-            "require-id-same-day-voting": -80,
-            "easy-voting-with-id": -70
+            "advocacy": {
+              "expand-access-no-id": 90,
+              "require-id-same-day-voting": -80,
+              "easy-voting-with-id": -70,
+              "intensity": 90
+            },
+            "receptivity": {
+              "expand-access-no-id": 36,
+              "require-id-same-day-voting": -32,
+              "easy-voting-with-id": -28,
+              "intensity": 36
+            }
           },
           "xpo0052": {
-            "limit-and-publicly-fund": 85,
-            "unrestricted-private-financing": -70,
-            "disclosure-without-caps": -55
+            "advocacy": {
+              "limit-and-publicly-fund": 85,
+              "unrestricted-private-financing": -70,
+              "disclosure-without-caps": -55,
+              "intensity": 85
+            },
+            "receptivity": {
+              "limit-and-publicly-fund": 34,
+              "unrestricted-private-financing": -28,
+              "disclosure-without-caps": -22,
+              "intensity": 34
+            }
           },
           "xpo0053": {
-            "abolish-the-college": 55,
-            "proportional-representation": 35
+            "advocacy": {
+              "abolish-the-college": 55,
+              "proportional-representation": 35,
+              "intensity": 55
+            },
+            "receptivity": {
+              "abolish-the-college": 22,
+              "proportional-representation": 14,
+              "intensity": 22
+            }
           },
           "xpo0059": {
-            "strong-federal-standards": 70,
-            "powers-to-the-states": -60,
-            "federal-floors-state-freedom": -30
+            "advocacy": {
+              "strong-federal-standards": 70,
+              "powers-to-the-states": -60,
+              "federal-floors-state-freedom": -30,
+              "intensity": 70
+            },
+            "receptivity": {
+              "strong-federal-standards": 28,
+              "powers-to-the-states": -24,
+              "federal-floors-state-freedom": -12,
+              "intensity": 28
+            }
           },
           "xpo0060": {
-            "active-federal-government": 80,
-            "minimal-government": -75,
-            "lean-but-capable": -55
+            "advocacy": {
+              "active-federal-government": 80,
+              "minimal-government": -75,
+              "lean-but-capable": -55,
+              "intensity": 80
+            },
+            "receptivity": {
+              "active-federal-government": 32,
+              "minimal-government": -30,
+              "lean-but-capable": -22,
+              "intensity": 32
+            }
           },
           "xpo0065": {
-            "pro-choice": 90,
-            "pro-life": -90,
-            "legal-with-limits": -80
+            "advocacy": {
+              "pro-choice": 90,
+              "pro-life": -90,
+              "legal-with-limits": -80,
+              "intensity": 90
+            },
+            "receptivity": {
+              "pro-choice": 36,
+              "pro-life": -36,
+              "legal-with-limits": -32,
+              "intensity": 36
+            }
           },
           "xpo0067": {
-            "marriage-equality": 90,
-            "government-out": -10
+            "advocacy": {
+              "marriage-equality": 90,
+              "government-out": -10,
+              "intensity": 90
+            },
+            "receptivity": {
+              "marriage-equality": 36,
+              "government-out": -4,
+              "intensity": 36
+            }
           },
           "xpo0068": {
-            "full-equality-and-protection": 90,
-            "restrictions": -85,
-            "equal-treatment-limited-mandates": -75
+            "advocacy": {
+              "full-equality-and-protection": 90,
+              "restrictions": -85,
+              "equal-treatment-limited-mandates": -75,
+              "intensity": 90
+            },
+            "receptivity": {
+              "full-equality-and-protection": 36,
+              "restrictions": -34,
+              "equal-treatment-limited-mandates": -30,
+              "intensity": 36
+            }
           },
           "xpo0070": {
-            "strict-regulation": 85,
-            "no-regulation-at-all": -80,
-            "background-checks-broadly-legal": -65
+            "advocacy": {
+              "strict-regulation": 85,
+              "no-regulation-at-all": -80,
+              "background-checks-broadly-legal": -65,
+              "intensity": 85
+            },
+            "receptivity": {
+              "strict-regulation": 34,
+              "no-regulation-at-all": -32,
+              "background-checks-broadly-legal": -26,
+              "intensity": 34
+            }
           },
           "xpo0072": {
-            "reform-reduce-incarceration": 70,
-            "tougher-enforcement-sentencing": -60,
-            "firm-and-fair": -30
+            "advocacy": {
+              "reform-reduce-incarceration": 70,
+              "tougher-enforcement-sentencing": -60,
+              "firm-and-fair": -30,
+              "intensity": 70
+            },
+            "receptivity": {
+              "reform-reduce-incarceration": 28,
+              "tougher-enforcement-sentencing": -24,
+              "firm-and-fair": -12,
+              "intensity": 28
+            }
           },
           "xpo0073": {
-            "abolish-it": 70,
-            "keep-it": -60,
-            "keep-it-narrowly": -30
+            "advocacy": {
+              "abolish-it": 70,
+              "keep-it": -60,
+              "keep-it-narrowly": -30,
+              "intensity": 70
+            },
+            "receptivity": {
+              "abolish-it": 28,
+              "keep-it": -24,
+              "keep-it-narrowly": -12,
+              "intensity": 28
+            }
           },
           "xpo0074": {
-            "legalize-treat-as-health": 60,
-            "keep-criminal-enforce-hard": -50,
-            "decriminalize-use-fight-supply": -10
+            "advocacy": {
+              "legalize-treat-as-health": 60,
+              "keep-criminal-enforce-hard": -50,
+              "decriminalize-use-fight-supply": -10,
+              "intensity": 60
+            },
+            "receptivity": {
+              "legalize-treat-as-health": 24,
+              "keep-criminal-enforce-hard": -20,
+              "decriminalize-use-fight-supply": -4,
+              "intensity": 24
+            }
           },
           "xpo0080": {
-            "universal-choice-vouchers": -75,
-            "invest-in-public-schools": 85,
-            "charter-schools": -60
+            "advocacy": {
+              "universal-choice-vouchers": -75,
+              "invest-in-public-schools": 85,
+              "charter-schools": -60,
+              "intensity": 85
+            },
+            "receptivity": {
+              "universal-choice-vouchers": -30,
+              "invest-in-public-schools": 34,
+              "charter-schools": -24,
+              "intensity": 34
+            }
           },
           "xpo0083": {
-            "free-college-debt-cancellation": 60,
-            "market-priced-no-forgiveness": -50,
-            "cheaper-not-free": -10
+            "advocacy": {
+              "free-college-debt-cancellation": 60,
+              "market-priced-no-forgiveness": -50,
+              "cheaper-not-free": -10,
+              "intensity": 60
+            },
+            "receptivity": {
+              "free-college-debt-cancellation": 24,
+              "market-priced-no-forgiveness": -20,
+              "cheaper-not-free": -4,
+              "intensity": 24
+            }
           },
           "xpo0085": {
-            "bigger-stronger-military": 20,
-            "cut-the-defense-budget": -10,
-            "hold-the-line": 70
+            "advocacy": {
+              "bigger-stronger-military": 20,
+              "cut-the-defense-budget": -10,
+              "hold-the-line": 70,
+              "intensity": 70
+            },
+            "receptivity": {
+              "bigger-stronger-military": 8,
+              "cut-the-defense-budget": -4,
+              "hold-the-line": 28,
+              "intensity": 28
+            }
           },
           "xpo0088": {
-            "strengthen-alliances": 85,
-            "avoid-entangling-alliances": -75,
-            "alliances-with-limits": -60
+            "advocacy": {
+              "strengthen-alliances": 85,
+              "avoid-entangling-alliances": -75,
+              "alliances-with-limits": -60,
+              "intensity": 85
+            },
+            "receptivity": {
+              "strengthen-alliances": 34,
+              "avoid-entangling-alliances": -30,
+              "alliances-with-limits": -24,
+              "intensity": 34
+            }
           },
           "xpo0090": {
-            "stand-with-israel": 40,
-            "palestinian-self-determination": 45
+            "advocacy": {
+              "stand-with-israel": 40,
+              "palestinian-self-determination": 45,
+              "intensity": 45
+            },
+            "receptivity": {
+              "stand-with-israel": 16,
+              "palestinian-self-determination": 18,
+              "intensity": 18
+            }
           },
           "xpo0091": {
-            "foreign-aid": 65,
-            "military-intervention": 35
+            "advocacy": {
+              "foreign-aid": 65,
+              "military-intervention": 35,
+              "intensity": 65
+            },
+            "receptivity": {
+              "foreign-aid": 26,
+              "military-intervention": 14,
+              "intensity": 26
+            }
           },
           "xpo0024": {
-            "private-crypto": -20,
-            "government-coin": 20
+            "advocacy": {
+              "private-crypto": -20,
+              "government-coin": 20,
+              "intensity": -20
+            },
+            "receptivity": {
+              "private-crypto": -8,
+              "government-coin": 8,
+              "intensity": -8
+            }
           },
           "xpo0046": {
-            "expand-admissions": 75,
-            "merit-selection": -30
+            "advocacy": {
+              "expand-admissions": 75,
+              "merit-selection": -30,
+              "intensity": 75
+            },
+            "receptivity": {
+              "expand-admissions": 30,
+              "merit-selection": -12,
+              "intensity": 30
+            }
           }
         },
         "skin": "poliscapades"
@@ -9781,196 +10133,548 @@
         "aboutMe": "The Republican Party platform: lower taxes, deregulation, energy expansion, a strong military, strict border enforcement with mass deportation, and pro-life, pro-Second Amendment social policy.",
         "ratings": {
           "xpo0001": {
-            "the-state-command-redistribution": -50,
-            "the-market-capital-price-discovery": 75,
-            "the-commons-civil-society-mutual-aid": -10
+            "advocacy": {
+              "the-state-command-redistribution": -50,
+              "the-market-capital-price-discovery": 75,
+              "the-commons-civil-society-mutual-aid": -10,
+              "intensity": 75
+            },
+            "receptivity": {
+              "the-state-command-redistribution": -19,
+              "the-market-capital-price-discovery": 28,
+              "the-commons-civil-society-mutual-aid": -4,
+              "intensity": 28
+            }
           },
           "xpo0015": {
-            "higher-taxes-on-the-wealthy": -60,
-            "lower-taxes-across-the-board": 80,
-            "moderate-flatter-rates": -40
+            "advocacy": {
+              "higher-taxes-on-the-wealthy": -60,
+              "lower-taxes-across-the-board": 80,
+              "moderate-flatter-rates": -40,
+              "intensity": 80
+            },
+            "receptivity": {
+              "higher-taxes-on-the-wealthy": -23,
+              "lower-taxes-across-the-board": 30,
+              "moderate-flatter-rates": -15,
+              "intensity": 30
+            }
           },
           "xpo0016": {
-            "close-loopholes-tax-more": -55,
-            "cut-corporate-taxes": 70,
-            "competitive-rate-fewer-loopholes": -25
+            "advocacy": {
+              "close-loopholes-tax-more": -55,
+              "cut-corporate-taxes": 70,
+              "competitive-rate-fewer-loopholes": -25,
+              "intensity": 70
+            },
+            "receptivity": {
+              "close-loopholes-tax-more": -21,
+              "cut-corporate-taxes": 27,
+              "competitive-rate-fewer-loopholes": -10,
+              "intensity": 27
+            }
           },
           "xpo0017": {
-            "invest-generously": -50,
-            "cut-spending-to-balance": 70,
-            "spend-but-bend-the-curve": -20
+            "advocacy": {
+              "invest-generously": -50,
+              "cut-spending-to-balance": 70,
+              "spend-but-bend-the-curve": -20,
+              "intensity": 70
+            },
+            "receptivity": {
+              "invest-generously": -19,
+              "cut-spending-to-balance": 27,
+              "spend-but-bend-the-curve": -8,
+              "intensity": 27
+            }
           },
           "xpo0019": {
-            "reduce-inequality": -60,
-            "market-outcome": 70,
-            "ease-inequality-at-the-margins": -30
+            "advocacy": {
+              "reduce-inequality": -60,
+              "market-outcome": 70,
+              "ease-inequality-at-the-margins": -30,
+              "intensity": 70
+            },
+            "receptivity": {
+              "reduce-inequality": -23,
+              "market-outcome": 27,
+              "ease-inequality-at-the-margins": -11,
+              "intensity": 27
+            }
           },
           "xpo0020": {
-            "free-trade": -20,
-            "protective-tariffs": 75,
-            "fair-trade": 5
+            "advocacy": {
+              "free-trade": -20,
+              "protective-tariffs": 75,
+              "fair-trade": 5,
+              "intensity": 75
+            },
+            "receptivity": {
+              "free-trade": -8,
+              "protective-tariffs": 28,
+              "fair-trade": 2,
+              "intensity": 28
+            }
           },
           "xpo0023": {
-            "independent-central-bank": 40,
-            "abolish-the-fed": -20,
-            "constrain-the-fed": 40
+            "advocacy": {
+              "independent-central-bank": 40,
+              "abolish-the-fed": -20,
+              "constrain-the-fed": 40,
+              "intensity": 40
+            },
+            "receptivity": {
+              "independent-central-bank": 15,
+              "abolish-the-fed": -8,
+              "constrain-the-fed": 15,
+              "intensity": 15
+            }
           },
           "xpo0013": {
-            "higher-federal-floor": -60,
-            "no-federal-floor": 60,
-            "a-modest-federal-floor": -20
+            "advocacy": {
+              "higher-federal-floor": -60,
+              "no-federal-floor": 60,
+              "a-modest-federal-floor": -20,
+              "intensity": -60
+            },
+            "receptivity": {
+              "higher-federal-floor": -23,
+              "no-federal-floor": 23,
+              "a-modest-federal-floor": -8,
+              "intensity": -23
+            }
           },
           "xpo0026": {
-            "protect-and-expand": 55,
-            "phase-it-out": -40,
-            "preserve-with-reforms": 5
+            "advocacy": {
+              "protect-and-expand": 55,
+              "phase-it-out": -40,
+              "preserve-with-reforms": 5,
+              "intensity": 55
+            },
+            "receptivity": {
+              "protect-and-expand": 21,
+              "phase-it-out": -15,
+              "preserve-with-reforms": 2,
+              "intensity": 21
+            }
           },
           "xpo0027": {
-            "strong-safety-net": -55,
-            "no-federal-welfare": 60,
-            "a-limited-safety-net": -15
+            "advocacy": {
+              "strong-safety-net": -55,
+              "no-federal-welfare": 60,
+              "a-limited-safety-net": -15,
+              "intensity": 60
+            },
+            "receptivity": {
+              "strong-safety-net": -21,
+              "no-federal-welfare": 23,
+              "a-limited-safety-net": -6,
+              "intensity": 23
+            }
           },
           "xpo0029": {
-            "private-financing": 75,
-            "guaranteed-coverage": -30
+            "advocacy": {
+              "private-financing": 75,
+              "guaranteed-coverage": -30,
+              "intensity": 75
+            },
+            "receptivity": {
+              "private-financing": 28,
+              "guaranteed-coverage": -11,
+              "intensity": 28
+            }
           },
           "xpo0030": {
-            "negotiate-and-cap-prices": 30,
-            "leave-prices-to-the-market": -10,
-            "negotiate-the-worst-excesses": 60
+            "advocacy": {
+              "negotiate-and-cap-prices": 30,
+              "leave-prices-to-the-market": -10,
+              "negotiate-the-worst-excesses": 60,
+              "intensity": 60
+            },
+            "receptivity": {
+              "negotiate-and-cap-prices": 11,
+              "leave-prices-to-the-market": -4,
+              "negotiate-the-worst-excesses": 23,
+              "intensity": 23
+            }
           },
           "xpo0031": {
-            "protect-and-expand": 60,
-            "replace-with-universal": -60,
-            "leave-to-the-market": 10
+            "advocacy": {
+              "protect-and-expand": 60,
+              "replace-with-universal": -60,
+              "leave-to-the-market": 10,
+              "intensity": 60
+            },
+            "receptivity": {
+              "protect-and-expand": 23,
+              "replace-with-universal": -23,
+              "leave-to-the-market": 4,
+              "intensity": 23
+            }
           },
           "xpo0036": {
-            "urgent-action": -70,
-            "no-government-action": 70,
-            "gradual-market-led-action": -40
+            "advocacy": {
+              "urgent-action": -70,
+              "no-government-action": 70,
+              "gradual-market-led-action": -40,
+              "intensity": -70
+            },
+            "receptivity": {
+              "urgent-action": -27,
+              "no-government-action": 27,
+              "gradual-market-led-action": -15,
+              "intensity": -27
+            }
           },
           "xpo0037": {
-            "drill-and-expand": 85,
-            "phase-out": -80,
-            "all-of-the-above-in-transition": -65
+            "advocacy": {
+              "drill-and-expand": 85,
+              "phase-out": -80,
+              "all-of-the-above-in-transition": -65,
+              "intensity": 85
+            },
+            "receptivity": {
+              "drill-and-expand": 32,
+              "phase-out": -30,
+              "all-of-the-above-in-transition": -25,
+              "intensity": 32
+            }
           },
           "xpo0039": {
-            "massive-public-investment": -55,
-            "let-the-market-decide": 60,
-            "incentives-not-mandates": -15
+            "advocacy": {
+              "massive-public-investment": -55,
+              "let-the-market-decide": 60,
+              "incentives-not-mandates": -15,
+              "intensity": 60
+            },
+            "receptivity": {
+              "massive-public-investment": -21,
+              "let-the-market-decide": 23,
+              "incentives-not-mandates": -6,
+              "intensity": 23
+            }
           },
           "xpo0044": {
-            "wall-and-hard-enforcement": 90,
-            "technology-agents-pathways": -50
+            "advocacy": {
+              "wall-and-hard-enforcement": 90,
+              "technology-agents-pathways": -50,
+              "intensity": 90
+            },
+            "receptivity": {
+              "wall-and-hard-enforcement": 34,
+              "technology-agents-pathways": -19,
+              "intensity": 34
+            }
           },
           "xpo0045": {
-            "mass-deportation": 85,
-            "removal-after-fair-process": -30,
-            "prioritized-removal": -15
+            "advocacy": {
+              "mass-deportation": 85,
+              "removal-after-fair-process": -30,
+              "prioritized-removal": -15,
+              "intensity": 85
+            },
+            "receptivity": {
+              "mass-deportation": 32,
+              "removal-after-fair-process": -11,
+              "prioritized-removal": -6,
+              "intensity": 32
+            }
           },
           "xpo0048": {
-            "path-to-citizenship": -70,
-            "enforcement-only-no-amnesty": 75,
-            "legal-status-without-citizenship": -45
+            "advocacy": {
+              "path-to-citizenship": -70,
+              "enforcement-only-no-amnesty": 75,
+              "legal-status-without-citizenship": -45,
+              "intensity": 75
+            },
+            "receptivity": {
+              "path-to-citizenship": -27,
+              "enforcement-only-no-amnesty": 28,
+              "legal-status-without-citizenship": -17,
+              "intensity": 28
+            }
           },
           "xpo0049": {
-            "keep-birthright-citizenship": -60,
-            "end-it": 65,
-            "restrict-it-at-the-edges": -25
+            "advocacy": {
+              "keep-birthright-citizenship": -60,
+              "end-it": 65,
+              "restrict-it-at-the-edges": -25,
+              "intensity": 65
+            },
+            "receptivity": {
+              "keep-birthright-citizenship": -23,
+              "end-it": 25,
+              "restrict-it-at-the-edges": -10,
+              "intensity": 25
+            }
           },
           "xpo0051": {
-            "expand-access-no-id": -75,
-            "require-id-same-day-voting": 85,
-            "easy-voting-with-id": -60
+            "advocacy": {
+              "expand-access-no-id": -75,
+              "require-id-same-day-voting": 85,
+              "easy-voting-with-id": -60,
+              "intensity": 85
+            },
+            "receptivity": {
+              "expand-access-no-id": -28,
+              "require-id-same-day-voting": 32,
+              "easy-voting-with-id": -23,
+              "intensity": 32
+            }
           },
           "xpo0052": {
-            "limit-and-publicly-fund": -50,
-            "unrestricted-private-financing": 55,
-            "disclosure-without-caps": -5
+            "advocacy": {
+              "limit-and-publicly-fund": -50,
+              "unrestricted-private-financing": 55,
+              "disclosure-without-caps": -5,
+              "intensity": 55
+            },
+            "receptivity": {
+              "limit-and-publicly-fund": -19,
+              "unrestricted-private-financing": 21,
+              "disclosure-without-caps": -2,
+              "intensity": 21
+            }
           },
           "xpo0053": {
-            "abolish-the-college": -85,
-            "proportional-representation": -60
+            "advocacy": {
+              "abolish-the-college": -85,
+              "proportional-representation": -60,
+              "intensity": -85
+            },
+            "receptivity": {
+              "abolish-the-college": -32,
+              "proportional-representation": -23,
+              "intensity": -32
+            }
           },
           "xpo0059": {
-            "strong-federal-standards": -50,
-            "powers-to-the-states": 70,
-            "federal-floors-state-freedom": -20
+            "advocacy": {
+              "strong-federal-standards": -50,
+              "powers-to-the-states": 70,
+              "federal-floors-state-freedom": -20,
+              "intensity": 70
+            },
+            "receptivity": {
+              "strong-federal-standards": -19,
+              "powers-to-the-states": 27,
+              "federal-floors-state-freedom": -8,
+              "intensity": 27
+            }
           },
           "xpo0060": {
-            "active-federal-government": -55,
-            "minimal-government": 65,
-            "lean-but-capable": -20
+            "advocacy": {
+              "active-federal-government": -55,
+              "minimal-government": 65,
+              "lean-but-capable": -20,
+              "intensity": 65
+            },
+            "receptivity": {
+              "active-federal-government": -21,
+              "minimal-government": 25,
+              "lean-but-capable": -8,
+              "intensity": 25
+            }
           },
           "xpo0065": {
-            "pro-choice": -85,
-            "pro-life": 85,
-            "legal-with-limits": -70
+            "advocacy": {
+              "pro-choice": -85,
+              "pro-life": 85,
+              "legal-with-limits": -70,
+              "intensity": -85
+            },
+            "receptivity": {
+              "pro-choice": -32,
+              "pro-life": 32,
+              "legal-with-limits": -27,
+              "intensity": -32
+            }
           },
           "xpo0067": {
-            "marriage-equality": -70,
-            "government-out": 20
+            "advocacy": {
+              "marriage-equality": -70,
+              "government-out": 20,
+              "intensity": -70
+            },
+            "receptivity": {
+              "marriage-equality": -27,
+              "government-out": 8,
+              "intensity": -27
+            }
           },
           "xpo0068": {
-            "full-equality-and-protection": -70,
-            "restrictions": 70,
-            "equal-treatment-limited-mandates": -40
+            "advocacy": {
+              "full-equality-and-protection": -70,
+              "restrictions": 70,
+              "equal-treatment-limited-mandates": -40,
+              "intensity": -70
+            },
+            "receptivity": {
+              "full-equality-and-protection": -27,
+              "restrictions": 27,
+              "equal-treatment-limited-mandates": -15,
+              "intensity": -27
+            }
           },
           "xpo0070": {
-            "strict-regulation": -80,
-            "no-regulation-at-all": 75,
-            "background-checks-broadly-legal": -55
+            "advocacy": {
+              "strict-regulation": -80,
+              "no-regulation-at-all": 75,
+              "background-checks-broadly-legal": -55,
+              "intensity": -80
+            },
+            "receptivity": {
+              "strict-regulation": -30,
+              "no-regulation-at-all": 28,
+              "background-checks-broadly-legal": -21,
+              "intensity": -30
+            }
           },
           "xpo0072": {
-            "reform-reduce-incarceration": -50,
-            "tougher-enforcement-sentencing": 65,
-            "firm-and-fair": -15
+            "advocacy": {
+              "reform-reduce-incarceration": -50,
+              "tougher-enforcement-sentencing": 65,
+              "firm-and-fair": -15,
+              "intensity": 65
+            },
+            "receptivity": {
+              "reform-reduce-incarceration": -19,
+              "tougher-enforcement-sentencing": 25,
+              "firm-and-fair": -6,
+              "intensity": 25
+            }
           },
           "xpo0073": {
-            "abolish-it": -70,
-            "keep-it": 70,
-            "keep-it-narrowly": -40
+            "advocacy": {
+              "abolish-it": -70,
+              "keep-it": 70,
+              "keep-it-narrowly": -40,
+              "intensity": -70
+            },
+            "receptivity": {
+              "abolish-it": -27,
+              "keep-it": 27,
+              "keep-it-narrowly": -15,
+              "intensity": -27
+            }
           },
           "xpo0074": {
-            "legalize-treat-as-health": -55,
-            "keep-criminal-enforce-hard": 60,
-            "decriminalize-use-fight-supply": -15
+            "advocacy": {
+              "legalize-treat-as-health": -55,
+              "keep-criminal-enforce-hard": 60,
+              "decriminalize-use-fight-supply": -15,
+              "intensity": 60
+            },
+            "receptivity": {
+              "legalize-treat-as-health": -21,
+              "keep-criminal-enforce-hard": 23,
+              "decriminalize-use-fight-supply": -6,
+              "intensity": 23
+            }
           },
           "xpo0080": {
-            "universal-choice-vouchers": 80,
-            "invest-in-public-schools": -70,
-            "charter-schools": -50
+            "advocacy": {
+              "universal-choice-vouchers": 80,
+              "invest-in-public-schools": -70,
+              "charter-schools": -50,
+              "intensity": 80
+            },
+            "receptivity": {
+              "universal-choice-vouchers": 30,
+              "invest-in-public-schools": -27,
+              "charter-schools": -19,
+              "intensity": 30
+            }
           },
           "xpo0083": {
-            "free-college-debt-cancellation": -60,
-            "market-priced-no-forgiveness": 65,
-            "cheaper-not-free": -25
+            "advocacy": {
+              "free-college-debt-cancellation": -60,
+              "market-priced-no-forgiveness": 65,
+              "cheaper-not-free": -25,
+              "intensity": 65
+            },
+            "receptivity": {
+              "free-college-debt-cancellation": -23,
+              "market-priced-no-forgiveness": 25,
+              "cheaper-not-free": -10,
+              "intensity": 25
+            }
           },
           "xpo0085": {
-            "bigger-stronger-military": 85,
-            "cut-the-defense-budget": -75,
-            "hold-the-line": -60
+            "advocacy": {
+              "bigger-stronger-military": 85,
+              "cut-the-defense-budget": -75,
+              "hold-the-line": -60,
+              "intensity": 85
+            },
+            "receptivity": {
+              "bigger-stronger-military": 32,
+              "cut-the-defense-budget": -28,
+              "hold-the-line": -23,
+              "intensity": 32
+            }
           },
           "xpo0088": {
-            "strengthen-alliances": -30,
-            "avoid-entangling-alliances": 40,
-            "alliances-with-limits": 30
+            "advocacy": {
+              "strengthen-alliances": -30,
+              "avoid-entangling-alliances": 40,
+              "alliances-with-limits": 30,
+              "intensity": 40
+            },
+            "receptivity": {
+              "strengthen-alliances": -11,
+              "avoid-entangling-alliances": 15,
+              "alliances-with-limits": 11,
+              "intensity": 15
+            }
           },
           "xpo0090": {
-            "stand-with-israel": 90,
-            "palestinian-self-determination": -60
+            "advocacy": {
+              "stand-with-israel": 90,
+              "palestinian-self-determination": -60,
+              "intensity": 90
+            },
+            "receptivity": {
+              "stand-with-israel": 34,
+              "palestinian-self-determination": -23,
+              "intensity": 34
+            }
           },
           "xpo0091": {
-            "foreign-aid": -10,
-            "military-intervention": 25
+            "advocacy": {
+              "foreign-aid": -10,
+              "military-intervention": 25,
+              "intensity": 25
+            },
+            "receptivity": {
+              "foreign-aid": -4,
+              "military-intervention": 10,
+              "intensity": 10
+            }
           },
           "xpo0024": {
-            "private-crypto": 85,
-            "government-coin": -90
+            "advocacy": {
+              "private-crypto": 85,
+              "government-coin": -90,
+              "intensity": -90
+            },
+            "receptivity": {
+              "private-crypto": 32,
+              "government-coin": -34,
+              "intensity": -34
+            }
           },
           "xpo0046": {
-            "expand-admissions": -40,
-            "merit-selection": 85
+            "advocacy": {
+              "expand-admissions": -40,
+              "merit-selection": 85,
+              "intensity": 85
+            },
+            "receptivity": {
+              "expand-admissions": -15,
+              "merit-selection": 32,
+              "intensity": 32
+            }
           }
         },
         "skin": "poliscapades"
@@ -9997,196 +10701,548 @@
         "aboutMe": "The Libertarian Party platform: minimal government, free markets and free trade, an end to the IRS and the Federal Reserve, open immigration, drug legalization, and non-intervention abroad.",
         "ratings": {
           "xpo0001": {
-            "the-state-command-redistribution": -90,
-            "the-market-capital-price-discovery": 90,
-            "the-commons-civil-society-mutual-aid": 0
+            "advocacy": {
+              "the-state-command-redistribution": -90,
+              "the-market-capital-price-discovery": 90,
+              "the-commons-civil-society-mutual-aid": 0,
+              "intensity": -90
+            },
+            "receptivity": {
+              "the-state-command-redistribution": -31,
+              "the-market-capital-price-discovery": 31,
+              "the-commons-civil-society-mutual-aid": 0,
+              "intensity": -31
+            }
           },
           "xpo0015": {
-            "higher-taxes-on-the-wealthy": -70,
-            "lower-taxes-across-the-board": 90,
-            "moderate-flatter-rates": -60
+            "advocacy": {
+              "higher-taxes-on-the-wealthy": -70,
+              "lower-taxes-across-the-board": 90,
+              "moderate-flatter-rates": -60,
+              "intensity": 90
+            },
+            "receptivity": {
+              "higher-taxes-on-the-wealthy": -24,
+              "lower-taxes-across-the-board": 31,
+              "moderate-flatter-rates": -21,
+              "intensity": 31
+            }
           },
           "xpo0016": {
-            "close-loopholes-tax-more": -40,
-            "cut-corporate-taxes": 85,
-            "competitive-rate-fewer-loopholes": -25
+            "advocacy": {
+              "close-loopholes-tax-more": -40,
+              "cut-corporate-taxes": 85,
+              "competitive-rate-fewer-loopholes": -25,
+              "intensity": 85
+            },
+            "receptivity": {
+              "close-loopholes-tax-more": -14,
+              "cut-corporate-taxes": 30,
+              "competitive-rate-fewer-loopholes": -9,
+              "intensity": 30
+            }
           },
           "xpo0017": {
-            "invest-generously": -85,
-            "cut-spending-to-balance": 90,
-            "spend-but-bend-the-curve": -75
+            "advocacy": {
+              "invest-generously": -85,
+              "cut-spending-to-balance": 90,
+              "spend-but-bend-the-curve": -75,
+              "intensity": 90
+            },
+            "receptivity": {
+              "invest-generously": -30,
+              "cut-spending-to-balance": 31,
+              "spend-but-bend-the-curve": -26,
+              "intensity": 31
+            }
           },
           "xpo0019": {
-            "reduce-inequality": -80,
-            "market-outcome": 85,
-            "ease-inequality-at-the-margins": -65
+            "advocacy": {
+              "reduce-inequality": -80,
+              "market-outcome": 85,
+              "ease-inequality-at-the-margins": -65,
+              "intensity": 85
+            },
+            "receptivity": {
+              "reduce-inequality": -28,
+              "market-outcome": 30,
+              "ease-inequality-at-the-margins": -23,
+              "intensity": 30
+            }
           },
           "xpo0020": {
-            "free-trade": 95,
-            "protective-tariffs": -90,
-            "fair-trade": -85
+            "advocacy": {
+              "free-trade": 95,
+              "protective-tariffs": -90,
+              "fair-trade": -85,
+              "intensity": 95
+            },
+            "receptivity": {
+              "free-trade": 33,
+              "protective-tariffs": -31,
+              "fair-trade": -30,
+              "intensity": 33
+            }
           },
           "xpo0023": {
-            "independent-central-bank": -60,
-            "abolish-the-fed": 90,
-            "constrain-the-fed": -50
+            "advocacy": {
+              "independent-central-bank": -60,
+              "abolish-the-fed": 90,
+              "constrain-the-fed": -50,
+              "intensity": 90
+            },
+            "receptivity": {
+              "independent-central-bank": -21,
+              "abolish-the-fed": 31,
+              "constrain-the-fed": -18,
+              "intensity": 31
+            }
           },
           "xpo0013": {
-            "higher-federal-floor": -85,
-            "no-federal-floor": 90,
-            "a-modest-federal-floor": -75
+            "advocacy": {
+              "higher-federal-floor": -85,
+              "no-federal-floor": 90,
+              "a-modest-federal-floor": -75,
+              "intensity": 90
+            },
+            "receptivity": {
+              "higher-federal-floor": -30,
+              "no-federal-floor": 31,
+              "a-modest-federal-floor": -26,
+              "intensity": 31
+            }
           },
           "xpo0026": {
-            "protect-and-expand": -80,
-            "phase-it-out": 85,
-            "preserve-with-reforms": -65
+            "advocacy": {
+              "protect-and-expand": -80,
+              "phase-it-out": 85,
+              "preserve-with-reforms": -65,
+              "intensity": 85
+            },
+            "receptivity": {
+              "protect-and-expand": -28,
+              "phase-it-out": 30,
+              "preserve-with-reforms": -23,
+              "intensity": 30
+            }
           },
           "xpo0027": {
-            "strong-safety-net": -90,
-            "no-federal-welfare": 90,
-            "a-limited-safety-net": -80
+            "advocacy": {
+              "strong-safety-net": -90,
+              "no-federal-welfare": 90,
+              "a-limited-safety-net": -80,
+              "intensity": -90
+            },
+            "receptivity": {
+              "strong-safety-net": -31,
+              "no-federal-welfare": 31,
+              "a-limited-safety-net": -28,
+              "intensity": -31
+            }
           },
           "xpo0029": {
-            "private-financing": 95,
-            "guaranteed-coverage": -85
+            "advocacy": {
+              "private-financing": 95,
+              "guaranteed-coverage": -85,
+              "intensity": 95
+            },
+            "receptivity": {
+              "private-financing": 33,
+              "guaranteed-coverage": -30,
+              "intensity": 33
+            }
           },
           "xpo0030": {
-            "negotiate-and-cap-prices": -80,
-            "leave-prices-to-the-market": 85,
-            "negotiate-the-worst-excesses": -65
+            "advocacy": {
+              "negotiate-and-cap-prices": -80,
+              "leave-prices-to-the-market": 85,
+              "negotiate-the-worst-excesses": -65,
+              "intensity": 85
+            },
+            "receptivity": {
+              "negotiate-and-cap-prices": -28,
+              "leave-prices-to-the-market": 30,
+              "negotiate-the-worst-excesses": -23,
+              "intensity": 30
+            }
           },
           "xpo0031": {
-            "protect-and-expand": -80,
-            "replace-with-universal": -85,
-            "leave-to-the-market": 90
+            "advocacy": {
+              "protect-and-expand": -80,
+              "replace-with-universal": -85,
+              "leave-to-the-market": 90,
+              "intensity": 90
+            },
+            "receptivity": {
+              "protect-and-expand": -28,
+              "replace-with-universal": -30,
+              "leave-to-the-market": 31,
+              "intensity": 31
+            }
           },
           "xpo0036": {
-            "urgent-action": -75,
-            "no-government-action": 80,
-            "gradual-market-led-action": -55
+            "advocacy": {
+              "urgent-action": -75,
+              "no-government-action": 80,
+              "gradual-market-led-action": -55,
+              "intensity": 80
+            },
+            "receptivity": {
+              "urgent-action": -26,
+              "no-government-action": 28,
+              "gradual-market-led-action": -19,
+              "intensity": 28
+            }
           },
           "xpo0037": {
-            "drill-and-expand": 70,
-            "phase-out": -60,
-            "all-of-the-above-in-transition": -30
+            "advocacy": {
+              "drill-and-expand": 70,
+              "phase-out": -60,
+              "all-of-the-above-in-transition": -30,
+              "intensity": 70
+            },
+            "receptivity": {
+              "drill-and-expand": 24,
+              "phase-out": -21,
+              "all-of-the-above-in-transition": -10,
+              "intensity": 24
+            }
           },
           "xpo0039": {
-            "massive-public-investment": -80,
-            "let-the-market-decide": 85,
-            "incentives-not-mandates": -65
+            "advocacy": {
+              "massive-public-investment": -80,
+              "let-the-market-decide": 85,
+              "incentives-not-mandates": -65,
+              "intensity": 85
+            },
+            "receptivity": {
+              "massive-public-investment": -28,
+              "let-the-market-decide": 30,
+              "incentives-not-mandates": -23,
+              "intensity": 30
+            }
           },
           "xpo0044": {
-            "wall-and-hard-enforcement": -70,
-            "technology-agents-pathways": 40
+            "advocacy": {
+              "wall-and-hard-enforcement": -70,
+              "technology-agents-pathways": 40,
+              "intensity": -70
+            },
+            "receptivity": {
+              "wall-and-hard-enforcement": -24,
+              "technology-agents-pathways": 14,
+              "intensity": -24
+            }
           },
           "xpo0045": {
-            "mass-deportation": -80,
-            "removal-after-fair-process": 60,
-            "prioritized-removal": -40
+            "advocacy": {
+              "mass-deportation": -80,
+              "removal-after-fair-process": 60,
+              "prioritized-removal": -40,
+              "intensity": -80
+            },
+            "receptivity": {
+              "mass-deportation": -28,
+              "removal-after-fair-process": 21,
+              "prioritized-removal": -14,
+              "intensity": -28
+            }
           },
           "xpo0048": {
-            "path-to-citizenship": 70,
-            "enforcement-only-no-amnesty": -60,
-            "legal-status-without-citizenship": -30
+            "advocacy": {
+              "path-to-citizenship": 70,
+              "enforcement-only-no-amnesty": -60,
+              "legal-status-without-citizenship": -30,
+              "intensity": 70
+            },
+            "receptivity": {
+              "path-to-citizenship": 24,
+              "enforcement-only-no-amnesty": -21,
+              "legal-status-without-citizenship": -10,
+              "intensity": 24
+            }
           },
           "xpo0049": {
-            "keep-birthright-citizenship": 70,
-            "end-it": -60,
-            "restrict-it-at-the-edges": -30
+            "advocacy": {
+              "keep-birthright-citizenship": 70,
+              "end-it": -60,
+              "restrict-it-at-the-edges": -30,
+              "intensity": 70
+            },
+            "receptivity": {
+              "keep-birthright-citizenship": 24,
+              "end-it": -21,
+              "restrict-it-at-the-edges": -10,
+              "intensity": 24
+            }
           },
           "xpo0051": {
-            "expand-access-no-id": 20,
-            "require-id-same-day-voting": -10,
-            "easy-voting-with-id": 70
+            "advocacy": {
+              "expand-access-no-id": 20,
+              "require-id-same-day-voting": -10,
+              "easy-voting-with-id": 70,
+              "intensity": 70
+            },
+            "receptivity": {
+              "expand-access-no-id": 7,
+              "require-id-same-day-voting": -4,
+              "easy-voting-with-id": 24,
+              "intensity": 24
+            }
           },
           "xpo0052": {
-            "limit-and-publicly-fund": -70,
-            "unrestricted-private-financing": 75,
-            "disclosure-without-caps": -45
+            "advocacy": {
+              "limit-and-publicly-fund": -70,
+              "unrestricted-private-financing": 75,
+              "disclosure-without-caps": -45,
+              "intensity": 75
+            },
+            "receptivity": {
+              "limit-and-publicly-fund": -24,
+              "unrestricted-private-financing": 26,
+              "disclosure-without-caps": -16,
+              "intensity": 26
+            }
           },
           "xpo0053": {
-            "abolish-the-college": 45,
-            "proportional-representation": 40
+            "advocacy": {
+              "abolish-the-college": 45,
+              "proportional-representation": 40,
+              "intensity": 45
+            },
+            "receptivity": {
+              "abolish-the-college": 16,
+              "proportional-representation": 14,
+              "intensity": 16
+            }
           },
           "xpo0059": {
-            "strong-federal-standards": -80,
-            "powers-to-the-states": 90,
-            "federal-floors-state-freedom": -70
+            "advocacy": {
+              "strong-federal-standards": -80,
+              "powers-to-the-states": 90,
+              "federal-floors-state-freedom": -70,
+              "intensity": 90
+            },
+            "receptivity": {
+              "strong-federal-standards": -28,
+              "powers-to-the-states": 31,
+              "federal-floors-state-freedom": -24,
+              "intensity": 31
+            }
           },
           "xpo0060": {
-            "active-federal-government": -95,
-            "minimal-government": 95,
-            "lean-but-capable": -90
+            "advocacy": {
+              "active-federal-government": -95,
+              "minimal-government": 95,
+              "lean-but-capable": -90,
+              "intensity": -95
+            },
+            "receptivity": {
+              "active-federal-government": -33,
+              "minimal-government": 33,
+              "lean-but-capable": -31,
+              "intensity": -33
+            }
           },
           "xpo0065": {
-            "pro-choice": 20,
-            "pro-life": -20,
-            "legal-with-limits": 60
+            "advocacy": {
+              "pro-choice": 20,
+              "pro-life": -20,
+              "legal-with-limits": 60,
+              "intensity": 60
+            },
+            "receptivity": {
+              "pro-choice": 7,
+              "pro-life": -7,
+              "legal-with-limits": 21,
+              "intensity": 21
+            }
           },
           "xpo0067": {
-            "marriage-equality": 55,
-            "government-out": 85
+            "advocacy": {
+              "marriage-equality": 55,
+              "government-out": 85,
+              "intensity": 85
+            },
+            "receptivity": {
+              "marriage-equality": 19,
+              "government-out": 30,
+              "intensity": 30
+            }
           },
           "xpo0068": {
-            "full-equality-and-protection": 75,
-            "restrictions": -70,
-            "equal-treatment-limited-mandates": -45
+            "advocacy": {
+              "full-equality-and-protection": 75,
+              "restrictions": -70,
+              "equal-treatment-limited-mandates": -45,
+              "intensity": 75
+            },
+            "receptivity": {
+              "full-equality-and-protection": 26,
+              "restrictions": -24,
+              "equal-treatment-limited-mandates": -16,
+              "intensity": 26
+            }
           },
           "xpo0070": {
-            "strict-regulation": -85,
-            "no-regulation-at-all": 85,
-            "background-checks-broadly-legal": -70
+            "advocacy": {
+              "strict-regulation": -85,
+              "no-regulation-at-all": 85,
+              "background-checks-broadly-legal": -70,
+              "intensity": -85
+            },
+            "receptivity": {
+              "strict-regulation": -30,
+              "no-regulation-at-all": 30,
+              "background-checks-broadly-legal": -24,
+              "intensity": -30
+            }
           },
           "xpo0072": {
-            "reform-reduce-incarceration": 85,
-            "tougher-enforcement-sentencing": -80,
-            "firm-and-fair": -65
+            "advocacy": {
+              "reform-reduce-incarceration": 85,
+              "tougher-enforcement-sentencing": -80,
+              "firm-and-fair": -65,
+              "intensity": 85
+            },
+            "receptivity": {
+              "reform-reduce-incarceration": 30,
+              "tougher-enforcement-sentencing": -28,
+              "firm-and-fair": -23,
+              "intensity": 30
+            }
           },
           "xpo0073": {
-            "abolish-it": 80,
-            "keep-it": -75,
-            "keep-it-narrowly": -55
+            "advocacy": {
+              "abolish-it": 80,
+              "keep-it": -75,
+              "keep-it-narrowly": -55,
+              "intensity": 80
+            },
+            "receptivity": {
+              "abolish-it": 28,
+              "keep-it": -26,
+              "keep-it-narrowly": -19,
+              "intensity": 28
+            }
           },
           "xpo0074": {
-            "legalize-treat-as-health": 95,
-            "keep-criminal-enforce-hard": -90,
-            "decriminalize-use-fight-supply": -85
+            "advocacy": {
+              "legalize-treat-as-health": 95,
+              "keep-criminal-enforce-hard": -90,
+              "decriminalize-use-fight-supply": -85,
+              "intensity": 95
+            },
+            "receptivity": {
+              "legalize-treat-as-health": 33,
+              "keep-criminal-enforce-hard": -31,
+              "decriminalize-use-fight-supply": -30,
+              "intensity": 33
+            }
           },
           "xpo0080": {
-            "universal-choice-vouchers": 85,
-            "invest-in-public-schools": -80,
-            "charter-schools": -65
+            "advocacy": {
+              "universal-choice-vouchers": 85,
+              "invest-in-public-schools": -80,
+              "charter-schools": -65,
+              "intensity": 85
+            },
+            "receptivity": {
+              "universal-choice-vouchers": 30,
+              "invest-in-public-schools": -28,
+              "charter-schools": -23,
+              "intensity": 30
+            }
           },
           "xpo0083": {
-            "free-college-debt-cancellation": -85,
-            "market-priced-no-forgiveness": 90,
-            "cheaper-not-free": -75
+            "advocacy": {
+              "free-college-debt-cancellation": -85,
+              "market-priced-no-forgiveness": 90,
+              "cheaper-not-free": -75,
+              "intensity": 90
+            },
+            "receptivity": {
+              "free-college-debt-cancellation": -30,
+              "market-priced-no-forgiveness": 31,
+              "cheaper-not-free": -26,
+              "intensity": 31
+            }
           },
           "xpo0085": {
-            "bigger-stronger-military": -85,
-            "cut-the-defense-budget": 85,
-            "hold-the-line": -70
+            "advocacy": {
+              "bigger-stronger-military": -85,
+              "cut-the-defense-budget": 85,
+              "hold-the-line": -70,
+              "intensity": -85
+            },
+            "receptivity": {
+              "bigger-stronger-military": -30,
+              "cut-the-defense-budget": 30,
+              "hold-the-line": -24,
+              "intensity": -30
+            }
           },
           "xpo0088": {
-            "strengthen-alliances": -85,
-            "avoid-entangling-alliances": 90,
-            "alliances-with-limits": -75
+            "advocacy": {
+              "strengthen-alliances": -85,
+              "avoid-entangling-alliances": 90,
+              "alliances-with-limits": -75,
+              "intensity": 90
+            },
+            "receptivity": {
+              "strengthen-alliances": -30,
+              "avoid-entangling-alliances": 31,
+              "alliances-with-limits": -26,
+              "intensity": 31
+            }
           },
           "xpo0090": {
-            "stand-with-israel": -70,
-            "palestinian-self-determination": 30
+            "advocacy": {
+              "stand-with-israel": -70,
+              "palestinian-self-determination": 30,
+              "intensity": -70
+            },
+            "receptivity": {
+              "stand-with-israel": -24,
+              "palestinian-self-determination": 10,
+              "intensity": -24
+            }
           },
           "xpo0091": {
-            "foreign-aid": -90,
-            "military-intervention": -90
+            "advocacy": {
+              "foreign-aid": -90,
+              "military-intervention": -90,
+              "intensity": -90
+            },
+            "receptivity": {
+              "foreign-aid": -31,
+              "military-intervention": -31,
+              "intensity": -31
+            }
           },
           "xpo0024": {
-            "private-crypto": 100,
-            "government-coin": -100
+            "advocacy": {
+              "private-crypto": 100,
+              "government-coin": -100,
+              "intensity": 100
+            },
+            "receptivity": {
+              "private-crypto": 35,
+              "government-coin": -35,
+              "intensity": 35
+            }
           },
           "xpo0046": {
-            "expand-admissions": 100,
-            "merit-selection": -70
+            "advocacy": {
+              "expand-admissions": 100,
+              "merit-selection": -70,
+              "intensity": 100
+            },
+            "receptivity": {
+              "expand-admissions": 35,
+              "merit-selection": -24,
+              "intensity": 35
+            }
           }
         },
         "skin": "poliscapades"
@@ -10213,196 +11269,548 @@
         "aboutMe": "The Green Party platform: an ecosocialist Green New Deal, single-payer health care, free public college, racial and economic justice, and nonviolence at home and abroad.",
         "ratings": {
           "xpo0001": {
-            "the-state-command-redistribution": 70,
-            "the-market-capital-price-discovery": -60,
-            "the-commons-civil-society-mutual-aid": 75
+            "advocacy": {
+              "the-state-command-redistribution": 70,
+              "the-market-capital-price-discovery": -60,
+              "the-commons-civil-society-mutual-aid": 75,
+              "intensity": 75
+            },
+            "receptivity": {
+              "the-state-command-redistribution": 29,
+              "the-market-capital-price-discovery": -25,
+              "the-commons-civil-society-mutual-aid": 32,
+              "intensity": 32
+            }
           },
           "xpo0015": {
-            "higher-taxes-on-the-wealthy": 90,
-            "lower-taxes-across-the-board": -80,
-            "moderate-flatter-rates": -70
+            "advocacy": {
+              "higher-taxes-on-the-wealthy": 90,
+              "lower-taxes-across-the-board": -80,
+              "moderate-flatter-rates": -70,
+              "intensity": 90
+            },
+            "receptivity": {
+              "higher-taxes-on-the-wealthy": 38,
+              "lower-taxes-across-the-board": -34,
+              "moderate-flatter-rates": -29,
+              "intensity": 38
+            }
           },
           "xpo0016": {
-            "close-loopholes-tax-more": 85,
-            "cut-corporate-taxes": -70,
-            "competitive-rate-fewer-loopholes": -55
+            "advocacy": {
+              "close-loopholes-tax-more": 85,
+              "cut-corporate-taxes": -70,
+              "competitive-rate-fewer-loopholes": -55,
+              "intensity": 85
+            },
+            "receptivity": {
+              "close-loopholes-tax-more": 36,
+              "cut-corporate-taxes": -29,
+              "competitive-rate-fewer-loopholes": -23,
+              "intensity": 36
+            }
           },
           "xpo0017": {
-            "invest-generously": 80,
-            "cut-spending-to-balance": -55,
-            "spend-but-bend-the-curve": -35
+            "advocacy": {
+              "invest-generously": 80,
+              "cut-spending-to-balance": -55,
+              "spend-but-bend-the-curve": -35,
+              "intensity": 80
+            },
+            "receptivity": {
+              "invest-generously": 34,
+              "cut-spending-to-balance": -23,
+              "spend-but-bend-the-curve": -15,
+              "intensity": 34
+            }
           },
           "xpo0019": {
-            "reduce-inequality": 90,
-            "market-outcome": -80,
-            "ease-inequality-at-the-margins": -70
+            "advocacy": {
+              "reduce-inequality": 90,
+              "market-outcome": -80,
+              "ease-inequality-at-the-margins": -70,
+              "intensity": 90
+            },
+            "receptivity": {
+              "reduce-inequality": 38,
+              "market-outcome": -34,
+              "ease-inequality-at-the-margins": -29,
+              "intensity": 38
+            }
           },
           "xpo0020": {
-            "free-trade": -40,
-            "protective-tariffs": 30,
-            "fair-trade": 30
+            "advocacy": {
+              "free-trade": -40,
+              "protective-tariffs": 30,
+              "fair-trade": 30,
+              "intensity": -40
+            },
+            "receptivity": {
+              "free-trade": -17,
+              "protective-tariffs": 13,
+              "fair-trade": 13,
+              "intensity": -17
+            }
           },
           "xpo0023": {
-            "independent-central-bank": 30,
-            "abolish-the-fed": -10,
-            "constrain-the-fed": 60
+            "advocacy": {
+              "independent-central-bank": 30,
+              "abolish-the-fed": -10,
+              "constrain-the-fed": 60,
+              "intensity": 60
+            },
+            "receptivity": {
+              "independent-central-bank": 13,
+              "abolish-the-fed": -4,
+              "constrain-the-fed": 25,
+              "intensity": 25
+            }
           },
           "xpo0013": {
-            "higher-federal-floor": 90,
-            "no-federal-floor": -85,
-            "a-modest-federal-floor": -75
+            "advocacy": {
+              "higher-federal-floor": 90,
+              "no-federal-floor": -85,
+              "a-modest-federal-floor": -75,
+              "intensity": 90
+            },
+            "receptivity": {
+              "higher-federal-floor": 38,
+              "no-federal-floor": -36,
+              "a-modest-federal-floor": -32,
+              "intensity": 38
+            }
           },
           "xpo0026": {
-            "protect-and-expand": 85,
-            "phase-it-out": -80,
-            "preserve-with-reforms": -65
+            "advocacy": {
+              "protect-and-expand": 85,
+              "phase-it-out": -80,
+              "preserve-with-reforms": -65,
+              "intensity": 85
+            },
+            "receptivity": {
+              "protect-and-expand": 36,
+              "phase-it-out": -34,
+              "preserve-with-reforms": -27,
+              "intensity": 36
+            }
           },
           "xpo0027": {
-            "strong-safety-net": 90,
-            "no-federal-welfare": -85,
-            "a-limited-safety-net": -75
+            "advocacy": {
+              "strong-safety-net": 90,
+              "no-federal-welfare": -85,
+              "a-limited-safety-net": -75,
+              "intensity": 90
+            },
+            "receptivity": {
+              "strong-safety-net": 38,
+              "no-federal-welfare": -36,
+              "a-limited-safety-net": -32,
+              "intensity": 38
+            }
           },
           "xpo0029": {
-            "private-financing": -90,
-            "guaranteed-coverage": 95
+            "advocacy": {
+              "private-financing": -90,
+              "guaranteed-coverage": 95,
+              "intensity": 95
+            },
+            "receptivity": {
+              "private-financing": -38,
+              "guaranteed-coverage": 40,
+              "intensity": 40
+            }
           },
           "xpo0030": {
-            "negotiate-and-cap-prices": 90,
-            "leave-prices-to-the-market": -85,
-            "negotiate-the-worst-excesses": -75
+            "advocacy": {
+              "negotiate-and-cap-prices": 90,
+              "leave-prices-to-the-market": -85,
+              "negotiate-the-worst-excesses": -75,
+              "intensity": 90
+            },
+            "receptivity": {
+              "negotiate-and-cap-prices": 38,
+              "leave-prices-to-the-market": -36,
+              "negotiate-the-worst-excesses": -32,
+              "intensity": 38
+            }
           },
           "xpo0031": {
-            "protect-and-expand": 40,
-            "replace-with-universal": 90,
-            "leave-to-the-market": -90
+            "advocacy": {
+              "protect-and-expand": 40,
+              "replace-with-universal": 90,
+              "leave-to-the-market": -90,
+              "intensity": 90
+            },
+            "receptivity": {
+              "protect-and-expand": 17,
+              "replace-with-universal": 38,
+              "leave-to-the-market": -38,
+              "intensity": 38
+            }
           },
           "xpo0036": {
-            "urgent-action": 95,
-            "no-government-action": -95,
-            "gradual-market-led-action": -90
+            "advocacy": {
+              "urgent-action": 95,
+              "no-government-action": -95,
+              "gradual-market-led-action": -90,
+              "intensity": 95
+            },
+            "receptivity": {
+              "urgent-action": 40,
+              "no-government-action": -40,
+              "gradual-market-led-action": -38,
+              "intensity": 40
+            }
           },
           "xpo0037": {
-            "drill-and-expand": -95,
-            "phase-out": 95,
-            "all-of-the-above-in-transition": -90
+            "advocacy": {
+              "drill-and-expand": -95,
+              "phase-out": 95,
+              "all-of-the-above-in-transition": -90,
+              "intensity": -95
+            },
+            "receptivity": {
+              "drill-and-expand": -40,
+              "phase-out": 40,
+              "all-of-the-above-in-transition": -38,
+              "intensity": -40
+            }
           },
           "xpo0039": {
-            "massive-public-investment": 95,
-            "let-the-market-decide": -90,
-            "incentives-not-mandates": -85
+            "advocacy": {
+              "massive-public-investment": 95,
+              "let-the-market-decide": -90,
+              "incentives-not-mandates": -85,
+              "intensity": 95
+            },
+            "receptivity": {
+              "massive-public-investment": 40,
+              "let-the-market-decide": -38,
+              "incentives-not-mandates": -36,
+              "intensity": 40
+            }
           },
           "xpo0044": {
-            "wall-and-hard-enforcement": -85,
-            "technology-agents-pathways": 60
+            "advocacy": {
+              "wall-and-hard-enforcement": -85,
+              "technology-agents-pathways": 60,
+              "intensity": -85
+            },
+            "receptivity": {
+              "wall-and-hard-enforcement": -36,
+              "technology-agents-pathways": 25,
+              "intensity": -36
+            }
           },
           "xpo0045": {
-            "mass-deportation": -90,
-            "removal-after-fair-process": 85,
-            "prioritized-removal": -75
+            "advocacy": {
+              "mass-deportation": -90,
+              "removal-after-fair-process": 85,
+              "prioritized-removal": -75,
+              "intensity": -90
+            },
+            "receptivity": {
+              "mass-deportation": -38,
+              "removal-after-fair-process": 36,
+              "prioritized-removal": -32,
+              "intensity": -38
+            }
           },
           "xpo0048": {
-            "path-to-citizenship": 90,
-            "enforcement-only-no-amnesty": -85,
-            "legal-status-without-citizenship": -75
+            "advocacy": {
+              "path-to-citizenship": 90,
+              "enforcement-only-no-amnesty": -85,
+              "legal-status-without-citizenship": -75,
+              "intensity": 90
+            },
+            "receptivity": {
+              "path-to-citizenship": 38,
+              "enforcement-only-no-amnesty": -36,
+              "legal-status-without-citizenship": -32,
+              "intensity": 38
+            }
           },
           "xpo0049": {
-            "keep-birthright-citizenship": 85,
-            "end-it": -85,
-            "restrict-it-at-the-edges": -70
+            "advocacy": {
+              "keep-birthright-citizenship": 85,
+              "end-it": -85,
+              "restrict-it-at-the-edges": -70,
+              "intensity": 85
+            },
+            "receptivity": {
+              "keep-birthright-citizenship": 36,
+              "end-it": -36,
+              "restrict-it-at-the-edges": -29,
+              "intensity": 36
+            }
           },
           "xpo0051": {
-            "expand-access-no-id": 90,
-            "require-id-same-day-voting": -80,
-            "easy-voting-with-id": -70
+            "advocacy": {
+              "expand-access-no-id": 90,
+              "require-id-same-day-voting": -80,
+              "easy-voting-with-id": -70,
+              "intensity": 90
+            },
+            "receptivity": {
+              "expand-access-no-id": 38,
+              "require-id-same-day-voting": -34,
+              "easy-voting-with-id": -29,
+              "intensity": 38
+            }
           },
           "xpo0052": {
-            "limit-and-publicly-fund": 90,
-            "unrestricted-private-financing": -85,
-            "disclosure-without-caps": -75
+            "advocacy": {
+              "limit-and-publicly-fund": 90,
+              "unrestricted-private-financing": -85,
+              "disclosure-without-caps": -75,
+              "intensity": 90
+            },
+            "receptivity": {
+              "limit-and-publicly-fund": 38,
+              "unrestricted-private-financing": -36,
+              "disclosure-without-caps": -32,
+              "intensity": 38
+            }
           },
           "xpo0053": {
-            "abolish-the-college": 85,
-            "proportional-representation": 90
+            "advocacy": {
+              "abolish-the-college": 85,
+              "proportional-representation": 90,
+              "intensity": 90
+            },
+            "receptivity": {
+              "abolish-the-college": 36,
+              "proportional-representation": 38,
+              "intensity": 38
+            }
           },
           "xpo0059": {
-            "strong-federal-standards": 60,
-            "powers-to-the-states": -50,
-            "federal-floors-state-freedom": -10
+            "advocacy": {
+              "strong-federal-standards": 60,
+              "powers-to-the-states": -50,
+              "federal-floors-state-freedom": -10,
+              "intensity": 60
+            },
+            "receptivity": {
+              "strong-federal-standards": 25,
+              "powers-to-the-states": -21,
+              "federal-floors-state-freedom": -4,
+              "intensity": 25
+            }
           },
           "xpo0060": {
-            "active-federal-government": 85,
-            "minimal-government": -70,
-            "lean-but-capable": -55
+            "advocacy": {
+              "active-federal-government": 85,
+              "minimal-government": -70,
+              "lean-but-capable": -55,
+              "intensity": 85
+            },
+            "receptivity": {
+              "active-federal-government": 36,
+              "minimal-government": -29,
+              "lean-but-capable": -23,
+              "intensity": 36
+            }
           },
           "xpo0065": {
-            "pro-choice": 90,
-            "pro-life": -90,
-            "legal-with-limits": -80
+            "advocacy": {
+              "pro-choice": 90,
+              "pro-life": -90,
+              "legal-with-limits": -80,
+              "intensity": 90
+            },
+            "receptivity": {
+              "pro-choice": 38,
+              "pro-life": -38,
+              "legal-with-limits": -34,
+              "intensity": 38
+            }
           },
           "xpo0067": {
-            "marriage-equality": 95,
-            "government-out": 0
+            "advocacy": {
+              "marriage-equality": 95,
+              "government-out": 0,
+              "intensity": 95
+            },
+            "receptivity": {
+              "marriage-equality": 40,
+              "government-out": 0,
+              "intensity": 40
+            }
           },
           "xpo0068": {
-            "full-equality-and-protection": 95,
-            "restrictions": -90,
-            "equal-treatment-limited-mandates": -85
+            "advocacy": {
+              "full-equality-and-protection": 95,
+              "restrictions": -90,
+              "equal-treatment-limited-mandates": -85,
+              "intensity": 95
+            },
+            "receptivity": {
+              "full-equality-and-protection": 40,
+              "restrictions": -38,
+              "equal-treatment-limited-mandates": -36,
+              "intensity": 40
+            }
           },
           "xpo0070": {
-            "strict-regulation": 80,
-            "no-regulation-at-all": -75,
-            "background-checks-broadly-legal": -55
+            "advocacy": {
+              "strict-regulation": 80,
+              "no-regulation-at-all": -75,
+              "background-checks-broadly-legal": -55,
+              "intensity": 80
+            },
+            "receptivity": {
+              "strict-regulation": 34,
+              "no-regulation-at-all": -32,
+              "background-checks-broadly-legal": -23,
+              "intensity": 34
+            }
           },
           "xpo0072": {
-            "reform-reduce-incarceration": 90,
-            "tougher-enforcement-sentencing": -85,
-            "firm-and-fair": -75
+            "advocacy": {
+              "reform-reduce-incarceration": 90,
+              "tougher-enforcement-sentencing": -85,
+              "firm-and-fair": -75,
+              "intensity": 90
+            },
+            "receptivity": {
+              "reform-reduce-incarceration": 38,
+              "tougher-enforcement-sentencing": -36,
+              "firm-and-fair": -32,
+              "intensity": 38
+            }
           },
           "xpo0073": {
-            "abolish-it": 90,
-            "keep-it": -85,
-            "keep-it-narrowly": -75
+            "advocacy": {
+              "abolish-it": 90,
+              "keep-it": -85,
+              "keep-it-narrowly": -75,
+              "intensity": 90
+            },
+            "receptivity": {
+              "abolish-it": 38,
+              "keep-it": -36,
+              "keep-it-narrowly": -32,
+              "intensity": 38
+            }
           },
           "xpo0074": {
-            "legalize-treat-as-health": 90,
-            "keep-criminal-enforce-hard": -85,
-            "decriminalize-use-fight-supply": -75
+            "advocacy": {
+              "legalize-treat-as-health": 90,
+              "keep-criminal-enforce-hard": -85,
+              "decriminalize-use-fight-supply": -75,
+              "intensity": 90
+            },
+            "receptivity": {
+              "legalize-treat-as-health": 38,
+              "keep-criminal-enforce-hard": -36,
+              "decriminalize-use-fight-supply": -32,
+              "intensity": 38
+            }
           },
           "xpo0080": {
-            "universal-choice-vouchers": -70,
-            "invest-in-public-schools": 80,
-            "charter-schools": -50
+            "advocacy": {
+              "universal-choice-vouchers": -70,
+              "invest-in-public-schools": 80,
+              "charter-schools": -50,
+              "intensity": 80
+            },
+            "receptivity": {
+              "universal-choice-vouchers": -29,
+              "invest-in-public-schools": 34,
+              "charter-schools": -21,
+              "intensity": 34
+            }
           },
           "xpo0083": {
-            "free-college-debt-cancellation": 90,
-            "market-priced-no-forgiveness": -85,
-            "cheaper-not-free": -75
+            "advocacy": {
+              "free-college-debt-cancellation": 90,
+              "market-priced-no-forgiveness": -85,
+              "cheaper-not-free": -75,
+              "intensity": 90
+            },
+            "receptivity": {
+              "free-college-debt-cancellation": 38,
+              "market-priced-no-forgiveness": -36,
+              "cheaper-not-free": -32,
+              "intensity": 38
+            }
           },
           "xpo0085": {
-            "bigger-stronger-military": -85,
-            "cut-the-defense-budget": 90,
-            "hold-the-line": -75
+            "advocacy": {
+              "bigger-stronger-military": -85,
+              "cut-the-defense-budget": 90,
+              "hold-the-line": -75,
+              "intensity": 90
+            },
+            "receptivity": {
+              "bigger-stronger-military": -36,
+              "cut-the-defense-budget": 38,
+              "hold-the-line": -32,
+              "intensity": 38
+            }
           },
           "xpo0088": {
-            "strengthen-alliances": -40,
-            "avoid-entangling-alliances": 50,
-            "alliances-with-limits": 10
+            "advocacy": {
+              "strengthen-alliances": -40,
+              "avoid-entangling-alliances": 50,
+              "alliances-with-limits": 10,
+              "intensity": 50
+            },
+            "receptivity": {
+              "strengthen-alliances": -17,
+              "avoid-entangling-alliances": 21,
+              "alliances-with-limits": 4,
+              "intensity": 21
+            }
           },
           "xpo0090": {
-            "stand-with-israel": -80,
-            "palestinian-self-determination": 90
+            "advocacy": {
+              "stand-with-israel": -80,
+              "palestinian-self-determination": 90,
+              "intensity": 90
+            },
+            "receptivity": {
+              "stand-with-israel": -34,
+              "palestinian-self-determination": 38,
+              "intensity": 38
+            }
           },
           "xpo0091": {
-            "foreign-aid": 55,
-            "military-intervention": -65
+            "advocacy": {
+              "foreign-aid": 55,
+              "military-intervention": -65,
+              "intensity": -65
+            },
+            "receptivity": {
+              "foreign-aid": 23,
+              "military-intervention": -27,
+              "intensity": -27
+            }
           },
           "xpo0024": {
-            "private-crypto": -40,
-            "government-coin": 40
+            "advocacy": {
+              "private-crypto": -40,
+              "government-coin": 40,
+              "intensity": -40
+            },
+            "receptivity": {
+              "private-crypto": -17,
+              "government-coin": 17,
+              "intensity": -17
+            }
           },
           "xpo0046": {
-            "expand-admissions": 80,
-            "merit-selection": -60
+            "advocacy": {
+              "expand-admissions": 80,
+              "merit-selection": -60,
+              "intensity": 80
+            },
+            "receptivity": {
+              "expand-admissions": 34,
+              "merit-selection": -25,
+              "intensity": 34
+            }
           }
         },
         "skin": "poliscapades"
@@ -10429,196 +11837,548 @@
         "aboutMe": "The Constitution Party platform: the federal government strictly limited to its enumerated powers, sound money and tariffs instead of income tax, and Biblical foundations for life, marriage, and law.",
         "ratings": {
           "xpo0001": {
-            "the-state-command-redistribution": -80,
-            "the-market-capital-price-discovery": 60,
-            "the-commons-civil-society-mutual-aid": -20
+            "advocacy": {
+              "the-state-command-redistribution": -80,
+              "the-market-capital-price-discovery": 60,
+              "the-commons-civil-society-mutual-aid": -20,
+              "intensity": -80
+            },
+            "receptivity": {
+              "the-state-command-redistribution": -24,
+              "the-market-capital-price-discovery": 18,
+              "the-commons-civil-society-mutual-aid": -6,
+              "intensity": -24
+            }
           },
           "xpo0015": {
-            "higher-taxes-on-the-wealthy": -80,
-            "lower-taxes-across-the-board": 85,
-            "moderate-flatter-rates": -65
+            "advocacy": {
+              "higher-taxes-on-the-wealthy": -80,
+              "lower-taxes-across-the-board": 85,
+              "moderate-flatter-rates": -65,
+              "intensity": 85
+            },
+            "receptivity": {
+              "higher-taxes-on-the-wealthy": -24,
+              "lower-taxes-across-the-board": 26,
+              "moderate-flatter-rates": -20,
+              "intensity": 26
+            }
           },
           "xpo0016": {
-            "close-loopholes-tax-more": -50,
-            "cut-corporate-taxes": 80,
-            "competitive-rate-fewer-loopholes": -30
+            "advocacy": {
+              "close-loopholes-tax-more": -50,
+              "cut-corporate-taxes": 80,
+              "competitive-rate-fewer-loopholes": -30,
+              "intensity": 80
+            },
+            "receptivity": {
+              "close-loopholes-tax-more": -15,
+              "cut-corporate-taxes": 24,
+              "competitive-rate-fewer-loopholes": -9,
+              "intensity": 24
+            }
           },
           "xpo0017": {
-            "invest-generously": -90,
-            "cut-spending-to-balance": 90,
-            "spend-but-bend-the-curve": -80
+            "advocacy": {
+              "invest-generously": -90,
+              "cut-spending-to-balance": 90,
+              "spend-but-bend-the-curve": -80,
+              "intensity": -90
+            },
+            "receptivity": {
+              "invest-generously": -27,
+              "cut-spending-to-balance": 27,
+              "spend-but-bend-the-curve": -24,
+              "intensity": -27
+            }
           },
           "xpo0019": {
-            "reduce-inequality": -70,
-            "market-outcome": 75,
-            "ease-inequality-at-the-margins": -45
+            "advocacy": {
+              "reduce-inequality": -70,
+              "market-outcome": 75,
+              "ease-inequality-at-the-margins": -45,
+              "intensity": 75
+            },
+            "receptivity": {
+              "reduce-inequality": -21,
+              "market-outcome": 22,
+              "ease-inequality-at-the-margins": -14,
+              "intensity": 22
+            }
           },
           "xpo0020": {
-            "free-trade": -70,
-            "protective-tariffs": 90,
-            "fair-trade": -60
+            "advocacy": {
+              "free-trade": -70,
+              "protective-tariffs": 90,
+              "fair-trade": -60,
+              "intensity": 90
+            },
+            "receptivity": {
+              "free-trade": -21,
+              "protective-tariffs": 27,
+              "fair-trade": -18,
+              "intensity": 27
+            }
           },
           "xpo0023": {
-            "independent-central-bank": -80,
-            "abolish-the-fed": 95,
-            "constrain-the-fed": -75
+            "advocacy": {
+              "independent-central-bank": -80,
+              "abolish-the-fed": 95,
+              "constrain-the-fed": -75,
+              "intensity": 95
+            },
+            "receptivity": {
+              "independent-central-bank": -24,
+              "abolish-the-fed": 28,
+              "constrain-the-fed": -22,
+              "intensity": 28
+            }
           },
           "xpo0013": {
-            "higher-federal-floor": -90,
-            "no-federal-floor": 90,
-            "a-modest-federal-floor": -80
+            "advocacy": {
+              "higher-federal-floor": -90,
+              "no-federal-floor": 90,
+              "a-modest-federal-floor": -80,
+              "intensity": -90
+            },
+            "receptivity": {
+              "higher-federal-floor": -27,
+              "no-federal-floor": 27,
+              "a-modest-federal-floor": -24,
+              "intensity": -27
+            }
           },
           "xpo0026": {
-            "protect-and-expand": -85,
-            "phase-it-out": 90,
-            "preserve-with-reforms": -75
+            "advocacy": {
+              "protect-and-expand": -85,
+              "phase-it-out": 90,
+              "preserve-with-reforms": -75,
+              "intensity": 90
+            },
+            "receptivity": {
+              "protect-and-expand": -26,
+              "phase-it-out": 27,
+              "preserve-with-reforms": -22,
+              "intensity": 27
+            }
           },
           "xpo0027": {
-            "strong-safety-net": -95,
-            "no-federal-welfare": 95,
-            "a-limited-safety-net": -90
+            "advocacy": {
+              "strong-safety-net": -95,
+              "no-federal-welfare": 95,
+              "a-limited-safety-net": -90,
+              "intensity": -95
+            },
+            "receptivity": {
+              "strong-safety-net": -28,
+              "no-federal-welfare": 28,
+              "a-limited-safety-net": -27,
+              "intensity": -28
+            }
           },
           "xpo0029": {
-            "private-financing": 80,
-            "guaranteed-coverage": -70
+            "advocacy": {
+              "private-financing": 80,
+              "guaranteed-coverage": -70,
+              "intensity": 80
+            },
+            "receptivity": {
+              "private-financing": 24,
+              "guaranteed-coverage": -21,
+              "intensity": 24
+            }
           },
           "xpo0030": {
-            "negotiate-and-cap-prices": -70,
-            "leave-prices-to-the-market": 75,
-            "negotiate-the-worst-excesses": -45
+            "advocacy": {
+              "negotiate-and-cap-prices": -70,
+              "leave-prices-to-the-market": 75,
+              "negotiate-the-worst-excesses": -45,
+              "intensity": 75
+            },
+            "receptivity": {
+              "negotiate-and-cap-prices": -21,
+              "leave-prices-to-the-market": 22,
+              "negotiate-the-worst-excesses": -14,
+              "intensity": 22
+            }
           },
           "xpo0031": {
-            "protect-and-expand": -85,
-            "replace-with-universal": -90,
-            "leave-to-the-market": 85
+            "advocacy": {
+              "protect-and-expand": -85,
+              "replace-with-universal": -90,
+              "leave-to-the-market": 85,
+              "intensity": -90
+            },
+            "receptivity": {
+              "protect-and-expand": -26,
+              "replace-with-universal": -27,
+              "leave-to-the-market": 26,
+              "intensity": -27
+            }
           },
           "xpo0036": {
-            "urgent-action": -80,
-            "no-government-action": 85,
-            "gradual-market-led-action": -65
+            "advocacy": {
+              "urgent-action": -80,
+              "no-government-action": 85,
+              "gradual-market-led-action": -65,
+              "intensity": 85
+            },
+            "receptivity": {
+              "urgent-action": -24,
+              "no-government-action": 26,
+              "gradual-market-led-action": -20,
+              "intensity": 26
+            }
           },
           "xpo0037": {
-            "drill-and-expand": 80,
-            "phase-out": -70,
-            "all-of-the-above-in-transition": -50
+            "advocacy": {
+              "drill-and-expand": 80,
+              "phase-out": -70,
+              "all-of-the-above-in-transition": -50,
+              "intensity": 80
+            },
+            "receptivity": {
+              "drill-and-expand": 24,
+              "phase-out": -21,
+              "all-of-the-above-in-transition": -15,
+              "intensity": 24
+            }
           },
           "xpo0039": {
-            "massive-public-investment": -75,
-            "let-the-market-decide": 80,
-            "incentives-not-mandates": -55
+            "advocacy": {
+              "massive-public-investment": -75,
+              "let-the-market-decide": 80,
+              "incentives-not-mandates": -55,
+              "intensity": 80
+            },
+            "receptivity": {
+              "massive-public-investment": -22,
+              "let-the-market-decide": 24,
+              "incentives-not-mandates": -16,
+              "intensity": 24
+            }
           },
           "xpo0044": {
-            "wall-and-hard-enforcement": 95,
-            "technology-agents-pathways": -60
+            "advocacy": {
+              "wall-and-hard-enforcement": 95,
+              "technology-agents-pathways": -60,
+              "intensity": 95
+            },
+            "receptivity": {
+              "wall-and-hard-enforcement": 28,
+              "technology-agents-pathways": -18,
+              "intensity": 28
+            }
           },
           "xpo0045": {
-            "mass-deportation": 90,
-            "removal-after-fair-process": -40,
-            "prioritized-removal": -30
+            "advocacy": {
+              "mass-deportation": 90,
+              "removal-after-fair-process": -40,
+              "prioritized-removal": -30,
+              "intensity": 90
+            },
+            "receptivity": {
+              "mass-deportation": 27,
+              "removal-after-fair-process": -12,
+              "prioritized-removal": -9,
+              "intensity": 27
+            }
           },
           "xpo0048": {
-            "path-to-citizenship": -90,
-            "enforcement-only-no-amnesty": 90,
-            "legal-status-without-citizenship": -80
+            "advocacy": {
+              "path-to-citizenship": -90,
+              "enforcement-only-no-amnesty": 90,
+              "legal-status-without-citizenship": -80,
+              "intensity": -90
+            },
+            "receptivity": {
+              "path-to-citizenship": -27,
+              "enforcement-only-no-amnesty": 27,
+              "legal-status-without-citizenship": -24,
+              "intensity": -27
+            }
           },
           "xpo0049": {
-            "keep-birthright-citizenship": -90,
-            "end-it": 90,
-            "restrict-it-at-the-edges": -80
+            "advocacy": {
+              "keep-birthright-citizenship": -90,
+              "end-it": 90,
+              "restrict-it-at-the-edges": -80,
+              "intensity": -90
+            },
+            "receptivity": {
+              "keep-birthright-citizenship": -27,
+              "end-it": 27,
+              "restrict-it-at-the-edges": -24,
+              "intensity": -27
+            }
           },
           "xpo0051": {
-            "expand-access-no-id": -60,
-            "require-id-same-day-voting": 70,
-            "easy-voting-with-id": -30
+            "advocacy": {
+              "expand-access-no-id": -60,
+              "require-id-same-day-voting": 70,
+              "easy-voting-with-id": -30,
+              "intensity": 70
+            },
+            "receptivity": {
+              "expand-access-no-id": -18,
+              "require-id-same-day-voting": 21,
+              "easy-voting-with-id": -9,
+              "intensity": 21
+            }
           },
           "xpo0052": {
-            "limit-and-publicly-fund": -40,
-            "unrestricted-private-financing": 50,
-            "disclosure-without-caps": 10
+            "advocacy": {
+              "limit-and-publicly-fund": -40,
+              "unrestricted-private-financing": 50,
+              "disclosure-without-caps": 10,
+              "intensity": 50
+            },
+            "receptivity": {
+              "limit-and-publicly-fund": -12,
+              "unrestricted-private-financing": 15,
+              "disclosure-without-caps": 3,
+              "intensity": 15
+            }
           },
           "xpo0053": {
-            "abolish-the-college": -80,
-            "proportional-representation": -65
+            "advocacy": {
+              "abolish-the-college": -80,
+              "proportional-representation": -65,
+              "intensity": -80
+            },
+            "receptivity": {
+              "abolish-the-college": -24,
+              "proportional-representation": -20,
+              "intensity": -24
+            }
           },
           "xpo0059": {
-            "strong-federal-standards": -90,
-            "powers-to-the-states": 95,
-            "federal-floors-state-freedom": -85
+            "advocacy": {
+              "strong-federal-standards": -90,
+              "powers-to-the-states": 95,
+              "federal-floors-state-freedom": -85,
+              "intensity": 95
+            },
+            "receptivity": {
+              "strong-federal-standards": -27,
+              "powers-to-the-states": 28,
+              "federal-floors-state-freedom": -26,
+              "intensity": 28
+            }
           },
           "xpo0060": {
-            "active-federal-government": -95,
-            "minimal-government": 95,
-            "lean-but-capable": -90
+            "advocacy": {
+              "active-federal-government": -95,
+              "minimal-government": 95,
+              "lean-but-capable": -90,
+              "intensity": -95
+            },
+            "receptivity": {
+              "active-federal-government": -28,
+              "minimal-government": 28,
+              "lean-but-capable": -27,
+              "intensity": -28
+            }
           },
           "xpo0065": {
-            "pro-choice": -95,
-            "pro-life": 95,
-            "legal-with-limits": -90
+            "advocacy": {
+              "pro-choice": -95,
+              "pro-life": 95,
+              "legal-with-limits": -90,
+              "intensity": -95
+            },
+            "receptivity": {
+              "pro-choice": -28,
+              "pro-life": 28,
+              "legal-with-limits": -27,
+              "intensity": -28
+            }
           },
           "xpo0067": {
-            "marriage-equality": -90,
-            "government-out": -30
+            "advocacy": {
+              "marriage-equality": -90,
+              "government-out": -30,
+              "intensity": -90
+            },
+            "receptivity": {
+              "marriage-equality": -27,
+              "government-out": -9,
+              "intensity": -27
+            }
           },
           "xpo0068": {
-            "full-equality-and-protection": -90,
-            "restrictions": 90,
-            "equal-treatment-limited-mandates": -80
+            "advocacy": {
+              "full-equality-and-protection": -90,
+              "restrictions": 90,
+              "equal-treatment-limited-mandates": -80,
+              "intensity": -90
+            },
+            "receptivity": {
+              "full-equality-and-protection": -27,
+              "restrictions": 27,
+              "equal-treatment-limited-mandates": -24,
+              "intensity": -27
+            }
           },
           "xpo0070": {
-            "strict-regulation": -85,
-            "no-regulation-at-all": 90,
-            "background-checks-broadly-legal": -75
+            "advocacy": {
+              "strict-regulation": -85,
+              "no-regulation-at-all": 90,
+              "background-checks-broadly-legal": -75,
+              "intensity": 90
+            },
+            "receptivity": {
+              "strict-regulation": -26,
+              "no-regulation-at-all": 27,
+              "background-checks-broadly-legal": -22,
+              "intensity": 27
+            }
           },
           "xpo0072": {
-            "reform-reduce-incarceration": -60,
-            "tougher-enforcement-sentencing": 70,
-            "firm-and-fair": -30
+            "advocacy": {
+              "reform-reduce-incarceration": -60,
+              "tougher-enforcement-sentencing": 70,
+              "firm-and-fair": -30,
+              "intensity": 70
+            },
+            "receptivity": {
+              "reform-reduce-incarceration": -18,
+              "tougher-enforcement-sentencing": 21,
+              "firm-and-fair": -9,
+              "intensity": 21
+            }
           },
           "xpo0073": {
-            "abolish-it": -80,
-            "keep-it": 85,
-            "keep-it-narrowly": -65
+            "advocacy": {
+              "abolish-it": -80,
+              "keep-it": 85,
+              "keep-it-narrowly": -65,
+              "intensity": 85
+            },
+            "receptivity": {
+              "abolish-it": -24,
+              "keep-it": 26,
+              "keep-it-narrowly": -20,
+              "intensity": 26
+            }
           },
           "xpo0074": {
-            "legalize-treat-as-health": -70,
-            "keep-criminal-enforce-hard": 75,
-            "decriminalize-use-fight-supply": -45
+            "advocacy": {
+              "legalize-treat-as-health": -70,
+              "keep-criminal-enforce-hard": 75,
+              "decriminalize-use-fight-supply": -45,
+              "intensity": 75
+            },
+            "receptivity": {
+              "legalize-treat-as-health": -21,
+              "keep-criminal-enforce-hard": 22,
+              "decriminalize-use-fight-supply": -14,
+              "intensity": 22
+            }
           },
           "xpo0080": {
-            "universal-choice-vouchers": 85,
-            "invest-in-public-schools": -85,
-            "charter-schools": -70
+            "advocacy": {
+              "universal-choice-vouchers": 85,
+              "invest-in-public-schools": -85,
+              "charter-schools": -70,
+              "intensity": 85
+            },
+            "receptivity": {
+              "universal-choice-vouchers": 26,
+              "invest-in-public-schools": -26,
+              "charter-schools": -21,
+              "intensity": 26
+            }
           },
           "xpo0083": {
-            "free-college-debt-cancellation": -85,
-            "market-priced-no-forgiveness": 90,
-            "cheaper-not-free": -75
+            "advocacy": {
+              "free-college-debt-cancellation": -85,
+              "market-priced-no-forgiveness": 90,
+              "cheaper-not-free": -75,
+              "intensity": 90
+            },
+            "receptivity": {
+              "free-college-debt-cancellation": -26,
+              "market-priced-no-forgiveness": 27,
+              "cheaper-not-free": -22,
+              "intensity": 27
+            }
           },
           "xpo0085": {
-            "bigger-stronger-military": 60,
-            "cut-the-defense-budget": -50,
-            "hold-the-line": -10
+            "advocacy": {
+              "bigger-stronger-military": 60,
+              "cut-the-defense-budget": -50,
+              "hold-the-line": -10,
+              "intensity": 60
+            },
+            "receptivity": {
+              "bigger-stronger-military": 18,
+              "cut-the-defense-budget": -15,
+              "hold-the-line": -3,
+              "intensity": 18
+            }
           },
           "xpo0088": {
-            "strengthen-alliances": -70,
-            "avoid-entangling-alliances": 80,
-            "alliances-with-limits": -50
+            "advocacy": {
+              "strengthen-alliances": -70,
+              "avoid-entangling-alliances": 80,
+              "alliances-with-limits": -50,
+              "intensity": 80
+            },
+            "receptivity": {
+              "strengthen-alliances": -21,
+              "avoid-entangling-alliances": 24,
+              "alliances-with-limits": -15,
+              "intensity": 24
+            }
           },
           "xpo0090": {
-            "stand-with-israel": 10,
-            "palestinian-self-determination": -10
+            "advocacy": {
+              "stand-with-israel": 10,
+              "palestinian-self-determination": -10,
+              "intensity": 10
+            },
+            "receptivity": {
+              "stand-with-israel": 3,
+              "palestinian-self-determination": -3,
+              "intensity": 3
+            }
           },
           "xpo0091": {
-            "foreign-aid": -90,
-            "military-intervention": -55
+            "advocacy": {
+              "foreign-aid": -90,
+              "military-intervention": -55,
+              "intensity": -90
+            },
+            "receptivity": {
+              "foreign-aid": -27,
+              "military-intervention": -16,
+              "intensity": -27
+            }
           },
           "xpo0024": {
-            "private-crypto": 30,
-            "government-coin": -90
+            "advocacy": {
+              "private-crypto": 30,
+              "government-coin": -90,
+              "intensity": -90
+            },
+            "receptivity": {
+              "private-crypto": 9,
+              "government-coin": -27,
+              "intensity": -27
+            }
           },
           "xpo0046": {
-            "expand-admissions": -90,
-            "merit-selection": -20
+            "advocacy": {
+              "expand-admissions": -90,
+              "merit-selection": -20,
+              "intensity": -90
+            },
+            "receptivity": {
+              "expand-admissions": -27,
+              "merit-selection": -6,
+              "intensity": -27
+            }
           }
         },
         "skin": "poliscapades"

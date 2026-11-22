@@ -2989,75 +2989,194 @@
         "aboutMe": "All knowledge comes from experience; the mind begins as a blank slate and reason works only on what the senses supply.",
         "ratings": {
           "xph0001": {
-            "foundationalism": 60,
-            "coherentism": 10,
-            "infinitism": -40
+            "advocacy": {
+              "foundationalism": 60,
+              "coherentism": 10,
+              "infinitism": -40,
+              "intensity": 60
+            },
+            "receptivity": {
+              "foundationalism": 45,
+              "coherentism": 8,
+              "infinitism": -30,
+              "intensity": 45
+            }
           },
           "xph0002": {
-            "pure-rationalism": -80,
-            "radical-empiricism": 90,
-            "pragmatism": 20,
-            "skepticism": 40
+            "advocacy": {
+              "pure-rationalism": -80,
+              "radical-empiricism": 90,
+              "pragmatism": 20,
+              "skepticism": 40,
+              "intensity": 90
+            },
+            "receptivity": {
+              "pure-rationalism": -60,
+              "radical-empiricism": 68,
+              "pragmatism": 15,
+              "skepticism": 30,
+              "intensity": 68
+            }
           },
           "xph0003": {
-            "correspondence": 70,
-            "coherence": 20,
-            "pragmatic": 10,
-            "deflationism": 0
+            "advocacy": {
+              "correspondence": 70,
+              "coherence": 20,
+              "pragmatic": 10,
+              "deflationism": 0,
+              "intensity": 70
+            },
+            "receptivity": {
+              "correspondence": 52,
+              "coherence": 15,
+              "pragmatic": 8,
+              "deflationism": 0,
+              "intensity": 52
+            }
           },
           "xph0015": {
-            "empiricism": 95,
-            "rationalism": -75,
-            "pragmatism": 25,
-            "phenomenology": 10,
-            "hermeneutics": 0,
-            "skepticism": 45,
-            "mysticism": -60,
-            "dialectics": -20
+            "advocacy": {
+              "empiricism": 95,
+              "rationalism": -75,
+              "pragmatism": 25,
+              "phenomenology": 10,
+              "hermeneutics": 0,
+              "skepticism": 45,
+              "mysticism": -60,
+              "dialectics": -20,
+              "intensity": 95
+            },
+            "receptivity": {
+              "empiricism": 71,
+              "rationalism": -56,
+              "pragmatism": 19,
+              "phenomenology": 8,
+              "hermeneutics": 0,
+              "skepticism": 34,
+              "mysticism": -45,
+              "dialectics": -15,
+              "intensity": 71
+            }
           },
           "xph0004": {
-            "matter-fundamental": 30,
-            "mind-fundamental": -90
+            "advocacy": {
+              "matter-fundamental": 30,
+              "mind-fundamental": -90,
+              "intensity": -90
+            },
+            "receptivity": {
+              "matter-fundamental": 22,
+              "mind-fundamental": -68,
+              "intensity": -68
+            }
           },
           "xph0005": {
-            "determinism": 88,
-            "free-will": 18
+            "advocacy": {
+              "determinism": 88,
+              "free-will": 18,
+              "intensity": 88
+            },
+            "receptivity": {
+              "determinism": 66,
+              "free-will": 14,
+              "intensity": 66
+            }
           },
           "xph0006": {
-            "platonic-realism": -70,
-            "conceptualism": 40,
-            "nominalism": 70
+            "advocacy": {
+              "platonic-realism": -70,
+              "conceptualism": 40,
+              "nominalism": 70,
+              "intensity": -70
+            },
+            "receptivity": {
+              "platonic-realism": -52,
+              "conceptualism": 30,
+              "nominalism": 52,
+              "intensity": -52
+            }
           },
           "xph0008": {
-            "deontology": -10,
-            "consequentialism": 60,
-            "virtue-ethics": 30,
-            "care-ethics": 20
+            "advocacy": {
+              "deontology": -10,
+              "consequentialism": 60,
+              "virtue-ethics": 30,
+              "care-ethics": 20,
+              "intensity": 60
+            },
+            "receptivity": {
+              "deontology": -8,
+              "consequentialism": 45,
+              "virtue-ethics": 22,
+              "care-ethics": 15,
+              "intensity": 45
+            }
           },
           "xph0009": {
-            "moral-realism": -20,
-            "moral-relativism": 20,
-            "error-theory": 10,
-            "expressivism": 50
+            "advocacy": {
+              "moral-realism": -20,
+              "moral-relativism": 20,
+              "error-theory": 10,
+              "expressivism": 50,
+              "intensity": 50
+            },
+            "receptivity": {
+              "moral-realism": -15,
+              "moral-relativism": 15,
+              "error-theory": 8,
+              "expressivism": 38,
+              "intensity": 38
+            }
           },
           "xph0010": {
-            "hedonism": 40,
-            "eudaimonism": 20,
-            "desire-satisfaction": 50,
-            "objective-list": -30
+            "advocacy": {
+              "hedonism": 40,
+              "eudaimonism": 20,
+              "desire-satisfaction": 50,
+              "objective-list": -30,
+              "intensity": 50
+            },
+            "receptivity": {
+              "hedonism": 30,
+              "eudaimonism": 15,
+              "desire-satisfaction": 38,
+              "objective-list": -22,
+              "intensity": 38
+            }
           },
           "xph0011": {
-            "illusionism": 30,
-            "computational-functionalism": 40,
-            "biological-emergence": 50,
-            "panpsychism": -40,
-            "cosmopsychism": -60
+            "advocacy": {
+              "illusionism": 30,
+              "computational-functionalism": 40,
+              "biological-emergence": 50,
+              "panpsychism": -40,
+              "cosmopsychism": -60,
+              "intensity": -60
+            },
+            "receptivity": {
+              "illusionism": 22,
+              "computational-functionalism": 30,
+              "biological-emergence": 38,
+              "panpsychism": -30,
+              "cosmopsychism": -45,
+              "intensity": -45
+            }
           },
           "xph0013": {
-            "distributive": 40,
-            "retributive": 0,
-            "restorative": 20,
-            "procedural": 30
+            "advocacy": {
+              "distributive": 40,
+              "retributive": 0,
+              "restorative": 20,
+              "procedural": 30,
+              "intensity": 40
+            },
+            "receptivity": {
+              "distributive": 30,
+              "retributive": 0,
+              "restorative": 15,
+              "procedural": 22,
+              "intensity": 30
+            }
           }
         },
         "skin": "philoscapades"
@@ -3084,75 +3203,194 @@
         "aboutMe": "Reason, not the senses, is the primary source of knowledge; certain truths are known innately, by the intellect alone.",
         "ratings": {
           "xph0001": {
-            "foundationalism": 85,
-            "coherentism": 40,
-            "infinitism": -50
+            "advocacy": {
+              "foundationalism": 85,
+              "coherentism": 40,
+              "infinitism": -50,
+              "intensity": 85
+            },
+            "receptivity": {
+              "foundationalism": 51,
+              "coherentism": 24,
+              "infinitism": -30,
+              "intensity": 51
+            }
           },
           "xph0002": {
-            "pure-rationalism": 95,
-            "radical-empiricism": -80,
-            "pragmatism": -30,
-            "skepticism": -40
+            "advocacy": {
+              "pure-rationalism": 95,
+              "radical-empiricism": -80,
+              "pragmatism": -30,
+              "skepticism": -40,
+              "intensity": 95
+            },
+            "receptivity": {
+              "pure-rationalism": 57,
+              "radical-empiricism": -48,
+              "pragmatism": -18,
+              "skepticism": -24,
+              "intensity": 57
+            }
           },
           "xph0003": {
-            "correspondence": 60,
-            "coherence": 50,
-            "pragmatic": -30,
-            "deflationism": -20
+            "advocacy": {
+              "correspondence": 60,
+              "coherence": 50,
+              "pragmatic": -30,
+              "deflationism": -20,
+              "intensity": 60
+            },
+            "receptivity": {
+              "correspondence": 36,
+              "coherence": 30,
+              "pragmatic": -18,
+              "deflationism": -12,
+              "intensity": 36
+            }
           },
           "xph0015": {
-            "empiricism": -80,
-            "rationalism": 95,
-            "pragmatism": -25,
-            "phenomenology": 0,
-            "hermeneutics": -10,
-            "skepticism": -50,
-            "mysticism": -40,
-            "dialectics": 10
+            "advocacy": {
+              "empiricism": -80,
+              "rationalism": 95,
+              "pragmatism": -25,
+              "phenomenology": 0,
+              "hermeneutics": -10,
+              "skepticism": -50,
+              "mysticism": -40,
+              "dialectics": 10,
+              "intensity": 95
+            },
+            "receptivity": {
+              "empiricism": -48,
+              "rationalism": 57,
+              "pragmatism": -15,
+              "phenomenology": 0,
+              "hermeneutics": -6,
+              "skepticism": -30,
+              "mysticism": -24,
+              "dialectics": 6,
+              "intensity": 57
+            }
           },
           "xph0004": {
-            "matter-fundamental": -35,
-            "mind-fundamental": 55
+            "advocacy": {
+              "matter-fundamental": -35,
+              "mind-fundamental": 55,
+              "intensity": 55
+            },
+            "receptivity": {
+              "matter-fundamental": -21,
+              "mind-fundamental": 33,
+              "intensity": 33
+            }
           },
           "xph0005": {
-            "determinism": 45,
-            "free-will": 5
+            "advocacy": {
+              "determinism": 45,
+              "free-will": 5,
+              "intensity": 45
+            },
+            "receptivity": {
+              "determinism": 27,
+              "free-will": 3,
+              "intensity": 27
+            }
           },
           "xph0006": {
-            "platonic-realism": 80,
-            "conceptualism": 10,
-            "nominalism": -70
+            "advocacy": {
+              "platonic-realism": 80,
+              "conceptualism": 10,
+              "nominalism": -70,
+              "intensity": 80
+            },
+            "receptivity": {
+              "platonic-realism": 48,
+              "conceptualism": 6,
+              "nominalism": -42,
+              "intensity": 48
+            }
           },
           "xph0008": {
-            "deontology": 60,
-            "consequentialism": -10,
-            "virtue-ethics": 40,
-            "care-ethics": 0
+            "advocacy": {
+              "deontology": 60,
+              "consequentialism": -10,
+              "virtue-ethics": 40,
+              "care-ethics": 0,
+              "intensity": 60
+            },
+            "receptivity": {
+              "deontology": 36,
+              "consequentialism": -6,
+              "virtue-ethics": 24,
+              "care-ethics": 0,
+              "intensity": 36
+            }
           },
           "xph0009": {
-            "moral-realism": 70,
-            "moral-relativism": -50,
-            "error-theory": -60,
-            "expressivism": -40
+            "advocacy": {
+              "moral-realism": 70,
+              "moral-relativism": -50,
+              "error-theory": -60,
+              "expressivism": -40,
+              "intensity": 70
+            },
+            "receptivity": {
+              "moral-realism": 42,
+              "moral-relativism": -30,
+              "error-theory": -36,
+              "expressivism": -24,
+              "intensity": 42
+            }
           },
           "xph0010": {
-            "hedonism": -40,
-            "eudaimonism": 60,
-            "desire-satisfaction": -20,
-            "objective-list": 70
+            "advocacy": {
+              "hedonism": -40,
+              "eudaimonism": 60,
+              "desire-satisfaction": -20,
+              "objective-list": 70,
+              "intensity": 70
+            },
+            "receptivity": {
+              "hedonism": -24,
+              "eudaimonism": 36,
+              "desire-satisfaction": -12,
+              "objective-list": 42,
+              "intensity": 42
+            }
           },
           "xph0011": {
-            "illusionism": -30,
-            "computational-functionalism": 30,
-            "biological-emergence": 0,
-            "panpsychism": 20,
-            "cosmopsychism": 30
+            "advocacy": {
+              "illusionism": -30,
+              "computational-functionalism": 30,
+              "biological-emergence": 0,
+              "panpsychism": 20,
+              "cosmopsychism": 30,
+              "intensity": -30
+            },
+            "receptivity": {
+              "illusionism": -18,
+              "computational-functionalism": 18,
+              "biological-emergence": 0,
+              "panpsychism": 12,
+              "cosmopsychism": 18,
+              "intensity": -18
+            }
           },
           "xph0013": {
-            "distributive": 20,
-            "retributive": 20,
-            "restorative": 0,
-            "procedural": 50
+            "advocacy": {
+              "distributive": 20,
+              "retributive": 20,
+              "restorative": 0,
+              "procedural": 50,
+              "intensity": 50
+            },
+            "receptivity": {
+              "distributive": 12,
+              "retributive": 12,
+              "restorative": 0,
+              "procedural": 30,
+              "intensity": 30
+            }
           }
         },
         "skin": "philoscapades"
@@ -3179,75 +3417,194 @@
         "aboutMe": "A belief is true insofar as it works; truth is what survives inquiry and proves useful in guiding action.",
         "ratings": {
           "xph0001": {
-            "foundationalism": -60,
-            "coherentism": 50,
-            "infinitism": 20
+            "advocacy": {
+              "foundationalism": -60,
+              "coherentism": 50,
+              "infinitism": 20,
+              "intensity": -60
+            },
+            "receptivity": {
+              "foundationalism": -48,
+              "coherentism": 40,
+              "infinitism": 16,
+              "intensity": -48
+            }
           },
           "xph0002": {
-            "pure-rationalism": -50,
-            "radical-empiricism": 30,
-            "pragmatism": 95,
-            "skepticism": 10
+            "advocacy": {
+              "pure-rationalism": -50,
+              "radical-empiricism": 30,
+              "pragmatism": 95,
+              "skepticism": 10,
+              "intensity": 95
+            },
+            "receptivity": {
+              "pure-rationalism": -40,
+              "radical-empiricism": 24,
+              "pragmatism": 76,
+              "skepticism": 8,
+              "intensity": 76
+            }
           },
           "xph0003": {
-            "correspondence": -20,
-            "coherence": 40,
-            "pragmatic": 90,
-            "deflationism": 30
+            "advocacy": {
+              "correspondence": -20,
+              "coherence": 40,
+              "pragmatic": 90,
+              "deflationism": 30,
+              "intensity": 90
+            },
+            "receptivity": {
+              "correspondence": -16,
+              "coherence": 32,
+              "pragmatic": 72,
+              "deflationism": 24,
+              "intensity": 72
+            }
           },
           "xph0015": {
-            "empiricism": 50,
-            "rationalism": -40,
-            "pragmatism": 95,
-            "phenomenology": 30,
-            "hermeneutics": 40,
-            "skepticism": -10,
-            "mysticism": 0,
-            "dialectics": 20
+            "advocacy": {
+              "empiricism": 50,
+              "rationalism": -40,
+              "pragmatism": 95,
+              "phenomenology": 30,
+              "hermeneutics": 40,
+              "skepticism": -10,
+              "mysticism": 0,
+              "dialectics": 20,
+              "intensity": 95
+            },
+            "receptivity": {
+              "empiricism": 40,
+              "rationalism": -32,
+              "pragmatism": 76,
+              "phenomenology": 24,
+              "hermeneutics": 32,
+              "skepticism": -8,
+              "mysticism": 0,
+              "dialectics": 16,
+              "intensity": 76
+            }
           },
           "xph0004": {
-            "matter-fundamental": -25,
-            "mind-fundamental": -95
+            "advocacy": {
+              "matter-fundamental": -25,
+              "mind-fundamental": -95,
+              "intensity": -95
+            },
+            "receptivity": {
+              "matter-fundamental": -20,
+              "mind-fundamental": -76,
+              "intensity": -76
+            }
           },
           "xph0005": {
-            "determinism": -5,
-            "free-will": 75
+            "advocacy": {
+              "determinism": -5,
+              "free-will": 75,
+              "intensity": 75
+            },
+            "receptivity": {
+              "determinism": -4,
+              "free-will": 60,
+              "intensity": 60
+            }
           },
           "xph0006": {
-            "platonic-realism": -50,
-            "conceptualism": 40,
-            "nominalism": 50
+            "advocacy": {
+              "platonic-realism": -50,
+              "conceptualism": 40,
+              "nominalism": 50,
+              "intensity": -50
+            },
+            "receptivity": {
+              "platonic-realism": -40,
+              "conceptualism": 32,
+              "nominalism": 40,
+              "intensity": -40
+            }
           },
           "xph0008": {
-            "deontology": -30,
-            "consequentialism": 70,
-            "virtue-ethics": 50,
-            "care-ethics": 40
+            "advocacy": {
+              "deontology": -30,
+              "consequentialism": 70,
+              "virtue-ethics": 50,
+              "care-ethics": 40,
+              "intensity": 70
+            },
+            "receptivity": {
+              "deontology": -24,
+              "consequentialism": 56,
+              "virtue-ethics": 40,
+              "care-ethics": 32,
+              "intensity": 56
+            }
           },
           "xph0009": {
-            "moral-realism": -10,
-            "moral-relativism": 30,
-            "error-theory": -20,
-            "expressivism": 40
+            "advocacy": {
+              "moral-realism": -10,
+              "moral-relativism": 30,
+              "error-theory": -20,
+              "expressivism": 40,
+              "intensity": 40
+            },
+            "receptivity": {
+              "moral-realism": -8,
+              "moral-relativism": 24,
+              "error-theory": -16,
+              "expressivism": 32,
+              "intensity": 32
+            }
           },
           "xph0010": {
-            "hedonism": 20,
-            "eudaimonism": 60,
-            "desire-satisfaction": 50,
-            "objective-list": 10
+            "advocacy": {
+              "hedonism": 20,
+              "eudaimonism": 60,
+              "desire-satisfaction": 50,
+              "objective-list": 10,
+              "intensity": 60
+            },
+            "receptivity": {
+              "hedonism": 16,
+              "eudaimonism": 48,
+              "desire-satisfaction": 40,
+              "objective-list": 8,
+              "intensity": 48
+            }
           },
           "xph0011": {
-            "illusionism": 0,
-            "computational-functionalism": 50,
-            "biological-emergence": 60,
-            "panpsychism": -10,
-            "cosmopsychism": -30
+            "advocacy": {
+              "illusionism": 0,
+              "computational-functionalism": 50,
+              "biological-emergence": 60,
+              "panpsychism": -10,
+              "cosmopsychism": -30,
+              "intensity": 60
+            },
+            "receptivity": {
+              "illusionism": 0,
+              "computational-functionalism": 40,
+              "biological-emergence": 48,
+              "panpsychism": -8,
+              "cosmopsychism": -24,
+              "intensity": 48
+            }
           },
           "xph0013": {
-            "distributive": 50,
-            "retributive": -10,
-            "restorative": 50,
-            "procedural": 40
+            "advocacy": {
+              "distributive": 50,
+              "retributive": -10,
+              "restorative": 50,
+              "procedural": 40,
+              "intensity": 50
+            },
+            "receptivity": {
+              "distributive": 40,
+              "retributive": -8,
+              "restorative": 40,
+              "procedural": 32,
+              "intensity": 40
+            }
           }
         },
         "skin": "philoscapades"
@@ -3274,77 +3631,198 @@
         "aboutMe": "Go back to the things themselves: describe experience exactly as it presents itself, before theory explains it away.",
         "ratings": {
           "xph0001": {
-            "foundationalism": 40,
-            "coherentism": 20,
-            "infinitism": -30
+            "advocacy": {
+              "foundationalism": 40,
+              "coherentism": 20,
+              "infinitism": -30,
+              "intensity": 40
+            },
+            "receptivity": {
+              "foundationalism": 28,
+              "coherentism": 14,
+              "infinitism": -21,
+              "intensity": 28
+            }
           },
           "xph0002": {
-            "pure-rationalism": 10,
-            "radical-empiricism": 20,
-            "pragmatism": 30,
-            "skepticism": -60
+            "advocacy": {
+              "pure-rationalism": 10,
+              "radical-empiricism": 20,
+              "pragmatism": 30,
+              "skepticism": -60,
+              "intensity": -60
+            },
+            "receptivity": {
+              "pure-rationalism": 7,
+              "radical-empiricism": 14,
+              "pragmatism": 21,
+              "skepticism": -42,
+              "intensity": -42
+            }
           },
           "xph0003": {
-            "correspondence": 20,
-            "coherence": 30,
-            "pragmatic": 20,
-            "deflationism": -30
+            "advocacy": {
+              "correspondence": 20,
+              "coherence": 30,
+              "pragmatic": 20,
+              "deflationism": -30,
+              "intensity": 30
+            },
+            "receptivity": {
+              "correspondence": 14,
+              "coherence": 21,
+              "pragmatic": 14,
+              "deflationism": -21,
+              "intensity": 21
+            }
           },
           "xph0015": {
-            "empiricism": 20,
-            "rationalism": 10,
-            "pragmatism": 35,
-            "phenomenology": 95,
-            "hermeneutics": 70,
-            "skepticism": -50,
-            "mysticism": 20,
-            "dialectics": 40
+            "advocacy": {
+              "empiricism": 20,
+              "rationalism": 10,
+              "pragmatism": 35,
+              "phenomenology": 95,
+              "hermeneutics": 70,
+              "skepticism": -50,
+              "mysticism": 20,
+              "dialectics": 40,
+              "intensity": 95
+            },
+            "receptivity": {
+              "empiricism": 14,
+              "rationalism": 7,
+              "pragmatism": 24,
+              "phenomenology": 66,
+              "hermeneutics": 49,
+              "skepticism": -35,
+              "mysticism": 14,
+              "dialectics": 28,
+              "intensity": 66
+            }
           },
           "xph0004": {
-            "matter-fundamental": -90,
-            "mind-fundamental": -10
+            "advocacy": {
+              "matter-fundamental": -90,
+              "mind-fundamental": -10,
+              "intensity": -90
+            },
+            "receptivity": {
+              "matter-fundamental": -63,
+              "mind-fundamental": -7,
+              "intensity": -63
+            }
           },
           "xph0005": {
-            "determinism": -30,
-            "free-will": 70
+            "advocacy": {
+              "determinism": -30,
+              "free-will": 70,
+              "intensity": 70
+            },
+            "receptivity": {
+              "determinism": -21,
+              "free-will": 49,
+              "intensity": 49
+            }
           },
           "xph0006": {
-            "platonic-realism": 40,
-            "conceptualism": 30,
-            "nominalism": -40
+            "advocacy": {
+              "platonic-realism": 40,
+              "conceptualism": 30,
+              "nominalism": -40,
+              "intensity": 40
+            },
+            "receptivity": {
+              "platonic-realism": 28,
+              "conceptualism": 21,
+              "nominalism": -28,
+              "intensity": 28
+            }
           },
           "xph0008": {
-            "deontology": 20,
-            "consequentialism": -20,
-            "virtue-ethics": 60,
-            "care-ethics": 50
+            "advocacy": {
+              "deontology": 20,
+              "consequentialism": -20,
+              "virtue-ethics": 60,
+              "care-ethics": 50,
+              "intensity": 60
+            },
+            "receptivity": {
+              "deontology": 14,
+              "consequentialism": -14,
+              "virtue-ethics": 42,
+              "care-ethics": 35,
+              "intensity": 42
+            }
           },
           "xph0009": {
-            "moral-realism": 30,
-            "moral-relativism": 20,
-            "error-theory": -50,
-            "expressivism": 10
+            "advocacy": {
+              "moral-realism": 30,
+              "moral-relativism": 20,
+              "error-theory": -50,
+              "expressivism": 10,
+              "intensity": -50
+            },
+            "receptivity": {
+              "moral-realism": 21,
+              "moral-relativism": 14,
+              "error-theory": -35,
+              "expressivism": 7,
+              "intensity": -35
+            }
           },
           "xph0010": {
-            "hedonism": -20,
-            "eudaimonism": 70,
-            "desire-satisfaction": 0,
-            "objective-list": 50
+            "advocacy": {
+              "hedonism": -20,
+              "eudaimonism": 70,
+              "desire-satisfaction": 0,
+              "objective-list": 50,
+              "intensity": 70
+            },
+            "receptivity": {
+              "hedonism": -14,
+              "eudaimonism": 49,
+              "desire-satisfaction": 0,
+              "objective-list": 35,
+              "intensity": 49
+            }
           },
           "xph0011": {
-            "illusionism": -60,
-            "computational-functionalism": -50,
-            "biological-emergence": 30,
-            "panpsychism": 20,
-            "cosmopsychism": 10
+            "advocacy": {
+              "illusionism": -60,
+              "computational-functionalism": -50,
+              "biological-emergence": 30,
+              "panpsychism": 20,
+              "cosmopsychism": 10,
+              "intensity": -60
+            },
+            "receptivity": {
+              "illusionism": -42,
+              "computational-functionalism": -35,
+              "biological-emergence": 21,
+              "panpsychism": 14,
+              "cosmopsychism": 7,
+              "intensity": -42
+            }
           },
           "xph0012": {
-            "camusian-revolt": 30,
-            "kierkegaardian-leap": 20,
-            "sartrean-freedom": 80,
-            "nietzschean-overcoming": 30,
-            "stoic-acceptance": 0,
-            "transhumanist-overcoming": -40
+            "advocacy": {
+              "camusian-revolt": 30,
+              "kierkegaardian-leap": 20,
+              "sartrean-freedom": 80,
+              "nietzschean-overcoming": 30,
+              "stoic-acceptance": 0,
+              "transhumanist-overcoming": -40,
+              "intensity": 80
+            },
+            "receptivity": {
+              "camusian-revolt": 21,
+              "kierkegaardian-leap": 14,
+              "sartrean-freedom": 56,
+              "nietzschean-overcoming": 21,
+              "stoic-acceptance": 0,
+              "transhumanist-overcoming": -28,
+              "intensity": 56
+            }
           }
         },
         "skin": "philoscapades"

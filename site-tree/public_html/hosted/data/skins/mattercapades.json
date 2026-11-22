@@ -3590,129 +3590,354 @@
         "aboutMe": "Dense, reliable, carbon-free: fission is the only proven baseload clean energy, and advanced reactors are its future.",
         "ratings": {
           "xma0001": {
-            "fundamental-physical-mechanism-first": 50,
-            "device-figure-of-merit-first": 50,
-            "mechanism-in-service-of-the-metric": 100
+            "advocacy": {
+              "fundamental-physical-mechanism-first": 50,
+              "device-figure-of-merit-first": 50,
+              "mechanism-in-service-of-the-metric": 100,
+              "intensity": 100
+            },
+            "receptivity": {
+              "fundamental-physical-mechanism-first": 22,
+              "device-figure-of-merit-first": 22,
+              "mechanism-in-service-of-the-metric": 45,
+              "intensity": 45
+            }
           },
           "xma0002": {
-            "rational-computational-design": 50,
-            "edisonian-empirical-synthesis": 40,
-            "design-build-loop": 90
+            "advocacy": {
+              "rational-computational-design": 50,
+              "edisonian-empirical-synthesis": 40,
+              "design-build-loop": 90,
+              "intensity": 90
+            },
+            "receptivity": {
+              "rational-computational-design": 22,
+              "edisonian-empirical-synthesis": 18,
+              "design-build-loop": 40,
+              "intensity": 40
+            }
           },
           "xma0003": {
-            "low-trl-deep-physics-discovery": 30,
-            "high-trl-industrial-scalability": 80,
-            "mid-trl-translation": 50
+            "advocacy": {
+              "low-trl-deep-physics-discovery": 30,
+              "high-trl-industrial-scalability": 80,
+              "mid-trl-translation": 50,
+              "intensity": 80
+            },
+            "receptivity": {
+              "low-trl-deep-physics-discovery": 14,
+              "high-trl-industrial-scalability": 36,
+              "mid-trl-translation": 22,
+              "intensity": 36
+            }
           },
           "xma0004": {
-            "fundamental": 30,
-            "applied": 70,
-            "use-inspired": 60
+            "advocacy": {
+              "fundamental": 30,
+              "applied": 70,
+              "use-inspired": 60,
+              "intensity": 70
+            },
+            "receptivity": {
+              "fundamental": 14,
+              "applied": 32,
+              "use-inspired": 27,
+              "intensity": 32
+            }
           },
           "xma0005": {
-            "condensed-matter-quantum-materials": 40,
-            "optics-photonics-lasers": 20,
-            "plasmas-high-energy-density-physics": 70,
-            "biological-soft-condensed-matter-physics": 10
+            "advocacy": {
+              "condensed-matter-quantum-materials": 40,
+              "optics-photonics-lasers": 20,
+              "plasmas-high-energy-density-physics": 70,
+              "biological-soft-condensed-matter-physics": 10,
+              "intensity": 70
+            },
+            "receptivity": {
+              "condensed-matter-quantum-materials": 18,
+              "optics-photonics-lasers": 9,
+              "plasmas-high-energy-density-physics": 32,
+              "biological-soft-condensed-matter-physics": 4,
+              "intensity": 32
+            }
           },
           "xma0006": {
-            "continue": 60,
-            "plateau": 10,
-            "slowing-not-stopped": 50
+            "advocacy": {
+              "continue": 60,
+              "plateau": 10,
+              "slowing-not-stopped": 50,
+              "intensity": 60
+            },
+            "receptivity": {
+              "continue": 27,
+              "plateau": 4,
+              "slowing-not-stopped": 22,
+              "intensity": 27
+            }
           },
           "xma0007": {
-            "reliability": 85,
-            "performance": 40,
-            "performance-within-reliability-bounds": 55
+            "advocacy": {
+              "reliability": 85,
+              "performance": 40,
+              "performance-within-reliability-bounds": 55,
+              "intensity": 85
+            },
+            "receptivity": {
+              "reliability": 38,
+              "performance": 18,
+              "performance-within-reliability-bounds": 25,
+              "intensity": 38
+            }
           },
           "xma0009": {
-            "near-term-nisq-optimism": 20,
-            "fault-tolerant-error-correction-purism": 60,
-            "nisq-now-fault-tolerance-as-the-goal": 60
+            "advocacy": {
+              "near-term-nisq-optimism": 20,
+              "fault-tolerant-error-correction-purism": 60,
+              "nisq-now-fault-tolerance-as-the-goal": 60,
+              "intensity": 60
+            },
+            "receptivity": {
+              "near-term-nisq-optimism": 9,
+              "fault-tolerant-error-correction-purism": 27,
+              "nisq-now-fault-tolerance-as-the-goal": 27,
+              "intensity": 27
+            }
           },
           "xma0010": {
-            "quantum-sensing-metrology-priority": 40,
-            "quantum-computing-supremacy": 40,
-            "both-races": 100
+            "advocacy": {
+              "quantum-sensing-metrology-priority": 40,
+              "quantum-computing-supremacy": 40,
+              "both-races": 100,
+              "intensity": 100
+            },
+            "receptivity": {
+              "quantum-sensing-metrology-priority": 18,
+              "quantum-computing-supremacy": 18,
+              "both-races": 45,
+              "intensity": 45
+            }
           },
           "xma0011": {
-            "hype": 0,
-            "reality": 70,
-            "cautious-optimism": 30
+            "advocacy": {
+              "hype": 0,
+              "reality": 70,
+              "cautious-optimism": 30,
+              "intensity": 70
+            },
+            "receptivity": {
+              "hype": 0,
+              "reality": 32,
+              "cautious-optimism": 14,
+              "intensity": 32
+            }
           },
           "xma0012": {
-            "fusion": 40,
-            "fission": 90,
-            "renewables": 20
+            "advocacy": {
+              "fusion": 40,
+              "fission": 90,
+              "renewables": 20,
+              "intensity": 90
+            },
+            "receptivity": {
+              "fusion": 18,
+              "fission": 40,
+              "renewables": 9,
+              "intensity": 40
+            }
           },
           "xma0013": {
-            "magnetic-confinement-fusion": 60,
-            "inertial-confinement-fusion": 30,
-            "pursue-both": 70
+            "advocacy": {
+              "magnetic-confinement-fusion": 60,
+              "inertial-confinement-fusion": 30,
+              "pursue-both": 70,
+              "intensity": 70
+            },
+            "receptivity": {
+              "magnetic-confinement-fusion": 27,
+              "inertial-confinement-fusion": 14,
+              "pursue-both": 32,
+              "intensity": 32
+            }
           },
           "xma0014": {
-            "nuclear-fusion-source": 90,
-            "centralized-grid": 70
+            "advocacy": {
+              "nuclear-fusion-source": 90,
+              "centralized-grid": 70,
+              "intensity": 90
+            },
+            "receptivity": {
+              "nuclear-fusion-source": 40,
+              "centralized-grid": 32,
+              "intensity": 40
+            }
           },
           "xma0015": {
-            "short-duration": 30,
-            "long-duration": 70,
-            "layered-durations": 60
+            "advocacy": {
+              "short-duration": 30,
+              "long-duration": 70,
+              "layered-durations": 60,
+              "intensity": 70
+            },
+            "receptivity": {
+              "short-duration": 14,
+              "long-duration": 32,
+              "layered-durations": 27,
+              "intensity": 32
+            }
           },
           "xma0016": {
-            "efficiency": 50,
-            "cost": 60,
-            "efficiency-at-a-price-point": 90
+            "advocacy": {
+              "efficiency": 50,
+              "cost": 60,
+              "efficiency-at-a-price-point": 90,
+              "intensity": 90
+            },
+            "receptivity": {
+              "efficiency": 22,
+              "cost": 27,
+              "efficiency-at-a-price-point": 40,
+              "intensity": 40
+            }
           },
           "xma0017": {
-            "natural": 20,
-            "engineered": 70,
-            "biomimicry": 50
+            "advocacy": {
+              "natural": 20,
+              "engineered": 70,
+              "biomimicry": 50,
+              "intensity": 70
+            },
+            "receptivity": {
+              "natural": 9,
+              "engineered": 32,
+              "biomimicry": 22,
+              "intensity": 32
+            }
           },
           "xma0018": {
-            "revolution": 30,
-            "hype": 50,
-            "useful-not-revolutionary": 80
+            "advocacy": {
+              "revolution": 30,
+              "hype": 50,
+              "useful-not-revolutionary": 80,
+              "intensity": 80
+            },
+            "receptivity": {
+              "revolution": 14,
+              "hype": 22,
+              "useful-not-revolutionary": 36,
+              "intensity": 36
+            }
           },
           "xma0019": {
-            "the-holy-grail-of-room-temperature-superconductors": 30,
-            "pragmatic-high-t-c-engineering": 60,
-            "deploy-now-chase-the-grail": 70
+            "advocacy": {
+              "the-holy-grail-of-room-temperature-superconductors": 30,
+              "pragmatic-high-t-c-engineering": 60,
+              "deploy-now-chase-the-grail": 70,
+              "intensity": 70
+            },
+            "receptivity": {
+              "the-holy-grail-of-room-temperature-superconductors": 14,
+              "pragmatic-high-t-c-engineering": 27,
+              "deploy-now-chase-the-grail": 32,
+              "intensity": 32
+            }
           },
           "xma0020": {
-            "active-electronic-circuits": 50,
-            "passive-geometric-metasurfaces": 30,
-            "hybrid-active-metasurfaces": 80
+            "advocacy": {
+              "active-electronic-circuits": 50,
+              "passive-geometric-metasurfaces": 30,
+              "hybrid-active-metasurfaces": 80,
+              "intensity": 80
+            },
+            "receptivity": {
+              "active-electronic-circuits": 22,
+              "passive-geometric-metasurfaces": 14,
+              "hybrid-active-metasurfaces": 36,
+              "intensity": 36
+            }
           },
           "xma0021": {
-            "top-down-extreme-lithography": 60,
-            "bottom-up-supramolecular-self-assembly": 30,
-            "combined-processes": 70
+            "advocacy": {
+              "top-down-extreme-lithography": 60,
+              "bottom-up-supramolecular-self-assembly": 30,
+              "combined-processes": 70,
+              "intensity": 70
+            },
+            "receptivity": {
+              "top-down-extreme-lithography": 27,
+              "bottom-up-supramolecular-self-assembly": 14,
+              "combined-processes": 32,
+              "intensity": 32
+            }
           },
           "xma0022": {
-            "dimensional-silicon-scaling": 50,
-            "beyond-silicon-heterogeneous-integration": 40,
-            "scale-silicon-integrate-beyond": 90
+            "advocacy": {
+              "dimensional-silicon-scaling": 50,
+              "beyond-silicon-heterogeneous-integration": 40,
+              "scale-silicon-integrate-beyond": 90,
+              "intensity": 90
+            },
+            "receptivity": {
+              "dimensional-silicon-scaling": 22,
+              "beyond-silicon-heterogeneous-integration": 18,
+              "scale-silicon-integrate-beyond": 40,
+              "intensity": 40
+            }
           },
           "xma0026": {
-            "industry": 80,
-            "academia": 20,
-            "straddling-both": 40
+            "advocacy": {
+              "industry": 80,
+              "academia": 20,
+              "straddling-both": 40,
+              "intensity": 80
+            },
+            "receptivity": {
+              "industry": 36,
+              "academia": 9,
+              "straddling-both": 18,
+              "intensity": 36
+            }
           },
           "xma0027": {
-            "proud-applied-physicist": 50,
-            "pragmatic-specialized-engineer": 60,
-            "physicist-engineer": 90
+            "advocacy": {
+              "proud-applied-physicist": 50,
+              "pragmatic-specialized-engineer": 60,
+              "physicist-engineer": 90,
+              "intensity": 90
+            },
+            "receptivity": {
+              "proud-applied-physicist": 22,
+              "pragmatic-specialized-engineer": 27,
+              "physicist-engineer": 40,
+              "intensity": 40
+            }
           },
           "xma0028": {
-            "commercial-patents-spin-out-startups": 60,
-            "open-academic-publishing": 30,
-            "patent-then-publish": 70
+            "advocacy": {
+              "commercial-patents-spin-out-startups": 60,
+              "open-academic-publishing": 30,
+              "patent-then-publish": 70,
+              "intensity": 70
+            },
+            "receptivity": {
+              "commercial-patents-spin-out-startups": 27,
+              "open-academic-publishing": 14,
+              "patent-then-publish": 32,
+              "intensity": 32
+            }
           },
           "xma0029": {
-            "product": 70,
-            "prototype": 50,
-            "paper": 20
+            "advocacy": {
+              "product": 70,
+              "prototype": 50,
+              "paper": 20,
+              "intensity": 70
+            },
+            "receptivity": {
+              "product": 32,
+              "prototype": 22,
+              "paper": 9,
+              "intensity": 32
+            }
           }
         },
         "skin": "mattercapades"
@@ -3743,129 +3968,354 @@
         "aboutMe": "Sun, wind, and storage: distributed solid-state energy is already winning on cost, and storage makes it baseload.",
         "ratings": {
           "xma0001": {
-            "fundamental-physical-mechanism-first": 30,
-            "device-figure-of-merit-first": 70,
-            "mechanism-in-service-of-the-metric": 60
+            "advocacy": {
+              "fundamental-physical-mechanism-first": 30,
+              "device-figure-of-merit-first": 70,
+              "mechanism-in-service-of-the-metric": 60,
+              "intensity": 70
+            },
+            "receptivity": {
+              "fundamental-physical-mechanism-first": 14,
+              "device-figure-of-merit-first": 32,
+              "mechanism-in-service-of-the-metric": 27,
+              "intensity": 32
+            }
           },
           "xma0002": {
-            "rational-computational-design": 60,
-            "edisonian-empirical-synthesis": 30,
-            "design-build-loop": 70
+            "advocacy": {
+              "rational-computational-design": 60,
+              "edisonian-empirical-synthesis": 30,
+              "design-build-loop": 70,
+              "intensity": 70
+            },
+            "receptivity": {
+              "rational-computational-design": 27,
+              "edisonian-empirical-synthesis": 14,
+              "design-build-loop": 32,
+              "intensity": 32
+            }
           },
           "xma0003": {
-            "low-trl-deep-physics-discovery": 10,
-            "high-trl-industrial-scalability": 90,
-            "mid-trl-translation": 20
+            "advocacy": {
+              "low-trl-deep-physics-discovery": 10,
+              "high-trl-industrial-scalability": 90,
+              "mid-trl-translation": 20,
+              "intensity": 90
+            },
+            "receptivity": {
+              "low-trl-deep-physics-discovery": 4,
+              "high-trl-industrial-scalability": 40,
+              "mid-trl-translation": 9,
+              "intensity": 40
+            }
           },
           "xma0004": {
-            "fundamental": 20,
-            "applied": 85,
-            "use-inspired": 35
+            "advocacy": {
+              "fundamental": 20,
+              "applied": 85,
+              "use-inspired": 35,
+              "intensity": 85
+            },
+            "receptivity": {
+              "fundamental": 9,
+              "applied": 38,
+              "use-inspired": 16,
+              "intensity": 38
+            }
           },
           "xma0005": {
-            "condensed-matter-quantum-materials": 60,
-            "optics-photonics-lasers": 50,
-            "plasmas-high-energy-density-physics": 0,
-            "biological-soft-condensed-matter-physics": 20
+            "advocacy": {
+              "condensed-matter-quantum-materials": 60,
+              "optics-photonics-lasers": 50,
+              "plasmas-high-energy-density-physics": 0,
+              "biological-soft-condensed-matter-physics": 20,
+              "intensity": 60
+            },
+            "receptivity": {
+              "condensed-matter-quantum-materials": 27,
+              "optics-photonics-lasers": 22,
+              "plasmas-high-energy-density-physics": 0,
+              "biological-soft-condensed-matter-physics": 9,
+              "intensity": 27
+            }
           },
           "xma0006": {
-            "continue": 70,
-            "plateau": 0,
-            "slowing-not-stopped": 30
+            "advocacy": {
+              "continue": 70,
+              "plateau": 0,
+              "slowing-not-stopped": 30,
+              "intensity": 70
+            },
+            "receptivity": {
+              "continue": 32,
+              "plateau": 0,
+              "slowing-not-stopped": 14,
+              "intensity": 32
+            }
           },
           "xma0007": {
-            "reliability": 70,
-            "performance": 50,
-            "performance-within-reliability-bounds": 80
+            "advocacy": {
+              "reliability": 70,
+              "performance": 50,
+              "performance-within-reliability-bounds": 80,
+              "intensity": 80
+            },
+            "receptivity": {
+              "reliability": 32,
+              "performance": 22,
+              "performance-within-reliability-bounds": 36,
+              "intensity": 36
+            }
           },
           "xma0009": {
-            "near-term-nisq-optimism": 30,
-            "fault-tolerant-error-correction-purism": 40,
-            "nisq-now-fault-tolerance-as-the-goal": 90
+            "advocacy": {
+              "near-term-nisq-optimism": 30,
+              "fault-tolerant-error-correction-purism": 40,
+              "nisq-now-fault-tolerance-as-the-goal": 90,
+              "intensity": 90
+            },
+            "receptivity": {
+              "near-term-nisq-optimism": 14,
+              "fault-tolerant-error-correction-purism": 18,
+              "nisq-now-fault-tolerance-as-the-goal": 40,
+              "intensity": 40
+            }
           },
           "xma0010": {
-            "quantum-sensing-metrology-priority": 50,
-            "quantum-computing-supremacy": 20,
-            "both-races": 70
+            "advocacy": {
+              "quantum-sensing-metrology-priority": 50,
+              "quantum-computing-supremacy": 20,
+              "both-races": 70,
+              "intensity": 70
+            },
+            "receptivity": {
+              "quantum-sensing-metrology-priority": 22,
+              "quantum-computing-supremacy": 9,
+              "both-races": 32,
+              "intensity": 32
+            }
           },
           "xma0011": {
-            "hype": 10,
-            "reality": 60,
-            "cautious-optimism": 50
+            "advocacy": {
+              "hype": 10,
+              "reality": 60,
+              "cautious-optimism": 50,
+              "intensity": 60
+            },
+            "receptivity": {
+              "hype": 4,
+              "reality": 27,
+              "cautious-optimism": 22,
+              "intensity": 27
+            }
           },
           "xma0012": {
-            "fusion": 20,
-            "fission": -50,
-            "renewables": 95
+            "advocacy": {
+              "fusion": 20,
+              "fission": -50,
+              "renewables": 95,
+              "intensity": 95
+            },
+            "receptivity": {
+              "fusion": 9,
+              "fission": -22,
+              "renewables": 43,
+              "intensity": 43
+            }
           },
           "xma0013": {
-            "magnetic-confinement-fusion": 30,
-            "inertial-confinement-fusion": 20,
-            "pursue-both": 90
+            "advocacy": {
+              "magnetic-confinement-fusion": 30,
+              "inertial-confinement-fusion": 20,
+              "pursue-both": 90,
+              "intensity": 90
+            },
+            "receptivity": {
+              "magnetic-confinement-fusion": 14,
+              "inertial-confinement-fusion": 9,
+              "pursue-both": 40,
+              "intensity": 40
+            }
           },
           "xma0014": {
-            "nuclear-fusion-source": -75,
-            "centralized-grid": -75
+            "advocacy": {
+              "nuclear-fusion-source": -75,
+              "centralized-grid": -75,
+              "intensity": -75
+            },
+            "receptivity": {
+              "nuclear-fusion-source": -34,
+              "centralized-grid": -34,
+              "intensity": -34
+            }
           },
           "xma0015": {
-            "short-duration": 50,
-            "long-duration": 80,
-            "layered-durations": 70
+            "advocacy": {
+              "short-duration": 50,
+              "long-duration": 80,
+              "layered-durations": 70,
+              "intensity": 80
+            },
+            "receptivity": {
+              "short-duration": 22,
+              "long-duration": 36,
+              "layered-durations": 32,
+              "intensity": 36
+            }
           },
           "xma0016": {
-            "efficiency": 60,
-            "cost": 80,
-            "efficiency-at-a-price-point": 80
+            "advocacy": {
+              "efficiency": 60,
+              "cost": 80,
+              "efficiency-at-a-price-point": 80,
+              "intensity": 80
+            },
+            "receptivity": {
+              "efficiency": 27,
+              "cost": 36,
+              "efficiency-at-a-price-point": 36,
+              "intensity": 36
+            }
           },
           "xma0017": {
-            "natural": 40,
-            "engineered": 60,
-            "biomimicry": 80
+            "advocacy": {
+              "natural": 40,
+              "engineered": 60,
+              "biomimicry": 80,
+              "intensity": 80
+            },
+            "receptivity": {
+              "natural": 18,
+              "engineered": 27,
+              "biomimicry": 36,
+              "intensity": 36
+            }
           },
           "xma0018": {
-            "revolution": 60,
-            "hype": 20,
-            "useful-not-revolutionary": 60
+            "advocacy": {
+              "revolution": 60,
+              "hype": 20,
+              "useful-not-revolutionary": 60,
+              "intensity": 60
+            },
+            "receptivity": {
+              "revolution": 27,
+              "hype": 9,
+              "useful-not-revolutionary": 27,
+              "intensity": 27
+            }
           },
           "xma0019": {
-            "the-holy-grail-of-room-temperature-superconductors": 20,
-            "pragmatic-high-t-c-engineering": 50,
-            "deploy-now-chase-the-grail": 70
+            "advocacy": {
+              "the-holy-grail-of-room-temperature-superconductors": 20,
+              "pragmatic-high-t-c-engineering": 50,
+              "deploy-now-chase-the-grail": 70,
+              "intensity": 70
+            },
+            "receptivity": {
+              "the-holy-grail-of-room-temperature-superconductors": 9,
+              "pragmatic-high-t-c-engineering": 22,
+              "deploy-now-chase-the-grail": 32,
+              "intensity": 32
+            }
           },
           "xma0020": {
-            "active-electronic-circuits": 60,
-            "passive-geometric-metasurfaces": 40,
-            "hybrid-active-metasurfaces": 80
+            "advocacy": {
+              "active-electronic-circuits": 60,
+              "passive-geometric-metasurfaces": 40,
+              "hybrid-active-metasurfaces": 80,
+              "intensity": 80
+            },
+            "receptivity": {
+              "active-electronic-circuits": 27,
+              "passive-geometric-metasurfaces": 18,
+              "hybrid-active-metasurfaces": 36,
+              "intensity": 36
+            }
           },
           "xma0021": {
-            "top-down-extreme-lithography": 50,
-            "bottom-up-supramolecular-self-assembly": 50,
-            "combined-processes": 100
+            "advocacy": {
+              "top-down-extreme-lithography": 50,
+              "bottom-up-supramolecular-self-assembly": 50,
+              "combined-processes": 100,
+              "intensity": 100
+            },
+            "receptivity": {
+              "top-down-extreme-lithography": 22,
+              "bottom-up-supramolecular-self-assembly": 22,
+              "combined-processes": 45,
+              "intensity": 45
+            }
           },
           "xma0022": {
-            "dimensional-silicon-scaling": 40,
-            "beyond-silicon-heterogeneous-integration": 70,
-            "scale-silicon-integrate-beyond": 70
+            "advocacy": {
+              "dimensional-silicon-scaling": 40,
+              "beyond-silicon-heterogeneous-integration": 70,
+              "scale-silicon-integrate-beyond": 70,
+              "intensity": 70
+            },
+            "receptivity": {
+              "dimensional-silicon-scaling": 18,
+              "beyond-silicon-heterogeneous-integration": 32,
+              "scale-silicon-integrate-beyond": 32,
+              "intensity": 32
+            }
           },
           "xma0026": {
-            "industry": 70,
-            "academia": 30,
-            "straddling-both": 60
+            "advocacy": {
+              "industry": 70,
+              "academia": 30,
+              "straddling-both": 60,
+              "intensity": 70
+            },
+            "receptivity": {
+              "industry": 32,
+              "academia": 14,
+              "straddling-both": 27,
+              "intensity": 32
+            }
           },
           "xma0027": {
-            "proud-applied-physicist": 40,
-            "pragmatic-specialized-engineer": 70,
-            "physicist-engineer": 70
+            "advocacy": {
+              "proud-applied-physicist": 40,
+              "pragmatic-specialized-engineer": 70,
+              "physicist-engineer": 70,
+              "intensity": 70
+            },
+            "receptivity": {
+              "proud-applied-physicist": 18,
+              "pragmatic-specialized-engineer": 32,
+              "physicist-engineer": 32,
+              "intensity": 32
+            }
           },
           "xma0028": {
-            "commercial-patents-spin-out-startups": 50,
-            "open-academic-publishing": 50,
-            "patent-then-publish": 100
+            "advocacy": {
+              "commercial-patents-spin-out-startups": 50,
+              "open-academic-publishing": 50,
+              "patent-then-publish": 100,
+              "intensity": 100
+            },
+            "receptivity": {
+              "commercial-patents-spin-out-startups": 22,
+              "open-academic-publishing": 22,
+              "patent-then-publish": 45,
+              "intensity": 45
+            }
           },
           "xma0029": {
-            "product": 80,
-            "prototype": 50,
-            "paper": 10
+            "advocacy": {
+              "product": 80,
+              "prototype": 50,
+              "paper": 10,
+              "intensity": 80
+            },
+            "receptivity": {
+              "product": 36,
+              "prototype": 22,
+              "paper": 4,
+              "intensity": 36
+            }
           }
         },
         "skin": "mattercapades"
@@ -3892,129 +4342,354 @@
         "aboutMe": "Fusion is the endgame: limitless fuel, no long-lived waste, and magnetic confinement is finally within reach.",
         "ratings": {
           "xma0001": {
-            "fundamental-physical-mechanism-first": 70,
-            "device-figure-of-merit-first": 40,
-            "mechanism-in-service-of-the-metric": 70
+            "advocacy": {
+              "fundamental-physical-mechanism-first": 70,
+              "device-figure-of-merit-first": 40,
+              "mechanism-in-service-of-the-metric": 70,
+              "intensity": 70
+            },
+            "receptivity": {
+              "fundamental-physical-mechanism-first": 38,
+              "device-figure-of-merit-first": 22,
+              "mechanism-in-service-of-the-metric": 38,
+              "intensity": 38
+            }
           },
           "xma0002": {
-            "rational-computational-design": 70,
-            "edisonian-empirical-synthesis": 30,
-            "design-build-loop": 60
+            "advocacy": {
+              "rational-computational-design": 70,
+              "edisonian-empirical-synthesis": 30,
+              "design-build-loop": 60,
+              "intensity": 70
+            },
+            "receptivity": {
+              "rational-computational-design": 38,
+              "edisonian-empirical-synthesis": 16,
+              "design-build-loop": 33,
+              "intensity": 38
+            }
           },
           "xma0003": {
-            "low-trl-deep-physics-discovery": 70,
-            "high-trl-industrial-scalability": 40,
-            "mid-trl-translation": 70
+            "advocacy": {
+              "low-trl-deep-physics-discovery": 70,
+              "high-trl-industrial-scalability": 40,
+              "mid-trl-translation": 70,
+              "intensity": 70
+            },
+            "receptivity": {
+              "low-trl-deep-physics-discovery": 38,
+              "high-trl-industrial-scalability": 22,
+              "mid-trl-translation": 38,
+              "intensity": 38
+            }
           },
           "xma0004": {
-            "fundamental": 60,
-            "applied": 40,
-            "use-inspired": 80
+            "advocacy": {
+              "fundamental": 60,
+              "applied": 40,
+              "use-inspired": 80,
+              "intensity": 80
+            },
+            "receptivity": {
+              "fundamental": 33,
+              "applied": 22,
+              "use-inspired": 44,
+              "intensity": 44
+            }
           },
           "xma0005": {
-            "condensed-matter-quantum-materials": 50,
-            "optics-photonics-lasers": 40,
-            "plasmas-high-energy-density-physics": 90,
-            "biological-soft-condensed-matter-physics": 0
+            "advocacy": {
+              "condensed-matter-quantum-materials": 50,
+              "optics-photonics-lasers": 40,
+              "plasmas-high-energy-density-physics": 90,
+              "biological-soft-condensed-matter-physics": 0,
+              "intensity": 90
+            },
+            "receptivity": {
+              "condensed-matter-quantum-materials": 28,
+              "optics-photonics-lasers": 22,
+              "plasmas-high-energy-density-physics": 50,
+              "biological-soft-condensed-matter-physics": 0,
+              "intensity": 50
+            }
           },
           "xma0006": {
-            "continue": 60,
-            "plateau": 20,
-            "slowing-not-stopped": 60
+            "advocacy": {
+              "continue": 60,
+              "plateau": 20,
+              "slowing-not-stopped": 60,
+              "intensity": 60
+            },
+            "receptivity": {
+              "continue": 33,
+              "plateau": 11,
+              "slowing-not-stopped": 33,
+              "intensity": 33
+            }
           },
           "xma0007": {
-            "reliability": 50,
-            "performance": 80,
-            "performance-within-reliability-bounds": 70
+            "advocacy": {
+              "reliability": 50,
+              "performance": 80,
+              "performance-within-reliability-bounds": 70,
+              "intensity": 80
+            },
+            "receptivity": {
+              "reliability": 28,
+              "performance": 44,
+              "performance-within-reliability-bounds": 38,
+              "intensity": 44
+            }
           },
           "xma0009": {
-            "near-term-nisq-optimism": 30,
-            "fault-tolerant-error-correction-purism": 50,
-            "nisq-now-fault-tolerance-as-the-goal": 80
+            "advocacy": {
+              "near-term-nisq-optimism": 30,
+              "fault-tolerant-error-correction-purism": 50,
+              "nisq-now-fault-tolerance-as-the-goal": 80,
+              "intensity": 80
+            },
+            "receptivity": {
+              "near-term-nisq-optimism": 16,
+              "fault-tolerant-error-correction-purism": 28,
+              "nisq-now-fault-tolerance-as-the-goal": 44,
+              "intensity": 44
+            }
           },
           "xma0010": {
-            "quantum-sensing-metrology-priority": 30,
-            "quantum-computing-supremacy": 50,
-            "both-races": 80
+            "advocacy": {
+              "quantum-sensing-metrology-priority": 30,
+              "quantum-computing-supremacy": 50,
+              "both-races": 80,
+              "intensity": 80
+            },
+            "receptivity": {
+              "quantum-sensing-metrology-priority": 16,
+              "quantum-computing-supremacy": 28,
+              "both-races": 44,
+              "intensity": 44
+            }
           },
           "xma0011": {
-            "hype": -20,
-            "reality": 60,
-            "cautious-optimism": 20
+            "advocacy": {
+              "hype": -20,
+              "reality": 60,
+              "cautious-optimism": 20,
+              "intensity": 60
+            },
+            "receptivity": {
+              "hype": -11,
+              "reality": 33,
+              "cautious-optimism": 11,
+              "intensity": 33
+            }
           },
           "xma0012": {
-            "fusion": 95,
-            "fission": 40,
-            "renewables": 40
+            "advocacy": {
+              "fusion": 95,
+              "fission": 40,
+              "renewables": 40,
+              "intensity": 95
+            },
+            "receptivity": {
+              "fusion": 52,
+              "fission": 22,
+              "renewables": 22,
+              "intensity": 52
+            }
           },
           "xma0013": {
-            "magnetic-confinement-fusion": 85,
-            "inertial-confinement-fusion": 40,
-            "pursue-both": 55
+            "advocacy": {
+              "magnetic-confinement-fusion": 85,
+              "inertial-confinement-fusion": 40,
+              "pursue-both": 55,
+              "intensity": 85
+            },
+            "receptivity": {
+              "magnetic-confinement-fusion": 47,
+              "inertial-confinement-fusion": 22,
+              "pursue-both": 30,
+              "intensity": 47
+            }
           },
           "xma0014": {
-            "nuclear-fusion-source": 90,
-            "centralized-grid": 75
+            "advocacy": {
+              "nuclear-fusion-source": 90,
+              "centralized-grid": 75,
+              "intensity": 90
+            },
+            "receptivity": {
+              "nuclear-fusion-source": 50,
+              "centralized-grid": 41,
+              "intensity": 50
+            }
           },
           "xma0015": {
-            "short-duration": 20,
-            "long-duration": 80,
-            "layered-durations": 40
+            "advocacy": {
+              "short-duration": 20,
+              "long-duration": 80,
+              "layered-durations": 40,
+              "intensity": 80
+            },
+            "receptivity": {
+              "short-duration": 11,
+              "long-duration": 44,
+              "layered-durations": 22,
+              "intensity": 44
+            }
           },
           "xma0016": {
-            "efficiency": 70,
-            "cost": 30,
-            "efficiency-at-a-price-point": 60
+            "advocacy": {
+              "efficiency": 70,
+              "cost": 30,
+              "efficiency-at-a-price-point": 60,
+              "intensity": 70
+            },
+            "receptivity": {
+              "efficiency": 38,
+              "cost": 16,
+              "efficiency-at-a-price-point": 33,
+              "intensity": 38
+            }
           },
           "xma0017": {
-            "natural": 10,
-            "engineered": 80,
-            "biomimicry": 30
+            "advocacy": {
+              "natural": 10,
+              "engineered": 80,
+              "biomimicry": 30,
+              "intensity": 80
+            },
+            "receptivity": {
+              "natural": 6,
+              "engineered": 44,
+              "biomimicry": 16,
+              "intensity": 44
+            }
           },
           "xma0018": {
-            "revolution": 70,
-            "hype": 10,
-            "useful-not-revolutionary": 40
+            "advocacy": {
+              "revolution": 70,
+              "hype": 10,
+              "useful-not-revolutionary": 40,
+              "intensity": 70
+            },
+            "receptivity": {
+              "revolution": 38,
+              "hype": 6,
+              "useful-not-revolutionary": 22,
+              "intensity": 38
+            }
           },
           "xma0019": {
-            "the-holy-grail-of-room-temperature-superconductors": 60,
-            "pragmatic-high-t-c-engineering": 40,
-            "deploy-now-chase-the-grail": 80
+            "advocacy": {
+              "the-holy-grail-of-room-temperature-superconductors": 60,
+              "pragmatic-high-t-c-engineering": 40,
+              "deploy-now-chase-the-grail": 80,
+              "intensity": 80
+            },
+            "receptivity": {
+              "the-holy-grail-of-room-temperature-superconductors": 33,
+              "pragmatic-high-t-c-engineering": 22,
+              "deploy-now-chase-the-grail": 44,
+              "intensity": 44
+            }
           },
           "xma0020": {
-            "active-electronic-circuits": 60,
-            "passive-geometric-metasurfaces": 40,
-            "hybrid-active-metasurfaces": 80
+            "advocacy": {
+              "active-electronic-circuits": 60,
+              "passive-geometric-metasurfaces": 40,
+              "hybrid-active-metasurfaces": 80,
+              "intensity": 80
+            },
+            "receptivity": {
+              "active-electronic-circuits": 33,
+              "passive-geometric-metasurfaces": 22,
+              "hybrid-active-metasurfaces": 44,
+              "intensity": 44
+            }
           },
           "xma0021": {
-            "top-down-extreme-lithography": 50,
-            "bottom-up-supramolecular-self-assembly": 40,
-            "combined-processes": 90
+            "advocacy": {
+              "top-down-extreme-lithography": 50,
+              "bottom-up-supramolecular-self-assembly": 40,
+              "combined-processes": 90,
+              "intensity": 90
+            },
+            "receptivity": {
+              "top-down-extreme-lithography": 28,
+              "bottom-up-supramolecular-self-assembly": 22,
+              "combined-processes": 50,
+              "intensity": 50
+            }
           },
           "xma0022": {
-            "dimensional-silicon-scaling": 40,
-            "beyond-silicon-heterogeneous-integration": 60,
-            "scale-silicon-integrate-beyond": 80
+            "advocacy": {
+              "dimensional-silicon-scaling": 40,
+              "beyond-silicon-heterogeneous-integration": 60,
+              "scale-silicon-integrate-beyond": 80,
+              "intensity": 80
+            },
+            "receptivity": {
+              "dimensional-silicon-scaling": 22,
+              "beyond-silicon-heterogeneous-integration": 33,
+              "scale-silicon-integrate-beyond": 44,
+              "intensity": 44
+            }
           },
           "xma0026": {
-            "industry": 50,
-            "academia": 60,
-            "straddling-both": 90
+            "advocacy": {
+              "industry": 50,
+              "academia": 60,
+              "straddling-both": 90,
+              "intensity": 90
+            },
+            "receptivity": {
+              "industry": 28,
+              "academia": 33,
+              "straddling-both": 50,
+              "intensity": 50
+            }
           },
           "xma0027": {
-            "proud-applied-physicist": 80,
-            "pragmatic-specialized-engineer": 30,
-            "physicist-engineer": 50
+            "advocacy": {
+              "proud-applied-physicist": 80,
+              "pragmatic-specialized-engineer": 30,
+              "physicist-engineer": 50,
+              "intensity": 80
+            },
+            "receptivity": {
+              "proud-applied-physicist": 44,
+              "pragmatic-specialized-engineer": 16,
+              "physicist-engineer": 28,
+              "intensity": 44
+            }
           },
           "xma0028": {
-            "commercial-patents-spin-out-startups": 40,
-            "open-academic-publishing": 60,
-            "patent-then-publish": 80
+            "advocacy": {
+              "commercial-patents-spin-out-startups": 40,
+              "open-academic-publishing": 60,
+              "patent-then-publish": 80,
+              "intensity": 80
+            },
+            "receptivity": {
+              "commercial-patents-spin-out-startups": 22,
+              "open-academic-publishing": 33,
+              "patent-then-publish": 44,
+              "intensity": 44
+            }
           },
           "xma0029": {
-            "product": 40,
-            "prototype": 70,
-            "paper": 50
+            "advocacy": {
+              "product": 40,
+              "prototype": 70,
+              "paper": 50,
+              "intensity": 70
+            },
+            "receptivity": {
+              "product": 22,
+              "prototype": 38,
+              "paper": 28,
+              "intensity": 38
+            }
           }
         },
         "skin": "mattercapades"
@@ -4041,130 +4716,356 @@
         "aboutMe": "Quantum is the next platform: error-corrected machines and quantum sensors will do what classical physics cannot.",
         "ratings": {
           "xma0001": {
-            "fundamental-physical-mechanism-first": 80,
-            "device-figure-of-merit-first": 50,
-            "mechanism-in-service-of-the-metric": 70
+            "advocacy": {
+              "fundamental-physical-mechanism-first": 80,
+              "device-figure-of-merit-first": 50,
+              "mechanism-in-service-of-the-metric": 70,
+              "intensity": 80
+            },
+            "receptivity": {
+              "fundamental-physical-mechanism-first": 44,
+              "device-figure-of-merit-first": 28,
+              "mechanism-in-service-of-the-metric": 38,
+              "intensity": 44
+            }
           },
           "xma0002": {
-            "rational-computational-design": 80,
-            "edisonian-empirical-synthesis": 20,
-            "design-build-loop": 40
+            "advocacy": {
+              "rational-computational-design": 80,
+              "edisonian-empirical-synthesis": 20,
+              "design-build-loop": 40,
+              "intensity": 80
+            },
+            "receptivity": {
+              "rational-computational-design": 44,
+              "edisonian-empirical-synthesis": 11,
+              "design-build-loop": 22,
+              "intensity": 44
+            }
           },
           "xma0003": {
-            "low-trl-deep-physics-discovery": 80,
-            "high-trl-industrial-scalability": 30,
-            "mid-trl-translation": 50
+            "advocacy": {
+              "low-trl-deep-physics-discovery": 80,
+              "high-trl-industrial-scalability": 30,
+              "mid-trl-translation": 50,
+              "intensity": 80
+            },
+            "receptivity": {
+              "low-trl-deep-physics-discovery": 44,
+              "high-trl-industrial-scalability": 16,
+              "mid-trl-translation": 28,
+              "intensity": 44
+            }
           },
           "xma0004": {
-            "fundamental": 70,
-            "applied": 40,
-            "use-inspired": 70
+            "advocacy": {
+              "fundamental": 70,
+              "applied": 40,
+              "use-inspired": 70,
+              "intensity": 70
+            },
+            "receptivity": {
+              "fundamental": 38,
+              "applied": 22,
+              "use-inspired": 38,
+              "intensity": 38
+            }
           },
           "xma0005": {
-            "condensed-matter-quantum-materials": 90,
-            "optics-photonics-lasers": 60,
-            "plasmas-high-energy-density-physics": 20,
-            "biological-soft-condensed-matter-physics": 10
+            "advocacy": {
+              "condensed-matter-quantum-materials": 90,
+              "optics-photonics-lasers": 60,
+              "plasmas-high-energy-density-physics": 20,
+              "biological-soft-condensed-matter-physics": 10,
+              "intensity": 90
+            },
+            "receptivity": {
+              "condensed-matter-quantum-materials": 50,
+              "optics-photonics-lasers": 33,
+              "plasmas-high-energy-density-physics": 11,
+              "biological-soft-condensed-matter-physics": 6,
+              "intensity": 50
+            }
           },
           "xma0006": {
-            "continue": 80,
-            "plateau": -20,
-            "slowing-not-stopped": 0
+            "advocacy": {
+              "continue": 80,
+              "plateau": -20,
+              "slowing-not-stopped": 0,
+              "intensity": 80
+            },
+            "receptivity": {
+              "continue": 44,
+              "plateau": -11,
+              "slowing-not-stopped": 0,
+              "intensity": 44
+            }
           },
           "xma0007": {
-            "reliability": 40,
-            "performance": 85,
-            "performance-within-reliability-bounds": 55
+            "advocacy": {
+              "reliability": 40,
+              "performance": 85,
+              "performance-within-reliability-bounds": 55,
+              "intensity": 85
+            },
+            "receptivity": {
+              "reliability": 22,
+              "performance": 47,
+              "performance-within-reliability-bounds": 30,
+              "intensity": 47
+            }
           },
           "xma0008": {
-            "superconducting-transmons": 70,
-            "trapped-ions-neutral-atom-arrays": 60,
-            "photonic-quantum-information": 50,
-            "topological-qubits": 60
+            "advocacy": {
+              "superconducting-transmons": 70,
+              "trapped-ions-neutral-atom-arrays": 60,
+              "photonic-quantum-information": 50,
+              "topological-qubits": 60,
+              "intensity": 70
+            },
+            "receptivity": {
+              "superconducting-transmons": 38,
+              "trapped-ions-neutral-atom-arrays": 33,
+              "photonic-quantum-information": 28,
+              "topological-qubits": 33,
+              "intensity": 38
+            }
           },
           "xma0009": {
-            "near-term-nisq-optimism": 40,
-            "fault-tolerant-error-correction-purism": 85,
-            "nisq-now-fault-tolerance-as-the-goal": 55
+            "advocacy": {
+              "near-term-nisq-optimism": 40,
+              "fault-tolerant-error-correction-purism": 85,
+              "nisq-now-fault-tolerance-as-the-goal": 55,
+              "intensity": 85
+            },
+            "receptivity": {
+              "near-term-nisq-optimism": 22,
+              "fault-tolerant-error-correction-purism": 47,
+              "nisq-now-fault-tolerance-as-the-goal": 30,
+              "intensity": 47
+            }
           },
           "xma0010": {
-            "quantum-sensing-metrology-priority": 60,
-            "quantum-computing-supremacy": 80,
-            "both-races": 80
+            "advocacy": {
+              "quantum-sensing-metrology-priority": 60,
+              "quantum-computing-supremacy": 80,
+              "both-races": 80,
+              "intensity": 80
+            },
+            "receptivity": {
+              "quantum-sensing-metrology-priority": 33,
+              "quantum-computing-supremacy": 44,
+              "both-races": 44,
+              "intensity": 44
+            }
           },
           "xma0011": {
-            "hype": -40,
-            "reality": 80,
-            "cautious-optimism": -20
+            "advocacy": {
+              "hype": -40,
+              "reality": 80,
+              "cautious-optimism": -20,
+              "intensity": 80
+            },
+            "receptivity": {
+              "hype": -22,
+              "reality": 44,
+              "cautious-optimism": -11,
+              "intensity": 44
+            }
           },
           "xma0012": {
-            "fusion": 30,
-            "fission": 20,
-            "renewables": 30
+            "advocacy": {
+              "fusion": 30,
+              "fission": 20,
+              "renewables": 30,
+              "intensity": 30
+            },
+            "receptivity": {
+              "fusion": 16,
+              "fission": 11,
+              "renewables": 16,
+              "intensity": 16
+            }
           },
           "xma0014": {
-            "nuclear-fusion-source": -10,
-            "centralized-grid": -20
+            "advocacy": {
+              "nuclear-fusion-source": -10,
+              "centralized-grid": -20,
+              "intensity": -20
+            },
+            "receptivity": {
+              "nuclear-fusion-source": -6,
+              "centralized-grid": -11,
+              "intensity": -11
+            }
           },
           "xma0015": {
-            "short-duration": 40,
-            "long-duration": 40,
-            "layered-durations": 100
+            "advocacy": {
+              "short-duration": 40,
+              "long-duration": 40,
+              "layered-durations": 100,
+              "intensity": 100
+            },
+            "receptivity": {
+              "short-duration": 22,
+              "long-duration": 22,
+              "layered-durations": 55,
+              "intensity": 55
+            }
           },
           "xma0016": {
-            "efficiency": 70,
-            "cost": 20,
-            "efficiency-at-a-price-point": 50
+            "advocacy": {
+              "efficiency": 70,
+              "cost": 20,
+              "efficiency-at-a-price-point": 50,
+              "intensity": 70
+            },
+            "receptivity": {
+              "efficiency": 38,
+              "cost": 11,
+              "efficiency-at-a-price-point": 28,
+              "intensity": 38
+            }
           },
           "xma0017": {
-            "natural": 10,
-            "engineered": 85,
-            "biomimicry": 25
+            "advocacy": {
+              "natural": 10,
+              "engineered": 85,
+              "biomimicry": 25,
+              "intensity": 85
+            },
+            "receptivity": {
+              "natural": 6,
+              "engineered": 47,
+              "biomimicry": 14,
+              "intensity": 47
+            }
           },
           "xma0018": {
-            "revolution": 80,
-            "hype": -20,
-            "useful-not-revolutionary": 0
+            "advocacy": {
+              "revolution": 80,
+              "hype": -20,
+              "useful-not-revolutionary": 0,
+              "intensity": 80
+            },
+            "receptivity": {
+              "revolution": 44,
+              "hype": -11,
+              "useful-not-revolutionary": 0,
+              "intensity": 44
+            }
           },
           "xma0019": {
-            "the-holy-grail-of-room-temperature-superconductors": 70,
-            "pragmatic-high-t-c-engineering": 40,
-            "deploy-now-chase-the-grail": 70
+            "advocacy": {
+              "the-holy-grail-of-room-temperature-superconductors": 70,
+              "pragmatic-high-t-c-engineering": 40,
+              "deploy-now-chase-the-grail": 70,
+              "intensity": 70
+            },
+            "receptivity": {
+              "the-holy-grail-of-room-temperature-superconductors": 38,
+              "pragmatic-high-t-c-engineering": 22,
+              "deploy-now-chase-the-grail": 38,
+              "intensity": 38
+            }
           },
           "xma0020": {
-            "active-electronic-circuits": 70,
-            "passive-geometric-metasurfaces": 50,
-            "hybrid-active-metasurfaces": 80
+            "advocacy": {
+              "active-electronic-circuits": 70,
+              "passive-geometric-metasurfaces": 50,
+              "hybrid-active-metasurfaces": 80,
+              "intensity": 80
+            },
+            "receptivity": {
+              "active-electronic-circuits": 38,
+              "passive-geometric-metasurfaces": 28,
+              "hybrid-active-metasurfaces": 44,
+              "intensity": 44
+            }
           },
           "xma0021": {
-            "top-down-extreme-lithography": 70,
-            "bottom-up-supramolecular-self-assembly": 50,
-            "combined-processes": 80
+            "advocacy": {
+              "top-down-extreme-lithography": 70,
+              "bottom-up-supramolecular-self-assembly": 50,
+              "combined-processes": 80,
+              "intensity": 80
+            },
+            "receptivity": {
+              "top-down-extreme-lithography": 38,
+              "bottom-up-supramolecular-self-assembly": 28,
+              "combined-processes": 44,
+              "intensity": 44
+            }
           },
           "xma0022": {
-            "dimensional-silicon-scaling": 20,
-            "beyond-silicon-heterogeneous-integration": 90,
-            "scale-silicon-integrate-beyond": 30
+            "advocacy": {
+              "dimensional-silicon-scaling": 20,
+              "beyond-silicon-heterogeneous-integration": 90,
+              "scale-silicon-integrate-beyond": 30,
+              "intensity": 90
+            },
+            "receptivity": {
+              "dimensional-silicon-scaling": 11,
+              "beyond-silicon-heterogeneous-integration": 50,
+              "scale-silicon-integrate-beyond": 16,
+              "intensity": 50
+            }
           },
           "xma0026": {
-            "industry": 60,
-            "academia": 50,
-            "straddling-both": 90
+            "advocacy": {
+              "industry": 60,
+              "academia": 50,
+              "straddling-both": 90,
+              "intensity": 90
+            },
+            "receptivity": {
+              "industry": 33,
+              "academia": 28,
+              "straddling-both": 50,
+              "intensity": 50
+            }
           },
           "xma0027": {
-            "proud-applied-physicist": 85,
-            "pragmatic-specialized-engineer": 20,
-            "physicist-engineer": 35
+            "advocacy": {
+              "proud-applied-physicist": 85,
+              "pragmatic-specialized-engineer": 20,
+              "physicist-engineer": 35,
+              "intensity": 85
+            },
+            "receptivity": {
+              "proud-applied-physicist": 47,
+              "pragmatic-specialized-engineer": 11,
+              "physicist-engineer": 19,
+              "intensity": 47
+            }
           },
           "xma0028": {
-            "commercial-patents-spin-out-startups": 50,
-            "open-academic-publishing": 60,
-            "patent-then-publish": 90
+            "advocacy": {
+              "commercial-patents-spin-out-startups": 50,
+              "open-academic-publishing": 60,
+              "patent-then-publish": 90,
+              "intensity": 90
+            },
+            "receptivity": {
+              "commercial-patents-spin-out-startups": 28,
+              "open-academic-publishing": 33,
+              "patent-then-publish": 50,
+              "intensity": 50
+            }
           },
           "xma0029": {
-            "product": 30,
-            "prototype": 70,
-            "paper": 70
+            "advocacy": {
+              "product": 30,
+              "prototype": 70,
+              "paper": 70,
+              "intensity": 70
+            },
+            "receptivity": {
+              "product": 16,
+              "prototype": 38,
+              "paper": 38,
+              "intensity": 38
+            }
           }
         },
         "skin": "mattercapades"
@@ -4191,129 +5092,354 @@
         "aboutMe": "Ship the device: figure of merit, reliability, and cost beat deep physics - the triumph is a product in the world.",
         "ratings": {
           "xma0001": {
-            "fundamental-physical-mechanism-first": -20,
-            "device-figure-of-merit-first": 90,
-            "mechanism-in-service-of-the-metric": -10
+            "advocacy": {
+              "fundamental-physical-mechanism-first": -20,
+              "device-figure-of-merit-first": 90,
+              "mechanism-in-service-of-the-metric": -10,
+              "intensity": 90
+            },
+            "receptivity": {
+              "fundamental-physical-mechanism-first": -14,
+              "device-figure-of-merit-first": 63,
+              "mechanism-in-service-of-the-metric": -7,
+              "intensity": 63
+            }
           },
           "xma0002": {
-            "rational-computational-design": 40,
-            "edisonian-empirical-synthesis": 70,
-            "design-build-loop": 70
+            "advocacy": {
+              "rational-computational-design": 40,
+              "edisonian-empirical-synthesis": 70,
+              "design-build-loop": 70,
+              "intensity": 70
+            },
+            "receptivity": {
+              "rational-computational-design": 28,
+              "edisonian-empirical-synthesis": 49,
+              "design-build-loop": 49,
+              "intensity": 49
+            }
           },
           "xma0003": {
-            "low-trl-deep-physics-discovery": -30,
-            "high-trl-industrial-scalability": 90,
-            "mid-trl-translation": -20
+            "advocacy": {
+              "low-trl-deep-physics-discovery": -30,
+              "high-trl-industrial-scalability": 90,
+              "mid-trl-translation": -20,
+              "intensity": 90
+            },
+            "receptivity": {
+              "low-trl-deep-physics-discovery": -21,
+              "high-trl-industrial-scalability": 63,
+              "mid-trl-translation": -14,
+              "intensity": 63
+            }
           },
           "xma0004": {
-            "fundamental": -40,
-            "applied": 90,
-            "use-inspired": -30
+            "advocacy": {
+              "fundamental": -40,
+              "applied": 90,
+              "use-inspired": -30,
+              "intensity": 90
+            },
+            "receptivity": {
+              "fundamental": -28,
+              "applied": 63,
+              "use-inspired": -21,
+              "intensity": 63
+            }
           },
           "xma0005": {
-            "condensed-matter-quantum-materials": 50,
-            "optics-photonics-lasers": 70,
-            "plasmas-high-energy-density-physics": 20,
-            "biological-soft-condensed-matter-physics": 40
+            "advocacy": {
+              "condensed-matter-quantum-materials": 50,
+              "optics-photonics-lasers": 70,
+              "plasmas-high-energy-density-physics": 20,
+              "biological-soft-condensed-matter-physics": 40,
+              "intensity": 70
+            },
+            "receptivity": {
+              "condensed-matter-quantum-materials": 35,
+              "optics-photonics-lasers": 49,
+              "plasmas-high-energy-density-physics": 14,
+              "biological-soft-condensed-matter-physics": 28,
+              "intensity": 49
+            }
           },
           "xma0006": {
-            "continue": 50,
-            "plateau": 30,
-            "slowing-not-stopped": 80
+            "advocacy": {
+              "continue": 50,
+              "plateau": 30,
+              "slowing-not-stopped": 80,
+              "intensity": 80
+            },
+            "receptivity": {
+              "continue": 35,
+              "plateau": 21,
+              "slowing-not-stopped": 56,
+              "intensity": 56
+            }
           },
           "xma0007": {
-            "reliability": 90,
-            "performance": 60,
-            "performance-within-reliability-bounds": 70
+            "advocacy": {
+              "reliability": 90,
+              "performance": 60,
+              "performance-within-reliability-bounds": 70,
+              "intensity": 90
+            },
+            "receptivity": {
+              "reliability": 63,
+              "performance": 42,
+              "performance-within-reliability-bounds": 49,
+              "intensity": 63
+            }
           },
           "xma0009": {
-            "near-term-nisq-optimism": 60,
-            "fault-tolerant-error-correction-purism": 20,
-            "nisq-now-fault-tolerance-as-the-goal": 60
+            "advocacy": {
+              "near-term-nisq-optimism": 60,
+              "fault-tolerant-error-correction-purism": 20,
+              "nisq-now-fault-tolerance-as-the-goal": 60,
+              "intensity": 60
+            },
+            "receptivity": {
+              "near-term-nisq-optimism": 42,
+              "fault-tolerant-error-correction-purism": 14,
+              "nisq-now-fault-tolerance-as-the-goal": 42,
+              "intensity": 42
+            }
           },
           "xma0010": {
-            "quantum-sensing-metrology-priority": 70,
-            "quantum-computing-supremacy": 30,
-            "both-races": 60
+            "advocacy": {
+              "quantum-sensing-metrology-priority": 70,
+              "quantum-computing-supremacy": 30,
+              "both-races": 60,
+              "intensity": 70
+            },
+            "receptivity": {
+              "quantum-sensing-metrology-priority": 49,
+              "quantum-computing-supremacy": 21,
+              "both-races": 42,
+              "intensity": 49
+            }
           },
           "xma0011": {
-            "hype": 20,
-            "reality": 80,
-            "cautious-optimism": 40
+            "advocacy": {
+              "hype": 20,
+              "reality": 80,
+              "cautious-optimism": 40,
+              "intensity": 80
+            },
+            "receptivity": {
+              "hype": 14,
+              "reality": 56,
+              "cautious-optimism": 28,
+              "intensity": 56
+            }
           },
           "xma0012": {
-            "fusion": 30,
-            "fission": 50,
-            "renewables": 60
+            "advocacy": {
+              "fusion": 30,
+              "fission": 50,
+              "renewables": 60,
+              "intensity": 60
+            },
+            "receptivity": {
+              "fusion": 21,
+              "fission": 35,
+              "renewables": 42,
+              "intensity": 42
+            }
           },
           "xma0013": {
-            "magnetic-confinement-fusion": 40,
-            "inertial-confinement-fusion": 30,
-            "pursue-both": 90
+            "advocacy": {
+              "magnetic-confinement-fusion": 40,
+              "inertial-confinement-fusion": 30,
+              "pursue-both": 90,
+              "intensity": 90
+            },
+            "receptivity": {
+              "magnetic-confinement-fusion": 28,
+              "inertial-confinement-fusion": 21,
+              "pursue-both": 63,
+              "intensity": 63
+            }
           },
           "xma0014": {
-            "nuclear-fusion-source": -15,
-            "centralized-grid": 0
+            "advocacy": {
+              "nuclear-fusion-source": -15,
+              "centralized-grid": 0,
+              "intensity": -15
+            },
+            "receptivity": {
+              "nuclear-fusion-source": -10,
+              "centralized-grid": 0,
+              "intensity": -10
+            }
           },
           "xma0015": {
-            "short-duration": 60,
-            "long-duration": 50,
-            "layered-durations": 90
+            "advocacy": {
+              "short-duration": 60,
+              "long-duration": 50,
+              "layered-durations": 90,
+              "intensity": 90
+            },
+            "receptivity": {
+              "short-duration": 42,
+              "long-duration": 35,
+              "layered-durations": 63,
+              "intensity": 63
+            }
           },
           "xma0016": {
-            "efficiency": 50,
-            "cost": 85,
-            "efficiency-at-a-price-point": 65
+            "advocacy": {
+              "efficiency": 50,
+              "cost": 85,
+              "efficiency-at-a-price-point": 65,
+              "intensity": 85
+            },
+            "receptivity": {
+              "efficiency": 35,
+              "cost": 59,
+              "efficiency-at-a-price-point": 46,
+              "intensity": 59
+            }
           },
           "xma0017": {
-            "natural": 20,
-            "engineered": 80,
-            "biomimicry": 40
+            "advocacy": {
+              "natural": 20,
+              "engineered": 80,
+              "biomimicry": 40,
+              "intensity": 80
+            },
+            "receptivity": {
+              "natural": 14,
+              "engineered": 56,
+              "biomimicry": 28,
+              "intensity": 56
+            }
           },
           "xma0018": {
-            "revolution": 40,
-            "hype": 40,
-            "useful-not-revolutionary": 100
+            "advocacy": {
+              "revolution": 40,
+              "hype": 40,
+              "useful-not-revolutionary": 100,
+              "intensity": 100
+            },
+            "receptivity": {
+              "revolution": 28,
+              "hype": 28,
+              "useful-not-revolutionary": 70,
+              "intensity": 70
+            }
           },
           "xma0019": {
-            "the-holy-grail-of-room-temperature-superconductors": 10,
-            "pragmatic-high-t-c-engineering": 80,
-            "deploy-now-chase-the-grail": 30
+            "advocacy": {
+              "the-holy-grail-of-room-temperature-superconductors": 10,
+              "pragmatic-high-t-c-engineering": 80,
+              "deploy-now-chase-the-grail": 30,
+              "intensity": 80
+            },
+            "receptivity": {
+              "the-holy-grail-of-room-temperature-superconductors": 7,
+              "pragmatic-high-t-c-engineering": 56,
+              "deploy-now-chase-the-grail": 21,
+              "intensity": 56
+            }
           },
           "xma0020": {
-            "active-electronic-circuits": 80,
-            "passive-geometric-metasurfaces": 40,
-            "hybrid-active-metasurfaces": 60
+            "advocacy": {
+              "active-electronic-circuits": 80,
+              "passive-geometric-metasurfaces": 40,
+              "hybrid-active-metasurfaces": 60,
+              "intensity": 80
+            },
+            "receptivity": {
+              "active-electronic-circuits": 56,
+              "passive-geometric-metasurfaces": 28,
+              "hybrid-active-metasurfaces": 42,
+              "intensity": 56
+            }
           },
           "xma0021": {
-            "top-down-extreme-lithography": 80,
-            "bottom-up-supramolecular-self-assembly": 20,
-            "combined-processes": 40
+            "advocacy": {
+              "top-down-extreme-lithography": 80,
+              "bottom-up-supramolecular-self-assembly": 20,
+              "combined-processes": 40,
+              "intensity": 80
+            },
+            "receptivity": {
+              "top-down-extreme-lithography": 56,
+              "bottom-up-supramolecular-self-assembly": 14,
+              "combined-processes": 28,
+              "intensity": 56
+            }
           },
           "xma0022": {
-            "dimensional-silicon-scaling": 70,
-            "beyond-silicon-heterogeneous-integration": 50,
-            "scale-silicon-integrate-beyond": 80
+            "advocacy": {
+              "dimensional-silicon-scaling": 70,
+              "beyond-silicon-heterogeneous-integration": 50,
+              "scale-silicon-integrate-beyond": 80,
+              "intensity": 80
+            },
+            "receptivity": {
+              "dimensional-silicon-scaling": 49,
+              "beyond-silicon-heterogeneous-integration": 35,
+              "scale-silicon-integrate-beyond": 56,
+              "intensity": 56
+            }
           },
           "xma0026": {
-            "industry": 90,
-            "academia": -30,
-            "straddling-both": -20
+            "advocacy": {
+              "industry": 90,
+              "academia": -30,
+              "straddling-both": -20,
+              "intensity": 90
+            },
+            "receptivity": {
+              "industry": 63,
+              "academia": -21,
+              "straddling-both": -14,
+              "intensity": 63
+            }
           },
           "xma0027": {
-            "proud-applied-physicist": 20,
-            "pragmatic-specialized-engineer": 90,
-            "physicist-engineer": 30
+            "advocacy": {
+              "proud-applied-physicist": 20,
+              "pragmatic-specialized-engineer": 90,
+              "physicist-engineer": 30,
+              "intensity": 90
+            },
+            "receptivity": {
+              "proud-applied-physicist": 14,
+              "pragmatic-specialized-engineer": 63,
+              "physicist-engineer": 21,
+              "intensity": 63
+            }
           },
           "xma0028": {
-            "commercial-patents-spin-out-startups": 85,
-            "open-academic-publishing": 10,
-            "patent-then-publish": 25
+            "advocacy": {
+              "commercial-patents-spin-out-startups": 85,
+              "open-academic-publishing": 10,
+              "patent-then-publish": 25,
+              "intensity": 85
+            },
+            "receptivity": {
+              "commercial-patents-spin-out-startups": 59,
+              "open-academic-publishing": 7,
+              "patent-then-publish": 18,
+              "intensity": 59
+            }
           },
           "xma0029": {
-            "product": 95,
-            "prototype": 50,
-            "paper": -20
+            "advocacy": {
+              "product": 95,
+              "prototype": 50,
+              "paper": -20,
+              "intensity": 95
+            },
+            "receptivity": {
+              "product": 66,
+              "prototype": 35,
+              "paper": -14,
+              "intensity": 66
+            }
           }
         },
         "skin": "mattercapades"
