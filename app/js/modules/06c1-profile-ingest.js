@@ -258,6 +258,8 @@
                     id = "t0266"; // Exhibition / voyeurism removed 2026-11-22, remapped to Watching & being watched
                 } else if (id === "t0058" || id === "topic-breast-spanking") {
                     id = "t0061"; // Breast Spanking removed 2026-11-22, remapped to Tit Slapping (survivor per Jason's ruling)
+                } else if (id === "t0252" || id === "topic-sadism") {
+                    id = "t0051"; // Sadism retired 2026-11-22 (Jason's 2026-11-05 R9f ruling applied), remapped to Sadomasochism (the renamed Pain)
                 }
                 if (!Ke.has(id) && !isCatId(id) && !isSubId(id) && !(at[c] && at[c][id]) && !(window.__SEXCAPADES_TOPIC_CATALOG && window.__SEXCAPADES_TOPIC_CATALOG.labelForId(id))) {
                     if (typeof window.__SX_SKIN_LAYOUT_SYNC === "function") {
