@@ -473,6 +473,16 @@
             To(topicId, "intensity", v, !1, profileId || null);
             return v;
         }
+        // Dual placements apply on every stance skin, and -- since
+        // 2026-11-22 -- on n-pole topics on the classic skin too, where
+        // the placements are named give/receive. Single and dual topics
+        // on the classic skin keep the flat behavior.
+        function sxDualPlacements(topicId) {
+            if (window.__SX_ACTIVE_SKIN && "sexcapades" !== window.__SX_ACTIVE_SKIN) return !0;
+            if (!topicId) return !1;
+            const shape = typeof Ge === "function" ? Ge(topicId) : null;
+            return Boolean(shape && shape.keys && shape.keys.length >= 3);
+        }
         function sxPersistAdvocacyReceptivity(topicId, mode, values, intensity, profileId) {
             let r = profileId && vt[profileId] ? profileId : (Mt && vt[Mt] ? Mt : Et);
             if (typeof sxIsPseudoProfile === "function" && sxIsPseudoProfile(r)) return;
@@ -492,6 +502,38 @@
             const existing = o[topicId] && typeof o[topicId] === "object" ? Object.assign({}, o[topicId]) : {};
             const isClassic = !window.__SX_ACTIVE_SKIN || window.__SX_ACTIVE_SKIN === "sexcapades";
             if (isClassic) {
+                // Classic placements (2026-11-22): on the sex skin an
+                // n-pole topic stores give/receive PLACEMENTS --
+                // { give: {...poles, intensity}, receive: {...} } --
+                // mirroring advocacy/receptivity on stance skins (mode
+                // "advocacy" writes give, "receptivity" writes receive);
+                // the give placement mirrors flat, as advocacy does.
+                const shape = typeof Ge === "function" ? Ge(topicId, r) : null;
+                if (shape && shape.keys && shape.keys.length > 2) {
+                    const placement = Object.assign({}, values);
+                    if (intensity != null) placement.intensity = intensity;
+                    if (mode === "receptivity") {
+                        existing.receive = placement;
+                        if (!existing.give) {
+                            const gv = {};
+                            let hasGv = false;
+                            Object.keys(existing).forEach(k => {
+                                if (k !== "give" && k !== "receive" && k !== "advocacy" && k !== "receptivity") {
+                                    gv[k] = existing[k];
+                                    hasGv = true;
+                                }
+                            });
+                            if (hasGv) existing.give = gv;
+                        }
+                    } else {
+                        existing.give = placement;
+                        Object.keys(placement).forEach(k => { existing[k] = placement[k]; });
+                    }
+                    o[topicId] = existing;
+                    zt(r);
+                    $o(topicId, r);
+                    return;
+                }
                 Object.keys(values).forEach(k => { existing[k] = values[k]; });
                 if (intensity != null) existing.intensity = intensity;
                 o[topicId] = existing;
@@ -530,12 +572,14 @@
                 delete vt[r][topicId];
             } else if (mode === "receptivity") {
                 delete existing.receptivity;
+                delete existing.receive;
             } else {
                 delete existing.advocacy;
+                delete existing.give;
                 const shape = typeof Ge === "function" ? Ge(topicId, r) : null;
                 if (shape && shape.keys) shape.keys.forEach(k => delete existing[k]);
                 delete existing.intensity;
-                if (!existing.receptivity) delete vt[r][topicId];
+                if (!existing.receptivity && !existing.receive) delete vt[r][topicId];
             }
             zt(r);
             $o(topicId, r);
@@ -685,7 +729,7 @@
             ctx.setLineDash([]);
 
             // 3. Advocacy polygon & Receptivity polygon
-            const isClassic = !window.__SX_ACTIVE_SKIN || window.__SX_ACTIVE_SKIN === "sexcapades";
+            const isClassic = !sxDualPlacements(state && state.topicId ? state.topicId : null);
             const pVals = [];
             for (let k = 0; k < poleCount; k++) pVals.push(state["p" + k] != null ? state["p" + k] : 0);
             const sxMaxAbs = Math.abs(sxSignedIntensity(pVals));
@@ -912,7 +956,7 @@
             if (!topicId) return;
             const shape = Ge(topicId);
             if (!shape || !shape.keys || shape.keys.length < poleCount) return;
-            const isClassic = !window.__SX_ACTIVE_SKIN || window.__SX_ACTIVE_SKIN === "sexcapades";
+            const isClassic = !sxDualPlacements(topicId);
             if (isClassic) {
                 sxPersistIntensity(topicId, state.intensity);
                 for (let k = 0; k < poleCount; k++) {
@@ -941,7 +985,7 @@
             if (!topicId) return;
             const shape = Ge(topicId);
             if (!shape || !shape.keys || shape.keys.length < poleCount) return;
-            const isClassic = !window.__SX_ACTIVE_SKIN || window.__SX_ACTIVE_SKIN === "sexcapades";
+            const isClassic = !sxDualPlacements(topicId);
             if (isClassic) {
                 Fo(topicId, "intensity", !1);
                 for (let k = 0; k < poleCount; k++) {
@@ -1001,7 +1045,7 @@
                 const py = (clientY - rect.top) * (canvas.height / rect.height);
 
                 const { cx, cy, r, vertices } = getVerticesFn(canvas.width, canvas.height);
-                const isClassic = !window.__SX_ACTIVE_SKIN || window.__SX_ACTIVE_SKIN === "sexcapades";
+                const isClassic = !sxDualPlacements(state && state.topicId ? state.topicId : null);
                 const mode = isClassic ? "advocacy" : (state.mode || "advocacy");
                 const prefix = (mode === "receptivity") ? "recP" : "p";
 
@@ -1063,7 +1107,7 @@
             };
 
             canvas.addEventListener("pointerdown", (evt) => {
-                const isClassic = !window.__SX_ACTIVE_SKIN || window.__SX_ACTIVE_SKIN === "sexcapades";
+                const isClassic = !sxDualPlacements(state && state.topicId ? state.topicId : null);
                 if (!isClassic && canvas.__sxPucks) {
                     const rect = canvas.getBoundingClientRect();
                     const clientX = evt.clientX !== undefined ? evt.clientX : (evt.touches && evt.touches[0] ? evt.touches[0].clientX : 0);
@@ -1086,7 +1130,7 @@
                 state.isDragging = !0;
                 state.activeVertex = null;
                 state.vertexLocked = !1;
-                const isClassicCheck = !window.__SX_ACTIVE_SKIN || window.__SX_ACTIVE_SKIN === "sexcapades";
+                const isClassicCheck = !sxDualPlacements(state && state.topicId ? state.topicId : null);
                 const mode = isClassicCheck ? "advocacy" : (state.mode || "advocacy");
                 const prefix = (mode === "receptivity") ? "recP" : "p";
 
@@ -1117,7 +1161,7 @@
 
             // Wheel strictly scoped to centroid pucks
             canvas.addEventListener("wheel", (evt) => {
-                const isClassic = !window.__SX_ACTIVE_SKIN || window.__SX_ACTIVE_SKIN === "sexcapades";
+                const isClassic = !sxDualPlacements(state && state.topicId ? state.topicId : null);
                 const rect = canvas.getBoundingClientRect();
                 const px = (evt.clientX - rect.left) * (canvas.width / rect.width);
                 const py = (evt.clientY - rect.top) * (canvas.height / rect.height);
