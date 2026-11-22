@@ -3916,143 +3916,394 @@
         "aboutMe": "Go big: the energy frontier needs giant machines and thousand-person teams, and only they can reach the next scale.",
         "ratings": {
           "xex0001": {
-            "theory-driven-testing": 70,
-            "discovery-driven-exploration": 40,
-            "test-then-explore": 70
+            "advocacy": {
+              "theory-driven-testing": 70,
+              "discovery-driven-exploration": 40,
+              "test-then-explore": 70,
+              "intensity": 70
+            },
+            "receptivity": {
+              "theory-driven-testing": 52,
+              "discovery-driven-exploration": 30,
+              "test-then-explore": 52,
+              "intensity": 52
+            }
           },
           "xex0002": {
-            "precision": 70,
-            "exploration": 40,
-            "balanced-programme": 70
+            "advocacy": {
+              "precision": 70,
+              "exploration": 40,
+              "balanced-programme": 70,
+              "intensity": 70
+            },
+            "receptivity": {
+              "precision": 52,
+              "exploration": 30,
+              "balanced-programme": 52,
+              "intensity": 52
+            }
           },
           "xex0003": {
-            "big-science": 95,
-            "medium-scale": 20,
-            "tabletop-precision": -60
+            "advocacy": {
+              "big-science": 95,
+              "medium-scale": 20,
+              "tabletop-precision": -60,
+              "intensity": 95
+            },
+            "receptivity": {
+              "big-science": 71,
+              "medium-scale": 15,
+              "tabletop-precision": -45,
+              "intensity": 71
+            }
           },
           "xex0004": {
-            "the-energy-frontier": 95,
-            "the-intensity-precision-frontier": 20,
-            "the-cosmic-astrophysical-frontier": 10
+            "advocacy": {
+              "the-energy-frontier": 95,
+              "the-intensity-precision-frontier": 20,
+              "the-cosmic-astrophysical-frontier": 10,
+              "intensity": 95
+            },
+            "receptivity": {
+              "the-energy-frontier": 71,
+              "the-intensity-precision-frontier": 15,
+              "the-cosmic-astrophysical-frontier": 8,
+              "intensity": 71
+            }
           },
           "xex0005": {
-            "crisis": -20,
-            "confidence": 70,
-            "moderate-concern": 10
+            "advocacy": {
+              "crisis": -20,
+              "confidence": 70,
+              "moderate-concern": 10,
+              "intensity": 70
+            },
+            "receptivity": {
+              "crisis": -15,
+              "confidence": 52,
+              "moderate-concern": 8,
+              "intensity": 52
+            }
           },
           "xex0006": {
-            "bespoke-artisan-engineering": 60,
-            "turnkey-commercial-integration": 30,
-            "customised-commercial-kit": 70
+            "advocacy": {
+              "bespoke-artisan-engineering": 60,
+              "turnkey-commercial-integration": 30,
+              "customised-commercial-kit": 70,
+              "intensity": 70
+            },
+            "receptivity": {
+              "bespoke-artisan-engineering": 45,
+              "turnkey-commercial-integration": 22,
+              "customised-commercial-kit": 52,
+              "intensity": 52
+            }
           },
           "xex0007": {
-            "active-interrogation-drive": 90,
-            "passive-quiet-sensing": -30,
-            "drive-gently": -20
+            "advocacy": {
+              "active-interrogation-drive": 90,
+              "passive-quiet-sensing": -30,
+              "drive-gently": -20,
+              "intensity": 90
+            },
+            "receptivity": {
+              "active-interrogation-drive": 68,
+              "passive-quiet-sensing": -22,
+              "drive-gently": -15,
+              "intensity": 68
+            }
           },
           "xex0008": {
-            "photonics-optical-interferometry": 30,
-            "superconducting-cryogenic-sensors": 50,
-            "ionization-particle-tracking": 90,
-            "quantum-resonances-scattering": 40
+            "advocacy": {
+              "photonics-optical-interferometry": 30,
+              "superconducting-cryogenic-sensors": 50,
+              "ionization-particle-tracking": 90,
+              "quantum-resonances-scattering": 40,
+              "intensity": 90
+            },
+            "receptivity": {
+              "photonics-optical-interferometry": 22,
+              "superconducting-cryogenic-sensors": 38,
+              "ionization-particle-tracking": 68,
+              "quantum-resonances-scattering": 30,
+              "intensity": 68
+            }
           },
           "xex0009": {
-            "general": 60,
-            "specialized": 40,
-            "hybrid": 50
+            "advocacy": {
+              "general": 60,
+              "specialized": 40,
+              "hybrid": 50,
+              "intensity": 60
+            },
+            "receptivity": {
+              "general": 45,
+              "specialized": 30,
+              "hybrid": 38,
+              "intensity": 45
+            }
           },
           "xex0010": {
-            "sensitivity": 70,
-            "background": 60
+            "advocacy": {
+              "sensitivity": 70,
+              "background": 60,
+              "intensity": 70
+            },
+            "receptivity": {
+              "sensitivity": 52,
+              "background": 45,
+              "intensity": 52
+            }
           },
           "xex0011": {
-            "in-situ": 70,
-            "test-beam": 50
+            "advocacy": {
+              "in-situ": 70,
+              "test-beam": 50,
+              "intensity": 70
+            },
+            "receptivity": {
+              "in-situ": 52,
+              "test-beam": 38,
+              "intensity": 52
+            }
           },
           "xex0012": {
-            "upgrade": 60,
-            "new-build": 50,
-            "phased-upgrade": 90
+            "advocacy": {
+              "upgrade": 60,
+              "new-build": 50,
+              "phased-upgrade": 90,
+              "intensity": 90
+            },
+            "receptivity": {
+              "upgrade": 45,
+              "new-build": 38,
+              "phased-upgrade": 68,
+              "intensity": 68
+            }
           },
           "xex0013": {
-            "strict-5-sigma-dogma": 85,
-            "bayesian-evidential-weight": 20,
-            "hybrid-standard": 35
+            "advocacy": {
+              "strict-5-sigma-dogma": 85,
+              "bayesian-evidential-weight": 20,
+              "hybrid-standard": 35,
+              "intensity": 85
+            },
+            "receptivity": {
+              "strict-5-sigma-dogma": 64,
+              "bayesian-evidential-weight": 15,
+              "hybrid-standard": 26,
+              "intensity": 64
+            }
           },
           "xex0014": {
-            "null-as-scientific-triumph": 70,
-            "null-as-frustrating-stagnation": -30,
-            "null-as-information": 0
+            "advocacy": {
+              "null-as-scientific-triumph": 70,
+              "null-as-frustrating-stagnation": -30,
+              "null-as-information": 0,
+              "intensity": 70
+            },
+            "receptivity": {
+              "null-as-scientific-triumph": 52,
+              "null-as-frustrating-stagnation": -22,
+              "null-as-information": 0,
+              "intensity": 52
+            }
           },
           "xex0015": {
-            "strict-double-blind-analysis": 80,
-            "interactive-visual-exploration": 10,
-            "partial-blinding": 30
+            "advocacy": {
+              "strict-double-blind-analysis": 80,
+              "interactive-visual-exploration": 10,
+              "partial-blinding": 30,
+              "intensity": 80
+            },
+            "receptivity": {
+              "strict-double-blind-analysis": 60,
+              "interactive-visual-exploration": 8,
+              "partial-blinding": 22,
+              "intensity": 60
+            }
           },
           "xex0016": {
-            "systematics-obsessed": 70,
-            "statistics-driven": 50
+            "advocacy": {
+              "systematics-obsessed": 70,
+              "statistics-driven": 50,
+              "intensity": 70
+            },
+            "receptivity": {
+              "systematics-obsessed": 52,
+              "statistics-driven": 38,
+              "intensity": 52
+            }
           },
           "xex0017": {
-            "signal": 40,
-            "systematics": 60,
-            "undecided": 80
+            "advocacy": {
+              "signal": 40,
+              "systematics": 60,
+              "undecided": 80,
+              "intensity": 80
+            },
+            "receptivity": {
+              "signal": 30,
+              "systematics": 45,
+              "undecided": 60,
+              "intensity": 60
+            }
           },
           "xex0018": {
-            "fast-follower-opportunist": 30,
-            "skeptical-anchor": 60,
-            "verify-then-chase": 70
+            "advocacy": {
+              "fast-follower-opportunist": 30,
+              "skeptical-anchor": 60,
+              "verify-then-chase": 70,
+              "intensity": 70
+            },
+            "receptivity": {
+              "fast-follower-opportunist": 22,
+              "skeptical-anchor": 45,
+              "verify-then-chase": 52,
+              "intensity": 52
+            }
           },
           "xex0019": {
-            "ultra-low-temperatures": 40,
-            "ultra-high-vacuum-uhv": 60,
-            "ultra-high-magnetic-electric-fields": 50,
-            "ultra-deep-underground-cosmic-shielding": 30
+            "advocacy": {
+              "ultra-low-temperatures": 40,
+              "ultra-high-vacuum-uhv": 60,
+              "ultra-high-magnetic-electric-fields": 50,
+              "ultra-deep-underground-cosmic-shielding": 30,
+              "intensity": 60
+            },
+            "receptivity": {
+              "ultra-low-temperatures": 30,
+              "ultra-high-vacuum-uhv": 45,
+              "ultra-high-magnetic-electric-fields": 38,
+              "ultra-deep-underground-cosmic-shielding": 22,
+              "intensity": 45
+            }
           },
           "xex0020": {
-            "hermetic-cleanroom-isolation": 70,
-            "harsh-field-deployability": -20,
-            "hardened-lab-kit": 10
+            "advocacy": {
+              "hermetic-cleanroom-isolation": 70,
+              "harsh-field-deployability": -20,
+              "hardened-lab-kit": 10,
+              "intensity": 70
+            },
+            "receptivity": {
+              "hermetic-cleanroom-isolation": 52,
+              "harsh-field-deployability": -15,
+              "hardened-lab-kit": 8,
+              "intensity": 52
+            }
           },
           "xex0021": {
-            "immediate-open-data-calibration-release": 60,
-            "protected-collaboration-priority": 30,
-            "embargoed-release": 70
+            "advocacy": {
+              "immediate-open-data-calibration-release": 60,
+              "protected-collaboration-priority": 30,
+              "embargoed-release": 70,
+              "intensity": 70
+            },
+            "receptivity": {
+              "immediate-open-data-calibration-release": 45,
+              "protected-collaboration-priority": 22,
+              "embargoed-release": 52,
+              "intensity": 52
+            }
           },
           "xex0022": {
-            "model-dependent": 60,
-            "model-independent": 20,
-            "blind-search-model-fit": 60
+            "advocacy": {
+              "model-dependent": 60,
+              "model-independent": 20,
+              "blind-search-model-fit": 60,
+              "intensity": 60
+            },
+            "receptivity": {
+              "model-dependent": 45,
+              "model-independent": 15,
+              "blind-search-model-fit": 45,
+              "intensity": 45
+            }
           },
           "xex0023": {
-            "trust": 50,
-            "verify": 60,
-            "selective-verification": 90
+            "advocacy": {
+              "trust": 50,
+              "verify": 60,
+              "selective-verification": 90,
+              "intensity": 90
+            },
+            "receptivity": {
+              "trust": 38,
+              "verify": 45,
+              "selective-verification": 68,
+              "intensity": 68
+            }
           },
           "xex0024": {
-            "megacollaboration-authorship": 90,
-            "small-team-authorship": -50,
-            "mid-size-collaboration": -40
+            "advocacy": {
+              "megacollaboration-authorship": 90,
+              "small-team-authorship": -50,
+              "mid-size-collaboration": -40,
+              "intensity": 90
+            },
+            "receptivity": {
+              "megacollaboration-authorship": 68,
+              "small-team-authorship": -38,
+              "mid-size-collaboration": -30,
+              "intensity": 68
+            }
           },
           "xex0025": {
-            "competition": 40,
-            "collaboration": 80,
-            "coopetition": 50
+            "advocacy": {
+              "competition": 40,
+              "collaboration": 80,
+              "coopetition": 50,
+              "intensity": 80
+            },
+            "receptivity": {
+              "competition": 30,
+              "collaboration": 60,
+              "coopetition": 38,
+              "intensity": 60
+            }
           },
           "xex0026": {
-            "first": 70,
-            "team": 60,
-            "named-leads-team-credit": 90
+            "advocacy": {
+              "first": 70,
+              "team": 60,
+              "named-leads-team-credit": 90,
+              "intensity": 90
+            },
+            "receptivity": {
+              "first": 52,
+              "team": 45,
+              "named-leads-team-credit": 68,
+              "intensity": 68
+            }
           },
           "xex0027": {
-            "hardware-artisan-hardware-monkey": 70,
-            "offline-data-wizard": 40,
-            "full-stack-experimentalist": 70
+            "advocacy": {
+              "hardware-artisan-hardware-monkey": 70,
+              "offline-data-wizard": 40,
+              "full-stack-experimentalist": 70,
+              "intensity": 70
+            },
+            "receptivity": {
+              "hardware-artisan-hardware-monkey": 52,
+              "offline-data-wizard": 30,
+              "full-stack-experimentalist": 52,
+              "intensity": 52
+            }
           },
           "xex0030": {
-            "hands-on": 80,
-            "remote": 20,
-            "hybrid-rotation": 40
+            "advocacy": {
+              "hands-on": 80,
+              "remote": 20,
+              "hybrid-rotation": 40,
+              "intensity": 80
+            },
+            "receptivity": {
+              "hands-on": 60,
+              "remote": 15,
+              "hybrid-rotation": 30,
+              "intensity": 60
+            }
           }
         },
         "skin": "expericapades"
@@ -4079,143 +4330,394 @@
         "aboutMe": "Small, quiet, exact: a tabletop apparatus pushed to its limit can beat a collider on the questions that matter.",
         "ratings": {
           "xex0001": {
-            "theory-driven-testing": 60,
-            "discovery-driven-exploration": 40,
-            "test-then-explore": 80
+            "advocacy": {
+              "theory-driven-testing": 60,
+              "discovery-driven-exploration": 40,
+              "test-then-explore": 80,
+              "intensity": 80
+            },
+            "receptivity": {
+              "theory-driven-testing": 42,
+              "discovery-driven-exploration": 28,
+              "test-then-explore": 56,
+              "intensity": 56
+            }
           },
           "xex0002": {
-            "precision": 95,
-            "exploration": 20,
-            "balanced-programme": 25
+            "advocacy": {
+              "precision": 95,
+              "exploration": 20,
+              "balanced-programme": 25,
+              "intensity": 95
+            },
+            "receptivity": {
+              "precision": 66,
+              "exploration": 14,
+              "balanced-programme": 18,
+              "intensity": 66
+            }
           },
           "xex0003": {
-            "big-science": -70,
-            "medium-scale": 30,
-            "tabletop-precision": 95
+            "advocacy": {
+              "big-science": -70,
+              "medium-scale": 30,
+              "tabletop-precision": 95,
+              "intensity": 95
+            },
+            "receptivity": {
+              "big-science": -49,
+              "medium-scale": 21,
+              "tabletop-precision": 66,
+              "intensity": 66
+            }
           },
           "xex0004": {
-            "the-energy-frontier": -20,
-            "the-intensity-precision-frontier": 95,
-            "the-cosmic-astrophysical-frontier": 20
+            "advocacy": {
+              "the-energy-frontier": -20,
+              "the-intensity-precision-frontier": 95,
+              "the-cosmic-astrophysical-frontier": 20,
+              "intensity": 95
+            },
+            "receptivity": {
+              "the-energy-frontier": -14,
+              "the-intensity-precision-frontier": 66,
+              "the-cosmic-astrophysical-frontier": 14,
+              "intensity": 66
+            }
           },
           "xex0005": {
-            "crisis": 10,
-            "confidence": 50,
-            "moderate-concern": 60
+            "advocacy": {
+              "crisis": 10,
+              "confidence": 50,
+              "moderate-concern": 60,
+              "intensity": 60
+            },
+            "receptivity": {
+              "crisis": 7,
+              "confidence": 35,
+              "moderate-concern": 42,
+              "intensity": 42
+            }
           },
           "xex0006": {
-            "bespoke-artisan-engineering": 90,
-            "turnkey-commercial-integration": 10,
-            "customised-commercial-kit": 20
+            "advocacy": {
+              "bespoke-artisan-engineering": 90,
+              "turnkey-commercial-integration": 10,
+              "customised-commercial-kit": 20,
+              "intensity": 90
+            },
+            "receptivity": {
+              "bespoke-artisan-engineering": 63,
+              "turnkey-commercial-integration": 7,
+              "customised-commercial-kit": 14,
+              "intensity": 63
+            }
           },
           "xex0007": {
-            "active-interrogation-drive": 30,
-            "passive-quiet-sensing": 80,
-            "drive-gently": 50
+            "advocacy": {
+              "active-interrogation-drive": 30,
+              "passive-quiet-sensing": 80,
+              "drive-gently": 50,
+              "intensity": 80
+            },
+            "receptivity": {
+              "active-interrogation-drive": 21,
+              "passive-quiet-sensing": 56,
+              "drive-gently": 35,
+              "intensity": 56
+            }
           },
           "xex0008": {
-            "photonics-optical-interferometry": 90,
-            "superconducting-cryogenic-sensors": 60,
-            "ionization-particle-tracking": 10,
-            "quantum-resonances-scattering": 70
+            "advocacy": {
+              "photonics-optical-interferometry": 90,
+              "superconducting-cryogenic-sensors": 60,
+              "ionization-particle-tracking": 10,
+              "quantum-resonances-scattering": 70,
+              "intensity": 90
+            },
+            "receptivity": {
+              "photonics-optical-interferometry": 63,
+              "superconducting-cryogenic-sensors": 42,
+              "ionization-particle-tracking": 7,
+              "quantum-resonances-scattering": 49,
+              "intensity": 63
+            }
           },
           "xex0009": {
-            "general": 20,
-            "specialized": 85,
-            "hybrid": 30
+            "advocacy": {
+              "general": 20,
+              "specialized": 85,
+              "hybrid": 30,
+              "intensity": 85
+            },
+            "receptivity": {
+              "general": 14,
+              "specialized": 59,
+              "hybrid": 21,
+              "intensity": 59
+            }
           },
           "xex0010": {
-            "sensitivity": 80,
-            "background": 70
+            "advocacy": {
+              "sensitivity": 80,
+              "background": 70,
+              "intensity": 80
+            },
+            "receptivity": {
+              "sensitivity": 56,
+              "background": 49,
+              "intensity": 56
+            }
           },
           "xex0011": {
-            "in-situ": 80,
-            "test-beam": 20
+            "advocacy": {
+              "in-situ": 80,
+              "test-beam": 20,
+              "intensity": 80
+            },
+            "receptivity": {
+              "in-situ": 56,
+              "test-beam": 14,
+              "intensity": 56
+            }
           },
           "xex0012": {
-            "upgrade": 70,
-            "new-build": 30,
-            "phased-upgrade": 60
+            "advocacy": {
+              "upgrade": 70,
+              "new-build": 30,
+              "phased-upgrade": 60,
+              "intensity": 70
+            },
+            "receptivity": {
+              "upgrade": 49,
+              "new-build": 21,
+              "phased-upgrade": 42,
+              "intensity": 49
+            }
           },
           "xex0013": {
-            "strict-5-sigma-dogma": 60,
-            "bayesian-evidential-weight": 50,
-            "hybrid-standard": 90
+            "advocacy": {
+              "strict-5-sigma-dogma": 60,
+              "bayesian-evidential-weight": 50,
+              "hybrid-standard": 90,
+              "intensity": 90
+            },
+            "receptivity": {
+              "strict-5-sigma-dogma": 42,
+              "bayesian-evidential-weight": 35,
+              "hybrid-standard": 63,
+              "intensity": 63
+            }
           },
           "xex0014": {
-            "null-as-scientific-triumph": 80,
-            "null-as-frustrating-stagnation": -40,
-            "null-as-information": -20
+            "advocacy": {
+              "null-as-scientific-triumph": 80,
+              "null-as-frustrating-stagnation": -40,
+              "null-as-information": -20,
+              "intensity": 80
+            },
+            "receptivity": {
+              "null-as-scientific-triumph": 56,
+              "null-as-frustrating-stagnation": -28,
+              "null-as-information": -14,
+              "intensity": 56
+            }
           },
           "xex0015": {
-            "strict-double-blind-analysis": 70,
-            "interactive-visual-exploration": 30,
-            "partial-blinding": 60
+            "advocacy": {
+              "strict-double-blind-analysis": 70,
+              "interactive-visual-exploration": 30,
+              "partial-blinding": 60,
+              "intensity": 70
+            },
+            "receptivity": {
+              "strict-double-blind-analysis": 49,
+              "interactive-visual-exploration": 21,
+              "partial-blinding": 42,
+              "intensity": 49
+            }
           },
           "xex0016": {
-            "systematics-obsessed": 90,
-            "statistics-driven": 30
+            "advocacy": {
+              "systematics-obsessed": 90,
+              "statistics-driven": 30,
+              "intensity": 90
+            },
+            "receptivity": {
+              "systematics-obsessed": 63,
+              "statistics-driven": 21,
+              "intensity": 63
+            }
           },
           "xex0017": {
-            "signal": 20,
-            "systematics": 85,
-            "undecided": 35
+            "advocacy": {
+              "signal": 20,
+              "systematics": 85,
+              "undecided": 35,
+              "intensity": 85
+            },
+            "receptivity": {
+              "signal": 14,
+              "systematics": 59,
+              "undecided": 24,
+              "intensity": 59
+            }
           },
           "xex0018": {
-            "fast-follower-opportunist": -30,
-            "skeptical-anchor": 85,
-            "verify-then-chase": -15
+            "advocacy": {
+              "fast-follower-opportunist": -30,
+              "skeptical-anchor": 85,
+              "verify-then-chase": -15,
+              "intensity": 85
+            },
+            "receptivity": {
+              "fast-follower-opportunist": -21,
+              "skeptical-anchor": 59,
+              "verify-then-chase": -10,
+              "intensity": 59
+            }
           },
           "xex0019": {
-            "ultra-low-temperatures": 80,
-            "ultra-high-vacuum-uhv": 85,
-            "ultra-high-magnetic-electric-fields": 60,
-            "ultra-deep-underground-cosmic-shielding": 20
+            "advocacy": {
+              "ultra-low-temperatures": 80,
+              "ultra-high-vacuum-uhv": 85,
+              "ultra-high-magnetic-electric-fields": 60,
+              "ultra-deep-underground-cosmic-shielding": 20,
+              "intensity": 85
+            },
+            "receptivity": {
+              "ultra-low-temperatures": 56,
+              "ultra-high-vacuum-uhv": 59,
+              "ultra-high-magnetic-electric-fields": 42,
+              "ultra-deep-underground-cosmic-shielding": 14,
+              "intensity": 59
+            }
           },
           "xex0020": {
-            "hermetic-cleanroom-isolation": 90,
-            "harsh-field-deployability": -50,
-            "hardened-lab-kit": -40
+            "advocacy": {
+              "hermetic-cleanroom-isolation": 90,
+              "harsh-field-deployability": -50,
+              "hardened-lab-kit": -40,
+              "intensity": 90
+            },
+            "receptivity": {
+              "hermetic-cleanroom-isolation": 63,
+              "harsh-field-deployability": -35,
+              "hardened-lab-kit": -28,
+              "intensity": 63
+            }
           },
           "xex0021": {
-            "immediate-open-data-calibration-release": 50,
-            "protected-collaboration-priority": 40,
-            "embargoed-release": 90
+            "advocacy": {
+              "immediate-open-data-calibration-release": 50,
+              "protected-collaboration-priority": 40,
+              "embargoed-release": 90,
+              "intensity": 90
+            },
+            "receptivity": {
+              "immediate-open-data-calibration-release": 35,
+              "protected-collaboration-priority": 28,
+              "embargoed-release": 63,
+              "intensity": 63
+            }
           },
           "xex0022": {
-            "model-dependent": 30,
-            "model-independent": 70,
-            "blind-search-model-fit": 60
+            "advocacy": {
+              "model-dependent": 30,
+              "model-independent": 70,
+              "blind-search-model-fit": 60,
+              "intensity": 70
+            },
+            "receptivity": {
+              "model-dependent": 21,
+              "model-independent": 49,
+              "blind-search-model-fit": 42,
+              "intensity": 49
+            }
           },
           "xex0023": {
-            "trust": 20,
-            "verify": 90,
-            "selective-verification": 30
+            "advocacy": {
+              "trust": 20,
+              "verify": 90,
+              "selective-verification": 30,
+              "intensity": 90
+            },
+            "receptivity": {
+              "trust": 14,
+              "verify": 63,
+              "selective-verification": 21,
+              "intensity": 63
+            }
           },
           "xex0024": {
-            "megacollaboration-authorship": -60,
-            "small-team-authorship": 90,
-            "mid-size-collaboration": -50
+            "advocacy": {
+              "megacollaboration-authorship": -60,
+              "small-team-authorship": 90,
+              "mid-size-collaboration": -50,
+              "intensity": 90
+            },
+            "receptivity": {
+              "megacollaboration-authorship": -42,
+              "small-team-authorship": 63,
+              "mid-size-collaboration": -35,
+              "intensity": 63
+            }
           },
           "xex0025": {
-            "competition": 30,
-            "collaboration": 70,
-            "coopetition": 40
+            "advocacy": {
+              "competition": 30,
+              "collaboration": 70,
+              "coopetition": 40,
+              "intensity": 70
+            },
+            "receptivity": {
+              "competition": 21,
+              "collaboration": 49,
+              "coopetition": 28,
+              "intensity": 49
+            }
           },
           "xex0026": {
-            "first": 40,
-            "team": 60,
-            "named-leads-team-credit": 80
+            "advocacy": {
+              "first": 40,
+              "team": 60,
+              "named-leads-team-credit": 80,
+              "intensity": 80
+            },
+            "receptivity": {
+              "first": 28,
+              "team": 42,
+              "named-leads-team-credit": 56,
+              "intensity": 56
+            }
           },
           "xex0027": {
-            "hardware-artisan-hardware-monkey": 85,
-            "offline-data-wizard": 30,
-            "full-stack-experimentalist": 45
+            "advocacy": {
+              "hardware-artisan-hardware-monkey": 85,
+              "offline-data-wizard": 30,
+              "full-stack-experimentalist": 45,
+              "intensity": 85
+            },
+            "receptivity": {
+              "hardware-artisan-hardware-monkey": 59,
+              "offline-data-wizard": 21,
+              "full-stack-experimentalist": 31,
+              "intensity": 59
+            }
           },
           "xex0030": {
-            "hands-on": 90,
-            "remote": 0,
-            "hybrid-rotation": 10
+            "advocacy": {
+              "hands-on": 90,
+              "remote": 0,
+              "hybrid-rotation": 10,
+              "intensity": 90
+            },
+            "receptivity": {
+              "hands-on": 63,
+              "remote": 0,
+              "hybrid-rotation": 7,
+              "intensity": 63
+            }
           }
         },
         "skin": "expericapades"
@@ -4242,143 +4744,394 @@
         "aboutMe": "Look up and listen: the sky is the laboratory, and the rarest signals arrive on their own schedule.",
         "ratings": {
           "xex0001": {
-            "theory-driven-testing": 30,
-            "discovery-driven-exploration": 85,
-            "test-then-explore": 45
+            "advocacy": {
+              "theory-driven-testing": 30,
+              "discovery-driven-exploration": 85,
+              "test-then-explore": 45,
+              "intensity": 85
+            },
+            "receptivity": {
+              "theory-driven-testing": 21,
+              "discovery-driven-exploration": 59,
+              "test-then-explore": 31,
+              "intensity": 59
+            }
           },
           "xex0002": {
-            "precision": 50,
-            "exploration": 85,
-            "balanced-programme": 65
+            "advocacy": {
+              "precision": 50,
+              "exploration": 85,
+              "balanced-programme": 65,
+              "intensity": 85
+            },
+            "receptivity": {
+              "precision": 35,
+              "exploration": 59,
+              "balanced-programme": 46,
+              "intensity": 59
+            }
           },
           "xex0003": {
-            "big-science": 60,
-            "medium-scale": 40,
-            "tabletop-precision": 10
+            "advocacy": {
+              "big-science": 60,
+              "medium-scale": 40,
+              "tabletop-precision": 10,
+              "intensity": 60
+            },
+            "receptivity": {
+              "big-science": 42,
+              "medium-scale": 28,
+              "tabletop-precision": 7,
+              "intensity": 42
+            }
           },
           "xex0004": {
-            "the-energy-frontier": 10,
-            "the-intensity-precision-frontier": 30,
-            "the-cosmic-astrophysical-frontier": 95
+            "advocacy": {
+              "the-energy-frontier": 10,
+              "the-intensity-precision-frontier": 30,
+              "the-cosmic-astrophysical-frontier": 95,
+              "intensity": 95
+            },
+            "receptivity": {
+              "the-energy-frontier": 7,
+              "the-intensity-precision-frontier": 21,
+              "the-cosmic-astrophysical-frontier": 66,
+              "intensity": 66
+            }
           },
           "xex0005": {
-            "crisis": 0,
-            "confidence": 60,
-            "moderate-concern": 40
+            "advocacy": {
+              "crisis": 0,
+              "confidence": 60,
+              "moderate-concern": 40,
+              "intensity": 60
+            },
+            "receptivity": {
+              "crisis": 0,
+              "confidence": 42,
+              "moderate-concern": 28,
+              "intensity": 42
+            }
           },
           "xex0006": {
-            "bespoke-artisan-engineering": 50,
-            "turnkey-commercial-integration": 40,
-            "customised-commercial-kit": 90
+            "advocacy": {
+              "bespoke-artisan-engineering": 50,
+              "turnkey-commercial-integration": 40,
+              "customised-commercial-kit": 90,
+              "intensity": 90
+            },
+            "receptivity": {
+              "bespoke-artisan-engineering": 35,
+              "turnkey-commercial-integration": 28,
+              "customised-commercial-kit": 63,
+              "intensity": 63
+            }
           },
           "xex0007": {
-            "active-interrogation-drive": -50,
-            "passive-quiet-sensing": 90,
-            "drive-gently": -40
+            "advocacy": {
+              "active-interrogation-drive": -50,
+              "passive-quiet-sensing": 90,
+              "drive-gently": -40,
+              "intensity": 90
+            },
+            "receptivity": {
+              "active-interrogation-drive": -35,
+              "passive-quiet-sensing": 63,
+              "drive-gently": -28,
+              "intensity": 63
+            }
           },
           "xex0008": {
-            "photonics-optical-interferometry": 70,
-            "superconducting-cryogenic-sensors": 70,
-            "ionization-particle-tracking": 50,
-            "quantum-resonances-scattering": 30
+            "advocacy": {
+              "photonics-optical-interferometry": 70,
+              "superconducting-cryogenic-sensors": 70,
+              "ionization-particle-tracking": 50,
+              "quantum-resonances-scattering": 30,
+              "intensity": 70
+            },
+            "receptivity": {
+              "photonics-optical-interferometry": 49,
+              "superconducting-cryogenic-sensors": 49,
+              "ionization-particle-tracking": 35,
+              "quantum-resonances-scattering": 21,
+              "intensity": 49
+            }
           },
           "xex0009": {
-            "general": 70,
-            "specialized": 30,
-            "hybrid": 50
+            "advocacy": {
+              "general": 70,
+              "specialized": 30,
+              "hybrid": 50,
+              "intensity": 70
+            },
+            "receptivity": {
+              "general": 49,
+              "specialized": 21,
+              "hybrid": 35,
+              "intensity": 49
+            }
           },
           "xex0010": {
-            "sensitivity": 90,
-            "background": 80
+            "advocacy": {
+              "sensitivity": 90,
+              "background": 80,
+              "intensity": 90
+            },
+            "receptivity": {
+              "sensitivity": 63,
+              "background": 56,
+              "intensity": 63
+            }
           },
           "xex0011": {
-            "in-situ": 60,
-            "test-beam": 10
+            "advocacy": {
+              "in-situ": 60,
+              "test-beam": 10,
+              "intensity": 60
+            },
+            "receptivity": {
+              "in-situ": 42,
+              "test-beam": 7,
+              "intensity": 42
+            }
           },
           "xex0012": {
-            "upgrade": 50,
-            "new-build": 60,
-            "phased-upgrade": 90
+            "advocacy": {
+              "upgrade": 50,
+              "new-build": 60,
+              "phased-upgrade": 90,
+              "intensity": 90
+            },
+            "receptivity": {
+              "upgrade": 35,
+              "new-build": 42,
+              "phased-upgrade": 63,
+              "intensity": 63
+            }
           },
           "xex0013": {
-            "strict-5-sigma-dogma": 50,
-            "bayesian-evidential-weight": 70,
-            "hybrid-standard": 80
+            "advocacy": {
+              "strict-5-sigma-dogma": 50,
+              "bayesian-evidential-weight": 70,
+              "hybrid-standard": 80,
+              "intensity": 80
+            },
+            "receptivity": {
+              "strict-5-sigma-dogma": 35,
+              "bayesian-evidential-weight": 49,
+              "hybrid-standard": 56,
+              "intensity": 56
+            }
           },
           "xex0014": {
-            "null-as-scientific-triumph": 60,
-            "null-as-frustrating-stagnation": -20,
-            "null-as-information": 20
+            "advocacy": {
+              "null-as-scientific-triumph": 60,
+              "null-as-frustrating-stagnation": -20,
+              "null-as-information": 20,
+              "intensity": 60
+            },
+            "receptivity": {
+              "null-as-scientific-triumph": 42,
+              "null-as-frustrating-stagnation": -14,
+              "null-as-information": 14,
+              "intensity": 42
+            }
           },
           "xex0015": {
-            "strict-double-blind-analysis": 50,
-            "interactive-visual-exploration": 60,
-            "partial-blinding": 90
+            "advocacy": {
+              "strict-double-blind-analysis": 50,
+              "interactive-visual-exploration": 60,
+              "partial-blinding": 90,
+              "intensity": 90
+            },
+            "receptivity": {
+              "strict-double-blind-analysis": 35,
+              "interactive-visual-exploration": 42,
+              "partial-blinding": 63,
+              "intensity": 63
+            }
           },
           "xex0016": {
-            "systematics-obsessed": 60,
-            "statistics-driven": 60
+            "advocacy": {
+              "systematics-obsessed": 60,
+              "statistics-driven": 60,
+              "intensity": 60
+            },
+            "receptivity": {
+              "systematics-obsessed": 42,
+              "statistics-driven": 42,
+              "intensity": 42
+            }
           },
           "xex0017": {
-            "signal": 60,
-            "systematics": 40,
-            "undecided": 80
+            "advocacy": {
+              "signal": 60,
+              "systematics": 40,
+              "undecided": 80,
+              "intensity": 80
+            },
+            "receptivity": {
+              "signal": 42,
+              "systematics": 28,
+              "undecided": 56,
+              "intensity": 56
+            }
           },
           "xex0018": {
-            "fast-follower-opportunist": 50,
-            "skeptical-anchor": 40,
-            "verify-then-chase": 90
+            "advocacy": {
+              "fast-follower-opportunist": 50,
+              "skeptical-anchor": 40,
+              "verify-then-chase": 90,
+              "intensity": 90
+            },
+            "receptivity": {
+              "fast-follower-opportunist": 35,
+              "skeptical-anchor": 28,
+              "verify-then-chase": 63,
+              "intensity": 63
+            }
           },
           "xex0019": {
-            "ultra-low-temperatures": 60,
-            "ultra-high-vacuum-uhv": 30,
-            "ultra-high-magnetic-electric-fields": 20,
-            "ultra-deep-underground-cosmic-shielding": 95
+            "advocacy": {
+              "ultra-low-temperatures": 60,
+              "ultra-high-vacuum-uhv": 30,
+              "ultra-high-magnetic-electric-fields": 20,
+              "ultra-deep-underground-cosmic-shielding": 95,
+              "intensity": 95
+            },
+            "receptivity": {
+              "ultra-low-temperatures": 42,
+              "ultra-high-vacuum-uhv": 21,
+              "ultra-high-magnetic-electric-fields": 14,
+              "ultra-deep-underground-cosmic-shielding": 66,
+              "intensity": 66
+            }
           },
           "xex0020": {
-            "hermetic-cleanroom-isolation": 20,
-            "harsh-field-deployability": 85,
-            "hardened-lab-kit": 35
+            "advocacy": {
+              "hermetic-cleanroom-isolation": 20,
+              "harsh-field-deployability": 85,
+              "hardened-lab-kit": 35,
+              "intensity": 85
+            },
+            "receptivity": {
+              "hermetic-cleanroom-isolation": 14,
+              "harsh-field-deployability": 59,
+              "hardened-lab-kit": 24,
+              "intensity": 59
+            }
           },
           "xex0021": {
-            "immediate-open-data-calibration-release": 85,
-            "protected-collaboration-priority": 0,
-            "embargoed-release": 15
+            "advocacy": {
+              "immediate-open-data-calibration-release": 85,
+              "protected-collaboration-priority": 0,
+              "embargoed-release": 15,
+              "intensity": 85
+            },
+            "receptivity": {
+              "immediate-open-data-calibration-release": 59,
+              "protected-collaboration-priority": 0,
+              "embargoed-release": 10,
+              "intensity": 59
+            }
           },
           "xex0022": {
-            "model-dependent": 20,
-            "model-independent": 80,
-            "blind-search-model-fit": 40
+            "advocacy": {
+              "model-dependent": 20,
+              "model-independent": 80,
+              "blind-search-model-fit": 40,
+              "intensity": 80
+            },
+            "receptivity": {
+              "model-dependent": 14,
+              "model-independent": 56,
+              "blind-search-model-fit": 28,
+              "intensity": 56
+            }
           },
           "xex0023": {
-            "trust": 40,
-            "verify": 70,
-            "selective-verification": 70
+            "advocacy": {
+              "trust": 40,
+              "verify": 70,
+              "selective-verification": 70,
+              "intensity": 70
+            },
+            "receptivity": {
+              "trust": 28,
+              "verify": 49,
+              "selective-verification": 49,
+              "intensity": 49
+            }
           },
           "xex0024": {
-            "megacollaboration-authorship": 60,
-            "small-team-authorship": 30,
-            "mid-size-collaboration": 70
+            "advocacy": {
+              "megacollaboration-authorship": 60,
+              "small-team-authorship": 30,
+              "mid-size-collaboration": 70,
+              "intensity": 70
+            },
+            "receptivity": {
+              "megacollaboration-authorship": 42,
+              "small-team-authorship": 21,
+              "mid-size-collaboration": 49,
+              "intensity": 49
+            }
           },
           "xex0025": {
-            "competition": 20,
-            "collaboration": 85,
-            "coopetition": 50
+            "advocacy": {
+              "competition": 20,
+              "collaboration": 85,
+              "coopetition": 50,
+              "intensity": 85
+            },
+            "receptivity": {
+              "competition": 14,
+              "collaboration": 59,
+              "coopetition": 35,
+              "intensity": 59
+            }
           },
           "xex0026": {
-            "first": 50,
-            "team": 60,
-            "named-leads-team-credit": 90
+            "advocacy": {
+              "first": 50,
+              "team": 60,
+              "named-leads-team-credit": 90,
+              "intensity": 90
+            },
+            "receptivity": {
+              "first": 35,
+              "team": 42,
+              "named-leads-team-credit": 63,
+              "intensity": 63
+            }
           },
           "xex0027": {
-            "hardware-artisan-hardware-monkey": 40,
-            "offline-data-wizard": 70,
-            "full-stack-experimentalist": 70
+            "advocacy": {
+              "hardware-artisan-hardware-monkey": 40,
+              "offline-data-wizard": 70,
+              "full-stack-experimentalist": 70,
+              "intensity": 70
+            },
+            "receptivity": {
+              "hardware-artisan-hardware-monkey": 28,
+              "offline-data-wizard": 49,
+              "full-stack-experimentalist": 49,
+              "intensity": 49
+            }
           },
           "xex0030": {
-            "hands-on": 30,
-            "remote": 70,
-            "hybrid-rotation": 60
+            "advocacy": {
+              "hands-on": 30,
+              "remote": 70,
+              "hybrid-rotation": 60,
+              "intensity": 70
+            },
+            "receptivity": {
+              "hands-on": 21,
+              "remote": 49,
+              "hybrid-rotation": 42,
+              "intensity": 49
+            }
           }
         },
         "skin": "expericapades"
@@ -4405,143 +5158,394 @@
         "aboutMe": "Chase the anomaly: the unexpected bump is where new physics hides, and the first to check it wins.",
         "ratings": {
           "xex0001": {
-            "theory-driven-testing": -20,
-            "discovery-driven-exploration": 90,
-            "test-then-explore": -10
+            "advocacy": {
+              "theory-driven-testing": -20,
+              "discovery-driven-exploration": 90,
+              "test-then-explore": -10,
+              "intensity": 90
+            },
+            "receptivity": {
+              "theory-driven-testing": -17,
+              "discovery-driven-exploration": 76,
+              "test-then-explore": -8,
+              "intensity": 76
+            }
           },
           "xex0002": {
-            "precision": 30,
-            "exploration": 90,
-            "balanced-programme": 40
+            "advocacy": {
+              "precision": 30,
+              "exploration": 90,
+              "balanced-programme": 40,
+              "intensity": 90
+            },
+            "receptivity": {
+              "precision": 26,
+              "exploration": 76,
+              "balanced-programme": 34,
+              "intensity": 76
+            }
           },
           "xex0003": {
-            "big-science": 30,
-            "medium-scale": 60,
-            "tabletop-precision": 50
+            "advocacy": {
+              "big-science": 30,
+              "medium-scale": 60,
+              "tabletop-precision": 50,
+              "intensity": 60
+            },
+            "receptivity": {
+              "big-science": 26,
+              "medium-scale": 51,
+              "tabletop-precision": 42,
+              "intensity": 51
+            }
           },
           "xex0004": {
-            "the-energy-frontier": 50,
-            "the-intensity-precision-frontier": 50,
-            "the-cosmic-astrophysical-frontier": 50
+            "advocacy": {
+              "the-energy-frontier": 50,
+              "the-intensity-precision-frontier": 50,
+              "the-cosmic-astrophysical-frontier": 50,
+              "intensity": 50
+            },
+            "receptivity": {
+              "the-energy-frontier": 42,
+              "the-intensity-precision-frontier": 42,
+              "the-cosmic-astrophysical-frontier": 42,
+              "intensity": 42
+            }
           },
           "xex0005": {
-            "crisis": 50,
-            "confidence": 20,
-            "moderate-concern": 70
+            "advocacy": {
+              "crisis": 50,
+              "confidence": 20,
+              "moderate-concern": 70,
+              "intensity": 70
+            },
+            "receptivity": {
+              "crisis": 42,
+              "confidence": 17,
+              "moderate-concern": 60,
+              "intensity": 60
+            }
           },
           "xex0006": {
-            "bespoke-artisan-engineering": 40,
-            "turnkey-commercial-integration": 40,
-            "customised-commercial-kit": 100
+            "advocacy": {
+              "bespoke-artisan-engineering": 40,
+              "turnkey-commercial-integration": 40,
+              "customised-commercial-kit": 100,
+              "intensity": 100
+            },
+            "receptivity": {
+              "bespoke-artisan-engineering": 34,
+              "turnkey-commercial-integration": 34,
+              "customised-commercial-kit": 85,
+              "intensity": 85
+            }
           },
           "xex0007": {
-            "active-interrogation-drive": 60,
-            "passive-quiet-sensing": 40,
-            "drive-gently": 80
+            "advocacy": {
+              "active-interrogation-drive": 60,
+              "passive-quiet-sensing": 40,
+              "drive-gently": 80,
+              "intensity": 80
+            },
+            "receptivity": {
+              "active-interrogation-drive": 51,
+              "passive-quiet-sensing": 34,
+              "drive-gently": 68,
+              "intensity": 68
+            }
           },
           "xex0008": {
-            "photonics-optical-interferometry": 50,
-            "superconducting-cryogenic-sensors": 40,
-            "ionization-particle-tracking": 50,
-            "quantum-resonances-scattering": 60
+            "advocacy": {
+              "photonics-optical-interferometry": 50,
+              "superconducting-cryogenic-sensors": 40,
+              "ionization-particle-tracking": 50,
+              "quantum-resonances-scattering": 60,
+              "intensity": 60
+            },
+            "receptivity": {
+              "photonics-optical-interferometry": 42,
+              "superconducting-cryogenic-sensors": 34,
+              "ionization-particle-tracking": 42,
+              "quantum-resonances-scattering": 51,
+              "intensity": 51
+            }
           },
           "xex0009": {
-            "general": 50,
-            "specialized": 40,
-            "hybrid": 60
+            "advocacy": {
+              "general": 50,
+              "specialized": 40,
+              "hybrid": 60,
+              "intensity": 60
+            },
+            "receptivity": {
+              "general": 42,
+              "specialized": 34,
+              "hybrid": 51,
+              "intensity": 51
+            }
           },
           "xex0010": {
-            "sensitivity": 80,
-            "background": 40
+            "advocacy": {
+              "sensitivity": 80,
+              "background": 40,
+              "intensity": 80
+            },
+            "receptivity": {
+              "sensitivity": 68,
+              "background": 34,
+              "intensity": 68
+            }
           },
           "xex0011": {
-            "in-situ": 50,
-            "test-beam": 50
+            "advocacy": {
+              "in-situ": 50,
+              "test-beam": 50,
+              "intensity": 50
+            },
+            "receptivity": {
+              "in-situ": 42,
+              "test-beam": 42,
+              "intensity": 42
+            }
           },
           "xex0012": {
-            "upgrade": 40,
-            "new-build": 60,
-            "phased-upgrade": 80
+            "advocacy": {
+              "upgrade": 40,
+              "new-build": 60,
+              "phased-upgrade": 80,
+              "intensity": 80
+            },
+            "receptivity": {
+              "upgrade": 34,
+              "new-build": 51,
+              "phased-upgrade": 68,
+              "intensity": 68
+            }
           },
           "xex0013": {
-            "strict-5-sigma-dogma": -30,
-            "bayesian-evidential-weight": 85,
-            "hybrid-standard": -15
+            "advocacy": {
+              "strict-5-sigma-dogma": -30,
+              "bayesian-evidential-weight": 85,
+              "hybrid-standard": -15,
+              "intensity": 85
+            },
+            "receptivity": {
+              "strict-5-sigma-dogma": -26,
+              "bayesian-evidential-weight": 72,
+              "hybrid-standard": -13,
+              "intensity": 72
+            }
           },
           "xex0014": {
-            "null-as-scientific-triumph": 20,
-            "null-as-frustrating-stagnation": 70,
-            "null-as-information": 50
+            "advocacy": {
+              "null-as-scientific-triumph": 20,
+              "null-as-frustrating-stagnation": 70,
+              "null-as-information": 50,
+              "intensity": 70
+            },
+            "receptivity": {
+              "null-as-scientific-triumph": 17,
+              "null-as-frustrating-stagnation": 60,
+              "null-as-information": 42,
+              "intensity": 60
+            }
           },
           "xex0015": {
-            "strict-double-blind-analysis": -20,
-            "interactive-visual-exploration": 85,
-            "partial-blinding": -5
+            "advocacy": {
+              "strict-double-blind-analysis": -20,
+              "interactive-visual-exploration": 85,
+              "partial-blinding": -5,
+              "intensity": 85
+            },
+            "receptivity": {
+              "strict-double-blind-analysis": -17,
+              "interactive-visual-exploration": 72,
+              "partial-blinding": -4,
+              "intensity": 72
+            }
           },
           "xex0016": {
-            "systematics-obsessed": 20,
-            "statistics-driven": 70
+            "advocacy": {
+              "systematics-obsessed": 20,
+              "statistics-driven": 70,
+              "intensity": 70
+            },
+            "receptivity": {
+              "systematics-obsessed": 17,
+              "statistics-driven": 60,
+              "intensity": 60
+            }
           },
           "xex0017": {
-            "signal": 85,
-            "systematics": -20,
-            "undecided": -5
+            "advocacy": {
+              "signal": 85,
+              "systematics": -20,
+              "undecided": -5,
+              "intensity": 85
+            },
+            "receptivity": {
+              "signal": 72,
+              "systematics": -17,
+              "undecided": -4,
+              "intensity": 72
+            }
           },
           "xex0018": {
-            "fast-follower-opportunist": 90,
-            "skeptical-anchor": -60,
-            "verify-then-chase": -50
+            "advocacy": {
+              "fast-follower-opportunist": 90,
+              "skeptical-anchor": -60,
+              "verify-then-chase": -50,
+              "intensity": 90
+            },
+            "receptivity": {
+              "fast-follower-opportunist": 76,
+              "skeptical-anchor": -51,
+              "verify-then-chase": -42,
+              "intensity": 76
+            }
           },
           "xex0019": {
-            "ultra-low-temperatures": 40,
-            "ultra-high-vacuum-uhv": 40,
-            "ultra-high-magnetic-electric-fields": 40,
-            "ultra-deep-underground-cosmic-shielding": 40
+            "advocacy": {
+              "ultra-low-temperatures": 40,
+              "ultra-high-vacuum-uhv": 40,
+              "ultra-high-magnetic-electric-fields": 40,
+              "ultra-deep-underground-cosmic-shielding": 40,
+              "intensity": 40
+            },
+            "receptivity": {
+              "ultra-low-temperatures": 34,
+              "ultra-high-vacuum-uhv": 34,
+              "ultra-high-magnetic-electric-fields": 34,
+              "ultra-deep-underground-cosmic-shielding": 34,
+              "intensity": 34
+            }
           },
           "xex0020": {
-            "hermetic-cleanroom-isolation": 30,
-            "harsh-field-deployability": 40,
-            "hardened-lab-kit": 90
+            "advocacy": {
+              "hermetic-cleanroom-isolation": 30,
+              "harsh-field-deployability": 40,
+              "hardened-lab-kit": 90,
+              "intensity": 90
+            },
+            "receptivity": {
+              "hermetic-cleanroom-isolation": 26,
+              "harsh-field-deployability": 34,
+              "hardened-lab-kit": 76,
+              "intensity": 76
+            }
           },
           "xex0021": {
-            "immediate-open-data-calibration-release": 70,
-            "protected-collaboration-priority": 20,
-            "embargoed-release": 50
+            "advocacy": {
+              "immediate-open-data-calibration-release": 70,
+              "protected-collaboration-priority": 20,
+              "embargoed-release": 50,
+              "intensity": 70
+            },
+            "receptivity": {
+              "immediate-open-data-calibration-release": 60,
+              "protected-collaboration-priority": 17,
+              "embargoed-release": 42,
+              "intensity": 60
+            }
           },
           "xex0022": {
-            "model-dependent": 20,
-            "model-independent": 80,
-            "blind-search-model-fit": 40
+            "advocacy": {
+              "model-dependent": 20,
+              "model-independent": 80,
+              "blind-search-model-fit": 40,
+              "intensity": 80
+            },
+            "receptivity": {
+              "model-dependent": 17,
+              "model-independent": 68,
+              "blind-search-model-fit": 34,
+              "intensity": 68
+            }
           },
           "xex0023": {
-            "trust": 70,
-            "verify": 30,
-            "selective-verification": 60
+            "advocacy": {
+              "trust": 70,
+              "verify": 30,
+              "selective-verification": 60,
+              "intensity": 70
+            },
+            "receptivity": {
+              "trust": 60,
+              "verify": 26,
+              "selective-verification": 51,
+              "intensity": 60
+            }
           },
           "xex0024": {
-            "megacollaboration-authorship": 30,
-            "small-team-authorship": 50,
-            "mid-size-collaboration": 80
+            "advocacy": {
+              "megacollaboration-authorship": 30,
+              "small-team-authorship": 50,
+              "mid-size-collaboration": 80,
+              "intensity": 80
+            },
+            "receptivity": {
+              "megacollaboration-authorship": 26,
+              "small-team-authorship": 42,
+              "mid-size-collaboration": 68,
+              "intensity": 68
+            }
           },
           "xex0025": {
-            "competition": 80,
-            "collaboration": 40,
-            "coopetition": 60
+            "advocacy": {
+              "competition": 80,
+              "collaboration": 40,
+              "coopetition": 60,
+              "intensity": 80
+            },
+            "receptivity": {
+              "competition": 68,
+              "collaboration": 34,
+              "coopetition": 51,
+              "intensity": 68
+            }
           },
           "xex0026": {
-            "first": 85,
-            "team": 30,
-            "named-leads-team-credit": 45
+            "advocacy": {
+              "first": 85,
+              "team": 30,
+              "named-leads-team-credit": 45,
+              "intensity": 85
+            },
+            "receptivity": {
+              "first": 72,
+              "team": 26,
+              "named-leads-team-credit": 38,
+              "intensity": 72
+            }
           },
           "xex0027": {
-            "hardware-artisan-hardware-monkey": 40,
-            "offline-data-wizard": 70,
-            "full-stack-experimentalist": 70
+            "advocacy": {
+              "hardware-artisan-hardware-monkey": 40,
+              "offline-data-wizard": 70,
+              "full-stack-experimentalist": 70,
+              "intensity": 70
+            },
+            "receptivity": {
+              "hardware-artisan-hardware-monkey": 34,
+              "offline-data-wizard": 60,
+              "full-stack-experimentalist": 60,
+              "intensity": 60
+            }
           },
           "xex0030": {
-            "hands-on": 50,
-            "remote": 50,
-            "hybrid-rotation": 100
+            "advocacy": {
+              "hands-on": 50,
+              "remote": 50,
+              "hybrid-rotation": 100,
+              "intensity": 100
+            },
+            "receptivity": {
+              "hands-on": 42,
+              "remote": 42,
+              "hybrid-rotation": 85,
+              "intensity": 85
+            }
           }
         },
         "skin": "expericapades"

@@ -3880,127 +3880,342 @@
         "aboutMe": "The earliest teaching: liberation comes through one's own effort, the Four Noble Truths, the Eightfold Path, and insight into impermanence and no-self.",
         "ratings": {
           "xdh0001": {
-            "literal": 75,
-            "psychological": 30,
-            "no-karma": -80
+            "advocacy": {
+              "literal": 75,
+              "psychological": 30,
+              "no-karma": -80,
+              "intensity": -80
+            },
+            "receptivity": {
+              "literal": 38,
+              "psychological": 15,
+              "no-karma": -40,
+              "intensity": -40
+            }
           },
           "xdh0002": {
-            "escape": 90,
-            "engage": -50,
-            "accept": 0
+            "advocacy": {
+              "escape": 90,
+              "engage": -50,
+              "accept": 0,
+              "intensity": 90
+            },
+            "receptivity": {
+              "escape": 45,
+              "engage": -25,
+              "accept": 0,
+              "intensity": 45
+            }
           },
           "xdh0003": {
-            "religion": 40,
-            "philosophy": 50,
-            "way-of-life": 70
+            "advocacy": {
+              "religion": 40,
+              "philosophy": 50,
+              "way-of-life": 70,
+              "intensity": 70
+            },
+            "receptivity": {
+              "religion": 20,
+              "philosophy": 25,
+              "way-of-life": 35,
+              "intensity": 35
+            }
           },
           "xdh0005": {
-            "confucianism": -10,
-            "taoism": 0,
-            "buddhism": 85
+            "advocacy": {
+              "confucianism": -10,
+              "taoism": 0,
+              "buddhism": 85,
+              "intensity": 85
+            },
+            "receptivity": {
+              "confucianism": -5,
+              "taoism": 0,
+              "buddhism": 42,
+              "intensity": 42
+            }
           },
           "xdh0009": {
-            "moksha": -20,
-            "nirvana": 95,
-            "union-with-the-dao": -60
+            "advocacy": {
+              "moksha": -20,
+              "nirvana": 95,
+              "union-with-the-dao": -60,
+              "intensity": 95
+            },
+            "receptivity": {
+              "moksha": -10,
+              "nirvana": 48,
+              "union-with-the-dao": -30,
+              "intensity": 48
+            }
           },
           "xdh0010": {
-            "sudden": -40,
-            "gradual": 85,
-            "sudden-awakening-gradual-cultivation": -25
+            "advocacy": {
+              "sudden": -40,
+              "gradual": 85,
+              "sudden-awakening-gradual-cultivation": -25,
+              "intensity": 85
+            },
+            "receptivity": {
+              "sudden": -20,
+              "gradual": 42,
+              "sudden-awakening-gradual-cultivation": -12,
+              "intensity": 42
+            }
           },
           "xdh0011": {
-            "atman": -90,
-            "anatta": 95,
-            "pudgala": -85
+            "advocacy": {
+              "atman": -90,
+              "anatta": 95,
+              "pudgala": -85,
+              "intensity": 95
+            },
+            "receptivity": {
+              "atman": -45,
+              "anatta": 48,
+              "pudgala": -42,
+              "intensity": 48
+            }
           },
           "xdh0012": {
-            "physical": 40,
-            "breath": 50,
-            "meditative": 80,
-            "devotional": 10,
-            "philosophical": 60
+            "advocacy": {
+              "physical": 40,
+              "breath": 50,
+              "meditative": 80,
+              "devotional": 10,
+              "philosophical": 60,
+              "intensity": 80
+            },
+            "receptivity": {
+              "physical": 20,
+              "breath": 25,
+              "meditative": 40,
+              "devotional": 5,
+              "philosophical": 30,
+              "intensity": 40
+            }
           },
           "xdh0013": {
-            "samatha": 60,
-            "vipassana": 90
+            "advocacy": {
+              "samatha": 60,
+              "vipassana": 90,
+              "intensity": 90
+            },
+            "receptivity": {
+              "samatha": 30,
+              "vipassana": 45,
+              "intensity": 45
+            }
           },
           "xdh0014": {
-            "left-hand": -80,
-            "right-hand": 40,
-            "internalized-transgression": -20
+            "advocacy": {
+              "left-hand": -80,
+              "right-hand": 40,
+              "internalized-transgression": -20,
+              "intensity": -80
+            },
+            "receptivity": {
+              "left-hand": -40,
+              "right-hand": 20,
+              "internalized-transgression": -10,
+              "intensity": -40
+            }
           },
           "xdh0015": {
-            "awakening": -40,
-            "danger": 50
+            "advocacy": {
+              "awakening": -40,
+              "danger": 50,
+              "intensity": 50
+            },
+            "receptivity": {
+              "awakening": -20,
+              "danger": 25,
+              "intensity": 25
+            }
           },
           "xdh0016": {
-            "right-view": 85,
-            "right-intention": 80,
-            "right-speech": 85,
-            "right-action": 85,
-            "right-livelihood": 80,
-            "right-effort": 80,
-            "right-mindfulness": 90,
-            "right-concentration": 85
+            "advocacy": {
+              "right-view": 85,
+              "right-intention": 80,
+              "right-speech": 85,
+              "right-action": 85,
+              "right-livelihood": 80,
+              "right-effort": 80,
+              "right-mindfulness": 90,
+              "right-concentration": 85,
+              "intensity": 90
+            },
+            "receptivity": {
+              "right-view": 42,
+              "right-intention": 40,
+              "right-speech": 42,
+              "right-action": 42,
+              "right-livelihood": 40,
+              "right-effort": 40,
+              "right-mindfulness": 45,
+              "right-concentration": 42,
+              "intensity": 45
+            }
           },
           "xdh0017": {
-            "wu-wei": 10,
-            "you-wei": 60,
-            "act-when-needed": 50
+            "advocacy": {
+              "wu-wei": 10,
+              "you-wei": 60,
+              "act-when-needed": 50,
+              "intensity": 60
+            },
+            "receptivity": {
+              "wu-wei": 5,
+              "you-wei": 30,
+              "act-when-needed": 25,
+              "intensity": 30
+            }
           },
           "xdh0018": {
-            "raja-yoga": 50,
-            "jnana-yoga": 60,
-            "bhakti-yoga": 0,
-            "karma-yoga": 40,
-            "hatha-yoga": 40,
-            "tantra-yoga": -70
+            "advocacy": {
+              "raja-yoga": 50,
+              "jnana-yoga": 60,
+              "bhakti-yoga": 0,
+              "karma-yoga": 40,
+              "hatha-yoga": 40,
+              "tantra-yoga": -70,
+              "intensity": -70
+            },
+            "receptivity": {
+              "raja-yoga": 25,
+              "jnana-yoga": 30,
+              "bhakti-yoga": 0,
+              "karma-yoga": 20,
+              "hatha-yoga": 20,
+              "tantra-yoga": -35,
+              "intensity": -35
+            }
           },
           "xdh0019": {
-            "personal-theism": -60,
-            "impersonal-theism": -20,
-            "non-theistic-spirituality": 85,
-            "atheism-materialism": 20
+            "advocacy": {
+              "personal-theism": -60,
+              "impersonal-theism": -20,
+              "non-theistic-spirituality": 85,
+              "atheism-materialism": 20,
+              "intensity": 85
+            },
+            "receptivity": {
+              "personal-theism": -30,
+              "impersonal-theism": -10,
+              "non-theistic-spirituality": 42,
+              "atheism-materialism": 10,
+              "intensity": 42
+            }
           },
           "xdh0021": {
-            "historical-buddha": 90,
-            "cosmic-buddha": -30,
-            "buddha-nature": 20
+            "advocacy": {
+              "historical-buddha": 90,
+              "cosmic-buddha": -30,
+              "buddha-nature": 20,
+              "intensity": 90
+            },
+            "receptivity": {
+              "historical-buddha": 45,
+              "cosmic-buddha": -15,
+              "buddha-nature": 10,
+              "intensity": 45
+            }
           },
           "xdh0022": {
-            "jain": 20,
-            "buddhist": 85,
-            "hindu": 0
+            "advocacy": {
+              "jain": 20,
+              "buddhist": 85,
+              "hindu": 0,
+              "intensity": 85
+            },
+            "receptivity": {
+              "jain": 10,
+              "buddhist": 42,
+              "hindu": 0,
+              "intensity": 42
+            }
           },
           "xdh0023": {
-            "strict-rules": 75,
-            "flexible-guidelines": -30,
-            "firm-but-flexible": -5
+            "advocacy": {
+              "strict-rules": 75,
+              "flexible-guidelines": -30,
+              "firm-but-flexible": -5,
+              "intensity": 75
+            },
+            "receptivity": {
+              "strict-rules": 38,
+              "flexible-guidelines": -15,
+              "firm-but-flexible": -2,
+              "intensity": 38
+            }
           },
           "xdh0024": {
-            "karuna": 60,
-            "prajna": 85
+            "advocacy": {
+              "karuna": 60,
+              "prajna": 85,
+              "intensity": 85
+            },
+            "receptivity": {
+              "karuna": 30,
+              "prajna": 42,
+              "intensity": 42
+            }
           },
           "xdh0025": {
-            "essential": -20,
-            "optional": 70,
-            "helpful-not-essential": 10
+            "advocacy": {
+              "essential": -20,
+              "optional": 70,
+              "helpful-not-essential": 10,
+              "intensity": 70
+            },
+            "receptivity": {
+              "essential": -10,
+              "optional": 35,
+              "helpful-not-essential": 5,
+              "intensity": 35
+            }
           },
           "xdh0026": {
-            "monastic": 85,
-            "lay": -20,
-            "retreatant-householder": -5
+            "advocacy": {
+              "monastic": 85,
+              "lay": -20,
+              "retreatant-householder": -5,
+              "intensity": 85
+            },
+            "receptivity": {
+              "monastic": 42,
+              "lay": -10,
+              "retreatant-householder": -2,
+              "intensity": 42
+            }
           },
           "xdh0027": {
-            "orthodox": 80,
-            "eclectic": -50,
-            "rooted-but-borrowing": -30
+            "advocacy": {
+              "orthodox": 80,
+              "eclectic": -50,
+              "rooted-but-borrowing": -30,
+              "intensity": 80
+            },
+            "receptivity": {
+              "orthodox": 40,
+              "eclectic": -25,
+              "rooted-but-borrowing": -15,
+              "intensity": 40
+            }
           },
           "xdh0028": {
-            "grasthi": -40,
-            "sannyasa": 80,
-            "vanaprastha": -20
+            "advocacy": {
+              "grasthi": -40,
+              "sannyasa": 80,
+              "vanaprastha": -20,
+              "intensity": 80
+            },
+            "receptivity": {
+              "grasthi": -20,
+              "sannyasa": 40,
+              "vanaprastha": -10,
+              "intensity": 40
+            }
           }
         },
         "skin": "dharmacapades"
@@ -4027,127 +4242,342 @@
         "aboutMe": "Direct pointing at the mind: awakening is sudden, beyond words and scriptures, found in seated meditation and everyday life.",
         "ratings": {
           "xdh0001": {
-            "literal": 20,
-            "psychological": 60,
-            "no-karma": -40
+            "advocacy": {
+              "literal": 20,
+              "psychological": 60,
+              "no-karma": -40,
+              "intensity": 60
+            },
+            "receptivity": {
+              "literal": 12,
+              "psychological": 36,
+              "no-karma": -24,
+              "intensity": 36
+            }
           },
           "xdh0002": {
-            "escape": 40,
-            "engage": 50,
-            "accept": 60
+            "advocacy": {
+              "escape": 40,
+              "engage": 50,
+              "accept": 60,
+              "intensity": 60
+            },
+            "receptivity": {
+              "escape": 24,
+              "engage": 30,
+              "accept": 36,
+              "intensity": 36
+            }
           },
           "xdh0003": {
-            "religion": 10,
-            "philosophy": 40,
-            "way-of-life": 80
+            "advocacy": {
+              "religion": 10,
+              "philosophy": 40,
+              "way-of-life": 80,
+              "intensity": 80
+            },
+            "receptivity": {
+              "religion": 6,
+              "philosophy": 24,
+              "way-of-life": 48,
+              "intensity": 48
+            }
           },
           "xdh0005": {
-            "confucianism": 10,
-            "taoism": 50,
-            "buddhism": 85
+            "advocacy": {
+              "confucianism": 10,
+              "taoism": 50,
+              "buddhism": 85,
+              "intensity": 85
+            },
+            "receptivity": {
+              "confucianism": 6,
+              "taoism": 30,
+              "buddhism": 51,
+              "intensity": 51
+            }
           },
           "xdh0009": {
-            "moksha": -30,
-            "nirvana": 85,
-            "union-with-the-dao": 30
+            "advocacy": {
+              "moksha": -30,
+              "nirvana": 85,
+              "union-with-the-dao": 30,
+              "intensity": 85
+            },
+            "receptivity": {
+              "moksha": -18,
+              "nirvana": 51,
+              "union-with-the-dao": 18,
+              "intensity": 51
+            }
           },
           "xdh0010": {
-            "sudden": 90,
-            "gradual": -20,
-            "sudden-awakening-gradual-cultivation": -10
+            "advocacy": {
+              "sudden": 90,
+              "gradual": -20,
+              "sudden-awakening-gradual-cultivation": -10,
+              "intensity": 90
+            },
+            "receptivity": {
+              "sudden": 54,
+              "gradual": -12,
+              "sudden-awakening-gradual-cultivation": -6,
+              "intensity": 54
+            }
           },
           "xdh0011": {
-            "atman": -85,
-            "anatta": 90,
-            "pudgala": -75
+            "advocacy": {
+              "atman": -85,
+              "anatta": 90,
+              "pudgala": -75,
+              "intensity": 90
+            },
+            "receptivity": {
+              "atman": -51,
+              "anatta": 54,
+              "pudgala": -45,
+              "intensity": 54
+            }
           },
           "xdh0012": {
-            "physical": 30,
-            "breath": 60,
-            "meditative": 90,
-            "devotional": -20,
-            "philosophical": 40
+            "advocacy": {
+              "physical": 30,
+              "breath": 60,
+              "meditative": 90,
+              "devotional": -20,
+              "philosophical": 40,
+              "intensity": 90
+            },
+            "receptivity": {
+              "physical": 18,
+              "breath": 36,
+              "meditative": 54,
+              "devotional": -12,
+              "philosophical": 24,
+              "intensity": 54
+            }
           },
           "xdh0013": {
-            "samatha": 55,
-            "vipassana": 55
+            "advocacy": {
+              "samatha": 55,
+              "vipassana": 55,
+              "intensity": 55
+            },
+            "receptivity": {
+              "samatha": 33,
+              "vipassana": 33,
+              "intensity": 33
+            }
           },
           "xdh0014": {
-            "left-hand": -40,
-            "right-hand": 20,
-            "internalized-transgression": 40
+            "advocacy": {
+              "left-hand": -40,
+              "right-hand": 20,
+              "internalized-transgression": 40,
+              "intensity": -40
+            },
+            "receptivity": {
+              "left-hand": -24,
+              "right-hand": 12,
+              "internalized-transgression": 24,
+              "intensity": -24
+            }
           },
           "xdh0015": {
-            "awakening": 30,
-            "danger": 10
+            "advocacy": {
+              "awakening": 30,
+              "danger": 10,
+              "intensity": 30
+            },
+            "receptivity": {
+              "awakening": 18,
+              "danger": 6,
+              "intensity": 18
+            }
           },
           "xdh0016": {
-            "right-view": 70,
-            "right-intention": 70,
-            "right-speech": 60,
-            "right-action": 60,
-            "right-livelihood": 40,
-            "right-effort": 60,
-            "right-mindfulness": 85,
-            "right-concentration": 85
+            "advocacy": {
+              "right-view": 70,
+              "right-intention": 70,
+              "right-speech": 60,
+              "right-action": 60,
+              "right-livelihood": 40,
+              "right-effort": 60,
+              "right-mindfulness": 85,
+              "right-concentration": 85,
+              "intensity": 85
+            },
+            "receptivity": {
+              "right-view": 42,
+              "right-intention": 42,
+              "right-speech": 36,
+              "right-action": 36,
+              "right-livelihood": 24,
+              "right-effort": 36,
+              "right-mindfulness": 51,
+              "right-concentration": 51,
+              "intensity": 51
+            }
           },
           "xdh0017": {
-            "wu-wei": 85,
-            "you-wei": -40,
-            "act-when-needed": -25
+            "advocacy": {
+              "wu-wei": 85,
+              "you-wei": -40,
+              "act-when-needed": -25,
+              "intensity": 85
+            },
+            "receptivity": {
+              "wu-wei": 51,
+              "you-wei": -24,
+              "act-when-needed": -15,
+              "intensity": 51
+            }
           },
           "xdh0018": {
-            "raja-yoga": 40,
-            "jnana-yoga": 50,
-            "bhakti-yoga": -20,
-            "karma-yoga": 30,
-            "hatha-yoga": 20,
-            "tantra-yoga": -30
+            "advocacy": {
+              "raja-yoga": 40,
+              "jnana-yoga": 50,
+              "bhakti-yoga": -20,
+              "karma-yoga": 30,
+              "hatha-yoga": 20,
+              "tantra-yoga": -30,
+              "intensity": 50
+            },
+            "receptivity": {
+              "raja-yoga": 24,
+              "jnana-yoga": 30,
+              "bhakti-yoga": -12,
+              "karma-yoga": 18,
+              "hatha-yoga": 12,
+              "tantra-yoga": -18,
+              "intensity": 30
+            }
           },
           "xdh0019": {
-            "personal-theism": -70,
-            "impersonal-theism": 0,
-            "non-theistic-spirituality": 90,
-            "atheism-materialism": 30
+            "advocacy": {
+              "personal-theism": -70,
+              "impersonal-theism": 0,
+              "non-theistic-spirituality": 90,
+              "atheism-materialism": 30,
+              "intensity": 90
+            },
+            "receptivity": {
+              "personal-theism": -42,
+              "impersonal-theism": 0,
+              "non-theistic-spirituality": 54,
+              "atheism-materialism": 18,
+              "intensity": 54
+            }
           },
           "xdh0021": {
-            "historical-buddha": 40,
-            "cosmic-buddha": 10,
-            "buddha-nature": 90
+            "advocacy": {
+              "historical-buddha": 40,
+              "cosmic-buddha": 10,
+              "buddha-nature": 90,
+              "intensity": 90
+            },
+            "receptivity": {
+              "historical-buddha": 24,
+              "cosmic-buddha": 6,
+              "buddha-nature": 54,
+              "intensity": 54
+            }
           },
           "xdh0022": {
-            "jain": 10,
-            "buddhist": 80,
-            "hindu": 0
+            "advocacy": {
+              "jain": 10,
+              "buddhist": 80,
+              "hindu": 0,
+              "intensity": 80
+            },
+            "receptivity": {
+              "jain": 6,
+              "buddhist": 48,
+              "hindu": 0,
+              "intensity": 48
+            }
           },
           "xdh0023": {
-            "strict-rules": -40,
-            "flexible-guidelines": 70,
-            "firm-but-flexible": -10
+            "advocacy": {
+              "strict-rules": -40,
+              "flexible-guidelines": 70,
+              "firm-but-flexible": -10,
+              "intensity": 70
+            },
+            "receptivity": {
+              "strict-rules": -24,
+              "flexible-guidelines": 42,
+              "firm-but-flexible": -6,
+              "intensity": 42
+            }
           },
           "xdh0024": {
-            "karuna": 60,
-            "prajna": 80
+            "advocacy": {
+              "karuna": 60,
+              "prajna": 80,
+              "intensity": 80
+            },
+            "receptivity": {
+              "karuna": 36,
+              "prajna": 48,
+              "intensity": 48
+            }
           },
           "xdh0025": {
-            "essential": 50,
-            "optional": 20,
-            "helpful-not-essential": 70
+            "advocacy": {
+              "essential": 50,
+              "optional": 20,
+              "helpful-not-essential": 70,
+              "intensity": 70
+            },
+            "receptivity": {
+              "essential": 30,
+              "optional": 12,
+              "helpful-not-essential": 42,
+              "intensity": 42
+            }
           },
           "xdh0026": {
-            "monastic": 60,
-            "lay": 30,
-            "retreatant-householder": 70
+            "advocacy": {
+              "monastic": 60,
+              "lay": 30,
+              "retreatant-householder": 70,
+              "intensity": 70
+            },
+            "receptivity": {
+              "monastic": 36,
+              "lay": 18,
+              "retreatant-householder": 42,
+              "intensity": 42
+            }
           },
           "xdh0027": {
-            "orthodox": 30,
-            "eclectic": 50,
-            "rooted-but-borrowing": 80
+            "advocacy": {
+              "orthodox": 30,
+              "eclectic": 50,
+              "rooted-but-borrowing": 80,
+              "intensity": 80
+            },
+            "receptivity": {
+              "orthodox": 18,
+              "eclectic": 30,
+              "rooted-but-borrowing": 48,
+              "intensity": 48
+            }
           },
           "xdh0028": {
-            "grasthi": 20,
-            "sannyasa": 40,
-            "vanaprastha": 80
+            "advocacy": {
+              "grasthi": 20,
+              "sannyasa": 40,
+              "vanaprastha": 80,
+              "intensity": 80
+            },
+            "receptivity": {
+              "grasthi": 12,
+              "sannyasa": 24,
+              "vanaprastha": 48,
+              "intensity": 48
+            }
           }
         },
         "skin": "dharmacapades"
@@ -4174,127 +4604,342 @@
         "aboutMe": "Salvation by other-power: sincere recitation of Amitabha's name, trusting his vow, brings rebirth in the Pure Land where awakening is assured.",
         "ratings": {
           "xdh0001": {
-            "literal": 80,
-            "psychological": 20,
-            "no-karma": -70
+            "advocacy": {
+              "literal": 80,
+              "psychological": 20,
+              "no-karma": -70,
+              "intensity": 80
+            },
+            "receptivity": {
+              "literal": 36,
+              "psychological": 9,
+              "no-karma": -32,
+              "intensity": 36
+            }
           },
           "xdh0002": {
-            "escape": 80,
-            "engage": -30,
-            "accept": 10
+            "advocacy": {
+              "escape": 80,
+              "engage": -30,
+              "accept": 10,
+              "intensity": 80
+            },
+            "receptivity": {
+              "escape": 36,
+              "engage": -14,
+              "accept": 4,
+              "intensity": 36
+            }
           },
           "xdh0003": {
-            "religion": 80,
-            "philosophy": 10,
-            "way-of-life": 50
+            "advocacy": {
+              "religion": 80,
+              "philosophy": 10,
+              "way-of-life": 50,
+              "intensity": 80
+            },
+            "receptivity": {
+              "religion": 36,
+              "philosophy": 4,
+              "way-of-life": 22,
+              "intensity": 36
+            }
           },
           "xdh0005": {
-            "confucianism": 0,
-            "taoism": 0,
-            "buddhism": 90
+            "advocacy": {
+              "confucianism": 0,
+              "taoism": 0,
+              "buddhism": 90,
+              "intensity": 90
+            },
+            "receptivity": {
+              "confucianism": 0,
+              "taoism": 0,
+              "buddhism": 40,
+              "intensity": 40
+            }
           },
           "xdh0009": {
-            "moksha": -20,
-            "nirvana": 85,
-            "union-with-the-dao": -50
+            "advocacy": {
+              "moksha": -20,
+              "nirvana": 85,
+              "union-with-the-dao": -50,
+              "intensity": 85
+            },
+            "receptivity": {
+              "moksha": -9,
+              "nirvana": 38,
+              "union-with-the-dao": -22,
+              "intensity": 38
+            }
           },
           "xdh0010": {
-            "sudden": 20,
-            "gradual": 70,
-            "sudden-awakening-gradual-cultivation": 50
+            "advocacy": {
+              "sudden": 20,
+              "gradual": 70,
+              "sudden-awakening-gradual-cultivation": 50,
+              "intensity": 70
+            },
+            "receptivity": {
+              "sudden": 9,
+              "gradual": 32,
+              "sudden-awakening-gradual-cultivation": 22,
+              "intensity": 32
+            }
           },
           "xdh0011": {
-            "atman": -70,
-            "anatta": 70,
-            "pudgala": -40
+            "advocacy": {
+              "atman": -70,
+              "anatta": 70,
+              "pudgala": -40,
+              "intensity": -70
+            },
+            "receptivity": {
+              "atman": -32,
+              "anatta": 32,
+              "pudgala": -18,
+              "intensity": -32
+            }
           },
           "xdh0012": {
-            "physical": 20,
-            "breath": 40,
-            "meditative": 50,
-            "devotional": 95,
-            "philosophical": 20
+            "advocacy": {
+              "physical": 20,
+              "breath": 40,
+              "meditative": 50,
+              "devotional": 95,
+              "philosophical": 20,
+              "intensity": 95
+            },
+            "receptivity": {
+              "physical": 9,
+              "breath": 18,
+              "meditative": 22,
+              "devotional": 43,
+              "philosophical": 9,
+              "intensity": 43
+            }
           },
           "xdh0013": {
-            "samatha": 60,
-            "vipassana": 30
+            "advocacy": {
+              "samatha": 60,
+              "vipassana": 30,
+              "intensity": 60
+            },
+            "receptivity": {
+              "samatha": 27,
+              "vipassana": 14,
+              "intensity": 27
+            }
           },
           "xdh0014": {
-            "left-hand": -60,
-            "right-hand": 50,
-            "internalized-transgression": -10
+            "advocacy": {
+              "left-hand": -60,
+              "right-hand": 50,
+              "internalized-transgression": -10,
+              "intensity": -60
+            },
+            "receptivity": {
+              "left-hand": -27,
+              "right-hand": 22,
+              "internalized-transgression": -4,
+              "intensity": -27
+            }
           },
           "xdh0015": {
-            "awakening": 20,
-            "danger": 20
+            "advocacy": {
+              "awakening": 20,
+              "danger": 20,
+              "intensity": 20
+            },
+            "receptivity": {
+              "awakening": 9,
+              "danger": 9,
+              "intensity": 9
+            }
           },
           "xdh0016": {
-            "right-view": 70,
-            "right-intention": 75,
-            "right-speech": 70,
-            "right-action": 65,
-            "right-livelihood": 60,
-            "right-effort": 65,
-            "right-mindfulness": 70,
-            "right-concentration": 60
+            "advocacy": {
+              "right-view": 70,
+              "right-intention": 75,
+              "right-speech": 70,
+              "right-action": 65,
+              "right-livelihood": 60,
+              "right-effort": 65,
+              "right-mindfulness": 70,
+              "right-concentration": 60,
+              "intensity": 75
+            },
+            "receptivity": {
+              "right-view": 32,
+              "right-intention": 34,
+              "right-speech": 32,
+              "right-action": 29,
+              "right-livelihood": 27,
+              "right-effort": 29,
+              "right-mindfulness": 32,
+              "right-concentration": 27,
+              "intensity": 34
+            }
           },
           "xdh0017": {
-            "wu-wei": 50,
-            "you-wei": 0,
-            "act-when-needed": 50
+            "advocacy": {
+              "wu-wei": 50,
+              "you-wei": 0,
+              "act-when-needed": 50,
+              "intensity": 50
+            },
+            "receptivity": {
+              "wu-wei": 22,
+              "you-wei": 0,
+              "act-when-needed": 22,
+              "intensity": 22
+            }
           },
           "xdh0018": {
-            "raja-yoga": 20,
-            "jnana-yoga": 20,
-            "bhakti-yoga": 90,
-            "karma-yoga": 50,
-            "hatha-yoga": 10,
-            "tantra-yoga": -50
+            "advocacy": {
+              "raja-yoga": 20,
+              "jnana-yoga": 20,
+              "bhakti-yoga": 90,
+              "karma-yoga": 50,
+              "hatha-yoga": 10,
+              "tantra-yoga": -50,
+              "intensity": 90
+            },
+            "receptivity": {
+              "raja-yoga": 9,
+              "jnana-yoga": 9,
+              "bhakti-yoga": 40,
+              "karma-yoga": 22,
+              "hatha-yoga": 4,
+              "tantra-yoga": -22,
+              "intensity": 40
+            }
           },
           "xdh0019": {
-            "personal-theism": 60,
-            "impersonal-theism": 20,
-            "non-theistic-spirituality": 10,
-            "atheism-materialism": -50
+            "advocacy": {
+              "personal-theism": 60,
+              "impersonal-theism": 20,
+              "non-theistic-spirituality": 10,
+              "atheism-materialism": -50,
+              "intensity": 60
+            },
+            "receptivity": {
+              "personal-theism": 27,
+              "impersonal-theism": 9,
+              "non-theistic-spirituality": 4,
+              "atheism-materialism": -22,
+              "intensity": 27
+            }
           },
           "xdh0021": {
-            "historical-buddha": 50,
-            "cosmic-buddha": 85,
-            "buddha-nature": 50
+            "advocacy": {
+              "historical-buddha": 50,
+              "cosmic-buddha": 85,
+              "buddha-nature": 50,
+              "intensity": 85
+            },
+            "receptivity": {
+              "historical-buddha": 22,
+              "cosmic-buddha": 38,
+              "buddha-nature": 22,
+              "intensity": 38
+            }
           },
           "xdh0022": {
-            "jain": 10,
-            "buddhist": 85,
-            "hindu": 0
+            "advocacy": {
+              "jain": 10,
+              "buddhist": 85,
+              "hindu": 0,
+              "intensity": 85
+            },
+            "receptivity": {
+              "jain": 4,
+              "buddhist": 38,
+              "hindu": 0,
+              "intensity": 38
+            }
           },
           "xdh0023": {
-            "strict-rules": 40,
-            "flexible-guidelines": 40,
-            "firm-but-flexible": 100
+            "advocacy": {
+              "strict-rules": 40,
+              "flexible-guidelines": 40,
+              "firm-but-flexible": 100,
+              "intensity": 100
+            },
+            "receptivity": {
+              "strict-rules": 18,
+              "flexible-guidelines": 18,
+              "firm-but-flexible": 45,
+              "intensity": 45
+            }
           },
           "xdh0024": {
-            "karuna": 85,
-            "prajna": 50
+            "advocacy": {
+              "karuna": 85,
+              "prajna": 50,
+              "intensity": 85
+            },
+            "receptivity": {
+              "karuna": 38,
+              "prajna": 22,
+              "intensity": 38
+            }
           },
           "xdh0025": {
-            "essential": 50,
-            "optional": 30,
-            "helpful-not-essential": 80
+            "advocacy": {
+              "essential": 50,
+              "optional": 30,
+              "helpful-not-essential": 80,
+              "intensity": 80
+            },
+            "receptivity": {
+              "essential": 22,
+              "optional": 14,
+              "helpful-not-essential": 36,
+              "intensity": 36
+            }
           },
           "xdh0026": {
-            "monastic": 20,
-            "lay": 80,
-            "retreatant-householder": 40
+            "advocacy": {
+              "monastic": 20,
+              "lay": 80,
+              "retreatant-householder": 40,
+              "intensity": 80
+            },
+            "receptivity": {
+              "monastic": 9,
+              "lay": 36,
+              "retreatant-householder": 18,
+              "intensity": 36
+            }
           },
           "xdh0027": {
-            "orthodox": 60,
-            "eclectic": 10,
-            "rooted-but-borrowing": 50
+            "advocacy": {
+              "orthodox": 60,
+              "eclectic": 10,
+              "rooted-but-borrowing": 50,
+              "intensity": 60
+            },
+            "receptivity": {
+              "orthodox": 27,
+              "eclectic": 4,
+              "rooted-but-borrowing": 22,
+              "intensity": 27
+            }
           },
           "xdh0028": {
-            "grasthi": 70,
-            "sannyasa": -10,
-            "vanaprastha": 20
+            "advocacy": {
+              "grasthi": 70,
+              "sannyasa": -10,
+              "vanaprastha": 20,
+              "intensity": 70
+            },
+            "receptivity": {
+              "grasthi": 32,
+              "sannyasa": -4,
+              "vanaprastha": 9,
+              "intensity": 32
+            }
           }
         },
         "skin": "dharmacapades"
@@ -4325,127 +4970,342 @@
         "aboutMe": "The swift Vajrayana path: deity yoga, mantra, and the guru's transmission turn ordinary experience into the means of awakening, for the sake of all beings.",
         "ratings": {
           "xdh0001": {
-            "literal": 70,
-            "psychological": 50,
-            "no-karma": -70
+            "advocacy": {
+              "literal": 70,
+              "psychological": 50,
+              "no-karma": -70,
+              "intensity": 70
+            },
+            "receptivity": {
+              "literal": 38,
+              "psychological": 28,
+              "no-karma": -38,
+              "intensity": 38
+            }
           },
           "xdh0002": {
-            "escape": 70,
-            "engage": 40,
-            "accept": 20
+            "advocacy": {
+              "escape": 70,
+              "engage": 40,
+              "accept": 20,
+              "intensity": 70
+            },
+            "receptivity": {
+              "escape": 38,
+              "engage": 22,
+              "accept": 11,
+              "intensity": 38
+            }
           },
           "xdh0003": {
-            "religion": 70,
-            "philosophy": 40,
-            "way-of-life": 60
+            "advocacy": {
+              "religion": 70,
+              "philosophy": 40,
+              "way-of-life": 60,
+              "intensity": 70
+            },
+            "receptivity": {
+              "religion": 38,
+              "philosophy": 22,
+              "way-of-life": 33,
+              "intensity": 38
+            }
           },
           "xdh0005": {
-            "confucianism": 0,
-            "taoism": 10,
-            "buddhism": 90
+            "advocacy": {
+              "confucianism": 0,
+              "taoism": 10,
+              "buddhism": 90,
+              "intensity": 90
+            },
+            "receptivity": {
+              "confucianism": 0,
+              "taoism": 6,
+              "buddhism": 50,
+              "intensity": 50
+            }
           },
           "xdh0009": {
-            "moksha": -10,
-            "nirvana": 85,
-            "union-with-the-dao": -30
+            "advocacy": {
+              "moksha": -10,
+              "nirvana": 85,
+              "union-with-the-dao": -30,
+              "intensity": 85
+            },
+            "receptivity": {
+              "moksha": -6,
+              "nirvana": 47,
+              "union-with-the-dao": -16,
+              "intensity": 47
+            }
           },
           "xdh0010": {
-            "sudden": 60,
-            "gradual": 60,
-            "sudden-awakening-gradual-cultivation": 100
+            "advocacy": {
+              "sudden": 60,
+              "gradual": 60,
+              "sudden-awakening-gradual-cultivation": 100,
+              "intensity": 100
+            },
+            "receptivity": {
+              "sudden": 33,
+              "gradual": 33,
+              "sudden-awakening-gradual-cultivation": 55,
+              "intensity": 55
+            }
           },
           "xdh0011": {
-            "atman": -85,
-            "anatta": 85,
-            "pudgala": -70
+            "advocacy": {
+              "atman": -85,
+              "anatta": 85,
+              "pudgala": -70,
+              "intensity": -85
+            },
+            "receptivity": {
+              "atman": -47,
+              "anatta": 47,
+              "pudgala": -38,
+              "intensity": -47
+            }
           },
           "xdh0012": {
-            "physical": 50,
-            "breath": 60,
-            "meditative": 80,
-            "devotional": 70,
-            "philosophical": 60
+            "advocacy": {
+              "physical": 50,
+              "breath": 60,
+              "meditative": 80,
+              "devotional": 70,
+              "philosophical": 60,
+              "intensity": 80
+            },
+            "receptivity": {
+              "physical": 28,
+              "breath": 33,
+              "meditative": 44,
+              "devotional": 38,
+              "philosophical": 33,
+              "intensity": 44
+            }
           },
           "xdh0013": {
-            "samatha": 70,
-            "vipassana": 75
+            "advocacy": {
+              "samatha": 70,
+              "vipassana": 75,
+              "intensity": 75
+            },
+            "receptivity": {
+              "samatha": 38,
+              "vipassana": 41,
+              "intensity": 41
+            }
           },
           "xdh0014": {
-            "left-hand": 70,
-            "right-hand": 50,
-            "internalized-transgression": 80
+            "advocacy": {
+              "left-hand": 70,
+              "right-hand": 50,
+              "internalized-transgression": 80,
+              "intensity": 80
+            },
+            "receptivity": {
+              "left-hand": 38,
+              "right-hand": 28,
+              "internalized-transgression": 44,
+              "intensity": 44
+            }
           },
           "xdh0015": {
-            "awakening": 80,
-            "danger": 60
+            "advocacy": {
+              "awakening": 80,
+              "danger": 60,
+              "intensity": 80
+            },
+            "receptivity": {
+              "awakening": 44,
+              "danger": 33,
+              "intensity": 44
+            }
           },
           "xdh0016": {
-            "right-view": 85,
-            "right-intention": 80,
-            "right-speech": 75,
-            "right-action": 75,
-            "right-livelihood": 60,
-            "right-effort": 80,
-            "right-mindfulness": 85,
-            "right-concentration": 85
+            "advocacy": {
+              "right-view": 85,
+              "right-intention": 80,
+              "right-speech": 75,
+              "right-action": 75,
+              "right-livelihood": 60,
+              "right-effort": 80,
+              "right-mindfulness": 85,
+              "right-concentration": 85,
+              "intensity": 85
+            },
+            "receptivity": {
+              "right-view": 47,
+              "right-intention": 44,
+              "right-speech": 41,
+              "right-action": 41,
+              "right-livelihood": 33,
+              "right-effort": 44,
+              "right-mindfulness": 47,
+              "right-concentration": 47,
+              "intensity": 47
+            }
           },
           "xdh0017": {
-            "wu-wei": 40,
-            "you-wei": 60,
-            "act-when-needed": 80
+            "advocacy": {
+              "wu-wei": 40,
+              "you-wei": 60,
+              "act-when-needed": 80,
+              "intensity": 80
+            },
+            "receptivity": {
+              "wu-wei": 22,
+              "you-wei": 33,
+              "act-when-needed": 44,
+              "intensity": 44
+            }
           },
           "xdh0018": {
-            "raja-yoga": 50,
-            "jnana-yoga": 60,
-            "bhakti-yoga": 50,
-            "karma-yoga": 50,
-            "hatha-yoga": 40,
-            "tantra-yoga": 90
+            "advocacy": {
+              "raja-yoga": 50,
+              "jnana-yoga": 60,
+              "bhakti-yoga": 50,
+              "karma-yoga": 50,
+              "hatha-yoga": 40,
+              "tantra-yoga": 90,
+              "intensity": 90
+            },
+            "receptivity": {
+              "raja-yoga": 28,
+              "jnana-yoga": 33,
+              "bhakti-yoga": 28,
+              "karma-yoga": 28,
+              "hatha-yoga": 22,
+              "tantra-yoga": 50,
+              "intensity": 50
+            }
           },
           "xdh0019": {
-            "personal-theism": 40,
-            "impersonal-theism": 30,
-            "non-theistic-spirituality": 40,
-            "atheism-materialism": -40
+            "advocacy": {
+              "personal-theism": 40,
+              "impersonal-theism": 30,
+              "non-theistic-spirituality": 40,
+              "atheism-materialism": -40,
+              "intensity": 40
+            },
+            "receptivity": {
+              "personal-theism": 22,
+              "impersonal-theism": 16,
+              "non-theistic-spirituality": 22,
+              "atheism-materialism": -22,
+              "intensity": 22
+            }
           },
           "xdh0021": {
-            "historical-buddha": 60,
-            "cosmic-buddha": 70,
-            "buddha-nature": 80
+            "advocacy": {
+              "historical-buddha": 60,
+              "cosmic-buddha": 70,
+              "buddha-nature": 80,
+              "intensity": 80
+            },
+            "receptivity": {
+              "historical-buddha": 33,
+              "cosmic-buddha": 38,
+              "buddha-nature": 44,
+              "intensity": 44
+            }
           },
           "xdh0022": {
-            "jain": 10,
-            "buddhist": 85,
-            "hindu": 10
+            "advocacy": {
+              "jain": 10,
+              "buddhist": 85,
+              "hindu": 10,
+              "intensity": 85
+            },
+            "receptivity": {
+              "jain": 6,
+              "buddhist": 47,
+              "hindu": 6,
+              "intensity": 47
+            }
           },
           "xdh0023": {
-            "strict-rules": 60,
-            "flexible-guidelines": 30,
-            "firm-but-flexible": 70
+            "advocacy": {
+              "strict-rules": 60,
+              "flexible-guidelines": 30,
+              "firm-but-flexible": 70,
+              "intensity": 70
+            },
+            "receptivity": {
+              "strict-rules": 33,
+              "flexible-guidelines": 16,
+              "firm-but-flexible": 38,
+              "intensity": 38
+            }
           },
           "xdh0024": {
-            "karuna": 90,
-            "prajna": 85
+            "advocacy": {
+              "karuna": 90,
+              "prajna": 85,
+              "intensity": 90
+            },
+            "receptivity": {
+              "karuna": 50,
+              "prajna": 47,
+              "intensity": 50
+            }
           },
           "xdh0025": {
-            "essential": 95,
-            "optional": -70,
-            "helpful-not-essential": -65
+            "advocacy": {
+              "essential": 95,
+              "optional": -70,
+              "helpful-not-essential": -65,
+              "intensity": 95
+            },
+            "receptivity": {
+              "essential": 52,
+              "optional": -38,
+              "helpful-not-essential": -36,
+              "intensity": 52
+            }
           },
           "xdh0026": {
-            "monastic": 70,
-            "lay": 20,
-            "retreatant-householder": 50
+            "advocacy": {
+              "monastic": 70,
+              "lay": 20,
+              "retreatant-householder": 50,
+              "intensity": 70
+            },
+            "receptivity": {
+              "monastic": 38,
+              "lay": 11,
+              "retreatant-householder": 28,
+              "intensity": 38
+            }
           },
           "xdh0027": {
-            "orthodox": 75,
-            "eclectic": -30,
-            "rooted-but-borrowing": -5
+            "advocacy": {
+              "orthodox": 75,
+              "eclectic": -30,
+              "rooted-but-borrowing": -5,
+              "intensity": 75
+            },
+            "receptivity": {
+              "orthodox": 41,
+              "eclectic": -16,
+              "rooted-but-borrowing": -3,
+              "intensity": 41
+            }
           },
           "xdh0028": {
-            "grasthi": 0,
-            "sannyasa": 60,
-            "vanaprastha": 40
+            "advocacy": {
+              "grasthi": 0,
+              "sannyasa": 60,
+              "vanaprastha": 40,
+              "intensity": 60
+            },
+            "receptivity": {
+              "grasthi": 0,
+              "sannyasa": 33,
+              "vanaprastha": 22,
+              "intensity": 33
+            }
           }
         },
         "skin": "dharmacapades"

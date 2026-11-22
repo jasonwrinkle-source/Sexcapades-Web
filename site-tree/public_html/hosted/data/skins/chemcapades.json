@@ -4523,165 +4523,442 @@
         "ratings": {
           "xch0001": 85,
           "xch0002": {
-            "strict-physical-realist": 30,
-            "pattern-realist": 60,
-            "pure-instrumentalist": 30
+            "advocacy": {
+              "strict-physical-realist": 30,
+              "pattern-realist": 60,
+              "pure-instrumentalist": 30,
+              "intensity": 60
+            },
+            "receptivity": {
+              "strict-physical-realist": 16,
+              "pattern-realist": 33,
+              "pure-instrumentalist": 16,
+              "intensity": 33
+            }
           },
           "xch0003": {
-            "mathematical-constructs": 40,
-            "quasi-physical-experiential-entities": 60,
-            "working-realism": 80
+            "advocacy": {
+              "mathematical-constructs": 40,
+              "quasi-physical-experiential-entities": 60,
+              "working-realism": 80,
+              "intensity": 80
+            },
+            "receptivity": {
+              "mathematical-constructs": 22,
+              "quasi-physical-experiential-entities": 33,
+              "working-realism": 44,
+              "intensity": 44
+            }
           },
           "xch0004": {
-            "strong-reductionism": 20,
-            "epistemological-anti-reductionism": 50,
-            "ontological-emergence": 60,
-            "downward-causation-contextuality": 30,
-            "pluralism": 50
+            "advocacy": {
+              "strong-reductionism": 20,
+              "epistemological-anti-reductionism": 50,
+              "ontological-emergence": 60,
+              "downward-causation-contextuality": 30,
+              "pluralism": 50,
+              "intensity": 60
+            },
+            "receptivity": {
+              "strong-reductionism": 11,
+              "epistemological-anti-reductionism": 28,
+              "ontological-emergence": 33,
+              "downward-causation-contextuality": 16,
+              "pluralism": 28,
+              "intensity": 33
+            }
           },
           "xch0005": {
-            "classical-geometric-primacy": 80,
-            "quantum-holistic-indeterminacy": 20,
-            "geometry-with-quantum-give": 40
+            "advocacy": {
+              "classical-geometric-primacy": 80,
+              "quantum-holistic-indeterminacy": 20,
+              "geometry-with-quantum-give": 40,
+              "intensity": 80
+            },
+            "receptivity": {
+              "classical-geometric-primacy": 44,
+              "quantum-holistic-indeterminacy": 11,
+              "geometry-with-quantum-give": 22,
+              "intensity": 44
+            }
           },
           "xch0006": {
-            "real-entity": 80,
-            "useful-model": 40,
-            "emergent-pattern": 30
+            "advocacy": {
+              "real-entity": 80,
+              "useful-model": 40,
+              "emergent-pattern": 30,
+              "intensity": 80
+            },
+            "receptivity": {
+              "real-entity": 44,
+              "useful-model": 22,
+              "emergent-pattern": 16,
+              "intensity": 44
+            }
           },
           "xch0010": {
-            "mechanistic-realism": 85,
-            "mnemonic-predictive-pragmatism": 50,
-            "kinetic-spectroscopic-skepticism": 40
+            "advocacy": {
+              "mechanistic-realism": 85,
+              "mnemonic-predictive-pragmatism": 50,
+              "kinetic-spectroscopic-skepticism": 40,
+              "intensity": 85
+            },
+            "receptivity": {
+              "mechanistic-realism": 47,
+              "mnemonic-predictive-pragmatism": 28,
+              "kinetic-spectroscopic-skepticism": 22,
+              "intensity": 47
+            }
           },
           "xch0011": {
-            "bench-supremacy": 70,
-            "computational-vanguard": 20,
-            "synergistic-co-equal-loop": 50,
-            "autonomous-self-driving-labs": 10
+            "advocacy": {
+              "bench-supremacy": 70,
+              "computational-vanguard": 20,
+              "synergistic-co-equal-loop": 50,
+              "autonomous-self-driving-labs": 10,
+              "intensity": 70
+            },
+            "receptivity": {
+              "bench-supremacy": 38,
+              "computational-vanguard": 11,
+              "synergistic-co-equal-loop": 28,
+              "autonomous-self-driving-labs": 6,
+              "intensity": 38
+            }
           },
           "xch0012": {
-            "diffraction-absoluteness": 70,
-            "solution-state-spectroscopic-realism": 80,
-            "total-synthesis-verification": 85
+            "advocacy": {
+              "diffraction-absoluteness": 70,
+              "solution-state-spectroscopic-realism": 80,
+              "total-synthesis-verification": 85,
+              "intensity": 85
+            },
+            "receptivity": {
+              "diffraction-absoluteness": 38,
+              "solution-state-spectroscopic-realism": 44,
+              "total-synthesis-verification": 47,
+              "intensity": 47
+            }
           },
           "xch0013": {
-            "artisanal-chemical-intuition": 90,
-            "explainable-cheminformatics": 40,
-            "black-box-high-throughput-empiricism": -30
+            "advocacy": {
+              "artisanal-chemical-intuition": 90,
+              "explainable-cheminformatics": 40,
+              "black-box-high-throughput-empiricism": -30,
+              "intensity": 90
+            },
+            "receptivity": {
+              "artisanal-chemical-intuition": 50,
+              "explainable-cheminformatics": 22,
+              "black-box-high-throughput-empiricism": -16,
+              "intensity": 50
+            }
           },
           "xch0014": {
-            "serendipity": 50,
-            "design": 70
+            "advocacy": {
+              "serendipity": 50,
+              "design": 70,
+              "intensity": 70
+            },
+            "receptivity": {
+              "serendipity": 28,
+              "design": 38,
+              "intensity": 38
+            }
           },
           "xch0015": {
-            "the-central-science": 60,
-            "the-creative-inventive-science": 90,
-            "a-service-enabling-discipline": 10,
-            "dissolving-boundaries": 30
+            "advocacy": {
+              "the-central-science": 60,
+              "the-creative-inventive-science": 90,
+              "a-service-enabling-discipline": 10,
+              "dissolving-boundaries": 30,
+              "intensity": 90
+            },
+            "receptivity": {
+              "the-central-science": 33,
+              "the-creative-inventive-science": 50,
+              "a-service-enabling-discipline": 6,
+              "dissolving-boundaries": 16,
+              "intensity": 50
+            }
           },
           "xch0016": {
-            "organic-chemistry": 95,
-            "inorganic-chemistry": 10,
-            "physical-chemistry": 20,
-            "analytical-chemistry": 40,
-            "biochemistry-chemical-biology": 50
+            "advocacy": {
+              "organic-chemistry": 95,
+              "inorganic-chemistry": 10,
+              "physical-chemistry": 20,
+              "analytical-chemistry": 40,
+              "biochemistry-chemical-biology": 50,
+              "intensity": 95
+            },
+            "receptivity": {
+              "organic-chemistry": 52,
+              "inorganic-chemistry": 6,
+              "physical-chemistry": 11,
+              "analytical-chemistry": 22,
+              "biochemistry-chemical-biology": 28,
+              "intensity": 52
+            }
           },
           "xch0017": {
-            "the-mount-everest-of-chemistry": 90,
-            "step-economy-ideality": 60,
-            "function-oriented-synthesis": 50,
-            "biosynthetic-biocatalytic-shift": 40
+            "advocacy": {
+              "the-mount-everest-of-chemistry": 90,
+              "step-economy-ideality": 60,
+              "function-oriented-synthesis": 50,
+              "biosynthetic-biocatalytic-shift": 40,
+              "intensity": 90
+            },
+            "receptivity": {
+              "the-mount-everest-of-chemistry": 50,
+              "step-economy-ideality": 33,
+              "function-oriented-synthesis": 28,
+              "biosynthetic-biocatalytic-shift": 22,
+              "intensity": 50
+            }
           },
           "xch0018": {
-            "academic-discovery-ethos": 80,
-            "process-scale-up-realism": 20,
-            "discovery-that-scales": 40
+            "advocacy": {
+              "academic-discovery-ethos": 80,
+              "process-scale-up-realism": 20,
+              "discovery-that-scales": 40,
+              "intensity": 80
+            },
+            "receptivity": {
+              "academic-discovery-ethos": 44,
+              "process-scale-up-realism": 11,
+              "discovery-that-scales": 22,
+              "intensity": 44
+            }
           },
           "xch0020": {
-            "strict-green-by-design": 30,
-            "pragmatic-sustainability": 70,
-            "techno-optimist-remediation": 30,
-            "unfettered-fundamental-inquiry": 60
+            "advocacy": {
+              "strict-green-by-design": 30,
+              "pragmatic-sustainability": 70,
+              "techno-optimist-remediation": 30,
+              "unfettered-fundamental-inquiry": 60,
+              "intensity": 70
+            },
+            "receptivity": {
+              "strict-green-by-design": 16,
+              "pragmatic-sustainability": 38,
+              "techno-optimist-remediation": 16,
+              "unfettered-fundamental-inquiry": 33,
+              "intensity": 38
+            }
           },
           "xch0021": {
-            "zero-harm-institutional-compliance": 40,
-            "competence-based-risk-management": 80,
-            "frontier-risk-acceptance": 40
+            "advocacy": {
+              "zero-harm-institutional-compliance": 40,
+              "competence-based-risk-management": 80,
+              "frontier-risk-acceptance": 40,
+              "intensity": 80
+            },
+            "receptivity": {
+              "zero-harm-institutional-compliance": 22,
+              "competence-based-risk-management": 44,
+              "frontier-risk-acceptance": 22,
+              "intensity": 44
+            }
           },
           "xch0023": {
-            "empathetic-public-literacy": 60,
-            "industrial-accountability-first": 40,
-            "focus-on-the-science": 50
+            "advocacy": {
+              "empathetic-public-literacy": 60,
+              "industrial-accountability-first": 40,
+              "focus-on-the-science": 50,
+              "intensity": 60
+            },
+            "receptivity": {
+              "empathetic-public-literacy": 33,
+              "industrial-accountability-first": 22,
+              "focus-on-the-science": 28,
+              "intensity": 33
+            }
           },
           "xch0024": {
-            "restrict-publication": -35,
-            "guardrail-ai": 10
+            "advocacy": {
+              "restrict-publication": -35,
+              "guardrail-ai": 10,
+              "intensity": -35
+            },
+            "receptivity": {
+              "restrict-publication": -19,
+              "guardrail-ai": 6,
+              "intensity": -19
+            }
           },
           "xch0025": {
-            "thermodynamic-equilibrium-primacy": 40,
-            "kinetic-metastable-primacy": 70,
-            "case-by-case": 70
+            "advocacy": {
+              "thermodynamic-equilibrium-primacy": 40,
+              "kinetic-metastable-primacy": 70,
+              "case-by-case": 70,
+              "intensity": 70
+            },
+            "receptivity": {
+              "thermodynamic-equilibrium-primacy": 22,
+              "kinetic-metastable-primacy": 38,
+              "case-by-case": 38,
+              "intensity": 38
+            }
           },
           "xch0026": {
             "give": 70,
             "receive": 65
           },
           "xch0027": {
-            "pure-compound-isolationism": 70,
-            "dynamic-combinatorial-systems-chemistry": 20,
-            "prebiotic-geochemical-realism": 10
+            "advocacy": {
+              "pure-compound-isolationism": 70,
+              "dynamic-combinatorial-systems-chemistry": 20,
+              "prebiotic-geochemical-realism": 10,
+              "intensity": 70
+            },
+            "receptivity": {
+              "pure-compound-isolationism": 38,
+              "dynamic-combinatorial-systems-chemistry": 11,
+              "prebiotic-geochemical-realism": 6,
+              "intensity": 38
+            }
           },
           "xch0028": {
-            "homogeneous-molecular-catalysis": 90,
-            "heterogeneous-surface-catalysis": 20,
-            "enzymatic-biocatalysis": 40
+            "advocacy": {
+              "homogeneous-molecular-catalysis": 90,
+              "heterogeneous-surface-catalysis": 20,
+              "enzymatic-biocatalysis": 40,
+              "intensity": 90
+            },
+            "receptivity": {
+              "homogeneous-molecular-catalysis": 50,
+              "heterogeneous-surface-catalysis": 11,
+              "enzymatic-biocatalysis": 22,
+              "intensity": 50
+            }
           },
           "xch0029": {
-            "covalent-architecture": 90,
-            "non-covalent-self-assembly": 30,
-            "scaffolds-that-self-assemble": 40
+            "advocacy": {
+              "covalent-architecture": 90,
+              "non-covalent-self-assembly": 30,
+              "scaffolds-that-self-assemble": 40,
+              "intensity": 90
+            },
+            "receptivity": {
+              "covalent-architecture": 50,
+              "non-covalent-self-assembly": 16,
+              "scaffolds-that-self-assemble": 22,
+              "intensity": 50
+            }
           },
           "xch0030": {
-            "strict-iupac-standardization": 40,
-            "pragmatic-trivial-common-usage": 80,
-            "machine-readable-identifiers": 30
+            "advocacy": {
+              "strict-iupac-standardization": 40,
+              "pragmatic-trivial-common-usage": 80,
+              "machine-readable-identifiers": 30,
+              "intensity": 80
+            },
+            "receptivity": {
+              "strict-iupac-standardization": 22,
+              "pragmatic-trivial-common-usage": 44,
+              "machine-readable-identifiers": 16,
+              "intensity": 44
+            }
           },
           "xch0032": {
-            "high-throughput-methodology-substrate-scope": 60,
-            "deep-physical-organic-mechanistic-rigor": 85,
-            "open-preprints-raw-data-reproducibility": 50
+            "advocacy": {
+              "high-throughput-methodology-substrate-scope": 60,
+              "deep-physical-organic-mechanistic-rigor": 85,
+              "open-preprints-raw-data-reproducibility": 50,
+              "intensity": 85
+            },
+            "receptivity": {
+              "high-throughput-methodology-substrate-scope": 33,
+              "deep-physical-organic-mechanistic-rigor": 47,
+              "open-preprints-raw-data-reproducibility": 28,
+              "intensity": 47
+            }
           },
           "xch0033": {
-            "teaching-first": 40,
-            "teacher-scholar": 60,
-            "research-first": 70
+            "advocacy": {
+              "teaching-first": 40,
+              "teacher-scholar": 60,
+              "research-first": 70,
+              "intensity": 70
+            },
+            "receptivity": {
+              "teaching-first": 22,
+              "teacher-scholar": 33,
+              "research-first": 38,
+              "intensity": 38
+            }
           },
           "xch0034": {
-            "solitude": 40,
-            "collaboration": 60,
-            "solo-within-a-team": 80
+            "advocacy": {
+              "solitude": 40,
+              "collaboration": 60,
+              "solo-within-a-team": 80,
+              "intensity": 80
+            },
+            "receptivity": {
+              "solitude": 22,
+              "collaboration": 33,
+              "solo-within-a-team": 44,
+              "intensity": 44
+            }
           },
           "xch0035": {
-            "publish": 80,
-            "patent": 20,
-            "patent-then-publish": 40
+            "advocacy": {
+              "publish": 80,
+              "patent": 20,
+              "patent-then-publish": 40,
+              "intensity": 80
+            },
+            "receptivity": {
+              "publish": 44,
+              "patent": 11,
+              "patent-then-publish": 22,
+              "intensity": 44
+            }
           },
           "xch0036": {
-            "hands-on": 85,
-            "automated": 20,
-            "hybrid-workflow": 35
+            "advocacy": {
+              "hands-on": 85,
+              "automated": 20,
+              "hybrid-workflow": 35,
+              "intensity": 85
+            },
+            "receptivity": {
+              "hands-on": 47,
+              "automated": 11,
+              "hybrid-workflow": 19,
+              "intensity": 47
+            }
           },
           "xch0038": {
-            "reticular-design": 30,
-            "classical-polymers-composites": 50,
-            "hybrid-soft-matter-biomimetic-materials": 40
+            "advocacy": {
+              "reticular-design": 30,
+              "classical-polymers-composites": 50,
+              "hybrid-soft-matter-biomimetic-materials": 40,
+              "intensity": 50
+            },
+            "receptivity": {
+              "reticular-design": 16,
+              "classical-polymers-composites": 28,
+              "hybrid-soft-matter-biomimetic-materials": 22,
+              "intensity": 28
+            }
           },
           "xch0039": {
-            "structure-based-medicinal-chemistry": 80,
-            "phenotypic-chemical-genetic-screening": 50,
-            "dna-encoded-libraries-ultra-large-virtual-screening": 40,
-            "new-modalities": 60
+            "advocacy": {
+              "structure-based-medicinal-chemistry": 80,
+              "phenotypic-chemical-genetic-screening": 50,
+              "dna-encoded-libraries-ultra-large-virtual-screening": 40,
+              "new-modalities": 60,
+              "intensity": 80
+            },
+            "receptivity": {
+              "structure-based-medicinal-chemistry": 44,
+              "phenotypic-chemical-genetic-screening": 28,
+              "dna-encoded-libraries-ultra-large-virtual-screening": 22,
+              "new-modalities": 33,
+              "intensity": 44
+            }
           }
         },
         "skin": "chemcapades"
@@ -4709,166 +4986,444 @@
         "ratings": {
           "xch0001": 90,
           "xch0002": {
-            "strict-physical-realist": 85,
-            "pattern-realist": 30,
-            "pure-instrumentalist": -20
+            "advocacy": {
+              "strict-physical-realist": 85,
+              "pattern-realist": 30,
+              "pure-instrumentalist": -20,
+              "intensity": 85
+            },
+            "receptivity": {
+              "strict-physical-realist": 51,
+              "pattern-realist": 18,
+              "pure-instrumentalist": -12,
+              "intensity": 51
+            }
           },
           "xch0003": {
-            "mathematical-constructs": 80,
-            "quasi-physical-experiential-entities": 10,
-            "working-realism": 30
+            "advocacy": {
+              "mathematical-constructs": 80,
+              "quasi-physical-experiential-entities": 10,
+              "working-realism": 30,
+              "intensity": 80
+            },
+            "receptivity": {
+              "mathematical-constructs": 48,
+              "quasi-physical-experiential-entities": 6,
+              "working-realism": 18,
+              "intensity": 48
+            }
           },
           "xch0004": {
-            "strong-reductionism": 85,
-            "epistemological-anti-reductionism": 10,
-            "ontological-emergence": 20,
-            "downward-causation-contextuality": 10,
-            "pluralism": 20
+            "advocacy": {
+              "strong-reductionism": 85,
+              "epistemological-anti-reductionism": 10,
+              "ontological-emergence": 20,
+              "downward-causation-contextuality": 10,
+              "pluralism": 20,
+              "intensity": 85
+            },
+            "receptivity": {
+              "strong-reductionism": 51,
+              "epistemological-anti-reductionism": 6,
+              "ontological-emergence": 12,
+              "downward-causation-contextuality": 6,
+              "pluralism": 12,
+              "intensity": 51
+            }
           },
           "xch0005": {
-            "classical-geometric-primacy": 10,
-            "quantum-holistic-indeterminacy": 85,
-            "geometry-with-quantum-give": 25
+            "advocacy": {
+              "classical-geometric-primacy": 10,
+              "quantum-holistic-indeterminacy": 85,
+              "geometry-with-quantum-give": 25,
+              "intensity": 85
+            },
+            "receptivity": {
+              "classical-geometric-primacy": 6,
+              "quantum-holistic-indeterminacy": 51,
+              "geometry-with-quantum-give": 15,
+              "intensity": 51
+            }
           },
           "xch0006": {
-            "real-entity": 60,
-            "useful-model": 60,
-            "emergent-pattern": 50
+            "advocacy": {
+              "real-entity": 60,
+              "useful-model": 60,
+              "emergent-pattern": 50,
+              "intensity": 60
+            },
+            "receptivity": {
+              "real-entity": 36,
+              "useful-model": 36,
+              "emergent-pattern": 30,
+              "intensity": 36
+            }
           },
           "xch0007": {
-            "medium-long-form": 50,
-            "left-step-table": 60,
-            "long-form": 30,
-            "three-dimensional-spiral-helical": 20,
-            "property-cluster-data-driven": 40
+            "advocacy": {
+              "medium-long-form": 50,
+              "left-step-table": 60,
+              "long-form": 30,
+              "three-dimensional-spiral-helical": 20,
+              "property-cluster-data-driven": 40,
+              "intensity": 60
+            },
+            "receptivity": {
+              "medium-long-form": 30,
+              "left-step-table": 36,
+              "long-form": 18,
+              "three-dimensional-spiral-helical": 12,
+              "property-cluster-data-driven": 24,
+              "intensity": 36
+            }
           },
           "xch0010": {
-            "mechanistic-realism": 70,
-            "mnemonic-predictive-pragmatism": 20,
-            "kinetic-spectroscopic-skepticism": 80
+            "advocacy": {
+              "mechanistic-realism": 70,
+              "mnemonic-predictive-pragmatism": 20,
+              "kinetic-spectroscopic-skepticism": 80,
+              "intensity": 80
+            },
+            "receptivity": {
+              "mechanistic-realism": 42,
+              "mnemonic-predictive-pragmatism": 12,
+              "kinetic-spectroscopic-skepticism": 48,
+              "intensity": 48
+            }
           },
           "xch0011": {
-            "bench-supremacy": -20,
-            "computational-vanguard": 90,
-            "synergistic-co-equal-loop": 70,
-            "autonomous-self-driving-labs": 50
+            "advocacy": {
+              "bench-supremacy": -20,
+              "computational-vanguard": 90,
+              "synergistic-co-equal-loop": 70,
+              "autonomous-self-driving-labs": 50,
+              "intensity": 90
+            },
+            "receptivity": {
+              "bench-supremacy": -12,
+              "computational-vanguard": 54,
+              "synergistic-co-equal-loop": 42,
+              "autonomous-self-driving-labs": 30,
+              "intensity": 54
+            }
           },
           "xch0012": {
-            "diffraction-absoluteness": 50,
-            "solution-state-spectroscopic-realism": 85,
-            "total-synthesis-verification": 10
+            "advocacy": {
+              "diffraction-absoluteness": 50,
+              "solution-state-spectroscopic-realism": 85,
+              "total-synthesis-verification": 10,
+              "intensity": 85
+            },
+            "receptivity": {
+              "diffraction-absoluteness": 30,
+              "solution-state-spectroscopic-realism": 51,
+              "total-synthesis-verification": 6,
+              "intensity": 51
+            }
           },
           "xch0013": {
-            "artisanal-chemical-intuition": -30,
-            "explainable-cheminformatics": 80,
-            "black-box-high-throughput-empiricism": 30
+            "advocacy": {
+              "artisanal-chemical-intuition": -30,
+              "explainable-cheminformatics": 80,
+              "black-box-high-throughput-empiricism": 30,
+              "intensity": 80
+            },
+            "receptivity": {
+              "artisanal-chemical-intuition": -18,
+              "explainable-cheminformatics": 48,
+              "black-box-high-throughput-empiricism": 18,
+              "intensity": 48
+            }
           },
           "xch0014": {
-            "serendipity": 20,
-            "design": 85
+            "advocacy": {
+              "serendipity": 20,
+              "design": 85,
+              "intensity": 85
+            },
+            "receptivity": {
+              "serendipity": 12,
+              "design": 51,
+              "intensity": 51
+            }
           },
           "xch0015": {
-            "the-central-science": 70,
-            "the-creative-inventive-science": 30,
-            "a-service-enabling-discipline": 20,
-            "dissolving-boundaries": 70
+            "advocacy": {
+              "the-central-science": 70,
+              "the-creative-inventive-science": 30,
+              "a-service-enabling-discipline": 20,
+              "dissolving-boundaries": 70,
+              "intensity": 70
+            },
+            "receptivity": {
+              "the-central-science": 42,
+              "the-creative-inventive-science": 18,
+              "a-service-enabling-discipline": 12,
+              "dissolving-boundaries": 42,
+              "intensity": 42
+            }
           },
           "xch0016": {
-            "organic-chemistry": 20,
-            "inorganic-chemistry": 30,
-            "physical-chemistry": 95,
-            "analytical-chemistry": 50,
-            "biochemistry-chemical-biology": 30
+            "advocacy": {
+              "organic-chemistry": 20,
+              "inorganic-chemistry": 30,
+              "physical-chemistry": 95,
+              "analytical-chemistry": 50,
+              "biochemistry-chemical-biology": 30,
+              "intensity": 95
+            },
+            "receptivity": {
+              "organic-chemistry": 12,
+              "inorganic-chemistry": 18,
+              "physical-chemistry": 57,
+              "analytical-chemistry": 30,
+              "biochemistry-chemical-biology": 18,
+              "intensity": 57
+            }
           },
           "xch0018": {
-            "academic-discovery-ethos": 70,
-            "process-scale-up-realism": 30,
-            "discovery-that-scales": 60
+            "advocacy": {
+              "academic-discovery-ethos": 70,
+              "process-scale-up-realism": 30,
+              "discovery-that-scales": 60,
+              "intensity": 70
+            },
+            "receptivity": {
+              "academic-discovery-ethos": 42,
+              "process-scale-up-realism": 18,
+              "discovery-that-scales": 36,
+              "intensity": 42
+            }
           },
           "xch0019": {
-            "pure": 80,
-            "applied": 20,
-            "use-inspired": 40
+            "advocacy": {
+              "pure": 80,
+              "applied": 20,
+              "use-inspired": 40,
+              "intensity": 80
+            },
+            "receptivity": {
+              "pure": 48,
+              "applied": 12,
+              "use-inspired": 24,
+              "intensity": 48
+            }
           },
           "xch0020": {
-            "strict-green-by-design": 40,
-            "pragmatic-sustainability": 60,
-            "techno-optimist-remediation": 50,
-            "unfettered-fundamental-inquiry": 50
+            "advocacy": {
+              "strict-green-by-design": 40,
+              "pragmatic-sustainability": 60,
+              "techno-optimist-remediation": 50,
+              "unfettered-fundamental-inquiry": 50,
+              "intensity": 60
+            },
+            "receptivity": {
+              "strict-green-by-design": 24,
+              "pragmatic-sustainability": 36,
+              "techno-optimist-remediation": 30,
+              "unfettered-fundamental-inquiry": 30,
+              "intensity": 36
+            }
           },
           "xch0021": {
-            "zero-harm-institutional-compliance": 60,
-            "competence-based-risk-management": 60,
-            "frontier-risk-acceptance": 20
+            "advocacy": {
+              "zero-harm-institutional-compliance": 60,
+              "competence-based-risk-management": 60,
+              "frontier-risk-acceptance": 20,
+              "intensity": 60
+            },
+            "receptivity": {
+              "zero-harm-institutional-compliance": 36,
+              "competence-based-risk-management": 36,
+              "frontier-risk-acceptance": 12,
+              "intensity": 36
+            }
           },
           "xch0023": {
-            "empathetic-public-literacy": 50,
-            "industrial-accountability-first": 30,
-            "focus-on-the-science": 70
+            "advocacy": {
+              "empathetic-public-literacy": 50,
+              "industrial-accountability-first": 30,
+              "focus-on-the-science": 70,
+              "intensity": 70
+            },
+            "receptivity": {
+              "empathetic-public-literacy": 30,
+              "industrial-accountability-first": 18,
+              "focus-on-the-science": 42,
+              "intensity": 42
+            }
           },
           "xch0024": {
-            "restrict-publication": 0,
-            "guardrail-ai": 15
+            "advocacy": {
+              "restrict-publication": 0,
+              "guardrail-ai": 15,
+              "intensity": 15
+            },
+            "receptivity": {
+              "restrict-publication": 0,
+              "guardrail-ai": 9,
+              "intensity": 9
+            }
           },
           "xch0025": {
-            "thermodynamic-equilibrium-primacy": 85,
-            "kinetic-metastable-primacy": 40,
-            "case-by-case": 55
+            "advocacy": {
+              "thermodynamic-equilibrium-primacy": 85,
+              "kinetic-metastable-primacy": 40,
+              "case-by-case": 55,
+              "intensity": 85
+            },
+            "receptivity": {
+              "thermodynamic-equilibrium-primacy": 51,
+              "kinetic-metastable-primacy": 24,
+              "case-by-case": 33,
+              "intensity": 51
+            }
           },
           "xch0026": {
             "give": 50,
             "receive": 60
           },
           "xch0027": {
-            "pure-compound-isolationism": 40,
-            "dynamic-combinatorial-systems-chemistry": 60,
-            "prebiotic-geochemical-realism": 50
+            "advocacy": {
+              "pure-compound-isolationism": 40,
+              "dynamic-combinatorial-systems-chemistry": 60,
+              "prebiotic-geochemical-realism": 50,
+              "intensity": 60
+            },
+            "receptivity": {
+              "pure-compound-isolationism": 24,
+              "dynamic-combinatorial-systems-chemistry": 36,
+              "prebiotic-geochemical-realism": 30,
+              "intensity": 36
+            }
           },
           "xch0028": {
-            "homogeneous-molecular-catalysis": 50,
-            "heterogeneous-surface-catalysis": 60,
-            "enzymatic-biocatalysis": 30
+            "advocacy": {
+              "homogeneous-molecular-catalysis": 50,
+              "heterogeneous-surface-catalysis": 60,
+              "enzymatic-biocatalysis": 30,
+              "intensity": 60
+            },
+            "receptivity": {
+              "homogeneous-molecular-catalysis": 30,
+              "heterogeneous-surface-catalysis": 36,
+              "enzymatic-biocatalysis": 18,
+              "intensity": 36
+            }
           },
           "xch0029": {
-            "covalent-architecture": 50,
-            "non-covalent-self-assembly": 70,
-            "scaffolds-that-self-assemble": 80
+            "advocacy": {
+              "covalent-architecture": 50,
+              "non-covalent-self-assembly": 70,
+              "scaffolds-that-self-assemble": 80,
+              "intensity": 80
+            },
+            "receptivity": {
+              "covalent-architecture": 30,
+              "non-covalent-self-assembly": 42,
+              "scaffolds-that-self-assemble": 48,
+              "intensity": 48
+            }
           },
           "xch0032": {
-            "high-throughput-methodology-substrate-scope": 30,
-            "deep-physical-organic-mechanistic-rigor": 90,
-            "open-preprints-raw-data-reproducibility": 70
+            "advocacy": {
+              "high-throughput-methodology-substrate-scope": 30,
+              "deep-physical-organic-mechanistic-rigor": 90,
+              "open-preprints-raw-data-reproducibility": 70,
+              "intensity": 90
+            },
+            "receptivity": {
+              "high-throughput-methodology-substrate-scope": 18,
+              "deep-physical-organic-mechanistic-rigor": 54,
+              "open-preprints-raw-data-reproducibility": 42,
+              "intensity": 54
+            }
           },
           "xch0033": {
-            "teaching-first": 30,
-            "teacher-scholar": 60,
-            "research-first": 80
+            "advocacy": {
+              "teaching-first": 30,
+              "teacher-scholar": 60,
+              "research-first": 80,
+              "intensity": 80
+            },
+            "receptivity": {
+              "teaching-first": 18,
+              "teacher-scholar": 36,
+              "research-first": 48,
+              "intensity": 48
+            }
           },
           "xch0034": {
-            "solitude": 50,
-            "collaboration": 60,
-            "solo-within-a-team": 90
+            "advocacy": {
+              "solitude": 50,
+              "collaboration": 60,
+              "solo-within-a-team": 90,
+              "intensity": 90
+            },
+            "receptivity": {
+              "solitude": 30,
+              "collaboration": 36,
+              "solo-within-a-team": 54,
+              "intensity": 54
+            }
           },
           "xch0035": {
-            "publish": 85,
-            "patent": 10,
-            "patent-then-publish": 25
+            "advocacy": {
+              "publish": 85,
+              "patent": 10,
+              "patent-then-publish": 25,
+              "intensity": 85
+            },
+            "receptivity": {
+              "publish": 51,
+              "patent": 6,
+              "patent-then-publish": 15,
+              "intensity": 51
+            }
           },
           "xch0036": {
-            "hands-on": 30,
-            "automated": 70,
-            "hybrid-workflow": 60
+            "advocacy": {
+              "hands-on": 30,
+              "automated": 70,
+              "hybrid-workflow": 60,
+              "intensity": 70
+            },
+            "receptivity": {
+              "hands-on": 18,
+              "automated": 42,
+              "hybrid-workflow": 36,
+              "intensity": 42
+            }
           },
           "xch0037": {
-            "electrochemical-battery-dominance": 70,
-            "green-hydrogen-ammonia-carriers": 50,
-            "electrosynthesis-photoredox-revolution": 60,
-            "artificial-photosynthesis-solar-fuels": 60
+            "advocacy": {
+              "electrochemical-battery-dominance": 70,
+              "green-hydrogen-ammonia-carriers": 50,
+              "electrosynthesis-photoredox-revolution": 60,
+              "artificial-photosynthesis-solar-fuels": 60,
+              "intensity": 70
+            },
+            "receptivity": {
+              "electrochemical-battery-dominance": 42,
+              "green-hydrogen-ammonia-carriers": 30,
+              "electrosynthesis-photoredox-revolution": 36,
+              "artificial-photosynthesis-solar-fuels": 36,
+              "intensity": 42
+            }
           },
           "xch0040": {
-            "cosmic-chemical-continuity": 70,
-            "planetary-specific-geochemical-bottlenecks": 40,
-            "cosmic-kit-planetary-filter": 70
+            "advocacy": {
+              "cosmic-chemical-continuity": 70,
+              "planetary-specific-geochemical-bottlenecks": 40,
+              "cosmic-kit-planetary-filter": 70,
+              "intensity": 70
+            },
+            "receptivity": {
+              "cosmic-chemical-continuity": 42,
+              "planetary-specific-geochemical-bottlenecks": 24,
+              "cosmic-kit-planetary-filter": 42,
+              "intensity": 42
+            }
           }
         },
         "skin": "chemcapades"
@@ -4896,166 +5451,444 @@
         "ratings": {
           "xch0001": 85,
           "xch0002": {
-            "strict-physical-realist": 60,
-            "pattern-realist": 60,
-            "pure-instrumentalist": 10
+            "advocacy": {
+              "strict-physical-realist": 60,
+              "pattern-realist": 60,
+              "pure-instrumentalist": 10,
+              "intensity": 60
+            },
+            "receptivity": {
+              "strict-physical-realist": 33,
+              "pattern-realist": 33,
+              "pure-instrumentalist": 6,
+              "intensity": 33
+            }
           },
           "xch0003": {
-            "mathematical-constructs": 50,
-            "quasi-physical-experiential-entities": 50,
-            "working-realism": 100
+            "advocacy": {
+              "mathematical-constructs": 50,
+              "quasi-physical-experiential-entities": 50,
+              "working-realism": 100,
+              "intensity": 100
+            },
+            "receptivity": {
+              "mathematical-constructs": 28,
+              "quasi-physical-experiential-entities": 28,
+              "working-realism": 55,
+              "intensity": 55
+            }
           },
           "xch0004": {
-            "strong-reductionism": 40,
-            "epistemological-anti-reductionism": 40,
-            "ontological-emergence": 50,
-            "downward-causation-contextuality": 40,
-            "pluralism": 60
+            "advocacy": {
+              "strong-reductionism": 40,
+              "epistemological-anti-reductionism": 40,
+              "ontological-emergence": 50,
+              "downward-causation-contextuality": 40,
+              "pluralism": 60,
+              "intensity": 60
+            },
+            "receptivity": {
+              "strong-reductionism": 22,
+              "epistemological-anti-reductionism": 22,
+              "ontological-emergence": 28,
+              "downward-causation-contextuality": 22,
+              "pluralism": 33,
+              "intensity": 33
+            }
           },
           "xch0005": {
-            "classical-geometric-primacy": 70,
-            "quantum-holistic-indeterminacy": 40,
-            "geometry-with-quantum-give": 70
+            "advocacy": {
+              "classical-geometric-primacy": 70,
+              "quantum-holistic-indeterminacy": 40,
+              "geometry-with-quantum-give": 70,
+              "intensity": 70
+            },
+            "receptivity": {
+              "classical-geometric-primacy": 38,
+              "quantum-holistic-indeterminacy": 22,
+              "geometry-with-quantum-give": 38,
+              "intensity": 38
+            }
           },
           "xch0006": {
-            "real-entity": 70,
-            "useful-model": 50,
-            "emergent-pattern": 40
+            "advocacy": {
+              "real-entity": 70,
+              "useful-model": 50,
+              "emergent-pattern": 40,
+              "intensity": 70
+            },
+            "receptivity": {
+              "real-entity": 38,
+              "useful-model": 28,
+              "emergent-pattern": 22,
+              "intensity": 38
+            }
           },
           "xch0007": {
-            "medium-long-form": 70,
-            "left-step-table": 50,
-            "long-form": 40,
-            "three-dimensional-spiral-helical": 20,
-            "property-cluster-data-driven": 30
+            "advocacy": {
+              "medium-long-form": 70,
+              "left-step-table": 50,
+              "long-form": 40,
+              "three-dimensional-spiral-helical": 20,
+              "property-cluster-data-driven": 30,
+              "intensity": 70
+            },
+            "receptivity": {
+              "medium-long-form": 38,
+              "left-step-table": 28,
+              "long-form": 22,
+              "three-dimensional-spiral-helical": 11,
+              "property-cluster-data-driven": 16,
+              "intensity": 38
+            }
           },
           "xch0008": {
-            "sc-y-la-ac": 50,
-            "sc-y-lu-lr": 60,
-            "bifurcated-indeterminate": 30
+            "advocacy": {
+              "sc-y-la-ac": 50,
+              "sc-y-lu-lr": 60,
+              "bifurcated-indeterminate": 30,
+              "intensity": 60
+            },
+            "receptivity": {
+              "sc-y-la-ac": 28,
+              "sc-y-lu-lr": 33,
+              "bifurcated-indeterminate": 16,
+              "intensity": 33
+            }
           },
           "xch0009": {
-            "nuclear-limit-termination": 50,
-            "superheavy-island-of-stability": 80,
-            "relativistic-breakdown": 60
+            "advocacy": {
+              "nuclear-limit-termination": 50,
+              "superheavy-island-of-stability": 80,
+              "relativistic-breakdown": 60,
+              "intensity": 80
+            },
+            "receptivity": {
+              "nuclear-limit-termination": 28,
+              "superheavy-island-of-stability": 44,
+              "relativistic-breakdown": 33,
+              "intensity": 44
+            }
           },
           "xch0010": {
-            "mechanistic-realism": 60,
-            "mnemonic-predictive-pragmatism": 40,
-            "kinetic-spectroscopic-skepticism": 60
+            "advocacy": {
+              "mechanistic-realism": 60,
+              "mnemonic-predictive-pragmatism": 40,
+              "kinetic-spectroscopic-skepticism": 60,
+              "intensity": 60
+            },
+            "receptivity": {
+              "mechanistic-realism": 33,
+              "mnemonic-predictive-pragmatism": 22,
+              "kinetic-spectroscopic-skepticism": 33,
+              "intensity": 33
+            }
           },
           "xch0011": {
-            "bench-supremacy": 60,
-            "computational-vanguard": 40,
-            "synergistic-co-equal-loop": 60,
-            "autonomous-self-driving-labs": 20
+            "advocacy": {
+              "bench-supremacy": 60,
+              "computational-vanguard": 40,
+              "synergistic-co-equal-loop": 60,
+              "autonomous-self-driving-labs": 20,
+              "intensity": 60
+            },
+            "receptivity": {
+              "bench-supremacy": 33,
+              "computational-vanguard": 22,
+              "synergistic-co-equal-loop": 33,
+              "autonomous-self-driving-labs": 11,
+              "intensity": 33
+            }
           },
           "xch0012": {
-            "diffraction-absoluteness": 90,
-            "solution-state-spectroscopic-realism": 60,
-            "total-synthesis-verification": 20
+            "advocacy": {
+              "diffraction-absoluteness": 90,
+              "solution-state-spectroscopic-realism": 60,
+              "total-synthesis-verification": 20,
+              "intensity": 90
+            },
+            "receptivity": {
+              "diffraction-absoluteness": 50,
+              "solution-state-spectroscopic-realism": 33,
+              "total-synthesis-verification": 11,
+              "intensity": 50
+            }
           },
           "xch0014": {
-            "serendipity": 60,
-            "design": 60
+            "advocacy": {
+              "serendipity": 60,
+              "design": 60,
+              "intensity": 60
+            },
+            "receptivity": {
+              "serendipity": 33,
+              "design": 33,
+              "intensity": 33
+            }
           },
           "xch0015": {
-            "the-central-science": 60,
-            "the-creative-inventive-science": 60,
-            "a-service-enabling-discipline": 30,
-            "dissolving-boundaries": 50
+            "advocacy": {
+              "the-central-science": 60,
+              "the-creative-inventive-science": 60,
+              "a-service-enabling-discipline": 30,
+              "dissolving-boundaries": 50,
+              "intensity": 60
+            },
+            "receptivity": {
+              "the-central-science": 33,
+              "the-creative-inventive-science": 33,
+              "a-service-enabling-discipline": 16,
+              "dissolving-boundaries": 28,
+              "intensity": 33
+            }
           },
           "xch0016": {
-            "organic-chemistry": 20,
-            "inorganic-chemistry": 95,
-            "physical-chemistry": 50,
-            "analytical-chemistry": 40,
-            "biochemistry-chemical-biology": 20
+            "advocacy": {
+              "organic-chemistry": 20,
+              "inorganic-chemistry": 95,
+              "physical-chemistry": 50,
+              "analytical-chemistry": 40,
+              "biochemistry-chemical-biology": 20,
+              "intensity": 95
+            },
+            "receptivity": {
+              "organic-chemistry": 11,
+              "inorganic-chemistry": 52,
+              "physical-chemistry": 28,
+              "analytical-chemistry": 22,
+              "biochemistry-chemical-biology": 11,
+              "intensity": 52
+            }
           },
           "xch0018": {
-            "academic-discovery-ethos": 60,
-            "process-scale-up-realism": 50,
-            "discovery-that-scales": 90
+            "advocacy": {
+              "academic-discovery-ethos": 60,
+              "process-scale-up-realism": 50,
+              "discovery-that-scales": 90,
+              "intensity": 90
+            },
+            "receptivity": {
+              "academic-discovery-ethos": 33,
+              "process-scale-up-realism": 28,
+              "discovery-that-scales": 50,
+              "intensity": 50
+            }
           },
           "xch0019": {
-            "pure": 60,
-            "applied": 50,
-            "use-inspired": 90
+            "advocacy": {
+              "pure": 60,
+              "applied": 50,
+              "use-inspired": 90,
+              "intensity": 90
+            },
+            "receptivity": {
+              "pure": 33,
+              "applied": 28,
+              "use-inspired": 50,
+              "intensity": 50
+            }
           },
           "xch0020": {
-            "strict-green-by-design": 40,
-            "pragmatic-sustainability": 60,
-            "techno-optimist-remediation": 40,
-            "unfettered-fundamental-inquiry": 50
+            "advocacy": {
+              "strict-green-by-design": 40,
+              "pragmatic-sustainability": 60,
+              "techno-optimist-remediation": 40,
+              "unfettered-fundamental-inquiry": 50,
+              "intensity": 60
+            },
+            "receptivity": {
+              "strict-green-by-design": 22,
+              "pragmatic-sustainability": 33,
+              "techno-optimist-remediation": 22,
+              "unfettered-fundamental-inquiry": 28,
+              "intensity": 33
+            }
           },
           "xch0021": {
-            "zero-harm-institutional-compliance": 50,
-            "competence-based-risk-management": 70,
-            "frontier-risk-acceptance": 40
+            "advocacy": {
+              "zero-harm-institutional-compliance": 50,
+              "competence-based-risk-management": 70,
+              "frontier-risk-acceptance": 40,
+              "intensity": 70
+            },
+            "receptivity": {
+              "zero-harm-institutional-compliance": 28,
+              "competence-based-risk-management": 38,
+              "frontier-risk-acceptance": 22,
+              "intensity": 38
+            }
           },
           "xch0023": {
-            "empathetic-public-literacy": 50,
-            "industrial-accountability-first": 40,
-            "focus-on-the-science": 60
+            "advocacy": {
+              "empathetic-public-literacy": 50,
+              "industrial-accountability-first": 40,
+              "focus-on-the-science": 60,
+              "intensity": 60
+            },
+            "receptivity": {
+              "empathetic-public-literacy": 28,
+              "industrial-accountability-first": 22,
+              "focus-on-the-science": 33,
+              "intensity": 33
+            }
           },
           "xch0024": {
-            "restrict-publication": -20,
-            "guardrail-ai": 5
+            "advocacy": {
+              "restrict-publication": -20,
+              "guardrail-ai": 5,
+              "intensity": -20
+            },
+            "receptivity": {
+              "restrict-publication": -11,
+              "guardrail-ai": 3,
+              "intensity": -11
+            }
           },
           "xch0025": {
-            "thermodynamic-equilibrium-primacy": 60,
-            "kinetic-metastable-primacy": 60,
-            "case-by-case": 100
+            "advocacy": {
+              "thermodynamic-equilibrium-primacy": 60,
+              "kinetic-metastable-primacy": 60,
+              "case-by-case": 100,
+              "intensity": 100
+            },
+            "receptivity": {
+              "thermodynamic-equilibrium-primacy": 33,
+              "kinetic-metastable-primacy": 33,
+              "case-by-case": 55,
+              "intensity": 55
+            }
           },
           "xch0026": {
             "give": 60,
             "receive": 70
           },
           "xch0028": {
-            "homogeneous-molecular-catalysis": 60,
-            "heterogeneous-surface-catalysis": 90,
-            "enzymatic-biocatalysis": 30
+            "advocacy": {
+              "homogeneous-molecular-catalysis": 60,
+              "heterogeneous-surface-catalysis": 90,
+              "enzymatic-biocatalysis": 30,
+              "intensity": 90
+            },
+            "receptivity": {
+              "homogeneous-molecular-catalysis": 33,
+              "heterogeneous-surface-catalysis": 50,
+              "enzymatic-biocatalysis": 16,
+              "intensity": 50
+            }
           },
           "xch0029": {
-            "covalent-architecture": 60,
-            "non-covalent-self-assembly": 80,
-            "scaffolds-that-self-assemble": 80
+            "advocacy": {
+              "covalent-architecture": 60,
+              "non-covalent-self-assembly": 80,
+              "scaffolds-that-self-assemble": 80,
+              "intensity": 80
+            },
+            "receptivity": {
+              "covalent-architecture": 33,
+              "non-covalent-self-assembly": 44,
+              "scaffolds-that-self-assemble": 44,
+              "intensity": 44
+            }
           },
           "xch0032": {
-            "high-throughput-methodology-substrate-scope": 50,
-            "deep-physical-organic-mechanistic-rigor": 60,
-            "open-preprints-raw-data-reproducibility": 60
+            "advocacy": {
+              "high-throughput-methodology-substrate-scope": 50,
+              "deep-physical-organic-mechanistic-rigor": 60,
+              "open-preprints-raw-data-reproducibility": 60,
+              "intensity": 60
+            },
+            "receptivity": {
+              "high-throughput-methodology-substrate-scope": 28,
+              "deep-physical-organic-mechanistic-rigor": 33,
+              "open-preprints-raw-data-reproducibility": 33,
+              "intensity": 33
+            }
           },
           "xch0033": {
-            "teaching-first": 40,
-            "teacher-scholar": 60,
-            "research-first": 70
+            "advocacy": {
+              "teaching-first": 40,
+              "teacher-scholar": 60,
+              "research-first": 70,
+              "intensity": 70
+            },
+            "receptivity": {
+              "teaching-first": 22,
+              "teacher-scholar": 33,
+              "research-first": 38,
+              "intensity": 38
+            }
           },
           "xch0034": {
-            "solitude": 40,
-            "collaboration": 70,
-            "solo-within-a-team": 70
+            "advocacy": {
+              "solitude": 40,
+              "collaboration": 70,
+              "solo-within-a-team": 70,
+              "intensity": 70
+            },
+            "receptivity": {
+              "solitude": 22,
+              "collaboration": 38,
+              "solo-within-a-team": 38,
+              "intensity": 38
+            }
           },
           "xch0035": {
-            "publish": 70,
-            "patent": 40,
-            "patent-then-publish": 70
+            "advocacy": {
+              "publish": 70,
+              "patent": 40,
+              "patent-then-publish": 70,
+              "intensity": 70
+            },
+            "receptivity": {
+              "publish": 38,
+              "patent": 22,
+              "patent-then-publish": 38,
+              "intensity": 38
+            }
           },
           "xch0036": {
-            "hands-on": 80,
-            "automated": 30,
-            "hybrid-workflow": 50
+            "advocacy": {
+              "hands-on": 80,
+              "automated": 30,
+              "hybrid-workflow": 50,
+              "intensity": 80
+            },
+            "receptivity": {
+              "hands-on": 44,
+              "automated": 16,
+              "hybrid-workflow": 28,
+              "intensity": 44
+            }
           },
           "xch0037": {
-            "electrochemical-battery-dominance": 80,
-            "green-hydrogen-ammonia-carriers": 60,
-            "electrosynthesis-photoredox-revolution": 40,
-            "artificial-photosynthesis-solar-fuels": 50
+            "advocacy": {
+              "electrochemical-battery-dominance": 80,
+              "green-hydrogen-ammonia-carriers": 60,
+              "electrosynthesis-photoredox-revolution": 40,
+              "artificial-photosynthesis-solar-fuels": 50,
+              "intensity": 80
+            },
+            "receptivity": {
+              "electrochemical-battery-dominance": 44,
+              "green-hydrogen-ammonia-carriers": 33,
+              "electrosynthesis-photoredox-revolution": 22,
+              "artificial-photosynthesis-solar-fuels": 28,
+              "intensity": 44
+            }
           },
           "xch0038": {
-            "reticular-design": 90,
-            "classical-polymers-composites": 40,
-            "hybrid-soft-matter-biomimetic-materials": 50
+            "advocacy": {
+              "reticular-design": 90,
+              "classical-polymers-composites": 40,
+              "hybrid-soft-matter-biomimetic-materials": 50,
+              "intensity": 90
+            },
+            "receptivity": {
+              "reticular-design": 50,
+              "classical-polymers-composites": 22,
+              "hybrid-soft-matter-biomimetic-materials": 28,
+              "intensity": 50
+            }
           }
         },
         "skin": "chemcapades"
@@ -5087,164 +5920,440 @@
         "ratings": {
           "xch0001": 80,
           "xch0002": {
-            "strict-physical-realist": 30,
-            "pattern-realist": 70,
-            "pure-instrumentalist": 40
+            "advocacy": {
+              "strict-physical-realist": 30,
+              "pattern-realist": 70,
+              "pure-instrumentalist": 40,
+              "intensity": 70
+            },
+            "receptivity": {
+              "strict-physical-realist": 18,
+              "pattern-realist": 42,
+              "pure-instrumentalist": 24,
+              "intensity": 42
+            }
           },
           "xch0003": {
-            "mathematical-constructs": 30,
-            "quasi-physical-experiential-entities": 60,
-            "working-realism": 70
+            "advocacy": {
+              "mathematical-constructs": 30,
+              "quasi-physical-experiential-entities": 60,
+              "working-realism": 70,
+              "intensity": 70
+            },
+            "receptivity": {
+              "mathematical-constructs": 18,
+              "quasi-physical-experiential-entities": 36,
+              "working-realism": 42,
+              "intensity": 42
+            }
           },
           "xch0004": {
-            "strong-reductionism": 10,
-            "epistemological-anti-reductionism": 60,
-            "ontological-emergence": 80,
-            "downward-causation-contextuality": 60,
-            "pluralism": 60
+            "advocacy": {
+              "strong-reductionism": 10,
+              "epistemological-anti-reductionism": 60,
+              "ontological-emergence": 80,
+              "downward-causation-contextuality": 60,
+              "pluralism": 60,
+              "intensity": 80
+            },
+            "receptivity": {
+              "strong-reductionism": 6,
+              "epistemological-anti-reductionism": 36,
+              "ontological-emergence": 48,
+              "downward-causation-contextuality": 36,
+              "pluralism": 36,
+              "intensity": 48
+            }
           },
           "xch0005": {
-            "classical-geometric-primacy": 50,
-            "quantum-holistic-indeterminacy": 50,
-            "geometry-with-quantum-give": 100
+            "advocacy": {
+              "classical-geometric-primacy": 50,
+              "quantum-holistic-indeterminacy": 50,
+              "geometry-with-quantum-give": 100,
+              "intensity": 100
+            },
+            "receptivity": {
+              "classical-geometric-primacy": 30,
+              "quantum-holistic-indeterminacy": 30,
+              "geometry-with-quantum-give": 60,
+              "intensity": 60
+            }
           },
           "xch0006": {
-            "real-entity": 60,
-            "useful-model": 60,
-            "emergent-pattern": 80
+            "advocacy": {
+              "real-entity": 60,
+              "useful-model": 60,
+              "emergent-pattern": 80,
+              "intensity": 80
+            },
+            "receptivity": {
+              "real-entity": 36,
+              "useful-model": 36,
+              "emergent-pattern": 48,
+              "intensity": 48
+            }
           },
           "xch0010": {
-            "mechanistic-realism": 70,
-            "mnemonic-predictive-pragmatism": 40,
-            "kinetic-spectroscopic-skepticism": 60
+            "advocacy": {
+              "mechanistic-realism": 70,
+              "mnemonic-predictive-pragmatism": 40,
+              "kinetic-spectroscopic-skepticism": 60,
+              "intensity": 70
+            },
+            "receptivity": {
+              "mechanistic-realism": 42,
+              "mnemonic-predictive-pragmatism": 24,
+              "kinetic-spectroscopic-skepticism": 36,
+              "intensity": 42
+            }
           },
           "xch0011": {
-            "bench-supremacy": 50,
-            "computational-vanguard": 40,
-            "synergistic-co-equal-loop": 80,
-            "autonomous-self-driving-labs": 30
+            "advocacy": {
+              "bench-supremacy": 50,
+              "computational-vanguard": 40,
+              "synergistic-co-equal-loop": 80,
+              "autonomous-self-driving-labs": 30,
+              "intensity": 80
+            },
+            "receptivity": {
+              "bench-supremacy": 30,
+              "computational-vanguard": 24,
+              "synergistic-co-equal-loop": 48,
+              "autonomous-self-driving-labs": 18,
+              "intensity": 48
+            }
           },
           "xch0012": {
-            "diffraction-absoluteness": 60,
-            "solution-state-spectroscopic-realism": 90,
-            "total-synthesis-verification": 40
+            "advocacy": {
+              "diffraction-absoluteness": 60,
+              "solution-state-spectroscopic-realism": 90,
+              "total-synthesis-verification": 40,
+              "intensity": 90
+            },
+            "receptivity": {
+              "diffraction-absoluteness": 36,
+              "solution-state-spectroscopic-realism": 54,
+              "total-synthesis-verification": 24,
+              "intensity": 54
+            }
           },
           "xch0013": {
-            "artisanal-chemical-intuition": 60,
-            "explainable-cheminformatics": 60,
-            "black-box-high-throughput-empiricism": 50
+            "advocacy": {
+              "artisanal-chemical-intuition": 60,
+              "explainable-cheminformatics": 60,
+              "black-box-high-throughput-empiricism": 50,
+              "intensity": 60
+            },
+            "receptivity": {
+              "artisanal-chemical-intuition": 36,
+              "explainable-cheminformatics": 36,
+              "black-box-high-throughput-empiricism": 30,
+              "intensity": 36
+            }
           },
           "xch0014": {
-            "serendipity": 50,
-            "design": 70
+            "advocacy": {
+              "serendipity": 50,
+              "design": 70,
+              "intensity": 70
+            },
+            "receptivity": {
+              "serendipity": 30,
+              "design": 42,
+              "intensity": 42
+            }
           },
           "xch0015": {
-            "the-central-science": 80,
-            "the-creative-inventive-science": 50,
-            "a-service-enabling-discipline": 50,
-            "dissolving-boundaries": 80
+            "advocacy": {
+              "the-central-science": 80,
+              "the-creative-inventive-science": 50,
+              "a-service-enabling-discipline": 50,
+              "dissolving-boundaries": 80,
+              "intensity": 80
+            },
+            "receptivity": {
+              "the-central-science": 48,
+              "the-creative-inventive-science": 30,
+              "a-service-enabling-discipline": 30,
+              "dissolving-boundaries": 48,
+              "intensity": 48
+            }
           },
           "xch0016": {
-            "organic-chemistry": 50,
-            "inorganic-chemistry": 20,
-            "physical-chemistry": 30,
-            "analytical-chemistry": 40,
-            "biochemistry-chemical-biology": 95
+            "advocacy": {
+              "organic-chemistry": 50,
+              "inorganic-chemistry": 20,
+              "physical-chemistry": 30,
+              "analytical-chemistry": 40,
+              "biochemistry-chemical-biology": 95,
+              "intensity": 95
+            },
+            "receptivity": {
+              "organic-chemistry": 30,
+              "inorganic-chemistry": 12,
+              "physical-chemistry": 18,
+              "analytical-chemistry": 24,
+              "biochemistry-chemical-biology": 57,
+              "intensity": 57
+            }
           },
           "xch0018": {
-            "academic-discovery-ethos": 50,
-            "process-scale-up-realism": 60,
-            "discovery-that-scales": 90
+            "advocacy": {
+              "academic-discovery-ethos": 50,
+              "process-scale-up-realism": 60,
+              "discovery-that-scales": 90,
+              "intensity": 90
+            },
+            "receptivity": {
+              "academic-discovery-ethos": 30,
+              "process-scale-up-realism": 36,
+              "discovery-that-scales": 54,
+              "intensity": 54
+            }
           },
           "xch0019": {
-            "pure": 40,
-            "applied": 70,
-            "use-inspired": 70
+            "advocacy": {
+              "pure": 40,
+              "applied": 70,
+              "use-inspired": 70,
+              "intensity": 70
+            },
+            "receptivity": {
+              "pure": 24,
+              "applied": 42,
+              "use-inspired": 42,
+              "intensity": 42
+            }
           },
           "xch0020": {
-            "strict-green-by-design": 60,
-            "pragmatic-sustainability": 80,
-            "techno-optimist-remediation": 40,
-            "unfettered-fundamental-inquiry": 30
+            "advocacy": {
+              "strict-green-by-design": 60,
+              "pragmatic-sustainability": 80,
+              "techno-optimist-remediation": 40,
+              "unfettered-fundamental-inquiry": 30,
+              "intensity": 80
+            },
+            "receptivity": {
+              "strict-green-by-design": 36,
+              "pragmatic-sustainability": 48,
+              "techno-optimist-remediation": 24,
+              "unfettered-fundamental-inquiry": 18,
+              "intensity": 48
+            }
           },
           "xch0021": {
-            "zero-harm-institutional-compliance": 70,
-            "competence-based-risk-management": 60,
-            "frontier-risk-acceptance": 10
+            "advocacy": {
+              "zero-harm-institutional-compliance": 70,
+              "competence-based-risk-management": 60,
+              "frontier-risk-acceptance": 10,
+              "intensity": 70
+            },
+            "receptivity": {
+              "zero-harm-institutional-compliance": 42,
+              "competence-based-risk-management": 36,
+              "frontier-risk-acceptance": 6,
+              "intensity": 42
+            }
           },
           "xch0022": {
-            "dangerous": 20,
-            "useful": 90,
-            "invisible": 30
+            "advocacy": {
+              "dangerous": 20,
+              "useful": 90,
+              "invisible": 30,
+              "intensity": 90
+            },
+            "receptivity": {
+              "dangerous": 12,
+              "useful": 54,
+              "invisible": 18,
+              "intensity": 54
+            }
           },
           "xch0023": {
-            "empathetic-public-literacy": 80,
-            "industrial-accountability-first": 50,
-            "focus-on-the-science": 40
+            "advocacy": {
+              "empathetic-public-literacy": 80,
+              "industrial-accountability-first": 50,
+              "focus-on-the-science": 40,
+              "intensity": 80
+            },
+            "receptivity": {
+              "empathetic-public-literacy": 48,
+              "industrial-accountability-first": 30,
+              "focus-on-the-science": 24,
+              "intensity": 48
+            }
           },
           "xch0024": {
-            "restrict-publication": 40,
-            "guardrail-ai": 45
+            "advocacy": {
+              "restrict-publication": 40,
+              "guardrail-ai": 45,
+              "intensity": 45
+            },
+            "receptivity": {
+              "restrict-publication": 24,
+              "guardrail-ai": 27,
+              "intensity": 27
+            }
           },
           "xch0025": {
-            "thermodynamic-equilibrium-primacy": 50,
-            "kinetic-metastable-primacy": 70,
-            "case-by-case": 80
+            "advocacy": {
+              "thermodynamic-equilibrium-primacy": 50,
+              "kinetic-metastable-primacy": 70,
+              "case-by-case": 80,
+              "intensity": 80
+            },
+            "receptivity": {
+              "thermodynamic-equilibrium-primacy": 30,
+              "kinetic-metastable-primacy": 42,
+              "case-by-case": 48,
+              "intensity": 48
+            }
           },
           "xch0026": {
             "give": 60,
             "receive": 60
           },
           "xch0027": {
-            "pure-compound-isolationism": -20,
-            "dynamic-combinatorial-systems-chemistry": 85,
-            "prebiotic-geochemical-realism": 70
+            "advocacy": {
+              "pure-compound-isolationism": -20,
+              "dynamic-combinatorial-systems-chemistry": 85,
+              "prebiotic-geochemical-realism": 70,
+              "intensity": 85
+            },
+            "receptivity": {
+              "pure-compound-isolationism": -12,
+              "dynamic-combinatorial-systems-chemistry": 51,
+              "prebiotic-geochemical-realism": 42,
+              "intensity": 51
+            }
           },
           "xch0028": {
-            "homogeneous-molecular-catalysis": 40,
-            "heterogeneous-surface-catalysis": 20,
-            "enzymatic-biocatalysis": 95
+            "advocacy": {
+              "homogeneous-molecular-catalysis": 40,
+              "heterogeneous-surface-catalysis": 20,
+              "enzymatic-biocatalysis": 95,
+              "intensity": 95
+            },
+            "receptivity": {
+              "homogeneous-molecular-catalysis": 24,
+              "heterogeneous-surface-catalysis": 12,
+              "enzymatic-biocatalysis": 57,
+              "intensity": 57
+            }
           },
           "xch0029": {
-            "covalent-architecture": 40,
-            "non-covalent-self-assembly": 90,
-            "scaffolds-that-self-assemble": 50
+            "advocacy": {
+              "covalent-architecture": 40,
+              "non-covalent-self-assembly": 90,
+              "scaffolds-that-self-assemble": 50,
+              "intensity": 90
+            },
+            "receptivity": {
+              "covalent-architecture": 24,
+              "non-covalent-self-assembly": 54,
+              "scaffolds-that-self-assemble": 30,
+              "intensity": 54
+            }
           },
           "xch0032": {
-            "high-throughput-methodology-substrate-scope": 60,
-            "deep-physical-organic-mechanistic-rigor": 60,
-            "open-preprints-raw-data-reproducibility": 70
+            "advocacy": {
+              "high-throughput-methodology-substrate-scope": 60,
+              "deep-physical-organic-mechanistic-rigor": 60,
+              "open-preprints-raw-data-reproducibility": 70,
+              "intensity": 70
+            },
+            "receptivity": {
+              "high-throughput-methodology-substrate-scope": 36,
+              "deep-physical-organic-mechanistic-rigor": 36,
+              "open-preprints-raw-data-reproducibility": 42,
+              "intensity": 42
+            }
           },
           "xch0033": {
-            "teaching-first": 50,
-            "teacher-scholar": 70,
-            "research-first": 50
+            "advocacy": {
+              "teaching-first": 50,
+              "teacher-scholar": 70,
+              "research-first": 50,
+              "intensity": 70
+            },
+            "receptivity": {
+              "teaching-first": 30,
+              "teacher-scholar": 42,
+              "research-first": 30,
+              "intensity": 42
+            }
           },
           "xch0034": {
-            "solitude": 20,
-            "collaboration": 85,
-            "solo-within-a-team": 35
+            "advocacy": {
+              "solitude": 20,
+              "collaboration": 85,
+              "solo-within-a-team": 35,
+              "intensity": 85
+            },
+            "receptivity": {
+              "solitude": 12,
+              "collaboration": 51,
+              "solo-within-a-team": 21,
+              "intensity": 51
+            }
           },
           "xch0035": {
-            "publish": 60,
-            "patent": 50,
-            "patent-then-publish": 90
+            "advocacy": {
+              "publish": 60,
+              "patent": 50,
+              "patent-then-publish": 90,
+              "intensity": 90
+            },
+            "receptivity": {
+              "publish": 36,
+              "patent": 30,
+              "patent-then-publish": 54,
+              "intensity": 54
+            }
           },
           "xch0036": {
-            "hands-on": 60,
-            "automated": 50,
-            "hybrid-workflow": 90
+            "advocacy": {
+              "hands-on": 60,
+              "automated": 50,
+              "hybrid-workflow": 90,
+              "intensity": 90
+            },
+            "receptivity": {
+              "hands-on": 36,
+              "automated": 30,
+              "hybrid-workflow": 54,
+              "intensity": 54
+            }
           },
           "xch0039": {
-            "structure-based-medicinal-chemistry": 70,
-            "phenotypic-chemical-genetic-screening": 80,
-            "dna-encoded-libraries-ultra-large-virtual-screening": 60,
-            "new-modalities": 85
+            "advocacy": {
+              "structure-based-medicinal-chemistry": 70,
+              "phenotypic-chemical-genetic-screening": 80,
+              "dna-encoded-libraries-ultra-large-virtual-screening": 60,
+              "new-modalities": 85,
+              "intensity": 85
+            },
+            "receptivity": {
+              "structure-based-medicinal-chemistry": 42,
+              "phenotypic-chemical-genetic-screening": 48,
+              "dna-encoded-libraries-ultra-large-virtual-screening": 36,
+              "new-modalities": 51,
+              "intensity": 51
+            }
           },
           "xch0040": {
-            "cosmic-chemical-continuity": 50,
-            "planetary-specific-geochemical-bottlenecks": 60,
-            "cosmic-kit-planetary-filter": 90
+            "advocacy": {
+              "cosmic-chemical-continuity": 50,
+              "planetary-specific-geochemical-bottlenecks": 60,
+              "cosmic-kit-planetary-filter": 90,
+              "intensity": 90
+            },
+            "receptivity": {
+              "cosmic-chemical-continuity": 30,
+              "planetary-specific-geochemical-bottlenecks": 36,
+              "cosmic-kit-planetary-filter": 54,
+              "intensity": 54
+            }
           }
         },
         "skin": "chemcapades"
@@ -5272,166 +6381,444 @@
         "ratings": {
           "xch0001": 90,
           "xch0002": {
-            "strict-physical-realist": 70,
-            "pattern-realist": 40,
-            "pure-instrumentalist": 20
+            "advocacy": {
+              "strict-physical-realist": 70,
+              "pattern-realist": 40,
+              "pure-instrumentalist": 20,
+              "intensity": 70
+            },
+            "receptivity": {
+              "strict-physical-realist": 46,
+              "pattern-realist": 26,
+              "pure-instrumentalist": 13,
+              "intensity": 46
+            }
           },
           "xch0003": {
-            "mathematical-constructs": 60,
-            "quasi-physical-experiential-entities": 40,
-            "working-realism": 80
+            "advocacy": {
+              "mathematical-constructs": 60,
+              "quasi-physical-experiential-entities": 40,
+              "working-realism": 80,
+              "intensity": 80
+            },
+            "receptivity": {
+              "mathematical-constructs": 39,
+              "quasi-physical-experiential-entities": 26,
+              "working-realism": 52,
+              "intensity": 52
+            }
           },
           "xch0004": {
-            "strong-reductionism": 50,
-            "epistemological-anti-reductionism": 40,
-            "ontological-emergence": 30,
-            "downward-causation-contextuality": 20,
-            "pluralism": 40
+            "advocacy": {
+              "strong-reductionism": 50,
+              "epistemological-anti-reductionism": 40,
+              "ontological-emergence": 30,
+              "downward-causation-contextuality": 20,
+              "pluralism": 40,
+              "intensity": 50
+            },
+            "receptivity": {
+              "strong-reductionism": 32,
+              "epistemological-anti-reductionism": 26,
+              "ontological-emergence": 20,
+              "downward-causation-contextuality": 13,
+              "pluralism": 26,
+              "intensity": 32
+            }
           },
           "xch0005": {
-            "classical-geometric-primacy": 70,
-            "quantum-holistic-indeterminacy": 30,
-            "geometry-with-quantum-give": 60
+            "advocacy": {
+              "classical-geometric-primacy": 70,
+              "quantum-holistic-indeterminacy": 30,
+              "geometry-with-quantum-give": 60,
+              "intensity": 70
+            },
+            "receptivity": {
+              "classical-geometric-primacy": 46,
+              "quantum-holistic-indeterminacy": 20,
+              "geometry-with-quantum-give": 39,
+              "intensity": 46
+            }
           },
           "xch0006": {
-            "real-entity": 70,
-            "useful-model": 50,
-            "emergent-pattern": 30
+            "advocacy": {
+              "real-entity": 70,
+              "useful-model": 50,
+              "emergent-pattern": 30,
+              "intensity": 70
+            },
+            "receptivity": {
+              "real-entity": 46,
+              "useful-model": 32,
+              "emergent-pattern": 20,
+              "intensity": 46
+            }
           },
           "xch0007": {
-            "medium-long-form": 80,
-            "left-step-table": 30,
-            "long-form": 40,
-            "three-dimensional-spiral-helical": 10,
-            "property-cluster-data-driven": 60
+            "advocacy": {
+              "medium-long-form": 80,
+              "left-step-table": 30,
+              "long-form": 40,
+              "three-dimensional-spiral-helical": 10,
+              "property-cluster-data-driven": 60,
+              "intensity": 80
+            },
+            "receptivity": {
+              "medium-long-form": 52,
+              "left-step-table": 20,
+              "long-form": 26,
+              "three-dimensional-spiral-helical": 6,
+              "property-cluster-data-driven": 39,
+              "intensity": 52
+            }
           },
           "xch0010": {
-            "mechanistic-realism": 50,
-            "mnemonic-predictive-pragmatism": 30,
-            "kinetic-spectroscopic-skepticism": 90
+            "advocacy": {
+              "mechanistic-realism": 50,
+              "mnemonic-predictive-pragmatism": 30,
+              "kinetic-spectroscopic-skepticism": 90,
+              "intensity": 90
+            },
+            "receptivity": {
+              "mechanistic-realism": 32,
+              "mnemonic-predictive-pragmatism": 20,
+              "kinetic-spectroscopic-skepticism": 58,
+              "intensity": 58
+            }
           },
           "xch0011": {
-            "bench-supremacy": 70,
-            "computational-vanguard": 30,
-            "synergistic-co-equal-loop": 60,
-            "autonomous-self-driving-labs": 60
+            "advocacy": {
+              "bench-supremacy": 70,
+              "computational-vanguard": 30,
+              "synergistic-co-equal-loop": 60,
+              "autonomous-self-driving-labs": 60,
+              "intensity": 70
+            },
+            "receptivity": {
+              "bench-supremacy": 46,
+              "computational-vanguard": 20,
+              "synergistic-co-equal-loop": 39,
+              "autonomous-self-driving-labs": 39,
+              "intensity": 46
+            }
           },
           "xch0012": {
-            "diffraction-absoluteness": 90,
-            "solution-state-spectroscopic-realism": 90,
-            "total-synthesis-verification": 30
+            "advocacy": {
+              "diffraction-absoluteness": 90,
+              "solution-state-spectroscopic-realism": 90,
+              "total-synthesis-verification": 30,
+              "intensity": 90
+            },
+            "receptivity": {
+              "diffraction-absoluteness": 58,
+              "solution-state-spectroscopic-realism": 58,
+              "total-synthesis-verification": 20,
+              "intensity": 58
+            }
           },
           "xch0013": {
-            "artisanal-chemical-intuition": 20,
-            "explainable-cheminformatics": 80,
-            "black-box-high-throughput-empiricism": 60
+            "advocacy": {
+              "artisanal-chemical-intuition": 20,
+              "explainable-cheminformatics": 80,
+              "black-box-high-throughput-empiricism": 60,
+              "intensity": 80
+            },
+            "receptivity": {
+              "artisanal-chemical-intuition": 13,
+              "explainable-cheminformatics": 52,
+              "black-box-high-throughput-empiricism": 39,
+              "intensity": 52
+            }
           },
           "xch0014": {
-            "serendipity": 30,
-            "design": 70
+            "advocacy": {
+              "serendipity": 30,
+              "design": 70,
+              "intensity": 70
+            },
+            "receptivity": {
+              "serendipity": 20,
+              "design": 46,
+              "intensity": 46
+            }
           },
           "xch0015": {
-            "the-central-science": 50,
-            "the-creative-inventive-science": 20,
-            "a-service-enabling-discipline": 80,
-            "dissolving-boundaries": 40
+            "advocacy": {
+              "the-central-science": 50,
+              "the-creative-inventive-science": 20,
+              "a-service-enabling-discipline": 80,
+              "dissolving-boundaries": 40,
+              "intensity": 80
+            },
+            "receptivity": {
+              "the-central-science": 32,
+              "the-creative-inventive-science": 13,
+              "a-service-enabling-discipline": 52,
+              "dissolving-boundaries": 26,
+              "intensity": 52
+            }
           },
           "xch0016": {
-            "organic-chemistry": 30,
-            "inorganic-chemistry": 30,
-            "physical-chemistry": 50,
-            "analytical-chemistry": 95,
-            "biochemistry-chemical-biology": 40
+            "advocacy": {
+              "organic-chemistry": 30,
+              "inorganic-chemistry": 30,
+              "physical-chemistry": 50,
+              "analytical-chemistry": 95,
+              "biochemistry-chemical-biology": 40,
+              "intensity": 95
+            },
+            "receptivity": {
+              "organic-chemistry": 20,
+              "inorganic-chemistry": 20,
+              "physical-chemistry": 32,
+              "analytical-chemistry": 62,
+              "biochemistry-chemical-biology": 26,
+              "intensity": 62
+            }
           },
           "xch0018": {
-            "academic-discovery-ethos": 40,
-            "process-scale-up-realism": 80,
-            "discovery-that-scales": 60
+            "advocacy": {
+              "academic-discovery-ethos": 40,
+              "process-scale-up-realism": 80,
+              "discovery-that-scales": 60,
+              "intensity": 80
+            },
+            "receptivity": {
+              "academic-discovery-ethos": 26,
+              "process-scale-up-realism": 52,
+              "discovery-that-scales": 39,
+              "intensity": 52
+            }
           },
           "xch0019": {
-            "pure": 30,
-            "applied": 80,
-            "use-inspired": 50
+            "advocacy": {
+              "pure": 30,
+              "applied": 80,
+              "use-inspired": 50,
+              "intensity": 80
+            },
+            "receptivity": {
+              "pure": 20,
+              "applied": 52,
+              "use-inspired": 32,
+              "intensity": 52
+            }
           },
           "xch0020": {
-            "strict-green-by-design": 50,
-            "pragmatic-sustainability": 70,
-            "techno-optimist-remediation": 50,
-            "unfettered-fundamental-inquiry": 20
+            "advocacy": {
+              "strict-green-by-design": 50,
+              "pragmatic-sustainability": 70,
+              "techno-optimist-remediation": 50,
+              "unfettered-fundamental-inquiry": 20,
+              "intensity": 70
+            },
+            "receptivity": {
+              "strict-green-by-design": 32,
+              "pragmatic-sustainability": 46,
+              "techno-optimist-remediation": 32,
+              "unfettered-fundamental-inquiry": 13,
+              "intensity": 46
+            }
           },
           "xch0021": {
-            "zero-harm-institutional-compliance": 80,
-            "competence-based-risk-management": 60,
-            "frontier-risk-acceptance": 10
+            "advocacy": {
+              "zero-harm-institutional-compliance": 80,
+              "competence-based-risk-management": 60,
+              "frontier-risk-acceptance": 10,
+              "intensity": 80
+            },
+            "receptivity": {
+              "zero-harm-institutional-compliance": 52,
+              "competence-based-risk-management": 39,
+              "frontier-risk-acceptance": 6,
+              "intensity": 52
+            }
           },
           "xch0022": {
-            "dangerous": 30,
-            "useful": 80,
-            "invisible": 50
+            "advocacy": {
+              "dangerous": 30,
+              "useful": 80,
+              "invisible": 50,
+              "intensity": 80
+            },
+            "receptivity": {
+              "dangerous": 20,
+              "useful": 52,
+              "invisible": 32,
+              "intensity": 52
+            }
           },
           "xch0023": {
-            "empathetic-public-literacy": 60,
-            "industrial-accountability-first": 60,
-            "focus-on-the-science": 50
+            "advocacy": {
+              "empathetic-public-literacy": 60,
+              "industrial-accountability-first": 60,
+              "focus-on-the-science": 50,
+              "intensity": 60
+            },
+            "receptivity": {
+              "empathetic-public-literacy": 39,
+              "industrial-accountability-first": 39,
+              "focus-on-the-science": 32,
+              "intensity": 39
+            }
           },
           "xch0024": {
-            "restrict-publication": -10,
-            "guardrail-ai": 20
+            "advocacy": {
+              "restrict-publication": -10,
+              "guardrail-ai": 20,
+              "intensity": 20
+            },
+            "receptivity": {
+              "restrict-publication": -6,
+              "guardrail-ai": 13,
+              "intensity": 13
+            }
           },
           "xch0025": {
-            "thermodynamic-equilibrium-primacy": 60,
-            "kinetic-metastable-primacy": 50,
-            "case-by-case": 90
+            "advocacy": {
+              "thermodynamic-equilibrium-primacy": 60,
+              "kinetic-metastable-primacy": 50,
+              "case-by-case": 90,
+              "intensity": 90
+            },
+            "receptivity": {
+              "thermodynamic-equilibrium-primacy": 39,
+              "kinetic-metastable-primacy": 32,
+              "case-by-case": 58,
+              "intensity": 58
+            }
           },
           "xch0026": {
             "give": 40,
             "receive": 50
           },
           "xch0028": {
-            "homogeneous-molecular-catalysis": 40,
-            "heterogeneous-surface-catalysis": 50,
-            "enzymatic-biocatalysis": 40
+            "advocacy": {
+              "homogeneous-molecular-catalysis": 40,
+              "heterogeneous-surface-catalysis": 50,
+              "enzymatic-biocatalysis": 40,
+              "intensity": 50
+            },
+            "receptivity": {
+              "homogeneous-molecular-catalysis": 26,
+              "heterogeneous-surface-catalysis": 32,
+              "enzymatic-biocatalysis": 26,
+              "intensity": 32
+            }
           },
           "xch0029": {
-            "covalent-architecture": 50,
-            "non-covalent-self-assembly": 60,
-            "scaffolds-that-self-assemble": 90
+            "advocacy": {
+              "covalent-architecture": 50,
+              "non-covalent-self-assembly": 60,
+              "scaffolds-that-self-assemble": 90,
+              "intensity": 90
+            },
+            "receptivity": {
+              "covalent-architecture": 32,
+              "non-covalent-self-assembly": 39,
+              "scaffolds-that-self-assemble": 58,
+              "intensity": 58
+            }
           },
           "xch0030": {
-            "strict-iupac-standardization": 85,
-            "pragmatic-trivial-common-usage": 40,
-            "machine-readable-identifiers": 80
+            "advocacy": {
+              "strict-iupac-standardization": 85,
+              "pragmatic-trivial-common-usage": 40,
+              "machine-readable-identifiers": 80,
+              "intensity": 85
+            },
+            "receptivity": {
+              "strict-iupac-standardization": 55,
+              "pragmatic-trivial-common-usage": 26,
+              "machine-readable-identifiers": 52,
+              "intensity": 55
+            }
           },
           "xch0031": {
-            "traditional-macroscopic-first": 40,
-            "atoms-first-approach": 50,
-            "conceptual-qualitative-reasoning": 60,
-            "context-problem-based-learning": 50
+            "advocacy": {
+              "traditional-macroscopic-first": 40,
+              "atoms-first-approach": 50,
+              "conceptual-qualitative-reasoning": 60,
+              "context-problem-based-learning": 50,
+              "intensity": 60
+            },
+            "receptivity": {
+              "traditional-macroscopic-first": 26,
+              "atoms-first-approach": 32,
+              "conceptual-qualitative-reasoning": 39,
+              "context-problem-based-learning": 32,
+              "intensity": 39
+            }
           },
           "xch0032": {
-            "high-throughput-methodology-substrate-scope": 70,
-            "deep-physical-organic-mechanistic-rigor": 60,
-            "open-preprints-raw-data-reproducibility": 90
+            "advocacy": {
+              "high-throughput-methodology-substrate-scope": 70,
+              "deep-physical-organic-mechanistic-rigor": 60,
+              "open-preprints-raw-data-reproducibility": 90,
+              "intensity": 90
+            },
+            "receptivity": {
+              "high-throughput-methodology-substrate-scope": 46,
+              "deep-physical-organic-mechanistic-rigor": 39,
+              "open-preprints-raw-data-reproducibility": 58,
+              "intensity": 58
+            }
           },
           "xch0033": {
-            "teaching-first": 50,
-            "teacher-scholar": 60,
-            "research-first": 50
+            "advocacy": {
+              "teaching-first": 50,
+              "teacher-scholar": 60,
+              "research-first": 50,
+              "intensity": 60
+            },
+            "receptivity": {
+              "teaching-first": 32,
+              "teacher-scholar": 39,
+              "research-first": 32,
+              "intensity": 39
+            }
           },
           "xch0034": {
-            "solitude": 40,
-            "collaboration": 70,
-            "solo-within-a-team": 70
+            "advocacy": {
+              "solitude": 40,
+              "collaboration": 70,
+              "solo-within-a-team": 70,
+              "intensity": 70
+            },
+            "receptivity": {
+              "solitude": 26,
+              "collaboration": 46,
+              "solo-within-a-team": 46,
+              "intensity": 46
+            }
           },
           "xch0035": {
-            "publish": 70,
-            "patent": 40,
-            "patent-then-publish": 70
+            "advocacy": {
+              "publish": 70,
+              "patent": 40,
+              "patent-then-publish": 70,
+              "intensity": 70
+            },
+            "receptivity": {
+              "publish": 46,
+              "patent": 26,
+              "patent-then-publish": 46,
+              "intensity": 46
+            }
           },
           "xch0036": {
-            "hands-on": 50,
-            "automated": 85,
-            "hybrid-workflow": 65
+            "advocacy": {
+              "hands-on": 50,
+              "automated": 85,
+              "hybrid-workflow": 65,
+              "intensity": 85
+            },
+            "receptivity": {
+              "hands-on": 32,
+              "automated": 55,
+              "hybrid-workflow": 42,
+              "intensity": 55
+            }
           }
         },
         "skin": "chemcapades"
