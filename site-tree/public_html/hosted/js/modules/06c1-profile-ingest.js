@@ -284,6 +284,60 @@
                 const incoming = {};
                 const shape = Ge(id, c);
                 const flanks = shape.keys || [ "give", "receive" ];
+                // Placement-shaped ratings (2026-11-22): stance skins store
+                // { advocacy: {...poles, intensity}, receptivity: {...} } --
+                // the shape sxPersistAdvocacyReceptivity writes and the 02o
+                // parser reads. The flank copy below cannot see inside the
+                // placements, so without this unwrap every placement payload
+                // (the re-rated samples included) died as "unreadable".
+                // Placements are coherent wholes: a supplied placement
+                // replaces that side wholesale (per-pole mixing would blend
+                // two distributions); pole values clamp to [-100, 100] like
+                // flanks, placement intensity to the stored [-400, 400].
+                if (rating && "object" == typeof rating && (rating.advocacy && "object" == typeof rating.advocacy || rating.receptivity && "object" == typeof rating.receptivity)) {
+                    const validKeys = new Set(flanks);
+                    const cleanPlacement = pl => {
+                        const out = {};
+                        Object.entries(pl).forEach(([k, v]) => {
+                            if (!Number.isFinite(Number(v))) return;
+                            if ("intensity" === k) out.intensity = Math.max(-400, Math.min(400, Math.round(Number(v))));
+                            else if (validKeys.has(k)) out[k] = clamp(v);
+                        });
+                        return out;
+                    };
+                    const placed = {};
+                    rating.advocacy && "object" == typeof rating.advocacy && (placed.advocacy = cleanPlacement(rating.advocacy));
+                    rating.receptivity && "object" == typeof rating.receptivity && (placed.receptivity = cleanPlacement(rating.receptivity));
+                    Object.keys(placed).forEach(side => { if (!Object.keys(placed[side]).length) delete placed[side]; });
+                    if (Object.keys(placed).length) {
+                        const strongest = o => { let best = 0; Object.entries(o || {}).forEach(([k, v]) => { "intensity" !== k && Math.abs(v) > Math.abs(best) && (best = v); }); return best; };
+                        let blocked = !1;
+                        const writable = {};
+                        Object.entries(placed).forEach(([side, obj]) => {
+                            if (guardManualFlip && "manual" === Ao(c, id, side)) {
+                                const cur = vt[c][id];
+                                const curObj = cur && "object" == typeof cur ? cur[side] : null;
+                                if (curObj && Ix(strongest(curObj)) !== Ix(strongest(obj))) return void (blocked = !0);
+                            }
+                            writable[side] = obj;
+                        });
+                        blocked && flipped.push(id);
+                        if (Object.keys(writable).length) {
+                            let next;
+                            if (mergeFlanks) {
+                                const cur = vt[c][id];
+                                next = cur && "object" == typeof cur ? Object.assign({}, cur) : {};
+                                Object.assign(next, writable);
+                            } else next = writable;
+                            Object.keys(writable).forEach(side => {
+                                (changed[id] || (changed[id] = {}))[side] = writable[side];
+                                Co(c, id, side, sourceFor(id, side, side));
+                            });
+                            vt[c][id] = next;
+                        }
+                        return;
+                    }
+                }
                 if (Number.isFinite(Number(rating))) flanks.forEach(flank => { incoming[flank] = clamp(rating); });
                 else if (rating && "object" == typeof rating) {
                     flanks.forEach(flank => {
