@@ -10285,7 +10285,8 @@
       "kind": "archetype",
       "stack": "Democratic Party platform",
       "stackKey": "pol-democrat",
-      "date": "2024"
+      "date": "2024",
+      "emblem": "images/emblems/pol-democrat.svg"
     },
     "pol-democrat-2020": {
       "name": "Democratic Party platform (2020)",
@@ -10813,7 +10814,8 @@
       "kind": "archetype",
       "stack": "Democratic Party platform",
       "stackKey": "pol-democrat",
-      "date": "2020"
+      "date": "2020",
+      "emblem": "images/emblems/pol-democrat.svg"
     },
     "pol-democrat-2016": {
       "name": "Democratic Party platform (2016)",
@@ -11341,7 +11343,8 @@
       "kind": "archetype",
       "stack": "Democratic Party platform",
       "stackKey": "pol-democrat",
-      "date": "2016"
+      "date": "2016",
+      "emblem": "images/emblems/pol-democrat.svg"
     },
     "pol-democrat-2012": {
       "name": "Democratic Party platform (2012)",
@@ -11855,7 +11858,8 @@
       "kind": "archetype",
       "stack": "Democratic Party platform",
       "stackKey": "pol-democrat",
-      "date": "2012"
+      "date": "2012",
+      "emblem": "images/emblems/pol-democrat.svg"
     },
     "pol-democrat-2008": {
       "name": "Democratic Party platform (2008)",
@@ -12355,7 +12359,8 @@
       "kind": "archetype",
       "stack": "Democratic Party platform",
       "stackKey": "pol-democrat",
-      "date": "2008"
+      "date": "2008",
+      "emblem": "images/emblems/pol-democrat.svg"
     },
     "pol-democrat-2004": {
       "name": "Democratic Party platform (2004)",
@@ -12827,7 +12832,8 @@
       "kind": "archetype",
       "stack": "Democratic Party platform",
       "stackKey": "pol-democrat",
-      "date": "2004"
+      "date": "2004",
+      "emblem": "images/emblems/pol-democrat.svg"
     },
     "pol-democrat-2000": {
       "name": "Democratic Party platform (2000)",
@@ -13313,7 +13319,8 @@
       "kind": "archetype",
       "stack": "Democratic Party platform",
       "stackKey": "pol-democrat",
-      "date": "2000"
+      "date": "2000",
+      "emblem": "images/emblems/pol-democrat.svg"
     },
     "pol-republican": {
       "name": "Republican Party platform",
@@ -13884,7 +13891,8 @@
       "kind": "archetype",
       "stack": "Republican Party platform",
       "stackKey": "pol-republican",
-      "date": "2024"
+      "date": "2024",
+      "emblem": "images/emblems/pol-republican.svg"
     },
     "pol-republican-2020": {
       "name": "Republican Party platform (2020)",
@@ -14410,7 +14418,8 @@
       "kind": "archetype",
       "stack": "Republican Party platform",
       "stackKey": "pol-republican",
-      "date": "2020"
+      "date": "2020",
+      "emblem": "images/emblems/pol-republican.svg"
     },
     "pol-republican-2016": {
       "name": "Republican Party platform (2016)",
@@ -14936,7 +14945,8 @@
       "kind": "archetype",
       "stack": "Republican Party platform",
       "stackKey": "pol-republican",
-      "date": "2016"
+      "date": "2016",
+      "emblem": "images/emblems/pol-republican.svg"
     },
     "pol-republican-2012": {
       "name": "Republican Party platform (2012)",
@@ -15462,7 +15472,8 @@
       "kind": "archetype",
       "stack": "Republican Party platform",
       "stackKey": "pol-republican",
-      "date": "2012"
+      "date": "2012",
+      "emblem": "images/emblems/pol-republican.svg"
     },
     "pol-republican-2008": {
       "name": "Republican Party platform (2008)",
@@ -15948,7 +15959,8 @@
       "kind": "archetype",
       "stack": "Republican Party platform",
       "stackKey": "pol-republican",
-      "date": "2008"
+      "date": "2008",
+      "emblem": "images/emblems/pol-republican.svg"
     },
     "pol-republican-2004": {
       "name": "Republican Party platform (2004)",
@@ -16434,7 +16446,8 @@
       "kind": "archetype",
       "stack": "Republican Party platform",
       "stackKey": "pol-republican",
-      "date": "2004"
+      "date": "2004",
+      "emblem": "images/emblems/pol-republican.svg"
     },
     "pol-republican-2000": {
       "name": "Republican Party platform (2000)",
@@ -16920,7 +16933,8 @@
       "kind": "archetype",
       "stack": "Republican Party platform",
       "stackKey": "pol-republican",
-      "date": "2000"
+      "date": "2000",
+      "emblem": "images/emblems/pol-republican.svg"
     },
     "pol-libertarian": {
       "name": "Libertarian Party platform",
@@ -17491,7 +17505,8 @@
       "kind": "archetype",
       "stack": "Libertarian Party platform",
       "stackKey": "pol-libertarian",
-      "date": "present"
+      "date": "present",
+      "emblem": "images/emblems/pol-libertarian.svg"
     },
     "pol-libertarian-2020": {
       "name": "Libertarian Party platform (2020)",
@@ -18003,7 +18018,8 @@
       "kind": "archetype",
       "stack": "Libertarian Party platform",
       "stackKey": "pol-libertarian",
-      "date": "2020"
+      "date": "2020",
+      "emblem": "images/emblems/pol-libertarian.svg"
     },
     "pol-libertarian-2016": {
       "name": "Libertarian Party platform (2016)",
@@ -18501,7 +18517,8 @@
       "kind": "archetype",
       "stack": "Libertarian Party platform",
       "stackKey": "pol-libertarian",
-      "date": "2016"
+      "date": "2016",
+      "emblem": "images/emblems/pol-libertarian.svg"
     },
     "pol-libertarian-2012": {
       "name": "Libertarian Party platform (2012)",
@@ -18999,7 +19016,8 @@
       "kind": "archetype",
       "stack": "Libertarian Party platform",
       "stackKey": "pol-libertarian",
-      "date": "2012"
+      "date": "2012",
+      "emblem": "images/emblems/pol-libertarian.svg"
     },
     "pol-libertarian-2008": {
       "name": "Libertarian Party platform (2008)",
@@ -19497,7 +19515,8 @@
       "kind": "archetype",
       "stack": "Libertarian Party platform",
       "stackKey": "pol-libertarian",
-      "date": "2008"
+      "date": "2008",
+      "emblem": "images/emblems/pol-libertarian.svg"
     },
     "pol-libertarian-2004": {
       "name": "Libertarian Party platform (2004)",
@@ -19995,7 +20014,8 @@
       "kind": "archetype",
       "stack": "Libertarian Party platform",
       "stackKey": "pol-libertarian",
-      "date": "2004"
+      "date": "2004",
+      "emblem": "images/emblems/pol-libertarian.svg"
     },
     "pol-libertarian-2000": {
       "name": "Libertarian Party platform (2000)",
@@ -20481,7 +20501,8 @@
       "kind": "archetype",
       "stack": "Libertarian Party platform",
       "stackKey": "pol-libertarian",
-      "date": "2000"
+      "date": "2000",
+      "emblem": "images/emblems/pol-libertarian.svg"
     },
     "pol-green": {
       "name": "Green Party platform",
@@ -21052,7 +21073,8 @@
       "kind": "archetype",
       "stack": "Green Party platform",
       "stackKey": "pol-green",
-      "date": "present"
+      "date": "present",
+      "emblem": "images/emblems/pol-green.svg"
     },
     "pol-green-2020": {
       "name": "Green Party platform (2020)",
@@ -21564,7 +21586,8 @@
       "kind": "archetype",
       "stack": "Green Party platform",
       "stackKey": "pol-green",
-      "date": "2020"
+      "date": "2020",
+      "emblem": "images/emblems/pol-green.svg"
     },
     "pol-green-2016": {
       "name": "Green Party platform (2016)",
@@ -22076,7 +22099,8 @@
       "kind": "archetype",
       "stack": "Green Party platform",
       "stackKey": "pol-green",
-      "date": "2016"
+      "date": "2016",
+      "emblem": "images/emblems/pol-green.svg"
     },
     "pol-green-2010": {
       "name": "Green Party platform (2010)",
@@ -22574,7 +22598,8 @@
       "kind": "archetype",
       "stack": "Green Party platform",
       "stackKey": "pol-green",
-      "date": "2010"
+      "date": "2010",
+      "emblem": "images/emblems/pol-green.svg"
     },
     "pol-green-2004": {
       "name": "Green Party platform (2004)",
@@ -23072,7 +23097,8 @@
       "kind": "archetype",
       "stack": "Green Party platform",
       "stackKey": "pol-green",
-      "date": "2004"
+      "date": "2004",
+      "emblem": "images/emblems/pol-green.svg"
     },
     "pol-green-2000": {
       "name": "Green Party platform (2000)",
@@ -23532,7 +23558,8 @@
       "kind": "archetype",
       "stack": "Green Party platform",
       "stackKey": "pol-green",
-      "date": "2000"
+      "date": "2000",
+      "emblem": "images/emblems/pol-green.svg"
     },
     "pol-constitution": {
       "name": "Constitution Party platform",
@@ -24089,7 +24116,8 @@
       "kind": "archetype",
       "stack": "Constitution Party platform",
       "stackKey": "pol-constitution",
-      "date": "present"
+      "date": "present",
+      "emblem": "images/emblems/pol-constitution.svg"
     },
     "pol-constitution-2020": {
       "name": "Constitution Party platform (2020)",
@@ -24629,7 +24657,8 @@
       "kind": "archetype",
       "stack": "Constitution Party platform",
       "stackKey": "pol-constitution",
-      "date": "2020"
+      "date": "2020",
+      "emblem": "images/emblems/pol-constitution.svg"
     },
     "pol-constitution-2016": {
       "name": "Constitution Party platform (2016)",
@@ -25169,7 +25198,8 @@
       "kind": "archetype",
       "stack": "Constitution Party platform",
       "stackKey": "pol-constitution",
-      "date": "2016"
+      "date": "2016",
+      "emblem": "images/emblems/pol-constitution.svg"
     },
     "pol-constitution-2012": {
       "name": "Constitution Party platform (2012)",
@@ -25709,7 +25739,8 @@
       "kind": "archetype",
       "stack": "Constitution Party platform",
       "stackKey": "pol-constitution",
-      "date": "2012"
+      "date": "2012",
+      "emblem": "images/emblems/pol-constitution.svg"
     },
     "pol-constitution-2008": {
       "name": "Constitution Party platform (2008)",
@@ -26249,7 +26280,8 @@
       "kind": "archetype",
       "stack": "Constitution Party platform",
       "stackKey": "pol-constitution",
-      "date": "2008"
+      "date": "2008",
+      "emblem": "images/emblems/pol-constitution.svg"
     },
     "pol-constitution-2004": {
       "name": "Constitution Party platform (2004)",
@@ -26789,7 +26821,8 @@
       "kind": "archetype",
       "stack": "Constitution Party platform",
       "stackKey": "pol-constitution",
-      "date": "2004"
+      "date": "2004",
+      "emblem": "images/emblems/pol-constitution.svg"
     },
     "pol-constitution-2000": {
       "name": "Constitution Party platform (2000)",
@@ -27315,7 +27348,8 @@
       "kind": "archetype",
       "stack": "Constitution Party platform",
       "stackKey": "pol-constitution",
-      "date": "2000"
+      "date": "2000",
+      "emblem": "images/emblems/pol-constitution.svg"
     }
   }
 }
