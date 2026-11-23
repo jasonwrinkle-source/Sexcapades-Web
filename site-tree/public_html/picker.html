@@ -30,10 +30,10 @@
   </head>
   <body>
     <main>
-      <section class="panel gate" id="ageGate" aria-labelledby="gateTitle">
+      <section class="panel gate is-confirmed" id="ageGate" aria-label="Flexcapades destinations">
         <div class="gate-body">
           <figure class="concept-graphic" aria-labelledby="mapArtTitle mapArtDescription">
-            <nav class="destination-menu" id="destinationMenu" aria-label="Flexcapades destinations" aria-hidden="true">
+            <nav class="destination-menu is-visible" id="destinationMenu" aria-label="Flexcapades destinations" aria-hidden="false">
               <div class="app-header" id="gateAppHeader">
                 <h1 class="app-header-title"><button type="button" class="app-title-button" id="gateAppAboutBtn" aria-controls="gateAboutDialog" aria-haspopup="dialog">Flex.Capades.IO</button></h1>
                 <div class="app-header-nav">
@@ -195,11 +195,11 @@
               </g>
             </svg>
           </figure>
-          <div class="hero">
+          <div class="hero" style="display: none;" hidden>
             <h1 id="gateTitle">Sixteen maps, one engine.</h1>
             <p class="value-prop">Pick a map. Each one opens a different conversation — personal reflection, alignment, comparison, and exploration.</p>
             <div class="actions">
-              <button type="button" id="enterButton" aria-expanded="false" aria-controls="destinationMenu">Choose a map</button>
+              <button type="button" id="enterButton" aria-expanded="true" aria-controls="destinationMenu">Choose a map</button>
             </div>
           </div>
         </div>
@@ -240,7 +240,36 @@
     </div>
     <div aria-live="polite" class="skin-note" hidden="" id="skinNote" role="status"></div>
 
-    <script defer="" src="/hosted/gate-assets/gate.js"></script>
+    <script defer="" src="/hosted/gate-assets/gate.js?v=2026-11-22_1900"></script>
+
+    <script>
+      // Immediately open the skin picker menu under the Flex.Capades.IO button
+      (function() {
+        function openPickerNow() {
+          var titleBtn = document.getElementById("gateAppAboutBtn");
+          var menu = document.getElementById("skinMenu");
+          if (!titleBtn || !menu) return;
+          var r = titleBtn.getBoundingClientRect();
+          if (r.width > 0 && r.height > 0) {
+            menu.style.visibility = "hidden";
+            menu.hidden = false;
+            var mw = menu.offsetWidth, mh = menu.offsetHeight;
+            var left = Math.max(8, Math.min(r.left, window.innerWidth - mw - 8));
+            var top = r.bottom + 8;
+            if (top + mh > window.innerHeight - 8) top = Math.max(8, r.top - mh - 8);
+            menu.style.left = left + "px";
+            menu.style.top = top + "px";
+            menu.style.visibility = "";
+          }
+        }
+        if (document.readyState === "loading") {
+          document.addEventListener("DOMContentLoaded", openPickerNow);
+        } else {
+          openPickerNow();
+        }
+        window.addEventListener("load", openPickerNow);
+      })();
+    </script>
 
     <script>
       /* Picker landing ping: counts flex.capades.io visits in the shared analytics */

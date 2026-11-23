@@ -534,11 +534,8 @@
         }
 
         // Returning verified visitors skip the confirmation panel entirely:
-        // flyer referrals go straight to Quick Start (same as clicking Enter),
-        // everyone else lands on the destination menu.
-        if (previousGatePass) {
-        // Gate passed: forward directly to app
-        if (previousGatePass) {
+        // Gate passed: on sex gate forward directly to app; on vanilla/flex reveal destinations
+        if (previousGatePass && !isVanillaSkinGate && gateSkinPrefix !== "flex" && !window.__SX_IS_PICKER) {
           if (isFlyerReferral) {
             window.location.replace(destinationUrls.quickstart);
             return;
@@ -580,6 +577,24 @@
           }
 
           if (window.sxGateMusicAutoPlay) window.sxGateMusicAutoPlay();
+          if (gateSkinPrefix === "flex" || window.__SX_IS_PICKER) {
+            revealDestinations();
+            var titleBtn = document.getElementById("gateAppAboutBtn");
+            var menu = document.getElementById("skinMenu");
+            if (titleBtn && menu && menu.hidden) {
+              var r = titleBtn.getBoundingClientRect();
+              menu.style.visibility = "hidden";
+              menu.hidden = false;
+              var mw = menu.offsetWidth, mh = menu.offsetHeight;
+              var left = Math.max(8, Math.min(r.left, window.innerWidth - mw - 8));
+              var top = r.bottom + 8;
+              if (top + mh > window.innerHeight - 8) top = Math.max(8, r.top - mh - 8);
+              menu.style.left = left + "px";
+              menu.style.top = top + "px";
+              menu.style.visibility = "";
+            }
+            return;
+          }
           window.location.assign(destinationUrls.app);
         });
 
@@ -1005,11 +1020,11 @@
             }
           });
 
-          if (window.__SX_AUTO_OPEN_PICKER) {
+          if (window.__SX_AUTO_OPEN_PICKER || gateSkinPrefix === "flex" || window.__SX_IS_PICKER) {
             revealDestinations();
             setTimeout(function () {
               if (titleBtn) openMenu(0, 0, false, titleBtn);
-            }, 60);
+            }, 50);
           }
         })();
 
@@ -1020,5 +1035,13 @@
 (function(){var c=document.getElementById('odometer-digits-GATE');if(!c)return;
 function render(n){try{var s=String(n).padStart(6,'0');c.innerHTML='';for(var i=0;i<s.length;i++){var d=document.createElement('div');d.className='odometer-digit';d.textContent=s[i];c.appendChild(d);}}catch(e){}}
 try{
-fetch('/hosted/api/collect.php',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({action:'get_stats'})}).then(function(r){return r.json();}).then(function(d){render((d&&d.unique_visitors)||0);}).catch(function(){render(0);});
+var skinId = 'sexcapades';
+try {
+  var host = window.location.hostname.toLowerCase();
+  var prefix = host.split('.')[0];
+  if (prefix && prefix !== 'sex' && prefix !== 'sexcapades' && prefix !== 'www') skinId = prefix;
+  var q = new URLSearchParams(window.location.search || '').get('skin');
+  if (q) skinId = q;
+} catch(e){}
+fetch('/hosted/api/collect.php',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({action:'get_stats',skin:skinId})}).then(function(r){return r.json();}).then(function(d){render((d&&d.unique_visitors)||0);}).catch(function(){render(0);});
 }catch(e){render(0);}})();

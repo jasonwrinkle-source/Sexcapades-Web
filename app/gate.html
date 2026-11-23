@@ -1898,8 +1898,8 @@
         <button type="button" class="close-btn" id="gateCloseAbout" aria-label="Close About Sex.Capades.IO">×</button>
       </div>
       <div class="dialog-body">
-        <p class="app-about-version">Version 5.0 · Build 2026-11-22_1900</p>
-        <p class="app-about-version">release-5.0-1122-1900</p>
+        <p class="app-about-version">Version 5.0 · Build 2026-11-22_1920</p>
+        <p class="app-about-version">release-5.0-1122-1920</p>
         <p id="gateAboutDescription">Sexcapades is an interactive hypermap for rating and visualizing adult interests. Build a personal profile, compare where partners align, use Scribe to write stories and scenes, and Scene Setter to plan and negotiate play — all in the same shared vocabulary.</p>
         <p><a href="https://patreon.com/FlexCapadesIO" rel="noopener" target="_blank">Support Flexcapades on Patreon</a></p>
         <p>Built with Muse. <a href="https://muse.ai/join" rel="noopener" target="_blank">Join Muse for free</a>, then redeem invite code <strong>GV7QUD</strong> in the About box within 48 hours; you and the inviter each get <strong>1 billion tokens</strong>.</p>
@@ -2466,9 +2466,8 @@
         }
 
         // Returning verified visitors skip the confirmation panel entirely:
-        // flyer referrals go straight to Quick Start (same as clicking Enter),
-        // Gate passed: forward directly to app
-        if (previousGatePass) {
+        // Gate passed: on sex gate forward directly to app; on vanilla/flex reveal destinations
+        if (previousGatePass && !isVanillaSkinGate && gateSkinPrefix !== "flex" && !window.__SX_IS_PICKER) {
           if (isFlyerReferral) {
             window.location.replace(destinationUrls.quickstart);
             return;
@@ -2510,6 +2509,24 @@
           }
 
           if (window.sxGateMusicAutoPlay) window.sxGateMusicAutoPlay();
+          if (gateSkinPrefix === "flex" || window.__SX_IS_PICKER) {
+            revealDestinations();
+            var titleBtn = document.getElementById("gateAppAboutBtn");
+            var menu = document.getElementById("skinMenu");
+            if (titleBtn && menu && menu.hidden) {
+              var r = titleBtn.getBoundingClientRect();
+              menu.style.visibility = "hidden";
+              menu.hidden = false;
+              var mw = menu.offsetWidth, mh = menu.offsetHeight;
+              var left = Math.max(8, Math.min(r.left, window.innerWidth - mw - 8));
+              var top = r.bottom + 8;
+              if (top + mh > window.innerHeight - 8) top = Math.max(8, r.top - mh - 8);
+              menu.style.left = left + "px";
+              menu.style.top = top + "px";
+              menu.style.visibility = "";
+            }
+            return;
+          }
           window.location.assign(destinationUrls.app);
         });
 
@@ -2935,11 +2952,11 @@
             }
           });
 
-          if (window.__SX_AUTO_OPEN_PICKER) {
+          if (window.__SX_AUTO_OPEN_PICKER || gateSkinPrefix === "flex" || window.__SX_IS_PICKER) {
             revealDestinations();
             setTimeout(function () {
               if (titleBtn) openMenu(0, 0, false, titleBtn);
-            }, 60);
+            }, 50);
           }
         })();
 
