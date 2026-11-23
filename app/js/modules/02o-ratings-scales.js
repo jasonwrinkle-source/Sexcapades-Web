@@ -1261,8 +1261,9 @@
             const a = -Math.PI / 2 + 2 * Math.PI * n / 100, r = 900 + t * Math.cos(a), o = 620 + t * Math.sin(a);
             return `M 900 ${i} A ${t} ${t} 0 ${n > 50 ? 1 : 0} 1 ${r.toFixed(3)} ${o.toFixed(3)}`;
         }
+        var pc = [];
         function oa() {
-            const e = 3 === pc.length ? pc : [ {
+            const e = (pc && Array.isArray(pc) && 3 === pc.length) ? pc : [ {
                 label: "Hot topics", // FQ2-BAKEIN: "Want to do" -> "Hot topics"
                 count: 0,
                 percent: 0,

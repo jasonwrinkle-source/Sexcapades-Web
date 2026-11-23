@@ -8584,8 +8584,9 @@ var INTEREST_STOPS = {
             const a = -Math.PI / 2 + 2 * Math.PI * n / 100, r = 900 + t * Math.cos(a), o = 620 + t * Math.sin(a);
             return `M 900 ${i} A ${t} ${t} 0 ${n > 50 ? 1 : 0} 1 ${r.toFixed(3)} ${o.toFixed(3)}`;
         }
+        var pc = [];
         function oa() {
-            const e = 3 === pc.length ? pc : [ {
+            const e = (pc && Array.isArray(pc) && 3 === pc.length) ? pc : [ {
                 label: "Hot topics", // FQ2-BAKEIN: "Want to do" -> "Hot topics"
                 count: 0,
                 percent: 0,
@@ -31059,6 +31060,51 @@ var Vl = [], Yl = [], Xl = new Map();
                 });
             }
         }
+var sxCommittedFocus = null, sxFocusFrame = 0;
+        function sxStopFocusZoom() {
+            if (sxFocusFrame) cancelAnimationFrame(sxFocusFrame), sxFocusFrame = 0;
+            if (typeof window.__sxStopFocusZoom === "function") window.__sxStopFocusZoom();
+        }
+        function Zl(e, t = 0) {
+            if (!e || Dt !== e.id) return;
+            In.querySelector(`[data-layout-key="${CSS.escape(e.id)}"]`) ? Th(e.id, e.branch) : t < 3 ? sxFocusFrame = requestAnimationFrame(() => Zl(e, t + 1)) : Lh(e.branch);
+        }
+var _previewAddedBranches = new Set, _previewAddedParents = new Set;
+        function Ql(e) {
+            if (!e) return;
+            noteFitUserCamera();
+            kn || Ei();
+            if (e.branch && !rn.has(e.branch)) { rn.add(e.branch); _previewAddedBranches.add(e.branch); }
+            if (e.parentId && !on.has(e.parentId)) { on.add(e.parentId); _previewAddedParents.add(e.parentId); }
+            Dt = e.id; Lt = e.id;
+            Mr({ animate: !0 });
+            sxStopFocusZoom();
+            sxFocusFrame = requestAnimationFrame(() => {
+                sxFocusFrame = 0;
+                Zl(e);
+            });
+        }
+        function Jl() {
+            sxCommittedFocus = null;
+            sxStopFocusZoom();
+            const hadExpansions = Boolean(_previewAddedBranches.size || _previewAddedParents.size || Dt || Lt);
+            _previewAddedBranches.forEach(b => rn.delete(b)); _previewAddedBranches.clear();
+            _previewAddedParents.forEach(p => on.delete(p)); _previewAddedParents.clear();
+            Dt = null; Lt = null; Tt = "";
+            const sxSearch = e.byId("searchInput");
+            sxSearch && (sxSearch.value = "");
+            if (hadExpansions) {
+                Mr();
+                if (typeof Ih === "function") Ih();
+            } else if (Cn) {
+                Cn.querySelectorAll(".is-dim").forEach(el => el.classList.remove("is-dim"));
+            }
+        }
+        window.__sxOnKey( function(ev) {
+            if (ev.key !== "Escape" || document.querySelector("dialog[open]")) return;
+            if (Dt) Jl();
+            else if (Tt || Cn && (Cn.classList.contains("has-selection") || Cn.classList.contains("relation-focused") || Cn.querySelector(".is-dim, .is-preview, .rel-active"))) clearSpokeSelection();
+        }, true);
         rebuildTopicPickerData();
         if (typeof window !== "undefined" && typeof window.__SX_WHEN_SKIN_READY === "function") {
             window.__SX_WHEN_SKIN_READY(rebuildTopicPickerData);
