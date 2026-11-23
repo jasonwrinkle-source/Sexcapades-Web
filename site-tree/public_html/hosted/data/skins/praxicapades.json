@@ -178,7 +178,8 @@
               "name": "r/askscience",
               "url": "https://www.reddit.com/r/askscience/"
             }
-          ]
+          ],
+          "glyph": "cube"
         },
         {
           "id": "xpr0002",
@@ -235,7 +236,8 @@
               "name": "r/SimulationTheory",
               "url": "https://www.reddit.com/r/SimulationTheory/"
             }
-          ]
+          ],
+          "glyph": "star"
         },
         {
           "id": "xpr0003",
@@ -292,7 +294,8 @@
               "name": "r/askphilosophy",
               "url": "https://www.reddit.com/r/askphilosophy/"
             }
-          ]
+          ],
+          "glyph": "sun"
         },
         {
           "id": "xpr0004",
@@ -349,7 +352,8 @@
               "name": "r/askscience",
               "url": "https://www.reddit.com/r/askscience/"
             }
-          ]
+          ],
+          "glyph": "moon"
         },
         {
           "id": "xpr0005",
@@ -406,7 +410,8 @@
               "name": "r/askphilosophy",
               "url": "https://www.reddit.com/r/askphilosophy/"
             }
-          ]
+          ],
+          "glyph": "flame"
         }
       ]
     },
@@ -478,7 +483,8 @@
               "name": "r/SimulationTheory",
               "url": "https://www.reddit.com/r/SimulationTheory/"
             }
-          ]
+          ],
+          "glyph": "droplet"
         },
         {
           "id": "xpr0007",
@@ -530,7 +536,8 @@
               "name": "r/science",
               "url": "https://www.reddit.com/r/science/"
             }
-          ]
+          ],
+          "glyph": "tree"
         },
         {
           "id": "xpr0008",
@@ -582,7 +589,8 @@
               "name": "r/science",
               "url": "https://www.reddit.com/r/science/"
             }
-          ]
+          ],
+          "glyph": "rose"
         },
         {
           "id": "xpr0009",
@@ -634,7 +642,8 @@
               "name": "r/science",
               "url": "https://www.reddit.com/r/science/"
             }
-          ]
+          ],
+          "glyph": "heart"
         }
       ]
     },
@@ -709,7 +718,8 @@
               "name": "r/science",
               "url": "https://www.reddit.com/r/science/"
             }
-          ]
+          ],
+          "glyph": "shield"
         },
         {
           "id": "xpr0011",
@@ -766,7 +776,8 @@
               "name": "r/askphilosophy",
               "url": "https://www.reddit.com/r/askphilosophy/"
             }
-          ]
+          ],
+          "glyph": "badge"
         },
         {
           "id": "xpr0012",
@@ -818,7 +829,8 @@
               "name": "r/science",
               "url": "https://www.reddit.com/r/science/"
             }
-          ]
+          ],
+          "glyph": "crown"
         }
       ]
     },
@@ -890,7 +902,8 @@
               "name": "r/askphilosophy",
               "url": "https://www.reddit.com/r/askphilosophy/"
             }
-          ]
+          ],
+          "glyph": "key"
         },
         {
           "id": "xpr0014",
@@ -942,7 +955,8 @@
               "name": "r/science",
               "url": "https://www.reddit.com/r/science/"
             }
-          ]
+          ],
+          "glyph": "lock"
         },
         {
           "id": "xpr0015",
@@ -994,7 +1008,8 @@
               "name": "r/science",
               "url": "https://www.reddit.com/r/science/"
             }
-          ]
+          ],
+          "glyph": "scale"
         },
         {
           "id": "xpr0016",
@@ -1046,7 +1061,8 @@
               "name": "r/science",
               "url": "https://www.reddit.com/r/science/"
             }
-          ]
+          ],
+          "glyph": "hands"
         }
       ]
     },
@@ -1110,7 +1126,8 @@
               "name": "r/askscience",
               "url": "https://www.reddit.com/r/askscience/"
             }
-          ]
+          ],
+          "glyph": "eye"
         },
         {
           "id": "xpr0018",
@@ -1167,7 +1184,8 @@
               "name": "r/askscience",
               "url": "https://www.reddit.com/r/askscience/"
             }
-          ]
+          ],
+          "glyph": "chat"
         },
         {
           "id": "xpr0019",
@@ -1219,7 +1237,8 @@
               "name": "r/askscience",
               "url": "https://www.reddit.com/r/askscience/"
             }
-          ]
+          ],
+          "glyph": "book"
         },
         {
           "id": "xpr0020",
@@ -1276,7 +1295,8 @@
               "name": "r/askphilosophy",
               "url": "https://www.reddit.com/r/askphilosophy/"
             }
-          ]
+          ],
+          "glyph": "scroll"
         },
         {
           "id": "xpr0021",
@@ -1328,7 +1348,8 @@
               "name": "r/askscience",
               "url": "https://www.reddit.com/r/askscience/"
             }
-          ]
+          ],
+          "glyph": "note"
         }
       ]
     },
@@ -1375,7 +1396,8 @@
             ]
           },
           "question": "Where do you deploy your applied mathematics?",
-          "source": "BRIEFING_PRAXICAPADES_TAXONOMY.md §2, topic 6.1."
+          "source": "BRIEFING_PRAXICAPADES_TAXONOMY.md §2, topic 6.1.",
+          "glyph": "spotlight"
         },
         {
           "id": "xpr0023",
@@ -1415,7 +1437,8 @@
             ]
           },
           "question": "Do you work with domain experts or alone?",
-          "source": "BRIEFING_PRAXICAPADES_TAXONOMY.md §2, topic 6.2."
+          "source": "BRIEFING_PRAXICAPADES_TAXONOMY.md §2, topic 6.2.",
+          "glyph": "hourglass"
         },
         {
           "id": "xpr0024",
@@ -1467,7 +1490,8 @@
               "name": "r/science",
               "url": "https://www.reddit.com/r/science/"
             }
-          ]
+          ],
+          "glyph": "compass"
         },
         {
           "id": "xpr0025",
@@ -1507,7 +1531,8 @@
             ]
           },
           "question": "Are you an interdisciplinary bridge or a pure algorithm specialist?",
-          "source": "BRIEFING_PRAXICAPADES_TAXONOMY.md §2, topic 6.4."
+          "source": "BRIEFING_PRAXICAPADES_TAXONOMY.md §2, topic 6.4.",
+          "glyph": "bolt"
         },
         {
           "id": "xpr0026",
@@ -1539,7 +1564,8 @@
             ]
           },
           "question": "Do you value real-world impact or academic publication?",
-          "source": "BRIEFING_PRAXICAPADES_TAXONOMY.md §2, topic 6.5."
+          "source": "BRIEFING_PRAXICAPADES_TAXONOMY.md §2, topic 6.5.",
+          "glyph": "stripes"
         }
       ]
     }
