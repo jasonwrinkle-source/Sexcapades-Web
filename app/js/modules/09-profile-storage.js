@@ -577,4 +577,3 @@ __sxInit(function () {
   init();
 })();
 });
-}

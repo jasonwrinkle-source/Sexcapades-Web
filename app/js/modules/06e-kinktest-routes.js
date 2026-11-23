@@ -1243,3 +1243,6 @@
             window.SexcapadesEngine.Profiles.manager = window.Sexcapades2xProfiles;
         }
     }();
+
+    }();
+});

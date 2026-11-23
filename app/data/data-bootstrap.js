@@ -50177,6 +50177,9 @@ var yS = Boolean(dS()), bS = Boolean(uS()), vS = Boolean(pS());
         }
     }();
 
+    }();
+});
+
 /* --- Module: 07-header-hug.js --- */
 /* HEADER-HUG boot seat (2026-11-02): the render-path hug (in the header-ring
    updater) only runs once a profile is loaded — the map render returns early
@@ -51710,5 +51713,4 @@ __sxInit(function () {
   init();
 })();
 });
-}
 
