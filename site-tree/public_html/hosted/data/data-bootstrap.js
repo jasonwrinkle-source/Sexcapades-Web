@@ -3780,7 +3780,7 @@ const he = [ [ "t0281", "t0240" ] ];
             },
             "Climate, Energy & Environment": {
                 color: "#82c66e",
-                glyph: '<path class="icon-glyph" d="M19 5C13 5 6.5 8.6 5.4 15.2 5 19 5 19 5 19 9 19 9 14.6 19 19 5 19 5Z M5 19C7.5 14.5 11.5 10.5 16 8"/>'
+                glyph: '<path class="icon-glyph" d="M19 5C13.5 5.5 7 8 5.5 13.5C5 15.5 5 19 5 19C10 19 18.5 13 19 5Z M5 19C7.5 14.5 11.5 10.5 16 8"/>'
             },
             "Immigration & Borders": {
                 color: "#e5a45e",
@@ -7091,7 +7091,7 @@ const Ce = {
             },
             "Climate, Energy & Environment": {
                 color: "#82c66e",
-                glyph: '<path class="icon-glyph" d="M19 5C13 5 6.5 8.6 5.4 15.2 5 19 5 19 5 19 9 19 9 14.6 19 19 5 19 5Z M5 19C7.5 14.5 11.5 10.5 16 8"/>'
+                glyph: '<path class="icon-glyph" d="M19 5C13.5 5.5 7 8 5.5 13.5C5 15.5 5 19 5 19C10 19 18.5 13 19 5Z M5 19C7.5 14.5 11.5 10.5 16 8"/>'
             },
             "Immigration & Borders": {
                 color: "#e5a45e",
@@ -46843,10 +46843,15 @@ yk([ "Spitting", "Spit play", "Being spit on", "Spitting on someone" ], "t0341")
             wf = null, Ui(ym), e && nk(e);
         }, ym.addEventListener("click", e => {
             e.target === ym && Lw();
-        }), ym.addEventListener("cancel", Lw), window.__sxOnPtr( e => {
+        }), ym.addEventListener("cancel", Lw), /* Pointer dismissal: a pointerdown inside any OPEN registered submenu
+            (roster + palimpsest stack flyouts, window.__SX_SAMPLE_SUBMENUS) counts as INSIDE.
+            Those flyouts are siblings of the static menus, not children, so the jy/jyA/By
+            containment tests alone read a layer-button press as an outside click and closed
+            every menu on pointerdown — before mouseup, so the entry's click never fired and
+            stack layers could not be loaded by mouse at all (2026-11-23). */ window.__sxOnPtr( e => {
             Oy.hidden || Oy.contains(e.target) || __sxClosestAction(e.target, "profileLoad") || kw(), 
-            By.hidden || By.contains(e.target) || __sxClosestAction(e.target, "addProfile") || xw(), 
-            (jy.hidden || jy.contains(e.target)) && (!jyA || jyA.hidden || jyA.contains(e.target)) || __sxClosestAction(e.target, "addProfile") || Sw();
+            By.hidden || By.contains(e.target) || (window.__SX_SAMPLE_SUBMENUS || []).some(m => m && !m.hidden && m.contains(e.target)) || __sxClosestAction(e.target, "addProfile") || xw(), 
+            (jy.hidden || jy.contains(e.target)) && (!jyA || jyA.hidden || jyA.contains(e.target)) || (window.__SX_SAMPLE_SUBMENUS || []).some(m => m && !m.hidden && m.contains(e.target)) || __sxClosestAction(e.target, "addProfile") || Sw();
         }, !0), window.__sxOnKey( e => {
             "Escape" === e.key && (Oy.hidden || kw(), By.hidden || xw(), jy.hidden || Sw(), !jyA || jyA.hidden || Sw());
         }), e.byId("closeTestResultLoader").onclick = () => Ui(kg), kg.addEventListener("click", e => {
