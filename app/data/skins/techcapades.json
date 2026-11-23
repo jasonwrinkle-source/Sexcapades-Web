@@ -194,7 +194,8 @@
               "name": "Stack Overflow",
               "url": "https://stackoverflow.com/"
             }
-          ]
+          ],
+          "glyph": "cube"
         },
         {
           "id": "xte0002",
@@ -251,7 +252,8 @@
               "name": "Stack Overflow",
               "url": "https://stackoverflow.com/"
             }
-          ]
+          ],
+          "glyph": "star"
         },
         {
           "id": "xte0003",
@@ -308,7 +310,8 @@
               "name": "Stack Overflow",
               "url": "https://stackoverflow.com/"
             }
-          ]
+          ],
+          "glyph": "sun"
         }
       ]
     },
@@ -367,7 +370,8 @@
               "name": "r/privacy",
               "url": "https://www.reddit.com/r/privacy/"
             }
-          ]
+          ],
+          "glyph": "moon"
         },
         {
           "id": "xte0005",
@@ -419,7 +423,8 @@
               "name": "r/privacy",
               "url": "https://www.reddit.com/r/privacy/"
             }
-          ]
+          ],
+          "glyph": "flame"
         },
         {
           "id": "xte0006",
@@ -471,7 +476,8 @@
               "name": "r/privacy",
               "url": "https://www.reddit.com/r/privacy/"
             }
-          ]
+          ],
+          "glyph": "droplet"
         },
         {
           "id": "xte0007",
@@ -523,7 +529,8 @@
               "name": "r/privacy",
               "url": "https://www.reddit.com/r/privacy/"
             }
-          ]
+          ],
+          "glyph": "tree"
         }
       ]
     },
@@ -577,7 +584,8 @@
               "name": "r/technology",
               "url": "https://www.reddit.com/r/technology/"
             }
-          ]
+          ],
+          "glyph": "rose"
         },
         {
           "id": "xte0009",
@@ -624,7 +632,8 @@
               "name": "r/technology",
               "url": "https://www.reddit.com/r/technology/"
             }
-          ]
+          ],
+          "glyph": "heart"
         },
         {
           "id": "xte0010",
@@ -671,7 +680,8 @@
               "name": "r/technology",
               "url": "https://www.reddit.com/r/technology/"
             }
-          ]
+          ],
+          "glyph": "shield"
         }
       ]
     },
@@ -725,7 +735,8 @@
               "name": "r/technology",
               "url": "https://www.reddit.com/r/technology/"
             }
-          ]
+          ],
+          "glyph": "badge"
         },
         {
           "id": "xte0012",
@@ -772,7 +783,8 @@
               "name": "r/technology",
               "url": "https://www.reddit.com/r/technology/"
             }
-          ]
+          ],
+          "glyph": "crown"
         },
         {
           "id": "xte0013",
@@ -819,7 +831,8 @@
               "name": "r/technology",
               "url": "https://www.reddit.com/r/technology/"
             }
-          ]
+          ],
+          "glyph": "key"
         },
         {
           "id": "xte0014",
@@ -876,7 +889,8 @@
               "name": "Stack Overflow",
               "url": "https://stackoverflow.com/"
             }
-          ]
+          ],
+          "glyph": "lock"
         }
       ]
     },
@@ -930,7 +944,8 @@
               "name": "r/technology",
               "url": "https://www.reddit.com/r/technology/"
             }
-          ]
+          ],
+          "glyph": "scale"
         },
         {
           "id": "xte0016",
@@ -977,7 +992,8 @@
               "name": "r/technology",
               "url": "https://www.reddit.com/r/technology/"
             }
-          ]
+          ],
+          "glyph": "hands"
         },
         {
           "id": "xte0017",
@@ -1024,7 +1040,8 @@
               "name": "r/technology",
               "url": "https://www.reddit.com/r/technology/"
             }
-          ]
+          ],
+          "glyph": "eye"
         }
       ]
     },
@@ -1088,7 +1105,8 @@
               "name": "Stack Overflow",
               "url": "https://stackoverflow.com/"
             }
-          ]
+          ],
+          "glyph": "chat"
         },
         {
           "id": "xte0019",
@@ -1135,7 +1153,8 @@
               "name": "r/technology",
               "url": "https://www.reddit.com/r/technology/"
             }
-          ]
+          ],
+          "glyph": "book"
         },
         {
           "id": "xte0020",
@@ -1182,7 +1201,8 @@
               "name": "r/technology",
               "url": "https://www.reddit.com/r/technology/"
             }
-          ]
+          ],
+          "glyph": "scroll"
         }
       ]
     }
