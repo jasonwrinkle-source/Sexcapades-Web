@@ -637,7 +637,7 @@ import {
             await runPhase("throw", throwPatch, mark, opts, dk, name, preDelivered, tax, report, diagCaptureFields, witnessTrippingLabel, WITNESS_EPS, WITNESS_ONE_STEP);
             await focusThrowedActiveNode(name);
             if (typeof window.__sxFocusApproximatedBranch === "function") window.__sxFocusApproximatedBranch(name);
-            }
+        }
         async function stepThrowRepeated(name, preDelivered, tax, report, staged, runPhase, opts, dk, diagCaptureFields, witnessTrippingLabel, WITNESS_EPS, WITNESS_ONE_STEP) {
             // THROW REPEAT (ruled 2026-11-06, Jason): the throw
             // step as it exists (stepThrow above — same targets,
