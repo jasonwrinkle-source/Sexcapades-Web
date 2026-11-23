@@ -46127,6 +46127,46 @@ yk([ "Spitting", "Spit play", "Being spit on", "Spitting on someone" ], "t0341")
             btn.disabled = rated < 1;
             btn.textContent = sxLocalSampleExists(wt[Hy]) ? "Update local sample" : "Add as local sample";
         }
+        // Menu-description dialog (2026-11-22, Jason): saving a local
+        // sample asks for an optional blurb — the hover tip in the
+        // Samples menu, and the description a roster pack carries for
+        // this member. Prefilled from the existing entry on update.
+        function sxLocalSampleAboutDialog(name, existingAbout, onDone) {
+            var dlg = e.byId("sxLocalSampleAboutDlg");
+            if (!dlg) {
+                // A native <dialog> shown modally: the profile details
+                // dialog is itself a modal <dialog> (top layer), so a
+                // plain overlay div would render under its hit-testing
+                // and its buttons could never be clicked.
+                dlg = document.createElement("dialog");
+                dlg.id = "sxLocalSampleAboutDlg";
+                dlg.style.cssText = "border:none;background:transparent;padding:0;max-width:92vw;";
+                var st = document.createElement("style");
+                st.textContent = "#sxLocalSampleAboutDlg::backdrop{background:rgba(8,10,12,.55);}";
+                document.head.appendChild(st);
+                dlg.innerHTML = '<div style="background:#171b1f;color:#f2f4f6;border:1px solid #3a4550;border-radius:12px;padding:18px;width:440px;max-width:92vw;box-sizing:border-box;box-shadow:0 12px 40px rgba(0,0,0,.5);font:14px/1.45 system-ui,sans-serif;">'
+                    + '<div id="sxLsDlgTitle" style="font-weight:600;font-size:16px;margin-bottom:8px;"></div>'
+                    + '<label for="sxLsDlgText" style="display:block;margin-bottom:6px;">Menu description <span style="opacity:.65">(optional)</span></label>'
+                    + '<textarea id="sxLsDlgText" rows="3" maxlength="300" placeholder="One or two sentences — this is the hover tip in the Samples menu, and the blurb your roster carries." style="width:100%;box-sizing:border-box;background:#0f1214;color:#f2f4f6;border:1px solid #3a4550;border-radius:8px;padding:8px;font:inherit;resize:vertical;"></textarea>'
+                    + '<div style="display:flex;gap:8px;justify-content:flex-end;margin-top:12px;">'
+                    + '<button type="button" id="sxLsDlgCancel" style="padding:8px 14px;border-radius:8px;border:1px solid #3a4550;background:transparent;color:inherit;font:inherit;cursor:pointer;">Cancel</button>'
+                    + '<button type="button" id="sxLsDlgSave" style="padding:8px 14px;border-radius:8px;border:1px solid #3a4550;background:#2b6cb0;color:#fff;font:inherit;cursor:pointer;">Save sample</button>'
+                    + '</div></div>';
+                document.body.appendChild(dlg);
+                dlg.addEventListener("click", function (ev) { if (ev.target === dlg) dlg.close(); });
+            }
+            e.byId("sxLsDlgTitle").textContent = "Local sample — " + name;
+            var ta = e.byId("sxLsDlgText");
+            ta.value = existingAbout || "";
+            if (!dlg.open) dlg.showModal();
+            e.byId("sxLsDlgSave").onclick = function () {
+                var text = String(ta.value || "").trim();
+                dlg.close();
+                onDone(text);
+            };
+            e.byId("sxLsDlgCancel").onclick = function () { dlg.close(); };
+            ta.focus();
+        }
         function sxSaveLocalSample() {
             if (!Hy || !vt[Hy]) return;
             var name = String(wt[Hy] || "").trim() || "Profile";
@@ -46143,7 +46183,21 @@ yk([ "Spitting", "Spit play", "Being spit on", "Spitting on someone" ], "t0341")
             }
             payload.photos = [];
             payload.noFlash = true;
+            var api = window.__SX_LOCAL_SAMPLES;
+            var existingAbout = "";
+            try {
+                var list0 = (api && typeof api.list === "function") ? (api.list(sxLocalSampleSkin()) || {}) : {};
+                Object.keys(list0).forEach(function (k) {
+                    if (String((list0[k] || {}).name || "").trim().toLowerCase() === name.toLowerCase()) existingAbout = String(list0[k].about || "");
+                });
+            } catch (err) { existingAbout = ""; }
+            sxLocalSampleAboutDialog(name, existingAbout, function (aboutText) {
+                sxFinishLocalSampleSave(name, payload, aboutText);
+            });
+        }
+        function sxFinishLocalSampleSave(name, payload, aboutText) {
             var entry = { kind: "sample", name: name, count: Object.keys(payload.ratings).length, payload: payload };
+            if (aboutText) entry.about = aboutText;
             var api = window.__SX_LOCAL_SAMPLES;
             if (!api || typeof api.save !== "function") {
                 tS("Local samples are not available right now — reload and try again.", { tone: "error", persistent: true });
