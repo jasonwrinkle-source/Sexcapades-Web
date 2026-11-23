@@ -2802,7 +2802,8 @@
         "skin": "nouscapades"
       },
       "skin": "nouscapades",
-      "kind": "sample"
+      "kind": "sample",
+      "emblem": "images/emblems/nous-chauvinist.svg"
     },
     "nous-pluralist": {
       "name": "The Levinian Pluralist",
@@ -3371,7 +3372,8 @@
         "skin": "nouscapades"
       },
       "skin": "nouscapades",
-      "kind": "sample"
+      "kind": "sample",
+      "emblem": "images/emblems/nous-pluralist.svg"
     },
     "nous-pattern-mystic": {
       "name": "The Pattern Mystic",
@@ -3940,7 +3942,8 @@
         "skin": "nouscapades"
       },
       "skin": "nouscapades",
-      "kind": "sample"
+      "kind": "sample",
+      "emblem": "images/emblems/nous-pattern-mystic.svg"
     },
     "nous-keeper": {
       "name": "The Keeper of the Dish",
@@ -4509,7 +4512,8 @@
         "skin": "nouscapades"
       },
       "skin": "nouscapades",
-      "kind": "sample"
+      "kind": "sample",
+      "emblem": "images/emblems/nous-keeper.svg"
     }
   },
   "scribe": {
