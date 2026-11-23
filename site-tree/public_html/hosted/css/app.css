@@ -1613,3 +1613,12 @@ body.sx-no-importers [data-test-choice="checklist"] {
 .mark-menu.hanky-backed{background-color:var(--hanky-bg);background-image:repeating-linear-gradient(45deg,color-mix(in srgb,var(--paper) 9%,transparent) 0 12px,transparent 12px 24px)}
 .mark-hanky{display:flex;align-items:center;gap:8px;font-size:12px;font-weight:650;letter-spacing:.02em;color:var(--paper)}
 .mark-hanky-swatch{flex:0 0 18px;width:18px;height:18px;border-radius:4px;border:1px solid color-mix(in srgb,var(--paper) 45%,transparent)}
+
+/* Profile tab strip travel (2026-11-23): the strip already had overflow-x:auto,
+   but its grid/flex parents could not shrink below content width on desktop, so
+   the strip pushed the toolbar wide and the operations tabs sat off-viewport
+   with no way to travel. Let the parents shrink, let touch drags starting on a
+   tab pan the strip, and keep the scrollbar thin. */
+.viewpoint-tabs-row{min-width:0}
+#profileTabs{min-width:0;scrollbar-width:thin}
+#profileTabs .profile-tab-button{touch-action:pan-x pan-y}

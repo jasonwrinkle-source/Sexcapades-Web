@@ -664,3 +664,32 @@ __sxInit(function () {
   });
 })();
 });
+
+/* ---- profile tab strip travel: wheel scroll + keep the active tab in view ---- */
+__sxInit(function () {
+  var tabs = document.getElementById('profileTabs');
+  if (!tabs) return;
+  tabs.addEventListener('wheel', function (ev) {
+    if (tabs.scrollWidth <= tabs.clientWidth) return;
+    var d = Math.abs(ev.deltaY) >= Math.abs(ev.deltaX) ? ev.deltaY : ev.deltaX;
+    if (!d) return;
+    var max = tabs.scrollWidth - tabs.clientWidth;
+    var next = Math.max(0, Math.min(max, tabs.scrollLeft + d));
+    if (next === tabs.scrollLeft) return;
+    tabs.scrollLeft = next;
+    ev.preventDefault();
+  }, { passive: false });
+  function keepActiveInView() {
+    if (tabs.scrollWidth <= tabs.clientWidth) return;
+    var active = tabs.querySelector('.profile-tab-button[aria-selected="true"], .profile-tab-button.is-active, .sx-match-tab.is-active');
+    if (active && active.scrollIntoView) {
+      try { active.scrollIntoView({ block: 'nearest', inline: 'nearest' }); } catch (e) {}
+    }
+  }
+  var pending = 0;
+  function schedule() { if (!pending) pending = setTimeout(function () { pending = 0; keepActiveInView(); }, 60); }
+  if (typeof MutationObserver === 'function') {
+    new MutationObserver(schedule).observe(tabs, { childList: true, subtree: true, attributes: true, attributeFilter: ['aria-selected', 'class'] });
+  }
+  tabs.addEventListener('click', function () { setTimeout(keepActiveInView, 0); });
+});
