@@ -2197,6 +2197,7 @@
             for (let t = 0; t < n.length; t++) for (let a = t + 1; a < n.length; a++) i.push(La(e, n[t], n[a]));
             return i.includes("mismatch") ? "mismatch" : i.includes("mutual") ? "mutual" : i.includes("explore") ? "explore" : "other";
         }
+        if (typeof window !== "undefined") window.__SX_RA = Ra;
         function sxIsBranchLimited(e, t = Vi()) {
             const grp = Kd();
             const pIds = grp && Array.isArray(grp.sourceIds) ? grp.sourceIds.filter(id => vt[id]) : (Qi() ? Xi() : [ t ]);

@@ -600,7 +600,7 @@
         }
         function Ka(e, t, n, i, a, r, o, s, l, c, d, u = 48, p = Ga.FALLBACK_COLOR, g = !0, m = "", f = null, y = null, b = null, v = !1, w = !0, k = h.length, bc = null, sxLeafD = null, sxDepth = null) {
             if (sxSexSkin()) v = !0;
-            Ra(e);
+            if (typeof Ra === "function") Ra(e); else if (typeof window !== "undefined" && typeof window.__SX_RA === "function") window.__SX_RA(e);
             const sxD = null != sxDepth ? sxDepth : sxLeafD === sxIconDiameter(1) ? 1 : sxLeafD === sxIconDiameter(3) ? 3 : 2, sxF = sxFontFactor(sxD), sxSW = sxStrokeWidth(sxD);
             const x = Rt || Qi() ? null : Vi(), S = Rt ? null : x || function(e) {
                 const t = Vi();

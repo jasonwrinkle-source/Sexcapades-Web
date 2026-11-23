@@ -2364,7 +2364,7 @@ const TAXONOMY_CATEGORIES = [];
         }
         function Ka(e, t, n, i, a, r, o, s, l, c, d, u = 48, p = Ga.FALLBACK_COLOR, g = !0, m = "", f = null, y = null, b = null, v = !1, w = !0, k = h.length, bc = null, sxLeafD = null, sxDepth = null) {
             if (sxSexSkin()) v = !0;
-            Ra(e);
+            if (typeof Ra === "function") Ra(e); else if (typeof window !== "undefined" && typeof window.__SX_RA === "function") window.__SX_RA(e);
             const sxD = null != sxDepth ? sxDepth : sxLeafD === sxIconDiameter(1) ? 1 : sxLeafD === sxIconDiameter(3) ? 3 : 2, sxF = sxFontFactor(sxD), sxSW = sxStrokeWidth(sxD);
             const x = Rt || Qi() ? null : Vi(), S = Rt ? null : x || function(e) {
                 const t = Vi();
@@ -16486,6 +16486,7 @@ function dkEvaluateCrossingDrop(before, after, threshold = 0.75) {
             for (let t = 0; t < n.length; t++) for (let a = t + 1; a < n.length; a++) i.push(La(e, n[t], n[a]));
             return i.includes("mismatch") ? "mismatch" : i.includes("mutual") ? "mutual" : i.includes("explore") ? "explore" : "other";
         }
+        if (typeof window !== "undefined") window.__SX_RA = Ra;
         function sxIsBranchLimited(e, t = Vi()) {
             const grp = Kd();
             const pIds = grp && Array.isArray(grp.sourceIds) ? grp.sourceIds.filter(id => vt[id]) : (Qi() ? Xi() : [ t ]);
