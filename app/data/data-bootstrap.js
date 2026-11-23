@@ -9166,20 +9166,19 @@ var INTEREST_STOPS = {
             const sxStance = sxIsStanceSkin();
             if (sxStance) {
                 if (!(rec.advocacyKnown || rec.receptivityKnown)) return null;
-                if (!rec.advocacyIntensityKnown && !rec.receptivityIntensityKnown) return null;
+                const aInt = rec.advocacyIntensityKnown ? rec.advocacyIntensity : (rec.advocacyKnown ? rec.advocacy : null);
+                const rInt = rec.receptivityIntensityKnown ? rec.receptivityIntensity : (rec.receptivityKnown ? rec.receptivity : null);
                 return {
-                    give: rec.advocacyIntensityKnown ? zi(rec.advocacyIntensity) : null,
-                    receive: rec.receptivityIntensityKnown ? zi(rec.receptivityIntensity) : null
+                    give: null != aInt ? zi(aInt) : null,
+                    receive: null != rInt ? zi(rInt) : null
                 };
             }
-            // Classic placements (2026-11-22): on the sex skin an n-pole
-            // topic's spoke flanks speak give (top) and receive (bottom),
-            // each by its own placement intensity.
-            if (!(rec.givePlacementKnown || rec.receivePlacementKnown)) return null;
-            if (!rec.givePlacementIntensityKnown && !rec.receivePlacementIntensityKnown) return null;
+            if (!(rec.giveKnown || rec.receiveKnown || rec.givePlacementKnown || rec.receivePlacementKnown)) return null;
+            const gInt = rec.givePlacementIntensityKnown ? rec.givePlacementIntensity : (rec.giveIntensityKnown ? rec.giveIntensity : (rec.giveKnown ? rec.give : null));
+            const rInt = rec.receivePlacementIntensityKnown ? rec.receivePlacementIntensity : (rec.receiveIntensityKnown ? rec.receiveIntensity : (rec.receiveKnown ? rec.receive : null));
             return {
-                give: rec.givePlacementIntensityKnown ? zi(rec.givePlacementIntensity) : null,
-                receive: rec.receivePlacementIntensityKnown ? zi(rec.receivePlacementIntensity) : null
+                give: null != gInt ? zi(gInt) : null,
+                receive: null != rInt ? zi(rInt) : null
             };
         }
         function sxSubPlacementFlankColors(e, t, i) {
@@ -41275,6 +41274,10 @@ var sxCenterPointerTapTime = 0, sxCenterPointerTapX = 0, sxCenterPointerTapY = 0
                     Ap = n;
                     noteFitUserCamera();
                     kh();
+                    if (window.__sxZoomFromNavigation) {
+                        window.__sxZoomFromNavigation = false;
+                        if (typeof clearSpokeSelection === "function") clearSpokeSelection();
+                    }
                 }
             };
             Xp = requestAnimationFrame(l);
@@ -41739,10 +41742,12 @@ var sxLastNodeTapTime = 0, sxLastNodeTapId = null, sxLastNodeTapX = 0, sxLastNod
                         // aria-expanded (it is aria-hidden instead).
                         const sxLabelEl = document.querySelector(`.category-label[data-id="${CSS.escape(sid)}"][aria-expanded="true"], .subcategory-label[data-id="${CSS.escape(sid)}"][aria-expanded="true"]`);
                         n.spoke || sxLabelEl ? selectSpokeNode(n.id, !0) : $i(n.id);
+                        window.__sxZoomFromNavigation = true;
                         if (typeof Th === "function") Th(sid, branch);
                         return;
                     }
                     selectSpokeNode(n.id, !0);
+                    window.__sxZoomFromNavigation = true;
                     if (typeof Th === "function") Th(sid, branch);
                 // Wait out the double-tap window before zooming, so the
                 // second tap still lands on the topic it started on.

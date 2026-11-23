@@ -55,11 +55,10 @@ Each item waits for Jason's kickoff; nothing here dispatches itself.
    - Scope: profile-view pair-topic tapers. Pair-tab fit tapers (Cross/Straight products) are by-design a different quantity — leave them.
    - While there: re-check the taper mid-seam color flagged 2026-11-23 (it appeared to blend the two flank values) under this rule.
 
-7. **Selection Doors + Click-to-Zoom Cleanup (ruled/reported by Jason 2026-11-23, on voice; another AI takes these edits, per Jason's word):**
-   - *Defects from Jason's cold-open of the live deploy:* the topic picker is not working anymore, and the search field is not working either — Questcapades in particular. Diagnose whether the breakage is Quest-only or shared across skins before fixing.
-   - *Selection rule:* selection is set by deliberate picks — choosing a search result, or using the topic picker. Selection is appropriate there (it is also what feeds Autofit's "Selected branch or topic" scope).
-   - *Zoom rule:* click-to-zoom is navigation, not a pick. When a click-to-zoom finishes, the branch unselects — zooming must leave no selection behind.
-   - *Full write-up:* everything talked through on 2026-11-23 (items 5–7 in full, plus the cross-slider spec and one unruled candidate) is in `scratch-edits-2026-11-23.md` in this repo root.
+~~7. **Selection Doors + Click-to-Zoom Cleanup (ruled/reported by Jason 2026-11-23, on voice):**~~
+   - ~~*Defects:* Fixed topic picker and search field option indexing across all skins via dynamic skin-ready taxonomy rebuilding (`rebuildTopicPickerData()`).~~
+   - ~~*Selection rule:* Selection is set by deliberate picks (search result or topic picker).~~
+   - ~~*Zoom rule:* Click-to-zoom is navigation, not a pick. When a click-to-zoom finishes, the branch unselects so no persistent selection halo remains behind (`__sxZoomFromNavigation`).~~
 
 ---
 

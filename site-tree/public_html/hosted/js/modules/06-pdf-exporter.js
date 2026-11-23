@@ -471,6 +471,10 @@
                     Ap = n;
                     noteFitUserCamera();
                     kh();
+                    if (window.__sxZoomFromNavigation) {
+                        window.__sxZoomFromNavigation = false;
+                        if (typeof clearSpokeSelection === "function") clearSpokeSelection();
+                    }
                 }
             };
             Xp = requestAnimationFrame(l);
@@ -935,10 +939,12 @@
                         // aria-expanded (it is aria-hidden instead).
                         const sxLabelEl = document.querySelector(`.category-label[data-id="${CSS.escape(sid)}"][aria-expanded="true"], .subcategory-label[data-id="${CSS.escape(sid)}"][aria-expanded="true"]`);
                         n.spoke || sxLabelEl ? selectSpokeNode(n.id, !0) : $i(n.id);
+                        window.__sxZoomFromNavigation = true;
                         if (typeof Th === "function") Th(sid, branch);
                         return;
                     }
                     selectSpokeNode(n.id, !0);
+                    window.__sxZoomFromNavigation = true;
                     if (typeof Th === "function") Th(sid, branch);
                 // Wait out the double-tap window before zooming, so the
                 // second tap still lands on the topic it started on.
