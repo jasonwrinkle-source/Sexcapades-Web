@@ -65,7 +65,8 @@
               "name": "r/hinduism",
               "url": "https://www.reddit.com/r/hinduism/"
             }
-          ]
+          ],
+          "glyph": "cube"
         },
         {
           "archetype": null,
@@ -127,7 +128,8 @@
               "name": "r/hinduism",
               "url": "https://www.reddit.com/r/hinduism/"
             }
-          ]
+          ],
+          "glyph": "star"
         },
         {
           "archetype": null,
@@ -179,7 +181,8 @@
               "name": "r/Buddhism",
               "url": "https://www.reddit.com/r/Buddhism/"
             }
-          ]
+          ],
+          "glyph": "sun"
         },
         {
           "archetype": "simplex",
@@ -239,7 +242,8 @@
               "name": "r/hinduism",
               "url": "https://www.reddit.com/r/hinduism/"
             }
-          ]
+          ],
+          "glyph": "moon"
         },
         {
           "archetype": null,
@@ -296,7 +300,8 @@
               "name": "r/Buddhism",
               "url": "https://www.reddit.com/r/Buddhism/"
             }
-          ]
+          ],
+          "glyph": "flame"
         },
         {
           "archetype": "simplex",
@@ -383,7 +388,8 @@
               "name": "r/taoism",
               "url": "https://www.reddit.com/r/taoism/"
             }
-          ]
+          ],
+          "glyph": "droplet"
         },
         {
           "archetype": null,
@@ -435,7 +441,8 @@
               "name": "r/hinduism",
               "url": "https://www.reddit.com/r/hinduism/"
             }
-          ]
+          ],
+          "glyph": "tree"
         },
         {
           "archetype": "simplex",
@@ -503,7 +510,8 @@
               "name": "r/hinduism",
               "url": "https://www.reddit.com/r/hinduism/"
             }
-          ]
+          ],
+          "glyph": "rose"
         }
       ]
     },
@@ -572,7 +580,8 @@
               "name": "r/hinduism",
               "url": "https://www.reddit.com/r/hinduism/"
             }
-          ]
+          ],
+          "glyph": "heart"
         },
         {
           "archetype": "line",
@@ -634,7 +643,8 @@
               "name": "r/hinduism",
               "url": "https://www.reddit.com/r/hinduism/"
             }
-          ]
+          ],
+          "glyph": "shield"
         },
         {
           "archetype": "line",
@@ -696,7 +706,8 @@
               "name": "r/hinduism",
               "url": "https://www.reddit.com/r/hinduism/"
             }
-          ]
+          ],
+          "glyph": "badge"
         }
       ]
     },
@@ -786,7 +797,8 @@
               "name": "r/Buddhism",
               "url": "https://www.reddit.com/r/Buddhism/"
             }
-          ]
+          ],
+          "glyph": "crown"
         },
         {
           "archetype": null,
@@ -835,7 +847,8 @@
               "name": "r/Buddhism",
               "url": "https://www.reddit.com/r/Buddhism/"
             }
-          ]
+          ],
+          "glyph": "key"
         },
         {
           "archetype": "line",
@@ -897,7 +910,8 @@
               "name": "r/hinduism",
               "url": "https://www.reddit.com/r/hinduism/"
             }
-          ]
+          ],
+          "glyph": "lock"
         },
         {
           "archetype": null,
@@ -946,7 +960,8 @@
               "name": "r/yoga",
               "url": "https://www.reddit.com/r/yoga/"
             }
-          ]
+          ],
+          "glyph": "scale"
         },
         {
           "archetype": "simplex",
@@ -1038,7 +1053,8 @@
               "name": "r/Buddhism",
               "url": "https://www.reddit.com/r/Buddhism/"
             }
-          ]
+          ],
+          "glyph": "hands"
         },
         {
           "archetype": "line",
@@ -1100,7 +1116,8 @@
               "name": "r/hinduism",
               "url": "https://www.reddit.com/r/hinduism/"
             }
-          ]
+          ],
+          "glyph": "eye"
         },
         {
           "archetype": "simplex",
@@ -1181,7 +1198,8 @@
               "name": "r/hinduism",
               "url": "https://www.reddit.com/r/hinduism/"
             }
-          ]
+          ],
+          "glyph": "chat"
         }
       ]
     },
@@ -1258,7 +1276,8 @@
               "name": "r/hinduism",
               "url": "https://www.reddit.com/r/hinduism/"
             }
-          ]
+          ],
+          "glyph": "book"
         },
         {
           "archetype": "line",
@@ -1310,7 +1329,8 @@
               "name": "r/hinduism",
               "url": "https://www.reddit.com/r/hinduism/"
             }
-          ]
+          ],
+          "glyph": "scroll"
         },
         {
           "archetype": null,
@@ -1362,7 +1382,8 @@
               "name": "r/Buddhism",
               "url": "https://www.reddit.com/r/Buddhism/"
             }
-          ]
+          ],
+          "glyph": "note"
         }
       ]
     },
@@ -1431,7 +1452,8 @@
               "name": "r/hinduism",
               "url": "https://www.reddit.com/r/hinduism/"
             }
-          ]
+          ],
+          "glyph": "spotlight"
         },
         {
           "archetype": "line",
@@ -1483,7 +1505,8 @@
               "name": "r/Buddhism",
               "url": "https://www.reddit.com/r/Buddhism/"
             }
-          ]
+          ],
+          "glyph": "hourglass"
         },
         {
           "archetype": null,
@@ -1527,7 +1550,8 @@
               "name": "r/Buddhism",
               "url": "https://www.reddit.com/r/Buddhism/"
             }
-          ]
+          ],
+          "glyph": "compass"
         }
       ]
     },
@@ -1596,7 +1620,8 @@
               "name": "r/hinduism",
               "url": "https://www.reddit.com/r/hinduism/"
             }
-          ]
+          ],
+          "glyph": "bolt"
         },
         {
           "archetype": "line",
@@ -1648,7 +1673,8 @@
               "name": "r/Buddhism",
               "url": "https://www.reddit.com/r/Buddhism/"
             }
-          ]
+          ],
+          "glyph": "stripes"
         },
         {
           "archetype": "line",
@@ -1710,7 +1736,8 @@
               "name": "r/hinduism",
               "url": "https://www.reddit.com/r/hinduism/"
             }
-          ]
+          ],
+          "glyph": "cradle"
         },
         {
           "archetype": "line",
@@ -1772,7 +1799,8 @@
               "name": "r/hinduism",
               "url": "https://www.reddit.com/r/hinduism/"
             }
-          ]
+          ],
+          "glyph": "split"
         }
       ]
     }
