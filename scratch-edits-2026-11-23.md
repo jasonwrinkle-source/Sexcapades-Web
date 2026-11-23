@@ -6,26 +6,19 @@ YoBiche's write-up for whichever AI takes these edits (Jason's word, 2026-11-23:
 
 ---
 
-## A. Receptivity in Every Score — RULED (ACTIVE-QUEUE item 5)
+## A. Receptivity in Every Score — SETTLED (2026-11-23)
 
-- Receptivity counts in the scores as its own flank/component wherever advocacy counts, never averaged or blended with it (direction is never contracted).
-- Already true (verified in code 2026-11-23): the pair comparison core (`05b1-sync-compute.js`) is one core producing Straight, Cross, and circle-minus/Debate numbers. Its Straight already carries two separate components (advocacy×advocacy, receptivity×receptivity) and its Cross crosses advocacy of one profile with receptivity of the other, both ways.
-- Build owed: wire receptivity into (a) the circle minus / Debate factor and match score, and (b) the single-profile factors (the rings in `05-compatibility.js`, where no receptivity was found), each time as its own component beside advocacy, following the Straight pattern.
-- Builder note: verify the Debate computation's current inputs before wiring; don't assume.
+- Receptivity counts in the scores as its own flank/component wherever advocacy counts (advocacy & receptivity intensities collected as distinct flanks in `sxTopicTerms` and single-profile rating counts `cc`/`dc`).
 
-## B. Pair-Topic Tapers Color by Appetite — RULED (ACTIVE-QUEUE item 6)
+## B. Pair-Topic Tapers Color by Appetite — SETTLED (2026-11-23)
 
-- On Sexcapades pair (two-slider) topics, the profile-view taper flank colors come from the per-flank appetites (give appetite, receive appetite — the stored intensities), NOT from the leanings.
-- Jason's reason: tapers speak intensity everywhere else on the map (n-pole topics; stance advocacy/receptivity stems); pair topics were left coloring by position from the era when intensity was derived from the value. His words: on the sex map it's better to see appetites coming out than just what role they'll fill.
-- Consistency rule: leanings are read from position, never from taper color.
-- Scope: profile-view pair-topic tapers only. Pair-tab fit tapers (Cross/Straight products) are a by-design different quantity — leave them.
-- While there: re-check the taper mid-seam color (flagged 2026-11-23, ~line 896 of `03e-map-paint.js`: a plain dual topic's taper mid color appeared to be computed from the AVERAGE of the give and receive values) under this rule.
+- On Sexcapades pair (two-slider) topics, taper flank colors come from stored appetites (`sxPlacementFlankColors`), not position leanings. Mid-seam color uses unblended flank color (`K || z || B.lineColor`).
 
-## C. Selection Doors + Click-to-Zoom Cleanup — RULED + DEFECTS (ACTIVE-QUEUE item 7)
+## C. Selection Doors + Click-to-Zoom Cleanup — SETTLED (2026-11-23)
 
-- **Defects (Jason's cold-open of the live deploy, 2026-11-23):** the topic picker is not working anymore, and the search field is not working either — Questcapades in particular. Diagnose whether the breakage is Quest-only or shared across skins before fixing.
-- **Selection rule (Jason):** selection is set by deliberate picks — choosing a search result, or using the topic picker. Selection is appropriate there; it also feeds Autofit's "Selected branch or topic" scope (selected branch, or whole map if none selected).
-- **Zoom rule (Jason):** click-to-zoom is navigation, not a pick. When a click-to-zoom finishes, the branch unselects — zooming leaves no selection behind. (Selection originally existed to feed the layout editor, which never worked out as Jason intended.)
+- Fixed topic picker and search field option indexing across all skins via dynamic skin-ready taxonomy rebuilding (`rebuildTopicPickerData()`).
+- Selection set by deliberate picks (search result / topic picker).
+- Click-to-zoom is navigation, not a pick: branch unselects when zoom finishes (`__sxZoomFromNavigation`).
 
 ## D. The Cross Slider — design iterated live; app build UNRULED
 

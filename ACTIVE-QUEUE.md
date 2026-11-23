@@ -40,18 +40,6 @@ Each item waits for Jason's kickoff; nothing here dispatches itself.
    - Ruled by Jason 2026-11-23: topic-icon inheritance ships first (topics wear their category's glyph; the generic star dies). After that, author a distinct, relevant glyph for EVERY topic on the vanilla skins, skin by skin, Nous first.
    - One commit per skin. A topic's glyph replaces the inherited category glyph for that topic only; categories keep theirs.
    - **Nouscapades per-topic glyphs:** DONE (2026-11-23). All 39 topics assigned distinct, relevant 16x16 vector glyphs.
-- ~~   - Sexcapades CORRECTION (2026-11-23, probe-proven): its topics were NOT wearing per-topic icons — the per-topic glyph map's data path traces to the taxonomy binding emptied on 2026-11-21, so all 374 Sexcapades topics rendered the star too. Inheritance now covers them (18 category glyphs). Restoring the DESIGNED per-topic Sexcapades glyphs means repairing that data path — a separate repair item, queued here: fix the per-topic glyph map's data path so the designed Sexcapades topic glyphs render again (the inheritance resolver already defers to the map wherever it hits, so no painter change is needed).
-
-~~5. **Receptivity in Every Score (ruled by Jason 2026-11-23, on voice):**~~
-   - ~~Receptivity counts in the scores as its own flank/component wherever advocacy counts (advocacy & receptivity intensities collected as distinct flanks in `sxTopicTerms` and single-profile rating counts `cc`/`dc`).~~
-
-~~6. **Pair-Topic Tapers Color by Appetite (ruled by Jason 2026-11-23, on voice):**~~
-   - ~~On Sexcapades pair (two-slider) topics, taper flank colors come from stored appetites (`sxPlacementFlankColors`), not position leanings. Mid-seam color uses unblended flank color (`K || z || B.lineColor`).~~
-
-~~7. **Selection Doors + Click-to-Zoom Cleanup (ruled/reported by Jason 2026-11-23, on voice):**~~
-   - ~~*Defects:* Fixed topic picker and search field option indexing across all skins via dynamic skin-ready taxonomy rebuilding (`rebuildTopicPickerData()`).~~
-   - ~~*Selection rule:* Selection is set by deliberate picks (search result or topic picker).~~
-   - ~~*Zoom rule:* Click-to-zoom is navigation, not a pick. When a click-to-zoom finishes, the branch unselects so no persistent selection halo remains behind (`__sxZoomFromNavigation`).~~
 
 ---
 
