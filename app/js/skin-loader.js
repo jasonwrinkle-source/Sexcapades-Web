@@ -418,7 +418,7 @@
   var SKIN_IDS = (typeof window !== "undefined" && window.__SX_SKIN_IDS) || ["sexcapades", "poliscapades", "forescapades", "philoscapades", "aesthcapades", "vocapades", "techcapades", "dharmacapades", "theoricapades", "praxicapades", "quantacapades", "expericapades", "simulcapades", "mattercapades", "chemcapades", "nouscapades", "biocapades", "dancecapades", "questcapades"];
 
   function skinForHostname(hostname) {
-    if (typeof window !== "undefined" && typeof window.__SX_SKIN_FOR_HOSTNAME === "function") {
+    if (typeof window !== "undefined" && typeof window.__SX_SKIN_FOR_HOSTNAME === "function" && window.__SX_SKIN_FOR_HOSTNAME !== skinForHostname) {
       return window.__SX_SKIN_FOR_HOSTNAME(hostname);
     }
     var host = (hostname || "").toLowerCase();
@@ -437,7 +437,7 @@
      specific skin's dotted domain. Unknown ids fall back to "sex",
      mirroring skinForHostname's unknown-host default. */
   function skinPrefixFor(skinId) {
-    if (typeof window !== "undefined" && typeof window.__SX_SKIN_PREFIX_FOR === "function") {
+    if (typeof window !== "undefined" && typeof window.__SX_SKIN_PREFIX_FOR === "function" && window.__SX_SKIN_PREFIX_FOR !== skinPrefixFor) {
       return window.__SX_SKIN_PREFIX_FOR(skinId);
     }
     var id = String(skinId || "");
