@@ -4057,7 +4057,8 @@
         "skin": "quantacapades"
       },
       "skin": "quantacapades",
-      "kind": "sample"
+      "kind": "sample",
+      "emblem": "images/emblems/quanta-copenhagen.svg"
     },
     "quanta-many-worlds": {
       "name": "Many-Worlds interpretation",
@@ -4429,7 +4430,8 @@
         "skin": "quantacapades"
       },
       "skin": "quantacapades",
-      "kind": "sample"
+      "kind": "sample",
+      "emblem": "images/emblems/quanta-many-worlds.svg"
     },
     "quanta-bohm": {
       "name": "De Broglie-Bohm interpretation",
@@ -4801,7 +4803,8 @@
         "skin": "quantacapades"
       },
       "skin": "quantacapades",
-      "kind": "sample"
+      "kind": "sample",
+      "emblem": "images/emblems/quanta-bohm.svg"
     },
     "quanta-qbism": {
       "name": "QBism",
@@ -5173,7 +5176,8 @@
         "skin": "quantacapades"
       },
       "skin": "quantacapades",
-      "kind": "sample"
+      "kind": "sample",
+      "emblem": "images/emblems/quanta-qbism.svg"
     }
   }
 }
