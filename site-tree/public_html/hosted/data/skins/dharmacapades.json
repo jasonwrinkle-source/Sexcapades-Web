@@ -4221,7 +4221,8 @@
         "skin": "dharmacapades"
       },
       "skin": "dharmacapades",
-      "kind": "sample"
+      "kind": "sample",
+      "emblem": "images/emblems/dharma-theravada.svg"
     },
     "dharma-zen": {
       "name": "Zen Buddhism",
@@ -4583,7 +4584,8 @@
         "skin": "dharmacapades"
       },
       "skin": "dharmacapades",
-      "kind": "sample"
+      "kind": "sample",
+      "emblem": "images/emblems/dharma-zen.svg"
     },
     "dharma-pure-land": {
       "name": "Pure Land Buddhism",
@@ -4945,7 +4947,8 @@
         "skin": "dharmacapades"
       },
       "skin": "dharmacapades",
-      "kind": "sample"
+      "kind": "sample",
+      "emblem": "images/emblems/dharma-pure-land.svg"
     },
     "dharma-tibetan": {
       "name": "Tibetan Buddhism",
@@ -5311,7 +5314,8 @@
         "skin": "dharmacapades"
       },
       "skin": "dharmacapades",
-      "kind": "sample"
+      "kind": "sample",
+      "emblem": "images/emblems/dharma-tibetan.svg"
     }
   }
 }
