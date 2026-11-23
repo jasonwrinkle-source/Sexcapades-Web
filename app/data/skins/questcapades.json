@@ -49,7 +49,21 @@
             }
           ],
           "question": "Where do you sit at the table: running the game, playing in it, or rotating between the two?",
-          "widget": "triangle"
+          "widget": "triangle",
+          "communities": {
+            "communities": [
+              {
+                "network": "Reddit",
+                "name": "r/rpg",
+                "url": "https://www.reddit.com/r/rpg/"
+              },
+              {
+                "network": "Reddit",
+                "name": "r/lfg",
+                "url": "https://www.reddit.com/r/lfg/"
+              }
+            ]
+          }
         },
         {
           "name": "Player styles",
@@ -90,43 +104,141 @@
             }
           ],
           "question": "The character stance you bring to a party: the same role every time, a new one each game, or whatever the party needs?",
-          "widget": "triangle"
+          "widget": "triangle",
+          "communities": {
+            "communities": [
+              {
+                "network": "Reddit",
+                "name": "r/rpg",
+                "url": "https://www.reddit.com/r/rpg/"
+              },
+              {
+                "network": "Stack Exchange",
+                "name": "RPG Stack Exchange",
+                "url": "https://rpg.stackexchange.com/"
+              }
+            ]
+          }
         },
         {
           "id": "xqu0003",
           "name": "Game mastering",
           "risk": false,
-          "type": "single"
+          "type": "single",
+          "communities": {
+            "communities": [
+              {
+                "network": "Reddit",
+                "name": "r/DMAcademy",
+                "url": "https://www.reddit.com/r/DMAcademy/"
+              },
+              {
+                "network": "Reddit",
+                "name": "r/DnDBehindTheScreen",
+                "url": "https://www.reddit.com/r/DnDBehindTheScreen/"
+              },
+              {
+                "network": "Stack Exchange",
+                "name": "RPG Stack Exchange",
+                "url": "https://rpg.stackexchange.com/"
+              }
+            ]
+          }
         },
         {
           "id": "xqu0004",
           "name": "Playing a character",
           "risk": false,
-          "type": "single"
+          "type": "single",
+          "communities": {
+            "communities": [
+              {
+                "network": "Reddit",
+                "name": "r/DnD",
+                "url": "https://www.reddit.com/r/DnD/"
+              },
+              {
+                "network": "Reddit",
+                "name": "r/rpg",
+                "url": "https://www.reddit.com/r/rpg/"
+              }
+            ]
+          }
         },
         {
           "id": "xqu0005",
           "name": "GM-less games",
           "risk": false,
-          "type": "single"
+          "type": "single",
+          "communities": {
+            "communities": [
+              {
+                "network": "Reddit",
+                "name": "r/rpg",
+                "url": "https://www.reddit.com/r/rpg/"
+              },
+              {
+                "network": "Reddit",
+                "name": "r/PBtA",
+                "url": "https://www.reddit.com/r/PBtA/"
+              }
+            ]
+          }
         },
         {
           "id": "xqu0006",
           "name": "Spectating",
           "risk": false,
-          "type": "single"
+          "type": "single",
+          "communities": {
+            "communities": [
+              {
+                "network": "Reddit",
+                "name": "r/criticalrole",
+                "url": "https://www.reddit.com/r/criticalrole/"
+              },
+              {
+                "network": "Reddit",
+                "name": "r/rpg",
+                "url": "https://www.reddit.com/r/rpg/"
+              }
+            ]
+          }
         },
         {
           "id": "xqu0007",
           "name": "Solo roleplay & journaling games",
           "risk": false,
-          "type": "single"
+          "type": "single",
+          "communities": {
+            "communities": [
+              {
+                "network": "Reddit",
+                "name": "r/Solo_Roleplaying",
+                "url": "https://www.reddit.com/r/Solo_Roleplaying/"
+              },
+              {
+                "network": "Reddit",
+                "name": "r/rpg",
+                "url": "https://www.reddit.com/r/rpg/"
+              }
+            ]
+          }
         },
         {
           "id": "xqu0008",
           "name": "Playing by post",
           "risk": false,
-          "type": "single"
+          "type": "single",
+          "communities": {
+            "communities": [
+              {
+                "network": "Reddit",
+                "name": "r/PBP",
+                "url": "https://www.reddit.com/r/PBP/"
+              }
+            ]
+          }
         }
       ]
     },
@@ -171,6 +283,20 @@
                 "text": "A rule for everything, and the table knows them all."
               }
             ]
+          },
+          "communities": {
+            "communities": [
+              {
+                "network": "Reddit",
+                "name": "r/rpg",
+                "url": "https://www.reddit.com/r/rpg/"
+              },
+              {
+                "network": "Stack Exchange",
+                "name": "RPG Stack Exchange",
+                "url": "https://rpg.stackexchange.com/"
+              }
+            ]
           }
         },
         {
@@ -179,7 +305,21 @@
           "risk": false,
           "type": "give_receive",
           "give_label": "run it",
-          "receive_label": "play in it"
+          "receive_label": "play in it",
+          "communities": {
+            "communities": [
+              {
+                "network": "Reddit",
+                "name": "r/osr",
+                "url": "https://www.reddit.com/r/osr/"
+              },
+              {
+                "network": "Reddit",
+                "name": "r/rpg",
+                "url": "https://www.reddit.com/r/rpg/"
+              }
+            ]
+          }
         },
         {
           "id": "xqu0011",
@@ -187,7 +327,21 @@
           "risk": false,
           "type": "give_receive",
           "give_label": "run it",
-          "receive_label": "play in it"
+          "receive_label": "play in it",
+          "communities": {
+            "communities": [
+              {
+                "network": "Reddit",
+                "name": "r/PBtA",
+                "url": "https://www.reddit.com/r/PBtA/"
+              },
+              {
+                "network": "Reddit",
+                "name": "r/rpg",
+                "url": "https://www.reddit.com/r/rpg/"
+              }
+            ]
+          }
         },
         {
           "id": "xqu0012",
@@ -195,7 +349,21 @@
           "risk": false,
           "type": "give_receive",
           "give_label": "run it",
-          "receive_label": "play in it"
+          "receive_label": "play in it",
+          "communities": {
+            "communities": [
+              {
+                "network": "Reddit",
+                "name": "r/rpg",
+                "url": "https://www.reddit.com/r/rpg/"
+              },
+              {
+                "network": "Stack Exchange",
+                "name": "RPG Stack Exchange",
+                "url": "https://rpg.stackexchange.com/"
+              }
+            ]
+          }
         },
         {
           "id": "xqu0013",
@@ -203,7 +371,21 @@
           "risk": false,
           "type": "give_receive",
           "give_label": "run it",
-          "receive_label": "play in it"
+          "receive_label": "play in it",
+          "communities": {
+            "communities": [
+              {
+                "network": "Reddit",
+                "name": "r/rpg",
+                "url": "https://www.reddit.com/r/rpg/"
+              },
+              {
+                "network": "Reddit",
+                "name": "r/RPGdesign",
+                "url": "https://www.reddit.com/r/RPGdesign/"
+              }
+            ]
+          }
         },
         {
           "id": "xqu0014",
@@ -211,13 +393,46 @@
           "risk": false,
           "type": "give_receive",
           "give_label": "run it",
-          "receive_label": "play in it"
+          "receive_label": "play in it",
+          "communities": {
+            "communities": [
+              {
+                "network": "Reddit",
+                "name": "r/swrpg",
+                "url": "https://www.reddit.com/r/swrpg/"
+              },
+              {
+                "network": "Reddit",
+                "name": "r/rpg",
+                "url": "https://www.reddit.com/r/rpg/"
+              }
+            ]
+          }
         },
         {
           "id": "xqu0015",
           "name": "Homebrew & house rules",
           "risk": false,
-          "type": "single"
+          "type": "single",
+          "communities": {
+            "communities": [
+              {
+                "network": "Reddit",
+                "name": "r/UnearthedArcana",
+                "url": "https://www.reddit.com/r/UnearthedArcana/"
+              },
+              {
+                "network": "Reddit",
+                "name": "r/DnDHomebrew",
+                "url": "https://www.reddit.com/r/DnDHomebrew/"
+              },
+              {
+                "network": "Stack Exchange",
+                "name": "RPG Stack Exchange",
+                "url": "https://rpg.stackexchange.com/"
+              }
+            ]
+          }
         }
       ]
     },
@@ -232,7 +447,21 @@
           "risk": false,
           "type": "give_receive",
           "give_label": "run it",
-          "receive_label": "play in it"
+          "receive_label": "play in it",
+          "communities": {
+            "communities": [
+              {
+                "network": "Reddit",
+                "name": "r/DnD",
+                "url": "https://www.reddit.com/r/DnD/"
+              },
+              {
+                "network": "Reddit",
+                "name": "r/rpg",
+                "url": "https://www.reddit.com/r/rpg/"
+              }
+            ]
+          }
         },
         {
           "id": "xqu0017",
@@ -240,7 +469,21 @@
           "risk": false,
           "type": "give_receive",
           "give_label": "run it",
-          "receive_label": "play in it"
+          "receive_label": "play in it",
+          "communities": {
+            "communities": [
+              {
+                "network": "Reddit",
+                "name": "r/osr",
+                "url": "https://www.reddit.com/r/osr/"
+              },
+              {
+                "network": "Reddit",
+                "name": "r/rpg",
+                "url": "https://www.reddit.com/r/rpg/"
+              }
+            ]
+          }
         },
         {
           "id": "xqu0018",
@@ -248,7 +491,21 @@
           "risk": false,
           "type": "give_receive",
           "give_label": "run it",
-          "receive_label": "play in it"
+          "receive_label": "play in it",
+          "communities": {
+            "communities": [
+              {
+                "network": "Reddit",
+                "name": "r/callofcthulhu",
+                "url": "https://www.reddit.com/r/callofcthulhu/"
+              },
+              {
+                "network": "Reddit",
+                "name": "r/rpg",
+                "url": "https://www.reddit.com/r/rpg/"
+              }
+            ]
+          }
         },
         {
           "id": "xqu0019",
@@ -256,7 +513,21 @@
           "risk": false,
           "type": "give_receive",
           "give_label": "run it",
-          "receive_label": "play in it"
+          "receive_label": "play in it",
+          "communities": {
+            "communities": [
+              {
+                "network": "Reddit",
+                "name": "r/rpg",
+                "url": "https://www.reddit.com/r/rpg/"
+              },
+              {
+                "network": "Stack Exchange",
+                "name": "RPG Stack Exchange",
+                "url": "https://rpg.stackexchange.com/"
+              }
+            ]
+          }
         },
         {
           "id": "xqu0020",
@@ -264,7 +535,21 @@
           "risk": false,
           "type": "give_receive",
           "give_label": "run it",
-          "receive_label": "play in it"
+          "receive_label": "play in it",
+          "communities": {
+            "communities": [
+              {
+                "network": "Reddit",
+                "name": "r/swrpg",
+                "url": "https://www.reddit.com/r/swrpg/"
+              },
+              {
+                "network": "Reddit",
+                "name": "r/rpg",
+                "url": "https://www.reddit.com/r/rpg/"
+              }
+            ]
+          }
         },
         {
           "id": "xqu0021",
@@ -272,7 +557,16 @@
           "risk": false,
           "type": "give_receive",
           "give_label": "run it",
-          "receive_label": "play in it"
+          "receive_label": "play in it",
+          "communities": {
+            "communities": [
+              {
+                "network": "Reddit",
+                "name": "r/rpg",
+                "url": "https://www.reddit.com/r/rpg/"
+              }
+            ]
+          }
         },
         {
           "id": "xqu0022",
@@ -280,7 +574,16 @@
           "risk": false,
           "type": "give_receive",
           "give_label": "run it",
-          "receive_label": "play in it"
+          "receive_label": "play in it",
+          "communities": {
+            "communities": [
+              {
+                "network": "Reddit",
+                "name": "r/rpg",
+                "url": "https://www.reddit.com/r/rpg/"
+              }
+            ]
+          }
         },
         {
           "id": "xqu0023",
@@ -288,7 +591,16 @@
           "risk": false,
           "type": "give_receive",
           "give_label": "run it",
-          "receive_label": "play in it"
+          "receive_label": "play in it",
+          "communities": {
+            "communities": [
+              {
+                "network": "Reddit",
+                "name": "r/rpg",
+                "url": "https://www.reddit.com/r/rpg/"
+              }
+            ]
+          }
         },
         {
           "id": "xqu0024",
@@ -296,7 +608,16 @@
           "risk": false,
           "type": "give_receive",
           "give_label": "run it",
-          "receive_label": "play in it"
+          "receive_label": "play in it",
+          "communities": {
+            "communities": [
+              {
+                "network": "Reddit",
+                "name": "r/rpg",
+                "url": "https://www.reddit.com/r/rpg/"
+              }
+            ]
+          }
         },
         {
           "id": "xqu0025",
@@ -304,7 +625,16 @@
           "risk": false,
           "type": "give_receive",
           "give_label": "run it",
-          "receive_label": "play in it"
+          "receive_label": "play in it",
+          "communities": {
+            "communities": [
+              {
+                "network": "Reddit",
+                "name": "r/rpg",
+                "url": "https://www.reddit.com/r/rpg/"
+              }
+            ]
+          }
         },
         {
           "id": "xqu0026",
@@ -312,7 +642,16 @@
           "risk": false,
           "type": "give_receive",
           "give_label": "run it",
-          "receive_label": "play in it"
+          "receive_label": "play in it",
+          "communities": {
+            "communities": [
+              {
+                "network": "Reddit",
+                "name": "r/rpg",
+                "url": "https://www.reddit.com/r/rpg/"
+              }
+            ]
+          }
         },
         {
           "id": "xqu0027",
@@ -320,7 +659,16 @@
           "risk": false,
           "type": "give_receive",
           "give_label": "run it",
-          "receive_label": "play in it"
+          "receive_label": "play in it",
+          "communities": {
+            "communities": [
+              {
+                "network": "Reddit",
+                "name": "r/rpg",
+                "url": "https://www.reddit.com/r/rpg/"
+              }
+            ]
+          }
         }
       ]
     },
@@ -365,49 +713,151 @@
                 "text": "The dice are the dice. What they kill, stays dead."
               }
             ]
+          },
+          "communities": {
+            "communities": [
+              {
+                "network": "Reddit",
+                "name": "r/rpg",
+                "url": "https://www.reddit.com/r/rpg/"
+              },
+              {
+                "network": "Stack Exchange",
+                "name": "RPG Stack Exchange",
+                "url": "https://rpg.stackexchange.com/"
+              }
+            ]
           }
         },
         {
           "id": "xqu0029",
           "name": "Random character generation",
           "risk": false,
-          "type": "single"
+          "type": "single",
+          "communities": {
+            "communities": [
+              {
+                "network": "Reddit",
+                "name": "r/rpg",
+                "url": "https://www.reddit.com/r/rpg/"
+              },
+              {
+                "network": "Reddit",
+                "name": "r/osr",
+                "url": "https://www.reddit.com/r/osr/"
+              }
+            ]
+          }
         },
         {
           "id": "xqu0030",
           "name": "Lifepath character creation",
           "risk": false,
-          "type": "single"
+          "type": "single",
+          "communities": {
+            "communities": [
+              {
+                "network": "Reddit",
+                "name": "r/rpg",
+                "url": "https://www.reddit.com/r/rpg/"
+              },
+              {
+                "network": "Stack Exchange",
+                "name": "RPG Stack Exchange",
+                "url": "https://rpg.stackexchange.com/"
+              }
+            ]
+          }
         },
         {
           "id": "xqu0031",
           "name": "Point-buy building",
           "risk": false,
-          "type": "single"
+          "type": "single",
+          "communities": {
+            "communities": [
+              {
+                "network": "Reddit",
+                "name": "r/rpg",
+                "url": "https://www.reddit.com/r/rpg/"
+              },
+              {
+                "network": "Stack Exchange",
+                "name": "RPG Stack Exchange",
+                "url": "https://rpg.stackexchange.com/"
+              }
+            ]
+          }
         },
         {
           "id": "xqu0032",
           "name": "Character death",
           "risk": false,
-          "type": "single"
+          "type": "single",
+          "communities": {
+            "communities": [
+              {
+                "network": "Reddit",
+                "name": "r/rpg",
+                "url": "https://www.reddit.com/r/rpg/"
+              },
+              {
+                "network": "Reddit",
+                "name": "r/DMAcademy",
+                "url": "https://www.reddit.com/r/DMAcademy/"
+              }
+            ]
+          }
         },
         {
           "id": "xqu0033",
           "name": "Total party kills",
           "risk": false,
-          "type": "single"
+          "type": "single",
+          "communities": {
+            "communities": [
+              {
+                "network": "Reddit",
+                "name": "r/DMAcademy",
+                "url": "https://www.reddit.com/r/DMAcademy/"
+              },
+              {
+                "network": "Reddit",
+                "name": "r/rpg",
+                "url": "https://www.reddit.com/r/rpg/"
+              }
+            ]
+          }
         },
         {
           "id": "xqu0034",
           "name": "Diceless play",
           "risk": false,
-          "type": "single"
+          "type": "single",
+          "communities": {
+            "communities": [
+              {
+                "network": "Reddit",
+                "name": "r/rpg",
+                "url": "https://www.reddit.com/r/rpg/"
+              }
+            ]
+          }
         },
         {
           "id": "xqu0035",
           "name": "Card-based resolution",
           "risk": false,
-          "type": "single"
+          "type": "single",
+          "communities": {
+            "communities": [
+              {
+                "network": "Reddit",
+                "name": "r/rpg",
+                "url": "https://www.reddit.com/r/rpg/"
+              }
+            ]
+          }
         }
       ]
     },
@@ -452,55 +902,181 @@
                 "text": "A story with stations. The train runs on time."
               }
             ]
+          },
+          "communities": {
+            "communities": [
+              {
+                "network": "Reddit",
+                "name": "r/DMAcademy",
+                "url": "https://www.reddit.com/r/DMAcademy/"
+              },
+              {
+                "network": "Reddit",
+                "name": "r/DnDBehindTheScreen",
+                "url": "https://www.reddit.com/r/DnDBehindTheScreen/"
+              }
+            ]
           }
         },
         {
           "id": "xqu0037",
           "name": "Long campaigns",
           "risk": false,
-          "type": "single"
+          "type": "single",
+          "communities": {
+            "communities": [
+              {
+                "network": "Reddit",
+                "name": "r/DMAcademy",
+                "url": "https://www.reddit.com/r/DMAcademy/"
+              },
+              {
+                "network": "Reddit",
+                "name": "r/rpg",
+                "url": "https://www.reddit.com/r/rpg/"
+              }
+            ]
+          }
         },
         {
           "id": "xqu0038",
           "name": "One-shots",
           "risk": false,
-          "type": "single"
+          "type": "single",
+          "communities": {
+            "communities": [
+              {
+                "network": "Reddit",
+                "name": "r/DMAcademy",
+                "url": "https://www.reddit.com/r/DMAcademy/"
+              },
+              {
+                "network": "Reddit",
+                "name": "r/rpg",
+                "url": "https://www.reddit.com/r/rpg/"
+              }
+            ]
+          }
         },
         {
           "id": "xqu0039",
           "name": "West Marches",
           "risk": false,
-          "type": "single"
+          "type": "single",
+          "communities": {
+            "communities": [
+              {
+                "network": "Reddit",
+                "name": "r/West_Marches",
+                "url": "https://www.reddit.com/r/West_Marches/"
+              },
+              {
+                "network": "Reddit",
+                "name": "r/DMAcademy",
+                "url": "https://www.reddit.com/r/DMAcademy/"
+              }
+            ]
+          }
         },
         {
           "id": "xqu0040",
           "name": "Backstories",
           "risk": false,
-          "type": "single"
+          "type": "single",
+          "communities": {
+            "communities": [
+              {
+                "network": "Reddit",
+                "name": "r/DnD",
+                "url": "https://www.reddit.com/r/DnD/"
+              },
+              {
+                "network": "Reddit",
+                "name": "r/DMAcademy",
+                "url": "https://www.reddit.com/r/DMAcademy/"
+              }
+            ]
+          }
         },
         {
           "id": "xqu0041",
           "name": "Character voices & accents",
           "risk": false,
-          "type": "single"
+          "type": "single",
+          "communities": {
+            "communities": [
+              {
+                "network": "Reddit",
+                "name": "r/DnD",
+                "url": "https://www.reddit.com/r/DnD/"
+              },
+              {
+                "network": "Reddit",
+                "name": "r/rpg",
+                "url": "https://www.reddit.com/r/rpg/"
+              }
+            ]
+          }
         },
         {
           "id": "xqu0042",
           "name": "Romance in game",
           "risk": false,
-          "type": "single"
+          "type": "single",
+          "communities": {
+            "communities": [
+              {
+                "network": "Reddit",
+                "name": "r/rpg",
+                "url": "https://www.reddit.com/r/rpg/"
+              },
+              {
+                "network": "Stack Exchange",
+                "name": "RPG Stack Exchange",
+                "url": "https://rpg.stackexchange.com/"
+              }
+            ]
+          }
         },
         {
           "id": "xqu0043",
           "name": "Player-versus-player",
           "risk": false,
-          "type": "single"
+          "type": "single",
+          "communities": {
+            "communities": [
+              {
+                "network": "Reddit",
+                "name": "r/rpg",
+                "url": "https://www.reddit.com/r/rpg/"
+              },
+              {
+                "network": "Stack Exchange",
+                "name": "RPG Stack Exchange",
+                "url": "https://rpg.stackexchange.com/"
+              }
+            ]
+          }
         },
         {
           "id": "xqu0044",
           "name": "Moral dilemmas",
           "risk": false,
-          "type": "single"
+          "type": "single",
+          "communities": {
+            "communities": [
+              {
+                "network": "Reddit",
+                "name": "r/rpg",
+                "url": "https://www.reddit.com/r/rpg/"
+              },
+              {
+                "network": "Reddit",
+                "name": "r/DMAcademy",
+                "url": "https://www.reddit.com/r/DMAcademy/"
+              }
+            ]
+          }
         },
         {
           "id": "xqu0045",
@@ -530,6 +1106,20 @@
                 "text": "How much darkness the table wants in the mix."
               }
             ]
+          },
+          "communities": {
+            "communities": [
+              {
+                "network": "Reddit",
+                "name": "r/rpg",
+                "url": "https://www.reddit.com/r/rpg/"
+              },
+              {
+                "network": "Reddit",
+                "name": "r/DMAcademy",
+                "url": "https://www.reddit.com/r/DMAcademy/"
+              }
+            ]
           }
         }
       ]
@@ -545,7 +1135,21 @@
           "risk": false,
           "type": "give_receive",
           "give_label": "run it",
-          "receive_label": "play in it"
+          "receive_label": "play in it",
+          "communities": {
+            "communities": [
+              {
+                "network": "Reddit",
+                "name": "r/DnD",
+                "url": "https://www.reddit.com/r/DnD/"
+              },
+              {
+                "network": "Stack Exchange",
+                "name": "RPG Stack Exchange",
+                "url": "https://rpg.stackexchange.com/"
+              }
+            ]
+          }
         },
         {
           "id": "xqu0047",
@@ -553,7 +1157,21 @@
           "risk": false,
           "type": "give_receive",
           "give_label": "run it",
-          "receive_label": "play in it"
+          "receive_label": "play in it",
+          "communities": {
+            "communities": [
+              {
+                "network": "Reddit",
+                "name": "r/rpg",
+                "url": "https://www.reddit.com/r/rpg/"
+              },
+              {
+                "network": "Stack Exchange",
+                "name": "RPG Stack Exchange",
+                "url": "https://rpg.stackexchange.com/"
+              }
+            ]
+          }
         },
         {
           "id": "xqu0048",
@@ -561,7 +1179,21 @@
           "risk": false,
           "type": "give_receive",
           "give_label": "run it",
-          "receive_label": "play in it"
+          "receive_label": "play in it",
+          "communities": {
+            "communities": [
+              {
+                "network": "Reddit",
+                "name": "r/DMAcademy",
+                "url": "https://www.reddit.com/r/DMAcademy/"
+              },
+              {
+                "network": "Reddit",
+                "name": "r/DnDBehindTheScreen",
+                "url": "https://www.reddit.com/r/DnDBehindTheScreen/"
+              }
+            ]
+          }
         },
         {
           "id": "xqu0049",
@@ -569,7 +1201,21 @@
           "risk": false,
           "type": "give_receive",
           "give_label": "run it",
-          "receive_label": "play in it"
+          "receive_label": "play in it",
+          "communities": {
+            "communities": [
+              {
+                "network": "Reddit",
+                "name": "r/DMAcademy",
+                "url": "https://www.reddit.com/r/DMAcademy/"
+              },
+              {
+                "network": "Reddit",
+                "name": "r/DnDBehindTheScreen",
+                "url": "https://www.reddit.com/r/DnDBehindTheScreen/"
+              }
+            ]
+          }
         },
         {
           "id": "xqu0050",
@@ -577,7 +1223,21 @@
           "risk": false,
           "type": "give_receive",
           "give_label": "run it",
-          "receive_label": "play in it"
+          "receive_label": "play in it",
+          "communities": {
+            "communities": [
+              {
+                "network": "Reddit",
+                "name": "r/DMAcademy",
+                "url": "https://www.reddit.com/r/DMAcademy/"
+              },
+              {
+                "network": "Reddit",
+                "name": "r/DnD",
+                "url": "https://www.reddit.com/r/DnD/"
+              }
+            ]
+          }
         },
         {
           "id": "xqu0051",
@@ -585,7 +1245,21 @@
           "risk": false,
           "type": "give_receive",
           "give_label": "run it",
-          "receive_label": "play in it"
+          "receive_label": "play in it",
+          "communities": {
+            "communities": [
+              {
+                "network": "Reddit",
+                "name": "r/osr",
+                "url": "https://www.reddit.com/r/osr/"
+              },
+              {
+                "network": "Reddit",
+                "name": "r/DnD",
+                "url": "https://www.reddit.com/r/DnD/"
+              }
+            ]
+          }
         },
         {
           "id": "xqu0052",
@@ -593,7 +1267,21 @@
           "risk": false,
           "type": "give_receive",
           "give_label": "run it",
-          "receive_label": "play in it"
+          "receive_label": "play in it",
+          "communities": {
+            "communities": [
+              {
+                "network": "Reddit",
+                "name": "r/osr",
+                "url": "https://www.reddit.com/r/osr/"
+              },
+              {
+                "network": "Reddit",
+                "name": "r/West_Marches",
+                "url": "https://www.reddit.com/r/West_Marches/"
+              }
+            ]
+          }
         },
         {
           "id": "xqu0053",
@@ -601,7 +1289,21 @@
           "risk": false,
           "type": "give_receive",
           "give_label": "run it",
-          "receive_label": "play in it"
+          "receive_label": "play in it",
+          "communities": {
+            "communities": [
+              {
+                "network": "Reddit",
+                "name": "r/DMAcademy",
+                "url": "https://www.reddit.com/r/DMAcademy/"
+              },
+              {
+                "network": "Reddit",
+                "name": "r/rpg",
+                "url": "https://www.reddit.com/r/rpg/"
+              }
+            ]
+          }
         },
         {
           "id": "xqu0054",
@@ -609,7 +1311,21 @@
           "risk": false,
           "type": "give_receive",
           "give_label": "run it",
-          "receive_label": "play in it"
+          "receive_label": "play in it",
+          "communities": {
+            "communities": [
+              {
+                "network": "Reddit",
+                "name": "r/DMAcademy",
+                "url": "https://www.reddit.com/r/DMAcademy/"
+              },
+              {
+                "network": "Reddit",
+                "name": "r/rpg",
+                "url": "https://www.reddit.com/r/rpg/"
+              }
+            ]
+          }
         }
       ]
     },
@@ -625,6 +1341,25 @@
           "type": "single",
           "hovertip": {
             "issue": "The session before the first session: tone, expectations, and boundaries agreed before a single die rolls. The table's negotiation ritual."
+          },
+          "communities": {
+            "communities": [
+              {
+                "network": "Reddit",
+                "name": "r/DMAcademy",
+                "url": "https://www.reddit.com/r/DMAcademy/"
+              },
+              {
+                "network": "Reddit",
+                "name": "r/rpg",
+                "url": "https://www.reddit.com/r/rpg/"
+              },
+              {
+                "network": "Stack Exchange",
+                "name": "RPG Stack Exchange",
+                "url": "https://rpg.stackexchange.com/"
+              }
+            ]
           }
         },
         {
@@ -634,6 +1369,20 @@
           "type": "single",
           "hovertip": {
             "issue": "Lines (never in the game) and veils (fade to black), agreed in advance — this hobby's own consent layer, invented at tables like yours."
+          },
+          "communities": {
+            "communities": [
+              {
+                "network": "Reddit",
+                "name": "r/rpg",
+                "url": "https://www.reddit.com/r/rpg/"
+              },
+              {
+                "network": "Stack Exchange",
+                "name": "RPG Stack Exchange",
+                "url": "https://rpg.stackexchange.com/"
+              }
+            ]
           }
         },
         {
@@ -642,49 +1391,161 @@
           "risk": false,
           "type": "give_receive",
           "give_label": "host",
-          "receive_label": "be hosted"
+          "receive_label": "be hosted",
+          "communities": {
+            "communities": [
+              {
+                "network": "Reddit",
+                "name": "r/DnD",
+                "url": "https://www.reddit.com/r/DnD/"
+              },
+              {
+                "network": "Reddit",
+                "name": "r/rpg",
+                "url": "https://www.reddit.com/r/rpg/"
+              }
+            ]
+          }
         },
         {
           "id": "xqu0058",
           "name": "Weekly game night",
           "risk": false,
-          "type": "single"
+          "type": "single",
+          "communities": {
+            "communities": [
+              {
+                "network": "Reddit",
+                "name": "r/rpg",
+                "url": "https://www.reddit.com/r/rpg/"
+              },
+              {
+                "network": "Reddit",
+                "name": "r/lfg",
+                "url": "https://www.reddit.com/r/lfg/"
+              }
+            ]
+          }
         },
         {
           "id": "xqu0059",
           "name": "Playing on a VTT",
           "risk": false,
-          "type": "single"
+          "type": "single",
+          "communities": {
+            "communities": [
+              {
+                "network": "Reddit",
+                "name": "r/FoundryVTT",
+                "url": "https://www.reddit.com/r/FoundryVTT/"
+              },
+              {
+                "network": "Reddit",
+                "name": "r/Roll20",
+                "url": "https://www.reddit.com/r/Roll20/"
+              }
+            ]
+          }
         },
         {
           "id": "xqu0060",
           "name": "Miniatures & terrain",
           "risk": false,
-          "type": "single"
+          "type": "single",
+          "communities": {
+            "communities": [
+              {
+                "network": "Reddit",
+                "name": "r/TerrainBuilding",
+                "url": "https://www.reddit.com/r/TerrainBuilding/"
+              },
+              {
+                "network": "Reddit",
+                "name": "r/DnD",
+                "url": "https://www.reddit.com/r/DnD/"
+              }
+            ]
+          }
         },
         {
           "id": "xqu0061",
           "name": "Maps & handouts",
           "risk": false,
-          "type": "single"
+          "type": "single",
+          "communities": {
+            "communities": [
+              {
+                "network": "Reddit",
+                "name": "r/DMAcademy",
+                "url": "https://www.reddit.com/r/DMAcademy/"
+              },
+              {
+                "network": "Reddit",
+                "name": "r/DnDBehindTheScreen",
+                "url": "https://www.reddit.com/r/DnDBehindTheScreen/"
+              }
+            ]
+          }
         },
         {
           "id": "xqu0062",
           "name": "Music & ambience",
           "risk": false,
-          "type": "single"
+          "type": "single",
+          "communities": {
+            "communities": [
+              {
+                "network": "Reddit",
+                "name": "r/DMAcademy",
+                "url": "https://www.reddit.com/r/DMAcademy/"
+              },
+              {
+                "network": "Reddit",
+                "name": "r/rpg",
+                "url": "https://www.reddit.com/r/rpg/"
+              }
+            ]
+          }
         },
         {
           "id": "xqu0063",
           "name": "Phones at the table",
           "risk": false,
-          "type": "single"
+          "type": "single",
+          "communities": {
+            "communities": [
+              {
+                "network": "Reddit",
+                "name": "r/rpg",
+                "url": "https://www.reddit.com/r/rpg/"
+              },
+              {
+                "network": "Reddit",
+                "name": "r/DMAcademy",
+                "url": "https://www.reddit.com/r/DMAcademy/"
+              }
+            ]
+          }
         },
         {
           "id": "xqu0064",
           "name": "Teaching new players",
           "risk": false,
-          "type": "single"
+          "type": "single",
+          "communities": {
+            "communities": [
+              {
+                "network": "Reddit",
+                "name": "r/DMAcademy",
+                "url": "https://www.reddit.com/r/DMAcademy/"
+              },
+              {
+                "network": "Reddit",
+                "name": "r/DnD",
+                "url": "https://www.reddit.com/r/DnD/"
+              }
+            ]
+          }
         },
         {
           "id": "xqu0065",
@@ -693,6 +1554,20 @@
           "type": "single",
           "hovertip": {
             "issue": "The true final boss of every campaign: five adults, one calendar."
+          },
+          "communities": {
+            "communities": [
+              {
+                "network": "Reddit",
+                "name": "r/rpg",
+                "url": "https://www.reddit.com/r/rpg/"
+              },
+              {
+                "network": "Reddit",
+                "name": "r/lfg",
+                "url": "https://www.reddit.com/r/lfg/"
+              }
+            ]
           }
         }
       ]
@@ -706,37 +1581,121 @@
           "id": "xqu0066",
           "name": "Actual-play podcasts",
           "risk": false,
-          "type": "single"
+          "type": "single",
+          "communities": {
+            "communities": [
+              {
+                "network": "Reddit",
+                "name": "r/criticalrole",
+                "url": "https://www.reddit.com/r/criticalrole/"
+              },
+              {
+                "network": "Reddit",
+                "name": "r/rpg",
+                "url": "https://www.reddit.com/r/rpg/"
+              }
+            ]
+          }
         },
         {
           "id": "xqu0067",
           "name": "Watching streams",
           "risk": false,
-          "type": "single"
+          "type": "single",
+          "communities": {
+            "communities": [
+              {
+                "network": "Reddit",
+                "name": "r/criticalrole",
+                "url": "https://www.reddit.com/r/criticalrole/"
+              },
+              {
+                "network": "Reddit",
+                "name": "r/DnD",
+                "url": "https://www.reddit.com/r/DnD/"
+              }
+            ]
+          }
         },
         {
           "id": "xqu0068",
           "name": "Session write-ups",
           "risk": false,
-          "type": "single"
+          "type": "single",
+          "communities": {
+            "communities": [
+              {
+                "network": "Reddit",
+                "name": "r/DnD",
+                "url": "https://www.reddit.com/r/DnD/"
+              },
+              {
+                "network": "Reddit",
+                "name": "r/rpg",
+                "url": "https://www.reddit.com/r/rpg/"
+              }
+            ]
+          }
         },
         {
           "id": "xqu0069",
           "name": "Campaign journals & wikis",
           "risk": false,
-          "type": "single"
+          "type": "single",
+          "communities": {
+            "communities": [
+              {
+                "network": "Reddit",
+                "name": "r/DMAcademy",
+                "url": "https://www.reddit.com/r/DMAcademy/"
+              },
+              {
+                "network": "Reddit",
+                "name": "r/worldbuilding",
+                "url": "https://www.reddit.com/r/worldbuilding/"
+              }
+            ]
+          }
         },
         {
           "id": "xqu0070",
           "name": "Publishing your own adventures",
           "risk": false,
-          "type": "single"
+          "type": "single",
+          "communities": {
+            "communities": [
+              {
+                "network": "Reddit",
+                "name": "r/RPGdesign",
+                "url": "https://www.reddit.com/r/RPGdesign/"
+              },
+              {
+                "network": "Reddit",
+                "name": "r/UnearthedArcana",
+                "url": "https://www.reddit.com/r/UnearthedArcana/"
+              }
+            ]
+          }
         },
         {
           "id": "xqu0071",
           "name": "Dice & book collecting",
           "risk": false,
-          "type": "single"
+          "type": "single",
+          "communities": {
+            "communities": [
+              {
+                "network": "Reddit",
+                "name": "r/dice",
+                "url": "https://www.reddit.com/r/dice/"
+              },
+              {
+                "network": "Reddit",
+                "name": "r/DnD",
+                "url": "https://www.reddit.com/r/DnD/"
+              }
+            ]
+          }
         }
       ]
     }

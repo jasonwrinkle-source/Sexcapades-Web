@@ -49,7 +49,26 @@
             }
           ],
           "question": "When you partner-dance, where do you live: leading, following, or switching between the two?",
-          "widget": "triangle"
+          "widget": "triangle",
+          "communities": {
+            "communities": [
+              {
+                "network": "Reddit",
+                "name": "r/ballroom",
+                "url": "https://www.reddit.com/r/ballroom/"
+              },
+              {
+                "network": "Forum",
+                "name": "Dance Forums",
+                "url": "https://www.dance-forums.com/"
+              },
+              {
+                "network": "Reddit",
+                "name": "r/Dance",
+                "url": "https://www.reddit.com/r/Dance/"
+              }
+            ]
+          }
         },
         {
           "id": "xda0002",
@@ -57,7 +76,26 @@
           "risk": false,
           "type": "give_receive",
           "give_label": "lead",
-          "receive_label": "follow"
+          "receive_label": "follow",
+          "communities": {
+            "communities": [
+              {
+                "network": "Reddit",
+                "name": "r/ballroom",
+                "url": "https://www.reddit.com/r/ballroom/"
+              },
+              {
+                "network": "Forum",
+                "name": "Dance Forums",
+                "url": "https://www.dance-forums.com/"
+              },
+              {
+                "network": "Reddit",
+                "name": "r/Dance",
+                "url": "https://www.reddit.com/r/Dance/"
+              }
+            ]
+          }
         },
         {
           "id": "xda0003",
@@ -65,7 +103,26 @@
           "risk": false,
           "type": "give_receive",
           "give_label": "lead",
-          "receive_label": "follow"
+          "receive_label": "follow",
+          "communities": {
+            "communities": [
+              {
+                "network": "Reddit",
+                "name": "r/ballroom",
+                "url": "https://www.reddit.com/r/ballroom/"
+              },
+              {
+                "network": "Forum",
+                "name": "Dance Forums",
+                "url": "https://www.dance-forums.com/"
+              },
+              {
+                "network": "Reddit",
+                "name": "r/Dance",
+                "url": "https://www.reddit.com/r/Dance/"
+              }
+            ]
+          }
         },
         {
           "id": "xda0004",
@@ -74,31 +131,126 @@
           "type": "single",
           "hovertip": {
             "issue": "Breaking away from the hold to improvise on your own feet."
+          },
+          "communities": {
+            "communities": [
+              {
+                "network": "Reddit",
+                "name": "r/ballroom",
+                "url": "https://www.reddit.com/r/ballroom/"
+              },
+              {
+                "network": "Forum",
+                "name": "Dance Forums",
+                "url": "https://www.dance-forums.com/"
+              },
+              {
+                "network": "Reddit",
+                "name": "r/Dance",
+                "url": "https://www.reddit.com/r/Dance/"
+              }
+            ]
           }
         },
         {
           "id": "xda0005",
           "name": "Dancing with strangers",
           "risk": false,
-          "type": "single"
+          "type": "single",
+          "communities": {
+            "communities": [
+              {
+                "network": "Reddit",
+                "name": "r/ballroom",
+                "url": "https://www.reddit.com/r/ballroom/"
+              },
+              {
+                "network": "Forum",
+                "name": "Dance Forums",
+                "url": "https://www.dance-forums.com/"
+              },
+              {
+                "network": "Reddit",
+                "name": "r/Dance",
+                "url": "https://www.reddit.com/r/Dance/"
+              }
+            ]
+          }
         },
         {
           "id": "xda0006",
           "name": "One regular partner",
           "risk": false,
-          "type": "single"
+          "type": "single",
+          "communities": {
+            "communities": [
+              {
+                "network": "Reddit",
+                "name": "r/ballroom",
+                "url": "https://www.reddit.com/r/ballroom/"
+              },
+              {
+                "network": "Forum",
+                "name": "Dance Forums",
+                "url": "https://www.dance-forums.com/"
+              },
+              {
+                "network": "Reddit",
+                "name": "r/Dance",
+                "url": "https://www.reddit.com/r/Dance/"
+              }
+            ]
+          }
         },
         {
           "id": "xda0007",
           "name": "Dancing in a circle",
           "risk": false,
-          "type": "single"
+          "type": "single",
+          "communities": {
+            "communities": [
+              {
+                "network": "Reddit",
+                "name": "r/ballroom",
+                "url": "https://www.reddit.com/r/ballroom/"
+              },
+              {
+                "network": "Forum",
+                "name": "Dance Forums",
+                "url": "https://www.dance-forums.com/"
+              },
+              {
+                "network": "Reddit",
+                "name": "r/Dance",
+                "url": "https://www.reddit.com/r/Dance/"
+              }
+            ]
+          }
         },
         {
           "id": "xda0008",
           "name": "Dancing alone",
           "risk": false,
-          "type": "single"
+          "type": "single",
+          "communities": {
+            "communities": [
+              {
+                "network": "Reddit",
+                "name": "r/ballroom",
+                "url": "https://www.reddit.com/r/ballroom/"
+              },
+              {
+                "network": "Forum",
+                "name": "Dance Forums",
+                "url": "https://www.dance-forums.com/"
+              },
+              {
+                "network": "Reddit",
+                "name": "r/Dance",
+                "url": "https://www.reddit.com/r/Dance/"
+              }
+            ]
+          }
         }
       ]
     },
@@ -118,7 +270,26 @@
               "risk": false,
               "type": "give_receive",
               "give_label": "lead",
-              "receive_label": "follow"
+              "receive_label": "follow",
+              "communities": {
+                "communities": [
+                  {
+                    "network": "Reddit",
+                    "name": "r/ballroom",
+                    "url": "https://www.reddit.com/r/ballroom/"
+                  },
+                  {
+                    "network": "Reddit",
+                    "name": "r/DanceSport",
+                    "url": "https://www.reddit.com/r/DanceSport/"
+                  },
+                  {
+                    "network": "Forum",
+                    "name": "Dance Forums",
+                    "url": "https://www.dance-forums.com/"
+                  }
+                ]
+              }
             },
             {
               "id": "xda0010",
@@ -126,7 +297,26 @@
               "risk": false,
               "type": "give_receive",
               "give_label": "lead",
-              "receive_label": "follow"
+              "receive_label": "follow",
+              "communities": {
+                "communities": [
+                  {
+                    "network": "Reddit",
+                    "name": "r/ballroom",
+                    "url": "https://www.reddit.com/r/ballroom/"
+                  },
+                  {
+                    "network": "Reddit",
+                    "name": "r/DanceSport",
+                    "url": "https://www.reddit.com/r/DanceSport/"
+                  },
+                  {
+                    "network": "Forum",
+                    "name": "Dance Forums",
+                    "url": "https://www.dance-forums.com/"
+                  }
+                ]
+              }
             },
             {
               "id": "xda0011",
@@ -134,7 +324,26 @@
               "risk": false,
               "type": "give_receive",
               "give_label": "lead",
-              "receive_label": "follow"
+              "receive_label": "follow",
+              "communities": {
+                "communities": [
+                  {
+                    "network": "Reddit",
+                    "name": "r/ballroom",
+                    "url": "https://www.reddit.com/r/ballroom/"
+                  },
+                  {
+                    "network": "Reddit",
+                    "name": "r/DanceSport",
+                    "url": "https://www.reddit.com/r/DanceSport/"
+                  },
+                  {
+                    "network": "Forum",
+                    "name": "Dance Forums",
+                    "url": "https://www.dance-forums.com/"
+                  }
+                ]
+              }
             },
             {
               "id": "xda0012",
@@ -142,7 +351,26 @@
               "risk": false,
               "type": "give_receive",
               "give_label": "lead",
-              "receive_label": "follow"
+              "receive_label": "follow",
+              "communities": {
+                "communities": [
+                  {
+                    "network": "Reddit",
+                    "name": "r/ballroom",
+                    "url": "https://www.reddit.com/r/ballroom/"
+                  },
+                  {
+                    "network": "Reddit",
+                    "name": "r/DanceSport",
+                    "url": "https://www.reddit.com/r/DanceSport/"
+                  },
+                  {
+                    "network": "Forum",
+                    "name": "Dance Forums",
+                    "url": "https://www.dance-forums.com/"
+                  }
+                ]
+              }
             },
             {
               "id": "xda0013",
@@ -150,7 +378,26 @@
               "risk": false,
               "type": "give_receive",
               "give_label": "lead",
-              "receive_label": "follow"
+              "receive_label": "follow",
+              "communities": {
+                "communities": [
+                  {
+                    "network": "Reddit",
+                    "name": "r/ballroom",
+                    "url": "https://www.reddit.com/r/ballroom/"
+                  },
+                  {
+                    "network": "Reddit",
+                    "name": "r/DanceSport",
+                    "url": "https://www.reddit.com/r/DanceSport/"
+                  },
+                  {
+                    "network": "Forum",
+                    "name": "Dance Forums",
+                    "url": "https://www.dance-forums.com/"
+                  }
+                ]
+              }
             },
             {
               "id": "xda0014",
@@ -158,7 +405,26 @@
               "risk": false,
               "type": "give_receive",
               "give_label": "lead",
-              "receive_label": "follow"
+              "receive_label": "follow",
+              "communities": {
+                "communities": [
+                  {
+                    "network": "Reddit",
+                    "name": "r/ballroom",
+                    "url": "https://www.reddit.com/r/ballroom/"
+                  },
+                  {
+                    "network": "Reddit",
+                    "name": "r/DanceSport",
+                    "url": "https://www.reddit.com/r/DanceSport/"
+                  },
+                  {
+                    "network": "Forum",
+                    "name": "Dance Forums",
+                    "url": "https://www.dance-forums.com/"
+                  }
+                ]
+              }
             }
           ]
         },
@@ -172,7 +438,26 @@
               "risk": false,
               "type": "give_receive",
               "give_label": "lead",
-              "receive_label": "follow"
+              "receive_label": "follow",
+              "communities": {
+                "communities": [
+                  {
+                    "network": "Reddit",
+                    "name": "r/ballroom",
+                    "url": "https://www.reddit.com/r/ballroom/"
+                  },
+                  {
+                    "network": "Reddit",
+                    "name": "r/DanceSport",
+                    "url": "https://www.reddit.com/r/DanceSport/"
+                  },
+                  {
+                    "network": "Forum",
+                    "name": "Dance Forums",
+                    "url": "https://www.dance-forums.com/"
+                  }
+                ]
+              }
             },
             {
               "id": "xda0016",
@@ -180,7 +465,26 @@
               "risk": false,
               "type": "give_receive",
               "give_label": "lead",
-              "receive_label": "follow"
+              "receive_label": "follow",
+              "communities": {
+                "communities": [
+                  {
+                    "network": "Reddit",
+                    "name": "r/ballroom",
+                    "url": "https://www.reddit.com/r/ballroom/"
+                  },
+                  {
+                    "network": "Reddit",
+                    "name": "r/DanceSport",
+                    "url": "https://www.reddit.com/r/DanceSport/"
+                  },
+                  {
+                    "network": "Forum",
+                    "name": "Dance Forums",
+                    "url": "https://www.dance-forums.com/"
+                  }
+                ]
+              }
             },
             {
               "id": "xda0017",
@@ -188,7 +492,26 @@
               "risk": false,
               "type": "give_receive",
               "give_label": "lead",
-              "receive_label": "follow"
+              "receive_label": "follow",
+              "communities": {
+                "communities": [
+                  {
+                    "network": "Reddit",
+                    "name": "r/ballroom",
+                    "url": "https://www.reddit.com/r/ballroom/"
+                  },
+                  {
+                    "network": "Reddit",
+                    "name": "r/DanceSport",
+                    "url": "https://www.reddit.com/r/DanceSport/"
+                  },
+                  {
+                    "network": "Forum",
+                    "name": "Dance Forums",
+                    "url": "https://www.dance-forums.com/"
+                  }
+                ]
+              }
             },
             {
               "id": "xda0018",
@@ -196,7 +519,26 @@
               "risk": false,
               "type": "give_receive",
               "give_label": "lead",
-              "receive_label": "follow"
+              "receive_label": "follow",
+              "communities": {
+                "communities": [
+                  {
+                    "network": "Reddit",
+                    "name": "r/ballroom",
+                    "url": "https://www.reddit.com/r/ballroom/"
+                  },
+                  {
+                    "network": "Reddit",
+                    "name": "r/DanceSport",
+                    "url": "https://www.reddit.com/r/DanceSport/"
+                  },
+                  {
+                    "network": "Forum",
+                    "name": "Dance Forums",
+                    "url": "https://www.dance-forums.com/"
+                  }
+                ]
+              }
             },
             {
               "id": "xda0019",
@@ -204,7 +546,26 @@
               "risk": false,
               "type": "give_receive",
               "give_label": "lead",
-              "receive_label": "follow"
+              "receive_label": "follow",
+              "communities": {
+                "communities": [
+                  {
+                    "network": "Reddit",
+                    "name": "r/ballroom",
+                    "url": "https://www.reddit.com/r/ballroom/"
+                  },
+                  {
+                    "network": "Reddit",
+                    "name": "r/DanceSport",
+                    "url": "https://www.reddit.com/r/DanceSport/"
+                  },
+                  {
+                    "network": "Forum",
+                    "name": "Dance Forums",
+                    "url": "https://www.dance-forums.com/"
+                  }
+                ]
+              }
             },
             {
               "id": "xda0020",
@@ -212,7 +573,26 @@
               "risk": false,
               "type": "give_receive",
               "give_label": "lead",
-              "receive_label": "follow"
+              "receive_label": "follow",
+              "communities": {
+                "communities": [
+                  {
+                    "network": "Reddit",
+                    "name": "r/ballroom",
+                    "url": "https://www.reddit.com/r/ballroom/"
+                  },
+                  {
+                    "network": "Reddit",
+                    "name": "r/DanceSport",
+                    "url": "https://www.reddit.com/r/DanceSport/"
+                  },
+                  {
+                    "network": "Forum",
+                    "name": "Dance Forums",
+                    "url": "https://www.dance-forums.com/"
+                  }
+                ]
+              }
             }
           ]
         }
@@ -234,7 +614,21 @@
               "risk": false,
               "type": "give_receive",
               "give_label": "lead",
-              "receive_label": "follow"
+              "receive_label": "follow",
+              "communities": {
+                "communities": [
+                  {
+                    "network": "Reddit",
+                    "name": "r/SwingDancing",
+                    "url": "https://www.reddit.com/r/SwingDancing/"
+                  },
+                  {
+                    "network": "Forum",
+                    "name": "Dance Forums",
+                    "url": "https://www.dance-forums.com/"
+                  }
+                ]
+              }
             },
             {
               "id": "xda0022",
@@ -242,7 +636,21 @@
               "risk": false,
               "type": "give_receive",
               "give_label": "lead",
-              "receive_label": "follow"
+              "receive_label": "follow",
+              "communities": {
+                "communities": [
+                  {
+                    "network": "Reddit",
+                    "name": "r/SwingDancing",
+                    "url": "https://www.reddit.com/r/SwingDancing/"
+                  },
+                  {
+                    "network": "Forum",
+                    "name": "Dance Forums",
+                    "url": "https://www.dance-forums.com/"
+                  }
+                ]
+              }
             },
             {
               "id": "xda0023",
@@ -250,7 +658,21 @@
               "risk": false,
               "type": "give_receive",
               "give_label": "lead",
-              "receive_label": "follow"
+              "receive_label": "follow",
+              "communities": {
+                "communities": [
+                  {
+                    "network": "Reddit",
+                    "name": "r/SwingDancing",
+                    "url": "https://www.reddit.com/r/SwingDancing/"
+                  },
+                  {
+                    "network": "Forum",
+                    "name": "Dance Forums",
+                    "url": "https://www.dance-forums.com/"
+                  }
+                ]
+              }
             },
             {
               "id": "xda0024",
@@ -258,7 +680,21 @@
               "risk": false,
               "type": "give_receive",
               "give_label": "lead",
-              "receive_label": "follow"
+              "receive_label": "follow",
+              "communities": {
+                "communities": [
+                  {
+                    "network": "Reddit",
+                    "name": "r/SwingDancing",
+                    "url": "https://www.reddit.com/r/SwingDancing/"
+                  },
+                  {
+                    "network": "Forum",
+                    "name": "Dance Forums",
+                    "url": "https://www.dance-forums.com/"
+                  }
+                ]
+              }
             },
             {
               "id": "xda0027",
@@ -266,7 +702,21 @@
               "risk": false,
               "type": "give_receive",
               "give_label": "lead",
-              "receive_label": "follow"
+              "receive_label": "follow",
+              "communities": {
+                "communities": [
+                  {
+                    "network": "Reddit",
+                    "name": "r/SwingDancing",
+                    "url": "https://www.reddit.com/r/SwingDancing/"
+                  },
+                  {
+                    "network": "Forum",
+                    "name": "Dance Forums",
+                    "url": "https://www.dance-forums.com/"
+                  }
+                ]
+              }
             }
           ]
         },
@@ -280,7 +730,21 @@
               "risk": false,
               "type": "give_receive",
               "give_label": "lead",
-              "receive_label": "follow"
+              "receive_label": "follow",
+              "communities": {
+                "communities": [
+                  {
+                    "network": "Reddit",
+                    "name": "r/WestCoastSwing",
+                    "url": "https://www.reddit.com/r/WestCoastSwing/"
+                  },
+                  {
+                    "network": "Reddit",
+                    "name": "r/SwingDancing",
+                    "url": "https://www.reddit.com/r/SwingDancing/"
+                  }
+                ]
+              }
             },
             {
               "id": "xda0026",
@@ -288,7 +752,21 @@
               "risk": false,
               "type": "give_receive",
               "give_label": "lead",
-              "receive_label": "follow"
+              "receive_label": "follow",
+              "communities": {
+                "communities": [
+                  {
+                    "network": "Reddit",
+                    "name": "r/SwingDancing",
+                    "url": "https://www.reddit.com/r/SwingDancing/"
+                  },
+                  {
+                    "network": "Forum",
+                    "name": "Dance Forums",
+                    "url": "https://www.dance-forums.com/"
+                  }
+                ]
+              }
             }
           ]
         }
@@ -305,7 +783,21 @@
           "risk": false,
           "type": "give_receive",
           "give_label": "lead",
-          "receive_label": "follow"
+          "receive_label": "follow",
+          "communities": {
+            "communities": [
+              {
+                "network": "Reddit",
+                "name": "r/Reggaeton",
+                "url": "https://www.reddit.com/r/Reggaeton/"
+              },
+              {
+                "network": "Reddit",
+                "name": "r/Dance",
+                "url": "https://www.reddit.com/r/Dance/"
+              }
+            ]
+          }
         }
       ],
       "subcategories": [
@@ -319,7 +811,21 @@
               "risk": false,
               "type": "give_receive",
               "give_label": "lead",
-              "receive_label": "follow"
+              "receive_label": "follow",
+              "communities": {
+                "communities": [
+                  {
+                    "network": "Reddit",
+                    "name": "r/Salsa",
+                    "url": "https://www.reddit.com/r/Salsa/"
+                  },
+                  {
+                    "network": "Forum",
+                    "name": "Salsa Forums",
+                    "url": "https://www.salsaforums.com/"
+                  }
+                ]
+              }
             },
             {
               "id": "xda0029",
@@ -327,7 +833,21 @@
               "risk": false,
               "type": "give_receive",
               "give_label": "lead",
-              "receive_label": "follow"
+              "receive_label": "follow",
+              "communities": {
+                "communities": [
+                  {
+                    "network": "Reddit",
+                    "name": "r/Bachata",
+                    "url": "https://www.reddit.com/r/Bachata/"
+                  },
+                  {
+                    "network": "Reddit",
+                    "name": "r/Salsa",
+                    "url": "https://www.reddit.com/r/Salsa/"
+                  }
+                ]
+              }
             },
             {
               "id": "xda0030",
@@ -335,7 +855,21 @@
               "risk": false,
               "type": "give_receive",
               "give_label": "lead",
-              "receive_label": "follow"
+              "receive_label": "follow",
+              "communities": {
+                "communities": [
+                  {
+                    "network": "Reddit",
+                    "name": "r/Salsa",
+                    "url": "https://www.reddit.com/r/Salsa/"
+                  },
+                  {
+                    "network": "Forum",
+                    "name": "Salsa Forums",
+                    "url": "https://www.salsaforums.com/"
+                  }
+                ]
+              }
             },
             {
               "id": "xda0033",
@@ -343,7 +877,21 @@
               "risk": false,
               "type": "give_receive",
               "give_label": "lead",
-              "receive_label": "follow"
+              "receive_label": "follow",
+              "communities": {
+                "communities": [
+                  {
+                    "network": "Reddit",
+                    "name": "r/Cumbia",
+                    "url": "https://www.reddit.com/r/Cumbia/"
+                  },
+                  {
+                    "network": "Reddit",
+                    "name": "r/Salsa",
+                    "url": "https://www.reddit.com/r/Salsa/"
+                  }
+                ]
+              }
             }
           ]
         },
@@ -357,7 +905,21 @@
               "risk": false,
               "type": "give_receive",
               "give_label": "lead",
-              "receive_label": "follow"
+              "receive_label": "follow",
+              "communities": {
+                "communities": [
+                  {
+                    "network": "Reddit",
+                    "name": "r/Dance",
+                    "url": "https://www.reddit.com/r/Dance/"
+                  },
+                  {
+                    "network": "Forum",
+                    "name": "Dance Forums",
+                    "url": "https://www.dance-forums.com/"
+                  }
+                ]
+              }
             },
             {
               "id": "xda0031",
@@ -365,7 +927,21 @@
               "risk": false,
               "type": "give_receive",
               "give_label": "lead",
-              "receive_label": "follow"
+              "receive_label": "follow",
+              "communities": {
+                "communities": [
+                  {
+                    "network": "Reddit",
+                    "name": "r/Kizomba",
+                    "url": "https://www.reddit.com/r/Kizomba/"
+                  },
+                  {
+                    "network": "Reddit",
+                    "name": "r/Dance",
+                    "url": "https://www.reddit.com/r/Dance/"
+                  }
+                ]
+              }
             }
           ]
         }
@@ -382,7 +958,21 @@
           "risk": false,
           "type": "give_receive",
           "give_label": "lead",
-          "receive_label": "follow"
+          "receive_label": "follow",
+          "communities": {
+            "communities": [
+              {
+                "network": "Reddit",
+                "name": "r/tango",
+                "url": "https://www.reddit.com/r/tango/"
+              },
+              {
+                "network": "Forum",
+                "name": "Dance Forums",
+                "url": "https://www.dance-forums.com/"
+              }
+            ]
+          }
         },
         {
           "id": "xda0036",
@@ -390,7 +980,21 @@
           "risk": false,
           "type": "give_receive",
           "give_label": "lead",
-          "receive_label": "follow"
+          "receive_label": "follow",
+          "communities": {
+            "communities": [
+              {
+                "network": "Reddit",
+                "name": "r/tango",
+                "url": "https://www.reddit.com/r/tango/"
+              },
+              {
+                "network": "Forum",
+                "name": "Dance Forums",
+                "url": "https://www.dance-forums.com/"
+              }
+            ]
+          }
         },
         {
           "id": "xda0037",
@@ -398,7 +1002,21 @@
           "risk": false,
           "type": "give_receive",
           "give_label": "lead",
-          "receive_label": "follow"
+          "receive_label": "follow",
+          "communities": {
+            "communities": [
+              {
+                "network": "Reddit",
+                "name": "r/tango",
+                "url": "https://www.reddit.com/r/tango/"
+              },
+              {
+                "network": "Forum",
+                "name": "Dance Forums",
+                "url": "https://www.dance-forums.com/"
+              }
+            ]
+          }
         },
         {
           "id": "xda0038",
@@ -407,6 +1025,20 @@
           "type": "single",
           "hovertip": {
             "issue": "A tanda is a set of three or four songs danced with the same partner — tango's built-in unit of commitment. Do you stay for the whole set?"
+          },
+          "communities": {
+            "communities": [
+              {
+                "network": "Reddit",
+                "name": "r/tango",
+                "url": "https://www.reddit.com/r/tango/"
+              },
+              {
+                "network": "Forum",
+                "name": "Dance Forums",
+                "url": "https://www.dance-forums.com/"
+              }
+            ]
           }
         },
         {
@@ -416,6 +1048,20 @@
           "type": "single",
           "hovertip": {
             "issue": "The cabeceo is the nod across the room that asks for a dance and answers it — a consent ritual with centuries on it, no words and no walk of shame."
+          },
+          "communities": {
+            "communities": [
+              {
+                "network": "Reddit",
+                "name": "r/tango",
+                "url": "https://www.reddit.com/r/tango/"
+              },
+              {
+                "network": "Forum",
+                "name": "Dance Forums",
+                "url": "https://www.dance-forums.com/"
+              }
+            ]
           }
         },
         {
@@ -425,6 +1071,20 @@
           "type": "single",
           "hovertip": {
             "issue": "The practica: tango's practice room, where steps get drilled and partners rotate without ceremony."
+          },
+          "communities": {
+            "communities": [
+              {
+                "network": "Reddit",
+                "name": "r/tango",
+                "url": "https://www.reddit.com/r/tango/"
+              },
+              {
+                "network": "Forum",
+                "name": "Dance Forums",
+                "url": "https://www.dance-forums.com/"
+              }
+            ]
           }
         }
       ]
@@ -440,7 +1100,21 @@
           "risk": false,
           "type": "give_receive",
           "give_label": "lead",
-          "receive_label": "follow"
+          "receive_label": "follow",
+          "communities": {
+            "communities": [
+              {
+                "network": "Reddit",
+                "name": "r/LineDancing",
+                "url": "https://www.reddit.com/r/LineDancing/"
+              },
+              {
+                "network": "Reddit",
+                "name": "r/Dance",
+                "url": "https://www.reddit.com/r/Dance/"
+              }
+            ]
+          }
         },
         {
           "id": "xda0042",
@@ -448,13 +1122,46 @@
           "risk": false,
           "type": "give_receive",
           "give_label": "lead",
-          "receive_label": "follow"
+          "receive_label": "follow",
+          "communities": {
+            "communities": [
+              {
+                "network": "Reddit",
+                "name": "r/LineDancing",
+                "url": "https://www.reddit.com/r/LineDancing/"
+              },
+              {
+                "network": "Reddit",
+                "name": "r/ballroom",
+                "url": "https://www.reddit.com/r/ballroom/"
+              },
+              {
+                "network": "Reddit",
+                "name": "r/Dance",
+                "url": "https://www.reddit.com/r/Dance/"
+              }
+            ]
+          }
         },
         {
           "id": "xda0043",
           "name": "Line Dancing",
           "risk": false,
-          "type": "single"
+          "type": "single",
+          "communities": {
+            "communities": [
+              {
+                "network": "Reddit",
+                "name": "r/LineDancing",
+                "url": "https://www.reddit.com/r/LineDancing/"
+              },
+              {
+                "network": "Reddit",
+                "name": "r/Dance",
+                "url": "https://www.reddit.com/r/Dance/"
+              }
+            ]
+          }
         },
         {
           "id": "xda0044",
@@ -462,7 +1169,16 @@
           "risk": false,
           "type": "give_receive",
           "give_label": "lead",
-          "receive_label": "follow"
+          "receive_label": "follow",
+          "communities": {
+            "communities": [
+              {
+                "network": "Reddit",
+                "name": "r/Dance",
+                "url": "https://www.reddit.com/r/Dance/"
+              }
+            ]
+          }
         },
         {
           "id": "xda0045",
@@ -470,7 +1186,16 @@
           "risk": false,
           "type": "give_receive",
           "give_label": "lead",
-          "receive_label": "follow"
+          "receive_label": "follow",
+          "communities": {
+            "communities": [
+              {
+                "network": "Reddit",
+                "name": "r/Dance",
+                "url": "https://www.reddit.com/r/Dance/"
+              }
+            ]
+          }
         },
         {
           "id": "xda0046",
@@ -478,7 +1203,16 @@
           "risk": false,
           "type": "give_receive",
           "give_label": "lead",
-          "receive_label": "follow"
+          "receive_label": "follow",
+          "communities": {
+            "communities": [
+              {
+                "network": "Reddit",
+                "name": "r/Dance",
+                "url": "https://www.reddit.com/r/Dance/"
+              }
+            ]
+          }
         },
         {
           "id": "xda0047",
@@ -486,7 +1220,16 @@
           "risk": false,
           "type": "give_receive",
           "give_label": "lead",
-          "receive_label": "follow"
+          "receive_label": "follow",
+          "communities": {
+            "communities": [
+              {
+                "network": "Reddit",
+                "name": "r/Dance",
+                "url": "https://www.reddit.com/r/Dance/"
+              }
+            ]
+          }
         }
       ]
     },
@@ -501,31 +1244,126 @@
           "risk": false,
           "type": "give_receive",
           "give_label": "ask",
-          "receive_label": "be asked"
+          "receive_label": "be asked",
+          "communities": {
+            "communities": [
+              {
+                "network": "Reddit",
+                "name": "r/Dance",
+                "url": "https://www.reddit.com/r/Dance/"
+              },
+              {
+                "network": "Reddit",
+                "name": "r/ballroom",
+                "url": "https://www.reddit.com/r/ballroom/"
+              },
+              {
+                "network": "Forum",
+                "name": "Dance Forums",
+                "url": "https://www.dance-forums.com/"
+              }
+            ]
+          }
         },
         {
           "id": "xda0049",
           "name": "Declining a dance",
           "risk": false,
-          "type": "single"
+          "type": "single",
+          "communities": {
+            "communities": [
+              {
+                "network": "Reddit",
+                "name": "r/Dance",
+                "url": "https://www.reddit.com/r/Dance/"
+              },
+              {
+                "network": "Reddit",
+                "name": "r/ballroom",
+                "url": "https://www.reddit.com/r/ballroom/"
+              },
+              {
+                "network": "Forum",
+                "name": "Dance Forums",
+                "url": "https://www.dance-forums.com/"
+              }
+            ]
+          }
         },
         {
           "id": "xda0050",
           "name": "Rotating partners",
           "risk": false,
-          "type": "single"
+          "type": "single",
+          "communities": {
+            "communities": [
+              {
+                "network": "Reddit",
+                "name": "r/Dance",
+                "url": "https://www.reddit.com/r/Dance/"
+              },
+              {
+                "network": "Reddit",
+                "name": "r/ballroom",
+                "url": "https://www.reddit.com/r/ballroom/"
+              },
+              {
+                "network": "Forum",
+                "name": "Dance Forums",
+                "url": "https://www.dance-forums.com/"
+              }
+            ]
+          }
         },
         {
           "id": "xda0051",
           "name": "Dancing with beginners",
           "risk": false,
-          "type": "single"
+          "type": "single",
+          "communities": {
+            "communities": [
+              {
+                "network": "Reddit",
+                "name": "r/Dance",
+                "url": "https://www.reddit.com/r/Dance/"
+              },
+              {
+                "network": "Reddit",
+                "name": "r/ballroom",
+                "url": "https://www.reddit.com/r/ballroom/"
+              },
+              {
+                "network": "Forum",
+                "name": "Dance Forums",
+                "url": "https://www.dance-forums.com/"
+              }
+            ]
+          }
         },
         {
           "id": "xda0052",
           "name": "Dancing with experts",
           "risk": false,
-          "type": "single"
+          "type": "single",
+          "communities": {
+            "communities": [
+              {
+                "network": "Reddit",
+                "name": "r/Dance",
+                "url": "https://www.reddit.com/r/Dance/"
+              },
+              {
+                "network": "Reddit",
+                "name": "r/ballroom",
+                "url": "https://www.reddit.com/r/ballroom/"
+              },
+              {
+                "network": "Forum",
+                "name": "Dance Forums",
+                "url": "https://www.dance-forums.com/"
+              }
+            ]
+          }
         },
         {
           "id": "xda0053",
@@ -534,6 +1372,25 @@
           "type": "single",
           "hovertip": {
             "issue": "Correcting your partner mid-dance: mentorship to some, the social floor's cardinal sin to others."
+          },
+          "communities": {
+            "communities": [
+              {
+                "network": "Reddit",
+                "name": "r/Dance",
+                "url": "https://www.reddit.com/r/Dance/"
+              },
+              {
+                "network": "Reddit",
+                "name": "r/ballroom",
+                "url": "https://www.reddit.com/r/ballroom/"
+              },
+              {
+                "network": "Forum",
+                "name": "Dance Forums",
+                "url": "https://www.dance-forums.com/"
+              }
+            ]
           }
         },
         {
@@ -543,6 +1400,25 @@
           "type": "single",
           "hovertip": {
             "issue": "Navigating a crowded floor without collisions — the lead's oldest duty."
+          },
+          "communities": {
+            "communities": [
+              {
+                "network": "Reddit",
+                "name": "r/Dance",
+                "url": "https://www.reddit.com/r/Dance/"
+              },
+              {
+                "network": "Reddit",
+                "name": "r/ballroom",
+                "url": "https://www.reddit.com/r/ballroom/"
+              },
+              {
+                "network": "Forum",
+                "name": "Dance Forums",
+                "url": "https://www.dance-forums.com/"
+              }
+            ]
           }
         },
         {
@@ -554,6 +1430,25 @@
           "receive_label": "be dipped",
           "hovertip": {
             "issue": "A dip is trust made visible: offered, asked, or never without a yes."
+          },
+          "communities": {
+            "communities": [
+              {
+                "network": "Reddit",
+                "name": "r/Dance",
+                "url": "https://www.reddit.com/r/Dance/"
+              },
+              {
+                "network": "Reddit",
+                "name": "r/ballroom",
+                "url": "https://www.reddit.com/r/ballroom/"
+              },
+              {
+                "network": "Forum",
+                "name": "Dance Forums",
+                "url": "https://www.dance-forums.com/"
+              }
+            ]
           }
         },
         {
@@ -562,13 +1457,51 @@
           "risk": false,
           "type": "give_receive",
           "give_label": "lift",
-          "receive_label": "be lifted"
+          "receive_label": "be lifted",
+          "communities": {
+            "communities": [
+              {
+                "network": "Reddit",
+                "name": "r/Dance",
+                "url": "https://www.reddit.com/r/Dance/"
+              },
+              {
+                "network": "Reddit",
+                "name": "r/ballroom",
+                "url": "https://www.reddit.com/r/ballroom/"
+              },
+              {
+                "network": "Forum",
+                "name": "Dance Forums",
+                "url": "https://www.dance-forums.com/"
+              }
+            ]
+          }
         },
         {
           "id": "xda0057",
           "name": "Sitting out & watching",
           "risk": false,
-          "type": "single"
+          "type": "single",
+          "communities": {
+            "communities": [
+              {
+                "network": "Reddit",
+                "name": "r/Dance",
+                "url": "https://www.reddit.com/r/Dance/"
+              },
+              {
+                "network": "Reddit",
+                "name": "r/ballroom",
+                "url": "https://www.reddit.com/r/ballroom/"
+              },
+              {
+                "network": "Forum",
+                "name": "Dance Forums",
+                "url": "https://www.dance-forums.com/"
+              }
+            ]
+          }
         }
       ]
     },
@@ -584,19 +1517,61 @@
           "type": "single",
           "hovertip": {
             "issue": "Dancing the phrasing, not just the beat — breaks, swells, and silence included."
+          },
+          "communities": {
+            "communities": [
+              {
+                "network": "Reddit",
+                "name": "r/Dance",
+                "url": "https://www.reddit.com/r/Dance/"
+              },
+              {
+                "network": "Reddit",
+                "name": "r/DanceTutorials",
+                "url": "https://www.reddit.com/r/DanceTutorials/"
+              }
+            ]
           }
         },
         {
           "id": "xda0059",
           "name": "Improvising",
           "risk": false,
-          "type": "single"
+          "type": "single",
+          "communities": {
+            "communities": [
+              {
+                "network": "Reddit",
+                "name": "r/Dance",
+                "url": "https://www.reddit.com/r/Dance/"
+              },
+              {
+                "network": "Reddit",
+                "name": "r/DanceTutorials",
+                "url": "https://www.reddit.com/r/DanceTutorials/"
+              }
+            ]
+          }
         },
         {
           "id": "xda0060",
           "name": "Choreographed routines",
           "risk": false,
-          "type": "single"
+          "type": "single",
+          "communities": {
+            "communities": [
+              {
+                "network": "Reddit",
+                "name": "r/Dance",
+                "url": "https://www.reddit.com/r/Dance/"
+              },
+              {
+                "network": "Reddit",
+                "name": "r/DanceTutorials",
+                "url": "https://www.reddit.com/r/DanceTutorials/"
+              }
+            ]
+          }
         },
         {
           "id": "xda0061",
@@ -634,25 +1609,86 @@
                 "text": "Speed, sweat, and no time to think."
               }
             ]
+          },
+          "communities": {
+            "communities": [
+              {
+                "network": "Reddit",
+                "name": "r/Dance",
+                "url": "https://www.reddit.com/r/Dance/"
+              },
+              {
+                "network": "Reddit",
+                "name": "r/DanceTutorials",
+                "url": "https://www.reddit.com/r/DanceTutorials/"
+              }
+            ]
           }
         },
         {
           "id": "xda0062",
           "name": "Dancing to live music",
           "risk": false,
-          "type": "single"
+          "type": "single",
+          "communities": {
+            "communities": [
+              {
+                "network": "Reddit",
+                "name": "r/Dance",
+                "url": "https://www.reddit.com/r/Dance/"
+              },
+              {
+                "network": "Reddit",
+                "name": "r/DanceTutorials",
+                "url": "https://www.reddit.com/r/DanceTutorials/"
+              }
+            ]
+          }
         },
         {
           "id": "xda0063",
           "name": "Performing",
           "risk": false,
-          "type": "single"
+          "type": "single",
+          "communities": {
+            "communities": [
+              {
+                "network": "Reddit",
+                "name": "r/Dance",
+                "url": "https://www.reddit.com/r/Dance/"
+              },
+              {
+                "network": "Reddit",
+                "name": "r/DanceSport",
+                "url": "https://www.reddit.com/r/DanceSport/"
+              }
+            ]
+          }
         },
         {
           "id": "xda0064",
           "name": "Competing",
           "risk": false,
-          "type": "single"
+          "type": "single",
+          "communities": {
+            "communities": [
+              {
+                "network": "Reddit",
+                "name": "r/DanceSport",
+                "url": "https://www.reddit.com/r/DanceSport/"
+              },
+              {
+                "network": "Reddit",
+                "name": "r/ballroom",
+                "url": "https://www.reddit.com/r/ballroom/"
+              },
+              {
+                "network": "Reddit",
+                "name": "r/Dance",
+                "url": "https://www.reddit.com/r/Dance/"
+              }
+            ]
+          }
         }
       ]
     },
@@ -665,55 +1701,221 @@
           "id": "xda0065",
           "name": "The weekly social",
           "risk": false,
-          "type": "single"
+          "type": "single",
+          "communities": {
+            "communities": [
+              {
+                "network": "Reddit",
+                "name": "r/Dance",
+                "url": "https://www.reddit.com/r/Dance/"
+              },
+              {
+                "network": "Reddit",
+                "name": "r/ballroom",
+                "url": "https://www.reddit.com/r/ballroom/"
+              },
+              {
+                "network": "Forum",
+                "name": "Dance Forums",
+                "url": "https://www.dance-forums.com/"
+              }
+            ]
+          }
         },
         {
           "id": "xda0066",
           "name": "Balls & formals",
           "risk": false,
-          "type": "single"
+          "type": "single",
+          "communities": {
+            "communities": [
+              {
+                "network": "Reddit",
+                "name": "r/Dance",
+                "url": "https://www.reddit.com/r/Dance/"
+              },
+              {
+                "network": "Reddit",
+                "name": "r/ballroom",
+                "url": "https://www.reddit.com/r/ballroom/"
+              },
+              {
+                "network": "Forum",
+                "name": "Dance Forums",
+                "url": "https://www.dance-forums.com/"
+              }
+            ]
+          }
         },
         {
           "id": "xda0067",
           "name": "Clubs",
           "risk": false,
-          "type": "single"
+          "type": "single",
+          "communities": {
+            "communities": [
+              {
+                "network": "Reddit",
+                "name": "r/Salsa",
+                "url": "https://www.reddit.com/r/Salsa/"
+              },
+              {
+                "network": "Reddit",
+                "name": "r/Bachata",
+                "url": "https://www.reddit.com/r/Bachata/"
+              },
+              {
+                "network": "Reddit",
+                "name": "r/Dance",
+                "url": "https://www.reddit.com/r/Dance/"
+              }
+            ]
+          }
         },
         {
           "id": "xda0068",
           "name": "Weddings",
           "risk": false,
-          "type": "single"
+          "type": "single",
+          "communities": {
+            "communities": [
+              {
+                "network": "Reddit",
+                "name": "r/ballroom",
+                "url": "https://www.reddit.com/r/ballroom/"
+              },
+              {
+                "network": "Reddit",
+                "name": "r/Dance",
+                "url": "https://www.reddit.com/r/Dance/"
+              }
+            ]
+          }
         },
         {
           "id": "xda0069",
           "name": "Dance weekends & exchanges",
           "risk": false,
-          "type": "single"
+          "type": "single",
+          "communities": {
+            "communities": [
+              {
+                "network": "Reddit",
+                "name": "r/Dance",
+                "url": "https://www.reddit.com/r/Dance/"
+              },
+              {
+                "network": "Reddit",
+                "name": "r/ballroom",
+                "url": "https://www.reddit.com/r/ballroom/"
+              },
+              {
+                "network": "Forum",
+                "name": "Dance Forums",
+                "url": "https://www.dance-forums.com/"
+              }
+            ]
+          }
         },
         {
           "id": "xda0070",
           "name": "Group classes",
           "risk": false,
-          "type": "single"
+          "type": "single",
+          "communities": {
+            "communities": [
+              {
+                "network": "Reddit",
+                "name": "r/Dance",
+                "url": "https://www.reddit.com/r/Dance/"
+              },
+              {
+                "network": "Reddit",
+                "name": "r/ballroom",
+                "url": "https://www.reddit.com/r/ballroom/"
+              },
+              {
+                "network": "Forum",
+                "name": "Dance Forums",
+                "url": "https://www.dance-forums.com/"
+              }
+            ]
+          }
         },
         {
           "id": "xda0071",
           "name": "Private lessons",
           "risk": false,
-          "type": "single"
+          "type": "single",
+          "communities": {
+            "communities": [
+              {
+                "network": "Reddit",
+                "name": "r/Dance",
+                "url": "https://www.reddit.com/r/Dance/"
+              },
+              {
+                "network": "Reddit",
+                "name": "r/ballroom",
+                "url": "https://www.reddit.com/r/ballroom/"
+              },
+              {
+                "network": "Forum",
+                "name": "Dance Forums",
+                "url": "https://www.dance-forums.com/"
+              }
+            ]
+          }
         },
         {
           "id": "xda0072",
           "name": "Dancing outdoors",
           "risk": false,
-          "type": "single"
+          "type": "single",
+          "communities": {
+            "communities": [
+              {
+                "network": "Reddit",
+                "name": "r/Dance",
+                "url": "https://www.reddit.com/r/Dance/"
+              },
+              {
+                "network": "Reddit",
+                "name": "r/ballroom",
+                "url": "https://www.reddit.com/r/ballroom/"
+              },
+              {
+                "network": "Forum",
+                "name": "Dance Forums",
+                "url": "https://www.dance-forums.com/"
+              }
+            ]
+          }
         },
         {
           "id": "xda0073",
           "name": "Dancing at home",
           "risk": false,
-          "type": "single"
+          "type": "single",
+          "communities": {
+            "communities": [
+              {
+                "network": "Reddit",
+                "name": "r/Dance",
+                "url": "https://www.reddit.com/r/Dance/"
+              },
+              {
+                "network": "Reddit",
+                "name": "r/ballroom",
+                "url": "https://www.reddit.com/r/ballroom/"
+              },
+              {
+                "network": "Forum",
+                "name": "Dance Forums",
+                "url": "https://www.dance-forums.com/"
+              }
+            ]
+          }
         }
       ]
     }

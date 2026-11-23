@@ -20762,30 +20762,30 @@
           },
           "xfo0025": {
             "advocacy": {
-              "irresistible-grace": 0,
-              "resistible-grace": 0,
-              "prevenient-grace": 0,
-              "intensity": 0
+              "irresistible-grace": 60,
+              "resistible-grace": -40,
+              "prevenient-grace": 35,
+              "intensity": 60
             },
             "receptivity": {
-              "irresistible-grace": 0,
-              "resistible-grace": 0,
-              "prevenient-grace": 0,
-              "intensity": 0
+              "irresistible-grace": 21,
+              "resistible-grace": -14,
+              "prevenient-grace": 12,
+              "intensity": 21
             }
           },
           "xfo0026": {
             "advocacy": {
-              "unconditional-election-and-reprobation": 0,
-              "election-to-salvation-in-christ": 0,
-              "election-conditioned-on-foreknowledge": 0,
-              "intensity": 0
+              "unconditional-election-and-reprobation": 75,
+              "election-to-salvation-in-christ": -75,
+              "election-conditioned-on-foreknowledge": -35,
+              "intensity": 75
             },
             "receptivity": {
-              "unconditional-election-and-reprobation": 0,
-              "election-to-salvation-in-christ": 0,
-              "election-conditioned-on-foreknowledge": 0,
-              "intensity": 0
+              "unconditional-election-and-reprobation": 26,
+              "election-to-salvation-in-christ": -26,
+              "election-conditioned-on-foreknowledge": -12,
+              "intensity": 26
             }
           },
           "xfo0027": {

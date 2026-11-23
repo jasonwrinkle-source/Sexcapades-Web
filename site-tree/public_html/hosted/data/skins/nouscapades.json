@@ -49,7 +49,25 @@
           },
           "question": "Does cognition require a brain, or only a problem to solve?",
           "source": "Nouscapades design brief 2026-11-21",
-          "communities": []
+          "communities": {
+            "communities": [
+              {
+                "network": "Reddit",
+                "name": "r/consciousness",
+                "url": "https://www.reddit.com/r/consciousness/"
+              },
+              {
+                "network": "Reddit",
+                "name": "r/cogsci",
+                "url": "https://www.reddit.com/r/cogsci/"
+              },
+              {
+                "network": "Forum",
+                "name": "LessWrong",
+                "url": "https://www.lesswrong.com/"
+              }
+            ]
+          }
         },
         {
           "id": "xno0002",
@@ -82,7 +100,25 @@
           },
           "question": "How large a world can a self care about — the here and now, or anywhere, anywhen?",
           "source": "Nouscapades design brief 2026-11-21",
-          "communities": []
+          "communities": {
+            "communities": [
+              {
+                "network": "Reddit",
+                "name": "r/consciousness",
+                "url": "https://www.reddit.com/r/consciousness/"
+              },
+              {
+                "network": "Forum",
+                "name": "LessWrong",
+                "url": "https://www.lesswrong.com/"
+              },
+              {
+                "network": "Reddit",
+                "name": "r/cogsci",
+                "url": "https://www.reddit.com/r/cogsci/"
+              }
+            ]
+          }
         },
         {
           "id": "xno0003",
@@ -131,7 +167,25 @@
           },
           "question": "In which spaces do you grant real intelligence?",
           "source": "Nouscapades design brief 2026-11-21",
-          "communities": []
+          "communities": {
+            "communities": [
+              {
+                "network": "Reddit",
+                "name": "r/cogsci",
+                "url": "https://www.reddit.com/r/cogsci/"
+              },
+              {
+                "network": "Reddit",
+                "name": "r/artificial",
+                "url": "https://www.reddit.com/r/artificial/"
+              },
+              {
+                "network": "Reddit",
+                "name": "r/consciousness",
+                "url": "https://www.reddit.com/r/consciousness/"
+              }
+            ]
+          }
         },
         {
           "id": "xno0004",
@@ -172,7 +226,20 @@
           },
           "question": "Can tissue hold real memory, or only storage?",
           "source": "Nouscapades design brief 2026-11-21",
-          "communities": []
+          "communities": {
+            "communities": [
+              {
+                "network": "Reddit",
+                "name": "r/cogsci",
+                "url": "https://www.reddit.com/r/cogsci/"
+              },
+              {
+                "network": "Reddit",
+                "name": "r/consciousness",
+                "url": "https://www.reddit.com/r/consciousness/"
+              }
+            ]
+          }
         },
         {
           "id": "xno0005",
@@ -213,7 +280,25 @@
           },
           "question": "Does cognition stop at brains, or go all the way down?",
           "source": "Nouscapades design brief 2026-11-21",
-          "communities": []
+          "communities": {
+            "communities": [
+              {
+                "network": "Reddit",
+                "name": "r/consciousness",
+                "url": "https://www.reddit.com/r/consciousness/"
+              },
+              {
+                "network": "Reddit",
+                "name": "r/cogsci",
+                "url": "https://www.reddit.com/r/cogsci/"
+              },
+              {
+                "network": "Forum",
+                "name": "LessWrong",
+                "url": "https://www.lesswrong.com/"
+              }
+            ]
+          }
         }
       ]
     },
@@ -261,7 +346,20 @@
           },
           "question": "Is selfhood a switch or a spectrum?",
           "source": "Nouscapades design brief 2026-11-21",
-          "communities": []
+          "communities": {
+            "communities": [
+              {
+                "network": "Reddit",
+                "name": "r/consciousness",
+                "url": "https://www.reddit.com/r/consciousness/"
+              },
+              {
+                "network": "Stack Exchange",
+                "name": "Philosophy Stack Exchange",
+                "url": "https://philosophy.stackexchange.com/"
+              }
+            ]
+          }
         },
         {
           "id": "xno0007",
@@ -302,7 +400,20 @@
           },
           "question": "Is only one level of you the real self, or is every level real?",
           "source": "Nouscapades design brief 2026-11-21",
-          "communities": []
+          "communities": {
+            "communities": [
+              {
+                "network": "Reddit",
+                "name": "r/consciousness",
+                "url": "https://www.reddit.com/r/consciousness/"
+              },
+              {
+                "network": "Reddit",
+                "name": "r/askphilosophy",
+                "url": "https://www.reddit.com/r/askphilosophy/"
+              }
+            ]
+          }
         },
         {
           "id": "xno0008",
@@ -343,7 +454,20 @@
           },
           "question": "What draws the line around a self — skin, bioelectric boundary, or story?",
           "source": "Nouscapades design brief 2026-11-21",
-          "communities": []
+          "communities": {
+            "communities": [
+              {
+                "network": "Reddit",
+                "name": "r/askphilosophy",
+                "url": "https://www.reddit.com/r/askphilosophy/"
+              },
+              {
+                "network": "Stack Exchange",
+                "name": "Philosophy Stack Exchange",
+                "url": "https://philosophy.stackexchange.com/"
+              }
+            ]
+          }
         },
         {
           "id": "xno0009",
@@ -384,7 +508,20 @@
           },
           "question": "When the worm is cut in half, what happens to the original self?",
           "source": "Nouscapades design brief 2026-11-21",
-          "communities": []
+          "communities": {
+            "communities": [
+              {
+                "network": "Reddit",
+                "name": "r/consciousness",
+                "url": "https://www.reddit.com/r/consciousness/"
+              },
+              {
+                "network": "Forum",
+                "name": "LessWrong",
+                "url": "https://www.lesswrong.com/"
+              }
+            ]
+          }
         },
         {
           "id": "xno0010",
@@ -425,7 +562,20 @@
           },
           "question": "Is a self's size fixed by its body, or set by the size of its goals?",
           "source": "Nouscapades design brief 2026-11-21",
-          "communities": []
+          "communities": {
+            "communities": [
+              {
+                "network": "Reddit",
+                "name": "r/consciousness",
+                "url": "https://www.reddit.com/r/consciousness/"
+              },
+              {
+                "network": "Forum",
+                "name": "LessWrong",
+                "url": "https://www.lesswrong.com/"
+              }
+            ]
+          }
         }
       ]
     },
@@ -489,7 +639,25 @@
           },
           "question": "What does a thing need before you call it alive?",
           "source": "Nouscapades design brief 2026-11-21",
-          "communities": []
+          "communities": {
+            "communities": [
+              {
+                "network": "Reddit",
+                "name": "r/askphilosophy",
+                "url": "https://www.reddit.com/r/askphilosophy/"
+              },
+              {
+                "network": "Stack Exchange",
+                "name": "Philosophy Stack Exchange",
+                "url": "https://philosophy.stackexchange.com/"
+              },
+              {
+                "network": "Reddit",
+                "name": "r/consciousness",
+                "url": "https://www.reddit.com/r/consciousness/"
+              }
+            ]
+          }
         },
         {
           "id": "xno0012",
@@ -530,7 +698,25 @@
           },
           "question": "Is an anthrobot an organism, a machine, or a third kind of thing?",
           "source": "Nouscapades design brief 2026-11-21",
-          "communities": []
+          "communities": {
+            "communities": [
+              {
+                "network": "Reddit",
+                "name": "r/singularity",
+                "url": "https://www.reddit.com/r/singularity/"
+              },
+              {
+                "network": "Reddit",
+                "name": "r/artificial",
+                "url": "https://www.reddit.com/r/artificial/"
+              },
+              {
+                "network": "Forum",
+                "name": "LessWrong",
+                "url": "https://www.lesswrong.com/"
+              }
+            ]
+          }
         },
         {
           "id": "xno0013",
@@ -571,7 +757,20 @@
           },
           "question": "Can a being be genuinely new, or is its nature always inherited?",
           "source": "Nouscapades design brief 2026-11-21",
-          "communities": []
+          "communities": {
+            "communities": [
+              {
+                "network": "Reddit",
+                "name": "r/singularity",
+                "url": "https://www.reddit.com/r/singularity/"
+              },
+              {
+                "network": "Reddit",
+                "name": "r/artificial",
+                "url": "https://www.reddit.com/r/artificial/"
+              }
+            ]
+          }
         },
         {
           "id": "xno0014",
@@ -612,7 +811,20 @@
           },
           "question": "What do we owe a being we made by accident?",
           "source": "Nouscapades design brief 2026-11-21",
-          "communities": []
+          "communities": {
+            "communities": [
+              {
+                "network": "Reddit",
+                "name": "r/askphilosophy",
+                "url": "https://www.reddit.com/r/askphilosophy/"
+              },
+              {
+                "network": "Stack Exchange",
+                "name": "Philosophy Stack Exchange",
+                "url": "https://philosophy.stackexchange.com/"
+              }
+            ]
+          }
         },
         {
           "id": "xno0015",
@@ -653,7 +865,20 @@
           },
           "question": "Who answers for what a novel being does — its makers, or itself?",
           "source": "Nouscapades design brief 2026-11-21",
-          "communities": []
+          "communities": {
+            "communities": [
+              {
+                "network": "Reddit",
+                "name": "r/askphilosophy",
+                "url": "https://www.reddit.com/r/askphilosophy/"
+              },
+              {
+                "network": "Reddit",
+                "name": "r/philosophy",
+                "url": "https://www.reddit.com/r/philosophy/"
+              }
+            ]
+          }
         }
       ]
     },
@@ -701,7 +926,25 @@
           },
           "question": "Is bioelectric voltage a real code, or just chemistry's exhaust?",
           "source": "Nouscapades design brief 2026-11-21",
-          "communities": []
+          "communities": {
+            "communities": [
+              {
+                "network": "Forum",
+                "name": "Hacker News",
+                "url": "https://news.ycombinator.com/"
+              },
+              {
+                "network": "Forum",
+                "name": "LessWrong",
+                "url": "https://www.lesswrong.com/"
+              },
+              {
+                "network": "Reddit",
+                "name": "r/consciousness",
+                "url": "https://www.reddit.com/r/consciousness/"
+              }
+            ]
+          }
         },
         {
           "id": "xno0017",
@@ -742,7 +985,20 @@
           },
           "question": "Is the body's target shape read off the genes, or held as a memory?",
           "source": "Nouscapades design brief 2026-11-21",
-          "communities": []
+          "communities": {
+            "communities": [
+              {
+                "network": "Forum",
+                "name": "Hacker News",
+                "url": "https://news.ycombinator.com/"
+              },
+              {
+                "network": "Forum",
+                "name": "LessWrong",
+                "url": "https://www.lesswrong.com/"
+              }
+            ]
+          }
         },
         {
           "id": "xno0018",
@@ -783,7 +1039,20 @@
           },
           "question": "Is cancer broken machinery, or cells defecting to a smaller self?",
           "source": "Nouscapades design brief 2026-11-21",
-          "communities": []
+          "communities": {
+            "communities": [
+              {
+                "network": "Forum",
+                "name": "Hacker News",
+                "url": "https://news.ycombinator.com/"
+              },
+              {
+                "network": "Forum",
+                "name": "LessWrong",
+                "url": "https://www.lesswrong.com/"
+              }
+            ]
+          }
         },
         {
           "id": "xno0019",
@@ -824,7 +1093,25 @@
           },
           "question": "Should medicine fix the hardware, or persuade the software?",
           "source": "Nouscapades design brief 2026-11-21",
-          "communities": []
+          "communities": {
+            "communities": [
+              {
+                "network": "Forum",
+                "name": "Hacker News",
+                "url": "https://news.ycombinator.com/"
+              },
+              {
+                "network": "Forum",
+                "name": "LessWrong",
+                "url": "https://www.lesswrong.com/"
+              },
+              {
+                "network": "Reddit",
+                "name": "r/singularity",
+                "url": "https://www.reddit.com/r/singularity/"
+              }
+            ]
+          }
         },
         {
           "id": "xno0020",
@@ -865,7 +1152,20 @@
           },
           "question": "Is regeneration controlled by micromanagement, or by briefing competent parts?",
           "source": "Nouscapades design brief 2026-11-21",
-          "communities": []
+          "communities": {
+            "communities": [
+              {
+                "network": "Forum",
+                "name": "Hacker News",
+                "url": "https://news.ycombinator.com/"
+              },
+              {
+                "network": "Forum",
+                "name": "LessWrong",
+                "url": "https://www.lesswrong.com/"
+              }
+            ]
+          }
         }
       ]
     },
@@ -913,7 +1213,25 @@
           },
           "question": "Are goals without a brain metaphor, or literal?",
           "source": "Nouscapades design brief 2026-11-21",
-          "communities": []
+          "communities": {
+            "communities": [
+              {
+                "network": "Reddit",
+                "name": "r/consciousness",
+                "url": "https://www.reddit.com/r/consciousness/"
+              },
+              {
+                "network": "Reddit",
+                "name": "r/cogsci",
+                "url": "https://www.reddit.com/r/cogsci/"
+              },
+              {
+                "network": "Forum",
+                "name": "LessWrong",
+                "url": "https://www.lesswrong.com/"
+              }
+            ]
+          }
         },
         {
           "id": "xno0022",
@@ -954,7 +1272,20 @@
           },
           "question": "Is competency only the whole animal's, or does every level have it?",
           "source": "Nouscapades design brief 2026-11-21",
-          "communities": []
+          "communities": {
+            "communities": [
+              {
+                "network": "Reddit",
+                "name": "r/cogsci",
+                "url": "https://www.reddit.com/r/cogsci/"
+              },
+              {
+                "network": "Forum",
+                "name": "LessWrong",
+                "url": "https://www.lesswrong.com/"
+              }
+            ]
+          }
         },
         {
           "id": "xno0023",
@@ -995,7 +1326,20 @@
           },
           "question": "Does a cell choose, or does choice need a mind?",
           "source": "Nouscapades design brief 2026-11-21",
-          "communities": []
+          "communities": {
+            "communities": [
+              {
+                "network": "Reddit",
+                "name": "r/consciousness",
+                "url": "https://www.reddit.com/r/consciousness/"
+              },
+              {
+                "network": "Reddit",
+                "name": "r/askphilosophy",
+                "url": "https://www.reddit.com/r/askphilosophy/"
+              }
+            ]
+          }
         },
         {
           "id": "xno0024",
@@ -1036,7 +1380,20 @@
           },
           "question": "Is stress just chemistry, or a self losing its grip on its parts?",
           "source": "Nouscapades design brief 2026-11-21",
-          "communities": []
+          "communities": {
+            "communities": [
+              {
+                "network": "Reddit",
+                "name": "r/consciousness",
+                "url": "https://www.reddit.com/r/consciousness/"
+              },
+              {
+                "network": "Reddit",
+                "name": "r/cogsci",
+                "url": "https://www.reddit.com/r/cogsci/"
+              }
+            ]
+          }
         },
         {
           "id": "xno0025",
@@ -1077,7 +1434,20 @@
           },
           "question": "Is the human scale the real one, or is no scale privileged?",
           "source": "Nouscapades design brief 2026-11-21",
-          "communities": []
+          "communities": {
+            "communities": [
+              {
+                "network": "Reddit",
+                "name": "r/consciousness",
+                "url": "https://www.reddit.com/r/consciousness/"
+              },
+              {
+                "network": "Stack Exchange",
+                "name": "Philosophy Stack Exchange",
+                "url": "https://philosophy.stackexchange.com/"
+              }
+            ]
+          }
         }
       ]
     },
@@ -1125,7 +1495,20 @@
           },
           "question": "Is death one event, or many deaths at different times?",
           "source": "Nouscapades design brief 2026-11-21",
-          "communities": []
+          "communities": {
+            "communities": [
+              {
+                "network": "Reddit",
+                "name": "r/askphilosophy",
+                "url": "https://www.reddit.com/r/askphilosophy/"
+              },
+              {
+                "network": "Stack Exchange",
+                "name": "Philosophy Stack Exchange",
+                "url": "https://philosophy.stackexchange.com/"
+              }
+            ]
+          }
         },
         {
           "id": "xno0027",
@@ -1166,7 +1549,20 @@
           },
           "question": "Are parts that outlive the whole leftovers, or selves in their own right?",
           "source": "Nouscapades design brief 2026-11-21",
-          "communities": []
+          "communities": {
+            "communities": [
+              {
+                "network": "Reddit",
+                "name": "r/consciousness",
+                "url": "https://www.reddit.com/r/consciousness/"
+              },
+              {
+                "network": "Reddit",
+                "name": "r/askphilosophy",
+                "url": "https://www.reddit.com/r/askphilosophy/"
+              }
+            ]
+          }
         },
         {
           "id": "xno0028",
@@ -1207,7 +1603,20 @@
           },
           "question": "Through total part replacement, is the pattern the self — or is the self lost?",
           "source": "Nouscapades design brief 2026-11-21",
-          "communities": []
+          "communities": {
+            "communities": [
+              {
+                "network": "Stack Exchange",
+                "name": "Philosophy Stack Exchange",
+                "url": "https://philosophy.stackexchange.com/"
+              },
+              {
+                "network": "Reddit",
+                "name": "r/askphilosophy",
+                "url": "https://www.reddit.com/r/askphilosophy/"
+              }
+            ]
+          }
         },
         {
           "id": "xno0029",
@@ -1248,7 +1657,20 @@
           },
           "question": "When does a self actually end?",
           "source": "Nouscapades design brief 2026-11-21",
-          "communities": []
+          "communities": {
+            "communities": [
+              {
+                "network": "Reddit",
+                "name": "r/consciousness",
+                "url": "https://www.reddit.com/r/consciousness/"
+              },
+              {
+                "network": "Reddit",
+                "name": "r/askphilosophy",
+                "url": "https://www.reddit.com/r/askphilosophy/"
+              }
+            ]
+          }
         }
       ]
     },
@@ -1296,7 +1718,20 @@
           },
           "question": "Is the moral circle finished, or does it keep expanding?",
           "source": "Nouscapades design brief 2026-11-21",
-          "communities": []
+          "communities": {
+            "communities": [
+              {
+                "network": "Reddit",
+                "name": "r/askphilosophy",
+                "url": "https://www.reddit.com/r/askphilosophy/"
+              },
+              {
+                "network": "Reddit",
+                "name": "r/philosophy",
+                "url": "https://www.reddit.com/r/philosophy/"
+              }
+            ]
+          }
         },
         {
           "id": "xno0031",
@@ -1337,7 +1772,20 @@
           },
           "question": "Can anything suffer at small scales, or does suffering need a brain like ours?",
           "source": "Nouscapades design brief 2026-11-21",
-          "communities": []
+          "communities": {
+            "communities": [
+              {
+                "network": "Reddit",
+                "name": "r/askphilosophy",
+                "url": "https://www.reddit.com/r/askphilosophy/"
+              },
+              {
+                "network": "Reddit",
+                "name": "r/consciousness",
+                "url": "https://www.reddit.com/r/consciousness/"
+              }
+            ]
+          }
         },
         {
           "id": "xno0032",
@@ -1378,7 +1826,20 @@
           },
           "question": "Should moral status track the size of a being's light cone, or is size irrelevant?",
           "source": "Nouscapades design brief 2026-11-21",
-          "communities": []
+          "communities": {
+            "communities": [
+              {
+                "network": "Reddit",
+                "name": "r/consciousness",
+                "url": "https://www.reddit.com/r/consciousness/"
+              },
+              {
+                "network": "Forum",
+                "name": "LessWrong",
+                "url": "https://www.lesswrong.com/"
+              }
+            ]
+          }
         },
         {
           "id": "xno0033",
@@ -1419,7 +1880,25 @@
           },
           "question": "Does mind need living tissue, or can any self-modeling substrate host one?",
           "source": "Nouscapades design brief 2026-11-21",
-          "communities": []
+          "communities": {
+            "communities": [
+              {
+                "network": "Reddit",
+                "name": "r/artificial",
+                "url": "https://www.reddit.com/r/artificial/"
+              },
+              {
+                "network": "Reddit",
+                "name": "r/singularity",
+                "url": "https://www.reddit.com/r/singularity/"
+              },
+              {
+                "network": "Reddit",
+                "name": "r/consciousness",
+                "url": "https://www.reddit.com/r/consciousness/"
+              }
+            ]
+          }
         },
         {
           "id": "xno0034",
@@ -1460,7 +1939,20 @@
           },
           "question": "Are humans a different kind of thing, or one self among many?",
           "source": "Nouscapades design brief 2026-11-21",
-          "communities": []
+          "communities": {
+            "communities": [
+              {
+                "network": "Reddit",
+                "name": "r/askphilosophy",
+                "url": "https://www.reddit.com/r/askphilosophy/"
+              },
+              {
+                "network": "Reddit",
+                "name": "r/philosophy",
+                "url": "https://www.reddit.com/r/philosophy/"
+              }
+            ]
+          }
         }
       ]
     },
@@ -1508,7 +2000,20 @@
           },
           "question": "How far does your own concern actually reach?",
           "source": "Nouscapades design brief 2026-11-21",
-          "communities": []
+          "communities": {
+            "communities": [
+              {
+                "network": "Reddit",
+                "name": "r/consciousness",
+                "url": "https://www.reddit.com/r/consciousness/"
+              },
+              {
+                "network": "Forum",
+                "name": "LessWrong",
+                "url": "https://www.lesswrong.com/"
+              }
+            ]
+          }
         },
         {
           "id": "xno0036",
@@ -1549,7 +2054,20 @@
           },
           "question": "Is meaning found, or made?",
           "source": "Nouscapades design brief 2026-11-21",
-          "communities": []
+          "communities": {
+            "communities": [
+              {
+                "network": "Reddit",
+                "name": "r/askphilosophy",
+                "url": "https://www.reddit.com/r/askphilosophy/"
+              },
+              {
+                "network": "Stack Exchange",
+                "name": "Philosophy Stack Exchange",
+                "url": "https://philosophy.stackexchange.com/"
+              }
+            ]
+          }
         },
         {
           "id": "xno0037",
@@ -1590,7 +2108,20 @@
           },
           "question": "Does purpose come from above, or is it generated at every scale?",
           "source": "Nouscapades design brief 2026-11-21",
-          "communities": []
+          "communities": {
+            "communities": [
+              {
+                "network": "Reddit",
+                "name": "r/consciousness",
+                "url": "https://www.reddit.com/r/consciousness/"
+              },
+              {
+                "network": "Reddit",
+                "name": "r/askphilosophy",
+                "url": "https://www.reddit.com/r/askphilosophy/"
+              }
+            ]
+          }
         },
         {
           "id": "xno0038",
@@ -1631,7 +2162,20 @@
           },
           "question": "Are you one unified self, or a committee that mostly agrees?",
           "source": "Nouscapades design brief 2026-11-21",
-          "communities": []
+          "communities": {
+            "communities": [
+              {
+                "network": "Reddit",
+                "name": "r/consciousness",
+                "url": "https://www.reddit.com/r/consciousness/"
+              },
+              {
+                "network": "Reddit",
+                "name": "r/cogsci",
+                "url": "https://www.reddit.com/r/cogsci/"
+              }
+            ]
+          }
         },
         {
           "id": "xno0039",
@@ -1672,7 +2216,20 @@
           },
           "question": "What happens to the hard problem on a spectrum of selves?",
           "source": "Nouscapades design brief 2026-11-21",
-          "communities": []
+          "communities": {
+            "communities": [
+              {
+                "network": "Reddit",
+                "name": "r/consciousness",
+                "url": "https://www.reddit.com/r/consciousness/"
+              },
+              {
+                "network": "Stack Exchange",
+                "name": "Philosophy Stack Exchange",
+                "url": "https://philosophy.stackexchange.com/"
+              }
+            ]
+          }
         }
       ]
     }
