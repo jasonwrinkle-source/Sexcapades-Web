@@ -641,11 +641,11 @@ const TAXONOMY_CATEGORIES = [];
             } catch (e) { /* fall through to inline map */ }
             try {
                 var q = new URLSearchParams(location.search || "").get("skin");
-                var known = ["sexcapades", "poliscapades", "forescapades", "philoscapades", "aesthcapades", "vocapades", "techcapades", "dharmacapades", "theoricapades", "praxicapades", "quantacapades", "expericapades", "simulcapades", "mattercapades", "chemcapades", "nouscapades", "dancecapades", "questcapades"];
+                var known = ["sexcapades", "poliscapades", "forescapades", "philoscapades", "aesthcapades", "vocapades", "techcapades", "dharmacapades", "theoricapades", "praxicapades", "quantacapades", "expericapades", "simulcapades", "mattercapades", "chemcapades", "nouscapades", "biocapades", "dancecapades", "questcapades"];
                 if (q && known.indexOf(q) !== -1) return q;
                 var host = (location.hostname || "").toLowerCase();
                 if (host === "sexcapades.io" || host === "www.sexcapades.io" || host === "flex.capades.io" || host === "capades.io") return "sexcapades";
-                var map = { sex: "sexcapades", polis: "poliscapades", fores: "forescapades", philo: "philoscapades", aesth: "aesthcapades", voca: "vocapades", tech: "techcapades", dharma: "dharmacapades", theori: "theoricapades", praxi: "praxicapades", quanta: "quantacapades", experi: "expericapades", simul: "simulcapades", matter: "mattercapades", chem: "chemcapades", nous: "nouscapades", dance: "dancecapades", quest: "questcapades" };
+                var map = { sex: "sexcapades", polis: "poliscapades", fores: "forescapades", philo: "philoscapades", aesth: "aesthcapades", voca: "vocapades", tech: "techcapades", dharma: "dharmacapades", theori: "theoricapades", praxi: "praxicapades", quanta: "quantacapades", experi: "expericapades", simul: "simulcapades", matter: "mattercapades", chem: "chemcapades", nous: "nouscapades", bio: "biocapades", dance: "dancecapades", quest: "questcapades" };
                 var prefix = /\.capades\.io$/.test(host) ? host.split(".")[0] : "";
                 if (prefix && map[prefix]) return map[prefix];
             } catch (e) { /* default below */ }
@@ -4062,6 +4062,39 @@ const he = [ [ "t0281", "t0240" ] ];
                 color: "#ee925f",
                 glyph: '<path class="icon-glyph" d="M12 6.5a3 3 0 1 0 0-6 3 3 0 0 0 0 6 M12 7.5V15 M4.5 10.5L12 8l7.5 2.5 M9 21l3-6 3 6"/>'
             },
+            /* Flexcapades skin categories: Biocapades (8). Per-category pictograms; distinct colors and glyphs carry the category identity on the map. */
+            "What counts as alive": {
+                color: "#7fc96b",
+                glyph: '<path class="icon-glyph" d="M12 3a9 9 0 1 0 0 18 9 9 0 0 0 0-18 M12 9.3a2.7 2.7 0 1 0 0 5.4 2.7 2.7 0 0 0 0-5.4 M17.2 6.8h.3 M6.4 15.2h.3 M16.2 16.8h.3"/>'
+            },
+            "Evolution's engine": {
+                color: "#e0a458",
+                glyph: '<path class="icon-glyph" d="M12 21v-6 M12 15c-.5-3-2.5-5-6-5.8 M12 15c.5-3 2.5-5 6-5.8 M6 9.2C5.8 6.8 7 5 9.2 4.2 M18 9.2c.2-2.4-1-4.2-3.2-5"/>'
+            },
+            "Genes & inheritance": {
+                color: "#6ba8e0",
+                glyph: '<path class="icon-glyph" d="M8 3c0 6 8 6.5 8 9.5S8 18 8 21 M16 3c0 6-8 6.5-8 9.5s8 5.5 8 8 M8.6 6.8h6.8 M8.6 17.2h6.8 M9.8 12h4.4"/>'
+            },
+            "Minds & behavior": {
+                color: "#c98bd9",
+                glyph: '<path class="icon-glyph" d="M2.5 12C5 6.8 8.4 4.2 12 4.2S19 6.8 21.5 12C19 17.2 15.6 19.8 12 19.8S5 17.2 2.5 12Z M12 15.4a3.4 3.4 0 1 0 0-6.8 3.4 3.4 0 0 0 0 6.8Z"/>'
+            },
+            "The cell, the body & aging": {
+                color: "#d97b6c",
+                glyph: '<path class="icon-glyph" d="M6.5 3h11 M6.5 21h11 M7.2 3c.6 3.8 2.2 6.4 4.8 8.6-2.6 2.2-4.2 4.8-4.8 8.6 M16.8 3c-.6 3.8-2.2 6.4-4.8 8.6 2.6 2.2 4.2 4.8 4.8 8.6"/>'
+            },
+            "Editing life": {
+                color: "#d9c84f",
+                glyph: '<path class="icon-glyph" d="M5 19l1-3.8L16.6 4.6a2.1 2.1 0 0 1 3 3L9 18.2 5 19Z M14.6 6.6l3 3"/>'
+            },
+            "Deep time & ecology": {
+                color: "#5dbb8a",
+                glyph: '<path class="icon-glyph" d="M12 13.5V8 M12 8C12 5 9.8 3.2 6 3.2c0 3.2 2.2 4.8 6 4.8 M12 8c0-3 2.2-4.8 6-4.8 0 3.2-2.2 4.8-6 4.8 M4 17h16 M6.5 20.5h11"/>'
+            },
+            "Life elsewhere & everywhere": {
+                color: "#8fb8e8",
+                glyph: '<path class="icon-glyph" d="M12 6.7a5.3 5.3 0 1 0 0 10.6 5.3 5.3 0 0 0 0-10.6 M3 14.5c-1 .4-1.5 1-1.2 1.7.5 1.2 4.9 1.7 10.2 1.2 5.3-.5 9.3-1.8 10-3.1.3-.8-.3-1.4-1.4-1.8"/>'
+            },
         };
 
         const me = e => `<path class="icon-glyph" d="${e}"/>`, fe = (e, t, n) => `<circle class="icon-glyph" cx="${e}" cy="${t}" r="${n}"/>`, ye = {
@@ -7346,6 +7379,39 @@ const Ce = {
                 color: "#ee925f",
                 glyph: '<path class="icon-glyph" d="M12 6.5a3 3 0 1 0 0-6 3 3 0 0 0 0 6 M12 7.5V15 M4.5 10.5L12 8l7.5 2.5 M9 21l3-6 3 6"/>'
             },
+            /* Flexcapades skin categories: Biocapades (8). Per-category pictograms; distinct colors and glyphs carry the category identity on the map. */
+            "What counts as alive": {
+                color: "#7fc96b",
+                glyph: '<path class="icon-glyph" d="M12 3a9 9 0 1 0 0 18 9 9 0 0 0 0-18 M12 9.3a2.7 2.7 0 1 0 0 5.4 2.7 2.7 0 0 0 0-5.4 M17.2 6.8h.3 M6.4 15.2h.3 M16.2 16.8h.3"/>'
+            },
+            "Evolution's engine": {
+                color: "#e0a458",
+                glyph: '<path class="icon-glyph" d="M12 21v-6 M12 15c-.5-3-2.5-5-6-5.8 M12 15c.5-3 2.5-5 6-5.8 M6 9.2C5.8 6.8 7 5 9.2 4.2 M18 9.2c.2-2.4-1-4.2-3.2-5"/>'
+            },
+            "Genes & inheritance": {
+                color: "#6ba8e0",
+                glyph: '<path class="icon-glyph" d="M8 3c0 6 8 6.5 8 9.5S8 18 8 21 M16 3c0 6-8 6.5-8 9.5s8 5.5 8 8 M8.6 6.8h6.8 M8.6 17.2h6.8 M9.8 12h4.4"/>'
+            },
+            "Minds & behavior": {
+                color: "#c98bd9",
+                glyph: '<path class="icon-glyph" d="M2.5 12C5 6.8 8.4 4.2 12 4.2S19 6.8 21.5 12C19 17.2 15.6 19.8 12 19.8S5 17.2 2.5 12Z M12 15.4a3.4 3.4 0 1 0 0-6.8 3.4 3.4 0 0 0 0 6.8Z"/>'
+            },
+            "The cell, the body & aging": {
+                color: "#d97b6c",
+                glyph: '<path class="icon-glyph" d="M6.5 3h11 M6.5 21h11 M7.2 3c.6 3.8 2.2 6.4 4.8 8.6-2.6 2.2-4.2 4.8-4.8 8.6 M16.8 3c-.6 3.8-2.2 6.4-4.8 8.6 2.6 2.2 4.2 4.8 4.8 8.6"/>'
+            },
+            "Editing life": {
+                color: "#d9c84f",
+                glyph: '<path class="icon-glyph" d="M5 19l1-3.8L16.6 4.6a2.1 2.1 0 0 1 3 3L9 18.2 5 19Z M14.6 6.6l3 3"/>'
+            },
+            "Deep time & ecology": {
+                color: "#5dbb8a",
+                glyph: '<path class="icon-glyph" d="M12 13.5V8 M12 8C12 5 9.8 3.2 6 3.2c0 3.2 2.2 4.8 6 4.8 M12 8c0-3 2.2-4.8 6-4.8 0 3.2-2.2 4.8-6 4.8 M4 17h16 M6.5 20.5h11"/>'
+            },
+            "Life elsewhere & everywhere": {
+                color: "#8fb8e8",
+                glyph: '<path class="icon-glyph" d="M12 6.7a5.3 5.3 0 1 0 0 10.6 5.3 5.3 0 0 0 0-10.6 M3 14.5c-1 .4-1.5 1-1.2 1.7.5 1.2 4.9 1.7 10.2 1.2 5.3-.5 9.3-1.8 10-3.1.3-.8-.3-1.4-1.4-1.8"/>'
+            },
         }, me = e => `<path class="icon-glyph" d="${e}"/>`, fe = (e, t, n) => `<circle class="icon-glyph" cx="${e}" cy="${t}" r="${n}"/>`, ye = {
             compass: me("M8 2v12M2 8h12m-4-2-2 2-2 2 2-2Z"),
             checklist: me("M3 3h10v10H3Zm2 3 1 1 2-2m-3 5 1 1 2-2m2-3h2m-2 4h2"),
@@ -7690,9 +7756,8 @@ const Ce = {
         for (const _subName of Object.keys(Ee)) {
             if (!(Ee[_subName] in ye)) throw new Error(`Sexcapades glyph check: subcategory "${_subName}" maps to glyph "${Ee[_subName]}", which is missing from the ye glyph dictionary`);
         }
-        const _beTable = window.__SX_EXPORT_BE || {};
-        for (const _branchName of Object.keys(_beTable)) {
-            for (const _glyphName of _beTable[_branchName]) {
+        for (const _branchName of Object.keys(be)) {
+            for (const _glyphName of be[_branchName]) {
                 if (!(_glyphName in ye)) throw new Error(`Sexcapades glyph check: branch "${_branchName}" lists glyph "${_glyphName}", which is missing from the ye glyph dictionary`);
             }
         }
@@ -7878,9 +7943,9 @@ const Ce = {
             // Topic-icon inheritance (owner ruling 2026-11-23): a topic
             // with no glyph of its own in ve inherits its category's
             // descriptor glyph from ge instead of the generic star.
-            // Topics present in ve or registered in window.__SX_SKIN_TOPIC_GLYPHS
-            // are untouched and use their assigned glyph.
-            const _veKey = t + "\0" + e, _skinGlyph = typeof window !== "undefined" && window.__SX_SKIN_TOPIC_GLYPHS ? window.__SX_SKIN_TOPIC_GLYPHS[_veKey] : null, n = _skinGlyph || (window.__SX_EXPORT_BE?.[t] ? ve.get(_veKey) : null) || ve.get(_veKey) || "star", _ownGlyph = Boolean((_skinGlyph && _skinGlyph in ye) || (ve.has(_veKey) && n in ye)), _catDesc = !_ownGlyph && ge && ge[t] && ge[t].glyph ? ge[t] : null, _glyphFallback = !_ownGlyph && !_catDesc, i = _e.get(_veKey) || 0, a = Le(e, t);
+            // Topics present in ve (every Sexcapades catalog topic,
+            // including any assigned the star itself) are untouched.
+            const _veKey = t + "\0" + e, n = ve.get(_veKey) || "star", _ownGlyph = ve.has(_veKey) && n in ye, _catDesc = !_ownGlyph && ge && ge[t] && ge[t].glyph ? ge[t] : null, _glyphFallback = !_ownGlyph && !_catDesc, i = _e.get(_veKey) || 0, a = Le(e, t);
             return {
                 glyph: _ownGlyph ? ye[n] : _catDesc ? _catDesc.glyph : ye.star,
                 glyphFallback: _glyphFallback,
@@ -27822,6 +27887,70 @@ function* sxRunNodeSettle(scCtx, blitSess) {
                     sxUpdateSwitchboxReadouts(sxSwitchboxState.give, sxSwitchboxState.receive, isUnrated);
                 }
             }
+            sxSyncLinearIntensities(id, rec, shape);
+        }
+        /* Placement intensities for the slider family + switchbox (2026-11-23):
+           the canvas widgets carry disc/ring intensity sliders; the linear
+           family, the line, and the switchbox stored the same per-placement
+           intensity with no slider to write it. These two boxes mirror the
+           canvas pattern -- disc thumb writes advocacy intensity, ring thumb
+           writes receptivity intensity, poles untouched. */
+        function sxWritePlacementIntensity(mode, v) {
+            if (!Qr) return;
+            try {
+                const o = Io(Vi());
+                const raw = (o && o[Qr] && typeof o[Qr] === "object") ? o[Qr] : {};
+                const placement = (raw[mode] && typeof raw[mode] === "object") ? raw[mode] : {};
+                const values = {};
+                Object.keys(placement).forEach(k => { if (k !== "intensity") values[k] = placement[k]; });
+                if (typeof sxPersistAdvocacyReceptivity === "function") sxPersistAdvocacyReceptivity(Qr, mode, values, v, Vi());
+                else if (typeof sxPersistIntensity === "function") sxPersistIntensity(Qr, v, Vi());
+            } catch (err) {}
+        }
+        function sxSyncLinearIntensities(id, rec, shape) {
+            const linBox = e.byId("markLinearIntensityBox"), swBox = e.byId("markSwitchboxIntensityBox");
+            if (!linBox && !swBox) return;
+            const w = (shape && shape.widget) || "";
+            const inLinear = w === "linear-sliders" || w === "trilinear-sliders" || w === "quad-sliders" || w === "monopole-slider" || w === "trilinear-line" || Boolean(shape && shape.single);
+            const inSwitch = w === "xy-switchbox";
+            let dual = false;
+            try { dual = typeof sxDualPlacements === "function" && sxDualPlacements(id); } catch (err) { dual = false; }
+            // Flat-line records (scalar "line", no placements) keep today's
+            // behavior; the box serves dual-placement records only.
+            if (w === "trilinear-line" && !(rec && (rec.advocacy || rec.receptivity))) dual = false;
+            if (linBox) linBox.hidden = !(inLinear && dual);
+            if (swBox) swBox.hidden = !(inSwitch && dual);
+            if ((!inLinear && !inSwitch) || !dual) return;
+            const seed = (p) => {
+                if (!p) return 0;
+                if (Number.isFinite(Number(p.intensity))) return Math.round(Number(p.intensity));
+                let best = 0;
+                Object.keys(p).forEach(k => {
+                    if (k === "intensity" || k === "known") return;
+                    const v = Number(p[k]);
+                    if (Number.isFinite(v) && Math.abs(v) > Math.abs(best)) best = v;
+                });
+                return Math.round(best);
+            };
+            const bind = (input, out, mode, p) => {
+                if (!input) return;
+                const val = seed(p);
+                if (typeof sxWidenIntensitySlider === "function") { try { sxWidenIntensitySlider(input, val); } catch (err) {} }
+                const lo = Number(input.min || -100), hi = Number(input.max || 100);
+                input.value = String(Math.max(lo, Math.min(hi, val)));
+                if (out) out.textContent = String(val);
+                if (!input.dataset.sxBound) {
+                    input.dataset.sxBound = "1";
+                    input.addEventListener("input", () => {
+                        const v = Math.max(-400, Math.min(400, Math.round(Number(input.value) || 0)));
+                        if (out) out.textContent = String(v);
+                        sxWritePlacementIntensity(mode, v);
+                    });
+                }
+            };
+            const base = inLinear ? "markLinear" : "markSwitchbox";
+            bind(e.byId(base + "Intensity"), e.byId(base + "IntensityOut"), "advocacy", rec && rec.advocacy);
+            bind(e.byId(base + "RecIntensity"), e.byId(base + "RecIntensityOut"), "receptivity", rec && rec.receptivity);
         }
         function sxBindMarkRatings() {
             sxBindTriangleWidget();
@@ -29490,11 +29619,11 @@ function* sxRunNodeSettle(scCtx, blitSess) {
                 }
                 if (!target || target === "sexcapades") {
                     const q = new URLSearchParams(location.search || "").get("skin");
-                    const known = ["sexcapades", "poliscapades", "forescapades", "philoscapades", "aesthcapades", "vocapades", "techcapades", "dharmacapades", "theoricapades", "praxicapades", "quantacapades", "expericapades", "simulcapades", "mattercapades", "chemcapades", "nouscapades", "dancecapades", "questcapades"];
+                    const known = ["sexcapades", "poliscapades", "forescapades", "philoscapades", "aesthcapades", "vocapades", "techcapades", "dharmacapades", "theoricapades", "praxicapades", "quantacapades", "expericapades", "simulcapades", "mattercapades", "chemcapades", "nouscapades", "biocapades", "dancecapades", "questcapades"];
                     if (q && known.indexOf(q) !== -1) target = q;
                     else {
                         const host = (location.hostname || "").toLowerCase();
-                        const map = { sex: "sexcapades", polis: "poliscapades", fores: "forescapades", philo: "philoscapades", aesth: "aesthcapades", voca: "vocapades", tech: "techcapades", dharma: "dharmacapades", theori: "theoricapades", praxi: "praxicapades", quanta: "quantacapades", experi: "expericapades", simul: "simulcapades", matter: "mattercapades", chem: "chemcapades", nous: "nouscapades", dance: "dancecapades", quest: "questcapades" };
+                        const map = { sex: "sexcapades", polis: "poliscapades", fores: "forescapades", philo: "philoscapades", aesth: "aesthcapades", voca: "vocapades", tech: "techcapades", dharma: "dharmacapades", theori: "theoricapades", praxi: "praxicapades", quanta: "quantacapades", experi: "expericapades", simul: "simulcapades", matter: "mattercapades", chem: "chemcapades", nous: "nouscapades", bio: "biocapades", dance: "dancecapades", quest: "questcapades" };
                         const prefix = /\.capades\.io$/.test(host) ? host.split(".")[0] : "";
                         if (prefix && map[prefix]) target = map[prefix];
                     }

@@ -641,11 +641,11 @@ const TAXONOMY_CATEGORIES = [];
             } catch (e) { /* fall through to inline map */ }
             try {
                 var q = new URLSearchParams(location.search || "").get("skin");
-                var known = ["sexcapades", "poliscapades", "forescapades", "philoscapades", "aesthcapades", "vocapades", "techcapades", "dharmacapades", "theoricapades", "praxicapades", "quantacapades", "expericapades", "simulcapades", "mattercapades", "chemcapades", "nouscapades", "dancecapades", "questcapades"];
+                var known = ["sexcapades", "poliscapades", "forescapades", "philoscapades", "aesthcapades", "vocapades", "techcapades", "dharmacapades", "theoricapades", "praxicapades", "quantacapades", "expericapades", "simulcapades", "mattercapades", "chemcapades", "nouscapades", "biocapades", "dancecapades", "questcapades"];
                 if (q && known.indexOf(q) !== -1) return q;
                 var host = (location.hostname || "").toLowerCase();
                 if (host === "sexcapades.io" || host === "www.sexcapades.io" || host === "flex.capades.io" || host === "capades.io") return "sexcapades";
-                var map = { sex: "sexcapades", polis: "poliscapades", fores: "forescapades", philo: "philoscapades", aesth: "aesthcapades", voca: "vocapades", tech: "techcapades", dharma: "dharmacapades", theori: "theoricapades", praxi: "praxicapades", quanta: "quantacapades", experi: "expericapades", simul: "simulcapades", matter: "mattercapades", chem: "chemcapades", nous: "nouscapades", dance: "dancecapades", quest: "questcapades" };
+                var map = { sex: "sexcapades", polis: "poliscapades", fores: "forescapades", philo: "philoscapades", aesth: "aesthcapades", voca: "vocapades", tech: "techcapades", dharma: "dharmacapades", theori: "theoricapades", praxi: "praxicapades", quanta: "quantacapades", experi: "expericapades", simul: "simulcapades", matter: "mattercapades", chem: "chemcapades", nous: "nouscapades", bio: "biocapades", dance: "dancecapades", quest: "questcapades" };
                 var prefix = /\.capades\.io$/.test(host) ? host.split(".")[0] : "";
                 if (prefix && map[prefix]) return map[prefix];
             } catch (e) { /* default below */ }
@@ -2378,9 +2378,10 @@ const TAXONOMY_CATEGORIES = [];
 
         function Ka(e, t, n, i, a, r, o, s, l, c, d, u = 48, p = Ga.FALLBACK_COLOR, g = !0, m = "", f = null, y = null, b = null, v = !1, w = !0, k = h.length, bc = null, sxLeafD = null, sxDepth = null) {
             if (sxSexSkin()) v = !0;
-            Ra(e);
+            if (typeof Ra === "function") Ra(e); else if (typeof window !== "undefined" && typeof window.__SX_RA === "function") window.__SX_RA(e);
+            const sxIsBlind = () => (typeof Rt !== "undefined" ? Boolean(Rt) : (typeof window !== "undefined" && Boolean(window.__SX_BLIND)));
             const sxD = null != sxDepth ? sxDepth : sxLeafD === sxIconDiameter(1) ? 1 : sxLeafD === sxIconDiameter(3) ? 3 : 2, sxF = sxFontFactor(sxD), sxSW = sxStrokeWidth(sxD);
-            const x = Rt || Qi() ? null : Vi(), S = Rt ? null : x || function(e) {
+            const x = sxIsBlind() || Qi() ? null : Vi(), S = sxIsBlind() ? null : x || function(e) {
                 const t = Vi();
                 return Qi() && t && (at[t] || {})[e] && gn.has(oi(t, e)) ? t : null;
             }(e), $ = Ge(e, S || Vi()), E = e => `translate(${(a * e).toFixed(2)} ${(r * e).toFixed(2)})`, A = e.replace(/[^a-z0-9-]/g, ""), C = Boolean(topicLabelById[e]), M = S || Vi(), I = qn[e] || Xn(e) || {
@@ -2395,7 +2396,7 @@ const TAXONOMY_CATEGORIES = [];
             let D = "";
             const sxShowMapSliders = Boolean(mn && mn.mapSliders);
             const sxZoomOk = "function" !== typeof window.sxMapZoomAllowsWidgets || window.sxMapZoomAllowsWidgets();
-            const R = g && !Rt ? Ua(e) : null, O = Ga.heatWidths(n, sxD);
+            const R = g && !sxIsBlind() ? Ua(e) : null, O = Ga.heatWidths(n, sxD);
             if (SpokeGeometry.taperedPath(t, O.w0, O.w1), R) {
                 const overlayTip = "Overlaid profiles into this topic", a = `${R.count}/${R.total}`;
                 D += `<path class="group-heat${R.count === R.total ? " all-in" : ""}" d="${t}" stroke="${R.color}" stroke-width="${O.w0}" opacity="${(.2 + .48 * R.count / R.total).toFixed(2)}" tabindex="0" role="img" aria-label="${Hi(`${i}: ${a} overlaid profiles into this topic`)}"${ka(i, overlayTip, a, {
@@ -2456,7 +2457,7 @@ const TAXONOMY_CATEGORIES = [];
                     D += `<path class="visual-rail collapsed-rating-rail" d="${t}" transform="${E(e.offset)}" fill="none" stroke="${zi(a)}" stroke-width="6" stroke-linecap="round" vector-effect="non-scaling-stroke"><title>${r}: ${Math.round(a)}${o}</title></path>`;
                 });
             }
-            if (g && !Rt && Qi() && 2 === Xi().length) {
+            if (g && !sxIsBlind() && Qi() && 2 === Xi().length) {
                 const n = function(e) {
                     const t = Xi();
                     if (t.some(t => "limit" === Oa(e, t))) return "limit";
@@ -2926,7 +2927,7 @@ const TAXONOMY_CATEGORIES = [];
                 });
                 }
             }
-            if (g && !Rt && !x) {
+            if (g && !sxIsBlind() && !x) {
                 const i = Xi(), a = $.keys || ($.single ? [ "give" ] : [ "give", "receive" ]), r = i.length * a.length, o = (n > 7 ? Math.min(18, 4 + 1.6 * r) : Math.min(14, 3 + 1.4 * r)) * (mapFontScale() * sxF / 3), s = Math.max(1.35, n / Math.min(r, 6)) * (mapFontScale() * sxF / 3);
                 i.forEach((n, i) => {
                     const l = da(e, n);
@@ -4061,6 +4062,39 @@ const he = [ [ "t0281", "t0240" ] ];
                 color: "#ee925f",
                 glyph: '<path class="icon-glyph" d="M12 6.5a3 3 0 1 0 0-6 3 3 0 0 0 0 6 M12 7.5V15 M4.5 10.5L12 8l7.5 2.5 M9 21l3-6 3 6"/>'
             },
+            /* Flexcapades skin categories: Biocapades (8). Per-category pictograms; distinct colors and glyphs carry the category identity on the map. */
+            "What counts as alive": {
+                color: "#7fc96b",
+                glyph: '<path class="icon-glyph" d="M12 3a9 9 0 1 0 0 18 9 9 0 0 0 0-18 M12 9.3a2.7 2.7 0 1 0 0 5.4 2.7 2.7 0 0 0 0-5.4 M17.2 6.8h.3 M6.4 15.2h.3 M16.2 16.8h.3"/>'
+            },
+            "Evolution's engine": {
+                color: "#e0a458",
+                glyph: '<path class="icon-glyph" d="M12 21v-6 M12 15c-.5-3-2.5-5-6-5.8 M12 15c.5-3 2.5-5 6-5.8 M6 9.2C5.8 6.8 7 5 9.2 4.2 M18 9.2c.2-2.4-1-4.2-3.2-5"/>'
+            },
+            "Genes & inheritance": {
+                color: "#6ba8e0",
+                glyph: '<path class="icon-glyph" d="M8 3c0 6 8 6.5 8 9.5S8 18 8 21 M16 3c0 6-8 6.5-8 9.5s8 5.5 8 8 M8.6 6.8h6.8 M8.6 17.2h6.8 M9.8 12h4.4"/>'
+            },
+            "Minds & behavior": {
+                color: "#c98bd9",
+                glyph: '<path class="icon-glyph" d="M2.5 12C5 6.8 8.4 4.2 12 4.2S19 6.8 21.5 12C19 17.2 15.6 19.8 12 19.8S5 17.2 2.5 12Z M12 15.4a3.4 3.4 0 1 0 0-6.8 3.4 3.4 0 0 0 0 6.8Z"/>'
+            },
+            "The cell, the body & aging": {
+                color: "#d97b6c",
+                glyph: '<path class="icon-glyph" d="M6.5 3h11 M6.5 21h11 M7.2 3c.6 3.8 2.2 6.4 4.8 8.6-2.6 2.2-4.2 4.8-4.8 8.6 M16.8 3c-.6 3.8-2.2 6.4-4.8 8.6 2.6 2.2 4.2 4.8 4.8 8.6"/>'
+            },
+            "Editing life": {
+                color: "#d9c84f",
+                glyph: '<path class="icon-glyph" d="M5 19l1-3.8L16.6 4.6a2.1 2.1 0 0 1 3 3L9 18.2 5 19Z M14.6 6.6l3 3"/>'
+            },
+            "Deep time & ecology": {
+                color: "#5dbb8a",
+                glyph: '<path class="icon-glyph" d="M12 13.5V8 M12 8C12 5 9.8 3.2 6 3.2c0 3.2 2.2 4.8 6 4.8 M12 8c0-3 2.2-4.8 6-4.8 0 3.2-2.2 4.8-6 4.8 M4 17h16 M6.5 20.5h11"/>'
+            },
+            "Life elsewhere & everywhere": {
+                color: "#8fb8e8",
+                glyph: '<path class="icon-glyph" d="M12 6.7a5.3 5.3 0 1 0 0 10.6 5.3 5.3 0 0 0 0-10.6 M3 14.5c-1 .4-1.5 1-1.2 1.7.5 1.2 4.9 1.7 10.2 1.2 5.3-.5 9.3-1.8 10-3.1.3-.8-.3-1.4-1.4-1.8"/>'
+            },
         };
 
         const me = e => `<path class="icon-glyph" d="${e}"/>`, fe = (e, t, n) => `<circle class="icon-glyph" cx="${e}" cy="${t}" r="${n}"/>`, ye = {
@@ -5083,8 +5117,9 @@ const Ce = {
         for (const _subName of Object.keys(Ee)) {
             if (!(Ee[_subName] in ye)) throw new Error(`Sexcapades glyph check: subcategory "${_subName}" maps to glyph "${Ee[_subName]}", which is missing from the ye glyph dictionary`);
         }
-        for (const _branchName of Object.keys(be)) {
-            for (const _glyphName of be[_branchName]) {
+        const _beTable = window.__SX_EXPORT_BE || {};
+        for (const _branchName of Object.keys(_beTable)) {
+            for (const _glyphName of _beTable[_branchName]) {
                 if (!(_glyphName in ye)) throw new Error(`Sexcapades glyph check: branch "${_branchName}" lists glyph "${_glyphName}", which is missing from the ye glyph dictionary`);
             }
         }
@@ -5184,9 +5219,9 @@ const Ce = {
             // Topic-icon inheritance (owner ruling 2026-11-23): a topic
             // with no glyph of its own in ve inherits its category's
             // descriptor glyph from ge instead of the generic star.
-            // Topics present in ve (every Sexcapades catalog topic,
-            // including any assigned the star itself) are untouched.
-            const _veKey = t + "\0" + e, n = ve.get(_veKey) || "star", _ownGlyph = ve.has(_veKey) && n in ye, _catDesc = !_ownGlyph && ge && ge[t] && ge[t].glyph ? ge[t] : null, _glyphFallback = !_ownGlyph && !_catDesc, i = _e.get(_veKey) || 0, a = Le(e, t);
+            // Topics present in ve or registered in window.__SX_SKIN_TOPIC_GLYPHS
+            // are untouched and use their assigned glyph.
+            const _veKey = t + "\0" + e, _skinGlyph = typeof window !== "undefined" && window.__SX_SKIN_TOPIC_GLYPHS ? window.__SX_SKIN_TOPIC_GLYPHS[_veKey] : null, n = _skinGlyph || (window.__SX_EXPORT_BE?.[t] ? ve.get(_veKey) : null) || ve.get(_veKey) || "star", _ownGlyph = Boolean((_skinGlyph && _skinGlyph in ye) || (ve.has(_veKey) && n in ye)), _catDesc = !_ownGlyph && ge && ge[t] && ge[t].glyph ? ge[t] : null, _glyphFallback = !_ownGlyph && !_catDesc, i = _e.get(_veKey) || 0, a = Le(e, t);
             return {
                 glyph: _ownGlyph ? ye[n] : _catDesc ? _catDesc.glyph : ye.star,
                 glyphFallback: _glyphFallback,
@@ -7343,6 +7378,39 @@ const Ce = {
             "The human case": {
                 color: "#ee925f",
                 glyph: '<path class="icon-glyph" d="M12 6.5a3 3 0 1 0 0-6 3 3 0 0 0 0 6 M12 7.5V15 M4.5 10.5L12 8l7.5 2.5 M9 21l3-6 3 6"/>'
+            },
+            /* Flexcapades skin categories: Biocapades (8). Per-category pictograms; distinct colors and glyphs carry the category identity on the map. */
+            "What counts as alive": {
+                color: "#7fc96b",
+                glyph: '<path class="icon-glyph" d="M12 3a9 9 0 1 0 0 18 9 9 0 0 0 0-18 M12 9.3a2.7 2.7 0 1 0 0 5.4 2.7 2.7 0 0 0 0-5.4 M17.2 6.8h.3 M6.4 15.2h.3 M16.2 16.8h.3"/>'
+            },
+            "Evolution's engine": {
+                color: "#e0a458",
+                glyph: '<path class="icon-glyph" d="M12 21v-6 M12 15c-.5-3-2.5-5-6-5.8 M12 15c.5-3 2.5-5 6-5.8 M6 9.2C5.8 6.8 7 5 9.2 4.2 M18 9.2c.2-2.4-1-4.2-3.2-5"/>'
+            },
+            "Genes & inheritance": {
+                color: "#6ba8e0",
+                glyph: '<path class="icon-glyph" d="M8 3c0 6 8 6.5 8 9.5S8 18 8 21 M16 3c0 6-8 6.5-8 9.5s8 5.5 8 8 M8.6 6.8h6.8 M8.6 17.2h6.8 M9.8 12h4.4"/>'
+            },
+            "Minds & behavior": {
+                color: "#c98bd9",
+                glyph: '<path class="icon-glyph" d="M2.5 12C5 6.8 8.4 4.2 12 4.2S19 6.8 21.5 12C19 17.2 15.6 19.8 12 19.8S5 17.2 2.5 12Z M12 15.4a3.4 3.4 0 1 0 0-6.8 3.4 3.4 0 0 0 0 6.8Z"/>'
+            },
+            "The cell, the body & aging": {
+                color: "#d97b6c",
+                glyph: '<path class="icon-glyph" d="M6.5 3h11 M6.5 21h11 M7.2 3c.6 3.8 2.2 6.4 4.8 8.6-2.6 2.2-4.2 4.8-4.8 8.6 M16.8 3c-.6 3.8-2.2 6.4-4.8 8.6 2.6 2.2 4.2 4.8 4.8 8.6"/>'
+            },
+            "Editing life": {
+                color: "#d9c84f",
+                glyph: '<path class="icon-glyph" d="M5 19l1-3.8L16.6 4.6a2.1 2.1 0 0 1 3 3L9 18.2 5 19Z M14.6 6.6l3 3"/>'
+            },
+            "Deep time & ecology": {
+                color: "#5dbb8a",
+                glyph: '<path class="icon-glyph" d="M12 13.5V8 M12 8C12 5 9.8 3.2 6 3.2c0 3.2 2.2 4.8 6 4.8 M12 8c0-3 2.2-4.8 6-4.8 0 3.2-2.2 4.8-6 4.8 M4 17h16 M6.5 20.5h11"/>'
+            },
+            "Life elsewhere & everywhere": {
+                color: "#8fb8e8",
+                glyph: '<path class="icon-glyph" d="M12 6.7a5.3 5.3 0 1 0 0 10.6 5.3 5.3 0 0 0 0-10.6 M3 14.5c-1 .4-1.5 1-1.2 1.7.5 1.2 4.9 1.7 10.2 1.2 5.3-.5 9.3-1.8 10-3.1.3-.8-.3-1.4-1.4-1.8"/>'
             },
         }, me = e => `<path class="icon-glyph" d="${e}"/>`, fe = (e, t, n) => `<circle class="icon-glyph" cx="${e}" cy="${t}" r="${n}"/>`, ye = {
             compass: me("M8 2v12M2 8h12m-4-2-2 2-2 2 2-2Z"),
@@ -16498,6 +16566,7 @@ function dkEvaluateCrossingDrop(before, after, threshold = 0.75) {
             for (let t = 0; t < n.length; t++) for (let a = t + 1; a < n.length; a++) i.push(La(e, n[t], n[a]));
             return i.includes("mismatch") ? "mismatch" : i.includes("mutual") ? "mutual" : i.includes("explore") ? "explore" : "other";
         }
+        if (typeof window !== "undefined") window.__SX_RA = Ra;
         function sxIsBranchLimited(e, t = Vi()) {
             const grp = Kd();
             const pIds = grp && Array.isArray(grp.sourceIds) ? grp.sourceIds.filter(id => vt[id]) : (Qi() ? Xi() : [ t ]);
@@ -29550,11 +29619,11 @@ function* sxRunNodeSettle(scCtx, blitSess) {
                 }
                 if (!target || target === "sexcapades") {
                     const q = new URLSearchParams(location.search || "").get("skin");
-                    const known = ["sexcapades", "poliscapades", "forescapades", "philoscapades", "aesthcapades", "vocapades", "techcapades", "dharmacapades", "theoricapades", "praxicapades", "quantacapades", "expericapades", "simulcapades", "mattercapades", "chemcapades", "nouscapades", "dancecapades", "questcapades"];
+                    const known = ["sexcapades", "poliscapades", "forescapades", "philoscapades", "aesthcapades", "vocapades", "techcapades", "dharmacapades", "theoricapades", "praxicapades", "quantacapades", "expericapades", "simulcapades", "mattercapades", "chemcapades", "nouscapades", "biocapades", "dancecapades", "questcapades"];
                     if (q && known.indexOf(q) !== -1) target = q;
                     else {
                         const host = (location.hostname || "").toLowerCase();
-                        const map = { sex: "sexcapades", polis: "poliscapades", fores: "forescapades", philo: "philoscapades", aesth: "aesthcapades", voca: "vocapades", tech: "techcapades", dharma: "dharmacapades", theori: "theoricapades", praxi: "praxicapades", quanta: "quantacapades", experi: "expericapades", simul: "simulcapades", matter: "mattercapades", chem: "chemcapades", nous: "nouscapades", dance: "dancecapades", quest: "questcapades" };
+                        const map = { sex: "sexcapades", polis: "poliscapades", fores: "forescapades", philo: "philoscapades", aesth: "aesthcapades", voca: "vocapades", tech: "techcapades", dharma: "dharmacapades", theori: "theoricapades", praxi: "praxicapades", quanta: "quantacapades", experi: "expericapades", simul: "simulcapades", matter: "mattercapades", chem: "chemcapades", nous: "nouscapades", bio: "biocapades", dance: "dancecapades", quest: "questcapades" };
                         const prefix = /\.capades\.io$/.test(host) ? host.split(".")[0] : "";
                         if (prefix && map[prefix]) target = map[prefix];
                     }

@@ -1021,6 +1021,70 @@
                     sxUpdateSwitchboxReadouts(sxSwitchboxState.give, sxSwitchboxState.receive, isUnrated);
                 }
             }
+            sxSyncLinearIntensities(id, rec, shape);
+        }
+        /* Placement intensities for the slider family + switchbox (2026-11-23):
+           the canvas widgets carry disc/ring intensity sliders; the linear
+           family, the line, and the switchbox stored the same per-placement
+           intensity with no slider to write it. These two boxes mirror the
+           canvas pattern -- disc thumb writes advocacy intensity, ring thumb
+           writes receptivity intensity, poles untouched. */
+        function sxWritePlacementIntensity(mode, v) {
+            if (!Qr) return;
+            try {
+                const o = Io(Vi());
+                const raw = (o && o[Qr] && typeof o[Qr] === "object") ? o[Qr] : {};
+                const placement = (raw[mode] && typeof raw[mode] === "object") ? raw[mode] : {};
+                const values = {};
+                Object.keys(placement).forEach(k => { if (k !== "intensity") values[k] = placement[k]; });
+                if (typeof sxPersistAdvocacyReceptivity === "function") sxPersistAdvocacyReceptivity(Qr, mode, values, v, Vi());
+                else if (typeof sxPersistIntensity === "function") sxPersistIntensity(Qr, v, Vi());
+            } catch (err) {}
+        }
+        function sxSyncLinearIntensities(id, rec, shape) {
+            const linBox = e.byId("markLinearIntensityBox"), swBox = e.byId("markSwitchboxIntensityBox");
+            if (!linBox && !swBox) return;
+            const w = (shape && shape.widget) || "";
+            const inLinear = w === "linear-sliders" || w === "trilinear-sliders" || w === "quad-sliders" || w === "monopole-slider" || w === "trilinear-line" || Boolean(shape && shape.single);
+            const inSwitch = w === "xy-switchbox";
+            let dual = false;
+            try { dual = typeof sxDualPlacements === "function" && sxDualPlacements(id); } catch (err) { dual = false; }
+            // Flat-line records (scalar "line", no placements) keep today's
+            // behavior; the box serves dual-placement records only.
+            if (w === "trilinear-line" && !(rec && (rec.advocacy || rec.receptivity))) dual = false;
+            if (linBox) linBox.hidden = !(inLinear && dual);
+            if (swBox) swBox.hidden = !(inSwitch && dual);
+            if ((!inLinear && !inSwitch) || !dual) return;
+            const seed = (p) => {
+                if (!p) return 0;
+                if (Number.isFinite(Number(p.intensity))) return Math.round(Number(p.intensity));
+                let best = 0;
+                Object.keys(p).forEach(k => {
+                    if (k === "intensity" || k === "known") return;
+                    const v = Number(p[k]);
+                    if (Number.isFinite(v) && Math.abs(v) > Math.abs(best)) best = v;
+                });
+                return Math.round(best);
+            };
+            const bind = (input, out, mode, p) => {
+                if (!input) return;
+                const val = seed(p);
+                if (typeof sxWidenIntensitySlider === "function") { try { sxWidenIntensitySlider(input, val); } catch (err) {} }
+                const lo = Number(input.min || -100), hi = Number(input.max || 100);
+                input.value = String(Math.max(lo, Math.min(hi, val)));
+                if (out) out.textContent = String(val);
+                if (!input.dataset.sxBound) {
+                    input.dataset.sxBound = "1";
+                    input.addEventListener("input", () => {
+                        const v = Math.max(-400, Math.min(400, Math.round(Number(input.value) || 0)));
+                        if (out) out.textContent = String(v);
+                        sxWritePlacementIntensity(mode, v);
+                    });
+                }
+            };
+            const base = inLinear ? "markLinear" : "markSwitchbox";
+            bind(e.byId(base + "Intensity"), e.byId(base + "IntensityOut"), "advocacy", rec && rec.advocacy);
+            bind(e.byId(base + "RecIntensity"), e.byId(base + "RecIntensityOut"), "receptivity", rec && rec.receptivity);
         }
         function sxBindMarkRatings() {
             sxBindTriangleWidget();

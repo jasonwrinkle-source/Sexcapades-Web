@@ -647,6 +647,39 @@ const he = [ [ "t0281", "t0240" ] ];
                 color: "#ee925f",
                 glyph: '<path class="icon-glyph" d="M12 6.5a3 3 0 1 0 0-6 3 3 0 0 0 0 6 M12 7.5V15 M4.5 10.5L12 8l7.5 2.5 M9 21l3-6 3 6"/>'
             },
+            /* Flexcapades skin categories: Biocapades (8). Per-category pictograms; distinct colors and glyphs carry the category identity on the map. */
+            "What counts as alive": {
+                color: "#7fc96b",
+                glyph: '<path class="icon-glyph" d="M12 3a9 9 0 1 0 0 18 9 9 0 0 0 0-18 M12 9.3a2.7 2.7 0 1 0 0 5.4 2.7 2.7 0 0 0 0-5.4 M17.2 6.8h.3 M6.4 15.2h.3 M16.2 16.8h.3"/>'
+            },
+            "Evolution's engine": {
+                color: "#e0a458",
+                glyph: '<path class="icon-glyph" d="M12 21v-6 M12 15c-.5-3-2.5-5-6-5.8 M12 15c.5-3 2.5-5 6-5.8 M6 9.2C5.8 6.8 7 5 9.2 4.2 M18 9.2c.2-2.4-1-4.2-3.2-5"/>'
+            },
+            "Genes & inheritance": {
+                color: "#6ba8e0",
+                glyph: '<path class="icon-glyph" d="M8 3c0 6 8 6.5 8 9.5S8 18 8 21 M16 3c0 6-8 6.5-8 9.5s8 5.5 8 8 M8.6 6.8h6.8 M8.6 17.2h6.8 M9.8 12h4.4"/>'
+            },
+            "Minds & behavior": {
+                color: "#c98bd9",
+                glyph: '<path class="icon-glyph" d="M2.5 12C5 6.8 8.4 4.2 12 4.2S19 6.8 21.5 12C19 17.2 15.6 19.8 12 19.8S5 17.2 2.5 12Z M12 15.4a3.4 3.4 0 1 0 0-6.8 3.4 3.4 0 0 0 0 6.8Z"/>'
+            },
+            "The cell, the body & aging": {
+                color: "#d97b6c",
+                glyph: '<path class="icon-glyph" d="M6.5 3h11 M6.5 21h11 M7.2 3c.6 3.8 2.2 6.4 4.8 8.6-2.6 2.2-4.2 4.8-4.8 8.6 M16.8 3c-.6 3.8-2.2 6.4-4.8 8.6 2.6 2.2 4.2 4.8 4.8 8.6"/>'
+            },
+            "Editing life": {
+                color: "#d9c84f",
+                glyph: '<path class="icon-glyph" d="M5 19l1-3.8L16.6 4.6a2.1 2.1 0 0 1 3 3L9 18.2 5 19Z M14.6 6.6l3 3"/>'
+            },
+            "Deep time & ecology": {
+                color: "#5dbb8a",
+                glyph: '<path class="icon-glyph" d="M12 13.5V8 M12 8C12 5 9.8 3.2 6 3.2c0 3.2 2.2 4.8 6 4.8 M12 8c0-3 2.2-4.8 6-4.8 0 3.2-2.2 4.8-6 4.8 M4 17h16 M6.5 20.5h11"/>'
+            },
+            "Life elsewhere & everywhere": {
+                color: "#8fb8e8",
+                glyph: '<path class="icon-glyph" d="M12 6.7a5.3 5.3 0 1 0 0 10.6 5.3 5.3 0 0 0 0-10.6 M3 14.5c-1 .4-1.5 1-1.2 1.7.5 1.2 4.9 1.7 10.2 1.2 5.3-.5 9.3-1.8 10-3.1.3-.8-.3-1.4-1.4-1.8"/>'
+            },
         };
 
         const me = e => `<path class="icon-glyph" d="${e}"/>`, fe = (e, t, n) => `<circle class="icon-glyph" cx="${e}" cy="${t}" r="${n}"/>`, ye = {
