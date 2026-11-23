@@ -3836,7 +3836,8 @@
         "skin": "praxicapades"
       },
       "skin": "praxicapades",
-      "kind": "sample"
+      "kind": "sample",
+      "emblem": "images/emblems/pra-bayesian.svg"
     },
     "pra-frequentist": {
       "name": "The Frequentist",
@@ -4188,7 +4189,8 @@
         "skin": "praxicapades"
       },
       "skin": "praxicapades",
-      "kind": "sample"
+      "kind": "sample",
+      "emblem": "images/emblems/pra-frequentist.svg"
     },
     "pra-first-principles": {
       "name": "The First-Principles Theorist",
@@ -4535,7 +4537,8 @@
         "skin": "praxicapades"
       },
       "skin": "praxicapades",
-      "kind": "sample"
+      "kind": "sample",
+      "emblem": "images/emblems/pra-first-principles.svg"
     },
     "pra-simulation-first": {
       "name": "The Simulation-First Computationalist",
@@ -4887,7 +4890,8 @@
         "skin": "praxicapades"
       },
       "skin": "praxicapades",
-      "kind": "sample"
+      "kind": "sample",
+      "emblem": "images/emblems/pra-simulation-first.svg"
     },
     "pra-engineer": {
       "name": "The Pragmatic Engineer",
@@ -5239,7 +5243,8 @@
         "skin": "praxicapades"
       },
       "skin": "praxicapades",
-      "kind": "sample"
+      "kind": "sample",
+      "emblem": "images/emblems/pra-engineer.svg"
     }
   }
 }
