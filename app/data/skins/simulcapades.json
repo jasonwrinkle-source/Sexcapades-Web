@@ -4028,7 +4028,8 @@
         "skin": "simulcapades"
       },
       "skin": "simulcapades",
-      "kind": "sample"
+      "kind": "sample",
+      "emblem": "images/emblems/sim-optimist.svg"
     },
     "sim-skeptic": {
       "name": "The Simulation Skeptic",
@@ -4448,7 +4449,8 @@
         "skin": "simulcapades"
       },
       "skin": "simulcapades",
-      "kind": "sample"
+      "kind": "sample",
+      "emblem": "images/emblems/sim-skeptic.svg"
     },
     "sim-pragmatist": {
       "name": "The Pragmatic Engineer",
@@ -4868,7 +4870,8 @@
         "skin": "simulcapades"
       },
       "skin": "simulcapades",
-      "kind": "sample"
+      "kind": "sample",
+      "emblem": "images/emblems/sim-pragmatist.svg"
     },
     "sim-purist": {
       "name": "The First-Principles Purist",
@@ -5288,7 +5291,8 @@
         "skin": "simulcapades"
       },
       "skin": "simulcapades",
-      "kind": "sample"
+      "kind": "sample",
+      "emblem": "images/emblems/sim-purist.svg"
     }
   }
 }
