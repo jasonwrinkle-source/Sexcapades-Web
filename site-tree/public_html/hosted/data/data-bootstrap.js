@@ -24803,35 +24803,29 @@ var SX_OCTAD_COLORS = ["#22c55e", "#10b981", "#06b6d4", "#3b82f6", "#6366f1", "#
                 ctx.fillStyle = "rgba(255, 255, 255, 0.65)";
                 ctx.fillText("Click to rate", cx, cy - 14);
             } else {
-                // Puck color
-                let puckCol = "#94a3b8";
-                if (g === 0 && recvVal === 0) {
-                    puckCol = "rgba(255, 255, 255, 0.6)";
-                } else if (g >= 0 && recvVal >= 0) {
-                    puckCol = "#22c55e"; // Green versatile switch
-                } else if (g <= 0 && recvVal <= 0) {
-                    puckCol = "#ef4444"; // Red limit
-                } else if (g > 0 && recvVal < 0) {
-                    puckCol = "#eab308"; // Top yellow
-                } else {
-                    puckCol = "#3b82f6"; // Bottom blue
-                }
+                const ziColor = typeof zi === "function" ? zi : (v => v > 20 ? "#4ade80" : v < -20 ? "#f87171" : "#d7bd55");
+                const giveCol = ziColor(g);
+                const recvCol = ziColor(recvVal);
 
-                // Glow
+                // Give / Advocacy Flank: Solid Disc (matches hypermap / hot list)
                 ctx.beginPath();
-                ctx.arc(px, py, 11, 0, 2 * Math.PI);
-                ctx.fillStyle = puckCol;
-                ctx.globalAlpha = 0.35;
+                ctx.arc(px - 7, py, 7.5, 0, 2 * Math.PI);
+                ctx.fillStyle = giveCol;
                 ctx.fill();
-                ctx.globalAlpha = 1.0;
-
-                // Puck body
-                ctx.beginPath();
-                ctx.arc(px, py, 6.5, 0, 2 * Math.PI);
-                ctx.fillStyle = puckCol;
-                ctx.fill();
-                ctx.lineWidth = 1.8;
+                ctx.lineWidth = 1.5;
                 ctx.strokeStyle = "#ffffff";
+                ctx.stroke();
+
+                // Receive / Receptivity Flank: Thick Ring with Transparent Center (matches hypermap / hot list)
+                ctx.beginPath();
+                ctx.arc(px + 7, py, 8, 0, 2 * Math.PI);
+                ctx.lineWidth = 4;
+                ctx.strokeStyle = recvCol;
+                ctx.stroke();
+                ctx.beginPath();
+                ctx.arc(px + 7, py, 9.8, 0, 2 * Math.PI);
+                ctx.lineWidth = 1;
+                ctx.strokeStyle = "rgba(255,255,255,0.7)";
                 ctx.stroke();
             }
         }
@@ -30985,121 +30979,85 @@ zlRenderRows(), t.length ? d(Math.max(0, t.findIndex(e => e.value === s)), {
                 t.root.contains(e.target) || t.close();
             });
         }, !0);
-var Vl = Gl.map(e => {
-            const t = catId(e.name), n = e.name + " — whole branch", i = {
-                value: t,
-                id: t,
-                branch: e.name,
-                parentId: null,
-                label: n,
-                displayLabel: e.name,
-                type: "category",
-                group: e.name,
-                icon: ge[e.name],
-                isBranch: !0,
-                description: we[e.name] || "branch symbol"
-            }, a = (e.subcategories || []).map(n => {
-                const i = Un(e.name, n.name), a = Ae(n.name, e.name);
-                return {
-                    value: i,
-                    id: i,
+var Vl = [], Yl = [], Xl = new Map();
+        function rebuildTopicPickerData() {
+            const activeCats = (typeof window.TaxonomyLoader === "object" && typeof window.TaxonomyLoader.loadTaxonomy === "function")
+                ? window.TaxonomyLoader.loadTaxonomy().categories
+                : (typeof h !== "undefined" ? h : []);
+            const liveGl = G(activeCats, typeof z !== "undefined" ? z : {});
+            Vl = liveGl.map(e => {
+                const t = catId(e.name), n = e.name + " — whole branch", i = {
+                    value: t,
+                    id: t,
                     branch: e.name,
-                    parentId: t,
-                    label: n.name + " — subcategory",
-                    displayLabel: n.name,
-                    type: "subcategory",
+                    parentId: null,
+                    label: n,
+                    displayLabel: e.name,
+                    type: "category",
                     group: e.name,
-                    icon: a,
-                    isBranch: !1,
-                    description: xe(a.key)
-                };
-            }), r = G(e.topics, e => sxTopicPopularity(topicIdByLabel[sxName(e)] || sxName(e))).map(n => {
-                const i = Oe(sxName(n), e.name), a = Vn(e, n);
+                    icon: (typeof ge !== "undefined" && ge[e.name]) || {},
+                    isBranch: !0,
+                    description: (typeof we !== "undefined" && we[e.name]) || "branch symbol"
+                }, a = (e.subcategories || []).map(n => {
+                    const i = Un(e.name, n.name), a = Ae(n.name, e.name);
+                    return {
+                        value: i,
+                        id: i,
+                        branch: e.name,
+                        parentId: t,
+                        label: n.name + " — subcategory",
+                        displayLabel: n.name,
+                        type: "subcategory",
+                        group: e.name,
+                        icon: a,
+                        isBranch: !1,
+                        description: xe(a.key)
+                    };
+                }), r = G(e.topics, e => sxTopicPopularity((typeof topicIdByLabel !== "undefined" && topicIdByLabel[sxName(e)]) || sxName(e))).map(n => {
+                    const i = Oe(sxName(n), e.name), a = Vn(e, n);
+                    return {
+                        value: Wn(n),
+                        id: Wn(n),
+                        branch: e.name,
+                        parentId: a ? Un(e.name, a.name) : t,
+                        label: sxName(n),
+                        displayLabel: sxName(n),
+                        giveLabel: n && n.give_label || "",
+                        receiveLabel: n && n.receive_label || "",
+                        type: "topic",
+                        group: e.name,
+                        icon: i,
+                        isBranch: !1,
+                        description: xe(i.key)
+                    };
+                });
                 return {
-                    value: Wn(n),
-                    id: Wn(n),
                     branch: e.name,
-                    parentId: a ? Un(e.name, a.name) : t,
-                    label: sxName(n),
-                    displayLabel: sxName(n),
-                    giveLabel: n && n.give_label || "",
-                    receiveLabel: n && n.receive_label || "",
-                    type: "topic",
-                    group: e.name,
-                    icon: i,
-                    isBranch: !1,
-                    description: xe(i.key)
+                    category: i,
+                    subcategories: a,
+                    topics: r,
+                    items: [ i, ...a, ...r ]
                 };
             });
-            return {
-                branch: e.name,
-                category: i,
-                subcategories: a,
-                topics: r,
-                items: [ i, ...a, ...r ]
-            };
-        }), Yl = Vl.flatMap(e => e.items), Xl = new Map(Yl.map(e => [ e.value, e ]));
-var sxCommittedFocus = null, sxFocusFrame = 0;
-        function sxStopFocusZoom() {
-            if (sxFocusFrame) cancelAnimationFrame(sxFocusFrame), sxFocusFrame = 0;
-            if (typeof window.__sxStopFocusZoom === "function") window.__sxStopFocusZoom();
-        }
-        function Zl(e, t = 0) {
-            if (!e || Dt !== e.id) return;
-            In.querySelector(`[data-layout-key="${CSS.escape(e.id)}"]`) ? Th(e.id, e.branch) : t < 3 ? sxFocusFrame = requestAnimationFrame(() => Zl(e, t + 1)) : Lh(e.branch);
-        }
-var _previewAddedBranches = new Set, _previewAddedParents = new Set;
-        function Ql(e) {
-            if (!e) return;
-            noteFitUserCamera();
-            kn || Ei();
-            // Track every expansion the preview adds - accumulating across highlight moves,
-            // because the dropdown fires onPreview per item with no intervening onClose - so
-            // Jl can revert exactly those, never branches/parents the user expanded themselves.
-            if (e.branch && !rn.has(e.branch)) { rn.add(e.branch); _previewAddedBranches.add(e.branch); }
-            if (e.parentId && !on.has(e.parentId)) { on.add(e.parentId); _previewAddedParents.add(e.parentId); }
-            Dt = e.id; Lt = e.id;
-            Mr({ animate: !0 });
-            sxStopFocusZoom();
-            sxFocusFrame = requestAnimationFrame(() => {
-                sxFocusFrame = 0;
-                Zl(e);
-            });
-        }
-        function Jl() {
-            // Revert preview-only expansions, clear both preview ids, and re-render only if preview changed anything.
-            // Stop a zoom that was already in flight, or Escape fits and the
-            // animation's last frame zooms straight back in.
-            sxCommittedFocus = null;
-            sxStopFocusZoom();
-            const hadExpansions = Boolean(_previewAddedBranches.size || _previewAddedParents.size || Dt || Lt);
-            _previewAddedBranches.forEach(b => rn.delete(b)); _previewAddedBranches.clear();
-            _previewAddedParents.forEach(p => on.delete(p)); _previewAddedParents.clear();
-            Dt = null; Lt = null; Tt = "";
-            const sxSearch = e.byId("searchInput");
-            sxSearch && (sxSearch.value = "");
-            if (hadExpansions) {
-                Mr();
-                if (typeof Ih === "function") Ih();
-            } else if (Cn) {
-                Cn.querySelectorAll(".is-dim").forEach(el => el.classList.remove("is-dim"));
+            Yl = Vl.flatMap(e => e.items);
+            Xl = new Map(Yl.map(e => [ e.value, e ]));
+
+            if (ql) {
+                ql.innerHTML = '<option value="">Choose a topic...</option>';
+                Vl.forEach(({branch: e, items: t}) => {
+                    const n = document.createElement("optgroup");
+                    n.label = e, t.forEach(e => {
+                        const t = document.createElement("option");
+                        t.value = e.value, t.textContent = e.label, n.appendChild(t);
+                    }), ql.appendChild(n);
+                });
             }
         }
-        // Safety net: Escape clears a search preview, and a leftover
-        // search dim, even when focus is outside the dropdown menu.
-        // An open dialog keeps Escape for itself.
-        window.__sxOnKey( function(ev) {
-            if (ev.key !== "Escape" || document.querySelector("dialog[open]")) return;
-            if (Dt) Jl();
-            else if (Tt || Cn && (Cn.classList.contains("has-selection") || Cn.classList.contains("relation-focused") || Cn.querySelector(".is-dim, .is-preview, .rel-active"))) clearSpokeSelection();
-        }, true);
-        Vl.forEach(({branch: e, items: t}) => {
-            const n = document.createElement("optgroup");
-            n.label = e, t.forEach(e => {
-                const t = document.createElement("option");
-                t.value = e.value, t.textContent = e.label, n.appendChild(t);
-            }), ql.appendChild(n);
-        });
+        rebuildTopicPickerData();
+        if (typeof window !== "undefined" && typeof window.__SX_WHEN_SKIN_READY === "function") {
+            window.__SX_WHEN_SKIN_READY(rebuildTopicPickerData);
+        }
+        window.sxRebuildTopicPicker = rebuildTopicPickerData;
 var ec = zl({
             root: __sxClosestAction(Bl, "searchLabel"),
             trigger: Bl,

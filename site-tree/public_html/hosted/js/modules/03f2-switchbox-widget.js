@@ -127,35 +127,29 @@
                 ctx.fillStyle = "rgba(255, 255, 255, 0.65)";
                 ctx.fillText("Click to rate", cx, cy - 14);
             } else {
-                // Puck color
-                let puckCol = "#94a3b8";
-                if (g === 0 && recvVal === 0) {
-                    puckCol = "rgba(255, 255, 255, 0.6)";
-                } else if (g >= 0 && recvVal >= 0) {
-                    puckCol = "#22c55e"; // Green versatile switch
-                } else if (g <= 0 && recvVal <= 0) {
-                    puckCol = "#ef4444"; // Red limit
-                } else if (g > 0 && recvVal < 0) {
-                    puckCol = "#eab308"; // Top yellow
-                } else {
-                    puckCol = "#3b82f6"; // Bottom blue
-                }
+                const ziColor = typeof zi === "function" ? zi : (v => v > 20 ? "#4ade80" : v < -20 ? "#f87171" : "#d7bd55");
+                const giveCol = ziColor(g);
+                const recvCol = ziColor(recvVal);
 
-                // Glow
+                // Give / Advocacy Flank: Solid Disc (matches hypermap / hot list)
                 ctx.beginPath();
-                ctx.arc(px, py, 11, 0, 2 * Math.PI);
-                ctx.fillStyle = puckCol;
-                ctx.globalAlpha = 0.35;
+                ctx.arc(px - 7, py, 7.5, 0, 2 * Math.PI);
+                ctx.fillStyle = giveCol;
                 ctx.fill();
-                ctx.globalAlpha = 1.0;
-
-                // Puck body
-                ctx.beginPath();
-                ctx.arc(px, py, 6.5, 0, 2 * Math.PI);
-                ctx.fillStyle = puckCol;
-                ctx.fill();
-                ctx.lineWidth = 1.8;
+                ctx.lineWidth = 1.5;
                 ctx.strokeStyle = "#ffffff";
+                ctx.stroke();
+
+                // Receive / Receptivity Flank: Thick Ring with Transparent Center (matches hypermap / hot list)
+                ctx.beginPath();
+                ctx.arc(px + 7, py, 8, 0, 2 * Math.PI);
+                ctx.lineWidth = 4;
+                ctx.strokeStyle = recvCol;
+                ctx.stroke();
+                ctx.beginPath();
+                ctx.arc(px + 7, py, 9.8, 0, 2 * Math.PI);
+                ctx.lineWidth = 1;
+                ctx.strokeStyle = "rgba(255,255,255,0.7)";
                 ctx.stroke();
             }
         }
