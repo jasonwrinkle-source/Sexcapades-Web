@@ -54,12 +54,12 @@ cp "$DIR/app/css/app.css" "$HOSTED/app-assets/app.css"
 cp "$DIR/app/vendor/"* "$HOSTED/app-assets/vendor/"
 cp "$DIR/app/data/"*.js "$HOSTED/app-assets/"
 cp "$DIR/app/js/"*.js "$HOSTED/app-assets/"
-cp "$DIR/app/images/"* "$HOSTED/app-assets/images/"
-cp "$DIR/app/images/"* "$HOSTED/images/"
+cp -r "$DIR/app/images/"* "$HOSTED/app-assets/images/"
+cp -r "$DIR/app/images/"* "$HOSTED/images/"
 
 mkdir -p "$DIR/site-tree/public_html/hosted/app-assets/images"
-cp "$DIR/app/images/"* "$DIR/site-tree/public_html/hosted/app-assets/images/" 2>/dev/null || true
-cp "$DIR/app/images/"* "$DIR/site-tree/public_html/hosted/images/" 2>/dev/null || true
+cp -r "$DIR/app/images/"* "$DIR/site-tree/public_html/hosted/app-assets/images/" 2>/dev/null || true
+cp -r "$DIR/app/images/"* "$DIR/site-tree/public_html/hosted/images/" 2>/dev/null || true
 
 cat "$DIR/app/js/view-nav.js" "$DIR/app/js/layout-editor.js" "$DIR/app/js/patches.js" "$DIR/app/js/scene-sentinel.js" > "$HOSTED/app-assets/app.js"
 
