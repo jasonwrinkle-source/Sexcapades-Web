@@ -1,5 +1,5 @@
         function* Ar(i = {}) {
-            // JOB B GLIDE FIX — previous-positions capture: read the live
+            // JOB B GLIDE FIX - previous-positions capture: read the live
             // node positions BEFORE sxVaultCaptureCurrent() runs. The vault
             // moves In's children into a fragment (emptying In) whenever a
             // vault key is active, so the old r-population below (which ran
@@ -36,7 +36,7 @@
             // Scoped paint (T3): while a scope is active, capture
             // frozen branches' live .node-group elements (branch
             // membership via the qn registry the previous paint
-            // built — this paint rebuilds it below) so the end of
+            // built - this paint rebuilds it below) so the end of
             // this function can restore those exact element objects
             // over the freshly built ones: the rebuild below replaces
             // the whole viewport's innerHTML, so without this the
@@ -63,7 +63,7 @@
             // children of the .spoke-underlay-item keyed by
             // data-spoke-for, hidden-count badge in
             // .node-interaction-overlay by data-id (badges without a
-            // data-id — the density-count variant — cannot be
+            // data-id - the density-count variant - cannot be
             // attributed there and are only found in-group). Any
             // failure drops the whole segment mechanism for this paint
             // (scSeg = null) and the paint falls back to building
@@ -76,10 +76,10 @@
                 const scLabelStack = In.querySelector(":scope > .map-label-stack"), scCtrlStack = In.querySelector(":scope > .direction-control-stack"), scUnderlay = In.querySelector(":scope > .spoke-underlay"), scOverlay = In.querySelector(".node-interaction-overlay");
                 // Single-pass stack indexes (P1 perf): one scan per
                 // extraction stack, bucketed by the same attribute the
-                // per-key searches below used — first in document
+                // per-key searches below used - first in document
                 // order wins for the singleton pieces (label, badge,
                 // underlay item), document order preserved for the
-                // control lists — so every lookup returns exactly the
+                // control lists - so every lookup returns exactly the
                 // element(s) the per-key querySelector(All) returned,
                 // in O(1) instead of a fresh stack scan per key.
                 const scIdxLabel = new Map, scIdxControls = new Map, scIdxStems = new Map, scIdxBadge = new Map;
@@ -116,7 +116,7 @@
                 });
             } catch (_) { __sxErrLog("layout-scoped-paint-segcapture", _), scSeg = null, scSegOrder = null; } scTCap = performance.now() - scTCap0; }
             // LAYOUT GLIDE (tweening Jobs A+B, 2026-11-13): the end glide
-            // is COUPLED to the global animations toggle — the toggle
+            // is COUPLED to the global animations toggle - the toggle
             // is the master switch and governs all map animation
             // (Jason, 2026-11-13 ~16:57 CST). Glide runs only when
             // the caller passes animate AND mn.animations is on.
@@ -155,8 +155,8 @@
             // clear below (n(In, "")) and re-appended right after the
             // clear's early-return fork, so the clear cannot wipe it
             // before this paint lands. It stays visible through the
-            // paint's yields / chunked steps — and survives a paint
-            // that fails or is superseded mid-flight — and is removed
+            // paint's yields / chunked steps - and survives a paint
+            // that fails or is superseded mid-flight - and is removed
             // only by the markup install further down (n(In, v)),
             // which replaces the layer's content wholesale in the
             // same step that lands the full paint: the capsule dies
@@ -438,20 +438,20 @@
             }() : `<g>${oa()}${function() {
                 // Split center (split-center stage, 2026-10-27): when the
                 // map's own profile is a saved pair/group tab, the center
-                // shows WHO and WHAT KIND with zero math — the members'
+                // shows WHO and WHAT KIND with zero math - the members'
                 // own photos in a single row inside the disc, and the
                 // pair's relation glyph sitting on each seam between
                 // neighbours (N members → N−1 seams, one glyph per seam,
                 // every seam carrying the pair's one recorded operation:
                 // ⋈ for a cross pairing, ⊙ for a straight pairing,
                 // ⊖ for a circle-minus pairing).
-                // Per-seam differing relations have no record to read —
-                // a group stores exactly one pairOp — so mixed-relation
+                // Per-seam differing relations have no record to read -
+                // a group stores exactly one pairOp - so mixed-relation
                 // seams are not defined and none are invented here. The
                 // multi-select overlay (Qi) keeps precedence and its
                 // existing mosaic exactly as before; an individual tab
                 // keeps its single full disc. This paints only where a
-                // map is painted — the legacy 3+ match panel is a
+                // map is painted - the legacy 3+ match panel is a
                 // separate section and never comes through here.
                 const sxSplitGrp = !Qi() && Mt && ft[Mt] && "group" === ft[Mt].kind && Array.isArray(ft[Mt].sourceIds) ? ft[Mt] : null, sxSplitIds = sxSplitGrp ? sxSplitGrp.sourceIds.filter(e => vt[e]).slice(0, 8) : [];
                 const sxCenterIds = sxSplitIds.length >= 2 ? sxSplitIds : function() {
@@ -532,7 +532,7 @@
                 // blank-profile state), height 44, corner radius 16 and text
                 // 16px (17px blank) were all fixed constants that followed
                 // neither knob. Its POSITION (ea.branchToggleY) follows the
-                // center ring instead — see refreshCenterRing().
+                // center ring instead - see refreshCenterRing().
                 const e = Vi(), t = "rated" === Sn, n = h.filter(n => t ? !hi(n, e) : !mi(n, e)).length, i = t && 0 === Object.keys(vt[e] || {}).length, a = t ? "unrated" : "rated", r = i ? 240 : 72, fsT = mapFontScale(), rW = r * fsT, rH = 44 * fsT, o = i ? `+${n} · show unrated branches` : `+${n}`, s = `${n} ${a} primary branches hidden. Switch the whole map to show ${a} branches.`;
                 return `<g class="center-branch-toggle${i ? " is-blank-profile" : ""}" data-center-branch-toggle-wrap transform="translate(${900 - rW / 2} ${ea.branchToggleY})"><rect data-center-branch-toggle width="${rW}" height="${rH}" rx="${16 * fsT}" tabindex="0" role="button" aria-label="${s}" pointer-events="all"><title>Switch the whole map to show ${a} branches</title></rect><text x="${rW / 2}" y="${23 * fsT}" style="font-size:${(i ? 17 : 16) * fsT}px" text-anchor="middle" dominant-baseline="middle" pointer-events="none">${o}</text></g>`;
             }()}</g>`);
@@ -570,14 +570,14 @@
             // (first receive × second receive) / 100. The values are
             // read straight off the pair record the engine already
             // computed (topicsById ratings; the straight products in
-            // straight.byId) — no match math is recomputed here, and
+            // straight.byId) - no match math is recomputed here, and
             // the two flanks are never averaged or merged into one
             // number. "First" is the tab's first-named profile, so
             // swapping the pair exchanges the flanks and leaves the
             // fit itself unchanged. Colors come from zi(), the same
             // value-to-color mapping the profile tapers use, on the
-            // same [-100, 100] scale. Any other view — a profile tab,
-            // a cast of 3 or more, blind mode — resolves to null and
+            // same [-100, 100] scale. Any other view - a profile tab,
+            // a cast of 3 or more, blind mode - resolves to null and
             // the paint below is exactly the profile paint.
             const sxPairTapers = function() {
                 if (Rt) return null;
@@ -965,7 +965,7 @@
                         const gap3 = Math.max(16, 6 * Za.measure(" ", fs3, "topic"));
                         let m, y;
                         // ICON-ANCHORED LABEL (2026-11-18): same as the
-                        // cloud-topics loop above — far end of the spoke,
+                        // cloud-topics loop above - far end of the spoke,
                         // six-space gap inside the icon, rendered width.
                         const anchored3 = LabelRenderer.computeAnchoredOffset(p.routedLength, renderedW3, hubR3, iconR3, gap3, h);
                         m = anchored3.offset;
@@ -1019,8 +1019,8 @@
                 // pieces already inside the group stay where they
                 // are), then a deep clone of the assembled group is
                 // spliced into the layer at its capture-order
-                // position. The clone is what gets spliced — never
-                // the long-lived captured original — so the wiring
+                // position. The clone is what gets spliced - never
+                // the long-lived captured original - so the wiring
                 // passes below attach exactly one set of listeners,
                 // exactly as for a fresh-built group. From here on
                 // the spliced group is indistinguishable from a fresh
@@ -1028,7 +1028,7 @@
                 // Blit session (P3): while a session is live and
                 // this paint continues it (same frozen set), the
                 // frozen segments are NOT spliced into the visible
-                // flow at all — the raster image stands in for them
+                // flow at all - the raster image stands in for them
                 // and the end-of-paint step (blitPaintEnd) vaults the
                 // captured segments instead. Boundary events logged
                 // by this paint's solve do not break the session:
@@ -1166,7 +1166,7 @@
                 const s = Boolean(Bt && !r && o), l = o ? e : [];
                 if (!l.length && !n.length && !i.length) return;
                 // LAYOUT-GLIDE SIGNAL (tweening Job B): fire only when
-                // moved nodes actually glide (l non-empty) — never on
+                // moved nodes actually glide (l non-empty) - never on
                 // a paint with no moves. Enter/exit fades alone do
                 // not count as a glide.
                 l.length && sxLayoutGlideSignal(l.length);
@@ -1346,7 +1346,7 @@
             }
             // Q3 selection sync: mirror every RENDERED selection
             // change into the Layout Editor, including the paths
-            // that mutate the selection without notifying —
+            // that mutate the selection without notifying -
             // label/icon toggle taps (Si/$i), rating-target
             // clears, and profile resets all assign Lt and land
             // here through Mr(). A change to null is a map-side
@@ -1376,8 +1376,8 @@
             // element this paint built for the same key. The frozen
             // node's delivered state is by construction its pre-op
             // state (freeze replay + the settle guard above), so the
-            // retained element — same object, byte-identical markup
-            // — IS the correct post-op rendering; the post-processing
+            // retained element - same object, byte-identical markup
+            // - IS the correct post-op rendering; the post-processing
             // segment above ran on the fresh twin, whose geometry
             // inputs are identical, and its whole-viewport steps
             // (relations layer, label/control stacks, spoke
@@ -1390,7 +1390,7 @@
                 let kept = scSegDone.size, diverged = scSegDiverged;
                 scKeep.forEach((el, key) => {
                     // Segment paint (P1): keys spliced from captured
-                    // segments have no fresh twin — the lookup below
+                    // segments have no fresh twin - the lookup below
                     // would find the spliced clone, which must never
                     // be replaced by the captured original or counted
                     // here; spliced keys are already accounted in
@@ -1427,7 +1427,7 @@
                     total: scR1(scTTot)
                 });
             }
-            // Blit session (P3), end-of-paint step — where the T3
+            // Blit session (P3), end-of-paint step - where the T3
             // restore block sits: start a session after a burst's
             // first scoped paint, or run a continuing session
             // paint's vault/image step (see blitPaintEnd at the
@@ -1463,10 +1463,10 @@
         // for the unrated map view only; Build 2026-10-16_1957 makes the
         // tuned set the global default for every map state, rated or not,
         // so all maps share one geometry and stay directly comparable.
-        // While the session has no explicit layout control — no layout-*
+        // While the session has no explicit layout control - no layout-*
         // URL params at load (see the bootstrap in index.html), and the live
         // settings still match what this block last applied, so
-        // layout-editor changes disengage it — the reconciler at the top of
+        // layout-editor changes disengage it - the reconciler at the top of
         // Mr still tracks the profile state (the app's own empty-map test:
         // no named profiles) on every render, but both states now resolve
         // to the same tuned set, so loading a profile no longer switches
@@ -1563,7 +1563,7 @@
         };
         // Ownership note (map-render refactor, finding 15): the
         // center-node global metric total (#metricMapGlobal) is NOT
-        // computed or updated anywhere in this bundle — it is owned
+        // computed or updated anywhere in this bundle - it is owned
         // by the shell's inline metric script in index.html
         // (showMetricGlobal / markMetricGlobalStale / clearMetricGlobal
         // / syncMetricGlobalVisibility / positionMetricOverlay). The
@@ -1589,7 +1589,7 @@
             if ("number" != typeof t || !(t > 0)) return !1;
             return sxChunkBudget = Math.min(50, Math.max(25, t)), delete window[e], !0;
         }
-        // INTERIM CAPSULE PAINT (ruled 2026-11-01, Jason — the visible
+        // INTERIM CAPSULE PAINT (ruled 2026-11-01, Jason - the visible
         // half of the 2026-10-31 capsule-only ruling, revised): while
         // a cascade runs, every interim commit ALSO paints the SCC
         // capsule approximation of the branch being worked on, so the
@@ -1597,19 +1597,19 @@
         // instead of the branch jumping from its starting shape to
         // its final one at run end. The paint is the solver's own
         // approximation: sxSccBuild over the just-solved tree gives
-        // every topic's capsule segment (e.S — the paddle the crossing
+        // every topic's capsule segment (e.S - the paddle the crossing
         // number judges: from the label's inward radius minus half a
         // font size out past the end of the longest slider, drawn at
-        // stroke-width F with round caps — the band shrink (2026-11-02)
+        // stroke-width F with round caps - the band shrink (2026-11-02)
         // halved the capsule to centre line ± F/2, so the painted
         // band F IS the capsule), its centreline (e.M, branching
         // point -> the paddle's outer end), its node seat, and the
         // branch's spokes (centre spokes drawn from the centre disc's
         // rim), all in world coordinates. (Capsule-inversion
         // correction, 2026-11-02: the paddle reaches the slider ends
-        // and the line runs back to the rim — not the reverse.) Drawing them is one <g> of stroked lines
-        // inside #mapLayer — no DOM string build of the map, no
-        // settle search, no blit — so an interim paint stays cheap
+        // and the line runs back to the rim - not the reverse.) Drawing them is one <g> of stroked lines
+        // inside #mapLayer - no DOM string build of the map, no
+        // settle search, no blit - so an interim paint stays cheap
         // next to a full paint, and because the layer lives inside
         // the transformed map layer it shifts with the map under pan,
         // zoom and scene resize with no projection code of its own.
@@ -1623,7 +1623,7 @@
         // live crossing number rides on the approximation being
         // painted, not on the frozen pre-run DOM cloud.
         // LAYOUT-GLIDE SIGNAL (tweening Job B, 2026-11-13): an
-        // observable signal each time the B glide actually runs —
+        // observable signal each time the B glide actually runs -
         // console entry + a short quiet tone + a brief on-screen
         // status pill. Fires ONLY when moved nodes glide, never on
         // a paint with no moves. Tone/status are best-effort: a
@@ -1665,8 +1665,8 @@
         // ~16:57 CST): when the toggle is OFF the capsule draws
         // instantly (the old jump); when ON it tweens over 0.5s.
         // The tween only moves the interim capsule layer's painted
-        // coordinates — every decision still reads the solve registry,
-        // never the DOM — so the crossing number and gate are untouched.
+        // coordinates - every decision still reads the solve registry,
+        // never the DOM - so the crossing number and gate are untouched.
         let sxCapLastSnap = null, sxCapLastBranch = null;
         const sxCapTween = { from: null, to: null, start: 0, raf: 0, layer: null, branch: null };
         // Snapshot the capsule's drawn primitives with stable keys so
@@ -1699,7 +1699,7 @@
                     // (ruled 2026-11-13, Jason): the midline runs out
                     // to capEnd, so trim its drawn end to the node
                     // circle instead of past the icon. Solver geometry
-                    // is untouched — only the drawn interim line.
+                    // is untouched - only the drawn interim line.
                     let x2 = e2.M[1].x, y2 = e2.M[1].y;
                     if (e2.node) {
                         const dx = e2.node.x - e2.M[0].x, dy = e2.node.y - e2.M[0].y, len = Math.hypot(dx, dy), r = Math.max(26, F * .45);
@@ -1872,7 +1872,7 @@
         window.Flexcapades = window.FlexcapadesEngine;
 
         // INTERIM-PAINT THROTTLE (anneal speed, 2026-11-13): the capsule
-        // draw is the visible animation — keep it, but batch it to at
+        // draw is the visible animation - keep it, but batch it to at
         // most one draw per animation frame during a run.
         // sxInterimPaintPending is set while a frame is scheduled;
         // sxInterimPaintGeo always holds the newest solved geometry,
@@ -1890,7 +1890,7 @@
             // Chunked paint arms: boot (armed by the shell boot
             // controller), route entry (armed by sxRouteRender
             // before its render), and list close (armed by
-            // sxChunkClose) — consumed one-shot here, past the
+            // sxChunkClose) - consumed one-shot here, past the
             // recovery/lock early-returns above, so a queued or
             // refused call can never eat an arm, and THIS paint
             // runs chunked at the armed budget (see
@@ -1930,28 +1930,28 @@
             // from: delivered radii (dkDeliveredRadii), fit
             // targets (dkComputeFitTarget), base-state captures
             // (rr.resolveRadialSiblings, inside the solve) and
-            // the crossing readout (sxCrossingMeasure —
+            // the crossing readout (sxCrossingMeasure -
             // sxSccBuild over dkLastBranches) are all computed
             // from that registry, inside the paint of the SCC
             // capsule approximation, never from DOM geometry.
             // An interim commit therefore runs exactly the solve
-            // segment Ar() runs — build + tidy (the tidier itself
+            // segment Ar() runs - build + tidy (the tidier itself
             // stands down under a scoped context, exactly as in
             // a scoped paint today) plus Ar's branch-angle map
-            // update — and skips the full-map paint: the DOM
+            // update - and skips the full-map paint: the DOM
             // string build, the innerHTML install, the settle
             // search and the blit steps. The visible map keeps
-            // the last full paint for the whole run — except the
+            // the last full paint for the whole run - except the
             // worked branch's SCC capsule approximation, which
             // sxInterimCapsulePaint draws from this same solve on
             // every interim commit (ruled 2026-11-01, Jason:
             // intermediary stages ARE shown, as the capsule
-            // approximation) — and dkRunCascade paints the full
+            // approximation) - and dkRunCascade paints the full
             // map ONCE when the run ends, at the state that stands. The two captures
             // in applyScoped that used to read painted positions
-            // — scComputeAutoRing (category centres) and
+            // - scComputeAutoRing (category centres) and
             // scCaptureDeliveredCenters (frozen nodes' delivered
-            // centres) — read the solve registry (dkLastBranches,
+            // centres) - read the solve registry (dkLastBranches,
             // through rr's own anchor/position arithmetic) while
             // a run is live, like every other decision input;
             // neither is fed the last full paint's positions
@@ -1965,11 +1965,11 @@
                     SX_SOLVER_FACADE.tidy(d);
                     sn.clear(), d.branches.forEach(e2 => sn.set(e2.entry.branch.name, e2.angle));
                     // INTERIM-PAINT THROTTLE (anneal speed, 2026-11-13):
-                    // the capsule draw is the animation — keep it visible,
+                    // the capsule draw is the animation - keep it visible,
                     // but draw at most once per animation frame. A burst of
                     // Mr calls inside one frame only replaces the pending
                     // geometry; the single rAF draws the latest state. The
-                    // solve (build + angle map above) stays synchronous —
+                    // solve (build + angle map above) stays synchronous -
                     // only the DOM draw is deferred. If the run ends (or a
                     // new run starts) before the frame, the draw is
                     // skipped; the closing full paint shows the final state.
@@ -1994,7 +1994,7 @@
             }
             if (!sxChunkPaint && !sxBootChunk) {
                 // Ordinary render: drive Ar's generator to
-                // completion inside this call — the same single
+                // completion inside this call - the same single
                 // synchronous paint as before the generator split.
                 try {
                     const gen = Ar(e);
@@ -2024,7 +2024,7 @@
             // Boot-race fix (2026-11-16): the skin loader bumps
             // window.__SX_PAINT_GEN on every taxonomy swap. If the
             // generation moved since this paint started, the paint is
-            // stale — abort quietly (no throw, no pause screen) and
+            // stale - abort quietly (no throw, no pause screen) and
             // let the queued re-render paint the new skin.
             const sxPaintGen = window.__SX_PAINT_GEN || 0;
             const p = new Promise(resolve => {
@@ -2056,12 +2056,12 @@
                 // hard-coded close-up of the centre avatar (the brief
                 // "hello" portrait) because the camera is set before
                 // the map is drawn. Once this boot paint has drawn
-                // the map, pull back to the full map — Ih() also arms
+                // the map, pull back to the full map - Ih() also arms
                 // the fit-settle chain, which re-fits again after the
                 // anneal moves the nodes. Non-boot paints are untouched.
                 // User-wins gate (2026-11-15): the boot paint can finish
                 // AFTER the user has already focused a node (slow paint
-                // on a loaded machine) — the pull-back then clobbers the
+                // on a loaded machine) - the pull-back then clobbers the
                 // user's zoom (kh cancels the focus tween and re-fits).
                 // A user camera move sets fitSettleUserHold via
                 // noteFitUserCamera(); when it is set, skip the

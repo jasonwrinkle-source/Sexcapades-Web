@@ -127,14 +127,14 @@
                 }
         async function apQrImages(t, a, n, i) {
             // Document path of the QR service (refactor F1): fixed
-            // width 1200, oversize "split" — on failure it splits
+            // width 1200, oversize "split" - on failure it splits
             // and warns here instead of throwing like the card path.
             // Unified framework adaptation: split-to-count, then
             // warn-and-refuse over the 2 the page holds.
             // Scan-code fix (refactor ranking item 1): the document
             // page layout holds at most TWO codes. When the split
-            // yields more than two pieces, NO codes are returned —
-            // a partial set could never be reassembled on scan-in —
+            // yields more than two pieces, NO codes are returned -
+            // a partial set could never be reassembled on scan-in -
             // and overflowPieces reports how many the profile needs,
             // so ap can print a plain warning on the document and dp
             // can warn in the export dialog and point at the
@@ -610,7 +610,7 @@
                     const t = e.querySelector("[data-tooltip-name][data-tooltip-definition][data-tooltip-value]"), parts = t ? [ t.getAttribute("data-tooltip-name"), t.getAttribute("data-tooltip-definition"), t.getAttribute("data-tooltip-value") ].map(e => String(e || "").trim()).filter(Boolean) : [];
                     if (!parts.length) return;
                     // Group D: package the rich About-dialog content into the hypermap tooltip,
-                    // not just the brief hover tip — same stats lines the topic dialog shows
+                    // not just the brief hover tip - same stats lines the topic dialog shows
                     // (prevalence / fantasy stats, sources, FetLife counts, per-source
                     // popularity stats, risk note), computed with the same helpers
                     // (po / co / B / uo / popularitySourceStats) the dialog uses.
@@ -760,7 +760,7 @@
         }
         async function pp(e, t = {}) {
             // QR sheet: the unified framework's unbounded fallback.
-            // No count cap and no refusal — every SCP4 piece is
+            // No count cap and no refusal - every SCP4 piece is
             // printed, numbered, and counted in the progress text
             // below, so the document and card paths can point here
             // for the complete version.
@@ -829,7 +829,7 @@
                 if (r !== vf || vt[e] !== a) return;
                 // Framework core: a failed sheet states how many
                 // numbered codes were needed and that the alternatives
-                // hold the complete profile — never a silent partial.
+                // hold the complete profile - never a silent partial.
                 Bm.textContent = "Could not create profile QR", jm.textContent = sxQrSheetPieces ? `This browser could not finish the high-correction QR page for ${sxQrSheetPieces} numbered codes.` : "This browser could not finish the high-correction QR page.", 
                 tf.textContent = "Use the profile JSON or a PNG export instead — both hold the complete profile.", Wf(r, sxQrSheetPieces ? `The profile QR page could not be completed (${sxQrSheetPieces} numbered codes needed). Use the profile JSON or a PNG export instead — both hold the complete profile.` : "The profile QR page could not be completed. Use the profile JSON or a PNG export instead — both hold the complete profile."), 
                 console.error("Profile QR JPEG export failed.", t);

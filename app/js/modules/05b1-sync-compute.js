@@ -84,7 +84,7 @@
                 }
                 // Multi-pole topic: per-pole affinities under the pole
                 // keys. (Flanked topics carry give/receive keys, so they
-                // never reach here; a 0 is a rating — an all-zero vector
+                // never reach here; a 0 is a rating - an all-zero vector
                 // counts.)
                 if (!e && !t) {
                     // `intensity` is the (n+1) relevance, not a pole.
@@ -214,7 +214,7 @@
             // Multi-pole comparison (ruled 2026-11-16): a pole vector or
             // a line scalar counts as a rating for the boolean, and the
             // vector / scalar is carried through for the pair scorer.
-            // A 0 is a rating — an all-zero vector counts as rated.
+            // A 0 is a rating - an all-zero vector counts as rated.
             const poles = raw.polesKnown ? raw.poles : null;
             const line = raw.lineKnown ? raw.line : null;
             // Relevance is the stored +1. Old ratings have no key yet:
@@ -267,7 +267,7 @@
         }
         // Multi-pole comparison (ruled 2026-11-16): the agreement
         // between two profiles' stances on one topic, as a fraction
-        // 0–1. score = 100 − (mean |A−B| over the poles) ÷ 2, so the
+        // 0-1. score = 100 − (mean |A−B| over the poles) ÷ 2, so the
         // fraction is 1 − (mean |A−B|) / 200. A line topic is a
         // one-pole vector (score = 100 − |A−B| ÷ 2). Two all-zero
         // vectors agree perfectly (fraction 1). Returns null when the
@@ -318,7 +318,7 @@
         // similar role (sum of shareA × shareB). Cross is the
         // complementary role (1 − straight) when both people put some
         // weight on the topic. Both empty: straight 1, cross 0. Only
-        // one empty: both 0 — an empty blend is not a complement.
+        // one empty: both 0 - an empty blend is not a complement.
         function sxRoleOverlap(polesA, polesB) {
             if (!polesA || !polesB) return null;
             const keys = [ ...new Set([ ...Object.keys(polesA), ...Object.keys(polesB) ]) ];
@@ -374,7 +374,7 @@
         // the diagonal of the pair's joint engagement (sum of the
         // same-pole products, /10000, capped at 1); Cross is the
         // off-diagonal (sum of the cross-pole products, /10000,
-        // capped) — completion, normalized by what a pair could
+        // capped) - completion, normalized by what a pair could
         // cover: two fully committed holders on disjoint poles score
         // the full 10000. Enemy pairs price the same way over the
         // stored enemy pole pairs only. The product grades itself,
@@ -459,14 +459,14 @@
             return raw.map(v => v / s);
         }
         // One person's holdings on the same pole list: each pole's
-        // value as a fraction of full, max(0, v) / 100 — NOT shares of
+        // value as a fraction of full, max(0, v) / 100 - NOT shares of
         // the person's total. A share row throws away how much anyone
         // holds (30/30 and 100/100 are the same shape, and a lone 30
         // fills its role like a lone 100); the group numbers are
         // priced by what is actually held, like the pair tensor.
         // (Jason, 2026-11-21: the group scorer includes how much
         // anyone holds a stance.) Intensity keeps its own ruled role
-        // on top, as the relevance factor — it is not folded in here,
+        // on top, as the relevance factor - it is not folded in here,
         // so it is never counted twice.
         function sxHeldRow(poles, keys) {
             return keys.map(k => Math.max(0, Number(poles[k]) || 0) / 100);
@@ -552,8 +552,8 @@
             return `one-sided — ${who.join(" and ") || nameA}`;
         }
         // Match-engine R1: the strongest-first ordering (strongest strength
-        // first, ties broken by label A–Z) and the plain label ordering are
-        // declared ONCE here, above every use — the pair scorer, the group
+        // first, ties broken by label A-Z) and the plain label ordering are
+        // declared ONCE here, above every use - the pair scorer, the group
         // scorer, and both teaser bumps all sort through these two.
         const byStrength = (x, y) => (y.strength || 0) - (x.strength || 0) || x.label.localeCompare(y.label), byLabel = (x, y) => x.label.localeCompare(y.label);
         function sxLowestSet(pairs, profiles) {
@@ -567,16 +567,16 @@
                 lowest = null === min ? [] : scores.map((v, m) => v === min ? m : -1).filter(m => m >= 0);
             return { scores: scores, min: min, lowest: lowest };
         }
-        // Match-engine R5: the "take the top slice" curve — the first
-        // ceil(|list| * heat / 100) entries, floored at one — is declared
+        // Match-engine R5: the "take the top slice" curve - the first
+        // ceil(|list| * heat / 100) entries, floored at one - is declared
         // ONCE here, above every use: the teaser selection and both
         // promotion bumps (pair and group) slice through it, each passing
         // its own heat value unchanged.
         const takeTop = (list, heat) => list.slice(0, Math.max(1, Math.ceil(list.length * heat / 100)));
-        // Match-engine R4: the score headline sentence — the percent,
+        // Match-engine R4: the score headline sentence - the percent,
         // then "N of M shared topics" across the dash, with the group
         // prefix (e.g. "group match score for NAME") folded in ahead of
-        // the dash where a view carries one — is written ONCE here,
+        // the dash where a view carries one - is written ONCE here,
         // above every use: the pair scorer and the group scorer each
         // build their Play and Conversation headline text through it,
         // each passing its own percent / count / considered values (and
@@ -609,13 +609,13 @@
         // Play inclusion table (six-scores provisional build,
         // 2026-10-30): Play KF and Play MS use Play's OWN table for
         // now, copied from Charted (the FINAL inclusion tables are
-        // DEFERRED — recommendation 2 unruled; Charted's own table,
+        // DEFERRED - recommendation 2 unruled; Charted's own table,
         // sxFlagSum / sxTopicTerms, is NOT used by Play and is
         // unchanged). Per topic, per member, counted once per topic,
         // listing only what counts: Favorite 1, Tried +1, Fantasy
         // +0.5 ONLY when combined with a rating or another flag (a
         // Fantasy-ONLY flag counts 0 in Play). Limit is not in the
-        // table at all — a limit-blocked topic is excluded by the
+        // table at all - a limit-blocked topic is excluded by the
         // callers' considered sets, never scored here.
         function sxPlayTableFlags(td) {
             const fav = td.favorite ? 1 : 0, tried = td.triedScope ? 1 : 0,
@@ -628,15 +628,15 @@
             return (td.rated ? 1 : 0) + sxPlayTableFlags(td);
         }
         // Parlay inclusion table (six-scores provisional build,
-        // 2026-10-30, FOR-NOW — final table DEFERRED; Favorite
-        // RESTORED at +1 2026-10-30 — its removal in the group-Parlay
+        // 2026-10-30, FOR-NOW - final table DEFERRED; Favorite
+        // RESTORED at +1 2026-10-30 - its removal in the group-Parlay
         // fix was wrong; Favorite was ruled +1 in this table, not
         // zero): Parlay KF and Parlay MS
         // use Parlay's OWN table on the straight match. Per topic,
         // per member, counted once per topic, listing only what
         // counts: Favorite 1, Tried 1, Fantasy 1 (FULL 1, whether combined or
-        // fantasy-only — unlike Play). Teased does not enter Parlay consideration at all
-        // (absent, not zero). Limit is not in the table —
+        // fantasy-only - unlike Play). Teased does not enter Parlay consideration at all
+        // (absent, not zero). Limit is not in the table -
         // limit-blocked topics stay out of Parlay's considered set
         // entirely.
         function sxParlayTableFlags(td) {
@@ -692,21 +692,21 @@
             });
             return { pct: consideredCount && den > 0 ? Math.round(100 * num / den) : null, counted: countedCount, considered: consideredCount };
         }
-        // Match-engine (Edit 8): the display-layer MOVE rule — a teased
-        // topic moves from the red bucket to the yellow bucket — is
+        // Match-engine (Edit 8): the display-layer MOVE rule - a teased
+        // topic moves from the red bucket to the yellow bucket - is
         // governed by ONE predicate, stated once here: the topic's
         // teased list is non-empty AND its class is exactly "soft-no".
         // The pair-glance MOVE and the pair ring-bucket MOVE call this
         // predicate directly; the group ring-bucket MOVE calls it on
         // the pair-selected record and adds its own conditions
         // (non-fantasy, teased for a lowest-overall-kink-score member)
-        // at its call site — those group-only conditions are NOT part
+        // at its call site - those group-only conditions are NOT part
         // of this predicate and are not folded into it.
         const sxIsTeased = rec => (rec.teaserFor || []).length && "soft-no" === rec.countClass;
-        // Match-engine (Edit 6): the blind-import filter — which of an
+        // Match-engine (Edit 6): the blind-import filter - which of an
         // imported profile's topics survive a blind comparison against
         // the selected comparison group, plus the kept/discarded counts
-        // the import toast reports — is declared ONCE here, with the
+        // the import toast reports - is declared ONCE here, with the
         // rest of the match engine; the import door calls it with the
         // new profile's id and the comparison-group ids, exactly as it
         // called the inline IIFE this replaces. Its keep rule (no group
@@ -1674,14 +1674,14 @@
             return null != product && product < 0 ? -product / 100 : null;
         }
         // The strongest argument on one shared straight-register
-        // record, as a fraction 0–1 (ruled 2026-11-21: circle minus
+        // record, as a fraction 0-1 (ruled 2026-11-21: circle minus
         // is a measure, defined per pole as well as per flank, on
         // vanilla maps as well as Sexcapades). A stored enemy
         // overlap, a negative same-flank product, a line scalar
         // product across zero, and a same-pole sign split on a pole
         // vector all count; the topic's feud is the strongest of
         // them. No floor and no epsilon: the product grades itself,
-        // so a −5 against a +5 is a feud of 0.0025 — formally a
+        // so a −5 against a +5 is a feud of 0.0025 - formally a
         // debate topic, priced as nearly nothing. Declared once;
         // the pair rings, the minus adapter, and the minus tab's
         // buckets all read this.
@@ -1757,7 +1757,7 @@
                 recs = pair.straight.topics.map(s => {
                     if ("shared" !== s.status) return { id: s.id, entryKF: null, entryMS: null, consideredKF: !1, consideredMS: !1 };
                     // Multi-pole comparison (ruled 2026-11-16): Parlay
-                    // includes the ratings too — the agreement feeds
+                    // includes the ratings too - the agreement feeds
                     // Parlay (Converse) as well as Play (Commune).
                     // The Parlay entries use the agreement exactly as
                     // the Play entries do (MS = the agreement fraction,
@@ -1819,7 +1819,7 @@
                     // feud is the strongest per-pole split
                     // (sxDebateFeud), the Kink Factor entry prices it
                     // by the debate factor, and the Match Score entry
-                    // is the feud itself — any topic carrying a split
+                    // is the feud itself - any topic carrying a split
                     // counts, at its own strength.
                     if (null != s.agreement || null != s.roleEnemy) {
                         const feud = sxDebateFeud(s);

@@ -170,7 +170,7 @@
         // hard-excluded limits line, the role-dynamics block, the
         // authoritative full-group shared ground, the pairwise shared
         // ground, the combined group block, and the length/detail plan
-        // lines — everything the story and guide composers share. Pure
+        // lines - everything the story and guide composers share. Pure
         // text assembly from the match data; no DOM writes.
         function sxScribeSharedSections(o, s, u, p, f, g, m) {
             const A = o.map(e => `- ${function(e) {
@@ -470,7 +470,7 @@
 
         // Discussion composer (2026-11-16, Jason's ruling): on the
         // vanilla stance/belief maps Scribe writes an informed
-        // discussion between the stances recorded on the map — or, for
+        // discussion between the stances recorded on the map - or, for
         // a multi-profile cast, between the stances and the
         // commonalities of the bow-tie (Play/Commune) and circle-dot
         // (Conversation/Converse) profiles. It is NOT a story: no
@@ -644,9 +644,9 @@
         // Prompt finisher (writers refactor, Phase 1): applies the
         // target-specific guide wrappers (the strict-AI, suggestive,
         // and explicit prefixes, and the YoBitch rebuild), then the
-        // shared appends in their shipped order — the user request
+        // shared appends in their shipped order - the user request
         // text, the phase section, and the terms / about / age
-        // blocks — and finally the writer stamp. Returns the finished
+        // blocks - and finally the writer stamp. Returns the finished
         // prompt text; the builder performs the state writes.
         function sxFinishScribePrompt(promptText, ctx) {
             const { castIds: o, isSingle: s, isStory: u, leadName: d, castNames: v, castNameList: w, castSummary: b, establishedKindLabel: y, roleDynamics: p, roleDynamicText: h, fantasyTopics: g, triedTopics: m, promptMatchData: f } = ctx, { A, C, M, I, F, _, D, R, O, B, j, q, H } = ctx.sections;
@@ -680,7 +680,7 @@
             }
             // Closing length line (2026-11-17): restate the target at
             // the very end of the finished prompt, so the length is the
-            // last instruction the model reads — the mid-prompt
+            // last instruction the model reads - the mid-prompt
             // "approximately" line alone was being ignored and the model
             // stopped early. NovelAI is skipped: its output is a
             // copy-ready field block, not a free prompt.

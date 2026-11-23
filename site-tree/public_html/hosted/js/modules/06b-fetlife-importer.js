@@ -1,30 +1,30 @@
-        // FetLife importer alias map — SECTION START
+        // FetLife importer alias map - SECTION START
         // (Refactor Step 1, Build 2026-10-18_0343: this section was
         // given clear delimiters and batch labels. NO mapping was
-        // added, removed, or changed — structure/documentation only.)
+        // added, removed, or changed - structure/documentation only.)
         //
         // What uses it:
-        //   ox() — saved FetLife HTML imports: exact lookup in gk
+        //   ox() - saved FetLife HTML imports: exact lookup in gk
         //     (keys normalized by ck()), then the rx regex table
         //     (defined just after the sample strings, below).
-        //   cx() — pasted-text imports: exact lookup in fk. fk is
+        //   cx() - pasted-text imports: exact lookup in fk. fk is
         //     seeded from the topic catalog, then gk is merged in,
         //     then the guarded batch table further below.
         // Guarded insertion (IMPORTANT): merges into fk never
-        // overwrite an existing key — the first definition wins
+        // overwrite an existing key - the first definition wins
         // (the fk[e] || ... and !fk[n] guards). mk() writes only
         // gk and runs before those merges.
         // How to add aliases: append a NEW batch at the end of the
         // batch table (after Batch #3), same [target, [terms]]
         // shape, labeled with the next batch number and the
-        // build/date. Keys are base terms — the importer strips
+        // build/date. Keys are base terms - the importer strips
         // parenthetical qualifiers before matching.
         // ============================================================
-        // ---- Batch #1 — Builds 2026-10-18_0107 / 0114
+        // ---- Batch #1 - Builds 2026-10-18_0107 / 0114
         // (2026-10-18): the original alias set, registered into
         // gk by the mk() calls below. ----
         const gk = {};
-        // Build 2026-10-18_1624 — display-name registry for the FetLife
+        // Build 2026-10-18_1624 - display-name registry for the FetLife
         // mapping viewer (window.__fetlifeMap, exposed after cx below):
         // fk/gk keys are ck()-normalized, so mk()/yk()/the guarded batch
         // table also record each term's original spelling here (first
@@ -57,12 +57,12 @@
         // acts), Bellydancing (Watching, exposure & settings), Formiphilia
         // (Sensation & atmosphere), Graphoerotica (Psychological
         // dynamics), and Toy Making, whose decided home is the Clothing,
-        // materials & objects CATEGORY — a category-only target, so it is
+        // materials & objects CATEGORY - a category-only target, so it is
         // reported as a broad hit and never silently rated.
         mk([ "Edge Play" ], "t0334"), mk([ "Morning Sex" ], "t0290"), mk([ "Bellydancing" ], "t0277"), 
         mk([ "Formiphilia", "Formicophilia" ], "t0120"), mk([ "Forniphilia" ], "t0405"), mk([ "Graphoerotica" ], "t0265"), mk([ "Toy Making" ], "cat-clothing-materials-objects"),
         // Importer fix package (2026-11-05): "Humiliation language" is its
-        // own topic (t0240, PS Humiliation subcategory) — it must land
+        // own topic (t0240, PS Humiliation subcategory) - it must land
         // there, not fall through to the broad Humiliation subcategory
         // fallback. The broad "Humiliation" mapping (s0034) is unchanged.
         mk([ "Humiliation language" ], "t0240"), 
@@ -97,7 +97,7 @@
         mk([ "Knife play" ], "t0086", !0), mk([ "Fear play", "Fear Play" ], "t0245");
         // fk: the pasted-text import map. Seeded from the topic
         // catalog just below, then gk (Batch #1) is merged in with
-        // a guard — existing keys are never overwritten — then the
+        // a guard - existing keys are never overwritten - then the
         // hand-written yk() aliases and the guarded batch table.
         const fk = {};
         function yk(e, t, n = "both", i = !1, a = !1) {
@@ -153,9 +153,9 @@ yk([ "Spitting", "Spit play", "Being spit on", "Spitting on someone" ], "t0341")
                 uncertain: !0
             });
         }));
-        // ---- FetLife importer alias map — SECTION END ----
+        // ---- FetLife importer alias map - SECTION END ----
         // (The next alias batch goes at the end of the guarded
-        // batch table above, inside this section — do not scatter
+        // batch table above, inside this section - do not scatter
         // alias writes elsewhere in the file.)
         const bk = [ {
             pattern: /\b(?:spit|spitting|spat)\b/,
@@ -198,7 +198,7 @@ yk([ "Spitting", "Spit play", "Being spit on", "Spitting on someone" ], "t0341")
             checklist: "",
             fetlife: "Into: Spanking — Everything to do with it, Rope bondage — Giving, Leather — Wearing Curious about: Pet play — Receiving Soft limits: Temperature play Hard limits: Choking",
             bdsmtest: "100% Dominant 82% Switch 64% Rigger 41% Rope bunny 18% Primal (Prey)"
-        }, fetlifeSampleHtml = "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n<title>SampleSwitch - FetLife</title>\n</head>\n<body>\n<div class=\"profile\">\n<h1>SampleSwitch</h1>\n<p>A sample FetLife profile page, saved with Save Page As, so you can try the importer without using your own page.</p>\n<h2>Fetishes</h2>\n<p>Into</p>\n<ul>\n<li><a href=\"https://fetlife.com/fetishes/101\">Spanking</a></li>\n<li><a href=\"https://fetlife.com/fetishes/102\">Chastity</a></li>\n<li><a href=\"https://fetlife.com/fetishes/103\">Edging</a></li>\n<li><a href=\"https://fetlife.com/fetishes/104\">Leather</a></li>\n<li><a href=\"https://fetlife.com/fetishes/105\">Flogging</a></li>\n<li><a href=\"https://fetlife.com/fetishes/106\">Gags</a></li>\n<li><a href=\"https://fetlife.com/fetishes/107\">Exhibitionism</a></li>\n<li><a href=\"https://fetlife.com/fetishes/108\">Humiliation</a></li>\n<li><a href=\"https://fetlife.com/fetishes/109\">Suspension</a></li>\n<li><a href=\"https://fetlife.com/fetishes/110\">Voyeurism</a></li>\n<li><a href=\"https://fetlife.com/fetishes/111\">Handcuffs</a></li>\n<li><a href=\"https://fetlife.com/fetishes/112\">Omorashi</a></li>\n</ul>\n<p>Curious</p>\n<ul>\n<li><a href=\"https://fetlife.com/fetishes/201\">Tickling</a></li>\n<li><a href=\"https://fetlife.com/fetishes/202\">Degradation</a></li>\n<li><a href=\"https://fetlife.com/fetishes/203\">Crossdressing</a></li>\n<li><a href=\"https://fetlife.com/fetishes/204\">Biting</a></li>\n<li><a href=\"https://fetlife.com/fetishes/205\">Pegging</a></li>\n<li><a href=\"https://fetlife.com/fetishes/206\">Forniphilia</a></li>\n<li><a href=\"https://fetlife.com/fetishes/207\">Spectrophilia</a></li>\n</ul>\n</div>\n</body>\n</html>", ix = [ [ "Handcuffing your partner, or tying their hands", "t0025", "give" ], [ "Requiring your partner to avoid going to the toilet until they are desperate", "cat-fluids-messy-play", "give" ], [ "Being pleasured until you can't handle it any more or being forced to orgasm many times", "t0326", "receive" ], [ "Making your partner wear and use a nappy", "t0185", "give" ], [ "Preventing your partner from orgasming until they beg", "t0327", "give" ], [ "Calling your partner names that imply authority like “master” or “daddy”", "t0131", "receive" ], [ "Cutting your partner with a blade, causing bleeding but no serious or permanent injury", "t0096", "give" ], [ "Peeing on your partner", "t0338", "give" ], [ "Causing pain by directly hitting or using implements on your partner's genitals", "t0096", "give" ], [ "Being peed on", "t0338", "receive" ], [ "Being stimulated by electricity, such as from a toy like the violet wand", "t0101", "receive" ], [ "Being denied any form of sexual stimulation for a period of time", "t0327", "receive" ], [ "Bringing your partner to orgasm, then ceasing stimulation to diminish the pleasure", "t0326", "give" ], [ "Hitting your partner with a crop, cane, or whip hard enough to bruise", "cat-impact-pain-body-modification", "give" ], [ "Being restrained by your partner's body, for example being held down on a bed", "t0353", "receive" ], [ "Being treated like a pet", "t0136", "receive" ], [ "Gagging your partner with a ball gag, O-ring gag, or similar", "t0035", "give" ], [ "Having sex or masturbating in a room visible from the street, with the curtains open", "t0266", "give" ], [ "Pulling your partner's hair hard enough to hurt", "t0093", "give" ], [ "Gagging your partner with an ordinary gag", "t0035", "give" ], [ "Having your partner use needles or pins to penetrate your skin", "t0074", "receive" ], [ "Being made to wear and use a nappy", "t0185", "receive" ], [ "Having pressure put on your neck, making it difficult but not impossible to breathe", "t0428", "receive" ], [ "Being cut with a blade, causing bleeding but no serious or permanent injury", "t0096", "receive" ], [ "Being spanked with a bare hand", "t0056", "receive" ], [ "Treating your partner like a child", "t0123", "give" ], [ "Being called names that imply authority like “master” or “daddy”", "t0131", "give" ], [ "Restraining your partner with your body, for example by holding them down on a bed", "t0353", "give" ], [ "Having sex or masturbating in a public place where people could come across you", "t0269", "give" ], [ "Observing someone undressing without their knowledge", "t0266", "give" ], [ "Putting pressure on your partner's neck, making it difficult but not impossible to breathe", "t0428", "give" ], [ "Putting clamps or clothes pegs on your partner's nipples or elsewhere", "t0070", "give" ], [ "Acting out a scene in which your partner pretends to rape you", "t0134", "receive" ], [ "Acting out a scene in which you pretend to rape your partner", "t0134", "give" ], [ "Having nails dug into your buttocks, or your back scratched, causing pain without breaking skin", "t0354", "receive" ], [ "Digging your nails into your partner's buttocks, or scratching their back, causing pain without breaking skin", "t0354", "give" ], [ "Being choked so that you cannot breathe, causing you to feel faint or lose consciousness", "t0428", "receive" ], [ "Forcing your partner to interact with faeces", "cat-fluids-messy-play", "give" ], [ "Being gagged with an ordinary gag", "t0035", "receive" ], [ "Choking your partner so they cannot breathe, causing faintness or unconsciousness", "t0428", "give" ], [ "Denying your partner any form of sexual stimulation for a period of time", "t0327", "give" ], [ "Being hit with a crop, cane, or whip hard enough to bruise", "cat-impact-pain-body-modification", "receive" ], [ "Being handcuffed or having your hands tied", "t0025", "receive" ], [ "Having sex or masturbating in front of other people at an orgy or as part of a show", "t0266", "give" ], [ "Being tied up so you can hardly move at all", "t0040", "receive" ], [ "Using needles or pins to penetrate your partner's skin", "t0074", "give" ], [ "Being prevented from orgasming until you beg", "t0327", "receive" ], [ "Having clamps or clothes pegs put on your nipples or elsewhere", "t0070", "receive" ], [ "Being caused pain by your partner hitting or using implements on your genitals", "t0096", "receive" ], [ "Being made to serve your partner as a cleaner or retail worker might", "t0360", "receive" ], [ "Using electricity, such as a violet wand, to stimulate your partner", "t0101", "give" ], [ "Being treated like a child", "t0123", "receive" ], [ "Tying or cuffing your partner to a bed or other object", "t0042", "give" ], [ "Having your partner serve you as a cleaner or retail worker might", "t0360", "give" ], [ "Being called demeaning words like “slut,” “whore,” “bitch,” or “sissy”", "t0240", "receive" ], [ "Observing someone having sex or masturbating in their own home, without their knowledge", "t0266", "give" ], [ "Having your hair pulled hard enough to hurt", "t0093", "receive" ], [ "Being tied or cuffed to a bed or other object", "t0042", "receive" ], [ "Having a blade used on you to instil fear, without causing bleeding", "t0245", "receive" ], [ "Spanking your partner with a bare hand", "t0056", "give" ], [ "Pleasuring your partner until they can't handle it or forcing them to orgasm many times", "t0326", "give" ], [ "Overhearing someone having sex or masturbating", "t0266", "give" ], [ "Observing someone having sex or masturbating as part of a sex show", "t0266", "give" ], [ "Calling your partner demeaning words like “slut,” “whore,” “bitch,” or “sissy”", "t0240", "give" ], [ "Using a blade on your partner to instil fear, without causing bleeding", "t0245", "give" ], [ "Tying your partner up so they can hardly move at all", "t0040", "give" ], [ "Being required to avoid going to the toilet until you are desperate", "cat-fluids-messy-play", "receive" ], [ "Being forced to interact with faeces", "cat-fluids-messy-play", "receive" ], [ "Being gagged with a ball gag, O-ring gag, or similar", "t0035", "receive" ], [ "Being brought to orgasm, with stimulation stopped at the right moment to diminish pleasure", "t0326", "receive" ], [ "Treating your partner like a pet", "t0136", "give" ] ].map((e, t) => ({
+        }, fetlifeSampleHtml = "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n<title>SampleSwitch - FetLife</title>\n</head>\n<body>\n<div class=\"profile\">\n<h1>SampleSwitch</h1>\n<p>A sample FetLife profile page, saved with Save Page As, so you can try the importer without using your own page.</p>\n<h2>Fetishes</h2>\n<p>Into</p>\n<ul>\n<li><a href=\"https://fetlife.com/fetishes/101\">Spanking</a></li>\n<li><a href=\"https://fetlife.com/fetishes/102\">Chastity</a></li>\n<li><a href=\"https://fetlife.com/fetishes/103\">Edging</a></li>\n<li><a href=\"https://fetlife.com/fetishes/104\">Leather</a></li>\n<li><a href=\"https://fetlife.com/fetishes/105\">Flogging</a></li>\n<li><a href=\"https://fetlife.com/fetishes/106\">Gags</a></li>\n<li><a href=\"https://fetlife.com/fetishes/107\">Exhibitionism</a></li>\n<li><a href=\"https://fetlife.com/fetishes/108\">Humiliation</a></li>\n<li><a href=\"https://fetlife.com/fetishes/109\">Suspension</a></li>\n<li><a href=\"https://fetlife.com/fetishes/110\">Voyeurism</a></li>\n<li><a href=\"https://fetlife.com/fetishes/111\">Handcuffs</a></li>\n<li><a href=\"https://fetlife.com/fetishes/112\">Omorashi</a></li>\n</ul>\n<p>Curious</p>\n<ul>\n<li><a href=\"https://fetlife.com/fetishes/201\">Tickling</a></li>\n<li><a href=\"https://fetlife.com/fetishes/202\">Degradation</a></li>\n<li><a href=\"https://fetlife.com/fetishes/203\">Crossdressing</a></li>\n<li><a href=\"https://fetlife.com/fetishes/204\">Biting</a></li>\n<li><a href=\"https://fetlife.com/fetishes/205\">Pegging</a></li>\n<li><a href=\"https://fetlife.com/fetishes/206\">Forniphilia</a></li>\n<li><a href=\"https://fetlife.com/fetishes/207\">Spectrophilia</a></li>\n</ul>\n</div>\n</body>\n</html>", ix = [ [ "Handcuffing your partner, or tying their hands", "t0025", "give" ], [ "Requiring your partner to avoid going to the toilet until they are desperate", "cat-fluids-messy-play", "give" ], [ "Being pleasured until you can't handle it any more or being forced to orgasm many times", "t0326", "receive" ], [ "Making your partner wear and use a nappy", "t0185", "give" ], [ "Preventing your partner from orgasming until they beg", "t0327", "give" ], [ "Calling your partner names that imply authority like "master" or "daddy"", "t0131", "receive" ], [ "Cutting your partner with a blade, causing bleeding but no serious or permanent injury", "t0096", "give" ], [ "Peeing on your partner", "t0338", "give" ], [ "Causing pain by directly hitting or using implements on your partner's genitals", "t0096", "give" ], [ "Being peed on", "t0338", "receive" ], [ "Being stimulated by electricity, such as from a toy like the violet wand", "t0101", "receive" ], [ "Being denied any form of sexual stimulation for a period of time", "t0327", "receive" ], [ "Bringing your partner to orgasm, then ceasing stimulation to diminish the pleasure", "t0326", "give" ], [ "Hitting your partner with a crop, cane, or whip hard enough to bruise", "cat-impact-pain-body-modification", "give" ], [ "Being restrained by your partner's body, for example being held down on a bed", "t0353", "receive" ], [ "Being treated like a pet", "t0136", "receive" ], [ "Gagging your partner with a ball gag, O-ring gag, or similar", "t0035", "give" ], [ "Having sex or masturbating in a room visible from the street, with the curtains open", "t0266", "give" ], [ "Pulling your partner's hair hard enough to hurt", "t0093", "give" ], [ "Gagging your partner with an ordinary gag", "t0035", "give" ], [ "Having your partner use needles or pins to penetrate your skin", "t0074", "receive" ], [ "Being made to wear and use a nappy", "t0185", "receive" ], [ "Having pressure put on your neck, making it difficult but not impossible to breathe", "t0428", "receive" ], [ "Being cut with a blade, causing bleeding but no serious or permanent injury", "t0096", "receive" ], [ "Being spanked with a bare hand", "t0056", "receive" ], [ "Treating your partner like a child", "t0123", "give" ], [ "Being called names that imply authority like "master" or "daddy"", "t0131", "give" ], [ "Restraining your partner with your body, for example by holding them down on a bed", "t0353", "give" ], [ "Having sex or masturbating in a public place where people could come across you", "t0269", "give" ], [ "Observing someone undressing without their knowledge", "t0266", "give" ], [ "Putting pressure on your partner's neck, making it difficult but not impossible to breathe", "t0428", "give" ], [ "Putting clamps or clothes pegs on your partner's nipples or elsewhere", "t0070", "give" ], [ "Acting out a scene in which your partner pretends to rape you", "t0134", "receive" ], [ "Acting out a scene in which you pretend to rape your partner", "t0134", "give" ], [ "Having nails dug into your buttocks, or your back scratched, causing pain without breaking skin", "t0354", "receive" ], [ "Digging your nails into your partner's buttocks, or scratching their back, causing pain without breaking skin", "t0354", "give" ], [ "Being choked so that you cannot breathe, causing you to feel faint or lose consciousness", "t0428", "receive" ], [ "Forcing your partner to interact with faeces", "cat-fluids-messy-play", "give" ], [ "Being gagged with an ordinary gag", "t0035", "receive" ], [ "Choking your partner so they cannot breathe, causing faintness or unconsciousness", "t0428", "give" ], [ "Denying your partner any form of sexual stimulation for a period of time", "t0327", "give" ], [ "Being hit with a crop, cane, or whip hard enough to bruise", "cat-impact-pain-body-modification", "receive" ], [ "Being handcuffed or having your hands tied", "t0025", "receive" ], [ "Having sex or masturbating in front of other people at an orgy or as part of a show", "t0266", "give" ], [ "Being tied up so you can hardly move at all", "t0040", "receive" ], [ "Using needles or pins to penetrate your partner's skin", "t0074", "give" ], [ "Being prevented from orgasming until you beg", "t0327", "receive" ], [ "Having clamps or clothes pegs put on your nipples or elsewhere", "t0070", "receive" ], [ "Being caused pain by your partner hitting or using implements on your genitals", "t0096", "receive" ], [ "Being made to serve your partner as a cleaner or retail worker might", "t0360", "receive" ], [ "Using electricity, such as a violet wand, to stimulate your partner", "t0101", "give" ], [ "Being treated like a child", "t0123", "receive" ], [ "Tying or cuffing your partner to a bed or other object", "t0042", "give" ], [ "Having your partner serve you as a cleaner or retail worker might", "t0360", "give" ], [ "Being called demeaning words like "slut," "whore," "bitch," or "sissy"", "t0240", "receive" ], [ "Observing someone having sex or masturbating in their own home, without their knowledge", "t0266", "give" ], [ "Having your hair pulled hard enough to hurt", "t0093", "receive" ], [ "Being tied or cuffed to a bed or other object", "t0042", "receive" ], [ "Having a blade used on you to instil fear, without causing bleeding", "t0245", "receive" ], [ "Spanking your partner with a bare hand", "t0056", "give" ], [ "Pleasuring your partner until they can't handle it or forcing them to orgasm many times", "t0326", "give" ], [ "Overhearing someone having sex or masturbating", "t0266", "give" ], [ "Observing someone having sex or masturbating as part of a sex show", "t0266", "give" ], [ "Calling your partner demeaning words like "slut," "whore," "bitch," or "sissy"", "t0240", "give" ], [ "Using a blade on your partner to instil fear, without causing bleeding", "t0245", "give" ], [ "Tying your partner up so they can hardly move at all", "t0040", "give" ], [ "Being required to avoid going to the toilet until you are desperate", "cat-fluids-messy-play", "receive" ], [ "Being forced to interact with faeces", "cat-fluids-messy-play", "receive" ], [ "Being gagged with a ball gag, O-ring gag, or similar", "t0035", "receive" ], [ "Being brought to orgasm, with stimulation stopped at the right moment to diminish pleasure", "t0326", "receive" ], [ "Treating your partner like a pet", "t0136", "give" ] ].map((e, t) => ({
             number: t + 1,
             question: e[0],
             id: e[1],
@@ -257,14 +257,14 @@ yk([ "Spitting", "Spit play", "Being spit on", "Spitting on someone" ], "t0341")
                 uncertain: !0
             } : null;
         }
-        // Build 2026-10-18_1624 — read-only data feed for the FetLife
+        // Build 2026-10-18_1624 - read-only data feed for the FetLife
         // mapping viewer (shell dialog #fetlifeMapDialog, opened from the
         // FetLife load dialog or with Ctrl+Shift+M). rows() returns the
         // full fk table with each target resolved to its catalog label
         // and Category › Subcategory › Topic path; lookup(term) runs the
         // exact importer resolution (cx + pk), so the viewer's chooser
         // shows and highlights what an import would actually do with a
-        // typed FetLife name — including broad (category/subcategory)
+        // typed FetLife name - including broad (category/subcategory)
         // targets and pattern-only matches, which have no table row.
         const flm = {
             rowsCache: null,
@@ -365,7 +365,7 @@ yk([ "Spitting", "Spit play", "Being spit on", "Spitting on someone" ], "t0341")
                 };
             }
         };
-        // Build 2026-10-18_1658 — FetLife mapping EDITOR support. The
+        // Build 2026-10-18_1658 - FetLife mapping EDITOR support. The
         // shell dialog (#fetlifeMapDialog) is now a full editor, not a
         // read-only viewer: targets() enumerates every valid target
         // (all 18 categories, their subcategories, and every topic) for
@@ -582,7 +582,7 @@ yk([ "Spitting", "Spit play", "Being spit on", "Spitting on someone" ], "t0341")
             return e;
         }
         // ============================================================
-        // FetLife importer — FetLifeImporter pipeline module
+        // FetLife importer - FetLifeImporter pipeline module
         // (Refactor Step 2, Build 2026-10-18_0722.)
         //
         // The FetLife branch of yx.parse used to be one large inline
@@ -591,30 +591,30 @@ yk([ "Spitting", "Spit play", "Being spit on", "Spitting on someone" ], "t0341")
         // direction tables, same qualifier edge cases, same warnings,
         // same category-hit (broadHits) tracking, same return shape.
         //
-        //   parse(rawHtml)  — HTML extraction via px()/gx(), section
+        //   parse(rawHtml)  - HTML extraction via px()/gx(), section
         //     splitting, subsection-scoped "View all" detection.
         //     Returns raw item records {section, dirDefault, rawText,
         //     lineNo} plus page metadata. (Only stage touching px/gx.)
-        //   normalize(item) — pure, no DOM: splits the raw line into
+        //   normalize(item) - pure, no DOM: splits the raw line into
         //     name + qualifier text, strips a trailing parenthetical
         //     qualifier off the name and merges it into the qualifier
         //     string (qualifier text is ck()-normalized: lowercased /
         //     trimmed; "as a top" / "as a bottom" resolve through the
         //     direction table in parse/rate). Returns {baseTerm,
         //     qualifier, rawName}.
-        //   match(baseTerm, ctx) — pure lookup, no DOM: alias-map /
+        //   match(baseTerm, ctx) - pure lookup, no DOM: alias-map /
         //     pattern-fallback match via cx() (Step 1 alias structure
         //     untouched), resolution via pk(), category/subcategory
         //     hits recorded into ctx.broadHits. Returns {status,
         //     match, resolved} with status "matched" | "broad" |
         //     "unmapped".
-        //   rate(normalized, matchResult, item, acc) — resolves the
+        //   rate(normalized, matchResult, item, acc) - resolves the
         //     effective section (qualifier text first, then the
         //     item's section, default Into) and direction (qualifier,
         //     then the section's pending direction, then the match's
         //     own direction), then writes ratings / annotations /
         //     notes / flags into the accumulators.
-        //   run(rawText) — orchestrator: parse → normalize → match →
+        //   run(rawText) - orchestrator: parse → normalize → match →
         //     rate over the item list and assembles the exact result
         //     object the converter has always returned.
         //
@@ -764,11 +764,11 @@ yk([ "Spitting", "Spit play", "Being spit on", "Spitting on someone" ], "t0341")
             const PAGE_SECTIONS = [ "fetishes", "kinks", "about", "about me", "activity", "activity feed", "recent activity", "pictures", "photos", "videos", "events", "events attended", "writings", "journal entries", "posts", "relationships", "relationship status", "roles", "identity", "gender", "orientation", "pronouns", "groups", "places", "questions", "friends", "followers", "following", "looking for", "kinksters", "lists", "memberships", "wall", "status" ];
             const sectionFromQualifier = e => /\bhard limits?\b/.test(e) ? SECTION_KINDS["hard limit"] : /\bsoft limits?\b/.test(e) ? SECTION_KINDS["soft limit"] : /\b(?:not interested|not into|no)\b/.test(e) ? SECTION_KINDS["not into"] : /\bfantasy only\b/.test(e) ? SECTION_KINDS["fantasy only"] : /\balready tried\b/.test(e) ? SECTION_KINDS["already tried"] : /\bneutral\b/.test(e) ? SECTION_KINDS.neutral : /\b(?:curious about|curious|maybe)\b/.test(e) ? SECTION_KINDS.curious : /\bfavorites?\b/.test(e) ? SECTION_KINDS.favorite : /\b(?:into|yes)\b/.test(e) ? SECTION_KINDS.into : null;
             const directionFromQualifier = e => /\beverything to do with it\b/.test(e) ? DIRECTION_KINDS["everything to do with it"] : /\bwatching others wear(?:ing)?\b/.test(e) ? DIRECTION_KINDS["watching others wear"] : /\bwatching\b/.test(e) ? DIRECTION_KINDS.watching : /\bwearing\b/.test(e) ? DIRECTION_KINDS.wearing : /\b(?:both|switch|giving and receiving|giving receiving)\b/.test(e) ? DIRECTION_KINDS.both : /\b(?:giving|giver|top|topping|dominant|dom)\b/.test(e) ? DIRECTION_KINDS.giving : /\b(?:receiving|receiver|bottom|bottoming|submissive|sub)\b/.test(e) ? DIRECTION_KINDS.receiving : null;
-            // Build 2026-10-18_1549 — watching / wearing qualifiers annotate
+            // Build 2026-10-18_1549 - watching / wearing qualifiers annotate
             // the topic (they never force a give/receive rating). The note
             // is worded with the topic's own specialized role labels where
-            // the topic has them (Ge() labels — “admires” / “wears” /
-            // “watches” and the like), falling back to the FetLife
+            // the topic has them (Ge() labels - "admires" / "wears" /
+            // "watches" and the like), falling back to the FetLife
             // qualifier's own words when it does not.
             const sxStance = (id, F) => {
                 if (!F || null !== F.direction) return F ? F.label : "";
@@ -843,7 +843,7 @@ yk([ "Spitting", "Spit play", "Being spit on", "Spitting on someone" ], "t0341")
                 }
                 // Importer rework Part C: a LEADING parenthetical qualifier
                 // ("(giving) Spanking", "(receiving) Flogging") carries the
-                // same recoverable direction as the trailing form — mine it
+                // same recoverable direction as the trailing form - mine it
                 // into the qualifier string instead of dropping it. When the
                 // parenthetical holds no direction word, the term is left
                 // exactly as written (unrecoverable is stated by the match
@@ -870,7 +870,7 @@ yk([ "Spitting", "Spit play", "Being spit on", "Spitting on someone" ], "t0341")
                 const I = pk(M, baseTerm, ctx.children);
                 if (!I) {
                     // Build 2026-10-18_1015: broadTerms is presentation-only
-                    // tracking for the post-import summary dialog — the set
+                    // tracking for the post-import summary dialog - the set
                     // of distinct FetLife terms that landed on each broad
                     // branch. broadHits recording below is unchanged.
                     if (M && M.id && (isCatId(M.id) || isSubId(M.id))) {
@@ -915,11 +915,11 @@ yk([ "Spitting", "Spit play", "Being spit on", "Spitting on someone" ], "t0341")
                     }), acc.warnings.push(`Item ${item.lineNo}: “${A}” matched ${P}, which names no current topic, and was not applied.`);
                     return !1;
                 }
-                // Build 2026-10-18_1549 — “(everything to do with it)” carries
+                // Build 2026-10-18_1549 - "(everything to do with it)" carries
                 // its own value by section instead of the section default:
                 // 80 (4/5 positive) in Into, 33 (~1/3, deep yellow) in
                 // Curious. On a single-slider topic it sets only that one
-                // slider (stored under the “give” key, per Ge()); on a
+                // slider (stored under the "give" key, per Ge()); on a
                 // dual-slider topic it sets both give and receive.
                 const sxEverything = Boolean(F && F.everything), sxSingle = sxEverything && Ge(P).single;
                 sxEverything && ("into" === L.kind ? _ = 80 : "curious" === L.kind && (_ = 33)), 
@@ -1024,7 +1024,7 @@ yk([ "Spitting", "Spit play", "Being spit on", "Spitting on someone" ], "t0341")
                     notApplied: acc.notApplied,
                     categoryHits: acc.broadHits,
                     categoryHitCounts: Object.fromEntries(Object.entries(acc.broadTerms).map(([e, t]) => [ e, t.size ])),
-                    // Build 2026-10-18_1624 — the actual FetLife terms behind
+                    // Build 2026-10-18_1624 - the actual FetLife terms behind
                     // each broad-branch count, so the summary dialog's pills
                     // can list term → target instead of a bare number.
                     categoryHitTerms: Object.fromEntries(Object.entries(acc.broadTerms).map(([e, t]) => [ e, [ ...t ] ])),
@@ -1034,10 +1034,10 @@ yk([ "Spitting", "Spit play", "Being spit on", "Spitting on someone" ], "t0341")
             return api.parse = parse, api.normalize = normalize, api.match = match, api.rate = rate, api.run = run, api;
         })();
 
-        // Build 2026-10-18_1015 — Post-FetLife-import summary dialog
+        // Build 2026-10-18_1015 - Post-FetLife-import summary dialog
         // (presentation layer only; no import logic lives here). Groups the
-        // parse result's broad hits — the same deduped categoryHits list the
-        // list view auto-expands from — into a Category → Subcategory tree
+        // parse result's broad hits - the same deduped categoryHits list the
+        // list view auto-expands from - into a Category → Subcategory tree
         // with the per-branch FetLife-term counts FetLifeImporter.match
         // recorded alongside (categoryHitCounts), and shows the tree in
         // #fetlifeBroadDialog over the list view the Load already opened.
@@ -1073,11 +1073,11 @@ yk([ "Spitting", "Spit play", "Being spit on", "Spitting on someone" ], "t0341")
             if (!byCat.size) return;
             tree.textContent = "";
             let total = 0;
-            // Build 2026-10-18_1624 — the count pill is now a button (when
+            // Build 2026-10-18_1624 - the count pill is now a button (when
             // the term list is known): its hover tooltip lists every
-            // FetLife term behind the count as “Term → target”, and
+            // FetLife term behind the count as "Term → target", and
             // selecting it expands the same list inline under the row, so
-            // a bare “1 term” can never be mistaken for a term that merely
+            // a bare "1 term" can never be mistaken for a term that merely
             // passed through the branch on its way somewhere else.
             const mkRow = (label, count, lines, cls) => {
                 const li = document.createElement("li");

@@ -98,7 +98,7 @@
                         const L = P.id;
                         // Importer rework Part B/C: a "(watching)" /
                         // "(watching others wear)" qualifier takes the
-                        // annotation path — a note on the topic, never a
+                        // annotation path - a note on the topic, never a
                         // forced give/receive rating (same rule as the
                         // FetLife importer's watching/wearing stances).
                         W && (sxNotes[L] || (sxNotes[L] = []), sxNotes[L].includes("Watching · from the Yes / No / Maybe checklist") || sxNotes[L].push("Watching · from the Yes / No / Maybe checklist")), null !== A && ("T" !== y && "S" !== y || g(L, "give", A), "B" !== y && "S" !== y || g(L, "receive", A)), 
@@ -244,7 +244,7 @@
                                     // Rank 5 guard: the chunk CRC is the
                                     // integrity check the PNG format
                                     // already carries, and the old code
-                                    // never read it — a chunk whose bytes
+                                    // never read it - a chunk whose bytes
                                     // were damaged after embedding could
                                     // still restore if it decompressed.
                                     // A bad CRC, a second Sexcapades
@@ -343,7 +343,7 @@
                 // PURPOSE. The "profile" merge branch (rk) does NOT
                 // autoSelect, so opening someone's share link adds
                 // their profile WITHOUT joining it to the receiver's
-                // collection/selection — unlike the "shared" branch,
+                // collection/selection - unlike the "shared" branch,
                 // which auto-selects (the 2026-10-25 scan-or-import
                 // fix). Do not "clean up" this mapping to "shared":
                 // that would silently change join behavior. Pinned
@@ -377,8 +377,8 @@
                     const n = t.target || zk, i = t.type || Gk;
                     // Merge target (load-target stage, firm spec
                     // reaffirmed 2026-10-27 08:49): an explicit target
-                    // — the profile the converter was pressed from, or
-                    // the one the user picked in the chooser — wins.
+                    // - the profile the converter was pressed from, or
+                    // the one the user picked in the chooser - wins.
                     // The session target zk is the only other source,
                     // and Ax now sets zk ONLY from a recorded target,
                     // never from whoever is on screen. With no recorded
@@ -406,9 +406,9 @@
                         }), Object.keys(t).length || delete vt[n][e], Ze[n]?.[e] && !Object.keys(Ze[n][e]).length && delete Ze[n][e]);
                     });
                     // Fix 1, item 3: ratings go through
-                    // applyProfileRatings — the same rules as the main
+                    // applyProfileRatings - the same rules as the main
                     // import path (shape, clamp, unknown skip,
-                    // unreadable rejection) — merging per flank with
+                    // unreadable rejection) - merging per flank with
                     // test: provenance and the documented manual-flip
                     // guard. The discrete-node clearing above stays
                     // converter-specific.
@@ -422,8 +422,8 @@
                     // Importer rework Part A (R1 STRICT): section ingestion
                     // for ALL FIVE converter feeds (annotations / fantasyOnly
                     // / alreadyTried / notes) now goes through the ONE shared
-                    // ingestProfileSections helper — the same helper the
-                    // profile-file import path uses — instead of the direct
+                    // ingestProfileSections helper - the same helper the
+                    // profile-file import path uses - instead of the direct
                     // writes that used to live here. Converter merge
                     // semantics are preserved as the helper's named options:
                     // notes MERGE with the target profile's existing notes
@@ -434,7 +434,7 @@
                     // past the 16-per-topic cap are dropped WITH RECORD:
                     // collected here, stored on the profile's dropped-key
                     // records, named in the import-result dialog, and
-                    // written to the error log — never silently swallowed.
+                    // written to the error log - never silently swallowed.
                     const sxConvDropped = [];
                     const sxConvNoteDropped = (key, section, value, kindOverride) => {
                         if ("string" != typeof key || !key || isCatId(key) || isSubId(key)) return;
@@ -508,7 +508,7 @@
                         }), Ui(Sg), sxSel(null, "dismiss"), Jw(), ak(i[i.length - 1]), i[i.length - 1];
                     }
                     // F5: the caller's options ride along under the
-                    // branch's own keys — comparison state comes from
+                    // branch's own keys - comparison state comes from
                     // the live selection, and autoSelect stays
                     // hard-coded last (the scan-import fix) so the
                     // single-profile fallthrough keeps auto-selecting
@@ -536,7 +536,7 @@
                         };
                         // Sync card (strip, not blind): the bio and terms ride truncated
                         // to the card budget (2026-11-17, ruled 3:1, v18, ~1300 combined:
-                        // bio 975, terms 325). A blind card stays anonymous — no bio or
+                        // bio 975, terms 325). A blind card stays anonymous - no bio or
                         // terms. Everything else stays stripped.
                         i && (S.k = 1), keepId && f.length && (S.g = f), keepId && j && (S.p = j), keepId && y.length && (S.s = y), keepId && b.length && (S.w = b), 
                         keepId && v && (S.y = v), keepId && w && (S.l = w), keepId && Ov(r) && (S.c = r), keepId && k && (S.b = k), 
@@ -562,7 +562,7 @@
         // and then empties the photos array, because a printed
         // card is scanned back in public contexts where attached
         // photos must not travel. Do not duplicate Ju here, and
-        // do not "fix" the empty photos array — it is the rule,
+        // do not "fix" the empty photos array - it is the rule,
         // not a bug. Callers reach it via yx.serialize("sync-card")
         // or the vx wrapper below.
         function serializeSyncCard(e, t, n = "", i = !1, a = !1) {
@@ -619,7 +619,7 @@
             // No silent fallback (firm spec, owner ruling 2026-10-27
             // 02:47, reaffirmed 08:49; the 08:02 reversal is withdrawn):
             // a converter invoked with no recorded target gets NO
-            // session target — zk stays null, the title stays neutral,
+            // session target - zk stays null, the title stays neutral,
             // and nothing is prefilled from whoever happens to be on
             // screen. The active profile is never quietly used as the
             // target. sxConverterOrigin likewise keeps ONLY a recorded
@@ -736,7 +736,7 @@
                     r.set(e, o), o += e.length;
                 });
                 // Rank 5: the zlib stream ends in an Adler-32 checksum
-                // over the decompressed bytes — the integrity check the
+                // over the decompressed bytes - the integrity check the
                 // format already carries. The old code reserved those
                 // four bytes in its bounds checks but never compared
                 // them, so a stream with a damaged checksum could still
@@ -1154,11 +1154,11 @@
                 // No second dialogue on a pressed-tab Load
                 // (split-center stage, 2026-10-27): when this
                 // converter session was opened from a profile tab's
-                // Load menu, its origin is already the target — load
+                // Load menu, its origin is already the target - load
                 // straight into it instead of asking again. Sessions
                 // with no pressed-tab origin keep the chooser below.
                 // Caller-tab re-import (owner ruling 2026-10-30): a
-                // pair/group origin is NOT a direct target — the merge
+                // pair/group origin is NOT a direct target - the merge
                 // itself refuses pair targets, so a direct load here
                 // would strand the session on that refusal with no way
                 // to pick a member profile. Pair origins fall through
@@ -1193,7 +1193,7 @@
                     const sxBtn = document.createElement("button");
                     // Neutral chooser (firm spec, reaffirmed
                     // 2026-10-27 08:49): every profile is listed by
-                    // plain name only — no on-screen marking,
+                    // plain name only - no on-screen marking,
                     // no preselection, and no button is focused as a
                     // default. The list stays neutral until the user
                     // explicitly chooses; that explicit choice, not

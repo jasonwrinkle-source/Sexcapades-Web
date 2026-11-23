@@ -86,7 +86,7 @@
             ctx.strokeStyle = "rgba(255, 255, 255, 0.4)";
             ctx.stroke();
 
-            // 4. Pole Axis Labels — short axis words on canvas (T2/T4);
+            // 4. Pole Axis Labels - short axis words on canvas (T2/T4);
             // the full names live in the readout rows + hovertips. Side
             // labels run vertical (tangent, 90°) so they fit the 190px
             // canvas instead of clipping past its edge (T3).
@@ -96,13 +96,13 @@
             const giveLabel = sxShortAxisWord(giveFull);
             const recvLabel = sxShortAxisWord(recvFull);
 
-            // Top (+Receive) — horizontal
+            // Top (+Receive) - horizontal
             sxDrawPoleLabelAt(ctx, canvas, cx, cy - r - 9, 0, `+ ${recvLabel}`, "#4ade80", "receive", recvFull);
-            // Bottom (-Receive Limit) — horizontal
+            // Bottom (-Receive Limit) - horizontal
             sxDrawPoleLabelAt(ctx, canvas, cx, cy + r + 9, 0, `- ${recvLabel} Limit`, "#f87171", "receive", recvFull);
-            // Right (+Give) — vertical
+            // Right (+Give) - vertical
             sxDrawPoleLabelAt(ctx, canvas, cx + r + 9, cy, 90, `+ ${giveLabel}`, "#4ade80", "give", giveFull);
-            // Left (-Give Limit) — vertical
+            // Left (-Give Limit) - vertical
             sxDrawPoleLabelAt(ctx, canvas, cx - r - 9, cy, 90, `- ${giveLabel} Limit`, "#f87171", "give", giveFull);
 
             // 5. Active Puck Position

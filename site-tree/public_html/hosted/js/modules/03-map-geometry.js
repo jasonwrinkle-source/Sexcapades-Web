@@ -14,7 +14,7 @@
             n.forEach(e => {
                 // Scoped solve (T3, L4): frozen branches are exempt
                 // from the _spokeAdjust20 reset that feeds
-                // rr.optimizeSpokeLengths — their captured
+                // rr.optimizeSpokeLengths - their captured
                 // adjustments persist through the solve, so the
                 // optimiser never has a moved frozen branch to
                 // restore (the T2 replay stays as the safety net).
@@ -29,7 +29,7 @@
             // radius on the fixed reference subLen 1.2 (the shipped
             // value) instead of the live slider, because the radial
             // sibling solver's separation demands swamped the slider's
-            // contribution — rendered length saturated (+50% slider
+            // contribution - rendered length saturated (+50% slider
             // rendered under +9%) and could even invert (0.7 rendering
             // longer than the 1.2 baseline). The live slider is
             // applied here, after the solver, as a uniform scale on
@@ -41,7 +41,7 @@
                 const _subLenScale = (Number(mn.subLen) || 1.2) / 1.2;
                 if (_subLenScale !== 1) n.forEach(b => {
                     // Scoped solve (T2): the post-solve subLen scale
-                    // applies only inside the recompute set — frozen
+                    // applies only inside the recompute set - frozen
                     // branches are skipped so their children keep
                     // their delivered radii and the solved tree stays
                     // consistent with the delivered geometry the
@@ -69,7 +69,7 @@
                     dkRecordDelivered(t), t.topic && t.topic.isSubcategory && (t.children || []).forEach(ch => dkRecordDelivered(ch));
                 });
             });
-            // Scoped solve (T2): freeze replay — with a scope context
+            // Scoped solve (T2): freeze replay - with a scope context
             // active, restore every frozen branch's solved geometry
             // and _spokeAdjust20 verbatim from the pre-patch capture
             // and merge the delivered-geometry registry (see
@@ -94,7 +94,7 @@
         let staggerDensityRange = null;
         // SOLVER MINIMUM SPOKE (2026-11-15, Jason's route-b ruling): a
         // branch's throw never falls below SX_MIN_BRANCH_THROW model units.
-        // Small skins carry no manual length override — their settings are a
+        // Small skins carry no manual length override - their settings are a
         // byte copy of Sexcapades', keyed by Sexcapades branch names, so no
         // override matches and their throws sat at ~4-6k against Sexcapades'
         // ~70-450k, collapsing the maps onto the hub. The floor lifts them
@@ -108,7 +108,7 @@
         function yr(e) {
             const t = mn.branchOverrides && mn.branchOverrides[e.name] || {}, n = Math.max(0, h.indexOf(e));
             // SOLVER-METRICS REFACTOR (F9): the branch-length factor
-            // pile-up split into named factors — same values, same
+            // pile-up split into named factors - same values, same
             // multiplication order (transcription, not redesign):
             //   manualFactor    the per-branch manual length override
             //   staggerFactor   alternating stagger, 1.18 / 0.82
@@ -116,7 +116,7 @@
             //                   off 0.62, anything else 1
             //   shrinkFactor    the armed factor (shipped 0.76,
             //                   editor-adjustable via
-            //                   mn.autoShrinkFactor — see
+            //                   mn.autoShrinkFactor - see
             //                   sxArmedFactor) when this branch's kink-spoke
             //                   auto-shrink switch is explicitly armed
             //                   (tri-state true; see the F6 note)
@@ -136,7 +136,7 @@
                 }
                 const normalized = staggerDensityRange.max > staggerDensityRange.min ? (e.topics.length - staggerDensityRange.min) / (staggerDensityRange.max - staggerDensityRange.min) : .5;
                 // NOTE (F9): the density formula SILENTLY DISCARDS
-                // the manual length override — manualFactor is
+                // the manual length override - manualFactor is
                 // overwritten here, never combined with it. The
                 // override value itself survives untouched in
                 // mn.branchOverrides and applies again as soon as
@@ -182,13 +182,13 @@
         }
         // The two spoke renderers (map-render refactor, finding 3) share
         // one contract: Ka (branch spokes, above) and renderKinkLine
-        // (kink spokes, here) are both module-scoped — no window global;
+        // (kink spokes, here) are both module-scoped - no window global;
         // the layout/test hooks reach spokes through Mr and the layout
-        // API, not through the renderers — and both emit their give /
+        // API, not through the renderers - and both emit their give /
         // receive flanks through the one flank emitter,
         // SpokeGeometry.flankPaths, differing only in the mode flag
         // (Ka: "innerFirst", renderKinkLine: "outerFirst"; the two
-        // modes trace the same filled region — see the SpokeGeometry
+        // modes trace the same filled region - see the SpokeGeometry
         // module doc).
         const renderKinkLine = (e, t, n, i, a, r, o, s, l, c, d, u, p, h = pr.categoryIcon, g = 48, hubD = null, leafD = null, sxDepth = null) => {
             const sxD = null != sxDepth ? sxDepth : leafD === sxIconDiameter(3) ? 3 : 2, sxF = sxFontFactor(sxD), sxSW = sxStrokeWidth(sxD);
@@ -362,7 +362,7 @@
         }
         // Layout-editor length overrides (map-render refactor, finding
         // 6): one helper for the render loop's three per-override
-        // sites — per-subcategory overrides (mn.subcatOverrides, keyed
+        // sites - per-subcategory overrides (mn.subcatOverrides, keyed
         // by topic label), per-kink overrides (mn.kinkOverrides, keyed
         // by topic id), and per-kink overrides for subcategory children
         // (same table; the sites pass a unit length and use the result
@@ -370,8 +370,8 @@
         // positive numeric override exists, else the length unchanged.
         // Errors keep the sites' historical shape: caught and logged
         // as "layout-override", length unchanged. (The draw path once
-        // never read these tables — the multiplier lived only in the
-        // collision estimate — until Builds 2026-10-19_0255 and
+        // never read these tables - the multiplier lived only in the
+        // collision estimate - until Builds 2026-10-19_0255 and
         // 2026-10-20_0023 wired the draw sites.)
         // N-depth generalized: accepts node object or key, checks unified tables.
         function applyLengthOverride(length, key, table) {
@@ -403,7 +403,7 @@
         // task-session apply): Mr then steps the paint one phase per
         // frame instead of running it in one synchronous block, so
         // the pipeline's own __sxLoad / __sxNodeTick checkpoints get
-        // frames in which to paint — progress becomes stage truth,
+        // frames in which to paint - progress becomes stage truth,
         // never an interpolated number. With the flag off (every
         // other render) Mr drives the generator to completion
         // synchronously inside the same call, exactly the old
@@ -412,12 +412,12 @@
         // sxChunkBudget is the per-frame work budget (ms) of a chunked
         // paint: 12 for the editor path (pinned in applyChunked), and
         // a larger shell-chosen slice for the boot-only paint (see
-        // sxBootChunk in Mr) — bigger slices mean fewer double-rAF
+        // sxBootChunk in Mr) - bigger slices mean fewer double-rAF
         // waits per render, at the cost of fewer painted values.
         // Thread 2 boot entry: the shell boot controller arms
         // window.__sxBootChunkPaint with a budget before this bundle
         // executes; Mr consumes it one-shot for the first paint it
-        // starts, so the boot render — and only the boot render —
+        // starts, so the boot render - and only the boot render -
         // paints its checkpoints progressively. Ordinary renders
         // stay synchronous; the global default is unchanged.
         let sxChunkPaint = !1, sxPaintPromise = null, sxChunkBudget = 12;

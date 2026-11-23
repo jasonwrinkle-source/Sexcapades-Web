@@ -57,7 +57,7 @@
         // vanilla stance/belief maps, "play" on Sexcapades. The loader
         // sets window.__SX_SETTER from the skin JSON's `sceneSetter`
         // section. A missing section reads as play (Sexcapades copy
-        // stays in place) — honest, not stale.
+        // stays in place) - honest, not stale.
         function sxSetterIsModeration() {
             return !!(window.__SX_SETTER && "moderation" === window.__SX_SETTER.genre);
         }
@@ -78,7 +78,7 @@
         // TODO: no feminine anonymous avatar asset exists yet, so the woman-side key
         // set maps to the neutral anonymous avatar too until one is made. The sample
         // profiles' menu portraits are those profiles' own icons, not generic
-        // avatars — never substitute them here.
+        // avatars - never substitute them here.
         function sxMakeArchetypePhoto(name, skinId) {
             name = String(name || "Archetype").trim();
             skinId = String(skinId || (typeof window !== "undefined" && window.__SX_ACTIVE_SKIN) || "sexcapades").toLowerCase();
@@ -182,7 +182,7 @@
         }
         function od(e) {
             // Gender/orientation NO LONGER REQUIRED (owner ruling,
-            // 2026-11-16): the profile-details demand is relaxed —
+            // 2026-11-16): the profile-details demand is relaxed -
             // Scribe and Scene Setter pick pronouns from context
             // (hp() already falls back to they/them when no gender is
             // stored), so a profile without gender/sexuality is
@@ -224,9 +224,9 @@
         // rules. The single-profile 35 is also a different 35 from the Heat teaser
         // threshold T = sxClamp(35 - heat, 0, 85) in the sync engine;
         // the shared numeral is coincidence, not a shared constant.
-        // Established rule — INTENDED, do not "unify" (writers
+        // Established rule - INTENDED, do not "unify" (writers
         // refactor F10, documentation only): the single-profile rule
-        // here is THRESHOLD-BASED — a topic is established when it is
+        // here is THRESHOLD-BASED - a topic is established when it is
         // marked Favorite OR when either direction rating is over 35
         // (give > 35 or receive > 35, each direction judged on its
         // own, never averaged); the established score is the max of
@@ -238,7 +238,7 @@
         // structurally on purpose; unifying them would change output
         // and needs the user's ruling, not a refactor. Note also:
         // the 35 above is a rating threshold and is a DIFFERENT 35
-        // from Heat's T = clamp(35 − heat, 0, 85) in sxSides —
+        // from Heat's T = clamp(35 − heat, 0, 85) in sxSides -
         // same number, unrelated meanings.
         function sxSingleProfileData(e) {
             const t = rd(e), n = [], i = [];
@@ -250,7 +250,7 @@
                 if (!o) return;
                 // Multi-pole / line topic: the strongest pole
                 // affinity (or the line scalar) joins the give/receive
-                // ratings in the same 35 threshold — established when
+                // ratings in the same 35 threshold - established when
                 // |strongest| > 35, curious when 15 < |strongest| <= 35,
                 // score = the strongest affinity. Low-signal / near-zero
                 // (|affinity| <= 15) are neutral noise and omitted unless
@@ -299,12 +299,12 @@
             };
         }
         // P1 refactor (Build 2026-10-18_2227): gd (Scribe/compatibility data
-        // assembly) split by responsibility — gdPairReport computes the pair
+        // assembly) split by responsibility - gdPairReport computes the pair
         // report, gdStrongMatches the strong-match list, gdCuriousMatches
         // the curious-match list; gd itself is now a thin orchestrator.
         // One combined-match detail builder for every writer list
         // (refactor F7). The kind parameter selects the per-kind wording;
-        // each branch reproduces its original string verbatim — a score,
+        // each branch reproduces its original string verbatim - a score,
         // a route via _d(), and the ld()/dd() fragments for the pair
         // kinds; the group kind lists every member's direction line; the
         // pairwise kind is the shared-ground line used by the Scribe
@@ -317,7 +317,7 @@
             // intensity (geometric mean of each member's strongest
             // stance). ld() names each member's pole stances through
             // the pole-aware ad(). The agreement is reported, never a
-            // gate — what counts as a "match" for the matches/curious
+            // gate - what counts as a "match" for the matches/curious
             // lists is still an open ruling (see the multi-pole
             // follow-up); Scribe lists the shared stance either way.
             if ("pole-strong" === kind) return `Shared stance — agreement ${Math.round((x.agreement || 0) * 100)}%, Depth Factor intensity ${Math.round(x.score)}%. ${ld(x.id, x.ids[0], x.ids[1])}${dd(x.markers)}`;
@@ -362,7 +362,7 @@
                 // the pair (Conversation basis, so fantasy-marked topics
                 // stay available to story mode; guides filter them later).
                 // This is the OUTCOME-BASED pair established rule of
-                // refactor F10: MATCH outcome only, no score filter —
+                // refactor F10: MATCH outcome only, no score filter -
                 // deliberately unlike the threshold-based single-profile
                 // rule documented at sxSingleProfileData.
                 const i = [], pair = sxPairByIds(e, t, sxSettings);
@@ -393,7 +393,7 @@
                 // same 35 as the single-profile rule); the score is the
                 // Depth Factor intensity (rec.poleIntensity × 100, the
                 // ruled combined intensity). The agreement is reported
-                // in the detail and does NOT gate inclusion — this does
+                // in the detail and does NOT gate inclusion - this does
                 // not define a "match" threshold.
                 pair.topics.forEach(rec => {
                     // Role topics stay in this detail list. A shared
@@ -454,7 +454,7 @@
                 // Multi-pole topics (2026-11-16): both rated but NOT
                 // both strong (|strongest| > 35 for both) land here as
                 // a mild shared stance, mirroring the single-profile
-                // 16–35 curious band. The strong list above already
+                // 16-35 curious band. The strong list above already
                 // holds the both-strong ones (excluded via n), and the
                 // both-strong guard below is belt-and-braces. Score is
                 // the same Depth Factor intensity as the strong list.
@@ -760,7 +760,7 @@
         // On-screen brief rendering (writers refactor, Phase 1):
         // the brief meta line, the negotiation title and list, and
         // the four phase lists, split out of the prompt builder.
-        // DOM writes only — the prompt text itself is assembled by
+        // DOM writes only - the prompt text itself is assembled by
         // the composers and the finisher below.
         function sxRenderScribeBrief(ctx) {
             const { castIds: o, isSingle: s, isStory: u, leadName: d, castNames: v, castNameList: w, castSummary: b, establishedKindLabel: y, roleDynamics: p, roleDynamicText: h, fantasyTopics: g, triedTopics: m, promptMatchData: f, targetInfo, targetDisplayName: k } = ctx;
@@ -848,7 +848,7 @@
         // counts come from sxScribeCounts() above, split out of the
         // dialog updates. The prompt-state reset happens only when
         // resetDraft is passed (the generate handler, which rebuilds
-        // the prompt immediately after) — that ordering is
+        // the prompt immediately after) - that ordering is
         // contractual; other callers refresh chrome/counts only.
         function sxPrepScribeDialog(precomputed, resetDraft) {
             if (!vt[scribeLeadId]) return;

@@ -1,4 +1,4 @@
-        // 02n1-deknotter-diagnostics.js — DeKnotter Diagnostic & Witness Utilities
+        // 02n1-deknotter-diagnostics.js - DeKnotter Diagnostic & Witness Utilities
         // Extracted from 02n-deknotter-cascade.js for modularity, clean maintenance,
         // and reduced token cost. Contains layout math helpers, delivered radii calculations,
         // camera/viewport diagnostics, painted geometry inspectors, and witness frame evaluators.

@@ -57,8 +57,8 @@
         // as applicable), its group's auto-shrink arm/gate values, the
         // collision mode, the shared layout scalars the resolver's
         // geometry depends on (spokeLen / subLen / pad / repulsion /
-        // fontScale), and — only when a fit target is registered for the
-        // item — the fit target value and the fit-registry revision, so
+        // fontScale), and - only when a fit target is registered for the
+        // item - the fit target value and the fit-registry revision, so
         // a target change invalidates the captured base too. On disarm
         // the fit fields leave the key, the signature changes, and the
         // next resolver entry recaptures from the then-current
@@ -77,7 +77,7 @@
                 fit: Number.isFinite(fitTarget) ? fitTarget : null
             };
         }
-        // Fit-target derivation (E4): a target is a MEASURED length —
+        // Fit-target derivation (E4): a target is a MEASURED length -
         // the item's own label measured at its actual render font, plus
         // hub clearance and control/icon allowances, reusing the same
         // measurement primitives the solver already trusts (Za.measure
@@ -123,8 +123,8 @@
             }
             return null;
         }
-        // The currently rendered items of one branch — gen-2 topics,
-        // subcategory nodes, and subcategory children — as wrappers
+        // The currently rendered items of one branch - gen-2 topics,
+        // subcategory nodes, and subcategory children - as wrappers
         // from the most recent solve.
         function dkFitBranchItems(branchName) {
             const out = [];
@@ -173,7 +173,7 @@
         // unknown-key behavior is unchanged.
         // NAME-LENGTH FIT TARGET (ruled 2026-11-01 01:44, Jason):
         // a subcategory's shrink floor is the length of its own
-        // name — hub clearance plus its own label's element
+        // name - hub clearance plus its own label's element
         // radius, with NO neighbour-pitch term. dkFitComputeTarget
         // takes the max of this base and each neighbour's pitch
         // need, so in a crowded fan the neighbour term can sit at
@@ -223,12 +223,12 @@
         }
         // Scoped-solve capture (Stage 3, T2): snapshot everything the
         // freeze replay needs for the frozen branches, taken from the
-        // last solved tree (dkLastBranches — the delivered truth the
+        // last solved tree (dkLastBranches - the delivered truth the
         // bundle retains) BEFORE the patch is applied. Per frozen
         // branch: the sector's angle / topicCloudRadius /
         // topicCloudRadiusBase, the taxonomy branch's _spokeAdjust20,
-        // and per rendered node — keyed by the node's data-layout-key
-        // (branch catId, topic id, child id) — the wrapper fields the
+        // and per rendered node - keyed by the node's data-layout-key
+        // (branch catId, topic id, child id) - the wrapper fields the
         // paint path derives its position from (cloudAngle /
         // cloudRadius / angle / cloudIndex / childCloudRadius), at
         // full internal precision. Plus every delivered-geometry
@@ -292,26 +292,26 @@
                 // CORRECT-SOURCE CAPTURE (ruled 2026-11-01, per
                 // CENTRE-CAPTURE-DIAGNOSIS.md): the Anneal closing
                 // paint's centres, composed from the solve registry
-                // (dkLastBranches — at this call the restored-kept
+                // (dkLastBranches - at this call the restored-kept
                 // solve) with the PAINT'S OWN seating arithmetic.
                 // Never the solver-model length (rr.renderedSpokeLength
                 // inflates every spoke by the layout multipliers and
                 // the collision factor the paint never applies) and
                 // never the pre-run page centres. Hub: rr.branchAnchor
-                // — centre + sector angle x yr(branch), the point Ar
+                // - centre + sector angle x yr(branch), the point Ar
                 // seats the category icon at. Topic: the delivered
-                // radius Ar finalizes at its draw site —
+                // radius Ar finalizes at its draw site -
                 // topicSpokeEstimate over (cloudRadius ||
                 // topicCloudRadius), the subcategory hub floor via
                 // hubSpokeLength, then exactly ONE length override
                 // (subcatOverrides by label / kinkOverrides by id;
-                // the composition dkDeliveredItemRadius mirrors) —
+                // the composition dkDeliveredItemRadius mirrors) -
                 // placed along cloudAngle; Ar routes that endpoint
                 // through Ya, whose icon point is the endpoint
-                // itself. Child: Ar's static-child composition —
+                // itself. Child: Ar's static-child composition -
                 // (cloudRadius || parent childCloudRadius || 270) x
                 // the child's kink multiplier, extended by Ar's
-                // label-clearance loop — placed along cloudAngle
+                // label-clearance loop - placed along cloudAngle
                 // from the parent's composed centre. The per-item
                 // fields consumed (registry cloudRadius / cloudAngle
                 // and the override multiplier applied, with the
@@ -386,10 +386,10 @@
                 // Anneal run is live the full map is not repainted, so
                 // frozen centres are taken from the solve registry
                 // (dkLastBranches) in the solver's own position model
-                // — rr.branchAnchor for the category node,
+                // - rr.branchAnchor for the category node,
                 // rr.topicPosition for topics, hub + cloudAngle /
                 // cloudRadius for children (the arithmetic
-                // rr._lineEndpoint uses) — never from the last full
+                // rr._lineEndpoint uses) - never from the last full
                 // paint's DOM positions.
                 try {
                     (dkLastBranches || []).forEach(sec => {
@@ -430,12 +430,12 @@
         }
         // Scoped-solve ring-auto (Stage 3, T5): the declared ring
         // for a target set, computed from PRE-OP delivered geometry
-        // only — the branch centres the last paint delivered (the
+        // only - the branch centres the last paint delivered (the
         // category nodes' data-layout-x/y, the same delivered
-        // centres scCaptureDeliveredCenters reads) — following the
+        // centres scCaptureDeliveredCenters reads) - following the
         // §2.3 formula the T4 containment matrix was proved
         // RETIRED (ruled 2026-11-01 01:52, Jason): no live caller
-        // remains — applyScoped no longer computes or honours a
+        // remains - applyScoped no longer computes or honours a
         // ring (see the commented-out ring lines there). Kept in
         // the code, not deleted, per the comment-out rule.
         // against: ring(B) = {angular neighbours of B, branches in
@@ -448,8 +448,8 @@
         // scope.ring; an explicit ring is never recomputed.
         // RING COMPUTATION COMMENTED OUT (ruled 2026-11-01 01:53,
         // Jason: "throw out" = comment out, never delete): the
-        // whole auto-ring computation — angular neighbours,
-        // nearest-neighbour, reverse-nearest — stands below as
+        // whole auto-ring computation - angular neighbours,
+        // nearest-neighbour, reverse-nearest - stands below as
         // comment, with its call site in applyScoped. Nothing in
         // the live code calls it.
         // function scComputeAutoRing(targetSet, names) {
@@ -467,7 +467,7 @@
 //                     // data-layout-x/y (Xa(angle, yr(branch)) in the
 //                     // draw loop), and category nodes are never moved
 //                     // by the settle search, so these are the same
-//                     // values the DOM read returned — taken from the
+//                     // values the DOM read returned - taken from the
 //                     // approximation instead of the last full paint.
 //                     (dkLastBranches || []).forEach(sec => {
 //                         if (!sec || !sec.entry || !sec.entry.branch) return;
@@ -514,7 +514,7 @@
         // solved geometry and _spokeAdjust20 verbatim from the capture,
         // so the paint path re-derives the frozen nodes'
         // data-layout-x/y strings identically to the pre-op render;
-        // then merges the delivered-geometry registry — entries for
+        // then merges the delivered-geometry registry - entries for
         // recompute-set items keep this solve's refresh, entries for
         // frozen items are retained from the pre-solve snapshot
         // (frozen entries the solve created are dropped, frozen

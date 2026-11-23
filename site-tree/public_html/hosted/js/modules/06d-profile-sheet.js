@@ -1,7 +1,7 @@
-// 06d-profile-sheet.js — Tab strip coordinator, sample/archetype menus, and active profile selection
+// 06d-profile-sheet.js - Tab strip coordinator, sample/archetype menus, and active profile selection
         function ww() {
             // Capture the Load menu's origin before kw() clears qy:
-            // the origin is carried explicitly into this dialog —
+            // the origin is carried explicitly into this dialog -
             // a pair origin routes this dialog's file imports into
             // the pair (merge) and its converters onto the pair, any
             // other origin is the converters' target, and no origin
@@ -18,7 +18,7 @@
             e && (!jy.hidden || jyA && !jyA.hidden) && e.setAttribute("aria-expanded", "false");
         }
         function Sw() {
-            // Closes BOTH submenus: Samples (jy) and Archetypes (jyA) —
+            // Closes BOTH submenus: Samples (jy) and Archetypes (jyA) -
             // plus any roster submenus the skin loader registered on
             // window.__SX_SAMPLE_SUBMENUS (2026-11-22 fix: roster menus
             // opened through Iw but no close path knew about them, so
@@ -32,7 +32,7 @@
             // opened nor a menu that contains the trigger. A stack
             // parent row lives INSIDE the Samples/Archetypes submenu,
             // and Sw's blanket close hid that parent menu the moment
-            // the row was hovered — the layers flyout opened into a
+            // the row was hovered - the layers flyout opened into a
             // void and the parent was gone, so neither could be used
             // by mouse. The roster path never hit this: roster
             // triggers live in the add menu, which Sw does not close.
@@ -101,7 +101,7 @@
             // (a palimpsest stack's parent row inside Samples) is
             // positioned from its rect, and the sibling closes run
             // before the flyout is placed. Triggers in the add menu
-            // are unaffected — the closer never hides that menu, so
+            // are unaffected - the closer never hides that menu, so
             // their rect is the same either way.
             const triggerRect = trigger && trigger.getBoundingClientRect ? trigger.getBoundingClientRect() : null;
             kw(), SwI(menu, trigger);
@@ -149,9 +149,9 @@
                 const o = JSON.parse(JSON.stringify(r.payload));
                 o.profileName = i, o.sampleProfile = !0, o.skin = o.skin || r.skin || sampleBtn.dataset.sampleSkin || (typeof window !== "undefined" && window.__SX_ACTIVE_SKIN) || "sexcapades";
                 if (r.emblem && photo) {
-                    // Emblem avatars (2026-11-23): the entry's emblem —
+                    // Emblem avatars (2026-11-23): the entry's emblem -
                     // fetched through its menu <img> by Mw, exactly like
-                    // Adam/Eve's real photos — becomes the loaded
+                    // Adam/Eve's real photos - becomes the loaded
                     // profile's center photo. Stack layers share their
                     // stack's one emblem (the date does the talking).
                     o.photos = [ photo ];
@@ -254,7 +254,7 @@
         // roster gets its OWN entry in the add menu, beside Archetypes
         // and Samples. The skin loader creates those entries and menus
         // dynamically (rosters come and go per skin and per import), so
-        // it wires them through this hook — the same open/close, hover,
+        // it wires them through this hook - the same open/close, hover,
         // delegation, and local-remove treatment the two static
         // submenus get, from the same in-scope helpers.
         window.__SX_WIRE_SAMPLE_SUBMENU = (entry, menu, back) => {
@@ -436,8 +436,8 @@
         // generated slugs, merged over the auto-generated slug->id map when
         // old profile files are imported. It covers only spellings that
         // shipped before profiles began traveling by topic ID (slug-gap
-        // fix, 2026-10-22). It is a closed set — never extend it for
-        // post-fix files — and it retires at v4.0.
+        // fix, 2026-10-22). It is a closed set - never extend it for
+        // post-fix files - and it retires at v4.0.
         const Gw = "topic-impact-pain-body-modification-whipping", Kw = Object.freeze({
             [Gw]: "topic-impact-pain-body-modification-whips",
             "topic-impact-pain-body-modification-canes": "topic-impact-pain-body-modification-caning",
@@ -526,20 +526,20 @@
         // then reports that id's entries as deliberately retired: they
         // are never stored in ratings or side maps, never parked on
         // profile.droppedKeys, and never shown in On Deck. Only
-        // canonical ids (t####) belong in this registry — a slug
+        // canonical ids (t####) belong in this registry - a slug
         // spelling of a deleted topic is not buried; it parks like any
         // other unrecognized spelling.
         const BURIED_TOPIC_IDS = Object.freeze({
             t0001: "Direction (topic deleted)"
         });
         // Explicit ingest resolution order (E4b): a single incoming key
-        // resolves through exactly these stages, in this order —
+        // resolves through exactly these stages, in this order -
         // (1) a canonical topic id present in the catalog resolves from
         // the catalog alone and never consults any table; (2) the
         // generated slug for a current topic; (3) the FROZEN LEGACY
         // TABLE (Kw), whose target is a generated slug (resolved
         // through zw) or, defensively, a canonical id; (4) no
-        // resolution — the caller parks the key. Burial is checked
+        // resolution - the caller parks the key. Burial is checked
         // between (1) and (2): a buried id is canonical in form but
         // absent from the catalog, and only a literal canonical id can
         // match the registry, so slug spellings never reach it. This
@@ -576,7 +576,7 @@
         function Yw(e) {
             if (!e || "object" != typeof e) return e;
             // SUNSET (slug-gap design-away, 2026-10-22): this is the
-            // legacy slug-resolution path — incoming keys are rewritten
+            // legacy slug-resolution path - incoming keys are rewritten
             // through Vw, the generated slug->id map merged with the
             // FROZEN LEGACY TABLE (Kw). The frozen legacy rename table
             // and this slug-spelling resolution fallback retire at v4.0:
@@ -584,7 +584,7 @@
             // They remain only so pre-fix slug-keyed files resolve one
             // last time, after which the profile re-saves by ID.
             // E4b: the rewrite map is built in the explicit resolution
-            // order of resolveIngestKey — generated slugs (stage 2) are
+            // order of resolveIngestKey - generated slugs (stage 2) are
             // entered first and a frozen legacy entry (stage 3) can
             // never shadow one. Canonical topic ids (stage 1) are not
             // keys of this map at all: they resolve from the catalog
@@ -615,7 +615,7 @@
                 // LIMITS COMPLETENESS (repair): when two stored keys canonicalize
                 // to the same topic, the merged rating keeps the MOST RESTRICTIVE
                 // (lowest) value per direction. The old max-merge silently erased
-                // a stated deep-red at import time — e.g. a payload carrying both
+                // a stated deep-red at import time - e.g. a payload carrying both
                 // "topic-sex-acts-vaginal-fisting" (-100/-90) and a milder duplicate
                 // key for the same topic stored only the mild value, so the topic
                 // never reached the checklist's red list.
@@ -666,7 +666,7 @@
             // minted before the pair glyphs were split carry the old
             // circle-cross joiner in their stored name. A bowtie
             // group's ⊗ becomes ⋈; a straight group's becomes ⊙.
-            // Only group records are touched — a non-group profile's
+            // Only group records are touched - a non-group profile's
             // name is never rewritten, whatever it contains. Jw runs
             // on every load and activation, so a legacy name is
             // corrected the first time its tab renders, and zt marks
@@ -677,7 +677,7 @@
         }
         // Duplicate tab labels (owner ruling, 2026-10-27): same-name
         // tabs are told apart by a dash-plus-number suffix on the TAB
-        // LABEL ONLY, counting from 2 — the first tab keeps the plain
+        // LABEL ONLY, counting from 2 - the first tab keeps the plain
         // label, the next gets "-2", then "-3", and so on. Profile
         // names (wt) stay clean; identity and selection ride the
         // internal profile ids (data-view), never the label. Jw resets

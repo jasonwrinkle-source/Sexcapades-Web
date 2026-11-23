@@ -112,7 +112,7 @@
             sxDrawPoleLabelAt(ctx, canvas, vx + dx * SX_POLE_LABEL_OFFSET, vy + dy * SX_POLE_LABEL_OFFSET, tangentDeg, text, color, key, name || text, angleRad, slot);
         }
         function sxPoleLabels(shape, n) {
-            // Label, else pole key, else "" — never a "Pole N" fallback (T7).
+            // Label, else pole key, else "" - never a "Pole N" fallback (T7).
             const out = [];
             for (let k = 0; k < n; k++) {
                 out.push((shape && shape.labels && shape.labels[k]) || (shape && shape.keys && shape.keys[k]) || "");
@@ -171,11 +171,11 @@
             set(".mark-quad-br", names.br);
         }
         function sxPoleLine(topicId, key) {
-            // One pole's "Label — text" line. Skin-registered topics come
+            // One pole's "Label - text" line. Skin-registered topics come
             // first (loader); Sexcapades give/receive uses the custom
             // wording where it exists (Ge labels are the topic's own verbs,
             // e.g. "overpower" / "be overpowered"), else the ruled
-            // "Give — <topic> / Receive — <topic>" form (Q2).
+            // "Give - <topic> / Receive - <topic>" form (Q2).
             if (!topicId || !key) return null;
             if (typeof window.__SX_POLE_LINE_FOR === "function") {
                 const line = window.__SX_POLE_LINE_FOR(topicId, key);
@@ -297,11 +297,11 @@
             // Pole 0 (Red, bottom-left), Pole 1 (Green, top center / middle position), Pole 2 (Blue, bottom-right)
             // Label margins (2026-11-18, placard triad fix): the triangle
             // sits INSIDE the canvas with room left OUTSIDE it for
-            // horizontal pole labels — a band above the top vertex and a
-            // two-line band below the base — so no label ever runs
+            // horizontal pole labels - a band above the top vertex and a
+            // two-line band below the base - so no label ever runs
             // diagonally along an edge, cramped against the fill.
             // Regular N-gon ruling (2026-11-19): the triangle is
-            // EQUILATERAL — one uniform scale on both axes, the same
+            // EQUILATERAL - one uniform scale on both axes, the same
             // discipline the tetrad/radar widgets get from their circle
             // geometry. (The old fractional-x vertices made a tall
             // isosceles: on the 240px popup canvas the sides measured
@@ -415,7 +415,7 @@
 
         // Signed-intensity model (2026-11-19, Jason's ruling): for the
         // radar/tetrad families the intensity of a pole vector is its
-        // strongest value WITH its sign — negative intensity is aversion
+        // strongest value WITH its sign - negative intensity is aversion
         // to the topic as a whole, while the proportions (each value over
         // the signed intensity) describe the blend. Draws render the
         // proportions at the widget's fixed frame, so sweeping intensity
@@ -944,7 +944,7 @@
                 drawDisc(true);
             }
 
-            // 6. Pole Labels — tangent-rotated (T5).
+            // 6. Pole Labels - tangent-rotated (T5).
             canvas.__sxLabelRects = [];
             const labels = sxPoleLabels(shape, poleCount);
             vertices.forEach((v, idx) => {

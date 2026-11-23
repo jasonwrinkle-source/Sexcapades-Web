@@ -32,7 +32,7 @@
             const maxY = Math.ceil(Math.max(V0.y, V1.y, V2.y));
             const bw = maxX - minX, bh = maxY - minY;
 
-            // 1. Barycentric RGB color gradient fill — cached per canvas
+            // 1. Barycentric RGB color gradient fill - cached per canvas
             // (2026-11-18, puck-drag smoothness): the gradient depends
             // only on canvas size + intensity brightness, never on the
             // puck position, so rebuilding it pixel-by-pixel on every
@@ -148,7 +148,7 @@
             ctx.strokeStyle = "#ffffff";
             ctx.stroke();
 
-            // 4. Pole labels (matching RGB colors) — horizontal and
+            // 4. Pole labels (matching RGB colors) - horizontal and
             // EXTERIOR to the triangle (2026-11-18): the old shared
             // tangent rotation ran the long bottom labels diagonally
             // along the edges, cramped against the fill. Green sits in
@@ -387,7 +387,7 @@
         };
 
         // Corner colors in JSON pole order (top-left, top-right,
-        // bottom-right, bottom-left) — same four colors as the tetrad.
+        // bottom-right, bottom-left) - same four colors as the tetrad.
         const SX_COMPASS_COLORS = ["#22c55e", "#eab308", "#ef4444", "#3b82f6"];
 
         function sxCompassShortLabel(label) {
@@ -1107,7 +1107,7 @@
             const pick = (id, sel) => root ? (dlg.matches && dlg.matches(sel) ? dlg : dlg.querySelector(sel)) : e.byId(id);
             // Hot List freeze fix (2026-11-15): pId may be the empty-template id
             // on a fresh boot. The first write mints a real profile, so every
-            // handler re-resolves the id before reading/writing — otherwise
+            // handler re-resolves the id before reading/writing - otherwise
             // reads keep hitting the empty template and the readout never moves.
             // An explicitly passed real profile id is preserved as-is.
             let pId = profileId || Vi();
@@ -1257,7 +1257,7 @@
                     sxDrawTetradWidget(canvas, shape, radarState);
                 } else if (isTriad) {
                     // 2026-11-18 (puck-drag smoothness): the weights must
-                    // sum to 1 — the draw places the puck at w0*V0 +
+                    // sum to 1 - the draw places the puck at w0*V0 +
                     // w1*V1 + w2*V2, so the old raw vals/100 (summing to
                     // intensity/100, e.g. 0.7) dragged the puck toward the
                     // canvas origin, and let it jump whenever the

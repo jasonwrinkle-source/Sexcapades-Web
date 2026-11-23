@@ -71,7 +71,7 @@
         }
         // Popularity list → hypermap fix (2026-10-28, scopes A+B+C):
         // the map-route render is a full rebuild; entered from the
-        // Popularity list it ran as one synchronous block — seconds
+        // Popularity list it ran as one synchronous block - seconds
         // of frozen screen with no indicator, because nothing on
         // this path ever armed one. This entry arms the two existing
         // progress surfaces before the render and defers the render
@@ -84,18 +84,18 @@
         //     it through any settle/blit tail after the paint;
         //   - the #9 paintbrush pill (__sxPillSessionStart/Finish),
         //     button-marked on the PERSISTENT title-bar view button
-        //     (#mapListViewButton) — never the view-menu item
+        //     (#mapListViewButton) - never the view-menu item
         //     (closeMenu() removes it) and never the list dialog's
         //     own view button (it closes with the dialog). The pill
-        //     finishes on the overlay session's onDone — the same
-        //     completion signal apply() uses — so pill, overlay and
+        //     finishes on the overlay session's onDone - the same
+        //     completion signal apply() uses - so pill, overlay and
         //     tail share exactly one window.
         // The render runs chunked via the one-shot
         // __sxRouteChunkPaint flag consumed in Mr (same 25-50 ms
         // clamp as the boot flag), set immediately before Mr so no
         // other render can take it. When either surface cannot arm
         // (a session is already active), or the map sits in its
-        // safe-fallback state (jn — Mr would refuse the paint and
+        // safe-fallback state (jn - Mr would refuse the paint and
         // no checkpoint would ever drive an armed session), the
         // render runs exactly as before: synchronous, unflagged,
         // inside this call. No dirty check is added (scope D is
@@ -167,7 +167,7 @@
             !0) : (sS = !1, !1);
         }
         // Scribe deep-link door REMOVED (owner ruling, 2026-10-27):
-        // Scribe's only doorway is the Scribe button — a deep link
+        // Scribe's only doorway is the Scribe button - a deep link
         // carries no multi-select context, so the #scribe / #app/scribe
         // hash route (the former fS handler and its hS matcher) is
         // gone, and that hash now boots and navigates exactly like the
@@ -248,8 +248,8 @@
             // phases. Routes exactly like the editor's own dispatch
             // (scoped when a scope is given and applyScoped exists,
             // full otherwise) and resolves only after the stepped
-            // paint — including a scoped paint's deferred
-            // bookkeeping — has fully settled. The chunk flag is on
+            // paint - including a scoped paint's deferred
+            // bookkeeping - has fully settled. The chunk flag is on
             // only for the synchronous dispatch below, so no other
             // render can accidentally go chunked.
             async applyChunked(patch, scope) {
@@ -269,7 +269,7 @@
             applyScoped(patch, scope) {
                 // Scoped solve (Stage 3, T2): apply a layout patch
                 // while every branch outside scope.target ∪
-                // scope.ring is FROZEN — its delivered geometry is
+                // scope.ring is FROZEN - its delivered geometry is
                 // captured before the patch lands and replayed
                 // verbatim at solve completion (see scCtx,
                 // scCaptureFrozen, scRestoreFrozen). The patch itself
@@ -279,7 +279,7 @@
                 // empty/no-op patch, an already-active scope, or the
                 // absence of delivered geometry to freeze falls back
                 // to the ordinary full apply path with the reason
-                // declared in the returned result and in dkLog —
+                // declared in the returned result and in dkLog -
                 // never silent. The summary is also recorded in dkLog
                 // (type "scoped-apply"), the same place the DeKnotter
                 // records its run summaries. Ring-auto (T5): when
@@ -311,17 +311,17 @@
                 // Ring-auto (Stage 3, T5): an explicit scope.ring
                 // is used verbatim, exactly as before (T4's harness
                 // passes one). When the caller omits it, the ring
-                // is declared HERE — computed by scComputeAutoRing
+                // is declared HERE - computed by scComputeAutoRing
                 // from pre-op delivered geometry, before the patch
-                // applies, never reconstructed after the fact —
+                // applies, never reconstructed after the fact -
                 // and the computed ring is what the result object
                 // and the dkLog "scoped-apply" entry carry. With
                 // no delivered geometry to declare from, the ring
                 // stays empty and the scoped path falls back below
                 // ("no-delivered-geometry"), as it does today.
-                // RING REMOVED (ruled 2026-11-01 01:52, Jason —
+                // RING REMOVED (ruled 2026-11-01 01:52, Jason -
                 // supersedes ring-auto, Stage 3 T5): the freeze
-                // applies to EVERY branch except the target —
+                // applies to EVERY branch except the target -
                 // angular neighbours, the target's nearest
                 // neighbour, and branches whose nearest centre is
                 // the target are frozen and restored verbatim like
@@ -347,11 +347,11 @@
                 if (!patch || "object" != typeof patch || !Object.keys(patch).length) return fallback("empty-patch");
                 const before = api.get();
                 // Solve-commit opt-out (Stage 3, T6): a caller
-                // whose commit's payload is the solve itself —
+                // whose commit's payload is the solve itself -
                 // solver-side state outside the patch changed
                 // under a value-identical patch (the DeKnotter's
                 // fit and growth phases: the fit registry lives
-                // outside API.get()) — declares scope.solveCommit
+                // outside API.get()) - declares scope.solveCommit
                 // and skips ONLY this no-op decline. Every other
                 // validation and decline stands, and no editor
                 // caller passes the flag, so editor behaviour is
@@ -378,8 +378,8 @@
                 // steps this paint a frame at a time (applyChunked),
                 // api.apply returns with the paint still in flight
                 // (sxPaintPromise replaced). scCtx must stay in
-                // place for the whole paint — Ar consults it in
-                // every phase — and the bookkeeping below (which
+                // place for the whole paint - Ar consults it in
+                // every phase - and the bookkeeping below (which
                 // reads solve results such as ctx.r6Abort) must wait
                 // until the paint settles, so it lives in
                 // finishScoped: unchunked callers run it
@@ -407,7 +407,7 @@
                 // first relief boundary event raised ctx.r6Abort
                 // mid-solve; the scoped result is discarded and the
                 // ordinary full apply runs instead, with the outcome
-                // declared — never silent. The boundaryLog and the
+                // declared - never silent. The boundaryLog and the
                 // dropped counters from the aborted scoped attempt
                 // are carried into the result so the pressure that
                 // forced the fallback stays visible.
@@ -502,7 +502,7 @@
                 // rn, parent into on) so the selected spoke is visible,
                 // then applies the shared selection path's bookkeeping
                 // without echoing a notification back to the editor that
-                // initiated it — but updates the selection marking in
+                // initiated it - but updates the selection marking in
                 // the existing DOM instead of re-rendering (see below).
                 if (!e) return !1;
                 let id = String(e), t = qn[id] || Xn(id);
@@ -522,7 +522,7 @@
                 // Selection-state bookkeeping identical to the shared
                 // path (selectSpokeNode with notify off): record the
                 // selected node, clear any pending rating target. The
-                // shared path is selection-only — no re-render: Mr()
+                // shared path is selection-only - no re-render: Mr()
                 // re-solves and re-renders the whole map from
                 // canonical layout state, silently discarding delivered
                 // geometry (scoped editor commits, DeKnotter runs) that
@@ -545,7 +545,7 @@
                 // Mirrors selectSpokeNode's bookkeeping in reverse: clear
                 // the selected node and any pending rating target.
                 // Geometry-neutral like selectNode: no re-render (a full
-                // solve would discard delivered geometry) — the marking
+                // solve would discard delivered geometry) - the marking
                 // is removed from the existing DOM instead, and the
                 // map-selection-dim observer clears sel-keep /
                 // has-selection in response. Returns whether anything
@@ -560,10 +560,10 @@
                 // branch/subcategory/kink length ratios against the baked
                 // bases and the context cap (default 200) and, only when
                 // every ratio passes, applies the patch ONCE through this
-                // API's scoped entry (applyScoped, Stage 3 T6 — target =
+                // API's scoped entry (applyScoped, Stage 3 T6 - target =
                 // the run's branch, ring auto, policy "contained"; the
                 // patch itself still lands through this API's own apply
-                // path, assign + forced solve) — never through editor
+                // path, assign + forced solve) - never through editor
                 // handlers or the shell's collect()/apply.
                 // A rejected patch is logged whole and leaves layout state
                 // untouched. Any exception inside applyPhase is logged,
@@ -631,7 +631,7 @@
                         // explicitly EMPTY ring (ruled 2026-11-01
                         // 01:52, Jason: the freeze applies to every
                         // other branch, nearest neighbours
-                        // included — only the target is
+                        // included - only the target is
                         // recomputed), policy "contained", opClass
                         // "deknotter-<phase>". solveCommit declares
                         // that a phase's payload may be the solve
@@ -641,8 +641,8 @@
                         // patch, so applyScoped must not decline
                         // them as no-ops. A declared fallback
                         // (scoped:false) still means the patch WAS
-                        // committed — applyScoped's fallback runs
-                        // the ordinary full apply — so the phase
+                        // committed - applyScoped's fallback runs
+                        // the ordinary full apply - so the phase
                         // succeeds and the run continues, exactly as
                         // a committed phase does today; the scoped
                         // outcome is declared in dkLog's
@@ -674,7 +674,7 @@
                 active: () => dkCtx ? { branch: dkCtx.branch, cap: dkCtx.cap, phase: dkCtx.phase } : null,
                 log: () => dkLog.slice(),
                 // F6: stable blit-session completion signal for the
-                // shell's rebuild gate — true while a blit settle is
+                // shell's rebuild gate - true while a blit settle is
                 // still owed. Reproduces the verdict of the log's
                 // last blit-session entry (the scan the gate used to
                 // run), maintained by the blit module at every entry
@@ -708,7 +708,7 @@
                 // clearing a target bumps the registry revision, which
                 // changes the item's resolver signature, so the next
                 // solve recaptures its base under the new governing
-                // state — and a cleared item returns to legacy behavior.
+                // state - and a cleared item returns to legacy behavior.
                 // None of these methods solves; the driver drives
                 // solves through applyPhase()/apply() as before.
                 setFitTarget(key, target) {
@@ -789,13 +789,13 @@
                 },
                 // Kink shrink to label length (ruled 2026-10-28):
                 // a ONE-TIME normalization, deliberately NOT a
-                // cascade phase and not phase-gated — it does not
+                // cascade phase and not phase-gated - it does not
                 // run inside dkRunCascade and is kept separate from
                 // the recurring growth runs. For every kink item of
                 // the branch (gen-2 topics and subcategory children)
                 // whose delivered radius exceeds its label-fit
-                // target — the fit machinery's own measured length
-                // for the item's name at the live font — the kink's
+                // target - the fit machinery's own measured length
+                // for the item's name at the live font - the kink's
                 // length override is scaled so the delivered radius
                 // lands on that target. An item already at or below
                 // its target holds: this never grows a kink. The
@@ -843,14 +843,14 @@
                 },
                 // AUTOFIT (Group 3d, ruled 2026-10-28): the one-shot
                 // fit behind the layout editor's Autofit button. Same
-                // driver pattern as shrinkKinksToLabel above — fit
+                // driver pattern as shrinkKinksToLabel above - fit
                 // targets from dkComputeFitTarget, delivered radii
                 // from dkDeliveredItemRadius, lengths scaled by
                 // OVERGROWN target / delivered (the multiple is the
                 // "% kink leaf overgrowth" percent, ruled 2026-11-03,
                 // superseding the hard 3x ruled 2026-11-02 17:09; it
                 // lives only in this driver's delivered-length
-                // computation below, via sxLeafOvergrowthFactor) —
+                // computation below, via sxLeafOvergrowthFactor) -
                 // with the three ruled deltas:
                 // (1) BOTH directions: a spoke longer than its fit
                 // target shrinks and a spoke shorter than its target
@@ -859,7 +859,7 @@
                 // (2) SCOPE: any list of branches (one branch, or
                 // every branch for a whole-map run) accumulates into
                 // ONE kink-overrides map. (3) ONE-SHOT: this method
-                // only COMPUTES the patch — it never applies, never
+                // only COMPUTES the patch - it never applies, never
                 // writes an armed flag, and leaves no state that
                 // re-triggers on
                 // later builds. The caller (the editor shell) lands
@@ -914,7 +914,7 @@
                 // DeKnotter gate primitive (E2): snapshot() captures a
                 // deep clone of the current layout state (see
                 // dkDeepCloneLayout); (F8: the LAYOUT-settings
-                // snapshot — not the sharing profile/data snapshot.)
+                // snapshot - not the sharing profile/data snapshot.)
                 // restore() installs a snapshot by
                 // applying a FRESH deep clone of it through this API's
                 // own apply path, so the snapshot object itself is never
@@ -922,13 +922,13 @@
                 // active run context. measureCloud() reads one branch's
                 // own-cloud CROSSING NUMBER (Q4: the anneal gate's
                 // decider metric) straight from the shell metric
-                // registry's crossingnumber clouds walk — called
+                // registry's crossingnumber clouds walk - called
                 // directly with its (ctx, done, isCancelled) contract
-                // and awaited — never via scheduleMetric(), and it
+                // and awaited - never via scheduleMetric(), and it
                 // never touches the user's selected display metric.
                 // (Before Q4 this readout was the branch's local
                 // xAreaCross area; the area observation was removed
-                // in M1, 2026-10-29 — see the removal record below.)
+                // in M1, 2026-10-29 - see the removal record below.)
                 // canonical() is the stable
                 // sorted stringify two states are compared with;
                 // gate() is the pure improve-or-hold comparison on the
@@ -952,8 +952,8 @@
                     // STAGED SCORING (ruled 2026-11-02, Jason): during
                     // an active cascade run, the run branch's judged
                     // score is the staged score (see
-                    // sxCrossingStagedCloud); every other read — any
-                    // other branch, and every read outside a run —
+                    // sxCrossingStagedCloud); every other read - any
+                    // other branch, and every read outside a run -
                     // keeps the standing readout below, unchanged.
                     if (sxAnnealStageCtx && branch === sxAnnealStageCtx.branch) {
                         const useAdj = adjacent !== undefined ? !!adjacent : sxAnnealStageCtx.adjacent;
@@ -968,7 +968,7 @@
                 },
                 // Q4: EVERY cloud's crossing number in one walk of
                 // the same crossingnumber clouds readout
-                // measureCloud() uses — the cascade's neighbor-report
+                // measureCloud() uses - the cascade's neighbor-report
                 // source and nothing else: these values are reported,
                 // never gated. Missing or non-finite values read as
                 // 0, exactly as measureCloud treats them.
@@ -978,9 +978,9 @@
                 // Single removal record for the retired area
                 // observation (2026-10-29, M1; commented-out code
                 // deleted 2026-10-30, paragraph-6 solver-metrics
-                // edit): the cascade's secondary area readout —
+                // edit): the cascade's secondary area readout -
                 // measureCloudArea(branch), the shell's xareacross
-                // clouds walk, never gating anything — and its
+                // clouds walk, never gating anything - and its
                 // callers in dkRunCascade were removed with the area
                 // observation. Revival is NOT an uncomment: re-derive
                 // a live walk against the current
@@ -995,7 +995,7 @@
                     return after <= before;
                 },
                 // DeKnotter cascade driver (E5): run one full
-                // cascade for a branch (see dkRunCascade). Async —
+                // cascade for a branch (see dkRunCascade). Async -
                 // resolves to the run report, which is also appended
                 // to the DeKnotter log as a 'run-report' entry.
                 // opts._testFinalPatch is a test-only hook, documented
@@ -1007,7 +1007,7 @@
                     // ANNEAL REPORT TEST HOOK (see sxPublishAnnealReport
                     // beside dkLog): mark the run pending, then mirror
                     // the settled outcome onto the diagnostic surfaces.
-                    // The cascade's own promise is returned untouched —
+                    // The cascade's own promise is returned untouched -
                     // the hook only observes it, and its writer never
                     // throws, so run behaviour is unchanged.
                     sxPublishAnnealReport(null, true);

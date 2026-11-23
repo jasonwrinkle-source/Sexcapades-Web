@@ -19,9 +19,9 @@
             // hash that starts #share= but matches no token is no
             // longer met with silence, and a truncated token fails
             // closed in the parse below with the alternative named.
-            // This bundle has no share-link CREATION caller — the only
+            // This bundle has no share-link CREATION caller - the only
             // producer of this token format is the anonymous survey
-            // token in wu(), whose flags stay stripped — so there is
+            // token in wu(), whose flags stay stripped - so there is
             // no sending-side warning to route here; the framework is
             // fitted on the side that exists. The #share= → "profile"
             // mapping and its HARD CONSTRAINT below are untouched.
@@ -94,7 +94,7 @@
         }
         // ===== OVERSIZE UNIFIED FRAMEWORK (Rank 13, ruled 2026-10-30) =====
         // One common core for EVERY surface, plus per-surface
-        // adaptations — not one rule for all surfaces. Common core:
+        // adaptations - not one rule for all surfaces. Common core:
         // never silently drop, truncate, enlarge, or shrink profile
         // data; every oversize event states, in user words, what is
         // missing and where to get the complete version. The
@@ -110,11 +110,11 @@
         // never profile data. The picture paths are likewise not
         // QR-routed: ru() already re-reads every finished PNG and
         // compares its embedded payload byte-for-byte (Rank 5), and
-        // the scan reassembly in Kx/Wx stays fail-closed — a partial
+        // the scan reassembly in Kx/Wx stays fail-closed - a partial
         // numbered set never claims success, and its progress message
         // already states how many pieces are still missing.
         // sxOversizeAlt: the one complete-version alternative every
-        // surface names — the numbered QR sheet from Export QR codes,
+        // surface names - the numbered QR sheet from Export QR codes,
         // which holds every piece.
         function sxOversizeAlt() {
             return "Export QR codes — the numbered QR sheet holds every piece.";
@@ -132,7 +132,7 @@
         // Sync card: try 2 codes, then 3, then 4, then 5, then throw. The throw states
         // the measured size of the data that would not fit and names
         // the alternative; it does NOT claim a 700-character piece
-        // count — the card's fit check is QR version capacity at two
+        // count - the card's fit check is QR version capacity at two
         // fixed sizes, a different unit from the document's
         // 700-character pieces, and a piece count here would read as
         // if the profile fit the 4-code layout when it does not. The
@@ -170,7 +170,7 @@
             const n = String(e || ""), i = iu((new TextEncoder).encode(n)).toString(36).toUpperCase();
             // Splitter guardrails (unified framework core): an empty
             // payload has no pieces, and supplying BOTH chunkCount and
-            // chunkSize is an error — count used to win silently and
+            // chunkSize is an error - count used to win silently and
             // size was ignored without complaint. No current caller
             // supplies both, so throwing here changes no live path;
             // it only refuses a contradictory instruction loudly.
@@ -201,7 +201,7 @@
             }
         }
         // QR SERVICE (sharing-sync refactor F1): the ONE QR encoder
-        // for every path — sync cards, QR sheets, the overlap share,
+        // for every path - sync cards, QR sheets, the overlap share,
         // and the PDF document path all encode through qrEncode.
         // One width policy (qrWidth: the requested width, with a 720px
         // rendering minimum for QR readability) and one return type: a promise for an ARRAY of
@@ -216,7 +216,7 @@
         // silently drop the rest, so those codes could never be
         // reassembled; the document path now counts the codes it
         // gets back and warns plainly when they exceed the two the
-        // page can hold — see apQrImages.) The framework block above
+        // page can hold - see apQrImages.) The framework block above
         // the CHUNKER states the common core and the per-surface
         // adaptations; the old open decision not to unify is closed
         // by that ruling.
@@ -224,7 +224,7 @@
             // Rendering minimum, not a data policy: QR images are
             // never rendered below 720px wide, so a code stays
             // scannable at the sizes it is drawn at. The payload is
-            // never enlarged or shrunk by this — it only sets the
+            // never enlarged or shrunk by this - it only sets the
             // image size. (The overlap share requests 480 and is
             // rendered at this 720 minimum, as before.)
             return Math.max(720, Math.round(Number(e) || 1536));
@@ -533,8 +533,8 @@
             // of a profile that leaves the app passes through here (full
             // profile, filtered export, share payload, Sync Card), and
             // topic data travels by canonical topic id (t####) only. Any
-            // stored topic key still spelled as a slug — generated or
-            // frozen-legacy — is rewritten to its id on the way out via
+            // stored topic key still spelled as a slug - generated or
+            // frozen-legacy - is rewritten to its id on the way out via
             // Vw (idk). Keys that are valid non-topic stored keys (cat-…,
             // subcategory-…, subtopic-… children) are not slug spellings
             // and keep their form.
@@ -606,7 +606,7 @@
             // label of every topic id contained anywhere in the file
             // (ratings + side maps), so a future reader can interpret
             // the file by the sender's meanings even after a topic is
-            // renamed or retired. Additive fields only — the profile
+            // renamed or retired. Additive fields only - the profile
             // format version is unchanged and existing loaders ignore
             // unknown fields.
             const att = out.importAttention;
@@ -627,7 +627,7 @@
             // deliberately not a fuller identity scheme: the pair's
             // source identities do NOT ride along (flagged, not
             // built), so a restored pair cannot recompute or split
-            // its center until its members are present again — the
+            // its center until its members are present again - the
             // import side restores exactly these two fields, as a
             // minimal pair record every compute path already guards
             // against (Rd, sxRefreshGroupOwn and Kd all require the
@@ -868,7 +868,7 @@
             };
         }
         // P1 refactor (Build 2026-10-18_2227): ap (PDF export) split by
-        // responsibility — apLoadAndPrep loads the PDF library, parses
+        // responsibility - apLoadAndPrep loads the PDF library, parses
         // and centre-crops the SVG and creates the document;
         // apEmbedMetadata embeds the serialized profile; apInlineStyles
         // resolves computed styles onto the export clone; apDrawLabels

@@ -45,7 +45,7 @@
         // Yolanda Biche guide profile (Build 2026-10-16_2206; renamed from Roxy Beggz in Build 2026-10-17): a proper profile
         // record set, registered only while her About dialog is open, so the
         // center node on the unrated map opens the STANDARD profile About
-        // dialog (bw in "about" mode) — the same template and behavior as
+        // dialog (bw in "about" mode) - the same template and behavior as
         // any user profile's About dialog. Her contact email lives in the
         // profile contact field (ut), her bio in the About Me field (nt) and
         // her note in the Terms of Engagement field (it). The record is removed
@@ -227,21 +227,21 @@
         }
         // Zoom range (2026-10-31): the fitted scale can be ~0.05 while the old
         // camera floor was .12, so the first wheel/button/pinch step from a
-        // fitted view clamped straight up to .12 — a visible jump over the
+        // fitted view clamped straight up to .12 - a visible jump over the
         // in-between levels. The floor was then .01 in every camera clamp
         // (fit, wheel, buttons, pinch, focus-keep) so zoom is continuous
         // from the fitted view in both directions, and the ceiling is 60
         // so zoom-in always reaches at least 15x from any fitted view
         // (the fit itself is capped at 2.3, so 60 guarantees >= 26x).
         // 2026-11-02: floor lowered .01 -> .0001 in every camera clamp
-        // (and the wheel at-floor guard) — at the owner's size-100
+        // (and the wheel at-floor guard) - at the owner's size-100
         // layout the painted map spans ~3.26M x 2.40M units and the
         // whole-map fit scale computes to ~0.00092, below even a .001
         // floor, so fit pinned at the floor and cropped the map.
         // .0001 sits ~9x below the required fit scale; ceiling 60
         // unchanged.
         // 2026-11-02 (owner's order): the artificial caps are removed
-        // in practice — floor 1e-9 and ceiling 1e6 in every camera
+        // in practice - floor 1e-9 and ceiling 1e6 in every camera
         // clamp (and the wheel at-floor guard), roughly six orders of
         // magnitude of headroom past the ~0.00092 whole-map fit scale
         // and the ~0.003 tappable scale, so no zoom path binds in any
@@ -273,7 +273,7 @@
             });
         }
         // Field fix Q3 (map fit, mechanism 2): a fit can run before
-        // every node group has reached its settled rendered size —
+        // every node group has reached its settled rendered size -
         // a group the accumulation misses (still hidden, or still
         // zero-size at fit time) that later unhides or gains size is
         // not counted in the frame. At desktop sizes the slack hides
@@ -353,10 +353,10 @@
             }
             // Not laid out yet (slow phone open), paint still in
             // flight, or a camera animation still running: re-arm
-            // instead of dying — an unlaid-out first check or a
+            // instead of dying - an unlaid-out first check or a
             // mid-animation check must not kill the chain.
             // Boot close-up fix (2026-11-13): these waits must NOT
-            // consume the 20-check budget — the boot paint + anneal
+            // consume the 20-check budget - the boot paint + anneal
             // runs 25-45 s, so counting 400 ms waits as checks
             // exhausted the chain ~9 s in and the camera stayed
             // stuck on the centre portrait. Only a genuine re-fit
@@ -818,7 +818,7 @@
                 // Empty-space tap = deselect (Build 2026-10-19_0543): the
                 // pointerdown fallback armed Sq only when the press hit no
                 // node, control, or label, so a release within 10px is a
-                // tap on empty map — clear the spoke selection through
+                // tap on empty map - clear the spoke selection through
                 // the shared clear path (clearSpokeSelection: Lt/Nt,
                 // a search dim, relation emphasis, marking removal,
                 // no re-render) and
@@ -1132,7 +1132,7 @@
             // translate/rotate. The map-root conversion
             // (__sxScreenCtm(In)) lands in the camera group's space, which
             // is NOT a control's local space when the control carries a
-            // non-identity transform — quad-compass controls do (a
+            // non-identity transform - quad-compass controls do (a
             // translate of several hundred local units), so a root-space
             // pointer measured against local-space vertices read ~30% off
             // (drag-from-zero gave 100/40/40/40 instead of 80/25/25/25).
@@ -1194,7 +1194,7 @@
                 // 22 screen px expressed in the polygon's local units, so
                 // the closest-axis handle is a real on-screen distance.
                 // (Dividing by the map-root scale instead made it ~0.5px
-                // on screen — drags still worked on-axis, but a tap
+                // on screen - drags still worked on-axis, but a tap
                 // slightly off-axis would pick no axis at all.)
                 const ctm = poly.getScreenCTM();
                 const scale = ctm ? Math.hypot(ctm.a, ctm.b) : 0;
@@ -1911,7 +1911,7 @@
         // second report: Escape still did not close the opened slider):
         // the first repair's handler listened in the bubble phase on
         // window and yielded whenever the event was already
-        // defaultPrevented — any document or element handler that
+        // defaultPrevented - any document or element handler that
         // consumed Escape first (menu, popover and tooltip handlers all
         // run earlier in the flow) silently vetoed the close, and it
         // also trusted Nt alone, so a slider left visible in the DOM

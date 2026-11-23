@@ -190,7 +190,7 @@
         // Warm-boot cache is keyed by skin (ruled 2026-11-15): each skin has
         // its own cached markup, and a restore only matches its own skin.
         // A native Sexcapades boot has no active skin yet, so it normalizes
-        // to "sexcapades" — consistently on save AND restore, or the
+        // to "sexcapades" - consistently on save AND restore, or the
         // Sexcapades cache would never match.
         function sxWarmBootSkin() {
             var s = (typeof window !== "undefined" && window.__SX_ACTIVE_SKIN);
@@ -303,7 +303,7 @@
                     return res;
                 }).catch(() => null);
                 // One-time cleanup: the pre-fix record lived under the bare
-                // key with no skin in it — never read again, safe to drop.
+                // key with no skin in it - never read again, safe to drop.
                 sxIdbDelete(SX_WARM_BOOT_STORAGE_KEY).catch(() => {});
             } catch (_) {}
         }
@@ -377,7 +377,7 @@
                             // Restore parity (2026-11-15): a restored boot
                             // skips the solver, so the solver's per-page
                             // caches would stay empty until the next solve
-                            // — and a skin switch after a restored boot
+                            // - and a skin switch after a restored boot
                             // would then compute them fresh from the NEW
                             // skin, while after a fresh boot it reuses the
                             // BOOT skin's cached values. That split is what

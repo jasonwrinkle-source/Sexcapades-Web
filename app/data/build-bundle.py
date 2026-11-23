@@ -78,24 +78,16 @@ for p in parts:
         with open(path, encoding="utf-8") as f:
             code = f.read()
 
-        # Normalize line endings
-        code = code.replace('\r\n', '\n').replace('\r', '\n')
+        # Convert top-level const and let to var so module redeclarations in single-IIFE scope never throw SyntaxError
+        code = re.sub(r'^(?:        )?const\s+', 'var ', code, flags=re.MULTILINE)
+        code = re.sub(r'^(?:        )?let\s+', 'var ', code, flags=re.MULTILINE)
 
-        # Strip ES module import lines safely (including multiline imports)
-        code = re.sub(r'^\s*import\s+(?:(?:(?:\*\s+as\s+\w+)|(?:\{[\s\S]*?\}|\w+)(?:\s*,\s*(?:\{[\s\S]*?\}|\*\s+as\s+\w+))?)\s+from\s+)?[\'"][^\'"]+[\'"]\s*;?[^\S\r\n]*\n?', '', code, flags=re.MULTILINE)
+        combined_code.append(f"/* --- Module: {p} --- */\n" + code)
 
-        # Strip export keywords from export const, export function, export async function, export class, etc.
-        code = re.sub(r'\bexport\s+(?:default\s+)?(?:(async)\s+)?(const|let|var|function|class)\s+', lambda m: (m.group(1) + ' ' if m.group(1) else '') + m.group(2) + ' ', code)
-        # Strip standalone export { ... }
-        code = re.sub(r'^\s*export\s*\{[^}]*\}\s*;?', '', code, flags=re.MULTILINE)
-
-        # Strip single-line comments to prevent carriage-return line-swallowing bugs
-        code = re.sub(r'//.*$', '', code, flags=re.MULTILINE)
-
-        combined_code.append(f"/* --- Module: {p} --- */\n(function() {{\n" + code + "\n})();\n")
+bundle_text = "/* --- TaxoPolemics / Flexcapades Bundled Bootstrap --- */\n(function() {\n'use strict';\n" + "\n".join(combined_code) + "\n})();\n"
 
 with open(target_app, "w", encoding="utf-8") as out:
-    out.write("\n".join(combined_code))
+    out.write(bundle_text)
 
 target_app_assets = os.path.join(base_dir, "../../site-tree/public_html/hosted/app-assets/data-bootstrap.js")
 target_qa = os.path.join(base_dir, "../../site-tree/public_html/qa/data/data-bootstrap.js")

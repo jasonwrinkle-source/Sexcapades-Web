@@ -32,7 +32,7 @@
         // glanceRadii (at-a-glance rings), and spokeStartRadius (gen-1
         // spoke starts at the ring's outer edge). NOT scaled:
         // outerRadius/lineStartRadius (layout + label anchors).
-        // FQ2-BAKEIN (A4): branchToggleY is no longer a fixed constant —
+        // FQ2-BAKEIN (A4): branchToggleY is no longer a fixed constant -
         // refreshCenterRing() derives it from the scaled ring (see below).
         var eaBase = {
             photoRadius: ea.photoRadius,
@@ -55,12 +55,12 @@
             return Number.isFinite(v) && v > 0 ? v : 1;
         }
         // ICON DEPTH LAW (ruled 2026-11-02, Jason; SQUARE-ROOT
-        // form — the owner adopted the same day's square-root
+        // form - the owner adopted the same day's square-root
         // draft at 17:05, superseding the linear (0.6)^depth x R
         // law built earlier that day; the two-thirds base is
         // kept, as ruled; RADIUS reading ruled 13:38 the same
-        // day — "I meant radius"): a node's icon RADIUS is
-        // (2/3)^depth x sqrt(R x W) — the depth-scaled
+        // day - "I meant radius"): a node's icon RADIUS is
+        // (2/3)^depth x sqrt(R x W) - the depth-scaled
         // geometric mean of R, the centre-disc radius
         // (ea.photoRadius = 897.58 x centerRingScale, set by
         // the Center circle slider; eaBase.photoRadius is the
@@ -76,7 +76,7 @@
         // 80,782.20, W = 2,640, sqrt(RW) = 14,603.60) the depth
         // radii are 9,735.73 / 6,490.49 / 4,326.99 (diameters
         // double those). Sliders and tags scale by depth
-        // exactly like the fonts (sxControlScale below — see
+        // exactly like the fonts (sxControlScale below - see
         // Ka / renderKinkLine control scales and sxSccBuild's
         // tagM); the icon ladder (2/3) and the font ladder
         // stay independent (font law since 2026-11-02 17:24:
@@ -92,14 +92,14 @@
         // single icon floor exists elsewhere in the code
         // (there is no 44px icon floor); the floor used here
         // is the one the spoke-trim helpers already enforce
-        // — the 12-unit radius clamp in
+        // - the 12-unit radius clamp in
         // SpokeGeometry.buildTipCircle (Math.max(12,
-        // iconSize / 2)) and in renderKinkLine's leaf trim —
+        // iconSize / 2)) and in renderKinkLine's leaf trim -
         // taken font-scaled, as ruled: minimum icon RADIUS =
         // 12 x mapFontScale() (1,440 world units at the baked
         // fontScale 120; minimum diameter 2,880). Under the
         // square-root law the floor binds nowhere at the baked
-        // defaults — it binds only when the centre is small
+        // defaults - it binds only when the centre is small
         // or the font large.
         function sxIconRadius(depth) {
             const R = Number(ea && ea.photoRadius), base = Number.isFinite(R) && R > 0 ? R : eaBase.photoRadius;
@@ -140,7 +140,7 @@
         // (fontScale 120, centre 90: W = 2,640, R = 80,782.20,
         // sqrt(RW) = 14,603.60) the sizes are glance 2,640,
         // depth 1 = 14,603.60, depth 2 = 9,735.73, depth 3 =
-        // 6,490.49 — the category text is ~5.5 ring-widths,
+        // 6,490.49 - the category text is ~5.5 ring-widths,
         // LARGER than the at-a-glance rings (owner's ruling
         // 2026-11-03 01:18 CST). sxFontFactor stays the
         // dimensionless ratio sxFontSize(depth) / F so every
@@ -160,10 +160,10 @@
         // SLIDER / TAG + STROKE DEPTH LADDER (ruled 2026-11-02
         // 14:51 and 14:52, Jason): sliders and tags scale in the
         // same way as the fonts, by depth from the ring-width
-        // font master — the plain font scale times
+        // font master - the plain font scale times
         // sxFontFactor(depth): since the 2026-11-02 17:24
-        // font law the factor is sxFontSize(depth) / F —
-        // depth 1 sqrt(R/W), then x (2/3) per level — so
+        // font law the factor is sxFontSize(depth) / F -
+        // depth 1 sqrt(R/W), then x (2/3) per level - so
         // sliders, tags and strokes follow the FONT sizes
         // (the historical (8/9)^depth factors, depth 1 8/9,
         // depth 2 64/81, depth 3 512/729, are superseded).
@@ -174,7 +174,7 @@
         // the same factor, so a spoke's whole body thins with
         // its depth. sxControlScale keeps the historical
         // per-type seed normalization (seed / 48, clamped
-        // .62–1.25) the Ka / renderKinkLine controls and
+        // .62-1.25) the Ka / renderKinkLine controls and
         // sxSccBuild's tagM have always used, and multiplies it
         // by the depth factor. Depths are the icon/font depths:
         // 1 = category spokes, 2 = subcategory spokes and
@@ -210,7 +210,7 @@
             // Pitch = stroke (label-scale repair): the rings anchor to
             // the scaled disc (radius follows centerRingScale) but step
             // outward by exactly one ring thickness w, and w follows the
-            // FONT scale — so the three bands tile edge to edge at every
+            // FONT scale - so the three bands tile edge to edge at every
             // combination of the two independent scales. (Previously the
             // radii scaled by s while the CSS stroke stayed a fixed 44,
             // opening gaps of 44*(s-1).) BAND-SHRINK (2026-11-02): w is
@@ -228,7 +228,7 @@
             // spokeStartRadius 1035.31 (the outer ring's outer edge,
             // 1013.31 + 44/2). Since the band shrink (w = 22 at font
             // scale 1) the same formulas give [958.31, 936.31, 914.31]
-            // and spokeStartRadius 969.31 — pitch = w preserved.
+            // and spokeStartRadius 969.31 - pitch = w preserved.
             // eaBase.glanceRadii stays the frozen 1.0 reference. The stroke itself is published as the
             // --glance-ring-width CSS variable, consumed by the
             // .center-glance-ring-track/-value/-hit rules so the track,
@@ -261,12 +261,12 @@
         refreshCenterRing();
         // Gen-1 spoke base circle radius: the base disc IS the center ring
         // (each category spoke's base arc hugs the ring's outer edge), so
-        // the base radius derives directly from the scaled ring radius —
+        // the base radius derives directly from the scaled ring radius -
         // no separate control. The per-spoke base WIDTH is set in
         // Za.categoryTaperBaseWidth: TAPER_BASE_FRACTION (0.78) of the
         // chord 2R sin(π/18), the 18-slot equispaced pitch at the ring's
         // outer edge R (slot arc length 2πR/18), CAPPED at the tuned-era
-        // value (TAPER_BASE_CAP, the R = 300 chord — TAPER-BASE
+        // value (TAPER_BASE_CAP, the R = 300 chord - TAPER-BASE
         // RE-ANCHOR, 2026-11-02) so bases no longer grow with the ring;
         // the cap only ever shrinks the chord term, so bases always
         // keep a margin from their neighbours.

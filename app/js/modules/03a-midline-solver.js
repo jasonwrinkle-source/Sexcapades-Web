@@ -98,7 +98,7 @@
                     // its topic count, loose topic = 1) so the densest
                     // subcategory sits at the center of the branch's angular
                     // sector, flanked on both sides by the sparsest entries,
-                    // then the next-densest pair, alternating outward —
+                    // then the next-densest pair, alternating outward -
                     // dense, sparse, 2nd-dense, 2nd-sparse from the center.
                     // Only the display order changes; membership, weights
                     // and demands were already computed above. Off keeps the
@@ -208,7 +208,7 @@
         function frClampCloudRadii(n) {
             n.forEach(e => {
                 // Scoped solve (T3, L3): a frozen branch's cap is
-                // not evaluated at all — its delivered radius is a
+                // not evaluated at all - its delivered radius is a
                 // constant of the scoped solve, and recompute-set
                 // branches below still read its centre (delivered
                 // angle + preserved _spokeAdjust20) as a constant
@@ -248,12 +248,12 @@
         // comment admitted "same predicates as the first pass above").
         // It is now this ONE helper, called twice: once before expansion
         // relief and once after it. The two passes differ only in what
-        // surrounds them — relief follows the first, the curve reset
+        // surrounds them - relief follows the first, the curve reset
         // follows the second. The spoke-length optimizer likewise runs
         // after EACH pass: the second run is INTENTIONAL post-relief
         // re-optimization (relief moves radii, so spoke lengths are
         // re-fit against the relieved geometry before curves reset),
-        // not a leftover — confirmed in this pass from the pass order
+        // not a leftover - confirmed in this pass from the pass order
         // resolve -> optimize -> relief -> resolve -> optimize -> reset.
         function frResolveSiblingsPass(n) {
             n.forEach(e => {
@@ -265,7 +265,7 @@
                     return item.topic && item.topic.isSubcategory ? "veto" !== sxShrinkState(mn.subcatSpokeAutoShrink, item.topic.label) : branchShrink;
                 };
                 // Arming (Group 3d): a group whose auto-shrink the user has
-                // explicitly switched on (map value true — not merely
+                // explicitly switched on (map value true - not merely
                 // absent) keeps its shrink moves in Grow-only mode, whose
                 // candidate filter otherwise discards every shrink move
                 // before these gates are consulted. Untouched groups keep
@@ -286,11 +286,11 @@
                 // Armed (Group 3d, Build 2026-10-20_0853): a subcategory whose
                 // spoke auto-shrink is explicitly on takes the armed
                 // cloud factor (shipped 0.76x, editor-adjustable via
-                // mn.subcatCloudShrinkFactor — see sxArmedFactor) —
+                // mn.subcatCloudShrinkFactor - see sxArmedFactor) -
                 // a scoped shrink of its spoke, in any collision mode.
                 e.topics.forEach(t => {
-                    // Fit start (E4): a fit gen-2 item — plain topic or
-                    // subcategory node alike — starts the collision
+                    // Fit start (E4): a fit gen-2 item - plain topic or
+                    // subcategory node alike - starts the collision
                     // passes at its target; unarmed items keep the
                     // legacy start exactly.
                     const fv = dkFitTargetValueFor(t);
@@ -321,13 +321,13 @@
         // interior-interior, hub -> capsule-start segments + bare spokes).
         // CAPSULE STAGE 2 (ruled 2026-11-02 14:05, Jason): the crossing
         // term's victim region is the paddle UNION the topic's icon disc
-        // (sxIconRadius at the topic's depth) — every stretch of a
+        // (sxIconRadius at the topic's depth) - every stretch of a
         // foreign line is counted ONCE, at the width of the region it
         // is inside; see sxEvalCross.
         const SX_STEP_R = 8, SX_STEP_A = .5 * Math.PI / 180, SX_CUM_R = 32, SX_CUM_A = 2 * Math.PI / 180, SX_T0 = .25, SX_TCOOL = .8, SX_TFLOOR = .005, SX_STEPCOOL = .85, SX_SWEEPS = 24, SX_CELL = 256, SX_SEED = 0x5EED1234, SX_FONT_BASE = 22, SX_FAN_GAP = Math.PI / 45, SX_GRID_PAD = 128;
         // BASIS NOTE (2026-10-30, paragraph-6 solver-metrics edit):
         // these are the shipped tuned anneal constants. Their basis is
-        // NOT recorded in code — the values are transcribed tuning
+        // NOT recorded in code - the values are transcribed tuning
         // that produced the current judged-metric behaviour, not
         // quantities derived from a stated formula. Change any of
         // them only with re-measurement against the crossing-number
@@ -337,21 +337,21 @@
         // keyed items (topics + spokes). M is 465 today (403 topics
         // + 62 spokes); the stride stays 1024, more than double M.
         // If the taxonomy ever grows past 1024 items, keys collide
-        // silently and pair counts merge — raise the stride first.
+        // silently and pair counts merge - raise the stride first.
         const SX_PAIR_STRIDE = 1024;
         // ============================================================
-        // SOLVER-METRICS REFACTOR (F3 + F8): THE SOLVER FACADE — the
+        // SOLVER-METRICS REFACTOR (F3 + F8): THE SOLVER FACADE - the
         // single front door for the three layout arrangers. The
         // engines themselves are NOT merged in this pass; the facade
         // names them, routes their call sites, and states the one
         // documented answer to "which engine runs when, and what
         // counts as better":
         //
-        // 1. BUILD — facade.build() -> fr(), the everyday geometry
+        // 1. BUILD - facade.build() -> fr(), the everyday geometry
         //    builder (with its radial optimizer rr). Runs on every
         //    map build. "Better" inside the builder's collision
         //    passes is judged by segment-crossing counts (rr's
-        //    _crossingScore — a swap is kept only when it lowers the
+        //    _crossingScore - a swap is kept only when it lowers the
         //    count) and by element clearance in the radial resolver
         //    (center distance against the summed element radii, the
         //    smallest correction that separates the pair). No area
@@ -360,12 +360,12 @@
         //    overlap (xAreaCross); the code contains no such
         //    judgment. The area metric has since been removed from
         //    observation entirely, M1.)
-        // 2. TIDY — facade.tidy(geo) -> sxAnnealHook(), the
+        // 2. TIDY - facade.tidy(geo) -> sxAnnealHook(), the
         //    paint-stage tidier (the Stage-1 SCC annealer). Runs
         //    immediately after build in the render flow, unless a
         //    scoped solve is active or the mode switch is off.
         //    (2026-11-01, Jason: this settle step is COMMENTED OUT
-        //    at its invocation inside facade.tidy below — see the
+        //    at its invocation inside facade.tidy below - see the
         //    ruling note there. The route and the engine stay.)
         //    "Better" is the hybrid CROSSING NUMBER E: only an
         //    exactly-zero E settles a plateau (see sxAnnealRun).
@@ -373,12 +373,12 @@
         //    to "settle" and logs the demotion once to the shared
         //    log (dkLog); "shadow" is the real measure-only mode
         //    (zero sweeps, score unchanged).
-        // 3. UNTANGLE — facade.untangle(branch, opts) ->
+        // 3. UNTANGLE - facade.untangle(branch, opts) ->
         //    dkRunCascade(), the deep untangler. Runs ONLY from the
         //    layout editor's "Anneal" BUTTON via the driver API
         //    (deknotter.run). F8 MAPPING: the Anneal button fires
         //    THIS engine (the untangler driver), while paint fires
-        //    the TIDIER — the button label stays "Anneal" (settled
+        //    the TIDIER - the button label stays "Anneal" (settled
         //    law; renamed nowhere). "Better" is per-phase
         //    improve-or-hold on the branch's own-cloud crossing
         //    number: the per-phase gate (SX_SCORE.GATE_TOL, flat 2)
@@ -391,7 +391,7 @@
         // geometry registry (dkLastBranches), and all report to
         // the same shared log (dkLog). Each engine still gates on
         // its own score, so a later engine can undo an earlier
-        // one's gains — the facade documents that; this pass does
+        // one's gains - the facade documents that; this pass does
         // not change it.
         // ============================================================
         const SX_SOLVER_FACADE = {
@@ -407,10 +407,10 @@
             },
             tidy(geo) {
                 // STEP 4 (SETTLE) COMMENTED OUT (ruled 2026-11-01,
-                // Jason): the Anneal's settle step — this
+                // Jason): the Anneal's settle step - this
                 // paint-stage tidier, sxAnnealHook running the SCC
                 // annealer / repulsion run under the hybrid
-                // crossing number — is out, because it seems to
+                // crossing number - is out, because it seems to
                 // only cause issues. The invocation below is
                 // commented out, NOT deleted, and sxAnnealHook /
                 // sxAnnealRun themselves stay in the code exactly
@@ -426,9 +426,9 @@
         // ============================================================
         // BAKED POSITIONS (2026-11-15): the skin files carry solved
         // geometry (defaultLayout.positions). When the live state
-        // exactly matches the captured state — same skin, same
+        // exactly matches the captured state - same skin, same
         // settings fingerprint, same tree structure, no scoped or
-        // DeKnotter context active — the paint uses the baked geometry
+        // DeKnotter context active - the paint uses the baked geometry
         // instead of solving. The solver itself stays for editor
         // operations (Anneal, Autofit, DeKnotter, KinkTest, fit
         // targets): any settings change, profile/detail/search change,
@@ -444,8 +444,8 @@
         // SOLVER VERSION (2026-11-15): bump whenever the solver's delivered
         // geometry changes, so positions baked under an older solver fail
         // the gate and the paint solves instead of serving stale geometry.
-        // The settings fingerprint cannot catch a solver change — it hashes
-        // mn only — so without this the minimum-spoke floor (or any future
+        // The settings fingerprint cannot catch a solver change - it hashes
+        // mn only - so without this the minimum-spoke floor (or any future
         // solver change) would slip through the gate undetected. v2 = the
         // minimum primary-spoke floor (SX_MIN_BRANCH_THROW, 03-map-geometry).
         const SX_SOLVER_VERSION = 2;
@@ -455,11 +455,11 @@
         // The signature is a MEMBERSHIP signature, deliberately
         // order-insensitive: branches sorted by catId, topics and
         // children sorted by id. The tree's order is NOT stable across
-        // a skin round-trip — frBuildTree sorts each subcategory's
+        // a skin round-trip - frBuildTree sorts each subcategory's
         // children by popularity score (02g G/U/W), and after a swap
         // the scores read as unrated, so the sort falls back to label
         // order (2026-11-15: switch-back tree reads t0291..t0296 where
-        // the fresh boot reads t0294,t0293,t0291,t0296,t0292,t0295 —
+        // the fresh boot reads t0294,t0293,t0291,t0296,t0292,t0295 -
         // same members, different order). The baked reconstruction
         // looks every branch/topic/child up BY ID, and the crossings
         // measure sums over pairs, so order carries no geometry; only
@@ -738,7 +738,7 @@
         }
         // The parameter interval of a segment inside a disc
         // (centre c, radius r), or null when the segment misses
-        // the disc — the icon-disc half of the Stage 2 union.
+        // the disc - the icon-disc half of the Stage 2 union.
         function sxDiscInterval(segA, segB, c, r) {
             const dx = segB.x - segA.x, dy = segB.y - segA.y, A = dx * dx + dy * dy;
             if (A < 1e-24 || !(r > 0)) return null;
@@ -829,9 +829,9 @@
             const T = geo.topics[v], line = sxLineSeg(geo, o), lb = o < geo.topics.length ? geo.topics[o].bbM : geo.spokes[o - geo.topics.length].bb;
             // CAPSULE STAGE 2 (ruled 2026-11-02 14:05, Jason):
             // the paddle is priced exactly as before, and the
-            // victim's ICON DISC — centre at the paint's icon
+            // victim's ICON DISC - centre at the paint's icon
             // seat T.node, radius T.iconR = sxIconRadius at the
-            // topic's depth, both set in finishTopic — is
+            // topic's depth, both set in finishTopic - is
             // superimposed on it. The pair is priced on the UNION
             // of the two regions, never their sum: a stretch of
             // the foreign line inside the disc is priced at the
@@ -869,7 +869,7 @@
             // wider half-width (neither centre line inside the
             // other's band) to the sum of the two half-widths
             // (bands just touching), and the overlap area is
-            // priced EACH DIRECTION SEPARATELY — the direction
+            // priced EACH DIRECTION SEPARATELY - the direction
             // crossing B divides by B's own F squared, the
             // direction crossing A by A's own F squared; the
             // pair carries the sum. With equal depths this
@@ -950,16 +950,16 @@
         // at Ar's label-clearance-extended radius). SCC DESIGN (owner's
         // ruling, 2026-10-23 + 2026-10-27; capsule-inversion correction
         // 2026-11-02; BAND-SHRINK redefinition, ruled 2026-11-02,
-        // Jason — "the band shrinks to fit the letters; the 44 shrinks
+        // Jason - "the band shrinks to fit the letters; the 44 shrinks
         // to 22": the capsule definition CHANGES from centre line
         // ± one font size to centre line ± HALF a font size, so the
         // priced band (2 x hw = F) equals the painted midline stroke
         // (22 * font scale) exactly: ONE
-        // capsule per spoke — the capsule S is the
+        // capsule per spoke - the capsule S is the
         // PADDLE: centre line ± half a font size, from the label's inward
         // radius minus half a font size out PAST the end of the longest
         // slider (the paint's slider-end geometry, plus a little); and
-        // a thin LINE back toward the branching point — for centre
+        // a thin LINE back toward the branching point - for centre
         // spokes, back to the centre disc's RIM, never impinging on
         // the centre. The capsule prices what crosses the paddle out
         // where the sliders are; the inner line stretch prices the run
@@ -1009,7 +1009,7 @@
                     members: []
                 };
                 // Centre spoke line: from the centre disc's RIM out
-                // to the branch anchor — never from the centre point
+                // to the branch anchor - never from the centre point
                 // itself (the centre is never impinged; capsule-
                 // inversion correction 2026-11-02). The rim is the
                 // paint's own gen-1 spoke start (gen1SpokeBaseRadius:
@@ -1144,7 +1144,7 @@
                 // capsule band contains the topic's own font, so
                 // each topic carries its own F / half-width hw at
                 // its own depth (direct kink 2, kink under a
-                // subcategory 3) from sxFontSize — the evals price
+                // subcategory 3) from sxFontSize - the evals price
                 // against these, never the global geo.F / geo.hw.
                 e.F = sxFontSize(isChild ? 3 : 2), e.hw = e.F / 2;
                 e.getW = isChild ? () => e.item.cloudRadius || e.parentItem.childCloudRadius || 270 : () => e.item.cloudRadius || e.branchEntry.topicCloudRadius;
@@ -1160,14 +1160,14 @@
                         // 2026-11-02; kept by the capsule-inversion
                         // correction, same day): a static child's
                         // drawn radius in Ar's paint is NOT the solved
-                        // radius — Ar extends it by its label-clearance
+                        // radius - Ar extends it by its label-clearance
                         // loop (the loop below, verbatim) until the
                         // label and icon fit the spoke. This extended
                         // length h is the spoke's painted length: it
                         // seats the node (the paint's icon seat) and
                         // it is the reach from which the capsule's
                         // OUTER end (the paddle's end, past the
-                        // sliders) is measured below — the extension
+                        // sliders) is measured below - the extension
                         // belongs to the capsule's outer reach.
                         h = sxLabelClearance(h, e.rec.label, inn.fontSize[3], inn.iconR[3]);
                         P = Za.cloudLabel(h, pr.subcategoryIcon / 2).labelOffset;
@@ -1178,23 +1178,23 @@
                     const ux = Math.cos(ang), uy = Math.sin(ang), a2 = pt(hub.x + ux * (P - e.F / 2), hub.y + uy * (P - e.F / 2));
                     // CAPSULE-INVERSION CORRECTION (2026-11-02,
                     // owner's design 2026-10-23 + 2026-10-27): the
-                    // capsule S is the PADDLE — its outer end b is
+                    // capsule S is the PADDLE - its outer end b is
                     // the end of the rating controls when the map
                     // sliders show, and the icon's extreme end when
                     // they do not (map-sliders toggle, ruled
                     // 2026-11-13). The paddle runs from a2 (the
                     // label's inward radius P, minus half a font
-                    // size — the capsule half-width, since the
+                    // size - the capsule half-width, since the
                     // 2026-11-02 band shrink) all the way out to
                     // capEnd. There is NO sEnd label floor: the icon
                     // is set relative to the label end (seat = P +
                     // label length + 1 + icon radius), so the label
                     // can neither run into the icon nor outrun the
-                    // sliders, which extend past the icon — there is
+                    // sliders, which extend past the icon - there is
                     // no label-dominated regime, and the tag tail
                     // (+6 + half a tag) belongs only to the slider
                     // end, never to a label end. The slider end is
-                    // the paint's own end-of-controls geometry —
+                    // the paint's own end-of-controls geometry -
                     // the icon seated at the spoke's full drawn
                     // length h (for children, h already carries the
                     // paint's label-clearance extension above),
@@ -1203,7 +1203,7 @@
                     // midline M (the foreign centre line other
                     // capsules are priced against, and the
                     // centreline the interim capsule paint draws)
-                    // runs from the hub — the branching point — out
+                    // runs from the hub - the branching point - out
                     // to the same capEnd, so a foreign spoke is
                     // present everywhere its own paddle is; its
                     // inner stretch I (hub -> a2) is the thin line
@@ -1212,7 +1212,7 @@
                     // paint's icon seat (hub + u*h), so the interim
                     // paint's dots sit where the full paint seats
                     // the icons. The divergence fix (2026-11-02)
-                    // had this exactly reversed — midline stretched
+                    // had this exactly reversed - midline stretched
                     // to the icon, capsule stopping short of the
                     // sliders; that arrangement must not be
                     // reintroduced under any other name.
@@ -1222,7 +1222,7 @@
                     e.bbS = sxBB(e.S[0], e.S[1], 0), e.bbI = sxBB(e.I[0], e.I[1], 0), e.bbM = sxBB(e.M[0], e.M[1], 0);
                     e.node = pt(hub.x + ux * h, hub.y + uy * h);
                     // CAPSULE STAGE 2 (ruled 2026-11-02 14:05): the
-                    // topic's icon disc for sxEvalCross — centre at
+                    // topic's icon disc for sxEvalCross - centre at
                     // the paint's icon seat (e.node, just set),
                     // radius sxIconRadius at the topic's depth
                     // (direct kink 2, kink under a subcategory 3).
@@ -1293,7 +1293,7 @@
             return geo;
         }
         // CAPSULE STAGE 2: coarse cell size for the disc grids
-        // sxBuildGrid builds alongside the fine grid — large
+        // sxBuildGrid builds alongside the fine grid - large
         // enough that an icon disc's bbox covers only a handful
         // of cells.
         function sxCellKey(x, y) {
@@ -1619,8 +1619,8 @@
             // Q4 PLATEAU RULE: the threshold "plateau" termination
             // above (two consecutive sweeps under 0.1% net change,
             // zero uphill) is a termination LABEL, not an
-            // acceptance. A plateau state may be accepted — kept as
-            // the settled state — ONLY at crossing exactly 0, and
+            // acceptance. A plateau state may be accepted - kept as
+            // the settled state - ONLY at crossing exactly 0, and
             // E === 0 exits as termination "zero" before the
             // plateau test can see it, so a "plateau" exit here
             // always carries E > 0. Such a state is therefore NOT
@@ -1630,7 +1630,7 @@
             // plateau_accepted false / plateau_reverted true, and
             // the run returns false so the settle is not treated
             // as anneal-settled. The anneal's energy IS the
-            // crossing number throughout — no area figure plays
+            // crossing number throughout - no area figure plays
             // any part in this decision.
             let plateauAccepted = "plateau" !== termination, plateauReverted = !1;
             if ("plateau" === termination && 0 !== E) {
@@ -1682,7 +1682,7 @@
                 wall_ms: performance.now() - wall0
             };
             dkLog.push(entry);
-            // Q4: a plateau-reverted run did not settle anything —
+            // Q4: a plateau-reverted run did not settle anything -
             // report not-done so the paint takes its ordinary path
             // over the restored start geometry.
             return !plateauReverted;
@@ -1703,7 +1703,7 @@
         // movers only (a subcategory's motion carries its leaves),
         // (3) the same algorithm over every mover, leaves included.
         // LEVEL (1) IS COMMENTED OUT (ruled 2026-10-31, Jason):
-        // the branch angle tweak is out throughout — categories
+        // the branch angle tweak is out throughout - categories
         // no longer twiddle in angle about the hub anywhere in
         // this descent; the trial, its driver and its runLevel
         // call below are commented out, not deleted, and the
@@ -1807,7 +1807,7 @@
             const snap0 = snapState();
             const branchInvolved = bm => bm.topics.some(i => maps.invT[i] > 0) || bm.spokes.some(j => maps.invS[j] > 0);
             const itemInvolved = mv => mv.topics.some(i => maps.invT[i] > 0) || mv.spokes.some(j => maps.invS[j] > 0);
-            // BRANCH ANGLE TWEAK — COMMENTED OUT (ruled
+            // BRANCH ANGLE TWEAK - COMMENTED OUT (ruled
             // 2026-10-31, Jason): the branch angle trial below
             // is commented out, not deleted.
             /*
@@ -1862,7 +1862,7 @@
                 if (dE < -SX_REP_EPS) return E += dE, accepted++, !0;
                 return e.setA(savedA), e.setW(savedW), applyItem(mv), sxReprice(geo, maps, mv.topics, mv.spokes), !1;
             };
-            // BRANCH ANGLE TWEAK — COMMENTED OUT (ruled
+            // BRANCH ANGLE TWEAK - COMMENTED OUT (ruled
             // 2026-10-31, Jason): the branch angle driver below
             // is commented out, not deleted.
             /* const tryBranch = (bm, scale) => branchInvolved(bm) && (trialBranch(bm, SX_STEP_A * scale) || trialBranch(bm, -SX_STEP_A * scale)); */
@@ -1890,7 +1890,7 @@
                 }
             };
             if (E > SX_REP_EPS) {
-                // BRANCH ANGLE TWEAK — COMMENTED OUT (ruled
+                // BRANCH ANGLE TWEAK - COMMENTED OUT (ruled
                 // 2026-10-31, Jason): the branch-angle descent
                 // level below is commented out, not deleted;
                 // levels (2) and (3) still run.
@@ -1956,8 +1956,8 @@
         }
         // ---- Crossing-number readout (Fleet2 Item2): the read-only
         // entry point the shell metrics layer calls for the hybrid
-        // crossing number E. It evaluates the CURRENT solved state —
-        // dkLastBranches, the delivered-geometry registry fr() keeps —
+        // crossing number E. It evaluates the CURRENT solved state -
+        // dkLastBranches, the delivered-geometry registry fr() keeps -
         // with the port's own geometry build (sxSccBuild) and full
         // evaluation (sxFullEval); no geometry or predicate is
         // reimplemented here and the anneal path is untouched. The
@@ -1971,8 +1971,8 @@
         // per-cloud values sum to E + inner count.
         //
         // FINGERPRINT CACHE (2026-10-30, paragraph-6 solver-metrics
-        // edit): this readout is quadratic — sxSccBuild plus the
-        // full pair evaluation — and it is read on unchanged state
+        // edit): this readout is quadratic - sxSccBuild plus the
+        // full pair evaluation - and it is read on unchanged state
         // several times in a row (the onset baseline and the first
         // growth step, the settle guard's before/after pair, the
         // shell metric's compute + clouds). sxCrossingMeasure
@@ -1982,7 +1982,7 @@
         // heuristic: the delivered sectors are mutated in place by
         // the tidier (sxAnnealHook's setW/setA write cloudRadius /
         // cloudAngle on the same item objects dkLastBranches points
-        // at), so an identity check would serve pre-tidy geometry —
+        // at), so an identity check would serve pre-tidy geometry -
         // the fingerprint reads the values themselves, so a tidy
         // that moves anything changes the key and the next read
         // rebuilds. The key is sxSccInputs: the values sxSccBuild
@@ -1990,7 +1990,7 @@
         // anchor yr() returns), stringified. There is no second
         // list to maintain. On any
         // fingerprint error the cache is bypassed and cleared, and
-        // the readout computes fresh — the pre-cache behaviour.
+        // the readout computes fresh - the pre-cache behaviour.
         // Cached results are returned as shallow copies so no caller
         // can poison the stored entry.
         let sxEvalCache = { standing: null, excluded: null };
@@ -2000,7 +2000,7 @@
         // the full fit target (dkComputeFitTarget's max-envelope:
         // name + neighbour pitch + icon + clearance) that sets BOTH
         // the kink-leaf throw length in stepThrow (the throwFitCap
-        // multiple, which is also the leaf minimum — leaves have no
+        // multiple, which is also the leaf minimum - leaves have no
         // shrink ladder of their own, so no separate leaf floor
         // exists or is needed) AND the length Autofit delivers in
         // computeAutofitPatch. It replaces the hard 3x those two sites
@@ -2197,9 +2197,9 @@
         // centre-spoke angle) join the score; no other branch ever
         // joins. The pair terms themselves are the standing port pair
         // maps (sxFullEval over sxSccBuild) under the standing
-        // attribution — crossing in full to the victim topic's cloud,
+        // attribution - crossing in full to the victim topic's cloud,
         // graze split half/half, inner attributed to both participants
-        // (so a same-branch inner pair still counts twice) — the stage
+        // (so a same-branch inner pair still counts twice) - the stage
         // filter only decides WHICH pairs count, never how much a
         // counted pair counts; the attribution / divide-by-2 question
         // is untouched. Outside an active run this readout is never

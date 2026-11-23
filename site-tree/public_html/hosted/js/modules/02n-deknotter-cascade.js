@@ -1,20 +1,20 @@
         // DeKnotter cascade driver (E5, ASSESSMENT §3.4, §3.7, §5.6,
         // §5.8, §5.11): one full run for one branch, driven entirely
-        // through the bundle layout API — never the editor shell's
-        // collect()/apply — so no intermediate state is broadcast to
+        // through the bundle layout API - never the editor shell's
+        // collect()/apply - so no intermediate state is broadcast to
         // other windows mid-run. Sequence: subcategory-label check →
         // precondition staging → snapshot + double baseline → throw
         // (branch x50, subcategories x20, kinks autofit to
-        // three times their kink (fit) length — full cascade
+        // three times their kink (fit) length - full cascade
         // armed, ONE applyPhase commit) →
         // FINE-TUNE (ruled 2026-10-29): when the
         // cascade baseline (measured twice, above) is strictly below
-        // 5, zero included, the throw is SKIPPED — a staging-and-
+        // 5, zero included, the throw is SKIPPED - a staging-and-
         // arming commit lands the throw's staged values and full
         // arming minus its length changes, the shrink ladders run
         // from the branch's current lengths under the per-phase
         // gate only (flat GATE_TOL 2; the fine-tune margin and the
-        // onset margin were deleted Phase 4, 2026-11-04 — the
+        // onset margin were deleted Phase 4, 2026-11-04 - the
         // skip-throw under 5 is unchanged), and the branch ladder
         // descends to a
         // label-fit floor instead of stopping at the pre-run length
@@ -22,16 +22,16 @@
         // 2026-10-24 adjustment: subcategory nodes first, then the
         // branch itself, each level descending a square-root-step ladder of
         // committed sub-solves toward its label-fit floor under the
-        // per-phase gate (flat 2) — a level's ladder halts when that
+        // per-phase gate (flat 2) - a level's ladder halts when that
         // gate trips, and the cascade proceeds to the
-        // next level; there is NO kink shrink stage in the cascade —
+        // next level; there is NO kink shrink stage in the cascade -
         // kinks keep their thrown autofit room (3x the kink
         // length, 2026-11-01); the kink shrink to
         // label length is a separate one-time driver normalization,
         // deknotter.shrinkKinksToLabel) → scoped same-branch GROWTH
         // (ruled 2026-10-28: grow-branch then grow-subcats ratio
         // patches, dominance-gated, laddered at 1.25x steps to a 3x
-        // cumulative target — see stepGrowth in dkRunCascade) → a
+        // cumulative target - see stepGrowth in dkRunCascade) → a
         // CONSTRUCTED final patch (§3.7: arm maps and staged values
         // back to their exact pre-run values, the onset-held length
         // overrides carried into per-item length overrides exactly
@@ -44,7 +44,7 @@
         // readout; its trip consequence is back-up-a-step (ruled
         // 2026-10-28, all phases): the tripping step is discarded,
         // the last-kept phase snapshot is restored, that level's
-        // ladder stops, and the cascade continues — only the final
+        // ladder stops, and the cascade continues - only the final
         // gate still reverts a whole run. Any other failure or
         // exception restores the
         // pre-run snapshot through restore() and verifies the restore
@@ -181,7 +181,7 @@ import {
             // STAGED SCORING (ruled 2026-11-02, Jason): the SAME
             // pre-run geometry also measured under the shrink-stage
             // composition (same-branch plus radial neighbours), so
-            // the final gate — which judges after the switch —
+            // the final gate - which judges after the switch -
             // compares like with like: descent and judge agree at
             // every stage. baseline.first above stays the run-start
             // (same-branch-only) value the per-phase gate chain and
@@ -212,14 +212,14 @@ import {
             // shrink ladders below run "until colliding", judged
             // on the branch cloud's hybrid crossing number. The
             // BASELINE is that number in the THROWN state,
-            // captured here — immediately after the throw commit,
-            // before any shrink stage — and held for the whole
+            // captured here - immediately after the throw commit,
+            // before any shrink stage - and held for the whole
             // run. The readout is the metric dropdown's own
             // computation (window.__sxCrossingMeasure, the port
             // readout behind defs.crossingnumber.clouds), keyed
             // by branch name; it is a read-only measurement for
             // the onset rule ONLY and never feeds any gate
-            // readout. Null when the readout is unavailable —
+            // readout. Null when the readout is unavailable -
             // onset then never trips this run.
             const onsetCrossing = () => {
                 try {
@@ -304,7 +304,7 @@ import {
             // Subcategory level: length patches on every
             // subcategory override of this branch, with the
             // subcategories' fit targets raised by the same
-            // factor — the ladder's lever — so the solve
+            // factor - the ladder's lever - so the solve
             // delivers the grown radii the final patch then
             // carries through the overrides.
             if (tax.subLabels.length) {
@@ -348,20 +348,20 @@ import {
         let witnessFinalAfter;
         let witnessPaintedAfter;
         async function stepFinalPatch(dk, name, opts, report, tax, runPhase, witnessThrown, WITNESS_EPS, WITNESS_ONE_STEP, preDelivered, diagCaptureFields, witnessTrippingLabel) {
-            // (6) FINAL PATCH (§3.7, rewire A — Jason,
+            // (6) FINAL PATCH (§3.7, rewire A - Jason,
             // 2026-10-24): built on the pre-run snapshot, so
             // (a) all four arm maps return to their exact
             // pre-run values and (b) staged precondition values
             // return to pre-run. (c) Each fit item's length
             // override is carried into the patch EXACTLY as it
-            // stands in the post-ladder state — no
+            // stands in the post-ladder state - no
             // delivered-radius factor multiplication (the
             // growth phase that supplied those factors is
             // removed, with the fit-target recompute whose only
             // consumer it was): a level whose ladder ran to its
             // final stage stands at its restored pre-run
             // length; a level held by onset stands at its held
-            // length — in particular the branch override is NOT
+            // length - in particular the branch override is NOT
             // forced back to its pre-run snapshot value when
             // the branch ladder onset-held above it; and kink
             // overrides stand at their thrown autofit values
@@ -370,8 +370,8 @@ import {
             // post-ladder state lacks is dropped from the patch
             // rather than revived from the snapshot. (d) The
             // branch's fit registrations are cleared before the
-            // commit, so the final solve — and the gate
-            // measurement after it — runs on the true kept
+            // commit, so the final solve - and the gate
+            // measurement after it - runs on the true kept
             // state, unarmed.
             const finalPatch = dkDeepCloneLayout(snapshot), heldState = dk.snapshot();
             Object.keys(dk.fitTargets()).filter(k => "revision" !== k && k.split("|")[1] === name).forEach(k => {
@@ -388,7 +388,7 @@ import {
             heldBranch ? finalPatch.branchOverrides[name] = Object.assign({}, heldBranch) : delete finalPatch.branchOverrides[name];
             // Test-only hook (opts._testFinalPatch): an object
             // merged into the final patch just before it is
-            // applied — map values merge per key, scalars
+            // applied - map values merge per key, scalars
             // replace. The acceptance harness uses it to force a
             // gate failure and prove the full revert. Not part of
             // any production run.
@@ -407,7 +407,7 @@ import {
             clearBranchFit(dk, name), mark = dkLog.length;
             const wBeforeFinal = witnessLastFrame;
             // FINAL-STEP WITNESS (extension): name this run's
-            // final-step operation and bracket its commit —
+            // final-step operation and bracket its commit -
             // the last kept phase stands in wBeforeFinal, a
             // fresh frame lands immediately before the commit,
             // and one immediately after it.
@@ -429,11 +429,11 @@ import {
             witnessJudge("final-patch", "final", null, wBeforeFinal, witnessLastFrame, witnessThrown, WITNESS_EPS, WITNESS_ONE_STEP, report);
             // Q4: the final SECONDARY area (reported only), the
             // neighbor clouds' final crossing numbers
-            // (reported-not-gated — measured BEFORE the gate
+            // (reported-not-gated - measured BEFORE the gate
             // below runs, so a reverted run still reports the
             // kept-state candidates it judged), and the PLATEAU
             // record: the plateau copy fires ONLY at crossing
-            // exactly 0 — an area improvement with crossing
+            // exactly 0 - an area improvement with crossing
             // still non-zero never fires it.
             try {
                 const allFin = await dk.measureCloudsAll(), nf = {};
@@ -459,25 +459,25 @@ import {
             // corrected 20, not the first-said 10; the radii
             // are converted to override lengths below, after
             // the throwFitCap block), every kink autofit to three times its
-            // kink (fit) length — 3x (re-ruled 2026-11-02
+            // kink (fit) length - 3x (re-ruled 2026-11-02
             // 16:59 CST, Jason; throwFitCap below governs,
             // no kink throw factor caps it),
             // any staged
             // precondition
             // values, and the FULL cascade armed in the same
-            // patch — both spoke arm maps, overwriting inherited
+            // patch - both spoke arm maps, overwriting inherited
             // explicit-false vetoes (restored later from the
             // snapshot).
             mark = dkLog.length;
-            // THROW TOPIC AUTOFIT (re-ruled 2026-11-01, Jason —
+            // THROW TOPIC AUTOFIT (re-ruled 2026-11-01, Jason -
             // supersedes the 2026-10-31 throw topic cap): in
             // the throw, the kink leaves are not thrown by a
             // radii factor; each one autofits to THREE TIMES
-            // its kink length — its fit length x
+            // its kink length - its fit length x
             // LEAF_FIT_FACTOR (3, re-ruled 2026-11-02 16:59
             // CST, Jason, reversing the same day's 13:11 1x
             // leaf ruling; the shared SHRINK_FLOOR_FACTOR is
-            // NOT read here — it stays 1 for the subcategory
+            // NOT read here - it stays 1 for the subcategory
             // and category floors only). The value computed here IS the thrown
             // kink length (it governed only as a min-cap
             // against the old THROW_KINK factor before this
@@ -506,7 +506,7 @@ import {
                     Number.isFinite(capLen) && capLen > 0 && (null == throwFitCap[id] || capLen < throwFitCap[id]) && (throwFitCap[id] = capLen);
                 });
             } catch (e) {}
-            // THROW RADII CONVERSION (fix, 2026-11-01, Jason —
+            // THROW RADII CONVERSION (fix, 2026-11-01, Jason -
             // definition settled 04:56 CST after diagnosis
             // c17e4775 CONFIRMED the over-extension): the
             // THROW_BRANCH / THROW_SUBCAT factors count
@@ -518,7 +518,7 @@ import {
             // delivered throw landed tens of times past the
             // ruled distance. The radius R is the center
             // avatar's own circle: the avatar disc radius the
-            // Center ring scale slider (mn.centerRingScale —
+            // Center ring scale slider (mn.centerRingScale -
             // the slider next to the text / font slider) sets,
             // eaBase.photoRadius x centerRingScale(), the same
             // value refreshCenterRing() leaves in ea.photoRadius
@@ -539,7 +539,7 @@ import {
             // its override is never written, so it keeps its
             // pre-run length, and it is recorded in
             // report.throwRadii as not converted (the old
-            // baked-base multiple is never a fallback — it was
+            // baked-base multiple is never a fallback - it was
             // the over-extension being fixed). The conversion
             // is recorded on report.throwRadii (fields added
             // only) and in the run log.
@@ -640,12 +640,12 @@ import {
         }
         async function stepThrowRepeated(name, preDelivered, tax, report, staged, runPhase, opts, dk, diagCaptureFields, witnessTrippingLabel, WITNESS_EPS, WITNESS_ONE_STEP) {
             // THROW REPEAT (ruled 2026-11-06, Jason): the throw
-            // step as it exists (stepThrow above — same targets,
+            // step as it exists (stepThrow above - same targets,
             // same factors, nothing about it changed), repeated
             // when it does not clear. The crossing number BEFORE
             // is the run baseline (report.baseline.first,
             // measured twice in stepBaseline under the same
-            // own-cloud composition measureCloud reads here —
+            // own-cloud composition measureCloud reads here -
             // the staged-scoring switch to same-plus-adjacent
             // happens later, at shrink-stage entry, so every
             // reading in this loop is like-for-like). After each
@@ -654,7 +654,7 @@ import {
             // drop of MORE than SX_SCORE.THROW_REPEAT_DROP
             // (75%) is substantial and stops the repetition;
             // otherwise the throw runs again, up to
-            // SX_SCORE.THROW_REPEAT_MAX_EXTRA (3) extra times —
+            // SX_SCORE.THROW_REPEAT_MAX_EXTRA (3) extra times -
             // four throws total. A throw whose phase gate trips
             // and backs up leaves the last kept geometry
             // standing, and the fresh measurement reads that
@@ -733,7 +733,7 @@ import {
                 limiterHits: entries.filter(e => "phase" !== e.type),
                 // STAGED SCORING (ruled 2026-11-02, Jason):
                 // the scoring stage this phase's cloud was
-                // judged under — false until the whole run
+                // judged under - false until the whole run
                 // enters its shrink stage, true from the
                 // first shrink phase on.
                 stagedAdjacent: !!(sxAnnealStageCtx && sxAnnealStageCtx.adjacent),
@@ -744,10 +744,10 @@ import {
             // per phase and in the receipt lead.
             record.fitDeviationCount = dkFitDeviationCount(record.limiterHits);
             // Cascade containment (Stage 3, T6): the phase
-            // commit's scoped outcome — declared ring,
+            // commit's scoped outcome - declared ring,
             // frozen count, dropped counters, boundary
             // count, or the declared fallback when a commit
-            // ran unscoped — rides in the phase record
+            // ran unscoped - rides in the phase record
             // beside the limiter hits. (The full boundary
             // log stays in dkLog's "scoped-apply" entry,
             // which the limiter-hit slice above carries.)
@@ -761,7 +761,7 @@ import {
             } : null;
             // E6: the phase's running cloud value, when the
             // metric hook can supply it. Q4: record.cloud is
-            // the DECIDER — the branch's own-cloud crossing
+            // the DECIDER - the branch's own-cloud crossing
             // number via the repointed measureCloud readout.
             // (The phase's former xAreaCross ride-along was
             // removed from observation with the area metric,
@@ -771,9 +771,9 @@ import {
             report.phases.push(record);
             // DIAG-00 / REGISTRY / ON-DEMAND PAINT (ruled
             // 2026-11-01, Jason): the registry snapshot logs
-            // here — after the commit and the cloud
+            // here - after the commit and the cloud
             // measurement, BEFORE the gate decision below,
-            // so tripped stages are snapshotted too — and
+            // so tripped stages are snapshotted too - and
             // the on-demand full paint fires here on its
             // exact trigger: the 3rd runPhase commit of the
             // fit-subcats ladder, and every 5th runPhase
@@ -810,7 +810,7 @@ import {
             // phase's cloud metric against the previous kept
             // phase's (the baseline for the first phase), on
             // the existing record.cloud readout. A regression
-            // beyond tolerance — flat GATE_TOL (2) — no longer unwinds the run:
+            // beyond tolerance - flat GATE_TOL (2) - no longer unwinds the run:
             // the tripping step is discarded, the last-kept
             // phase snapshot is restored (the pre-run
             // snapshot only if nothing has committed yet),
@@ -829,9 +829,9 @@ import {
                     // BACK-OUT CONFIRMATION GATE (ruled 2026-11-01,
                     // Jason): when the shell supplies
                     // opts.onBackoutGate, a trip in THIS branch
-                    // (category) shrink ladder — phase fit-branch-*
+                    // (category) shrink ladder - phase fit-branch-*
                     // only; subcategory / kink / growth / final
-                    // trips never reach this gate — PAUSES here,
+                    // trips never reach this gate - PAUSES here,
                     // BEFORE restoreKept reverts any geometry, and
                     // asks. The tripped trial geometry stands on
                     // screen while the confirmation is open; the
@@ -843,12 +843,12 @@ import {
                     // the branch, the phase, and the crossing
                     // before (last kept) and after (tripped).
                     // ACCEPT (or no gate supplied, or the gate
-                    // callback failing): exactly today's path —
+                    // callback failing): exactly today's path -
                     // restoreKept below reverts to the last kept
                     // shape and the caller ends the run as a
                     // category back-out. REJECT: restoreKept is
-                    // NOT called — the tripped trial geometry is
-                    // left standing — and the returned marker
+                    // NOT called - the tripped trial geometry is
+                    // left standing - and the returned marker
                     // (dkGateRejected) makes the caller end the
                     // run on the rejection, with no growth, no
                     // final patch and no final gate after it.
@@ -900,7 +900,7 @@ import {
             // DOM still holds the last full paint (interim
             // commits paint only the capsule approximation),
             // so this frame records the painted domain as it
-            // stands at this phase — the divergence between
+            // stands at this phase - the divergence between
             // it and the bookkeeping frame above is itself
             // recorded, and the decisive painted frames are
             // the closing-paint and settle frames in the
@@ -911,18 +911,18 @@ import {
         let witnessTrippingLabel;
         async function stepShrinkLadders(name, report, dk, fineTuneActive, WITNESS_EPS, WITNESS_ONE_STEP, preDelivered, opts, tax, diagCaptureFields, onsetCheck) {
             // (5) RULED SHRINK SEQUENCE (Jason, 2026-10-24
-            // adjustment — supersedes the 08:05 order and every
+            // adjustment - supersedes the 08:05 order and every
             // earlier ordering; one-at-a-time step-down added
             // 2026-10-31, Jason). After the throw, shrink in
             // exactly this order: (1) the subcategory nodes
             // step down ONE AT A TIME within the branch, each
             // in geometric fashion down to THREE TIMES its
-            // kink length (3x its fit target —
+            // kink length (3x its fit target -
             // SHRINK_FLOOR_FACTOR, ruled 2026-11-01, Jason)
             // or until collisions start, in
             // which case it backs up a step and the next node
             // takes its turn; (2) the same step-down process
-            // is then repeated for the category — the main
+            // is then repeated for the category - the main
             // branch steps down geometrically to its floor,
             // backing up a step when collisions start. There
             // is NO kink shrink stage: kinks keep their thrown,
@@ -930,7 +930,7 @@ import {
             // length since the 2026-11-01 ruling), and no code
             // here restores kink overrides to pre-run lengths.
             // Each ladder descends in square-root steps
-            // (dkLadderSteps / dkLadderValue — step sizes in
+            // (dkLadderSteps / dkLadderValue - step sizes in
             // proportion to the square root of the steps
             // remaining, largest first, fixed count landing
             // exactly on the floor; ruled 2026-11-02, Jason),
@@ -944,20 +944,20 @@ import {
             // to a floor computed at thrown geometry. A node
             // whose ladder runs to its final stage also
             // restores its own length override at that stage
-            // (an entry the snapshot lacks is removed) — the
+            // (an entry the snapshot lacks is removed) - the
             // old shorten commit's job, distributed per node;
             // for subcategories the restored value is the
             // fit-derived floor, not the pre-run snapshot
             // value (lever unification, ruled 2026-11-01
-            // 20:25, Jason — see runLadder and the
+            // 20:25, Jason - see runLadder and the
             // fit-subcats restore below); the branch
             // ladder in step (2) IS the branch level's
             // restore, taken in log stages rather than one
             // commit. A node held by onset backs up a stage
-            // (step-four ruling, 2026-10-31 — see onsetBackUp
+            // (step-four ruling, 2026-10-31 - see onsetBackUp
             // below), so the lengths of the stage before the
             // tripping one stand. (On the skip-throw path
-            // under 5 this back-up now applies too — re-ruled
+            // under 5 this back-up now applies too - re-ruled
             // 2026-11-01, Jason; see onsetBackUp's call sites
             // in the ladders below.) The cascade stays armed throughout.
             const restoreLen = (map, key, snapMap) => {
@@ -976,25 +976,25 @@ import {
             // Back-up-a-step fit coherence: the armed + pinned
             // registry above is the fit state the first ladder
             // stage builds on, so it becomes the kept fit state
-            // paired with the post-throw kept layout — a first
+            // paired with the post-throw kept layout - a first
             // stage trip then restores a registry the rest of
             // the cascade (and the final patch's carry) can
             // still read, not the empty pre-arming one.
             refreshKeptFit(dk, name);
             // STEP-FOUR BACK-UP (ruled 2026-10-31, Jason): in
-            // the shrink step, when collisions start — the
-            // onset hold trips — the stage backs up a stage:
+            // the shrink step, when collisions start - the
+            // onset hold trips - the stage backs up a stage:
             // the last-kept state from BEFORE the tripping
             // stage is restored (layout and fit registrations
             // together), the ladder stops, and the cascade
             // proceeds from the backed-up state. This applies
-            // to BOTH levels — the subcategory ladder and the
+            // to BOTH levels - the subcategory ladder and the
             // category (branch) ladder. It replaces the older
             // onset rule under which the tripping stage's
             // commit stood. The fine-tune skip path was
             // formerly excepted (its tripping commit stood);
             // the 2026-11-01 skip-throw re-ruling removed
-            // that exception — the ladders call this on the
+            // that exception - the ladders call this on the
             // skip path too, so a subcategory back-out backs
             // up a step there exactly as here. An onset
             // back-up is NOT a category back-out: it never
@@ -1016,16 +1016,16 @@ import {
                 if (!keys.length) return;
                 // ONE AT A TIME (ruled 2026-10-31, Jason): the
                 // level's nodes step down one at a time, not
-                // in lockstep — each node descends its own
+                // in lockstep - each node descends its own
                 // ladder in square-root steps (dkLadderSteps /
                 // dkLadderValue, one
                 // committed sub-solve per stage) all the way
-                // down to its floor — for subcategories, THREE
+                // down to its floor - for subcategories, THREE
                 // TIMES its own length (SHRINK_FLOOR_FACTOR,
-                // ruled 2026-11-01, Jason) — before the next
+                // ruled 2026-11-01, Jason) - before the next
                 // node starts. When collisions
-                // start on a node's ladder — the onset hold
-                // trips — that node backs up a step
+                // start on a node's ladder - the onset hold
+                // trips - that node backs up a step
                 // (onsetBackUp, the step-four ruling) and its
                 // ladder stops; the next node then takes its
                 // turn from the backed-up state. A per-phase
@@ -1043,7 +1043,7 @@ import {
                     // floor 2026-11-01 20:25, Jason): a
                     // subcategory is held without
                     // a ladder only when BOTH of its levers are
-                    // already at their floors — its fit radius
+                    // already at their floors - its fit radius
                     // at or below THREE TIMES its name length
                     // AND its length override at or below the
                     // fit-derived floor (oFloorFor below: that
@@ -1056,7 +1056,7 @@ import {
                     // LEVER UNIFICATION (ruled 2026-11-01
                     // 20:25 CST, Jason): the fit lever and the
                     // override lever do the same job and are
-                    // now the same thing — ONE floor, the
+                    // now the same thing - ONE floor, the
                     // fit-length floor (floorFor: THREE TIMES
                     // the name length), drives both. The
                     // override's floor is DERIVED from that
@@ -1067,11 +1067,11 @@ import {
                     // rendered fit target into an override
                     // length (afterLength = curLen x target /
                     // delivered, with curLen the pre-run
-                    // length — preLen here — and delivered
+                    // length - preLen here - and delivered
                     // the pre-run delivered segment,
                     // preDelivered.items[k] here). The
-                    // override lever's old separate floor —
-                    // THREE TIMES the pre-run length — is
+                    // override lever's old separate floor -
+                    // THREE TIMES the pre-run length - is
                     // retired for subcategories: with the
                     // paint following the override
                     // (segment = pre-override length x
@@ -1105,7 +1105,7 @@ import {
                     // its fit radius stepped out by its length
                     // override (renderedSpokeLength multiplies
                     // by the override), so the fit ladder alone
-                    // barely moves the visible spoke — the
+                    // barely moves the visible spoke - the
                     // override is the thrown length (x20 at the
                     // throw). Each stage therefore steps BOTH
                     // writings on their own square-root-step
@@ -1114,10 +1114,10 @@ import {
                     // fit target down to THREE TIMES the NAME
                     // length (SHRINK_FLOOR_FACTOR, ruled
                     // 2026-11-01, Jason), the override down to
-                    // oFloorFor — that same fit floor derived
+                    // oFloorFor - that same fit floor derived
                     // into override units through the item's
                     // pre-run delivered radius (see the
-                    // derivation at oFloorFor above) — the
+                    // derivation at oFloorFor above) - the
                     // longer ladder setting the stage count
                     // and the shorter holding at its floor
                     // once reached. Before the 2026-11-01
@@ -1125,7 +1125,7 @@ import {
                     // final stage's restore jump, so a node
                     // held before its final stage (onset or
                     // gate) kept its full thrown override and
-                    // stood visibly unshrunk — the long
+                    // stood visibly unshrunk - the long
                     // subcategory branches of the 2026-11-01
                     // inspection. Now a held node stands at
                     // its last kept step, one step above the
@@ -1153,9 +1153,9 @@ import {
                     }
                     if (isSub && floors) {
                         // The record reports the OVERRIDE
-                        // writing — the thrown length that
+                        // writing - the thrown length that
                         // actually renders (thrown x20 down to
-                        // oFloorFor, the fit-derived floor) —
+                        // oFloorFor, the fit-derived floor) -
                         // with the fit lever's 3x name target
                         // kept alongside as fitFloor. (Before
                         // the 2026-11-01 20:25 unification the
@@ -1171,14 +1171,14 @@ import {
             // ruled 2026-11-01 01:44, Jason): the attempt list
             // is built from the branch's rendered subcategory
             // items, not only from the fit keys that happened
-            // to arm — a subcategory whose fit target could not
+            // to arm - a subcategory whose fit target could not
             // be computed still gets a 3x-length floor and a
             // recorded attempt in runLadder, so no rendered
             // subcategory can pass through the cascade
             // unattempted and unrecorded. The floor for this
             // level is THREE TIMES the NAME length
             // (dkNameFitTargetForKey x SHRINK_FLOOR_FACTOR,
-            // ruled 2026-11-01, Jason — superseding the 1x
+            // ruled 2026-11-01, Jason - superseding the 1x
             // name-length floor of 2026-11-01 01:44), not the
             // neighbour-pitch fit target in
             // fullFitTargets: in a crowded fan that target can
@@ -1203,22 +1203,22 @@ import {
             });
             // Ruled step (1) (one at a time, ruled 2026-10-31,
             // Jason): the subcategory nodes step down FIRST,
-            // one at a time — each node descends its own
+            // one at a time - each node descends its own
             // geometric ladder to its 3x floor (three times
-            // its own length — SHRINK_FLOOR_FACTOR, ruled
+            // its own length - SHRINK_FLOOR_FACTOR, ruled
             // 2026-11-01, Jason) before the next node starts,
             // onset-held: when collisions start on a node's
             // ladder it backs up a step (onsetBackUp inside
             // runLadder) and the next node takes its turn.
-            // Kinks have no ladder at all — they keep their
+            // Kinks have no ladder at all - they keep their
             // thrown, fit-capped lengths (cap at 3x the kink
             // length). The final-stage restore below stands
-            // the override at the FIT-DERIVED floor — the
+            // the override at the FIT-DERIVED floor - the
             // node's 3x name-length fit floor (subcatFloors)
             // converted through its pre-run delivered
             // radius with the snapshot entry's length (or
             // the baked base when the snapshot carries
-            // none) as curLen — the same derived value the
+            // none) as curLen - the same derived value the
             // ladder's last stage writes (lever
             // unification, ruled 2026-11-01 20:25, Jason;
             // it replaces the restore's former THREE TIMES
@@ -1233,22 +1233,22 @@ import {
             // snapshot carries no override for it), onset-held:
             // a stage whose commit trips onset is the branch
             // ladder's last. (Step-four back-up, ruled
-            // 2026-10-31: that stage now backs up a stage —
+            // 2026-10-31: that stage now backs up a stage -
             // the previous stage's length stands and the
             // final patch below carries THAT through. Before
             // this ruling the tripping stage's length stood.)
             // TERMINATION FLAG (ruled 2026-10-28, Jason 23:43,
             // scope confirmed 23:49): a per-phase GATE trip in
-            // THIS branch (category) ladder — a back-out, where
+            // THIS branch (category) ladder - a back-out, where
             // runPhase discarded the tripping stage and restored
-            // the last-kept snapshot — is reported to the caller
+            // the last-kept snapshot - is reported to the caller
             // as branchBackedOut, and the caller ENDS the run on
             // it (no growth, no final patch, no final gate; the
             // backed-out state stands). An ONSET hold in this
             // ladder is NOT a back-out (the tripping commit
             // stands, nothing is restored) and never sets this
             // flag; a subcategory-ladder back-out never sets it
-            // either — runLadder's trips stay inside that level
+            // either - runLadder's trips stay inside that level
             // and the cascade proceeds to this ladder as before.
             let branchBackedOut = !1, branchGateRejected = !1;
             const branchCur = (dk.snapshot().branchOverrides || {})[name], branchSnap = snapshot.branchOverrides ? snapshot.branchOverrides[name] : null;
@@ -1258,19 +1258,19 @@ import {
             // every run 2026-10-31, Jason): the ladder descends
             // toward the pre-run length by default, but Jason's
             // shrink rule is that it tries to shrink all the way
-            // to the length of the category name — so this floor
+            // to the length of the category name - so this floor
             // now applies on every run, not only when the branch
             // starts at its pre-run length. The floor is
             // label-fit TIMES THREE (SHRINK_FLOOR_FACTOR, ruled
-            // 2026-11-01, Jason — superseding the 1x floor):
+            // 2026-11-01, Jason - superseding the 1x floor):
             // three times the length of the branch's longest
             // kink name, from the existing label-fit mechanism
-            // (dkComputeFitTarget — the item's own label measured
+            // (dkComputeFitTarget - the item's own label measured
             // at its actual render font, font-relative). UNITS,
             // flagged as the ruling requires: fit targets are
             // RENDERED lengths in map units, while a branch
             // length override is a dimensionless multiplier on
-            // the branch's delivered radius (yr) — the code's
+            // the branch's delivered radius (yr) - the code's
             // units genuinely differ, so the floor converts
             // through the pre-run delivered branch radius exactly
             // as the existing kink shrink-to-label driver
@@ -1283,7 +1283,7 @@ import {
             // At 1x this floor could sit at or above the
             // pre-run length and the ladder then simply did
             // not run; at 3x the floor is the level's target
-            // wherever it lands — the ladder descends to it
+            // wherever it lands - the ladder descends to it
             // from the thrown length, and a branch standing
             // below it is set to it by the single-step path
             // below, exactly as the old pre-run target was.
@@ -1292,7 +1292,7 @@ import {
             // collisions start: the onset rule holds the level
             // when the cloud's crossing number rises (the
             // readout counts every crossing involving the
-            // cloud's spokes — same-branch or foreign, any type
+            // cloud's spokes - same-branch or foreign, any type
             // of collision), and a per-phase gate trip backs out
             // one step and ends the run per the termination
             // ruling above.
@@ -1311,7 +1311,7 @@ import {
                         // (label-fit) length: the 1x floor
                         // converted as before, times
                         // SHRINK_FLOOR_FACTOR. This ftFloor
-                        // becomes branchTo below — the endpoint
+                        // becomes branchTo below - the endpoint
                         // the branch ladder descends to via
                         // dkLadderSteps(branchFrom, branchTo) /
                         // dkLadderValue(branchFrom, branchTo, ...).
@@ -1326,14 +1326,14 @@ import {
             // 3X FLOOR FALLBACK (ruled 2026-11-01, Jason):
             // when no label-fit target could be computed
             // above, the category floor is three times the
-            // branch's own pre-run length instead — the same
+            // branch's own pre-run length instead - the same
             // 3x rule on the only category length available.
             if (!(report.fineTune && report.fineTune.branchFloor) && Number.isFinite(branchTo) && branchTo > 0) branchTo = branchTo * SX_SCORE.SHRINK_FLOOR_FACTOR;
-            // STAGED SCORING SWITCH (moved 2026-11-13, Jason —
+            // STAGED SCORING SWITCH (moved 2026-11-13, Jason -
             // SUPERSEDES the 2026-11-02 ruling that flipped it at
             // shrink-stage entry): the neighbour-inclusive score
             // (same-plus-adjacent, radial neighbours) belongs ONLY
-            // to the LAST shrink stage — the category/branch shrink
+            // to the LAST shrink stage - the category/branch shrink
             // below (fit-branch-*), the zeroth/first-level node.
             // The subcategory shrink ladder above is judged
             // same-branch-only (adjacent stays false through
@@ -1342,7 +1342,7 @@ import {
             // per-phase gate's reference is RE-BASED on the current
             // (last-kept) geometry under the new composition, so
             // the first branch phase is judged against the same
-            // composition it is scored under — descent and judge
+            // composition it is scored under - descent and judge
             // agree across the switch. Every later judged read in
             // the run (branch phases, back-out restored readings,
             // the final patch's measurement and the final gate)
@@ -1382,7 +1382,7 @@ import {
         async function dkRunCascade(branchName, opts) {
             resetWitnessState();
             const api = window.__SEXCAPADES_LAYOUT_API, dk = api.deknotter, name = null == branchName ? "" : String(branchName), tax = dkBranchTaxonomy(name);
-            // F4 STEP 1a — label check (see the §5.11 note inside).
+            // F4 STEP 1a - label check (see the §5.11 note inside).
             const duplicates = stepLabelCheck();
             const report = {
                 branch: name,
@@ -1393,12 +1393,12 @@ import {
                 phases: [],
                 onset: { baseline: null, holds: [] },
                 // FINE-TUNE (ruled 2026-10-29): skip-throw run record
-                // — null-filled on a normal (throw) run; on a skip
+                // - null-filled on a normal (throw) run; on a skip
                 // run it carries the decision baseline, the arm
                 // phase, the fine-tune holds, and the branch floor.
                 fineTune: null,
                 // STAGED SCORING (ruled 2026-11-02, Jason): this run's
-                // scoring-stage record — the stage in force at run
+                // scoring-stage record - the stage in force at run
                 // start, the run-level switch point, the adjacent-
                 // composition baseline captured on the pre-run
                 // geometry for the final gate, and the phase the
@@ -1406,9 +1406,9 @@ import {
                 stagedScoring: { stageAtStart: "same-branch-only", switchPoint: "branch-shrink-entry", adjacentFromPhase: null, baselineAdjacent: null },
                 growth: null,
                 // SUBCAT SHRINK ATTEMPTS (repair, 2026-11-01): one
-                // record per rendered subcategory of this branch —
+                // record per rendered subcategory of this branch -
                 // thrown radius, 3x length floor, stages run,
-                // and the outcome (reached / held and why) — so a
+                // and the outcome (reached / held and why) - so a
                 // run's receipt can prove every subcategory was
                 // attempted and name any that was held.
                 subcatShrink: [],
@@ -1416,7 +1416,7 @@ import {
                 // scope ruling 04:29 CST): per-subcategory delivered
                 // radii captured frame by frame across every
                 // back-out / restore of this run, judged ONLY
-                // against the eyewitness hypothesis — a back-out
+                // against the eyewitness hypothesis - a back-out
                 // discarding per-subcategory shrink gains wholesale
                 // (report.witness; helpers below). Fields added
                 // only; no H1/H2/H3 fields are recorded.
@@ -1424,11 +1424,11 @@ import {
                 // THROW RADII (conversion fix, 2026-11-01): the
                 // throw's center-avatar radius, its world targets,
                 // and the override lengths stepThrow converted
-                // them into — recorded by stepThrow, null on a
+                // them into - recorded by stepThrow, null on a
                 // skip-throw run. Fields added only.
                 throwRadii: null,
                 // Q4: the gate's decider is the branch's own-cloud
-                // crossing number — baseline/finalCloud/delta below
+                // crossing number - baseline/finalCloud/delta below
                 // (and every phase record's cloud) carry CROSSING
                 // values under their existing names. Neighbor clouds'
                 // crossing numbers are reported (baseline + final)
@@ -1441,12 +1441,12 @@ import {
                 // observation (2026-10-29, M1) and the commented-out
                 // copies were deleted (2026-10-30, paragraph-6
                 // solver-metrics edit) so they cannot drift from the
-                // live code — see the single record at measureCloud
+                // live code - see the single record at measureCloud
                 // below. In their place the report carries bakeGate
                 // (M4): the total crossing number (this cloud plus
                 // every neighbor cloud, combined) before -> after,
                 // passing only when its increase is strictly less
-                // than SX_SCORE.BAKE_GATE_LIMIT — reported for the
+                // than SX_SCORE.BAKE_GATE_LIMIT - reported for the
                 // bake decision; this run's own gates are unchanged.
                 metric: { decider: "crossingnumber" },
                 neighbors: { reportedNotGated: !0, baseline: null, final: null },
@@ -1459,11 +1459,11 @@ import {
             };
             // BAKE GATE (M4, ruled 2026-10-29): the ONE computation of
             // the bake decision, called at both run endings (the
-            // category back-out ending and the final patch) — the
+            // category back-out ending and the final patch) - the
             // limit and the comparison were previously written out
             // twice, once per ending. It sums the total crossing
-            // number — this cloud plus every neighbor cloud,
-            // combined — before and after, and passes only when the
+            // number - this cloud plus every neighbor cloud,
+            // combined - before and after, and passes only when the
             // increase is strictly less than
             // SX_SCORE.BAKE_GATE_LIMIT. Reported for the bake
             // decision; it does not gate this run. A failure to
@@ -1475,8 +1475,8 @@ import {
             }
             // CAPSULE-ONLY INTERIM PAINT (ruled 2026-10-31, Jason):
             // a live blit session at run start is ended BEFORE the
-            // context opens, with one ordinary full paint — the
-            // session's documented end ("any non-scoped paint") —
+            // context opens, with one ordinary full paint - the
+            // session's documented end ("any non-scoped paint") -
             // so its 20 s settle-guard timer can never fire
             // mid-run and fight the cascade's interim solves (the
             // guard's restore paints would replay a pre-session
@@ -1499,7 +1499,7 @@ import {
             // the receipt lead).
             // WITNESS DISCRIMINATOR helpers (ruled 2026-11-01,
             // Jason; scope ruling 04:29 CST): this run investigates
-            // ONLY the eyewitness report — the cloud scooches in
+            // ONLY the eyewitness report - the cloud scooches in
             // shortened, hits the collision mark, backs back out,
             // and then ALL subcategories stand back at extreme
             // (thrown) length instead of keeping the shortened
@@ -1519,15 +1519,15 @@ import {
             // category-back-out disarm, final patch, whole-run
             // revert): a correct one-step back-out restores exactly
             // the last kept frame, so any subcategory a restore
-            // moves — above all one it returns to its thrown
+            // moves - above all one it returns to its thrown
             // delivered radius when that subcategory was not the
-            // tripping one — is the wholesale discard the witness
+            // tripping one - is the wholesale discard the witness
             // describes, and witnessJudge names it per event.
             const WITNESS_EPS = .02, WITNESS_ONE_STEP = 1.115;
             witnessLastFrame = null; witnessFrameSeq = 0; witnessThrown = null; witnessTrippingLabel = null;
             // FINAL-STEP WITNESS EXTENSION (ruled 2026-11-01,
             // Jason; refinement 07:30 CST): the eyewitness report
-            // refined — the run pulls in almost perfectly until
+            // refined - the run pulls in almost perfectly until
             // the LAST step, and the last step flings the
             // subcategories back out. The back-out judge above
             // never sees that step: its last frame is the final
@@ -1537,15 +1537,15 @@ import {
             // last kept phase, immediately before and after the
             // final patch commit, and one frame after the
             // closing full paint (in the finally block, once that
-            // paint — settle search included — has run), and
+            // paint - settle search included - has run), and
             // judges each of those two transitions on its own:
             // a subcategory that grows past one ladder step
             // (WITNESS_ONE_STEP) across either transition was
             // flung, not stepped; two or more at once, or any
             // one returned to its thrown length, is the
             // wholesale fling the witness describes, and the
-            // record names the transition — final patch commit
-            // or closing full paint — that did it. Frames are
+            // record names the transition - final patch commit
+            // or closing full paint - that did it. Frames are
             // held by direct reference on report.witness
             // .finalStep, so the 600-frame cap on the frames
             // array can never drop them. Observational only,
@@ -1555,41 +1555,41 @@ import {
             // FINAL-STEP WITNESS judge (extension above): one
             // transition of the final step, before-frame against
             // after-frame. There is no tripping subcategory at
-            // the final step — nothing there is entitled to move
-            // a subcategory outward past one step — so any
+            // the final step - nothing there is entitled to move
+            // a subcategory outward past one step - so any
             // subcategory that does is recorded as flung, with
             // its before / after delivered radii, the override
             // lengths standing at both frames, and whether it
             // landed back at its thrown delivered radius.
             // PAINTED-GEOMETRY WITNESS EXTENSION (ruled 2026-11-01,
-            // Jason, 08:00 CST — painted-geometry witness extension):
-            // the final-step witness above reads dkDeliveredRadii —
+            // Jason, 08:00 CST - painted-geometry witness extension):
+            // the final-step witness above reads dkDeliveredRadii -
             // solve/override BOOKKEEPING. Jason's eyewitness report
             // on the Impact run (receipt: final-step witness HELD)
             // is that the subcategories were nevertheless flung back
             // out on the last frame he SAW. Taken at his word, the
             // fling either happens after the frame the bookkeeping
             // witness measures, or the last paint renders
-            // differently from the radii it measures — a MEASUREMENT
+            // differently from the radii it measures - a MEASUREMENT
             // DIVERGENCE the bookkeeping witness cannot see by
             // construction. This extension extends the witness one
             // visual frame further, in the painted domain: it reads
             // the ACTUAL PAINTED SVG GEOMETRY (node positions via
-            // each icon's own getCTM chain — the same rendered read
-            // the settle guard's sgCaptureRenderedCenters uses —
+            // each icon's own getCTM chain - the same rendered read
+            // the settle guard's sgCaptureRenderedCenters uses -
             // with the painted stem path's endpoints as the only
             // fallback when the CTM read fails; data-layout-x/y is
             // never substituted, and a node neither painted source
             // can read is recorded not-observed), and records, for
             // EVERY subcategory of the run's branch (all 7 on
             // Impact, pain & body modification; generic over any
-            // branch — Bondage and Sex acts run through this same
+            // branch - Bondage and Sex acts run through this same
             // code), THREE separate numbers per subcategory:
-            //   branchR — centre to branch node (branch delivered
+            //   branchR - centre to branch node (branch delivered
             //             radius, painted);
-            //   seg     — branch node to subcategory node
+            //   seg     - branch node to subcategory node
             //             (subcategory segment length, painted);
-            //   absR    — centre to subcategory node (absolute
+            //   absR    - centre to subcategory node (absolute
             //             delivered radius, painted).
             // Frames are taken at the last kept phase, immediately
             // before and after the final step, after the closing
@@ -1635,14 +1635,14 @@ import {
                 // paint's centre capture (paintComposition branch of
                 // scCaptureDeliveredCenters), stashed by the finally
                 // block at the capture moment so DIAG-03 can report
-                // the registry fields the capture consumed — the
+                // the registry fields the capture consumed - the
                 // closing solve reassigns dkLastBranches, so reading
                 // them at pause time would give closing-time values.
                 let diagCaptureFields = null;
                 // HUB LOGGING (diagnostic-only, ruled 2026-11-01, per
                 // HUB-SIDE-DIAGNOSIS.md): the painted hub seat read at
-                // DIAG-02 — the last pause before the closing full
-                // paint — stashed so DIAG-03 can print the pre-paint
+                // DIAG-02 - the last pause before the closing full
+                // paint - stashed so DIAG-03 can print the pre-paint
                 // hub seat beside the painted hub it ends with, and
                 // the hub's movement across the closing paint is
                 // attributable. Read-only.
@@ -1663,7 +1663,7 @@ import {
                 // HUB-GROUP ELEMENT IDENTITY (diagnostic-only, ruled
                 // 2026-11-01, per CLOSING-PAINT-BLOWUP-ASSESSOR-REPORT
                 // Q5): which element the hub-group query matches at a
-                // capture moment — how many elements carry the hub's
+                // capture moment - how many elements carry the hub's
                 // layout key, whether the matched one is an exit
                 // clone, and whether its category label rides a
                 // textPath. Read-only; shared by DIAG-00 and DIAG-03.
@@ -1675,7 +1675,7 @@ import {
                 // DIAG-00 and the registry snapshots ride the shell's
                 // diagnostics option (opts.diag00; session-only,
                 // default ON beside the step-through toggle) and are
-                // pure reads — no paint, no settle, no state write —
+                // pure reads - no paint, no settle, no state write -
                 // so they change no geometry and no run outcome. The
                 // on-demand paint rides its own session-only option
                 // (opts.onDemandFullPaint, DEFAULT OFF, never written
@@ -1686,7 +1686,7 @@ import {
                 diagPhaseOrdinal = 0; diagPaintCount = 0; diagFitSubcatsCount = 0; diagPaintBase = null;
                 // DIAG-00: one painted-geometry snapshot of the saved
                 // layout, taken after the baseline step and before
-                // the throw / fine-tune arm — the DOM still holds
+                // the throw / fine-tune arm - the DOM still holds
                 // the pre-run full paint and no phase has committed.
                 // Same helpers as DIAG-03 (dkPaintedGeometry,
                 // diagCaptureView, diagCamera), plus the Q5 fields:
@@ -1703,7 +1703,7 @@ import {
                 // subcategory key: the fit target set, the override
                 // written, the post-commit solve radius
                 // (cloudRadius from the solve registry), the
-                // delivered radius — plus the phase's gate threshold
+                // delivered radius - plus the phase's gate threshold
                 // and verdict and the onset reading and verdict
                 // (report-only; the onset check itself still runs in
                 // the ladder exactly as before). Registry reads
@@ -1713,9 +1713,9 @@ import {
                 // implemented in runPhase): one freeze-replay full
                 // paint with the run context live (dkCtx untouched),
                 // under the closing-paint opClass so the hub snap
-                // fires — if the freeze capture is unavailable the
+                // fires - if the freeze capture is unavailable the
                 // paint does not run at all, never under another
-                // opClass — with blit starts held and any standing
+                // opClass - with blit starts held and any standing
                 // blit session ended before and after, exactly as
                 // the closing paint does. The flag through Mr
                 // (__sxDiagFullPaint) and the blit hold are set
@@ -1738,14 +1738,14 @@ import {
                 // diagnostic build, never written into saved
                 // layouts/profiles); absent/false = no bracket
                 // paints, no bracket snapshots, no bracket pauses,
-                // no bracket log lines — exactly the pre-edit run.
+                // no bracket log lines - exactly the pre-edit run.
                 // The bracket paint replicates diagOnDemandPaint's
                 // discipline exactly: freeze capture +
                 // paintComposition centres, the run context live
                 // (dkCtx untouched), hub seating only under the
-                // closing-paint opClass ("anneal-closing-paint") —
+                // closing-paint opClass ("anneal-closing-paint") -
                 // if the freeze capture is unavailable the paint
-                // does not run at all, never under another opClass —
+                // does not run at all, never under another opClass -
                 // any standing blit session ended before and after,
                 // blit starts held for its duration, and the
                 // __sxDiagFullPaint flag and the blit hold set
@@ -1756,7 +1756,7 @@ import {
                 // decomposition, branch delivered radius,
                 // per-subcategory segment / absolute radius / stored
                 // radius, hub point + radius, camera state, override
-                // provenance — plus the throw's own inputs (centre
+                // provenance - plus the throw's own inputs (centre
                 // radius, target radii, delivered radii, committed
                 // override lengths from report.throwRadii).
                 // stepThrow itself is untouched: nothing here writes
@@ -1770,7 +1770,7 @@ import {
                 // judged score starts SAME-BRANCH ONLY; the context is
                 // cleared in the finally block (dk.end) on every exit.
                 sxAnnealStageCtx = { branch: name, adjacent: !1 };
-                // F4 STEP 1b — preconditions: stage any violated choreography
+                // F4 STEP 1b - preconditions: stage any violated choreography
                 // values (written by the throw, restored by the final patch).
                 const staged = stepPreconditions(api, report);
                 // (3) SNAPSHOT + BASELINE: the snapshot is the
@@ -1778,13 +1778,13 @@ import {
                 // applied, so a revert restores the user's real values,
                 // staged ones included). The baseline is measured
                 // TWICE (§5.8) and the observed variance reported.
-                // F4 STEP 2 — snapshot + baseline: snapshot the untouched
+                // F4 STEP 2 - snapshot + baseline: snapshot the untouched
                 // pre-run state, measure the baseline twice (decider +
                 // secondary + neighbors), and capture pre-run delivered radii.
                 const preDelivered = await stepBaseline(dk, report, name);
                 witnessFrame("pre-run", null, preDelivered, witnessSubs, name, report, dk);
                 // DIAG-00 (ruled 2026-11-01, Jason): the pre-run
-                // painted-geometry snapshot of the saved layout —
+                // painted-geometry snapshot of the saved layout -
                 // taken here, after the baseline step (which only
                 // measures and takes the untouched snapshot) and
                 // before any phase commits: the DOM still holds the
@@ -1809,14 +1809,14 @@ import {
                 // beyond tolerance stops the cascade (see the gate
                 // at the end of runPhase) instead of carrying a
                 // tangle through the remaining phases. The metric is
-                // record.cloud — Q4 repointed that readout to the
+                // record.cloud - Q4 repointed that readout to the
                 // own-cloud crossing number, not this gate: the
                 // comparison and its tolerance below are unchanged
                 // and now operate on crossing values.
                 prevPhaseCloud = Number.isFinite(report.baseline.first) ? report.baseline.first : null;
                 // BACK-UP-A-STEP (ruled 2026-10-28, all phases): the
                 // cascade retains the last-kept phase snapshot
-                // throughout the run — the layout state and this
+                // throughout the run - the layout state and this
                 // branch's fit registrations as they stood right after
                 // the most recent KEPT phase commit (the throw commit
                 // counts as a kept state). A per-phase gate trip
@@ -1829,22 +1829,22 @@ import {
                 lastKeptSnapshot = null; lastKeptFit = null;
 
                 // F4: the shared phase-commit step every cascade phase
-                // runs through — one applyPhase commit, its record,
+                // runs through - one applyPhase commit, its record,
                 // and the per-phase gate (tolerance SX_SCORE.GATE_TOL,
                 // flat 2). The onset margin and the fine-tune margin
                 // are deleted.
                 mark = dkLog.length;
-                // F4 STEP 3 — throw: one commit arming the full cascade at the
+                // F4 STEP 3 - throw: one commit arming the full cascade at the
                 // thrown lengths (factors: SX_SCORE.THROW_*).
                 // FINE-TUNE SKIP-THROW DECISION (ruled 2026-10-29,
-                // rulings adopted 09:42-09:43): judged HERE — after
-                // the baseline step, before the throw — on the
+                // rulings adopted 09:42-09:43): judged HERE - after
+                // the baseline step, before the throw - on the
                 // CASCADE baseline (report.baseline.first, measured
                 // twice in stepBaseline with its variance reported),
                 // never on the shell pre-flight's single measure
                 // (that measure acts only on exactly zero and is not
                 // the fine-tune measure). Baseline STRICTLY below
-                // SX_SCORE.FINE_TUNE_BELOW — zero included — takes
+                // SX_SCORE.FINE_TUNE_BELOW - zero included - takes
                 // the skip path; exactly 5 or more throws as before.
                 // On the skip path there is no thrown baseline.
                 // The fine-tune margin is deleted; FINE_TUNE_BELOW
@@ -1866,7 +1866,7 @@ import {
                     }
                 }
                 // FINE-TUNE STAGING-AND-ARMING COMMIT (skip path,
-                // ruling 6 — full arming mirroring the throw minus
+                // ruling 6 - full arming mirroring the throw minus
                 // length changes): the throw commit is what normally
                 // writes the staged precondition values and arms the
                 // full cascade (all four arm maps true, overwriting
@@ -1882,7 +1882,7 @@ import {
                 // THROW-BRACKET (diagnostic, 2026-11-01 23:57 CST):
                 // the bracket points wrap the run's throw sequence
                 // (the first throw plus any THROW REPEAT re-throws,
-                // ruled 2026-11-06), on the throw path only — a skip-throw
+                // ruled 2026-11-06), on the throw path only - a skip-throw
                 // (fine-tune) run has no throw to bracket. With
                 // opts.throwBracket absent/false neither point runs:
                 // no bracket paint, snapshot, pause or log line, and
@@ -1894,19 +1894,19 @@ import {
                 // frame; gains are measured from the standing
                 // (fine-tune-arm / pre-run) frame instead.
                 witnessThrown || (witnessThrown = witnessLastFrame ? witnessLastFrame.subs : null);
-                // F4 STEP 4 — onset setup still records the thrown-state
+                // F4 STEP 4 - onset setup still records the thrown-state
                 // baseline (pre-run baseline on the skip path). Phase 4
                 // (2026-11-04): no hold threshold. The onset margin and
                 // the fine-tune margin are deleted. The per-phase gate
                 // (flat GATE_TOL 2) is the only stop.
                 const onsetCheck = stepOnsetSetup(name, fineTuneActive, report);
-                // F4 STEP 5 — shrink ladders: subcategory level first, then the
+                // F4 STEP 5 - shrink ladders: subcategory level first, then the
                 // branch level. The per-phase gate inside runPhase is the
                 // only stop; the onset and fine-tune margins are deleted.
                 // EXPLANATION STEP THREE IS COMMENTED OUT (ruled
                 // 2026-10-31, Jason): the explanation's step three
-                // — a separate geometric step-down stage — and its
-                // step four — the shrink — were duplicating each
+                // - a separate geometric step-down stage - and its
+                // step four - the shrink - were duplicating each
                 // other. There is no separate step-down stage in
                 // this cascade and none runs: the
                 // step-down IS this shrink stage (these ladders,
@@ -1921,16 +1921,16 @@ import {
                 // (last-kept snapshot) state stands exactly as
                 // runPhase restored it, and no final-gate revert
                 // check judges it. The report closes the run out on
-                // the backed-out state's own measurements — finalCloud
+                // the backed-out state's own measurements - finalCloud
                 // / delta (decider) and the secondary area, measured
-                // on the state that stands — under its own gate value
+                // on the state that stands - under its own gate value
                 // ("ended-at-category-backout", neither the final
                 // gate's "kept" nor its "reverted") with the early
                 // end stated plainly in the reason, so the receipt
                 // never presents this outcome as a final-gate result.
                 // The block then runs the DISARM cleanup (ruled
                 // 2026-10-29): the temporary staging the final patch
-                // would have taken down is restored there instead —
+                // would have taken down is restored there instead -
                 // see DISARM ON EARLY END inside the block. The run
                 // still ends here; the disarm is not the final patch,
                 // runs no phase and no gate, and changes no
@@ -1942,7 +1942,7 @@ import {
                 const endedAtCategoryBackout = !!(shrinkOutcome && shrinkOutcome.branchBackedOut);
                 // GATE-REJECTED END (ruled 2026-11-01, Jason): the
                 // back-out confirmation gate was REJECTED at the trip
-                // above, so nothing was reverted — the tripped trial
+                // above, so nothing was reverted - the tripped trial
                 // geometry stands. The run still ends here (no growth,
                 // no final patch, no final gate), but the disarm
                 // restore below is SKIPPED on this ending: a restore
@@ -1961,7 +1961,7 @@ import {
                     // the shrink-stage switch (neighbour-inclusive
                     // composition) while baseline.first is the
                     // run-start (own-cloud-only) value the receipt
-                    // displays as the run's start — report.delta is
+                    // displays as the run's start - report.delta is
                     // the displayed pair's difference (final minus
                     // displayed start, one composition story per
                     // receipt line). The GATE's own judged change is
@@ -1983,8 +1983,8 @@ import {
                     report.fitDeviationTotal = tallyFitDev(report);
                     // DISARM ON EARLY END (ruled 2026-10-29, Jason
                     // 02:08): the final patch does not run on this
-                    // path, so the cleanup it normally performs —
-                    // taking the cascade's temporary staging down —
+                    // path, so the cleanup it normally performs -
+                    // taking the cascade's temporary staging down -
                     // runs HERE, after the backed-out state's
                     // measurements above are taken, as a plain
                     // restore, NOT as a phase: no "final" phase
@@ -1994,7 +1994,7 @@ import {
                     // ladders and left standing by restoreKept when
                     // the branch ladder backed out: (1) the two
                     // spoke auto-shrink arm maps at the keys the throw
-                    // armed — branchSpokeAutoShrink[name], and for
+                    // armed - branchSpokeAutoShrink[name], and for
                     // every subcategory label of this branch
                     // subcatSpokeAutoShrink[label], all set true by
                     // the throw, overwriting any pre-run explicit
@@ -2007,18 +2007,18 @@ import {
                     // and restored with the kept layout by
                     // restoreKept; the final patch clears them via
                     // clearBranchFit before its commit and the
-                    // gate-revert catch clears them too — only this
+                    // gate-revert catch clears them too - only this
                     // early-end path left them armed). The disarm
                     // patch is the CURRENT (backed-out) state with
                     // only (1) and (2) overwritten from the pre-run
-                    // snapshot — an arm key the snapshot lacks is
-                    // deleted, exactly restoring its absence — so
+                    // snapshot - an arm key the snapshot lacks is
+                    // deleted, exactly restoring its absence - so
                     // every length override (branch / subcat /
                     // kink) and every other field stands exactly as
                     // backed out. (3) is NOT cleared before the
                     // restore (DISARM FIX, ruled 2026-11-01, Jason):
                     // the compact kept shape lives in those fit
-                    // targets — an unarmed re-solve starts every
+                    // targets - an unarmed re-solve starts every
                     // subcategory at the branch base radius and the
                     // locked "grow" collision never pulls it back
                     // down, so clearing first handed the closing
@@ -2049,7 +2049,7 @@ import {
                         // DISARM FIX (see the block comment above):
                         // re-arm the kept fit registrations before
                         // the restore so its solve runs armed, then
-                        // clear them after it — clearing a target
+                        // clear them after it - clearing a target
                         // solves nothing itself, so the armed solve's
                         // delivered geometry stands into the closing
                         // paint's capture while the post-run fit
@@ -2069,10 +2069,10 @@ import {
                         report.disarm = { error: String(disarmErr && disarmErr.message || disarmErr) }, dkLog.push({ type: "run-disarm-error", at: "category-shrink-backout", message: report.disarm.error });
                     }
                 }
-                // F4 STEP 5b — growth: scoped same-branch growth
+                // F4 STEP 5b - growth: scoped same-branch growth
                 // (ruled 2026-10-28), after the shrink ladders and
                 // before the final patch. Growth arrives ONLY as
-                // cascade ratio patches through runPhase — the
+                // cascade ratio patches through runPhase - the
                 // relaxation engines still never grow and the
                 // repulsion descent's grow flag stays off. A cloud
                 // grows only when same-branch pairs contribute more
@@ -2082,7 +2082,7 @@ import {
                 // exclusion flag, and the difference is the
                 // same-branch contribution. Levels run outermost
                 // first (branch, then subcategories); there is no
-                // kink growth — growing kink leaves never reduces
+                // kink growth - growing kink leaves never reduces
                 // collisions. Each level climbs the cumulative
                 // ladder (step factor per step, at most the ruled
                 // max steps, the step that would pass the cap
@@ -2095,13 +2095,13 @@ import {
                 // Skipped when the run ended at the category shrink
                 // back-out above (see TERMINATION at stepShrinkLadders).
                 // STEP FIVE COMMENTED OUT (ruled 2026-10-31, Jason):
-                // explanation step five — "Fit and growth" — is
+                // explanation step five - "Fit and growth" - is
                 // out. The growth phase no longer runs in the
                 // cascade. The stepGrowth definition above is kept
                 // in the code, not deleted, and its invocation is
                 // commented out, not removed:
                 // if (!endedAtCategoryBackout) await stepGrowth();
-                // F4 STEP 6 — final patch: build the kept state on the pre-run
+                // F4 STEP 6 - final patch: build the kept state on the pre-run
                 // snapshot, carry held lengths through, commit as the 'final'
                 // phase, then take the final measurements for the gate.
                 // Both the final patch and the final gate are
@@ -2112,16 +2112,16 @@ import {
                 if (!endedAtCategoryBackout) {
                 await stepFinalPatch(dk, name, opts, report, tax, runPhase, witnessThrown, WITNESS_EPS, WITNESS_ONE_STEP, preDelivered, diagCaptureFields, witnessTrippingLabel);
                 // (7) GATE: exact-float improve-or-hold on the
-                // branch's own-cloud CROSSING NUMBER (Q4 decider —
+                // branch's own-cloud CROSSING NUMBER (Q4 decider -
                 // baseline.first / finalCloud carry crossing values
                 // via the repointed readout; the xAreaCross area is
                 // reported secondary above and never gates). A kept
                 // run must also
-                // provably differ from the pre-run snapshot — a
+                // provably differ from the pre-run snapshot - a
                 // "kept" run whose final state is the snapshot kept
                 // nothing.
                 // STAGED SCORING (ruled 2026-11-02, Jason): the final
-                // gate is the same judge as the descent — it judges the
+                // gate is the same judge as the descent - it judges the
                 // shrink-stage composition, so its baseline is the
                 // adjacent-composition value captured on the pre-run
                 // geometry in stepBaseline (baseline.adjacentFirst),
@@ -2140,7 +2140,7 @@ import {
                 }
                 report.fitDeviationTotal = tallyFitDev(report), report.gate = "reverted", report.reason = String(e && e.message || e);
                 // Q1: a budget abort or a user cancel is named as
-                // such on the report — phase and the phase's
+                // such on the report - phase and the phase's
                 // iteration count ride along for the receipt.
                 if (e && (e.dkBudget || e.dkCancelled)) report.aborted = { kind: e.dkBudget ? "budget" : "cancel", phase: e.phase != null ? String(e.phase) : null, iterations: e.iterations || 0 };
                 try {
@@ -2165,21 +2165,21 @@ import {
                 sxAnnealStageCtx = null, dk.end(), dkLog.push({ type: "run-report", report: report });
                 // CAPSULE-ONLY INTERIM PAINT (ruled 2026-10-31,
                 // Jason): every commit above painted only the
-                // approximation (see Mr) — paint the full map ONCE
+                // approximation (see Mr) - paint the full map ONCE
                 // here, at the run's end state: kept, ended-early,
                 // or reverted alike (on a revert the catch above
                 // has already restored the pre-run snapshot, so
                 // this paints the state that actually stands).
                 // The context is closed first, so this paint is
                 // the run's terminal paint, settle search included.
-                // ONE CLOSING REPAINT (ruled 2026-11-01, Jason —
+                // ONE CLOSING REPAINT (ruled 2026-11-01, Jason -
                 // supersedes the split closing paint this block
                 // carried: a freeze-replay paint for the category
                 // back-out ending and the ordinary paint for kept
                 // and reverted endings): there is exactly ONE
                 // closing repaint here, regardless of how the run
-                // gets here — kept, ended-early (category back-out
-                // included), reverted, aborted or cancelled alike —
+                // gets here - kept, ended-early (category back-out
+                // included), reverted, aborted or cancelled alike -
                 // and it paints the state that stands. The painted
                 // witness named the ordinary closing re-solve as
                 // the operation that re-derived larger painted
@@ -2192,14 +2192,14 @@ import {
                 // ending: every branch frozen, nothing recomputed,
                 // each node seated at its delivered centre, and the
                 // frozen capture replaying the delivered solve the
-                // cascade just stood at — on a revert the catch
+                // cascade just stood at - on a revert the catch
                 // above has already restored the pre-run snapshot
                 // and re-solved to it, so the replay carries that
                 // restored state, not the discarded run. The mode
                 // is chosen BEFORE any paint runs: only when the
                 // freeze capture itself is unavailable (no
                 // delivered branches or centres to replay) does
-                // the one repaint run as the ordinary paint — a
+                // the one repaint run as the ordinary paint - a
                 // paint that has run is never followed by a second
                 // closing repaint, on any ending, for any failure.
                 // The repaint is terminal: any blit session left
@@ -2208,7 +2208,7 @@ import {
                 // same-frozen-set path can never carry a session
                 // through it), blit session starts are held off
                 // for its duration (sgHoldBlitStart, exactly as
-                // sgRestorePaint holds them — an all-frozen paint
+                // sgRestorePaint holds them - an all-frozen paint
                 // otherwise starts a session whose swap vaults the
                 // whole map behind a raster and arms a settle
                 // timer nobody is left to land), and any session
@@ -2239,7 +2239,7 @@ import {
                 // wait for it (raced against the same 900 ms bound
                 // the painted witness below uses, so a throttled
                 // frame can never hang the receipt) before anything
-                // is read from — or cleared off — the painted map.
+                // is read from - or cleared off - the painted map.
                 try {
                     if (closingPaintResult && "function" == typeof closingPaintResult.then) await Promise.race([ closingPaintResult, new Promise(r => setTimeout(r, 900)) ]);
                     else if ("undefined" != typeof sxPaintPromise && sxPaintPromise && "function" == typeof sxPaintPromise.then) await Promise.race([ sxPaintPromise, new Promise(r => setTimeout(r, 900)) ]);
@@ -2249,8 +2249,8 @@ import {
                 // CAPSULE WIPE GATED ON FULL-PAINT COMPLETION
                 // (Fix 2, ruled 2026-11-01, Jason): the interim
                 // capsule layer's published live-number anchor is
-                // cleared only HERE — after the one closing repaint
-                // above has landed — never before it. Clearing it
+                // cleared only HERE - after the one closing repaint
+                // above has landed - never before it. Clearing it
                 // ahead of the paint (as this block used to) wiped
                 // the approximation state while the full paint was
                 // still in flight, queued or failed, and the map
@@ -2292,15 +2292,15 @@ import {
                 } catch (e) { diagClosing = { mode: closingPaintMode, scopedPaint: null, segmentTiming: !1 }; }
                 await diagPause("ANNEAL-DIAG-03", "closing full paint \u2192 settle", diagClosing, diagAcceptCtx, opts, diagSnapshot, report, name, tax, diagCaptureFields);
                 // FINAL-STEP WITNESS (extension): the frame the
-                // back-out judge could never take — every
+                // back-out judge could never take - every
                 // subcategory's delivered radius and override as
                 // they stand AFTER the closing full paint above,
                 // the state the user actually sees when the run
                 // ends. Both final-step transitions are judged
                 // here (the final patch commit, bracketed in
-                // stepFinalPatch; and the closing sequence —
+                // stepFinalPatch; and the closing sequence -
                 // context close plus this paint, settle search
-                // included — against the last frame taken before
+                // included - against the last frame taken before
                 // it), and the record names the operation this
                 // run's final step actually was, on endings that
                 // never reach the final patch as well. The record
@@ -2334,11 +2334,11 @@ import {
                 // visual frame further. The after-paint capture
                 // reads the painted SVG as the closing paint left
                 // it; then the run waits for the next animation
-                // frame / settle — a chunked closing paint's
+                // frame / settle - a chunked closing paint's
                 // in-flight promise first (raced against a bound so
                 // a throttled frame can never hang the receipt),
                 // then a double requestAnimationFrame with a timer
-                // fallback (the house yield pattern) — and captures
+                // fallback (the house yield pattern) - and captures
                 // painted geometry AGAIN. Any of the three numbers
                 // (branch radius / segment / absolute radius) that
                 // moves past one step across the settle transition
@@ -2356,7 +2356,7 @@ import {
                 // instead of holding against it. Guarded exactly
                 // like the final-step record above: a failure is
                 // recorded as not-observed and never disturbs the
-                // run's ending. Additive only — report.witness
+                // run's ending. Additive only - report.witness
                 // .finalStep and every existing line stand as they
                 // were.
                 try {
@@ -2398,9 +2398,9 @@ import {
                 // the run's own ending must leave the kept shape
                 // standing on screen, with no manual repaint
                 // needed. The closing full paint above installs
-                // the kept geometry in the DOM — DIAG-03's
+                // the kept geometry in the DOM - DIAG-03's
                 // painted==stored capture on Jason's acceptance
-                // drive proved that — yet his end frame still
+                // drive proved that - yet his end frame still
                 // showed the pre-run picture (the annealed cloud
                 // standing at its pre-run seat, its overlay
                 // number still the pre-run value) until a

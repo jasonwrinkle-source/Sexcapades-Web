@@ -1,4 +1,4 @@
-// 06d1-export-dialog.js — Export dialogs, low-res preview, file preparation, and photo cropping
+// 06d1-export-dialog.js - Export dialogs, low-res preview, file preparation, and photo cropping
         const kg = e.byId("testResultLoaderDialog"), xg = e.byId("testResultLoaderStatus"), Sg = e.byId("profileImportDialog"), $g = e.byId("profileImportStatus"), Eg = e.byId("completionCelebrationDialog"), Ag = e.byId("completionCelebration"), Cg = e.byId("completionCelebrationCount"), Mg = e.byId("completionConfetti"), completionCompare = e.byId("completionCompare"), completionExport = e.byId("completionExport"), milestoneDialog = e.byId("milestoneCelebrationDialog"), milestoneTitle = e.byId("milestoneCelebrationTitle"), milestoneMessage = e.byId("milestoneCelebrationMessage"), milestoneContinue = e.byId("milestoneContinue"), milestoneCompare = e.byId("milestoneCompare"), milestoneExport = e.byId("milestoneExport"), milestoneImport = e.byId("milestoneImport"), milestoneScribe = e.byId("milestoneScribe"), closeMilestone = e.byId("closeMilestoneCelebration");
         function Ig(e, t = "info", n = !1) {
             $g.textContent = e || "", e ? $g.dataset.tone = t : $g.removeAttribute("data-tone"),
@@ -166,7 +166,7 @@
             Ui(Pm);
         }
         // Qf (sharing-sync refactor F4): options object, not seven
-        // positionals — a misordered boolean used to silently flip
+        // positionals - a misordered boolean used to silently flip
         // blind/shared or background. Defaults match the old
         // positional defaults exactly.
         function Qf(t, n = {}) {
@@ -279,7 +279,7 @@
             // Opener follows its dialog (load-target stage,
             // 2026-10-27): the button lives inside the profile
             // details dialog, so its target is that dialog's profile
-            // (Hy) — never whichever profile the viewport happens to
+            // (Hy) - never whichever profile the viewport happens to
             // display. A missing dialog profile is a visible error,
             // not a silent fall back to the active profile. The
             // opener itself stays exactly where it is.
@@ -303,7 +303,7 @@
             // The safeword/aftercare inputs exist only on Sexcapades:
             // a moderation skin has no safewords or aftercare to save,
             // so the listener (which reads the safewords textarea) is
-            // not attached there — it would throw on a null query.
+            // not attached there - it would throw on a null query.
             !isMod && a.addEventListener("input", () => {
                 r.safewords = a.querySelector("[data-negotiation-safewords]").value, a.querySelectorAll("[data-negotiation-aftercare]").forEach(e => {
                     r.aftercare[e.dataset.negotiationAftercare] = e.value;

@@ -232,8 +232,8 @@ zlRenderRows(), t.length ? d(Math.max(0, t.findIndex(e => e.value === s)), {
             if (!e) return;
             noteFitUserCamera();
             kn || Ei();
-            // Track every expansion the preview adds — accumulating across highlight moves,
-            // because the dropdown fires onPreview per item with no intervening onClose — so
+            // Track every expansion the preview adds - accumulating across highlight moves,
+            // because the dropdown fires onPreview per item with no intervening onClose - so
             // Jl can revert exactly those, never branches/parents the user expanded themselves.
             if (e.branch && !rn.has(e.branch)) { rn.add(e.branch); _previewAddedBranches.add(e.branch); }
             if (e.parentId && !on.has(e.parentId)) { on.add(e.parentId); _previewAddedParents.add(e.parentId); }
@@ -606,7 +606,7 @@ zlRenderRows(), t.length ? d(Math.max(0, t.findIndex(e => e.value === s)), {
             }), e.byId("glanceNumbersPopover").hidden || n(Mc, pc.map(e => `<button class="glance-ring-row" type="button" data-glance-source="${Hi(e.sourceId)}" style="--ring-color:${e.color}"><span class="glance-ring-swatch" aria-hidden="true"></span><strong>${Hi(e.label)}</strong><span class="glance-ring-count">${e.count} ${1 === e.count ? "topic" : "topics"}</span><span class="glance-ring-percent">${e.percent}%</span></button>`).join(""));
         }
         // P1 refactor (Build 2026-10-18_2227): vc (glance / comparison
-        // summary) split by responsibility — vcScribeReady and vcGlanceKey
+        // summary) split by responsibility - vcScribeReady and vcGlanceKey
         // compute the header readiness keys, vcEmpty renders the empty
         // state, vcComparison the multi-profile comparison, vcGroupProfile
         // a committed group, vcSingleProfile one profile, and vcFallback

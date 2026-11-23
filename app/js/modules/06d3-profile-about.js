@@ -1,4 +1,4 @@
-// 06d3-profile-about.js — Profile about view, archetype projection, local samples, and details opener/saver
+// 06d3-profile-about.js - Profile about view, archetype projection, local samples, and details opener/saver
         function uw(t) {
             const i = e.byId("profileTimingSummary"), a = e.byId("profileTimingList"), r = St(mt[t]), o = Object.keys(kt).filter(e => r[e]).map(e => {
                 const t = r[e], n = t.total ? ` · ${t.count}/${t.total}` : "";
@@ -81,7 +81,7 @@
         // platform's or creed's dated layers) DO compete, one top layer
         // per stack, with the best historical layer reported separately
         // (2026-11-22 scoping, below). A partly-rated profile
-        // still projects — the score rests on the topics both sides rated,
+        // still projects - the score rests on the topics both sides rated,
         // and the note under the list says how many that was.
         function sxArchetypeProjection() {
             const resultsEl = e.byId("profileArchetypeResults");
@@ -127,12 +127,12 @@
                 if (!pair || !pair.play || !pair.coverage) return null;
                 const shared = pair.coverage.shared || 0;
                 if (!shared) return null;
-                // Identity score — "which archetype am I?": same-flank
+                // Identity score - "which archetype am I?": same-flank
                 // similarity over the shared set (both rated, not
                 // limit-blocked, not fantasy). The old score was the
                 // pair engine's Play match score, which measures
                 // whether both sides rated the crossed flanks at all,
-                // not agreement — so every archetype scored 100.
+                // not agreement - so every archetype scored 100.
                 // Multi-pole topics use their agreement fraction
                 // (already a same-position comparison); two-pole
                 // topics compare each flank with itself (give with
@@ -163,12 +163,12 @@
             // carrying stack fields are dated layers of ONE identity
             // (a party's platforms, a creed's documents), so a stack
             // must not flood the ranking with every era of itself.
-            // Only each stack's TOP layer competes for the headline —
+            // Only each stack's TOP layer competes for the headline -
             // the "present" layer where the stack has one, else its
             // newest dated layer. Admission keys on stack membership,
-            // not kind (2026-11-22: stacked entries are archetypes —
-            // platforms, creeds — and join the pool by carrying stack
-            // fields), while unstacked samples (Adam/Eve — real
+            // not kind (2026-11-22: stacked entries are archetypes -
+            // platforms, creeds - and join the pool by carrying stack
+            // fields), while unstacked samples (Adam/Eve - real
             // profiles, not identities to project onto) stay out,
             // exactly as before. The best of the remaining layers is computed
             // separately and reported as the closest layer across
@@ -217,7 +217,7 @@
             const rows = top.map((s, i) => {
                 const drivers = s.drivers.length ? `<p class="profile-archetype-drivers">Closest on: ${s.drivers.map(Hi).join(", ")}</p>` : "";
                 // The definition is a hover tip on the row (shared
-                // data-ui-tooltip popup), not inline text — it
+                // data-ui-tooltip popup), not inline text - it
                 // cluttered the list. data-tooltip-tap-first lets
                 // touch users tap once to read it; tabindex lets
                 // keyboard users focus the row and read it the same way.
@@ -227,7 +227,7 @@
             const best = top[0];
             let html = rows + `<p class="profile-archetype-note">Compared against ${scored.length} archetype${1 === scored.length ? "" : "s"} · your closest archetype is ${Hi(best.name)} at ${best.score}% on ${best.shared} shared topic${1 === best.shared ? "" : "s"} · you rated ${userRated} topic${1 === userRated ? "" : "s"}.</p>`;
             // Secondary readout: the best-matching historical layer
-            // across every stack in the pool — which era of which
+            // across every stack in the pool - which era of which
             // identity sits closest, even though only top layers
             // competed for the headline above.
             if (histScored.length) {
@@ -241,7 +241,7 @@
         // Local samples (2026-11-18, Jason): "Add current profile as a
         // local sample" on the profile About view saves the open profile
         // on this device so it appears in the Samples menu and loads back
-        // later — a chapter roster. The profile is serialized with the
+        // later - a chapter roster. The profile is serialized with the
         // same full-profile serializer the export path uses, then the
         // skin loader stores it per-skin (its store + menu rebuild) and
         // the button flips to "Update local sample" while a sample with
@@ -251,7 +251,7 @@
         // is what makes a sample recognizable. noFlash is set so the
         // sample loader's validity check (name + count + noFlash) passes
         // exactly like a built-in sample. A profile with no ratings
-        // cannot be a sample — there is nothing to load back.
+        // cannot be a sample - there is nothing to load back.
         function sxLocalSampleSkin() { return window.__SX_ACTIVE_SKIN || "sexcapades"; }
         function sxLocalSampleBtn() { return e.byId("addLocalSampleBtn"); }
         function sxLocalSampleExists(name) {
@@ -273,7 +273,7 @@
             btn.textContent = sxLocalSampleExists(wt[Hy]) ? "Update local sample" : "Add as local sample";
         }
         // Menu-description dialog (2026-11-22, Jason): saving a local
-        // sample asks for an optional blurb — the hover tip in the
+        // sample asks for an optional blurb - the hover tip in the
         // Samples menu, and the description a roster pack carries for
         // this member. Prefilled from the existing entry on update.
         function sxLocalSampleAboutDialog(name, existingAbout, onDone) {
@@ -379,7 +379,7 @@
         // the viewport. bw() is the dialog's only opener, so the gate
         // lives here, ahead of every state change bw makes: a blocked
         // attempt opens nothing, changes no profile, writes nothing, and
-        // never activates the target's tab — it refuses with a visible
+        // never activates the target's tab - it refuses with a visible
         // toast naming the profile. While a pair (match) tab is active,
         // only that pair's own saved-group profile may open; its member
         // profiles may not. bw(null) is profile CREATION (not any existing

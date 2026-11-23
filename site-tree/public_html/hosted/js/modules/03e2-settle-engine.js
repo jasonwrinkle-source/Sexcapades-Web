@@ -23,8 +23,8 @@ let sxSettleBootSlice = performance.now();
 // centre is its snapped delivered centre, read from
 // its dataset like any other), and no stem is left
 // carrying a transform. The stem's radii, widths and
-// mode are recovered from its own current path data —
-// the emitter's own output — and its colours, opacity
+// mode are recovered from its own current path data -
+// the emitter's own output - and its colours, opacity
 // and tooltip attributes are untouched: only d is
 // replaced. Finalisation is NOT gated by the label
 // guard above: it runs over every .tapered-stem in the
@@ -151,7 +151,7 @@ const sxReanchorStem = (stem, centres, spokeOld) => {
         // A short spoke (length < A + C) trims to a
         // backwards segment (span < 0): the emitter
         // produced it at render time, so re-emit it
-        // the same way — the flare fit only needs
+        // the same way - the flare fit only needs
         // |span| > 1, and a near-zero span falls back
         // to the max-offset widths below. Never skip.
         // Least-squares flare fit: |offset| - ih =
@@ -282,7 +282,7 @@ function* sxRunNodeSettle(scCtx, blitSess) {
     // absent from the layer (vault + raster), so
     // their recorded shapes are flushed into the
     // obstacle array at their branch-order positions
-    // (blitFlushObstacles) — live nodes keep their
+    // (blitFlushObstacles) - live nodes keep their
     // frozen obstacles exactly as in a vector paint.
     const blitObst = blitSess && blitSess.swapped && scCtx && blitSameFrozen(scCtx.frozenBranches, blitSess.frozen) ? blitSess : null;
     blitObst && (blitObst.flushIx = 0);
@@ -333,7 +333,7 @@ function* sxRunNodeSettle(scCtx, blitSess) {
             const sxSettleDx = m(e).point.x - m(D).point.x, sxSettleDy = m(e).point.y - m(D).point.y;
             const n = m(e).point, i = E ? e + A + (L ? 6 : t) : I, a = w.map(e => {
                 const t = Number(e.dataset.controlScale) || 1, n = Number(e.dataset.tagWidth) || 48, i = Number(e.dataset.tagHeight) || 20, a = Boolean(Nt && Nt.id === l.dataset.layoutKey && Nt.direction === e.dataset.direction);
-                // N-POLE WIDGETS (2026-11-18): the on-map n-pole shapes (triangle, tetrad, pentad, hexad, heptad, octad, compass) are drawn by Ka in absolute map coordinates, already tangent to the icon — they are NOT rating tags, so the active-control 320x40 blow-up does not apply; their tagWidth/tagHeight (emitted by Ka) is their true bounding extent, used only for the collision obstacle.
+                // N-POLE WIDGETS (2026-11-18): the on-map n-pole shapes (triangle, tetrad, pentad, hexad, heptad, octad, compass) are drawn by Ka in absolute map coordinates, already tangent to the icon - they are NOT rating tags, so the active-control 320x40 blow-up does not apply; their tagWidth/tagHeight (emitted by Ka) is their true bounding extent, used only for the collision obstacle.
                 const sxNpole = ["triangle", "tetrad", "pentad", "hexad", "heptad", "octad", "compass", "quad-compass"].includes(e.dataset.direction);
                 return {
                     control: e,
@@ -370,7 +370,7 @@ function* sxRunNodeSettle(scCtx, blitSess) {
         };
         let O = R(D);
         // Scoped solve (T2): the settle search is a
-        // paint-stage coupling channel — it re-seats
+        // paint-stage coupling channel - it re-seats
         // an icon outward along its spoke when its
         // shapes collide with the accumulated boxes
         // of every earlier node in DOM order, so a
@@ -383,11 +383,11 @@ function* sxRunNodeSettle(scCtx, blitSess) {
         // active, a frozen topic/child whose captured
         // delivered center differs from the un-searched
         // seat is therefore re-seated at that center
-        // instead — its along-path distance projected
+        // instead - its along-path distance projected
         // onto this paint's label path, which the
         // freeze replay restored to the delivered
         // line, with the center then snapped to the
-        // captured value exactly — and the search
+        // captured value exactly - and the search
         // never runs for it. A frozen node already
         // at its delivered center keeps the ordinary
         // seat computation untouched. Its shapes
@@ -395,7 +395,7 @@ function* sxRunNodeSettle(scCtx, blitSess) {
         // the nodes that do recompute.
         // Group 3d (2026-10-27): when this item's
         // auto-shrink is armed, the settle search
-        // must not push its seat back out — the
+        // must not push its seat back out - the
         // search's fixed outward steps overshoot
         // the shrunken seat and can leave the
         // cloud larger than before the shrink
@@ -408,8 +408,8 @@ function* sxRunNodeSettle(scCtx, blitSess) {
         // paint only, a category hub group is also
         // snap-eligible: its captured centre is the
         // paintComposition capture's rr.branchAnchor
-        // point — the seat closer to the centre avatar
-        // — so the hub is seated at the same anchor
+        // point - the seat closer to the centre avatar
+        // - so the hub is seated at the same anchor
         // its icons were composed from, instead of
         // standing at the spliced pre-paint seat the
         // snap never reached. Every other paint keeps
@@ -445,7 +445,7 @@ function* sxRunNodeSettle(scCtx, blitSess) {
         // only. Every tapered stem is re-emitted from the
         // settled parent/child centres by sxFinaliseStems
         // after this loop (see the re-anchoring helpers
-        // above) — never shifted by a delta.
+        // above) - never shifted by a delta.
         if ($ && E) {
             const anchorEnd = B - A - N, endAnchored = !d && "end" === c.getAttribute("text-anchor"), anchorS = anchorEnd - C;
             if (!d && Math.abs(anchorS - S) > .5) {

@@ -17,12 +17,12 @@
         // Group C1 (Build 2026-10-16_1830): map detail levels. Compact/Medium cap how
         // many child topics an expanded category or subcategory branch shows, most
         // popular first; rated topics always show regardless of the cap.
-        // Build 2026-10-17_1447: the map now OPENS in Medium — each expanded
+        // Build 2026-10-17_1447: the map now OPENS in Medium - each expanded
         // branch shows its 7 most popular topics (popularity order, same
         // ordering as list view) instead of every topic. The Compact/Medium/
         // Full toggle in the map controls still lets the user show fewer or
         // more, and the level persists across profile/tab switches.
-        // Build 2026-10-18_0343: the map now OPENS in Full — every topic in
+        // Build 2026-10-18_0343: the map now OPENS in Full - every topic in
         // each expanded branch shows by default; the toggle still lets the
         // user drop back to Medium or Compact.
         let mapDetailLevel = "full";
@@ -794,7 +794,7 @@
                 sxTapX = e.clientX, sxTapY = e.clientY, sxTapDown = !0,
                 // Hot List popup fix (2026-11-16): this guard used to
                 // swallow the pointerup of ANY >10px drag anywhere in
-                // the app — including the widget canvases, whose
+                // the app - including the widget canvases, whose
                 // drag-end handlers live on the canvas and never fired,
                 // leaving isDragging stuck true and killing canvas hover
                 // tips after any drag (popup AND placard). Only swallow
@@ -826,11 +826,11 @@
             t && !Gi.open && (e.byId("unsavedChangesQuestion").textContent = `${wt[t] || "This profile"} has changes that are not safely stored yet. Choose what to do before reloading.`, 
             Wi(Gi), requestAnimationFrame(() => e.byId("saveUnsavedToMemory").focus()));
         }
-        // Interest-color stops — the one source both interest encodings
+        // Interest-color stops - the one source both interest encodings
         // derive from (map-render refactor, finding 7): zi() interpolates
         // these rgb stops, and Ka's rating-rail CSS gradient uses the
         // same stops as the --red-deep / --curious / --green-deep custom
-        // properties (shell :root: #bd4f51 / #d7bd55 / #3da874 — the
+        // properties (shell :root: #bd4f51 / #d7bd55 / #3da874 - the
         // same values in hex). Change a stop here and in the shell
         // :root together.
         const INTEREST_STOPS = {
@@ -859,7 +859,7 @@
         // is written: after every mutation the flag is re-derived from
         // the set (active exactly when the set holds more than one live
         // member). No caller hand-syncs the flag any more, so the set
-        // and the flag cannot disagree — toggling a second profile in
+        // and the flag cannot disagree - toggling a second profile in
         // now leaves comparison active. The flag stays a cache for one
         // reason: sxSel's "dismiss" operation (Hide group overlay)
         // clears the flag while leaving the chosen set untouched, as
@@ -890,7 +890,7 @@
             sxSel(id), la(id), Jw();
         }
         // Load landing (load-target stage, 2026-10-27): a load ends
-        // on the loaded profile's own tab — ACTIVATED and SELECTED —
+        // on the loaded profile's own tab - ACTIVATED and SELECTED -
         // and never opens the comparison overlay or a group map.
         // The chosen set keeps every loaded profile slated for
         // multi-select; the comparison (crossmatch) appears only
@@ -957,7 +957,7 @@
             capture: !0,
             passive: !0
         });
-        // Center-node geometry (ea) — derivation note. These values are
+        // Center-node geometry (ea) - derivation note. These values are
         // frozen baselines, reached by successive rescalings of the center
         // node (builds 2026-10-17_1446, 2026-10-17_2027, 2026-10-18_0343,
         // 2026-10-18_1449, 2026-10-19_0119): the photo disc and at-a-glance
@@ -992,7 +992,7 @@
         // glanceRadii (at-a-glance rings), and spokeStartRadius (gen-1
         // spoke starts at the ring's outer edge). NOT scaled:
         // outerRadius/lineStartRadius (layout + label anchors).
-        // FQ2-BAKEIN (A4): branchToggleY is no longer a fixed constant —
+        // FQ2-BAKEIN (A4): branchToggleY is no longer a fixed constant -
         // refreshCenterRing() derives it from the scaled ring (see below).
         var eaBase = {
             photoRadius: ea.photoRadius,
@@ -1005,12 +1005,12 @@
             return Number.isFinite(v) && v > 0 ? v : 1;
         }
         // ICON DEPTH LAW (ruled 2026-11-02, Jason; SQUARE-ROOT
-        // form — the owner adopted the same day's square-root
+        // form - the owner adopted the same day's square-root
         // draft at 17:05, superseding the linear (0.6)^depth x R
         // law built earlier that day; the two-thirds base is
         // kept, as ruled; RADIUS reading ruled 13:38 the same
-        // day — "I meant radius"): a node's icon RADIUS is
-        // (2/3)^depth x sqrt(R x W) — the depth-scaled
+        // day - "I meant radius"): a node's icon RADIUS is
+        // (2/3)^depth x sqrt(R x W) - the depth-scaled
         // geometric mean of R, the centre-disc radius
         // (ea.photoRadius = 897.58 x centerRingScale, set by
         // the Center circle slider; eaBase.photoRadius is the
@@ -1026,7 +1026,7 @@
         // 80,782.20, W = 2,640, sqrt(RW) = 14,603.60) the depth
         // radii are 9,735.73 / 6,490.49 / 4,326.99 (diameters
         // double those). Sliders and tags scale by depth
-        // exactly like the fonts (sxControlScale below — see
+        // exactly like the fonts (sxControlScale below - see
         // Ka / renderKinkLine control scales and sxSccBuild's
         // tagM); the icon ladder (2/3) and the font ladder
         // stay independent (font law since 2026-11-02 17:24:
@@ -1042,14 +1042,14 @@
         // single icon floor exists elsewhere in the code
         // (there is no 44px icon floor); the floor used here
         // is the one the spoke-trim helpers already enforce
-        // — the 12-unit radius clamp in
+        // - the 12-unit radius clamp in
         // SpokeGeometry.buildTipCircle (Math.max(12,
-        // iconSize / 2)) and in renderKinkLine's leaf trim —
+        // iconSize / 2)) and in renderKinkLine's leaf trim -
         // taken font-scaled, as ruled: minimum icon RADIUS =
         // 12 x mapFontScale() (1,440 world units at the baked
         // fontScale 120; minimum diameter 2,880). Under the
         // square-root law the floor binds nowhere at the baked
-        // defaults — it binds only when the centre is small
+        // defaults - it binds only when the centre is small
         // or the font large.
         function sxIconRadius(depth) {
             const R = Number(ea && ea.photoRadius), base = Number.isFinite(R) && R > 0 ? R : eaBase.photoRadius;
@@ -1090,7 +1090,7 @@
         // (fontScale 120, centre 90: W = 2,640, R = 80,782.20,
         // sqrt(RW) = 14,603.60) the sizes are glance 2,640,
         // depth 1 = 14,603.60, depth 2 = 9,735.73, depth 3 =
-        // 6,490.49 — the category text is ~5.5 ring-widths,
+        // 6,490.49 - the category text is ~5.5 ring-widths,
         // LARGER than the at-a-glance rings (owner's ruling
         // 2026-11-03 01:18 CST). sxFontFactor stays the
         // dimensionless ratio sxFontSize(depth) / F so every
@@ -1110,10 +1110,10 @@
         // SLIDER / TAG + STROKE DEPTH LADDER (ruled 2026-11-02
         // 14:51 and 14:52, Jason): sliders and tags scale in the
         // same way as the fonts, by depth from the ring-width
-        // font master — the plain font scale times
+        // font master - the plain font scale times
         // sxFontFactor(depth): since the 2026-11-02 17:24
-        // font law the factor is sxFontSize(depth) / F —
-        // depth 1 sqrt(R/W), then x (2/3) per level — so
+        // font law the factor is sxFontSize(depth) / F -
+        // depth 1 sqrt(R/W), then x (2/3) per level - so
         // sliders, tags and strokes follow the FONT sizes
         // (the historical (8/9)^depth factors, depth 1 8/9,
         // depth 2 64/81, depth 3 512/729, are superseded).
@@ -1124,7 +1124,7 @@
         // the same factor, so a spoke's whole body thins with
         // its depth. sxControlScale keeps the historical
         // per-type seed normalization (seed / 48, clamped
-        // .62–1.25) the Ka / renderKinkLine controls and
+        // .62-1.25) the Ka / renderKinkLine controls and
         // sxSccBuild's tagM have always used, and multiplies it
         // by the depth factor. Depths are the icon/font depths:
         // 1 = category spokes, 2 = subcategory spokes and
@@ -1160,7 +1160,7 @@
             // Pitch = stroke (label-scale repair): the rings anchor to
             // the scaled disc (radius follows centerRingScale) but step
             // outward by exactly one ring thickness w, and w follows the
-            // FONT scale — so the three bands tile edge to edge at every
+            // FONT scale - so the three bands tile edge to edge at every
             // combination of the two independent scales. (Previously the
             // radii scaled by s while the CSS stroke stayed a fixed 44,
             // opening gaps of 44*(s-1).) BAND-SHRINK (2026-11-02): w is
@@ -1178,7 +1178,7 @@
             // spokeStartRadius 1035.31 (the outer ring's outer edge,
             // 1013.31 + 44/2). Since the band shrink (w = 22 at font
             // scale 1) the same formulas give [958.31, 936.31, 914.31]
-            // and spokeStartRadius 969.31 — pitch = w preserved.
+            // and spokeStartRadius 969.31 - pitch = w preserved.
             // eaBase.glanceRadii stays the frozen 1.0 reference. The stroke itself is published as the
             // --glance-ring-width CSS variable, consumed by the
             // .center-glance-ring-track/-value/-hit rules so the track,
@@ -1211,12 +1211,12 @@
         refreshCenterRing();
         // Gen-1 spoke base circle radius: the base disc IS the center ring
         // (each category spoke's base arc hugs the ring's outer edge), so
-        // the base radius derives directly from the scaled ring radius —
+        // the base radius derives directly from the scaled ring radius -
         // no separate control. The per-spoke base WIDTH is set in
         // Za.categoryTaperBaseWidth: TAPER_BASE_FRACTION (0.78) of the
         // chord 2R sin(π/18), the 18-slot equispaced pitch at the ring's
         // outer edge R (slot arc length 2πR/18), CAPPED at the tuned-era
-        // value (TAPER_BASE_CAP, the R = 300 chord — TAPER-BASE
+        // value (TAPER_BASE_CAP, the R = 300 chord - TAPER-BASE
         // RE-ANCHOR, 2026-11-02) so bases no longer grow with the ring;
         // the cap only ever shrinks the chord term, so bases always
         // keep a margin from their neighbours.
@@ -1285,7 +1285,7 @@
             // LR-G5: the rating state (Sn) used to be mirrored into a
             // hidden button's textContent (former id layoutRatedToggle);
             // it now lives in the visible Topics shown radio group
-            // itself — syncing checks the radio whose value is Sn.
+            // itself - syncing checks the radio whose value is Sn.
             document.querySelectorAll("input[name=\"layoutRating\"]").forEach(r => {
                 r.checked = r.value === Sn;
             });
@@ -1360,7 +1360,7 @@
             if (!p) return null;
             if (Number.isFinite(Number(p.intensity))) return Number(p.intensity);
             // No stored intensity on the placement: derive it the way
-            // the widgets do — the signed strongest holding. (Pairs
+            // the widgets do - the signed strongest holding. (Pairs
             // have no polygon family, so the seeder never persists
             // one for them; the record carries the derivation.)
             const vals = Object.keys(p).filter(k => "intensity" !== k && "line" !== k && "known" !== k && Number.isFinite(Number(p[k]))).map(k => Number(p[k]));
@@ -1760,7 +1760,7 @@
             const CHAR = "#151917", SEAM = "#78817e";
             if (!rec) return { single: CHAR, ring: SEAM };
             // Stance skins (Jason, 2026-11-22): the disc's flanks are
-            // the placements — advocacy left, receptivity right — each
+            // the placements - advocacy left, receptivity right - each
             // colored only by its own intensity. An unplaced flank
             // keeps the charcoal; a flank's color never spreads over
             // the whole disc and flanks are never blended.

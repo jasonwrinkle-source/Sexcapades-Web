@@ -22,7 +22,7 @@
             // The one clear path (Build 2026-10-19_0543): clear the
             // selected node and any pending rating target, and remove
             // the selection marking from the existing DOM.
-            // Geometry-neutral: no re-render — a full solve (Mr())
+            // Geometry-neutral: no re-render - a full solve (Mr())
             // would discard delivered geometry (scoped editor commits,
             // DeKnotter runs) that exists only in the rendered DOM. The
             // map-selection-dim observer clears sel-keep /
@@ -67,7 +67,7 @@
             // silently discarding delivered geometry). The render
             // builds each spoke through Ka, whose predicate marks the
             // spoke whose id is the selected node, its parent, or its
-            // branch (cat-<slug of branch>) — but only spokes Ka
+            // branch (cat-<slug of branch>) - but only spokes Ka
             // actually builds can carry the mark, and the render's
             // spoke-underlay pass then moves the branch spoke's
             // visuals out of the hub group. The end state is:
@@ -79,14 +79,14 @@
             // never in the hub node group; and a subcategory carries
             // no mark of its own (its line is drawn by
             // renderKinkLine, which stamps no highlight, and no mark
-            // is stamped for a topic's parent subcategory either) —
+            // is stamped for a topic's parent subcategory either) -
             // selecting a subcategory marks only its branch's line.
             // Which spokes carry a mark, and where, is decided by
             // selectionMarkKind (the single selection-marking
-            // authority, defined above Ka) — the same function Ka
+            // authority, defined above Ka) - the same function Ka
             // consults during render, so the end state reproduced
             // here cannot drift from the render's.
-            // Each stamp copies its d from the spoke's .concept-hit —
+            // Each stamp copies its d from the spoke's .concept-hit -
             // the same path data the render stamps. Element
             // add/remove is a childList mutation, so the
             // map-selection-dim observer mirrors the result into
@@ -116,12 +116,12 @@
             // 2026-10-18_1401): spoke taps (click and gesture paths),
             // spoke keyboard activation, and the Layout Editor's selects
             // (via __SEXCAPADES_LAYOUT_API.selectNode) all land here, so
-            // selecting a branch means the same thing everywhere — set
+            // selecting a branch means the same thing everywhere - set
             // the selected node, clear any pending rating target, apply
             // the .selected-spoke marking to the existing DOM, and
             // (unless the Layout Editor initiated it) notify the editor
             // so its Advanced selects follow. Selection-only: no
-            // re-render and no solve — Mr() would re-deliver every
+            // re-render and no solve - Mr() would re-deliver every
             // node position from canonical layout state, discarding
             // delivered geometry (scoped editor commits, DeKnotter
             // runs) that exists only in the rendered DOM.

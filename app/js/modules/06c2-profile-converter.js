@@ -167,7 +167,7 @@
         }
         // Minting-suggestions build (2026-11-05): pathed display for
         // converter mapping targets and suggestion parent paths, in the
-        // minimal-spanning convention — foreshortened category form,
+        // minimal-spanning convention - foreshortened category form,
         // then subcategory, then topic, joined by ›, middle omitted
         // when flat. Category forms ruled 2026-11-05 (7 letters where
         // the name fits, 8 where it needs it), in taxonomy-file order.

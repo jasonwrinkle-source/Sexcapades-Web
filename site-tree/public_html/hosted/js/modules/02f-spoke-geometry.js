@@ -194,7 +194,7 @@
                 const i = parseSegment(pathData);
                 if (!i) return pathData;
                 const {x0: a, y0: r, x1: o, y1: s, nx: l, ny: c} = i, d = r + c * baseWidth / 2, u = a - l * baseWidth / 2, p = r - c * baseWidth / 2, h = o - l * tipWidth / 2, g = s - c * tipWidth / 2, m = o + l * tipWidth / 2, f = s + c * tipWidth / 2;
-                // Build 2026-10-18_0343: optional base disc (baseCircle) — the
+                // Build 2026-10-18_0343: optional base disc (baseCircle) - the
                 // flat base edge is replaced by an arc along the disc,
                 // mirroring the tip arc: both base corners are projected onto
                 // the disc and the path starts/ends on the projections, so
@@ -538,7 +538,7 @@
             },
             // tipWidth has no SpokeGeometry counterpart (the module takes tip
             // widths as plain arguments); TIP_FRACTION is 0, so this is
-            // always 0 — kept as the Ga-side width rule for heat spokes.
+            // always 0 - kept as the Ga-side width rule for heat spokes.
             tipWidth: e => e * Ga.TIP_FRACTION,
             flareAt: (e, t, n) => SpokeGeometry.flareAt(e, t, n),
             heatWidths(e, depth) {
@@ -570,17 +570,17 @@
                 return SpokeGeometry.flankPaths(e, t, n, i, a, r, o, s, l, c, d, u, z);
             }
         });
-        // Selection marking — the single authority (map-render refactor,
+        // Selection marking - the single authority (map-render refactor,
         // finding 5). selectionMarkKind(spokeId, selectedId, record)
         // decides whether a spoke carries the .selected-spoke mark for a
         // selection, and where the mark lives:
-        //   "own"    — the selected node's own spoke (and a selected
+        //   "own"    - the selected node's own spoke (and a selected
         //              topic's parent spoke): the mark lives in that
         //              spoke's node group.
-        //   "branch" — the branch spoke (cat-<slug of record.branch>):
+        //   "branch" - the branch spoke (cat-<slug of record.branch>):
         //              the mark lives in the branch line-group underlay
         //              item (.spoke-underlay-item[data-spoke-for=...]).
-        //   null     — no mark. A subcategory carries no mark of its own:
+        //   null     - no mark. A subcategory carries no mark of its own:
         //              its line is drawn by renderKinkLine, which stamps
         //              no highlight, so selecting a subcategory marks
         //              only its branch's line.
@@ -722,8 +722,8 @@
             } else if (g && S && d && sxShowMapSliders && !sxZoomOk) {
                 // Zoom gate (Jason, 2026-11-22): below the reasonable
                 // zoom the full on-map widget is too small to hit
-                // accurately, so show a readout chip instead — the
-                // rating itself (strongest poles per placement) —
+                // accurately, so show a readout chip instead - the
+                // rating itself (strongest poles per placement) -
                 // and let a click open the full widget in the popup.
                 const t = da(e, S), n = l - o, i = c - s, dd = Math.hypot(n, i) || 1, p = n / dd, h = i / dd, m = sxControlScale(sxD, u), f = $.keys || [], y = $.labels || [];
                 const strongest = obj => {
@@ -1138,8 +1138,8 @@
                     });
                     const k = ($.single ? 20 : 24) * m, x = 320 * m, E = sxRailPx(m);
                     let C = $.single ? [ 0 ] : (f.length === 3 ? [ -w[f[0]] - 4 * m, 0, w[f[2]] + 4 * m ] : [ -w[f[0]] / 2, w[f[1]] / 2 ]);
-                // Slider blow-up repair (2026-11-01): E (the rating rail's stroke-width) was 44 * mapFontScale() — unbounded and font-derived, so at the baked fontScale 40 the rail rendered 1760 screen px thick (non-scaling-stroke) and one inadvertently picked slider filled the viewport at high zoom-out. It is now the fixed 44 of the 44px spec at every font scale and zoom, matching the .rating-rail CSS rule. Track length (x = 320 * m, map units, camera-scaled) is unchanged.
-                // Slider size repair #2 (2026-11-01): E now comes from sxRailPx(m) — 14% of the track's delivered screen length at the current camera, capped at the same fixed 44 — so the attribute, the .rating-rail CSS variable, and the hit strokes all agree at every zoom instead of the fixed 44px thickness dwarfing the shrunken track at Full zoom-out.
+                // Slider blow-up repair (2026-11-01): E (the rating rail's stroke-width) was 44 * mapFontScale() - unbounded and font-derived, so at the baked fontScale 40 the rail rendered 1760 screen px thick (non-scaling-stroke) and one inadvertently picked slider filled the viewport at high zoom-out. It is now the fixed 44 of the 44px spec at every font scale and zoom, matching the .rating-rail CSS rule. Track length (x = 320 * m, map units, camera-scaled) is unchanged.
+                // Slider size repair #2 (2026-11-01): E now comes from sxRailPx(m) - 14% of the track's delivered screen length at the current camera, capped at the same fixed 44 - so the attribute, the .rating-rail CSS variable, and the hit strokes all agree at every zoom instead of the fixed 44px thickness dwarfing the shrunken track at Full zoom-out.
                 f.forEach((n, i) => {
                     const o = w[n], s = o + 10 * m, d = C[i], u = l - p * d, f = c - h * d, v = u - a * x / 2, M = f - r * x / 2, I = u + a * x / 2, P = f + r * x / 2, L = `M ${v.toFixed(2)} ${M.toFixed(2)} L ${I.toFixed(2)} ${P.toFixed(2)}`, T = s / 2, F = `M ${(u - p * T).toFixed(2)} ${(f - h * T).toFixed(2)} L ${(u + p * T).toFixed(2)} ${(f + h * T).toFixed(2)}`, N = `grad-${A}-${n}`, _ = t[n + "Known"], R = _ ? t[n] : 0, O = (R + 100) / 200, B = Boolean(t[n + "Derived"]), j = Math.round(R), q = _ ? B ? `${j}, rolled up from ${t[n + "RatedChildren"]} of ${t.childCount} child topics` : String(j) : "Unrated", H = Zn(e, n), W = ei(e, n, S), U = Boolean(Nt && Nt.id === e && Nt.direction === n), G = U ? " active-rating" : "", K = `data-id="${e}" data-direction="${n}" data-x0="${v}" data-y0="${M}" data-x1="${I}" data-y1="${P}" data-nx="${a}" data-ny="${r}" data-offset="0"`, z = v + (I - v) * O, V = M + (P - M) * O, Y = $.single ? 1 : 0 === i ? -1 : 1, X = u + p * Y * (o / 2), Z = f + h * Y * (o / 2), Q = _ ? zi(R) : Ga.FALLBACK_COLOR;
                     D += `<g class="direction-control${$.single ? " single-label-control" : ""}${G}" data-id="${e}" data-direction="${n}"${W ? ` data-rating-tooltip="${Hi(W)}"` : ""} data-derived="${B}" data-base-cx="${u}" data-base-cy="${f}" data-base-angle="${g}" data-index="${i}" data-tag-width="${o}" data-tag-height="${k}" data-control-scale="${m}" style="--sx-rail-px:${E.toFixed(1)}px;--sx-rail-hit-px:${Math.max(14, Math.min(44, E * 1.6)).toFixed(1)}px">`, 
@@ -1153,7 +1153,7 @@
                     $.single && (D += `<rect class="direction-tag-occluder" x="${(u - o / 2 - 3 * m).toFixed(2)}" y="${(f - k / 2 - 3 * m).toFixed(2)}" width="${(o + 6 * m).toFixed(2)}" height="${(k + 6 * m).toFixed(2)}" rx="${7 * m}" transform="rotate(${g.toFixed(2)} ${u.toFixed(2)} ${f.toFixed(2)})"/>`), 
                     D += `<rect class="direction-tag-bg" data-id="${e}" data-direction="${n}" x="${(u - o / 2).toFixed(2)}" y="${(f - k / 2).toFixed(2)}" width="${o}" height="${k}" rx="${5 * m}" transform="rotate(${g.toFixed(2)} ${u.toFixed(2)} ${f.toFixed(2)})" fill="${Q}" opacity="${_ ? 1 : .62}"/>`;
                     // TAG FILL (ruled 2026-11-02, Jason): the give/receive
-                    // lettering fills its tag capsule — font-size equals
+                    // lettering fills its tag capsule - font-size equals
                     // the tag height k exactly (single 20 * m, pair
                     // 24 * m), no wasted space top or bottom. The capsule
                     // takes its width from the word itself at this font
@@ -1405,11 +1405,11 @@
             },
             topicSpokeEstimate(e, t, depth) {
                 // Memoised (T3, M6): the result is a pure function
-                // of ALL of its inputs — the label, the radius, and
+                // of ALL of its inputs - the label, the radius, and
                 // the canvas font-metrics state its measure calls
                 // read (Source Sans 3, weight 650; see Za.measure).
                 // The governing font signature is part of the cache
-                // key — the bundle's signature-recapture discipline:
+                // key - the bundle's signature-recapture discipline:
                 // when the font state changes, entries under the old
                 // signature simply never hit and the value is
                 // recaptured, so a hit always returns exactly what
@@ -1444,7 +1444,7 @@
             hubSpokeLength(e, t, n, i, a) {
                 let r = n;
                 // Label-to-icon gap (ruled 2026-11-13, Jason): about
-                // six spaces between the label end and the icon — the
+                // six spaces between the label end and the icon - the
                 // old +3 was ~0.001 spaces at the label font, so
                 // subcategory labels crowded their icons.
                 const gap = Math.max(20, 6 * Za.measure(" ", t, "topic"));

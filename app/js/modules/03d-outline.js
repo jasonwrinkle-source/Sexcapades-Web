@@ -445,9 +445,9 @@
                 }(e.id, n, t) : "";
                 // Hovertip for EVERY pole, not just give/receive pairs
                 // (2026-11-19): the placard's pole line is the first
-                // source (skin topics carry a "Label — text" line per
+                // source (skin topics carry a "Label - text" line per
                 // pole); fall back to the pole's full label so the tip
-                // always names the whole pole. No native title here —
+                // always names the whole pole. No native title here -
                 // the shared popup is this row's one tooltip, and a
                 // title would arrive late and overlap it.
                 const tip = l || (typeof window.__SX_POLE_LINE_FOR === "function" ? window.__SX_POLE_LINE_FOR(e.id, n) : null) || (o ? "" : s.textContent);
@@ -480,14 +480,14 @@
             g.append(m, f), n.append(g), Ss(n), n;
         }
         // On Deck (2026-10-21): completion-queue membership. A topic is
-        // queued when its rating state is incomplete — Tier 1: unrated
+        // queued when its rating state is incomplete - Tier 1: unrated
         // topics under a persisted FetLife broad-hit branch/subcategory;
         // Tier 2: marks or flags with no rating in either direction;
         // Direction: a dual-direction topic with exactly one direction
         // rated; Tier 3: coarse converter seed ratings not yet confirmed
         // by hand. Unreviewed (2026-10-27, LAST in precedence): any
         // topic holding a test-sourced direction that no earlier class
-        // claimed — both-direction measured scores and mixed
+        // claimed - both-direction measured scores and mixed
         // hand-rated-plus-test topics alike; an Unreviewed row leaves
         // once every direction on its topic is hand-rated. A topic carrying
         // a hard-limit mark is NEVER queued (owner ruling 2026-10-21:
@@ -609,7 +609,7 @@
         // cycle; only then do pending moves (to another queue section)
         // and removals apply. __sxOnDeckCollapsed records which sections
         // have been collapsed since the last render, so a section's
-        // reopen — and only a reopen that follows a real collapse —
+        // reopen - and only a reopen that follows a real collapse -
         // releases its pins. Header counts are untouched by pinning:
         // __sxOnDeckTotal still counts true membership only, so the
         // header drops the moment a topic completes while its row
@@ -679,7 +679,7 @@
         // On Deck unresolved queue (E4b): entries an import parked on
         // profile.droppedKeys because their keys matched no current
         // topic. They are not On Deck members and never count toward
-        // the header's "N topics on deck" total — this section carries
+        // the header's "N topics on deck" total - this section carries
         // its own count and offers hand placement onto a real catalog
         // topic, writing the parked value into the entry's own section.
         const __sxParkedSectionNames = {
@@ -818,9 +818,9 @@
             if (!t || t !== Et && !vt[t]) return;
             os.clear();
             if (window.__sxOnDeck) return __sxRenderOnDeck(t), void ws();
-            // Build 2026-10-18_1549 — FetLife review mode (armed by the
-            // post-import summary's “Rate the categories your kinks map
-            // to” button): render only the mapped branches, collapsed.
+            // Build 2026-10-18_1549 - FetLife review mode (armed by the
+            // post-import summary's "Rate the categories your kinks map
+            // to" button): render only the mapped branches, collapsed.
             const sxReview = window.__sxFetLifeReview instanceof Set && window.__sxFetLifeReview.size ? window.__sxFetLifeReview : null;
             const i = Boolean(e.preserveDisclosure), a = i ? new Set(Array.from(Ro.querySelectorAll(".outline-branch[open]")).map(e => e.dataset.outlineBranch)) : null, r = i ? new Set(Array.from(Ro.querySelectorAll(".outline-branch.is-expanded")).map(e => e.dataset.outlineBranch)) : null, o = i ? new Set(Array.from(Ro.querySelectorAll('.outline-subcategory[data-subcategory-expanded="true"]')).map(e => e.dataset.outlineSubcategory)) : null, s = i ? new Set(Array.from(Ro.querySelectorAll('.outline-topic-label[data-outline-expandable="true"][aria-expanded="true"]')).map(e => __sxClosestAction(e, "outlineRow")?.dataset.outlineId).filter(Boolean)) : null, l = i ? new Map(Array.from(Ro.querySelectorAll(".outline-branch")).map(e => [ e.dataset.outlineBranch, Number(e.dataset.outlineVisible) || 3 ])) : new Map, c = i ? new Map(Array.from(Ro.querySelectorAll(".outline-subcategory")).map(e => [ e.dataset.outlineSubcategory, Number(e.dataset.outlineSubcategoryVisible) ]).filter(([, e]) => Number.isFinite(e) && e > 0)) : new Map;
             Oo.textContent = (t === Et ? "New profile" : wt[t] || "Profile") + (yt[t] ? " *" : ""), Ro.replaceChildren(),
@@ -1058,7 +1058,7 @@
                     // When only some subcategories of this category were
                     // hit, hide the other subcategory groups and the
                     // category's own direct topic rows; hit subcategories
-                    // get the same top-3 “+3 more” stepper the auto-expand
+                    // get the same top-3 "+3 more" stepper the auto-expand
                     // path uses, revealed when the user expands them.
                     if (!sxCatHit) w.forEach((grp, subId) => {
                         sxReview.has(subId) || (grp.group.style.display = "none");
@@ -1186,12 +1186,12 @@
         }
         // Non-route list-close chunk + indicate (2026-10-28): the
         // Is() fix (Option 1) made route-bound closes skip Is()'s
-        // paint entirely, but the NON-route closes — Submit, Escape,
-        // backdrop, cancel — still paint once via Is(), synchronously
+        // paint entirely, but the NON-route closes - Submit, Escape,
+        // backdrop, cancel - still paint once via Is(), synchronously
         // and unindicated. This wrapper gives exactly those closes
         // the route render's treatment, modeled on sxRouteRender:
         // arm the "Building your map…" overlay session
-        // (__sxLoadSessionStart — its map-complete gate holds the
+        // (__sxLoadSessionStart - its map-complete gate holds the
         // session through any settle/blit tail after the paint) and
         // the #9 paintbrush pill (__sxPillSessionStart/Finish), defer
         // the close behind the house double-rAF + setTimeout(0)
@@ -1199,17 +1199,17 @@
         // set the one-shot __sxCloseChunkPaint flag immediately
         // before the close runs so Is()'s Mr consumes it and paints
         // chunked. The pill finishes on the overlay session's
-        // onDone — the same completion signal sxRouteRender uses —
+        // onDone - the same completion signal sxRouteRender uses -
         // so pill, overlay and tail share exactly one window and
         // clear together. No button is marked: Submit and cancel are
         // dialog buttons that vanish at close, and Escape / backdrop
         // press no button at all, so there is no persistent button
         // for these closes. When either surface cannot arm (a
         // session is already active), or the map sits in its
-        // safe-fallback state (jn — Mr would refuse the paint and no
+        // safe-fallback state (jn - Mr would refuse the paint and no
         // checkpoint would ever drive an armed session), the close
         // runs exactly as before: synchronous, unflagged, inside
-        // this call. Route-bound closes never pass through here —
+        // this call. Route-bound closes never pass through here -
         // the hashchange handler's skipPaint path is untouched.
         function sxChunkClose(run) {
             let pillToken = null, armed = !1;
@@ -2147,6 +2147,6 @@
             let t = [], i = [], a = -1, r = !1;
             const o = new Set;
             // P1 refactor (Build 2026-10-18_2227): zl internals split by
-            // responsibility — zlFlatten prepares the visible item list
+            // responsibility - zlFlatten prepares the visible item list
             // (tree flattening), zlRenderRows renders the option rows,
             // zlMove is the keyboard highlight step used by the key handler.

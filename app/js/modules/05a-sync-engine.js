@@ -286,7 +286,7 @@
             if (typeof xS !== "function" || !xS()) return;
             const picked = (typeof Yi === "function" ? Yi() : []).filter(id => vt[id]);
             if (an && picked.length >= 2) return;
-            if (picked.length >= 2) return; // set already populated; flag may be deliberately dismissed — don't re-derive it
+            if (picked.length >= 2) return; // set already populated; flag may be deliberately dismissed - don't re-derive it
             const all = Object.keys(vt || {}).filter(id => id && id !== Et && vt[id]);
             all.length >= 2 && sxSel(all, "set");
         }

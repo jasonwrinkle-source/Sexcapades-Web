@@ -1,4 +1,4 @@
-        // E3 (slug-gap build): post-import result dialog — the loud surface
+        // E3 (slug-gap build): post-import result dialog - the loud surface
         // for the loud-drop rule (assessment §9 L1+L2). States how many
         // ratings were imported and, only when profile.droppedKeys is
         // non-empty, names every dropped entry. Dismissible; the imported
@@ -6,7 +6,7 @@
         // E4a: the topicNames carried by the file currently being
         // imported (null when the file does not describe itself). When
         // a best-guess label is needed for a dropped entry from that
-        // file, the file's own label wins over the slug-tail guess —
+        // file, the file's own label wins over the slug-tail guess -
         // the sender's meanings, not a reconstruction from the key.
         let importTopicNames = null;
         function importDroppedGuess(key) {
@@ -47,7 +47,7 @@
                 }), box.hidden = !1) : (heading.textContent = "", box.hidden = !0);
             }
             // E4b: entries whose canonical id sits in the burial
-            // registry were retired by ruling — an additional line of
+            // registry were retired by ruling - an additional line of
             // their own, never part of the dropped list above and never
             // parked on the profile.
             const rBox = e.byId("importResultRetired"), rHeading = e.byId("importResultRetiredHeading"), rList = e.byId("importResultRetiredList");
@@ -73,7 +73,7 @@
             rBox && (rBox.hidden = !0);
             // Importer rework Part A (R1 STRICT): strict-ingestion drops
             // from ANY converter feed are named here, in the same dropped
-            // list the profile-file import dialog uses — not just FetLife
+            // list the profile-file import dialog uses - not just FetLife
             // unmatched fetishes.
             const dBox = e.byId("importResultDropped"), dHeading = e.byId("importResultDroppedHeading"), dList = e.byId("importResultDroppedList");
             if (dBox && dHeading && dList) {
@@ -125,7 +125,7 @@
             // E3 loud-drop rule (assessment §9 L1+L2): a ratings key that is
             // not a canonical topic id or a registered imported child is
             // still pruned from ratings (counting/display are canonical
-            // only), but never silently — every pruned key is recorded in
+            // only), but never silently - every pruned key is recorded in
             // profile.droppedKeys with its value and named in the
             // post-import result dialog. Broad-hit pseudo-ratings (cat- /
             // subcategory-…) are valid stored keys: never pruned, never
@@ -133,7 +133,7 @@
             // so the history of what was dropped survives a round-trip.
             // E4a: a parked record carried in by the file (its own
             // droppedKeys) is restored onto the imported profile
-            // verbatim — entries keep key, section, value and kind —
+            // verbatim - entries keep key, section, value and kind -
             // and is NOT a new drop: restored entries are not reported
             // in the result dialog below, they simply remain parked on
             // the profile. Only entries this import itself fails to
@@ -142,7 +142,7 @@
             Array.isArray(e.droppedKeys) && e.droppedKeys.forEach(rec => {
                 if (!rec || "string" != typeof rec.key || !rec.key || "string" != typeof rec.section) return;
                 // E4b: a carried-in parked record whose key is a buried
-                // canonical id is retired by ruling, not restored —
+                // canonical id is retired by ruling, not restored -
                 // buried ids are never parked, even from an old file.
                 if (Object.prototype.hasOwnProperty.call(BURIED_TOPIC_IDS, rec.key)) return void retired.push(importRetiredRecord(rec.key, rec.section, rec.value));
                 const restored = {
@@ -161,7 +161,7 @@
             const noteDropped = (key, section, value, kindOverride) => {
                 if ("string" != typeof key || !key || isCatId(key) || isSubId(key)) return;
                 // E4b burial: a key whose canonical id is in the burial
-                // registry was retired by ruling — it is collected for
+                // registry was retired by ruling - it is collected for
                 // the import result's retired line instead of being
                 // stored or parked. Only the literal canonical id can
                 // match; slug spellings fall through and park as usual.
@@ -173,7 +173,7 @@
                     kind: kindOverride || (/^t\d{4}$/.test(key) ? "retired" : "unrecognized")
                 };
                 // E4b: the parked entry carries its best-guess label
-                // (the dialog's guess logic — the file's own topicNames
+                // (the dialog's guess logic - the file's own topicNames
                 // win while this import is being read) so the On Deck
                 // unresolved section can name it later.
                 const guessed = importDroppedGuess(key);
@@ -192,11 +192,11 @@
         }
         // F3(b) (profiles-data refactor, Edit 3): ratings ingestion
         // for the import path, extracted from rk with no behavior
-        // change — single vs. dual shape, clamping to [-100, 100],
+        // change - single vs. dual shape, clamping to [-100, 100],
         // and per-flank provenance from ratingSources, as before.
         // Fix 1, item 3: ONE rating-application path for the import
         // path and the converter, holding the rules both used to
-        // implement separately — single vs. dual shape, clamping to
+        // implement separately - single vs. dual shape, clamping to
         // [-100, 100], unknown-topic skip, cat- rejection, and
         // unreadable-rating rejection. The callers differ only in
         // the options: the import path replaces the topic entry
@@ -204,7 +204,7 @@
         // importProfileRatings below); the converter merges per
         // flank into the existing entry with test: provenance, and
         // keeps the documented manual-flip guard (a hand rating
-        // changes only when the test moves it to a different camp —
+        // changes only when the test moves it to a different camp -
         // the converter dialog's own copy). Guarded flanks are
         // reported in `flipped` so the converter can clear their
         // marks, as its old inline applier did; `changed` carries
@@ -359,7 +359,7 @@
                     // copy above leaves incoming empty (or partial) and the
                     // generic positional fallback below would scramble them.
                     // Map the clear correspondences 1:1 (max when two old poles
-                    // share one target pole); ambiguous poles are NOT invented —
+                    // share one target pole); ambiguous poles are NOT invented -
                     // a rating with nothing mappable and no give/receive falls
                     // through to the whole-rating fallback (strongest pole
                     // value, all flanks), the same as a scalar rating.
@@ -370,7 +370,7 @@
                             put("sovereign", pv("master"));
                             put("caregiver", pv("mistress"));
                             // "slave" already exact-matches the target key via the copy above.
-                            // "pet" is ambiguous (brat vs primal) — not pole-targeted.
+                            // "pet" is ambiguous (brat vs primal) - not pole-targeted.
                         } else if (origId === "t0419" || origId === "topic-bdsm-archetypes") {
                             put("sovereign", pv("master"));
                             put("caregiver", pv("nurturer"));
@@ -385,7 +385,7 @@
                             put("impact", pv("sting"));
                             put("impact", pv("thud"));
                             // "thermal" already exact-matches the target key.
-                            // "clamp", "deprivation", "overload" have no target pole — not mapped.
+                            // "clamp", "deprivation", "overload" have no target pole - not mapped.
                         }
                         if (!Object.keys(incoming).length) {
                             const hasDual = Number.isFinite(Number(rating.give)) || Number.isFinite(Number(rating.receive));
@@ -575,8 +575,8 @@
                     // (03e: middle weight = 1 - |V|/100, so |V| =
                     // (100 - middleAffinity) / 2); the direction is the
                     // more-liked end pole, a tie sits at 0. The middle pole
-                    // is poles[1] — skins list their line poles in axis
-                    // order [left, middle, right] — except the three topics
+                    // is poles[1] - skins list their line poles in axis
+                    // order [left, middle, right] - except the three topics
                     // whose mix pole is listed third (Health insurance:
                     // the ACA; Detector Design: Hybrid; Collaboration:
                     // Coopetition), where it is poles[2]. A missing or
@@ -594,7 +594,7 @@
                 }
                 // The (n+1) intensity is not a flank, so the exact-key
                 // copy above never moves it; carry it explicitly when
-                // the payload rates it (line topics included — their
+                // the payload rates it (line topics included - their
                 // stored intensity counts like any other topic's).
                 if (!("intensity" in incoming) && flanks.indexOf("give") === -1 && rating && Number.isFinite(Number(rating.intensity))) incoming.intensity = clamp(Math.round(Number(rating.intensity)));
                 if (!Object.keys(incoming).length) throw new Error(`This profile contains an unreadable rating for "${topicName}"`);
@@ -622,7 +622,7 @@
         }
         // F3(b) (profiles-data refactor, Edit 3): ratings ingestion
         // for the import path, extracted from rk with no behavior
-        // change — single vs. dual shape, clamping to [-100, 100],
+        // change - single vs. dual shape, clamping to [-100, 100],
         // and per-flank provenance from ratingSources, as before.
         // Fix 1, item 3: now a thin wrapper over
         // applyProfileRatings, the same path the converter uses.
@@ -633,8 +633,8 @@
             } });
         }
         // Fix 1, item 2: the section ingestions rk used to write
-        // twice — once for the load-into (pair) branch and once for
-        // the create branch — now live here, once. The only
+        // twice - once for the load-into (pair) branch and once for
+        // the create branch - now live here, once. The only
         // difference between the branches is notes: load-into merges
         // with the pair's existing notes, create starts from the
         // fresh (empty) lists, so mergeNotes selects it.
@@ -664,7 +664,7 @@
                 // R1 STRICT, caps ruled 2026-11-05: notes are trimmed /
                 // deduped / capped at 16 per topic; the excess over the
                 // cap is dropped WITH RECORD as a value-drop (kind
-                // "value") — the topic is current, only the extra
+                // "value") - the topic is current, only the extra
                 // values are refused.
                 merged.length > 16 && noteDropped(id, "notes", merged.slice(16), "value"), capped.length && (tt[c][id] = capped);
             });
@@ -706,7 +706,7 @@
             const { parked, dropped, retired, noteDropped } = importDropBookkeeping(e, r);
             // Pair-tab load (owner ruling, 2026-10-27): when the file
             // was chosen from a pair tab's Load menu, the load goes
-            // INTO the active pair record — it never creates a
+            // INTO the active pair record - it never creates a
             // separate profile, never renames the pair, and never
             // touches its group record (the create path below deletes
             // ft for its fresh id; a merge must not). Ratings,
@@ -716,9 +716,9 @@
             // are direct ratings written into the pair's computed
             // map: zt marks the pair dirty and sxMergeSaveNow then
             // saves the merged data to profile memory immediately
-            // (split-center stage, 2026-10-27) — they do not wait on
-            // the draft-autosave timer — and they survive
-            // the session — but a later recompute (Rd, e.g. a
+            // (split-center stage, 2026-10-27) - they do not wait on
+            // the draft-autosave timer - and they survive
+            // the session - but a later recompute (Rd, e.g. a
             // leniency change) rebuilds the pair from its source
             // profiles and replaces them, because the record cannot
             // distinguish merged values from computed ones.

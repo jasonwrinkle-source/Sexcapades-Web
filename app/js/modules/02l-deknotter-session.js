@@ -24,19 +24,19 @@
         // capped at the last 200 entries; (4) a hidden
         // off-screen <div id="sx-anneal-report-text"> in
         // document.body holding the identical JSON snapshot
-        // string as surface (1) — DOM observation channels
+        // string as surface (1) - DOM observation channels
         // that exclude script elements can still read a
         // div's text. deknotter.run() calls
         // it at run start (pending true, previous report kept)
         // and when the run promise settles (pending false,
-        // finishedAt set, report = the resolved report, whole —
+        // finishedAt set, report = the resolved report, whole -
         // no fields picked or added). The snapshot is a
         // JSON-safe deep copy: the replacer drops functions and
         // undefined values and cuts circular references (shared
         // non-circular references are copied in full); if a copy
         // still fails, an error marker is written instead. The
-        // whole body is guarded — a hook failure can never
-        // affect a run — and the promise returned to the caller
+        // whole body is guarded - a hook failure can never
+        // affect a run - and the promise returned to the caller
         // is the cascade's own, untouched. Nothing here changes
         // solver behaviour, paint, or the report itself.
         let sxAnnealRunSeq = 0, sxAnnealLastReport = null;
@@ -82,7 +82,7 @@
                 // because observation channels that exclude
                 // script elements can still read a div's text.
                 // Hidden with the page's skip-link pattern
-                // (position:absolute; left:-9999px) — never
+                // (position:absolute; left:-9999px) - never
                 // display:none, visibility:hidden, or
                 // aria-hidden, which could drop it from the
                 // observation channel it exists to serve.
@@ -106,28 +106,28 @@
         const DK_PHASE_BUDGET_MS = 180000;
         // SOLVER-METRICS REFACTOR (F9): ONE named constants block for the
         // untangler / optimizer magic numbers that used to sit inline at
-        // their use sites. TRANSCRIPTION ONLY — every value below is the
+        // their use sites. TRANSCRIPTION ONLY - every value below is the
         // exact literal it replaces; nothing was redesigned. (The
         // paint-stage tidier's anneal constants were already gathered as
         // the SX_STEP_R / SX_T0 / SX_SWEEPS / SX_SEED block beside
-        // sxSolverMode; they stay there — see the F3 facade note.)
+        // sxSolverMode; they stay there - see the F3 facade note.)
         // PER-PHASE GATE (Phase 4, 2026-11-04): the only stop.
         // Tolerance is flat GATE_TOL (2). The larger-of-1-and-
         // 10%-of-previous form is removed. The onset margin and
         // the fine-tune margin are deleted; no selector remains.
         const SX_SCORE = {
             REGRESSION_TOL: .01,
-            // Throw (RE-RULED 2026-11-01, Jason — supersedes
+            // Throw (RE-RULED 2026-11-01, Jason - supersedes
             // the 2026-10-31 x25 / x15 factors and the kink
             // throw factor): the throw is now measured in
-            // center-avatar circle radii — the branch is thrown
+            // center-avatar circle radii - the branch is thrown
             // out to 50 times that radius and the subcategories
             // to 20 times that radius (Jason first said 10 for
             // the subcategories and corrected it to 20 the same
             // day; 20 is the ruled value). The factors count
-            // center-avatar radii in world units — the branch's
+            // center-avatar radii in world units - the branch's
             // distance from the center, and the subcategory's
-            // segment out from its branch node — and stepThrow
+            // segment out from its branch node - and stepThrow
             // converts them into override lengths through the
             // pre-run delivered radii; they are NOT multiples
             // of the baked base (the direct-factor reading threw
@@ -137,8 +137,8 @@
             // sets, settled by Jason 2026-11-01 04:56 CST). The individual
             // kink leaves are NOT thrown by a radii factor at all:
             // they autofit to THREE TIMES their kink (fit) length
-            // — the full fit length: name + neighbour pitch +
-            // icon + clearance (dkComputeFitTarget) — see
+            // - the full fit length: name + neighbour pitch +
+            // icon + clearance (dkComputeFitTarget) - see
             // stepThrow's throwFitCap, which GOVERNS the kink
             // throw length instead of merely capping it, and
             // LEAF_FIT_FACTOR below, which carries the multiple.
@@ -151,7 +151,7 @@
             // briefly stood between the 2026-11-01 value 3 and
             // this restoration): three times the kink
             // length itself is the kink throw, by fit or by
-            // base. These factors are ceilings on the THROW only —
+            // base. These factors are ceilings on the THROW only -
             // they are not growth-ladder step sizes; the growth
             // ladder is a separate phase (GROWTH_* below:
             // 1.25x steps to a 3x cumulative cap) and is never
@@ -160,29 +160,29 @@
             THROW_SUBCAT: 20,
             THROW_KINK: 3, // SUPERSEDED 2026-11-03 as a read value: the throw's baked-base fallback multiple is now sxLeafOvergrowthFactor() (the "% kink leaf overgrowth" slider); 3 remains the fallback percent's equivalent (300%).
             // LEAF FIT MULTIPLE (RE-RULED 2026-11-02 16:59 CST,
-            // Jason — leaves only, reversing the 13:11 1x leaf
+            // Jason - leaves only, reversing the 13:11 1x leaf
             // ruling): the kink-leaf throw length AND the
             // kink-leaf minimum are both THREE TIMES the full
-            // fit target at the current font size — the whole
+            // fit target at the current font size - the whole
             // fit width tripled (dkComputeFitTarget's target:
             // kink name + neighbour pitch + icon + clearance +
             // padding, as that function composes them), not 3x
             // the name alone. Kinks have no shrink ladder of
-            // their own — they keep their thrown, fit-capped
-            // lengths — so the throwFitCap multiple IS the leaf
+            // their own - they keep their thrown, fit-capped
+            // lengths - so the throwFitCap multiple IS the leaf
             // minimum as well as the leaf throw. This factor is
             // read ONLY at the leaf throwFitCap site; category
             // and subcategory throws (50x / 20x above) and their
             // 1x floors (SHRINK_FLOOR_FACTOR below) are
             // unchanged, and no other floor reader reads this.
             LEAF_FIT_FACTOR: 3, // SUPERSEDED 2026-11-03 as a read value: the throwFitCap multiple is now sxLeafOvergrowthFactor() (the "% kink leaf overgrowth" slider, default 300%); kept as the documented historical multiple.
-            // SHRINK FLOORS (ruled 2026-11-01, Jason — supersedes
+            // SHRINK FLOORS (ruled 2026-11-01, Jason - supersedes
             // the 1x own-length floors: the 2026-11-01 01:44
             // subcategory name-length floor and the 2026-10-29
             // kink-name-length branch floor): when Anneal shrinks,
             // every level's floor is ONE TIMES that level's own
             // length (RE-RULED 2026-11-02, Jason, superseding
-            // the 2026-11-01 3x floors) — subcategories
+            // the 2026-11-01 3x floors) - subcategories
             // shrink to 1x the subcategory length (1x name
             // length on the fit lever, the fit-derived floor on
             // the override lever), and categories/branches
@@ -193,8 +193,8 @@
             // LEAF_FIT_FACTOR above, re-ruled 2026-11-02 16:59
             // CST; this shared factor's readers are the
             // subcategory and category floors only.) All other shrink rules
-            // stand (square-root steps — ruled 2026-11-02, Jason,
-            // superseding the 10% steps named here before — one at
+            // stand (square-root steps - ruled 2026-11-02, Jason,
+            // superseding the 10% steps named here before - one at
             // a time, per-phase gate stop (flat 2; the
             // more-than-three onset margin is deleted), per-subcategory back-out, skip-throw-under-5
             // shrinking from current lengths).
@@ -212,16 +212,16 @@
             FINE_TUNE_BELOW: 5,
             // THROW REPEAT (ruled 2026-11-06, Jason): short kink
             // names get trapped in local minima on the baked
-            // defaults because the throw — a multiple of the kink
-            // length, derived from the centre ring radius — does
+            // defaults because the throw - a multiple of the kink
+            // length, derived from the centre ring radius - does
             // not throw them out far enough to clear. After the
             // throw, if the branch's crossing number has NOT
             // dropped by MORE than THROW_REPEAT_DROP (75%) from
             // the run baseline (report.baseline.first, the same
             // own-cloud composition the fine-tune decision
-            // reads), the throw is repeated — up to
+            // reads), the throw is repeated - up to
             // THROW_REPEAT_MAX_EXTRA (3) extra times, four
-            // throws total — stopping early as soon as one throw
+            // throws total - stopping early as soon as one throw
             // achieves the more-than-75% drop. The throw itself
             // is unchanged: same stepThrow, same 50x / 20x radii
             // targets, same 3x kink-leaf fit length; only the
@@ -234,7 +234,7 @@
             // Growth (ruled 2026-10-28; the 2026-10-31 single-step
             // 1.20x / 50x-cap reading was the throw correction
             // misapplied to this ladder and is reverted the same
-            // day): scoped same-branch growth in the cascade — step
+            // day): scoped same-branch growth in the cascade - step
             // factor per kept growth step, max kept steps per grown
             // level (branch, subcategory), cumulative cap as a
             // TARGET (the step that would exceed it clips to
@@ -250,7 +250,7 @@
             GROWTH_DOMINANCE: .5,
             // BAKE GATE (ruled 2026-10-29, M4): the bake decision's
             // limit on the TOTAL crossing number (this cloud plus
-            // every neighbor cloud, combined) — passes only when
+            // every neighbor cloud, combined) - passes only when
             // its increase is strictly less than this. Replaces the
             // retired combined-area check (combined area delta <=
             // 10). Reported for the bake decision; it never gates
@@ -259,7 +259,7 @@
             BAKE_GATE_LIMIT: 5
         };
         // Q1: polled once per optimiser iteration while a DeKnotter
-        // context is active (inert otherwise — dkCtx is null for
+        // context is active (inert otherwise - dkCtx is null for
         // every ordinary solve). Three duties, in order: (1) honour
         // the run's cancel flag, throwing a marked cancel error;
         // (2) enforce the per-phase wall-clock budget, throwing a
@@ -268,7 +268,7 @@
         // solve time, so a slow phase stays distinguishable from a
         // stuck one. The thrown errors are the cascade's ordinary
         // failure path: snapshot restored, gate "reverted", reason
-        // reported — no new unwind machinery.
+        // reported - no new unwind machinery.
         function dkSolvePoll() {
             if (!dkCtx) return;
             if (dkCtx.isRestoring) return;
@@ -307,7 +307,7 @@
         // center and the search never runs for it; its shapes still
         // accumulate as obstacles). The coupling-channel passes
         // (frClampCloudRadii, rr.optimizeSpokeLengths,
-        // rr.applyExpansionRelief) do NOT consult it yet — T3
+        // rr.applyExpansionRelief) do NOT consult it yet - T3
         // disciplines those; T2's guarantee comes from
         // capture/restore/merge alone. With no context active,
         // nothing here alters ordinary behavior. The context is set
@@ -327,7 +327,7 @@
         // relief candidate whose source or target branch is frozen
         // (counted in dropped.relief, appended to boundaryLog as
         // {channel:"relief", source, target, pass}); under scope
-        // policy "fallback" the first such event sets ctx.r6Abort —
+        // policy "fallback" the first such event sets ctx.r6Abort -
         // the relief channel stops at its next seam and applyScoped
         // discards the scoped result for an ordinary full apply,
         // declared as fallback "R6: boundary pressure" (Mr() swallows
@@ -339,8 +339,8 @@
         let scCtx = null;
         // T3 relief boundary event: count the suppression, append
         // the boundaryLog entry (carrying the caller's op class when
-        // the scope provided one), and — under the "fallback"
-        // policy — raise the R6 abort flag on the first event.
+        // the scope provided one), and - under the "fallback"
+        // policy - raise the R6 abort flag on the first event.
         // Optimiser and clamp suppressions never come through here:
         // only relief boundary events can trigger R6.
         function scReliefBoundary(ctx, source, target, pass) {
@@ -396,13 +396,13 @@
         // F6: blitSigActive is the stable completion signal the
         // shell's rebuild gate reads through
         // deknotter.blitSessionActive(). It mirrors the gate's old
-        // last-blit-session-entry log verdict exactly (a boolean —
+        // last-blit-session-entry log verdict exactly (a boolean -
         // NOT a depth counter: a superseded session's held "end" is
         // dropped, never pushed, so ends do not pair with starts),
         // maintained at every site that pushes, removes, or clears
         // such an entry: blitStartSession (start), blitEndSession
         // (end), the settle guard's flushEnd (the held end, when it
-        // LANDS — never while merely held) and restore stand-down
+        // LANDS - never while merely held) and restore stand-down
         // (start removed by splice), and deknotter.begin's log
         // clear.
         let blitSess = null, blitTokenSeq = 0, blitSigActive = !1;
@@ -413,7 +413,7 @@
             return !0;
         }
         // On-screen scale: screen px per world unit, from the live
-        // SVG's bounding rect and the camera state (th.scale) — the
+        // SVG's bounding rect and the camera state (th.scale) - the
         // world rect is 3200 units on a side and the viewBox fit is
         // min(rect) / 3200, scaled by the camera.
         function blitScaleNow() {
@@ -426,7 +426,7 @@
         }
         function blitArmTimer(sess) {
             // Settle replacement v1: in repulsion mode the deferred
-            // 20-second settle timer is deleted — no timer is armed,
+            // 20-second settle timer is deleted - no timer is armed,
             // and the blit session ends on non-scoped paints instead
             // (the paint-top gate). Every other mode keeps the timer
             // exactly as shipped, so the rollback value restores
@@ -444,8 +444,8 @@
                 // in Repulsion no timer was armed at all, so the
                 // vault/raster, the overlay gate, the settle watch
                 // and the Autofit job all waited on a paint only a
-                // profile open/close — or some other non-scoped
-                // repaint — ever supplied). Sessions of every other
+                // profile open/close - or some other non-scoped
+                // repaint - ever supplied). Sessions of every other
                 // scoped apply are untouched: no exit is scheduled,
                 // exactly as shipped.
                 if (sess.autofitExit && !sess.exitTimer) sess.exitTimer = setTimeout(() => {
@@ -464,7 +464,7 @@
                 // Settle guard (see sgRunSettleGuard below): the
                 // expiry now runs the settle under the guard's
                 // improve-or-hold gate instead of ending the session
-                // blind. Re-entrancy is fail-open — if a guard run
+                // blind. Re-entrancy is fail-open - if a guard run
                 // is already in flight, this settle takes the exact
                 // legacy path rather than queue behind it, so a
                 // settle is never lost or delayed indefinitely.
@@ -493,10 +493,10 @@
         // The Autofit session-ending exit itself (see blitArmTimer's
         // Repulsion branch): run the session's settle NOW, through
         // the same guarded settle the rest-timer runs in every other
-        // mode — pre-capture, teardown, the non-scoped full repaint
+        // mode - pre-capture, teardown, the non-scoped full repaint
         // (Mr forceRepaint: the same repaint a profile load lands,
         // whose paint-top gate is what used to end these sessions
-        // by accident), post-measure, and restore — so the deferred
+        // by accident), post-measure, and restore - so the deferred
         // "end" entry lands and the shell's gate, settle watch and
         // Autofit re-check all observe the landing together. Any
         // guard failure funnels into sgRunSettleGuard's own
@@ -549,7 +549,7 @@
         // Settle guard (owner's ruling, Soul Review #18 pick A,
         // 2026-10-22): the DeKnotter's improve-or-hold gate lifted
         // onto the deferred settle. The blit rest-timer used to end
-        // its session and force a full repaint blind — the repaint
+        // its session and force a full repaint blind - the repaint
         // re-solves every cloud and could hand back overlap the
         // DeKnotter had just won (the surrender case: one cascade's
         // cloud went 113,597.96 -> 366,946.33 when its settle
@@ -569,9 +569,9 @@
         // throughout a blit session while the rendered icons sit
         // displaced, so a dataset capture restores the very
         // surrender the guard exists to prevent. The capture reads
-        // each icon through its OWN SVG geometry chain — local
+        // each icon through its OWN SVG geometry chain - local
         // center composed with the element's own getCTM(), which
-        // composes every ancestor transform including the vault's —
+        // composes every ancestor transform including the vault's -
         // never a screen rect divided by the layer's CTM: a
         // vault-resident element's rect carries positioning the
         // layer's CTM does not account for, and seating clouds from
@@ -591,7 +591,7 @@
         // total, the restore is discarded for one plain legacy
         // settle repaint and the log entry is marked bailed.
         // The blit-session "end" entry is deferred until the guard
-        // has completely finished — post-measure plus any restore —
+        // has completely finished - post-measure plus any restore -
         // so the shell's settle-landed detection and the DeKnotter
         // receipt read post-guard geometry, never mid-guard
         // geometry. Fail-open throughout: any guard failure falls
@@ -616,18 +616,18 @@
             return names;
         }
         // The crossingnumber clouds walk (Q4: the same walk
-        // measureCloud awaits — the guard now watches the crossing
+        // measureCloud awaits - the guard now watches the crossing
         // number, not the xAreaCross area), keeping EVERY branch's
         // value instead of one: missing or non-finite values read
         // as 0, exactly as measureCloud treats them. Rejects when
-        // the walk is unavailable — the caller treats that as
+        // the walk is unavailable - the caller treats that as
         // fail-open.
         // SOLVER-METRICS REFACTOR (F1): ONE layout-score readout helper.
         // The settle guard's whole-map scorer (sgMeasureClouds below),
         // the driver API's whole-map scorer (deknotter.measureCloudsAll)
         // and its single-branch scorer (deknotter.measureCloud) were
-        // three word-for-word copies of this walk — same done-guard,
-        // same "missing or non-finite value reads as zero" loop —
+        // three word-for-word copies of this walk - same done-guard,
+        // same "missing or non-finite value reads as zero" loop -
         // differing only in the error string. They now delegate here,
         // parameterized by branch-or-all: branch === null resolves the
         // whole-map {name: value} object; a branch name resolves that
@@ -635,7 +635,7 @@
         // registry's crossingnumber clouds walk, whose implementation
         // is the native solved-geometry readout (sxCrossingMeasure,
         // exposed as window.__sxCrossingMeasure; its per-cloud
-        // attribution comments stay with that code — F10). errLabel
+        // attribution comments stay with that code - F10). errLabel
         // keeps each caller's historical error string verbatim.
         function sxCrossingCloudsReadout(branch, errLabel) {
             return new Promise((resolve, reject) => {
@@ -671,7 +671,7 @@
         // Clouds the settle made worse: post above pre by more than
         // the 0.01 tolerance, over the union of both key sets. Q4:
         // the tolerance is the same number, now in dimensionless
-        // crossing-number units — any genuine crossing increase
+        // crossing-number units - any genuine crossing increase
         // flags; sub-0.01 float noise does not.
         function sgRegressed(pre, post) {
             const keys = new Set([ ...Object.keys(pre), ...Object.keys(post) ]), out = [];
@@ -688,12 +688,12 @@
         }
         // The guard's pre-settle centers, read from the RENDERED
         // geometry: every [data-layout-key] element present under
-        // the map layer — live-zone keys as live elements, frozen
+        // the map layer - live-zone keys as live elements, frozen
         // keys as the vault's rendered elements, each seen exactly
-        // once — contributes its icon's rendered center, converted
+        // once - contributes its icon's rendered center, converted
         // through the icon's OWN SVG geometry chain: the icon's
-        // local center (its data-diameter midpoint — the disc the
-        // paint centers on the node — with the getBBox centre as
+        // local center (its data-diameter midpoint - the disc the
+        // paint centers on the node - with the getBBox centre as
         // the equivalent when no diameter is recorded) composed
         // with the element's own getCTM(), which composes every
         // ancestor SVG transform, the vault's included, and then
@@ -713,7 +713,7 @@
         // Validation: the dataset center of every element NOT
         // inside .sx-blit-vault is known-fresh, so a converted
         // center deviating from it by more than 1.0 world units
-        // distrusts the conversion GLOBALLY — the rendered capture
+        // distrusts the conversion GLOBALLY - the rendered capture
         // is abandoned for the dataset capture
         // (scCaptureDeliveredCenters over all branches) and
         // sgCaptureSource records "dataset-fallback" for the
@@ -781,8 +781,8 @@
         // The selective restore capture: a per-branch merge of
         // the pre-settle capture (preCapture) and a fresh capture
         // of the current (post-repaint) solved state. A regressed
-        // branch's entries — in BOTH the branches map and the
-        // baseStates map — come from preCapture, so its freeze
+        // branch's entries - in BOTH the branches map and the
+        // baseStates map - come from preCapture, so its freeze
         // replay restores the pre-settle solve; every other
         // branch's entries come from the fresh capture, exactly as
         // a restore-time capture behaved before. (BaseStates keys
@@ -806,8 +806,8 @@
             }), merged;
         }
         // One restore paint: a scoped paint context with the same
-        // shape applyScoped builds — nothing targeted, nothing in
-        // the ring, nothing recomputed, every branch frozen — whose
+        // shape applyScoped builds - nothing targeted, nothing in
+        // the ring, nothing recomputed, every branch frozen - whose
         // centers map seats each frozen topic/child node exactly
         // (the T2 guard in Ar) while the freeze replay restores the
         // solved tree held in the caller-supplied capture. The
@@ -858,7 +858,7 @@
                 }
                 // F6: the removed "start" never gains an "end", so
                 // the signal reverts to the new last blit-session
-                // entry — exactly the verdict the gate's log scan
+                // entry - exactly the verdict the gate's log scan
                 // produced over the spliced log.
                 blitSigActive = !1;
                 for (let i = dkLog.length - 1; i >= 0; i--) {
@@ -884,7 +884,7 @@
                 return !1;
             }, flushEnd = () => {
                 // The deferred end lands only when no newer session
-                // has started since this guard run began — a live
+                // has started since this guard run began - a live
                 // session's own end closes the log instead.
                 if (!pendingEnd || newerStartSeen()) return;
                 const en = pendingEnd;
@@ -893,7 +893,7 @@
             try {
                 // 1. Pre-capture, the blit session still active:
                 // capture every branch's centers FIRST, while the
-                // vault still stands — the rendered read
+                // vault still stands - the rendered read
                 // (sgCaptureRenderedCenters) sees live and
                 // vault-resident elements alike; then strip the
                 // artifacts (the same call blitEndSession makes)
@@ -909,7 +909,7 @@
                 if (sessBaseline) pre = sessBaseline, baselineSource = "pre-session"; else pre = await sgMeasureClouds();
                 if (blitSess !== sess) {
                     // The session ended (or was replaced) while the
-                    // pre-measure ran — its own end entry already
+                    // pre-measure ran - its own end entry already
                     // closed it. Stand down without touching the
                     // replacement session, and never restore.
                     aborted = !0, post = final = await sgMeasureClouds().catch(() => pre);
@@ -917,7 +917,7 @@
                     // 2. Settle repaint: tear the session down
                     // exactly as blitEndSession does, but hold the
                     // "end" entry as pendingEnd instead of pushing
-                    // it — it lands in step 5, after the guard has
+                    // it - it lands in step 5, after the guard has
                     // completely finished.
                     pendingEnd = {
                         type: "blit-session",
@@ -939,8 +939,8 @@
                     // 4. Restore, only when some cloud regressed:
                     // up to two selective rounds (regressed clouds
                     // re-seated at their pre-settle centers, every
-                    // other node at its current center), then — if a
-                    // cloud is still above its pre-settle value —
+                    // other node at its current center), then - if a
+                    // cloud is still above its pre-settle value -
                     // one full restore paint seating every node at
                     // its pre-settle delivered center. Before every
                     // round, abort if a live edit has taken the map
@@ -959,13 +959,13 @@
                     if (!aborted && reg.length) if (blitSess || scCtx) aborted = !0; else sgRestorePaint(preCenters, allNames, preCapture), 
                     rounds++, final = await sgMeasureClouds();
                     // 4b. The brake: improve-or-hold applies to the
-                    // guard too — it may fail its per-cloud
+                    // guard too - it may fail its per-cloud
                     // objective, but it may not leave the map worse
                     // than the settle it replaced. If restore rounds
                     // ran and the final total nevertheless exceeds
                     // the post-repaint total, discard the restore:
                     // run ONE plain legacy settle repaint (no
-                    // scoped context — the session is already torn
+                    // scoped context - the session is already torn
                     // down), re-measure, and keep the re-measured
                     // values as final. The log entry is marked
                     // bailed; regressed/rounds/pre/post still
@@ -988,14 +988,14 @@
                 // it). With no regression the guard is transparent:
                 // no restore paint ran, and the only change from the
                 // legacy settle is that the end entry lands after
-                // the post-measure instead of before the repaint —
+                // the post-measure instead of before the repaint -
                 // the settle has not landed until it has been
                 // checked.
                 // Q4: every watched cloud's crossing numbers ride
                 // on the entry as a per-cloud report (pre / post /
                 // final). They are reported for visibility; the
                 // guard's decisions remain exactly the per-cloud
-                // epsilon test in sgRegressed over the same maps —
+                // epsilon test in sgRegressed over the same maps -
                 // no neighbor or total comparison gates anything
                 // beyond the pre-existing total-based brake above.
                 const sgReported = {};
@@ -1024,7 +1024,7 @@
                 // Fail-open. Before the teardown, nothing has been
                 // touched that the legacy settle would not touch:
                 // run it exactly. After the teardown, the settle
-                // repaint already landed — just land the held end
+                // repaint already landed - just land the held end
                 // entry so the settle is never lost.
                 if (!pendingEnd && blitSess === sess) try {
                     blitEndSession();
@@ -1043,7 +1043,7 @@
         }
         // Paint-top gate (start of Ar): a non-scoped paint, or a
         // scoped paint whose frozen set differs from the session's,
-        // ends the session before the paint runs — the paint is then
+        // ends the session before the paint runs - the paint is then
         // an ordinary segment/full paint and its clear removes the
         // artifacts. Boundary-log entries are not an end condition:
         // under a contained scope they are suppressed coupling
@@ -1053,11 +1053,11 @@
             if (!scCtx || !blitSameFrozen(scCtx.frozenBranches, blitSess.frozen)) blitEndSession();
         }
         // Snapshot: clone the layer element and remove everything
-        // belonging to the live zone — groups whose keys are live;
+        // belonging to the live zone - groups whose keys are live;
         // label-stack items containing a label whose data-id is
         // live; control-stack items containing controls whose
         // data-id is live; spoke-underlay items whose data-spoke-for
-        // is live; overlay children whose data-id is live — plus the
+        // is live; overlay children whose data-id is live - plus the
         // relations layers and the center content (both stay live in
         // the real DOM). Live keys = every group key whose branch
         // (per the qn registry the just-finished paint built) is NOT
@@ -1196,7 +1196,7 @@
         }
         // The blit module's own stack indexes and per-key piece
         // collection: the same single-pass indexes and the same
-        // in-group-first-then-stacks semantics as P1's capture — a
+        // in-group-first-then-stacks semantics as P1's capture - a
         // segment's pieces are found whether they currently live in
         // the extraction stacks or inside its (vaulted) group.
         function blitIndexStacks() {
@@ -1256,7 +1256,7 @@
         // Settle-pass obstacle records, computed at swap time from
         // the then-current settled DOM: per frozen group, exactly
         // the shapes the settle pass itself would push for that
-        // group, as plain data — icon box (center = the group's
+        // group, as plain data - icon box (center = the group's
         // data-layout-x/y, size = its icon's data-diameter); one box
         // per direction control (center = baseCx/baseCy + the
         // translate parsed from its settled transform, width/height
@@ -1319,7 +1319,7 @@
         // Settle-pass obstacle continuity: flush the recorded
         // frozen shapes into the pass's obstacle array via the
         // pass's own oriented-box helper, at their branch-order
-        // positions — before each live group, every frozen record
+        // positions - before each live group, every frozen record
         // that precedes it in the captured group order; after the
         // group loop (beforeKey = null), the rest.
         function blitFlushObstacles(sess, r, o, beforeKey) {
@@ -1409,10 +1409,10 @@
             if (!sess) {
                 // Settle guard: a guard restore paint runs with
                 // every branch frozen and must leave no session (and
-                // no rest-timer) behind — session starts are held
+                // no rest-timer) behind - session starts are held
                 // off for the duration of the guard's paints.
                 if (sgHoldBlitStart) return;
-                // First scoped paint of a burst — it ran as a normal
+                // First scoped paint of a burst - it ran as a normal
                 // P1 segment paint. Never start when animations are
                 // on or when nothing is frozen.
                 if (!!mn.animations || !scCtx.frozenBranches.size) return;
@@ -1435,7 +1435,7 @@
             }
             autofitPaint && (sess.autofitExit = !0), blitSess === sess && blitArmTimer(sess);
         }
-        // Camera settle hook, run at the END of kh() — after any
+        // Camera settle hook, run at the END of kh() - after any
         // mode downgrade has re-set the viewBox and after the final
         // transform commit: if a blit session is active and the
         // settled on-screen scale differs from the session's raster
@@ -1452,8 +1452,8 @@
         // DeKnotter base-state registry (E3): the most recent
         // _radialBase20 capture per stable item identity, refreshed by
         // rr.resolveRadialSiblings at every resolver entry and read back
-        // through deknotter.baseState(). Keyed by stable identity —
-        // never by wrapper object — because wrappers are rebuilt on
+        // through deknotter.baseState(). Keyed by stable identity -
+        // never by wrapper object - because wrappers are rebuilt on
         // every fr() run while identities persist across solves.
         const dkBaseStates = new Map;
         // Bundle-side equivalents of the editor shell's bakedBranchBase /
@@ -1516,7 +1516,7 @@
         // DeKnotter snapshot helpers (E2): API.get() returns container
         // copies whose per-entry objects are the SAME references as live
         // state, so a gate snapshot needs a true deep clone. Override and
-        // angle maps are cloned per entry (one level per entry suffices —
+        // angle maps are cloned per entry (one level per entry suffices -
         // entry fields are primitives); the two spoke auto-shrink arm maps hold
         // booleans, so a container copy is a true copy; scalars go by
         // value. The clone shares no object references with its source,
@@ -1532,7 +1532,7 @@
             }), out;
         }
         // F8 naming note: this "snapshot" is the LAYOUT-SETTINGS
-        // snapshot — a deep clone of the dials object (layout state
+        // snapshot - a deep clone of the dials object (layout state
         // only). It is NOT the sharing section's profile/data
         // snapshot; the two share a word, not a mechanism. Every
         // layout-side snapshot()/restore() (driver API, untangler)

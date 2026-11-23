@@ -1,7 +1,7 @@
         let sxGroupLeniency = 50, sxWriterLeniency = 50, sxCompareIds = [], Qt = null, Jt = () => {};
         // Last PURE pair computation per group id (blocker stage,
         // 2026-10-27): the tag-free baseline Rd and sxRefreshGroupOwn
-        // diff the pair's live map against. In memory only — declared
+        // diff the pair's live map against. In memory only - declared
         // here, beside the other compare state, so every edit path
         // (zt included) can read it safely.
         const sxPairBase = {};
@@ -11,7 +11,7 @@
         // the per-profile data lists (the raw session-state objects keyed
         // by profile id; Ye/Xe are the raw objects behind the vt/wt
         // proxies). Create (import + dialog), edit, close, and the
-        // importData re-key move all enumerate THIS list — no lifecycle
+        // importData re-key move all enumerate THIS list - no lifecycle
         // path keeps a hand-written enumeration of its own. Members, in
         // order: ratings (Ye), rating sources (Ze), name (Xe), uuid
         // (profileUuids), sample flag (sampleProfileFlags), gender (rt),
@@ -20,13 +20,13 @@
         // (vpt), veil-enabled (vht), imported children (at), loader state
         // (gt), completion times (mt), annotations (Qe), fantasy-only
         // (Je), already-tried (et), notes (tt), per-profile colors (tn),
-        // comparisons (ft), dirty flags (yt), skin (profileSkins — the
+        // comparisons (ft), dirty flags (yt), skin (profileSkins - the
         // skin a profile belongs to; Jw() shows a tab only for the
         // current skin, and close/move enumerate it like any other list).
         // The legacy nets lists (pt/ht, profileNets/profileNetEnabled)
         // were removed in Fix 1, item 5: no code ever wrote or read an
         // entry in either.
-        // Deliberately NOT on this list: droppedKeyRecords — the import
+        // Deliberately NOT on this list: droppedKeyRecords - the import
         // path's dropped-key records are import-path behavior, so the
         // import create writes them itself and close/move carry them as
         // documented path extras; and curveBends (bt), whose keys are
@@ -45,13 +45,13 @@
         // used to carry a second, hand-maintained fallback literal
         // whose branch lengths had drifted from the shell's (2.7 where
         // the shell governs 4.86, 1.5 where it governs 2.4, whole
-        // branches and per-topic lengths missing) — a silent trap:
+        // branches and per-topic lengths missing) - a silent trap:
         // remove the shell object and the map quietly rearranged
         // itself. The fallback below is GENERATED from the single
         // source instead: a deep clone of the shell defaults (a clone,
         // so bundle-side mutation of mn never pollutes the pristine
         // defaults the editor's Reset reads). If neither object
-        // exists, the bundle was loaded without its shell — fail
+        // exists, the bundle was loaded without its shell - fail
         // loudly rather than lay out a differently-shaped map.
         function sxGeneratedFallbackDials() {
             const src = window.__SEXCAPADES_LAYOUT_DEFAULTS;
@@ -64,13 +64,13 @@
         //   explicit false -> "veto"   (the group must not shrink)
         //   absent / other -> "follow" (follow the global collision
         //                              mode)
-        // sxShrinkState(map, key) is the single reader — geometry
+        // sxShrinkState(map, key) is the single reader - geometry
         // gates ask it instead of spelling === true / === false at
         // each site. The shell's switches write exactly these three
         // states through ONE parameterized handler (kind x scope):
         // lrShrinkActuator + bindShrinkSwitch + bindShrinkForAll in
         // the layout editor. (The known flip-but-move-nothing switch
-        // defect is a SEPARATE fix job, Group 3d — this unification
+        // defect is a SEPARATE fix job, Group 3d - this unification
         // deliberately does not diagnose or fix it; it only makes
         // that fix land in one place.)
         function sxShrinkState(map, key) {
@@ -80,9 +80,9 @@
         }
         // Armed auto-shrink factors (surfaced in the Layout Editor,
         // Build 2026-10-31_1329): the two shipped 0.76 compaction
-        // factors — the branch spoke shrinkFactor in the branch
+        // factors - the branch spoke shrinkFactor in the branch
         // radius chain and the subcategory cloud-radius factor in
-        // frCollisionPasses — are read through this one reader so
+        // frCollisionPasses - are read through this one reader so
         // the editor's two sliders write the EXISTING factors and
         // nothing else. A settings value that is absent, non-finite,
         // or outside (0, 1] falls back to the shipped 0.76, so an

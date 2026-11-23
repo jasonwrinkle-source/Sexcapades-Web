@@ -4,7 +4,7 @@
         function Dd(e, t, heat) {
             // Adapter over the sync engine v1.1: the second argument (the
             // retired leniency value) is accepted for call-site compatibility
-            // and ignored — no score, bar, or tolerance reads it anymore.
+            // and ignored - no score, bar, or tolerance reads it anymore.
             // Two profiles read the pair Play aggregation; three or more
             // read the group Play aggregation (strict-majority rules).
             const grp = sxGroupCompute(e, { heat: heat || [] }), isPair = 2 === e.length, pair = isPair ? grp.pairs[0] : null,
@@ -48,13 +48,13 @@
                 else if ("conflict" === rec.playOutcome || "one-sided" === rec.playOutcome || "not-topics" === rec.playOutcome || "mismatched" === rec.playOutcome) d.push(rec.label);
             }), d.sort((e, t) => e.localeCompare(t));
             // Display-layer MOVE, pair glance only: a teased topic (teaserFor
-            // non-empty AND countClass exactly "soft-no" — the identical
+            // non-empty AND countClass exactly "soft-no" - the identical
             // predicate as the match-tab MOVE) splices from the Not list (d)
             // to the Curiosity? list (c), appended in d-sorted order. Each
             // label in d was pushed by the record carrying that same label
             // (rec.label above), so the record for a label is the recs entry
             // with that label. Hot (l) is never reassigned; outcomes are
-            // untouched — this only re-buckets labels for display.
+            // untouched - this only re-buckets labels for display.
             if (isPair) {
                 const moved = [];
                 for (let k = d.length - 1; k >= 0; k--) {
@@ -86,11 +86,11 @@
         function DdStraight(e, heat) {
             // Straight-pair adapter over the sync engine (2026-10-27),
             // the Dd analog for ⊙ pairs: it derives NO new math. The
-            // values are the engine's own straight register — the same
+            // values are the engine's own straight register - the same
             // register the ⊙ view's taper paint reads (pair.straight
             // .byId): per shared topic, give flank = (first give ×
             // second give) / 100, receive flank = (first receive ×
-            // second receive) / 100 — the straight match normed by
+            // second receive) / 100 - the straight match normed by
             // 100, stored as the pair profile's own ratings so the
             // pair tab paints, persists, and exports like any profile.
             // The straight register carries no buckets, headline, or
@@ -218,14 +218,14 @@
             return { label: sxTerm("krossmatch"), glyph: "⋈", term: "krossmatch" };
         }
         // Blocker stage (owner rulings, 2026-10-27): a recompute reads
-        // the LIVE source profiles, never the frozen mint-time copies —
+        // the LIVE source profiles, never the frozen mint-time copies -
         // n.sourceProfiles is refreshed from live state below whenever
         // at least two sources are still open (the stored copies remain
         // only as the fallback for a group whose sources were closed).
         // Merged values and values edited on the pair tab itself are
         // ratings too: they live in the pair's computed map (vt[e] and
         // its companion maps) and a recompute must remember them. The
-        // mechanism is tag-free — no per-value provenance is stored on
+        // mechanism is tag-free - no per-value provenance is stored on
         // any value or record: sxPairBase keeps the last PURE
         // computation per group id, in memory only. Any current value
         // that differs from that baseline is a user value (an edit on
@@ -309,15 +309,15 @@
             !0;
         }
         // Live-own, snapshot-source (owner ruling, 2026-10-27): a match
-        // tab's OWN changes — slider edits on the pair tab itself and
-        // merges folded into the pair — move its metrics (buckets,
+        // tab's OWN changes - slider edits on the pair tab itself and
+        // merges folded into the pair - move its metrics (buckets,
         // Charted inputs, rings, Kink Factor, Match Score) live, in
         // real time, while source-profile changes never move an
         // existing match tab. So this refresh recomputes the record's
         // derived fields from the pair's OWN stored snapshots
-        // (n.sourceProfiles as of the last mint/recompute — source
+        // (n.sourceProfiles as of the last mint/recompute - source
         // edits since then are NOT read) and its STAMPED Heat
-        // (n.sxHeat — a source Heat change stages until a fork, it
+        // (n.sxHeat - a source Heat change stages until a fork, it
         // does not leak in here), then re-applies the pair's own user
         // values through the same baseline diff Rd uses. It runs off
         // zt, the marker every edit funnels through, only for groups
@@ -355,11 +355,11 @@
         }
         function Vd() {
             // Leniency removal (2026-10-27): the compare refresh no
-            // longer derives or carries any leniency value — the
+            // longer derives or carries any leniency value - the
             // engine ignored the slot, and the values it fed (Hd, the
-            // Wd input) have no live reader. The refresh itself —
+            // Wd input) have no live reader. The refresh itself -
             // pinning the current multi-select in qd, recomputing the
-            // overlay data, repainting the match tabs — is unchanged.
+            // overlay data, repainting the match tabs - is unchanged.
             const d = Yi().filter(e => vt[e]), u = d.length >= 2;
             qd = u ? d.slice() : [], Wd = u ? Dd(zd(d), null, d.map(id => sxHeatFor(id))) : null;
             sxRefreshMatchTabs();
@@ -508,9 +508,9 @@
             return `<div class="sx-picker"><div class="sx-picker-label">Who's comparing?</div><div class="sx-pick-row">${btns}</div><p class="sx-picker-help">Tap to add or remove a profile from the comparison. Pick two or more to compare. (Ctrl+click or Cmd+click on a profile tab works too.)</p></div>`;
         }
         // Match-tab fix (2026-10-26): the bowtie controls slot is GONE with
-        // the bowtie text tab — the stage panel is never shown for a ⋈ tab
+        // the bowtie text tab - the stage panel is never shown for a ⋈ tab
         // (see sxSyncMatchStage). Auto-create (2026-10-26): no surface
-        // renders a save-as-group control at all anymore — opening a ⋈
+        // renders a save-as-group control at all anymore - opening a ⋈
         // comparison creates the group profile itself (sxAutoCreateBowtie
         // runs the same Zd save the controls used to trigger), so there
         // is no save click left to relocate.
@@ -565,7 +565,7 @@
             /* Deprecated match-tab Teasers rows removed (2026-10-26): the popover Teasers sections are the teaser surface now. Writer teaser lines are a separate later job (A4) and are untouched. */
             
             // Match-view viewport (2026-10-26): both headline numbers stay
-            // readable beside the rings — the pair/group Kink Factor
+            // readable beside the rings - the pair/group Kink Factor
             // (Conversation register) and the Match Score (Play register),
             // read straight off the engine aggregates, never averaged and
             // never mixed across registers or directions.
@@ -823,7 +823,7 @@
             const sec = document.createElement("div");
             sec.className = "sx-match-root", sec.dataset.sxMatchRoot = tab.key, sec.hidden = !0;
             // Match-view viewport (2026-10-26): the text window is replaced
-            // by viewport chrome — the pair line is the content title, the
+            // by viewport chrome - the pair line is the content title, the
             // "Who's comparing?" picker stays, the rings carry the buckets
             // (topic lists live in the ring listing surface), and the
             // headline numbers live in the header Avatar rings. The hypermap itself,
@@ -855,8 +855,8 @@
             return lists.forEach(l => l.sort(bySum)), lists;
         }
         function sxStraightBandBuckets(lists) {
-            // Ring slots keep the crossed tab's slot order — positive band
-            // on the green slot, middle on yellow, negative on red — while
+            // Ring slots keep the crossed tab's slot order - positive band
+            // on the green slot, middle on yellow, negative on red - while
             // the labels, counts, and topic lists are the bands' own.
             const ringOrder = [ 2, 1, 0 ], counts = ringOrder.map(i => lists[i].length), shares = uc(counts),
                 names = [ "Shop talk band", "On-the-fence band", "Debate band" ], base = sxEmptyBuckets();
@@ -917,7 +917,7 @@
             // Match-view viewport (2026-10-26): the banded text lists, the
             // listing seats, and the text Limits section are gone with the
             // text window. The straight bands surface through the rings
-            // (sxStraightBandBuckets) and the ring listing surface only —
+            // (sxStraightBandBuckets) and the ring listing surface only -
             // band membership still comes from sxStraightBands over the
             // straight register, unchanged.
             tab.buckets = sxStraightBandBuckets(bandLists), sxUpdateMatchRings(tab);
@@ -965,13 +965,13 @@
         function sxSyncMatchStage() {
             const reg = sxTabsReg(), stage = e.byId("sxMatchStage"), col = e.one(".map-column"), on = !!(reg.stageOn && reg.active && reg.tabs.has(reg.active));
             // Match-view viewport (2026-10-26): the stage/map-column
-            // inversion is reversed — a match tab SHOWS map content, so the
+            // inversion is reversed - a match tab SHOWS map content, so the
             // map column is never hidden by a match tab. The stage carries
             // only the viewport chrome above the map. With no tab active the
             // stage hides and the profile map stands exactly as before
             // (restore-exactly invariant preserved).
             // Match-tab fix (2026-10-26): while a ⋈ Krossmatch tab is the
-            // active tab the stage stays HIDDEN — the bowtie text panel is
+            // active tab the stage stays HIDDEN - the bowtie text panel is
             // not shown at all, and opening the bowtie goes straight to the
             // pair viewport (the map in the column below, painted by
             // sxActivateMatchTab). Registry state (stageOn / active) is
@@ -984,7 +984,7 @@
             });
         }
         // Auto-create group on bowtie open (owner ruling, 2026-10-26):
-        // opening a ⋈ comparison creates the group profile — the Save
+        // opening a ⋈ comparison creates the group profile - the Save
         // click is gone, the saving is not. The auto-created group is a
         // normal profile in every path: it is minted by the same Zd
         // save, stored in the same vt/ft records, and flows through the
@@ -1001,7 +1001,7 @@
             // pair of the same cast share sourceIds and kind "group",
             // so sameness also requires the same pairOp. Records minted
             // before pairOp existed carry no pairOp and are bowtie
-            // pairs — the default below preserves their dedup exactly,
+            // pairs - the default below preserves their dedup exactly,
             // and a ⊙ open can never select a ⋈ group (or vice versa).
             if (!ids || ids.length < 2) return null;
             const want = new Set(ids), wantOp = sxNormalizePairOp(pairOp);
@@ -1027,7 +1027,7 @@
             if (cast.length < 2) return !1;
             // Fork rule (owner ruling, 2026-10-27): a bowtie TAP always
             // mints a fresh bowtie tab from whatever is currently
-            // multi-selected, whether or not any settings changed —
+            // multi-selected, whether or not any settings changed -
             // taps never dedup. Only reopen/restore (sxActivateMatchTab)
             // selects the existing tab, via fresh being unset.
             const existing = fresh ? null : sxFindGroupForCast(cast, "bowtie");
@@ -1043,25 +1043,25 @@
         }
         // Straight parity (owner ruling, 2026-10-27): opening ⊙ for a
         // pair auto-creates (or selects) a persistent R ⊙ S group
-        // profile, exactly the sxAutoCreateBowtie shape — find-or-mint
+        // profile, exactly the sxAutoCreateBowtie shape - find-or-mint
         // through the same Zd save, the same teardown, and the same
-        // ordinary Js landing — differing only in pair kind (the ⊙
+        // ordinary Js landing - differing only in pair kind (the ⊙
         // title join and pairOp record), in mode (Conversation, where
         // bowtie mints in Play), and in the map compute (Rd dispatches
         // straight pairs to the straight-register adapter). Straight
         // auto-create is pair-only: a cast of 3+ returns false and
-        // the open falls through to the legacy ⊙ tab, as before —
+        // the open falls through to the legacy ⊙ tab, as before -
         // whose header now shows the group Parlay aggregates from
         // sxGroupCompute (group-Parlay fix, 2026-10-30).
         function sxAutoCreateStraight(castIds, fresh) {
             const cast = (castIds || []).filter(id => vt[id]);
             if (2 !== cast.length) return !1;
             // Fork rule (owner ruling, 2026-10-27): a circle-dot TAP
-            // always mints a fresh straight tab — taps never dedup.
+            // always mints a fresh straight tab - taps never dedup.
             // Reopen/restore selects the existing tab (fresh unset).
             const existing = fresh ? null : sxFindGroupForCast(cast, "straight");
             // Identical straight pair already in-session: select it,
-            // never mint a duplicate — in Conversation mode, the ⊙
+            // never mint a duplicate - in Conversation mode, the ⊙
             // register, on both the mint and the re-open landing.
             if (existing) return sxTeardownMatchTabs(), sxcv.mode = "conversation", Js(existing), !0;
             return sxcv.mode = "conversation", qd = cast.slice(), Zd("straight");
@@ -1077,7 +1077,7 @@
             const ctx = sxCompareContext();
             if (!ctx) return;
             // ⋈ and ⊙: opening auto-creates (or selects) the pair
-            // group and lands on its profile tab — no match tab is
+            // group and lands on its profile tab - no match tab is
             // minted. If the cast cannot be saved (fewer than two live
             // profiles, or a ⊙ cast that is not exactly a pair), fall
             // through to the legacy tab so the open is never a dead
@@ -1102,12 +1102,12 @@
             const reg = sxTabsReg(), tab = reg.tabs.get(key);
             if (!tab) return;
             // ⋈ and ⊙: activating a match tab (e.g. its pill in the
-            // tab strip) is also an open — auto-create/select the pair
+            // tab strip) is also an open - auto-create/select the pair
             // group and land on the group tab instead of showing the
             // match view. A saved tab's ids are its group's sourceIds,
             // so the same sameness test selects that very group. (A ⊙
             // tab only exists for casts the pair auto-create declined
-            // — 3+ profiles — and those activate exactly as before.)
+            // - 3+ profiles - and those activate exactly as before.)
             if ("bowtie" === tab.kind && sxAutoCreateBowtie(tab.ids)) return;
             if ("circledot" === tab.kind && sxAutoCreateStraight(tab.ids)) return;
             if ("circleminus" === tab.kind && sxAutoCreateMinus(tab.ids)) return;
@@ -1115,7 +1115,7 @@
             // Play, ⊙ Straight Talk in Conversation. There is no in-tab
             // mode switch anymore. ⊖ keeps its own mode and paints no score.
             sxcv.mode = "circledot" === tab.kind ? "conversation" : "circleminus" === tab.kind ? "minus" : "play";
-            // Match-tab fix (2026-10-26): activation PAINTS the map —
+            // Match-tab fix (2026-10-26): activation PAINTS the map -
             // the tab-strip path previously rendered chrome only, so the
             // map kept whatever the last paint produced (the blank area
             // in the owner's session). This mirrors the picker path's
@@ -1213,7 +1213,7 @@
             e.byId("sxBuzzerProceed").addEventListener("click", () => Ui(sxDlgEl));
             e.byId("sxBuzzerConversation").addEventListener("click", () => {
                 // Mode follows the tab (2026-10-26): the buzzer's escape no
-                // longer sets the mode directly — it routes through tab
+                // longer sets the mode directly - it routes through tab
                 // activation by opening the ⊙ tab for the current cast,
                 // whose activation sets Conversation. Fallback (no cast
                 // context): set the mode and re-render, as before.
@@ -1232,15 +1232,15 @@
         // Leniency removal (owner ruling, 2026-10-27): the leniency
         // setter (Yd) and its throttled rAF handler (Xd) are REMOVED
         // entirely, and the compare leniency variable is gone with
-        // them — no computation reads, carries, or stores a leniency
+        // them - no computation reads, carries, or stores a leniency
         // value anymore (Dd's adapter slot is passed null at every
         // call site; the engines never read it). No live control ever
-        // called the setter/handler — the only remaining caller was
+        // called the setter/handler - the only remaining caller was
         // the Scribe fallback in Jd, redesigned below to carry no
         // recompute side effect. What survives is display only: a
         // legacy group's stored field can still seed the Scribe
         // brief's displayed cast value in Jd, and the writers keep
-        // their displayed cast number — neither is an input to any
+        // their displayed cast number - neither is an input to any
         // computation.
         // A Krossmatch or Straight map uses the same shared expand sets
         // as every profile. Opening one shows the full tree, the way an
@@ -1284,7 +1284,7 @@
             // Pair kind (2026-10-27): "straight" mints a ⊙ pair; every
             // other call is the original bowtie mint, unchanged. The
             // kind drives the name join below (⋈ vs ⊙), the pairOp
-            // field on the group record, and — through that field —
+            // field on the group record, and - through that field -
             // Rd's compute dispatch.
             const sxPairOp = sxNormalizePairOp(pairOp);
             const t = (qd.length ? qd : Xi()).filter(e => vt[e]);
@@ -1310,7 +1310,7 @@
             // Every match tab is torn down and the stage deactivated
             // before the strip rebuilds below, so post-save the screen is
             // the new group profile's own map with the group as the
-            // active profile — no match chrome left on screen (the old
+            // active profile - no match chrome left on screen (the old
             // code left the tab active and visible, which made the new
             // group tab a guaranteed no-op click and read as being
             // trapped on the comparison tab). The teardown is shared
@@ -1345,15 +1345,15 @@
                 }
             }, Rd(o), la(o), Mt = o, It = o, sxSel(null, "clear"), qd = [], Wd = null, sxHoldExpansion(), sxExpandGroupMap(), 
             // Save marking (2026-10-26): Rd marks EVERY recompute dirty
-            // (zt at its tail) — that recompute-marking, not the save
+            // (zt at its tail) - that recompute-marking, not the save
             // itself, is why a freshly saved group tab still read
             // "unsaved changes" live. Zd IS the save (and, since
             // auto-create, creation and save are the same act), so the
             // new group must not arrive marked by its own creation: the
             // flag is cleared here, the same end state saveActiveProfile
             // leaves via Vt. It is cleared directly rather than through
-            // Vt so the draft-autosave timer Rd's zt queued — the
-            // Remember-on-this-device persist path — still fires and
+            // Vt so the draft-autosave timer Rd's zt queued - the
+            // Remember-on-this-device persist path - still fires and
             // persists the group like any other profile; that timer's
             // own Vt then finishes the cleanup. Later edits re-mark
             // through zt as usual.
@@ -1395,7 +1395,7 @@
             // loader swaps the same strings at boot; this re-applies
             // them on open with the cast's real single/multi form. On a
             // vanilla skin there is no Scene Setter pointer and no
-            // Literotica copy — the spec's discussion copy replaces it.
+            // Literotica copy - the spec's discussion copy replaces it.
             if (window.__SX_SET_SCRIBE_PANEL) window.__SX_SET_SCRIBE_PANEL(window.__SX_SCRIBE, a);
             else {
                 const o = e.byId("scribeModeDescription"), s = e.byId("scribeChoiceIntro"), d = e.byId("scribePageCountHelp");
@@ -1412,7 +1412,7 @@
             if (!n || !vt[n]) return;
             const i = 1 === t.length && "group" === ft[n]?.kind ? ft[n] : null, a = i && Array.isArray(i.sourceIds) ? i.sourceIds.filter(e => vt[e]) : [], r = a.length >= 2 ? a : t.length ? t.slice() : [ n ];
             // Scribe fallback, redesigned (owner ruling, 2026-10-27):
-            // this state CAN still occur through the button doorway —
+            // this state CAN still occur through the button doorway -
             // the multi-select set (Yi) can hold two or more profiles
             // while Xi() resolves to fewer than two (the selection is
             // not the active comparison, e.g. the overlay was toggled
@@ -1420,7 +1420,7 @@
             // setter, which recomputed the active pair as a side
             // effect of merely opening Scribe, then retried. The retry
             // now resolves the cast straight from the live multi-select
-            // and opens the Scribe choice directly — no recompute, no
+            // and opens the Scribe choice directly - no recompute, no
             // recursion, no side effect.
             if (r.length < 2 && Yi().length >= 2) return sxGroupLeniency = 50, sxWriterLeniency = 50, sxCompareIds = Yi().filter(e => vt[e]), void Qd(sxCompareIds);
             if (r.length < 1) return void tS("Scribe needs at least 1 profile in the multi-select. Select a profile tab — Ctrl+click (Cmd+click on Mac) profile tabs to build a multi-select — then open Scribe again.", {
@@ -1455,7 +1455,7 @@
         }
         // F8 companion note (sharing-sync refactor): nu performs the
         // same solo-switch / collect / restore shape as the export
-        // opener Jf — it snapshots the selection state at entry,
+        // opener Jf - it snapshots the selection state at entry,
         // switches the live map to solo, collects, and restores
         // inline at the end. Checked during the F8 pass: the restore
         // here is inline and NOT wrapped in try/finally, and the
@@ -1619,9 +1619,9 @@
         // A picture export is a PNG carrying the profile payload in a
         // zTXt chunk (keyword "Sexcapades", zlib-stored deflate) plus,
         // when contact info is included, a vCard iTXt chunk. The format
-        // already carries integrity checks — a CRC32 over every PNG
+        // already carries integrity checks - a CRC32 over every PNG
         // chunk (written by au() via iu()) and an Adler-32 over the
-        // zlib stream (checked in Lx's fallback) — and the restore side
+        // zlib stream (checked in Lx's fallback) - and the restore side
         // ignored both, while the save side checked only presence of
         // the chunk on the full-map path and nothing at all on the
         // compact size-reduction loop (which re-embeds through ru() on
@@ -1770,8 +1770,8 @@
         // it copies through the caller's own textarea, as the
         // Scribe, NovelAI, and opener handlers did. An empty text
         // reports failure without touching the clipboard unless
-        // opts.throughOnEmpty is set — the NovelAI and opener
-        // handlers copy even an empty field — matching the handlers
+        // opts.throughOnEmpty is set - the NovelAI and opener
+        // handlers copy even an empty field - matching the handlers
         // this replaces in each case.
         async function sxCopyText(text, statusEl, okText, failText, hostEl, opts) {
             if (!text && !(opts && opts.throughOnEmpty)) return void (statusEl && (statusEl.textContent = failText)), !1;
@@ -1825,7 +1825,7 @@
                 // slider: its value (1-5) is the discussion's rigor
                 // (the composer turns it into dissertation-defense
                 // material at 5), and the AI target is always the
-                // general AI — the story tones (strictai, suggestive,
+                // general AI - the story tones (strictai, suggestive,
                 // explicit) are Sexcapades-only and never apply to a
                 // discussion.
                 if (sxScribeIsDiscussion()) scribeRigor = Math.min(5, Math.max(1, Number(e.byId("scribeExplicitness")?.value) || 4));
@@ -1936,7 +1936,7 @@
         // wu: the token builder for this format (name, ratings, marks
         // in the inner function below). Its only live caller is the
         // anonymous survey send, which keeps includeName/includeMarks
-        // false — a privacy property, not an oversize policy, and
+        // false - a privacy property, not an oversize policy, and
         // unchanged by the framework. Oversize handling for this
         // format lives on the receiving side in Nu, which states the
         // format-derived limit; there is no share-link creation

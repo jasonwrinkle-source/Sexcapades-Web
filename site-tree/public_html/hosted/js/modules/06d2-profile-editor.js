@@ -1,4 +1,4 @@
-// 06d2-profile-editor.js — Profile editor form controls, demographics, contact blocks, and veil/heat sliders
+// 06d2-profile-editor.js - Profile editor form controls, demographics, contact blocks, and veil/heat sliders
         const Oy = e.byId("profileLoadMenu"), By = e.byId("profileAddMenu"), jy = e.byId("profileSampleMenu"), jyA = e.byId("profileArchetypeMenu");
         let qy = null, Hy = null, Wy = [], Uy = "", Gy = [], Ky = 0, zy = null, Vy = null, jY = null, Yy = null, Xy = null;
         // Pair-tab load target (2026-10-27): set by ww when the import
@@ -11,7 +11,7 @@
         // restored by the shell-ui stage, 2026-10-27): the profile a
         // Load action was PRESSED FROM, carried explicitly from the
         // tab's Load menu through the import dialog to the merge.
-        // The target of a Load is this origin — never a profile the
+        // The target of a Load is this origin - never a profile the
         // viewport merely happens to display. Pressing Load also
         // activates the pressed tab first (see the Load handler), so
         // the displayed profile and the origin coincide; the explicit
@@ -25,7 +25,7 @@
         let sxLoadOriginId = null, sxConverterOrigin = null;
         // Merge immediate save (split-center stage, 2026-10-27): a
         // load's merged data is saved to profile memory IMMEDIATELY,
-        // in the same act as the merge — not left resting on the
+        // in the same act as the merge - not left resting on the
         // dirty flag and the timed draft autosave. Mirrors the Save
         // button exactly: with profile memory enabled, persist now
         // and clear the unsaved mark only when the persist succeeds;
@@ -44,7 +44,7 @@
         function Qy(t = Mt) {
             if (!t || !vt[t]) return Vy = e => Qy(e), void bw(null);
             // Activated-from: the chooser's target rides in Xy,
-            // explicitly — no viewport switch to make it the active
+            // explicitly - no viewport switch to make it the active
             // profile first (split-center stage, 2026-10-27).
             Xy = t, kw(), Ui(kg), Ui(Sg), Wi(e.byId("testChooserDialog")),
             requestAnimationFrame(() => e.one("[data-test-choice]")?.focus());
@@ -58,15 +58,15 @@
         // the picker tooltip with the definition plus a clickable source line (appended by
         // popularitySourceLine). Sources: NZ national sexuality survey (N=12,885) for
         // straight/heterosexual (94.7% ±0.26), bisexual (0.8% ±0.11) and the homosexual figure
-        // (0.6% ±0.09) — the survey reported 'homosexual' as one combined gay/lesbian figure,
-        // applied to both Gay and Lesbian here. Ace prevalence: asexual ~1–2% (Bogaert 2004,
+        // (0.6% ±0.09) - the survey reported 'homosexual' as one combined gay/lesbian figure,
+        // applied to both Gay and Lesbian here. Ace prevalence: asexual ~1-2% (Bogaert 2004,
         // UK national probability sample, N≈18,000, found ~1% reporting no sexual attraction;
         // later reviews range higher) and demisexual ~0.6% (Pitcher et al. 2024, Journal of
         // LGBT Youth, N=17,112). Gender Census 2025 for nonbinary (61.7%) and transgender
-        // (41.1%) — note those are shares among nonbinary-community respondents, a different
+        // (41.1%) - note those are shares among nonbinary-community respondents, a different
         // denominator from the general-population figures above. Role prevalence among BDSM
         // practitioners from Coppens et al., "The Psychology of Kink" survey: submissive
-        // 39.5%, switch 31.1%, dominant 28.8% — the scored roles sort first in that order and
+        // 39.5%, switch 31.1%, dominant 28.8% - the scored roles sort first in that order and
         // the remaining roles follow alphabetically (Unsure kept last, unburied).
         // Corroborating role data: Joyal & Carpentier 2017 (Journal of Sex Research), whose
         // general-population survey of paraphilic interests and behaviors likewise found

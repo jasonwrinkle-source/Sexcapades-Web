@@ -1,4 +1,4 @@
-// 02n2-deknotter-solver.js — DeKnotter Constraint & Relaxation Solver Math
+// 02n2-deknotter-solver.js - DeKnotter Constraint & Relaxation Solver Math
 // Pure calculation routines extracted from 02n-deknotter-cascade.js and 02l-deknotter-session.js
 // Handles ladder descent calculations, ratio checks, geometry projection, and constraint evaluation.
 

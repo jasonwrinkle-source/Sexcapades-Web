@@ -119,7 +119,7 @@
             return n.length ? [ a && a.flavor ? "TERMS — IN THEIR OWN WORDS (each person's stated terms, quoted verbatim as flavor and character context for the writing; let them color voice, motivation, and texture — they are not the binding layer here):" : "TERMS — BINDING (quoted law, do not interpret or soften):", ...n ].join(" ") : "";
         }
         function sxAboutBlock(e, t) {
-            // E8: About Me reaches the Scribe prompt only — per-profile,
+            // E8: About Me reaches the Scribe prompt only - per-profile,
             // attributed by name, framed as the person's own words /
             // profile context. Never binding: the binding layer stays
             // marks and Terms only. Empty About yields no section.
@@ -130,7 +130,7 @@
             return n.length ? [ "PROFILE CONTEXT — IN THEIR OWN WORDS (background color for voice and character only; not binding limits and not checklist data — the binding layer is marks and Terms only):", ...n ].join("\n\n") : "";
         }
         function sxAgeBlock(e, t) {
-            // Age context-on-tap: fires only when ageplay is in play —
+            // Age context-on-tap: fires only when ageplay is in play -
             // the ageplayer role on any cast profile. All participants
             // are adults; the ages below are ageplay framing context for
             // the writers only. This is the only prompt-side reader of lt;
@@ -158,8 +158,8 @@
         }
         function sxWriterStamp(ids) {
             // E6 stamp: every writer output names the live session compare
-            // settings — mode, and each cast profile's Heat (zone + signed
-            // value) and Veil — read from the same session state the
+            // settings - mode, and each cast profile's Heat (zone + signed
+            // value) and Veil - read from the same session state the
             // Compare panel reads (sxcv / sxHeatFor / sxVeilFor).
             const names = ids.map(id => rd(id)), heat = ids.map((id, i) => {
                 const v = sxHeatFor(id);
@@ -171,7 +171,7 @@
         // (refactor F11): the per-person binding Terms line and the
         // stated-aftercare-needs line are byte-identical in Lu()'s
         // negotiation checklist and in sxStoreNegotiationGuide()'s
-        // guide document — same text, same per-person inputs — so
+        // guide document - same text, same per-person inputs - so
         // both render through these two helpers. The promise stays
         // explicit at each call site: these helpers format BINDING
         // lines only. Scribe's flavor rendering is a different
@@ -185,9 +185,9 @@
         function sxStatedAftercareLine(needs) {
             return `- ${needs}`;
         }
-        // Binding vs flavor (refactor F11 — read before "deduplicating"
+        // Binding vs flavor (refactor F11 - read before "deduplicating"
         // the per-person terms/aftercare lines): Scribe's sxTermsBlock
-        // renders a person's Terms as FLAVOR — character context for a
+        // renders a person's Terms as FLAVOR - character context for a
         // story or guide prompt, explicitly non-binding (its flavor
         // parameter says so). Scene Setter's per-person lines in Lu()
         // below and in sxStoreNegotiationGuide() are the BINDING layer:
@@ -196,7 +196,7 @@
         // renderings intentionally differ in wording, punctuation, and
         // empty-state lines (e.g. "- None marked" in the checklist vs
         // "- None marked." in the guide document), so the surrounding
-        // renderings are NOT merged — merging them would change
+        // renderings are NOT merged - merging them would change
         // shipped bytes and blur the promise each surface makes. What
         // IS shared safely is the block level: sxTermsBlock /
         // sxAboutBlock / sxAgeBlock / sxRolesBlock / sxCastBlock feed
@@ -208,8 +208,8 @@
         // guide document (both binding surfaces, same per-person
         // inputs). Deliberately left unshared: the limits/reds lists
         // and their empty states (punctuation differs, above);
-        // Lu()'s aftercare fallback chain — stated needs, else rated
-        // aftercare lines, else the not-filled-out line — because
+        // Lu()'s aftercare fallback chain - stated needs, else rated
+        // aftercare lines, else the not-filled-out line - because
         // the guide document renders rated aftercare in its own
         // tier-gated section instead; and the on-screen checklist
         // panel's HTML terms line, which carries no "- " prefix
@@ -231,7 +231,7 @@
                 label: `${labelNum} ${unitWord(labelNum, unit)}`,
                 tier: tier,
                 // The moderation tier labels name the shared-ground
-                // detail instead of the rated-aftercare detail — there
+                // detail instead of the rated-aftercare detail - there
                 // is no aftercare on a stance map.
                 tierLabel: "compact" === tier ? "compact (full per-topic detail folded)" : "standard" === tier ? (mod ? "standard (shared-ground detail included)" : "standard (rated-aftercare detail included)") : (mod ? "full (shared-ground detail and per-topic appendix included)" : "full (rated-aftercare detail and per-topic appendix included)")
             };
@@ -253,7 +253,7 @@
         // Scene Setter shared handler pieces (refactor F3): the full
         // play-guide prompt text (stored copy document plus the phase
         // and details sections), and the freshness step every
-        // negotiation handler starts with — read the dialog's
+        // negotiation handler starts with - read the dialog's
         // participant ids and re-render the stored documents when a
         // pair is selected.
         function playGuidePromptText() {
@@ -271,7 +271,7 @@
         window.__sxSetterParticipantIds = setterParticipantIds;
         // Scene Setter discussion moderation (2026-11-16): on a
         // vanilla stance/belief skin, Scene Setter moderates a
-        // discussion between the stances — it is NOT a play checklist.
+        // discussion between the stances - it is NOT a play checklist.
         // The moderation prompt is built from the selected profiles'
         // actual pole stances (the same pole-aware readers Scribe
         // uses), with the ground rules as its binding layer and the
@@ -279,7 +279,7 @@
         // path below is untouched.
         function sxSetterModerationData(ids) {
             // The shared ground for the Scene Setter's own participant
-            // ids — unlike sxScribeMatchData, which reads the Scribe
+            // ids - unlike sxScribeMatchData, which reads the Scribe
             // dialog's lead/partner for pairs. The heat/veil settings
             // are the same ones Iu() passes, so the shared ground
             // matches the discussion data below.
@@ -290,7 +290,7 @@
             // identical stances, 0 = opposite on every pole): a shared
             // topic is "where they agree" at 50% or above, "where they
             // part" below 50%. A topic with no agreement field (a
-            // single-profile or unrated entry) counts as agreed — it
+            // single-profile or unrated entry) counts as agreed - it
             // is in the shared pool, not a disagreement.
             return {
                 ids, names: ids.map(id => rd(id)),
@@ -307,7 +307,7 @@
                 lines = [ `GROUND RULES — BINDING — ${mod.names.join(" + ")}` ];
             // Each side's anchor stances: the strongest recorded
             // positions per profile, so the moderator knows what each
-            // side stands on. Capped at five per profile — the shared
+            // side stands on. Capped at five per profile - the shared
             // ground below carries the full overlap.
             mod.perPerson.forEach((p, i) => {
                 const top = (p.established || []).slice().sort((a, b) => Math.abs(b.score) - Math.abs(a.score)).slice(0, 5);
@@ -334,12 +334,12 @@
             // The detail level is the depth control (the Setter dialog
             // has no Depth slider): "detailed" turns the plan into
             // dissertation-defense material, gated on the JSON's rigor
-            // text — the same rule Scribe uses for its Depth-5 line.
+            // text - the same rule Scribe uses for its Depth-5 line.
             const i = Cu(ids), a = `${i.length || "5"} ${unitWord(i.length || "5", i.lengthUnit)}`,
                 detailLine = "concise" === i.detail ? "Concise: use short phase notes and only essential check-ins." : "detailed" === i.detail ? "High detail: include specific phase timing, transitions, turn-taking, check-ins, and closing synthesis." : "Balanced detail: include enough timing, transitions, turn-taking, and check-ins to follow without over-scripting.",
                 rigorLine = "detailed" === i.detail && rigor ? rigor : "";
             // The stance lists, with each topic's pole detail and the
-            // pair agreement — the same fmtStance the Scribe discussion
+            // pair agreement - the same fmtStance the Scribe discussion
             // composer uses. The cast is by name only: gender,
             // orientation, and give/receive roles are Sexcapades data
             // and have no meaning for a stance map.
@@ -350,11 +350,11 @@
         function sxStoreDiscussionAgreement(ids, iuData, mod) {
             // The vanilla branch of sxStoreNegotiationGuide: a
             // discussion agreement, not a negotiation guide. CAST by
-            // name only (no gender/orientation/roles — Sexcapades
+            // name only (no gender/orientation/roles - Sexcapades
             // data); per-person stances, the shared ground split by
             // agreement, the ground rules, and the discussion data.
             // Tier-gated detail mirrors the negotiation guide's tiers,
-            // without the aftercare mention — there is no aftercare on
+            // without the aftercare mention - there is no aftercare on
             // a stance map.
             const st = Cu(ids), sp = sxNegotiationLengthSpec(st),
                 list = (items, empty) => items && items.length ? items.map(x => `- ${x}`) : [ `- ${empty}` ],
@@ -385,7 +385,7 @@
         }
         function sxSkinDownloadPrefix() {
             // Download filename prefix: the active skin's display name
-            // (Quantacapades, Poliscapades, …) — derived from the skin
+            // (Quantacapades, Poliscapades, …) - derived from the skin
             // key, so a vanilla download is not mislabelled Sexcapades.
             const key = String(window.__SX_ACTIVE_SKIN || "sexcapades"), base = key.replace(/capades$/, "");
             return base.charAt(0).toUpperCase() + base.slice(1) + "capades";
@@ -394,7 +394,7 @@
             // The on-screen Scene Setter panel for a moderation skin:
             // the ground rules (shared ground + per-person stances +
             // the six rules) and the discussion source material. No
-            // safeword or aftercare inputs — there are none on a stance
+            // safeword or aftercare inputs - there are none on a stance
             // map, so the input listener that saves them is not
             // attached (06d). Called from the dialog's open handler.
             const spec = window.__SX_SETTER || null,

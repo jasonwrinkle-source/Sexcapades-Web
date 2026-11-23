@@ -188,17 +188,17 @@
                     // captured base is recaptured whenever it is not
                     // finite OR the item's governing signature
                     // (_radialBase20Sig, see dkRadialBaseInfo) differs
-                    // from the current key — from the item's fit target
+                    // from the current key - from the item's fit target
                     // when fit-armed, else from its current cloudRadius,
                     // with the legacy max(1, ...) capture floor. With an
                     // unchanged signature there is NO recapture: the base
                     // captured in the first resolver round of a solve
                     // survives unchanged into the second round. A
-                    // recapture driven by a signature mismatch — against
+                    // recapture driven by a signature mismatch - against
                     // the wrapper's own stored signature, or, for the
                     // fresh wrappers each fr() run allocates, against the
                     // same stable identity's entry in the driver's
-                    // base-state registry — is recorded in the DeKnotter
+                    // base-state registry - is recorded in the DeKnotter
                     // run log as 'base-recapture' with the item's stable
                     // key; a first-ever capture is not a recapture and is
                     // not logged. The registry is refreshed either way.
@@ -250,7 +250,7 @@
                     // is armed enters this resolver already carrying the
                     // armed compaction factor (clouds 0.74x / spokes
                     // 0.76x, applied in frCloudLayout / frCollisionPasses)
-                    // — but sibling separation then grew it back out
+                    // - but sibling separation then grew it back out
                     // toward the un-shrunk radius (the pair separation
                     // floor for dense child clouds lands within a few
                     // units of the un-shrunk radius), so the delivered
@@ -258,7 +258,7 @@
                     // nodes). Armed items may still shrink or hold here;
                     // they may not grow. Separation for an armed pair is
                     // achieved by the unarmed partner growing, or not at
-                    // all — the overlap trade the armed shrink commands.
+                    // all - the overlap trade the armed shrink commands.
                     // Unarmed items are untouched (itemArm null or false
                     // passes every candidate exactly as before).
                 };
@@ -269,7 +269,7 @@
                         // Fit deviation (E4): an outward push that sibling
                         // separation forces on a fit item is allowed (its
                         // floor is the target, so it can never be pushed
-                        // below it), but never silent — each push is
+                        // below it), but never silent - each push is
                         // recorded with the item's stable key, its
                         // target, and the radius it was pushed to.
                         c && (Number.isFinite(c.item._radialFit20) && c.radius > c.item._radialFit20 + 1e-9 && dkLog.push({
@@ -326,8 +326,8 @@
                     const s = Math.max(1, i.topicCloudRadius), l = (s + o) / s;
                     i.topicCloudRadius = s + o, (i.topics || []).forEach(e => {
                         // Fit guard (E4): branch relief never scales a
-                        // fit item's cloudRadius — nor a fit
-                        // subcategory's childCloudRadius — and every
+                        // fit item's cloudRadius - nor a fit
+                        // subcategory's childCloudRadius - and every
                         // would-be touch of a fit item is logged.
                         const fv = dkFitTargetValueFor(e);
                         if (null != fv) dkLog.push({
@@ -347,7 +347,7 @@
                 // demand, the sector whose obstacles exert the
                 // pressure (the demand's source branch), and itemSec
                 // maps each topic item to its owning sector (the
-                // target branch) — the application loop below
+                // target branch) - the application loop below
                 // suppresses any demand whose source or target
                 // branch is frozen. Both maps are inert bookkeeping
                 // when no scope is active.
@@ -402,7 +402,7 @@
                         if (scSectorFrozen(scTgt) || scSectorFrozen(scSrc)) return void scReliefBoundary(scCtx, scSectorName(scSrc), scSectorName(scTgt), scCtx.reliefPass || 0);
                     }
                     // Fit guard (E4): cascade relief never grows a fit
-                    // item away from its target — the skip is logged.
+                    // item away from its target - the skip is logged.
                     const fv = dkFitTargetValueFor(i);
                     if (null != fv) return void dkLog.push({
                         type: "fit-relief-skip",
@@ -422,7 +422,7 @@
                 // 1-based cascade pass number so boundaryLog entries
                 // name the pass that produced them (the branch
                 // relief pass above is pass 0); under the R6 abort
-                // flag the cascade stops at once — pass accounting
+                // flag the cascade stops at once - pass accounting
                 // is otherwise unchanged.
                 for (let i = 0; i < rr.MAX_CASCADE_PASSES; i++) {
                     if (scCtx) {
@@ -535,7 +535,7 @@
                         // Scoped solve (T3, L4): a pair with BOTH
                         // branches frozen can only produce deltas
                         // against frozen targets, which are suppressed
-                        // by construction — skip the pair outright
+                        // by construction - skip the pair outright
                         // (the latency win). Recompute×frozen pairs
                         // are still evaluated; their frozen-target
                         // candidates are suppressed + counted at the
@@ -590,7 +590,7 @@
                 };
                 let lastTarget = null;
                 for (let e = 0; e < SX_SCORE.OPTIMIZER_MAX_PASSES; e++) {
-                    // Q1: heartbeat / cancel / phase-budget poll —
+                    // Q1: heartbeat / cancel / phase-budget poll -
                     // a no-op unless a DeKnotter context is active.
                     dkSolvePoll();
                     let rawCand = a(lastTarget);
@@ -666,7 +666,7 @@
         // reads the live fontScale layout value (defined in 02e-font-ladder.js).
         // UNIFY (2026-11-02): sxSyncMapFontBase is the ONE setter of the
         // stylesheet's --map-font-base variable, fed by the LIVE scale
-        // (mapFontScale() above) — U = 22 x live fontScale. It runs on
+        // (mapFontScale() above) - U = 22 x live fontScale. It runs on
         // every render (Mr) and is exposed for the shell's boot/apply
         // paths, which call it instead of setting the variable from the
         // defaults/apply channel. No other code sets --map-font-base.
@@ -691,18 +691,18 @@
         // SPOKE BASE FORMULA (ruled 2026-11-01, Jason): the base of a
         // subcategory segment is no longer the fixed 430 floor. Base =
         // drawn icon radius x (300deg / number of spokes): the usable
-        // circle around the branch hub icon — 360deg less the reserved
-        // 60deg back angle = 300deg = 5pi/3 radians — shared equally
+        // circle around the branch hub icon - 360deg less the reserved
+        // 60deg back angle = 300deg = 5pi/3 radians - shared equally
         // among the spokes fanning out of that hub, so a crowded fan
         // gets a smaller base and a sparse fan a bigger one. The icon
         // radius is the DRAWN radius (sxIconRadius(1) under
-        // the 2026-11-02 icon depth law — (2/3)^1 x
+        // the 2026-11-02 icon depth law - (2/3)^1 x
         // sqrt(R x W), R the centre-disc radius and W the
         // ring width, floored at 12 x font scale; supersedes
-        // the 0.6 linear law —
+        // the 0.6 linear law -
         // the size the hub icon actually renders at), never the
         // raw unscaled pr value the retired floor measured icons at.
-        // The spoke count is the solved entry's cloudCount — the
+        // The spoke count is the solved entry's cloudCount - the
         // number of gen-2 spokes in that branch's fan, stamped by
         // frCloudLayout. This helper is the ONE formula: every
         // segment-composition site (the closing capture, the
@@ -718,7 +718,7 @@
         // Slider size repair #2 (2026-11-01): the rating rail's visible
         // thickness and its hit strokes are screen-px quantities
         // (non-scaling-stroke), while the track length (320 * control
-        // scale, map units) is camera-scaled — so a fixed 44px thickness
+        // scale, map units) is camera-scaled - so a fixed 44px thickness
         // stays correct up close but dwarfs the delivered track at Full
         // zoom-out, where one inadvertently opened slider rendered as a
         // fat pill over the bunched centre spokes. sxRailPx(m) returns
@@ -779,8 +779,8 @@
         // "popularity" mode silently rendered the stagger order; the mode
         // check below now accepts all three modes.
         // Build 2026-10-16_2206: fourth mode "alternate" (Alternate density)
-        // interleaves the density-sorted branches — densest, sparsest, 2nd
-        // densest, 2nd sparsest, ... — so every dense branch is flanked by
+        // interleaves the density-sorted branches - densest, sparsest, 2nd
+        // densest, 2nd sparsest, ... - so every dense branch is flanked by
         // sparse neighbors. Separately, mn.propFan (Proportional fan) is
         // orthogonal to the order mode: when on, each branch spoke sits at
         // the center of the sector allocateSectors sized in proportion to
@@ -793,7 +793,7 @@
         // mn.staggerDensity (Stagger density, default on) scales category
         // spoke lengths by kink-count density in yr().
         // Build 2026-10-17_0330: ninth mode "complexity-antipodal"
-        // (Complexity-Antipodal) — see branchOrderComplexityAntipodalNames.
+        // (Complexity-Antipodal) - see branchOrderComplexityAntipodalNames.
         let branchOrderCacheMode = "", branchOrderCacheMap = null;
         function branchOrderPopularityNames() {
             return U(h, z, e => e.name).map(e => e.name);
@@ -868,9 +868,9 @@
             return rest.forEach((p, i) => order[p] = fill[i]), order;
         }
         // Three more modes (Build 2026-10-17_0103). "antipodal" (Antipodal
-        // Total): sort by TOTAL children — subcategory count plus direct
+        // Total): sort by TOTAL children - subcategory count plus direct
         // (parent) topics for subcategorized branches, topic count for flat
-        // ones — then pair the sorted list (1st with 2nd, 3rd with 4th, ...)
+        // ones - then pair the sorted list (1st with 2nd, 3rd with 4th, ...)
         // and place each pair 180° apart: pair leaders take every other slot
         // starting from the slot nearest 0°, partners sit exactly opposite,
         // so the heaviest branches are maximally separated, never adjacent.
@@ -883,7 +883,7 @@
         // categories that HAVE subcategories, sorted by subcategory count,
         // take evenly spaced slots (one per 360/7 step from the top), and
         // the flat categories fill the remaining slots in descending topic
-        // count — structural branching complexity is spread around the map
+        // count - structural branching complexity is spread around the map
         // instead of topic bulk.
         function branchOrderAntipodalNames() {
             const count = h.length, totalChildren = e => e.subcategories && e.subcategories.length ? e.subcategories.length + (e.parentTopics || []).length : e.topics.length, byTotal = h.slice().sort((a, b) => totalChildren(b) - totalChildren(a) || b.topics.length - a.topics.length || (z(b) ?? 0) - (z(a) ?? 0) || a.name.localeCompare(b.name)), order = new Array(count).fill(null), angle = p => -Math.PI / 2 + p * 2 * Math.PI / count, half = count / 2;
@@ -980,7 +980,7 @@
         // Build the complete map geometry, then run the layout passes in a fixed,
         // documented order. Default sibling radii are uniform.
         // P1 refactor (Build 2026-10-18_2227): fr (map geometry) split by
-        // responsibility — frBuildTree builds the visible topic tree,
+        // responsibility - frBuildTree builds the visible topic tree,
         // frAssignCategoryAngles the branch spoke angles,
         // frAllocateTopicSectors the gen-2/gen-3 sectors, frCloudLayout
         // the topic clouds, frClampCloudRadii the neighbor radius clamp,

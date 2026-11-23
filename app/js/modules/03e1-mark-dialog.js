@@ -1494,7 +1494,7 @@
             }), Object.keys(At).forEach(e => delete At[e]), Ze[Et] = {}, Ct = !1, zt(e), !0);
         }
         // Hot List freeze fix (2026-11-15): an explicitly passed empty-template
-        // id (Et) is NOT a valid write target — it used to mint a new "New
+        // id (Et) is NOT a valid write target - it used to mint a new "New
         // profile" on every call (the dialog passes its captured Et per move).
         // Fall through to the selected profile so at most one profile is
         // minted, on the first write, and later writes reuse it.
