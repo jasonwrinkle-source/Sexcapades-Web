@@ -584,6 +584,9 @@
             var titleBtn = document.getElementById("gateAppAboutBtn");
             var menu = document.getElementById("skinMenu");
             if (titleBtn && menu && menu.hidden) {
+              if (typeof window.__SX_RENDER_SKIN_MENU === "function") {
+                window.__SX_RENDER_SKIN_MENU(menu, activeSkin);
+              }
               var r = titleBtn.getBoundingClientRect();
               menu.style.visibility = "hidden";
               menu.hidden = false;
