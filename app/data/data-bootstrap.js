@@ -2362,26 +2362,11 @@ const TAXONOMY_CATEGORIES = [];
             if (record && spokeId === record.parentId) return "own";
             return null;
         }
-        const Qi = () => typeof window !== "undefined" && typeof window.Qi === "function" ? window.Qi() : false;
-        const Vi = () => typeof window !== "undefined" && typeof window.Vi === "function" ? window.Vi() : null;
-        const Xi = () => typeof window !== "undefined" && typeof window.Xi === "function" ? window.Xi() : [];
-        const Ge = (e, t) => typeof window !== "undefined" && typeof window.Ge === "function" ? window.Ge(e, t) : null;
-        const da = (e, t) => typeof window !== "undefined" && typeof window.da === "function" ? window.da(e, t) : null;
-        const $a = (e, t, n) => typeof window !== "undefined" && typeof window.$a === "function" ? window.$a(e, t, n) : null;
-        const Sa = (e, t, n, i) => typeof window !== "undefined" && typeof window.Sa === "function" ? window.Sa(e, t, n, i) : null;
-        const ka = (e, t, n = "", i = {}) => typeof window !== "undefined" && typeof window.ka === "function" ? window.ka(e, t, n, i) : "";
-        const Ua = (e) => typeof window !== "undefined" && typeof window.Ua === "function" ? window.Ua(e) : null;
-        const Oa = (e, t) => typeof window !== "undefined" && typeof window.Oa === "function" ? window.Oa(e, t) : null;
-        const ba = (e) => typeof window !== "undefined" && typeof window.ba === "function" ? window.ba(e) : "";
-        const la = (e) => typeof window !== "undefined" && typeof window.la === "function" ? window.la(e) : "var(--line)";
-        const zi = (e) => typeof window !== "undefined" && typeof window.zi === "function" ? window.zi(e) : "var(--line)";
-
         function Ka(e, t, n, i, a, r, o, s, l, c, d, u = 48, p = Ga.FALLBACK_COLOR, g = !0, m = "", f = null, y = null, b = null, v = !1, w = !0, k = h.length, bc = null, sxLeafD = null, sxDepth = null) {
             if (sxSexSkin()) v = !0;
-            if (typeof Ra === "function") Ra(e); else if (typeof window !== "undefined" && typeof window.__SX_RA === "function") window.__SX_RA(e);
-            const sxIsBlind = () => (typeof Rt !== "undefined" ? Boolean(Rt) : (typeof window !== "undefined" && Boolean(window.__SX_BLIND)));
+            Ra(e);
             const sxD = null != sxDepth ? sxDepth : sxLeafD === sxIconDiameter(1) ? 1 : sxLeafD === sxIconDiameter(3) ? 3 : 2, sxF = sxFontFactor(sxD), sxSW = sxStrokeWidth(sxD);
-            const x = sxIsBlind() || Qi() ? null : Vi(), S = sxIsBlind() ? null : x || function(e) {
+            const x = Rt || Qi() ? null : Vi(), S = Rt ? null : x || function(e) {
                 const t = Vi();
                 return Qi() && t && (at[t] || {})[e] && gn.has(oi(t, e)) ? t : null;
             }(e), $ = Ge(e, S || Vi()), E = e => `translate(${(a * e).toFixed(2)} ${(r * e).toFixed(2)})`, A = e.replace(/[^a-z0-9-]/g, ""), C = Boolean(topicLabelById[e]), M = S || Vi(), I = qn[e] || Xn(e) || {
@@ -2396,7 +2381,7 @@ const TAXONOMY_CATEGORIES = [];
             let D = "";
             const sxShowMapSliders = Boolean(mn && mn.mapSliders);
             const sxZoomOk = "function" !== typeof window.sxMapZoomAllowsWidgets || window.sxMapZoomAllowsWidgets();
-            const R = g && !sxIsBlind() ? Ua(e) : null, O = Ga.heatWidths(n, sxD);
+            const R = g && !Rt ? Ua(e) : null, O = Ga.heatWidths(n, sxD);
             if (SpokeGeometry.taperedPath(t, O.w0, O.w1), R) {
                 const overlayTip = "Overlaid profiles into this topic", a = `${R.count}/${R.total}`;
                 D += `<path class="group-heat${R.count === R.total ? " all-in" : ""}" d="${t}" stroke="${R.color}" stroke-width="${O.w0}" opacity="${(.2 + .48 * R.count / R.total).toFixed(2)}" tabindex="0" role="img" aria-label="${Hi(`${i}: ${a} overlaid profiles into this topic`)}"${ka(i, overlayTip, a, {
@@ -2457,7 +2442,7 @@ const TAXONOMY_CATEGORIES = [];
                     D += `<path class="visual-rail collapsed-rating-rail" d="${t}" transform="${E(e.offset)}" fill="none" stroke="${zi(a)}" stroke-width="6" stroke-linecap="round" vector-effect="non-scaling-stroke"><title>${r}: ${Math.round(a)}${o}</title></path>`;
                 });
             }
-            if (g && !sxIsBlind() && Qi() && 2 === Xi().length) {
+            if (g && !Rt && Qi() && 2 === Xi().length) {
                 const n = function(e) {
                     const t = Xi();
                     if (t.some(t => "limit" === Oa(e, t))) return "limit";
@@ -2927,7 +2912,7 @@ const TAXONOMY_CATEGORIES = [];
                 });
                 }
             }
-            if (g && !sxIsBlind() && !x) {
+            if (g && !Rt && !x) {
                 const i = Xi(), a = $.keys || ($.single ? [ "give" ] : [ "give", "receive" ]), r = i.length * a.length, o = (n > 7 ? Math.min(18, 4 + 1.6 * r) : Math.min(14, 3 + 1.4 * r)) * (mapFontScale() * sxF / 3), s = Math.max(1.35, n / Math.min(r, 6)) * (mapFontScale() * sxF / 3);
                 i.forEach((n, i) => {
                     const l = da(e, n);
@@ -5117,9 +5102,8 @@ const Ce = {
         for (const _subName of Object.keys(Ee)) {
             if (!(Ee[_subName] in ye)) throw new Error(`Sexcapades glyph check: subcategory "${_subName}" maps to glyph "${Ee[_subName]}", which is missing from the ye glyph dictionary`);
         }
-        const _beTable = window.__SX_EXPORT_BE || {};
-        for (const _branchName of Object.keys(_beTable)) {
-            for (const _glyphName of _beTable[_branchName]) {
+        for (const _branchName of Object.keys(be)) {
+            for (const _glyphName of be[_branchName]) {
                 if (!(_glyphName in ye)) throw new Error(`Sexcapades glyph check: branch "${_branchName}" lists glyph "${_glyphName}", which is missing from the ye glyph dictionary`);
             }
         }
@@ -5219,9 +5203,9 @@ const Ce = {
             // Topic-icon inheritance (owner ruling 2026-11-23): a topic
             // with no glyph of its own in ve inherits its category's
             // descriptor glyph from ge instead of the generic star.
-            // Topics present in ve or registered in window.__SX_SKIN_TOPIC_GLYPHS
-            // are untouched and use their assigned glyph.
-            const _veKey = t + "\0" + e, _skinGlyph = typeof window !== "undefined" && window.__SX_SKIN_TOPIC_GLYPHS ? window.__SX_SKIN_TOPIC_GLYPHS[_veKey] : null, n = _skinGlyph || (window.__SX_EXPORT_BE?.[t] ? ve.get(_veKey) : null) || ve.get(_veKey) || "star", _ownGlyph = Boolean((_skinGlyph && _skinGlyph in ye) || (ve.has(_veKey) && n in ye)), _catDesc = !_ownGlyph && ge && ge[t] && ge[t].glyph ? ge[t] : null, _glyphFallback = !_ownGlyph && !_catDesc, i = _e.get(_veKey) || 0, a = Le(e, t);
+            // Topics present in ve (every Sexcapades catalog topic,
+            // including any assigned the star itself) are untouched.
+            const _veKey = t + "\0" + e, n = ve.get(_veKey) || "star", _ownGlyph = ve.has(_veKey) && n in ye, _catDesc = !_ownGlyph && ge && ge[t] && ge[t].glyph ? ge[t] : null, _glyphFallback = !_ownGlyph && !_catDesc, i = _e.get(_veKey) || 0, a = Le(e, t);
             return {
                 glyph: _ownGlyph ? ye[n] : _catDesc ? _catDesc.glyph : ye.star,
                 glyphFallback: _glyphFallback,
@@ -16566,7 +16550,6 @@ function dkEvaluateCrossingDrop(before, after, threshold = 0.75) {
             for (let t = 0; t < n.length; t++) for (let a = t + 1; a < n.length; a++) i.push(La(e, n[t], n[a]));
             return i.includes("mismatch") ? "mismatch" : i.includes("mutual") ? "mutual" : i.includes("explore") ? "explore" : "other";
         }
-        if (typeof window !== "undefined") window.__SX_RA = Ra;
         function sxIsBranchLimited(e, t = Vi()) {
             const grp = Kd();
             const pIds = grp && Array.isArray(grp.sourceIds) ? grp.sourceIds.filter(id => vt[id]) : (Qi() ? Xi() : [ t ]);
@@ -16646,22 +16629,6 @@ function dkEvaluateCrossingDrop(before, after, threshold = 0.75) {
             };
         }
         Cn.addEventListener("pointerdown", sa, !0), Cn.addEventListener("keydown", sa, !0);
-        if (typeof window !== "undefined") {
-            window.Qi = Qi;
-            window.Vi = Vi;
-            window.Xi = Xi;
-            window.Ge = Ge;
-            window.da = da;
-            window.$a = $a;
-            window.Sa = Sa;
-            window.ka = ka;
-            window.Ua = Ua;
-            window.Oa = Oa;
-            window.ba = ba;
-            window.la = la;
-            window.zi = zi;
-            window.Ra = Ra;
-        }
 
         /* ================= SpokeSelection module — BEGIN ================= */
         /* ================================================================
