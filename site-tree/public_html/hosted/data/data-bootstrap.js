@@ -45994,7 +45994,10 @@ yk([ "Spitting", "Spit play", "Being spit on", "Spitting on someone" ], "t0341")
         // open in this dialog against every archetype in the current skin,
         // through the real pair engine (the same Play Match Score the
         // Krossmatch tabs show), ranked best-first. Adam/Eve are samples,
-        // not archetypes, so they are left out. A partly-rated profile
+        // not archetypes, so they are left out; stacked samples (a
+        // platform's or creed's dated layers) DO compete, one top layer
+        // per stack, with the best historical layer reported separately
+        // (2026-11-22 scoping, below). A partly-rated profile
         // still projects — the score rests on the topics both sides rated,
         // and the note under the list says how many that was.
         function sxArchetypeProjection() {
@@ -46020,11 +46023,11 @@ yk([ "Spitting", "Spit play", "Being spit on", "Spitting on someone" ], "t0341")
                 resultsEl.innerHTML = `<p class="profile-archetype-note">This map has no archetypes to compare against.</p>`;
                 return;
             }
-            const scored = [];
-            Object.keys(samples).forEach(key => {
-                const entry = samples[key];
-                if (!entry || !entry.payload || !entry.payload.ratings) return;
-                if (entry.kind === "sample") return;
+            // Score one candidate entry against the open profile with
+            // the identity measure below; null when it cannot be
+            // scored (no pair, no shared topics, no comparable flank).
+            const scoreEntry = (key, entry) => {
+                if (!entry || !entry.payload || !entry.payload.ratings) return null;
                 const arch = {
                     id: "archetype:" + key,
                     name: entry.name || key,
@@ -46038,9 +46041,9 @@ yk([ "Spitting", "Spit play", "Being spit on", "Spitting on someone" ], "t0341")
                 };
                 let pair = null;
                 try { pair = engine.pair(user, arch, {}); } catch (err) { pair = null; }
-                if (!pair || !pair.play || !pair.coverage) return;
+                if (!pair || !pair.play || !pair.coverage) return null;
                 const shared = pair.coverage.shared || 0;
-                if (!shared) return;
+                if (!shared) return null;
                 // Identity score — "which archetype am I?": same-flank
                 // similarity over the shared set (both rated, not
                 // limit-blocked, not fantasy). The old score was the
@@ -46066,12 +46069,60 @@ yk([ "Spitting", "Spit play", "Being spit on", "Spitting on someone" ], "t0341")
                     if (!diffs.length) return;
                     identityAgreements.push(1 - diffs.reduce((s, v) => s + v, 0) / (200 * diffs.length));
                 });
-                if (!identityAgreements.length) return;
+                if (!identityAgreements.length) return null;
                 const identityScore = Math.round(100 * identityAgreements.reduce((s, v) => s + v, 0) / identityAgreements.length);
                 const matchDrivers = (pair.play.lists && pair.play.lists.matches ? pair.play.lists.matches : []).map(r => r.label).filter(Boolean);
                 const curiousDrivers = (pair.play.lists && pair.play.lists.curiousAbout ? pair.play.lists.curiousAbout : []).map(r => r.label).filter(Boolean);
                 const drivers = matchDrivers.concat(curiousDrivers.filter(l => !matchDrivers.includes(l))).slice(0, 3);
-                scored.push({ key: key, name: entry.name || key, about: entry.about || "", score: identityScore, shared: shared, drivers: drivers });
+                return { key: key, name: entry.name || key, about: entry.about || "", score: identityScore, shared: shared, drivers: drivers };
+            };
+            // Palimpsest scoping (2026-11-22, Jason's ruling): entries
+            // carrying stack fields are dated layers of ONE identity
+            // (a party's platforms, a creed's documents), so a stack
+            // must not flood the ranking with every era of itself.
+            // Only each stack's TOP layer competes for the headline —
+            // the "present" layer where the stack has one, else its
+            // newest dated layer. Stacked entries are samples
+            // (platforms, creeds), so they join the pool here even
+            // though unstacked samples (Adam/Eve — real profiles, not
+            // identities to project onto) stay out, exactly as
+            // before. The best of the remaining layers is computed
+            // separately and reported as the closest layer across
+            // time; historical layers never enter the headline list.
+            const stackGroups = {}, stackOrder = [], headlineKeys = [], histKeys = [];
+            Object.keys(samples).forEach(key => {
+                const entry = samples[key];
+                if (!entry || !entry.payload || !entry.payload.ratings) return;
+                const sk = entry.stackKey || entry.stack;
+                if (sk) {
+                    if (!stackGroups[sk]) { stackGroups[sk] = []; stackOrder.push(sk); }
+                    stackGroups[sk].push(key);
+                } else if (entry.kind !== "sample") headlineKeys.push(key);
+            });
+            const layerValue = entry => {
+                const d = entry && entry.date != null ? String(entry.date).trim() : "";
+                if (d.toLowerCase() === "present") return Infinity;
+                const n = parseFloat(d);
+                return isNaN(n) ? -Infinity : n;
+            };
+            let hasMultiLayerStack = false;
+            stackOrder.forEach(sk => {
+                const keys = stackGroups[sk];
+                if (keys.length > 1) hasMultiLayerStack = true;
+                let topKey = keys[0];
+                keys.forEach(k => { if (layerValue(samples[k]) > layerValue(samples[topKey])) topKey = k; });
+                headlineKeys.push(topKey);
+                keys.forEach(k => { if (k !== topKey) histKeys.push(k); });
+            });
+            const scored = [];
+            headlineKeys.forEach(key => {
+                const s = scoreEntry(key, samples[key]);
+                if (s) scored.push(s);
+            });
+            const histScored = [];
+            if (hasMultiLayerStack) histKeys.forEach(key => {
+                const s = scoreEntry(key, samples[key]);
+                if (s) histScored.push(s);
             });
             if (!scored.length) {
                 resultsEl.innerHTML = `<p class="profile-archetype-note">No shared topics yet — rate a few of the topics these archetypes cover and try again.</p>`;
@@ -46090,7 +46141,17 @@ yk([ "Spitting", "Spit play", "Being spit on", "Spitting on someone" ], "t0341")
                 return `<div class="profile-archetype-row"${tip}><div class="profile-archetype-row-top"><span class="profile-archetype-name">${i + 1}. ${Hi(s.name)}</span><span class="profile-archetype-score">${s.score}%</span></div>${drivers}</div>`;
             }).join("");
             const best = top[0];
-            resultsEl.innerHTML = rows + `<p class="profile-archetype-note">Compared against ${scored.length} archetype${1 === scored.length ? "" : "s"} · your closest archetype is ${Hi(best.name)} at ${best.score}% on ${best.shared} shared topic${1 === best.shared ? "" : "s"} · you rated ${userRated} topic${1 === userRated ? "" : "s"}.</p>`;
+            let html = rows + `<p class="profile-archetype-note">Compared against ${scored.length} archetype${1 === scored.length ? "" : "s"} · your closest archetype is ${Hi(best.name)} at ${best.score}% on ${best.shared} shared topic${1 === best.shared ? "" : "s"} · you rated ${userRated} topic${1 === userRated ? "" : "s"}.</p>`;
+            // Secondary readout: the best-matching historical layer
+            // across every stack in the pool — which era of which
+            // identity sits closest, even though only top layers
+            // competed for the headline above.
+            if (histScored.length) {
+                histScored.sort((a, b) => b.score - a.score || a.name.localeCompare(b.name));
+                const hb = histScored[0];
+                html += `<p class="profile-archetype-note">Closest layer across time: ${Hi(hb.name)} at ${hb.score}% on ${hb.shared} shared topic${1 === hb.shared ? "" : "s"}.</p>`;
+            }
+            resultsEl.innerHTML = html;
         }
 
         // Local samples (2026-11-18, Jason): "Add current profile as a
@@ -46393,12 +46454,19 @@ yk([ "Spitting", "Spit play", "Being spit on", "Spitting on someone" ], "t0341")
             return Cw[e];
         }
         function Iw(t = {}, menu = jy, trigger = _w) {
+            // Capture the trigger's rect BEFORE kw()/Sw() close the
+            // other submenus: a trigger that lives inside a submenu
+            // (a palimpsest stack's parent row inside Samples) has no
+            // rect once its own menu is hidden. Triggers in the add
+            // menu are unaffected — Sw never hides that menu, so their
+            // rect is the same either way.
+            const triggerRect = trigger && trigger.getBoundingClientRect ? trigger.getBoundingClientRect() : null;
             kw(), Sw();
             const n = tl.querySelector("[data-add-profile]"), i = trigger;
             if (!n || By.hidden || !menu) return;
             Ew(), menu.hidden = !1, menu.classList.add("is-submenu"), n.setAttribute("aria-expanded", "true"), 
             i.setAttribute("aria-expanded", "true");
-            const a = i.getBoundingClientRect(), r = menu.offsetWidth, o = menu.offsetHeight;
+            const a = triggerRect || i.getBoundingClientRect(), r = menu.offsetWidth, o = menu.offsetHeight;
             let s, l;
             if (innerWidth <= 620) {
                 s = Math.max(8, Math.min(innerWidth - r - 8, a.left));
@@ -46428,8 +46496,7 @@ yk([ "Spitting", "Spit play", "Being spit on", "Spitting on someone" ], "t0341")
         // Loads one entry from either the Samples or the Archetypes
         // submenu (both carry [data-sample-profile] buttons; the
         // loader is the same for archetypes and samples).
-        async function sxSampleMenuClick(menu, e) {
-            const sampleBtn = __sxClosestAction(e.target, "sampleProfile");
+        async function sxLoadSampleBtn(menu, sampleBtn) {
             if (!sampleBtn || !menu.contains(sampleBtn) || sampleBtn.disabled) return;
             const n = sampleBtn.dataset.sampleProfile, i = sampleBtn.dataset.sampleName, a = Number(sampleBtn.dataset.sampleCount), r = sampleBtn.querySelector("small");
             sampleBtn.disabled = !0, r && (r.textContent = "Loading…"), Sw(), xw();
@@ -46457,6 +46524,25 @@ yk([ "Spitting", "Spit play", "Being spit on", "Spitting on someone" ], "t0341")
                 });
             }
         }
+        function sxSampleMenuClick(menu, e) {
+            const sampleBtn = __sxClosestAction(e.target, "sampleProfile");
+            if (sampleBtn) sxLoadSampleBtn(menu, sampleBtn);
+        }
+        // Whole-stack loading (2026-11-22): a palimpsest stack
+        // submenu's "Load whole stack" item (created by the skin
+        // loader) calls this hook with the stack's layer keys in date
+        // order; each layer loads through the very same path as a
+        // menu click on its button, one at a time, so the profile
+        // tabs land in date order and each load's auto-select
+        // settles before the next begins. Already-loaded layers are
+        // skipped (Ew keeps their buttons disabled).
+        window.__SX_LOAD_SAMPLES = async (menu, keys) => {
+            if (!menu || !keys) return;
+            for (const k of keys) {
+                const btn = menu.querySelector(`[data-sample-profile="${CSS.escape(k)}"]`);
+                if (btn && !btn.disabled) await sxLoadSampleBtn(menu, btn);
+            }
+        };
         const Tw = e.byId("newBlankProfile"), Fw = e.byId("newListProfile"), Nw = e.byId("importProfileChoice"), _w = e.byId("loadSampleProfileChoice"), _wA = e.byId("loadArchetypeChoice");
         e.byId("makeOwnMapButton") && e.byId("makeOwnMapButton").addEventListener("click", () => {
             Vy = null, bw(null);
