@@ -2002,7 +2002,8 @@
         "skin": "dancecapades"
       },
       "skin": "dancecapades",
-      "kind": "archetype"
+      "kind": "archetype",
+      "emblem": "images/emblems/the-waltz-romantic.svg"
     },
     "the-lindy-hopper": {
       "name": "The Lindy Hopper",
@@ -2081,7 +2082,8 @@
         "skin": "dancecapades"
       },
       "skin": "dancecapades",
-      "kind": "archetype"
+      "kind": "archetype",
+      "emblem": "images/emblems/the-lindy-hopper.svg"
     },
     "the-tango-purist": {
       "name": "The Tango Purist",
@@ -2147,7 +2149,8 @@
         "skin": "dancecapades"
       },
       "skin": "dancecapades",
-      "kind": "archetype"
+      "kind": "archetype",
+      "emblem": "images/emblems/the-tango-purist.svg"
     },
     "the-salsa-regular": {
       "name": "The Salsa Regular",
@@ -2224,7 +2227,8 @@
         "skin": "dancecapades"
       },
       "skin": "dancecapades",
-      "kind": "archetype"
+      "kind": "archetype",
+      "emblem": "images/emblems/the-salsa-regular.svg"
     },
     "the-switch": {
       "name": "The Switch",
@@ -2300,7 +2304,8 @@
         "skin": "dancecapades"
       },
       "skin": "dancecapades",
-      "kind": "archetype"
+      "kind": "archetype",
+      "emblem": "images/emblems/the-switch.svg"
     },
     "the-competition-dancer": {
       "name": "The Competition Dancer",
@@ -2379,7 +2384,8 @@
         "skin": "dancecapades"
       },
       "skin": "dancecapades",
-      "kind": "archetype"
+      "kind": "archetype",
+      "emblem": "images/emblems/the-competition-dancer.svg"
     },
     "the-wedding-guest": {
       "name": "The Wedding Guest",
@@ -2445,7 +2451,8 @@
         "skin": "dancecapades"
       },
       "skin": "dancecapades",
-      "kind": "archetype"
+      "kind": "archetype",
+      "emblem": "images/emblems/the-wedding-guest.svg"
     },
     "the-wallflower": {
       "name": "The Wallflower",
@@ -2502,7 +2509,8 @@
         "skin": "dancecapades"
       },
       "skin": "dancecapades",
-      "kind": "archetype"
+      "kind": "archetype",
+      "emblem": "images/emblems/the-wallflower.svg"
     }
   },
   "scribe": {
