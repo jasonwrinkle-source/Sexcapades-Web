@@ -1383,10 +1383,13 @@
        stack collapses into ONE parent entry in the menu matching
        its members' kind (archetype stacks in the Archetypes menu,
        sample stacks in the Samples menu) at the position of its
-       first layer within that kind's ordering, and in the add menu
-       beside the roster entries; the parent opens a submenu of the
-       layers in date order (see syncStackMenus). A stack's kind is
-       its first layer's kind — a stack's layers all share one. */
+       first layer within that kind's ordering; the parent opens a
+       submenu of the layers in date order (see syncStackMenus).
+       Stacks get NO add-menu entry of their own (Jason, 2026-11-22:
+       they live only under Archetypes/Samples — the dual listing
+       as loadStackChoice rows in the add menu was removed). A
+       stack's kind is its first layer's kind — a stack's layers
+       all share one. */
     var plainArchetypes = [];
     var stackGroups = {}, stackOrder = [], archStackOrder = [], sampleStackOrder = [];
     function stackKeyOf(e) { return e && (e.stackKey || e.stack) ? String(e.stackKey || e.stack) : null; }
@@ -1541,26 +1544,20 @@
 
   /* Stack submenu elements, created by rebuildSampleMenu and kept
      in this registry across rebuilds (keyed by stack key) — the
-     rosterMenuEls pattern. Each stack owns TWO submenus: one opened
-     from its add-menu entry, one from its parent row inside its
-     kind's menu (Archetypes or Samples). Both are wired through 06d's
-     __SX_WIRE_SAMPLE_SUBMENU hook and registered on
+     rosterMenuEls pattern. Each stack owns ONE submenu, opened from
+     its parent row inside its kind's menu (Archetypes or Samples);
+     stacks have no add-menu entry (Jason, 2026-11-22: they live
+     only under Archetypes/Samples). The submenu is wired through
+     06d's __SX_WIRE_SAMPLE_SUBMENU hook and registered on
      window.__SX_SAMPLE_SUBMENUS, so every close/refresh path in 06d
-     (Sw, Ew, Ow, Pw) treats them exactly like the roster submenus —
-     the 2026-11-22 roster dismiss fix applies to them by
+     (Sw, Ew, Ow, Pw) treats it exactly like the roster submenus —
+     the 2026-11-22 roster dismiss fix applies to it by
      construction. */
   var stackMenuEls = {};
   function ensureStackEls(sk, samplesMenu) {
     var els = stackMenuEls[sk];
     if (els) return els;
-    var addMenu = document.getElementById("profileAddMenu");
     var wire = (typeof window.__SX_WIRE_SAMPLE_SUBMENU === "function") ? window.__SX_WIRE_SAMPLE_SUBMENU : null;
-    var entry = document.createElement("button");
-    entry.type = "button";
-    entry.id = "loadStackChoice-" + sk;
-    entry.setAttribute("role", "menuitem");
-    entry.setAttribute("aria-haspopup", "menu");
-    entry.setAttribute("aria-expanded", "false");
     var item = document.createElement("div");
     item.className = "sample-profile-item";
     var subEntry = document.createElement("button");
@@ -1581,59 +1578,45 @@
     subEntry.appendChild(subStrong);
     subEntry.appendChild(subSmall);
     item.appendChild(subEntry);
-    function makeStackMenu(idSuffix) {
-      var m = document.createElement("div");
-      m.id = "profileStackMenu-" + sk + idSuffix;
-      m.className = "profile-add-menu profile-sample-menu";
-      m.setAttribute("role", "menu");
-      m.hidden = true;
-      var back = document.createElement("button");
-      back.type = "button";
-      back.className = "sample-menu-back";
-      back.setAttribute("role", "menuitem");
-      back.textContent = "\u2039 Back";
-      m.appendChild(back);
-      return { menu: m, back: back };
-    }
-    var fromAdd = makeStackMenu(""), fromSamples = makeStackMenu("-samples");
-    var savedChoice = document.getElementById("loadSavedProfileChoice");
-    if (addMenu) addMenu.insertBefore(entry, savedChoice || null);
+    var subMenu = document.createElement("div");
+    subMenu.id = "profileStackMenu-" + sk;
+    subMenu.className = "profile-add-menu profile-sample-menu";
+    subMenu.setAttribute("role", "menu");
+    subMenu.hidden = true;
+    var back = document.createElement("button");
+    back.type = "button";
+    back.className = "sample-menu-back";
+    back.setAttribute("role", "menuitem");
+    back.textContent = "\u2039 Back";
+    subMenu.appendChild(back);
     if (samplesMenu && samplesMenu.parentElement) {
-      samplesMenu.parentElement.appendChild(fromAdd.menu);
-      samplesMenu.parentElement.appendChild(fromSamples.menu);
+      samplesMenu.parentElement.appendChild(subMenu);
     }
     /* Register with 06d's close/refresh paths; __sxTrigger lets Sw
-       reset each entry's aria-expanded when it closes the menu. */
-    fromAdd.menu.__sxTrigger = entry;
-    fromSamples.menu.__sxTrigger = subEntry;
-    (window.__SX_SAMPLE_SUBMENUS = window.__SX_SAMPLE_SUBMENUS || []).push(fromAdd.menu, fromSamples.menu);
-    if (wire) {
-      wire(entry, fromAdd.menu, fromAdd.back);
-      wire(subEntry, fromSamples.menu, fromSamples.back);
-    }
-    els = stackMenuEls[sk] = { entry: entry, menu: fromAdd.menu, item: item, subEntry: subEntry, subStrong: subStrong, subSmall: subSmall, subMenu: fromSamples.menu };
+       reset the parent row's aria-expanded when it closes the menu. */
+    subMenu.__sxTrigger = subEntry;
+    (window.__SX_SAMPLE_SUBMENUS = window.__SX_SAMPLE_SUBMENUS || []).push(subMenu);
+    if (wire) wire(subEntry, subMenu, back);
+    els = stackMenuEls[sk] = { item: item, subEntry: subEntry, subStrong: subStrong, subSmall: subSmall, subMenu: subMenu };
     return els;
   }
 
   function syncStackMenus(stackGroups, stackOrder, addGroup, samplesMenu, archMenu) {
-    var addMenu = document.getElementById("profileAddMenu");
     var wire = (typeof window.__SX_WIRE_SAMPLE_SUBMENU === "function") ? window.__SX_WIRE_SAMPLE_SUBMENU : null;
     Object.keys(stackMenuEls).forEach(function (sk) {
       if (!stackGroups[sk]) {
         var els = stackMenuEls[sk];
-        els.entry.remove();
         els.item.remove();
-        els.menu.remove();
         els.subMenu.remove();
         var reg = window.__SX_SAMPLE_SUBMENUS || [];
-        [els.menu, els.subMenu].forEach(function (m) {
+        [els.subMenu].forEach(function (m) {
           var ix = reg.indexOf(m);
           if (ix >= 0) reg.splice(ix, 1);
         });
         delete stackMenuEls[sk];
       }
     });
-    if (!wire || !addMenu || !samplesMenu) {
+    if (!wire || !samplesMenu) {
       /* Fallback (no submenu hook): headed groups of layers, in
          date order, inside the menu matching each stack's kind —
          the Samples menu for sample stacks, the Archetypes menu
@@ -1648,10 +1631,9 @@
     stackOrder.forEach(function (sk) {
       var group = stackGroups[sk];
       var els = ensureStackEls(sk, samplesMenu);
-      els.entry.textContent = group.name + "\u2026";
       els.subStrong.textContent = group.name;
       els.subSmall.textContent = group.sorted.length + " dated layers";
-      [els.menu, els.subMenu].forEach(function (m) {
+      [els.subMenu].forEach(function (m) {
         m.setAttribute("aria-label", group.name);
         m.querySelectorAll(".sample-profile-choice, .sample-profile-item, .sample-menu-group").forEach(function (b) { b.remove(); });
         addGroup(m, null, group.sorted);
