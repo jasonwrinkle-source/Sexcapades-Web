@@ -1374,27 +1374,43 @@
         (localRosterNames[e.rosterKey] = localRosterNames[e.rosterKey] || {})[String(e.name || "").trim().toLowerCase()] = true;
       }
     });
-    /* Palimpsest stacks (2026-11-22): a sample may carry stack
-       fields (stack / stackKey / date) marking it as one dated layer
-       of a single profile across time — a party's platforms, a
-       creed's documents. Stacked samples never render as flat rows:
-       each stack collapses into ONE parent entry, in the Samples
-       menu at the position of its first layer and in the add menu
-       beside the roster entries, and the parent opens a submenu of
-       the layers in date order (see syncStackMenus). */
-    var stackGroups = {}, stackOrder = [];
+    /* Palimpsest stacks (2026-11-22; kind-agnostic the same night,
+       Jason's ruling that stacked entries are archetypes, not
+       samples): an entry of EITHER kind may carry stack fields
+       (stack / stackKey / date) marking it as one dated layer of a
+       single profile across time — a party's platforms, a creed's
+       documents. Stacked entries never render as flat rows: each
+       stack collapses into ONE parent entry in the menu matching
+       its members' kind (archetype stacks in the Archetypes menu,
+       sample stacks in the Samples menu) at the position of its
+       first layer within that kind's ordering, and in the add menu
+       beside the roster entries; the parent opens a submenu of the
+       layers in date order (see syncStackMenus). A stack's kind is
+       its first layer's kind — a stack's layers all share one. */
+    var plainArchetypes = [];
+    var stackGroups = {}, stackOrder = [], archStackOrder = [], sampleStackOrder = [];
     function stackKeyOf(e) { return e && (e.stackKey || e.stack) ? String(e.stackKey || e.stack) : null; }
+    function noteStack(key, e) {
+      var sk = stackKeyOf(e);
+      if (!sk) return false;
+      if (!stackGroups[sk]) {
+        stackGroups[sk] = { name: e.stack || "Stack", keys: [], kind: e.kind === "sample" ? "sample" : "archetype" };
+        stackOrder.push(sk);
+        (stackGroups[sk].kind === "sample" ? sampleStackOrder : archStackOrder).push(sk);
+      }
+      stackGroups[sk].keys.push(key);
+      return true;
+    }
     samplesList.forEach(function (key) {
       var e = samples[key];
       if (e && e.rosterKey) {
         if (!e.local && localRosterNames[e.rosterKey] && localRosterNames[e.rosterKey][String(e.name || "").trim().toLowerCase()]) return;
         if (!rosterGroups[e.rosterKey]) { rosterGroups[e.rosterKey] = { name: e.roster || "Roster", keys: [] }; rosterOrder.push(e.rosterKey); }
         rosterGroups[e.rosterKey].keys.push(key);
-      } else if (stackKeyOf(e)) {
-        var sk = stackKeyOf(e);
-        if (!stackGroups[sk]) { stackGroups[sk] = { name: e.stack || "Stack", keys: [] }; stackOrder.push(sk); }
-        stackGroups[sk].keys.push(key);
-      } else plainSamples.push(key);
+      } else if (!noteStack(key, e)) plainSamples.push(key);
+    });
+    archetypes.forEach(function (key) {
+      if (!noteStack(key, samples[key])) plainArchetypes.push(key);
     });
     stackOrder.forEach(function (sk) {
       stackGroups[sk].sorted = stackGroups[sk].keys.slice().sort(function (a, b) {
@@ -1403,44 +1419,54 @@
       });
     });
     var stackMenusOk = typeof window.__SX_WIRE_SAMPLE_SUBMENU === "function";
-    /* Render the Samples menu with a stack parent interleaved at the
-       position of each stack's first layer. Only used when stacks
-       exist and the submenu hook is live; otherwise the flat path
-       runs exactly as before (and syncStackMenus falls back to
-       headed groups, the roster fallback shape). */
-    function renderSamplesMenu(withHeadings) {
+    /* Render one kind's menu with a stack parent interleaved at the
+       position of each stack's first layer within that kind's
+       ordering. Only used when that kind has stacks and the submenu
+       hook is live; otherwise the flat path runs exactly as before
+       (and syncStackMenus falls back to headed groups in the
+       kind-appropriate menu, the roster fallback shape). */
+    function renderKindMenu(target, keys, withHeadings, heading) {
       var renderedStacks = {};
-      if (withHeadings && (plainSamples.length || stackOrder.length)) {
+      if (withHeadings && keys.some(function (k) { var e = samples[k]; return e && !e.rosterKey; })) {
         var label = document.createElement("div");
         label.className = "sample-menu-group";
-        label.textContent = "Samples";
-        menu.appendChild(label);
+        label.textContent = heading;
+        target.appendChild(label);
       }
-      samplesList.forEach(function (key) {
+      keys.forEach(function (key) {
         var e = samples[key];
         if (!e || e.rosterKey) return;
         var sk = stackKeyOf(e);
         if (sk) {
           if (renderedStacks[sk]) return;
           renderedStacks[sk] = true;
-          menu.appendChild(ensureStackEls(sk, menu).item);
-        } else addGroup(menu, null, [key]);
+          target.appendChild(ensureStackEls(sk, target).item);
+        } else addGroup(target, null, [key]);
       });
     }
     if (archMenu) {
-      addGroup(archMenu, null, archetypes);
-      if (stackOrder.length && stackMenusOk) renderSamplesMenu(false);
+      if (archStackOrder.length && stackMenusOk) renderKindMenu(archMenu, archetypes, false, null);
+      else addGroup(archMenu, null, plainArchetypes);
+      if (sampleStackOrder.length && stackMenusOk) renderKindMenu(menu, samplesList, false, null);
       else addGroup(menu, null, plainSamples);
-      if (!plainSamples.length && !stackOrder.length) hideSamplesEntry();
+      /* The Samples entry hides when the skin has no sample-kind
+         entries at all (Polis/Fores after the archetype ruling);
+         with samples present, the previous rule stands — the entry
+         shows only when the Samples menu has plain rows or stack
+         parents of its own (roster-only skins keep it hidden, their
+         rosters living in the add menu). */
+      if (!samplesList.length) hideSamplesEntry();
+      else if (!plainSamples.length && !sampleStackOrder.length) hideSamplesEntry();
       else if (sampleEntry) sampleEntry.hidden = false;
     } else {
-      addGroup(menu, "Archetypes", archetypes);
-      if (stackOrder.length && stackMenusOk) renderSamplesMenu(true);
+      if (archStackOrder.length && stackMenusOk) renderKindMenu(menu, archetypes, true, "Archetypes");
+      else addGroup(menu, "Archetypes", archetypes);
+      if (sampleStackOrder.length && stackMenusOk) renderKindMenu(menu, samplesList, true, "Samples");
       else addGroup(menu, "Samples", plainSamples);
       if (sampleEntry) sampleEntry.hidden = false;
     }
     syncRosterMenus(rosterGroups, rosterOrder, addGroup, menu);
-    syncStackMenus(stackGroups, stackOrder, addGroup, menu);
+    syncStackMenus(stackGroups, stackOrder, addGroup, menu, archMenu);
     ensureRosterAddActions();
   }
 
@@ -1516,8 +1542,8 @@
   /* Stack submenu elements, created by rebuildSampleMenu and kept
      in this registry across rebuilds (keyed by stack key) — the
      rosterMenuEls pattern. Each stack owns TWO submenus: one opened
-     from its add-menu entry, one from its parent row inside the
-     Samples menu. Both are wired through 06d's
+     from its add-menu entry, one from its parent row inside its
+     kind's menu (Archetypes or Samples). Both are wired through 06d's
      __SX_WIRE_SAMPLE_SUBMENU hook and registered on
      window.__SX_SAMPLE_SUBMENUS, so every close/refresh path in 06d
      (Sw, Ew, Ow, Pw) treats them exactly like the roster submenus —
@@ -1589,7 +1615,7 @@
     return els;
   }
 
-  function syncStackMenus(stackGroups, stackOrder, addGroup, samplesMenu) {
+  function syncStackMenus(stackGroups, stackOrder, addGroup, samplesMenu, archMenu) {
     var addMenu = document.getElementById("profileAddMenu");
     var wire = (typeof window.__SX_WIRE_SAMPLE_SUBMENU === "function") ? window.__SX_WIRE_SAMPLE_SUBMENU : null;
     Object.keys(stackMenuEls).forEach(function (sk) {
@@ -1609,8 +1635,14 @@
     });
     if (!wire || !addMenu || !samplesMenu) {
       /* Fallback (no submenu hook): headed groups of layers, in
-         date order, inside the Samples menu. */
-      stackOrder.forEach(function (sk) { addGroup(samplesMenu, stackGroups[sk].name, stackGroups[sk].sorted); });
+         date order, inside the menu matching each stack's kind —
+         the Samples menu for sample stacks, the Archetypes menu
+         for archetype stacks (the Samples menu again when the
+         shell has no separate Archetypes menu). */
+      stackOrder.forEach(function (sk) {
+        var g = stackGroups[sk];
+        addGroup(g.kind === "sample" ? samplesMenu : (archMenu || samplesMenu), g.name, g.sorted);
+      });
       return;
     }
     stackOrder.forEach(function (sk) {

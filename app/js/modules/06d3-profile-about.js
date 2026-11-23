@@ -77,7 +77,7 @@
         // open in this dialog against every archetype in the current skin,
         // through the real pair engine (the same Play Match Score the
         // Krossmatch tabs show), ranked best-first. Adam/Eve are samples,
-        // not archetypes, so they are left out; stacked samples (a
+        // not archetypes, so they are left out; stacked entries (a
         // platform's or creed's dated layers) DO compete, one top layer
         // per stack, with the best historical layer reported separately
         // (2026-11-22 scoping, below). A partly-rated profile
@@ -165,11 +165,12 @@
             // must not flood the ranking with every era of itself.
             // Only each stack's TOP layer competes for the headline —
             // the "present" layer where the stack has one, else its
-            // newest dated layer. Stacked entries are samples
-            // (platforms, creeds), so they join the pool here even
-            // though unstacked samples (Adam/Eve — real profiles, not
-            // identities to project onto) stay out, exactly as
-            // before. The best of the remaining layers is computed
+            // newest dated layer. Admission keys on stack membership,
+            // not kind (2026-11-22: stacked entries are archetypes —
+            // platforms, creeds — and join the pool by carrying stack
+            // fields), while unstacked samples (Adam/Eve — real
+            // profiles, not identities to project onto) stay out,
+            // exactly as before. The best of the remaining layers is computed
             // separately and reported as the closest layer across
             // time; historical layers never enter the headline list.
             const stackGroups = {}, stackOrder = [], headlineKeys = [], histKeys = [];
