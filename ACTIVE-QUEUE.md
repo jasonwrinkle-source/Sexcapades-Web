@@ -35,15 +35,10 @@ Each item waits for Jason's kickoff; nothing here dispatches itself.
    - **Watch copy NEVER mentions sexcapades.io.**
    - *Open:* Investigate audible-sounds cause (Jason, 2026-11-08: needs investigation, not guessing); entertainment idea (genre map + live group enjoyment meter) open.
 
-4. **Icon Repair — All Skins:** IN FLIGHT (builder running, 2026-11-23).
-   - Every vanilla skin's catalog block uses ONE shared star glyph for all 111 categories; Nouscapades has no catalog block at all. Job: a distinct, relevant glyph per category for all 18 skins (137 categories), a new Nous block, plus two painter defects from Jason's cold-open: unrated branches wearing glyph color, and branches showing intensity and "Unrated" at once.
-   - Contact sheets to be reviewed before push; Jason's cold-open is the final proof.
 
-5. **Community Pass — Dance / Quest / Nous:** Data DONE + staged 2026-11-23 (183/183 topics, verified communities only, no Discords invented); merge into the skin JSONs waits on item 4 freeing the tree, then push + deploy together.
-
-6. **Three More Fores Creeds — Jehovah's Witness / Latter-day Saint / Mennonite:** APPROVED by Jason 2026-11-23, IN FLIGHT (rating pass running, staged in scratch).
+4. **Three More Fores Creeds — Jehovah's Witness / Latter-day Saint / Mennonite:** APPROVED by Jason 2026-11-23, IN FLIGHT (rating pass running, staged in scratch).
    - Mennonite: Schleitheim 1527 / Dordrecht 1632 / 1995 Confession + current sample. Latter-day Saint: Articles of Faith 1842 / Official Declaration 1 (1890) / Official Declaration 2 (1978) / Family Proclamation 1995 + current sample. Jehovah's Witness: Divine Plan of the Ages 1886 / Let God Be True 1946 / Reasoning 1985 / Enjoy Life Forever 2021 + current sample.
-   - New creeds are archetypes from birth; assembly into forescapades.json waits on item 4 freeing the tree, then push + deploy with the batch.
+   - New creeds are archetypes from birth; assembly into forescapades.json proceeds when the rating pass lands, then push + deploy.
 
 ---
 
@@ -62,4 +57,4 @@ Items to verify or address when relevant to their subsystem:
 - **Shortcuts View:** Leave until named by Jason (do not invent a screen).
 - **z90 Bet — Action-Count Run:** Settlement instrument replaced 2026-11-22: the bet settles if rating one n-pole topic on the un-tangled map takes fewer than 7 actions (counting advocacy, receptivity, and intensities). A counted run of the real rating flow is still owed.
 - **Stance-Skin Taper Labels:** Spoke stem aria/tooltip labels still derive from give/receive and read "Unrated" on stance skins (follow-up to the 2026-11-22 advocacy/receptivity tapers).
-- **Sample Flags (second looks done 2026-11-23):** Sunni Predestination — CORRECT: the sample blanks the topic while rating qadar 90 as a pillar of its own faith; fix staged (adopt the 933 profile verbatim), applies with the next merge. A matching all-zeros defect on Grace was found alongside — its fix is proposed but NOT approved; awaits Jason's word. Lutheran faith-formed-by-love −80 — STANDS: the sample is confessional by its own stated basis (Augsburg Confession; LCMS declined the Joint Declaration), so −80 is coherent, not an error; moving it to the 1999 layer's −30 would be a basis change, and would drag the Reformed sample (also −80) with it.
+- **Sample Flags (second looks done 2026-11-23):** Sunni Predestination + Grace — CORRECTED 2026-11-23 (both all-zeros defects restored from the 933 layer profile; Jason approved, including the Grace extension). Lutheran faith-formed-by-love −80 — STANDS: the sample is confessional by its own stated basis (Augsburg Confession; LCMS declined the Joint Declaration), so −80 is coherent, not an error; moving it to the 1999 layer's −30 would be a basis change, and would drag the Reformed sample (also −80) with it.
