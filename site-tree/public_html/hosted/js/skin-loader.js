@@ -414,11 +414,11 @@
      Sexcapades, as before. The ?skin= query param (see skinFromUrl)
      wins over the hostname: it carries a skin selection across the
      age-gate round-trip. */
-  var HOSTNAME_SKINS = (typeof window !== "undefined" && window.__SX_HOSTNAME_SKINS) || { sex: "sexcapades", polis: "poliscapades", fores: "forescapades", philo: "philoscapades", aesth: "aesthcapades", voca: "vocapades", tech: "techcapades", dharma: "dharmacapades", theori: "theoricapades", praxi: "praxicapades", quanta: "quantacapades", experi: "expericapades", simul: "simulcapades", matter: "mattercapades", chem: "chemcapades", nous: "nouscapades", dance: "dancecapades", quest: "questcapades" };
-  var SKIN_IDS = (typeof window !== "undefined" && window.__SX_SKIN_IDS) || ["sexcapades", "poliscapades", "forescapades", "philoscapades", "aesthcapades", "vocapades", "techcapades", "dharmacapades", "theoricapades", "praxicapades", "quantacapades", "expericapades", "simulcapades", "mattercapades", "chemcapades", "nouscapades", "dancecapades", "questcapades"];
+  var HOSTNAME_SKINS = (typeof window !== "undefined" && window.__SX_HOSTNAME_SKINS) || { sex: "sexcapades", polis: "poliscapades", fores: "forescapades", philo: "philoscapades", aesth: "aesthcapades", voca: "vocapades", tech: "techcapades", dharma: "dharmacapades", theori: "theoricapades", praxi: "praxicapades", quanta: "quantacapades", experi: "expericapades", simul: "simulcapades", matter: "mattercapades", chem: "chemcapades", nous: "nouscapades", bio: "biocapades", dance: "dancecapades", quest: "questcapades" };
+  var SKIN_IDS = (typeof window !== "undefined" && window.__SX_SKIN_IDS) || ["sexcapades", "poliscapades", "forescapades", "philoscapades", "aesthcapades", "vocapades", "techcapades", "dharmacapades", "theoricapades", "praxicapades", "quantacapades", "expericapades", "simulcapades", "mattercapades", "chemcapades", "nouscapades", "biocapades", "dancecapades", "questcapades"];
 
   function skinForHostname(hostname) {
-    if (typeof window !== "undefined" && typeof window.__SX_SKIN_FOR_HOSTNAME === "function" && window.__SX_SKIN_FOR_HOSTNAME !== skinForHostname) {
+    if (typeof window !== "undefined" && typeof window.__SX_SKIN_FOR_HOSTNAME === "function") {
       return window.__SX_SKIN_FOR_HOSTNAME(hostname);
     }
     var host = (hostname || "").toLowerCase();
@@ -696,7 +696,6 @@
     var communities = {};
     var popularity = {};
     var readings = {};
-    var topicGlyphs = {};
     var count = 0;
     data.categories.forEach(function (cat) {
       var all = (cat.topics || []).slice();
@@ -706,7 +705,6 @@
       all.forEach(function (t) {
         var wc = widgetConfig(t);
         if (wc) widgets[t.id] = wc;
-        if (t.glyph) topicGlyphs[cat.name + "\0" + (t.label || t.name || t.id)] = t.glyph;
         if (t.hovertip) desc[t.name] = formatHovertip(t);
         /* Widget approachability: per-pole hovertip lines ("Label — text"),
            keyed by topic id then pole key; the placard attaches them to the
@@ -739,7 +737,6 @@
     window.__SX_SKIN_COMMUNITIES = communities;
     window.__SX_SKIN_POPULARITY = popularity;
     window.__SX_POLE_READINGS = readings;
-    window.__SX_SKIN_TOPIC_GLYPHS = topicGlyphs;
     return count;
   }
 

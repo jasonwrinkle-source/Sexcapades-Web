@@ -1,7 +1,7 @@
 /* ---- Flexcapades Skin Catalog (Single Source of Truth) ----
-   Defines the authoritative catalog of all 18 hypermap skins:
+   Defines the authoritative catalog of all 19 hypermap skins:
    - 3 Activity Maps (dancecapades, questcapades, sexcapades)
-   - 15 Stance Maps (aesth, chem, dharma, experi, fores, matter,
+   - 16 Stance Maps (aesth, bio, chem, dharma, experi, fores, matter,
      nous, philo, polis, praxi, quanta, simul, tech, theori, voca)
    Provides unified resolution for hostnames, subdomains, preload links,
    initial tab title painting, analytics skin tagging, and menu rendering.
@@ -16,6 +16,7 @@
     sexcapades: { id: "sexcapades", prefix: "sex", name: "Sexcapades", desc: "kink & sexuality (18+)", type: "activity", isAdult: true },
     // Stance Maps (alphabetical)
     aesthcapades: { id: "aesthcapades", prefix: "aesth", name: "Aesthcapades", desc: "aesthetics & taste", type: "stance" },
+    biocapades: { id: "biocapades", prefix: "bio", name: "Biocapades", desc: "life itself", type: "stance" },
     chemcapades: { id: "chemcapades", prefix: "chem", name: "Chemcapades", desc: "chemistry", type: "stance" },
     dharmacapades: { id: "dharmacapades", prefix: "dharma", name: "Dharmacapades", desc: "eastern religions", type: "stance" },
     expericapades: { id: "expericapades", prefix: "experi", name: "Expericapades", desc: "experimental physics", type: "stance" },
