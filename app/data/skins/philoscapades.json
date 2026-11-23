@@ -178,7 +178,8 @@
               "name": "r/askphilosophy",
               "url": "https://www.reddit.com/r/askphilosophy/"
             }
-          ]
+          ],
+          "glyph": "cube"
         },
         {
           "id": "xph0002",
@@ -243,7 +244,8 @@
               "name": "r/askphilosophy",
               "url": "https://www.reddit.com/r/askphilosophy/"
             }
-          ]
+          ],
+          "glyph": "star"
         },
         {
           "id": "xph0003",
@@ -308,7 +310,8 @@
               "name": "r/askphilosophy",
               "url": "https://www.reddit.com/r/askphilosophy/"
             }
-          ]
+          ],
+          "glyph": "sun"
         },
         {
           "id": "xph0015",
@@ -405,7 +408,8 @@
               "name": "r/askphilosophy",
               "url": "https://www.reddit.com/r/askphilosophy/"
             }
-          ]
+          ],
+          "glyph": "moon"
         }
       ]
     },
@@ -461,7 +465,8 @@
               "name": "r/askphilosophy",
               "url": "https://www.reddit.com/r/askphilosophy/"
             }
-          ]
+          ],
+          "glyph": "flame"
         },
         {
           "id": "xph0005",
@@ -510,7 +515,8 @@
               "name": "r/askphilosophy",
               "url": "https://www.reddit.com/r/askphilosophy/"
             }
-          ]
+          ],
+          "glyph": "droplet"
         },
         {
           "id": "xph0006",
@@ -567,7 +573,8 @@
               "name": "r/askphilosophy",
               "url": "https://www.reddit.com/r/askphilosophy/"
             }
-          ]
+          ],
+          "glyph": "tree"
         },
         {
           "id": "xph0007",
@@ -624,7 +631,8 @@
               "name": "r/askphilosophy",
               "url": "https://www.reddit.com/r/askphilosophy/"
             }
-          ]
+          ],
+          "glyph": "rose"
         }
       ]
     },
@@ -696,7 +704,8 @@
               "name": "r/askphilosophy",
               "url": "https://www.reddit.com/r/askphilosophy/"
             }
-          ]
+          ],
+          "glyph": "heart"
         },
         {
           "id": "xph0009",
@@ -761,7 +770,8 @@
               "name": "r/askphilosophy",
               "url": "https://www.reddit.com/r/askphilosophy/"
             }
-          ]
+          ],
+          "glyph": "shield"
         },
         {
           "id": "xph0010",
@@ -826,7 +836,8 @@
               "name": "r/askphilosophy",
               "url": "https://www.reddit.com/r/askphilosophy/"
             }
-          ]
+          ],
+          "glyph": "badge"
         }
       ]
     },
@@ -906,7 +917,8 @@
               "name": "r/askphilosophy",
               "url": "https://www.reddit.com/r/askphilosophy/"
             }
-          ]
+          ],
+          "glyph": "crown"
         }
       ]
     },
@@ -994,7 +1006,8 @@
               "name": "r/askphilosophy",
               "url": "https://www.reddit.com/r/askphilosophy/"
             }
-          ]
+          ],
+          "glyph": "key"
         }
       ]
     },
@@ -1066,7 +1079,8 @@
               "name": "r/askphilosophy",
               "url": "https://www.reddit.com/r/askphilosophy/"
             }
-          ]
+          ],
+          "glyph": "lock"
         },
         {
           "id": "xph0014",
@@ -1155,7 +1169,8 @@
               "name": "r/askphilosophy",
               "url": "https://www.reddit.com/r/askphilosophy/"
             }
-          ]
+          ],
+          "glyph": "scale"
         }
       ]
     }
