@@ -119,6 +119,16 @@ positions: each rating a track, the old position ghosted, the current
 one solid. Its placements are tenses — what was held, what is held,
 optionally what the holder thinks should be held.
 
+**Name: the Palimpsest.** A palimpsest is a manuscript written over,
+the old text ghosting through the new — which is the render exactly.
+The user creates one by loading their dated profiles on a skin over
+time; each topic's track through the layers is its **worldline**.
+Supporting this needs profile payloads to carry a creation date (and
+a modified date): purely additive optional fields — old files load
+as undated, nothing breaks. For document samples the creation date
+is the document's own date (a 2016 platform carries 2016), which is
+what makes dated archetypes and platforms first-class layers.
+
 The mathematics already exists: a Circle Minus between two profiles
 of the *same entity at two dates* is a drift readout. The engine does
 not care that both profiles are the same party; it reports where they
@@ -163,3 +173,52 @@ Ratings and readout: `dem2016-ratings.json` and the drift table were
 produced as working papers for this note; the 2016 ratings are a
 first-pass reading of the platform text and are open to correction
 topic by topic.
+
+## Operations on the same profile
+
+The operations were designed between two people, but they also run
+between two copies of *one* profile — and each gains a distinct
+meaning there. The Palimpsest is the object (the dated stack and its
+layered render); the operations are its measurements. This section
+belongs in the user guide when the Palimpsest ships.
+
+Two cases: copies across **time** (the same profile, dated), and
+copies across **authorship** (the same person, rated by different
+hands).
+
+**Circle Minus ⊖ across time — drift.** The headline reading: where
+the profile moved, where it hardened or cooled, which topics arrived
+and which vanished. Net movement between first and last layer is the
+displacement; the sum of moves layer to layer is the path — a profile
+that travelled and returned reads differently from one that never
+left, and the stack can say which.
+
+**Cross ⋈ across time — formation.** Past Advocacy against present
+Receptivity asks whether your current ears can still hear your past
+voice. Past Receptivity against present Advocacy asks the forming
+question: what you took in then, do you argue now? The absorbed
+becoming the preached is a Cross reading across a life.
+
+**Straight ⊙ across time — persistence.** The stable core: positions
+held the same way at both dates. Over a whole stack, group Straight
+is the through-line — what survived every layer unchanged.
+
+**Across authorship — the perception gap.** Circle Minus between
+"me as I rate me" and "me as she rates me" measures the distance
+between self-image and reputation, topic by topic. Same subject, two
+authors; no time needs to pass.
+
+At a single date, self against self, the operations are trivial
+(Straight perfect, Minus zero) — they only become interesting across
+time or across authorship, which is precisely the Palimpsest's
+territory.
+
+### The Forescapades archetype-age question — resolved by the type
+
+An old open question asked *which age* of an archetype a Fores
+sample should use — a tradition as its founders held it, its
+classical form, or its modern mainstream. The Palimpsest dissolves
+the question: date each archetype profile to its era and ship the
+archetype as a stack. "Which age?" becomes "watch it move" — the
+drift of a tradition across its own history is the content, not a
+problem to settle in advance.
