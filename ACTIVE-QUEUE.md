@@ -36,10 +36,6 @@ Each item waits for Jason's kickoff; nothing here dispatches itself.
    - *Open:* Investigate audible-sounds cause (Jason, 2026-11-08: needs investigation, not guessing); entertainment idea (genre map + live group enjoyment meter) open.
 
 
-4. **Three More Fores Creeds — Jehovah's Witness / Latter-day Saint / Mennonite:** APPROVED by Jason 2026-11-23, IN FLIGHT (rating pass running, staged in scratch).
-   - Mennonite: Schleitheim 1527 / Dordrecht 1632 / 1995 Confession + current sample. Latter-day Saint: Articles of Faith 1842 / Official Declaration 1 (1890) / Official Declaration 2 (1978) / Family Proclamation 1995 + current sample. Jehovah's Witness: Divine Plan of the Ages 1886 / Let God Be True 1946 / Reasoning 1985 / Enjoy Life Forever 2021 + current sample.
-   - New creeds are archetypes from birth; assembly into forescapades.json proceeds when the rating pass lands, then push + deploy.
-
 ---
 
 ## 2. Open Carry-Overs & Backlog
