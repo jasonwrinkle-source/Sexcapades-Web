@@ -3321,7 +3321,8 @@
         "skin": "techcapades"
       },
       "skin": "techcapades",
-      "kind": "sample"
+      "kind": "sample",
+      "emblem": "images/emblems/tec-accelerationist.svg"
     },
     "tec-safety": {
       "name": "The AI Safety Advocate",
@@ -3577,7 +3578,8 @@
         "skin": "techcapades"
       },
       "skin": "techcapades",
-      "kind": "sample"
+      "kind": "sample",
+      "emblem": "images/emblems/tec-safety.svg"
     },
     "tec-privacy": {
       "name": "The Privacy Defender",
@@ -3843,7 +3845,8 @@
         "skin": "techcapades"
       },
       "skin": "techcapades",
-      "kind": "sample"
+      "kind": "sample",
+      "emblem": "images/emblems/tec-privacy.svg"
     },
     "tec-commons": {
       "name": "The Open-Source Commons Builder",
@@ -4099,7 +4102,8 @@
         "skin": "techcapades"
       },
       "skin": "techcapades",
-      "kind": "sample"
+      "kind": "sample",
+      "emblem": "images/emblems/tec-commons.svg"
     },
     "tec-minimalist": {
       "name": "The Digital Minimalist",
@@ -4347,7 +4351,8 @@
         "skin": "techcapades"
       },
       "skin": "techcapades",
-      "kind": "sample"
+      "kind": "sample",
+      "emblem": "images/emblems/tec-minimalist.svg"
     }
   }
 }
