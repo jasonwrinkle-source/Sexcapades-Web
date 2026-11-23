@@ -277,7 +277,7 @@
     if (entry.about) entry.about = String(entry.about).slice(0, 300);
     return entry;
   }
-  function importRosterPack(pack, sourceLabel) {
+  function importRosterPack(pack, sourceLabel, slug) {
     var api = window.__SX_LOCAL_SAMPLES;
     if (!api || typeof api.save !== "function") { rosterToast("Roster packs are not available right now — reload and try again."); return null; }
     if (!pack || pack.format !== ROSTER_FORMAT || !Array.isArray(pack.samples)) {
@@ -287,22 +287,37 @@
     if (pack.skin && String(pack.skin) !== skin) {
       rosterToast("That roster is for a different map — open it on its own map to load it."); return null;
     }
-    var added = 0, updated = 0, skipped = 0;
+    /* Each roster lives under its own heading in the Samples menu
+       (Jason, 2026-11-22): entries carry roster/rosterKey tags, and
+       importing a pack REPLACES that roster's previous copy — a pack
+       is the authority on its own membership, so a member dropped
+       from the pack leaves the menu. Personal locals, other rosters,
+       and the built-in samples are untouched, so a person can carry
+       several rosters (several groups) side by side. */
+    var rosterName = String(pack.name || slug || "Roster");
+    var rosterKey = String(slug || rosterName).toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "") || "roster";
+    var swept = 0;
+    var before = api.list(skin) || {};
+    Object.keys(before).forEach(function (k) {
+      if (before[k] && before[k].rosterKey === rosterKey) { if (api.remove(skin, k)) swept++; }
+    });
+    var added = 0, skipped = 0;
     pack.samples.forEach(function (raw) {
       var entry = cleanRosterEntry(raw);
       if (!entry) { skipped++; return; }
+      entry.roster = rosterName;
+      entry.rosterKey = rosterKey;
       var saved = null;
       try { saved = api.save(skin, entry); } catch (e) { saved = null; }
       if (!saved) { skipped++; return; }
-      if (saved.updated) updated++; else added++;
+      added++;
     });
-    var label = pack.name ? (" \u201C" + String(pack.name) + "\u201D") : "";
-    if (added || updated) {
-      rosterToast("Roster" + label + " loaded: " + added + " new, " + updated + " updated" + (skipped ? ", " + skipped + " skipped" : "") + ". Find them in the Samples menu." + (sourceLabel ? " (" + sourceLabel + ")" : ""));
+    if (added) {
+      rosterToast("Roster \u201C" + rosterName + "\u201D loaded: " + added + " member" + (added === 1 ? "" : "s") + (swept ? " (replaced the previous copy)" : "") + (skipped ? ", " + skipped + " skipped" : "") + ". Find them in the Samples menu." + (sourceLabel ? " (" + sourceLabel + ")" : ""));
     } else {
       rosterToast("No usable samples in that roster pack" + (skipped ? " — " + skipped + " skipped." : "."));
     }
-    return { added: added, updated: updated, skipped: skipped };
+    return { added: added, swept: swept, skipped: skipped };
   }
   function exportRosterPack() {
     var api = window.__SX_LOCAL_SAMPLES;
@@ -368,7 +383,7 @@
       if (!r.ok) throw new Error("not found");
       return r.json();
     }).then(function (pack) {
-      importRosterPack(pack, "hosted roster");
+      importRosterPack(pack, "hosted roster", slug);
       try {
         var body = (window.location.hash || "").replace(/^#/, "");
         var kept = body.split("&").filter(function (t) { return t.indexOf("roster=") !== 0; });
@@ -1339,14 +1354,28 @@
         target.appendChild(item);
       });
     }
+    /* Roster groups (2026-11-22): local samples tagged with a roster
+       key render under their roster's own heading, after the plain
+       samples — Archetypes, Samples, then one group per roster, so a
+       person in several groups sees each roster apart. */
+    var plainSamples = [], rosterGroups = {}, rosterOrder = [];
+    samplesList.forEach(function (key) {
+      var e = samples[key];
+      if (e && e.local && e.rosterKey) {
+        if (!rosterGroups[e.rosterKey]) { rosterGroups[e.rosterKey] = { name: e.roster || "Roster", keys: [] }; rosterOrder.push(e.rosterKey); }
+        rosterGroups[e.rosterKey].keys.push(key);
+      } else plainSamples.push(key);
+    });
     if (archMenu) {
       addGroup(archMenu, null, archetypes);
-      addGroup(menu, null, samplesList);
+      addGroup(menu, null, plainSamples);
+      rosterOrder.forEach(function (rk) { addGroup(menu, rosterGroups[rk].name, rosterGroups[rk].keys); });
       if (!samplesList.length) hideSamplesEntry();
       else if (sampleEntry) sampleEntry.hidden = false;
     } else {
       addGroup(menu, "Archetypes", archetypes);
-      addGroup(menu, "Samples", samplesList);
+      addGroup(menu, "Samples", plainSamples);
+      rosterOrder.forEach(function (rk) { addGroup(menu, rosterGroups[rk].name, rosterGroups[rk].keys); });
       if (sampleEntry) sampleEntry.hidden = false;
     }
     /* Roster pack actions (2026-11-22): export this map's local samples
