@@ -41,6 +41,10 @@ Each item waits for Jason's kickoff; nothing here dispatches itself.
 
 5. **Community Pass — Dance / Quest / Nous:** Data DONE + staged 2026-11-23 (183/183 topics, verified communities only, no Discords invented); merge into the skin JSONs waits on item 4 freeing the tree, then push + deploy together.
 
+6. **Three More Fores Creeds — Jehovah's Witness / Latter-day Saint / Mennonite:** APPROVED by Jason 2026-11-23, IN FLIGHT (rating pass running, staged in scratch).
+   - Mennonite: Schleitheim 1527 / Dordrecht 1632 / 1995 Confession + current sample. Latter-day Saint: Articles of Faith 1842 / Official Declaration 1 (1890) / Official Declaration 2 (1978) / Family Proclamation 1995 + current sample. Jehovah's Witness: Divine Plan of the Ages 1886 / Let God Be True 1946 / Reasoning 1985 / Enjoy Life Forever 2021 + current sample.
+   - New creeds are archetypes from birth; assembly into forescapades.json waits on item 4 freeing the tree, then push + deploy with the batch.
+
 ---
 
 ## 2. Open Carry-Overs & Backlog
@@ -58,5 +62,4 @@ Items to verify or address when relevant to their subsystem:
 - **Shortcuts View:** Leave until named by Jason (do not invent a screen).
 - **z90 Bet — Action-Count Run:** Settlement instrument replaced 2026-11-22: the bet settles if rating one n-pole topic on the un-tangled map takes fewer than 7 actions (counting advocacy, receptivity, and intensities). A counted run of the real rating flow is still owed.
 - **Stance-Skin Taper Labels:** Spoke stem aria/tooltip labels still derive from give/receive and read "Unrated" on stance skins (follow-up to the 2026-11-22 advocacy/receptivity tapers).
-- **Sample Flags Awaiting Jason's Word:** Sunni current sample leaves Predestination at all zeros while al-Tahawi (933) defines it at full strength; Lutheran current sample rates faith-formed-by-love at −80, closer to 1580 than to its own 1999 Joint Declaration layer (−30).
-- **Three More Fores Stacks (proposed, not ordered):** Jehovah's Witnesses, Latter-day Saints, Mennonites are not among Fores' eight creeds; stacks proposed 2026-11-22, awaiting Jason's word.
+- **Sample Flags (second looks done 2026-11-23):** Sunni Predestination — CORRECT: the sample blanks the topic while rating qadar 90 as a pillar of its own faith; fix staged (adopt the 933 profile verbatim), applies with the next merge. A matching all-zeros defect on Grace was found alongside — its fix is proposed but NOT approved; awaits Jason's word. Lutheran faith-formed-by-love −80 — STANDS: the sample is confessional by its own stated basis (Augsburg Confession; LCMS declined the Joint Declaration), so −80 is coherent, not an error; moving it to the 1999 layer's −30 would be a basis change, and would drag the Reformed sample (also −80) with it.
