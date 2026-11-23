@@ -414,11 +414,11 @@
      Sexcapades, as before. The ?skin= query param (see skinFromUrl)
      wins over the hostname: it carries a skin selection across the
      age-gate round-trip. */
-  var HOSTNAME_SKINS = (typeof window !== "undefined" && window.__SX_HOSTNAME_SKINS) || { sex: "sexcapades", polis: "poliscapades", fores: "forescapades", philo: "philoscapades", aesth: "aesthcapades", voca: "vocapades", tech: "techcapades", dharma: "dharmacapades", theori: "theoricapades", praxi: "praxicapades", quanta: "quantacapades", experi: "expericapades", simul: "simulcapades", matter: "mattercapades", chem: "chemcapades", nous: "nouscapades", bio: "biocapades", lingua: "linguacapades", dance: "dancecapades", quest: "questcapades" };
-  var SKIN_IDS = (typeof window !== "undefined" && window.__SX_SKIN_IDS) || ["sexcapades", "poliscapades", "forescapades", "philoscapades", "aesthcapades", "vocapades", "techcapades", "dharmacapades", "theoricapades", "praxicapades", "quantacapades", "expericapades", "simulcapades", "mattercapades", "chemcapades", "nouscapades", "biocapades", "linguacapades", "dancecapades", "questcapades"];
+  var HOSTNAME_SKINS = (typeof window !== "undefined" && window.__SX_HOSTNAME_SKINS) || { sex: "sexcapades", polis: "poliscapades", fores: "forescapades", philo: "philoscapades", aesth: "aesthcapades", voca: "vocapades", tech: "techcapades", dharma: "dharmacapades", theori: "theoricapades", praxi: "praxicapades", quanta: "quantacapades", experi: "expericapades", simul: "simulcapades", matter: "mattercapades", chem: "chemcapades", nous: "nouscapades", bio: "biocapades", lingua: "linguacapades", fast: "fastcapades", dance: "dancecapades", quest: "questcapades" };
+  var SKIN_IDS = (typeof window !== "undefined" && window.__SX_SKIN_IDS) || ["sexcapades", "poliscapades", "forescapades", "philoscapades", "aesthcapades", "vocapades", "techcapades", "dharmacapades", "theoricapades", "praxicapades", "quantacapades", "expericapades", "simulcapades", "mattercapades", "chemcapades", "nouscapades", "biocapades", "linguacapades", "fastcapades", "dancecapades", "questcapades"];
 
   function skinForHostname(hostname) {
-    if (typeof window !== "undefined" && typeof window.__SX_SKIN_FOR_HOSTNAME === "function" && window.__SX_SKIN_FOR_HOSTNAME !== skinForHostname) {
+    if (typeof window !== "undefined" && typeof window.__SX_SKIN_FOR_HOSTNAME === "function") {
       return window.__SX_SKIN_FOR_HOSTNAME(hostname);
     }
     var host = (hostname || "").toLowerCase();
@@ -437,7 +437,7 @@
      specific skin's dotted domain. Unknown ids fall back to "sex",
      mirroring skinForHostname's unknown-host default. */
   function skinPrefixFor(skinId) {
-    if (typeof window !== "undefined" && typeof window.__SX_SKIN_PREFIX_FOR === "function" && window.__SX_SKIN_PREFIX_FOR !== skinPrefixFor) {
+    if (typeof window !== "undefined" && typeof window.__SX_SKIN_PREFIX_FOR === "function") {
       return window.__SX_SKIN_PREFIX_FOR(skinId);
     }
     var id = String(skinId || "");

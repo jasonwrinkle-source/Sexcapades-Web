@@ -20,6 +20,7 @@
     chemcapades: { id: "chemcapades", prefix: "chem", name: "Chemcapades", desc: "chemistry", type: "stance" },
     dharmacapades: { id: "dharmacapades", prefix: "dharma", name: "Dharmacapades", desc: "eastern religions", type: "stance" },
     expericapades: { id: "expericapades", prefix: "experi", name: "Expericapades", desc: "experimental physics", type: "stance" },
+    fastcapades: { id: "fastcapades", prefix: "fast", name: "Fastcapades", desc: "the discipline of not eating", type: "stance" },
     forescapades: { id: "forescapades", prefix: "fores", name: "Forescapades", desc: "religion — Abrahamic faiths", type: "stance" },
     linguacapades: { id: "linguacapades", prefix: "lingua", name: "Linguacapades", desc: "the tongues we think in", type: "stance" },
     mattercapades: { id: "mattercapades", prefix: "matter", name: "Mattercapades", desc: "applied physics", type: "stance" },

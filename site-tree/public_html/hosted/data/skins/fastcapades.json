@@ -1,0 +1,2455 @@
+{
+ "skin": "fastcapades",
+ "name": "Fastcapades",
+ "domain": "fast.capades.io",
+ "meter": "discipline",
+ "about": "Fasting in practice and theory: religious observance, metabolic health, protocols, physiology debates, refeeding, and the interior and social life of voluntary abstention.",
+ "categories": [
+  {
+   "id": "xfac01",
+   "name": "Purpose & meaning",
+   "topics": [
+    {
+     "id": "xfa0001",
+     "name": "Primary purpose",
+     "risk": false,
+     "poles": [
+      {
+       "key": "metabolic-longevity-repair",
+       "label": "Metabolic & Longevity Repair"
+      },
+      {
+       "key": "sacred-devotion-obedience",
+       "label": "Sacred Devotion & Obedience"
+      },
+      {
+       "key": "mental-clarity-detachment",
+       "label": "Mental Clarity & Detachment"
+      },
+      {
+       "key": "moral-protest-solidarity",
+       "label": "Moral Protest & Solidarity"
+      }
+     ],
+     "widget": "diamond",
+     "archetype": "simplex",
+     "poleReading": "complement",
+     "question": "What is the highest, most legitimate purpose of voluntary abstention from food?",
+     "hovertip": {
+      "issue": "What is the highest, most legitimate purpose of voluntary abstention from food?",
+      "poles": [
+       {
+        "label": "Metabolic & Longevity Repair",
+        "text": "Periodic fasting triggers cellular cleanup, insulin sensitivity, and metabolic flexibility that constant grazing prevents."
+       },
+       {
+        "label": "Sacred Devotion & Obedience",
+        "text": "Fasting humbles bodily appetite before God and aligns the believer with sacred command and penitence."
+       },
+       {
+        "label": "Mental Clarity & Detachment",
+        "text": "Stepping off the feeding treadmill sharpens focus and proves the mind is not a slave to every impulse."
+       },
+       {
+        "label": "Moral Protest & Solidarity",
+        "text": "Refusing nourishment in solidarity with the hungry or against injustice turns the body itself into a witness."
+       }
+      ]
+     }
+    },
+    {
+     "id": "xfa0002",
+     "name": "Spiritual asceticism vs. clinical hygiene",
+     "risk": false,
+     "poles": [
+      {
+       "key": "contemplative-soul-shaping",
+       "label": "Contemplative Soul-Shaping"
+      },
+      {
+       "key": "secular-biological-maintenance",
+       "label": "Secular Biological Maintenance"
+      }
+     ],
+     "widget": "xy-switchbox",
+     "archetype": null,
+     "hovertip": {
+      "issue": "Should fasting be approached as a transformative moral and spiritual practice, or as a neutral physiological tool like sleep or exercise?",
+      "poles": [
+       {
+        "label": "Contemplative Soul-Shaping",
+        "text": "Stripping fasting of prayer, gratitude, and self-examination reduces a sacred discipline to mechanical biohacking."
+       },
+       {
+        "label": "Secular Biological Maintenance",
+        "text": "Grounding fasting in measurable metabolic physiology keeps it practical, testable, and accessible regardless of creed."
+       }
+      ]
+     }
+    },
+    {
+     "id": "xfa0003",
+     "name": "Duty vs. chosen discipline",
+     "risk": false,
+     "poles": [
+      {
+       "key": "commanded-observance",
+       "label": "Commanded Observance"
+      },
+      {
+       "key": "chosen-discipline",
+       "label": "Chosen Discipline"
+      }
+     ],
+     "widget": "xy-switchbox",
+     "archetype": null,
+     "hovertip": {
+      "issue": "Is fasting something owed, or something chosen?",
+      "poles": [
+       {
+        "label": "Commanded Observance",
+        "text": "The fast is commanded by God or tradition; obedience is the point."
+       },
+       {
+        "label": "Chosen Discipline",
+        "text": "No one commands it; its value lies precisely in being freely taken up."
+       }
+      ]
+     }
+    },
+    {
+     "id": "xfa0004",
+     "name": "Weight loss",
+     "risk": false,
+     "poles": [
+      {
+       "key": "pragmatic-fat-loss-lever",
+       "label": "Pragmatic Fat-Loss Lever"
+      },
+      {
+       "key": "keep-weight-goals-separate",
+       "label": "Keep Weight Goals Separate"
+      }
+     ],
+     "widget": "xy-switchbox",
+     "archetype": null,
+     "hovertip": {
+      "issue": "Is using fasting primarily to lose body fat a smart, simple strategy, or does it distort the practice into chronic dieting?",
+      "poles": [
+       {
+        "label": "Pragmatic Fat-Loss Lever",
+        "text": "Clear eating windows eliminate snacking without tedious calorie counting and tap stored body fat directly."
+       },
+       {
+        "label": "Keep Weight Goals Separate",
+        "text": "Treating fasts as weight-loss punishment breeds binge-restrict cycles and obscures deeper metabolic and contemplative benefits."
+       }
+      ]
+     }
+    },
+    {
+     "id": "xfa0005",
+     "name": "The evidence question",
+     "risk": false,
+     "poles": [
+      {
+       "key": "clinically-proven",
+       "label": "Clinically Proven"
+      },
+      {
+       "key": "promising-mixed",
+       "label": "Promising & Mixed"
+      },
+      {
+       "key": "mostly-tradition",
+       "label": "Mostly Tradition"
+      }
+     ],
+     "widget": "trilinear-line",
+     "archetype": "line",
+     "hovertip": {
+      "issue": "How strong is the scientific case for fasting?",
+      "poles": [
+       {
+        "label": "Clinically Proven",
+        "text": "Controlled trials already justify fasting as therapy for metabolic disease."
+       },
+       {
+        "label": "Promising & Mixed",
+        "text": "Animal data is strong and human data is coming, but the headlines run ahead of both."
+       },
+       {
+        "label": "Mostly Tradition",
+        "text": "The practice is ancient and meaningful; the laboratory case remains thin."
+       }
+      ]
+     }
+    }
+   ]
+  },
+  {
+   "id": "xfac02",
+   "name": "What counts as a fast",
+   "topics": [
+    {
+     "id": "xfa0006",
+     "name": "Purity of the fast",
+     "risk": false,
+     "poles": [
+      {
+       "key": "strict-zero-calorie-water-only",
+       "label": "Strict Zero-Calorie Water Only"
+      },
+      {
+       "key": "clean-non-caloric-aids",
+       "label": "Clean Non-Caloric Aids"
+      },
+      {
+       "key": "pragmatic-dirty-fasting",
+       "label": "Pragmatic Dirty Fasting"
+      }
+     ],
+     "widget": "trilinear-line",
+     "archetype": "line",
+     "hovertip": {
+      "issue": "Does a true fast demand pure water alone, or may black coffee, tea, and tiny caloric buffers be included without losing the point?",
+      "poles": [
+       {
+        "label": "Strict Zero-Calorie Water Only",
+        "text": "Anything beyond plain water — even bitter compounds or sweeteners — triggers digestive signaling and dilutes clean physiological rest."
+       },
+       {
+        "label": "Clean Non-Caloric Aids",
+        "text": "Black coffee, plain tea, and unflavored electrolytes preserve insulin and autophagy benefits while making fasts sustainable in daily life."
+       },
+       {
+        "label": "Pragmatic Dirty Fasting",
+        "text": "A splash of cream or bone broth under fifty calories keeps adherence high while delivering nearly identical metabolic results."
+       }
+      ]
+     }
+    },
+    {
+     "id": "xfa0007",
+     "name": "Dry fasting",
+     "risk": false,
+     "poles": [
+      {
+       "key": "always-hydrate-generously",
+       "label": "Always Hydrate Generously"
+      },
+      {
+       "key": "dawn-to-dusk-or-short-dry-fasts",
+       "label": "Dawn-to-Dusk or Short Dry Fasts"
+      }
+     ],
+     "widget": "xy-switchbox",
+     "archetype": null,
+     "hovertip": {
+      "issue": "Is abstaining from water alongside food a valid religious and metabolic practice, or an unnecessary physiological hazard?",
+      "poles": [
+       {
+        "label": "Always Hydrate Generously",
+        "text": "Water supports kidney clearance, circulation, and safe ketone adaptation without risking dehydration injury."
+       },
+       {
+        "label": "Dawn-to-Dusk or Short Dry Fasts",
+        "text": "Sacred traditions like Ramadan and Yom Kippur sanctify complete abstention, and brief dry windows accelerate metabolic water production."
+       }
+      ]
+     }
+    },
+    {
+     "id": "xfa0008",
+     "name": "Electrolytes & supplementation",
+     "risk": false,
+     "poles": [
+      {
+       "key": "active-supplementation",
+       "label": "Active Sodium, Potassium & Magnesium"
+      },
+      {
+       "key": "pure-unsupplemented-water",
+       "label": "Pure Unsupplemented Water"
+      }
+     ],
+     "widget": "xy-switchbox",
+     "archetype": null,
+     "hovertip": {
+      "issue": "Should extended fasters proactively supplement electrolytes, or trust the body’s renal conservation mechanisms?",
+      "poles": [
+       {
+        "label": "Active Sodium, Potassium & Magnesium",
+        "text": "Natriuresis of fasting flushes minerals rapidly; supplementing prevents headaches, cramps, and orthostatic dizziness."
+       },
+       {
+        "label": "Pure Unsupplemented Water",
+        "text": "Healthy kidneys conserve electrolytes naturally during multi-day fasts, whereas salty drinks irritate an empty stomach."
+       }
+      ]
+     }
+    },
+    {
+     "id": "xfa0009",
+     "name": "Fasting-mimicking & partial fasts",
+     "risk": false,
+     "poles": [
+      {
+       "key": "true-zero-intake-abstention",
+       "label": "True Zero-Intake Abstention"
+      },
+      {
+       "key": "fasting-mimicking-daniel-fasts",
+       "label": "Fasting-Mimicking & Daniel Fasts"
+      }
+     ],
+     "widget": "xy-switchbox",
+     "archetype": null,
+     "hovertip": {
+      "issue": "Can structured low-calorie or restricted-food protocols capture the benefits of fasting, or only complete abstention?",
+      "poles": [
+       {
+        "label": "True Zero-Intake Abstention",
+        "text": "Only complete cessation of digestion flips the full metabolic switch into deep ketosis and gut rest."
+       },
+       {
+        "label": "Fasting-Mimicking & Daniel Fasts",
+        "text": "Targeted low-protein, low-calorie rations trigger cellular stress pathways safely while nourishing people who cannot do water fasts."
+       }
+      ]
+     }
+    }
+   ]
+  },
+  {
+   "id": "xfac03",
+   "name": "Rhythm & protocol",
+   "topics": [
+    {
+     "id": "xfa0010",
+     "name": "Cadence & duration",
+     "risk": false,
+     "poles": [
+      {
+       "key": "daily-time-restricted",
+       "label": "Daily Time-Restricted (16:8–20:4)"
+      },
+      {
+       "key": "one-meal-a-day",
+       "label": "One Meal a Day (OMAD)"
+      },
+      {
+       "key": "alternate-day-36-48h",
+       "label": "Alternate-Day / 36–48h"
+      },
+      {
+       "key": "multi-day-extended",
+       "label": "Multi-Day Extended (3–7+ Days)"
+      },
+      {
+       "key": "liturgical-seasonal-calendars",
+       "label": "Liturgical Seasonal Calendars"
+      }
+     ],
+     "widget": "radar",
+     "archetype": "simplex",
+     "poleReading": "complement",
+     "question": "Which fasting rhythm fits human physiology and real life best?",
+     "hovertip": {
+      "issue": "Which fasting rhythm fits human physiology and real life best?",
+      "poles": [
+       {
+        "label": "Daily Time-Restricted (16:8–20:4)",
+        "text": "Aligning eating with daylight circadian rhythms is gentle, sustainable for years, and socially effortless."
+       },
+       {
+        "label": "One Meal a Day (OMAD)",
+        "text": "Compressing nourishment into one daily feast simplifies life and trains steady appetite control."
+       },
+       {
+        "label": "Alternate-Day / 36–48h",
+        "text": "Full-day fasts separated by normal eating days deliver deep insulin drops without multi-day refeeding complexity."
+       },
+       {
+        "label": "Multi-Day Extended (3–7+ Days)",
+        "text": "Crossing the seventy-two-hour mark unlocks profound ketosis, mental stillness, and immune reset impossible in short windows."
+       },
+       {
+        "label": "Liturgical Seasonal Calendars",
+        "text": "Synchronizing fasts with communal feasts and sacred seasons roots bodily discipline in shared heritage rather than solitary willpower."
+       }
+      ]
+     }
+    },
+    {
+     "id": "xfa0011",
+     "name": "Circadian timing of the window",
+     "risk": false,
+     "poles": [
+      {
+       "key": "early-daylight-eating-window",
+       "label": "Early Daylight Eating Window"
+      },
+      {
+       "key": "evening-dinner-window",
+       "label": "Evening Dinner Window"
+      }
+     ],
+     "widget": "xy-switchbox",
+     "archetype": null,
+     "hovertip": {
+      "issue": "When practicing daily time-restricted eating, is it better to skip dinner or skip breakfast?",
+      "poles": [
+       {
+        "label": "Early Daylight Eating Window",
+        "text": "Insulin sensitivity and digestive thermogenesis peak in the morning, making late-night calories metabolically costly."
+       },
+       {
+        "label": "Evening Dinner Window",
+        "text": "Sharing dinner with family and friends preserves social life and matches natural daytime alertness while working."
+       }
+      ]
+     }
+    },
+    {
+     "id": "xfa0012",
+     "name": "Rigid schedule vs. intuitive elasticity",
+     "risk": false,
+     "poles": [
+      {
+       "key": "fixed-clock-calendar-rules",
+       "label": "Fixed Clock & Calendar Rules"
+      },
+      {
+       "key": "flexible-appetite-led-windows",
+       "label": "Flexible Appetite-Led Windows"
+      }
+     ],
+     "widget": "xy-switchbox",
+     "archetype": null,
+     "hovertip": {
+      "issue": "Does fasting work best with strict non-negotiable rules, or by skipping meals organically when true hunger is absent?",
+      "poles": [
+       {
+        "label": "Fixed Clock & Calendar Rules",
+        "text": "Clear pre-commitments eliminate constant negotiation with cravings and build dependable habit momentum."
+       },
+       {
+        "label": "Flexible Appetite-Led Windows",
+        "text": "Listening to real energy, stress, and social rhythms prevents rigid rule-following from overriding bodily wisdom."
+       }
+      ]
+     }
+    }
+   ]
+  },
+  {
+   "id": "xfac04",
+   "name": "The body & the evidence",
+   "topics": [
+    {
+     "id": "xfa0013",
+     "name": "Autophagy timing",
+     "risk": false,
+     "poles": [
+      {
+       "key": "active-within-16-24-hours",
+       "label": "Active Within 16–24 Hours"
+      },
+      {
+       "key": "requires-48-72-hours",
+       "label": "Requires 48–72+ Hours"
+      },
+      {
+       "key": "unmeasurable-outside-lab-biopsies",
+       "label": "Unmeasurable Outside Lab Biopsies"
+      }
+     ],
+     "widget": "trilinear-line",
+     "archetype": "line",
+     "hovertip": {
+      "issue": "When does clinically meaningful autophagy actually ramp up in human tissues during a fast?",
+      "poles": [
+       {
+        "label": "Active Within 16–24 Hours",
+        "text": "Liver glycogen depletion and rising glucagon begin upregulating cellular recycling within a single day of fasting."
+       },
+       {
+        "label": "Requires 48–72+ Hours",
+        "text": "Mouse timelines compress human metabolism; deep tissue autophagy in humans takes multiple days without protein or insulin spikes."
+       },
+       {
+        "label": "Unmeasurable Outside Lab Biopsies",
+        "text": "We currently lack reliable blood biomarkers for human autophagy, so confident hourly claims outrun the science."
+       }
+      ]
+     }
+    },
+    {
+     "id": "xfa0014",
+     "name": "Muscle & strength",
+     "risk": false,
+     "poles": [
+      {
+       "key": "growth-hormone-ketones-spare-muscle",
+       "label": "Growth Hormone & Ketones Spare Muscle"
+      },
+      {
+       "key": "prolonged-fasts-erode-lean-mass",
+       "label": "Prolonged Fasts Erode Lean Mass"
+      }
+     ],
+     "widget": "xy-switchbox",
+     "archetype": null,
+     "hovertip": {
+      "issue": "Does extended fasting protect skeletal muscle through ketones and growth hormone, or inevitably catabolize precious lean tissue?",
+      "poles": [
+       {
+        "label": "Growth Hormone & Ketones Spare Muscle",
+        "text": "Rising ketones and pulsatile growth hormone dramatically reduce protein oxidation once fat adaptation kicks in."
+       },
+       {
+        "label": "Prolonged Fasts Erode Lean Mass",
+        "text": "Without dietary amino acids or mechanical stimulus, multi-day fasts sacrifice hard-won muscle alongside fat."
+       }
+      ]
+     }
+    },
+    {
+     "id": "xfa0015",
+     "name": "Training while fasted",
+     "risk": false,
+     "poles": [
+      {
+       "key": "train-hard-fasted",
+       "label": "Train Hard Fasted"
+      },
+      {
+       "key": "gentle-zone-2-mobility-only",
+       "label": "Gentle Zone-2 & Mobility Only"
+      },
+      {
+       "key": "rest-conserve-energy",
+       "label": "Rest & Conserve Energy"
+      }
+     ],
+     "widget": "trilinear-line",
+     "archetype": "line",
+     "hovertip": {
+      "issue": "How should physical exercise be paired with a fasting window?",
+      "poles": [
+       {
+        "label": "Train Hard Fasted",
+        "text": "Lifting or running fasted amplifies catecholamines, fat oxidation, and mitochondrial adaptation without heavy digestion."
+       },
+       {
+        "label": "Gentle Zone-2 & Mobility Only",
+        "text": "Light walking and stretching stimulate circulation and muscle retention without spiking cortisol or hypoglycemia."
+       },
+       {
+        "label": "Rest & Conserve Energy",
+        "text": "Heavy training during extended fasts compounds recovery stress; fasting days belong to stillness and repair."
+       }
+      ]
+     }
+    },
+    {
+     "id": "xfa0016",
+     "name": "Sleep, cortisol & stress",
+     "risk": false,
+     "poles": [
+      {
+       "key": "energizing-noradrenaline-focus",
+       "label": "Energizing Noradrenaline Focus"
+      },
+      {
+       "key": "hidden-hpa-axis-stress-cost",
+       "label": "Hidden HPA-Axis Stress Cost"
+      }
+     ],
+     "widget": "xy-switchbox",
+     "archetype": null,
+     "hovertip": {
+      "issue": "Is the wired, alert feeling during a fast a sign of clean evolutionary sharpness, or a sympathetic stress response?",
+      "poles": [
+       {
+        "label": "Energizing Noradrenaline Focus",
+        "text": "Mild orexin and noradrenaline elevation during fasting sharpens alertness so an organism can forage effectively."
+       },
+       {
+        "label": "Hidden HPA-Axis Stress Cost",
+        "text": "Frequent prolonged fasts elevate cortisol and fragment deep sleep, quietly taxing thyroid and recovery."
+       }
+      ]
+     }
+    },
+    {
+     "id": "xfa0017",
+     "name": "Sex, cycle & life-stage",
+     "risk": false,
+     "poles": [
+      {
+       "key": "cycle-synced-cautious-protocols",
+       "label": "Cycle-Synced & Cautious Protocols"
+      },
+      {
+       "key": "uniform-human-physiology",
+       "label": "Uniform Human Physiology"
+      }
+     ],
+     "widget": "xy-switchbox",
+     "archetype": null,
+     "hovertip": {
+      "issue": "Should women of reproductive age modify or pause fasting around hormonal phases, or do core metabolic rules apply equally?",
+      "poles": [
+       {
+        "label": "Cycle-Synced & Cautious Protocols",
+        "text": "Female reproductive hormones are acutely sensitive to energy deficits, especially in the late luteal phase before menstruation."
+       },
+       {
+        "label": "Uniform Human Physiology",
+        "text": "Ancestral humans of both sexes endured unpredictable food gaps; moderate fasting supports metabolic health across sexes without over-medicalizing."
+       }
+      ]
+     }
+    }
+   ]
+  },
+  {
+   "id": "xfac05",
+   "name": "Breaking & refeeding",
+   "topics": [
+    {
+     "id": "xfa0018",
+     "name": "Breaking the fast",
+     "risk": false,
+     "poles": [
+      {
+       "key": "small-gentle",
+       "label": "Small & Gentle"
+      },
+      {
+       "key": "a-normal-meal",
+       "label": "A Normal Meal"
+      },
+      {
+       "key": "the-planned-feast",
+       "label": "The Planned Feast"
+      }
+     ],
+     "widget": "triangle",
+     "archetype": "simplex",
+     "poleReading": "complement",
+     "question": "How should a fast end?",
+     "hovertip": {
+      "issue": "How should a fast end?",
+      "poles": [
+       {
+        "label": "Small & Gentle",
+        "text": "Broth, eggs, something small: wake the gut up slowly."
+       },
+       {
+        "label": "A Normal Meal",
+        "text": "Eat a normal meal and get on with life; ceremony is superstition."
+       },
+       {
+        "label": "The Planned Feast",
+        "text": "The feast is part of the fast; plan it, cook it, honor it."
+       }
+      ]
+     }
+    },
+    {
+     "id": "xfa0019",
+     "name": "Refeeding syndrome risk",
+     "risk": false,
+     "poles": [
+      {
+       "key": "casual-at-any-length",
+       "label": "Casual at Any Length"
+      },
+      {
+       "key": "careful-past-48-hours",
+       "label": "Careful Past 48 Hours"
+      },
+      {
+       "key": "medical-past-5-days",
+       "label": "Medical Past 5 Days"
+      }
+     ],
+     "widget": "trilinear-line",
+     "archetype": "line",
+     "hovertip": {
+      "issue": "How dangerous is eating again after a fast?",
+      "poles": [
+       {
+        "label": "Casual at Any Length",
+        "text": "Healthy people refeed fine; refeeding syndrome belongs to starvation, not fasting."
+       },
+       {
+        "label": "Careful Past 48 Hours",
+        "text": "After two days, stage the return: small, low-carb, electrolytes first."
+       },
+       {
+        "label": "Medical Past 5 Days",
+        "text": "Past five days, refeeding is a medical procedure and should be treated as one."
+       }
+      ]
+     }
+    },
+    {
+     "id": "xfa0020",
+     "name": "Breaking the fast early",
+     "risk": false,
+     "poles": [
+      {
+       "key": "data-not-failure",
+       "label": "Data, Not Failure"
+      },
+      {
+       "key": "a-broken-fast-is-a-failed-fast",
+       "label": "A Broken Fast Is a Failed Fast"
+      }
+     ],
+     "widget": "xy-switchbox",
+     "archetype": null,
+     "hovertip": {
+      "issue": "You ate at hour 30 of 48. What just happened?",
+      "poles": [
+       {
+        "label": "Data, Not Failure",
+        "text": "The fast taught you where your edge is; log it and go again."
+       },
+       {
+        "label": "A Broken Fast Is a Failed Fast",
+        "text": "The commitment was the practice; eating early means the fast did not happen."
+       }
+      ]
+     }
+    }
+   ]
+  },
+  {
+   "id": "xfac06",
+   "name": "The social table",
+   "topics": [
+    {
+     "id": "xfa0021",
+     "name": "Talking about your fast",
+     "risk": false,
+     "poles": [
+      {
+       "key": "keep-fasts-quiet-unannounced",
+       "label": "Keep Fasts Quiet & Unannounced"
+      },
+      {
+       "key": "openly-share-normalize-practice",
+       "label": "Openly Share & Normalize Practice"
+      }
+     ],
+     "widget": "xy-switchbox",
+     "archetype": null,
+     "hovertip": {
+      "issue": "Should you keep your fasting private so it never inconveniences or lectures others, or talk about it openly?",
+      "poles": [
+       {
+        "label": "Keep Fasts Quiet & Unannounced",
+        "text": "Anointing your head and hiding your fast prevents spiritual vanity and spares hosts awkwardness at dinner."
+       },
+       {
+        "label": "Openly Share & Normalize Practice",
+        "text": "Explaining why you are skipping lunch removes stigma, builds community support, and helps curious friends learn."
+       }
+      ]
+     }
+    },
+    {
+     "id": "xfa0022",
+     "name": "Shared meals & hospitality",
+     "risk": false,
+     "poles": [
+      {
+       "key": "break-fast-for-sacred-hospitality",
+       "label": "Break Fast for Sacred Hospitality"
+      },
+      {
+       "key": "hold-line-with-graceful-presence",
+       "label": "Hold Line With Graceful Presence"
+      }
+     ],
+     "widget": "xy-switchbox",
+     "archetype": null,
+     "hovertip": {
+      "issue": "When a loved one cooks or a celebration gathers around food, which duty wins: hospitality or your fasting commitment?",
+      "poles": [
+       {
+        "label": "Break Fast for Sacred Hospitality",
+        "text": "Monastic wisdom holds that love and fellowship outrank personal austerity; you can always fast tomorrow."
+       },
+       {
+        "label": "Hold Line With Graceful Presence",
+        "text": "Sitting warmly at the table with tea or water shows that human company does not require eating."
+       }
+      ]
+     }
+    },
+    {
+     "id": "xfa0023",
+     "name": "Cooking for others while fasting",
+     "risk": false,
+     "poles": [
+      {
+       "key": "an-act-of-service",
+       "label": "An Act of Service"
+      },
+      {
+       "key": "a-needless-temptation",
+       "label": "A Needless Temptation"
+      }
+     ],
+     "widget": "xy-switchbox",
+     "archetype": null,
+     "hovertip": {
+      "issue": "Should the fasting cook keep cooking for the household?",
+      "poles": [
+       {
+        "label": "An Act of Service",
+        "text": "Preparing food you will not eat, for people you love, is the fast made visible as service."
+       },
+       {
+        "label": "A Needless Temptation",
+        "text": "Standing over tasting spoons all day is fighting the fast on hard mode for no benefit."
+       }
+      ]
+     }
+    }
+   ]
+  },
+  {
+   "id": "xfac07",
+   "name": "Interior life & safety",
+   "topics": [
+    {
+     "id": "xfa0024",
+     "name": "Hunger as signal vs. teacher",
+     "risk": false,
+     "poles": [
+      {
+       "key": "passing-wave-to-observe",
+       "label": "Passing Wave to Observe"
+      },
+      {
+       "key": "biological-alarm-to-honor",
+       "label": "Biological Alarm to Honor"
+      }
+     ],
+     "widget": "xy-switchbox",
+     "archetype": null,
+     "hovertip": {
+      "issue": "When hunger pangs arrive during a planned fast, should you sit with them calmly or treat them as a stop sign?",
+      "poles": [
+       {
+        "label": "Passing Wave to Observe",
+        "text": "Ghrelin rises at habitual mealtimes and subsides within an hour; watching hunger pass builds quiet inner freedom."
+       },
+       {
+        "label": "Biological Alarm to Honor",
+        "text": "Persistent dizziness, coldness, or gnawing distress is honest somatic feedback telling you to nourish the body."
+       }
+      ]
+     }
+    },
+    {
+     "id": "xfa0025",
+     "name": "The shape of hunger",
+     "risk": false,
+     "poles": [
+      {
+       "key": "white-knuckle-endurance",
+       "label": "White-Knuckle Endurance"
+      },
+      {
+       "key": "waves-that-pass",
+       "label": "Waves That Pass"
+      },
+      {
+       "key": "the-clarity-window",
+       "label": "The Clarity Window"
+      }
+     ],
+     "widget": "trilinear-line",
+     "archetype": "line",
+     "hovertip": {
+      "issue": "What does hunger actually feel like across a fast?",
+      "poles": [
+       {
+        "label": "White-Knuckle Endurance",
+        "text": "It is endurance: a wall to lean on until the clock releases you."
+       },
+       {
+        "label": "Waves That Pass",
+        "text": "Hunger comes in waves tied to habit and ghrelin, and each wave passes in twenty minutes."
+       },
+       {
+        "label": "The Clarity Window",
+        "text": "Past the waves there is a lucid, quiet window that is the real prize."
+       }
+      ]
+     }
+    },
+    {
+     "id": "xfa0026",
+     "name": "Safety boundaries & contraindications",
+     "risk": false,
+     "poles": [
+      {
+       "key": "strict-exclusion-gatekeeping",
+       "label": "Strict Exclusion Gatekeeping"
+      },
+      {
+       "key": "autonomous-adult-self-experimentation",
+       "label": "Autonomous Adult Self-Experimentation"
+      }
+     ],
+     "widget": "xy-switchbox",
+     "archetype": null,
+     "hovertip": {
+      "issue": "How firmly should communities warn away people with past eating disorders, pregnancy, or fragility from fasting?",
+      "poles": [
+       {
+        "label": "Strict Exclusion Gatekeeping",
+        "text": "Fasting can rapidly reactivate restrictive disorders or harm pregnancy and growth, demanding clear bright-line warnings."
+       },
+       {
+        "label": "Autonomous Adult Self-Experimentation",
+        "text": "Informed adults can judge their own medical context with their doctors without paternalistic bans."
+       }
+      ]
+     }
+    },
+    {
+     "id": "xfa0027",
+     "name": "Retreat vs. communal fasting",
+     "risk": false,
+     "poles": [
+      {
+       "key": "solitary-retreat",
+       "label": "Solitary Retreat"
+      },
+      {
+       "key": "communal-calendar-bound",
+       "label": "Communal & Calendar-Bound"
+      }
+     ],
+     "widget": "xy-switchbox",
+     "archetype": null,
+     "hovertip": {
+      "issue": "Is fasting a solitary discipline or a communal one?",
+      "poles": [
+       {
+        "label": "Solitary Retreat",
+        "text": "Going apart — monastery, cabin, desert — is how the fast has always deepened."
+       },
+       {
+        "label": "Communal & Calendar-Bound",
+        "text": "Ramadan and Lent are fasted together, on a calendar, or they lose their power."
+       }
+      ]
+     }
+    }
+   ]
+  }
+ ],
+ "samples": {
+  "the-metabolic-optimizer": {
+   "name": "The Metabolic Optimizer",
+   "count": 27,
+   "about": "Treats fasting as a precision physiological lever for insulin sensitivity, cellular cleanup, and clean mental energy, tracking hours, ketones, and electrolytes carefully.",
+   "links": [],
+   "payload": {
+    "app": "sexcapades",
+    "version": 16,
+    "noFlash": true,
+    "profileName": "The Metabolic Optimizer",
+    "archetype": "The Metabolic Optimizer",
+    "aboutMe": "Treats fasting as a precision physiological lever for insulin sensitivity, cellular cleanup, and clean mental energy, tracking hours, ketones, and electrolytes carefully.",
+    "ratings": {
+     "xfa0001": {
+      "advocacy": {
+       "metabolic-longevity-repair": 95,
+       "sacred-devotion-obedience": 10,
+       "mental-clarity-detachment": 60,
+       "moral-protest-solidarity": 5,
+       "intensity": 95
+      },
+      "receptivity": {
+       "metabolic-longevity-repair": 66,
+       "sacred-devotion-obedience": 7,
+       "mental-clarity-detachment": 42,
+       "moral-protest-solidarity": 4,
+       "intensity": 66
+      }
+     },
+     "xfa0002": {
+      "advocacy": {
+       "contemplative-soul-shaping": 15,
+       "secular-biological-maintenance": 92,
+       "intensity": 92
+      },
+      "receptivity": {
+       "contemplative-soul-shaping": 10,
+       "secular-biological-maintenance": 64,
+       "intensity": 64
+      }
+     },
+     "xfa0003": {
+      "advocacy": {
+       "commanded-observance": 5,
+       "chosen-discipline": 90,
+       "intensity": 90
+      },
+      "receptivity": {
+       "commanded-observance": 4,
+       "chosen-discipline": 63,
+       "intensity": 63
+      }
+     },
+     "xfa0004": {
+      "advocacy": {
+       "pragmatic-fat-loss-lever": 80,
+       "keep-weight-goals-separate": 30,
+       "intensity": 80
+      },
+      "receptivity": {
+       "pragmatic-fat-loss-lever": 56,
+       "keep-weight-goals-separate": 21,
+       "intensity": 56
+      }
+     },
+     "xfa0005": {
+      "advocacy": {
+       "line": -55,
+       "intensity": -55
+      },
+      "receptivity": {
+       "line": -38,
+       "intensity": -38
+      }
+     },
+     "xfa0006": {
+      "advocacy": {
+       "line": -25,
+       "intensity": -25
+      },
+      "receptivity": {
+       "line": -18,
+       "intensity": -18
+      }
+     },
+     "xfa0007": {
+      "advocacy": {
+       "always-hydrate-generously": 85,
+       "dawn-to-dusk-or-short-dry-fasts": 20,
+       "intensity": 85
+      },
+      "receptivity": {
+       "always-hydrate-generously": 59,
+       "dawn-to-dusk-or-short-dry-fasts": 14,
+       "intensity": 59
+      }
+     },
+     "xfa0008": {
+      "advocacy": {
+       "active-supplementation": 95,
+       "pure-unsupplemented-water": 15,
+       "intensity": 95
+      },
+      "receptivity": {
+       "active-supplementation": 66,
+       "pure-unsupplemented-water": 10,
+       "intensity": 66
+      }
+     },
+     "xfa0009": {
+      "advocacy": {
+       "true-zero-intake-abstention": 55,
+       "fasting-mimicking-daniel-fasts": 75,
+       "intensity": 75
+      },
+      "receptivity": {
+       "true-zero-intake-abstention": 38,
+       "fasting-mimicking-daniel-fasts": 52,
+       "intensity": 52
+      }
+     },
+     "xfa0010": {
+      "advocacy": {
+       "daily-time-restricted": 60,
+       "one-meal-a-day": 55,
+       "alternate-day-36-48h": 80,
+       "multi-day-extended": 92,
+       "liturgical-seasonal-calendars": 10,
+       "intensity": 92
+      },
+      "receptivity": {
+       "daily-time-restricted": 42,
+       "one-meal-a-day": 38,
+       "alternate-day-36-48h": 56,
+       "multi-day-extended": 64,
+       "liturgical-seasonal-calendars": 7,
+       "intensity": 64
+      }
+     },
+     "xfa0011": {
+      "advocacy": {
+       "early-daylight-eating-window": 75,
+       "evening-dinner-window": 35,
+       "intensity": 75
+      },
+      "receptivity": {
+       "early-daylight-eating-window": 52,
+       "evening-dinner-window": 24,
+       "intensity": 52
+      }
+     },
+     "xfa0012": {
+      "advocacy": {
+       "fixed-clock-calendar-rules": 80,
+       "flexible-appetite-led-windows": 35,
+       "intensity": 80
+      },
+      "receptivity": {
+       "fixed-clock-calendar-rules": 56,
+       "flexible-appetite-led-windows": 24,
+       "intensity": 56
+      }
+     },
+     "xfa0013": {
+      "advocacy": {
+       "line": -45,
+       "intensity": -45
+      },
+      "receptivity": {
+       "line": -31,
+       "intensity": -31
+      }
+     },
+     "xfa0014": {
+      "advocacy": {
+       "growth-hormone-ketones-spare-muscle": 60,
+       "prolonged-fasts-erode-lean-mass": 65,
+       "intensity": 65
+      },
+      "receptivity": {
+       "growth-hormone-ketones-spare-muscle": 42,
+       "prolonged-fasts-erode-lean-mass": 46,
+       "intensity": 46
+      }
+     },
+     "xfa0015": {
+      "advocacy": {
+       "line": -40,
+       "intensity": -40
+      },
+      "receptivity": {
+       "line": -28,
+       "intensity": -28
+      }
+     },
+     "xfa0016": {
+      "advocacy": {
+       "energizing-noradrenaline-focus": 75,
+       "hidden-hpa-axis-stress-cost": 45,
+       "intensity": 75
+      },
+      "receptivity": {
+       "energizing-noradrenaline-focus": 52,
+       "hidden-hpa-axis-stress-cost": 31,
+       "intensity": 52
+      }
+     },
+     "xfa0017": {
+      "advocacy": {
+       "cycle-synced-cautious-protocols": 55,
+       "uniform-human-physiology": 55,
+       "intensity": 55
+      },
+      "receptivity": {
+       "cycle-synced-cautious-protocols": 38,
+       "uniform-human-physiology": 38,
+       "intensity": 38
+      }
+     },
+     "xfa0018": {
+      "advocacy": {
+       "small-gentle": 85,
+       "a-normal-meal": 40,
+       "the-planned-feast": 30,
+       "intensity": 85
+      },
+      "receptivity": {
+       "small-gentle": 59,
+       "a-normal-meal": 28,
+       "the-planned-feast": 21,
+       "intensity": 59
+      }
+     },
+     "xfa0019": {
+      "advocacy": {
+       "line": 50,
+       "intensity": 50
+      },
+      "receptivity": {
+       "line": 35,
+       "intensity": 35
+      }
+     },
+     "xfa0020": {
+      "advocacy": {
+       "data-not-failure": 90,
+       "a-broken-fast-is-a-failed-fast": 15,
+       "intensity": 90
+      },
+      "receptivity": {
+       "data-not-failure": 63,
+       "a-broken-fast-is-a-failed-fast": 10,
+       "intensity": 63
+      }
+     },
+     "xfa0021": {
+      "advocacy": {
+       "keep-fasts-quiet-unannounced": 30,
+       "openly-share-normalize-practice": 80,
+       "intensity": 80
+      },
+      "receptivity": {
+       "keep-fasts-quiet-unannounced": 21,
+       "openly-share-normalize-practice": 56,
+       "intensity": 56
+      }
+     },
+     "xfa0022": {
+      "advocacy": {
+       "break-fast-for-sacred-hospitality": 55,
+       "hold-line-with-graceful-presence": 60,
+       "intensity": 60
+      },
+      "receptivity": {
+       "break-fast-for-sacred-hospitality": 38,
+       "hold-line-with-graceful-presence": 42,
+       "intensity": 42
+      }
+     },
+     "xfa0023": {
+      "advocacy": {
+       "an-act-of-service": 55,
+       "a-needless-temptation": 45,
+       "intensity": 55
+      },
+      "receptivity": {
+       "an-act-of-service": 38,
+       "a-needless-temptation": 31,
+       "intensity": 38
+      }
+     },
+     "xfa0024": {
+      "advocacy": {
+       "passing-wave-to-observe": 85,
+       "biological-alarm-to-honor": 40,
+       "intensity": 85
+      },
+      "receptivity": {
+       "passing-wave-to-observe": 59,
+       "biological-alarm-to-honor": 28,
+       "intensity": 59
+      }
+     },
+     "xfa0025": {
+      "advocacy": {
+       "line": 50,
+       "intensity": 50
+      },
+      "receptivity": {
+       "line": 35,
+       "intensity": 35
+      }
+     },
+     "xfa0026": {
+      "advocacy": {
+       "strict-exclusion-gatekeeping": 45,
+       "autonomous-adult-self-experimentation": 75,
+       "intensity": 75
+      },
+      "receptivity": {
+       "strict-exclusion-gatekeeping": 31,
+       "autonomous-adult-self-experimentation": 52,
+       "intensity": 52
+      }
+     },
+     "xfa0027": {
+      "advocacy": {
+       "solitary-retreat": 45,
+       "communal-calendar-bound": 40,
+       "intensity": 45
+      },
+      "receptivity": {
+       "solitary-retreat": 31,
+       "communal-calendar-bound": 28,
+       "intensity": 31
+      }
+     }
+    },
+    "skin": "fastcapades"
+   },
+   "skin": "fastcapades",
+   "kind": "archetype",
+   "emblem": "images/emblems/fastcapades-the-metabolic-optimizer.svg"
+  },
+  "the-devotional-ascetic": {
+   "name": "The Devotional Ascetic",
+   "count": 27,
+   "about": "Roots abstention in sacred tradition, prayer, and humility of appetite rather than biomarker optimization, prioritizing spiritual obedience and love of neighbor over physiological hacks.",
+   "links": [],
+   "payload": {
+    "app": "sexcapades",
+    "version": 16,
+    "noFlash": true,
+    "profileName": "The Devotional Ascetic",
+    "archetype": "The Devotional Ascetic",
+    "aboutMe": "Roots abstention in sacred tradition, prayer, and humility of appetite rather than biomarker optimization, prioritizing spiritual obedience and love of neighbor over physiological hacks.",
+    "ratings": {
+     "xfa0001": {
+      "advocacy": {
+       "metabolic-longevity-repair": 15,
+       "sacred-devotion-obedience": 98,
+       "mental-clarity-detachment": 70,
+       "moral-protest-solidarity": 30,
+       "intensity": 98
+      },
+      "receptivity": {
+       "metabolic-longevity-repair": 10,
+       "sacred-devotion-obedience": 64,
+       "mental-clarity-detachment": 46,
+       "moral-protest-solidarity": 20,
+       "intensity": 64
+      }
+     },
+     "xfa0002": {
+      "advocacy": {
+       "contemplative-soul-shaping": 95,
+       "secular-biological-maintenance": 20,
+       "intensity": 95
+      },
+      "receptivity": {
+       "contemplative-soul-shaping": 62,
+       "secular-biological-maintenance": 13,
+       "intensity": 62
+      }
+     },
+     "xfa0003": {
+      "advocacy": {
+       "commanded-observance": 85,
+       "chosen-discipline": 50,
+       "intensity": 85
+      },
+      "receptivity": {
+       "commanded-observance": 55,
+       "chosen-discipline": 32,
+       "intensity": 55
+      }
+     },
+     "xfa0004": {
+      "advocacy": {
+       "pragmatic-fat-loss-lever": 10,
+       "keep-weight-goals-separate": 90,
+       "intensity": 90
+      },
+      "receptivity": {
+       "pragmatic-fat-loss-lever": 6,
+       "keep-weight-goals-separate": 58,
+       "intensity": 58
+      }
+     },
+     "xfa0005": {
+      "advocacy": {
+       "line": 50,
+       "intensity": 50
+      },
+      "receptivity": {
+       "line": 32,
+       "intensity": 32
+      }
+     },
+     "xfa0006": {
+      "advocacy": {
+       "line": -70,
+       "intensity": -70
+      },
+      "receptivity": {
+       "line": -46,
+       "intensity": -46
+      }
+     },
+     "xfa0007": {
+      "advocacy": {
+       "always-hydrate-generously": 55,
+       "dawn-to-dusk-or-short-dry-fasts": 50,
+       "intensity": 55
+      },
+      "receptivity": {
+       "always-hydrate-generously": 36,
+       "dawn-to-dusk-or-short-dry-fasts": 32,
+       "intensity": 36
+      }
+     },
+     "xfa0008": {
+      "advocacy": {
+       "active-supplementation": 35,
+       "pure-unsupplemented-water": 70,
+       "intensity": 70
+      },
+      "receptivity": {
+       "active-supplementation": 23,
+       "pure-unsupplemented-water": 46,
+       "intensity": 46
+      }
+     },
+     "xfa0009": {
+      "advocacy": {
+       "true-zero-intake-abstention": 75,
+       "fasting-mimicking-daniel-fasts": 40,
+       "intensity": 75
+      },
+      "receptivity": {
+       "true-zero-intake-abstention": 49,
+       "fasting-mimicking-daniel-fasts": 26,
+       "intensity": 49
+      }
+     },
+     "xfa0010": {
+      "advocacy": {
+       "daily-time-restricted": 35,
+       "one-meal-a-day": 55,
+       "alternate-day-36-48h": 60,
+       "multi-day-extended": 65,
+       "liturgical-seasonal-calendars": 90,
+       "intensity": 90
+      },
+      "receptivity": {
+       "daily-time-restricted": 23,
+       "one-meal-a-day": 36,
+       "alternate-day-36-48h": 39,
+       "multi-day-extended": 42,
+       "liturgical-seasonal-calendars": 58,
+       "intensity": 58
+      }
+     },
+     "xfa0011": {
+      "advocacy": {
+       "early-daylight-eating-window": 40,
+       "evening-dinner-window": 55,
+       "intensity": 55
+      },
+      "receptivity": {
+       "early-daylight-eating-window": 26,
+       "evening-dinner-window": 36,
+       "intensity": 36
+      }
+     },
+     "xfa0012": {
+      "advocacy": {
+       "fixed-clock-calendar-rules": 75,
+       "flexible-appetite-led-windows": 40,
+       "intensity": 75
+      },
+      "receptivity": {
+       "fixed-clock-calendar-rules": 49,
+       "flexible-appetite-led-windows": 26,
+       "intensity": 49
+      }
+     },
+     "xfa0013": {
+      "advocacy": {
+       "line": 25,
+       "intensity": 25
+      },
+      "receptivity": {
+       "line": 16,
+       "intensity": 16
+      }
+     },
+     "xfa0014": {
+      "advocacy": {
+       "growth-hormone-ketones-spare-muscle": 65,
+       "prolonged-fasts-erode-lean-mass": 35,
+       "intensity": 65
+      },
+      "receptivity": {
+       "growth-hormone-ketones-spare-muscle": 42,
+       "prolonged-fasts-erode-lean-mass": 23,
+       "intensity": 42
+      }
+     },
+     "xfa0015": {
+      "advocacy": {
+       "line": 35,
+       "intensity": 35
+      },
+      "receptivity": {
+       "line": 23,
+       "intensity": 23
+      }
+     },
+     "xfa0016": {
+      "advocacy": {
+       "energizing-noradrenaline-focus": 55,
+       "hidden-hpa-axis-stress-cost": 50,
+       "intensity": 55
+      },
+      "receptivity": {
+       "energizing-noradrenaline-focus": 36,
+       "hidden-hpa-axis-stress-cost": 32,
+       "intensity": 36
+      }
+     },
+     "xfa0017": {
+      "advocacy": {
+       "cycle-synced-cautious-protocols": 60,
+       "uniform-human-physiology": 45,
+       "intensity": 60
+      },
+      "receptivity": {
+       "cycle-synced-cautious-protocols": 39,
+       "uniform-human-physiology": 29,
+       "intensity": 39
+      }
+     },
+     "xfa0018": {
+      "advocacy": {
+       "small-gentle": 75,
+       "a-normal-meal": 50,
+       "the-planned-feast": 60,
+       "intensity": 75
+      },
+      "receptivity": {
+       "small-gentle": 49,
+       "a-normal-meal": 32,
+       "the-planned-feast": 39,
+       "intensity": 49
+      }
+     },
+     "xfa0019": {
+      "advocacy": {
+       "line": 5,
+       "intensity": 5
+      },
+      "receptivity": {
+       "line": 3,
+       "intensity": 3
+      }
+     },
+     "xfa0020": {
+      "advocacy": {
+       "data-not-failure": 50,
+       "a-broken-fast-is-a-failed-fast": 55,
+       "intensity": 55
+      },
+      "receptivity": {
+       "data-not-failure": 32,
+       "a-broken-fast-is-a-failed-fast": 36,
+       "intensity": 36
+      }
+     },
+     "xfa0021": {
+      "advocacy": {
+       "keep-fasts-quiet-unannounced": 92,
+       "openly-share-normalize-practice": 15,
+       "intensity": 92
+      },
+      "receptivity": {
+       "keep-fasts-quiet-unannounced": 60,
+       "openly-share-normalize-practice": 10,
+       "intensity": 60
+      }
+     },
+     "xfa0022": {
+      "advocacy": {
+       "break-fast-for-sacred-hospitality": 95,
+       "hold-line-with-graceful-presence": 35,
+       "intensity": 95
+      },
+      "receptivity": {
+       "break-fast-for-sacred-hospitality": 62,
+       "hold-line-with-graceful-presence": 23,
+       "intensity": 62
+      }
+     },
+     "xfa0023": {
+      "advocacy": {
+       "an-act-of-service": 85,
+       "a-needless-temptation": 25,
+       "intensity": 85
+      },
+      "receptivity": {
+       "an-act-of-service": 55,
+       "a-needless-temptation": 16,
+       "intensity": 55
+      }
+     },
+     "xfa0024": {
+      "advocacy": {
+       "passing-wave-to-observe": 80,
+       "biological-alarm-to-honor": 45,
+       "intensity": 80
+      },
+      "receptivity": {
+       "passing-wave-to-observe": 52,
+       "biological-alarm-to-honor": 29,
+       "intensity": 52
+      }
+     },
+     "xfa0025": {
+      "advocacy": {
+       "line": 65,
+       "intensity": 65
+      },
+      "receptivity": {
+       "line": 42,
+       "intensity": 42
+      }
+     },
+     "xfa0026": {
+      "advocacy": {
+       "strict-exclusion-gatekeeping": 65,
+       "autonomous-adult-self-experimentation": 45,
+       "intensity": 65
+      },
+      "receptivity": {
+       "strict-exclusion-gatekeeping": 42,
+       "autonomous-adult-self-experimentation": 29,
+       "intensity": 42
+      }
+     },
+     "xfa0027": {
+      "advocacy": {
+       "solitary-retreat": 80,
+       "communal-calendar-bound": 65,
+       "intensity": 80
+      },
+      "receptivity": {
+       "solitary-retreat": 52,
+       "communal-calendar-bound": 42,
+       "intensity": 52
+      }
+     }
+    },
+    "skin": "fastcapades"
+   },
+   "skin": "fastcapades",
+   "kind": "archetype",
+   "emblem": "images/emblems/fastcapades-the-devotional-ascetic.svg"
+  },
+  "the-ramadan-observer": {
+   "name": "The Ramadan Observer",
+   "count": 27,
+   "about": "Fasts as commanded devotion: no food and no water from dawn to sunset through the holy month, ending each day at a family table.",
+   "links": [],
+   "payload": {
+    "app": "sexcapades",
+    "version": 16,
+    "noFlash": true,
+    "profileName": "The Ramadan Observer",
+    "archetype": "The Ramadan Observer",
+    "aboutMe": "Fasts as commanded devotion: no food and no water from dawn to sunset through the holy month, ending each day at a family table.",
+    "ratings": {
+     "xfa0001": {
+      "advocacy": {
+       "metabolic-longevity-repair": 40,
+       "sacred-devotion-obedience": 95,
+       "mental-clarity-detachment": 50,
+       "moral-protest-solidarity": 20,
+       "intensity": 95
+      },
+      "receptivity": {
+       "metabolic-longevity-repair": 32,
+       "sacred-devotion-obedience": 76,
+       "mental-clarity-detachment": 40,
+       "moral-protest-solidarity": 16,
+       "intensity": 76
+      }
+     },
+     "xfa0002": {
+      "advocacy": {
+       "contemplative-soul-shaping": 85,
+       "secular-biological-maintenance": 30,
+       "intensity": 85
+      },
+      "receptivity": {
+       "contemplative-soul-shaping": 68,
+       "secular-biological-maintenance": 24,
+       "intensity": 68
+      }
+     },
+     "xfa0003": {
+      "advocacy": {
+       "commanded-observance": 97,
+       "chosen-discipline": 30,
+       "intensity": 97
+      },
+      "receptivity": {
+       "commanded-observance": 78,
+       "chosen-discipline": 24,
+       "intensity": 78
+      }
+     },
+     "xfa0004": {
+      "advocacy": {
+       "pragmatic-fat-loss-lever": 35,
+       "keep-weight-goals-separate": 70,
+       "intensity": 70
+      },
+      "receptivity": {
+       "pragmatic-fat-loss-lever": 28,
+       "keep-weight-goals-separate": 56,
+       "intensity": 56
+      }
+     },
+     "xfa0005": {
+      "advocacy": {
+       "line": 35,
+       "intensity": 35
+      },
+      "receptivity": {
+       "line": 28,
+       "intensity": 28
+      }
+     },
+     "xfa0006": {
+      "advocacy": {
+       "line": -55,
+       "intensity": -55
+      },
+      "receptivity": {
+       "line": -44,
+       "intensity": -44
+      }
+     },
+     "xfa0007": {
+      "advocacy": {
+       "always-hydrate-generously": 30,
+       "dawn-to-dusk-or-short-dry-fasts": 97,
+       "intensity": 97
+      },
+      "receptivity": {
+       "always-hydrate-generously": 24,
+       "dawn-to-dusk-or-short-dry-fasts": 78,
+       "intensity": 78
+      }
+     },
+     "xfa0008": {
+      "advocacy": {
+       "active-supplementation": 45,
+       "pure-unsupplemented-water": 55,
+       "intensity": 55
+      },
+      "receptivity": {
+       "active-supplementation": 36,
+       "pure-unsupplemented-water": 44,
+       "intensity": 44
+      }
+     },
+     "xfa0009": {
+      "advocacy": {
+       "true-zero-intake-abstention": 85,
+       "fasting-mimicking-daniel-fasts": 25,
+       "intensity": 85
+      },
+      "receptivity": {
+       "true-zero-intake-abstention": 68,
+       "fasting-mimicking-daniel-fasts": 20,
+       "intensity": 68
+      }
+     },
+     "xfa0010": {
+      "advocacy": {
+       "daily-time-restricted": 45,
+       "one-meal-a-day": 25,
+       "alternate-day-36-48h": 20,
+       "multi-day-extended": 10,
+       "liturgical-seasonal-calendars": 98,
+       "intensity": 98
+      },
+      "receptivity": {
+       "daily-time-restricted": 36,
+       "one-meal-a-day": 20,
+       "alternate-day-36-48h": 16,
+       "multi-day-extended": 8,
+       "liturgical-seasonal-calendars": 78,
+       "intensity": 78
+      }
+     },
+     "xfa0011": {
+      "advocacy": {
+       "early-daylight-eating-window": 20,
+       "evening-dinner-window": 85,
+       "intensity": 85
+      },
+      "receptivity": {
+       "early-daylight-eating-window": 16,
+       "evening-dinner-window": 68,
+       "intensity": 68
+      }
+     },
+     "xfa0012": {
+      "advocacy": {
+       "fixed-clock-calendar-rules": 90,
+       "flexible-appetite-led-windows": 25,
+       "intensity": 90
+      },
+      "receptivity": {
+       "fixed-clock-calendar-rules": 72,
+       "flexible-appetite-led-windows": 20,
+       "intensity": 72
+      }
+     },
+     "xfa0013": {
+      "advocacy": {
+       "line": 20,
+       "intensity": 20
+      },
+      "receptivity": {
+       "line": 16,
+       "intensity": 16
+      }
+     },
+     "xfa0014": {
+      "advocacy": {
+       "growth-hormone-ketones-spare-muscle": 55,
+       "prolonged-fasts-erode-lean-mass": 45,
+       "intensity": 55
+      },
+      "receptivity": {
+       "growth-hormone-ketones-spare-muscle": 44,
+       "prolonged-fasts-erode-lean-mass": 36,
+       "intensity": 44
+      }
+     },
+     "xfa0015": {
+      "advocacy": {
+       "line": 15,
+       "intensity": 15
+      },
+      "receptivity": {
+       "line": 12,
+       "intensity": 12
+      }
+     },
+     "xfa0016": {
+      "advocacy": {
+       "energizing-noradrenaline-focus": 50,
+       "hidden-hpa-axis-stress-cost": 55,
+       "intensity": 55
+      },
+      "receptivity": {
+       "energizing-noradrenaline-focus": 40,
+       "hidden-hpa-axis-stress-cost": 44,
+       "intensity": 44
+      }
+     },
+     "xfa0017": {
+      "advocacy": {
+       "cycle-synced-cautious-protocols": 65,
+       "uniform-human-physiology": 40,
+       "intensity": 65
+      },
+      "receptivity": {
+       "cycle-synced-cautious-protocols": 52,
+       "uniform-human-physiology": 32,
+       "intensity": 52
+      }
+     },
+     "xfa0018": {
+      "advocacy": {
+       "small-gentle": 65,
+       "a-normal-meal": 60,
+       "the-planned-feast": 95,
+       "intensity": 95
+      },
+      "receptivity": {
+       "small-gentle": 52,
+       "a-normal-meal": 48,
+       "the-planned-feast": 76,
+       "intensity": 76
+      }
+     },
+     "xfa0019": {
+      "advocacy": {
+       "line": -25,
+       "intensity": -25
+      },
+      "receptivity": {
+       "line": -20,
+       "intensity": -20
+      }
+     },
+     "xfa0020": {
+      "advocacy": {
+       "data-not-failure": 60,
+       "a-broken-fast-is-a-failed-fast": 45,
+       "intensity": 60
+      },
+      "receptivity": {
+       "data-not-failure": 48,
+       "a-broken-fast-is-a-failed-fast": 36,
+       "intensity": 48
+      }
+     },
+     "xfa0021": {
+      "advocacy": {
+       "keep-fasts-quiet-unannounced": 55,
+       "openly-share-normalize-practice": 50,
+       "intensity": 55
+      },
+      "receptivity": {
+       "keep-fasts-quiet-unannounced": 44,
+       "openly-share-normalize-practice": 40,
+       "intensity": 44
+      }
+     },
+     "xfa0022": {
+      "advocacy": {
+       "break-fast-for-sacred-hospitality": 85,
+       "hold-line-with-graceful-presence": 45,
+       "intensity": 85
+      },
+      "receptivity": {
+       "break-fast-for-sacred-hospitality": 68,
+       "hold-line-with-graceful-presence": 36,
+       "intensity": 68
+      }
+     },
+     "xfa0023": {
+      "advocacy": {
+       "an-act-of-service": 90,
+       "a-needless-temptation": 20,
+       "intensity": 90
+      },
+      "receptivity": {
+       "an-act-of-service": 72,
+       "a-needless-temptation": 16,
+       "intensity": 72
+      }
+     },
+     "xfa0024": {
+      "advocacy": {
+       "passing-wave-to-observe": 75,
+       "biological-alarm-to-honor": 50,
+       "intensity": 75
+      },
+      "receptivity": {
+       "passing-wave-to-observe": 60,
+       "biological-alarm-to-honor": 40,
+       "intensity": 60
+      }
+     },
+     "xfa0025": {
+      "advocacy": {
+       "line": 35,
+       "intensity": 35
+      },
+      "receptivity": {
+       "line": 28,
+       "intensity": 28
+      }
+     },
+     "xfa0026": {
+      "advocacy": {
+       "strict-exclusion-gatekeeping": 60,
+       "autonomous-adult-self-experimentation": 50,
+       "intensity": 60
+      },
+      "receptivity": {
+       "strict-exclusion-gatekeeping": 48,
+       "autonomous-adult-self-experimentation": 40,
+       "intensity": 48
+      }
+     },
+     "xfa0027": {
+      "advocacy": {
+       "solitary-retreat": 15,
+       "communal-calendar-bound": 95,
+       "intensity": 95
+      },
+      "receptivity": {
+       "solitary-retreat": 12,
+       "communal-calendar-bound": 76,
+       "intensity": 76
+      }
+     }
+    },
+    "skin": "fastcapades"
+   },
+   "skin": "fastcapades",
+   "kind": "archetype",
+   "emblem": "images/emblems/fastcapades-the-ramadan-observer.svg"
+  },
+  "the-circadian-minimalist": {
+   "name": "The Circadian Minimalist",
+   "count": 27,
+   "about": "Practices gentle, sustainable daily eating windows aligned with daylight and ordinary family life, skeptical of extreme multi-day deprivation, rigid rules, or unproven autophagy hype.",
+   "links": [],
+   "payload": {
+    "app": "sexcapades",
+    "version": 16,
+    "noFlash": true,
+    "profileName": "The Circadian Minimalist",
+    "archetype": "The Circadian Minimalist",
+    "aboutMe": "Practices gentle, sustainable daily eating windows aligned with daylight and ordinary family life, skeptical of extreme multi-day deprivation, rigid rules, or unproven autophagy hype.",
+    "ratings": {
+     "xfa0001": {
+      "advocacy": {
+       "metabolic-longevity-repair": 70,
+       "sacred-devotion-obedience": 20,
+       "mental-clarity-detachment": 65,
+       "moral-protest-solidarity": 10,
+       "intensity": 70
+      },
+      "receptivity": {
+       "metabolic-longevity-repair": 52,
+       "sacred-devotion-obedience": 15,
+       "mental-clarity-detachment": 49,
+       "moral-protest-solidarity": 8,
+       "intensity": 52
+      }
+     },
+     "xfa0002": {
+      "advocacy": {
+       "contemplative-soul-shaping": 40,
+       "secular-biological-maintenance": 70,
+       "intensity": 70
+      },
+      "receptivity": {
+       "contemplative-soul-shaping": 30,
+       "secular-biological-maintenance": 52,
+       "intensity": 52
+      }
+     },
+     "xfa0003": {
+      "advocacy": {
+       "commanded-observance": 10,
+       "chosen-discipline": 85,
+       "intensity": 85
+      },
+      "receptivity": {
+       "commanded-observance": 8,
+       "chosen-discipline": 64,
+       "intensity": 64
+      }
+     },
+     "xfa0004": {
+      "advocacy": {
+       "pragmatic-fat-loss-lever": 65,
+       "keep-weight-goals-separate": 45,
+       "intensity": 65
+      },
+      "receptivity": {
+       "pragmatic-fat-loss-lever": 49,
+       "keep-weight-goals-separate": 34,
+       "intensity": 49
+      }
+     },
+     "xfa0005": {
+      "advocacy": {
+       "line": -15,
+       "intensity": -15
+      },
+      "receptivity": {
+       "line": -11,
+       "intensity": -11
+      }
+     },
+     "xfa0006": {
+      "advocacy": {
+       "line": 15,
+       "intensity": 15
+      },
+      "receptivity": {
+       "line": 11,
+       "intensity": 11
+      }
+     },
+     "xfa0007": {
+      "advocacy": {
+       "always-hydrate-generously": 90,
+       "dawn-to-dusk-or-short-dry-fasts": 10,
+       "intensity": 90
+      },
+      "receptivity": {
+       "always-hydrate-generously": 68,
+       "dawn-to-dusk-or-short-dry-fasts": 8,
+       "intensity": 68
+      }
+     },
+     "xfa0008": {
+      "advocacy": {
+       "active-supplementation": 70,
+       "pure-unsupplemented-water": 30,
+       "intensity": 70
+      },
+      "receptivity": {
+       "active-supplementation": 52,
+       "pure-unsupplemented-water": 22,
+       "intensity": 52
+      }
+     },
+     "xfa0009": {
+      "advocacy": {
+       "true-zero-intake-abstention": 35,
+       "fasting-mimicking-daniel-fasts": 80,
+       "intensity": 80
+      },
+      "receptivity": {
+       "true-zero-intake-abstention": 26,
+       "fasting-mimicking-daniel-fasts": 60,
+       "intensity": 60
+      }
+     },
+     "xfa0010": {
+      "advocacy": {
+       "daily-time-restricted": 95,
+       "one-meal-a-day": 40,
+       "alternate-day-36-48h": 25,
+       "multi-day-extended": 5,
+       "liturgical-seasonal-calendars": 30,
+       "intensity": 95
+      },
+      "receptivity": {
+       "daily-time-restricted": 71,
+       "one-meal-a-day": 30,
+       "alternate-day-36-48h": 19,
+       "multi-day-extended": 4,
+       "liturgical-seasonal-calendars": 22,
+       "intensity": 71
+      }
+     },
+     "xfa0011": {
+      "advocacy": {
+       "early-daylight-eating-window": 85,
+       "evening-dinner-window": 40,
+       "intensity": 85
+      },
+      "receptivity": {
+       "early-daylight-eating-window": 64,
+       "evening-dinner-window": 30,
+       "intensity": 64
+      }
+     },
+     "xfa0012": {
+      "advocacy": {
+       "fixed-clock-calendar-rules": 30,
+       "flexible-appetite-led-windows": 85,
+       "intensity": 85
+      },
+      "receptivity": {
+       "fixed-clock-calendar-rules": 22,
+       "flexible-appetite-led-windows": 64,
+       "intensity": 64
+      }
+     },
+     "xfa0013": {
+      "advocacy": {
+       "line": 55,
+       "intensity": 55
+      },
+      "receptivity": {
+       "line": 41,
+       "intensity": 41
+      }
+     },
+     "xfa0014": {
+      "advocacy": {
+       "growth-hormone-ketones-spare-muscle": 45,
+       "prolonged-fasts-erode-lean-mass": 60,
+       "intensity": 60
+      },
+      "receptivity": {
+       "growth-hormone-ketones-spare-muscle": 34,
+       "prolonged-fasts-erode-lean-mass": 45,
+       "intensity": 45
+      }
+     },
+     "xfa0015": {
+      "advocacy": {
+       "line": -5,
+       "intensity": -5
+      },
+      "receptivity": {
+       "line": -4,
+       "intensity": -4
+      }
+     },
+     "xfa0016": {
+      "advocacy": {
+       "energizing-noradrenaline-focus": 40,
+       "hidden-hpa-axis-stress-cost": 75,
+       "intensity": 75
+      },
+      "receptivity": {
+       "energizing-noradrenaline-focus": 30,
+       "hidden-hpa-axis-stress-cost": 56,
+       "intensity": 56
+      }
+     },
+     "xfa0017": {
+      "advocacy": {
+       "cycle-synced-cautious-protocols": 85,
+       "uniform-human-physiology": 25,
+       "intensity": 85
+      },
+      "receptivity": {
+       "cycle-synced-cautious-protocols": 64,
+       "uniform-human-physiology": 19,
+       "intensity": 64
+      }
+     },
+     "xfa0018": {
+      "advocacy": {
+       "small-gentle": 45,
+       "a-normal-meal": 85,
+       "the-planned-feast": 55,
+       "intensity": 85
+      },
+      "receptivity": {
+       "small-gentle": 34,
+       "a-normal-meal": 64,
+       "the-planned-feast": 41,
+       "intensity": 64
+      }
+     },
+     "xfa0019": {
+      "advocacy": {
+       "line": -35,
+       "intensity": -35
+      },
+      "receptivity": {
+       "line": -26,
+       "intensity": -26
+      }
+     },
+     "xfa0020": {
+      "advocacy": {
+       "data-not-failure": 85,
+       "a-broken-fast-is-a-failed-fast": 20,
+       "intensity": 85
+      },
+      "receptivity": {
+       "data-not-failure": 64,
+       "a-broken-fast-is-a-failed-fast": 15,
+       "intensity": 64
+      }
+     },
+     "xfa0021": {
+      "advocacy": {
+       "keep-fasts-quiet-unannounced": 60,
+       "openly-share-normalize-practice": 45,
+       "intensity": 60
+      },
+      "receptivity": {
+       "keep-fasts-quiet-unannounced": 45,
+       "openly-share-normalize-practice": 34,
+       "intensity": 45
+      }
+     },
+     "xfa0022": {
+      "advocacy": {
+       "break-fast-for-sacred-hospitality": 75,
+       "hold-line-with-graceful-presence": 40,
+       "intensity": 75
+      },
+      "receptivity": {
+       "break-fast-for-sacred-hospitality": 56,
+       "hold-line-with-graceful-presence": 30,
+       "intensity": 56
+      }
+     },
+     "xfa0023": {
+      "advocacy": {
+       "an-act-of-service": 60,
+       "a-needless-temptation": 40,
+       "intensity": 60
+      },
+      "receptivity": {
+       "an-act-of-service": 45,
+       "a-needless-temptation": 30,
+       "intensity": 45
+      }
+     },
+     "xfa0024": {
+      "advocacy": {
+       "passing-wave-to-observe": 65,
+       "biological-alarm-to-honor": 70,
+       "intensity": 70
+      },
+      "receptivity": {
+       "passing-wave-to-observe": 49,
+       "biological-alarm-to-honor": 52,
+       "intensity": 52
+      }
+     },
+     "xfa0025": {
+      "advocacy": {
+       "line": 10,
+       "intensity": 10
+      },
+      "receptivity": {
+       "line": 8,
+       "intensity": 8
+      }
+     },
+     "xfa0026": {
+      "advocacy": {
+       "strict-exclusion-gatekeeping": 90,
+       "autonomous-adult-self-experimentation": 30,
+       "intensity": 90
+      },
+      "receptivity": {
+       "strict-exclusion-gatekeeping": 68,
+       "autonomous-adult-self-experimentation": 22,
+       "intensity": 68
+      }
+     },
+     "xfa0027": {
+      "advocacy": {
+       "solitary-retreat": 30,
+       "communal-calendar-bound": 70,
+       "intensity": 70
+      },
+      "receptivity": {
+       "solitary-retreat": 22,
+       "communal-calendar-bound": 52,
+       "intensity": 52
+      }
+     }
+    },
+    "skin": "fastcapades"
+   },
+   "skin": "fastcapades",
+   "kind": "archetype",
+   "emblem": "images/emblems/fastcapades-the-circadian-minimalist.svg"
+  }
+ },
+ "scribe": {
+  "genre": "discussion",
+  "output": "discussion",
+  "explicitness": {
+   "label": "Depth",
+   "levels": [
+    "Overview",
+    "Engaged",
+    "Thorough",
+    "Rigorous",
+    "Dissertation defense"
+   ],
+   "help": "Depth 1 (Overview) is a light survey of the recorded stances. Depth 5 (Dissertation defense) is full scholarly rigor: steelman each stance, raise the strongest objections, and answer them."
+  },
+  "panel": {
+   "modeSingle": "One profile creates an informed discussion between the stances recorded on this map — the positions held, where they agree, and where they part. For a moderated discussion plan, use Scene Setter.",
+   "modeMulti": "Scribe turns your selected profiles into an informed discussion between the stances recorded on this map — where the profiles agree, where they part, and what follows from each position. For a moderated discussion plan, use Scene Setter.",
+   "introSingle": "One profile selected: Scribe will create an informed discussion between the stances.",
+   "introMulti": "Multiple profiles selected: Scribe will create an informed discussion between the stances.",
+   "detailsPlaceholder": "The map provides your stances and positions. Describe the angle, framing, or specific questions to emphasize or avoid — e.g. “a point-by-point comparison of the two leading positions, with objections answered.”",
+   "detailsHelp": "Don't re-enter your stances here. Scribe already uses the selected hypermap data.",
+   "lengthHelp": "Discussions can target a word count, paragraphs, pages, or chapters. Enter one number or a range; blank defaults to 1 page.",
+   "downloadIntro": "Generated from the selected profile data.",
+   "summary": "An informed discussion between the recorded stances — the positions speak for themselves, not a story."
+  },
+  "prompt": {
+   "opening": "Write an informed discussion between the stances recorded on this map.",
+   "rules": [
+    "Present each recorded stance fairly and in its strongest form — steelman, don't strawman.",
+    "Show where the stances agree, where they part, and what follows from each position.",
+    "Use the recorded ratings as emphasis: 80–100 central, 56–79 strong support, 36–55 lighter, and 0–35 optional curiosity.",
+    "Use only the named topics below. Do not add, imply, or reference any unlisted stance.",
+    "Do not invent positions, sources, or facts beyond the supplied data."
+   ],
+   "rigor": "At maximum depth, length, and rigor, write at dissertation-defense standard: state each position precisely, raise the strongest objections to each, answer them, and defend the conclusion against a skeptical examiner."
+  },
+  "phases": {
+   "warmup": "Opening",
+   "main": "Development",
+   "cooldown": "Closing",
+   "cooldownStyles": [
+    "synthesis",
+    "open questions",
+    "verdict"
+   ],
+   "legend": "Discussion phases",
+   "help": "Enabled phases are added to the generated prompt as a Discussion structure section, in opening, development, closing order. Turn a phase off to leave it out."
+  }
+ },
+ "sceneSetter": {
+  "genre": "moderation",
+  "output": "moderation-plan",
+  "panel": {
+   "subtitleSuffix": "the ground rules stay in every discussion plan.",
+   "detailsLabel": "Discussion details <small>Optional</small>",
+   "detailsPlaceholder": "The map provides your stances and positions. Describe the setting, framing, or specific questions to emphasize or avoid — e.g. “a point-by-point comparison of the two leading positions, with objections answered.”",
+   "detailsHelp": "Don’t re-enter your stances here. Scene Setter already uses the selected hypermap data, and the ground rules below still control the plan.",
+   "playGuideLegend": "Discussion plan length",
+   "playGuideHelp": "Length for the AI discussion-plan prompt only: a word count, paragraphs, pages, or chapters. Enter one number or a range; blank defaults to 5 paragraphs.",
+   "negotiationLegend": "Discussion agreement length",
+   "negotiationHelp": "Length for the standalone discussion agreement only. One page (or 500 words) is compact; larger targets add the ground-rules detail, then a full per-topic appendix. It never changes the discussion plan.",
+   "phasesLegend": "Discussion phases",
+   "phasesHelp": "Enabled phases are added to the generated moderation prompt as a Discussion structure section, in opening, development, closing order. Turn a phase off to leave it out.",
+   "outputsTitle": "Documents",
+   "outputsIntro": "Two separate outputs. Take either one on its own; each carries the compare-settings stamp and the same ground-rules content.",
+   "negotiationTitle": "Discussion agreement",
+   "negotiationDesc": "The completed ground rules as a finished, standalone agreement document — not an AI prompt.",
+   "playGuideTitle": "Discussion plan",
+   "playGuideDesc": "The AI discussion-plan prompt, with the ground rules embedded as its binding layer. It also carries the standard structured format — elapsed time codes like <strong>[00:00-05:00]</strong> and a fixed activity set — so whichever AI writes the plan, Scene Sentinel can read it back, run its timers, and match check-ins to the scheduled step.",
+   "copyNegotiationGuide": "Copy discussion agreement",
+   "downloadNegotiationGuide": "Download discussion agreement (.txt)",
+   "copyPlayGuide": "Copy discussion plan prompt",
+   "downloadPlayGuide": "Download discussion plan prompt (.txt)",
+   "aiNote": "<strong>How this differs from Scribe:</strong> this workspace puts the ground rules and shared positions into a discussion agreement first. Its moderation-plan source is inspiration only; the agreement always controls the generated plan.",
+   "playGuideTextPlaceholder": "Your generated discussion plan will stream here in real time…",
+   "openNegotiationTip": "Build a shared discussion agreement and an AI-ready moderation plan from two or more selected profiles.",
+   "viewNavTip": "Build a moderated discussion plan for 2 or more profiles, with ground rules and timed segments.",
+   "legendRow": "<b>Scene Setter</b> — Moderating a discussion between the stances: a ground-rules agreement and a moderated discussion plan."
+  },
+  "groundRules": [
+   "Present each recorded stance fairly and in its strongest form — steelman, don't strawman.",
+   "Speak from your own recorded stance; don't speak for the other side.",
+   "Take turns: one position at a time, each side heard fully before replies.",
+   "Objections go to the position, not the person holding it.",
+   "Anyone may call a pause; the discussion resumes only when everyone is ready.",
+   "What the profiles agree on is common ground — start there, and return to it when the discussion stalls."
+  ],
+  "prompt": {
+   "opening": "Write a moderated discussion plan for the stances recorded on this map.",
+   "rules": [
+    "Present each recorded stance fairly and in its strongest form — steelman, don't strawman.",
+    "Show where the stances agree, where they part, and what follows from each position.",
+    "Use the recorded ratings as emphasis: 80–100 central, 56–79 strong support, 36–55 lighter, and 0–35 optional curiosity.",
+    "Structure the plan in Opening, Development, and Closing, with timed segments and a check-in between segments.",
+    "Give each side its strongest form before comparing them; never let one side speak for the other.",
+    "Use only the named topics below. Do not add, imply, or reference any unlisted stance.",
+    "Do not invent positions, sources, or facts beyond the supplied data."
+   ],
+   "rigor": "At full detail, write at dissertation-defense standard: state each position precisely, raise the strongest objections to each, answer them, and defend the conclusion against a skeptical examiner."
+  },
+  "phases": {
+   "warmup": "Opening",
+   "main": "Development",
+   "cooldown": "Closing",
+   "cooldownStyles": [
+    "synthesis",
+    "open questions",
+    "verdict"
+   ],
+   "legend": "Discussion phases",
+   "help": "Enabled phases are added to the generated moderation prompt as a Discussion structure section, in opening, development, closing order. Turn a phase off to leave it out."
+  }
+ },
+ "defaultLayout": {}
+}

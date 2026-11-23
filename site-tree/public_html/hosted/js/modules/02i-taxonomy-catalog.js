@@ -1962,6 +1962,35 @@
                 color: "#8fb8e8",
                 glyph: '<path class="icon-glyph" d="M12 6.7a5.3 5.3 0 1 0 0 10.6 5.3 5.3 0 0 0 0-10.6 M3 14.5c-1 .4-1.5 1-1.2 1.7.5 1.2 4.9 1.7 10.2 1.2 5.3-.5 9.3-1.8 10-3.1.3-.8-.3-1.4-1.4-1.8"/>'
             },
+            /* Flexcapades skin categories: Fastcapades (7). Per-category pictograms; distinct colors and glyphs carry the category identity on the map. */
+            "Purpose & meaning": {
+                color: "#fb923c",
+                glyph: '<path class="icon-glyph" d="M12 3v3.4 M12 17.6V21 M3 12h3.4 M17.6 12H21 M12 9.2a2.8 2.8 0 1 0 0 5.6 2.8 2.8 0 0 0 0-5.6"/>'
+            },
+            "What counts as a fast": {
+                color: "#38bdf8",
+                glyph: '<path class="icon-glyph" d="M12 3.2C12 3.2 6.8 9.4 6.8 13.2a5.2 5.2 0 0 0 10.4 0C17.2 9.4 12 3.2 12 3.2 M9.4 14.4a2.8 2.8 0 0 0 2 3"/>'
+            },
+            "Rhythm & protocol": {
+                color: "#a78bfa",
+                glyph: '<path class="icon-glyph" d="M12 3.5a8.5 8.5 0 1 0 0 17 8.5 8.5 0 0 0 0-17 M12 7.5V12l3.2 2"/>'
+            },
+            "The body & the evidence": {
+                color: "#4ade80",
+                glyph: '<path class="icon-glyph" d="M3 12h4.2L9.5 6l4 12 2.3-6H21"/>'
+            },
+            "Breaking & refeeding": {
+                color: "#facc15",
+                glyph: '<path class="icon-glyph" d="M9 9.5c-1.2-1.5 1.2-2.3 0-4 M13 9.5c-1.2-1.5 1.2-2.3 0-4 M17 9.5c-1.2-1.5 1.2-2.3 0-4 M3.5 12.5h17a8.5 8.5 0 0 1-17 0"/>'
+            },
+            "The social table": {
+                color: "#fb7185",
+                glyph: '<path class="icon-glyph" d="M4 16.5a8 8 0 0 1 16 0 M2.8 19.8h18.4 M12 5.6a1.3 1.3 0 1 0 0 2.6 1.3 1.3 0 0 0 0-2.6 M12 8.2v.6"/>'
+            },
+            "Interior life & safety": {
+                color: "#e2e8f0",
+                glyph: '<path class="icon-glyph" d="M12 3l7 2.4v5.8c0 4.6-2.9 7.7-7 9.8-4.1-2.1-7-5.2-7-9.8V5.4z M9 11.8l2.2 2.2 4-4.2"/>'
+            },
             /* Flexcapades skin categories: Linguacapades (7). Per-category pictograms; distinct colors and glyphs carry the category identity on the map. */
             "Rules & standards": {
                 color: "#c9a86a",
