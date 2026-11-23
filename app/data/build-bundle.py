@@ -90,13 +90,13 @@ for p in parts:
         # Strip export keywords (export const, export function, export default, export async, etc.)
         code = re.sub(r'\bexport\s+(default\s+)?', '', code)
 
-        # Convert top-level const and let to var so module redeclarations in single-IIFE scope never throw SyntaxError
+        # Convert top-level const and let to var so module redeclarations in flat bundle scope never throw SyntaxError
         code = re.sub(r'^(?:        )?const\s+', 'var ', code, flags=re.MULTILINE)
         code = re.sub(r'^(?:        )?let\s+', 'var ', code, flags=re.MULTILINE)
 
         combined_code.append(f"/* --- Module: {p} --- */\n" + code)
 
-bundle_text = "/* --- TaxoPolemics / Flexcapades Bundled Bootstrap --- */\n" + "\n".join(combined_code)
+bundle_text = "/* --- TaxoPolemics / Flexcapades Bundled Bootstrap --- */\n" + "\n".join(combined_code) + "\n"
 
 with open(target_app, "w", encoding="utf-8") as out:
     out.write(bundle_text)
