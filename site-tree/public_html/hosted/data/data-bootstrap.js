@@ -641,11 +641,11 @@ const TAXONOMY_CATEGORIES = [];
             } catch (e) { /* fall through to inline map */ }
             try {
                 var q = new URLSearchParams(location.search || "").get("skin");
-                var known = ["sexcapades", "poliscapades", "forescapades", "philoscapades", "aesthcapades", "vocapades", "techcapades", "dharmacapades", "theoricapades", "praxicapades", "quantacapades", "expericapades", "simulcapades", "mattercapades", "chemcapades", "nouscapades", "biocapades", "dancecapades", "questcapades"];
+                var known = ["sexcapades", "poliscapades", "forescapades", "philoscapades", "aesthcapades", "vocapades", "techcapades", "dharmacapades", "theoricapades", "praxicapades", "quantacapades", "expericapades", "simulcapades", "mattercapades", "chemcapades", "nouscapades", "biocapades", "linguacapades", "dancecapades", "questcapades"];
                 if (q && known.indexOf(q) !== -1) return q;
                 var host = (location.hostname || "").toLowerCase();
                 if (host === "sexcapades.io" || host === "www.sexcapades.io" || host === "flex.capades.io" || host === "capades.io") return "sexcapades";
-                var map = { sex: "sexcapades", polis: "poliscapades", fores: "forescapades", philo: "philoscapades", aesth: "aesthcapades", voca: "vocapades", tech: "techcapades", dharma: "dharmacapades", theori: "theoricapades", praxi: "praxicapades", quanta: "quantacapades", experi: "expericapades", simul: "simulcapades", matter: "mattercapades", chem: "chemcapades", nous: "nouscapades", bio: "biocapades", dance: "dancecapades", quest: "questcapades" };
+                var map = { sex: "sexcapades", polis: "poliscapades", fores: "forescapades", philo: "philoscapades", aesth: "aesthcapades", voca: "vocapades", tech: "techcapades", dharma: "dharmacapades", theori: "theoricapades", praxi: "praxicapades", quanta: "quantacapades", experi: "expericapades", simul: "simulcapades", matter: "mattercapades", chem: "chemcapades", nous: "nouscapades", bio: "biocapades", lingua: "linguacapades", dance: "dancecapades", quest: "questcapades" };
                 var prefix = /\.capades\.io$/.test(host) ? host.split(".")[0] : "";
                 if (prefix && map[prefix]) return map[prefix];
             } catch (e) { /* default below */ }
@@ -4080,6 +4080,35 @@ const he = [ [ "t0281", "t0240" ] ];
                 color: "#8fb8e8",
                 glyph: '<path class="icon-glyph" d="M12 6.7a5.3 5.3 0 1 0 0 10.6 5.3 5.3 0 0 0 0-10.6 M3 14.5c-1 .4-1.5 1-1.2 1.7.5 1.2 4.9 1.7 10.2 1.2 5.3-.5 9.3-1.8 10-3.1.3-.8-.3-1.4-1.4-1.8"/>'
             },
+            /* Flexcapades skin categories: Linguacapades (7). Per-category pictograms; distinct colors and glyphs carry the category identity on the map. */
+            "Rules & standards": {
+                color: "#c9a86a",
+                glyph: '<path class="icon-glyph" d="M6 3.5h12V21H6z M9 8h6 M9 11.5h6 M9.3 16.8l1.7 1.7 3.5-3.9"/>'
+            },
+            "Dialect & identity": {
+                color: "#7fb3e0",
+                glyph: '<path class="icon-glyph" d="M4 5.5A2.5 2.5 0 0 1 6.5 3h11A2.5 2.5 0 0 1 20 5.5v8a2.5 2.5 0 0 1-2.5 2.5H12l-4.5 4v-4H6.5A2.5 2.5 0 0 1 4 13.5z M8 8.5h8 M8 11.8h5"/>'
+            },
+            "Language & thought": {
+                color: "#b48ede",
+                glyph: '<path class="icon-glyph" d="M6.8 5.5C5 7.2 4.2 9.3 4.2 12c0 2.1 1.4 3.5 3.1 3.5 1.7 0 3-1.3 3-3S9 9.7 7.4 9.7c.2-1.3.9-2.4 1.9-3.4z M17.2 5.5C15.4 7.2 14.6 9.3 14.6 12c0 2.1 1.4 3.5 3.1 3.5 1.7 0 3-1.3 3-3s-1.3-2.8-2.9-2.8c.2-1.3.9-2.4 1.9-3.4z"/>'
+            },
+            "The world's tongues": {
+                color: "#5dbb8a",
+                glyph: '<path class="icon-glyph" d="M12 3a9 9 0 1 0 0 18 9 9 0 0 0 0-18 M3.2 12h17.6 M12 3c2.6 2.5 3.9 5.6 3.9 9s-1.3 6.5-3.9 9c-2.6-2.5-3.9-5.6-3.9-9S9.4 5.5 12 3"/>'
+            },
+            "Writing & script": {
+                color: "#e08a5a",
+                glyph: '<path class="icon-glyph" d="M5 20.5L12 3.8l7 16.7 M7.4 13.8h9.2 M9.8 20.5h4.4"/>'
+            },
+            "Words in motion": {
+                color: "#e06a8a",
+                glyph: '<path class="icon-glyph" d="M3.5 7.5h11.5 M12 3.8l3.7 3.7L12 11.2 M20.5 16.5H9 M12 12.8L8.3 16.5l3.7 3.7"/>'
+            },
+            "Learning & machines": {
+                color: "#8fb8e8",
+                glyph: '<path class="icon-glyph" d="M12 5.8L2.8 10.4 12 15l9.2-4.6z M6.6 12.7v4.1c0 1.5 2.4 2.7 5.4 2.7s5.4-1.2 5.4-2.7v-4.1 M21.2 10.4v5.4"/>'
+            },
         };
 
         const me = e => `<path class="icon-glyph" d="${e}"/>`, fe = (e, t, n) => `<circle class="icon-glyph" cx="${e}" cy="${t}" r="${n}"/>`, ye = {
@@ -7395,6 +7424,35 @@ const Ce = {
             "Life elsewhere & everywhere": {
                 color: "#8fb8e8",
                 glyph: '<path class="icon-glyph" d="M12 6.7a5.3 5.3 0 1 0 0 10.6 5.3 5.3 0 0 0 0-10.6 M3 14.5c-1 .4-1.5 1-1.2 1.7.5 1.2 4.9 1.7 10.2 1.2 5.3-.5 9.3-1.8 10-3.1.3-.8-.3-1.4-1.4-1.8"/>'
+            },
+            /* Flexcapades skin categories: Linguacapades (7). Per-category pictograms; distinct colors and glyphs carry the category identity on the map. */
+            "Rules & standards": {
+                color: "#c9a86a",
+                glyph: '<path class="icon-glyph" d="M6 3.5h12V21H6z M9 8h6 M9 11.5h6 M9.3 16.8l1.7 1.7 3.5-3.9"/>'
+            },
+            "Dialect & identity": {
+                color: "#7fb3e0",
+                glyph: '<path class="icon-glyph" d="M4 5.5A2.5 2.5 0 0 1 6.5 3h11A2.5 2.5 0 0 1 20 5.5v8a2.5 2.5 0 0 1-2.5 2.5H12l-4.5 4v-4H6.5A2.5 2.5 0 0 1 4 13.5z M8 8.5h8 M8 11.8h5"/>'
+            },
+            "Language & thought": {
+                color: "#b48ede",
+                glyph: '<path class="icon-glyph" d="M6.8 5.5C5 7.2 4.2 9.3 4.2 12c0 2.1 1.4 3.5 3.1 3.5 1.7 0 3-1.3 3-3S9 9.7 7.4 9.7c.2-1.3.9-2.4 1.9-3.4z M17.2 5.5C15.4 7.2 14.6 9.3 14.6 12c0 2.1 1.4 3.5 3.1 3.5 1.7 0 3-1.3 3-3s-1.3-2.8-2.9-2.8c.2-1.3.9-2.4 1.9-3.4z"/>'
+            },
+            "The world's tongues": {
+                color: "#5dbb8a",
+                glyph: '<path class="icon-glyph" d="M12 3a9 9 0 1 0 0 18 9 9 0 0 0 0-18 M3.2 12h17.6 M12 3c2.6 2.5 3.9 5.6 3.9 9s-1.3 6.5-3.9 9c-2.6-2.5-3.9-5.6-3.9-9S9.4 5.5 12 3"/>'
+            },
+            "Writing & script": {
+                color: "#e08a5a",
+                glyph: '<path class="icon-glyph" d="M5 20.5L12 3.8l7 16.7 M7.4 13.8h9.2 M9.8 20.5h4.4"/>'
+            },
+            "Words in motion": {
+                color: "#e06a8a",
+                glyph: '<path class="icon-glyph" d="M3.5 7.5h11.5 M12 3.8l3.7 3.7L12 11.2 M20.5 16.5H9 M12 12.8L8.3 16.5l3.7 3.7"/>'
+            },
+            "Learning & machines": {
+                color: "#8fb8e8",
+                glyph: '<path class="icon-glyph" d="M12 5.8L2.8 10.4 12 15l9.2-4.6z M6.6 12.7v4.1c0 1.5 2.4 2.7 5.4 2.7s5.4-1.2 5.4-2.7v-4.1 M21.2 10.4v5.4"/>'
             },
         }, me = e => `<path class="icon-glyph" d="${e}"/>`, fe = (e, t, n) => `<circle class="icon-glyph" cx="${e}" cy="${t}" r="${n}"/>`, ye = {
             compass: me("M8 2v12M2 8h12m-4-2-2 2-2 2 2-2Z"),
@@ -29586,11 +29644,11 @@ function* sxRunNodeSettle(scCtx, blitSess) {
                 }
                 if (!target || target === "sexcapades") {
                     const q = new URLSearchParams(location.search || "").get("skin");
-                    const known = ["sexcapades", "poliscapades", "forescapades", "philoscapades", "aesthcapades", "vocapades", "techcapades", "dharmacapades", "theoricapades", "praxicapades", "quantacapades", "expericapades", "simulcapades", "mattercapades", "chemcapades", "nouscapades", "biocapades", "dancecapades", "questcapades"];
+                    const known = ["sexcapades", "poliscapades", "forescapades", "philoscapades", "aesthcapades", "vocapades", "techcapades", "dharmacapades", "theoricapades", "praxicapades", "quantacapades", "expericapades", "simulcapades", "mattercapades", "chemcapades", "nouscapades", "biocapades", "linguacapades", "dancecapades", "questcapades"];
                     if (q && known.indexOf(q) !== -1) target = q;
                     else {
                         const host = (location.hostname || "").toLowerCase();
-                        const map = { sex: "sexcapades", polis: "poliscapades", fores: "forescapades", philo: "philoscapades", aesth: "aesthcapades", voca: "vocapades", tech: "techcapades", dharma: "dharmacapades", theori: "theoricapades", praxi: "praxicapades", quanta: "quantacapades", experi: "expericapades", simul: "simulcapades", matter: "mattercapades", chem: "chemcapades", nous: "nouscapades", bio: "biocapades", dance: "dancecapades", quest: "questcapades" };
+                        const map = { sex: "sexcapades", polis: "poliscapades", fores: "forescapades", philo: "philoscapades", aesth: "aesthcapades", voca: "vocapades", tech: "techcapades", dharma: "dharmacapades", theori: "theoricapades", praxi: "praxicapades", quanta: "quantacapades", experi: "expericapades", simul: "simulcapades", matter: "mattercapades", chem: "chemcapades", nous: "nouscapades", bio: "biocapades", lingua: "linguacapades", dance: "dancecapades", quest: "questcapades" };
                         const prefix = /\.capades\.io$/.test(host) ? host.split(".")[0] : "";
                         if (prefix && map[prefix]) target = map[prefix];
                     }
