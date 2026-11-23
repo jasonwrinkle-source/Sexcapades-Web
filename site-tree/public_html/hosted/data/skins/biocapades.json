@@ -1842,7 +1842,8 @@
     "skin": "biocapades"
    },
    "skin": "biocapades",
-   "kind": "archetype"
+   "kind": "archetype",
+   "emblem": "images/emblems/bio-reductionist.svg"
   },
   "holist": {
    "name": "The Systems & Evo-Devo Holist",
@@ -2361,7 +2362,8 @@
     "skin": "biocapades"
    },
    "skin": "biocapades",
-   "kind": "archetype"
+   "kind": "archetype",
+   "emblem": "images/emblems/bio-holist.svg"
   },
   "promethean": {
    "name": "The Bio-Engineering Promethean",
@@ -2880,7 +2882,8 @@
     "skin": "biocapades"
    },
    "skin": "biocapades",
-   "kind": "archetype"
+   "kind": "archetype",
+   "emblem": "images/emblems/bio-promethean.svg"
   }
  },
  "scribe": {
