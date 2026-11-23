@@ -183,7 +183,8 @@
               "name": "r/science",
               "url": "https://www.reddit.com/r/science/"
             }
-          ]
+          ],
+          "glyph": "cube"
         },
         {
           "id": "xex0002",
@@ -245,7 +246,8 @@
               "name": "r/science",
               "url": "https://www.reddit.com/r/science/"
             }
-          ]
+          ],
+          "glyph": "star"
         },
         {
           "id": "xex0003",
@@ -307,7 +309,8 @@
               "name": "r/science",
               "url": "https://www.reddit.com/r/science/"
             }
-          ]
+          ],
+          "glyph": "sun"
         },
         {
           "id": "xex0004",
@@ -369,7 +372,8 @@
               "name": "r/science",
               "url": "https://www.reddit.com/r/science/"
             }
-          ]
+          ],
+          "glyph": "moon"
         },
         {
           "id": "xex0005",
@@ -431,7 +435,8 @@
               "name": "r/science",
               "url": "https://www.reddit.com/r/science/"
             }
-          ]
+          ],
+          "glyph": "flame"
         }
       ]
     },
@@ -495,7 +500,8 @@
               "name": "r/askscience",
               "url": "https://www.reddit.com/r/askscience/"
             }
-          ]
+          ],
+          "glyph": "droplet"
         },
         {
           "id": "xex0007",
@@ -552,7 +558,8 @@
               "name": "r/askscience",
               "url": "https://www.reddit.com/r/askscience/"
             }
-          ]
+          ],
+          "glyph": "tree"
         },
         {
           "id": "xex0008",
@@ -617,7 +624,8 @@
               "name": "r/askscience",
               "url": "https://www.reddit.com/r/askscience/"
             }
-          ]
+          ],
+          "glyph": "rose"
         },
         {
           "id": "xex0009",
@@ -674,7 +682,8 @@
               "name": "r/askscience",
               "url": "https://www.reddit.com/r/askscience/"
             }
-          ]
+          ],
+          "glyph": "heart"
         },
         {
           "id": "xex0010",
@@ -723,7 +732,8 @@
               "name": "r/askscience",
               "url": "https://www.reddit.com/r/askscience/"
             }
-          ]
+          ],
+          "glyph": "shield"
         },
         {
           "id": "xex0011",
@@ -772,7 +782,8 @@
               "name": "r/askscience",
               "url": "https://www.reddit.com/r/askscience/"
             }
-          ]
+          ],
+          "glyph": "badge"
         },
         {
           "id": "xex0012",
@@ -829,7 +840,8 @@
               "name": "r/askscience",
               "url": "https://www.reddit.com/r/askscience/"
             }
-          ]
+          ],
+          "glyph": "crown"
         }
       ]
     },
@@ -893,7 +905,8 @@
               "name": "r/science",
               "url": "https://www.reddit.com/r/science/"
             }
-          ]
+          ],
+          "glyph": "key"
         },
         {
           "id": "xex0014",
@@ -950,7 +963,8 @@
               "name": "r/science",
               "url": "https://www.reddit.com/r/science/"
             }
-          ]
+          ],
+          "glyph": "lock"
         },
         {
           "id": "xex0015",
@@ -1007,7 +1021,8 @@
               "name": "r/science",
               "url": "https://www.reddit.com/r/science/"
             }
-          ]
+          ],
+          "glyph": "scale"
         },
         {
           "id": "xex0016",
@@ -1056,7 +1071,8 @@
               "name": "r/science",
               "url": "https://www.reddit.com/r/science/"
             }
-          ]
+          ],
+          "glyph": "hands"
         },
         {
           "id": "xex0017",
@@ -1113,7 +1129,8 @@
               "name": "r/science",
               "url": "https://www.reddit.com/r/science/"
             }
-          ]
+          ],
+          "glyph": "eye"
         },
         {
           "id": "xex0018",
@@ -1170,7 +1187,8 @@
               "name": "r/science",
               "url": "https://www.reddit.com/r/science/"
             }
-          ]
+          ],
+          "glyph": "chat"
         }
       ]
     },
@@ -1242,7 +1260,8 @@
               "name": "r/askscience",
               "url": "https://www.reddit.com/r/askscience/"
             }
-          ]
+          ],
+          "glyph": "book"
         },
         {
           "id": "xex0020",
@@ -1299,7 +1318,8 @@
               "name": "r/askscience",
               "url": "https://www.reddit.com/r/askscience/"
             }
-          ]
+          ],
+          "glyph": "scroll"
         }
       ]
     },
@@ -1373,7 +1393,8 @@
               "name": "r/Physics",
               "url": "https://www.reddit.com/r/Physics/"
             }
-          ]
+          ],
+          "glyph": "note"
         },
         {
           "id": "xex0022",
@@ -1435,7 +1456,8 @@
               "name": "Physics Stack Exchange",
               "url": "https://physics.stackexchange.com/"
             }
-          ]
+          ],
+          "glyph": "spotlight"
         },
         {
           "id": "xex0023",
@@ -1497,7 +1519,8 @@
               "name": "Physics Stack Exchange",
               "url": "https://physics.stackexchange.com/"
             }
-          ]
+          ],
+          "glyph": "hourglass"
         },
         {
           "id": "xex0024",
@@ -1549,7 +1572,8 @@
               "name": "r/askscience",
               "url": "https://www.reddit.com/r/askscience/"
             }
-          ]
+          ],
+          "glyph": "compass"
         },
         {
           "id": "xex0025",
@@ -1601,7 +1625,8 @@
               "name": "r/askscience",
               "url": "https://www.reddit.com/r/askscience/"
             }
-          ]
+          ],
+          "glyph": "bolt"
         }
       ]
     },
@@ -1655,7 +1680,8 @@
               "name": "r/labrats",
               "url": "https://www.reddit.com/r/labrats/"
             }
-          ]
+          ],
+          "glyph": "stripes"
         },
         {
           "id": "xex0027",
@@ -1702,7 +1728,8 @@
               "name": "r/labrats",
               "url": "https://www.reddit.com/r/labrats/"
             }
-          ]
+          ],
+          "glyph": "cradle"
         },
         {
           "id": "xex0028",
@@ -1749,7 +1776,8 @@
               "name": "r/labrats",
               "url": "https://www.reddit.com/r/labrats/"
             }
-          ]
+          ],
+          "glyph": "split"
         },
         {
           "id": "xex0029",
@@ -1796,7 +1824,8 @@
               "name": "r/labrats",
               "url": "https://www.reddit.com/r/labrats/"
             }
-          ]
+          ],
+          "glyph": "target"
         },
         {
           "id": "xex0030",
@@ -1843,7 +1872,8 @@
               "name": "r/labrats",
               "url": "https://www.reddit.com/r/labrats/"
             }
-          ]
+          ],
+          "glyph": "burst"
         },
         {
           "id": "xex0031",
@@ -1890,7 +1920,8 @@
               "name": "r/labrats",
               "url": "https://www.reddit.com/r/labrats/"
             }
-          ]
+          ],
+          "glyph": "energy"
         }
       ]
     }
