@@ -207,7 +207,35 @@
     for (var s = 0; s < sexOnly.length; s++) sexOnly[s].style.display = "none";
     var vanillaOnly = document.querySelectorAll("[data-sx-vanilla-only]");
     for (var v = 0; v < vanillaOnly.length; v++) vanillaOnly[v].removeAttribute("data-sx-vanilla-only");
+
+    /* Per-skin visitor odometer fetch (2026-11-22): query stats for the active skin. */
+    try {
+      var odoDigits = document.querySelectorAll("[id^='odometer-digits']");
+      if (odoDigits.length > 0) {
+        fetch('/hosted/api/collect.php', {
+          method: 'POST',
+          headers: {'Content-Type': 'application/json'},
+          body: JSON.stringify({action: 'get_stats', skin: skin.name.toLowerCase()})
+        })
+        .then(function (r) { return r.json(); })
+        .then(function (d) {
+          if (d && typeof d.unique_visitors === 'number') {
+            var str = String(d.unique_visitors).padStart(6, '0');
+            odoDigits.forEach(function (c) {
+              c.innerHTML = '';
+              for (var i = 0; i < str.length; i++) {
+                var dig = document.createElement('div');
+                dig.className = 'odometer-digit';
+                dig.textContent = str[i];
+                c.appendChild(dig);
+              }
+            });
+          }
+        }).catch(function () {});
+      }
+    } catch (e) {}
   }
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", apply);
   else apply();
 })();
+

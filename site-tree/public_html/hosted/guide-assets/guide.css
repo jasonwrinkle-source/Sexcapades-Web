@@ -1,3 +1,34 @@
 [data-sx-vanilla-only]{display:none}
+/* Adjust guide title alignment so long brand names do not run under the right figure */
+.opening-row {
+  grid-template-columns: 140px minmax(360px, 1fr) minmax(200px, 230px) !important;
+  gap: clamp(10px, 1.5vw, 16px) !important;
+}
+.title-block {
+  justify-content: flex-start !important;
+  margin-left: 0 !important;
+  text-align: left !important;
+}
+.guide-about-trigger {
+  text-align: left !important;
+}
+h1 .title-indent {
+  margin-left: 0.6em !important;
+}
+h1 .title-indent-more {
+  margin-left: 1.2em !important;
+}
+@media (max-width: 620px) {
+  .opening-row {
+    grid-template-columns: 60px minmax(0, 1fr) 60px !important;
+    gap: 6px !important;
+  }
+  h1 .title-indent {
+    margin-left: 0.4em !important;
+  }
+  h1 .title-indent-more {
+    margin-left: 0.8em !important;
+  }
+}
 
 .visitor-odometer-wrap .odometer-digit{width:22px;height:32px;background:#0c191a;border:1px solid #253839;border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:1.1rem;font-weight:700;color:#55dc9a;}

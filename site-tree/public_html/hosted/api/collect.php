@@ -281,13 +281,28 @@ if ($action === 'survey') {
     // (analytics law) — only the displayed count excludes them. The 'fleet%'
     // pattern also covers 'fleet-playwright' / 'fleet-squad' if used later.
     $notFleet = "utm_source IS NULL OR utm_source NOT LIKE 'fleet%'";
-    $uniqueVisitors = $db->querySingle("SELECT COUNT(DISTINCT uuid) FROM events WHERE $notFleet");
-    $gatePasses = $db->querySingle("SELECT COUNT(*) FROM events WHERE event_type = 'gate_passed' AND ($notFleet)");
-    $qsStarts = $db->querySingle("SELECT COUNT(*) FROM events WHERE event_type = 'quickstart_started' AND ($notFleet)");
-    $qsCompletes = $db->querySingle("SELECT COUNT(*) FROM events WHERE event_type = 'quickstart_completed' AND ($notFleet)");
+
+    // Optional per-skin breakdown (2026-11-22): if skin is requested, filter
+    // events by that skin. Empty or 'sexcapades' filters for sexcapades (or empty skin).
+    $filterSkin = strtolower(substr(trim($input['skin'] ?? ''), 0, 32));
+    $skinWhere = "";
+    if ($filterSkin !== '') {
+        if ($filterSkin === 'sexcapades' || $filterSkin === 'sex') {
+            $skinWhere = " AND (skin = 'sexcapades' OR skin = 'sex' OR skin IS NULL OR skin = '')";
+        } else {
+            $safeSkin = SQLite3::escapeString($filterSkin);
+            $skinWhere = " AND skin = '$safeSkin'";
+        }
+    }
+
+    $uniqueVisitors = $db->querySingle("SELECT COUNT(DISTINCT uuid) FROM events WHERE ($notFleet)$skinWhere");
+    $gatePasses = $db->querySingle("SELECT COUNT(*) FROM events WHERE event_type = 'gate_passed' AND ($notFleet)$skinWhere");
+    $qsStarts = $db->querySingle("SELECT COUNT(*) FROM events WHERE event_type = 'quickstart_started' AND ($notFleet)$skinWhere");
+    $qsCompletes = $db->querySingle("SELECT COUNT(*) FROM events WHERE event_type = 'quickstart_completed' AND ($notFleet)$skinWhere");
     
     echo json_encode([
         'ok' => true,
+        'skin' => $filterSkin,
         'unique_visitors' => (int)$uniqueVisitors,
         'gate_passed' => (int)$gatePasses,
         'quickstart_started' => (int)$qsStarts,
