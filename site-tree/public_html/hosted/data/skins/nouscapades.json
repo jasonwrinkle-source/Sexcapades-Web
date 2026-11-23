@@ -329,6 +329,66 @@
        }
       ]
      }
+    },
+    {
+     "id": "xno0046",
+     "name": "The Cognitive Light Cone",
+     "risk": false,
+     "poles": [
+      {
+       "key": "continuous-scale-of-selves",
+       "label": "Continuous Scale of Selves"
+      },
+      {
+       "key": "sharp-neural-threshold",
+       "label": "Sharp Neural Threshold"
+      }
+     ],
+     "widget": "xy-switchbox",
+     "archetype": null,
+     "hovertip": {
+      "issue": "Does selfhood expand smoothly from a single bacterium's homeostatic horizon to human foresight, or require a discrete evolutionary leap?",
+      "poles": [
+       {
+        "label": "Continuous Scale of Selves",
+        "text": "Measuring a self by the spatiotemporal radius of goals it can represent and pursue unifies all minds on one continuum."
+       },
+       {
+        "label": "Sharp Neural Threshold",
+        "text": "Without centralized nervous systems and self-models, cellular homeostasis remains mechanical feedback rather than a true self."
+       }
+      ]
+     }
+    },
+    {
+     "id": "xno0047",
+     "name": "Platonic Space of Patterns",
+     "risk": false,
+     "poles": [
+      {
+       "key": "non-physical-form-attractors",
+       "label": "Non-Physical Form Attractors"
+      },
+      {
+       "key": "purely-emergent-physical-dynamics",
+       "label": "Purely Emergent Physical Dynamics"
+      }
+     ],
+     "widget": "xy-switchbox",
+     "archetype": null,
+     "hovertip": {
+      "issue": "Do mathematical and anatomical patterns inhabit an objective space that living matter taps into, or arise solely from local physics?",
+      "poles": [
+       {
+        "label": "Non-Physical Form Attractors",
+        "text": "Just as mathematical truths constrain computation without being made of atoms, morphological attractors guide evolving and regenerating matter."
+       },
+       {
+        "label": "Purely Emergent Physical Dynamics",
+        "text": "Postulating a Platonic realm of forms adds metaphysical mystery where differential equations and selection already suffice."
+       }
+      ]
+     }
     }
    ]
   },
@@ -947,6 +1007,36 @@
        }
       ]
      }
+    },
+    {
+     "id": "xno0051",
+     "name": "Ethics of Synthetic Morphology",
+     "risk": false,
+     "poles": [
+      {
+       "key": "bold-morphospace-exploration",
+       "label": "Bold Morphospace Exploration"
+      },
+      {
+       "key": "strict-developmental-containment",
+       "label": "Strict Developmental Containment"
+      }
+     ],
+     "widget": "xy-switchbox",
+     "archetype": null,
+     "hovertip": {
+      "issue": "How freely should laboratories create chimeric, synthetic, or radically novel living anatomies?",
+      "poles": [
+       {
+        "label": "Bold Morphospace Exploration",
+        "text": "Exploring the vast space of possible living forms unlocks life-saving therapies and fundamental truths about mind and matter."
+       },
+       {
+        "label": "Strict Developmental Containment",
+        "text": "Engineering unguided living constructs carries ecological and welfare risks that demand tight containment and clear boundaries."
+       }
+      ]
+     }
     }
    ]
   },
@@ -1231,6 +1321,66 @@
         "network": "Forum",
         "name": "LessWrong",
         "url": "https://www.lesswrong.com/"
+       }
+      ]
+     }
+    },
+    {
+     "id": "xno0048",
+     "name": "Target Morphology & Anatomical Homeostasis",
+     "risk": false,
+     "poles": [
+      {
+       "key": "stored-anatomical-set-point",
+       "label": "Stored Anatomical Set-Point"
+      },
+      {
+       "key": "local-neighbor-rules-only",
+       "label": "Local Neighbor Rules Only"
+      }
+     ],
+     "widget": "xy-switchbox",
+     "archetype": null,
+     "hovertip": {
+      "issue": "Do regenerating tissues consult a global, stored target shape, or merely follow local cell-to-cell contact rules until growth stops?",
+      "poles": [
+       {
+        "label": "Stored Anatomical Set-Point",
+        "text": "Salamander limbs and scrambled tadpole faces migrate along novel paths toward the exact right anatomical layout, proving error-minimization against a global target."
+       },
+       {
+        "label": "Local Neighbor Rules Only",
+        "text": "Apparent global intelligence can emerge automatically when local cells follow simple chemical and mechanical boundary conditions."
+       }
+      ]
+     }
+    },
+    {
+     "id": "xno0049",
+     "name": "Evolutionary Innovation via Bioelectric Shift",
+     "risk": false,
+     "poles": [
+      {
+       "key": "plasticity-leads-genetic-fixation",
+       "label": "Plasticity Leads Genetic Fixation"
+      },
+      {
+       "key": "random-mutation-remains-primary",
+       "label": "Random Mutation Remains Primary"
+      }
+     ],
+     "widget": "xy-switchbox",
+     "archetype": null,
+     "hovertip": {
+      "issue": "Can physiological and bioelectric exploration rescue novel body plans before slow genetic mutations lock them in?",
+      "poles": [
+       {
+        "label": "Plasticity Leads Genetic Fixation",
+        "text": "Multiscale cellular competency lets organisms survive mutations and explore viable anatomies immediately, accelerating adaptive evolution."
+       },
+       {
+        "label": "Random Mutation Remains Primary",
+        "text": "Without heritable genomic variation, transient physiological rearrangements cannot drive sustained Darwinian divergence."
        }
       ]
      }
@@ -2426,6 +2576,36 @@
        }
       ]
      }
+    },
+    {
+     "id": "xno0050",
+     "name": "Redrawing the Human Cognitive Light Cone",
+     "risk": false,
+     "poles": [
+      {
+       "key": "embrace-hybrid-collective-minds",
+       "label": "Embrace Hybrid & Collective Minds"
+      },
+      {
+       "key": "guard-individual-biological-boundaries",
+       "label": "Guard Individual Biological Boundaries"
+      }
+     ],
+     "widget": "xy-switchbox",
+     "archetype": null,
+     "hovertip": {
+      "issue": "As brain-computer interfaces, organoids, and AI let human agency merge into wider hybrid collectives, should we expand our boundaries?",
+      "poles": [
+       {
+        "label": "Embrace Hybrid & Collective Minds",
+        "text": "Human selves are already collectives of cells; thoughtfully extending our cognitive light cone can heal disease and deepen empathy."
+       },
+       {
+        "label": "Guard Individual Biological Boundaries",
+        "text": "Dissolving clear boundaries of individual personhood invites manipulation and erodes moral accountability."
+       }
+      ]
+     }
     }
    ]
   }
@@ -3068,6 +3248,78 @@
        "cognitive-perturbation": 30,
        "epistemic-insight-tool": 7,
        "intensity": 30
+      }
+     },
+     "xno0046": {
+      "advocacy": {
+       "continuous-scale-of-selves": 15,
+       "sharp-neural-threshold": 90,
+       "intensity": 90
+      },
+      "receptivity": {
+       "continuous-scale-of-selves": 5,
+       "sharp-neural-threshold": 31,
+       "intensity": 31
+      }
+     },
+     "xno0047": {
+      "advocacy": {
+       "non-physical-form-attractors": 10,
+       "purely-emergent-physical-dynamics": 90,
+       "intensity": 90
+      },
+      "receptivity": {
+       "non-physical-form-attractors": 4,
+       "purely-emergent-physical-dynamics": 31,
+       "intensity": 31
+      }
+     },
+     "xno0048": {
+      "advocacy": {
+       "stored-anatomical-set-point": 35,
+       "local-neighbor-rules-only": 70,
+       "intensity": 70
+      },
+      "receptivity": {
+       "stored-anatomical-set-point": 12,
+       "local-neighbor-rules-only": 24,
+       "intensity": 24
+      }
+     },
+     "xno0049": {
+      "advocacy": {
+       "plasticity-leads-genetic-fixation": 20,
+       "random-mutation-remains-primary": 85,
+       "intensity": 85
+      },
+      "receptivity": {
+       "plasticity-leads-genetic-fixation": 7,
+       "random-mutation-remains-primary": 30,
+       "intensity": 30
+      }
+     },
+     "xno0050": {
+      "advocacy": {
+       "embrace-hybrid-collective-minds": 25,
+       "guard-individual-biological-boundaries": 75,
+       "intensity": 75
+      },
+      "receptivity": {
+       "embrace-hybrid-collective-minds": 9,
+       "guard-individual-biological-boundaries": 26,
+       "intensity": 26
+      }
+     },
+     "xno0051": {
+      "advocacy": {
+       "bold-morphospace-exploration": 45,
+       "strict-developmental-containment": 60,
+       "intensity": 60
+      },
+      "receptivity": {
+       "bold-morphospace-exploration": 16,
+       "strict-developmental-containment": 21,
+       "intensity": 21
       }
      }
     },
@@ -3715,6 +3967,78 @@
        "epistemic-insight-tool": 48,
        "intensity": 48
       }
+     },
+     "xno0046": {
+      "advocacy": {
+       "continuous-scale-of-selves": 95,
+       "sharp-neural-threshold": 10,
+       "intensity": 95
+      },
+      "receptivity": {
+       "continuous-scale-of-selves": 76,
+       "sharp-neural-threshold": 8,
+       "intensity": 76
+      }
+     },
+     "xno0047": {
+      "advocacy": {
+       "non-physical-form-attractors": 65,
+       "purely-emergent-physical-dynamics": 45,
+       "intensity": 65
+      },
+      "receptivity": {
+       "non-physical-form-attractors": 52,
+       "purely-emergent-physical-dynamics": 36,
+       "intensity": 52
+      }
+     },
+     "xno0048": {
+      "advocacy": {
+       "stored-anatomical-set-point": 90,
+       "local-neighbor-rules-only": 25,
+       "intensity": 90
+      },
+      "receptivity": {
+       "stored-anatomical-set-point": 72,
+       "local-neighbor-rules-only": 20,
+       "intensity": 72
+      }
+     },
+     "xno0049": {
+      "advocacy": {
+       "plasticity-leads-genetic-fixation": 85,
+       "random-mutation-remains-primary": 30,
+       "intensity": 85
+      },
+      "receptivity": {
+       "plasticity-leads-genetic-fixation": 68,
+       "random-mutation-remains-primary": 24,
+       "intensity": 68
+      }
+     },
+     "xno0050": {
+      "advocacy": {
+       "embrace-hybrid-collective-minds": 80,
+       "guard-individual-biological-boundaries": 30,
+       "intensity": 80
+      },
+      "receptivity": {
+       "embrace-hybrid-collective-minds": 64,
+       "guard-individual-biological-boundaries": 24,
+       "intensity": 64
+      }
+     },
+     "xno0051": {
+      "advocacy": {
+       "bold-morphospace-exploration": 75,
+       "strict-developmental-containment": 40,
+       "intensity": 75
+      },
+      "receptivity": {
+       "bold-morphospace-exploration": 60,
+       "strict-developmental-containment": 32,
+       "intensity": 60
+      }
      }
     },
     "skin": "nouscapades"
@@ -4360,6 +4684,78 @@
        "cognitive-perturbation": 18,
        "epistemic-insight-tool": 63,
        "intensity": 63
+      }
+     },
+     "xno0046": {
+      "advocacy": {
+       "continuous-scale-of-selves": 90,
+       "sharp-neural-threshold": 15,
+       "intensity": 90
+      },
+      "receptivity": {
+       "continuous-scale-of-selves": 63,
+       "sharp-neural-threshold": 10,
+       "intensity": 63
+      }
+     },
+     "xno0047": {
+      "advocacy": {
+       "non-physical-form-attractors": 95,
+       "purely-emergent-physical-dynamics": 15,
+       "intensity": 95
+      },
+      "receptivity": {
+       "non-physical-form-attractors": 66,
+       "purely-emergent-physical-dynamics": 10,
+       "intensity": 66
+      }
+     },
+     "xno0048": {
+      "advocacy": {
+       "stored-anatomical-set-point": 85,
+       "local-neighbor-rules-only": 30,
+       "intensity": 85
+      },
+      "receptivity": {
+       "stored-anatomical-set-point": 59,
+       "local-neighbor-rules-only": 21,
+       "intensity": 59
+      }
+     },
+     "xno0049": {
+      "advocacy": {
+       "plasticity-leads-genetic-fixation": 80,
+       "random-mutation-remains-primary": 35,
+       "intensity": 80
+      },
+      "receptivity": {
+       "plasticity-leads-genetic-fixation": 56,
+       "random-mutation-remains-primary": 24,
+       "intensity": 56
+      }
+     },
+     "xno0050": {
+      "advocacy": {
+       "embrace-hybrid-collective-minds": 75,
+       "guard-individual-biological-boundaries": 40,
+       "intensity": 75
+      },
+      "receptivity": {
+       "embrace-hybrid-collective-minds": 52,
+       "guard-individual-biological-boundaries": 28,
+       "intensity": 52
+      }
+     },
+     "xno0051": {
+      "advocacy": {
+       "bold-morphospace-exploration": 70,
+       "strict-developmental-containment": 45,
+       "intensity": 70
+      },
+      "receptivity": {
+       "bold-morphospace-exploration": 49,
+       "strict-developmental-containment": 31,
+       "intensity": 49
       }
      }
     },
@@ -5007,6 +5403,78 @@
        "epistemic-insight-tool": 36,
        "intensity": 36
       }
+     },
+     "xno0046": {
+      "advocacy": {
+       "continuous-scale-of-selves": 60,
+       "sharp-neural-threshold": 45,
+       "intensity": 60
+      },
+      "receptivity": {
+       "continuous-scale-of-selves": 39,
+       "sharp-neural-threshold": 29,
+       "intensity": 39
+      }
+     },
+     "xno0047": {
+      "advocacy": {
+       "non-physical-form-attractors": 55,
+       "purely-emergent-physical-dynamics": 50,
+       "intensity": 55
+      },
+      "receptivity": {
+       "non-physical-form-attractors": 36,
+       "purely-emergent-physical-dynamics": 32,
+       "intensity": 36
+      }
+     },
+     "xno0048": {
+      "advocacy": {
+       "stored-anatomical-set-point": 65,
+       "local-neighbor-rules-only": 45,
+       "intensity": 65
+      },
+      "receptivity": {
+       "stored-anatomical-set-point": 42,
+       "local-neighbor-rules-only": 29,
+       "intensity": 42
+      }
+     },
+     "xno0049": {
+      "advocacy": {
+       "plasticity-leads-genetic-fixation": 60,
+       "random-mutation-remains-primary": 50,
+       "intensity": 60
+      },
+      "receptivity": {
+       "plasticity-leads-genetic-fixation": 39,
+       "random-mutation-remains-primary": 32,
+       "intensity": 39
+      }
+     },
+     "xno0050": {
+      "advocacy": {
+       "embrace-hybrid-collective-minds": 45,
+       "guard-individual-biological-boundaries": 60,
+       "intensity": 60
+      },
+      "receptivity": {
+       "embrace-hybrid-collective-minds": 29,
+       "guard-individual-biological-boundaries": 39,
+       "intensity": 39
+      }
+     },
+     "xno0051": {
+      "advocacy": {
+       "bold-morphospace-exploration": 40,
+       "strict-developmental-containment": 70,
+       "intensity": 70
+      },
+      "receptivity": {
+       "bold-morphospace-exploration": 26,
+       "strict-developmental-containment": 46,
+       "intensity": 46
+      }
      }
     },
     "skin": "nouscapades"
@@ -5017,7 +5485,7 @@
   },
   "nous-neuro-computationalist": {
    "name": "The Neuro-Computationalist",
-   "count": 45,
+   "count": 51,
    "about": "Grounds mind in information processing, predictive brain circuits, and functional organization regardless of carbon or silicon.",
    "links": [],
    "payload": {
@@ -5653,6 +6121,78 @@
        "epistemic-insight-tool": 18,
        "intensity": 40
       }
+     },
+     "xno0046": {
+      "advocacy": {
+       "continuous-scale-of-selves": 70,
+       "sharp-neural-threshold": 40,
+       "intensity": 70
+      },
+      "receptivity": {
+       "continuous-scale-of-selves": 35,
+       "sharp-neural-threshold": 20,
+       "intensity": 35
+      }
+     },
+     "xno0047": {
+      "advocacy": {
+       "non-physical-form-attractors": 30,
+       "purely-emergent-physical-dynamics": 75,
+       "intensity": 75
+      },
+      "receptivity": {
+       "non-physical-form-attractors": 15,
+       "purely-emergent-physical-dynamics": 38,
+       "intensity": 38
+      }
+     },
+     "xno0048": {
+      "advocacy": {
+       "stored-anatomical-set-point": 60,
+       "local-neighbor-rules-only": 50,
+       "intensity": 60
+      },
+      "receptivity": {
+       "stored-anatomical-set-point": 30,
+       "local-neighbor-rules-only": 25,
+       "intensity": 30
+      }
+     },
+     "xno0049": {
+      "advocacy": {
+       "plasticity-leads-genetic-fixation": 55,
+       "random-mutation-remains-primary": 55,
+       "intensity": 55
+      },
+      "receptivity": {
+       "plasticity-leads-genetic-fixation": 28,
+       "random-mutation-remains-primary": 28,
+       "intensity": 28
+      }
+     },
+     "xno0050": {
+      "advocacy": {
+       "embrace-hybrid-collective-minds": 70,
+       "guard-individual-biological-boundaries": 40,
+       "intensity": 70
+      },
+      "receptivity": {
+       "embrace-hybrid-collective-minds": 35,
+       "guard-individual-biological-boundaries": 20,
+       "intensity": 35
+      }
+     },
+     "xno0051": {
+      "advocacy": {
+       "bold-morphospace-exploration": 65,
+       "strict-developmental-containment": 50,
+       "intensity": 65
+      },
+      "receptivity": {
+       "bold-morphospace-exploration": 32,
+       "strict-developmental-containment": 25,
+       "intensity": 32
+      }
      }
     },
     "skin": "nouscapades"
@@ -5663,7 +6203,7 @@
   },
   "nous-embodied-biopsychist": {
    "name": "The Embodied Biopsychist",
-   "count": 45,
+   "count": 51,
    "about": "Insists that genuine feeling is rooted in living, vulnerable organisms striving to stay alive in a physical world.",
    "links": [],
    "payload": {
@@ -6299,6 +6839,78 @@
        "epistemic-insight-tool": 27,
        "intensity": 27
       }
+     },
+     "xno0046": {
+      "advocacy": {
+       "continuous-scale-of-selves": 55,
+       "sharp-neural-threshold": 55,
+       "intensity": 55
+      },
+      "receptivity": {
+       "continuous-scale-of-selves": 25,
+       "sharp-neural-threshold": 25,
+       "intensity": 25
+      }
+     },
+     "xno0047": {
+      "advocacy": {
+       "non-physical-form-attractors": 35,
+       "purely-emergent-physical-dynamics": 70,
+       "intensity": 70
+      },
+      "receptivity": {
+       "non-physical-form-attractors": 16,
+       "purely-emergent-physical-dynamics": 32,
+       "intensity": 32
+      }
+     },
+     "xno0048": {
+      "advocacy": {
+       "stored-anatomical-set-point": 65,
+       "local-neighbor-rules-only": 45,
+       "intensity": 65
+      },
+      "receptivity": {
+       "stored-anatomical-set-point": 29,
+       "local-neighbor-rules-only": 20,
+       "intensity": 29
+      }
+     },
+     "xno0049": {
+      "advocacy": {
+       "plasticity-leads-genetic-fixation": 60,
+       "random-mutation-remains-primary": 50,
+       "intensity": 60
+      },
+      "receptivity": {
+       "plasticity-leads-genetic-fixation": 27,
+       "random-mutation-remains-primary": 22,
+       "intensity": 27
+      }
+     },
+     "xno0050": {
+      "advocacy": {
+       "embrace-hybrid-collective-minds": 40,
+       "guard-individual-biological-boundaries": 65,
+       "intensity": 65
+      },
+      "receptivity": {
+       "embrace-hybrid-collective-minds": 18,
+       "guard-individual-biological-boundaries": 29,
+       "intensity": 29
+      }
+     },
+     "xno0051": {
+      "advocacy": {
+       "bold-morphospace-exploration": 55,
+       "strict-developmental-containment": 55,
+       "intensity": 55
+      },
+      "receptivity": {
+       "bold-morphospace-exploration": 25,
+       "strict-developmental-containment": 25,
+       "intensity": 25
+      }
      }
     },
     "skin": "nouscapades"
@@ -6309,7 +6921,7 @@
   },
   "nous-contemplative-panpsychist": {
    "name": "The Contemplative Panpsychist",
-   "count": 45,
+   "count": 51,
    "about": "Treats consciousness not as a late evolutionary accident, but as an intimate, fundamental dimension of reality accessible through silence and inquiry.",
    "links": [],
    "payload": {
@@ -6945,6 +7557,78 @@
        "epistemic-insight-tool": 50,
        "intensity": 50
       }
+     },
+     "xno0046": {
+      "advocacy": {
+       "continuous-scale-of-selves": 95,
+       "sharp-neural-threshold": 10,
+       "intensity": 95
+      },
+      "receptivity": {
+       "continuous-scale-of-selves": 52,
+       "sharp-neural-threshold": 6,
+       "intensity": 52
+      }
+     },
+     "xno0047": {
+      "advocacy": {
+       "non-physical-form-attractors": 85,
+       "purely-emergent-physical-dynamics": 30,
+       "intensity": 85
+      },
+      "receptivity": {
+       "non-physical-form-attractors": 47,
+       "purely-emergent-physical-dynamics": 16,
+       "intensity": 47
+      }
+     },
+     "xno0048": {
+      "advocacy": {
+       "stored-anatomical-set-point": 80,
+       "local-neighbor-rules-only": 35,
+       "intensity": 80
+      },
+      "receptivity": {
+       "stored-anatomical-set-point": 44,
+       "local-neighbor-rules-only": 19,
+       "intensity": 44
+      }
+     },
+     "xno0049": {
+      "advocacy": {
+       "plasticity-leads-genetic-fixation": 75,
+       "random-mutation-remains-primary": 40,
+       "intensity": 75
+      },
+      "receptivity": {
+       "plasticity-leads-genetic-fixation": 41,
+       "random-mutation-remains-primary": 22,
+       "intensity": 41
+      }
+     },
+     "xno0050": {
+      "advocacy": {
+       "embrace-hybrid-collective-minds": 80,
+       "guard-individual-biological-boundaries": 35,
+       "intensity": 80
+      },
+      "receptivity": {
+       "embrace-hybrid-collective-minds": 44,
+       "guard-individual-biological-boundaries": 19,
+       "intensity": 44
+      }
+     },
+     "xno0051": {
+      "advocacy": {
+       "bold-morphospace-exploration": 65,
+       "strict-developmental-containment": 50,
+       "intensity": 65
+      },
+      "receptivity": {
+       "bold-morphospace-exploration": 36,
+       "strict-developmental-containment": 28,
+       "intensity": 36
+      }
      }
     },
     "skin": "nouscapades"
@@ -6952,6 +7636,2160 @@
    "skin": "nouscapades",
    "kind": "archetype",
    "emblem": "images/emblems/nous-contemplative-panpsychist.svg"
+  },
+  "nous-tame-multiscale-pluralist": {
+   "name": "The TAME Multiscale Pluralist",
+   "count": 51,
+   "about": "Embraces Levin's core thesis that mind, memory, and agency exist across every biological scale without a sharp neural cutoff, seeing evolution as a ratchet of expanding cognitive light cones.",
+   "links": [],
+   "payload": {
+    "app": "sexcapades",
+    "version": 16,
+    "noFlash": true,
+    "profileName": "The TAME Multiscale Pluralist",
+    "archetype": "The TAME Multiscale Pluralist",
+    "aboutMe": "Embraces Levin's core thesis that mind, memory, and agency exist across every biological scale without a sharp neural cutoff, seeing evolution as a ratchet of expanding cognitive light cones.",
+    "ratings": {
+     "xno0001": {
+      "advocacy": {
+       "needs-a-brain": 10,
+       "brain-like-organization": 45,
+       "needs-only-a-problem": 95,
+       "intensity": 95
+      },
+      "receptivity": {
+       "needs-a-brain": 6,
+       "brain-like-organization": 25,
+       "needs-only-a-problem": 52,
+       "intensity": 52
+      }
+     },
+     "xno0002": {
+      "advocacy": {
+       "reach-in-space": 80,
+       "reach-in-time": 75,
+       "intensity": 80
+      },
+      "receptivity": {
+       "reach-in-space": 44,
+       "reach-in-time": 41,
+       "intensity": 44
+      }
+     },
+     "xno0003": {
+      "advocacy": {
+       "body-plan-space": 80,
+       "physiological-space": 80,
+       "gene-expression-space": 70,
+       "ordinary-3d-space": 55,
+       "intensity": 80
+      },
+      "receptivity": {
+       "body-plan-space": 44,
+       "physiological-space": 44,
+       "gene-expression-space": 38,
+       "ordinary-3d-space": 30,
+       "intensity": 44
+      }
+     },
+     "xno0004": {
+      "advocacy": {
+       "storage-only": 15,
+       "proto-memory": 55,
+       "real-memory": 90,
+       "intensity": 90
+      },
+      "receptivity": {
+       "storage-only": 8,
+       "proto-memory": 30,
+       "real-memory": 50,
+       "intensity": 50
+      }
+     },
+     "xno0005": {
+      "advocacy": {
+       "stops-at-brains": 0,
+       "bottoms-out-at-cells": 30,
+       "all-the-way-down": 98,
+       "intensity": 98
+      },
+      "receptivity": {
+       "stops-at-brains": 0,
+       "bottoms-out-at-cells": 16,
+       "all-the-way-down": 54,
+       "intensity": 54
+      }
+     },
+     "xno0042": {
+      "advocacy": {
+       "non-conscious-signaling": 15,
+       "slow-vegetative-awareness": 90,
+       "intensity": 90
+      },
+      "receptivity": {
+       "non-conscious-signaling": 8,
+       "slow-vegetative-awareness": 50,
+       "intensity": 50
+      }
+     },
+     "xno0046": {
+      "advocacy": {
+       "continuous-scale-of-selves": 98,
+       "sharp-neural-threshold": 5,
+       "intensity": 98
+      },
+      "receptivity": {
+       "continuous-scale-of-selves": 54,
+       "sharp-neural-threshold": 3,
+       "intensity": 54
+      }
+     },
+     "xno0047": {
+      "advocacy": {
+       "non-physical-form-attractors": 80,
+       "purely-emergent-physical-dynamics": 35,
+       "intensity": 80
+      },
+      "receptivity": {
+       "non-physical-form-attractors": 44,
+       "purely-emergent-physical-dynamics": 19,
+       "intensity": 44
+      }
+     },
+     "xno0006": {
+      "advocacy": {
+       "a-switch": 5,
+       "a-few-kinds": 30,
+       "a-spectrum": 95,
+       "intensity": 95
+      },
+      "receptivity": {
+       "a-switch": 3,
+       "a-few-kinds": 16,
+       "a-spectrum": 52,
+       "intensity": 52
+      }
+     },
+     "xno0007": {
+      "advocacy": {
+       "one-real-level": 5,
+       "some-levels-real": 35,
+       "every-level-real": 95,
+       "intensity": 95
+      },
+      "receptivity": {
+       "one-real-level": 3,
+       "some-levels-real": 19,
+       "every-level-real": 52,
+       "intensity": 52
+      }
+     },
+     "xno0008": {
+      "advocacy": {
+       "the-skin": 20,
+       "the-bioelectric-boundary": 90,
+       "the-story": 55,
+       "intensity": 90
+      },
+      "receptivity": {
+       "the-skin": 11,
+       "the-bioelectric-boundary": 50,
+       "the-story": 30,
+       "intensity": 50
+      }
+     },
+     "xno0009": {
+      "advocacy": {
+       "neither-is-the-original": 25,
+       "both-are": 80,
+       "the-question-is-broken": 60,
+       "intensity": 80
+      },
+      "receptivity": {
+       "neither-is-the-original": 14,
+       "both-are": 44,
+       "the-question-is-broken": 33,
+       "intensity": 44
+      }
+     },
+     "xno0010": {
+      "advocacy": {
+       "fixed-by-the-body": 10,
+       "set-by-its-niche": 45,
+       "as-big-as-its-goals": 90,
+       "intensity": 90
+      },
+      "receptivity": {
+       "fixed-by-the-body": 6,
+       "set-by-its-niche": 25,
+       "as-big-as-its-goals": 50,
+       "intensity": 50
+      }
+     },
+     "xno0011": {
+      "advocacy": {
+       "self-maintenance": 75,
+       "responsiveness": 80,
+       "goal-pursuit": 90,
+       "a-pattern-that-persists": 85,
+       "reproduction": 50,
+       "intensity": 90
+      },
+      "receptivity": {
+       "self-maintenance": 41,
+       "responsiveness": 44,
+       "goal-pursuit": 50,
+       "a-pattern-that-persists": 47,
+       "reproduction": 28,
+       "intensity": 50
+      }
+     },
+     "xno0012": {
+      "advocacy": {
+       "organism": 45,
+       "machine": 20,
+       "a-third-kind": 90,
+       "intensity": 90
+      },
+      "receptivity": {
+       "organism": 25,
+       "machine": 11,
+       "a-third-kind": 50,
+       "intensity": 50
+      }
+     },
+     "xno0013": {
+      "advocacy": {
+       "nature-is-inherited": 15,
+       "new-combinations": 55,
+       "genuinely-new": 85,
+       "intensity": 85
+      },
+      "receptivity": {
+       "nature-is-inherited": 8,
+       "new-combinations": 30,
+       "genuinely-new": 47,
+       "intensity": 47
+      }
+     },
+     "xno0014": {
+      "advocacy": {
+       "nothing-special": 5,
+       "stewardship": 60,
+       "full-standing": 80,
+       "intensity": 80
+      },
+      "receptivity": {
+       "nothing-special": 3,
+       "stewardship": 33,
+       "full-standing": 44,
+       "intensity": 44
+      }
+     },
+     "xno0015": {
+      "advocacy": {
+       "its-makers-entirely": 35,
+       "shared": 65,
+       "it-answers-for-itself": 55,
+       "intensity": 65
+      },
+      "receptivity": {
+       "its-makers-entirely": 19,
+       "shared": 36,
+       "it-answers-for-itself": 30,
+       "intensity": 36
+      }
+     },
+     "xno0040": {
+      "advocacy": {
+       "stochastic-parrots": 25,
+       "proto-cognitive-world-models": 70,
+       "glimmers-of-moral-patiency": 65,
+       "intensity": 70
+      },
+      "receptivity": {
+       "stochastic-parrots": 14,
+       "proto-cognitive-world-models": 38,
+       "glimmers-of-moral-patiency": 36,
+       "intensity": 38
+      }
+     },
+     "xno0051": {
+      "advocacy": {
+       "bold-morphospace-exploration": 80,
+       "strict-developmental-containment": 30,
+       "intensity": 80
+      },
+      "receptivity": {
+       "bold-morphospace-exploration": 44,
+       "strict-developmental-containment": 16,
+       "intensity": 44
+      }
+     },
+     "xno0016": {
+      "advocacy": {
+       "chemistry-is-the-signal": 10,
+       "both-carry-the-signal": 55,
+       "voltage-is-a-code": 90,
+       "intensity": 90
+      },
+      "receptivity": {
+       "chemistry-is-the-signal": 6,
+       "both-carry-the-signal": 30,
+       "voltage-is-a-code": 50,
+       "intensity": 50
+      }
+     },
+     "xno0017": {
+      "advocacy": {
+       "read-off-the-genes": 5,
+       "written-in-both": 50,
+       "held-as-a-memory": 95,
+       "intensity": 95
+      },
+      "receptivity": {
+       "read-off-the-genes": 3,
+       "written-in-both": 28,
+       "held-as-a-memory": 52,
+       "intensity": 52
+      }
+     },
+     "xno0018": {
+      "advocacy": {
+       "broken-machinery": 15,
+       "machinery-a-self-exploits": 45,
+       "a-smaller-self": 90,
+       "intensity": 90
+      },
+      "receptivity": {
+       "broken-machinery": 8,
+       "machinery-a-self-exploits": 25,
+       "a-smaller-self": 50,
+       "intensity": 50
+      }
+     },
+     "xno0019": {
+      "advocacy": {
+       "fix-the-hardware": 5,
+       "both-doors": 45,
+       "persuade-the-software": 95,
+       "intensity": 95
+      },
+      "receptivity": {
+       "fix-the-hardware": 3,
+       "both-doors": 25,
+       "persuade-the-software": 52,
+       "intensity": 52
+      }
+     },
+     "xno0020": {
+      "advocacy": {
+       "micromanage": 5,
+       "guide-and-check": 45,
+       "brief-and-trust": 95,
+       "intensity": 95
+      },
+      "receptivity": {
+       "micromanage": 3,
+       "guide-and-check": 25,
+       "brief-and-trust": 52,
+       "intensity": 52
+      }
+     },
+     "xno0048": {
+      "advocacy": {
+       "stored-anatomical-set-point": 95,
+       "local-neighbor-rules-only": 15,
+       "intensity": 95
+      },
+      "receptivity": {
+       "stored-anatomical-set-point": 52,
+       "local-neighbor-rules-only": 8,
+       "intensity": 52
+      }
+     },
+     "xno0049": {
+      "advocacy": {
+       "plasticity-leads-genetic-fixation": 90,
+       "random-mutation-remains-primary": 20,
+       "intensity": 90
+      },
+      "receptivity": {
+       "plasticity-leads-genetic-fixation": 50,
+       "random-mutation-remains-primary": 11,
+       "intensity": 50
+      }
+     },
+     "xno0021": {
+      "advocacy": {
+       "metaphor": 0,
+       "as-if-goals": 25,
+       "literal-goals": 98,
+       "intensity": 98
+      },
+      "receptivity": {
+       "metaphor": 0,
+       "as-if-goals": 14,
+       "literal-goals": 54,
+       "intensity": 54
+      }
+     },
+     "xno0022": {
+      "advocacy": {
+       "only-the-whole-animal": 0,
+       "some-levels": 30,
+       "every-level": 98,
+       "intensity": 98
+      },
+      "receptivity": {
+       "only-the-whole-animal": 0,
+       "some-levels": 16,
+       "every-level": 54,
+       "intensity": 54
+      }
+     },
+     "xno0023": {
+      "advocacy": {
+       "choice-needs-a-mind": 5,
+       "a-bias-not-a-choice": 30,
+       "a-tiny-real-choice": 95,
+       "intensity": 95
+      },
+      "receptivity": {
+       "choice-needs-a-mind": 3,
+       "a-bias-not-a-choice": 16,
+       "a-tiny-real-choice": 52,
+       "intensity": 52
+      }
+     },
+     "xno0024": {
+      "advocacy": {
+       "just-chemistry": 5,
+       "chemistry-that-loosens-grip": 40,
+       "a-self-losing-grip": 90,
+       "intensity": 90
+      },
+      "receptivity": {
+       "just-chemistry": 3,
+       "chemistry-that-loosens-grip": 22,
+       "a-self-losing-grip": 50,
+       "intensity": 50
+      }
+     },
+     "xno0025": {
+      "advocacy": {
+       "the-human-scale-is-real": 0,
+       "some-scales-earn-it": 20,
+       "no-scale-is-privileged": 98,
+       "intensity": 98
+      },
+      "receptivity": {
+       "the-human-scale-is-real": 0,
+       "some-scales-earn-it": 11,
+       "no-scale-is-privileged": 54,
+       "intensity": 54
+      }
+     },
+     "xno0026": {
+      "advocacy": {
+       "one-event": 10,
+       "a-main-death-and-stragglers": 55,
+       "many-deaths": 80,
+       "intensity": 80
+      },
+      "receptivity": {
+       "one-event": 6,
+       "a-main-death-and-stragglers": 30,
+       "many-deaths": 44,
+       "intensity": 44
+      }
+     },
+     "xno0027": {
+      "advocacy": {
+       "leftovers": 10,
+       "selves-on-parole": 45,
+       "selves-in-their-own-right": 85,
+       "intensity": 85
+      },
+      "receptivity": {
+       "leftovers": 6,
+       "selves-on-parole": 25,
+       "selves-in-their-own-right": 47,
+       "intensity": 47
+      }
+     },
+     "xno0028": {
+      "advocacy": {
+       "the-pattern-is-the-self": 85,
+       "pattern-with-wear": 65,
+       "replace-the-parts-lose-the-self": 15,
+       "intensity": 85
+      },
+      "receptivity": {
+       "the-pattern-is-the-self": 47,
+       "pattern-with-wear": 36,
+       "replace-the-parts-lose-the-self": 8,
+       "intensity": 47
+      }
+     },
+     "xno0029": {
+      "advocacy": {
+       "the-pattern-stops": 60,
+       "the-parts-scatter": 55,
+       "the-goals-go-unpursued": 85,
+       "intensity": 85
+      },
+      "receptivity": {
+       "the-pattern-stops": 33,
+       "the-parts-scatter": 30,
+       "the-goals-go-unpursued": 47,
+       "intensity": 47
+      }
+     },
+     "xno0043": {
+      "advocacy": {
+       "desirable-digital-continuance": 60,
+       "uncanny-copy-trap": 50,
+       "intensity": 60
+      },
+      "receptivity": {
+       "desirable-digital-continuance": 33,
+       "uncanny-copy-trap": 28,
+       "intensity": 33
+      }
+     },
+     "xno0030": {
+      "advocacy": {
+       "the-circle-is-finished": 0,
+       "expanding-with-edges": 35,
+       "it-keeps-expanding": 95,
+       "intensity": 95
+      },
+      "receptivity": {
+       "the-circle-is-finished": 0,
+       "expanding-with-edges": 19,
+       "it-keeps-expanding": 52,
+       "intensity": 52
+      }
+     },
+     "xno0031": {
+      "advocacy": {
+       "needs-a-brain-like-ours": 0,
+       "a-dim-analogue": 40,
+       "scales-with-the-self": 95,
+       "intensity": 95
+      },
+      "receptivity": {
+       "needs-a-brain-like-ours": 0,
+       "a-dim-analogue": 22,
+       "scales-with-the-self": 52,
+       "intensity": 52
+      }
+     },
+     "xno0032": {
+      "advocacy": {
+       "track-the-minds-size": 85,
+       "one-factor-among-several": 55,
+       "size-is-irrelevant": 25,
+       "intensity": 85
+      },
+      "receptivity": {
+       "track-the-minds-size": 47,
+       "one-factor-among-several": 30,
+       "size-is-irrelevant": 14,
+       "intensity": 47
+      }
+     },
+     "xno0033": {
+      "advocacy": {
+       "mind-needs-living-tissue": 15,
+       "the-right-organization": 75,
+       "any-substrate-that-models-itself": 75,
+       "intensity": 75
+      },
+      "receptivity": {
+       "mind-needs-living-tissue": 8,
+       "the-right-organization": 41,
+       "any-substrate-that-models-itself": 41,
+       "intensity": 41
+      }
+     },
+     "xno0034": {
+      "advocacy": {
+       "a-different-kind-of-thing": 0,
+       "first-among-selves": 20,
+       "one-self-among-many": 98,
+       "intensity": 98
+      },
+      "receptivity": {
+       "a-different-kind-of-thing": 0,
+       "first-among-selves": 11,
+       "one-self-among-many": 54,
+       "intensity": 54
+      }
+     },
+     "xno0041": {
+      "advocacy": {
+       "vertebrate-cephalopod-core": 25,
+       "insects-arthropods-included": 65,
+       "basal-cellular-sentience": 95,
+       "intensity": 95
+      },
+      "receptivity": {
+       "vertebrate-cephalopod-core": 14,
+       "insects-arthropods-included": 36,
+       "basal-cellular-sentience": 52,
+       "intensity": 52
+      }
+     },
+     "xno0035": {
+      "advocacy": {
+       "people-i-will-meet": 30,
+       "beings-i-affect": 70,
+       "beings-i-will-never-see": 75,
+       "intensity": 75
+      },
+      "receptivity": {
+       "people-i-will-meet": 16,
+       "beings-i-affect": 38,
+       "beings-i-will-never-see": 41,
+       "intensity": 41
+      }
+     },
+     "xno0036": {
+      "advocacy": {
+       "meaning-is-found": 40,
+       "found-and-made": 65,
+       "meaning-is-made": 60,
+       "intensity": 65
+      },
+      "receptivity": {
+       "meaning-is-found": 22,
+       "found-and-made": 36,
+       "meaning-is-made": 33,
+       "intensity": 36
+      }
+     },
+     "xno0037": {
+      "advocacy": {
+       "purpose-comes-from-above": 5,
+       "set-above-tuned-below": 40,
+       "purpose-is-generated-at-every-scale": 95,
+       "intensity": 95
+      },
+      "receptivity": {
+       "purpose-comes-from-above": 3,
+       "set-above-tuned-below": 22,
+       "purpose-is-generated-at-every-scale": 52,
+       "intensity": 52
+      }
+     },
+     "xno0038": {
+      "advocacy": {
+       "one-unified-self": 10,
+       "a-chair-and-a-committee": 50,
+       "a-committee-that-mostly-agrees": 85,
+       "intensity": 85
+      },
+      "receptivity": {
+       "one-unified-self": 6,
+       "a-chair-and-a-committee": 28,
+       "a-committee-that-mostly-agrees": 47,
+       "intensity": 47
+      }
+     },
+     "xno0039": {
+      "advocacy": {
+       "a-mystery-that-survives": 40,
+       "what-selfhood-feels-like-from-inside": 80,
+       "a-confusion-that-dissolves": 45,
+       "intensity": 80
+      },
+      "receptivity": {
+       "a-mystery-that-survives": 22,
+       "what-selfhood-feels-like-from-inside": 44,
+       "a-confusion-that-dissolves": 25,
+       "intensity": 44
+      }
+     },
+     "xno0044": {
+      "advocacy": {
+       "brain-state-without-content": 45,
+       "window-into-ground-of-being": 65,
+       "intensity": 65
+      },
+      "receptivity": {
+       "brain-state-without-content": 25,
+       "window-into-ground-of-being": 36,
+       "intensity": 36
+      }
+     },
+     "xno0045": {
+      "advocacy": {
+       "cognitive-perturbation": 40,
+       "epistemic-insight-tool": 70,
+       "intensity": 70
+      },
+      "receptivity": {
+       "cognitive-perturbation": 22,
+       "epistemic-insight-tool": 38,
+       "intensity": 38
+      }
+     },
+     "xno0050": {
+      "advocacy": {
+       "embrace-hybrid-collective-minds": 85,
+       "guard-individual-biological-boundaries": 25,
+       "intensity": 85
+      },
+      "receptivity": {
+       "embrace-hybrid-collective-minds": 47,
+       "guard-individual-biological-boundaries": 14,
+       "intensity": 47
+      }
+     }
+    },
+    "skin": "nouscapades"
+   },
+   "skin": "nouscapades",
+   "kind": "archetype",
+   "emblem": "images/emblems/nous-tame-multiscale-pluralist.svg"
+  },
+  "nous-molecular-reductionist-skeptic": {
+   "name": "The Molecular Reductionist Skeptic",
+   "count": 51,
+   "about": "Respects the experimental elegance of bioelectric manipulations while insisting that DNA, protein signaling, and Darwinian selection explain the data without invoking basal minds or Platonic forms.",
+   "links": [],
+   "payload": {
+    "app": "sexcapades",
+    "version": 16,
+    "noFlash": true,
+    "profileName": "The Molecular Reductionist Skeptic",
+    "archetype": "The Molecular Reductionist Skeptic",
+    "aboutMe": "Respects the experimental elegance of bioelectric manipulations while insisting that DNA, protein signaling, and Darwinian selection explain the data without invoking basal minds or Platonic forms.",
+    "ratings": {
+     "xno0001": {
+      "advocacy": {
+       "needs-a-brain": 85,
+       "brain-like-organization": 55,
+       "needs-only-a-problem": 15,
+       "intensity": 85
+      },
+      "receptivity": {
+       "needs-a-brain": 30,
+       "brain-like-organization": 19,
+       "needs-only-a-problem": 5,
+       "intensity": 30
+      }
+     },
+     "xno0002": {
+      "advocacy": {
+       "reach-in-space": 55,
+       "reach-in-time": 45,
+       "intensity": 55
+      },
+      "receptivity": {
+       "reach-in-space": 19,
+       "reach-in-time": 16,
+       "intensity": 19
+      }
+     },
+     "xno0003": {
+      "advocacy": {
+       "body-plan-space": 40,
+       "physiological-space": 55,
+       "gene-expression-space": 75,
+       "ordinary-3d-space": 60,
+       "intensity": 75
+      },
+      "receptivity": {
+       "body-plan-space": 14,
+       "physiological-space": 19,
+       "gene-expression-space": 26,
+       "ordinary-3d-space": 21,
+       "intensity": 26
+      }
+     },
+     "xno0004": {
+      "advocacy": {
+       "storage-only": 70,
+       "proto-memory": 55,
+       "real-memory": 25,
+       "intensity": 70
+      },
+      "receptivity": {
+       "storage-only": 24,
+       "proto-memory": 19,
+       "real-memory": 9,
+       "intensity": 24
+      }
+     },
+     "xno0005": {
+      "advocacy": {
+       "stops-at-brains": 75,
+       "bottoms-out-at-cells": 60,
+       "all-the-way-down": 10,
+       "intensity": 75
+      },
+      "receptivity": {
+       "stops-at-brains": 26,
+       "bottoms-out-at-cells": 21,
+       "all-the-way-down": 4,
+       "intensity": 26
+      }
+     },
+     "xno0042": {
+      "advocacy": {
+       "non-conscious-signaling": 90,
+       "slow-vegetative-awareness": 15,
+       "intensity": 90
+      },
+      "receptivity": {
+       "non-conscious-signaling": 31,
+       "slow-vegetative-awareness": 5,
+       "intensity": 31
+      }
+     },
+     "xno0046": {
+      "advocacy": {
+       "continuous-scale-of-selves": 15,
+       "sharp-neural-threshold": 90,
+       "intensity": 90
+      },
+      "receptivity": {
+       "continuous-scale-of-selves": 5,
+       "sharp-neural-threshold": 31,
+       "intensity": 31
+      }
+     },
+     "xno0047": {
+      "advocacy": {
+       "non-physical-form-attractors": 5,
+       "purely-emergent-physical-dynamics": 95,
+       "intensity": 95
+      },
+      "receptivity": {
+       "non-physical-form-attractors": 2,
+       "purely-emergent-physical-dynamics": 33,
+       "intensity": 33
+      }
+     },
+     "xno0006": {
+      "advocacy": {
+       "a-switch": 45,
+       "a-few-kinds": 60,
+       "a-spectrum": 40,
+       "intensity": 60
+      },
+      "receptivity": {
+       "a-switch": 16,
+       "a-few-kinds": 21,
+       "a-spectrum": 14,
+       "intensity": 21
+      }
+     },
+     "xno0007": {
+      "advocacy": {
+       "one-real-level": 60,
+       "some-levels-real": 55,
+       "every-level-real": 25,
+       "intensity": 60
+      },
+      "receptivity": {
+       "one-real-level": 21,
+       "some-levels-real": 19,
+       "every-level-real": 9,
+       "intensity": 21
+      }
+     },
+     "xno0008": {
+      "advocacy": {
+       "the-skin": 65,
+       "the-bioelectric-boundary": 40,
+       "the-story": 45,
+       "intensity": 65
+      },
+      "receptivity": {
+       "the-skin": 23,
+       "the-bioelectric-boundary": 14,
+       "the-story": 16,
+       "intensity": 23
+      }
+     },
+     "xno0009": {
+      "advocacy": {
+       "neither-is-the-original": 55,
+       "both-are": 50,
+       "the-question-is-broken": 45,
+       "intensity": 55
+      },
+      "receptivity": {
+       "neither-is-the-original": 19,
+       "both-are": 18,
+       "the-question-is-broken": 16,
+       "intensity": 19
+      }
+     },
+     "xno0010": {
+      "advocacy": {
+       "fixed-by-the-body": 60,
+       "set-by-its-niche": 60,
+       "as-big-as-its-goals": 25,
+       "intensity": 60
+      },
+      "receptivity": {
+       "fixed-by-the-body": 21,
+       "set-by-its-niche": 21,
+       "as-big-as-its-goals": 9,
+       "intensity": 21
+      }
+     },
+     "xno0011": {
+      "advocacy": {
+       "self-maintenance": 70,
+       "responsiveness": 60,
+       "goal-pursuit": 45,
+       "a-pattern-that-persists": 40,
+       "reproduction": 75,
+       "intensity": 75
+      },
+      "receptivity": {
+       "self-maintenance": 24,
+       "responsiveness": 21,
+       "goal-pursuit": 16,
+       "a-pattern-that-persists": 14,
+       "reproduction": 26,
+       "intensity": 26
+      }
+     },
+     "xno0012": {
+      "advocacy": {
+       "organism": 45,
+       "machine": 60,
+       "a-third-kind": 40,
+       "intensity": 60
+      },
+      "receptivity": {
+       "organism": 16,
+       "machine": 21,
+       "a-third-kind": 14,
+       "intensity": 21
+      }
+     },
+     "xno0013": {
+      "advocacy": {
+       "nature-is-inherited": 65,
+       "new-combinations": 60,
+       "genuinely-new": 25,
+       "intensity": 65
+      },
+      "receptivity": {
+       "nature-is-inherited": 23,
+       "new-combinations": 21,
+       "genuinely-new": 9,
+       "intensity": 23
+      }
+     },
+     "xno0014": {
+      "advocacy": {
+       "nothing-special": 45,
+       "stewardship": 55,
+       "full-standing": 35,
+       "intensity": 55
+      },
+      "receptivity": {
+       "nothing-special": 16,
+       "stewardship": 19,
+       "full-standing": 12,
+       "intensity": 19
+      }
+     },
+     "xno0015": {
+      "advocacy": {
+       "its-makers-entirely": 65,
+       "shared": 50,
+       "it-answers-for-itself": 30,
+       "intensity": 65
+      },
+      "receptivity": {
+       "its-makers-entirely": 23,
+       "shared": 18,
+       "it-answers-for-itself": 10,
+       "intensity": 23
+      }
+     },
+     "xno0040": {
+      "advocacy": {
+       "stochastic-parrots": 75,
+       "proto-cognitive-world-models": 45,
+       "glimmers-of-moral-patiency": 25,
+       "intensity": 75
+      },
+      "receptivity": {
+       "stochastic-parrots": 26,
+       "proto-cognitive-world-models": 16,
+       "glimmers-of-moral-patiency": 9,
+       "intensity": 26
+      }
+     },
+     "xno0051": {
+      "advocacy": {
+       "bold-morphospace-exploration": 50,
+       "strict-developmental-containment": 60,
+       "intensity": 60
+      },
+      "receptivity": {
+       "bold-morphospace-exploration": 18,
+       "strict-developmental-containment": 21,
+       "intensity": 21
+      }
+     },
+     "xno0016": {
+      "advocacy": {
+       "chemistry-is-the-signal": 75,
+       "both-carry-the-signal": 55,
+       "voltage-is-a-code": 20,
+       "intensity": 75
+      },
+      "receptivity": {
+       "chemistry-is-the-signal": 26,
+       "both-carry-the-signal": 19,
+       "voltage-is-a-code": 7,
+       "intensity": 26
+      }
+     },
+     "xno0017": {
+      "advocacy": {
+       "read-off-the-genes": 80,
+       "written-in-both": 50,
+       "held-as-a-memory": 15,
+       "intensity": 80
+      },
+      "receptivity": {
+       "read-off-the-genes": 28,
+       "written-in-both": 18,
+       "held-as-a-memory": 5,
+       "intensity": 28
+      }
+     },
+     "xno0018": {
+      "advocacy": {
+       "broken-machinery": 85,
+       "machinery-a-self-exploits": 40,
+       "a-smaller-self": 20,
+       "intensity": 85
+      },
+      "receptivity": {
+       "broken-machinery": 30,
+       "machinery-a-self-exploits": 14,
+       "a-smaller-self": 7,
+       "intensity": 30
+      }
+     },
+     "xno0019": {
+      "advocacy": {
+       "fix-the-hardware": 75,
+       "both-doors": 55,
+       "persuade-the-software": 20,
+       "intensity": 75
+      },
+      "receptivity": {
+       "fix-the-hardware": 26,
+       "both-doors": 19,
+       "persuade-the-software": 7,
+       "intensity": 26
+      }
+     },
+     "xno0020": {
+      "advocacy": {
+       "micromanage": 55,
+       "guide-and-check": 60,
+       "brief-and-trust": 25,
+       "intensity": 60
+      },
+      "receptivity": {
+       "micromanage": 19,
+       "guide-and-check": 21,
+       "brief-and-trust": 9,
+       "intensity": 21
+      }
+     },
+     "xno0048": {
+      "advocacy": {
+       "stored-anatomical-set-point": 30,
+       "local-neighbor-rules-only": 75,
+       "intensity": 75
+      },
+      "receptivity": {
+       "stored-anatomical-set-point": 10,
+       "local-neighbor-rules-only": 26,
+       "intensity": 26
+      }
+     },
+     "xno0049": {
+      "advocacy": {
+       "plasticity-leads-genetic-fixation": 15,
+       "random-mutation-remains-primary": 90,
+       "intensity": 90
+      },
+      "receptivity": {
+       "plasticity-leads-genetic-fixation": 5,
+       "random-mutation-remains-primary": 31,
+       "intensity": 31
+      }
+     },
+     "xno0021": {
+      "advocacy": {
+       "metaphor": 70,
+       "as-if-goals": 60,
+       "literal-goals": 10,
+       "intensity": 70
+      },
+      "receptivity": {
+       "metaphor": 24,
+       "as-if-goals": 21,
+       "literal-goals": 4,
+       "intensity": 24
+      }
+     },
+     "xno0022": {
+      "advocacy": {
+       "only-the-whole-animal": 65,
+       "some-levels": 60,
+       "every-level": 15,
+       "intensity": 65
+      },
+      "receptivity": {
+       "only-the-whole-animal": 23,
+       "some-levels": 21,
+       "every-level": 5,
+       "intensity": 23
+      }
+     },
+     "xno0023": {
+      "advocacy": {
+       "choice-needs-a-mind": 75,
+       "a-bias-not-a-choice": 60,
+       "a-tiny-real-choice": 10,
+       "intensity": 75
+      },
+      "receptivity": {
+       "choice-needs-a-mind": 26,
+       "a-bias-not-a-choice": 21,
+       "a-tiny-real-choice": 4,
+       "intensity": 26
+      }
+     },
+     "xno0024": {
+      "advocacy": {
+       "just-chemistry": 80,
+       "chemistry-that-loosens-grip": 50,
+       "a-self-losing-grip": 15,
+       "intensity": 80
+      },
+      "receptivity": {
+       "just-chemistry": 28,
+       "chemistry-that-loosens-grip": 18,
+       "a-self-losing-grip": 5,
+       "intensity": 28
+      }
+     },
+     "xno0025": {
+      "advocacy": {
+       "the-human-scale-is-real": 60,
+       "some-scales-earn-it": 55,
+       "no-scale-is-privileged": 30,
+       "intensity": 60
+      },
+      "receptivity": {
+       "the-human-scale-is-real": 21,
+       "some-scales-earn-it": 19,
+       "no-scale-is-privileged": 10,
+       "intensity": 21
+      }
+     },
+     "xno0026": {
+      "advocacy": {
+       "one-event": 55,
+       "a-main-death-and-stragglers": 60,
+       "many-deaths": 35,
+       "intensity": 60
+      },
+      "receptivity": {
+       "one-event": 19,
+       "a-main-death-and-stragglers": 21,
+       "many-deaths": 12,
+       "intensity": 21
+      }
+     },
+     "xno0027": {
+      "advocacy": {
+       "leftovers": 65,
+       "selves-on-parole": 50,
+       "selves-in-their-own-right": 30,
+       "intensity": 65
+      },
+      "receptivity": {
+       "leftovers": 23,
+       "selves-on-parole": 18,
+       "selves-in-their-own-right": 10,
+       "intensity": 23
+      }
+     },
+     "xno0028": {
+      "advocacy": {
+       "the-pattern-is-the-self": 30,
+       "pattern-with-wear": 55,
+       "replace-the-parts-lose-the-self": 70,
+       "intensity": 70
+      },
+      "receptivity": {
+       "the-pattern-is-the-self": 10,
+       "pattern-with-wear": 19,
+       "replace-the-parts-lose-the-self": 24,
+       "intensity": 24
+      }
+     },
+     "xno0029": {
+      "advocacy": {
+       "the-pattern-stops": 60,
+       "the-parts-scatter": 65,
+       "the-goals-go-unpursued": 40,
+       "intensity": 65
+      },
+      "receptivity": {
+       "the-pattern-stops": 21,
+       "the-parts-scatter": 23,
+       "the-goals-go-unpursued": 14,
+       "intensity": 23
+      }
+     },
+     "xno0043": {
+      "advocacy": {
+       "desirable-digital-continuance": 45,
+       "uncanny-copy-trap": 60,
+       "intensity": 60
+      },
+      "receptivity": {
+       "desirable-digital-continuance": 16,
+       "uncanny-copy-trap": 21,
+       "intensity": 21
+      }
+     },
+     "xno0030": {
+      "advocacy": {
+       "the-circle-is-finished": 45,
+       "expanding-with-edges": 60,
+       "it-keeps-expanding": 35,
+       "intensity": 60
+      },
+      "receptivity": {
+       "the-circle-is-finished": 16,
+       "expanding-with-edges": 21,
+       "it-keeps-expanding": 12,
+       "intensity": 21
+      }
+     },
+     "xno0031": {
+      "advocacy": {
+       "needs-a-brain-like-ours": 80,
+       "a-dim-analogue": 45,
+       "scales-with-the-self": 15,
+       "intensity": 80
+      },
+      "receptivity": {
+       "needs-a-brain-like-ours": 28,
+       "a-dim-analogue": 16,
+       "scales-with-the-self": 5,
+       "intensity": 28
+      }
+     },
+     "xno0032": {
+      "advocacy": {
+       "track-the-minds-size": 45,
+       "one-factor-among-several": 60,
+       "size-is-irrelevant": 45,
+       "intensity": 60
+      },
+      "receptivity": {
+       "track-the-minds-size": 16,
+       "one-factor-among-several": 21,
+       "size-is-irrelevant": 16,
+       "intensity": 21
+      }
+     },
+     "xno0033": {
+      "advocacy": {
+       "mind-needs-living-tissue": 45,
+       "the-right-organization": 65,
+       "any-substrate-that-models-itself": 50,
+       "intensity": 65
+      },
+      "receptivity": {
+       "mind-needs-living-tissue": 16,
+       "the-right-organization": 23,
+       "any-substrate-that-models-itself": 18,
+       "intensity": 23
+      }
+     },
+     "xno0034": {
+      "advocacy": {
+       "a-different-kind-of-thing": 55,
+       "first-among-selves": 60,
+       "one-self-among-many": 35,
+       "intensity": 60
+      },
+      "receptivity": {
+       "a-different-kind-of-thing": 19,
+       "first-among-selves": 21,
+       "one-self-among-many": 12,
+       "intensity": 21
+      }
+     },
+     "xno0041": {
+      "advocacy": {
+       "vertebrate-cephalopod-core": 85,
+       "insects-arthropods-included": 35,
+       "basal-cellular-sentience": 10,
+       "intensity": 85
+      },
+      "receptivity": {
+       "vertebrate-cephalopod-core": 30,
+       "insects-arthropods-included": 12,
+       "basal-cellular-sentience": 4,
+       "intensity": 30
+      }
+     },
+     "xno0035": {
+      "advocacy": {
+       "people-i-will-meet": 55,
+       "beings-i-affect": 60,
+       "beings-i-will-never-see": 40,
+       "intensity": 60
+      },
+      "receptivity": {
+       "people-i-will-meet": 19,
+       "beings-i-affect": 21,
+       "beings-i-will-never-see": 14,
+       "intensity": 21
+      }
+     },
+     "xno0036": {
+      "advocacy": {
+       "meaning-is-found": 45,
+       "found-and-made": 55,
+       "meaning-is-made": 60,
+       "intensity": 60
+      },
+      "receptivity": {
+       "meaning-is-found": 16,
+       "found-and-made": 19,
+       "meaning-is-made": 21,
+       "intensity": 21
+      }
+     },
+     "xno0037": {
+      "advocacy": {
+       "purpose-comes-from-above": 60,
+       "set-above-tuned-below": 55,
+       "purpose-is-generated-at-every-scale": 25,
+       "intensity": 60
+      },
+      "receptivity": {
+       "purpose-comes-from-above": 21,
+       "set-above-tuned-below": 19,
+       "purpose-is-generated-at-every-scale": 9,
+       "intensity": 21
+      }
+     },
+     "xno0038": {
+      "advocacy": {
+       "one-unified-self": 45,
+       "a-chair-and-a-committee": 60,
+       "a-committee-that-mostly-agrees": 50,
+       "intensity": 60
+      },
+      "receptivity": {
+       "one-unified-self": 16,
+       "a-chair-and-a-committee": 21,
+       "a-committee-that-mostly-agrees": 18,
+       "intensity": 21
+      }
+     },
+     "xno0039": {
+      "advocacy": {
+       "a-mystery-that-survives": 35,
+       "what-selfhood-feels-like-from-inside": 45,
+       "a-confusion-that-dissolves": 70,
+       "intensity": 70
+      },
+      "receptivity": {
+       "a-mystery-that-survives": 12,
+       "what-selfhood-feels-like-from-inside": 16,
+       "a-confusion-that-dissolves": 24,
+       "intensity": 24
+      }
+     },
+     "xno0044": {
+      "advocacy": {
+       "brain-state-without-content": 85,
+       "window-into-ground-of-being": 20,
+       "intensity": 85
+      },
+      "receptivity": {
+       "brain-state-without-content": 30,
+       "window-into-ground-of-being": 7,
+       "intensity": 30
+      }
+     },
+     "xno0045": {
+      "advocacy": {
+       "cognitive-perturbation": 80,
+       "epistemic-insight-tool": 30,
+       "intensity": 80
+      },
+      "receptivity": {
+       "cognitive-perturbation": 28,
+       "epistemic-insight-tool": 10,
+       "intensity": 28
+      }
+     },
+     "xno0050": {
+      "advocacy": {
+       "embrace-hybrid-collective-minds": 35,
+       "guard-individual-biological-boundaries": 70,
+       "intensity": 70
+      },
+      "receptivity": {
+       "embrace-hybrid-collective-minds": 12,
+       "guard-individual-biological-boundaries": 24,
+       "intensity": 24
+      }
+     }
+    },
+    "skin": "nouscapades"
+   },
+   "skin": "nouscapades",
+   "kind": "archetype",
+   "emblem": "images/emblems/nous-molecular-reductionist-skeptic.svg"
+  },
+  "nous-electroceutical-bioengineer": {
+   "name": "The Electroceutical Bioengineer",
+   "count": 51,
+   "about": "Treats bioelectricity and multiscale competency primarily as a revolutionary engineering interface for regenerating organs, normalizing cancer, and building useful biobots without getting bogged down in metaphysics.",
+   "links": [],
+   "payload": {
+    "app": "sexcapades",
+    "version": 16,
+    "noFlash": true,
+    "profileName": "The Electroceutical Bioengineer",
+    "archetype": "The Electroceutical Bioengineer",
+    "aboutMe": "Treats bioelectricity and multiscale competency primarily as a revolutionary engineering interface for regenerating organs, normalizing cancer, and building useful biobots without getting bogged down in metaphysics.",
+    "ratings": {
+     "xno0001": {
+      "advocacy": {
+       "needs-a-brain": 35,
+       "brain-like-organization": 65,
+       "needs-only-a-problem": 55,
+       "intensity": 65
+      },
+      "receptivity": {
+       "needs-a-brain": 16,
+       "brain-like-organization": 29,
+       "needs-only-a-problem": 25,
+       "intensity": 29
+      }
+     },
+     "xno0002": {
+      "advocacy": {
+       "reach-in-space": 65,
+       "reach-in-time": 60,
+       "intensity": 65
+      },
+      "receptivity": {
+       "reach-in-space": 29,
+       "reach-in-time": 27,
+       "intensity": 29
+      }
+     },
+     "xno0003": {
+      "advocacy": {
+       "body-plan-space": 70,
+       "physiological-space": 75,
+       "gene-expression-space": 60,
+       "ordinary-3d-space": 55,
+       "intensity": 75
+      },
+      "receptivity": {
+       "body-plan-space": 32,
+       "physiological-space": 34,
+       "gene-expression-space": 27,
+       "ordinary-3d-space": 25,
+       "intensity": 34
+      }
+     },
+     "xno0004": {
+      "advocacy": {
+       "storage-only": 35,
+       "proto-memory": 65,
+       "real-memory": 65,
+       "intensity": 65
+      },
+      "receptivity": {
+       "storage-only": 16,
+       "proto-memory": 29,
+       "real-memory": 29,
+       "intensity": 29
+      }
+     },
+     "xno0005": {
+      "advocacy": {
+       "stops-at-brains": 25,
+       "bottoms-out-at-cells": 65,
+       "all-the-way-down": 55,
+       "intensity": 65
+      },
+      "receptivity": {
+       "stops-at-brains": 11,
+       "bottoms-out-at-cells": 29,
+       "all-the-way-down": 25,
+       "intensity": 29
+      }
+     },
+     "xno0042": {
+      "advocacy": {
+       "non-conscious-signaling": 45,
+       "slow-vegetative-awareness": 60,
+       "intensity": 60
+      },
+      "receptivity": {
+       "non-conscious-signaling": 20,
+       "slow-vegetative-awareness": 27,
+       "intensity": 27
+      }
+     },
+     "xno0046": {
+      "advocacy": {
+       "continuous-scale-of-selves": 65,
+       "sharp-neural-threshold": 45,
+       "intensity": 65
+      },
+      "receptivity": {
+       "continuous-scale-of-selves": 29,
+       "sharp-neural-threshold": 20,
+       "intensity": 29
+      }
+     },
+     "xno0047": {
+      "advocacy": {
+       "non-physical-form-attractors": 40,
+       "purely-emergent-physical-dynamics": 65,
+       "intensity": 65
+      },
+      "receptivity": {
+       "non-physical-form-attractors": 18,
+       "purely-emergent-physical-dynamics": 29,
+       "intensity": 29
+      }
+     },
+     "xno0006": {
+      "advocacy": {
+       "a-switch": 25,
+       "a-few-kinds": 55,
+       "a-spectrum": 70,
+       "intensity": 70
+      },
+      "receptivity": {
+       "a-switch": 11,
+       "a-few-kinds": 25,
+       "a-spectrum": 32,
+       "intensity": 32
+      }
+     },
+     "xno0007": {
+      "advocacy": {
+       "one-real-level": 25,
+       "some-levels-real": 60,
+       "every-level-real": 70,
+       "intensity": 70
+      },
+      "receptivity": {
+       "one-real-level": 11,
+       "some-levels-real": 27,
+       "every-level-real": 32,
+       "intensity": 32
+      }
+     },
+     "xno0008": {
+      "advocacy": {
+       "the-skin": 35,
+       "the-bioelectric-boundary": 80,
+       "the-story": 40,
+       "intensity": 80
+      },
+      "receptivity": {
+       "the-skin": 16,
+       "the-bioelectric-boundary": 36,
+       "the-story": 18,
+       "intensity": 36
+      }
+     },
+     "xno0009": {
+      "advocacy": {
+       "neither-is-the-original": 40,
+       "both-are": 60,
+       "the-question-is-broken": 50,
+       "intensity": 60
+      },
+      "receptivity": {
+       "neither-is-the-original": 18,
+       "both-are": 27,
+       "the-question-is-broken": 22,
+       "intensity": 27
+      }
+     },
+     "xno0010": {
+      "advocacy": {
+       "fixed-by-the-body": 35,
+       "set-by-its-niche": 60,
+       "as-big-as-its-goals": 60,
+       "intensity": 60
+      },
+      "receptivity": {
+       "fixed-by-the-body": 16,
+       "set-by-its-niche": 27,
+       "as-big-as-its-goals": 27,
+       "intensity": 27
+      }
+     },
+     "xno0011": {
+      "advocacy": {
+       "self-maintenance": 75,
+       "responsiveness": 80,
+       "goal-pursuit": 85,
+       "a-pattern-that-persists": 70,
+       "reproduction": 55,
+       "intensity": 85
+      },
+      "receptivity": {
+       "self-maintenance": 34,
+       "responsiveness": 36,
+       "goal-pursuit": 38,
+       "a-pattern-that-persists": 32,
+       "reproduction": 25,
+       "intensity": 38
+      }
+     },
+     "xno0012": {
+      "advocacy": {
+       "organism": 55,
+       "machine": 55,
+       "a-third-kind": 60,
+       "intensity": 60
+      },
+      "receptivity": {
+       "organism": 25,
+       "machine": 25,
+       "a-third-kind": 27,
+       "intensity": 27
+      }
+     },
+     "xno0013": {
+      "advocacy": {
+       "nature-is-inherited": 30,
+       "new-combinations": 65,
+       "genuinely-new": 60,
+       "intensity": 65
+      },
+      "receptivity": {
+       "nature-is-inherited": 14,
+       "new-combinations": 29,
+       "genuinely-new": 27,
+       "intensity": 29
+      }
+     },
+     "xno0014": {
+      "advocacy": {
+       "nothing-special": 25,
+       "stewardship": 70,
+       "full-standing": 50,
+       "intensity": 70
+      },
+      "receptivity": {
+       "nothing-special": 11,
+       "stewardship": 32,
+       "full-standing": 22,
+       "intensity": 32
+      }
+     },
+     "xno0015": {
+      "advocacy": {
+       "its-makers-entirely": 60,
+       "shared": 60,
+       "it-answers-for-itself": 40,
+       "intensity": 60
+      },
+      "receptivity": {
+       "its-makers-entirely": 27,
+       "shared": 27,
+       "it-answers-for-itself": 18,
+       "intensity": 27
+      }
+     },
+     "xno0040": {
+      "advocacy": {
+       "stochastic-parrots": 45,
+       "proto-cognitive-world-models": 65,
+       "glimmers-of-moral-patiency": 50,
+       "intensity": 65
+      },
+      "receptivity": {
+       "stochastic-parrots": 20,
+       "proto-cognitive-world-models": 29,
+       "glimmers-of-moral-patiency": 22,
+       "intensity": 29
+      }
+     },
+     "xno0051": {
+      "advocacy": {
+       "bold-morphospace-exploration": 90,
+       "strict-developmental-containment": 25,
+       "intensity": 90
+      },
+      "receptivity": {
+       "bold-morphospace-exploration": 40,
+       "strict-developmental-containment": 11,
+       "intensity": 40
+      }
+     },
+     "xno0016": {
+      "advocacy": {
+       "chemistry-is-the-signal": 25,
+       "both-carry-the-signal": 60,
+       "voltage-is-a-code": 85,
+       "intensity": 85
+      },
+      "receptivity": {
+       "chemistry-is-the-signal": 11,
+       "both-carry-the-signal": 27,
+       "voltage-is-a-code": 38,
+       "intensity": 38
+      }
+     },
+     "xno0017": {
+      "advocacy": {
+       "read-off-the-genes": 25,
+       "written-in-both": 60,
+       "held-as-a-memory": 80,
+       "intensity": 80
+      },
+      "receptivity": {
+       "read-off-the-genes": 11,
+       "written-in-both": 27,
+       "held-as-a-memory": 36,
+       "intensity": 36
+      }
+     },
+     "xno0018": {
+      "advocacy": {
+       "broken-machinery": 35,
+       "machinery-a-self-exploits": 55,
+       "a-smaller-self": 75,
+       "intensity": 75
+      },
+      "receptivity": {
+       "broken-machinery": 16,
+       "machinery-a-self-exploits": 25,
+       "a-smaller-self": 34,
+       "intensity": 34
+      }
+     },
+     "xno0019": {
+      "advocacy": {
+       "fix-the-hardware": 20,
+       "both-doors": 60,
+       "persuade-the-software": 85,
+       "intensity": 85
+      },
+      "receptivity": {
+       "fix-the-hardware": 9,
+       "both-doors": 27,
+       "persuade-the-software": 38,
+       "intensity": 38
+      }
+     },
+     "xno0020": {
+      "advocacy": {
+       "micromanage": 25,
+       "guide-and-check": 70,
+       "brief-and-trust": 70,
+       "intensity": 70
+      },
+      "receptivity": {
+       "micromanage": 11,
+       "guide-and-check": 32,
+       "brief-and-trust": 32,
+       "intensity": 32
+      }
+     },
+     "xno0048": {
+      "advocacy": {
+       "stored-anatomical-set-point": 80,
+       "local-neighbor-rules-only": 35,
+       "intensity": 80
+      },
+      "receptivity": {
+       "stored-anatomical-set-point": 36,
+       "local-neighbor-rules-only": 16,
+       "intensity": 36
+      }
+     },
+     "xno0049": {
+      "advocacy": {
+       "plasticity-leads-genetic-fixation": 70,
+       "random-mutation-remains-primary": 40,
+       "intensity": 70
+      },
+      "receptivity": {
+       "plasticity-leads-genetic-fixation": 32,
+       "random-mutation-remains-primary": 18,
+       "intensity": 32
+      }
+     },
+     "xno0021": {
+      "advocacy": {
+       "metaphor": 25,
+       "as-if-goals": 70,
+       "literal-goals": 55,
+       "intensity": 70
+      },
+      "receptivity": {
+       "metaphor": 11,
+       "as-if-goals": 32,
+       "literal-goals": 25,
+       "intensity": 32
+      }
+     },
+     "xno0022": {
+      "advocacy": {
+       "only-the-whole-animal": 20,
+       "some-levels": 65,
+       "every-level": 65,
+       "intensity": 65
+      },
+      "receptivity": {
+       "only-the-whole-animal": 9,
+       "some-levels": 29,
+       "every-level": 29,
+       "intensity": 29
+      }
+     },
+     "xno0023": {
+      "advocacy": {
+       "choice-needs-a-mind": 30,
+       "a-bias-not-a-choice": 65,
+       "a-tiny-real-choice": 55,
+       "intensity": 65
+      },
+      "receptivity": {
+       "choice-needs-a-mind": 14,
+       "a-bias-not-a-choice": 29,
+       "a-tiny-real-choice": 25,
+       "intensity": 29
+      }
+     },
+     "xno0024": {
+      "advocacy": {
+       "just-chemistry": 30,
+       "chemistry-that-loosens-grip": 60,
+       "a-self-losing-grip": 65,
+       "intensity": 65
+      },
+      "receptivity": {
+       "just-chemistry": 14,
+       "chemistry-that-loosens-grip": 27,
+       "a-self-losing-grip": 29,
+       "intensity": 29
+      }
+     },
+     "xno0025": {
+      "advocacy": {
+       "the-human-scale-is-real": 25,
+       "some-scales-earn-it": 55,
+       "no-scale-is-privileged": 70,
+       "intensity": 70
+      },
+      "receptivity": {
+       "the-human-scale-is-real": 11,
+       "some-scales-earn-it": 25,
+       "no-scale-is-privileged": 32,
+       "intensity": 32
+      }
+     },
+     "xno0026": {
+      "advocacy": {
+       "one-event": 35,
+       "a-main-death-and-stragglers": 60,
+       "many-deaths": 55,
+       "intensity": 60
+      },
+      "receptivity": {
+       "one-event": 16,
+       "a-main-death-and-stragglers": 27,
+       "many-deaths": 25,
+       "intensity": 27
+      }
+     },
+     "xno0027": {
+      "advocacy": {
+       "leftovers": 40,
+       "selves-on-parole": 60,
+       "selves-in-their-own-right": 55,
+       "intensity": 60
+      },
+      "receptivity": {
+       "leftovers": 18,
+       "selves-on-parole": 27,
+       "selves-in-their-own-right": 25,
+       "intensity": 27
+      }
+     },
+     "xno0028": {
+      "advocacy": {
+       "the-pattern-is-the-self": 65,
+       "pattern-with-wear": 60,
+       "replace-the-parts-lose-the-self": 40,
+       "intensity": 65
+      },
+      "receptivity": {
+       "the-pattern-is-the-self": 29,
+       "pattern-with-wear": 27,
+       "replace-the-parts-lose-the-self": 18,
+       "intensity": 29
+      }
+     },
+     "xno0029": {
+      "advocacy": {
+       "the-pattern-stops": 55,
+       "the-parts-scatter": 55,
+       "the-goals-go-unpursued": 70,
+       "intensity": 70
+      },
+      "receptivity": {
+       "the-pattern-stops": 25,
+       "the-parts-scatter": 25,
+       "the-goals-go-unpursued": 32,
+       "intensity": 32
+      }
+     },
+     "xno0043": {
+      "advocacy": {
+       "desirable-digital-continuance": 60,
+       "uncanny-copy-trap": 50,
+       "intensity": 60
+      },
+      "receptivity": {
+       "desirable-digital-continuance": 27,
+       "uncanny-copy-trap": 22,
+       "intensity": 27
+      }
+     },
+     "xno0030": {
+      "advocacy": {
+       "the-circle-is-finished": 25,
+       "expanding-with-edges": 65,
+       "it-keeps-expanding": 55,
+       "intensity": 65
+      },
+      "receptivity": {
+       "the-circle-is-finished": 11,
+       "expanding-with-edges": 29,
+       "it-keeps-expanding": 25,
+       "intensity": 29
+      }
+     },
+     "xno0031": {
+      "advocacy": {
+       "needs-a-brain-like-ours": 35,
+       "a-dim-analogue": 60,
+       "scales-with-the-self": 60,
+       "intensity": 60
+      },
+      "receptivity": {
+       "needs-a-brain-like-ours": 16,
+       "a-dim-analogue": 27,
+       "scales-with-the-self": 27,
+       "intensity": 27
+      }
+     },
+     "xno0032": {
+      "advocacy": {
+       "track-the-minds-size": 65,
+       "one-factor-among-several": 60,
+       "size-is-irrelevant": 40,
+       "intensity": 65
+      },
+      "receptivity": {
+       "track-the-minds-size": 29,
+       "one-factor-among-several": 27,
+       "size-is-irrelevant": 18,
+       "intensity": 29
+      }
+     },
+     "xno0033": {
+      "advocacy": {
+       "mind-needs-living-tissue": 25,
+       "the-right-organization": 70,
+       "any-substrate-that-models-itself": 65,
+       "intensity": 70
+      },
+      "receptivity": {
+       "mind-needs-living-tissue": 11,
+       "the-right-organization": 32,
+       "any-substrate-that-models-itself": 29,
+       "intensity": 32
+      }
+     },
+     "xno0034": {
+      "advocacy": {
+       "a-different-kind-of-thing": 25,
+       "first-among-selves": 55,
+       "one-self-among-many": 70,
+       "intensity": 70
+      },
+      "receptivity": {
+       "a-different-kind-of-thing": 11,
+       "first-among-selves": 25,
+       "one-self-among-many": 32,
+       "intensity": 32
+      }
+     },
+     "xno0041": {
+      "advocacy": {
+       "vertebrate-cephalopod-core": 50,
+       "insects-arthropods-included": 60,
+       "basal-cellular-sentience": 55,
+       "intensity": 60
+      },
+      "receptivity": {
+       "vertebrate-cephalopod-core": 22,
+       "insects-arthropods-included": 27,
+       "basal-cellular-sentience": 25,
+       "intensity": 27
+      }
+     },
+     "xno0035": {
+      "advocacy": {
+       "people-i-will-meet": 45,
+       "beings-i-affect": 65,
+       "beings-i-will-never-see": 50,
+       "intensity": 65
+      },
+      "receptivity": {
+       "people-i-will-meet": 20,
+       "beings-i-affect": 29,
+       "beings-i-will-never-see": 22,
+       "intensity": 29
+      }
+     },
+     "xno0036": {
+      "advocacy": {
+       "meaning-is-found": 40,
+       "found-and-made": 60,
+       "meaning-is-made": 60,
+       "intensity": 60
+      },
+      "receptivity": {
+       "meaning-is-found": 18,
+       "found-and-made": 27,
+       "meaning-is-made": 27,
+       "intensity": 27
+      }
+     },
+     "xno0037": {
+      "advocacy": {
+       "purpose-comes-from-above": 25,
+       "set-above-tuned-below": 60,
+       "purpose-is-generated-at-every-scale": 70,
+       "intensity": 70
+      },
+      "receptivity": {
+       "purpose-comes-from-above": 11,
+       "set-above-tuned-below": 27,
+       "purpose-is-generated-at-every-scale": 32,
+       "intensity": 32
+      }
+     },
+     "xno0038": {
+      "advocacy": {
+       "one-unified-self": 30,
+       "a-chair-and-a-committee": 60,
+       "a-committee-that-mostly-agrees": 65,
+       "intensity": 65
+      },
+      "receptivity": {
+       "one-unified-self": 14,
+       "a-chair-and-a-committee": 27,
+       "a-committee-that-mostly-agrees": 29,
+       "intensity": 29
+      }
+     },
+     "xno0039": {
+      "advocacy": {
+       "a-mystery-that-survives": 35,
+       "what-selfhood-feels-like-from-inside": 60,
+       "a-confusion-that-dissolves": 55,
+       "intensity": 60
+      },
+      "receptivity": {
+       "a-mystery-that-survives": 16,
+       "what-selfhood-feels-like-from-inside": 27,
+       "a-confusion-that-dissolves": 25,
+       "intensity": 27
+      }
+     },
+     "xno0044": {
+      "advocacy": {
+       "brain-state-without-content": 55,
+       "window-into-ground-of-being": 50,
+       "intensity": 55
+      },
+      "receptivity": {
+       "brain-state-without-content": 25,
+       "window-into-ground-of-being": 22,
+       "intensity": 25
+      }
+     },
+     "xno0045": {
+      "advocacy": {
+       "cognitive-perturbation": 50,
+       "epistemic-insight-tool": 60,
+       "intensity": 60
+      },
+      "receptivity": {
+       "cognitive-perturbation": 22,
+       "epistemic-insight-tool": 27,
+       "intensity": 27
+      }
+     },
+     "xno0050": {
+      "advocacy": {
+       "embrace-hybrid-collective-minds": 65,
+       "guard-individual-biological-boundaries": 45,
+       "intensity": 65
+      },
+      "receptivity": {
+       "embrace-hybrid-collective-minds": 29,
+       "guard-individual-biological-boundaries": 20,
+       "intensity": 29
+      }
+     }
+    },
+    "skin": "nouscapades"
+   },
+   "skin": "nouscapades",
+   "kind": "archetype",
+   "emblem": "images/emblems/nous-electroceutical-bioengineer.svg"
   }
  },
  "scribe": {
