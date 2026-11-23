@@ -372,7 +372,7 @@ const he = [ [ "t0281", "t0240" ] ];
             },
             "Climate, Energy & Environment": {
                 color: "#82c66e",
-                glyph: '<path class="icon-glyph" d="M19 5C13 5 6.5 8.6 5.4 15.2 5 19 5 19 5 19 9 19 9 14.6 19 19 5 19 5Z M5 19C7.5 14.5 11.5 10.5 16 8"/>'
+                glyph: '<path class="icon-glyph" d="M19 5C13.5 5.5 7 8 5.5 13.5C5 15.5 5 19 5 19C10 19 18.5 13 19 5Z M5 19C7.5 14.5 11.5 10.5 16 8"/>'
             },
             "Immigration & Borders": {
                 color: "#e5a45e",

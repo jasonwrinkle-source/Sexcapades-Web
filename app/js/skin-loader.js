@@ -2186,15 +2186,15 @@
       }
       clearInterval(timer);
       fetchPromise.then(function (data) {
-        if (boot !== "sexcapades") {
-          applySkin(data);
-          setBrand(boot, data.name);
-        } else {
-          registerWidgets(data);
-          setSamples(data.samples, "sexcapades");
-          setScribe(data.scribe);
-          setSceneSetter(data.sceneSetter);
-        }
+        /* applySkin must run for the native Sexcapades boot too: since
+           Phase 5 emptied the 02b catalog (TAXONOMY_CATEGORIES = []),
+           this swap is the ONLY source of categories on a Sexcapades
+           boot — the widgets-only seam leaves the taxonomy empty and
+           the map paints nothing but the center node. (Regression from
+           the 2026-11-22 double-render fix, which special-cased the
+           native boot out of this call.) */
+        applySkin(data);
+        setBrand(boot, data.name);
         sxArmSwitchPaint();
         var layoutApplied = false;
         if (window.__SX_WARM_BOOT_RESTORED) {
