@@ -54,7 +54,8 @@ EXPECTED_MANIFEST_FILES = [
 
 SKIN_PREFIXES = [
     "sex", "flex", "polis", "fores", "chem", "aesth", "experi", "dharma",
-    "matter", "philo", "praxi", "quanta", "simul", "tech", "theori", "voca", "nous"
+    "matter", "philo", "praxi", "quanta", "simul", "tech", "theori", "voca", "nous",
+    "dance", "quest"
 ]
 
 

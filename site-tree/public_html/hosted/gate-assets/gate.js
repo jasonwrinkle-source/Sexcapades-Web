@@ -876,7 +876,7 @@
             menu.hidden = true;
           }
 
-          var SKIN_SUBDOMAIN = { sexcapades: "sex", poliscapades: "polis", forescapades: "fores", philoscapades: "philo", aesthcapades: "aesth", vocapades: "voca", techcapades: "tech", dharmacapades: "dharma", theoricapades: "theori", praxicapades: "praxi", quantacapades: "quanta", expericapades: "experi", simulcapades: "simul", mattercapades: "matter", chemcapades: "chem", nouscapades: "nous" };
+          var SKIN_SUBDOMAIN = { sexcapades: "sex", poliscapades: "polis", forescapades: "fores", philoscapades: "philo", aesthcapades: "aesth", vocapades: "voca", techcapades: "tech", dharmacapades: "dharma", theoricapades: "theori", praxicapades: "praxi", quantacapades: "quanta", expericapades: "experi", simulcapades: "simul", mattercapades: "matter", chemcapades: "chem", nouscapades: "nous", dancecapades: "dance", questcapades: "quest" };
 
           function choose(item) {
             if (!item) return;
