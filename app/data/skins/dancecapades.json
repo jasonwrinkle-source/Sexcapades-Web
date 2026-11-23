@@ -104,111 +104,117 @@
     },
     {
       "id": "xdac02",
-      "name": "Ballroom & smooth",
-      "about": "The smooth and standard dances: turning, gliding, travelling the floor.",
-      "topics": [
+      "name": "Ballroom",
+      "about": "One family, two divisions. The smooth and standard dances travel around the floor in a closed hold; the Latin and rhythm dances stay in place and talk through the hips. Most ballroom dancers live in one division and visit the other.",
+      "parentTopics": [],
+      "subcategories": [
         {
-          "id": "xda0009",
-          "name": "Waltz",
-          "risk": false,
-          "type": "give_receive",
-          "give_label": "lead",
-          "receive_label": "follow"
+          "id": "xdas01",
+          "name": "Smooth & standard",
+          "topics": [
+            {
+              "id": "xda0009",
+              "name": "Waltz",
+              "risk": false,
+              "type": "give_receive",
+              "give_label": "lead",
+              "receive_label": "follow"
+            },
+            {
+              "id": "xda0010",
+              "name": "Viennese Waltz",
+              "risk": false,
+              "type": "give_receive",
+              "give_label": "lead",
+              "receive_label": "follow"
+            },
+            {
+              "id": "xda0011",
+              "name": "Tango",
+              "risk": false,
+              "type": "give_receive",
+              "give_label": "lead",
+              "receive_label": "follow"
+            },
+            {
+              "id": "xda0012",
+              "name": "Foxtrot",
+              "risk": false,
+              "type": "give_receive",
+              "give_label": "lead",
+              "receive_label": "follow"
+            },
+            {
+              "id": "xda0013",
+              "name": "Quickstep",
+              "risk": false,
+              "type": "give_receive",
+              "give_label": "lead",
+              "receive_label": "follow"
+            },
+            {
+              "id": "xda0014",
+              "name": "Slow dancing",
+              "risk": false,
+              "type": "give_receive",
+              "give_label": "lead",
+              "receive_label": "follow"
+            }
+          ]
         },
         {
-          "id": "xda0010",
-          "name": "Viennese Waltz",
-          "risk": false,
-          "type": "give_receive",
-          "give_label": "lead",
-          "receive_label": "follow"
-        },
-        {
-          "id": "xda0011",
-          "name": "Tango",
-          "risk": false,
-          "type": "give_receive",
-          "give_label": "lead",
-          "receive_label": "follow"
-        },
-        {
-          "id": "xda0012",
-          "name": "Foxtrot",
-          "risk": false,
-          "type": "give_receive",
-          "give_label": "lead",
-          "receive_label": "follow"
-        },
-        {
-          "id": "xda0013",
-          "name": "Quickstep",
-          "risk": false,
-          "type": "give_receive",
-          "give_label": "lead",
-          "receive_label": "follow"
-        },
-        {
-          "id": "xda0014",
-          "name": "Slow dancing",
-          "risk": false,
-          "type": "give_receive",
-          "give_label": "lead",
-          "receive_label": "follow"
-        }
-      ]
-    },
-    {
-      "id": "xdac03",
-      "name": "Latin & rhythm",
-      "about": "The rhythm dances: hips, syncopation, and heat.",
-      "topics": [
-        {
-          "id": "xda0015",
-          "name": "Cha Cha",
-          "risk": false,
-          "type": "give_receive",
-          "give_label": "lead",
-          "receive_label": "follow"
-        },
-        {
-          "id": "xda0016",
-          "name": "Rumba",
-          "risk": false,
-          "type": "give_receive",
-          "give_label": "lead",
-          "receive_label": "follow"
-        },
-        {
-          "id": "xda0017",
-          "name": "Samba",
-          "risk": false,
-          "type": "give_receive",
-          "give_label": "lead",
-          "receive_label": "follow"
-        },
-        {
-          "id": "xda0018",
-          "name": "Jive",
-          "risk": false,
-          "type": "give_receive",
-          "give_label": "lead",
-          "receive_label": "follow"
-        },
-        {
-          "id": "xda0019",
-          "name": "Bolero",
-          "risk": false,
-          "type": "give_receive",
-          "give_label": "lead",
-          "receive_label": "follow"
-        },
-        {
-          "id": "xda0020",
-          "name": "Mambo",
-          "risk": false,
-          "type": "give_receive",
-          "give_label": "lead",
-          "receive_label": "follow"
+          "id": "xdas02",
+          "name": "Latin & rhythm",
+          "topics": [
+            {
+              "id": "xda0015",
+              "name": "Cha Cha",
+              "risk": false,
+              "type": "give_receive",
+              "give_label": "lead",
+              "receive_label": "follow"
+            },
+            {
+              "id": "xda0016",
+              "name": "Rumba",
+              "risk": false,
+              "type": "give_receive",
+              "give_label": "lead",
+              "receive_label": "follow"
+            },
+            {
+              "id": "xda0017",
+              "name": "Samba",
+              "risk": false,
+              "type": "give_receive",
+              "give_label": "lead",
+              "receive_label": "follow"
+            },
+            {
+              "id": "xda0018",
+              "name": "Jive",
+              "risk": false,
+              "type": "give_receive",
+              "give_label": "lead",
+              "receive_label": "follow"
+            },
+            {
+              "id": "xda0019",
+              "name": "Bolero",
+              "risk": false,
+              "type": "give_receive",
+              "give_label": "lead",
+              "receive_label": "follow"
+            },
+            {
+              "id": "xda0020",
+              "name": "Mambo",
+              "risk": false,
+              "type": "give_receive",
+              "give_label": "lead",
+              "receive_label": "follow"
+            }
+          ]
         }
       ]
     },
@@ -216,62 +222,75 @@
       "id": "xdac04",
       "name": "Swing & blues",
       "about": "Born in the ballrooms of Harlem and raised everywhere since.",
-      "topics": [
+      "parentTopics": [],
+      "subcategories": [
         {
-          "id": "xda0021",
-          "name": "East Coast Swing",
-          "risk": false,
-          "type": "give_receive",
-          "give_label": "lead",
-          "receive_label": "follow"
+          "id": "xdas03",
+          "name": "The Lindy family",
+          "topics": [
+            {
+              "id": "xda0021",
+              "name": "East Coast Swing",
+              "risk": false,
+              "type": "give_receive",
+              "give_label": "lead",
+              "receive_label": "follow"
+            },
+            {
+              "id": "xda0022",
+              "name": "Lindy Hop",
+              "risk": false,
+              "type": "give_receive",
+              "give_label": "lead",
+              "receive_label": "follow"
+            },
+            {
+              "id": "xda0023",
+              "name": "Charleston",
+              "risk": false,
+              "type": "give_receive",
+              "give_label": "lead",
+              "receive_label": "follow"
+            },
+            {
+              "id": "xda0024",
+              "name": "Balboa",
+              "risk": false,
+              "type": "give_receive",
+              "give_label": "lead",
+              "receive_label": "follow"
+            },
+            {
+              "id": "xda0027",
+              "name": "Collegiate Shag",
+              "risk": false,
+              "type": "give_receive",
+              "give_label": "lead",
+              "receive_label": "follow"
+            }
+          ]
         },
         {
-          "id": "xda0022",
-          "name": "Lindy Hop",
-          "risk": false,
-          "type": "give_receive",
-          "give_label": "lead",
-          "receive_label": "follow"
-        },
-        {
-          "id": "xda0023",
-          "name": "Charleston",
-          "risk": false,
-          "type": "give_receive",
-          "give_label": "lead",
-          "receive_label": "follow"
-        },
-        {
-          "id": "xda0024",
-          "name": "Balboa",
-          "risk": false,
-          "type": "give_receive",
-          "give_label": "lead",
-          "receive_label": "follow"
-        },
-        {
-          "id": "xda0025",
-          "name": "West Coast Swing",
-          "risk": false,
-          "type": "give_receive",
-          "give_label": "lead",
-          "receive_label": "follow"
-        },
-        {
-          "id": "xda0026",
-          "name": "Blues Dancing",
-          "risk": false,
-          "type": "give_receive",
-          "give_label": "lead",
-          "receive_label": "follow"
-        },
-        {
-          "id": "xda0027",
-          "name": "Collegiate Shag",
-          "risk": false,
-          "type": "give_receive",
-          "give_label": "lead",
-          "receive_label": "follow"
+          "id": "xdas04",
+          "name": "West Coast & blues",
+          "topics": [
+            {
+              "id": "xda0025",
+              "name": "West Coast Swing",
+              "risk": false,
+              "type": "give_receive",
+              "give_label": "lead",
+              "receive_label": "follow"
+            },
+            {
+              "id": "xda0026",
+              "name": "Blues Dancing",
+              "risk": false,
+              "type": "give_receive",
+              "give_label": "lead",
+              "receive_label": "follow"
+            }
+          ]
         }
       ]
     },
@@ -279,55 +298,7 @@
       "id": "xdac05",
       "name": "Salsa & club",
       "about": "The club Latin floor: fast turns, close bodies, late nights.",
-      "topics": [
-        {
-          "id": "xda0028",
-          "name": "Salsa",
-          "risk": false,
-          "type": "give_receive",
-          "give_label": "lead",
-          "receive_label": "follow"
-        },
-        {
-          "id": "xda0029",
-          "name": "Bachata",
-          "risk": false,
-          "type": "give_receive",
-          "give_label": "lead",
-          "receive_label": "follow"
-        },
-        {
-          "id": "xda0030",
-          "name": "Merengue",
-          "risk": false,
-          "type": "give_receive",
-          "give_label": "lead",
-          "receive_label": "follow"
-        },
-        {
-          "id": "xda0031",
-          "name": "Kizomba",
-          "risk": false,
-          "type": "give_receive",
-          "give_label": "lead",
-          "receive_label": "follow"
-        },
-        {
-          "id": "xda0032",
-          "name": "Brazilian Zouk",
-          "risk": false,
-          "type": "give_receive",
-          "give_label": "lead",
-          "receive_label": "follow"
-        },
-        {
-          "id": "xda0033",
-          "name": "Cumbia",
-          "risk": false,
-          "type": "give_receive",
-          "give_label": "lead",
-          "receive_label": "follow"
-        },
+      "parentTopics": [
         {
           "id": "xda0034",
           "name": "Reggaeton",
@@ -335,6 +306,68 @@
           "type": "give_receive",
           "give_label": "lead",
           "receive_label": "follow"
+        }
+      ],
+      "subcategories": [
+        {
+          "id": "xdas05",
+          "name": "Cuban & Caribbean",
+          "topics": [
+            {
+              "id": "xda0028",
+              "name": "Salsa",
+              "risk": false,
+              "type": "give_receive",
+              "give_label": "lead",
+              "receive_label": "follow"
+            },
+            {
+              "id": "xda0029",
+              "name": "Bachata",
+              "risk": false,
+              "type": "give_receive",
+              "give_label": "lead",
+              "receive_label": "follow"
+            },
+            {
+              "id": "xda0030",
+              "name": "Merengue",
+              "risk": false,
+              "type": "give_receive",
+              "give_label": "lead",
+              "receive_label": "follow"
+            },
+            {
+              "id": "xda0033",
+              "name": "Cumbia",
+              "risk": false,
+              "type": "give_receive",
+              "give_label": "lead",
+              "receive_label": "follow"
+            }
+          ]
+        },
+        {
+          "id": "xdas06",
+          "name": "Zouk & kizomba",
+          "topics": [
+            {
+              "id": "xda0032",
+              "name": "Brazilian Zouk",
+              "risk": false,
+              "type": "give_receive",
+              "give_label": "lead",
+              "receive_label": "follow"
+            },
+            {
+              "id": "xda0031",
+              "name": "Kizomba",
+              "risk": false,
+              "type": "give_receive",
+              "give_label": "lead",
+              "receive_label": "follow"
+            }
+          ]
         }
       ]
     },
@@ -1370,7 +1403,7 @@
     "kind": "layout-settings",
     "version": 3,
     "app": "sexcapades",
-    "build": "2026-11-22_1954",
+    "build": "2026-11-22_2010",
     "exportedAt": "2026-11-23T01:54:03.000Z",
     "hash": "#layout-spacing=airy&layout-branchOrder=landscape-antipodal&layout-propFan=1&layout-subcatOrder=1&layout-staggerDensity=0&layout-stagger=1&layout-expandAll=1&layout-collision=grow&layout-crossmin=0&layout-nudge=0&layout-showRelations=0&layout-spokeLen=2.60&layout-subLen=1.20&layout-pad=1.40&layout-repulsion=0.00&layout-repulsionEnabled=0&layout-staticMap=0&layout-animations=0&layout-mapSliders=0&layout-fontScale=30.00&layout-centerRingScale=10.00&layout-leafOvergrowth=100&layout-autoShrinkFactor=0.76&layout-subcatCloudShrinkFactor=0.76",
     "positions": {
@@ -1379,23 +1412,23 @@
       "capturedAt": "2026-11-23T01:54:03.000Z",
       "settingsHash": "#layout-spacing=airy&layout-branchOrder=landscape-antipodal&layout-propFan=1&layout-subcatOrder=1&layout-staggerDensity=0&layout-stagger=1&layout-expandAll=1&layout-collision=grow&layout-crossmin=0&layout-nudge=0&layout-showRelations=0&layout-spokeLen=2.60&layout-subLen=1.20&layout-pad=1.40&layout-repulsion=0.00&layout-repulsionEnabled=0&layout-staticMap=0&layout-animations=0&layout-mapSliders=0&layout-fontScale=30.00&layout-centerRingScale=10.00&layout-leafOvergrowth=100&layout-autoShrinkFactor=0.76&layout-subcatCloudShrinkFactor=0.76",
       "fingerprint": "{\"spacing\": \"airy\", \"branchOrder\": \"landscape-antipodal\", \"propFan\": true, \"subcatOrder\": true, \"staggerDensity\": false, \"stagger\": true, \"expandAll\": true, \"crossmin\": false, \"nudge\": false, \"showRelations\": false, \"repulsionEnabled\": false, \"staticMap\": false, \"animations\": false, \"mapSliders\": false, \"collision\": \"grow\", \"spokeLen\": 2.6, \"subLen\": 1.2, \"pad\": 1.4, \"repulsion\": 0, \"fontScale\": 30, \"centerRingScale\": 10, \"leafOvergrowth\": 100, \"autoShrinkFactor\": 0.76, \"subcatCloudShrinkFactor\": 0.76, \"branchOverrides\": {}, \"subcatOverrides\": {}, \"kinkOverrides\": {}, \"subcatAngleOffsets\": {}, \"kinkAngleOffsets\": {}, \"branchSpokeAutoShrink\": {}, \"subcatSpokeAutoShrink\": {}}",
-      "treeSignature": "xdac01:xda0001[],xda0002[],xda0003[],xda0004[],xda0005[],xda0006[],xda0007[],xda0008[]|xdac02:xda0009[],xda0010[],xda0011[],xda0012[],xda0013[],xda0014[]|xdac03:xda0015[],xda0016[],xda0017[],xda0018[],xda0019[],xda0020[]|xdac04:xda0021[],xda0022[],xda0023[],xda0024[],xda0025[],xda0026[],xda0027[]|xdac05:xda0028[],xda0029[],xda0030[],xda0031[],xda0032[],xda0033[],xda0034[]|xdac06:xda0035[],xda0036[],xda0037[],xda0038[],xda0039[],xda0040[]|xdac07:xda0041[],xda0042[],xda0043[],xda0044[],xda0045[],xda0046[],xda0047[]|xdac08:xda0048[],xda0049[],xda0050[],xda0051[],xda0052[],xda0053[],xda0054[],xda0055[],xda0056[],xda0057[]|xdac09:xda0058[],xda0059[],xda0060[],xda0061[],xda0062[],xda0063[],xda0064[]|xdac10:xda0065[],xda0066[],xda0067[],xda0068[],xda0069[],xda0070[],xda0071[],xda0072[],xda0073[]",
+      "treeSignature": "xdac01:xda0001[],xda0002[],xda0003[],xda0004[],xda0005[],xda0006[],xda0007[],xda0008[]|xdac02:xdas01[xda0009,xda0010,xda0011,xda0012,xda0013,xda0014],xdas02[xda0015,xda0016,xda0017,xda0018,xda0019,xda0020]|xdac04:xdas03[xda0021,xda0022,xda0023,xda0024,xda0027],xdas04[xda0025,xda0026]|xdac05:xda0034[],xdas05[xda0028,xda0029,xda0030,xda0033],xdas06[xda0032,xda0031]|xdac06:xda0035[],xda0036[],xda0037[],xda0038[],xda0039[],xda0040[]|xdac07:xda0041[],xda0042[],xda0043[],xda0044[],xda0045[],xda0046[],xda0047[]|xdac08:xda0048[],xda0049[],xda0050[],xda0051[],xda0052[],xda0053[],xda0054[],xda0055[],xda0056[],xda0057[]|xdac09:xda0058[],xda0059[],xda0060[],xda0061[],xda0062[],xda0063[],xda0064[]|xdac10:xda0065[],xda0066[],xda0067[],xda0068[],xda0069[],xda0070[],xda0071[],xda0072[],xda0073[]",
       "crossings": 0,
       "branches": [
         {
           "name": "Partnering & connection",
           "catId": "xdac01",
-          "angle": -2.827433388230814,
-          "sector": 0.6283185307179586,
-          "topicCloudRadius": 337.3,
-          "topicCloudRadiusBase": 337.3,
+          "angle": -2.792526803190927,
+          "sector": 0.6981317007977318,
+          "topicCloudRadius": 337.28,
+          "topicCloudRadiusBase": 337.28,
           "spokeAdjust20": 0,
           "topics": [
             {
               "id": "xda0001",
-              "angle": -3.1023227454199205,
-              "sector": 0.07853981633974483,
-              "cloudAngle": -2.827433388230814,
+              "angle": -3.097959422289935,
+              "sector": 0.08726646259971647,
+              "cloudAngle": -3.097959422289935,
               "cloudRadius": 410.69,
               "cloudCount": 8,
               "cloudIndex": 0,
@@ -1405,9 +1438,9 @@
             },
             {
               "id": "xda0002",
-              "angle": -3.023782929080176,
-              "sector": 0.07853981633974483,
-              "cloudAngle": -2.827433388230814,
+              "angle": -3.0106929596902186,
+              "sector": 0.08726646259971647,
+              "cloudAngle": -3.0106929596902186,
               "cloudRadius": 410.69,
               "cloudCount": 8,
               "cloudIndex": 1,
@@ -1417,9 +1450,9 @@
             },
             {
               "id": "xda0003",
-              "angle": -2.945243112740431,
-              "sector": 0.07853981633974483,
-              "cloudAngle": -2.827433388230814,
+              "angle": -2.9234264970905017,
+              "sector": 0.08726646259971647,
+              "cloudAngle": -2.9234264970905017,
               "cloudRadius": 410.69,
               "cloudCount": 8,
               "cloudIndex": 2,
@@ -1429,9 +1462,9 @@
             },
             {
               "id": "xda0004",
-              "angle": -2.8667032964006864,
-              "sector": 0.07853981633974483,
-              "cloudAngle": -2.827433388230814,
+              "angle": -2.8361600344907854,
+              "sector": 0.08726646259971647,
+              "cloudAngle": -2.8361600344907854,
               "cloudRadius": 410.69,
               "cloudCount": 8,
               "cloudIndex": 3,
@@ -1441,9 +1474,9 @@
             },
             {
               "id": "xda0005",
-              "angle": -2.788163480060941,
-              "sector": 0.07853981633974483,
-              "cloudAngle": -2.827433388230814,
+              "angle": -2.748893571891069,
+              "sector": 0.08726646259971647,
+              "cloudAngle": -2.748893571891069,
               "cloudRadius": 410.69,
               "cloudCount": 8,
               "cloudIndex": 4,
@@ -1453,9 +1486,9 @@
             },
             {
               "id": "xda0006",
-              "angle": -2.709623663721197,
-              "sector": 0.07853981633974483,
-              "cloudAngle": -2.827433388230814,
+              "angle": -2.6616271092913526,
+              "sector": 0.08726646259971647,
+              "cloudAngle": -2.6616271092913526,
               "cloudRadius": 410.69,
               "cloudCount": 8,
               "cloudIndex": 5,
@@ -1465,9 +1498,9 @@
             },
             {
               "id": "xda0007",
-              "angle": -2.6310838473814515,
-              "sector": 0.07853981633974483,
-              "cloudAngle": -2.827433388230814,
+              "angle": -2.574360646691636,
+              "sector": 0.08726646259971647,
+              "cloudAngle": -2.574360646691636,
               "cloudRadius": 410.69,
               "cloudCount": 8,
               "cloudIndex": 6,
@@ -1477,9 +1510,9 @@
             },
             {
               "id": "xda0008",
-              "angle": -2.552544031041707,
-              "sector": 0.07853981633974483,
-              "cloudAngle": -2.827433388230814,
+              "angle": -2.4870941840919194,
+              "sector": 0.08726646259971647,
+              "cloudAngle": -2.4870941840919194,
               "cloudRadius": 410.69,
               "cloudCount": 8,
               "cloudIndex": 7,
@@ -1490,280 +1523,302 @@
           ]
         },
         {
-          "name": "Ballroom & smooth",
+          "name": "Ballroom",
           "catId": "xdac02",
-          "angle": -2.199114857512855,
-          "sector": 0.6283185307179586,
-          "topicCloudRadius": 253.0,
-          "topicCloudRadiusBase": 253.0,
+          "angle": -2.0943951023931957,
+          "sector": 0.6981317007977318,
+          "topicCloudRadius": 505.92,
+          "topicCloudRadiusBase": 505.92,
           "spokeAdjust20": 0,
           "topics": [
             {
-              "id": "xda0009",
-              "angle": -2.4609142453120048,
-              "sector": 0.10471975511965977,
-              "cloudAngle": -2.199114857512855,
+              "id": "xdas01",
+              "angle": -2.239839206726056,
+              "sector": 0.3490658503988659,
+              "cloudAngle": -2.239839206726056,
               "cloudRadius": 410.69,
               "cloudCount": 6,
               "cloudIndex": 0,
               "curve": false,
               "radialFit20": null,
-              "children": []
+              "children": [
+                {
+                  "id": "xda0009",
+                  "angle": -2.414372131925489,
+                  "sector": 0.05817764173314432,
+                  "cloudAngle": -2.414372131925489,
+                  "cloudRadius": 209.62,
+                  "cloudCount": 6,
+                  "cloudIndex": 0,
+                  "curve": false,
+                  "radialFit20": null
+                },
+                {
+                  "id": "xda0010",
+                  "angle": -2.356194490192345,
+                  "sector": 0.05817764173314432,
+                  "cloudAngle": -2.356194490192345,
+                  "cloudRadius": 209.62,
+                  "cloudCount": 6,
+                  "cloudIndex": 1,
+                  "curve": false,
+                  "radialFit20": null
+                },
+                {
+                  "id": "xda0011",
+                  "angle": -2.2980168484592003,
+                  "sector": 0.05817764173314432,
+                  "cloudAngle": -2.2980168484592003,
+                  "cloudRadius": 209.62,
+                  "cloudCount": 6,
+                  "cloudIndex": 2,
+                  "curve": false,
+                  "radialFit20": null
+                },
+                {
+                  "id": "xda0012",
+                  "angle": -2.239839206726056,
+                  "sector": 0.05817764173314432,
+                  "cloudAngle": -2.239839206726056,
+                  "cloudRadius": 209.62,
+                  "cloudCount": 6,
+                  "cloudIndex": 3,
+                  "curve": false,
+                  "radialFit20": null
+                },
+                {
+                  "id": "xda0013",
+                  "angle": -2.1816615649929116,
+                  "sector": 0.05817764173314432,
+                  "cloudAngle": -2.1816615649929116,
+                  "cloudRadius": 209.62,
+                  "cloudCount": 6,
+                  "cloudIndex": 4,
+                  "curve": false,
+                  "radialFit20": null
+                },
+                {
+                  "id": "xda0014",
+                  "angle": -2.1234839232597675,
+                  "sector": 0.05817764173314432,
+                  "cloudAngle": -2.1234839232597675,
+                  "cloudRadius": 209.62,
+                  "cloudCount": 6,
+                  "cloudIndex": 5,
+                  "curve": false,
+                  "radialFit20": null
+                }
+              ]
             },
             {
-              "id": "xda0010",
-              "angle": -2.356194490192345,
-              "sector": 0.10471975511965977,
-              "cloudAngle": -2.199114857512855,
-              "cloudRadius": 410.69,
-              "cloudCount": 6,
-              "cloudIndex": 1,
-              "curve": false,
-              "radialFit20": null,
-              "children": []
-            },
-            {
-              "id": "xda0011",
-              "angle": -2.251474735072685,
-              "sector": 0.10471975511965977,
-              "cloudAngle": -2.199114857512855,
-              "cloudRadius": 410.69,
-              "cloudCount": 6,
-              "cloudIndex": 2,
-              "curve": false,
-              "radialFit20": null,
-              "children": []
-            },
-            {
-              "id": "xda0012",
-              "angle": -2.1467549799530254,
-              "sector": 0.10471975511965977,
-              "cloudAngle": -2.199114857512855,
-              "cloudRadius": 410.69,
-              "cloudCount": 6,
-              "cloudIndex": 3,
-              "curve": false,
-              "radialFit20": null,
-              "children": []
-            },
-            {
-              "id": "xda0013",
-              "angle": -2.0420352248333655,
-              "sector": 0.10471975511965977,
-              "cloudAngle": -2.199114857512855,
-              "cloudRadius": 410.69,
-              "cloudCount": 6,
-              "cloudIndex": 4,
-              "curve": false,
-              "radialFit20": null,
-              "children": []
-            },
-            {
-              "id": "xda0014",
-              "angle": -1.9373154697137058,
-              "sector": 0.10471975511965977,
-              "cloudAngle": -2.199114857512855,
-              "cloudRadius": 410.69,
-              "cloudCount": 6,
-              "cloudIndex": 5,
-              "curve": false,
-              "radialFit20": null,
-              "children": []
-            }
-          ]
-        },
-        {
-          "name": "Latin & rhythm",
-          "catId": "xdac03",
-          "angle": -1.5707963267948966,
-          "sector": 0.6283185307179586,
-          "topicCloudRadius": 253.0,
-          "topicCloudRadiusBase": 253.0,
-          "spokeAdjust20": 0,
-          "topics": [
-            {
-              "id": "xda0015",
-              "angle": -1.832595714594046,
-              "sector": 0.10471975511965977,
-              "cloudAngle": -1.5707963267948966,
+              "id": "xdas02",
+              "angle": -1.8907733563271902,
+              "sector": 0.3490658503988659,
+              "cloudAngle": -1.8907733563271902,
               "cloudRadius": 410.69,
               "cloudCount": 6,
               "cloudIndex": 0,
               "curve": false,
               "radialFit20": null,
-              "children": []
-            },
-            {
-              "id": "xda0016",
-              "angle": -1.7278759594743862,
-              "sector": 0.10471975511965977,
-              "cloudAngle": -1.5707963267948966,
-              "cloudRadius": 410.69,
-              "cloudCount": 6,
-              "cloudIndex": 1,
-              "curve": false,
-              "radialFit20": null,
-              "children": []
-            },
-            {
-              "id": "xda0017",
-              "angle": -1.6231562043547265,
-              "sector": 0.10471975511965977,
-              "cloudAngle": -1.5707963267948966,
-              "cloudRadius": 410.69,
-              "cloudCount": 6,
-              "cloudIndex": 2,
-              "curve": false,
-              "radialFit20": null,
-              "children": []
-            },
-            {
-              "id": "xda0018",
-              "angle": -1.5184364492350668,
-              "sector": 0.10471975511965977,
-              "cloudAngle": -1.5707963267948966,
-              "cloudRadius": 410.69,
-              "cloudCount": 6,
-              "cloudIndex": 3,
-              "curve": false,
-              "radialFit20": null,
-              "children": []
-            },
-            {
-              "id": "xda0019",
-              "angle": -1.413716694115407,
-              "sector": 0.10471975511965977,
-              "cloudAngle": -1.5707963267948966,
-              "cloudRadius": 410.69,
-              "cloudCount": 6,
-              "cloudIndex": 4,
-              "curve": false,
-              "radialFit20": null,
-              "children": []
-            },
-            {
-              "id": "xda0020",
-              "angle": -1.3089969389957472,
-              "sector": 0.10471975511965977,
-              "cloudAngle": -1.5707963267948966,
-              "cloudRadius": 410.69,
-              "cloudCount": 6,
-              "cloudIndex": 5,
-              "curve": false,
-              "radialFit20": null,
-              "children": []
+              "children": [
+                {
+                  "id": "xda0015",
+                  "angle": -2.065306281526623,
+                  "sector": 0.05817764173314432,
+                  "cloudAngle": -2.065306281526623,
+                  "cloudRadius": 209.62,
+                  "cloudCount": 6,
+                  "cloudIndex": 0,
+                  "curve": false,
+                  "radialFit20": null
+                },
+                {
+                  "id": "xda0016",
+                  "angle": -2.007128639793479,
+                  "sector": 0.05817764173314432,
+                  "cloudAngle": -2.007128639793479,
+                  "cloudRadius": 209.62,
+                  "cloudCount": 6,
+                  "cloudIndex": 1,
+                  "curve": false,
+                  "radialFit20": null
+                },
+                {
+                  "id": "xda0017",
+                  "angle": -1.9489509980603346,
+                  "sector": 0.05817764173314432,
+                  "cloudAngle": -1.9489509980603346,
+                  "cloudRadius": 209.62,
+                  "cloudCount": 6,
+                  "cloudIndex": 2,
+                  "curve": false,
+                  "radialFit20": null
+                },
+                {
+                  "id": "xda0018",
+                  "angle": -1.8907733563271902,
+                  "sector": 0.05817764173314432,
+                  "cloudAngle": -1.8907733563271902,
+                  "cloudRadius": 209.62,
+                  "cloudCount": 6,
+                  "cloudIndex": 3,
+                  "curve": false,
+                  "radialFit20": null
+                },
+                {
+                  "id": "xda0019",
+                  "angle": -1.832595714594046,
+                  "sector": 0.05817764173314432,
+                  "cloudAngle": -1.832595714594046,
+                  "cloudRadius": 209.62,
+                  "cloudCount": 6,
+                  "cloudIndex": 4,
+                  "curve": false,
+                  "radialFit20": null
+                },
+                {
+                  "id": "xda0020",
+                  "angle": -1.7744180728609016,
+                  "sector": 0.05817764173314432,
+                  "cloudAngle": -1.7744180728609016,
+                  "cloudRadius": 209.62,
+                  "cloudCount": 6,
+                  "cloudIndex": 5,
+                  "curve": false,
+                  "radialFit20": null
+                }
+              ]
             }
           ]
         },
         {
           "name": "Swing & blues",
           "catId": "xdac04",
-          "angle": -0.9424777960769379,
-          "sector": 0.6283185307179586,
-          "topicCloudRadius": 295.1,
-          "topicCloudRadiusBase": 295.1,
+          "angle": -1.3962634015954636,
+          "sector": 0.6981317007977318,
+          "topicCloudRadius": 295.12,
+          "topicCloudRadiusBase": 295.12,
           "spokeAdjust20": 0,
           "topics": [
             {
-              "id": "xda0021",
-              "angle": -1.2117571663846345,
-              "sector": 0.08975979010256552,
-              "cloudAngle": -0.9424777960769379,
+              "id": "xdas03",
+              "angle": -1.4959965017094252,
+              "sector": 0.49866550056980846,
+              "cloudAngle": -1.4959965017094252,
               "cloudRadius": 410.69,
-              "cloudCount": 7,
+              "cloudCount": 5,
               "cloudIndex": 0,
               "curve": false,
               "radialFit20": null,
-              "children": []
+              "children": [
+                {
+                  "id": "xda0021",
+                  "angle": -1.6954627019373487,
+                  "sector": 0.09973310011396168,
+                  "cloudAngle": -1.6954627019373487,
+                  "cloudRadius": 209.62,
+                  "cloudCount": 5,
+                  "cloudIndex": 0,
+                  "curve": false,
+                  "radialFit20": null
+                },
+                {
+                  "id": "xda0022",
+                  "angle": -1.595729601823387,
+                  "sector": 0.09973310011396168,
+                  "cloudAngle": -1.595729601823387,
+                  "cloudRadius": 209.62,
+                  "cloudCount": 5,
+                  "cloudIndex": 1,
+                  "curve": false,
+                  "radialFit20": null
+                },
+                {
+                  "id": "xda0023",
+                  "angle": -1.4959965017094252,
+                  "sector": 0.09973310011396168,
+                  "cloudAngle": -1.4959965017094252,
+                  "cloudRadius": 209.62,
+                  "cloudCount": 5,
+                  "cloudIndex": 2,
+                  "curve": false,
+                  "radialFit20": null
+                },
+                {
+                  "id": "xda0024",
+                  "angle": -1.3962634015954636,
+                  "sector": 0.09973310011396168,
+                  "cloudAngle": -1.3962634015954636,
+                  "cloudRadius": 209.62,
+                  "cloudCount": 5,
+                  "cloudIndex": 3,
+                  "curve": false,
+                  "radialFit20": null
+                },
+                {
+                  "id": "xda0027",
+                  "angle": -1.296530301481502,
+                  "sector": 0.09973310011396168,
+                  "cloudAngle": -1.296530301481502,
+                  "cloudRadius": 209.62,
+                  "cloudCount": 5,
+                  "cloudIndex": 4,
+                  "curve": false,
+                  "radialFit20": null
+                }
+              ]
             },
             {
-              "id": "xda0022",
-              "angle": -1.121997376282069,
-              "sector": 0.08975979010256552,
-              "cloudAngle": -0.9424777960769379,
+              "id": "xdas04",
+              "angle": -1.0970641012535784,
+              "sector": 0.19946620022792336,
+              "cloudAngle": -1.0970641012535784,
               "cloudRadius": 410.69,
-              "cloudCount": 7,
-              "cloudIndex": 1,
+              "cloudCount": 2,
+              "cloudIndex": 0,
               "curve": false,
               "radialFit20": null,
-              "children": []
-            },
-            {
-              "id": "xda0023",
-              "angle": -1.0322375861795035,
-              "sector": 0.08975979010256552,
-              "cloudAngle": -0.9424777960769379,
-              "cloudRadius": 410.69,
-              "cloudCount": 7,
-              "cloudIndex": 2,
-              "curve": false,
-              "radialFit20": null,
-              "children": []
-            },
-            {
-              "id": "xda0024",
-              "angle": -0.9424777960769379,
-              "sector": 0.08975979010256552,
-              "cloudAngle": -0.9424777960769379,
-              "cloudRadius": 410.69,
-              "cloudCount": 7,
-              "cloudIndex": 3,
-              "curve": false,
-              "radialFit20": null,
-              "children": []
-            },
-            {
-              "id": "xda0025",
-              "angle": -0.8527180059743724,
-              "sector": 0.08975979010256552,
-              "cloudAngle": -0.9424777960769379,
-              "cloudRadius": 410.69,
-              "cloudCount": 7,
-              "cloudIndex": 4,
-              "curve": false,
-              "radialFit20": null,
-              "children": []
-            },
-            {
-              "id": "xda0026",
-              "angle": -0.7629582158718069,
-              "sector": 0.08975979010256552,
-              "cloudAngle": -0.9424777960769379,
-              "cloudRadius": 410.69,
-              "cloudCount": 7,
-              "cloudIndex": 5,
-              "curve": false,
-              "radialFit20": null,
-              "children": []
-            },
-            {
-              "id": "xda0027",
-              "angle": -0.6731984257692414,
-              "sector": 0.08975979010256552,
-              "cloudAngle": -0.9424777960769379,
-              "cloudRadius": 410.69,
-              "cloudCount": 7,
-              "cloudIndex": 6,
-              "curve": false,
-              "radialFit20": null,
-              "children": []
+              "children": [
+                {
+                  "id": "xda0025",
+                  "angle": -1.19679720136754,
+                  "sector": 0.09973310011396168,
+                  "cloudAngle": -1.19679720136754,
+                  "cloudRadius": 209.62,
+                  "cloudCount": 2,
+                  "cloudIndex": 0,
+                  "curve": false,
+                  "radialFit20": null
+                },
+                {
+                  "id": "xda0026",
+                  "angle": -1.0970641012535784,
+                  "sector": 0.09973310011396168,
+                  "cloudAngle": -1.0970641012535784,
+                  "cloudRadius": 209.62,
+                  "cloudCount": 2,
+                  "cloudIndex": 1,
+                  "curve": false,
+                  "radialFit20": null
+                }
+              ]
             }
           ]
         },
         {
           "name": "Salsa & club",
           "catId": "xdac05",
-          "angle": -0.3141592653589793,
-          "sector": 0.6283185307179586,
-          "topicCloudRadius": 295.1,
-          "topicCloudRadiusBase": 295.1,
+          "angle": -0.6981317007977319,
+          "sector": 0.6981317007977318,
+          "topicCloudRadius": 295.12,
+          "topicCloudRadiusBase": 295.12,
           "spokeAdjust20": 0,
           "topics": [
             {
-              "id": "xda0028",
-              "angle": -0.5834386356666759,
-              "sector": 0.08975979010256552,
-              "cloudAngle": -0.3141592653589793,
+              "id": "xda0034",
+              "angle": -0.997331001139617,
+              "sector": 0.09973310011396168,
+              "cloudAngle": -0.997331001139617,
               "cloudRadius": 410.69,
               "cloudCount": 7,
               "cloudIndex": 0,
@@ -1772,93 +1827,113 @@
               "children": []
             },
             {
-              "id": "xda0029",
-              "angle": -0.49367884556411035,
-              "sector": 0.08975979010256552,
-              "cloudAngle": -0.3141592653589793,
+              "id": "xdas05",
+              "angle": -0.6981317007977319,
+              "sector": 0.3989324004558467,
+              "cloudAngle": -0.6981317007977319,
               "cloudRadius": 410.69,
-              "cloudCount": 7,
-              "cloudIndex": 1,
+              "cloudCount": 4,
+              "cloudIndex": 0,
               "curve": false,
               "radialFit20": null,
-              "children": []
+              "children": [
+                {
+                  "id": "xda0028",
+                  "angle": -0.8975979010256554,
+                  "sector": 0.09973310011396168,
+                  "cloudAngle": -0.8975979010256554,
+                  "cloudRadius": 209.62,
+                  "cloudCount": 4,
+                  "cloudIndex": 0,
+                  "curve": false,
+                  "radialFit20": null
+                },
+                {
+                  "id": "xda0029",
+                  "angle": -0.7978648009116937,
+                  "sector": 0.09973310011396168,
+                  "cloudAngle": -0.7978648009116937,
+                  "cloudRadius": 209.62,
+                  "cloudCount": 4,
+                  "cloudIndex": 1,
+                  "curve": false,
+                  "radialFit20": null
+                },
+                {
+                  "id": "xda0030",
+                  "angle": -0.6981317007977319,
+                  "sector": 0.09973310011396168,
+                  "cloudAngle": -0.6981317007977319,
+                  "cloudRadius": 209.62,
+                  "cloudCount": 4,
+                  "cloudIndex": 2,
+                  "curve": false,
+                  "radialFit20": null
+                },
+                {
+                  "id": "xda0033",
+                  "angle": -0.5983986006837703,
+                  "sector": 0.09973310011396168,
+                  "cloudAngle": -0.5983986006837703,
+                  "cloudRadius": 209.62,
+                  "cloudCount": 4,
+                  "cloudIndex": 3,
+                  "curve": false,
+                  "radialFit20": null
+                }
+              ]
             },
             {
-              "id": "xda0030",
-              "angle": -0.40391905546154483,
-              "sector": 0.08975979010256552,
-              "cloudAngle": -0.3141592653589793,
+              "id": "xdas06",
+              "angle": -0.3989324004558469,
+              "sector": 0.19946620022792336,
+              "cloudAngle": -0.3989324004558469,
               "cloudRadius": 410.69,
-              "cloudCount": 7,
-              "cloudIndex": 2,
+              "cloudCount": 2,
+              "cloudIndex": 0,
               "curve": false,
               "radialFit20": null,
-              "children": []
-            },
-            {
-              "id": "xda0031",
-              "angle": -0.3141592653589793,
-              "sector": 0.08975979010256552,
-              "cloudAngle": -0.3141592653589793,
-              "cloudRadius": 410.69,
-              "cloudCount": 7,
-              "cloudIndex": 3,
-              "curve": false,
-              "radialFit20": null,
-              "children": []
-            },
-            {
-              "id": "xda0032",
-              "angle": -0.2243994752564138,
-              "sector": 0.08975979010256552,
-              "cloudAngle": -0.3141592653589793,
-              "cloudRadius": 410.69,
-              "cloudCount": 7,
-              "cloudIndex": 4,
-              "curve": false,
-              "radialFit20": null,
-              "children": []
-            },
-            {
-              "id": "xda0033",
-              "angle": -0.13463968515384828,
-              "sector": 0.08975979010256552,
-              "cloudAngle": -0.3141592653589793,
-              "cloudRadius": 410.69,
-              "cloudCount": 7,
-              "cloudIndex": 5,
-              "curve": false,
-              "radialFit20": null,
-              "children": []
-            },
-            {
-              "id": "xda0034",
-              "angle": -0.04487989505128276,
-              "sector": 0.08975979010256552,
-              "cloudAngle": -0.3141592653589793,
-              "cloudRadius": 410.69,
-              "cloudCount": 7,
-              "cloudIndex": 6,
-              "curve": false,
-              "radialFit20": null,
-              "children": []
+              "children": [
+                {
+                  "id": "xda0032",
+                  "angle": -0.4986655005698085,
+                  "sector": 0.09973310011396168,
+                  "cloudAngle": -0.4986655005698085,
+                  "cloudRadius": 209.62,
+                  "cloudCount": 2,
+                  "cloudIndex": 0,
+                  "curve": false,
+                  "radialFit20": null
+                },
+                {
+                  "id": "xda0031",
+                  "angle": -0.3989324004558469,
+                  "sector": 0.09973310011396168,
+                  "cloudAngle": -0.3989324004558469,
+                  "cloudRadius": 209.62,
+                  "cloudCount": 2,
+                  "cloudIndex": 1,
+                  "curve": false,
+                  "radialFit20": null
+                }
+              ]
             }
           ]
         },
         {
           "name": "Argentine tango",
           "catId": "xdac06",
-          "angle": 0.3141592653589793,
-          "sector": 0.6283185307179586,
-          "topicCloudRadius": 253.0,
-          "topicCloudRadiusBase": 253.0,
+          "angle": 0.0,
+          "sector": 0.6981317007977318,
+          "topicCloudRadius": 252.96,
+          "topicCloudRadiusBase": 252.96,
           "spokeAdjust20": 0,
           "topics": [
             {
               "id": "xda0035",
-              "angle": 0.05235987755982988,
-              "sector": 0.10471975511965977,
-              "cloudAngle": 0.3141592653589793,
+              "angle": -0.2908882086657216,
+              "sector": 0.11635528346628864,
+              "cloudAngle": -0.2908882086657216,
               "cloudRadius": 410.69,
               "cloudCount": 6,
               "cloudIndex": 0,
@@ -1868,9 +1943,9 @@
             },
             {
               "id": "xda0036",
-              "angle": 0.15707963267948966,
-              "sector": 0.10471975511965977,
-              "cloudAngle": 0.3141592653589793,
+              "angle": -0.174532925199433,
+              "sector": 0.11635528346628864,
+              "cloudAngle": -0.174532925199433,
               "cloudRadius": 410.69,
               "cloudCount": 6,
               "cloudIndex": 1,
@@ -1880,9 +1955,9 @@
             },
             {
               "id": "xda0037",
-              "angle": 0.2617993877991494,
-              "sector": 0.10471975511965977,
-              "cloudAngle": 0.3141592653589793,
+              "angle": -0.05817764173314438,
+              "sector": 0.11635528346628864,
+              "cloudAngle": -0.05817764173314438,
               "cloudRadius": 410.69,
               "cloudCount": 6,
               "cloudIndex": 2,
@@ -1892,9 +1967,9 @@
             },
             {
               "id": "xda0038",
-              "angle": 0.36651914291880916,
-              "sector": 0.10471975511965977,
-              "cloudAngle": 0.3141592653589793,
+              "angle": 0.05817764173314427,
+              "sector": 0.11635528346628864,
+              "cloudAngle": 0.05817764173314427,
               "cloudRadius": 410.69,
               "cloudCount": 6,
               "cloudIndex": 3,
@@ -1904,9 +1979,9 @@
             },
             {
               "id": "xda0039",
-              "angle": 0.47123889803846897,
-              "sector": 0.10471975511965977,
-              "cloudAngle": 0.3141592653589793,
+              "angle": 0.17453292519943286,
+              "sector": 0.11635528346628864,
+              "cloudAngle": 0.17453292519943286,
               "cloudRadius": 410.69,
               "cloudCount": 6,
               "cloudIndex": 4,
@@ -1916,9 +1991,9 @@
             },
             {
               "id": "xda0040",
-              "angle": 0.5759586531581287,
-              "sector": 0.10471975511965977,
-              "cloudAngle": 0.3141592653589793,
+              "angle": 0.2908882086657215,
+              "sector": 0.11635528346628864,
+              "cloudAngle": 0.2908882086657215,
               "cloudRadius": 410.69,
               "cloudCount": 6,
               "cloudIndex": 5,
@@ -1931,17 +2006,17 @@
         {
           "name": "Country & folk",
           "catId": "xdac07",
-          "angle": 0.9424777960769379,
-          "sector": 0.6283185307179586,
-          "topicCloudRadius": 295.1,
-          "topicCloudRadiusBase": 295.1,
+          "angle": 0.6981317007977319,
+          "sector": 0.6981317007977318,
+          "topicCloudRadius": 295.12,
+          "topicCloudRadiusBase": 295.12,
           "spokeAdjust20": 0,
           "topics": [
             {
               "id": "xda0041",
-              "angle": 0.6731984257692414,
-              "sector": 0.08975979010256552,
-              "cloudAngle": 0.9424777960769379,
+              "angle": 0.39893240045584677,
+              "sector": 0.09973310011396168,
+              "cloudAngle": 0.39893240045584677,
               "cloudRadius": 410.69,
               "cloudCount": 7,
               "cloudIndex": 0,
@@ -1951,9 +2026,9 @@
             },
             {
               "id": "xda0042",
-              "angle": 0.7629582158718069,
-              "sector": 0.08975979010256552,
-              "cloudAngle": 0.9424777960769379,
+              "angle": 0.49866550056980846,
+              "sector": 0.09973310011396168,
+              "cloudAngle": 0.49866550056980846,
               "cloudRadius": 410.69,
               "cloudCount": 7,
               "cloudIndex": 1,
@@ -1963,9 +2038,9 @@
             },
             {
               "id": "xda0043",
-              "angle": 0.8527180059743724,
-              "sector": 0.08975979010256552,
-              "cloudAngle": 0.9424777960769379,
+              "angle": 0.5983986006837702,
+              "sector": 0.09973310011396168,
+              "cloudAngle": 0.5983986006837702,
               "cloudRadius": 410.69,
               "cloudCount": 7,
               "cloudIndex": 2,
@@ -1975,9 +2050,9 @@
             },
             {
               "id": "xda0044",
-              "angle": 0.9424777960769379,
-              "sector": 0.08975979010256552,
-              "cloudAngle": 0.9424777960769379,
+              "angle": 0.6981317007977319,
+              "sector": 0.09973310011396168,
+              "cloudAngle": 0.6981317007977319,
               "cloudRadius": 410.69,
               "cloudCount": 7,
               "cloudIndex": 3,
@@ -1987,9 +2062,9 @@
             },
             {
               "id": "xda0045",
-              "angle": 1.0322375861795035,
-              "sector": 0.08975979010256552,
-              "cloudAngle": 0.9424777960769379,
+              "angle": 0.7978648009116935,
+              "sector": 0.09973310011396168,
+              "cloudAngle": 0.7978648009116935,
               "cloudRadius": 410.69,
               "cloudCount": 7,
               "cloudIndex": 4,
@@ -1999,9 +2074,9 @@
             },
             {
               "id": "xda0046",
-              "angle": 1.121997376282069,
-              "sector": 0.08975979010256552,
-              "cloudAngle": 0.9424777960769379,
+              "angle": 0.8975979010256553,
+              "sector": 0.09973310011396168,
+              "cloudAngle": 0.8975979010256553,
               "cloudRadius": 410.69,
               "cloudCount": 7,
               "cloudIndex": 5,
@@ -2011,9 +2086,9 @@
             },
             {
               "id": "xda0047",
-              "angle": 1.2117571663846345,
-              "sector": 0.08975979010256552,
-              "cloudAngle": 0.9424777960769379,
+              "angle": 0.9973310011396169,
+              "sector": 0.09973310011396168,
+              "cloudAngle": 0.9973310011396169,
               "cloudRadius": 410.69,
               "cloudCount": 7,
               "cloudIndex": 6,
@@ -2026,17 +2101,17 @@
         {
           "name": "The social floor",
           "catId": "xdac08",
-          "angle": 1.5707963267948966,
-          "sector": 0.6283185307179586,
+          "angle": 1.3962634015954638,
+          "sector": 0.6981317007977318,
           "topicCloudRadius": 421.6,
           "topicCloudRadiusBase": 421.6,
           "spokeAdjust20": 0,
           "topics": [
             {
               "id": "xda0048",
-              "angle": 1.2880529879718152,
-              "sector": 0.06283185307179587,
-              "cloudAngle": 1.5707963267948966,
+              "angle": 1.082104136236484,
+              "sector": 0.06981317007977318,
+              "cloudAngle": 1.082104136236484,
               "cloudRadius": 410.69,
               "cloudCount": 10,
               "cloudIndex": 0,
@@ -2046,9 +2121,9 @@
             },
             {
               "id": "xda0049",
-              "angle": 1.350884841043611,
-              "sector": 0.06283185307179587,
-              "cloudAngle": 1.5707963267948966,
+              "angle": 1.151917306316257,
+              "sector": 0.06981317007977318,
+              "cloudAngle": 1.151917306316257,
               "cloudRadius": 410.69,
               "cloudCount": 10,
               "cloudIndex": 1,
@@ -2058,9 +2133,9 @@
             },
             {
               "id": "xda0050",
-              "angle": 1.413716694115407,
-              "sector": 0.06283185307179587,
-              "cloudAngle": 1.5707963267948966,
+              "angle": 1.2217304763960304,
+              "sector": 0.06981317007977318,
+              "cloudAngle": 1.2217304763960304,
               "cloudRadius": 410.69,
               "cloudCount": 10,
               "cloudIndex": 2,
@@ -2070,9 +2145,9 @@
             },
             {
               "id": "xda0051",
-              "angle": 1.4765485471872029,
-              "sector": 0.06283185307179587,
-              "cloudAngle": 1.5707963267948966,
+              "angle": 1.2915436464758034,
+              "sector": 0.06981317007977318,
+              "cloudAngle": 1.2915436464758034,
               "cloudRadius": 410.69,
               "cloudCount": 10,
               "cloudIndex": 3,
@@ -2082,9 +2157,9 @@
             },
             {
               "id": "xda0052",
-              "angle": 1.5393804002589986,
-              "sector": 0.06283185307179587,
-              "cloudAngle": 1.5707963267948966,
+              "angle": 1.3613568165555767,
+              "sector": 0.06981317007977318,
+              "cloudAngle": 1.3613568165555767,
               "cloudRadius": 410.69,
               "cloudCount": 10,
               "cloudIndex": 4,
@@ -2094,9 +2169,9 @@
             },
             {
               "id": "xda0053",
-              "angle": 1.6022122533307945,
-              "sector": 0.06283185307179587,
-              "cloudAngle": 1.5707963267948966,
+              "angle": 1.43116998663535,
+              "sector": 0.06981317007977318,
+              "cloudAngle": 1.43116998663535,
               "cloudRadius": 410.69,
               "cloudCount": 10,
               "cloudIndex": 5,
@@ -2106,9 +2181,9 @@
             },
             {
               "id": "xda0054",
-              "angle": 1.6650441064025903,
-              "sector": 0.06283185307179587,
-              "cloudAngle": 1.5707963267948966,
+              "angle": 1.500983156715123,
+              "sector": 0.06981317007977318,
+              "cloudAngle": 1.500983156715123,
               "cloudRadius": 410.69,
               "cloudCount": 10,
               "cloudIndex": 6,
@@ -2118,9 +2193,9 @@
             },
             {
               "id": "xda0055",
-              "angle": 1.7278759594743862,
-              "sector": 0.06283185307179587,
-              "cloudAngle": 1.5707963267948966,
+              "angle": 1.5707963267948963,
+              "sector": 0.06981317007977318,
+              "cloudAngle": 1.5707963267948963,
               "cloudRadius": 410.69,
               "cloudCount": 10,
               "cloudIndex": 7,
@@ -2130,9 +2205,9 @@
             },
             {
               "id": "xda0056",
-              "angle": 1.7907078125461822,
-              "sector": 0.06283185307179587,
-              "cloudAngle": 1.5707963267948966,
+              "angle": 1.6406094968746694,
+              "sector": 0.06981317007977318,
+              "cloudAngle": 1.6406094968746694,
               "cloudRadius": 410.69,
               "cloudCount": 10,
               "cloudIndex": 8,
@@ -2142,9 +2217,9 @@
             },
             {
               "id": "xda0057",
-              "angle": 1.8535396656179781,
-              "sector": 0.06283185307179587,
-              "cloudAngle": 1.5707963267948966,
+              "angle": 1.7104226669544427,
+              "sector": 0.06981317007977318,
+              "cloudAngle": 1.7104226669544427,
               "cloudRadius": 410.69,
               "cloudCount": 10,
               "cloudIndex": 9,
@@ -2157,17 +2232,17 @@
         {
           "name": "Music & movement",
           "catId": "xdac09",
-          "angle": 2.199114857512855,
-          "sector": 0.6283185307179586,
-          "topicCloudRadius": 295.1,
-          "topicCloudRadiusBase": 295.1,
+          "angle": 2.0943951023931957,
+          "sector": 0.6981317007977318,
+          "topicCloudRadius": 295.12,
+          "topicCloudRadiusBase": 295.12,
           "spokeAdjust20": 0,
           "topics": [
             {
               "id": "xda0058",
-              "angle": 1.9298354872051586,
-              "sector": 0.08975979010256552,
-              "cloudAngle": 2.199114857512855,
+              "angle": 1.7951958020513101,
+              "sector": 0.09973310011396168,
+              "cloudAngle": 1.7951958020513101,
               "cloudRadius": 410.69,
               "cloudCount": 7,
               "cloudIndex": 0,
@@ -2177,9 +2252,9 @@
             },
             {
               "id": "xda0059",
-              "angle": 2.019595277307724,
-              "sector": 0.08975979010256552,
-              "cloudAngle": 2.199114857512855,
+              "angle": 1.8949289021652718,
+              "sector": 0.09973310011396168,
+              "cloudAngle": 1.8949289021652718,
               "cloudRadius": 410.69,
               "cloudCount": 7,
               "cloudIndex": 1,
@@ -2189,9 +2264,9 @@
             },
             {
               "id": "xda0060",
-              "angle": 2.1093550674102897,
-              "sector": 0.08975979010256552,
-              "cloudAngle": 2.199114857512855,
+              "angle": 1.9946620022792336,
+              "sector": 0.09973310011396168,
+              "cloudAngle": 1.9946620022792336,
               "cloudRadius": 410.69,
               "cloudCount": 7,
               "cloudIndex": 2,
@@ -2201,9 +2276,9 @@
             },
             {
               "id": "xda0061",
-              "angle": 2.199114857512855,
-              "sector": 0.08975979010256552,
-              "cloudAngle": 2.199114857512855,
+              "angle": 2.0943951023931953,
+              "sector": 0.09973310011396168,
+              "cloudAngle": 2.0943951023931953,
               "cloudRadius": 410.69,
               "cloudCount": 7,
               "cloudIndex": 3,
@@ -2213,9 +2288,9 @@
             },
             {
               "id": "xda0062",
-              "angle": 2.2888746476154207,
-              "sector": 0.08975979010256552,
-              "cloudAngle": 2.199114857512855,
+              "angle": 2.194128202507157,
+              "sector": 0.09973310011396168,
+              "cloudAngle": 2.194128202507157,
               "cloudRadius": 410.69,
               "cloudCount": 7,
               "cloudIndex": 4,
@@ -2225,9 +2300,9 @@
             },
             {
               "id": "xda0063",
-              "angle": 2.378634437717986,
-              "sector": 0.08975979010256552,
-              "cloudAngle": 2.199114857512855,
+              "angle": 2.2938613026211185,
+              "sector": 0.09973310011396168,
+              "cloudAngle": 2.2938613026211185,
               "cloudRadius": 410.69,
               "cloudCount": 7,
               "cloudIndex": 5,
@@ -2237,9 +2312,9 @@
             },
             {
               "id": "xda0064",
-              "angle": 2.4683942278205517,
-              "sector": 0.08975979010256552,
-              "cloudAngle": 2.199114857512855,
+              "angle": 2.39359440273508,
+              "sector": 0.09973310011396168,
+              "cloudAngle": 2.39359440273508,
               "cloudRadius": 410.69,
               "cloudCount": 7,
               "cloudIndex": 6,
@@ -2252,17 +2327,17 @@
         {
           "name": "Settings & scenes",
           "catId": "xdac10",
-          "angle": 2.827433388230814,
-          "sector": 0.6283185307179586,
-          "topicCloudRadius": 379.4,
-          "topicCloudRadiusBase": 379.4,
+          "angle": 2.7925268031909267,
+          "sector": 0.6981317007977318,
+          "topicCloudRadius": 379.44,
+          "topicCloudRadiusBase": 379.44,
           "spokeAdjust20": 0,
           "topics": [
             {
               "id": "xda0065",
-              "angle": 2.548180707911721,
-              "sector": 0.06981317007977318,
-              "cloudAngle": 2.827433388230814,
+              "angle": 2.482246047280824,
+              "sector": 0.07757018897752575,
+              "cloudAngle": 2.482246047280824,
               "cloudRadius": 410.69,
               "cloudCount": 9,
               "cloudIndex": 0,
@@ -2272,9 +2347,9 @@
             },
             {
               "id": "xda0066",
-              "angle": 2.6179938779914944,
-              "sector": 0.06981317007977318,
-              "cloudAngle": 2.827433388230814,
+              "angle": 2.55981623625835,
+              "sector": 0.07757018897752575,
+              "cloudAngle": 2.55981623625835,
               "cloudRadius": 410.69,
               "cloudCount": 9,
               "cloudIndex": 1,
@@ -2284,9 +2359,9 @@
             },
             {
               "id": "xda0067",
-              "angle": 2.6878070480712672,
-              "sector": 0.06981317007977318,
-              "cloudAngle": 2.827433388230814,
+              "angle": 2.6373864252358756,
+              "sector": 0.07757018897752575,
+              "cloudAngle": 2.6373864252358756,
               "cloudRadius": 410.69,
               "cloudCount": 9,
               "cloudIndex": 2,
@@ -2296,9 +2371,9 @@
             },
             {
               "id": "xda0068",
-              "angle": 2.7576202181510405,
-              "sector": 0.06981317007977318,
-              "cloudAngle": 2.827433388230814,
+              "angle": 2.7149566142134014,
+              "sector": 0.07757018897752575,
+              "cloudAngle": 2.7149566142134014,
               "cloudRadius": 410.69,
               "cloudCount": 9,
               "cloudIndex": 3,
@@ -2308,9 +2383,9 @@
             },
             {
               "id": "xda0069",
-              "angle": 2.827433388230814,
-              "sector": 0.06981317007977318,
-              "cloudAngle": 2.827433388230814,
+              "angle": 2.792526803190927,
+              "sector": 0.07757018897752575,
+              "cloudAngle": 2.792526803190927,
               "cloudRadius": 410.69,
               "cloudCount": 9,
               "cloudIndex": 4,
@@ -2320,9 +2395,9 @@
             },
             {
               "id": "xda0070",
-              "angle": 2.897246558310587,
-              "sector": 0.06981317007977318,
-              "cloudAngle": 2.827433388230814,
+              "angle": 2.870096992168453,
+              "sector": 0.07757018897752575,
+              "cloudAngle": 2.870096992168453,
               "cloudRadius": 410.69,
               "cloudCount": 9,
               "cloudIndex": 5,
@@ -2332,9 +2407,9 @@
             },
             {
               "id": "xda0071",
-              "angle": 2.9670597283903604,
-              "sector": 0.06981317007977318,
-              "cloudAngle": 2.827433388230814,
+              "angle": 2.9476671811459787,
+              "sector": 0.07757018897752575,
+              "cloudAngle": 2.9476671811459787,
               "cloudRadius": 410.69,
               "cloudCount": 9,
               "cloudIndex": 6,
@@ -2344,9 +2419,9 @@
             },
             {
               "id": "xda0072",
-              "angle": 3.036872898470133,
-              "sector": 0.06981317007977318,
-              "cloudAngle": 2.827433388230814,
+              "angle": 3.0252373701235045,
+              "sector": 0.07757018897752575,
+              "cloudAngle": 3.0252373701235045,
               "cloudRadius": 410.69,
               "cloudCount": 9,
               "cloudIndex": 7,
@@ -2356,9 +2431,9 @@
             },
             {
               "id": "xda0073",
-              "angle": 3.1066860685499065,
-              "sector": 0.06981317007977318,
-              "cloudAngle": 2.827433388230814,
+              "angle": 3.1028075591010302,
+              "sector": 0.07757018897752575,
+              "cloudAngle": 3.1028075591010302,
               "cloudRadius": 410.69,
               "cloudCount": 9,
               "cloudIndex": 8,
