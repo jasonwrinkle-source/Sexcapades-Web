@@ -68,7 +68,8 @@
                   "name": "r/Economics",
                   "url": "https://www.reddit.com/r/Economics/"
                 }
-              ]
+              ],
+              "glyph": "cube"
             },
             {
               "archetype": null,
@@ -130,7 +131,8 @@
                   "name": "r/Economics",
                   "url": "https://www.reddit.com/r/Economics/"
                 }
-              ]
+              ],
+              "glyph": "triangle"
             },
             {
               "approx": "orthogonal diamond deformation polygon rendered as diamond; real diamond-deformation renderer is follow-up work",
@@ -201,7 +203,8 @@
                   "name": "r/Economics",
                   "url": "https://www.reddit.com/r/Economics/"
                 }
-              ]
+              ],
+              "glyph": "dial"
             },
             {
               "archetype": "simplex",
@@ -279,7 +282,8 @@
                   "name": "r/Economics",
                   "url": "https://www.reddit.com/r/Economics/"
                 }
-              ]
+              ],
+              "glyph": "star"
             },
             {
               "archetype": "simplex",
@@ -367,7 +371,8 @@
                   "name": "r/Economics",
                   "url": "https://www.reddit.com/r/Economics/"
                 }
-              ]
+              ],
+              "glyph": "house"
             }
           ]
         },
@@ -445,7 +450,8 @@
                   "name": "r/Economics",
                   "url": "https://www.reddit.com/r/Economics/"
                 }
-              ]
+              ],
+              "glyph": "scale"
             },
             {
               "archetype": "line",
@@ -517,7 +523,8 @@
                   "name": "r/Economics",
                   "url": "https://www.reddit.com/r/Economics/"
                 }
-              ]
+              ],
+              "glyph": "cube"
             },
             {
               "archetype": "line",
@@ -589,7 +596,8 @@
                   "name": "r/Economics",
                   "url": "https://www.reddit.com/r/Economics/"
                 }
-              ]
+              ],
+              "glyph": "hands"
             },
             {
               "archetype": null,
@@ -653,7 +661,8 @@
                   "name": "r/Economics",
                   "url": "https://www.reddit.com/r/Economics/"
                 }
-              ]
+              ],
+              "glyph": "hourglass"
             },
             {
               "archetype": "line",
@@ -736,7 +745,8 @@
                     "pct": 44.0
                   }
                 ]
-              }
+              },
+              "glyph": "split"
             }
           ]
         },
@@ -819,7 +829,8 @@
                   "name": "r/geopolitics",
                   "url": "https://www.reddit.com/r/geopolitics/"
                 }
-              ]
+              ],
+              "glyph": "arrows"
             },
             {
               "archetype": "line",
@@ -891,7 +902,8 @@
                   "name": "r/Economics",
                   "url": "https://www.reddit.com/r/Economics/"
                 }
-              ]
+              ],
+              "glyph": "cog"
             },
             {
               "archetype": "line",
@@ -968,7 +980,8 @@
                   "name": "r/geopolitics",
                   "url": "https://www.reddit.com/r/geopolitics/"
                 }
-              ]
+              ],
+              "glyph": "swords"
             }
           ]
         },
@@ -1046,7 +1059,8 @@
                   "name": "r/Economics",
                   "url": "https://www.reddit.com/r/Economics/"
                 }
-              ]
+              ],
+              "glyph": "coin"
             },
             {
               "archetype": null,
@@ -1110,7 +1124,8 @@
                   "name": "r/Economics",
                   "url": "https://www.reddit.com/r/Economics/"
                 }
-              ]
+              ],
+              "glyph": "bolt"
             },
             {
               "archetype": "line",
@@ -1193,7 +1208,8 @@
                     "pct": 42.0
                   }
                 ]
-              }
+              },
+              "glyph": "burst"
             }
           ]
         },
@@ -1271,7 +1287,8 @@
                   "name": "r/Economics",
                   "url": "https://www.reddit.com/r/Economics/"
                 }
-              ]
+              ],
+              "glyph": "hand"
             },
             {
               "archetype": "line",
@@ -1338,7 +1355,8 @@
                   "name": "r/changemyview",
                   "url": "https://www.reddit.com/r/changemyview/"
                 }
-              ]
+              ],
+              "glyph": "fist"
             },
             {
               "archetype": "line",
@@ -1405,7 +1423,8 @@
                   "name": "r/changemyview",
                   "url": "https://www.reddit.com/r/changemyview/"
                 }
-              ]
+              ],
+              "glyph": "shield"
             },
             {
               "archetype": "line",
@@ -1472,7 +1491,8 @@
                   "name": "r/changemyview",
                   "url": "https://www.reddit.com/r/changemyview/"
                 }
-              ]
+              ],
+              "glyph": "cradle"
             },
             {
               "archetype": "line",
@@ -1539,7 +1559,8 @@
                   "name": "r/changemyview",
                   "url": "https://www.reddit.com/r/changemyview/"
                 }
-              ]
+              ],
+              "glyph": "house"
             }
           ]
         }
@@ -1626,7 +1647,8 @@
                     "pct": 68.0
                   }
                 ]
-              }
+              },
+              "glyph": "shield"
             },
             {
               "archetype": "line",
@@ -1693,7 +1715,8 @@
                   "name": "r/changemyview",
                   "url": "https://www.reddit.com/r/changemyview/"
                 }
-              ]
+              ],
+              "glyph": "droplet"
             },
             {
               "archetype": "simplex",
@@ -1760,7 +1783,8 @@
                   "name": "r/changemyview",
                   "url": "https://www.reddit.com/r/changemyview/"
                 }
-              ]
+              ],
+              "glyph": "heart"
             },
             {
               "archetype": "line",
@@ -1827,7 +1851,8 @@
                   "name": "r/changemyview",
                   "url": "https://www.reddit.com/r/changemyview/"
                 }
-              ]
+              ],
+              "glyph": "needle"
             }
           ]
         },
@@ -1892,7 +1917,8 @@
                   "name": "r/changemyview",
                   "url": "https://www.reddit.com/r/changemyview/"
                 }
-              ]
+              ],
+              "glyph": "brain"
             },
             {
               "archetype": "line",
@@ -1959,7 +1985,8 @@
                   "name": "r/changemyview",
                   "url": "https://www.reddit.com/r/changemyview/"
                 }
-              ]
+              ],
+              "glyph": "cradle"
             },
             {
               "archetype": "line",
@@ -2026,7 +2053,8 @@
                   "name": "r/changemyview",
                   "url": "https://www.reddit.com/r/changemyview/"
                 }
-              ]
+              ],
+              "glyph": "calendar"
             }
           ]
         }
@@ -2121,7 +2149,8 @@
                     "pct": 41.0
                   }
                 ]
-              }
+              },
+              "glyph": "cloud"
             },
             {
               "archetype": "line",
@@ -2188,7 +2217,8 @@
                   "name": "r/changemyview",
                   "url": "https://www.reddit.com/r/changemyview/"
                 }
-              ]
+              ],
+              "glyph": "flame"
             },
             {
               "archetype": "line",
@@ -2255,7 +2285,8 @@
                   "name": "r/changemyview",
                   "url": "https://www.reddit.com/r/changemyview/"
                 }
-              ]
+              ],
+              "glyph": "burst"
             },
             {
               "archetype": "line",
@@ -2322,7 +2353,8 @@
                   "name": "r/changemyview",
                   "url": "https://www.reddit.com/r/changemyview/"
                 }
-              ]
+              ],
+              "glyph": "sun"
             },
             {
               "archetype": "line",
@@ -2389,7 +2421,8 @@
                   "name": "r/changemyview",
                   "url": "https://www.reddit.com/r/changemyview/"
                 }
-              ]
+              ],
+              "glyph": "bolt"
             }
           ]
         },
@@ -2462,7 +2495,8 @@
                   "name": "r/changemyview",
                   "url": "https://www.reddit.com/r/changemyview/"
                 }
-              ]
+              ],
+              "glyph": "scale"
             },
             {
               "archetype": "line",
@@ -2529,7 +2563,8 @@
                   "name": "r/changemyview",
                   "url": "https://www.reddit.com/r/changemyview/"
                 }
-              ]
+              ],
+              "glyph": "tree"
             },
             {
               "archetype": "line",
@@ -2596,7 +2631,8 @@
                   "name": "r/changemyview",
                   "url": "https://www.reddit.com/r/changemyview/"
                 }
-              ]
+              ],
+              "glyph": "seed"
             }
           ]
         }
@@ -2667,7 +2703,8 @@
                   "name": "r/changemyview",
                   "url": "https://www.reddit.com/r/changemyview/"
                 }
-              ]
+              ],
+              "glyph": "shield"
             },
             {
               "archetype": "line",
@@ -2734,7 +2771,8 @@
                   "name": "r/changemyview",
                   "url": "https://www.reddit.com/r/changemyview/"
                 }
-              ]
+              ],
+              "glyph": "arrows"
             },
             {
               "archetype": "line",
@@ -2801,7 +2839,8 @@
                   "name": "r/changemyview",
                   "url": "https://www.reddit.com/r/changemyview/"
                 }
-              ]
+              ],
+              "glyph": "house"
             }
           ]
         },
@@ -2866,7 +2905,8 @@
                   "name": "r/changemyview",
                   "url": "https://www.reddit.com/r/changemyview/"
                 }
-              ]
+              ],
+              "glyph": "scroll"
             },
             {
               "archetype": "line",
@@ -2933,7 +2973,8 @@
                   "name": "r/changemyview",
                   "url": "https://www.reddit.com/r/changemyview/"
                 }
-              ]
+              ],
+              "glyph": "anchor"
             },
             {
               "archetype": "line",
@@ -3000,7 +3041,8 @@
                   "name": "r/changemyview",
                   "url": "https://www.reddit.com/r/changemyview/"
                 }
-              ]
+              ],
+              "glyph": "key"
             },
             {
               "archetype": "line",
@@ -3067,7 +3109,8 @@
                   "name": "r/changemyview",
                   "url": "https://www.reddit.com/r/changemyview/"
                 }
-              ]
+              ],
+              "glyph": "star"
             }
           ]
         }
@@ -3149,7 +3192,8 @@
                   "name": "r/NeutralPolitics",
                   "url": "https://www.reddit.com/r/NeutralPolitics/"
                 }
-              ]
+              ],
+              "glyph": "compass"
             },
             {
               "approx": "orthogonal diamond deformation polygon rendered as diamond; real diamond-deformation renderer is follow-up work",
@@ -3215,7 +3259,8 @@
                   "name": "r/NeutralPolitics",
                   "url": "https://www.reddit.com/r/NeutralPolitics/"
                 }
-              ]
+              ],
+              "glyph": "tree"
             },
             {
               "archetype": "simplex",
@@ -3296,7 +3341,8 @@
                   "name": "r/NeutralPolitics",
                   "url": "https://www.reddit.com/r/NeutralPolitics/"
                 }
-              ]
+              ],
+              "glyph": "cube"
             },
             {
               "approx": "heptagonal legitimacy wheel with radial sliders and central barycenter rendered as heptad-radar; real wheel renderer is follow-up work",
@@ -3386,7 +3432,8 @@
                   "name": "r/NeutralPolitics",
                   "url": "https://www.reddit.com/r/NeutralPolitics/"
                 }
-              ]
+              ],
+              "glyph": "crown"
             }
           ]
         },
@@ -3459,7 +3506,8 @@
                   "name": "r/changemyview",
                   "url": "https://www.reddit.com/r/changemyview/"
                 }
-              ]
+              ],
+              "glyph": "checklist"
             },
             {
               "archetype": "line",
@@ -3526,7 +3574,8 @@
                   "name": "r/changemyview",
                   "url": "https://www.reddit.com/r/changemyview/"
                 }
-              ]
+              ],
+              "glyph": "coin"
             },
             {
               "archetype": null,
@@ -3585,7 +3634,8 @@
                   "name": "r/changemyview",
                   "url": "https://www.reddit.com/r/changemyview/"
                 }
-              ]
+              ],
+              "glyph": "checklist"
             },
             {
               "archetype": "line",
@@ -3652,7 +3702,8 @@
                   "name": "r/changemyview",
                   "url": "https://www.reddit.com/r/changemyview/"
                 }
-              ]
+              ],
+              "glyph": "checklist"
             },
             {
               "archetype": "line",
@@ -3719,7 +3770,8 @@
                   "name": "r/changemyview",
                   "url": "https://www.reddit.com/r/changemyview/"
                 }
-              ]
+              ],
+              "glyph": "split"
             },
             {
               "archetype": "line",
@@ -3786,7 +3838,8 @@
                   "name": "r/changemyview",
                   "url": "https://www.reddit.com/r/changemyview/"
                 }
-              ]
+              ],
+              "glyph": "badge"
             }
           ]
         },
@@ -3851,7 +3904,8 @@
                   "name": "r/changemyview",
                   "url": "https://www.reddit.com/r/changemyview/"
                 }
-              ]
+              ],
+              "glyph": "scale"
             },
             {
               "archetype": "line",
@@ -3918,7 +3972,8 @@
                   "name": "r/changemyview",
                   "url": "https://www.reddit.com/r/changemyview/"
                 }
-              ]
+              ],
+              "glyph": "hands"
             },
             {
               "archetype": "line",
@@ -3985,7 +4040,8 @@
                   "name": "r/changemyview",
                   "url": "https://www.reddit.com/r/changemyview/"
                 }
-              ]
+              ],
+              "glyph": "stage"
             },
             {
               "archetype": "line",
@@ -4063,7 +4119,8 @@
                     "pct": 43.0
                   }
                 ]
-              }
+              },
+              "glyph": "scale"
             },
             {
               "archetype": "line",
@@ -4130,7 +4187,8 @@
                   "name": "r/changemyview",
                   "url": "https://www.reddit.com/r/changemyview/"
                 }
-              ]
+              ],
+              "glyph": "lock"
             }
           ]
         },
@@ -4208,7 +4266,8 @@
                   "name": "r/privacy",
                   "url": "https://www.reddit.com/r/privacy/"
                 }
-              ]
+              ],
+              "glyph": "keyhole"
             },
             {
               "archetype": "line",
@@ -4275,7 +4334,8 @@
                   "name": "r/changemyview",
                   "url": "https://www.reddit.com/r/changemyview/"
                 }
-              ]
+              ],
+              "glyph": "speech"
             },
             {
               "archetype": "line",
@@ -4368,7 +4428,8 @@
                     "pct": 44.0
                   }
                 ]
-              }
+              },
+              "glyph": "brain"
             }
           ]
         }
@@ -4463,7 +4524,8 @@
                     "pct": 46.0
                   }
                 ]
-              }
+              },
+              "glyph": "seed"
             },
             {
               "archetype": "line",
@@ -4530,7 +4592,8 @@
                   "name": "r/changemyview",
                   "url": "https://www.reddit.com/r/changemyview/"
                 }
-              ]
+              ],
+              "glyph": "heart"
             },
             {
               "archetype": "line",
@@ -4597,7 +4660,8 @@
                   "name": "r/changemyview",
                   "url": "https://www.reddit.com/r/changemyview/"
                 }
-              ]
+              ],
+              "glyph": "moon"
             }
           ]
         },
@@ -4662,7 +4726,8 @@
                   "name": "r/changemyview",
                   "url": "https://www.reddit.com/r/changemyview/"
                 }
-              ]
+              ],
+              "glyph": "ring"
             },
             {
               "archetype": "line",
@@ -4740,7 +4805,8 @@
                     "pct": 23.0
                   }
                 ]
-              }
+              },
+              "glyph": "heart"
             },
             {
               "archetype": "line",
@@ -4818,7 +4884,8 @@
                     "pct": 36.0
                   }
                 ]
-              }
+              },
+              "glyph": "hands"
             },
             {
               "archetype": null,
@@ -4870,7 +4937,8 @@
                   "name": "r/changemyview",
                   "url": "https://www.reddit.com/r/changemyview/"
                 }
-              ]
+              ],
+              "glyph": "person"
             },
             {
               "archetype": null,
@@ -4922,7 +4990,8 @@
                   "name": "r/changemyview",
                   "url": "https://www.reddit.com/r/changemyview/"
                 }
-              ]
+              ],
+              "glyph": "curves"
             },
             {
               "archetype": null,
@@ -4974,7 +5043,8 @@
                   "name": "r/changemyview",
                   "url": "https://www.reddit.com/r/changemyview/"
                 }
-              ]
+              ],
+              "glyph": "feather"
             }
           ]
         },
@@ -5058,7 +5128,8 @@
                     "pct": 45.0
                   }
                 ]
-              }
+              },
+              "glyph": "target"
             },
             {
               "archetype": null,
@@ -5117,7 +5188,8 @@
                   "name": "r/changemyview",
                   "url": "https://www.reddit.com/r/changemyview/"
                 }
-              ]
+              ],
+              "glyph": "badge"
             },
             {
               "archetype": "line",
@@ -5184,7 +5256,8 @@
                   "name": "r/changemyview",
                   "url": "https://www.reddit.com/r/changemyview/"
                 }
-              ]
+              ],
+              "glyph": "scale"
             },
             {
               "archetype": "line",
@@ -5251,7 +5324,8 @@
                   "name": "r/changemyview",
                   "url": "https://www.reddit.com/r/changemyview/"
                 }
-              ]
+              ],
+              "glyph": "hourglass"
             },
             {
               "archetype": "line",
@@ -5318,7 +5392,8 @@
                   "name": "r/changemyview",
                   "url": "https://www.reddit.com/r/changemyview/"
                 }
-              ]
+              ],
+              "glyph": "droplet"
             },
             {
               "archetype": null,
@@ -5393,7 +5468,8 @@
                     "pct": 52.0
                   }
                 ]
-              }
+              },
+              "glyph": "lock"
             }
           ]
         }
@@ -5468,7 +5544,8 @@
               "name": "r/changemyview",
               "url": "https://www.reddit.com/r/changemyview/"
             }
-          ]
+          ],
+          "glyph": "key"
         },
         {
           "archetype": "line",
@@ -5535,7 +5612,8 @@
               "name": "r/changemyview",
               "url": "https://www.reddit.com/r/changemyview/"
             }
-          ]
+          ],
+          "glyph": "book"
         },
         {
           "archetype": "line",
@@ -5602,7 +5680,8 @@
               "name": "r/changemyview",
               "url": "https://www.reddit.com/r/changemyview/"
             }
-          ]
+          ],
+          "glyph": "house"
         },
         {
           "archetype": "line",
@@ -5669,7 +5748,8 @@
               "name": "r/changemyview",
               "url": "https://www.reddit.com/r/changemyview/"
             }
-          ]
+          ],
+          "glyph": "coin"
         },
         {
           "archetype": "line",
@@ -5736,7 +5816,8 @@
               "name": "r/changemyview",
               "url": "https://www.reddit.com/r/changemyview/"
             }
-          ]
+          ],
+          "glyph": "rose"
         }
       ]
     },
@@ -5808,7 +5889,8 @@
                   "name": "r/geopolitics",
                   "url": "https://www.reddit.com/r/geopolitics/"
                 }
-              ]
+              ],
+              "glyph": "triangle"
             },
             {
               "archetype": "simplex",
@@ -5894,7 +5976,8 @@
                   "name": "r/geopolitics",
                   "url": "https://www.reddit.com/r/geopolitics/"
                 }
-              ]
+              ],
+              "glyph": "compass"
             },
             {
               "archetype": "simplex",
@@ -5981,7 +6064,8 @@
                   "name": "r/geopolitics",
                   "url": "https://www.reddit.com/r/geopolitics/"
                 }
-              ]
+              ],
+              "glyph": "shield"
             }
           ]
         },
@@ -6059,7 +6143,8 @@
                   "name": "r/geopolitics",
                   "url": "https://www.reddit.com/r/geopolitics/"
                 }
-              ]
+              ],
+              "glyph": "shield"
             },
             {
               "archetype": "line",
@@ -6131,7 +6216,8 @@
                   "name": "r/geopolitics",
                   "url": "https://www.reddit.com/r/geopolitics/"
                 }
-              ]
+              ],
+              "glyph": "uniform"
             },
             {
               "archetype": null,
@@ -6188,7 +6274,8 @@
                   "name": "r/geopolitics",
                   "url": "https://www.reddit.com/r/geopolitics/"
                 }
-              ]
+              ],
+              "glyph": "medal"
             },
             {
               "archetype": "line",
@@ -6260,7 +6347,8 @@
                   "name": "r/geopolitics",
                   "url": "https://www.reddit.com/r/geopolitics/"
                 }
-              ]
+              ],
+              "glyph": "burst"
             }
           ]
         },
@@ -6338,7 +6426,8 @@
                   "name": "r/geopolitics",
                   "url": "https://www.reddit.com/r/geopolitics/"
                 }
-              ]
+              ],
+              "glyph": "hands"
             },
             {
               "archetype": "line",
@@ -6410,7 +6499,8 @@
                   "name": "r/geopolitics",
                   "url": "https://www.reddit.com/r/geopolitics/"
                 }
-              ]
+              ],
+              "glyph": "star"
             },
             {
               "archetype": null,
@@ -6485,7 +6575,8 @@
                     "pct": 35.0
                   }
                 ]
-              }
+              },
+              "glyph": "moon"
             },
             {
               "archetype": null,
@@ -6549,7 +6640,8 @@
                   "name": "r/geopolitics",
                   "url": "https://www.reddit.com/r/geopolitics/"
                 }
-              ]
+              ],
+              "glyph": "hands"
             },
             {
               "archetype": "line",
@@ -6632,7 +6724,8 @@
                     "pct": 47.0
                   }
                 ]
-              }
+              },
+              "glyph": "flame"
             }
           ]
         }
