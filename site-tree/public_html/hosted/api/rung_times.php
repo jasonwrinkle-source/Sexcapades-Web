@@ -16,9 +16,9 @@ $TOPIC_TOTAL = 404;
 $BAND_WIDTH = 50;
 
 // SQLite DB lives OUTSIDE public_html (same location collect.php writes to).
-// collect.php path: ~/domains/capades-data/sexcapades_data.db — four dirnames
+// collect.php path: ~/domains/capades-data/flexcapades_data.db — four dirnames
 // up from .../public_html/hosted/api lands on the domains dir.
-$dbPath = dirname(dirname(dirname(dirname(__DIR__)))) . '/capades-data/sexcapades_data.db';
+$dbPath = dirname(dirname(dirname(dirname(__DIR__)))) . '/capades-data/flexcapades_data.db';
 if (!file_exists($dbPath) || filesize($dbPath) === 0) {
     echo json_encode(['ok' => false, 'error' => 'no data yet', 'total_sessions' => 0]);
     exit;

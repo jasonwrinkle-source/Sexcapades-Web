@@ -33,12 +33,12 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST' && !$isGetStats) {
 }
 
 // SQLite DB (auto-created) — stored OUTSIDE public_html so deploys don't overwrite it
-// Path: ~/domains/capades-data/sexcapades_data.db (sibling of the site trees, not inside them)
+// Path: ~/domains/capades-data/flexcapades_data.db (sibling of the site trees, not inside them)
 $dataDir = dirname(dirname(dirname(dirname(__DIR__)))) . '/capades-data';
 if (!is_dir($dataDir)) {
     mkdir($dataDir, 0755, true);
 }
-$dbPath = $dataDir . '/sexcapades_data.db';
+$dbPath = $dataDir . '/flexcapades_data.db';
 $db = new SQLite3($dbPath);
 
 // Create tables if not exist

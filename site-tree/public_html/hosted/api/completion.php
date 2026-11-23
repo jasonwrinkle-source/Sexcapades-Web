@@ -25,10 +25,10 @@ $TOPIC_TOTAL = 404;
 $NUM_BINS = 10;
 
 // SQLite DB lives OUTSIDE public_html (same location collect.php writes to).
-// collect.php path: ~/domains/capades-data/sexcapades_data.db — four dirnames
+// collect.php path: ~/domains/capades-data/flexcapades_data.db — four dirnames
 // up from .../public_html/hosted/api lands on the domains dir.
 $dataDir = dirname(dirname(dirname(dirname(__DIR__)))) . '/capades-data';
-$dbPath = $dataDir . '/sexcapades_data.db';
+$dbPath = $dataDir . '/flexcapades_data.db';
 if (!file_exists($dbPath) || filesize($dbPath) === 0) {
     echo json_encode(['ok' => false, 'error' => 'no data yet', 'count' => 0]);
     exit;

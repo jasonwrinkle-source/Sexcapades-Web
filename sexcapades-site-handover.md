@@ -27,7 +27,7 @@ job is publishing updates, described below.
   - **snapshots** — packages that update the whole site at once, plus
     full-site backups.
 - **Visitor statistics** are stored on the server in a small database at
-  `~/domains/capades-data/sexcapades_data.db`. It deliberately sits
+  `~/domains/capades-data/flexcapades_data.db`. It deliberately sits
   *outside* the public folders and is never inside the update packages, so
   publishing an update can never overwrite it.
 - **Login details** for Hostinger and Google are in Jason's password

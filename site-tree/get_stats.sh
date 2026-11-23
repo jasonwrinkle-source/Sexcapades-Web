@@ -4,7 +4,7 @@
 
 # Data lives OUTSIDE public_html so deploys don't overwrite it (Jason 2026-10-14)
 DATA_DIR="$HOME/domains/capades-data"
-DB="$DATA_DIR/sexcapades_data.db"
+DB="$DATA_DIR/flexcapades_data.db"
 OUT="$DATA_DIR/stats.out"
 # Still cd to site root for .build-number
 cd ~/domains/capades.io/public_html/ || { echo "Could not cd to site root"; exit 1; }

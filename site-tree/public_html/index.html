@@ -56,7 +56,8 @@
       go("/hosted/app.html");
       return;
     }
-    go("/hosted/app.html");
+    // Default to flex.capades.io (picker) when no valid host/skin specified
+    go("/picker.html");
   })();
 </script>
 <link rel="manifest" href="/manifest.json" />
