@@ -48,6 +48,19 @@ Each item waits for Jason's kickoff; nothing here dispatches itself.
    - *Build owed:* wire receptivity into (a) the circle minus / Debate factor and match score, and (b) the single-profile factors (the rings), each time as its own component beside advocacy, following the Straight pattern.
    - Note for the builder: no receptivity was found in the headline compatibility metrics on 2026-11-23; verify the Debate computation's current inputs before wiring, don't assume.
 
+6. **Pair-Topic Tapers Color by Appetite (ruled by Jason 2026-11-23, on voice):**
+   - On Sexcapades pair (two-slider) topics, taper flank colors come from the per-flank appetites (give appetite, receive appetite — the stored intensities), NOT from the leanings.
+   - Reason: the rest of the map already colors tapers by intensity (n-pole topics; stance advocacy/receptivity stems). The pair topics were left coloring by position from the era when intensity was derived from the value.
+   - Consistency rule: tapers speak intensity everywhere; leanings are read from position, never from taper color.
+   - Scope: profile-view pair-topic tapers. Pair-tab fit tapers (Cross/Straight products) are by-design a different quantity — leave them.
+   - While there: re-check the taper mid-seam color flagged 2026-11-23 (it appeared to blend the two flank values) under this rule.
+
+7. **Selection Doors + Click-to-Zoom Cleanup (ruled/reported by Jason 2026-11-23, on voice; another AI takes these edits, per Jason's word):**
+   - *Defects from Jason's cold-open of the live deploy:* the topic picker is not working anymore, and the search field is not working either — Questcapades in particular. Diagnose whether the breakage is Quest-only or shared across skins before fixing.
+   - *Selection rule:* selection is set by deliberate picks — choosing a search result, or using the topic picker. Selection is appropriate there (it is also what feeds Autofit's "Selected branch or topic" scope).
+   - *Zoom rule:* click-to-zoom is navigation, not a pick. When a click-to-zoom finishes, the branch unselects — zooming must leave no selection behind.
+   - *Full write-up:* everything talked through on 2026-11-23 (items 5–7 in full, plus the cross-slider spec and one unruled candidate) is in `scratch-edits-2026-11-23.md` in this repo root.
+
 ---
 
 ## 2. Open Carry-Overs & Backlog
