@@ -1071,23 +1071,17 @@
                     window.__SX_WARM_BOOT_RESTORED = true;
                     try { Ih(); } catch (_) {}
                     mS();
-                } else if ((typeof sxIsBootSkinPending === "function" && sxIsBootSkinPending()) || (typeof window.__SX_IS_BOOT_SKIN_PENDING === "function" && window.__SX_IS_BOOT_SKIN_PENDING())) {
-                    // A boot skin is currently loading in parallel. Do not render Sexcapades
-                    // first only to immediately discard it and re-render the target skin.
-                    // The bootSkin pipeline in skin-loader will perform the sole initial render.
+                } else {
+                    // Delegated to bootSkin: bootSkin in skin-loader fetches the active/default
+                    // skin JSON (sexcapades.json or the target domain's skin) and executes the
+                    // single authoritative initial render with its baked layout.
                     mS();
                     t.setTimeout(() => {
                         if (!window.__SX_ACTIVE_SKIN && (!In || In.childNodes.length === 0)) {
                             Mr({ animate: !1 });
                             Ih();
                         }
-                    }, 1500);
-                } else {
-                    requestAnimationFrame(() => t.setTimeout(() => {
-                        Mr({ animate: !1 });
-                        Ih();
-                        mS();
-                    }, 0));
+                    }, 2000);
                 }
             }
         })();

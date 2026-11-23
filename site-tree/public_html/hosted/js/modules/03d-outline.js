@@ -1106,11 +1106,11 @@
                 }
                 if (!target || target === "sexcapades") {
                     const q = new URLSearchParams(location.search || "").get("skin");
-                    const known = ["sexcapades", "poliscapades", "forescapades", "philoscapades", "aesthcapades", "vocapades", "techcapades", "dharmacapades", "theoricapades", "praxicapades", "quantacapades", "expericapades", "simulcapades", "mattercapades", "chemcapades", "nouscapades"];
+                    const known = ["sexcapades", "poliscapades", "forescapades", "philoscapades", "aesthcapades", "vocapades", "techcapades", "dharmacapades", "theoricapades", "praxicapades", "quantacapades", "expericapades", "simulcapades", "mattercapades", "chemcapades", "nouscapades", "dancecapades", "questcapades"];
                     if (q && known.indexOf(q) !== -1) target = q;
                     else {
                         const host = (location.hostname || "").toLowerCase();
-                        const map = { sex: "sexcapades", polis: "poliscapades", fores: "forescapades", philo: "philoscapades", aesth: "aesthcapades", voca: "vocapades", tech: "techcapades", dharma: "dharmacapades", theori: "theoricapades", praxi: "praxicapades", quanta: "quantacapades", experi: "expericapades", simul: "simulcapades", matter: "mattercapades", chem: "chemcapades", nous: "nouscapades" };
+                        const map = { sex: "sexcapades", polis: "poliscapades", fores: "forescapades", philo: "philoscapades", aesth: "aesthcapades", voca: "vocapades", tech: "techcapades", dharma: "dharmacapades", theori: "theoricapades", praxi: "praxicapades", quanta: "quantacapades", experi: "expericapades", simul: "simulcapades", matter: "mattercapades", chem: "chemcapades", nous: "nouscapades", dance: "dancecapades", quest: "questcapades" };
                         const prefix = /\.capades\.io$/.test(host) ? host.split(".")[0] : "";
                         if (prefix && map[prefix]) target = map[prefix];
                     }

@@ -773,9 +773,6 @@
       setSamples(data.samples, "sexcapades");
       setScribe(data.scribe);
       setSceneSetter(data.sceneSetter);
-      bootApplySexcapades(data);
-      var dlg = document.getElementById("sxBootDialog");
-      if (window.FlexcapadesEngine && window.FlexcapadesEngine.Map && dlg && dlg.hidden) rerender();
     }).catch(function (err) {
       if (typeof console !== "undefined" && console.warn) console.warn("[FlexcapadesSkins] sexcapades.json not registered:", err);
     });
@@ -1703,33 +1700,11 @@
   function bootApplySexcapades(data) {
     var layout = data && data.defaultLayout;
     if (!layout || typeof layout !== "object") return;
-    var tries = 0;
-    var timer = setInterval(function () {
-      tries += 1;
-      var hook = window.__SEXCAPADES_LAYOUT_TEST;
-      var engine = window.FlexcapadesEngine;
-      if (!hook || typeof hook.importText !== "function" || !engine || !engine.Map) {
-        if (tries >= 300) {
-          clearInterval(timer);
-          if (typeof console !== "undefined" && console.warn) console.warn("[FlexcapadesSkins] boot layout not applied: engine not ready");
-        }
-        return;
-      }
-      clearInterval(timer);
-      /* Shipped values become the Reset source even when a URL hash wins
-         the live layout — Reset restores the skin's shipped values. */
-      if (layout.settings && typeof layout.settings === "object") {
-        try { window.__SEXCAPADES_LAYOUT_DEFAULTS = JSON.parse(JSON.stringify(layout.settings)); } catch (e) { /* keep fallback */ }
-      }
-      /* Baked positions (2026-11-15): the apply's own repaint paints the
-         baked geometry, so no follow-up re-solve is needed — the old
-         boot re-solve trigger (one more render after the paint settled)
-         is removed; with baked positions it would only repaint the
-         same geometry. The skip uses urlHasLayoutSettings, not the
-         __SEXCAPADES_LAYOUT_FROM_URL flag: a solverMidline-only hash
-         (written by every import) must not skip the skin's apply. */
-      if (!urlHasLayoutSettings()) applySexcapadesLayout(data);
-    }, 100);
+    if (layout.settings && typeof layout.settings === "object") {
+      try { window.__SEXCAPADES_LAYOUT_DEFAULTS = JSON.parse(JSON.stringify(layout.settings)); } catch (e) { /* keep fallback */ }
+    }
+    if (urlHasLayoutSettings()) return;
+    applySexcapadesLayout(data);
   }
 
   /* Skin-switch paint flag (2026-11-17): a switch is a fresh boot into
@@ -1782,20 +1757,18 @@
         if (thisGen !== currentSwitchGen) return activeSkin;
         applySkin(data);
         setBrand("sexcapades", data.name || "Sexcapades");
+        /* Switch-back restores the remembered Sexcapades profile, if any. */
+        if (typeof window.__SX_RESTORE_VIEWPORT_PROFILES === "function") window.__SX_RESTORE_VIEWPORT_PROFILES("sexcapades");
         sxArmSwitchPaint();
-        return Promise.resolve(rerender()).then(function () {
-          if (thisGen !== currentSwitchGen) return activeSkin;
-          /* Switch-back restores the remembered Sexcapades profile, if any. */
-          if (typeof window.__SX_RESTORE_VIEWPORT_PROFILES === "function") window.__SX_RESTORE_VIEWPORT_PROFILES("sexcapades");
-          sxArmSwitchPaint();
-          applySexcapadesLayout(data);
-          applyTerms("sexcapades", data);
-          rebuildOutlineIfOpen();
-          markSkinTransitionEnd("sexcapades");
-          return "sexcapades";
-        });
+        var layoutApplied = applySexcapadesLayout(data);
+        if (!layoutApplied) rerender();
+        applyTerms("sexcapades", data);
+        rebuildOutlineIfOpen();
+        markSkinTransitionEnd("sexcapades");
+        return "sexcapades";
       }, function (err) {
         window.__SX_FORCE_UNRATED_TREE = false;
+        try { rerender(); } catch (_) {}
         if (thisGen === currentSwitchGen) markSkinTransitionEnd(activeSkin || "sexcapades");
         throw err;
       });
@@ -1814,24 +1787,15 @@
       if (typeof window.__SX_CLEAR_VIEWPORT_PROFILES === "function") window.__SX_CLEAR_VIEWPORT_PROFILES(activeSkin);
       applySkin(data);
       setBrand(skinId, displayName || data.name);
+      /* Switch-back restores the remembered profile for this skin, if any. */
+      if (typeof window.__SX_RESTORE_VIEWPORT_PROFILES === "function") window.__SX_RESTORE_VIEWPORT_PROFILES(skinId);
       sxArmSwitchPaint();
-      return Promise.resolve(rerender()).then(function () {
-        if (thisGen !== currentSwitchGen) return activeSkin;
-        /* Switch-back restores the remembered profile for this skin, if any. */
-        if (typeof window.__SX_RESTORE_VIEWPORT_PROFILES === "function") window.__SX_RESTORE_VIEWPORT_PROFILES(skinId);
-        /* The layout import repaints: arm it too, so it paints the
-           full map rather than the no-profile placeholder. */
-        sxArmSwitchPaint();
-        applyDefaultLayout(data);
-        applyTerms(skinId, data);
-        rebuildOutlineIfOpen();
-        markSkinTransitionEnd(skinId);
-        return skinId;
-      }, function (err) {
-        window.__SX_FORCE_UNRATED_TREE = false;
-        if (thisGen === currentSwitchGen) markSkinTransitionEnd(activeSkin || "sexcapades");
-        throw err;
-      });
+      var layoutApplied = applyDefaultLayout(data);
+      if (!layoutApplied) rerender();
+      applyTerms(skinId, data);
+      rebuildOutlineIfOpen();
+      markSkinTransitionEnd(skinId);
+      return skinId;
     }, function (err) {
       if (thisGen === currentSwitchGen) markSkinTransitionEnd(activeSkin || "sexcapades");
       throw err;
@@ -1902,29 +1866,55 @@
           setBrand("sexcapades");
           setManifestForSkin("sexcapades");
           if (typeof window.__SX_REBUILD_OUTLINE === "function") window.__SX_REBUILD_OUTLINE();
+          try { rerender(); } catch (_) {}
           markSkinTransitionEnd("sexcapades");
         }
         return;
       }
       clearInterval(timer);
       fetchPromise.then(function (data) {
-        applySkin(data);
-        setBrand(boot, data.name);
+        if (boot !== "sexcapades") {
+          applySkin(data);
+          setBrand(boot, data.name);
+        } else {
+          registerWidgets(data);
+          setSamples(data.samples, "sexcapades");
+          setScribe(data.scribe);
+          setSceneSetter(data.sceneSetter);
+        }
         sxArmSwitchPaint();
-        return Promise.resolve(rerender()).then(function () {
-          sxArmSwitchPaint();
-          applyDefaultLayout(data);
-          applyTerms(boot, data);
-          rebuildOutlineIfOpen();
-          markSkinTransitionEnd(boot);
-          return boot;
-        });
+        var layoutApplied = false;
+        if (window.__SX_WARM_BOOT_RESTORED) {
+          if (data && data.defaultLayout && data.defaultLayout.settings) {
+            try {
+              window.__SEXCAPADES_LAYOUT_DEFAULTS = JSON.parse(JSON.stringify(data.defaultLayout.settings));
+            } catch (_) {}
+          }
+        } else {
+          try {
+            if (boot === "sexcapades") {
+              layoutApplied = applySexcapadesLayout(data);
+            } else {
+              layoutApplied = applyDefaultLayout(data);
+            }
+          } catch (e) {
+            layoutApplied = false;
+          }
+          if (!layoutApplied) {
+            rerender();
+          }
+        }
+        applyTerms(boot, data);
+        rebuildOutlineIfOpen();
+        markSkinTransitionEnd(boot);
+        return boot;
       }).catch(function (err) {
         if (typeof console !== "undefined" && console.warn) console.warn("[FlexcapadesSkins] boot skin failed, staying on Sexcapades:", err);
         registerSexcapadesWidgets();
         setBrand("sexcapades");
         setManifestForSkin("sexcapades");
         if (typeof window.__SX_REBUILD_OUTLINE === "function") window.__SX_REBUILD_OUTLINE();
+        try { rerender(); } catch (_) {}
         markSkinTransitionEnd("sexcapades");
       });
     }, 25);

@@ -30699,11 +30699,11 @@ function* sxRunNodeSettle(scCtx, blitSess) {
                 }
                 if (!target || target === "sexcapades") {
                     const q = new URLSearchParams(location.search || "").get("skin");
-                    const known = ["sexcapades", "poliscapades", "forescapades", "philoscapades", "aesthcapades", "vocapades", "techcapades", "dharmacapades", "theoricapades", "praxicapades", "quantacapades", "expericapades", "simulcapades", "mattercapades", "chemcapades", "nouscapades"];
+                    const known = ["sexcapades", "poliscapades", "forescapades", "philoscapades", "aesthcapades", "vocapades", "techcapades", "dharmacapades", "theoricapades", "praxicapades", "quantacapades", "expericapades", "simulcapades", "mattercapades", "chemcapades", "nouscapades", "dancecapades", "questcapades"];
                     if (q && known.indexOf(q) !== -1) target = q;
                     else {
                         const host = (location.hostname || "").toLowerCase();
-                        const map = { sex: "sexcapades", polis: "poliscapades", fores: "forescapades", philo: "philoscapades", aesth: "aesthcapades", voca: "vocapades", tech: "techcapades", dharma: "dharmacapades", theori: "theoricapades", praxi: "praxicapades", quanta: "quantacapades", experi: "expericapades", simul: "simulcapades", matter: "mattercapades", chem: "chemcapades", nous: "nouscapades" };
+                        const map = { sex: "sexcapades", polis: "poliscapades", fores: "forescapades", philo: "philoscapades", aesth: "aesthcapades", voca: "vocapades", tech: "techcapades", dharma: "dharmacapades", theori: "theoricapades", praxi: "praxicapades", quanta: "quantacapades", experi: "expericapades", simul: "simulcapades", matter: "mattercapades", chem: "chemcapades", nous: "nouscapades", dance: "dancecapades", quest: "questcapades" };
                         const prefix = /\.capades\.io$/.test(host) ? host.split(".")[0] : "";
                         if (prefix && map[prefix]) target = map[prefix];
                     }
@@ -50763,23 +50763,17 @@ yk([ "Spitting", "Spit play", "Being spit on", "Spitting on someone" ], "t0341")
                     window.__SX_WARM_BOOT_RESTORED = true;
                     try { Ih(); } catch (_) {}
                     mS();
-                } else if ((typeof sxIsBootSkinPending === "function" && sxIsBootSkinPending()) || (typeof window.__SX_IS_BOOT_SKIN_PENDING === "function" && window.__SX_IS_BOOT_SKIN_PENDING())) {
-                    // A boot skin is currently loading in parallel. Do not render Sexcapades
-                    // first only to immediately discard it and re-render the target skin.
-                    // The bootSkin pipeline in skin-loader will perform the sole initial render.
+                } else {
+                    // Delegated to bootSkin: bootSkin in skin-loader fetches the active/default
+                    // skin JSON (sexcapades.json or the target domain's skin) and executes the
+                    // single authoritative initial render with its baked layout.
                     mS();
                     t.setTimeout(() => {
                         if (!window.__SX_ACTIVE_SKIN && (!In || In.childNodes.length === 0)) {
                             Mr({ animate: !1 });
                             Ih();
                         }
-                    }, 1500);
-                } else {
-                    requestAnimationFrame(() => t.setTimeout(() => {
-                        Mr({ animate: !1 });
-                        Ih();
-                        mS();
-                    }, 0));
+                    }, 2000);
                 }
             }
         })();
