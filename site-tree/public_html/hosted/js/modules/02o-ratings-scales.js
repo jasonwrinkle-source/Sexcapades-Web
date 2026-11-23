@@ -1863,13 +1863,56 @@
             if (isCatId(e)) {
                 const n = h.find(t => catId(t.name) === e);
                 if (!n) return "Unrated.";
-                const i = fa(n, t, "give"), a = fa(n, t, "receive"), o = [];
-                return null !== i && o.push(`give ${ba(i)}`), null !== a && o.push(`receive ${ba(a)}`), o.length ? "Category values: " + o.join(" · ") + "." : "Unrated.";
+                const o = [];
+                // Walk the same field union sxCategoryInterestDisc paints
+                // from, so a branch the disc shows as rated can never read
+                // "Unrated." here: give/receive first (the classic skin's
+                // stored form), then stance placements' intensities, then
+                // n-pole placement intensities, then the intensity rollup.
+                const gv = fa(n, t, "give"), rv = fa(n, t, "receive");
+                if (null !== gv) o.push(`give ${ba(gv)}`);
+                if (null !== rv) o.push(`receive ${ba(rv)}`);
+                if (!o.length) {
+                    const av = fa(n, t, "advocacyIntensity"), rc = fa(n, t, "receptivityIntensity");
+                    if (null !== av) o.push(`advocacy ${ba(av)}`);
+                    if (null !== rc) o.push(`receptivity ${ba(rc)}`);
+                }
+                if (!o.length) {
+                    const gp = fa(n, t, "givePlacementIntensity"), rp = fa(n, t, "receivePlacementIntensity");
+                    if (null !== gp) o.push(`give ${ba(gp)}`);
+                    if (null !== rp) o.push(`receive ${ba(rp)}`);
+                }
+                if (!o.length) {
+                    const inten = fa(n, t, "intensity");
+                    if (null !== inten) o.push(`intensity ${ba(inten)}`);
+                }
+                return o.length ? "Category values: " + o.join(" · ") + "." : "Unrated.";
             }
             const z = zn(e);
             if (z) {
-                const g = sgSub(e), gv = g ? smSub(g, t, "give", e) : null, rv = g ? smSub(g, t, "receive", e) : null, a = [];
-                return null !== gv && a.push(`give ${ba(gv)}`), null !== rv && a.push(`receive ${ba(rv)}`), a.length ? "Rating values: " + a.join(" · ") + "." : "Unrated.";
+                const g = sgSub(e), a = [];
+                // Same union as the category branch, via the subcategory
+                // rollup sxSubInterestDisc uses.
+                if (g) {
+                    const gv = smSub(g, t, "give", e), rv = smSub(g, t, "receive", e);
+                    if (null !== gv) a.push(`give ${ba(gv)}`);
+                    if (null !== rv) a.push(`receive ${ba(rv)}`);
+                    if (!a.length) {
+                        const av = smSub(g, t, "advocacyIntensity", e), rc = smSub(g, t, "receptivityIntensity", e);
+                        if (null !== av) a.push(`advocacy ${ba(av)}`);
+                        if (null !== rc) a.push(`receptivity ${ba(rc)}`);
+                    }
+                    if (!a.length) {
+                        const gp = smSub(g, t, "givePlacementIntensity", e), rp = smSub(g, t, "receivePlacementIntensity", e);
+                        if (null !== gp) a.push(`give ${ba(gp)}`);
+                        if (null !== rp) a.push(`receive ${ba(rp)}`);
+                    }
+                    if (!a.length) {
+                        const inten = smSub(g, t, "intensity", e);
+                        if (null !== inten) a.push(`intensity ${ba(inten)}`);
+                    }
+                }
+                return a.length ? "Rating values: " + a.join(" · ") + "." : "Unrated.";
             }
             const i = ca(e, t), a = [];
             if (i.giveKnown) a.push(`give ${ba(i.give)}`);

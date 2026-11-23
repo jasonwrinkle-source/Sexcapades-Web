@@ -108,7 +108,7 @@ const he = [ [ "t0281", "t0240" ] ];
             },
             "Impact, pain & body modification": {
                 color: "#e5a45e",
-                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+                glyph: '<path class="icon-glyph" d="M12 3a5 6 0 0 1 5 6c0 3-1.6 4.8-3.4 5.6l.4 4.9a2 2 0 0 1-4 0l.4-4.9C8.6 13.8 7 12 7 9a5 6 0 0 1 5-6Z"/>'
             },
             "Sensation & atmosphere": {
                 color: "#d7c15c",
@@ -142,7 +142,7 @@ const he = [ [ "t0281", "t0240" ] ];
                 color: "#6ca8df",
                 glyph: '<path class="icon-glyph" d="M20 8c0 6-8 11-8 11S4 14 4 8a4 4 0 0 1 7-3l1 1 1-1a4 4 0 0 1 7 3Z"/>'
             },
-            Positions: {
+            "Positions": {
                 color: "#809cdf",
                 glyph: '<path class="icon-glyph" d="M5 7h12m0 0-3-3m3 3-3 3M19 17H7m0 0 3-3m-3 3 3 3"/>'
             },
@@ -170,380 +170,482 @@ const he = [ [ "t0281", "t0240" ] ];
                 color: "#ea7f8b",
                 glyph: '<path class="icon-glyph" d="M12 20S4 15 4 9a4 4 0 0 1 7-3l1 1 1-1a4 4 0 0 1 7 3c0 6-8 11-8 11Z M8 13h2l1-3 2 6 1-3h2"/>'
             },
-            /* Flexcapades skin categories: Chemcapades (8). Star glyph shared;
-               distinct colors carry the category identity on the map. */
+            /* Flexcapades skin categories: Chemcapades (8). Per-category pictograms; distinct colors and glyphs carry the category identity on the map. */
             "Ontology & Metaphysics of the Chemical World": {
                 color: "#7ec8e3",
-                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+                glyph: '<path class="icon-glyph" d="M12 12m-2 0a2 2 0 1 0 4 0a2 2 0 1 0-4 0M12 5.5a6.5 3.2 0 1 0 0 13 6.5 3.2 0 1 0 0-13zM5.8 15.8a6.5 3.2 60 1 0 12.4-7.6M18.2 15.8a6.5 3.2 120 1 0-12.4-7.6"/>'
             },
             "The Periodic System & Classification": {
                 color: "#9b8cf2",
-                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+                glyph: '<path class="icon-glyph" d="M4.5 5h15v14h-15zM4.5 9.8h15M4.5 14.6h15M9.5 5v4.8M14.5 5v4.8M9.5 9.8v4.8M14.5 9.8v9.2M9.5 14.6V19"/>'
             },
             "Epistemology, Explanation & Modeling": {
                 color: "#63c2c8",
-                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+                glyph: '<path class="icon-glyph" d="M12 3.5a5.5 5.5 0 0 1 3.2 10.3c-.6.4-1 .9-1.3 1.7h-3.8c-.3-.8-.7-1.3-1.3-1.7A5.5 5.5 0 0 1 12 3.5zM10 18.5h4M10.8 21h2.4M12 8v4"/>'
             },
             "Disciplinary Identity & Sub-Disciplinary Cultures": {
                 color: "#82c66e",
-                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+                glyph: '<path class="icon-glyph" d="M12 4.2a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zM5.2 6a2 2 0 1 1 0 4 2 2 0 0 1 0-4zM18.8 6a2 2 0 1 1 0 4 2 2 0 0 1 0-4zM3.8 19.5c.7-3 3-4.7 8.2-4.7s7.5 1.7 8.2 4.7M12 14.8V18"/>'
             },
             "Ethics, Sustainability & Lab Safety": {
                 color: "#e5a45e",
-                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+                glyph: '<path class="icon-glyph" d="M12 3.5l7 2.5v5c0 4.5-3 7.8-7 9.5C8 18.8 5 15.5 5 11V6zM12 16.8c0-3 1.8-5 4.8-5.8-.3 3-1.8 5-4.8 5.8zM12 16.8c0-2-1-3.6-2.8-4.6"/>'
             },
             "Kinetics, Thermodynamics & Emergent Complexity": {
                 color: "#ef806e",
-                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+                glyph: '<path class="icon-glyph" d="M10 3.5h4M11 3.5v5.2L6.8 16a2.4 2.4 0 0 0 2.1 3.5h6.2a2.4 2.4 0 0 0 2.1-3.5L13 8.7V3.5M8.5 14.5h7M17.5 6.5c.8 1 .8 2 0 3M20 5c1 1.6 1 3.4 0 5"/>'
             },
             "Codification, Pedagogy & the Chemical Life": {
                 color: "#d7c15c",
-                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+                glyph: '<path class="icon-glyph" d="M7 3.5h11.5a1 1 0 0 1 1 1v14a1 1 0 0 1-1 1H7zM7 3.5v16M7 3.5A1.5 1.5 0 0 0 5.5 5v13A1.5 1.5 0 0 0 7 19.5M10.5 8h6M10.5 11.5h6M10.5 15h4"/>'
             },
             "Materials, Energy & the Molecular Frontier": {
                 color: "#5ab0da",
-                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+                glyph: '<path class="icon-glyph" d="M10 3.5h4M11 3.5v4.8L6.5 16a2.5 2.5 0 0 0 2.2 3.8h6.6A2.5 2.5 0 0 0 17.5 16L13 8.3V3.5M12 15.8a1.6 1.6 0 1 0 0-3.2 1.6 1.6 0 0 0 0 3.2zM12 11v-1.5M9.8 16.8l-1.2-1M14.2 16.8l1.2-1"/>'
             },
-            /* Flexcapades skin categories: Aesthcapades (7). Star glyph shared; distinct colors carry the category identity on the map. */
+            /* Flexcapades skin categories: Aesthcapades (7). Per-category pictograms; distinct colors and glyphs carry the category identity on the map. */
             "Visual Art": {
                 color: "#7ec8e3",
-                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+                glyph: '<path class="icon-glyph" d="M12 3.5a8.5 8.5 0 1 0 0 17c1.4 0 2-.9 2-1.9 0-.8-.6-1.3-.6-2.1 0-1.1 1-1.8 2.4-1.8H18a3.5 3.5 0 0 0 3.5-3.5C21.5 7.5 17.2 3.5 12 3.5zM7.8 10.2h.01M10.8 6.8h.01M15.8 6.5h.01M7.5 14.5h.01"/>'
             },
             "Music & Sound": {
                 color: "#9b8cf2",
-                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+                glyph: '<path class="icon-glyph" d="M9.5 18.2V5.8L20 4v11.7M9.5 18.2a2.9 2.6 0 1 1-5.8 0 2.9 2.6 0 0 1 5.8 0zM20 15.5a2.9 2.6 0 1 1-5.8 0 2.9 2.6 0 0 1 5.8 0zM9.5 5.8c3.5.6 7 .4 10.5-1.8"/>'
             },
             "Story & Word": {
                 color: "#63c2c8",
-                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+                glyph: '<path class="icon-glyph" d="M6 4.5A1.5 1.5 0 0 1 7.5 3H20v15H7.5A1.5 1.5 0 0 0 6 19.5zM6 16.5V4.5M20 18H7.5M9.8 8h6.4M9.8 11.5h6.4"/>'
             },
             "Beauty & Adornment": {
                 color: "#82c66e",
-                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+                glyph: '<path class="icon-glyph" d="M8 4.5C5.5 7 4 10 4 13a8 8 0 0 0 16 0c0-3-1.5-6-4-8.5M8 4.5c1.2 2 2.4 4.8 3 8M8 4.5c2.8.6 5.6.6 8 0M16 4.5c-1.2 2-2.4 4.8-3 8"/>'
             },
             "Space & Place": {
                 color: "#e5a45e",
-                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+                glyph: '<path class="icon-glyph" d="M5 20.5v-14M19 20.5v-14M5 6.5c2.3-2 4.7-3 7-3s4.7 1 7 3M3.5 20.5h17M9.5 20.5v-8h5v8M12 3.5v-1"/>'
             },
             "Taste & Judgment": {
                 color: "#ef806e",
-                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+                glyph: '<path class="icon-glyph" d="M5 4.5h14l-1.8 4.2H6.8zM12 8.7v6.3M8.5 20.5c.8-2 2-3.2 3.5-3.2s2.7 1.2 3.5 3.2M7 20.5h10"/>'
             },
             "Food & Flavor": {
                 color: "#d7c15c",
-                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+                glyph: '<path class="icon-glyph" d="M4 16.5h16M5.5 16.5a6.5 6.5 0 0 1 13 0M12 10V8.8M10.2 6.2c.8-1 .8-1.8 0-2.8M13.8 6.2c.8-1 .8-1.8 0-2.8M3.5 20h17"/>'
             },
-            /* Flexcapades skin categories: Dharmacapades (6). Star glyph shared; distinct colors carry the category identity on the map. */
+            /* Flexcapades skin categories: Dharmacapades (6). Per-category pictograms; distinct colors and glyphs carry the category identity on the map. */
             "Dharma & The Way": {
                 color: "#9b8cf2",
-                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+                glyph: '<path class="icon-glyph" d="M12 12m-8.5 0a8.5 8.5 0 1 0 17 0a8.5 8.5 0 1 0-17 0M12 12m-1.6 0a1.6 1.6 0 1 0 3.2 0a1.6 1.6 0 1 0-3.2 0M12 3.5v5M12 15.5v5M3.5 12h5M15.5 12h5M6 6l3.5 3.5M14.5 14.5 18 18M18 6l-3.5 3.5M9.5 14.5 6 18"/>'
             },
             "Liberation & Enlightenment": {
                 color: "#63c2c8",
-                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+                glyph: '<path class="icon-glyph" d="M12 19.5c-1-2-1-4.2 0-6.5 1 2.3 1 4.5 0 6.5ZM12 13.5C10 11 7.2 10.2 4.5 11c.8 2.8 3 4.8 5.8 5.3M12 13.5c2-2.5 4.8-3.3 7.5-2.5-.8 2.8-3 4.8-5.8 5.3M5.5 20.5c4.3 1.2 8.7 1.2 13 0"/>'
             },
             "Practice & Discipline": {
                 color: "#82c66e",
-                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+                glyph: '<path class="icon-glyph" d="M12 8.6a2.3 2.3 0 1 0 0-4.6 2.3 2.3 0 0 0 0 4.6ZM12 9v3.2M12 12.2c-2.3.2-4.4 1.4-5.9 3.3M12 12.2c2.3.2 4.4 1.4 5.9 3.3M6.1 15.5c-1.3 1.8-3 2.8-4.9 3M6.1 15.5c1.9.5 4 .5 5.9 0M17.9 15.5c-1.9.5-4 .5-5.9 0M17.9 15.5c1.3 1.8 3 2.8 4.9 3M4.5 20.8h15"/>'
             },
             "Deity & The Divine": {
                 color: "#e5a45e",
-                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+                glyph: '<path class="icon-glyph" d="M12 3v18M12 3c-2.8 0-4.5 1.8-4.5 4.5 0 2 1 3.6 2.7 4.6M12 3c2.8 0 4.5 1.8 4.5 4.5 0 2-1 3.6-2.7 4.6M8.5 21h7"/>'
             },
             "Ethics & Conduct": {
                 color: "#ef806e",
-                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+                glyph: '<path class="icon-glyph" d="M12 3.5 5 6v5.5c0 4.5 3 7.6 7 9 4-1.4 7-4.5 7-9V6zM9 11.8l2.2 2.2 3.8-4"/>'
             },
             "Community & Lineage": {
                 color: "#d7c15c",
-                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+                glyph: '<path class="icon-glyph" d="M12 10.2a2.3 2.3 0 1 0 0-4.6 2.3 2.3 0 0 0 0 4.6ZM5.8 8.4a2 2 0 1 0 0-4 2 2 0 0 0 0 4ZM18.2 8.4a2 2 0 1 0 0-4 2 2 0 0 0 0 4ZM7.2 20.5c.6-3 2.4-4.6 4.8-4.6s4.2 1.6 4.8 4.6M2.8 16.6c.3-2.2 1.3-3.6 3-4.2M21.2 16.6c-.3-2.2-1.3-3.6-3-4.2M12 12.5v3"/>'
             },
-            /* Flexcapades skin categories: Expericapades (6). Star glyph shared; distinct colors carry the category identity on the map. */
+            /* Flexcapades skin categories: Expericapades (6). Per-category pictograms; distinct colors and glyphs carry the category identity on the map. */
             "Mission & Discovery Strategy": {
                 color: "#63c2c8",
-                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+                glyph: '<path class="icon-glyph" d="M12 12m-8 0a8 8 0 1 0 16 0a8 8 0 1 0-16 0M12 12m-4.5 0a4.5 4.5 0 1 0 9 0a4.5 4.5 0 1 0-9 0M12 12h.01M12 4V2.8M12 21.2V20M4 12H2.8M21.2 12H20"/>'
             },
             "Detectors & Instruments": {
                 color: "#82c66e",
-                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+                glyph: '<path class="icon-glyph" d="M4.5 19.5a8 8 0 1 1 2.3-15.7M12 12l4.2-4.2M12 12h.01M6 12h.01M18 12h.01M12 6h.01M8 20.5h8"/>'
             },
             "Data, Noise & Standards of Discovery": {
                 color: "#e5a45e",
-                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+                glyph: '<path class="icon-glyph" d="M4 4.5h16l-6.2 7.3v6.7l-3.6 2v-8.7zM7.5 8h9M17.5 19.5h.01M20 16.5h.01"/>'
             },
             "Environment & Extremes": {
                 color: "#ef806e",
-                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+                glyph: '<path class="icon-glyph" d="M12 3.5l2 3.8 4.2-.5-3 3 1 4.2L12 11.5l-4.2 2.5 1-4.2-3-3 4.2.5zM12 15.5v5M8.5 18h7"/>'
             },
             "Data, Analysis & Openness": {
                 color: "#d7c15c",
-                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+                glyph: '<path class="icon-glyph" d="M6.5 4.5A1.5 1.5 0 0 0 5 6v13.5A1.5 1.5 0 0 1 6.5 18H19V4.5zM5 16.5V6M19 18H6.5M9 15v-3.5M12 15V8.5M15 15v-5.5"/>'
             },
             "The Experimental Life & Lab Culture": {
                 color: "#5ab0da",
-                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+                glyph: '<path class="icon-glyph" d="M9.5 4a2.3 2.3 0 1 1 0 4.6 2.3 2.3 0 0 1 0-4.6zM14.5 4a2.3 2.3 0 1 1 0 4.6 2.3 2.3 0 0 1 0-4.6zM5.5 19.5c.6-3.2 3-5 6.5-5s5.9 1.8 6.5 5M12 14.5V17"/>'
             },
-            /* Flexcapades skin categories: Forescapades (7, real v2.4 categories). Star glyph shared; distinct colors carry the category identity on the map. */
+            /* Flexcapades skin categories: Forescapades (7, real v2.4 categories). Per-category pictograms; distinct colors and glyphs carry the category identity on the map. */
             "God": {
                 color: "#ef806e",
-                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+                glyph: '<path class="icon-glyph" d="M12 15.5a3.5 3.5 0 1 1 0-7 3.5 3.5 0 0 1 0 7Z M12 2.5v3 M12 18.5v3 M2.5 12h3 M18.5 12h3 M5 5l2.1 2.1 M16.9 16.9 19 19 M19 5l-2.1 2.1 M7.1 16.9 5 19"/>'
             },
             "Scripture & Authority": {
                 color: "#e5a45e",
-                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+                glyph: '<path class="icon-glyph" d="M5 4.5C7.5 3.6 10 3.8 12 5.4c2-1.6 4.5-1.8 7-.9v13.4c-2.5-.9-5-.7-7 .9-2-1.6-4.5-1.8-7-.9Z M12 5.4v13.4 M8 8.5h1.5 M14.5 8.5H16"/>'
             },
             "Community & Leadership": {
                 color: "#d7c15c",
-                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+                glyph: '<path class="icon-glyph" d="M12 4.5a2.6 2.6 0 1 1 0 5.2 2.6 2.6 0 0 1 0-5.2Z M5.5 6.5a2.2 2.2 0 1 1 0 4.4 2.2 2.2 0 0 1 0-4.4Z M18.5 6.5a2.2 2.2 0 1 1 0 4.4 2.2 2.2 0 0 1 0-4.4Z M4 20c.8-3.4 3.8-5.2 8-5.2s7.2 1.8 8 5.2 M2.5 15.6c.4-1.6 1.4-2.8 3-3.4M21.5 15.6c-.4-1.6-1.4-2.8-3-3.4"/>'
             },
             "Salvation & Grace": {
                 color: "#82c66e",
-                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+                glyph: '<path class="icon-glyph" d="M9 4.5A4.5 4.5 0 0 1 18 4.5c0 3-2.4 4.6-4.5 6.3-.7.7-1.2 1.5-1.5 2.7-.3-1.2-.8-2-1.5-2.7C7.4 9.1 5 7.5 5 4.5A4.5 4.5 0 0 1 9 4.5Z M12 13.5c-.5 2.3-2 3.7-4 4.5M12 13.5c.5 2.3 2 3.7 4 4.5 M8 21h8"/>'
             },
             "Ritual & Worship": {
                 color: "#5ab0da",
-                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+                glyph: '<path class="icon-glyph" d="M12 3v3 M12 6c-2.5 2.4-4 4.6-4 7a4 4 0 0 0 8 0c0-2.4-1.5-4.6-4-7Z M5 21h14 M8 17.5h8"/>'
             },
             "Life & Morality": {
                 color: "#7ec8e3",
-                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+                glyph: '<path class="icon-glyph" d="M12 21c-4.5-2.2-7-5.6-7-10V6l7-2.5L19 6v5c0 4.4-2.5 7.8-7 10Z M12 8v5 M12 16.5h.01"/>'
             },
             "Last Things": {
                 color: "#9b8cf2",
-                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+                glyph: '<path class="icon-glyph" d="M7 3h10 M7 21h10 M8.5 3c0 4 2 5.5 3.5 6.5C14 8 15.5 7 15.5 3 M8.5 21c0-4 2-5.5 3.5-6.5-2-1-3.5-2.5-3.5-6.5 M9.5 17.5c.7-1 1.5-1.6 2.5-1.6s1.8.6 2.5 1.6"/>'
             },
-            /* Flexcapades skin categories: Mattercapades (6). Star glyph shared; distinct colors carry the category identity on the map. */
+            /* Flexcapades skin categories: Mattercapades (6). Per-category pictograms; distinct colors and glyphs carry the category identity on the map. */
             "The Applied Physics Philosophy & Strategy": {
                 color: "#e5a45e",
-                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+                glyph: '<path class="icon-glyph" d="M5 19.5V5.5L12 3l7 2.5v14M5 19.5h14M9 19.5v-5.5h6v5.5M12 8h.01M9.5 11h5"/>'
             },
             "Domains & Scale": {
                 color: "#ef806e",
-                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+                glyph: '<path class="icon-glyph" d="M5 19V8.5M5 19h14.5M5 19l4-5.5 4.5 2.5L19 7M9 13.5h.01M13.5 16h.01M19 7h.01M5 8.5h.01"/>'
             },
             "Quantum Technology & Hardware": {
                 color: "#d7c15c",
-                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+                glyph: '<path class="icon-glyph" d="M8 8h8v8H8zM10.8 10.8h2.4v2.4h-2.4zM10 8V4.5M14 8V4.5M10 19.5V16M14 19.5V16M8 10H4.5M8 14H4.5M19.5 10H16M19.5 14H16"/>'
             },
             "Energy, Power & Clean Technology": {
                 color: "#5ab0da",
-                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+                glyph: '<path class="icon-glyph" d="M12 12m-3.2 0a3.2 3.2 0 1 0 6.4 0a3.2 3.2 0 1 0-6.4 0M12 3v2.5M12 18.5V21M3 12h2.5M18.5 12H21M5.6 5.6l1.8 1.8M16.6 16.6l1.8 1.8M18.4 5.6l-1.8 1.8M7.4 16.6l-1.8 1.8"/>'
             },
             "Materials & Fabrication": {
                 color: "#7ec8e3",
-                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+                glyph: '<path class="icon-glyph" d="M4 20.5h16M6.5 20.5v-6l3-3h5l3 3v6M9.5 20.5v-4h5v4M12 8.5V5M9.5 5h5"/>'
             },
             "Life, Medicine & the Applied Life": {
                 color: "#9b8cf2",
-                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+                glyph: '<path class="icon-glyph" d="M12 20.5S4.5 15.5 4.5 9.9A4.3 4.3 0 0 1 12 6.4a4.3 4.3 0 0 1 7.5 3.5c0 5.6-7.5 10.6-7.5 10.6Z M7 12h3l1.2-2.6 1.8 4 1.2-1.4H17"/>'
             },
-            /* Flexcapades skin categories: Philoscapades (6). Star glyph shared; distinct colors carry the category identity on the map. */
+            /* Flexcapades skin categories: Philoscapades (6). Per-category pictograms; distinct colors and glyphs carry the category identity on the map. */
             "Epistemology & Theory of Truth": {
                 color: "#ef806e",
-                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+                glyph: '<path class="icon-glyph" d="M2.5 12S6 5.5 12 5.5 21.5 12 21.5 12 18 18.5 12 18.5 2.5 12 2.5 12zM12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6zM12 5.5V3M8 6.2 6.3 4M16 6.2 17.7 4"/>'
             },
             "Metaphysics & Ontology": {
                 color: "#d7c15c",
-                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+                glyph: '<path class="icon-glyph" d="M12 20.5a8.5 8.5 0 1 0 0-17 8.5 8.5 0 0 0 0 17zM12 20.5c-4.8-2-7-5-7-8.5M12 20.5c4.8-2 7-5 7-8.5M5 12.5c2-1 4.5-1.5 7-1.5s5 .5 7 1.5M12 11V3.8M8.6 5.2A8.5 8.5 0 0 1 12 3.5M15.4 5.2A8.5 8.5 0 0 0 12 3.5"/>'
             },
             "Axiology & Normative Ethics": {
                 color: "#5ab0da",
-                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+                glyph: '<path class="icon-glyph" d="M7 4h10l3.5 5L12 20.5 3.5 9Z M3.5 9h17 M12 20.5L8.5 9l2-5 M12 20.5L15.5 9l-2-5"/>'
             },
             "Philosophy of Mind & Consciousness": {
                 color: "#7ec8e3",
-                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+                glyph: '<path class="icon-glyph" d="M10.2 4.2A3.2 3.2 0 0 0 5 6.8c-1.2 1-1.6 2.6-1 4 .4 1.1.3 2.3 1 3.3.6 1 1.7 1.5 2.9 1.3V6.5c0-1-.5-1.9-1.3-2.3zM13.8 4.2A3.2 3.2 0 0 1 19 6.8c1.2 1 1.6 2.6 1 4-.4 1.1-.3 2.3-1 3.3-.6 1-1.7 1.5-2.9 1.3V6.5c0-1 .5-1.9 1.3-2.3zM12 4v14.5"/>'
             },
             "Existentialism & The Human Condition": {
                 color: "#9b8cf2",
-                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+                glyph: '<path class="icon-glyph" d="M12 8.2a2.4 2.4 0 1 0 0-4.8 2.4 2.4 0 0 0 0 4.8ZM12 8.5v4M12 12.5c-2 .8-4.5 1.2-6.5 1M12 12.5c2 .8 4.5 1.2 6.5 1M5.5 13.5c-.8 2.2-2 4-3.7 5.3M18.5 13.5c.8 2.2 2 4 3.7 5.3M8.5 21h7"/>'
             },
             "Political Philosophy & Justice": {
                 color: "#63c2c8",
-                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+                glyph: '<path class="icon-glyph" d="M12 3.5v17M7.5 20.5h9M12 6.8H5.6M12 6.8h6.4M5.6 6.8 3 12.4a3.3 3.3 0 0 0 5.2 0L5.6 6.8zM18.4 6.8 15.8 12.4a3.3 3.3 0 0 0 5.2 0L18.4 6.8zM12 6.8v13.7"/>'
             },
-            /* Flexcapades skin categories: Poliscapades (8, real draft categories). Star glyph shared; distinct colors carry the category identity on the map. */
+            /* Flexcapades skin categories: Poliscapades (8, real draft categories). Per-category pictograms; distinct colors and glyphs carry the category identity on the map. */
             "The Economy": {
                 color: "#d7c15c",
-                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+                glyph: '<path class="icon-glyph" d="M12 21a9 9 0 1 1 0-18 9 9 0 0 1 0 18Z M14.5 6.8c-.6-1-1.5-1.3-2.5-1.3-1.4 0-2.5 1-2.5 2.3 0 3.2 5 1.7 5 3.2 0 1.3-1.1 2.2-2.5 2.2-1 0-2-.4-2.6-1.2 M12 3.5v1.8 M12 18.5v2"/>'
             },
             "Health & Care": {
                 color: "#63c2c8",
-                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+                glyph: '<path class="icon-glyph" d="M12 20.5S4 15.4 4 9.6A4.4 4.4 0 0 1 12 6a4.4 4.4 0 0 1 8 3.6c0 5.8-8 10.9-8 10.9Z M12 8.5v6 M9 11.5h6"/>'
             },
             "Climate, Energy & Environment": {
                 color: "#82c66e",
-                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+                glyph: '<path class="icon-glyph" d="M19 5C13 5 6.5 8.6 5.4 15.2 5 19 5 19 5 19 9 19 9 14.6 19 19 5 19 5Z M5 19C7.5 14.5 11.5 10.5 16 8"/>'
             },
             "Immigration & Borders": {
                 color: "#e5a45e",
-                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+                glyph: '<path class="icon-glyph" d="M6 21.5v-19 M6 3.5c3-1.8 5.5 1.8 9 0v7c-3.5 1.8-6-1.8-9 0"/>'
             },
             "Democracy & Government": {
                 color: "#ef806e",
-                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+                glyph: '<path class="icon-glyph" d="M4 9.5h16V20H4Z M9 9.5V6.8A1.8 1.8 0 0 1 10.8 5h2.4A1.8 1.8 0 0 1 15 6.8v2.7 M2.5 9.5h19 M8.5 14.5l2.5 2.5 4.5-4.5"/>'
             },
             "Rights & Freedoms": {
                 color: "#9b8cf2",
-                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+                glyph: '<path class="icon-glyph" d="M12 3c.6 2.8-.8 4.2-1.8 5.8C9.2 8.4 8.5 9.8 8.5 11.3a3.5 3.5 0 0 0 7 .2c0-1-.4-1.9-1-2.7 1.8.6 3 2.2 3 4.2a5.5 5.5 0 0 1-11 0C6.5 8.9 9 5.9 12 3Z M8 21h8"/>'
             },
             "Education & Culture": {
                 color: "#5ab0da",
-                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+                glyph: '<path class="icon-glyph" d="M12 6.5C10 4.8 7 4.2 4 4.5v13c3-.3 6 .3 8 2 2-1.7 5-2.3 8-2v-13c-3-.3-6 .3-8 2Z M12 6.5v13"/>'
             },
             "Foreign Policy & Defense": {
                 color: "#7ec8e3",
-                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+                glyph: '<path class="icon-glyph" d="M12 3a9 9 0 1 0 0 18 9 9 0 0 0 0-18Z M3 12h18 M12 3c2.7 2.6 4 5.6 4 9s-1.3 6.4-4 9c-2.7-2.6-4-5.6-4-9s1.3-6.4 4-9Z"/>'
             },
-            /* Flexcapades skin categories: Praxicapades (6). Star glyph shared; distinct colors carry the category identity on the map. */
+            /* Flexcapades skin categories: Praxicapades (6). Per-category pictograms; distinct colors and glyphs carry the category identity on the map. */
             "The Art of Modeling": {
                 color: "#5ab0da",
-                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+                glyph: '<path class="icon-glyph" d="M12 4 3.5 8.8v10.4L12 20l8.5-5.2V8.8zM3.5 8.8 12 14l8.5-5.2M12 14v6"/>'
             },
             "Computation & Method": {
                 color: "#7ec8e3",
-                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+                glyph: '<path class="icon-glyph" d="M9.5 3.5h5v4h-5zM4 10.5h4.5v4H4zM15.5 10.5H20v4h-4.5zM9.5 17h5v4h-5zM12 7.5v3M6.2 10.5v-2h11.6v2M6.2 14.5v4.3M17.8 14.5v4.3M6.2 18.8h3.3M14.5 18.8h3.3"/>'
             },
             "Domains & Arenas": {
                 color: "#9b8cf2",
-                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+                glyph: '<path class="icon-glyph" d="M4.5 19.5v-15h15v15zM4.5 19.5h15M4.5 12h15M9.8 4.5V12M14.8 12v7.5M9.8 19.5V12M14.8 4.5V12"/>'
             },
             "Uncertainty & Data": {
                 color: "#63c2c8",
-                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+                glyph: '<path class="icon-glyph" d="M4 20.5v-16M4 20.5h17M6.5 17.5c2-1 3-9 5.5-9s3.5 8 5.5 9M9.2 13.5h5.6M9.2 10.8h5.6"/>'
             },
             "Rigor & Validation": {
                 color: "#82c66e",
-                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+                glyph: '<path class="icon-glyph" d="M5 4.5h14v15H5zM8.5 15.8l2.4 2.4 4.6-5.2M8.5 8h4"/>'
             },
             "The Applied Life": {
                 color: "#e5a45e",
-                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+                glyph: '<path class="icon-glyph" d="M12 8.2a2.4 2.4 0 1 0 0-4.8 2.4 2.4 0 0 0 0 4.8Z M12 8.6v4.6 M12 13.2l-4.5 3.3 M12 13.2l4.5 3.3 M4.5 20.5h15"/>'
             },
-            /* Flexcapades skin categories: Quantacapades (6). Star glyph shared; distinct colors carry the category identity on the map. */
+            /* Flexcapades skin categories: Quantacapades (6). Per-category pictograms; distinct colors and glyphs carry the category identity on the map. */
             "Foundations & Interpretation": {
                 color: "#7ec8e3",
-                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+                glyph: '<path class="icon-glyph" d="M4 20.5h16M6 20.5v-4h12v4M9 16.5v-3.5h6v3.5M12 13V9.5M8.5 9.5a3.5 3.5 0 1 1 7 0"/>'
             },
             "Quantum Gravity & Spacetime": {
                 color: "#9b8cf2",
-                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+                glyph: '<path class="icon-glyph" d="M4 7c5 3.5 11 3.5 16 0M4 12c5 3.5 11 3.5 16 0M4 17c5 3.5 11 3.5 16 0M7.5 4.5v15M12 5.8v12.4M16.5 4.5v15"/>'
             },
             "Cosmology & the Universe": {
                 color: "#63c2c8",
-                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+                glyph: '<path class="icon-glyph" d="M12 12h.01M12 12c.5-2.5 3-4 5.5-3.5C20 9 21 12 19.5 14.5 18 17 14 17.5 11.5 15.5 9 13.5 9.5 9.5 12.5 7.5c2.5-1.8 6-1 7.5 1.7"/>'
             },
             "Emergence & Information": {
                 color: "#82c66e",
-                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+                glyph: '<path class="icon-glyph" d="M12 20.5v-3M12 14.5v-3M7 8.5a3 3 0 1 0 3-3M17 8.5a3 3 0 1 1-3-3M7 8.5h.01M17 8.5h.01M12 14.5a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5z"/>'
             },
             "Symmetry & Fine-Tuning": {
                 color: "#e5a45e",
-                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+                glyph: '<path class="icon-glyph" d="M12 4v16M12 4L7 7.5M12 4l5 3.5M7 7.5V15M17 7.5V15M7 15l-2 5.5h4zM17 15l-2 5.5h4z"/>'
             },
             "The Life of a Theorist": {
                 color: "#ef806e",
-                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+                glyph: '<path class="icon-glyph" d="M12 8.5a2.5 2.5 0 1 1 0-5 2.5 2.5 0 0 1 0 5zM5.5 20.5c.8-3.8 3.4-5.7 6.5-5.7s5.7 1.9 6.5 5.7M15.5 5.5c1.5-1 3.5-.8 4.7.5"/>'
             },
-            /* Flexcapades skin categories: Simulcapades (6). Star glyph shared; distinct colors carry the category identity on the map. */
+            /* Flexcapades skin categories: Simulcapades (6). Per-category pictograms; distinct colors and glyphs carry the category identity on the map. */
             "The Epistemology of Simulation": {
                 color: "#9b8cf2",
-                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+                glyph: '<path class="icon-glyph" d="M2 12c3-5 6-7 10-7s7 2 10 7c-3 5-6 7-10 7S5 17 2 12Z M12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z"/>'
             },
             "Methods": {
                 color: "#63c2c8",
-                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+                glyph: '<path class="icon-glyph" d="M5 5a2 2 0 1 0 4 0a2 2 0 1 0-4 0 M15 12a2 2 0 1 0 4 0a2 2 0 1 0-4 0 M5 19a2 2 0 1 0 4 0a2 2 0 1 0-4 0 M8.5 6.5l6 4 M15.5 13.5l-6 4"/>'
             },
             "Scale, Discretization & Time": {
                 color: "#82c66e",
-                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+                glyph: '<path class="icon-glyph" d="M4 4h16v16H4Z M4 9.3h16 M4 14.6h16 M9.3 4v16 M14.6 4v16"/>'
             },
             "The Machine & The Code": {
                 color: "#e5a45e",
-                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+                glyph: '<path class="icon-glyph" d="M7 7h10v10H7Z M10 10h4v4h-4Z M9 7V3 M15 7V3 M9 21v-4 M15 21v-4 M7 9H3 M7 15H3 M21 9h-4 M21 15h-4"/>'
             },
             "Trust, Error & Reproducibility": {
                 color: "#ef806e",
-                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+                glyph: '<path class="icon-glyph" d="M12 3l7 3v6c0 4-3 7-7 9-4-2-7-5-7-9V6Z M9 12l2 2 4-4"/>'
             },
             "The Computational Life": {
                 color: "#d7c15c",
-                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+                glyph: '<path class="icon-glyph" d="M12 21v-8 M12 13c0-4 3-6 7-6 0 4-3 6-7 6 M12 13c0-4-3-6-7-6 0 4 3 6 7 6"/>'
             },
-            /* Flexcapades skin categories: Techcapades (6). Star glyph shared; distinct colors carry the category identity on the map. */
+            /* Flexcapades skin categories: Techcapades (6). Per-category pictograms; distinct colors and glyphs carry the category identity on the map. */
             "AI & Intelligence": {
                 color: "#63c2c8",
-                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+                glyph: '<path class="icon-glyph" d="M12 3a7 7 0 0 1 7 7c0 3-2 5-4 6l-1 3h-4l-1-3c-2-1-4-3-4-6a7 7 0 0 1 7-7Z M12 8v3 M9.5 13.5h5"/>'
             },
             "Privacy & Surveillance": {
                 color: "#82c66e",
-                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+                glyph: '<path class="icon-glyph" d="M6 11h12v10H6Z M9 11V8a3 3 0 0 1 6 0v3 M12 15v2.5"/>'
             },
             "Screens & Attention": {
                 color: "#e5a45e",
-                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+                glyph: '<path class="icon-glyph" d="M3 5h18v11H3Z M9 20h6 M12 16v4 M9.5 10.5h5 M12 8v5"/>'
             },
             "Connection & Social Media": {
                 color: "#ef806e",
-                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+                glyph: '<path class="icon-glyph" d="M4 4h11v8H9l-4 3.5V4Z M16 10h4v7l-3 3v-3h-2"/>'
             },
             "Digital Identity & Self": {
                 color: "#d7c15c",
-                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+                glyph: '<path class="icon-glyph" d="M12 11a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7Z M5 20c1-4 4-6 7-6s6 2 7 6"/>'
             },
             "The Machine Future": {
                 color: "#5ab0da",
-                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+                glyph: '<path class="icon-glyph" d="M6 9h12v9H6Z M12 9V5 M8.5 5h7 M9.5 13h1 M13.5 13h1 M9.5 16h5 M6 12H4 M18 12h2"/>'
             },
-            /* Flexcapades skin categories: Theoricapades (6). Star glyph shared; distinct colors carry the category identity on the map. */
+            /* Flexcapades skin categories: Theoricapades (6). Per-category pictograms; distinct colors and glyphs carry the category identity on the map. */
             "Foundations & Ontology": {
                 color: "#82c66e",
-                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+                glyph: '<path class="icon-glyph" d="M4 20.5h16M6.5 20.5v-6h11v6M9.5 14.5V10h5v4.5M12 10V6.5M12 3.5h.01"/>'
             },
             "Method & Style": {
                 color: "#e5a45e",
-                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+                glyph: '<path class="icon-glyph" d="M5 19.5L19.5 5M5 19.5c2-1 3.5-3 4-6l6-6.5c1.5-1.5 4 .5 3 2L11 15c-3 1-4.5 2.5-6 4.5zM14 7l3 3"/>'
             },
             "Branches & Territory": {
                 color: "#ef806e",
-                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+                glyph: '<path class="icon-glyph" d="M12 21v-6.5M12 14.5C9.5 12.5 6 12 3.5 12.5 5 9.5 8 8 12 8.5M12 14.5c2.5-2 6-2.5 8.5-2-1.5-3-4.5-4.5-8.5-4M12 8.5V4M9 21h6"/>'
             },
             "Proof & Verification": {
                 color: "#d7c15c",
-                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+                glyph: '<path class="icon-glyph" d="M6 3.5h9L19 7v13.5a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1v-16a1 1 0 0 1 1-1zM14.5 3.5v4H19M8.5 15.5l2.5 2.5 4.5-5.5"/>'
             },
             "Beauty & Reality": {
                 color: "#5ab0da",
-                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+                glyph: '<path class="icon-glyph" d="M12 3l1.7 5.1L19 6l-3.2 4.3L21 12l-5.2 1.7L19 18l-5.3-2.9L12 21l-1.7-5.9L5 18l3.2-4.3L3 12l5.2-1.7L5 6l5.3 2.9z"/>'
             },
             "The Mathematical Life": {
                 color: "#7ec8e3",
-                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+                glyph: '<path class="icon-glyph" d="M12 8.5a2.5 2.5 0 1 1 0-5 2.5 2.5 0 0 1 0 5zM5.5 20.5c.8-3.8 3.4-5.7 6.5-5.7s5.7 1.9 6.5 5.7M8 4.5C9 3.5 10.5 3 12 3"/>'
             },
-            /* Flexcapades skin categories: Vocapades (6). Star glyph shared; distinct colors carry the category identity on the map. */
+            /* Flexcapades skin categories: Vocapades (6). Per-category pictograms; distinct colors and glyphs carry the category identity on the map. */
             "Purpose & Meaning": {
                 color: "#e5a45e",
-                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+                glyph: '<path class="icon-glyph" d="M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18 M12 17a5 5 0 1 0 0-10 5 5 0 0 0 0 10 M12 13a1 1 0 1 0 0-2 1 1 0 0 0 0 2Z"/>'
             },
             "Effort & Ambition": {
                 color: "#ef806e",
-                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+                glyph: '<path class="icon-glyph" d="M3 20l6-9 4 5 3-3 5 7Z M17 13V4 M17 4h4l-1.5 2L21 8h-4"/>'
             },
             "Place & Mode": {
                 color: "#d7c15c",
-                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+                glyph: '<path class="icon-glyph" d="M12 21s-6-5.5-6-10a6 6 0 0 1 12 0c0 4.5-6 10-6 10Z M12 13.5a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5Z"/>'
             },
             "Structure & Authority": {
                 color: "#5ab0da",
-                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+                glyph: '<path class="icon-glyph" d="M4 20h16 M5 20V10 M9.5 20V10 M14.5 20V10 M19 20V10 M3 10l9-6 9 6Z"/>'
             },
             "Reward & Security": {
                 color: "#7ec8e3",
-                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+                glyph: '<path class="icon-glyph" d="M5 4h14v16H5Z M12 15.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7 M12 12h2.5"/>'
             },
             "Identity & Boundaries": {
                 color: "#9b8cf2",
-                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+                glyph: '<path class="icon-glyph" d="M12 8.5a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5Z M8 20c0-3.2 1.8-5 4-5s4 1.8 4 5 M19.5 8A9 9 0 0 0 4.5 8 M4 15a9 9 0 0 0 15 1"/>'
+            },
+            /* Flexcapades skin categories: Dancecapades (9). Per-category pictograms; distinct colors and glyphs carry the category identity on the map. */
+            "Partnering & connection": {
+                color: "#ef806e",
+                glyph: '<path class="icon-glyph" d="M8 11.5a3.3 3.3 0 1 1 0-6.6 3.3 3.3 0 0 1 0 6.6Z M16 11.5a3.3 3.3 0 1 1 0-6.6 3.3 3.3 0 0 1 0 6.6Z M2.5 20c.8-3.2 2.8-5 5.5-5 1.5 0 2.9.6 3.9 1.6M21.5 20c-.8-3.2-2.8-5-5.5-5-1.5 0-2.9.6-3.9 1.6 M10.5 9.5h3"/>'
+            },
+            "Ballroom": {
+                color: "#e5a45e",
+                glyph: '<path class="icon-glyph" d="M4.5 16.5 5.6 8l4.4 4L12 6l2 6 4.4-4 1.1 8.5Z M5 20h14"/>'
+            },
+            "Swing & blues": {
+                color: "#63c2c8",
+                glyph: '<path class="icon-glyph" d="M7 8.5A4.5 4.5 0 0 1 12 4a4.5 4.5 0 0 1 4.7 4c1.9.3 3.3 1.2 4.3 2.5C18.6 12.7 15.4 14 12 14S5.4 12.7 3 10.5c1-1.3 2.4-2.2 4-2.5Z M3 10.5h18 M12 18.5h.01 M8.5 18c1 1.2 2.2 1.8 3.5 1.8s2.5-.6 3.5-1.8"/>'
+            },
+            "Salsa & club": {
+                color: "#d7c15c",
+                glyph: '<path class="icon-glyph" d="M14.5 10.5a4.7 4.7 0 1 1-6.6 4.3 4.7 4.7 0 0 1 6.6-4.3Z M14.5 10.5 20 5 M17.5 3.5l3 3 M10 13h.01 M12.5 11.5h.01 M9.5 16h.01"/>'
+            },
+            "Argentine tango": {
+                color: "#ee925f",
+                glyph: '<path class="icon-glyph" d="M12 9c-1.2-2-4-2.6-5.4-1C5.4 8.6 6.6 11 9 11.4 8.6 12.6 9 14 10.4 15c-2.6 1-3 3.6-1.4 5.2C11 21 14 20.6 15.6 18.6c1.2-1.6 1-3.4-.4-4.6 2.2-.6 3.2-2.8 2-4.4-1-1.4-3.4-1.2-5.2.4Z M12 16c1 2 1 4 .4 5.8M18.6 3.6c.6 1.8.4 3.6-.6 5.2"/>'
+            },
+            "Country & folk": {
+                color: "#a8c766",
+                glyph: '<path class="icon-glyph" d="M9 5h6l.8 5.2c2.4.5 4.2 1.8 5.2 3.8-2.8 1.2-5.8 1.8-9 1.8S5.8 15.2 3 14c1-2 2.8-3.3 5.2-3.8Z M9 5c1.8 1 4.2 1 6 0"/>'
+            },
+            "The social floor": {
+                color: "#82c66e",
+                glyph: '<path class="icon-glyph" d="M4 4h16v16H4Z M4 9.3h16 M4 14.6h16 M9.3 4v5.3 M14.6 9.3v5.3 M9.3 14.6V20 M14.6 4v5.3 M6.8 7c-.5 1.5-.4 2.8.3 4 M17.2 12.2c-.5 1.5-.4 2.8.3 4"/>'
+            },
+            "Music & movement": {
+                color: "#5ab0da",
+                glyph: '<path class="icon-glyph" d="M10 18.5V6l10-2v11.5 M10 6l10-2 M13 18.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z M23 15.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"/>'
+            },
+            "Settings & scenes": {
+                color: "#9b8cf2",
+                glyph: '<path class="icon-glyph" d="M4 20V9.5L12 4l8 5.5V20 M4 20h16 M9.5 20v-5h5v5 M17.5 6.5 20 4M20 4v3 M20 4h-3"/>'
+            },
+            /* Flexcapades skin categories: Questcapades (8). Per-category pictograms; distinct colors and glyphs carry the category identity on the map. */
+            "Your seat at the table": {
+                color: "#e5a45e",
+                glyph: '<path class="icon-glyph" d="M7 4v9 M7 4c2.8 0 4.5 1.8 4.5 4.5S9.8 13 7 13 M7 13h10.5 M17.5 13v7 M7 20v-7 M17.5 20h-4 M10 20H7 M11.5 8.5h6"/>'
+            },
+            "Systems & weight": {
+                color: "#5ab0da",
+                glyph: '<path class="icon-glyph" d="M12 9.2a2.8 2.8 0 1 1 0 5.6 2.8 2.8 0 0 1 0-5.6Z M12 2.8v3 M12 18.2v3 M2.8 12h3 M18.2 12h3 M5.5 5.5l2.1 2.1 M16.4 16.4l2.1 2.1 M18.5 5.5l-2.1 2.1 M7.6 16.4l-2.1 2.1 M12 4.3l1.2 2.2h-2.4Z M19.7 12l-2.2 1.2v-2.4Z M12 19.7l-1.2-2.2h2.4Z M4.3 12l2.2-1.2v2.4Z"/>'
+            },
+            "Genres & settings": {
+                color: "#63c2c8",
+                glyph: '<path class="icon-glyph" d="M12 3l2.3 4.8 5.2.7-3.8 3.6 1 5.2L12 14.6l-4.7 2.7 1-5.2L4.5 8.5l5.2-.7Z M5 21h14"/>'
+            },
+            "Dice, death & danger": {
+                color: "#82c66e",
+                glyph: '<path class="icon-glyph" d="M12 3l7.8 4.5v9L12 21l-7.8-4.5v-9Z M12 3v6.5 M4.2 7.5l5.3 3.5 M19.8 7.5l-5.3 3.5 M9.5 11l-5.3 5.5 M14.5 11l5.3 5.5 M9.5 11h5v5.5h-5Z M10.8 13.8h.01 M13.2 13.8h.01"/>'
+            },
+            "Story & character": {
+                color: "#a8c766",
+                glyph: '<path class="icon-glyph" d="M12 4.8a3.4 3.4 0 1 1 0 6.8 3.4 3.4 0 0 1 0-6.8Z M5 20.5c1-3.8 3.6-5.7 7-5.7s6 1.9 7 5.7 M17.5 4.2l.9 1.9 2.1.3-1.5 1.5.3 2.1-1.8-1-1.8 1 .3-2.1-1.5-1.5 2.1-.3Z"/>'
+            },
+            "Combat & challenge": {
+                color: "#ee925f",
+                glyph: '<path class="icon-glyph" d="M5 4l11 11 M19 4L8 15 M14.5 3.5l6 6 M3.5 9.5l6 6 M5 4l-1.6-1.4M19 4l1.6-1.4M16 13l3.5 3.5a2.05 2.05 0 0 1-3 3L13 16 M8 13l-3.5 3.5a2.05 2.05 0 0 0 3 3L11 16"/>'
+            },
+            "The table itself": {
+                color: "#ef806e",
+                glyph: '<path class="icon-glyph" d="M3 9.5h18 M5.5 9.5V20 M18.5 9.5V20 M3 9.5c2-2.4 5.2-3.6 9-3.6s7 1.2 9 3.6 M7.5 4a1.6 1.6 0 1 1 0 3.2A1.6 1.6 0 0 1 7.5 4Z M16.5 4a1.6 1.6 0 1 1 0 3.2A1.6 1.6 0 0 1 16.5 4Z M12 13.5h.01"/>'
+            },
+            "Formats & fandom": {
+                color: "#9b8cf2",
+                glyph: '<path class="icon-glyph" d="M6.5 3.5h11V8L12 5.5 6.5 8Z M12 5.5V20 M6.5 3.5V20 M17.5 3.5V20 M6.5 20h11"/>'
+            },
+            /* Flexcapades skin categories: Nouscapades (8). Per-category pictograms; distinct colors and glyphs carry the category identity on the map. */
+            "What is a mind?": {
+                color: "#9b8cf2",
+                glyph: '<path class="icon-glyph" d="M9.5 4A3 3 0 0 0 6.7 8.5 3 3 0 0 0 5 13c0 2 1 3.2 3 3.4A3 3 0 0 0 12 19V6.5A3 3 0 0 0 9.5 4Z M14.5 4A3 3 0 0 1 17.3 8.5 3 3 0 0 1 19 13c0 2-1 3.2-3 3.4A3 3 0 0 1 12 19"/>'
+            },
+            "What is a self?": {
+                color: "#63c2c8",
+                glyph: '<path class="icon-glyph" d="M12 2.5a5 7.5 0 1 0 0 15 5 7.5 0 0 0 0-15 M12 20.5V18 M8 21h8 M12 10a1.6 1.6 0 1 0 0-3.2A1.6 1.6 0 0 0 12 10 M9.5 15.5c.5-1.5 1.4-2.2 2.5-2.2s2 .7 2.5 2.2"/>'
+            },
+            "The new beings": {
+                color: "#a8c766",
+                glyph: '<path class="icon-glyph" d="M7 10h10v8H7Z M7 10C5.5 7 4 5.8 2.5 5.5 M17 10c1.5-3 3-4.2 4.5-4.5 M9.8 13.8h.4 M13.8 13.8h.4 M10 16.5h4"/>'
+            },
+            "The bioelectric pattern": {
+                color: "#e5a45e",
+                glyph: '<path class="icon-glyph" d="M13 3L6 13h5l-1 8 7-10h-5Z"/>'
+            },
+            "Agency at every scale": {
+                color: "#ef806e",
+                glyph: '<path class="icon-glyph" d="M5.5 18.5a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5 M13 16a4 4 0 1 0 0-8 4 4 0 0 0 0 8 M8 10.5l2.5-2 M16.5 8.5l1-2"/>'
+            },
+            "Death and continuity": {
+                color: "#7ec8e3",
+                glyph: '<path class="icon-glyph" d="M5 9a8 8 0 0 1 13-3 M19 15a8 8 0 0 1-13 3 M18 2.5V7h-4.5 M6 21.5V17h4.5"/>'
+            },
+            "Who counts?": {
+                color: "#d7c15c",
+                glyph: '<path class="icon-glyph" d="M12 3v18 M7 21h10 M12 6H5.5 M12 6h6.5 M5.5 6L3 12a3.2 3.2 0 0 0 5 0L5.5 6 M18.5 6L16 12a3.2 3.2 0 0 0 5 0L18.5 6"/>'
+            },
+            "The human case": {
+                color: "#ee925f",
+                glyph: '<path class="icon-glyph" d="M12 6.5a3 3 0 1 0 0-6 3 3 0 0 0 0 6 M12 7.5V15 M4.5 10.5L12 8l7.5 2.5 M9 21l3-6 3 6"/>'
             },
         };
 
