@@ -3646,7 +3646,8 @@
         "skin": "vocapades"
       },
       "skin": "vocapades",
-      "kind": "sample"
+      "kind": "sample",
+      "emblem": "images/emblems/voc-calling.svg"
     },
     "voc-climber": {
       "name": "The Ambitious Climber",
@@ -3921,7 +3922,8 @@
         "skin": "vocapades"
       },
       "skin": "vocapades",
-      "kind": "sample"
+      "kind": "sample",
+      "emblem": "images/emblems/voc-climber.svg"
     },
     "voc-security": {
       "name": "The Security Seeker",
@@ -4196,7 +4198,8 @@
         "skin": "vocapades"
       },
       "skin": "vocapades",
-      "kind": "sample"
+      "kind": "sample",
+      "emblem": "images/emblems/voc-security.svg"
     },
     "voc-balance": {
       "name": "The Balance Keeper",
@@ -4476,7 +4479,8 @@
         "skin": "vocapades"
       },
       "skin": "vocapades",
-      "kind": "sample"
+      "kind": "sample",
+      "emblem": "images/emblems/voc-balance.svg"
     },
     "voc-craftsman": {
       "name": "The Master Craftsman",
@@ -4756,7 +4760,8 @@
         "skin": "vocapades"
       },
       "skin": "vocapades",
-      "kind": "sample"
+      "kind": "sample",
+      "emblem": "images/emblems/voc-craftsman.svg"
     },
     "voc-founder": {
       "name": "The Founder",
@@ -5031,7 +5036,8 @@
         "skin": "vocapades"
       },
       "skin": "vocapades",
-      "kind": "sample"
+      "kind": "sample",
+      "emblem": "images/emblems/voc-founder.svg"
     }
   }
 }
