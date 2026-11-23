@@ -39,7 +39,7 @@ Each item waits for Jason's kickoff; nothing here dispatches itself.
 4. **Per-Topic Glyphs for the Vanilla Skins (another AI's lane — Grok/Cursor):**
    - Ruled by Jason 2026-11-23: topic-icon inheritance ships first (topics wear their category's glyph; the generic star dies). After that, author a distinct, relevant glyph for EVERY topic on the vanilla skins, skin by skin, Nous first.
    - One commit per skin. A topic's glyph replaces the inherited category glyph for that topic only; categories keep theirs.
-   - Sexcapades CORRECTION (2026-11-23, probe-proven): its topics were NOT wearing per-topic icons — the per-topic glyph map's data path traces to the taxonomy binding emptied on 2026-11-21, so all 374 Sexcapades topics rendered the star too. Inheritance now covers them (18 category glyphs). Restoring the DESIGNED per-topic Sexcapades glyphs means repairing that data path — a separate repair item, queued here: fix the per-topic glyph map's data path so the designed Sexcapades topic glyphs render again (the inheritance resolver already defers to the map wherever it hits, so no painter change is needed).
+- ~~   - Sexcapades CORRECTION (2026-11-23, probe-proven): its topics were NOT wearing per-topic icons — the per-topic glyph map's data path traces to the taxonomy binding emptied on 2026-11-21, so all 374 Sexcapades topics rendered the star too. Inheritance now covers them (18 category glyphs). Restoring the DESIGNED per-topic Sexcapades glyphs means repairing that data path — a separate repair item, queued here: fix the per-topic glyph map's data path so the designed Sexcapades topic glyphs render again (the inheritance resolver already defers to the map wherever it hits, so no painter change is needed).
 
 ---
 
