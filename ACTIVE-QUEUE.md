@@ -36,6 +36,11 @@ Each item waits for Jason's kickoff; nothing here dispatches itself.
    - *Open:* Investigate audible-sounds cause (Jason, 2026-11-08: needs investigation, not guessing); entertainment idea (genre map + live group enjoyment meter) open.
 
 
+4. **Per-Topic Glyphs for the Vanilla Skins (another AI's lane — Grok/Cursor):**
+   - Ruled by Jason 2026-11-23: topic-icon inheritance ships first (topics wear their category's glyph; the generic star dies). After that, author a distinct, relevant glyph for EVERY topic on the vanilla skins, skin by skin, Nous first.
+   - One commit per skin. A topic's glyph replaces the inherited category glyph for that topic only; categories keep theirs.
+   - Sexcapades is out of scope (its topics already carry per-topic icons).
+
 ---
 
 ## 2. Open Carry-Overs & Backlog
