@@ -42,6 +42,12 @@ Each item waits for Jason's kickoff; nothing here dispatches itself.
    - **Nouscapades per-topic glyphs:** DONE (2026-11-23). All 39 topics assigned distinct, relevant 16x16 vector glyphs.
 - ~~   - Sexcapades CORRECTION (2026-11-23, probe-proven): its topics were NOT wearing per-topic icons — the per-topic glyph map's data path traces to the taxonomy binding emptied on 2026-11-21, so all 374 Sexcapades topics rendered the star too. Inheritance now covers them (18 category glyphs). Restoring the DESIGNED per-topic Sexcapades glyphs means repairing that data path — a separate repair item, queued here: fix the per-topic glyph map's data path so the designed Sexcapades topic glyphs render again (the inheritance resolver already defers to the map wherever it hits, so no painter change is needed).
 
+5. **Receptivity in Every Score (ruled by Jason 2026-11-23, on voice):**
+   - Receptivity counts in the scores as its own flank/component wherever advocacy counts, never averaged or blended with it (direction law intact).
+   - Already true: the pair comparison core's Straight carries a separate receptivity component beside advocacy, and the Cross crosses advocacy×receptivity both ways.
+   - *Build owed:* wire receptivity into (a) the circle minus / Debate factor and match score, and (b) the single-profile factors (the rings), each time as its own component beside advocacy, following the Straight pattern.
+   - Note for the builder: no receptivity was found in the headline compatibility metrics on 2026-11-23; verify the Debate computation's current inputs before wiring, don't assume.
+
 ---
 
 ## 2. Open Carry-Overs & Backlog
