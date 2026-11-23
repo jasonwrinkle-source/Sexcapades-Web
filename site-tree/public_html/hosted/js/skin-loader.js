@@ -1374,25 +1374,73 @@
         (localRosterNames[e.rosterKey] = localRosterNames[e.rosterKey] || {})[String(e.name || "").trim().toLowerCase()] = true;
       }
     });
+    /* Palimpsest stacks (2026-11-22): a sample may carry stack
+       fields (stack / stackKey / date) marking it as one dated layer
+       of a single profile across time — a party's platforms, a
+       creed's documents. Stacked samples never render as flat rows:
+       each stack collapses into ONE parent entry, in the Samples
+       menu at the position of its first layer and in the add menu
+       beside the roster entries, and the parent opens a submenu of
+       the layers in date order (see syncStackMenus). */
+    var stackGroups = {}, stackOrder = [];
+    function stackKeyOf(e) { return e && (e.stackKey || e.stack) ? String(e.stackKey || e.stack) : null; }
     samplesList.forEach(function (key) {
       var e = samples[key];
       if (e && e.rosterKey) {
         if (!e.local && localRosterNames[e.rosterKey] && localRosterNames[e.rosterKey][String(e.name || "").trim().toLowerCase()]) return;
         if (!rosterGroups[e.rosterKey]) { rosterGroups[e.rosterKey] = { name: e.roster || "Roster", keys: [] }; rosterOrder.push(e.rosterKey); }
         rosterGroups[e.rosterKey].keys.push(key);
+      } else if (stackKeyOf(e)) {
+        var sk = stackKeyOf(e);
+        if (!stackGroups[sk]) { stackGroups[sk] = { name: e.stack || "Stack", keys: [] }; stackOrder.push(sk); }
+        stackGroups[sk].keys.push(key);
       } else plainSamples.push(key);
     });
+    stackOrder.forEach(function (sk) {
+      stackGroups[sk].sorted = stackGroups[sk].keys.slice().sort(function (a, b) {
+        var va = stackDateValue(samples[a]), vb = stackDateValue(samples[b]);
+        return va < vb ? -1 : va > vb ? 1 : 0;
+      });
+    });
+    var stackMenusOk = typeof window.__SX_WIRE_SAMPLE_SUBMENU === "function";
+    /* Render the Samples menu with a stack parent interleaved at the
+       position of each stack's first layer. Only used when stacks
+       exist and the submenu hook is live; otherwise the flat path
+       runs exactly as before (and syncStackMenus falls back to
+       headed groups, the roster fallback shape). */
+    function renderSamplesMenu(withHeadings) {
+      var renderedStacks = {};
+      if (withHeadings && (plainSamples.length || stackOrder.length)) {
+        var label = document.createElement("div");
+        label.className = "sample-menu-group";
+        label.textContent = "Samples";
+        menu.appendChild(label);
+      }
+      samplesList.forEach(function (key) {
+        var e = samples[key];
+        if (!e || e.rosterKey) return;
+        var sk = stackKeyOf(e);
+        if (sk) {
+          if (renderedStacks[sk]) return;
+          renderedStacks[sk] = true;
+          menu.appendChild(ensureStackEls(sk, menu).item);
+        } else addGroup(menu, null, [key]);
+      });
+    }
     if (archMenu) {
       addGroup(archMenu, null, archetypes);
-      addGroup(menu, null, plainSamples);
-      if (!plainSamples.length) hideSamplesEntry();
+      if (stackOrder.length && stackMenusOk) renderSamplesMenu(false);
+      else addGroup(menu, null, plainSamples);
+      if (!plainSamples.length && !stackOrder.length) hideSamplesEntry();
       else if (sampleEntry) sampleEntry.hidden = false;
     } else {
       addGroup(menu, "Archetypes", archetypes);
-      addGroup(menu, "Samples", plainSamples);
+      if (stackOrder.length && stackMenusOk) renderSamplesMenu(true);
+      else addGroup(menu, "Samples", plainSamples);
       if (sampleEntry) sampleEntry.hidden = false;
     }
     syncRosterMenus(rosterGroups, rosterOrder, addGroup, menu);
+    syncStackMenus(stackGroups, stackOrder, addGroup, menu);
     ensureRosterAddActions();
   }
 
@@ -1456,6 +1504,154 @@
       addGroup(els.menu, null, group.keys);
     });
   }
+  /* A layer's date sort value: numeric years ascending, "present"
+     (the stack's current layer) always last. */
+  function stackDateValue(entry) {
+    var d = entry && entry.date != null ? String(entry.date).trim() : "";
+    if (!d || d.toLowerCase() === "present") return Infinity;
+    var n = parseFloat(d);
+    return isNaN(n) ? Infinity : n;
+  }
+
+  /* Stack submenu elements, created by rebuildSampleMenu and kept
+     in this registry across rebuilds (keyed by stack key) — the
+     rosterMenuEls pattern. Each stack owns TWO submenus: one opened
+     from its add-menu entry, one from its parent row inside the
+     Samples menu. Both are wired through 06d's
+     __SX_WIRE_SAMPLE_SUBMENU hook and registered on
+     window.__SX_SAMPLE_SUBMENUS, so every close/refresh path in 06d
+     (Sw, Ew, Ow, Pw) treats them exactly like the roster submenus —
+     the 2026-11-22 roster dismiss fix applies to them by
+     construction. */
+  var stackMenuEls = {};
+  function ensureStackEls(sk, samplesMenu) {
+    var els = stackMenuEls[sk];
+    if (els) return els;
+    var addMenu = document.getElementById("profileAddMenu");
+    var wire = (typeof window.__SX_WIRE_SAMPLE_SUBMENU === "function") ? window.__SX_WIRE_SAMPLE_SUBMENU : null;
+    var entry = document.createElement("button");
+    entry.type = "button";
+    entry.id = "loadStackChoice-" + sk;
+    entry.setAttribute("role", "menuitem");
+    entry.setAttribute("aria-haspopup", "menu");
+    entry.setAttribute("aria-expanded", "false");
+    var item = document.createElement("div");
+    item.className = "sample-profile-item";
+    var subEntry = document.createElement("button");
+    subEntry.type = "button";
+    /* NOT .sample-profile-choice: rebuildSampleMenu's cleanup
+       removes every matching element in the Samples menu one by
+       one, which would strip this button out of its (also removed,
+       then re-appended) wrapper item. With only .sample-stack-choice
+       (styled like a sample choice in app.css), the wrapper alone
+       matches, leaves intact, and is re-appended with the button
+       still inside. */
+    subEntry.className = "sample-stack-choice";
+    subEntry.setAttribute("role", "menuitem");
+    subEntry.setAttribute("aria-haspopup", "menu");
+    subEntry.setAttribute("aria-expanded", "false");
+    var subStrong = document.createElement("strong");
+    var subSmall = document.createElement("small");
+    subEntry.appendChild(subStrong);
+    subEntry.appendChild(subSmall);
+    item.appendChild(subEntry);
+    function makeStackMenu(idSuffix) {
+      var m = document.createElement("div");
+      m.id = "profileStackMenu-" + sk + idSuffix;
+      m.className = "profile-add-menu profile-sample-menu";
+      m.setAttribute("role", "menu");
+      m.hidden = true;
+      var back = document.createElement("button");
+      back.type = "button";
+      back.className = "sample-menu-back";
+      back.setAttribute("role", "menuitem");
+      back.textContent = "\u2039 Back";
+      m.appendChild(back);
+      return { menu: m, back: back };
+    }
+    var fromAdd = makeStackMenu(""), fromSamples = makeStackMenu("-samples");
+    var savedChoice = document.getElementById("loadSavedProfileChoice");
+    if (addMenu) addMenu.insertBefore(entry, savedChoice || null);
+    if (samplesMenu && samplesMenu.parentElement) {
+      samplesMenu.parentElement.appendChild(fromAdd.menu);
+      samplesMenu.parentElement.appendChild(fromSamples.menu);
+    }
+    /* Register with 06d's close/refresh paths; __sxTrigger lets Sw
+       reset each entry's aria-expanded when it closes the menu. */
+    fromAdd.menu.__sxTrigger = entry;
+    fromSamples.menu.__sxTrigger = subEntry;
+    (window.__SX_SAMPLE_SUBMENUS = window.__SX_SAMPLE_SUBMENUS || []).push(fromAdd.menu, fromSamples.menu);
+    if (wire) {
+      wire(entry, fromAdd.menu, fromAdd.back);
+      wire(subEntry, fromSamples.menu, fromSamples.back);
+    }
+    els = stackMenuEls[sk] = { entry: entry, menu: fromAdd.menu, item: item, subEntry: subEntry, subStrong: subStrong, subSmall: subSmall, subMenu: fromSamples.menu };
+    return els;
+  }
+
+  function syncStackMenus(stackGroups, stackOrder, addGroup, samplesMenu) {
+    var addMenu = document.getElementById("profileAddMenu");
+    var wire = (typeof window.__SX_WIRE_SAMPLE_SUBMENU === "function") ? window.__SX_WIRE_SAMPLE_SUBMENU : null;
+    Object.keys(stackMenuEls).forEach(function (sk) {
+      if (!stackGroups[sk]) {
+        var els = stackMenuEls[sk];
+        els.entry.remove();
+        els.item.remove();
+        els.menu.remove();
+        els.subMenu.remove();
+        var reg = window.__SX_SAMPLE_SUBMENUS || [];
+        [els.menu, els.subMenu].forEach(function (m) {
+          var ix = reg.indexOf(m);
+          if (ix >= 0) reg.splice(ix, 1);
+        });
+        delete stackMenuEls[sk];
+      }
+    });
+    if (!wire || !addMenu || !samplesMenu) {
+      /* Fallback (no submenu hook): headed groups of layers, in
+         date order, inside the Samples menu. */
+      stackOrder.forEach(function (sk) { addGroup(samplesMenu, stackGroups[sk].name, stackGroups[sk].sorted); });
+      return;
+    }
+    stackOrder.forEach(function (sk) {
+      var group = stackGroups[sk];
+      var els = ensureStackEls(sk, samplesMenu);
+      els.entry.textContent = group.name + "\u2026";
+      els.subStrong.textContent = group.name;
+      els.subSmall.textContent = group.sorted.length + " dated layers";
+      [els.menu, els.subMenu].forEach(function (m) {
+        m.setAttribute("aria-label", group.name);
+        m.querySelectorAll(".sample-profile-choice, .sample-profile-item, .sample-menu-group").forEach(function (b) { b.remove(); });
+        addGroup(m, null, group.sorted);
+        /* Load whole stack: every layer as its own profile tab, in
+           date order, through the same sample-load path a layer
+           click uses (06d's __SX_LOAD_SAMPLES hook, which runs the
+           menu-click loader once per layer, in order). */
+        var item = document.createElement("div");
+        item.className = "sample-profile-item";
+        var btn = document.createElement("button");
+        btn.type = "button";
+        btn.className = "sample-profile-choice sample-stack-load-all";
+        btn.setAttribute("role", "menuitem");
+        var strong = document.createElement("strong");
+        strong.textContent = "Load whole stack";
+        var small = document.createElement("small");
+        small.textContent = group.sorted.length + " layers \u00b7 oldest first";
+        btn.appendChild(strong);
+        btn.appendChild(small);
+        btn.addEventListener("click", function () {
+          if (typeof window.__SX_LOAD_SAMPLES === "function") window.__SX_LOAD_SAMPLES(m, group.sorted);
+          else group.sorted.forEach(function (k) {
+            var b = m.querySelector('[data-sample-profile="' + k + '"]');
+            if (b && !b.disabled) b.click();
+          });
+        });
+        item.appendChild(btn);
+        m.appendChild(item);
+      });
+    });
+  }
+
   /* Export/Import roster pack live in the add menu itself (2026-11-22):
      they add profiles, they are reachable even on a map whose Samples
      entry is hidden, and they never need a submenu. Created once. */
@@ -1474,18 +1670,11 @@
   }
 
   function setBrand(skinId, displayName) {
-    var host = "";
-    try { host = (window.location.hostname || "").toLowerCase(); } catch (_) {}
-    var isFlexHost = (host === "flex.capades.io" || host === "capades.io") && (!skinId || skinId === "sexcapades") && !skinFromUrl();
-    var prefix = isFlexHost ? "flex" : skinPrefixFor(skinId);
+    var prefix = skinPrefixFor(skinId);
     var dotted = prefix ? (prefix.charAt(0).toUpperCase() + prefix.slice(1) + ".Capades.IO") : "Sex.Capades.IO";
     var name = dotted;
     var brand = dotted;
-    if (isFlexHost) {
-      document.title = "flex.capades.io";
-    } else {
-      document.title = dotted + (skinId === "sexcapades" ? "" : " — " + (displayName || skinId));
-    }
+    document.title = dotted + (skinId === "sexcapades" ? "" : " — " + (displayName || skinId));
     var btn = document.getElementById("openAppAbout");
     if (btn) btn.textContent = name;
     var about = document.getElementById("appAboutTitle");

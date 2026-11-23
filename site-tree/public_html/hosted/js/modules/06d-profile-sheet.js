@@ -78,12 +78,19 @@
             return Cw[e];
         }
         function Iw(t = {}, menu = jy, trigger = _w) {
+            // Capture the trigger's rect BEFORE kw()/Sw() close the
+            // other submenus: a trigger that lives inside a submenu
+            // (a palimpsest stack's parent row inside Samples) has no
+            // rect once its own menu is hidden. Triggers in the add
+            // menu are unaffected — Sw never hides that menu, so their
+            // rect is the same either way.
+            const triggerRect = trigger && trigger.getBoundingClientRect ? trigger.getBoundingClientRect() : null;
             kw(), Sw();
             const n = tl.querySelector("[data-add-profile]"), i = trigger;
             if (!n || By.hidden || !menu) return;
             Ew(), menu.hidden = !1, menu.classList.add("is-submenu"), n.setAttribute("aria-expanded", "true"), 
             i.setAttribute("aria-expanded", "true");
-            const a = i.getBoundingClientRect(), r = menu.offsetWidth, o = menu.offsetHeight;
+            const a = triggerRect || i.getBoundingClientRect(), r = menu.offsetWidth, o = menu.offsetHeight;
             let s, l;
             if (innerWidth <= 620) {
                 s = Math.max(8, Math.min(innerWidth - r - 8, a.left));
@@ -113,8 +120,7 @@
         // Loads one entry from either the Samples or the Archetypes
         // submenu (both carry [data-sample-profile] buttons; the
         // loader is the same for archetypes and samples).
-        async function sxSampleMenuClick(menu, e) {
-            const sampleBtn = __sxClosestAction(e.target, "sampleProfile");
+        async function sxLoadSampleBtn(menu, sampleBtn) {
             if (!sampleBtn || !menu.contains(sampleBtn) || sampleBtn.disabled) return;
             const n = sampleBtn.dataset.sampleProfile, i = sampleBtn.dataset.sampleName, a = Number(sampleBtn.dataset.sampleCount), r = sampleBtn.querySelector("small");
             sampleBtn.disabled = !0, r && (r.textContent = "Loading…"), Sw(), xw();
@@ -142,6 +148,25 @@
                 });
             }
         }
+        function sxSampleMenuClick(menu, e) {
+            const sampleBtn = __sxClosestAction(e.target, "sampleProfile");
+            if (sampleBtn) sxLoadSampleBtn(menu, sampleBtn);
+        }
+        // Whole-stack loading (2026-11-22): a palimpsest stack
+        // submenu's "Load whole stack" item (created by the skin
+        // loader) calls this hook with the stack's layer keys in date
+        // order; each layer loads through the very same path as a
+        // menu click on its button, one at a time, so the profile
+        // tabs land in date order and each load's auto-select
+        // settles before the next begins. Already-loaded layers are
+        // skipped (Ew keeps their buttons disabled).
+        window.__SX_LOAD_SAMPLES = async (menu, keys) => {
+            if (!menu || !keys) return;
+            for (const k of keys) {
+                const btn = menu.querySelector(`[data-sample-profile="${CSS.escape(k)}"]`);
+                if (btn && !btn.disabled) await sxLoadSampleBtn(menu, btn);
+            }
+        };
         const Tw = e.byId("newBlankProfile"), Fw = e.byId("newListProfile"), Nw = e.byId("importProfileChoice"), _w = e.byId("loadSampleProfileChoice"), _wA = e.byId("loadArchetypeChoice");
         e.byId("makeOwnMapButton") && e.byId("makeOwnMapButton").addEventListener("click", () => {
             Vy = null, bw(null);
