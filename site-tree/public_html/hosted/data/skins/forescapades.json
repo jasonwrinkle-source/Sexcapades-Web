@@ -15,7 +15,7 @@
                 "poles": [
                   {
                     "label": "One God, indivisible",
-                    "text": "One God, indivisible — the Trinity is rejected"
+                    "text": "One God, indivisible \u2014 the Trinity is rejected"
                   },
                   {
                     "label": "Modalism",
@@ -45,7 +45,7 @@
               ],
               "question": "Is God one being in three persons, and what does that mean for how we know God?",
               "risk": false,
-              "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md §4 (t0001)",
+              "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md \u00a74 (t0001)",
               "widget": "trilinear-line",
               "communities": [
                 {
@@ -63,7 +63,8 @@
                   "name": "r/theology",
                   "url": "https://www.reddit.com/r/theology/"
                 }
-              ]
+              ],
+              "glyph": "triangle"
             },
             {
               "archetype": "line",
@@ -76,7 +77,7 @@
                   },
                   {
                     "label": "Through the Son",
-                    "text": "The Spirit proceeds from the Father through the Son — the historic mediating formula (per Filium)."
+                    "text": "The Spirit proceeds from the Father through the Son \u2014 the historic mediating formula (per Filium)."
                   },
                   {
                     "label": "Father alone",
@@ -102,7 +103,7 @@
               ],
               "question": "Does the Holy Spirit proceed from the Father alone, or from the Father and the Son?",
               "risk": false,
-              "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md §4 (t0002)",
+              "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md \u00a74 (t0002)",
               "widget": "trilinear-line",
               "communities": [
                 {
@@ -120,7 +121,8 @@
                   "name": "r/theology",
                   "url": "https://www.reddit.com/r/theology/"
                 }
-              ]
+              ],
+              "glyph": "flame"
             },
             {
               "archetype": null,
@@ -143,7 +145,7 @@
               ],
               "question": "How does God make Himself known, and is natural knowledge sufficient for salvation?",
               "risk": false,
-              "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md §4 (t0058)",
+              "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md \u00a74 (t0058)",
               "type": "single",
               "widget": "monopole-slider",
               "communities": [
@@ -162,7 +164,8 @@
                   "name": "r/theology",
                   "url": "https://www.reddit.com/r/theology/"
                 }
-              ]
+              ],
+              "glyph": "eye"
             },
             {
               "archetype": null,
@@ -201,7 +204,7 @@
               ],
               "question": "How should anthropomorphic descriptions of God (hands, face, throne) in scripture be understood?",
               "risk": false,
-              "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md §4 (t0077)",
+              "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md \u00a74 (t0077)",
               "widget": "trilinear-line",
               "communities": [
                 {
@@ -219,7 +222,8 @@
                   "name": "r/theology",
                   "url": "https://www.reddit.com/r/theology/"
                 }
-              ]
+              ],
+              "glyph": "person"
             }
           ]
         },
@@ -230,7 +234,7 @@
             {
               "archetype": "simplex",
               "hovertip": {
-                "issue": "Who is Jesus Christ — truly God, truly man, or both — and how do the two natures relate?",
+                "issue": "Who is Jesus Christ \u2014 truly God, truly man, or both \u2014 and how do the two natures relate?",
                 "poles": [
                   {
                     "label": "True God and true man",
@@ -262,9 +266,9 @@
                   "label": "Jewish teacher, not Messiah"
                 }
               ],
-              "question": "Who is Jesus Christ — truly God, truly man, or both — and how do the two natures relate?",
+              "question": "Who is Jesus Christ \u2014 truly God, truly man, or both \u2014 and how do the two natures relate?",
               "risk": false,
-              "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md §4 (t0003)",
+              "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md \u00a74 (t0003)",
               "widget": "triangle",
               "communities": [
                 {
@@ -282,7 +286,8 @@
                   "name": "r/theology",
                   "url": "https://www.reddit.com/r/theology/"
                 }
-              ]
+              ],
+              "glyph": "cross"
             },
             {
               "archetype": "line",
@@ -321,7 +326,7 @@
               ],
               "question": "Was Jesus conceived by the Holy Spirit and born of the Virgin Mary?",
               "risk": false,
-              "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md §4 (t0004)",
+              "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md \u00a74 (t0004)",
               "widget": "trilinear-line",
               "communities": [
                 {
@@ -334,7 +339,8 @@
                   "name": "r/Christianity",
                   "url": "https://www.reddit.com/r/Christianity/"
                 }
-              ]
+              ],
+              "glyph": "rose"
             },
             {
               "archetype": "line",
@@ -347,7 +353,7 @@
                   },
                   {
                     "label": "Spiritual resurrection",
-                    "text": "Christ rose, but not bodily — a spiritual rising."
+                    "text": "Christ rose, but not bodily \u2014 a spiritual rising."
                   },
                   {
                     "label": "Jesus did not rise",
@@ -373,7 +379,7 @@
               ],
               "question": "Did Christ truly rise bodily from the dead, and what does his resurrection mean for ours?",
               "risk": false,
-              "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md §4 (t0005)",
+              "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md \u00a74 (t0005)",
               "widget": "trilinear-line",
               "communities": [
                 {
@@ -386,7 +392,8 @@
                   "name": "r/Christianity",
                   "url": "https://www.reddit.com/r/Christianity/"
                 }
-              ]
+              ],
+              "glyph": "burst"
             }
           ]
         },
@@ -397,7 +404,7 @@
             {
               "archetype": "line",
               "hovertip": {
-                "issue": "How did God make the world — in six days, over ages, or is the manner not defined?",
+                "issue": "How did God make the world \u2014 in six days, over ages, or is the manner not defined?",
                 "poles": [
                   {
                     "label": "Created in six days",
@@ -429,9 +436,9 @@
                   "label": "God creates; manner not defined"
                 }
               ],
-              "question": "How did God make the world — in six days, over ages, or is the manner not defined?",
+              "question": "How did God make the world \u2014 in six days, over ages, or is the manner not defined?",
               "risk": false,
-              "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md §4 (t0006)",
+              "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md \u00a74 (t0006)",
               "widget": "trilinear-line",
               "communities": [
                 {
@@ -449,7 +456,8 @@
                   "name": "r/theology",
                   "url": "https://www.reddit.com/r/theology/"
                 }
-              ]
+              ],
+              "glyph": "tree"
             },
             {
               "archetype": null,
@@ -472,7 +480,7 @@
               ],
               "question": "If God governs all things, why does he allow suffering and evil?",
               "risk": false,
-              "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md §4 (t0007)",
+              "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md \u00a74 (t0007)",
               "type": "single",
               "widget": "monopole-slider",
               "communities": [
@@ -501,12 +509,13 @@
                   "name": "r/Christianity",
                   "url": "https://www.reddit.com/r/Christianity/"
                 }
-              ]
+              ],
+              "glyph": "shield"
             },
             {
               "archetype": null,
               "hovertip": {
-                "issue": "What happened to human nature in the Fall — is Adam's guilt inherited, or only its effects?",
+                "issue": "What happened to human nature in the Fall \u2014 is Adam's guilt inherited, or only its effects?",
                 "poles": [
                   {
                     "label": "Original sin inherited",
@@ -538,9 +547,9 @@
                   "label": "No inherited sin"
                 }
               ],
-              "question": "What happened to human nature in the Fall — is Adam's guilt inherited, or only its effects?",
+              "question": "What happened to human nature in the Fall \u2014 is Adam's guilt inherited, or only its effects?",
               "risk": false,
-              "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md §4 (t0008)",
+              "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md \u00a74 (t0008)",
               "widget": "trilinear-line",
               "communities": [
                 {
@@ -558,7 +567,8 @@
                   "name": "r/theology",
                   "url": "https://www.reddit.com/r/theology/"
                 }
-              ]
+              ],
+              "glyph": "droplet"
             }
           ]
         },
@@ -569,7 +579,7 @@
             {
               "archetype": "simplex",
               "hovertip": {
-                "issue": "Has the Messiah come, or is he still to come — and who is he?",
+                "issue": "Has the Messiah come, or is he still to come \u2014 and who is he?",
                 "poles": [
                   {
                     "label": "Messiah not yet come",
@@ -601,9 +611,9 @@
                   "label": "Jesus the Messiah, God incarnate"
                 }
               ],
-              "question": "Has the Messiah come, or is he still to come — and who is he?",
+              "question": "Has the Messiah come, or is he still to come \u2014 and who is he?",
               "risk": false,
-              "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md §4 (t0060)",
+              "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md \u00a74 (t0060)",
               "widget": "triangle",
               "communities": [
                 {
@@ -631,12 +641,13 @@
                   "name": "r/religion",
                   "url": "https://www.reddit.com/r/religion/"
                 }
-              ]
+              ],
+              "glyph": "crown"
             },
             {
               "archetype": "simplex",
               "hovertip": {
-                "issue": "What is God's covenant — with Israel, with all who believe, or with humanity?",
+                "issue": "What is God's covenant \u2014 with Israel, with all who believe, or with humanity?",
                 "poles": [
                   {
                     "label": "Covenant with Israel eternal",
@@ -668,9 +679,9 @@
                   "label": "Covenant renewed in Islam"
                 }
               ],
-              "question": "What is God's covenant — with Israel, with all who believe, or with humanity?",
+              "question": "What is God's covenant \u2014 with Israel, with all who believe, or with humanity?",
               "risk": false,
-              "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md §4 (t0061)",
+              "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md \u00a74 (t0061)",
               "widget": "triangle",
               "communities": [
                 {
@@ -698,7 +709,8 @@
                   "name": "r/religion",
                   "url": "https://www.reddit.com/r/religion/"
                 }
-              ]
+              ],
+              "glyph": "scroll"
             },
             {
               "archetype": null,
@@ -737,7 +749,7 @@
               ],
               "question": "Is circumcision a required sign of the covenant?",
               "risk": false,
-              "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md §4 (t0072)",
+              "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md \u00a74 (t0072)",
               "widget": "trilinear-line",
               "communities": [
                 {
@@ -755,7 +767,8 @@
                   "name": "r/religion",
                   "url": "https://www.reddit.com/r/religion/"
                 }
-              ]
+              ],
+              "glyph": "needle"
             },
             {
               "archetype": "line",
@@ -794,7 +807,7 @@
               ],
               "question": "Is divine covenantal election restricted to an ethnic/ancestral lineage, or open universally to all humanity?",
               "risk": false,
-              "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md §4 (t0081)",
+              "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md \u00a74 (t0081)",
               "widget": "trilinear-line",
               "communities": [
                 {
@@ -812,7 +825,8 @@
                   "name": "r/religion",
                   "url": "https://www.reddit.com/r/religion/"
                 }
-              ]
+              ],
+              "glyph": "badge"
             },
             {
               "archetype": "line",
@@ -851,7 +865,7 @@
               ],
               "question": "Have later divine covenants replaced, abrogated, or fulfilled prior covenants made with earlier communities?",
               "risk": false,
-              "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md §4 (t0082)",
+              "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md \u00a74 (t0082)",
               "widget": "trilinear-line",
               "communities": [
                 {
@@ -879,7 +893,8 @@
                   "name": "r/religion",
                   "url": "https://www.reddit.com/r/religion/"
                 }
-              ]
+              ],
+              "glyph": "swap"
             },
             {
               "archetype": "line",
@@ -918,7 +933,7 @@
               ],
               "question": "Does the physical territory of the Holy Land / Jerusalem possess an enduring, unique divine holiness and covenantal status?",
               "risk": false,
-              "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md §4 (t0085)",
+              "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md \u00a74 (t0085)",
               "widget": "trilinear-line",
               "communities": [
                 {
@@ -931,7 +946,8 @@
                   "name": "r/DebateReligion",
                   "url": "https://www.reddit.com/r/DebateReligion/"
                 }
-              ]
+              ],
+              "glyph": "pin"
             }
           ]
         },
@@ -942,7 +958,7 @@
             {
               "archetype": null,
               "hovertip": {
-                "issue": "Which Abrahamic faith carries the true covenant — Judaism, Christianity, or Islam?",
+                "issue": "Which Abrahamic faith carries the true covenant \u2014 Judaism, Christianity, or Islam?",
                 "poles": [
                   {
                     "label": "Judaism",
@@ -974,9 +990,9 @@
                   "label": "Islam (Tawhid / Final Prophethood)"
                 }
               ],
-              "question": "Which Abrahamic faith carries the true covenant — Judaism, Christianity, or Islam?",
+              "question": "Which Abrahamic faith carries the true covenant \u2014 Judaism, Christianity, or Islam?",
               "risk": false,
-              "source": "BRIEFING_FORESCAPADES_TAXONOMY.md §3.1.1",
+              "source": "BRIEFING_FORESCAPADES_TAXONOMY.md \u00a73.1.1",
               "widget": "triangle",
               "communities": [
                 {
@@ -1019,7 +1035,8 @@
                   "name": "r/Judaism",
                   "url": "https://www.reddit.com/r/Judaism/"
                 }
-              ]
+              ],
+              "glyph": "trio"
             },
             {
               "archetype": "simplex",
@@ -1082,7 +1099,7 @@
               ],
               "question": "What are the six articles of Islamic faith?",
               "risk": false,
-              "source": "BRIEFING_FORESCAPADES_TAXONOMY.md §3.3.1",
+              "source": "BRIEFING_FORESCAPADES_TAXONOMY.md \u00a73.3.1",
               "widget": "hexad-radar",
               "communities": [
                 {
@@ -1100,7 +1117,8 @@
                   "name": "r/religion",
                   "url": "https://www.reddit.com/r/religion/"
                 }
-              ]
+              ],
+              "glyph": "stage"
             },
             {
               "archetype": "simplex",
@@ -1171,7 +1189,7 @@
               ],
               "question": "Which of the seven archangels and planetary spheres governs your spiritual life?",
               "risk": false,
-              "source": "BRIEFING_FORESCAPADES_TAXONOMY.md §3.4.1",
+              "source": "BRIEFING_FORESCAPADES_TAXONOMY.md \u00a73.4.1",
               "widget": "heptad-radar",
               "communities": [
                 {
@@ -1189,7 +1207,8 @@
                   "name": "r/theology",
                   "url": "https://www.reddit.com/r/theology/"
                 }
-              ]
+              ],
+              "glyph": "infinity"
             },
             {
               "approx": "regular octagon deformation polygon rendered as octad-radar; real octagon-deformation renderer is follow-up work",
@@ -1269,7 +1288,7 @@
               ],
               "question": "Which covenantal manifestation of Abraham anchors your faith?",
               "risk": false,
-              "source": "BRIEFING_FORESCAPADES_TAXONOMY.md §3.5.1",
+              "source": "BRIEFING_FORESCAPADES_TAXONOMY.md \u00a73.5.1",
               "widget": "octad-radar",
               "communities": [
                 {
@@ -1302,7 +1321,8 @@
                   "name": "r/Judaism",
                   "url": "https://www.reddit.com/r/Judaism/"
                 }
-              ]
+              ],
+              "glyph": "cradle"
             }
           ]
         }
@@ -1353,7 +1373,7 @@
               ],
               "question": "Is Scripture alone the rule of faith, or Scripture together with Tradition?",
               "risk": false,
-              "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md §4 (t0009)",
+              "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md \u00a74 (t0009)",
               "widget": "trilinear-line",
               "communities": [
                 {
@@ -1371,12 +1391,13 @@
                   "name": "r/theology",
                   "url": "https://www.reddit.com/r/theology/"
                 }
-              ]
+              ],
+              "glyph": "book"
             },
             {
               "archetype": "simplex",
               "hovertip": {
-                "issue": "Which books count as Scripture — the Tanakh, the Christian Bible, or the Qur'an?",
+                "issue": "Which books count as Scripture \u2014 the Tanakh, the Christian Bible, or the Qur'an?",
                 "poles": [
                   {
                     "label": "The canon is the Tanakh",
@@ -1408,9 +1429,9 @@
                   "label": "The canon is the Qur'an"
                 }
               ],
-              "question": "Which books count as Scripture — the Tanakh, the Christian Bible, or the Qur'an?",
+              "question": "Which books count as Scripture \u2014 the Tanakh, the Christian Bible, or the Qur'an?",
               "risk": false,
-              "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md §4 (t0010)",
+              "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md \u00a74 (t0010)",
               "widget": "triangle",
               "communities": [
                 {
@@ -1428,7 +1449,8 @@
                   "name": "r/theology",
                   "url": "https://www.reddit.com/r/theology/"
                 }
-              ]
+              ],
+              "glyph": "checklist"
             },
             {
               "archetype": "line",
@@ -1467,7 +1489,7 @@
               ],
               "question": "Is Scripture without error in everything it affirms, or only in what God intended to teach for salvation?",
               "risk": false,
-              "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md §4 (t0011)",
+              "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md \u00a74 (t0011)",
               "widget": "trilinear-line",
               "communities": [
                 {
@@ -1485,12 +1507,13 @@
                   "name": "r/theology",
                   "url": "https://www.reddit.com/r/theology/"
                 }
-              ]
+              ],
+              "glyph": "shield"
             },
             {
               "archetype": "line",
               "hovertip": {
-                "issue": "Who interprets Scripture rightly — the Church's Magisterium, the Church as a whole, or Scripture itself?",
+                "issue": "Who interprets Scripture rightly \u2014 the Church's Magisterium, the Church as a whole, or Scripture itself?",
                 "poles": [
                   {
                     "label": "The authoritative teachers interpret",
@@ -1498,7 +1521,7 @@
                   },
                   {
                     "label": "The whole community interprets",
-                    "text": "The whole Church, gathered, is the interpreter — not teachers alone, not the bare text alone."
+                    "text": "The whole Church, gathered, is the interpreter \u2014 not teachers alone, not the bare text alone."
                   },
                   {
                     "label": "The text interprets itself",
@@ -1522,9 +1545,9 @@
                   "label": "The text interprets itself"
                 }
               ],
-              "question": "Who interprets Scripture rightly — the Church's Magisterium, the Church as a whole, or Scripture itself?",
+              "question": "Who interprets Scripture rightly \u2014 the Church's Magisterium, the Church as a whole, or Scripture itself?",
               "risk": false,
-              "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md §4 (t0012)",
+              "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md \u00a74 (t0012)",
               "widget": "trilinear-line",
               "communities": [
                 {
@@ -1552,7 +1575,8 @@
                   "name": "r/AcademicBiblical",
                   "url": "https://www.reddit.com/r/AcademicBiblical/"
                 }
-              ]
+              ],
+              "glyph": "eye"
             },
             {
               "archetype": "line",
@@ -1591,7 +1615,7 @@
               ],
               "question": "Is Tradition a second, co-equal source of revelation alongside Scripture, or only a subordinate witness?",
               "risk": false,
-              "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md §4 (t0013)",
+              "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md \u00a74 (t0013)",
               "widget": "trilinear-line",
               "communities": [
                 {
@@ -1609,7 +1633,8 @@
                   "name": "r/theology",
                   "url": "https://www.reddit.com/r/theology/"
                 }
-              ]
+              ],
+              "glyph": "hourglass"
             },
             {
               "approx": "orthogonal diamond deformation polygon rendered as diamond; real diamond-deformation renderer is follow-up work",
@@ -1657,7 +1682,7 @@
               ],
               "question": "How should scripture be read?",
               "risk": false,
-              "source": "BRIEFING_FORESCAPADES_TAXONOMY.md §3.2.1",
+              "source": "BRIEFING_FORESCAPADES_TAXONOMY.md \u00a73.2.1",
               "widget": "diamond",
               "communities": [
                 {
@@ -1685,7 +1710,8 @@
                   "name": "r/Christianity",
                   "url": "https://www.reddit.com/r/Christianity/"
                 }
-              ]
+              ],
+              "glyph": "keyhole"
             }
           ]
         },
@@ -1696,7 +1722,7 @@
             {
               "archetype": "simplex",
               "hovertip": {
-                "issue": "What is the Torah — God's revealed law, given at Sinai, written and oral?",
+                "issue": "What is the Torah \u2014 God's revealed law, given at Sinai, written and oral?",
                 "poles": [
                   {
                     "label": "Written and Oral Torah eternal",
@@ -1728,9 +1754,9 @@
                   "label": "Torah altered; Qur'an supersedes"
                 }
               ],
-              "question": "What is the Torah — God's revealed law, given at Sinai, written and oral?",
+              "question": "What is the Torah \u2014 God's revealed law, given at Sinai, written and oral?",
               "risk": false,
-              "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md §4 (t0062)",
+              "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md \u00a74 (t0062)",
               "widget": "triangle",
               "communities": [
                 {
@@ -1748,12 +1774,13 @@
                   "name": "r/religion",
                   "url": "https://www.reddit.com/r/religion/"
                 }
-              ]
+              ],
+              "glyph": "scroll"
             },
             {
               "archetype": "line",
               "hovertip": {
-                "issue": "What is the Qur'an — God's literal word, revealed to Muhammad?",
+                "issue": "What is the Qur'an \u2014 God's literal word, revealed to Muhammad?",
                 "poles": [
                   {
                     "label": "God's literal word",
@@ -1785,9 +1812,9 @@
                   "label": "Not divine revelation"
                 }
               ],
-              "question": "What is the Qur'an — God's literal word, revealed to Muhammad?",
+              "question": "What is the Qur'an \u2014 God's literal word, revealed to Muhammad?",
               "risk": false,
-              "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md §4 (t0063)",
+              "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md \u00a74 (t0063)",
               "widget": "trilinear-line",
               "communities": [
                 {
@@ -1805,12 +1832,13 @@
                   "name": "r/religion",
                   "url": "https://www.reddit.com/r/religion/"
                 }
-              ]
+              ],
+              "glyph": "moon"
             },
             {
               "archetype": null,
               "hovertip": {
-                "issue": "Is halakha — Jewish law from Torah and rabbinic tradition — binding?",
+                "issue": "Is halakha \u2014 Jewish law from Torah and rabbinic tradition \u2014 binding?",
                 "poles": [
                   {
                     "label": "Binding law",
@@ -1842,9 +1870,9 @@
                   "label": "Guide, interpreted by conscience"
                 }
               ],
-              "question": "Is halakha — Jewish law from Torah and rabbinic tradition — binding?",
+              "question": "Is halakha \u2014 Jewish law from Torah and rabbinic tradition \u2014 binding?",
               "risk": false,
-              "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md §4 (t0065)",
+              "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md \u00a74 (t0065)",
               "widget": "trilinear-line",
               "communities": [
                 {
@@ -1857,12 +1885,13 @@
                   "name": "r/Judaism",
                   "url": "https://www.reddit.com/r/Judaism/"
                 }
-              ]
+              ],
+              "glyph": "scale"
             },
             {
               "archetype": null,
               "hovertip": {
-                "issue": "Is sharia — Islamic law from Qur'an, Sunnah, and scholarship — binding?",
+                "issue": "Is sharia \u2014 Islamic law from Qur'an, Sunnah, and scholarship \u2014 binding?",
                 "poles": [
                   {
                     "label": "Sharia (Islamic law)",
@@ -1878,9 +1907,9 @@
                   "label": "Sharia (Islamic law)"
                 }
               ],
-              "question": "Is sharia — Islamic law from Qur'an, Sunnah, and scholarship — binding?",
+              "question": "Is sharia \u2014 Islamic law from Qur'an, Sunnah, and scholarship \u2014 binding?",
               "risk": false,
-              "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md §4 (t0066)",
+              "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md \u00a74 (t0066)",
               "type": "single",
               "widget": "monopole-slider",
               "communities": [
@@ -1894,7 +1923,8 @@
                   "name": "r/islam",
                   "url": "https://www.reddit.com/r/islam/"
                 }
-              ]
+              ],
+              "glyph": "scale"
             }
           ]
         },
@@ -1939,7 +1969,7 @@
               ],
               "question": "Does the Bishop of Rome hold primacy of jurisdiction over the whole Church, and is he infallible?",
               "risk": false,
-              "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md §4 (t0014)",
+              "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md \u00a74 (t0014)",
               "widget": "trilinear-line",
               "communities": [
                 {
@@ -1952,12 +1982,13 @@
                   "name": "r/Christianity",
                   "url": "https://www.reddit.com/r/Christianity/"
                 }
-              ]
+              ],
+              "glyph": "key"
             },
             {
               "archetype": null,
               "hovertip": {
-                "issue": "Which councils are authoritative — all twenty-one, only the seven, or none as a rule over Scripture?",
+                "issue": "Which councils are authoritative \u2014 all twenty-one, only the seven, or none as a rule over Scripture?",
                 "poles": [
                   {
                     "label": "Twenty-one councils",
@@ -1989,9 +2020,9 @@
                   "label": "Councils may err"
                 }
               ],
-              "question": "Which councils are authoritative — all twenty-one, only the seven, or none as a rule over Scripture?",
+              "question": "Which councils are authoritative \u2014 all twenty-one, only the seven, or none as a rule over Scripture?",
               "risk": false,
-              "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md §4 (t0015)",
+              "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md \u00a74 (t0015)",
               "widget": "trilinear-line",
               "communities": [
                 {
@@ -2004,7 +2035,8 @@
                   "name": "r/Christianity",
                   "url": "https://www.reddit.com/r/Christianity/"
                 }
-              ]
+              ],
+              "glyph": "crowd"
             },
             {
               "archetype": "line",
@@ -2043,7 +2075,7 @@
               ],
               "question": "Must bishops stand in unbroken succession from the apostles, or is succession doctrinal fidelity?",
               "risk": false,
-              "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md §4 (t0016)",
+              "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md \u00a74 (t0016)",
               "widget": "trilinear-line",
               "communities": [
                 {
@@ -2056,7 +2088,8 @@
                   "name": "r/Christianity",
                   "url": "https://www.reddit.com/r/Christianity/"
                 }
-              ]
+              ],
+              "glyph": "chain"
             },
             {
               "archetype": null,
@@ -2095,7 +2128,7 @@
               ],
               "question": "Who may be ordained, in what orders, and must priests be celibate?",
               "risk": false,
-              "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md §4 (t0017)",
+              "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md \u00a74 (t0017)",
               "widget": "trilinear-line",
               "communities": [
                 {
@@ -2108,7 +2141,8 @@
                   "name": "r/Christianity",
                   "url": "https://www.reddit.com/r/Christianity/"
                 }
-              ]
+              ],
+              "glyph": "hands"
             },
             {
               "archetype": "line",
@@ -2147,7 +2181,7 @@
               ],
               "question": "Is the Imamate a divinely appointed, infallible succession after Muhammad?",
               "risk": false,
-              "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md §4 (t0074)",
+              "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md \u00a74 (t0074)",
               "widget": "trilinear-line",
               "communities": [
                 {
@@ -2160,7 +2194,8 @@
                   "name": "r/islam",
                   "url": "https://www.reddit.com/r/islam/"
                 }
-              ]
+              ],
+              "glyph": "badge"
             }
           ]
         },
@@ -2205,7 +2240,7 @@
               ],
               "question": "Has prophecy ended, and is there a final prophet after Jesus?",
               "risk": false,
-              "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md §4 (t0064)",
+              "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md \u00a74 (t0064)",
               "widget": "triangle",
               "communities": [
                 {
@@ -2223,7 +2258,8 @@
                   "name": "r/religion",
                   "url": "https://www.reddit.com/r/religion/"
                 }
-              ]
+              ],
+              "glyph": "spotlight"
             },
             {
               "archetype": "line",
@@ -2262,7 +2298,7 @@
               ],
               "question": "Are divine prophets protected by God from committing major sins, errors, or moral failure (Ismah)?",
               "risk": false,
-              "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md §4 (t0078)",
+              "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md \u00a74 (t0078)",
               "widget": "trilinear-line",
               "communities": [
                 {
@@ -2275,7 +2311,8 @@
                   "name": "r/islam",
                   "url": "https://www.reddit.com/r/islam/"
                 }
-              ]
+              ],
+              "glyph": "sun"
             }
           ]
         }
@@ -2288,7 +2325,7 @@
         {
           "archetype": "line",
           "hovertip": {
-            "issue": "What is the religious community — one visible communion, or the people of God wherever they gather?",
+            "issue": "What is the religious community \u2014 one visible communion, or the people of God wherever they gather?",
             "poles": [
               {
                 "label": "One visible communion",
@@ -2320,9 +2357,9 @@
               "label": "People of God in congregations"
             }
           ],
-          "question": "What is the religious community — one visible communion, or the people of God wherever they gather?",
+          "question": "What is the religious community \u2014 one visible communion, or the people of God wherever they gather?",
           "risk": false,
-          "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md §4 (t0025)",
+          "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md \u00a74 (t0025)",
           "widget": "trilinear-line",
           "communities": [
             {
@@ -2335,24 +2372,25 @@
               "name": "r/DebateReligion",
               "url": "https://www.reddit.com/r/DebateReligion/"
             }
-          ]
+          ],
+          "glyph": "crowd"
         },
         {
           "archetype": "simplex",
           "hovertip": {
-            "issue": "Who governs the Church — bishops, presbyteries of elders, or the congregation itself?",
+            "issue": "Who governs the Church \u2014 bishops, presbyteries of elders, or the congregation itself?",
             "poles": [
               {
                 "label": "Episcopal",
-                "text": "Episcopal — bishops govern"
+                "text": "Episcopal \u2014 bishops govern"
               },
               {
                 "label": "Presbyterian",
-                "text": "Presbyterian — elders in graded assemblies govern"
+                "text": "Presbyterian \u2014 elders in graded assemblies govern"
               },
               {
                 "label": "Congregational",
-                "text": "Congregational / decentralised — each community governs itself, led by its teachers"
+                "text": "Congregational / decentralised \u2014 each community governs itself, led by its teachers"
               }
             ]
           },
@@ -2372,9 +2410,9 @@
               "label": "Congregational"
             }
           ],
-          "question": "Who governs the Church — bishops, presbyteries of elders, or the congregation itself?",
+          "question": "Who governs the Church \u2014 bishops, presbyteries of elders, or the congregation itself?",
           "risk": false,
-          "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md §4 (t0026)",
+          "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md \u00a74 (t0026)",
           "widget": "triangle",
           "communities": [
             {
@@ -2387,7 +2425,8 @@
               "name": "r/DebateReligion",
               "url": "https://www.reddit.com/r/DebateReligion/"
             }
-          ]
+          ],
+          "glyph": "house"
         },
         {
           "archetype": null,
@@ -2426,7 +2465,7 @@
           ],
           "question": "How should members relate to practitioners of other Abrahamic faiths?",
           "risk": false,
-          "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md §4 (t0076)",
+          "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md \u00a74 (t0076)",
           "widget": "trilinear-line",
           "communities": [
             {
@@ -2439,7 +2478,8 @@
               "name": "r/DebateReligion",
               "url": "https://www.reddit.com/r/DebateReligion/"
             }
-          ]
+          ],
+          "glyph": "hug"
         },
         {
           "archetype": "line",
@@ -2478,7 +2518,7 @@
           ],
           "question": "May women be ordained to the priesthood and pastorate, or is ordination reserved to men?",
           "risk": false,
-          "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md §4 (t0027)",
+          "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md \u00a74 (t0027)",
           "widget": "trilinear-line",
           "communities": [
             {
@@ -2491,7 +2531,8 @@
               "name": "r/DebateReligion",
               "url": "https://www.reddit.com/r/DebateReligion/"
             }
-          ]
+          ],
+          "glyph": "curves"
         },
         {
           "archetype": null,
@@ -2514,7 +2555,7 @@
           ],
           "question": "How does the Church discipline its members, and who counts as a member?",
           "risk": false,
-          "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md §4 (t0028)",
+          "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md \u00a74 (t0028)",
           "type": "single",
           "widget": "monopole-slider",
           "communities": [
@@ -2528,12 +2569,13 @@
               "name": "r/DebateReligion",
               "url": "https://www.reddit.com/r/DebateReligion/"
             }
-          ]
+          ],
+          "glyph": "barred"
         },
         {
           "archetype": null,
           "hovertip": {
-            "issue": "What happens to one who leaves the faith — are they still a member?",
+            "issue": "What happens to one who leaves the faith \u2014 are they still a member?",
             "poles": [
               {
                 "label": "Still a member",
@@ -2565,9 +2607,9 @@
               "label": "Excluded, penalty severe"
             }
           ],
-          "question": "What happens to one who leaves the faith — are they still a member?",
+          "question": "What happens to one who leaves the faith \u2014 are they still a member?",
           "risk": false,
-          "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md §4 (t0073)",
+          "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md \u00a74 (t0073)",
           "widget": "trilinear-line",
           "communities": [
             {
@@ -2580,7 +2622,8 @@
               "name": "r/DebateReligion",
               "url": "https://www.reddit.com/r/DebateReligion/"
             }
-          ]
+          ],
+          "glyph": "split"
         },
         {
           "archetype": "simplex",
@@ -2619,7 +2662,7 @@
           ],
           "question": "How does one join the community, and is identity matrilineal, by faith, or by confession?",
           "risk": false,
-          "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md §4 (t0075)",
+          "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md \u00a74 (t0075)",
           "widget": "triangle",
           "communities": [
             {
@@ -2632,7 +2675,8 @@
               "name": "r/DebateReligion",
               "url": "https://www.reddit.com/r/DebateReligion/"
             }
-          ]
+          ],
+          "glyph": "water"
         },
         {
           "archetype": "line",
@@ -2671,7 +2715,7 @@
           ],
           "question": "Should religious leadership be chosen by communal consultation or by divine designation?",
           "risk": false,
-          "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md §4 (t0079)",
+          "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md \u00a74 (t0079)",
           "widget": "trilinear-line",
           "communities": [
             {
@@ -2684,7 +2728,8 @@
               "name": "r/DebateReligion",
               "url": "https://www.reddit.com/r/DebateReligion/"
             }
-          ]
+          ],
+          "glyph": "arrows"
         }
       ]
     },
@@ -2703,7 +2748,7 @@
               },
               {
                 "label": "Faith formed by love",
-                "text": "Justified by faith — a faith that works through love and deeds."
+                "text": "Justified by faith \u2014 a faith that works through love and deeds."
               },
               {
                 "label": "Made right by faith and works",
@@ -2729,7 +2774,7 @@
           ],
           "question": "Are we justified by faith alone, or by faith and works together in grace?",
           "risk": false,
-          "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md §4 (t0018)",
+          "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md \u00a74 (t0018)",
           "widget": "trilinear-line",
           "communities": [
             {
@@ -2747,12 +2792,13 @@
               "name": "r/theology",
               "url": "https://www.reddit.com/r/theology/"
             }
-          ]
+          ],
+          "glyph": "sun"
         },
         {
           "archetype": null,
           "hovertip": {
-            "issue": "Does grace compel, enable, or cooperate with the human will — and can it be resisted?",
+            "issue": "Does grace compel, enable, or cooperate with the human will \u2014 and can it be resisted?",
             "poles": [
               {
                 "label": "Irresistible grace",
@@ -2784,9 +2830,9 @@
               "label": "Prevenient grace"
             }
           ],
-          "question": "Does grace compel, enable, or cooperate with the human will — and can it be resisted?",
+          "question": "Does grace compel, enable, or cooperate with the human will \u2014 and can it be resisted?",
           "risk": false,
-          "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md §4 (t0019)",
+          "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md \u00a74 (t0019)",
           "widget": "trilinear-line",
           "communities": [
             {
@@ -2804,7 +2850,8 @@
               "name": "r/theology",
               "url": "https://www.reddit.com/r/theology/"
             }
-          ]
+          ],
+          "glyph": "feather"
         },
         {
           "archetype": null,
@@ -2843,7 +2890,7 @@
           ],
           "question": "Does God elect unconditionally, elect to salvation only, or elect on the basis of foreseen faith?",
           "risk": false,
-          "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md §4 (t0020)",
+          "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md \u00a74 (t0020)",
           "widget": "trilinear-line",
           "communities": [
             {
@@ -2861,12 +2908,13 @@
               "name": "r/theology",
               "url": "https://www.reddit.com/r/theology/"
             }
-          ]
+          ],
+          "glyph": "target"
         },
         {
           "archetype": "simplex",
           "hovertip": {
-            "issue": "How does Christ's death save — by satisfying divine justice, by ransom and victory, or both?",
+            "issue": "How does Christ's death save \u2014 by satisfying divine justice, by ransom and victory, or both?",
             "poles": [
               {
                 "label": "Satisfaction (vicarious atonement)",
@@ -2898,9 +2946,9 @@
               "label": "Repentance and good deeds"
             }
           ],
-          "question": "How does Christ's death save — by satisfying divine justice, by ransom and victory, or both?",
+          "question": "How does Christ's death save \u2014 by satisfying divine justice, by ransom and victory, or both?",
           "risk": false,
-          "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md §4 (t0021)",
+          "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md \u00a74 (t0021)",
           "widget": "triangle",
           "communities": [
             {
@@ -2918,7 +2966,8 @@
               "name": "r/theology",
               "url": "https://www.reddit.com/r/theology/"
             }
-          ]
+          ],
+          "glyph": "cross"
         },
         {
           "archetype": "line",
@@ -2957,7 +3006,7 @@
           ],
           "question": "Can salvation be lost once received, or do true believers persevere to the end?",
           "risk": false,
-          "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md §4 (t0022)",
+          "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md \u00a74 (t0022)",
           "widget": "trilinear-line",
           "communities": [
             {
@@ -2975,12 +3024,13 @@
               "name": "r/theology",
               "url": "https://www.reddit.com/r/theology/"
             }
-          ]
+          ],
+          "glyph": "shield"
         },
         {
           "archetype": "line",
           "hovertip": {
-            "issue": "How is a person forgiven — by repentance, prayer, and good deeds?",
+            "issue": "How is a person forgiven \u2014 by repentance, prayer, and good deeds?",
             "poles": [
               {
                 "label": "Repentance, prayer, good deeds",
@@ -2988,7 +3038,7 @@
               },
               {
                 "label": "Faith working through repentance",
-                "text": "Forgiveness is by faith in Christ — a faith that necessarily repents, prays, and does good."
+                "text": "Forgiveness is by faith in Christ \u2014 a faith that necessarily repents, prays, and does good."
               },
               {
                 "label": "Repentance and faith in Christ",
@@ -3012,9 +3062,9 @@
               "label": "Repentance and faith in Christ"
             }
           ],
-          "question": "How is a person forgiven — by repentance, prayer, and good deeds?",
+          "question": "How is a person forgiven \u2014 by repentance, prayer, and good deeds?",
           "risk": false,
-          "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md §4 (t0069)",
+          "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md \u00a74 (t0069)",
           "widget": "trilinear-line",
           "communities": [
             {
@@ -3032,7 +3082,8 @@
               "name": "r/theology",
               "url": "https://www.reddit.com/r/theology/"
             }
-          ]
+          ],
+          "glyph": "droplet"
         },
         {
           "archetype": "line",
@@ -3041,7 +3092,7 @@
             "poles": [
               {
                 "label": "Purgatory",
-                "text": "Purgatory — a final purification after death"
+                "text": "Purgatory \u2014 a final purification after death"
               },
               {
                 "label": "Intermediate state, no purgatory",
@@ -3071,7 +3122,7 @@
           ],
           "question": "Is there a purification after death for those who die in God's grace but imperfectly purified?",
           "risk": false,
-          "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md §4 (t0023)",
+          "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md \u00a74 (t0023)",
           "widget": "trilinear-line",
           "communities": [
             {
@@ -3089,7 +3140,8 @@
               "name": "r/theology",
               "url": "https://www.reddit.com/r/theology/"
             }
-          ]
+          ],
+          "glyph": "flame"
         },
         {
           "archetype": null,
@@ -3128,7 +3180,7 @@
           ],
           "question": "Should Mary and the saints be venerated and asked for intercession, or is Christ alone the mediator?",
           "risk": false,
-          "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md §4 (t0024)",
+          "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md \u00a74 (t0024)",
           "widget": "trilinear-line",
           "communities": [
             {
@@ -3146,7 +3198,8 @@
               "name": "r/theology",
               "url": "https://www.reddit.com/r/theology/"
             }
-          ]
+          ],
+          "glyph": "rose"
         },
         {
           "archetype": null,
@@ -3185,7 +3238,7 @@
           ],
           "question": "How is a person made right with God?",
           "risk": false,
-          "source": "BRIEFING_FORESCAPADES_TAXONOMY.md §3.1.2",
+          "source": "BRIEFING_FORESCAPADES_TAXONOMY.md \u00a73.1.2",
           "widget": "triangle",
           "communities": [
             {
@@ -3203,7 +3256,8 @@
               "name": "r/theology",
               "url": "https://www.reddit.com/r/theology/"
             }
-          ]
+          ],
+          "glyph": "triangle"
         }
       ]
     },
@@ -3214,7 +3268,7 @@
         {
           "archetype": "line",
           "hovertip": {
-            "issue": "How many sacraments did Christ institute — seven, or two?",
+            "issue": "How many sacraments did Christ institute \u2014 seven, or two?",
             "poles": [
               {
                 "label": "Seven sacraments",
@@ -3246,9 +3300,9 @@
               "label": "Two sacraments (or ordinances)"
             }
           ],
-          "question": "How many sacraments did Christ institute — seven, or two?",
+          "question": "How many sacraments did Christ institute \u2014 seven, or two?",
           "risk": false,
-          "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md §4 (t0029)",
+          "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md \u00a74 (t0029)",
           "widget": "trilinear-line",
           "communities": [
             {
@@ -3261,12 +3315,13 @@
               "name": "r/Christianity",
               "url": "https://www.reddit.com/r/Christianity/"
             }
-          ]
+          ],
+          "glyph": "dial"
         },
         {
           "archetype": null,
           "hovertip": {
-            "issue": "Who should be baptized, how, and what does Baptism do — regenerate, seal, or symbolize?",
+            "issue": "Who should be baptized, how, and what does Baptism do \u2014 regenerate, seal, or symbolize?",
             "poles": [
               {
                 "label": "Infant baptism regenerates",
@@ -3298,9 +3353,9 @@
               "label": "Believers' baptism by immersion"
             }
           ],
-          "question": "Who should be baptized, how, and what does Baptism do — regenerate, seal, or symbolize?",
+          "question": "Who should be baptized, how, and what does Baptism do \u2014 regenerate, seal, or symbolize?",
           "risk": false,
-          "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md §4 (t0030)",
+          "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md \u00a74 (t0030)",
           "widget": "trilinear-line",
           "communities": [
             {
@@ -3313,7 +3368,8 @@
               "name": "r/Christianity",
               "url": "https://www.reddit.com/r/Christianity/"
             }
-          ]
+          ],
+          "glyph": "droplet"
         },
         {
           "archetype": null,
@@ -3352,7 +3408,7 @@
           ],
           "question": "Is Christ truly present in the bread and wine, spiritually present to faith, or is the meal a memorial only?",
           "risk": false,
-          "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md §4 (t0031)",
+          "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md \u00a74 (t0031)",
           "widget": "trilinear-line",
           "communities": [
             {
@@ -3365,7 +3421,8 @@
               "name": "r/Christianity",
               "url": "https://www.reddit.com/r/Christianity/"
             }
-          ]
+          ],
+          "glyph": "cup"
         },
         {
           "archetype": "line",
@@ -3404,7 +3461,7 @@
           ],
           "question": "Must sins be confessed to a priest who absolves, or is confession made to God directly?",
           "risk": false,
-          "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md §4 (t0032)",
+          "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md \u00a74 (t0032)",
           "widget": "trilinear-line",
           "communities": [
             {
@@ -3417,7 +3474,8 @@
               "name": "r/Christianity",
               "url": "https://www.reddit.com/r/Christianity/"
             }
-          ]
+          ],
+          "glyph": "whisper"
         },
         {
           "archetype": null,
@@ -3426,11 +3484,11 @@
             "poles": [
               {
                 "label": "Frequent celebration",
-                "text": "Affinity for celebrating the Eucharist frequently — weekly or more."
+                "text": "Affinity for celebrating the Eucharist frequently \u2014 weekly or more."
               },
               {
                 "label": "Lay administration",
-                "text": "Affinity for administration beyond the ordained — lay presidency or distribution."
+                "text": "Affinity for administration beyond the ordained \u2014 lay presidency or distribution."
               }
             ]
           },
@@ -3448,7 +3506,7 @@
           ],
           "question": "How often should the Eucharist be celebrated, and who may administer it?",
           "risk": false,
-          "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md §4 (t0059)",
+          "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md \u00a74 (t0059)",
           "type": "single",
           "widget": "xy-switchbox",
           "communities": [
@@ -3462,7 +3520,8 @@
               "name": "r/Christianity",
               "url": "https://www.reddit.com/r/Christianity/"
             }
-          ]
+          ],
+          "glyph": "cup"
         },
         {
           "archetype": "line",
@@ -3501,7 +3560,7 @@
           ],
           "question": "Should worship follow a set liturgy, or be free and extemporaneous?",
           "risk": false,
-          "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md §4 (t0046)",
+          "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md \u00a74 (t0046)",
           "widget": "trilinear-line",
           "communities": [
             {
@@ -3524,7 +3583,8 @@
               "name": "r/Christianity",
               "url": "https://www.reddit.com/r/Christianity/"
             }
-          ]
+          ],
+          "glyph": "lotus"
         },
         {
           "archetype": null,
@@ -3563,7 +3623,7 @@
           ],
           "question": "May images of Christ and the saints be set up and venerated in worship?",
           "risk": false,
-          "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md §4 (t0047)",
+          "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md \u00a74 (t0047)",
           "widget": "trilinear-line",
           "communities": [
             {
@@ -3576,12 +3636,13 @@
               "name": "r/Christianity",
               "url": "https://www.reddit.com/r/Christianity/"
             }
-          ]
+          ],
+          "glyph": "mirror"
         },
         {
           "archetype": "line",
           "hovertip": {
-            "issue": "What music belongs in worship — chant, hymns, or contemporary song?",
+            "issue": "What music belongs in worship \u2014 chant, hymns, or contemporary song?",
             "poles": [
               {
                 "label": "Music is part of worship",
@@ -3613,9 +3674,9 @@
               "label": "Music is prohibited in worship"
             }
           ],
-          "question": "What music belongs in worship — chant, hymns, or contemporary song?",
+          "question": "What music belongs in worship \u2014 chant, hymns, or contemporary song?",
           "risk": false,
-          "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md §4 (t0048)",
+          "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md \u00a74 (t0048)",
           "widget": "trilinear-line",
           "communities": [
             {
@@ -3638,7 +3699,8 @@
               "name": "r/Christianity",
               "url": "https://www.reddit.com/r/Christianity/"
             }
-          ]
+          ],
+          "glyph": "note"
         },
         {
           "archetype": "line",
@@ -3677,7 +3739,7 @@
           ],
           "question": "Must daily communication with God follow standardized, obligatory daily prayer liturgies?",
           "risk": false,
-          "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md §4 (t0049)",
+          "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md \u00a74 (t0049)",
           "widget": "trilinear-line",
           "communities": [
             {
@@ -3690,7 +3752,8 @@
               "name": "r/DebateReligion",
               "url": "https://www.reddit.com/r/DebateReligion/"
             }
-          ]
+          ],
+          "glyph": "hands"
         },
         {
           "archetype": "line",
@@ -3729,7 +3792,7 @@
           ],
           "question": "Have the miraculous gifts of the Spirit ceased, or do they continue today?",
           "risk": false,
-          "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md §4 (t0050)",
+          "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md \u00a74 (t0050)",
           "widget": "trilinear-line",
           "communities": [
             {
@@ -3742,12 +3805,13 @@
               "name": "r/Christianity",
               "url": "https://www.reddit.com/r/Christianity/"
             }
-          ]
+          ],
+          "glyph": "speech"
         },
         {
           "archetype": null,
           "hovertip": {
-            "issue": "How are Christmas and Easter kept — as great feasts of the Church, or as simple commemorations?",
+            "issue": "How are Christmas and Easter kept \u2014 as great feasts of the Church, or as simple commemorations?",
             "poles": [
               {
                 "label": "Christmas and Easter observance",
@@ -3763,9 +3827,9 @@
               "label": "Christmas and Easter observance"
             }
           ],
-          "question": "How are Christmas and Easter kept — as great feasts of the Church, or as simple commemorations?",
+          "question": "How are Christmas and Easter kept \u2014 as great feasts of the Church, or as simple commemorations?",
           "risk": false,
-          "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md §4 (t0051)",
+          "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md \u00a74 (t0051)",
           "type": "single",
           "widget": "monopole-slider",
           "communities": [
@@ -3779,7 +3843,8 @@
               "name": "r/Christianity",
               "url": "https://www.reddit.com/r/Christianity/"
             }
-          ]
+          ],
+          "glyph": "star"
         },
         {
           "archetype": "line",
@@ -3818,7 +3883,7 @@
           ],
           "question": "Are there prescribed communal fasts, or is fasting a voluntary private discipline?",
           "risk": false,
-          "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md §4 (t0052)",
+          "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md \u00a74 (t0052)",
           "widget": "trilinear-line",
           "communities": [
             {
@@ -3861,12 +3926,13 @@
               "name": "r/Judaism",
               "url": "https://www.reddit.com/r/Judaism/"
             }
-          ]
+          ],
+          "glyph": "bowl"
         },
         {
           "archetype": "simplex",
           "hovertip": {
-            "issue": "Which day is holy — Shabbat, Sunday, or Friday?",
+            "issue": "Which day is holy \u2014 Shabbat, Sunday, or Friday?",
             "poles": [
               {
                 "label": "Shabbat",
@@ -3898,9 +3964,9 @@
               "label": "Friday"
             }
           ],
-          "question": "Which day is holy — Shabbat, Sunday, or Friday?",
+          "question": "Which day is holy \u2014 Shabbat, Sunday, or Friday?",
           "risk": false,
-          "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md §4 (t0068)",
+          "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md \u00a74 (t0068)",
           "widget": "triangle",
           "communities": [
             {
@@ -3943,7 +4009,8 @@
               "name": "r/Judaism",
               "url": "https://www.reddit.com/r/Judaism/"
             }
-          ]
+          ],
+          "glyph": "calendar"
         },
         {
           "archetype": "line",
@@ -3982,7 +4049,7 @@
           ],
           "question": "Is physical journeying to a specific geographical holy sanctuary mandatory for every able believer?",
           "risk": false,
-          "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md §4 (t0084)",
+          "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md \u00a74 (t0084)",
           "widget": "trilinear-line",
           "communities": [
             {
@@ -4025,7 +4092,8 @@
               "name": "r/Judaism",
               "url": "https://www.reddit.com/r/Judaism/"
             }
-          ]
+          ],
+          "glyph": "foot"
         }
       ]
     },
@@ -4040,7 +4108,7 @@
             {
               "archetype": "line",
               "hovertip": {
-                "issue": "What is marriage — a covenant of one man and one woman, or of two people?",
+                "issue": "What is marriage \u2014 a covenant of one man and one woman, or of two people?",
                 "poles": [
                   {
                     "label": "One man and one woman",
@@ -4072,9 +4140,9 @@
                   "label": "Two people"
                 }
               ],
-              "question": "What is marriage — a covenant of one man and one woman, or of two people?",
+              "question": "What is marriage \u2014 a covenant of one man and one woman, or of two people?",
               "risk": false,
-              "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md §4 (t0033)",
+              "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md \u00a74 (t0033)",
               "widget": "trilinear-line",
               "communities": [
                 {
@@ -4087,7 +4155,8 @@
                   "name": "r/DebateReligion",
                   "url": "https://www.reddit.com/r/DebateReligion/"
                 }
-              ]
+              ],
+              "glyph": "ring"
             },
             {
               "archetype": "line",
@@ -4126,7 +4195,7 @@
               ],
               "question": "May a marriage be dissolved, and may a divorced person remarry?",
               "risk": false,
-              "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md §4 (t0034)",
+              "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md \u00a74 (t0034)",
               "widget": "trilinear-line",
               "communities": [
                 {
@@ -4139,7 +4208,8 @@
                   "name": "r/DebateReligion",
                   "url": "https://www.reddit.com/r/DebateReligion/"
                 }
-              ]
+              ],
+              "glyph": "split"
             },
             {
               "archetype": "line",
@@ -4178,7 +4248,7 @@
               ],
               "question": "Is artificial contraception permitted within marriage, or must every marital act remain open to life?",
               "risk": false,
-              "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md §4 (t0035)",
+              "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md \u00a74 (t0035)",
               "widget": "trilinear-line",
               "communities": [
                 {
@@ -4191,7 +4261,8 @@
                   "name": "r/DebateReligion",
                   "url": "https://www.reddit.com/r/DebateReligion/"
                 }
-              ]
+              ],
+              "glyph": "barred"
             },
             {
               "archetype": "line",
@@ -4230,7 +4301,7 @@
               ],
               "question": "May a man have more than one wife?",
               "risk": false,
-              "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md §4 (t0067)",
+              "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md \u00a74 (t0067)",
               "widget": "trilinear-line",
               "communities": [
                 {
@@ -4243,7 +4314,8 @@
                   "name": "r/DebateReligion",
                   "url": "https://www.reddit.com/r/DebateReligion/"
                 }
-              ]
+              ],
+              "glyph": "many"
             },
             {
               "archetype": "line",
@@ -4282,7 +4354,7 @@
               ],
               "question": "Is sexual expression reserved to marriage between a man and a woman, or can same-sex relationships be affirmed?",
               "risk": false,
-              "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md §4 (t0037)",
+              "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md \u00a74 (t0037)",
               "widget": "trilinear-line",
               "communities": [
                 {
@@ -4295,7 +4367,8 @@
                   "name": "r/DebateReligion",
                   "url": "https://www.reddit.com/r/DebateReligion/"
                 }
-              ]
+              ],
+              "glyph": "heart"
             }
           ]
         },
@@ -4340,7 +4413,7 @@
               ],
               "question": "Is abortion ever permitted, and if so, in what circumstances?",
               "risk": false,
-              "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md §4 (t0036)",
+              "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md \u00a74 (t0036)",
               "widget": "trilinear-line",
               "communities": [
                 {
@@ -4353,7 +4426,8 @@
                   "name": "r/DebateReligion",
                   "url": "https://www.reddit.com/r/DebateReligion/"
                 }
-              ]
+              ],
+              "glyph": "seed"
             },
             {
               "archetype": null,
@@ -4376,7 +4450,7 @@
               ],
               "question": "May a person's life be intentionally ended to relieve suffering, or is life God's from conception to natural death?",
               "risk": false,
-              "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md §4 (t0038)",
+              "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md \u00a74 (t0038)",
               "type": "single",
               "widget": "monopole-slider",
               "communities": [
@@ -4390,7 +4464,8 @@
                   "name": "r/DebateReligion",
                   "url": "https://www.reddit.com/r/DebateReligion/"
                 }
-              ]
+              ],
+              "glyph": "hourglass"
             },
             {
               "archetype": "line",
@@ -4429,7 +4504,7 @@
               ],
               "question": "May the state put a person to death as punishment?",
               "risk": false,
-              "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md §4 (t0039)",
+              "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md \u00a74 (t0039)",
               "widget": "trilinear-line",
               "communities": [
                 {
@@ -4442,7 +4517,8 @@
                   "name": "r/DebateReligion",
                   "url": "https://www.reddit.com/r/DebateReligion/"
                 }
-              ]
+              ],
+              "glyph": "scale"
             },
             {
               "archetype": "line",
@@ -4481,7 +4557,7 @@
               ],
               "question": "May Christians bear arms and wage war in a just cause, or is war always evil?",
               "risk": false,
-              "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md §4 (t0040)",
+              "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md \u00a74 (t0040)",
               "widget": "trilinear-line",
               "communities": [
                 {
@@ -4494,7 +4570,8 @@
                   "name": "r/DebateReligion",
                   "url": "https://www.reddit.com/r/DebateReligion/"
                 }
-              ]
+              ],
+              "glyph": "shield"
             }
           ]
         },
@@ -4539,7 +4616,7 @@
               ],
               "question": "Must Christians give a tenth of their income, or give proportionately as they are able?",
               "risk": false,
-              "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md §4 (t0043)",
+              "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md \u00a74 (t0043)",
               "widget": "trilinear-line",
               "communities": [
                 {
@@ -4552,7 +4629,8 @@
                   "name": "r/DebateReligion",
                   "url": "https://www.reddit.com/r/DebateReligion/"
                 }
-              ]
+              ],
+              "glyph": "hands"
             },
             {
               "archetype": "line",
@@ -4591,7 +4669,7 @@
               ],
               "question": "Is gambling morally acceptable in moderation, or opposed as destructive stewardship?",
               "risk": false,
-              "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md §4 (t0044)",
+              "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md \u00a74 (t0044)",
               "widget": "trilinear-line",
               "communities": [
                 {
@@ -4604,7 +4682,8 @@
                   "name": "r/DebateReligion",
                   "url": "https://www.reddit.com/r/DebateReligion/"
                 }
-              ]
+              ],
+              "glyph": "cube"
             },
             {
               "archetype": "line",
@@ -4643,7 +4722,7 @@
               ],
               "question": "Is the charging or paying of financial interest on loans strictly prohibited as usury, or ethically permitted?",
               "risk": false,
-              "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md §4 (t0083)",
+              "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md \u00a74 (t0083)",
               "widget": "trilinear-line",
               "communities": [
                 {
@@ -4661,7 +4740,8 @@
                   "name": "r/religion",
                   "url": "https://www.reddit.com/r/religion/"
                 }
-              ]
+              ],
+              "glyph": "scale"
             }
           ]
         },
@@ -4706,7 +4786,7 @@
               ],
               "question": "Is drinking alcohol forbidden, or is moderation the rule?",
               "risk": false,
-              "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md §4 (t0041)",
+              "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md \u00a74 (t0041)",
               "widget": "trilinear-line",
               "communities": [
                 {
@@ -4729,12 +4809,13 @@
                   "name": "r/islam",
                   "url": "https://www.reddit.com/r/islam/"
                 }
-              ]
+              ],
+              "glyph": "cup"
             },
             {
               "archetype": "line",
               "hovertip": {
-                "issue": "How strictly must Sunday be kept — a day of worship and rest, or a day of worship only?",
+                "issue": "How strictly must Sunday be kept \u2014 a day of worship and rest, or a day of worship only?",
                 "poles": [
                   {
                     "label": "Sunday is kept holy",
@@ -4766,9 +4847,9 @@
                   "label": "Sunday is for worship"
                 }
               ],
-              "question": "How strictly must Sunday be kept — a day of worship and rest, or a day of worship only?",
+              "question": "How strictly must Sunday be kept \u2014 a day of worship and rest, or a day of worship only?",
               "risk": false,
-              "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md §4 (t0042)",
+              "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md \u00a74 (t0042)",
               "widget": "trilinear-line",
               "communities": [
                 {
@@ -4801,7 +4882,8 @@
                   "name": "r/Judaism",
                   "url": "https://www.reddit.com/r/Judaism/"
                 }
-              ]
+              ],
+              "glyph": "sun"
             },
             {
               "archetype": null,
@@ -4824,7 +4906,7 @@
               ],
               "question": "May a Christian swear a lawful oath calling on God as witness?",
               "risk": false,
-              "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md §4 (t0045)",
+              "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md \u00a74 (t0045)",
               "type": "single",
               "widget": "monopole-slider",
               "communities": [
@@ -4838,12 +4920,13 @@
                   "name": "r/DebateReligion",
                   "url": "https://www.reddit.com/r/DebateReligion/"
                 }
-              ]
+              ],
+              "glyph": "hand"
             },
             {
               "archetype": null,
               "hovertip": {
-                "issue": "How should one dress modestly — and is covering the head required?",
+                "issue": "How should one dress modestly \u2014 and is covering the head required?",
                 "poles": [
                   {
                     "label": "Modesty and head covering required",
@@ -4875,9 +4958,9 @@
                   "label": "No dress code prescribed"
                 }
               ],
-              "question": "How should one dress modestly — and is covering the head required?",
+              "question": "How should one dress modestly \u2014 and is covering the head required?",
               "risk": false,
-              "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md §4 (t0070)",
+              "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md \u00a74 (t0070)",
               "widget": "trilinear-line",
               "communities": [
                 {
@@ -4890,12 +4973,13 @@
                   "name": "r/DebateReligion",
                   "url": "https://www.reddit.com/r/DebateReligion/"
                 }
-              ]
+              ],
+              "glyph": "hood"
             },
             {
               "archetype": "line",
               "hovertip": {
-                "issue": "What may be eaten — are kosher and halal dietary laws binding?",
+                "issue": "What may be eaten \u2014 are kosher and halal dietary laws binding?",
                 "poles": [
                   {
                     "label": "Dietary law is binding",
@@ -4927,9 +5011,9 @@
                   "label": "No dietary law"
                 }
               ],
-              "question": "What may be eaten — are kosher and halal dietary laws binding?",
+              "question": "What may be eaten \u2014 are kosher and halal dietary laws binding?",
               "risk": false,
-              "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md §4 (t0071)",
+              "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md \u00a74 (t0071)",
               "widget": "trilinear-line",
               "communities": [
                 {
@@ -4957,7 +5041,8 @@
                   "name": "r/religion",
                   "url": "https://www.reddit.com/r/religion/"
                 }
-              ]
+              ],
+              "glyph": "fork"
             }
           ]
         }
@@ -5004,7 +5089,7 @@
           ],
           "question": "Will Christ return openly in glory to judge the living and the dead?",
           "risk": false,
-          "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md §4 (t0053)",
+          "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md \u00a74 (t0053)",
           "widget": "trilinear-line",
           "communities": [
             {
@@ -5022,7 +5107,8 @@
               "name": "r/theology",
               "url": "https://www.reddit.com/r/theology/"
             }
-          ]
+          ],
+          "glyph": "cloud"
         },
         {
           "archetype": "line",
@@ -5061,7 +5147,7 @@
           ],
           "question": "Is there a literal thousand-year earthly reign of Christ before the Last Judgment?",
           "risk": false,
-          "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md §4 (t0054)",
+          "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md \u00a74 (t0054)",
           "widget": "trilinear-line",
           "communities": [
             {
@@ -5079,7 +5165,8 @@
               "name": "r/theology",
               "url": "https://www.reddit.com/r/theology/"
             }
-          ]
+          ],
+          "glyph": "crown"
         },
         {
           "archetype": "simplex",
@@ -5118,7 +5205,7 @@
           ],
           "question": "Will an eschatological redeemer known as the Mahdi arise before the end of the world to restore justice?",
           "risk": false,
-          "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md §4 (t0080)",
+          "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md \u00a74 (t0080)",
           "widget": "triangle",
           "communities": [
             {
@@ -5136,7 +5223,8 @@
               "name": "r/religion",
               "url": "https://www.reddit.com/r/religion/"
             }
-          ]
+          ],
+          "glyph": "moon"
         },
         {
           "archetype": "line",
@@ -5149,7 +5237,7 @@
               },
               {
                 "label": "Annihilation",
-                "text": "The lost finally cease to exist — neither eternal torment nor eventual release."
+                "text": "The lost finally cease to exist \u2014 neither eternal torment nor eventual release."
               },
               {
                 "label": "Hell is a temporary purification",
@@ -5175,7 +5263,7 @@
           ],
           "question": "Is hell an eternal state of separation from God, freely chosen by persisting in sin?",
           "risk": false,
-          "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md §4 (t0055)",
+          "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md \u00a74 (t0055)",
           "widget": "trilinear-line",
           "communities": [
             {
@@ -5193,12 +5281,13 @@
               "name": "r/theology",
               "url": "https://www.reddit.com/r/theology/"
             }
-          ]
+          ],
+          "glyph": "flame"
         },
         {
           "archetype": null,
           "hovertip": {
-            "issue": "What is heaven — perfect life with God, and will there be a new heaven and a new earth?",
+            "issue": "What is heaven \u2014 perfect life with God, and will there be a new heaven and a new earth?",
             "poles": [
               {
                 "label": "Heaven and the new creation",
@@ -5214,9 +5303,9 @@
               "label": "Heaven and the new creation"
             }
           ],
-          "question": "What is heaven — perfect life with God, and will there be a new heaven and a new earth?",
+          "question": "What is heaven \u2014 perfect life with God, and will there be a new heaven and a new earth?",
           "risk": false,
-          "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md §4 (t0056)",
+          "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md \u00a74 (t0056)",
           "type": "single",
           "widget": "monopole-slider",
           "communities": [
@@ -5235,12 +5324,13 @@
               "name": "r/theology",
               "url": "https://www.reddit.com/r/theology/"
             }
-          ]
+          ],
+          "glyph": "sun"
         },
         {
           "archetype": null,
           "hovertip": {
-            "issue": "What happens to the soul between death and the resurrection — purification, a foretaste, or heaven and hell at once?",
+            "issue": "What happens to the soul between death and the resurrection \u2014 purification, a foretaste, or heaven and hell at once?",
             "poles": [
               {
                 "label": "Purification before heaven",
@@ -5272,9 +5362,9 @@
               "label": "Heaven or hell immediately"
             }
           ],
-          "question": "What happens to the soul between death and the resurrection — purification, a foretaste, or heaven and hell at once?",
+          "question": "What happens to the soul between death and the resurrection \u2014 purification, a foretaste, or heaven and hell at once?",
           "risk": false,
-          "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md §4 (t0057)",
+          "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md \u00a74 (t0057)",
           "widget": "trilinear-line",
           "communities": [
             {
@@ -5292,14 +5382,15 @@
               "name": "r/theology",
               "url": "https://www.reddit.com/r/theology/"
             }
-          ]
+          ],
+          "glyph": "bed"
         }
       ]
     }
   ],
-  "domain": "The Abrahamic Faiths — Judaism, Christianity, and Islam",
+  "domain": "The Abrahamic Faiths \u2014 Judaism, Christianity, and Islam",
   "name": "Forescapades",
-  "about": "Forescapades is an interactive hypermap for rating and visualizing what you believe about God, scripture, and the life of faith — and comparing your convictions with another person's, belief by belief, on the same picture. Build a personal profile, see where your faiths meet and where they part, use Scribe to write out what you hold true, and Scene Setter to plan a conversation about what matters most — all in the same shared vocabulary.",
+  "about": "Forescapades is an interactive hypermap for rating and visualizing what you believe about God, scripture, and the life of faith \u2014 and comparing your convictions with another person's, belief by belief, on the same picture. Build a personal profile, see where your faiths meet and where they part, use Scribe to write out what you hold true, and Scene Setter to plan a conversation about what matters most \u2014 all in the same shared vocabulary.",
   "scribe": {
     "genre": "discussion",
     "output": "discussion",
@@ -5315,22 +5406,22 @@
       "help": "Depth 1 (Overview) is a light survey of the recorded stances. Depth 5 (Dissertation defense) is full scholarly rigor: steelman each stance, raise the strongest objections, and answer them."
     },
     "panel": {
-      "modeSingle": "One profile creates an informed discussion between the stances recorded on this map — the positions held, where they agree, and where they part. For a moderated discussion plan, use Scene Setter.",
-      "modeMulti": "Scribe turns your selected profiles into an informed discussion between the stances recorded on this map — where the profiles agree, where they part, and what follows from each position. For a moderated discussion plan, use Scene Setter.",
+      "modeSingle": "One profile creates an informed discussion between the stances recorded on this map \u2014 the positions held, where they agree, and where they part. For a moderated discussion plan, use Scene Setter.",
+      "modeMulti": "Scribe turns your selected profiles into an informed discussion between the stances recorded on this map \u2014 where the profiles agree, where they part, and what follows from each position. For a moderated discussion plan, use Scene Setter.",
       "introSingle": "One profile selected: Scribe will create an informed discussion between the stances.",
       "introMulti": "Multiple profiles selected: Scribe will create an informed discussion between the stances.",
-      "detailsPlaceholder": "The map provides your stances and positions. Describe the angle, framing, or specific questions to emphasize or avoid — e.g. “a point-by-point comparison of the two leading positions, with objections answered.”",
+      "detailsPlaceholder": "The map provides your stances and positions. Describe the angle, framing, or specific questions to emphasize or avoid \u2014 e.g. \u201ca point-by-point comparison of the two leading positions, with objections answered.\u201d",
       "detailsHelp": "Don't re-enter your stances here. Scribe already uses the selected hypermap data.",
       "lengthHelp": "Discussions can target a word count, paragraphs, pages, or chapters. Enter one number or a range; blank defaults to 1 page.",
       "downloadIntro": "Generated from the selected profile data.",
-      "summary": "An informed discussion between the recorded stances — the positions speak for themselves, not a story."
+      "summary": "An informed discussion between the recorded stances \u2014 the positions speak for themselves, not a story."
     },
     "prompt": {
       "opening": "Write an informed discussion between the stances recorded on this map.",
       "rules": [
-        "Present each recorded stance fairly and in its strongest form — steelman, don't strawman.",
+        "Present each recorded stance fairly and in its strongest form \u2014 steelman, don't strawman.",
         "Show where the stances agree, where they part, and what follows from each position.",
-        "Use the recorded ratings as emphasis: 80–100 central, 56–79 strong support, 36–55 lighter, and 0–35 optional curiosity.",
+        "Use the recorded ratings as emphasis: 80\u2013100 central, 56\u201379 strong support, 36\u201355 lighter, and 0\u201335 optional curiosity.",
         "Use only the named topics below. Do not add, imply, or reference any unlisted stance.",
         "Do not invent positions, sources, or facts beyond the supplied data."
       ],
@@ -5355,8 +5446,8 @@
     "panel": {
       "subtitleSuffix": "the ground rules stay in every discussion plan.",
       "detailsLabel": "Discussion details <small>Optional</small>",
-      "detailsPlaceholder": "The map provides your stances and positions. Describe the setting, framing, or specific questions to emphasize or avoid — e.g. “a point-by-point comparison of the two leading positions, with objections answered.”",
-      "detailsHelp": "Don’t re-enter your stances here. Scene Setter already uses the selected hypermap data, and the ground rules below still control the plan.",
+      "detailsPlaceholder": "The map provides your stances and positions. Describe the setting, framing, or specific questions to emphasize or avoid \u2014 e.g. \u201ca point-by-point comparison of the two leading positions, with objections answered.\u201d",
+      "detailsHelp": "Don\u2019t re-enter your stances here. Scene Setter already uses the selected hypermap data, and the ground rules below still control the plan.",
       "playGuideLegend": "Discussion plan length",
       "playGuideHelp": "Length for the AI discussion-plan prompt only: a word count, paragraphs, pages, or chapters. Enter one number or a range; blank defaults to 5 paragraphs.",
       "negotiationLegend": "Discussion agreement length",
@@ -5366,33 +5457,33 @@
       "outputsTitle": "Documents",
       "outputsIntro": "Two separate outputs. Take either one on its own; each carries the compare-settings stamp and the same ground-rules content.",
       "negotiationTitle": "Discussion agreement",
-      "negotiationDesc": "The completed ground rules as a finished, standalone agreement document — not an AI prompt.",
+      "negotiationDesc": "The completed ground rules as a finished, standalone agreement document \u2014 not an AI prompt.",
       "playGuideTitle": "Discussion plan",
-      "playGuideDesc": "The AI discussion-plan prompt, with the ground rules embedded as its binding layer. It also carries the standard structured format — elapsed time codes like <strong>[00:00-05:00]</strong> and a fixed activity set — so whichever AI writes the plan, Scene Sentinel can read it back, run its timers, and match check-ins to the scheduled step.",
+      "playGuideDesc": "The AI discussion-plan prompt, with the ground rules embedded as its binding layer. It also carries the standard structured format \u2014 elapsed time codes like <strong>[00:00-05:00]</strong> and a fixed activity set \u2014 so whichever AI writes the plan, Scene Sentinel can read it back, run its timers, and match check-ins to the scheduled step.",
       "copyNegotiationGuide": "Copy discussion agreement",
       "downloadNegotiationGuide": "Download discussion agreement (.txt)",
       "copyPlayGuide": "Copy discussion plan prompt",
       "downloadPlayGuide": "Download discussion plan prompt (.txt)",
       "aiNote": "<strong>How this differs from Scribe:</strong> this workspace puts the ground rules and shared positions into a discussion agreement first. Its moderation-plan source is inspiration only; the agreement always controls the generated plan.",
-      "playGuideTextPlaceholder": "Your generated discussion plan will stream here in real time…",
+      "playGuideTextPlaceholder": "Your generated discussion plan will stream here in real time\u2026",
       "openNegotiationTip": "Build a shared discussion agreement and an AI-ready moderation plan from two or more selected profiles.",
       "viewNavTip": "Build a moderated discussion plan for 2 or more profiles, with ground rules and timed segments.",
-      "legendRow": "<b>Scene Setter</b> — Moderating a discussion between the stances: a ground-rules agreement and a moderated discussion plan."
+      "legendRow": "<b>Scene Setter</b> \u2014 Moderating a discussion between the stances: a ground-rules agreement and a moderated discussion plan."
     },
     "groundRules": [
-      "Present each recorded stance fairly and in its strongest form — steelman, don't strawman.",
+      "Present each recorded stance fairly and in its strongest form \u2014 steelman, don't strawman.",
       "Speak from your own recorded stance; don't speak for the other side.",
       "Take turns: one position at a time, each side heard fully before replies.",
       "Objections go to the position, not the person holding it.",
       "Anyone may call a pause; the discussion resumes only when everyone is ready.",
-      "What the profiles agree on is common ground — start there, and return to it when the discussion stalls."
+      "What the profiles agree on is common ground \u2014 start there, and return to it when the discussion stalls."
     ],
     "prompt": {
       "opening": "Write a moderated discussion plan for the stances recorded on this map.",
       "rules": [
-        "Present each recorded stance fairly and in its strongest form — steelman, don't strawman.",
+        "Present each recorded stance fairly and in its strongest form \u2014 steelman, don't strawman.",
         "Show where the stances agree, where they part, and what follows from each position.",
-        "Use the recorded ratings as emphasis: 80–100 central, 56–79 strong support, 36–55 lighter, and 0–35 optional curiosity.",
+        "Use the recorded ratings as emphasis: 80\u2013100 central, 56\u201379 strong support, 36\u201355 lighter, and 0\u201335 optional curiosity.",
         "Structure the plan in Opening, Development, and Closing, with timed segments and a check-in between segments.",
         "Give each side its strongest form before comparing them; never let one side speak for the other.",
         "Use only the named topics below. Do not add, imply, or reference any unlisted stance.",
@@ -8842,7 +8933,7 @@
     "for-catholic-1965": {
       "name": "Vatican II (1965)",
       "count": 38,
-      "about": "Vatican II (1965), rated on the same Fores topics as the current Catholic creed sample — a dated layer in the creed's palimpsest.",
+      "about": "Vatican II (1965), rated on the same Fores topics as the current Catholic creed sample \u2014 a dated layer in the creed's palimpsest.",
       "links": [],
       "payload": {
         "app": "sexcapades",
@@ -8850,7 +8941,7 @@
         "noFlash": true,
         "profileName": "Vatican II (1965)",
         "archetype": "Catholic creed",
-        "aboutMe": "Vatican II (1965), rated on the same Fores topics as the current Catholic creed sample — a dated layer in the creed's palimpsest.",
+        "aboutMe": "Vatican II (1965), rated on the same Fores topics as the current Catholic creed sample \u2014 a dated layer in the creed's palimpsest.",
         "ratings": {
           "xfo0007": {
             "advocacy": {
@@ -9397,7 +9488,7 @@
     "for-catholic-1885": {
       "name": "Baltimore Catechism (1885)",
       "count": 38,
-      "about": "Baltimore Catechism (1885), rated on the same Fores topics as the current Catholic creed sample — a dated layer in the creed's palimpsest.",
+      "about": "Baltimore Catechism (1885), rated on the same Fores topics as the current Catholic creed sample \u2014 a dated layer in the creed's palimpsest.",
       "links": [],
       "payload": {
         "app": "sexcapades",
@@ -9405,7 +9496,7 @@
         "noFlash": true,
         "profileName": "Baltimore Catechism (1885)",
         "archetype": "Catholic creed",
-        "aboutMe": "Baltimore Catechism (1885), rated on the same Fores topics as the current Catholic creed sample — a dated layer in the creed's palimpsest.",
+        "aboutMe": "Baltimore Catechism (1885), rated on the same Fores topics as the current Catholic creed sample \u2014 a dated layer in the creed's palimpsest.",
         "ratings": {
           "xfo0007": {
             "advocacy": {
@@ -9952,7 +10043,7 @@
     "for-catholic-1566": {
       "name": "Roman Catechism (1566)",
       "count": 37,
-      "about": "Roman Catechism (1566), rated on the same Fores topics as the current Catholic creed sample — a dated layer in the creed's palimpsest.",
+      "about": "Roman Catechism (1566), rated on the same Fores topics as the current Catholic creed sample \u2014 a dated layer in the creed's palimpsest.",
       "links": [],
       "payload": {
         "app": "sexcapades",
@@ -9960,7 +10051,7 @@
         "noFlash": true,
         "profileName": "Roman Catechism (1566)",
         "archetype": "Catholic creed",
-        "aboutMe": "Roman Catechism (1566), rated on the same Fores topics as the current Catholic creed sample — a dated layer in the creed's palimpsest.",
+        "aboutMe": "Roman Catechism (1566), rated on the same Fores topics as the current Catholic creed sample \u2014 a dated layer in the creed's palimpsest.",
         "ratings": {
           "xfo0007": {
             "advocacy": {
@@ -11053,7 +11144,7 @@
     "for-orthodox-2016": {
       "name": "Holy and Great Council, Crete (2016)",
       "count": 30,
-      "about": "Holy and Great Council, Crete (2016), rated on the same Fores topics as the current Eastern Orthodox creed sample — a dated layer in the creed's palimpsest.",
+      "about": "Holy and Great Council, Crete (2016), rated on the same Fores topics as the current Eastern Orthodox creed sample \u2014 a dated layer in the creed's palimpsest.",
       "links": [],
       "payload": {
         "app": "sexcapades",
@@ -11061,7 +11152,7 @@
         "noFlash": true,
         "profileName": "Holy and Great Council, Crete (2016)",
         "archetype": "Eastern Orthodox creed",
-        "aboutMe": "Holy and Great Council, Crete (2016), rated on the same Fores topics as the current Eastern Orthodox creed sample — a dated layer in the creed's palimpsest.",
+        "aboutMe": "Holy and Great Council, Crete (2016), rated on the same Fores topics as the current Eastern Orthodox creed sample \u2014 a dated layer in the creed's palimpsest.",
         "ratings": {
           "xfo0007": {
             "advocacy": {
@@ -11496,7 +11587,7 @@
     "for-orthodox-1848": {
       "name": "Encyclical of the Eastern Patriarchs (1848)",
       "count": 16,
-      "about": "Encyclical of the Eastern Patriarchs (1848), rated on the same Fores topics as the current Eastern Orthodox creed sample — a dated layer in the creed's palimpsest.",
+      "about": "Encyclical of the Eastern Patriarchs (1848), rated on the same Fores topics as the current Eastern Orthodox creed sample \u2014 a dated layer in the creed's palimpsest.",
       "links": [],
       "payload": {
         "app": "sexcapades",
@@ -11504,7 +11595,7 @@
         "noFlash": true,
         "profileName": "Encyclical of the Eastern Patriarchs (1848)",
         "archetype": "Eastern Orthodox creed",
-        "aboutMe": "Encyclical of the Eastern Patriarchs (1848), rated on the same Fores topics as the current Eastern Orthodox creed sample — a dated layer in the creed's palimpsest.",
+        "aboutMe": "Encyclical of the Eastern Patriarchs (1848), rated on the same Fores topics as the current Eastern Orthodox creed sample \u2014 a dated layer in the creed's palimpsest.",
         "ratings": {
           "xfo0007": {
             "advocacy": {
@@ -11743,7 +11834,7 @@
     "for-orthodox-1672": {
       "name": "Confession of Dositheus (1672)",
       "count": 30,
-      "about": "Confession of Dositheus (1672), rated on the same Fores topics as the current Eastern Orthodox creed sample — a dated layer in the creed's palimpsest.",
+      "about": "Confession of Dositheus (1672), rated on the same Fores topics as the current Eastern Orthodox creed sample \u2014 a dated layer in the creed's palimpsest.",
       "links": [],
       "payload": {
         "app": "sexcapades",
@@ -11751,7 +11842,7 @@
         "noFlash": true,
         "profileName": "Confession of Dositheus (1672)",
         "archetype": "Eastern Orthodox creed",
-        "aboutMe": "Confession of Dositheus (1672), rated on the same Fores topics as the current Eastern Orthodox creed sample — a dated layer in the creed's palimpsest.",
+        "aboutMe": "Confession of Dositheus (1672), rated on the same Fores topics as the current Eastern Orthodox creed sample \u2014 a dated layer in the creed's palimpsest.",
         "ratings": {
           "xfo0007": {
             "advocacy": {
@@ -12193,7 +12284,7 @@
           "url": "https://www.elca.org"
         },
         {
-          "label": "The Lutheran Church—Missouri Synod",
+          "label": "The Lutheran Church\u2014Missouri Synod",
           "url": "https://www.lcms.org"
         }
       ],
@@ -12203,7 +12294,7 @@
         "noFlash": true,
         "profileName": "Lutheran creed",
         "archetype": "Lutheran creed",
-        "aboutMe": "The Lutheran creed: Scripture alone, grace alone, faith alone, as confessed in the Augsburg Confession — infant baptism, the real presence, and the priesthood of all believers.",
+        "aboutMe": "The Lutheran creed: Scripture alone, grace alone, faith alone, as confessed in the Augsburg Confession \u2014 infant baptism, the real presence, and the priesthood of all believers.",
         "ratings": {
           "xfo0007": {
             "advocacy": {
@@ -12750,7 +12841,7 @@
     "for-lutheran-1999": {
       "name": "Joint Declaration on the Doctrine of Justification (1999)",
       "count": 7,
-      "about": "Joint Declaration on the Doctrine of Justification (1999), rated on the same Fores topics as the current Lutheran creed sample — a dated layer in the creed's palimpsest.",
+      "about": "Joint Declaration on the Doctrine of Justification (1999), rated on the same Fores topics as the current Lutheran creed sample \u2014 a dated layer in the creed's palimpsest.",
       "links": [],
       "payload": {
         "app": "sexcapades",
@@ -12758,7 +12849,7 @@
         "noFlash": true,
         "profileName": "Joint Declaration on the Doctrine of Justification (1999)",
         "archetype": "Lutheran creed",
-        "aboutMe": "Joint Declaration on the Doctrine of Justification (1999), rated on the same Fores topics as the current Lutheran creed sample — a dated layer in the creed's palimpsest.",
+        "aboutMe": "Joint Declaration on the Doctrine of Justification (1999), rated on the same Fores topics as the current Lutheran creed sample \u2014 a dated layer in the creed's palimpsest.",
         "ratings": {
           "xfo0007": {
             "advocacy": {
@@ -12871,7 +12962,7 @@
     "for-lutheran-1580": {
       "name": "Formula of Concord (1580)",
       "count": 28,
-      "about": "Formula of Concord (1580), rated on the same Fores topics as the current Lutheran creed sample — a dated layer in the creed's palimpsest.",
+      "about": "Formula of Concord (1580), rated on the same Fores topics as the current Lutheran creed sample \u2014 a dated layer in the creed's palimpsest.",
       "links": [],
       "payload": {
         "app": "sexcapades",
@@ -12879,7 +12970,7 @@
         "noFlash": true,
         "profileName": "Formula of Concord (1580)",
         "archetype": "Lutheran creed",
-        "aboutMe": "Formula of Concord (1580), rated on the same Fores topics as the current Lutheran creed sample — a dated layer in the creed's palimpsest.",
+        "aboutMe": "Formula of Concord (1580), rated on the same Fores topics as the current Lutheran creed sample \u2014 a dated layer in the creed's palimpsest.",
         "ratings": {
           "xfo0007": {
             "advocacy": {
@@ -13286,7 +13377,7 @@
     "for-lutheran-1530": {
       "name": "Augsburg Confession (1530)",
       "count": 31,
-      "about": "Augsburg Confession (1530), rated on the same Fores topics as the current Lutheran creed sample — a dated layer in the creed's palimpsest.",
+      "about": "Augsburg Confession (1530), rated on the same Fores topics as the current Lutheran creed sample \u2014 a dated layer in the creed's palimpsest.",
       "links": [],
       "payload": {
         "app": "sexcapades",
@@ -13294,7 +13385,7 @@
         "noFlash": true,
         "profileName": "Augsburg Confession (1530)",
         "archetype": "Lutheran creed",
-        "aboutMe": "Augsburg Confession (1530), rated on the same Fores topics as the current Lutheran creed sample — a dated layer in the creed's palimpsest.",
+        "aboutMe": "Augsburg Confession (1530), rated on the same Fores topics as the current Lutheran creed sample \u2014 a dated layer in the creed's palimpsest.",
         "ratings": {
           "xfo0007": {
             "advocacy": {
@@ -13756,7 +13847,7 @@
         "noFlash": true,
         "profileName": "Reformed creed",
         "archetype": "Reformed creed",
-        "aboutMe": "The Reformed creed: Scripture alone and the sovereignty of God, as confessed at Westminster — unconditional election, the spiritual presence at the Table, and government by elders.",
+        "aboutMe": "The Reformed creed: Scripture alone and the sovereignty of God, as confessed at Westminster \u2014 unconditional election, the spiritual presence at the Table, and government by elders.",
         "ratings": {
           "xfo0007": {
             "advocacy": {
@@ -14303,7 +14394,7 @@
     "for-reformed-1986": {
       "name": "Belhar Confession (1986)",
       "count": 3,
-      "about": "Belhar Confession (1986), rated on the same Fores topics as the current Reformed creed sample — a dated layer in the creed's palimpsest.",
+      "about": "Belhar Confession (1986), rated on the same Fores topics as the current Reformed creed sample \u2014 a dated layer in the creed's palimpsest.",
       "links": [],
       "payload": {
         "app": "sexcapades",
@@ -14311,7 +14402,7 @@
         "noFlash": true,
         "profileName": "Belhar Confession (1986)",
         "archetype": "Reformed creed",
-        "aboutMe": "Belhar Confession (1986), rated on the same Fores topics as the current Reformed creed sample — a dated layer in the creed's palimpsest.",
+        "aboutMe": "Belhar Confession (1986), rated on the same Fores topics as the current Reformed creed sample \u2014 a dated layer in the creed's palimpsest.",
         "ratings": {
           "xfo0007": {
             "advocacy": {
@@ -14368,7 +14459,7 @@
     "for-reformed-1934": {
       "name": "Barmen Declaration (1934)",
       "count": 7,
-      "about": "Barmen Declaration (1934), rated on the same Fores topics as the current Reformed creed sample — a dated layer in the creed's palimpsest.",
+      "about": "Barmen Declaration (1934), rated on the same Fores topics as the current Reformed creed sample \u2014 a dated layer in the creed's palimpsest.",
       "links": [],
       "payload": {
         "app": "sexcapades",
@@ -14376,7 +14467,7 @@
         "noFlash": true,
         "profileName": "Barmen Declaration (1934)",
         "archetype": "Reformed creed",
-        "aboutMe": "Barmen Declaration (1934), rated on the same Fores topics as the current Reformed creed sample — a dated layer in the creed's palimpsest.",
+        "aboutMe": "Barmen Declaration (1934), rated on the same Fores topics as the current Reformed creed sample \u2014 a dated layer in the creed's palimpsest.",
         "ratings": {
           "xfo0015": {
             "advocacy": {
@@ -14489,7 +14580,7 @@
     "for-reformed-1646": {
       "name": "Westminster Confession of Faith (1646)",
       "count": 36,
-      "about": "Westminster Confession of Faith (1646), rated on the same Fores topics as the current Reformed creed sample — a dated layer in the creed's palimpsest.",
+      "about": "Westminster Confession of Faith (1646), rated on the same Fores topics as the current Reformed creed sample \u2014 a dated layer in the creed's palimpsest.",
       "links": [],
       "payload": {
         "app": "sexcapades",
@@ -14497,7 +14588,7 @@
         "noFlash": true,
         "profileName": "Westminster Confession of Faith (1646)",
         "archetype": "Reformed creed",
-        "aboutMe": "Westminster Confession of Faith (1646), rated on the same Fores topics as the current Reformed creed sample — a dated layer in the creed's palimpsest.",
+        "aboutMe": "Westminster Confession of Faith (1646), rated on the same Fores topics as the current Reformed creed sample \u2014 a dated layer in the creed's palimpsest.",
         "ratings": {
           "xfo0007": {
             "advocacy": {
@@ -15016,7 +15107,7 @@
     "for-reformed-1563": {
       "name": "Heidelberg Catechism (1563)",
       "count": 35,
-      "about": "Heidelberg Catechism (1563), rated on the same Fores topics as the current Reformed creed sample — a dated layer in the creed's palimpsest.",
+      "about": "Heidelberg Catechism (1563), rated on the same Fores topics as the current Reformed creed sample \u2014 a dated layer in the creed's palimpsest.",
       "links": [],
       "payload": {
         "app": "sexcapades",
@@ -15024,7 +15115,7 @@
         "noFlash": true,
         "profileName": "Heidelberg Catechism (1563)",
         "archetype": "Reformed creed",
-        "aboutMe": "Heidelberg Catechism (1563), rated on the same Fores topics as the current Reformed creed sample — a dated layer in the creed's palimpsest.",
+        "aboutMe": "Heidelberg Catechism (1563), rated on the same Fores topics as the current Reformed creed sample \u2014 a dated layer in the creed's palimpsest.",
         "ratings": {
           "xfo0007": {
             "advocacy": {
@@ -16093,7 +16184,7 @@
     "for-baptist-2000": {
       "name": "Baptist Faith and Message (2000)",
       "count": 31,
-      "about": "Baptist Faith and Message (2000), rated on the same Fores topics as the current Baptist creed sample — a dated layer in the creed's palimpsest.",
+      "about": "Baptist Faith and Message (2000), rated on the same Fores topics as the current Baptist creed sample \u2014 a dated layer in the creed's palimpsest.",
       "links": [],
       "payload": {
         "app": "sexcapades",
@@ -16101,7 +16192,7 @@
         "noFlash": true,
         "profileName": "Baptist Faith and Message (2000)",
         "archetype": "Baptist creed",
-        "aboutMe": "Baptist Faith and Message (2000), rated on the same Fores topics as the current Baptist creed sample — a dated layer in the creed's palimpsest.",
+        "aboutMe": "Baptist Faith and Message (2000), rated on the same Fores topics as the current Baptist creed sample \u2014 a dated layer in the creed's palimpsest.",
         "ratings": {
           "xfo0007": {
             "advocacy": {
@@ -16550,7 +16641,7 @@
     "for-baptist-1963": {
       "name": "Baptist Faith and Message (1963)",
       "count": 27,
-      "about": "Baptist Faith and Message (1963), rated on the same Fores topics as the current Baptist creed sample — a dated layer in the creed's palimpsest.",
+      "about": "Baptist Faith and Message (1963), rated on the same Fores topics as the current Baptist creed sample \u2014 a dated layer in the creed's palimpsest.",
       "links": [],
       "payload": {
         "app": "sexcapades",
@@ -16558,7 +16649,7 @@
         "noFlash": true,
         "profileName": "Baptist Faith and Message (1963)",
         "archetype": "Baptist creed",
-        "aboutMe": "Baptist Faith and Message (1963), rated on the same Fores topics as the current Baptist creed sample — a dated layer in the creed's palimpsest.",
+        "aboutMe": "Baptist Faith and Message (1963), rated on the same Fores topics as the current Baptist creed sample \u2014 a dated layer in the creed's palimpsest.",
         "ratings": {
           "xfo0007": {
             "advocacy": {
@@ -16951,7 +17042,7 @@
     "for-baptist-1689": {
       "name": "Second London Baptist Confession (1689)",
       "count": 36,
-      "about": "Second London Baptist Confession (1689), rated on the same Fores topics as the current Baptist creed sample — a dated layer in the creed's palimpsest.",
+      "about": "Second London Baptist Confession (1689), rated on the same Fores topics as the current Baptist creed sample \u2014 a dated layer in the creed's palimpsest.",
       "links": [],
       "payload": {
         "app": "sexcapades",
@@ -16959,7 +17050,7 @@
         "noFlash": true,
         "profileName": "Second London Baptist Confession (1689)",
         "archetype": "Baptist creed",
-        "aboutMe": "Second London Baptist Confession (1689), rated on the same Fores topics as the current Baptist creed sample — a dated layer in the creed's palimpsest.",
+        "aboutMe": "Second London Baptist Confession (1689), rated on the same Fores topics as the current Baptist creed sample \u2014 a dated layer in the creed's palimpsest.",
         "ratings": {
           "xfo0007": {
             "advocacy": {
@@ -18038,7 +18129,7 @@
     "for-methodist-2024": {
       "name": "Revised Social Principles and General Conference (2024)",
       "count": 6,
-      "about": "Revised Social Principles and General Conference (2024), rated on the same Fores topics as the current Methodist creed sample — a dated layer in the creed's palimpsest.",
+      "about": "Revised Social Principles and General Conference (2024), rated on the same Fores topics as the current Methodist creed sample \u2014 a dated layer in the creed's palimpsest.",
       "links": [],
       "payload": {
         "app": "sexcapades",
@@ -18046,7 +18137,7 @@
         "noFlash": true,
         "profileName": "Revised Social Principles and General Conference (2024)",
         "archetype": "Methodist creed",
-        "aboutMe": "Revised Social Principles and General Conference (2024), rated on the same Fores topics as the current Methodist creed sample — a dated layer in the creed's palimpsest.",
+        "aboutMe": "Revised Social Principles and General Conference (2024), rated on the same Fores topics as the current Methodist creed sample \u2014 a dated layer in the creed's palimpsest.",
         "ratings": {
           "xfo0031": {
             "advocacy": {
@@ -18145,7 +18236,7 @@
     "for-methodist-1972": {
       "name": "Book of Discipline doctrinal standards (1972)",
       "count": 32,
-      "about": "Book of Discipline doctrinal standards (1972), rated on the same Fores topics as the current Methodist creed sample — a dated layer in the creed's palimpsest.",
+      "about": "Book of Discipline doctrinal standards (1972), rated on the same Fores topics as the current Methodist creed sample \u2014 a dated layer in the creed's palimpsest.",
       "links": [],
       "payload": {
         "app": "sexcapades",
@@ -18153,7 +18244,7 @@
         "noFlash": true,
         "profileName": "Book of Discipline doctrinal standards (1972)",
         "archetype": "Methodist creed",
-        "aboutMe": "Book of Discipline doctrinal standards (1972), rated on the same Fores topics as the current Methodist creed sample — a dated layer in the creed's palimpsest.",
+        "aboutMe": "Book of Discipline doctrinal standards (1972), rated on the same Fores topics as the current Methodist creed sample \u2014 a dated layer in the creed's palimpsest.",
         "ratings": {
           "xfo0007": {
             "advocacy": {
@@ -18616,7 +18707,7 @@
     "for-methodist-1908": {
       "name": "The Social Creed (1908)",
       "count": 1,
-      "about": "The Social Creed (1908), rated on the same Fores topics as the current Methodist creed sample — a dated layer in the creed's palimpsest.",
+      "about": "The Social Creed (1908), rated on the same Fores topics as the current Methodist creed sample \u2014 a dated layer in the creed's palimpsest.",
       "links": [],
       "payload": {
         "app": "sexcapades",
@@ -18624,7 +18715,7 @@
         "noFlash": true,
         "profileName": "The Social Creed (1908)",
         "archetype": "Methodist creed",
-        "aboutMe": "The Social Creed (1908), rated on the same Fores topics as the current Methodist creed sample — a dated layer in the creed's palimpsest.",
+        "aboutMe": "The Social Creed (1908), rated on the same Fores topics as the current Methodist creed sample \u2014 a dated layer in the creed's palimpsest.",
         "ratings": {
           "xfo0074": {
             "advocacy": {
@@ -18653,7 +18744,7 @@
     "for-methodist-1784": {
       "name": "Wesley's Articles of Religion (1784)",
       "count": 31,
-      "about": "Wesley's Articles of Religion (1784), rated on the same Fores topics as the current Methodist creed sample — a dated layer in the creed's palimpsest.",
+      "about": "Wesley's Articles of Religion (1784), rated on the same Fores topics as the current Methodist creed sample \u2014 a dated layer in the creed's palimpsest.",
       "links": [],
       "payload": {
         "app": "sexcapades",
@@ -18661,7 +18752,7 @@
         "noFlash": true,
         "profileName": "Wesley's Articles of Religion (1784)",
         "archetype": "Methodist creed",
-        "aboutMe": "Wesley's Articles of Religion (1784), rated on the same Fores topics as the current Methodist creed sample — a dated layer in the creed's palimpsest.",
+        "aboutMe": "Wesley's Articles of Religion (1784), rated on the same Fores topics as the current Methodist creed sample \u2014 a dated layer in the creed's palimpsest.",
         "ratings": {
           "xfo0007": {
             "advocacy": {
@@ -19670,7 +19761,7 @@
     "for-jewish-2015": {
       "name": "Rabbinical Council of America Statements (c. 2015)",
       "count": 9,
-      "about": "Rabbinical Council of America Statements (c. 2015), rated on the same Fores topics as the current Orthodox Jewish creed sample — a dated layer in the creed's palimpsest.",
+      "about": "Rabbinical Council of America Statements (c. 2015), rated on the same Fores topics as the current Orthodox Jewish creed sample \u2014 a dated layer in the creed's palimpsest.",
       "links": [],
       "payload": {
         "app": "sexcapades",
@@ -19678,7 +19769,7 @@
         "noFlash": true,
         "profileName": "Rabbinical Council of America Statements (c. 2015)",
         "archetype": "Orthodox Jewish creed",
-        "aboutMe": "Rabbinical Council of America Statements (c. 2015), rated on the same Fores topics as the current Orthodox Jewish creed sample — a dated layer in the creed's palimpsest.",
+        "aboutMe": "Rabbinical Council of America Statements (c. 2015), rated on the same Fores topics as the current Orthodox Jewish creed sample \u2014 a dated layer in the creed's palimpsest.",
         "ratings": {
           "xfo0015": {
             "advocacy": {
@@ -19819,7 +19910,7 @@
     "for-jewish-1565": {
       "name": "Shulchan Aruch (1565)",
       "count": 24,
-      "about": "Shulchan Aruch (1565), rated on the same Fores topics as the current Orthodox Jewish creed sample — a dated layer in the creed's palimpsest.",
+      "about": "Shulchan Aruch (1565), rated on the same Fores topics as the current Orthodox Jewish creed sample \u2014 a dated layer in the creed's palimpsest.",
       "links": [],
       "payload": {
         "app": "sexcapades",
@@ -19827,7 +19918,7 @@
         "noFlash": true,
         "profileName": "Shulchan Aruch (1565)",
         "archetype": "Orthodox Jewish creed",
-        "aboutMe": "Shulchan Aruch (1565), rated on the same Fores topics as the current Orthodox Jewish creed sample — a dated layer in the creed's palimpsest.",
+        "aboutMe": "Shulchan Aruch (1565), rated on the same Fores topics as the current Orthodox Jewish creed sample \u2014 a dated layer in the creed's palimpsest.",
         "ratings": {
           "xfo0007": {
             "advocacy": {
@@ -20178,7 +20269,7 @@
     "for-jewish-1190": {
       "name": "Maimonides' Thirteen Principles (c. 1190)",
       "count": 20,
-      "about": "Maimonides' Thirteen Principles (c. 1190), rated on the same Fores topics as the current Orthodox Jewish creed sample — a dated layer in the creed's palimpsest.",
+      "about": "Maimonides' Thirteen Principles (c. 1190), rated on the same Fores topics as the current Orthodox Jewish creed sample \u2014 a dated layer in the creed's palimpsest.",
       "links": [],
       "payload": {
         "app": "sexcapades",
@@ -20186,7 +20277,7 @@
         "noFlash": true,
         "profileName": "Maimonides' Thirteen Principles (c. 1190)",
         "archetype": "Orthodox Jewish creed",
-        "aboutMe": "Maimonides' Thirteen Principles (c. 1190), rated on the same Fores topics as the current Orthodox Jewish creed sample — a dated layer in the creed's palimpsest.",
+        "aboutMe": "Maimonides' Thirteen Principles (c. 1190), rated on the same Fores topics as the current Orthodox Jewish creed sample \u2014 a dated layer in the creed's palimpsest.",
         "ratings": {
           "xfo0007": {
             "advocacy": {
@@ -20484,7 +20575,7 @@
       "about": "Sunni Muslims, the large majority of the world's Muslims, believe in one God (Allah) and that Muhammad is His final prophet, and follow the Qur'an together with the Sunnah (the Prophet's example) as recorded in the hadith. Their faith is structured around the Five Pillars, the declaration of faith, prayer, almsgiving, fasting in Ramadan, and pilgrimage to Mecca, and guided by the four major schools of Islamic law.",
       "links": [
         {
-          "label": "ISNA — Islamic Society of North America",
+          "label": "ISNA \u2014 Islamic Society of North America",
           "url": "https://isna.net/"
         }
       ],
@@ -21076,7 +21167,7 @@
     "for-muslim-2004": {
       "name": "The Amman Message (2004)",
       "count": 11,
-      "about": "The Amman Message (2004), rated on the same Fores topics as the current Sunni Muslim creed sample — a dated layer in the creed's palimpsest.",
+      "about": "The Amman Message (2004), rated on the same Fores topics as the current Sunni Muslim creed sample \u2014 a dated layer in the creed's palimpsest.",
       "links": [],
       "payload": {
         "app": "sexcapades",
@@ -21084,7 +21175,7 @@
         "noFlash": true,
         "profileName": "The Amman Message (2004)",
         "archetype": "Sunni Muslim creed",
-        "aboutMe": "The Amman Message (2004), rated on the same Fores topics as the current Sunni Muslim creed sample — a dated layer in the creed's palimpsest.",
+        "aboutMe": "The Amman Message (2004), rated on the same Fores topics as the current Sunni Muslim creed sample \u2014 a dated layer in the creed's palimpsest.",
         "ratings": {
           "xfo0007": {
             "advocacy": {
@@ -21246,7 +21337,7 @@
     "for-muslim-1111": {
       "name": "Al-Ghazali's Jerusalem Tract (al-Risala al-Qudsiyya) (c. 1111)",
       "count": 18,
-      "about": "Al-Ghazali's Jerusalem Tract (al-Risala al-Qudsiyya) (c. 1111), rated on the same Fores topics as the current Sunni Muslim creed sample — a dated layer in the creed's palimpsest.",
+      "about": "Al-Ghazali's Jerusalem Tract (al-Risala al-Qudsiyya) (c. 1111), rated on the same Fores topics as the current Sunni Muslim creed sample \u2014 a dated layer in the creed's palimpsest.",
       "links": [],
       "payload": {
         "app": "sexcapades",
@@ -21254,7 +21345,7 @@
         "noFlash": true,
         "profileName": "Al-Ghazali's Jerusalem Tract (al-Risala al-Qudsiyya) (c. 1111)",
         "archetype": "Sunni Muslim creed",
-        "aboutMe": "Al-Ghazali's Jerusalem Tract (al-Risala al-Qudsiyya) (c. 1111), rated on the same Fores topics as the current Sunni Muslim creed sample — a dated layer in the creed's palimpsest.",
+        "aboutMe": "Al-Ghazali's Jerusalem Tract (al-Risala al-Qudsiyya) (c. 1111), rated on the same Fores topics as the current Sunni Muslim creed sample \u2014 a dated layer in the creed's palimpsest.",
         "ratings": {
           "xfo0007": {
             "advocacy": {
@@ -21514,7 +21605,7 @@
     "for-muslim-933": {
       "name": "Al-Tahawi's Creed (Bayan al-Sunna) (c. 933)",
       "count": 23,
-      "about": "Al-Tahawi's Creed (Bayan al-Sunna) (c. 933), rated on the same Fores topics as the current Sunni Muslim creed sample — a dated layer in the creed's palimpsest.",
+      "about": "Al-Tahawi's Creed (Bayan al-Sunna) (c. 933), rated on the same Fores topics as the current Sunni Muslim creed sample \u2014 a dated layer in the creed's palimpsest.",
       "links": [],
       "payload": {
         "app": "sexcapades",
@@ -21522,7 +21613,7 @@
         "noFlash": true,
         "profileName": "Al-Tahawi's Creed (Bayan al-Sunna) (c. 933)",
         "archetype": "Sunni Muslim creed",
-        "aboutMe": "Al-Tahawi's Creed (Bayan al-Sunna) (c. 933), rated on the same Fores topics as the current Sunni Muslim creed sample — a dated layer in the creed's palimpsest.",
+        "aboutMe": "Al-Tahawi's Creed (Bayan al-Sunna) (c. 933), rated on the same Fores topics as the current Sunni Muslim creed sample \u2014 a dated layer in the creed's palimpsest.",
         "ratings": {
           "xfo0007": {
             "advocacy": {
@@ -21852,10 +21943,10 @@
     "for-mennonite": {
       "name": "Mennonite creed",
       "count": 42,
-      "about": "Mennonites are the heirs of the sixteenth-century Anabaptists: they baptize only believers, refuse the sword and the oath, and practice a disciplined, separated discipleship. The modern mainstream church (Mennonite Church USA and Mennonite Church Canada) confesses the 1995 Confession of Faith in a Mennonite Perspective — a Trinitarian, biblically centered faith whose distinctives are nonresistance, mutual aid, restorative discipline, and a church of men and women called to follow Jesus in daily life.",
+      "about": "Mennonites are the heirs of the sixteenth-century Anabaptists: they baptize only believers, refuse the sword and the oath, and practice a disciplined, separated discipleship. The modern mainstream church (Mennonite Church USA and Mennonite Church Canada) confesses the 1995 Confession of Faith in a Mennonite Perspective \u2014 a Trinitarian, biblically centered faith whose distinctives are nonresistance, mutual aid, restorative discipline, and a church of men and women called to follow Jesus in daily life.",
       "links": [
         {
-          "label": "Confession of Faith in a Mennonite Perspective — summary statement",
+          "label": "Confession of Faith in a Mennonite Perspective \u2014 summary statement",
           "url": "https://www.mypv.org/s/Summary-Statement-1995-Confession-of-Faith-from-a-Mennonite-Perspective.pdf"
         }
       ],
@@ -22442,7 +22533,7 @@
     "for-mennonite-1527": {
       "name": "Schleitheim Confession (1527)",
       "count": 10,
-      "about": "From Mennonite — Schleitheim Confession.",
+      "about": "From Mennonite \u2014 Schleitheim Confession.",
       "links": [],
       "payload": {
         "app": "sexcapades",
@@ -22450,7 +22541,7 @@
         "noFlash": true,
         "profileName": "Schleitheim Confession (1527)",
         "archetype": "Mennonite creed",
-        "aboutMe": "From Mennonite — Schleitheim Confession.",
+        "aboutMe": "From Mennonite \u2014 Schleitheim Confession.",
         "ratings": {
           "xfo0020": {
             "advocacy": {
@@ -22585,7 +22676,7 @@
     "for-mennonite-1632": {
       "name": "Dordrecht Confession (1632)",
       "count": 35,
-      "about": "From Mennonite — Dordrecht Confession.",
+      "about": "From Mennonite \u2014 Dordrecht Confession.",
       "links": [],
       "payload": {
         "app": "sexcapades",
@@ -22593,7 +22684,7 @@
         "noFlash": true,
         "profileName": "Dordrecht Confession (1632)",
         "archetype": "Mennonite creed",
-        "aboutMe": "From Mennonite — Dordrecht Confession.",
+        "aboutMe": "From Mennonite \u2014 Dordrecht Confession.",
         "ratings": {
           "xfo0007": {
             "advocacy": {
@@ -23078,7 +23169,7 @@
     "for-mennonite-1995": {
       "name": "Confession of Faith in a Mennonite Perspective (1995)",
       "count": 38,
-      "about": "From Mennonite — Confession of Faith in a Mennonite Perspective.",
+      "about": "From Mennonite \u2014 Confession of Faith in a Mennonite Perspective.",
       "links": [],
       "payload": {
         "app": "sexcapades",
@@ -23086,7 +23177,7 @@
         "noFlash": true,
         "profileName": "Confession of Faith in a Mennonite Perspective (1995)",
         "archetype": "Mennonite creed",
-        "aboutMe": "From Mennonite — Confession of Faith in a Mennonite Perspective.",
+        "aboutMe": "From Mennonite \u2014 Confession of Faith in a Mennonite Perspective.",
         "ratings": {
           "xfo0001": {
             "advocacy": {
@@ -23613,10 +23704,10 @@
     "for-latter-day-saint": {
       "name": "Latter-day Saint creed",
       "count": 44,
-      "about": "The Church of Jesus Christ of Latter-day Saints is the restoration of Christ's primitive church through the prophet Joseph Smith, led today by living prophets and apostles. Its members accept the Bible, the Book of Mormon, the Doctrine and Covenants, and the Pearl of Great Price as scripture — an open canon still receiving revelation — and order their lives toward exaltation, eternal family life in God's presence, through restored priesthood ordinances.",
+      "about": "The Church of Jesus Christ of Latter-day Saints is the restoration of Christ's primitive church through the prophet Joseph Smith, led today by living prophets and apostles. Its members accept the Bible, the Book of Mormon, the Doctrine and Covenants, and the Pearl of Great Price as scripture \u2014 an open canon still receiving revelation \u2014 and order their lives toward exaltation, eternal family life in God's presence, through restored priesthood ordinances.",
       "links": [
         {
-          "label": "churchofjesuschrist.org — The Articles of Faith",
+          "label": "churchofjesuschrist.org \u2014 The Articles of Faith",
           "url": "https://www.churchofjesuschrist.org/study/scriptures/af-poster/1?lang=eng"
         }
       ],
@@ -24231,7 +24322,7 @@
     "for-latter-day-saint-1842": {
       "name": "Articles of Faith (1842)",
       "count": 22,
-      "about": "From Latter-day Saint — Articles of Faith.",
+      "about": "From Latter-day Saint \u2014 Articles of Faith.",
       "links": [],
       "payload": {
         "app": "sexcapades",
@@ -24239,7 +24330,7 @@
         "noFlash": true,
         "profileName": "Articles of Faith (1842)",
         "archetype": "Latter-day Saint creed",
-        "aboutMe": "From Latter-day Saint — Articles of Faith.",
+        "aboutMe": "From Latter-day Saint \u2014 Articles of Faith.",
         "ratings": {
           "xfo0007": {
             "advocacy": {
@@ -24550,17 +24641,17 @@
       "emblem": "images/emblems/for-latter-day-saint.svg"
     },
     "for-latter-day-saint-1890": {
-      "name": "Official Declaration—1: The Manifesto (1890)",
+      "name": "Official Declaration\u20141: The Manifesto (1890)",
       "count": 4,
-      "about": "From Latter-day Saint — Official Declaration 1 (the Manifesto).",
+      "about": "From Latter-day Saint \u2014 Official Declaration 1 (the Manifesto).",
       "links": [],
       "payload": {
         "app": "sexcapades",
         "version": 16,
         "noFlash": true,
-        "profileName": "Official Declaration—1: The Manifesto (1890)",
+        "profileName": "Official Declaration\u20141: The Manifesto (1890)",
         "archetype": "Latter-day Saint creed",
-        "aboutMe": "From Latter-day Saint — Official Declaration 1 (the Manifesto).",
+        "aboutMe": "From Latter-day Saint \u2014 Official Declaration 1 (the Manifesto).",
         "ratings": {
           "xfo0018": {
             "advocacy": {
@@ -24629,17 +24720,17 @@
       "emblem": "images/emblems/for-latter-day-saint.svg"
     },
     "for-latter-day-saint-1978": {
-      "name": "Official Declaration—2 (1978)",
+      "name": "Official Declaration\u20142 (1978)",
       "count": 3,
-      "about": "From Latter-day Saint — Official Declaration 2.",
+      "about": "From Latter-day Saint \u2014 Official Declaration 2.",
       "links": [],
       "payload": {
         "app": "sexcapades",
         "version": 16,
         "noFlash": true,
-        "profileName": "Official Declaration—2 (1978)",
+        "profileName": "Official Declaration\u20142 (1978)",
         "archetype": "Latter-day Saint creed",
-        "aboutMe": "From Latter-day Saint — Official Declaration 2.",
+        "aboutMe": "From Latter-day Saint \u2014 Official Declaration 2.",
         "ratings": {
           "xfo0018": {
             "advocacy": {
@@ -24686,7 +24777,7 @@
     "for-latter-day-saint-1995": {
       "name": "The Family: A Proclamation to the World (1995)",
       "count": 6,
-      "about": "From Latter-day Saint — The Family: A Proclamation to the World.",
+      "about": "From Latter-day Saint \u2014 The Family: A Proclamation to the World.",
       "links": [],
       "payload": {
         "app": "sexcapades",
@@ -24694,7 +24785,7 @@
         "noFlash": true,
         "profileName": "The Family: A Proclamation to the World (1995)",
         "archetype": "Latter-day Saint creed",
-        "aboutMe": "From Latter-day Saint — The Family: A Proclamation to the World.",
+        "aboutMe": "From Latter-day Saint \u2014 The Family: A Proclamation to the World.",
         "ratings": {
           "xfo0033": {
             "advocacy": {
@@ -24786,7 +24877,7 @@
       "about": "Jehovah's Witnesses are a restorationist movement organized by the Watch Tower Society, preaching that Jehovah's Kingdom, ruling from heaven since 1914, will soon end all human governments and restore a paradise earth. They worship Jehovah alone, reject the Trinity, hellfire, and the immortal soul, refuse blood transfusions, military service, and political involvement, and carry their message door to door worldwide.",
       "links": [
         {
-          "label": "JW.ORG — Jehovah's Witnesses",
+          "label": "JW.ORG \u2014 Jehovah's Witnesses",
           "url": "https://www.jw.org/en/"
         }
       ],
@@ -25417,7 +25508,7 @@
     "for-jehovahs-witness-1886": {
       "name": "The Divine Plan of the Ages (1886)",
       "count": 20,
-      "about": "From Jehovah's Witness — The Divine Plan of the Ages.",
+      "about": "From Jehovah's Witness \u2014 The Divine Plan of the Ages.",
       "links": [],
       "payload": {
         "app": "sexcapades",
@@ -25425,7 +25516,7 @@
         "noFlash": true,
         "profileName": "The Divine Plan of the Ages (1886)",
         "archetype": "Jehovah's Witness creed",
-        "aboutMe": "From Jehovah's Witness — The Divine Plan of the Ages.",
+        "aboutMe": "From Jehovah's Witness \u2014 The Divine Plan of the Ages.",
         "ratings": {
           "xfo0007": {
             "advocacy": {
@@ -25700,7 +25791,7 @@
     "for-jehovahs-witness-1946": {
       "name": "Let God Be True (1946)",
       "count": 38,
-      "about": "From Jehovah's Witness — Let God Be True.",
+      "about": "From Jehovah's Witness \u2014 Let God Be True.",
       "links": [],
       "payload": {
         "app": "sexcapades",
@@ -25708,7 +25799,7 @@
         "noFlash": true,
         "profileName": "Let God Be True (1946)",
         "archetype": "Jehovah's Witness creed",
-        "aboutMe": "From Jehovah's Witness — Let God Be True.",
+        "aboutMe": "From Jehovah's Witness \u2014 Let God Be True.",
         "ratings": {
           "xfo0007": {
             "advocacy": {
@@ -26235,7 +26326,7 @@
     "for-jehovahs-witness-1985": {
       "name": "Reasoning From the Scriptures (1985)",
       "count": 47,
-      "about": "From Jehovah's Witness — Reasoning From the Scriptures.",
+      "about": "From Jehovah's Witness \u2014 Reasoning From the Scriptures.",
       "links": [],
       "payload": {
         "app": "sexcapades",
@@ -26243,7 +26334,7 @@
         "noFlash": true,
         "profileName": "Reasoning From the Scriptures (1985)",
         "archetype": "Jehovah's Witness creed",
-        "aboutMe": "From Jehovah's Witness — Reasoning From the Scriptures.",
+        "aboutMe": "From Jehovah's Witness \u2014 Reasoning From the Scriptures.",
         "ratings": {
           "xfo0001": {
             "advocacy": {
@@ -26876,7 +26967,7 @@
     "for-jehovahs-witness-2021": {
       "name": "Enjoy Life Forever! (2021)",
       "count": 47,
-      "about": "From Jehovah's Witness — Enjoy Life Forever.",
+      "about": "From Jehovah's Witness \u2014 Enjoy Life Forever.",
       "links": [],
       "payload": {
         "app": "sexcapades",
@@ -26884,7 +26975,7 @@
         "noFlash": true,
         "profileName": "Enjoy Life Forever! (2021)",
         "archetype": "Jehovah's Witness creed",
-        "aboutMe": "From Jehovah's Witness — Enjoy Life Forever.",
+        "aboutMe": "From Jehovah's Witness \u2014 Enjoy Life Forever.",
         "ratings": {
           "xfo0001": {
             "advocacy": {
