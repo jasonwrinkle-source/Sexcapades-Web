@@ -934,7 +934,7 @@ html.shrink-busy,html.shrink-busy *{cursor:progress!important}
 .docs-dropdown-menu .view-nav-text small{font-size:11px;color:var(--muted);font-weight:400;line-height:1.25;white-space:normal}
 .docs-submenu-trigger{display:flex;align-items:center;justify-content:space-between;gap:8px;width:100%;background:none;border:0;cursor:pointer}
 .docs-flyout-arrow{font-size:12px;color:var(--focus);margin-left:auto}
-.view-nav-menu.docs-flyout{position:fixed;z-index:4050;min-width:240px;max-width:calc(100vw - 24px);max-height:75vh;overflow-y:auto;display:flex;flex-direction:column;gap:2px}
+.view-nav-menu.docs-flyout:not([hidden]){position:fixed;z-index:4050;min-width:240px;max-width:calc(100vw - 24px);max-height:75vh;overflow-y:auto;display:flex;flex-direction:column;gap:2px}
 .view-nav-menu.docs-flyout .view-nav-item{font-size:13px;padding:6px 10px;min-height:32px;text-decoration:none}
 .view-nav-menu.docs-flyout .view-nav-item:before{display:none}
 .view-nav-menu.docs-flyout a.docs-main-link{font-weight:700;color:var(--focus)}
