@@ -4154,7 +4154,8 @@
         "skin": "aesthcapades"
       },
       "skin": "aesthcapades",
-      "kind": "sample"
+      "kind": "sample",
+      "emblem": "images/emblems/aesth-classicism.svg"
     },
     "aesth-romanticism": {
       "name": "Romanticism",
@@ -4603,7 +4604,8 @@
         "skin": "aesthcapades"
       },
       "skin": "aesthcapades",
-      "kind": "sample"
+      "kind": "sample",
+      "emblem": "images/emblems/aesth-romanticism.svg"
     },
     "aesth-modernism": {
       "name": "Modernism",
@@ -5052,7 +5054,8 @@
         "skin": "aesthcapades"
       },
       "skin": "aesthcapades",
-      "kind": "sample"
+      "kind": "sample",
+      "emblem": "images/emblems/aesth-modernism.svg"
     },
     "aesth-postmodernism": {
       "name": "Postmodernism",
@@ -5501,7 +5504,8 @@
         "skin": "aesthcapades"
       },
       "skin": "aesthcapades",
-      "kind": "sample"
+      "kind": "sample",
+      "emblem": "images/emblems/aesth-postmodernism.svg"
     },
     "aesth-omnivore": {
       "name": "The Cultural Omnivore",
@@ -5950,7 +5954,8 @@
         "skin": "aesthcapades"
       },
       "skin": "aesthcapades",
-      "kind": "sample"
+      "kind": "sample",
+      "emblem": "images/emblems/aesth-omnivore.svg"
     }
   }
 }
