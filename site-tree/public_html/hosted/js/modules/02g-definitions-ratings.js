@@ -563,8 +563,9 @@
         for (const _subName of Object.keys(Ee)) {
             if (!(Ee[_subName] in ye)) throw new Error(`Sexcapades glyph check: subcategory "${_subName}" maps to glyph "${Ee[_subName]}", which is missing from the ye glyph dictionary`);
         }
-        for (const _branchName of Object.keys(be)) {
-            for (const _glyphName of be[_branchName]) {
+        const _beTable = window.__SX_EXPORT_BE || {};
+        for (const _branchName of Object.keys(_beTable)) {
+            for (const _glyphName of _beTable[_branchName]) {
                 if (!(_glyphName in ye)) throw new Error(`Sexcapades glyph check: branch "${_branchName}" lists glyph "${_glyphName}", which is missing from the ye glyph dictionary`);
             }
         }

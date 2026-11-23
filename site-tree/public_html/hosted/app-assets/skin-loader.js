@@ -418,7 +418,7 @@
   var SKIN_IDS = (typeof window !== "undefined" && window.__SX_SKIN_IDS) || ["sexcapades", "poliscapades", "forescapades", "philoscapades", "aesthcapades", "vocapades", "techcapades", "dharmacapades", "theoricapades", "praxicapades", "quantacapades", "expericapades", "simulcapades", "mattercapades", "chemcapades", "nouscapades", "dancecapades", "questcapades"];
 
   function skinForHostname(hostname) {
-    if (typeof window !== "undefined" && typeof window.__SX_SKIN_FOR_HOSTNAME === "function") {
+    if (typeof window !== "undefined" && typeof window.__SX_SKIN_FOR_HOSTNAME === "function" && window.__SX_SKIN_FOR_HOSTNAME !== skinForHostname) {
       return window.__SX_SKIN_FOR_HOSTNAME(hostname);
     }
     var host = (hostname || "").toLowerCase();
