@@ -173,7 +173,8 @@
               "name": "r/Physics",
               "url": "https://www.reddit.com/r/Physics/"
             }
-          ]
+          ],
+          "glyph": "cube"
         },
         {
           "id": "xma0002",
@@ -225,7 +226,8 @@
               "name": "r/Physics",
               "url": "https://www.reddit.com/r/Physics/"
             }
-          ]
+          ],
+          "glyph": "star"
         },
         {
           "id": "xma0003",
@@ -265,7 +267,8 @@
             ]
           },
           "question": "Do you prefer exploring exotic low-temperature physics or scalable room-temperature devices?",
-          "source": "BRIEFING_MATTERCAPADES_TAXONOMY.md §2.3"
+          "source": "BRIEFING_MATTERCAPADES_TAXONOMY.md §2.3",
+          "glyph": "sun"
         },
         {
           "id": "xma0004",
@@ -305,7 +308,8 @@
             ]
           },
           "question": "Even inside applied physics, do you lean toward the fundamental or the applied?",
-          "source": "BRIEFING_MATTERCAPADES_TAXONOMY.md §2.4"
+          "source": "BRIEFING_MATTERCAPADES_TAXONOMY.md §2.4",
+          "glyph": "moon"
         }
       ]
     },
@@ -372,7 +376,8 @@
               "name": "r/Physics",
               "url": "https://www.reddit.com/r/Physics/"
             }
-          ]
+          ],
+          "glyph": "flame"
         },
         {
           "id": "xma0006",
@@ -424,7 +429,8 @@
               "name": "r/Physics",
               "url": "https://www.reddit.com/r/Physics/"
             }
-          ]
+          ],
+          "glyph": "droplet"
         },
         {
           "id": "xma0007",
@@ -464,7 +470,8 @@
             ]
           },
           "question": "Do you optimize for reliability or for peak performance?",
-          "source": "BRIEFING_MATTERCAPADES_TAXONOMY.md §2.3"
+          "source": "BRIEFING_MATTERCAPADES_TAXONOMY.md §2.3",
+          "glyph": "tree"
         }
       ]
     },
@@ -536,7 +543,8 @@
               "name": "Physics Stack Exchange",
               "url": "https://physics.stackexchange.com/"
             }
-          ]
+          ],
+          "glyph": "rose"
         },
         {
           "id": "xma0009",
@@ -593,7 +601,8 @@
               "name": "Physics Stack Exchange",
               "url": "https://physics.stackexchange.com/"
             }
-          ]
+          ],
+          "glyph": "heart"
         },
         {
           "id": "xma0010",
@@ -650,7 +659,8 @@
               "name": "Physics Stack Exchange",
               "url": "https://physics.stackexchange.com/"
             }
-          ]
+          ],
+          "glyph": "shield"
         },
         {
           "id": "xma0011",
@@ -707,7 +717,8 @@
               "name": "Physics Stack Exchange",
               "url": "https://physics.stackexchange.com/"
             }
-          ]
+          ],
+          "glyph": "badge"
         }
       ]
     },
@@ -766,7 +777,8 @@
               "name": "r/Physics",
               "url": "https://www.reddit.com/r/Physics/"
             }
-          ]
+          ],
+          "glyph": "crown"
         },
         {
           "id": "xma0013",
@@ -818,7 +830,8 @@
               "name": "r/Physics",
               "url": "https://www.reddit.com/r/Physics/"
             }
-          ]
+          ],
+          "glyph": "key"
         },
         {
           "id": "xma0014",
@@ -862,7 +875,8 @@
               "name": "r/Physics",
               "url": "https://www.reddit.com/r/Physics/"
             }
-          ]
+          ],
+          "glyph": "lock"
         },
         {
           "id": "xma0015",
@@ -914,7 +928,8 @@
               "name": "r/Physics",
               "url": "https://www.reddit.com/r/Physics/"
             }
-          ]
+          ],
+          "glyph": "scale"
         },
         {
           "id": "xma0016",
@@ -954,7 +969,8 @@
             ]
           },
           "question": "Do you optimize for efficiency or for cost?",
-          "source": "BRIEFING_MATTERCAPADES_TAXONOMY.md §4.5"
+          "source": "BRIEFING_MATTERCAPADES_TAXONOMY.md §4.5",
+          "glyph": "hands"
         }
       ]
     },
@@ -1013,7 +1029,8 @@
               "name": "r/Physics",
               "url": "https://www.reddit.com/r/Physics/"
             }
-          ]
+          ],
+          "glyph": "eye"
         },
         {
           "id": "xma0018",
@@ -1065,7 +1082,8 @@
               "name": "r/Physics",
               "url": "https://www.reddit.com/r/Physics/"
             }
-          ]
+          ],
+          "glyph": "chat"
         },
         {
           "id": "xma0019",
@@ -1117,7 +1135,8 @@
               "name": "r/Physics",
               "url": "https://www.reddit.com/r/Physics/"
             }
-          ]
+          ],
+          "glyph": "book"
         },
         {
           "id": "xma0020",
@@ -1169,7 +1188,8 @@
               "name": "r/Physics",
               "url": "https://www.reddit.com/r/Physics/"
             }
-          ]
+          ],
+          "glyph": "scroll"
         },
         {
           "id": "xma0021",
@@ -1221,7 +1241,8 @@
               "name": "r/Physics",
               "url": "https://www.reddit.com/r/Physics/"
             }
-          ]
+          ],
+          "glyph": "note"
         },
         {
           "id": "xma0022",
@@ -1273,7 +1294,8 @@
               "name": "r/Physics",
               "url": "https://www.reddit.com/r/Physics/"
             }
-          ]
+          ],
+          "glyph": "spotlight"
         }
       ]
     },
@@ -1332,7 +1354,8 @@
               "name": "r/Physics",
               "url": "https://www.reddit.com/r/Physics/"
             }
-          ]
+          ],
+          "glyph": "hourglass"
         },
         {
           "id": "xma0024",
@@ -1376,7 +1399,8 @@
               "name": "r/Physics",
               "url": "https://www.reddit.com/r/Physics/"
             }
-          ]
+          ],
+          "glyph": "compass"
         },
         {
           "id": "xma0025",
@@ -1428,7 +1452,8 @@
               "name": "r/Physics",
               "url": "https://www.reddit.com/r/Physics/"
             }
-          ]
+          ],
+          "glyph": "bolt"
         },
         {
           "id": "xma0026",
@@ -1468,7 +1493,8 @@
             ]
           },
           "question": "Do you do applied physics in industry or in academia?",
-          "source": "BRIEFING_MATTERCAPADES_TAXONOMY.md §6.4"
+          "source": "BRIEFING_MATTERCAPADES_TAXONOMY.md §6.4",
+          "glyph": "stripes"
         },
         {
           "id": "xma0027",
@@ -1508,7 +1534,8 @@
             ]
           },
           "question": "Do you view yourself as a physicist solving practical problems or as a high-level engineer?",
-          "source": "BRIEFING_MATTERCAPADES_TAXONOMY.md §6.5"
+          "source": "BRIEFING_MATTERCAPADES_TAXONOMY.md §6.5",
+          "glyph": "cradle"
         },
         {
           "id": "xma0028",
@@ -1548,7 +1575,8 @@
             ]
           },
           "question": "Should breakthrough applied physics be patented for commercial spin-outs or published openly?",
-          "source": "BRIEFING_MATTERCAPADES_TAXONOMY.md §6.6"
+          "source": "BRIEFING_MATTERCAPADES_TAXONOMY.md §6.6",
+          "glyph": "split"
         },
         {
           "id": "xma0029",
@@ -1588,7 +1616,8 @@
             ]
           },
           "question": "What is the ultimate triumph of applied physics — a product, a prototype, or a paper?",
-          "source": "BRIEFING_MATTERCAPADES_TAXONOMY.md §6.7"
+          "source": "BRIEFING_MATTERCAPADES_TAXONOMY.md §6.7",
+          "glyph": "target"
         }
       ]
     }
