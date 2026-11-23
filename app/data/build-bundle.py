@@ -78,6 +78,18 @@ for p in parts:
         with open(path, encoding="utf-8") as f:
             code = f.read()
 
+        # Normalize line endings
+        code = code.replace('\r\n', '\n').replace('\r', '\n')
+
+        # Strip ES module import lines
+        code = re.sub(r'^\s*import\s+(?:(?:(?:\*\s+as\s+\w+)|(?:\{[\s\S]*?\}|\w+)(?:\s*,\s*(?:\{[\s\S]*?\}|\*\s+as\s+\w+))?)\s+from\s+)?[\'"][^\'"]+[\'"]\s*;?[^\S\r\n]*\n?', '', code, flags=re.MULTILINE)
+
+        # Strip standalone export { ... }
+        code = re.sub(r'^\s*export\s*\{[^}]*\}\s*;?', '', code, flags=re.MULTILINE)
+
+        # Strip export keywords (export const, export function, export default, export async, etc.)
+        code = re.sub(r'\bexport\s+(default\s+)?', '', code)
+
         # Convert top-level const and let to var so module redeclarations in single-IIFE scope never throw SyntaxError
         code = re.sub(r'^(?:        )?const\s+', 'var ', code, flags=re.MULTILINE)
         code = re.sub(r'^(?:        )?let\s+', 'var ', code, flags=re.MULTILINE)

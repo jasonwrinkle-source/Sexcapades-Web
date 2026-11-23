@@ -298,7 +298,7 @@ var __sxInit = window.__sxInit;
        (reading 'addEventListener')"). With defer in the artifact the DOM is
        already parsed and the extra wait resolves immediately. The leading
        "(window.__SEXCAPADES_DATA_READY" expression must stay at byte 0:
-       the optimizer identifies this bundle in the single-file export by
+       the optimizer identifies this bundle in the single-file by
        that decoded prefix. */
     if ("loading" === document.readyState) return new Promise(function(r) {
         document.addEventListener("DOMContentLoaded", r, {
@@ -308,7 +308,7 @@ var __sxInit = window.__sxInit;
 }).then(function() {
 
 /* --- Module: 02b-taxonomy-data.js --- */
-export const TAXONOMY_CATEGORIES = [];
+var TAXONOMY_CATEGORIES = [];
 
 /* --- Module: 02a-taxonomy-models.js --- */
     !function() {
@@ -469,7 +469,7 @@ var currentSkin = "sexcapades";
            that used to be scattered across 120 call sites live once in the
            __sxActionSelectors dispatch table, keyed by action name. A name
            missing from the table is passed through as a raw selector (the
-           export hidden-badge sweep passes a computed one), so behavior at
+           hidden-badge sweep passes a computed one), so behavior at
            every former call site is unchanged. */
 var __sxActionSelectors = {
             directionControl: ".direction-control",
@@ -3377,7 +3377,7 @@ var {DOM: e, TimerManager: t, setHTML: n} = window.SexcapadesRuntime, i = [ "Har
            that used to be scattered across 120 call sites live once in the
            __sxActionSelectors dispatch table, keyed by action name. A name
            missing from the table is passed through as a raw selector (the
-           export hidden-badge sweep passes a computed one), so behavior at
+           hidden-badge sweep passes a computed one), so behavior at
            every former call site is unchanged. */
 var __sxActionSelectors = {
             directionControl: ".direction-control",
@@ -13626,24 +13626,24 @@ var dkLastBranches = null;
         // and reduced token cost. Contains layout math helpers, delivered radii calculations,
         // camera/viewport diagnostics, painted geometry inspectors, and witness frame evaluators.
 
-        export function dkMedian(values) {
+        function dkMedian(values) {
             if (!values.length) return null;
             const sorted = values.slice().sort((a, b) => a - b), mid = sorted.length >> 1;
             return sorted.length % 2 ? sorted[mid] : (sorted[mid - 1] + sorted[mid]) / 2;
         }
 
-        export function dkRange(values) {
+        function dkRange(values) {
             return values.length ? [ Math.min.apply(null, values), Math.max.apply(null, values) ] : null;
         }
 
-        export const DK_SHRINK_STEPS_FIXED = 7, DK_LADDER_MAX_STAGES = 512;
+var DK_SHRINK_STEPS_FIXED = 7, DK_LADDER_MAX_STAGES = 512;
 
-        export function dkLadderSteps(from, to) {
+        function dkLadderSteps(from, to) {
             if (!Number.isFinite(from) || !Number.isFinite(to) || !(from > to) || !(to > 0)) return 0;
             return DK_SHRINK_STEPS_FIXED;
         }
 
-        export function dkLadderValue(from, to, stage, stages) {
+        function dkLadderValue(from, to, stage, stages) {
             if (!Number.isFinite(from) || !Number.isFinite(to) || !(from > to)) return from;
             const n = Number.isFinite(stages) && stages > 0 ? Math.floor(stages) : DK_SHRINK_STEPS_FIXED, s = Number.isFinite(stage) ? Math.floor(stage) : 0;
             if (s <= 0) return from;
@@ -13654,14 +13654,14 @@ var dkLastBranches = null;
             return from - (from - to) * (cum / total);
         }
 
-        export function dkFitDeviationCount(entries) {
+        function dkFitDeviationCount(entries) {
             let n = 0;
             return (entries || []).forEach(e => {
                 e && "fit-deviation" === e.type && n++;
             }), n;
         }
 
-        export function dkDeliveredItemRadius(item) {
+        function dkDeliveredItemRadius(item) {
             if (!item) return NaN;
             if (item.child) {
                 const ko = mn.kinkOverrides && item.child.id ? mn.kinkOverrides[item.child.id] : null;
@@ -13689,7 +13689,7 @@ var dkLastBranches = null;
             return h;
         }
 
-        export function dkDeliveredRadii(branchName) {
+        function dkDeliveredRadii(branchName) {
             const items = {};
             dkFitBranchItems(branchName).forEach(w => {
                 items[dkRadialBaseInfo(w).key] = dkDeliveredItemRadius(w);
@@ -13698,7 +13698,7 @@ var dkLastBranches = null;
             return { items: items, branch: branchObj ? yr(branchObj) : NaN };
         }
 
-        export function dkBranchTaxonomy(branchName) {
+        function dkBranchTaxonomy(branchName) {
             const entry = h.find(b => b.name === branchName);
             if (!entry) return null;
             const subLabels = (entry.subcategories || []).map(s => s.name);
@@ -13717,7 +13717,7 @@ var dkLastBranches = null;
             return { entry: entry, subLabels: subLabels, kinkIds: kinkIds, total: kinkIds.length + subLabels.length };
         }
 
-        export function dkBakeGate(report) {
+        function dkBakeGate(report) {
             try {
                 const sumNb = o => o ? Object.keys(o).reduce((a, k) => a + (Number(o[k]) || 0), 0) : 0;
                 const bkBase = (Number(report.baseline.first) || 0) + sumNb(report.neighbors.baseline), bkFin = (Number(report.finalCloud) || 0) + sumNb(report.neighbors.final);
@@ -13725,41 +13725,41 @@ var dkLastBranches = null;
             } catch (e) { report.bakeGate = null; }
         }
 
-        export function tallyFitDev(report) {
+        function tallyFitDev(report) {
             return report.phases.reduce((s, p) => s + (p && p.fitDeviationCount || 0), 0);
         }
 
-        export function clearBranchFit(dk, name) {
+        function clearBranchFit(dk, name) {
             Object.keys(dk.fitTargets()).forEach(k => {
                 "revision" !== k && k.split("|")[1] === name && dk.clearFitTarget(k);
             });
         }
 
-        export function yieldNow() {
+        function yieldNow() {
             return new Promise(r => { let done = false; const fin = () => { if (!done) { done = true; r(); } }; requestAnimationFrame(() => requestAnimationFrame(fin)); setTimeout(fin, 60); });
         }
 
-        export function diagRound(v) {
+        function diagRound(v) {
             return null == v || !Number.isFinite(Number(v)) ? null : Math.round(100 * Number(v)) / 100;
         }
 
-        export function diagCameraText(cam, label) {
+        function diagCameraText(cam, label) {
             return label + ": scale " + (cam && null != cam.scale ? cam.scale : "\u2014") + " \u00b7 translate " + (cam && null != cam.tx ? cam.tx : "\u2014") + ", " + (cam && null != cam.ty ? cam.ty : "\u2014");
         }
 
-        export let witnessFrameSeq = 0;
-        export let witnessLastFrame = null;
-        export let throwBracketBefore = null;
-        export let diagPrePaintHub = null;
+var witnessFrameSeq = 0;
+var witnessLastFrame = null;
+var throwBracketBefore = null;
+var diagPrePaintHub = null;
 
-        export function resetWitnessState() {
+        function resetWitnessState() {
             witnessFrameSeq = 0;
             witnessLastFrame = null;
             throwBracketBefore = null;
             diagPrePaintHub = null;
         }
 
-        export function witnessSubs(radii, dk) {
+        function witnessSubs(radii, dk) {
             const subs = {}, snap = dk.snapshot(), ov = snap && snap.subcatOverrides ? snap.subcatOverrides : {};
             return Object.keys(radii && radii.items || {}).forEach(k => {
                 if ("subcat" !== k.split("|")[0]) return;
@@ -13768,18 +13768,18 @@ var dkLastBranches = null;
             }), subs;
         }
 
-        export function witnessFrame(event, phase, radii, witnessSubsFn, name, report, dk) {
+        function witnessFrame(event, phase, radii, witnessSubsFn, name, report, dk) {
             const subsFn = witnessSubsFn || witnessSubs;
             const frame = { i: witnessFrameSeq++, event: event, phase: phase || null, subs: subsFn(radii || dkDeliveredRadii(name), dk) };
             return witnessLastFrame = frame, report.witness.frames.length < 600 && report.witness.frames.push(frame), dkLog.push({ type: "witness-frame", event: event, phase: frame.phase, subs: frame.subs }), frame;
         }
 
-        export function witnessRestore(event, phase, witnessSubsFn, name, report, witnessJudgeFn, witnessTrippingLabel, dk, witnessThrown, WITNESS_EPS, WITNESS_ONE_STEP) {
+        function witnessRestore(event, phase, witnessSubsFn, name, report, witnessJudgeFn, witnessTrippingLabel, dk, witnessThrown, WITNESS_EPS, WITNESS_ONE_STEP) {
             const before = witnessLastFrame, after = witnessFrame(event, phase, null, witnessSubsFn, name, report, dk);
             return (witnessJudgeFn || witnessJudge)(event, phase, witnessTrippingLabel, before, after, witnessThrown, WITNESS_EPS, WITNESS_ONE_STEP, report);
         }
 
-        export function witnessPaintedFrame(stage, operation, dkPaintedGeometryFn, name, dkPaintedNodeCentreFn, tax, dkPaintedStemSegFn) {
+        function witnessPaintedFrame(stage, operation, dkPaintedGeometryFn, name, dkPaintedNodeCentreFn, tax, dkPaintedStemSegFn) {
             try {
                 const g = (dkPaintedGeometryFn || dkPaintedGeometry)(stage, name, dkPaintedNodeCentreFn || dkPaintedNodeCentre, tax, dkPaintedStemSegFn || dkPaintedStemSeg);
                 g.operation = operation || null;
@@ -13788,7 +13788,7 @@ var dkLastBranches = null;
             } catch (e) { return null; }
         }
 
-        export function diagClosingLines(snap) {
+        function diagClosingLines(snap) {
             if (!snap.closingPaint) return [];
             const cp = snap.closingPaint, lines = [ "closing-paint mode: " + cp.mode ];
             lines.push(cp.scopedPaint ? "closing-paint scoped-paint: retained " + cp.scopedPaint.retained + " / captured " + cp.scopedPaint.captured + " / diverged " + cp.scopedPaint.diverged : "closing-paint scoped-paint: no entry");
@@ -13797,7 +13797,7 @@ var dkLastBranches = null;
             return lines;
         }
 
-        export async function diagPause(code, label, extra, diagAcceptCtx, opts, diagSnapshotFn, report, name, tax, diagCaptureFields) {
+        async function diagPause(code, label, extra, diagAcceptCtx, opts, diagSnapshotFn, report, name, tax, diagCaptureFields) {
             if (!diagAcceptCtx || !opts || "function" != typeof opts.onDiagPause) return;
             const snap = (diagSnapshotFn || diagSnapshot)(code, label, extra, name, tax, diagAcceptCtx, diagCaptureFields);
             (report.diag || (report.diag = [])).push(snap);
@@ -13806,7 +13806,7 @@ var dkLastBranches = null;
             try { await opts.onDiagPause(snap); } catch (e) {}
         }
 
-        export async function throwBracketPoint(code, throwBracketFullPaintFn, throwBracketSnapshotFn, opts, name, dkPaintedNodeCentreFn, tax, report) {
+        async function throwBracketPoint(code, throwBracketFullPaintFn, throwBracketSnapshotFn, opts, name, dkPaintedNodeCentreFn, tax, report) {
             const stamp = code + ":first-throw";
             const label = "THROW-BEFORE" === code ? "pre-throw full paint \u2192 stepThrow" : "stepThrow \u2192 post-throw full paint";
             const paintInfo = await (throwBracketFullPaintFn || throwBracketFullPaint)(stamp, name, dkPaintedNodeCentreFn || dkPaintedNodeCentre, tax);
@@ -13816,7 +13816,7 @@ var dkLastBranches = null;
             return snap;
         }
 
-        export async function focusThrowedActiveNode(name) {
+        async function focusThrowedActiveNode(name) {
             try {
                 if (window.sxPaintPromise) {
                     try { await window.sxPaintPromise; } catch (_) {}
@@ -13858,7 +13858,7 @@ var dkLastBranches = null;
             } catch (_) {}
         }
 
-        export function diagText(snap) {
+        function diagText(snap) {
             const f = v => null == v ? "\u2014" : String(v);
             let t = snap.code + " \u00b7 " + snap.label + " \u00b7 branch " + snap.branch + " \u00b7 phase " + f(snap.phase) + " \u00b7 crossing last-kept " + f(diagRound(snap.crossingBefore)) + " \u2192 tripped " + f(diagRound(snap.crossingAfter)) + " \u00b7 branch delivered radius " + f(snap.storedBranchRadius);
             Object.keys(snap.paintedSubs).forEach(l => { const ps = snap.paintedSubs[l]; t += " \u00b7 " + l + ": seg " + f(ps.seg) + " / abs " + f(ps.absR) + " (stored " + f(snap.storedSubs[l]) + ")"; });
@@ -13869,7 +13869,7 @@ var dkLastBranches = null;
             return t;
         }
 
-        export function witnessFinalJudge(transition, beforeFrame, afterFrame, witnessThrown, WITNESS_ONE_STEP, WITNESS_EPS) {
+        function witnessFinalJudge(transition, beforeFrame, afterFrame, witnessThrown, WITNESS_ONE_STEP, WITNESS_EPS) {
             if (!beforeFrame || !afterFrame) return null;
             const flung = [];
             Object.keys(afterFrame.subs).forEach(label => {
@@ -13881,7 +13881,7 @@ var dkLastBranches = null;
             return dkLog.push(Object.assign({ type: "witness-final-transition" }, rec)), rec;
         }
 
-        export function diagCaptureView() {
+        function diagCaptureView() {
             const view = { viewBox: null, transform: null, sceneTransform: null, bbox: null };
             try {
                 const svg = document.getElementById("mapSvg"), scene = document.getElementById("mapScene"), layer = document.getElementById("mapLayer");
@@ -13893,7 +13893,7 @@ var dkLastBranches = null;
             return view;
         }
 
-        export function witnessJudge(event, phase, trippingLabel, beforeFrame, afterFrame, witnessThrown, WITNESS_EPS, WITNESS_ONE_STEP, report) {
+        function witnessJudge(event, phase, trippingLabel, beforeFrame, afterFrame, witnessThrown, WITNESS_EPS, WITNESS_ONE_STEP, report) {
             if (!witnessThrown || !beforeFrame || !afterFrame) return null;
             const wholesale = [], steppedBack = [];
             Object.keys(afterFrame.subs).forEach(label => {
@@ -13906,7 +13906,7 @@ var dkLastBranches = null;
             return report.witness.events.push(rec), dkLog.push(Object.assign({ type: "witness-event" }, rec)), rec;
         }
 
-        export function dkPaintedNodeCentre(key) {
+        function dkPaintedNodeCentre(key) {
             try {
                 const el = In.querySelector('.node-group[data-layout-key="' + CSS.escape(key) + '"]:not(.layout-exit-clone)') || In.querySelector('[data-layout-key="' + CSS.escape(key) + '"]:not(.layout-exit-clone)');
                 if (!el) return null;
@@ -13939,7 +13939,7 @@ var dkLastBranches = null;
             } catch (e) { return null; }
         }
 
-        export function dkPaintedStemSeg(key) {
+        function dkPaintedStemSeg(key) {
             try {
                 const el = In.querySelector('.node-group[data-layout-key="' + CSS.escape(key) + '"]:not(.layout-exit-clone)');
                 if (!el) return null;
@@ -13954,7 +13954,7 @@ var dkLastBranches = null;
             } catch (e) { return null; }
         }
 
-        export function dkPaintedGeometry(stage, name, dkPaintedNodeCentreFn, tax, dkPaintedStemSegFn) {
+        function dkPaintedGeometry(stage, name, dkPaintedNodeCentreFn, tax, dkPaintedStemSegFn) {
             const centre = { x: pr.centerX, y: pr.centerY };
             const nodeCentre = dkPaintedNodeCentreFn || dkPaintedNodeCentre;
             const stemSeg = dkPaintedStemSegFn || dkPaintedStemSeg;
@@ -13969,7 +13969,7 @@ var dkLastBranches = null;
             return { stage: stage || null, centre: centre, branchPt: branchPt ? { x: Math.round(branchPt.x * 100) / 100, y: Math.round(branchPt.y * 100) / 100, source: branchPt.source } : null, subs: subs, blitActive: !!blitSess, source: branchPt ? branchPt.source : "missing" };
         }
 
-        export function diagCamera() {
+        function diagCamera() {
             const cam = { scale: null, tx: null, ty: null };
             try {
                 if ("number" == typeof $p && Number.isFinite($p)) cam.scale = $p;
@@ -13983,7 +13983,7 @@ var dkLastBranches = null;
             return { scale: diagRound(cam.scale), tx: diagRound(cam.tx), ty: diagRound(cam.ty) };
         }
 
-        export function diagHubIdentity(name) {
+        function diagHubIdentity(name) {
             const out = { matches: 0, exitClone: null, hasTextPath: null };
             try {
                 const key = catId(name), all = document.querySelectorAll('[data-layout-key="' + key + '"]');
@@ -13998,7 +13998,7 @@ var dkLastBranches = null;
             return out;
         }
 
-        export function witnessPaintedJudge(transition, operation, beforeG, afterG, witnessThrown, WITNESS_ONE_STEP, WITNESS_EPS) {
+        function witnessPaintedJudge(transition, operation, beforeG, afterG, witnessThrown, WITNESS_ONE_STEP, WITNESS_EPS) {
             if (!beforeG || !afterG) return null;
             const flung = [];
             Object.keys(afterG.subs || {}).forEach(label => {
@@ -14015,7 +14015,7 @@ var dkLastBranches = null;
             return dkLog.push(Object.assign({ type: "witness-painted-transition" }, rec)), rec;
         }
 
-        export async function throwBracketFullPaint(stamp, name, dkPaintedNodeCentreFn, tax) {
+        async function throwBracketFullPaint(stamp, name, dkPaintedNodeCentreFn, tax) {
             let preHub = null;
             const nodeCentre = dkPaintedNodeCentreFn || dkPaintedNodeCentre;
             try { const pre = dkPaintedGeometry("throwbracket-pre:" + stamp, name, nodeCentre, tax, dkPaintedStemSeg); preHub = pre ? pre.branchPt : null; } catch (e) {}
@@ -14038,7 +14038,7 @@ var dkLastBranches = null;
             return { mode: mode, prePaintHubSeat: preHub };
         }
 
-        export function diagRegistrySnapshot(stamp, ordinal, phaseName, patch, record, now, prevCloud, dk, name, tax, report) {
+        function diagRegistrySnapshot(stamp, ordinal, phaseName, patch, record, now, prevCloud, dk, name, tax, report) {
             const fit = (() => { try { return dk.fitTargets(); } catch (e) { return {}; } })();
             let sec = null;
             try { sec = (dkLastBranches || []).find(s => s && s.entry && s.entry.branch && s.entry.branch.name === name) || null; } catch (e) {}
@@ -14061,7 +14061,7 @@ var dkLastBranches = null;
             return entry;
         }
 
-        export async function diagOnDemandPaint(stamp, paintOrdinal, phaseName, name, dkPaintedNodeCentreFn, tax, report) {
+        async function diagOnDemandPaint(stamp, paintOrdinal, phaseName, name, dkPaintedNodeCentreFn, tax, report) {
             let preHub = null;
             const nodeCentre = dkPaintedNodeCentreFn || dkPaintedNodeCentre;
             try { const pre = dkPaintedGeometry("ondemand-pre:" + stamp, name, nodeCentre, tax, dkPaintedStemSeg); preHub = pre ? pre.branchPt : null; } catch (e) {}
@@ -14091,7 +14091,7 @@ var dkLastBranches = null;
             return rec;
         }
 
-        export function diag00Capture(pre, name, tax, report, snapshot) {
+        function diag00Capture(pre, name, tax, report, snapshot) {
             const stamp = "ANNEAL-DIAG-00:pre-run:ord-0", r2 = diagRound;
             const painted = (() => { try { return dkPaintedGeometry(stamp, name, dkPaintedNodeCentre, tax, dkPaintedStemSeg); } catch (e) { return null; } })();
             const stored = pre || dkDeliveredRadii(name), view = diagCaptureView(), cam = diagCamera();
@@ -14136,7 +14136,7 @@ var dkLastBranches = null;
             return snap;
         }
 
-        export function throwBracketSnapshot(code, label, stamp, paintInfo, name, tax, report, snapshot) {
+        function throwBracketSnapshot(code, label, stamp, paintInfo, name, tax, report, snapshot) {
             const r2 = diagRound, hf = v => null == v || !Number.isFinite(Number(v)) ? "\u2014" : String(Math.round(100 * Number(v)) / 100), hubR = pt => pt && Number.isFinite(Number(pt.x)) && Number.isFinite(Number(pt.y)) ? hf(Math.hypot(Number(pt.x) - pr.centerX, Number(pt.y) - pr.centerY)) : "\u2014";
             const painted = (() => { try { return dkPaintedGeometry(stamp, name, dkPaintedNodeCentre, tax, dkPaintedStemSeg); } catch (e) { return null; } })();
             const stored = dkDeliveredRadii(name), view = diagCaptureView(), cam = diagCamera();
@@ -14196,7 +14196,7 @@ var dkLastBranches = null;
             return snap;
         }
 
-        export function diagSnapshot(code, label, extra, name, tax, diagAcceptCtx, diagCaptureFields) {
+        function diagSnapshot(code, label, extra, name, tax, diagAcceptCtx, diagCaptureFields) {
             const stored = dkDeliveredRadii(name);
             let painted = null;
             try { painted = dkPaintedGeometry("diag:" + code, name, dkPaintedNodeCentre, tax, dkPaintedStemSeg); } catch (e) { painted = null; }
@@ -14258,18 +14258,13 @@ var dkLastBranches = null;
 // Pure calculation routines extracted from 02n-deknotter-cascade.js and 02l-deknotter-session.js
 // Handles ladder descent calculations, ratio checks, geometry projection, and constraint evaluation.
 
-import {
-    dkLadderSteps,
-    dkLadderValue
-} from './02n1-deknotter-diagnostics.js';
-
 /**
  * Validates phase length override ratios against baked bases.
  * @param {Object} patch Layout patch
  * @param {number} cap Maximum allowed expansion ratio
  * @returns {Object} { ok: boolean, rejected: Array }
  */
-export function dkValidatePhaseRatios(patch, cap = 200) {
+function dkValidatePhaseRatios(patch, cap = 200) {
     if (!patch) return { ok: true, rejected: [] };
     const rejected = [];
     const checkGroup = (group, type) => {
@@ -14296,7 +14291,7 @@ export function dkValidatePhaseRatios(patch, cap = 200) {
  * @param {number} maxStages Maximum ladder stages allowed
  * @returns {Array<number>} Array of ladder step values
  */
-export function dkComputeLadderSchedule(from, to, maxStages = 512) {
+function dkComputeLadderSchedule(from, to, maxStages = 512) {
     if (!Number.isFinite(from) || !Number.isFinite(to) || !(from > to) || !(to > 0)) {
         return [];
     }
@@ -14317,7 +14312,7 @@ export function dkComputeLadderSchedule(from, to, maxStages = 512) {
  * @param {number} target Target distance in rendered map units
  * @returns {number} Converted override length
  */
-export function dkConvertRenderedToOverride(curLen, delivered, target) {
+function dkConvertRenderedToOverride(curLen, delivered, target) {
     if (!Number.isFinite(curLen) || curLen <= 0 ||
         !Number.isFinite(delivered) || delivered <= 0 ||
         !Number.isFinite(target) || target <= 0) {
@@ -14333,7 +14328,7 @@ export function dkConvertRenderedToOverride(curLen, delivered, target) {
  * @param {number} threshold Drop ratio threshold (e.g. 0.75 for 75%)
  * @returns {Object} { drop: number|null, substantial: boolean }
  */
-export function dkEvaluateCrossingDrop(before, after, threshold = 0.75) {
+function dkEvaluateCrossingDrop(before, after, threshold = 0.75) {
     if (before == null || !(before > 0) || after == null || !Number.isFinite(after)) {
         return { drop: null, substantial: false };
     }
@@ -14397,59 +14392,6 @@ export function dkEvaluateCrossingDrop(before, after, threshold = 0.75) {
         // pre-run snapshot through restore() and verifies the restore
         // canonically; every exit path ends the run context and
         // leaves the branch's fit registry empty.
-import {
-    dkMedian,
-    dkRange,
-    DK_SHRINK_STEPS_FIXED,
-    DK_LADDER_MAX_STAGES,
-    dkLadderSteps,
-    dkLadderValue,
-    dkFitDeviationCount,
-    dkDeliveredItemRadius,
-    dkDeliveredRadii,
-    dkBranchTaxonomy,
-    dkBakeGate,
-    tallyFitDev,
-    clearBranchFit,
-    diagRound,
-    diagCameraText,
-    yieldNow,
-    witnessFrameSeq,
-    witnessLastFrame,
-    throwBracketBefore,
-    diagPrePaintHub,
-    resetWitnessState,
-    witnessSubs,
-    witnessFrame,
-    witnessRestore,
-    witnessPaintedFrame,
-    diagClosingLines,
-    diagPause,
-    throwBracketPoint,
-    focusThrowedActiveNode,
-    diagText,
-    witnessFinalJudge,
-    diagCaptureView,
-    witnessJudge,
-    dkPaintedNodeCentre,
-    dkPaintedStemSeg,
-    dkPaintedGeometry,
-    diagCamera,
-    diagHubIdentity,
-    witnessPaintedJudge,
-    throwBracketFullPaint,
-    diagRegistrySnapshot,
-    diagOnDemandPaint,
-    diag00Capture,
-    throwBracketSnapshot,
-    diagSnapshot
-} from './02n1-deknotter-diagnostics.js';
-import {
-    dkValidatePhaseRatios,
-    dkComputeLadderSchedule,
-    dkConvertRenderedToOverride,
-    dkEvaluateCrossingDrop
-} from './02n2-deknotter-solver.js';
 
 var lastKeptSnapshot;
         function captureKept(dk, refreshKeptFit, name) {
@@ -28780,7 +28722,7 @@ var sxOutlineSortMode = "popularity";
             if (403 === n) return void ys(t);
             if (milestoneDialog.open || Eg.open) return;
             markMilestoneShown(t, n), milestoneProfileId = t, milestoneValue = n, milestoneTitle.textContent = `${n} topics rated`, 
-            milestoneMessage.textContent = n < 162 ? "Your hypermap has enough detail to be useful now. You can keep building it or put it to work." : n < 324 ? "Your hypermap is getting richer. Keep going, compare it with a partner, or save a copy now." : "You’re close to the full map. Keep rating, compare what you have, or export a copy now.", 
+            milestoneMessage.textContent = n < 162 ? "Your hypermap has enough detail to be useful now. You can keep building it or put it to work." : n < 324 ? "Your hypermap is getting richer. Keep going, compare it with a partner, or save a copy now." : "You’re close to the full map. Keep rating, compare what you have, or a copy now.", 
             Wi(milestoneDialog), requestAnimationFrame(() => milestoneContinue.focus({
                 preventScroll: !0
             }));
@@ -34167,8 +34109,7 @@ var scribeLeadId = null, scribePartnerId = null, scribeCastIds = [];
             // complete as-is. od() stays as the "missing required
             // details" hook for any future required field; today the
             // set is empty. This stops the details dialog auto-opening
-            // after archetype/sample loads (rk) and stops the export
-            // gate (Jv) demanding them.
+            // after archetype/sample loads (rk) and stops the // gate (Jv) demanding them.
             return [];
         }
         function sd(e) {
@@ -36560,7 +36501,7 @@ var sxBuzzFired = new Set;
         // click is gone, the saving is not. The auto-created group is a
         // normal profile in every path: it is minted by the same Zd
         // save, stored in the same vt/ft records, and flows through the
-        // same persist (Sexcapades2xProfiles.getAll), export (Jf), and
+        // same persist (Sexcapades2xProfiles.getAll), (Jf), and
         // tab Save (saveActiveProfile) code as any other profile. No
         // second-class group persistence path exists or is added here.
         function sxFindGroupForCast(ids, pairOp) {
@@ -37026,8 +36967,7 @@ var sxExpandHold = null;
             }), !t.size && Bi(e) && h.forEach(e => t.add(catId(e.name))), t;
         }
         // F8 companion note (sharing-sync refactor): nu performs the
-        // same solo-switch / collect / restore shape as the export
-        // opener Jf - it snapshots the selection state at entry,
+        // same solo-switch / collect / restore shape as the // opener Jf - it snapshots the selection state at entry,
         // switches the live map to solo, collects, and restores
         // inline at the end. Checked during the F8 pass: the restore
         // here is inline and NOT wrapped in try/finally, and the
@@ -37188,7 +37128,7 @@ var sxExpandHold = null;
             i;
         }
         // ===== Picture restore guard + save-to-re-read round-trip (Rank 5, 2026-10-30) =====
-        // A picture export is a PNG carrying the profile payload in a
+        // A picture is a PNG carrying the profile payload in a
         // zTXt chunk (keyword "Sexcapades", zlib-stored deflate) plus,
         // when contact info is included, a vCard iTXt chunk. The format
         // already carries integrity checks - a CRC32 over every PNG
@@ -38122,7 +38062,7 @@ var _u = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ $%*+-./:";
             return "Export QR codes — the numbered QR sheet holds every piece.";
         }
         // Document (PDF) page: warn-and-refuse. The helpers below
-        // return the exact wordings the document and its export dialog
+        // return the exact wordings the document and its dialog
         // already used, from one source, so the count and the
         // alternative can never drift apart.
         function sxOversizeDocumentNote(neededPieces) {
@@ -38138,7 +38078,7 @@ var _u = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ $%*+-./:";
         // fixed sizes, a different unit from the document's
         // 700-character pieces, and a piece count here would read as
         // if the profile fit the 4-code layout when it does not. The
-        // card callers (op/lp) surface it in the export dialog
+        // card callers (op/lp) surface it in the dialog
         // instead of their generic failure text.
         function sxOversizeCardMessage(payloadLength) {
             return `This profile is too large for the reliable two-code, three-code, four-code, or five-code Sync card layout: its scan-code data is ${payloadLength} characters long, too long for 2 codes at the large size, or 3, 4, or 5 codes at the small size. No partial card was made. ${sxOversizeAlt()}`;
@@ -38439,7 +38379,7 @@ var _u = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ $%*+-./:";
             } else dt[e] = (r || []).slice(0, 1);
             try {
                 const r = i ? Ji(wt[e]) || "Profile" : np(wt[e] || "Profile", !1) || "Profile";
-                await s(18, "Rendering hypermap", "Laying out the visible hypermap at export resolution…"), 
+                await s(18, "Rendering hypermap", "Laying out the visible hypermap at resolution…"), 
                 l = await nu([ e ], e, {
                     profileFill: !0,
                     centerOnMap: !0,
@@ -38461,7 +38401,7 @@ var _u = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ $%*+-./:";
                         ctx: a
                     };
                 }(o, t.background || "black"), h = p.ctx, g = dc(e, u);
-                if (c = p.canvas, !h) throw new Error("This browser could not allocate the export canvas.");
+                if (c = p.canvas, !h) throw new Error("This browser could not allocate the canvas.");
                 !function(e, t) {
                     const n = t.naturalWidth || 3600, i = t.naturalHeight || 3600;
                     e.drawImage(t, 0, 0, n, i, 0, 0, 3600, 3600);
@@ -38873,7 +38813,7 @@ var _u = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ $%*+-./:";
         // responsibility - apLoadAndPrep loads the PDF library, parses
         // and centre-crops the SVG and creates the document;
         // apEmbedMetadata embeds the serialized profile; apInlineStyles
-        // resolves computed styles onto the export clone; apDrawLabels
+        // resolves computed styles onto the clone; apDrawLabels
         // redraws the curved map labels as native PDF text; apQrImages
         // builds the sync QR images; apHeaderCard draws the profile
         // header card. ap itself is now a thin orchestrator.
@@ -39018,7 +38958,7 @@ var _u = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ $%*+-./:";
             // a partial set could never be reassembled on scan-in -
             // and overflowPieces reports how many the profile needs,
             // so ap can print a plain warning on the document and dp
-            // can warn in the export dialog and point at the
+            // can warn in the dialog and point at the
             // numbered QR sheet instead. Never silently drop pieces.
             var M = [], overflowPieces = 0, I = null;
             try {
@@ -39170,7 +39110,7 @@ var _u = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ $%*+-./:";
             const a = Boolean(i.lowRes), r = a ? "Low-res visible-map PNG" : "Visible-map PNG", o = Uf(`Capture ${Ji(wt[n])}`, a ? "Building a compact PNG of the topics currently visible on your map…" : "Building a high-resolution PNG of the topics currently visible on your map…", {
                 profileId: n
             });
-            if (await Hf(o, 6, "Preparing hypermap", "Opening a clean export canvas…"), o !== vf) return;
+            if (await Hf(o, 6, "Preparing hypermap", "Opening a clean canvas…"), o !== vf) return;
             const s = Boolean(i.includeProfileInfo), l = Boolean(i.blind), c = (s && wt[n], 
             ip(s ? wt[n] : "Shared profile")), d = a ? [ {
                 scale: 4 / 9,
@@ -39229,7 +39169,7 @@ var _u = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ $%*+-./:";
             }
             if (o === vf) {
                 if (u) {
-                    const e = !a && u.index > 0, t = a ? c.zoom : e ? c.map.replace(/-full-map\.png$/, "-memory-safe-visible-map.png") : c.map, d = a ? `Compact export of what's currently visible on your map, with matching re-importable data · ${(u.blob.size / 1048576).toFixed(1)} MB.` : e ? `Your browser switched to a memory-safe ${u.attempt.label} export. It still contains only what's currently visible on your map, with matching re-importable data.` : `${u.attempt.label} high-resolution export of what's currently visible on your map, with matching re-importable data embedded.`;
+                    const e = !a && u.index > 0, t = a ? c.zoom : e ? c.map.replace(/-full-map\.png$/, "-memory-safe-visible-map.png") : c.map, d = a ? `Compact of what's currently visible on your map, with matching re-importable data · ${(u.blob.size / 1048576).toFixed(1)} MB.` : e ? `Your browser switched to a memory-safe ${u.attempt.label} export. It still contains only what's currently visible on your map, with matching re-importable data.` : `${u.attempt.label} high-resolution of what's currently visible on your map, with matching re-importable data embedded.`;
                     return void ou(u.blob, t, {
                         title: `${r} · ${s ? np(wt[n], !0) : "Shared profile"}`,
                         subtitle: d + (s && Ov(ut[n]) ? " A vCard is included." : ""),
@@ -39263,8 +39203,8 @@ var _u = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ $%*+-./:";
                 jm.textContent = (a ? "The compact image render could not finish." : "Image renders could not finish.") + (void 0 !== p && p ? " Error: " + String(p.message || p).slice(0, 150) : "") + h, 
                 tf.textContent = a ? "A PDF was downloaded instead to protect your ratings." : "A PDF was downloaded instead to protect your ratings. You can also try the Export low-res PNG.", 
                 Wf(o, "The PNG could not be completed on this device. Your open profile is unchanged."), 
-                e.byId("overlayStatus").textContent = "The image could not be created, but the profile and its JSON export are still available.", 
-                console.error("Profile PNG export failed after memory-safe retries.", p);
+                e.byId("overlayStatus").textContent = "The image could not be created, but the profile and its JSON are still available.", 
+                console.error("Profile PNG failed after memory-safe retries.", p);
             }
         }
         async function op(e, t = {}) {
@@ -39321,7 +39261,7 @@ var _u = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ $%*+-./:";
                 // replaced by the generic failure text.
                 const sxCardOversize = /too large for the reliable/i.test(String(e && e.message || ""));
                 Bm.textContent = sxCardOversize ? "Sync card too large" : "Could not create Sync card pages", jm.textContent = sxCardOversize ? String(e.message) : `This browser could not finish both ${i} pages.`, 
-                tf.textContent = sxCardOversize ? "Close this window, then use Export QR codes for the numbered QR sheet." : "Close this window and try again.", qf(r, 100, Bm.textContent, jm.textContent, !1, "error"), console.error("Sync card page export failed.", e);
+                tf.textContent = sxCardOversize ? "Close this window, then use Export QR codes for the numbered QR sheet." : "Close this window and try again.", qf(r, 100, Bm.textContent, jm.textContent, !1, "error"), console.error("Sync card page failed.", e);
             }
         }
         async function sp(e, t = {}) {
@@ -39368,7 +39308,7 @@ var _u = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ $%*+-./:";
             } catch (e) {
                 if (n !== vf) return;
                 Bm.textContent = "Could not create card-front sheet", jm.textContent = "This browser could not finish the printable Sync card-front sheet.", 
-                tf.textContent = "Close this window and try again.", console.error("Sync card-front sheet export failed.", e);
+                tf.textContent = "Close this window and try again.", console.error("Sync card-front sheet failed.", e);
             }
         }
         async function lp(e, t = {}) {
@@ -39418,7 +39358,7 @@ var _u = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ $%*+-./:";
                 // replaced by the generic failure text.
                 const sxCardOversize = /too large for the reliable/i.test(String(e && e.message || ""));
                 Bm.textContent = sxCardOversize ? "Sync card too large" : "Could not create card-back sheet", jm.textContent = sxCardOversize ? String(e.message) : "This browser could not finish the printable Sync card-back sheet.", 
-                tf.textContent = sxCardOversize ? "Close this window, then use Export QR codes for the numbered QR sheet." : "Close this window and try again.", qf(n, 100, Bm.textContent, jm.textContent, !1, "error"), console.error("Sync card-back sheet export failed.", e);
+                tf.textContent = sxCardOversize ? "Close this window, then use Export QR codes for the numbered QR sheet." : "Close this window and try again.", qf(n, 100, Bm.textContent, jm.textContent, !1, "error"), console.error("Sync card-back sheet failed.", e);
             }
         }
         async function cp(t, n = {}) {
@@ -39532,11 +39472,11 @@ var _u = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ $%*+-./:";
                     const i = [ n.getAttribute("data-tooltip-name"), n.getAttribute("data-tooltip-definition"), n.getAttribute("data-tooltip-value") ].map(e => String(e || "").trim()).filter(Boolean), a = String(t.textContent || "");
                     return 3 === i.length && i.every(e => a.includes(e));
                 });
-                if (!hypermapNodes.length || titledHypermapNodes.length !== hypermapNodes.length) throw new Error("The sync hypermap export was incomplete: every node needs a hover title with its topic name, About text, and rating.");
+                if (!hypermapNodes.length || titledHypermapNodes.length !== hypermapNodes.length) throw new Error("The sync hypermap was incomplete: every node needs a hover title with its topic name, About text, and rating.");
                 const v = new Blob([ y ], {
                     type: "image/svg+xml;charset=utf-8"
                 });
-                if (v.size < 1e3) throw new Error("The sync hypermap export was incomplete.");
+                if (v.size < 1e3) throw new Error("The sync hypermap was incomplete.");
                 window.__SEXCAPADES_LAST_HYPERMAP_EXPORT = {
                     variant: n.compressed ? "compressed" : "regular",
                     markup: y,
@@ -39549,7 +39489,7 @@ var _u = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ $%*+-./:";
                     if ("function" != typeof CompressionStream) throw new Error("This browser cannot create the compressed sync hypermap. Choose Regular instead.");
                     await Hf(i, 84, "Compressing hypermap", "Making the standalone sync hypermap much smaller…");
                     const e = await new Response(v.stream().pipeThrough(new CompressionStream("gzip"))).arrayBuffer(), n = new Uint8Array(e);
-                    if (n.length < 2 || 31 !== n[0] || 139 !== n[1]) throw new Error("The compressed sync hypermap export was incomplete.");
+                    if (n.length < 2 || 31 !== n[0] || 139 !== n[1]) throw new Error("The compressed sync hypermap was incomplete.");
                     if (i !== vf) return;
                     const a = new Blob([ e ], {
                         type: "image/svg+xml"
@@ -39581,7 +39521,7 @@ var _u = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ $%*+-./:";
                 if (i !== vf) return;
                 Bm.textContent = n.compressed ? "Could not create compressed sync hypermap" : "Could not create regular sync hypermap", 
                 tf.textContent = String(e && e.message || e), Wf(i, "The sync hypermap could not be completed. Close this window and try again."), 
-                console.error("Sync hypermap export failed.", e);
+                console.error("Sync hypermap failed.", e);
             }
         }
         async function dp(e, t = {}) {
@@ -39590,7 +39530,7 @@ var _u = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ $%*+-./:";
                 profileId: e
             }), i = Boolean(t.includeProfileInfo), a = Boolean(t.blind), r = ip(i ? wt[e] : "Shared profile");
             try {
-                if (await Hf(n, 6, "Preparing hypermap", "Opening a clean export canvas…"), n !== vf) return;
+                if (await Hf(n, 6, "Preparing hypermap", "Opening a clean canvas…"), n !== vf) return;
                 if (await Zu(e, {
                     lowRes: !0,
                     outputScale: 4 / 9,
@@ -39633,7 +39573,7 @@ var _u = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ $%*+-./:";
             if (Number.isInteger(n.preparedJob) && n.preparedJob !== vf) return !1;
             jf(), hf = URL.createObjectURL(e), gf = t, mf = !0, yf = n.profileId && vt[n.profileId] ? n.profileId : null;
             const i = n.downloadLabel || "Download file";
-            return Bm.textContent = n.title || "Your export is ready", jm.textContent = n.subtitle || "Your export is ready to download.", 
+            return Bm.textContent = n.title || "Your is ready", jm.textContent = n.subtitle || "Your is ready to download.", 
             qm.hidden = !1, Hm.textContent = t, Gm.dataset.filename = t, Gm.textContent = i, 
             Gm.title = n.downloadTitle || "Downloads the finished export.", Gm.disabled = !1, 
             tf.textContent = "", qf(vf, 100, "Ready to download", n.readyDetail || `Export complete. Choose ${i} to save it.`, !1), 
@@ -39712,8 +39652,8 @@ var _u = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ $%*+-./:";
                 // numbered codes were needed and that the alternatives
                 // hold the complete profile - never a silent partial.
                 Bm.textContent = "Could not create profile QR", jm.textContent = sxQrSheetPieces ? `This browser could not finish the high-correction QR page for ${sxQrSheetPieces} numbered codes.` : "This browser could not finish the high-correction QR page.", 
-                tf.textContent = "Use the profile JSON or a PNG export instead — both hold the complete profile.", Wf(r, sxQrSheetPieces ? `The profile QR page could not be completed (${sxQrSheetPieces} numbered codes needed). Use the profile JSON or a PNG export instead — both hold the complete profile.` : "The profile QR page could not be completed. Use the profile JSON or a PNG export instead — both hold the complete profile."), 
-                console.error("Profile QR JPEG export failed.", t);
+                tf.textContent = "Use the profile JSON or a PNG instead — both hold the complete profile.", Wf(r, sxQrSheetPieces ? `The profile QR page could not be completed (${sxQrSheetPieces} numbered codes needed). Use the profile JSON or a PNG instead — both hold the complete profile.` : "The profile QR page could not be completed. Use the profile JSON or a PNG instead — both hold the complete profile."), 
+                console.error("Profile QR JPEG failed.", t);
             }
         }
 
@@ -43009,7 +42949,7 @@ var Df = new Map;
             return qf(e, t, n, i, a, r) ? new Promise(t => requestAnimationFrame(() => requestAnimationFrame(() => t(e === vf)))) : Promise.resolve(!1);
         }
         function Wf(e, t) {
-            qf(e, 100, "Export stopped", t || "The export could not be completed.", !1, "error");
+            qf(e, 100, "Export stopped", t || "The could not be completed.", !1, "error");
         }
         function Uf(e = "Preparing image", t = "Building your shareable PNG…", n = {}) {
             const i = ++vf;
@@ -43023,7 +42963,7 @@ var Df = new Map;
                     h: 100
                 })}</svg>`);
             }(n.profileId), ff = n.returnDialog || null, ff && ff.open && Ui(ff), Bm.textContent = e,
-            jm.textContent = t, tf.textContent = "Building…", qf(i, 2, "Starting export", "Preparing the export screen…", !0),
+            jm.textContent = t, tf.textContent = "Building…", qf(i, 2, "Starting export", "Preparing the screen…", !0),
             Wi(Om), i;
         }
         function Gf(e, t, n = {}) {
@@ -43048,7 +42988,7 @@ var Df = new Map;
                 ap(n.svgMarkup, n.profileId, Boolean(n.includeProfileInfo), Boolean(n.blind), n.allowedIds).then(function(e) {
                     hf = URL.createObjectURL(e), gf = a;
                 }).catch(function(e) {
-                    console.warn("PDF export failed", e), hf = null;
+                    console.warn("PDF failed", e), hf = null;
                 });
             } catch (e) {
                 console.warn("PDF kickoff failed", e);
@@ -43176,7 +43116,7 @@ var Df = new Map;
                 }
                 return r;
             }(e), Em.checked = !1, Cm.checked = !0, $f = !0, xm.textContent = `Export ${wt[e]}`,
-            Sm.textContent = "Choose an export format. On mobile, exports may take a minute or two.";
+            Sm.textContent = "Choose an format. On mobile, exports may take a minute or two.";
             const t = (dt[e] || []).length;
             exportPhotoSelection = new Set(Array.from({ length: t }, (e, t) => t));
             $m.textContent = `Exports what's currently visible on your map. Every format limits embedded profile data to those same visible topics${t ? ` and can include ${t} attached ${1 === t ? "photo" : "photos"} when profile info is included` : ""}.`,
@@ -44488,7 +44428,7 @@ var Lv = null;
         }), pv.addEventListener("pointerup", Nv), pv.addEventListener("pointercancel", Nv);
         /* B3 (SURFACES): the per-tab Heat button + its popover. Heat is
            SESSION state only (sxcv.heat + sxcvSave()); it never joins the
-           profile store's maps, the collect/export snapshot, or either
+           profile store's maps, the collect/snapshot, or either
            payload format. Group Heat is the same session state
            (sxcv.groupHeat, keyed by group profile id); the one popover
            serves both, branching on the group record, and adjusting
@@ -45249,7 +45189,7 @@ var gw = "edit";
         // local sample" on the profile About view saves the open profile
         // on this device so it appears in the Samples menu and loads back
         // later - a chapter roster. The profile is serialized with the
-        // same full-profile serializer the export path uses, then the
+        // same full-profile serializer the path uses, then the
         // skin loader stores it per-skin (its store + menu rebuild) and
         // the button flips to "Update local sample" while a sample with
         // this name exists on this skin. Photos are stripped before
@@ -46428,7 +46368,7 @@ var importTopicNames = null;
             // profile.droppedKeys with its value and named in the
             // post-import result dialog. Broad-hit pseudo-ratings (cat- /
             // subcategory-…) are valid stored keys: never pruned, never
-            // recorded. A record carried in from a previous export is kept,
+            // recorded. A record carried in from a previous is kept,
             // so the history of what was dropped survives a round-trip.
             // E4a: a parked record carried in by the file (its own
             // droppedKeys) is restored onto the imported profile
@@ -48008,7 +47948,7 @@ var yx = Object.freeze({
         });
         // DECISION (sharing-sync refactor F5): sync cards NEVER
         // carry photos. serializeSyncCard is the one place that
-        // rule lives: it serializes exactly like an export (Ju)
+        // rule lives: it serializes exactly like an (Ju)
         // and then empties the photos array, because a printed
         // card is scanned back in public contexts where attached
         // photos must not travel. Do not duplicate Ju here, and
@@ -51213,7 +51153,7 @@ __sxInit(function () {
     title.style.cssText = "display:block;font-size:20px;margin-bottom:4px;";
     title.textContent = "Profiles were not saved";
     var message = document.createElement("span");
-    message.textContent = "This browser could not store them on this device. Keep this tab open and export your profiles before leaving, or free browser storage and turn Remember on again.";
+    message.textContent = "This browser could not store them on this device. Keep this tab open and your profiles before leaving, or free browser storage and turn Remember on again.";
     var close = document.createElement("button");
     close.type = "button";
     close.setAttribute("aria-label", "Dismiss save error");
