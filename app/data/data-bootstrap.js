@@ -2365,8 +2365,9 @@ const TAXONOMY_CATEGORIES = [];
         function Ka(e, t, n, i, a, r, o, s, l, c, d, u = 48, p = Ga.FALLBACK_COLOR, g = !0, m = "", f = null, y = null, b = null, v = !1, w = !0, k = h.length, bc = null, sxLeafD = null, sxDepth = null) {
             if (sxSexSkin()) v = !0;
             if (typeof Ra === "function") Ra(e); else if (typeof window !== "undefined" && typeof window.__SX_RA === "function") window.__SX_RA(e);
+            const sxIsBlind = () => (typeof Rt !== "undefined" ? Boolean(Rt) : (typeof window !== "undefined" && Boolean(window.__SX_BLIND)));
             const sxD = null != sxDepth ? sxDepth : sxLeafD === sxIconDiameter(1) ? 1 : sxLeafD === sxIconDiameter(3) ? 3 : 2, sxF = sxFontFactor(sxD), sxSW = sxStrokeWidth(sxD);
-            const x = Rt || Qi() ? null : Vi(), S = Rt ? null : x || function(e) {
+            const x = sxIsBlind() || Qi() ? null : Vi(), S = sxIsBlind() ? null : x || function(e) {
                 const t = Vi();
                 return Qi() && t && (at[t] || {})[e] && gn.has(oi(t, e)) ? t : null;
             }(e), $ = Ge(e, S || Vi()), E = e => `translate(${(a * e).toFixed(2)} ${(r * e).toFixed(2)})`, A = e.replace(/[^a-z0-9-]/g, ""), C = Boolean(topicLabelById[e]), M = S || Vi(), I = qn[e] || Xn(e) || {
@@ -2381,7 +2382,7 @@ const TAXONOMY_CATEGORIES = [];
             let D = "";
             const sxShowMapSliders = Boolean(mn && mn.mapSliders);
             const sxZoomOk = "function" !== typeof window.sxMapZoomAllowsWidgets || window.sxMapZoomAllowsWidgets();
-            const R = g && !Rt ? Ua(e) : null, O = Ga.heatWidths(n, sxD);
+            const R = g && !sxIsBlind() ? Ua(e) : null, O = Ga.heatWidths(n, sxD);
             if (SpokeGeometry.taperedPath(t, O.w0, O.w1), R) {
                 const overlayTip = "Overlaid profiles into this topic", a = `${R.count}/${R.total}`;
                 D += `<path class="group-heat${R.count === R.total ? " all-in" : ""}" d="${t}" stroke="${R.color}" stroke-width="${O.w0}" opacity="${(.2 + .48 * R.count / R.total).toFixed(2)}" tabindex="0" role="img" aria-label="${Hi(`${i}: ${a} overlaid profiles into this topic`)}"${ka(i, overlayTip, a, {
@@ -2442,7 +2443,7 @@ const TAXONOMY_CATEGORIES = [];
                     D += `<path class="visual-rail collapsed-rating-rail" d="${t}" transform="${E(e.offset)}" fill="none" stroke="${zi(a)}" stroke-width="6" stroke-linecap="round" vector-effect="non-scaling-stroke"><title>${r}: ${Math.round(a)}${o}</title></path>`;
                 });
             }
-            if (g && !Rt && Qi() && 2 === Xi().length) {
+            if (g && !sxIsBlind() && Qi() && 2 === Xi().length) {
                 const n = function(e) {
                     const t = Xi();
                     if (t.some(t => "limit" === Oa(e, t))) return "limit";
@@ -2912,7 +2913,7 @@ const TAXONOMY_CATEGORIES = [];
                 });
                 }
             }
-            if (g && !Rt && !x) {
+            if (g && !sxIsBlind() && !x) {
                 const i = Xi(), a = $.keys || ($.single ? [ "give" ] : [ "give", "receive" ]), r = i.length * a.length, o = (n > 7 ? Math.min(18, 4 + 1.6 * r) : Math.min(14, 3 + 1.4 * r)) * (mapFontScale() * sxF / 3), s = Math.max(1.35, n / Math.min(r, 6)) * (mapFontScale() * sxF / 3);
                 i.forEach((n, i) => {
                     const l = da(e, n);
