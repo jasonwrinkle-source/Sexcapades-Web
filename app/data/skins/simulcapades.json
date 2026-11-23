@@ -173,7 +173,8 @@
               "name": "r/askscience",
               "url": "https://www.reddit.com/r/askscience/"
             }
-          ]
+          ],
+          "glyph": "cube"
         },
         {
           "id": "xsi0002",
@@ -217,7 +218,8 @@
               "name": "r/askscience",
               "url": "https://www.reddit.com/r/askscience/"
             }
-          ]
+          ],
+          "glyph": "star"
         },
         {
           "id": "xsi0003",
@@ -269,7 +271,8 @@
               "name": "r/askscience",
               "url": "https://www.reddit.com/r/askscience/"
             }
-          ]
+          ],
+          "glyph": "sun"
         },
         {
           "id": "xsi0004",
@@ -321,7 +324,8 @@
               "name": "r/askscience",
               "url": "https://www.reddit.com/r/askscience/"
             }
-          ]
+          ],
+          "glyph": "moon"
         },
         {
           "id": "xsi0005",
@@ -365,7 +369,8 @@
               "name": "r/askscience",
               "url": "https://www.reddit.com/r/askscience/"
             }
-          ]
+          ],
+          "glyph": "flame"
         },
         {
           "id": "xsi0006",
@@ -417,7 +422,8 @@
               "name": "r/askscience",
               "url": "https://www.reddit.com/r/askscience/"
             }
-          ]
+          ],
+          "glyph": "droplet"
         }
       ]
     },
@@ -489,7 +495,8 @@
               "name": "r/science",
               "url": "https://www.reddit.com/r/science/"
             }
-          ]
+          ],
+          "glyph": "tree"
         },
         {
           "id": "xsi0008",
@@ -538,7 +545,8 @@
               "name": "r/science",
               "url": "https://www.reddit.com/r/science/"
             }
-          ]
+          ],
+          "glyph": "rose"
         },
         {
           "id": "xsi0009",
@@ -595,7 +603,8 @@
               "name": "r/science",
               "url": "https://www.reddit.com/r/science/"
             }
-          ]
+          ],
+          "glyph": "heart"
         },
         {
           "id": "xsi0010",
@@ -652,7 +661,8 @@
               "name": "r/science",
               "url": "https://www.reddit.com/r/science/"
             }
-          ]
+          ],
+          "glyph": "shield"
         },
         {
           "id": "xsi0011",
@@ -709,7 +719,8 @@
               "name": "r/science",
               "url": "https://www.reddit.com/r/science/"
             }
-          ]
+          ],
+          "glyph": "badge"
         }
       ]
     },
@@ -760,7 +771,8 @@
               "name": "r/askscience",
               "url": "https://www.reddit.com/r/askscience/"
             }
-          ]
+          ],
+          "glyph": "crown"
         },
         {
           "id": "xsi0013",
@@ -804,7 +816,8 @@
               "name": "r/askscience",
               "url": "https://www.reddit.com/r/askscience/"
             }
-          ]
+          ],
+          "glyph": "key"
         },
         {
           "id": "xsi0014",
@@ -856,7 +869,8 @@
               "name": "r/askscience",
               "url": "https://www.reddit.com/r/askscience/"
             }
-          ]
+          ],
+          "glyph": "lock"
         },
         {
           "id": "xsi0015",
@@ -908,7 +922,8 @@
               "name": "r/askscience",
               "url": "https://www.reddit.com/r/askscience/"
             }
-          ]
+          ],
+          "glyph": "scale"
         },
         {
           "id": "xsi0016",
@@ -960,7 +975,8 @@
               "name": "r/askscience",
               "url": "https://www.reddit.com/r/askscience/"
             }
-          ]
+          ],
+          "glyph": "hands"
         }
       ]
     },
@@ -1011,7 +1027,8 @@
               "name": "r/technology",
               "url": "https://www.reddit.com/r/technology/"
             }
-          ]
+          ],
+          "glyph": "eye"
         },
         {
           "id": "xsi0018",
@@ -1063,7 +1080,8 @@
               "name": "r/technology",
               "url": "https://www.reddit.com/r/technology/"
             }
-          ]
+          ],
+          "glyph": "chat"
         },
         {
           "id": "xsi0019",
@@ -1112,7 +1130,8 @@
               "name": "Stack Overflow",
               "url": "https://stackoverflow.com/"
             }
-          ]
+          ],
+          "glyph": "book"
         },
         {
           "id": "xsi0020",
@@ -1169,7 +1188,8 @@
               "name": "r/technology",
               "url": "https://www.reddit.com/r/technology/"
             }
-          ]
+          ],
+          "glyph": "scroll"
         },
         {
           "id": "xsi0021",
@@ -1226,7 +1246,8 @@
               "name": "r/askscience",
               "url": "https://www.reddit.com/r/askscience/"
             }
-          ]
+          ],
+          "glyph": "note"
         }
       ]
     },
@@ -1290,7 +1311,8 @@
               "name": "r/science",
               "url": "https://www.reddit.com/r/science/"
             }
-          ]
+          ],
+          "glyph": "spotlight"
         },
         {
           "id": "xsi0023",
@@ -1339,7 +1361,8 @@
               "name": "r/science",
               "url": "https://www.reddit.com/r/science/"
             }
-          ]
+          ],
+          "glyph": "hourglass"
         },
         {
           "id": "xsi0024",
@@ -1396,7 +1419,8 @@
               "name": "r/science",
               "url": "https://www.reddit.com/r/science/"
             }
-          ]
+          ],
+          "glyph": "compass"
         },
         {
           "id": "xsi0025",
@@ -1453,7 +1477,8 @@
               "name": "r/technology",
               "url": "https://www.reddit.com/r/technology/"
             }
-          ]
+          ],
+          "glyph": "bolt"
         }
       ]
     },
@@ -1507,7 +1532,8 @@
               "name": "r/SimulationTheory",
               "url": "https://www.reddit.com/r/SimulationTheory/"
             }
-          ]
+          ],
+          "glyph": "stripes"
         },
         {
           "id": "xsi0027",
@@ -1547,7 +1573,8 @@
             ]
           },
           "question": "Are you a specialist in one method or a generalist across many?",
-          "source": "BRIEFING_SIMULCAPADES_TAXONOMY.md §6.2"
+          "source": "BRIEFING_SIMULCAPADES_TAXONOMY.md §6.2",
+          "glyph": "cradle"
         },
         {
           "id": "xsi0028",
@@ -1587,7 +1614,8 @@
             ]
           },
           "question": "Do you start from the theory or from the implementation?",
-          "source": "BRIEFING_SIMULCAPADES_TAXONOMY.md §6.3"
+          "source": "BRIEFING_SIMULCAPADES_TAXONOMY.md §6.3",
+          "glyph": "split"
         },
         {
           "id": "xsi0029",
@@ -1627,7 +1655,8 @@
             ]
           },
           "question": "Do you view yourself primarily as a physicist who codes, or as a scientific software engineer?",
-          "source": "BRIEFING_SIMULCAPADES_TAXONOMY.md §6.4"
+          "source": "BRIEFING_SIMULCAPADES_TAXONOMY.md §6.4",
+          "glyph": "target"
         }
       ]
     }
