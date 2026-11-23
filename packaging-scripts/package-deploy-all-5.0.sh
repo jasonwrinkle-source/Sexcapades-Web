@@ -74,8 +74,8 @@ echo "2b. Stamping PWA manifest icon versions (?v=$BUILD_NUM)..."
 MANIFEST_STAGED="$STAGING/capades.io/public_html/manifest.json"
 MANIFESTS_DIR="$STAGING/capades.io/public_html/manifests"
 MANIFEST_COUNT=$(ls "$MANIFESTS_DIR"/*.json 2>/dev/null | wc -l)
-if [ "$MANIFEST_COUNT" != "17" ]; then
-  echo "ERROR: expected 17 per-skin manifests, found $MANIFEST_COUNT"
+if [ "$MANIFEST_COUNT" != "19" ]; then
+  echo "ERROR: expected 19 per-skin manifests, found $MANIFEST_COUNT"
   exit 1
 fi
 for m in "$MANIFEST_STAGED" "$MANIFESTS_DIR"/*.json; do
@@ -90,7 +90,7 @@ for m in "$MANIFEST_STAGED" "$MANIFESTS_DIR"/*.json; do
     exit 1
   fi
 done
-echo "   PWA manifests stamped: 17 per-skin + shared, ?v=$BUILD_NUM"
+echo "   PWA manifests stamped: 19 per-skin + shared, ?v=$BUILD_NUM"
 
 HOSTED="$STAGING/capades.io/public_html/hosted"
 
@@ -267,10 +267,10 @@ fi
 
 # PWA manifests + per-skin icons (rainbow build): every packaged
 # manifest must carry build-stamped icon URLs and no literal token;
-# all 17 per-skin manifests and all 34 per-skin icons must be present.
+# all 19 per-skin manifests and all 38 per-skin icons must be present.
 MANIFEST_COUNT_PKG=$(echo "$LISTING" | grep -c '^capades.io/public_html/manifests/.*\.json$' || true)
-if [ "$MANIFEST_COUNT_PKG" != "17" ]; then
-  fail "packaged per-skin manifest count $MANIFEST_COUNT_PKG != 17"
+if [ "$MANIFEST_COUNT_PKG" != "19" ]; then
+  fail "packaged per-skin manifest count $MANIFEST_COUNT_PKG != 19"
 fi
 for mp in $(echo "$LISTING" | grep '^capades.io/public_html/manifests/.*\.json$' || true); do
   MJ=$(tar -xzOf "$OUTFILE" "$mp" 2>/dev/null || true)
@@ -295,7 +295,7 @@ fi
 if ! printf '%s' "$SWJ" | grep -q "/icons/skins/flex-192.png?v=$BUILD_NUM"; then
   fail "packaged sw.js precache lacks the stamped Flex 192 icon URL"
 fi
-for p in sex flex polis fores chem aesth experi dharma matter philo praxi quanta simul tech theori voca nous; do
+for p in sex flex polis fores chem aesth experi dharma matter philo praxi quanta simul tech theori voca nous dance quest; do
   for s in 192 512; do
     echo "$LISTING" | grep -qx "capades.io/public_html/icons/skins/$p-$s.png" || fail "missing per-skin icon: $p-$s.png"
   done
