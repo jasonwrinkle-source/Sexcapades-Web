@@ -2231,10 +2231,15 @@
             Verbal: "speech"
         });
         function Ae(e, t) {
-            const n = Ee[e] || "star", _glyphFallback = !(e in Ee) || !(n in ye), i = ge[t] || {};
+            // Subcategory-hub inheritance (owner ruling 2026-11-23): a
+            // hub with no glyph of its own in Ee inherits its parent
+            // category's descriptor glyph from ge instead of the
+            // generic star. Ee covers every Sexcapades subcategory
+            // (boot-checked above), so Sexcapades hubs are untouched.
+            const n = Ee[e] || "star", _ownGlyph = (e in Ee) && (n in ye), _catDesc = !_ownGlyph && ge && ge[t] && ge[t].glyph ? ge[t] : null, _glyphFallback = !_ownGlyph && !_catDesc, _hubGlyph = _ownGlyph ? ye[n] : _catDesc ? _catDesc.glyph : ye[n] || ye.star, _hubKey = _ownGlyph || !_catDesc ? n : t, i = ge[t] || {};
             const c = h.find(c => c.name === t), s = c && (c.subcategories || []).find(s => s.name === e), p = s ? fpSub(s.topics, t) : null;
             if (p) return {
-                glyph: ye[n] || ye.star,
+                glyph: _hubGlyph,
                 glyphFallback: _glyphFallback,
                 accent: "",
                 color: p.color,
@@ -2247,7 +2252,7 @@
             };
             const fallbackColor = i.color || Ga.NO_CODE_COLOR;
             return {
-                glyph: ye[n] || ye.star,
+                glyph: _hubGlyph,
                 glyphFallback: _glyphFallback,
                 accent: "",
                 color: fallbackColor,
@@ -2255,7 +2260,7 @@
                 labelColor: fallbackColor,
                 labelStroke: "#151816",
                 hankyKey: (Ne.get(t) || {}).key || "subcategory",
-                key: n
+                key: _hubKey
             };
         }
         // Glyph-map integrity (map-render refactor, finding 13): the
@@ -2452,9 +2457,14 @@
             return `<circle class="icon-accent" cx="${o[0].toFixed(2)}" cy="${o[1].toFixed(2)}" r=".66"/><path class="icon-accent-stroke" d="M ${s[0].toFixed(2)} ${s[1].toFixed(2)} l ${(.28 * (8 - s[0])).toFixed(2)} ${(.28 * (8 - s[1])).toFixed(2)}"/><path class="icon-detail" d="M ${o[0].toFixed(2)} ${o[1].toFixed(2)} Q ${c[0].toFixed(2)} ${c[1].toFixed(2)} ${d[0].toFixed(2)} ${d[1].toFixed(2)} M ${l[0].toFixed(2)} ${l[1].toFixed(2)} l ${(.16 * (8 - l[0])).toFixed(2)} ${(.16 * (8 - l[1])).toFixed(2)}"/><circle class="icon-detail-dot" cx="${l[0].toFixed(2)}" cy="${l[1].toFixed(2)}" r=".34"/>`;
         }
         function Oe(e, t) {
-            const _veKey = t + "\0" + e, n = ve.get(_veKey) || "star", _glyphFallback = !ve.has(_veKey) || !(n in ye), i = _e.get(_veKey) || 0, a = Le(e, t);
+            // Topic-icon inheritance (owner ruling 2026-11-23): a topic
+            // with no glyph of its own in ve inherits its category's
+            // descriptor glyph from ge instead of the generic star.
+            // Topics present in ve (every Sexcapades catalog topic,
+            // including any assigned the star itself) are untouched.
+            const _veKey = t + "\0" + e, n = ve.get(_veKey) || "star", _ownGlyph = ve.has(_veKey) && n in ye, _catDesc = !_ownGlyph && ge && ge[t] && ge[t].glyph ? ge[t] : null, _glyphFallback = !_ownGlyph && !_catDesc, i = _e.get(_veKey) || 0, a = Le(e, t);
             return {
-                glyph: ye[n] || ye.star,
+                glyph: _ownGlyph ? ye[n] : _catDesc ? _catDesc.glyph : ye.star,
                 glyphFallback: _glyphFallback,
                 accent: "",
                 color: a.color,
@@ -2462,7 +2472,7 @@
                 labelColor: a.labelColor,
                 labelStroke: a.labelStroke,
                 hankyKey: a.key,
-                key: n
+                key: _ownGlyph || !_catDesc ? n : t
             };
         }
         h.forEach(e => e.topics.forEach(t => _e.set(e.name + "\0" + t, De++)));
