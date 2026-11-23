@@ -3182,7 +3182,8 @@
         "skin": "philoscapades"
       },
       "skin": "philoscapades",
-      "kind": "sample"
+      "kind": "sample",
+      "emblem": "images/emblems/philo-empiricism.svg"
     },
     "philo-rationalism": {
       "name": "Rationalism",
@@ -3396,7 +3397,8 @@
         "skin": "philoscapades"
       },
       "skin": "philoscapades",
-      "kind": "sample"
+      "kind": "sample",
+      "emblem": "images/emblems/philo-rationalism.svg"
     },
     "philo-pragmatism": {
       "name": "Pragmatism",
@@ -3610,7 +3612,8 @@
         "skin": "philoscapades"
       },
       "skin": "philoscapades",
-      "kind": "sample"
+      "kind": "sample",
+      "emblem": "images/emblems/philo-pragmatism.svg"
     },
     "philo-phenomenology": {
       "name": "Phenomenology",
@@ -3828,7 +3831,8 @@
         "skin": "philoscapades"
       },
       "skin": "philoscapades",
-      "kind": "sample"
+      "kind": "sample",
+      "emblem": "images/emblems/philo-phenomenology.svg"
     }
   }
 }
