@@ -30548,7 +30548,8 @@
     "skin": "poliscapades"
    },
    "skin": "poliscapades",
-   "kind": "archetype"
+   "kind": "archetype",
+   "emblem": "images/emblems/pol-classical-liberal.svg"
   },
   "pol-social-democrat": {
    "name": "The Social Democrat",
@@ -31919,7 +31920,8 @@
     "skin": "poliscapades"
    },
    "skin": "poliscapades",
-   "kind": "archetype"
+   "kind": "archetype",
+   "emblem": "images/emblems/pol-social-democrat.svg"
   },
   "pol-communitarian-populist": {
    "name": "The Communitarian Populist",
@@ -33290,7 +33292,8 @@
     "skin": "poliscapades"
    },
    "skin": "poliscapades",
-   "kind": "archetype"
+   "kind": "archetype",
+   "emblem": "images/emblems/pol-communitarian-populist.svg"
   }
  }
 }
