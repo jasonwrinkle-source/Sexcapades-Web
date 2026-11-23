@@ -4309,7 +4309,8 @@
         "skin": "expericapades"
       },
       "skin": "expericapades",
-      "kind": "sample"
+      "kind": "sample",
+      "emblem": "images/emblems/exp-collider.svg"
     },
     "exp-tabletop": {
       "name": "The Tabletop Precision Physicist",
@@ -4723,7 +4724,8 @@
         "skin": "expericapades"
       },
       "skin": "expericapades",
-      "kind": "sample"
+      "kind": "sample",
+      "emblem": "images/emblems/exp-tabletop.svg"
     },
     "exp-cosmic": {
       "name": "The Cosmic Frontier Observer",
@@ -5137,7 +5139,8 @@
         "skin": "expericapades"
       },
       "skin": "expericapades",
-      "kind": "sample"
+      "kind": "sample",
+      "emblem": "images/emblems/exp-cosmic.svg"
     },
     "exp-anomaly-hunter": {
       "name": "The Discovery-Driven Anomaly Hunter",
@@ -5551,7 +5554,8 @@
         "skin": "expericapades"
       },
       "skin": "expericapades",
-      "kind": "sample"
+      "kind": "sample",
+      "emblem": "images/emblems/exp-anomaly-hunter.svg"
     }
   }
 }
