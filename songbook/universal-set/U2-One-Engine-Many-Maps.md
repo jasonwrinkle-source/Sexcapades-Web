@@ -6,7 +6,7 @@
 It started with a spark and grew to a flame
 So many doors but the house is the same
 Dharmacapades to find your path
-Chemcapades to do the math
+Chemcapades maps the molecules' path
 Expericapades for the null result
 Quantacapades for the quantum pulse
 Philoscapades asks the ancient why
