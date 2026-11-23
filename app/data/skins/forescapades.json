@@ -8836,7 +8836,8 @@
       "kind": "archetype",
       "stack": "Catholic creed",
       "stackKey": "for-catholic",
-      "date": "present"
+      "date": "present",
+      "emblem": "images/emblems/for-catholic.svg"
     },
     "for-catholic-1965": {
       "name": "Vatican II (1965)",
@@ -9390,7 +9391,8 @@
       "kind": "archetype",
       "stack": "Catholic creed",
       "stackKey": "for-catholic",
-      "date": "1965"
+      "date": "1965",
+      "emblem": "images/emblems/for-catholic.svg"
     },
     "for-catholic-1885": {
       "name": "Baltimore Catechism (1885)",
@@ -9944,7 +9946,8 @@
       "kind": "archetype",
       "stack": "Catholic creed",
       "stackKey": "for-catholic",
-      "date": "1885"
+      "date": "1885",
+      "emblem": "images/emblems/for-catholic.svg"
     },
     "for-catholic-1566": {
       "name": "Roman Catechism (1566)",
@@ -10484,7 +10487,8 @@
       "kind": "archetype",
       "stack": "Catholic creed",
       "stackKey": "for-catholic",
-      "date": "1566"
+      "date": "1566",
+      "emblem": "images/emblems/for-catholic.svg"
     },
     "for-orthodox": {
       "name": "Eastern Orthodox creed",
@@ -11043,7 +11047,8 @@
       "kind": "archetype",
       "stack": "Eastern Orthodox creed",
       "stackKey": "for-orthodox",
-      "date": "present"
+      "date": "present",
+      "emblem": "images/emblems/for-orthodox.svg"
     },
     "for-orthodox-2016": {
       "name": "Holy and Great Council, Crete (2016)",
@@ -11485,7 +11490,8 @@
       "kind": "archetype",
       "stack": "Eastern Orthodox creed",
       "stackKey": "for-orthodox",
-      "date": "2016"
+      "date": "2016",
+      "emblem": "images/emblems/for-orthodox.svg"
     },
     "for-orthodox-1848": {
       "name": "Encyclical of the Eastern Patriarchs (1848)",
@@ -11731,7 +11737,8 @@
       "kind": "archetype",
       "stack": "Eastern Orthodox creed",
       "stackKey": "for-orthodox",
-      "date": "1848"
+      "date": "1848",
+      "emblem": "images/emblems/for-orthodox.svg"
     },
     "for-orthodox-1672": {
       "name": "Confession of Dositheus (1672)",
@@ -12173,7 +12180,8 @@
       "kind": "archetype",
       "stack": "Eastern Orthodox creed",
       "stackKey": "for-orthodox",
-      "date": "1672"
+      "date": "1672",
+      "emblem": "images/emblems/for-orthodox.svg"
     },
     "for-lutheran": {
       "name": "Lutheran creed",
@@ -12736,7 +12744,8 @@
       "kind": "archetype",
       "stack": "Lutheran creed",
       "stackKey": "for-lutheran",
-      "date": "present"
+      "date": "present",
+      "emblem": "images/emblems/for-lutheran.svg"
     },
     "for-lutheran-1999": {
       "name": "Joint Declaration on the Doctrine of Justification (1999)",
@@ -12856,7 +12865,8 @@
       "kind": "archetype",
       "stack": "Lutheran creed",
       "stackKey": "for-lutheran",
-      "date": "1999"
+      "date": "1999",
+      "emblem": "images/emblems/for-lutheran.svg"
     },
     "for-lutheran-1580": {
       "name": "Formula of Concord (1580)",
@@ -13270,7 +13280,8 @@
       "kind": "archetype",
       "stack": "Lutheran creed",
       "stackKey": "for-lutheran",
-      "date": "1580"
+      "date": "1580",
+      "emblem": "images/emblems/for-lutheran.svg"
     },
     "for-lutheran-1530": {
       "name": "Augsburg Confession (1530)",
@@ -13726,7 +13737,8 @@
       "kind": "archetype",
       "stack": "Lutheran creed",
       "stackKey": "for-lutheran",
-      "date": "1530"
+      "date": "1530",
+      "emblem": "images/emblems/for-lutheran.svg"
     },
     "for-reformed": {
       "name": "Reformed creed",
@@ -14285,7 +14297,8 @@
       "kind": "archetype",
       "stack": "Reformed creed",
       "stackKey": "for-reformed",
-      "date": "present"
+      "date": "present",
+      "emblem": "images/emblems/for-reformed.svg"
     },
     "for-reformed-1986": {
       "name": "Belhar Confession (1986)",
@@ -14349,7 +14362,8 @@
       "kind": "archetype",
       "stack": "Reformed creed",
       "stackKey": "for-reformed",
-      "date": "1986"
+      "date": "1986",
+      "emblem": "images/emblems/for-reformed.svg"
     },
     "for-reformed-1934": {
       "name": "Barmen Declaration (1934)",
@@ -14469,7 +14483,8 @@
       "kind": "archetype",
       "stack": "Reformed creed",
       "stackKey": "for-reformed",
-      "date": "1934"
+      "date": "1934",
+      "emblem": "images/emblems/for-reformed.svg"
     },
     "for-reformed-1646": {
       "name": "Westminster Confession of Faith (1646)",
@@ -14995,7 +15010,8 @@
       "kind": "archetype",
       "stack": "Reformed creed",
       "stackKey": "for-reformed",
-      "date": "1646"
+      "date": "1646",
+      "emblem": "images/emblems/for-reformed.svg"
     },
     "for-reformed-1563": {
       "name": "Heidelberg Catechism (1563)",
@@ -15507,7 +15523,8 @@
       "kind": "archetype",
       "stack": "Reformed creed",
       "stackKey": "for-reformed",
-      "date": "1563"
+      "date": "1563",
+      "emblem": "images/emblems/for-reformed.svg"
     },
     "for-baptist": {
       "name": "Baptist creed",
@@ -16070,7 +16087,8 @@
       "kind": "archetype",
       "stack": "Baptist creed",
       "stackKey": "for-baptist",
-      "date": "present"
+      "date": "present",
+      "emblem": "images/emblems/for-baptist.svg"
     },
     "for-baptist-2000": {
       "name": "Baptist Faith and Message (2000)",
@@ -16526,7 +16544,8 @@
       "kind": "archetype",
       "stack": "Baptist creed",
       "stackKey": "for-baptist",
-      "date": "2000"
+      "date": "2000",
+      "emblem": "images/emblems/for-baptist.svg"
     },
     "for-baptist-1963": {
       "name": "Baptist Faith and Message (1963)",
@@ -16926,7 +16945,8 @@
       "kind": "archetype",
       "stack": "Baptist creed",
       "stackKey": "for-baptist",
-      "date": "1963"
+      "date": "1963",
+      "emblem": "images/emblems/for-baptist.svg"
     },
     "for-baptist-1689": {
       "name": "Second London Baptist Confession (1689)",
@@ -17452,7 +17472,8 @@
       "kind": "archetype",
       "stack": "Baptist creed",
       "stackKey": "for-baptist",
-      "date": "1689"
+      "date": "1689",
+      "emblem": "images/emblems/for-baptist.svg"
     },
     "for-methodist": {
       "name": "Methodist creed",
@@ -18011,7 +18032,8 @@
       "kind": "archetype",
       "stack": "Methodist creed",
       "stackKey": "for-methodist",
-      "date": "present"
+      "date": "present",
+      "emblem": "images/emblems/for-methodist.svg"
     },
     "for-methodist-2024": {
       "name": "Revised Social Principles and General Conference (2024)",
@@ -18117,7 +18139,8 @@
       "kind": "archetype",
       "stack": "Methodist creed",
       "stackKey": "for-methodist",
-      "date": "2024"
+      "date": "2024",
+      "emblem": "images/emblems/for-methodist.svg"
     },
     "for-methodist-1972": {
       "name": "Book of Discipline doctrinal standards (1972)",
@@ -18587,7 +18610,8 @@
       "kind": "archetype",
       "stack": "Methodist creed",
       "stackKey": "for-methodist",
-      "date": "1972"
+      "date": "1972",
+      "emblem": "images/emblems/for-methodist.svg"
     },
     "for-methodist-1908": {
       "name": "The Social Creed (1908)",
@@ -18623,7 +18647,8 @@
       "kind": "archetype",
       "stack": "Methodist creed",
       "stackKey": "for-methodist",
-      "date": "1908"
+      "date": "1908",
+      "emblem": "images/emblems/for-methodist.svg"
     },
     "for-methodist-1784": {
       "name": "Wesley's Articles of Religion (1784)",
@@ -19079,7 +19104,8 @@
       "kind": "archetype",
       "stack": "Methodist creed",
       "stackKey": "for-methodist",
-      "date": "1784"
+      "date": "1784",
+      "emblem": "images/emblems/for-methodist.svg"
     },
     "for-jewish": {
       "name": "Orthodox Jewish creed",
@@ -19638,7 +19664,8 @@
       "kind": "archetype",
       "stack": "Orthodox Jewish creed",
       "stackKey": "for-jewish",
-      "date": "present"
+      "date": "present",
+      "emblem": "images/emblems/for-jewish.svg"
     },
     "for-jewish-2015": {
       "name": "Rabbinical Council of America Statements (c. 2015)",
@@ -19786,7 +19813,8 @@
       "kind": "archetype",
       "stack": "Orthodox Jewish creed",
       "stackKey": "for-jewish",
-      "date": "2015"
+      "date": "2015",
+      "emblem": "images/emblems/for-jewish.svg"
     },
     "for-jewish-1565": {
       "name": "Shulchan Aruch (1565)",
@@ -20144,7 +20172,8 @@
       "kind": "archetype",
       "stack": "Orthodox Jewish creed",
       "stackKey": "for-jewish",
-      "date": "1565"
+      "date": "1565",
+      "emblem": "images/emblems/for-jewish.svg"
     },
     "for-jewish-1190": {
       "name": "Maimonides' Thirteen Principles (c. 1190)",
@@ -20446,7 +20475,8 @@
       "kind": "archetype",
       "stack": "Orthodox Jewish creed",
       "stackKey": "for-jewish",
-      "date": "1190"
+      "date": "1190",
+      "emblem": "images/emblems/for-jewish.svg"
     },
     "for-muslim": {
       "name": "Sunni Muslim creed",
@@ -21040,7 +21070,8 @@
       "kind": "archetype",
       "stack": "Sunni Muslim creed",
       "stackKey": "for-muslim",
-      "date": "present"
+      "date": "present",
+      "emblem": "images/emblems/for-muslim.svg"
     },
     "for-muslim-2004": {
       "name": "The Amman Message (2004)",
@@ -21209,7 +21240,8 @@
       "kind": "archetype",
       "stack": "Sunni Muslim creed",
       "stackKey": "for-muslim",
-      "date": "2004"
+      "date": "2004",
+      "emblem": "images/emblems/for-muslim.svg"
     },
     "for-muslim-1111": {
       "name": "Al-Ghazali's Jerusalem Tract (al-Risala al-Qudsiyya) (c. 1111)",
@@ -21476,7 +21508,8 @@
       "kind": "archetype",
       "stack": "Sunni Muslim creed",
       "stackKey": "for-muslim",
-      "date": "1111"
+      "date": "1111",
+      "emblem": "images/emblems/for-muslim.svg"
     },
     "for-muslim-933": {
       "name": "Al-Tahawi's Creed (Bayan al-Sunna) (c. 933)",
@@ -21813,7 +21846,8 @@
       "kind": "archetype",
       "stack": "Sunni Muslim creed",
       "stackKey": "for-muslim",
-      "date": "933"
+      "date": "933",
+      "emblem": "images/emblems/for-muslim.svg"
     },
     "for-mennonite": {
       "name": "Mennonite creed",
@@ -22402,7 +22436,8 @@
       "kind": "archetype",
       "stack": "Mennonite creed",
       "stackKey": "for-mennonite",
-      "date": "present"
+      "date": "present",
+      "emblem": "images/emblems/for-mennonite.svg"
     },
     "for-mennonite-1527": {
       "name": "Schleitheim Confession (1527)",
@@ -22544,7 +22579,8 @@
       "kind": "archetype",
       "stack": "Mennonite creed",
       "stackKey": "for-mennonite",
-      "date": "1527"
+      "date": "1527",
+      "emblem": "images/emblems/for-mennonite.svg"
     },
     "for-mennonite-1632": {
       "name": "Dordrecht Confession (1632)",
@@ -23036,7 +23072,8 @@
       "kind": "archetype",
       "stack": "Mennonite creed",
       "stackKey": "for-mennonite",
-      "date": "1632"
+      "date": "1632",
+      "emblem": "images/emblems/for-mennonite.svg"
     },
     "for-mennonite-1995": {
       "name": "Confession of Faith in a Mennonite Perspective (1995)",
@@ -23570,7 +23607,8 @@
       "kind": "archetype",
       "stack": "Mennonite creed",
       "stackKey": "for-mennonite",
-      "date": "1995"
+      "date": "1995",
+      "emblem": "images/emblems/for-mennonite.svg"
     },
     "for-latter-day-saint": {
       "name": "Latter-day Saint creed",
@@ -24187,7 +24225,8 @@
       "kind": "archetype",
       "stack": "Latter-day Saint creed",
       "stackKey": "for-latter-day-saint",
-      "date": "present"
+      "date": "present",
+      "emblem": "images/emblems/for-latter-day-saint.svg"
     },
     "for-latter-day-saint-1842": {
       "name": "Articles of Faith (1842)",
@@ -24507,7 +24546,8 @@
       "kind": "archetype",
       "stack": "Latter-day Saint creed",
       "stackKey": "for-latter-day-saint",
-      "date": "1842"
+      "date": "1842",
+      "emblem": "images/emblems/for-latter-day-saint.svg"
     },
     "for-latter-day-saint-1890": {
       "name": "Official Declaration—1: The Manifesto (1890)",
@@ -24585,7 +24625,8 @@
       "kind": "archetype",
       "stack": "Latter-day Saint creed",
       "stackKey": "for-latter-day-saint",
-      "date": "1890"
+      "date": "1890",
+      "emblem": "images/emblems/for-latter-day-saint.svg"
     },
     "for-latter-day-saint-1978": {
       "name": "Official Declaration—2 (1978)",
@@ -24639,7 +24680,8 @@
       "kind": "archetype",
       "stack": "Latter-day Saint creed",
       "stackKey": "for-latter-day-saint",
-      "date": "1978"
+      "date": "1978",
+      "emblem": "images/emblems/for-latter-day-saint.svg"
     },
     "for-latter-day-saint-1995": {
       "name": "The Family: A Proclamation to the World (1995)",
@@ -24735,7 +24777,8 @@
       "kind": "archetype",
       "stack": "Latter-day Saint creed",
       "stackKey": "for-latter-day-saint",
-      "date": "1995"
+      "date": "1995",
+      "emblem": "images/emblems/for-latter-day-saint.svg"
     },
     "for-jehovahs-witness": {
       "name": "Jehovah's Witness creed",
@@ -25368,7 +25411,8 @@
       "kind": "archetype",
       "stack": "Jehovah's Witness creed",
       "stackKey": "for-jehovahs-witness",
-      "date": "present"
+      "date": "present",
+      "emblem": "images/emblems/for-jehovahs-witness.svg"
     },
     "for-jehovahs-witness-1886": {
       "name": "The Divine Plan of the Ages (1886)",
@@ -25650,7 +25694,8 @@
       "kind": "archetype",
       "stack": "Jehovah's Witness creed",
       "stackKey": "for-jehovahs-witness",
-      "date": "1886"
+      "date": "1886",
+      "emblem": "images/emblems/for-jehovahs-witness.svg"
     },
     "for-jehovahs-witness-1946": {
       "name": "Let God Be True (1946)",
@@ -26184,7 +26229,8 @@
       "kind": "archetype",
       "stack": "Jehovah's Witness creed",
       "stackKey": "for-jehovahs-witness",
-      "date": "1946"
+      "date": "1946",
+      "emblem": "images/emblems/for-jehovahs-witness.svg"
     },
     "for-jehovahs-witness-1985": {
       "name": "Reasoning From the Scriptures (1985)",
@@ -26824,7 +26870,8 @@
       "kind": "archetype",
       "stack": "Jehovah's Witness creed",
       "stackKey": "for-jehovahs-witness",
-      "date": "1985"
+      "date": "1985",
+      "emblem": "images/emblems/for-jehovahs-witness.svg"
     },
     "for-jehovahs-witness-2021": {
       "name": "Enjoy Life Forever! (2021)",
@@ -27464,7 +27511,8 @@
       "kind": "archetype",
       "stack": "Jehovah's Witness creed",
       "stackKey": "for-jehovahs-witness",
-      "date": "2021"
+      "date": "2021",
+      "emblem": "images/emblems/for-jehovahs-witness.svg"
     }
   }
 }
