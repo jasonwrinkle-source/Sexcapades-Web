@@ -1,31 +1,10 @@
 /* docs-skin.js — skin-aware rendering for the gate-linked docs.
-   The docs are written for Sexcapades and read as-is on the Sexcapades
-   skin. On a vanilla skin this script (loaded synchronously in <head>)
-   detects the skin from the hostname (or ?skin= on non-skin hosts, for
-   localhost testing — ?skin= can NEVER override a sex host, same rule
-   as the gate) and, on DOMContentLoaded:
-   - swaps the brand (Sexcapades / Sexcapades.IO / Sex.Capades.IO /
-     sexcapades.io) for the skin's name, dotted brand, and host;
-   - swaps the ruled vanilla terms (Kink Factor -> Depth Factor,
-     Krossmatch -> Cross match, Play/Parlay scores, kink -> topic and
-     its compounds) in visible text nodes only — never inside
-     <script>/<style>, never in attributes except the listed ones;
-   - hides [data-sx-sex-only] blocks and shows [data-sx-vanilla-only]
-     blocks (the no-JS default hides vanilla-only via a <style> rule,
-     so Sexcapades renders correctly with JS off);
-   - rewrites sexcapades.io hosts in <a> hrefs to the skin's host, so
-     doc links stay on the skin. <link>/favicon/asset hrefs, mailto:,
-     and fragment-only links are left alone.
-   Feature names that stay the same on every skin (Cast is retired and
-   documented as such; Scribe, Scene Setter, Scene Sentinel, Net,
-   Hot List) are NOT swapped. "Play" is deliberately NOT in the
-   table: in docs it is usually the audio play button ("Play the
-   verse"), a topic name ("Nipple Play"), or the Scene Setter output
-   ("Play Guides") — those are handled per-doc with sex-only /
-   vanilla-only blocks instead.
-   window.__SX_DOC_SKIN is set synchronously so the privacy/guide
-   inline age-gate scripts (end of body) can check it: the age
-   overlay only ever shows on the Sexcapades skin. */
+   Architecture (inverted 2026-11-23): SFW Vanilla is the default baseline.
+   Documentation renders SFW & Vanilla out-of-the-box.
+   Only when skin.isSex is TRUE (on sex.capades.io or sexcapades.io)
+   does this script unhide mature [data-sx-sex-only] blocks, hide [data-sx-vanilla-only]
+   blocks, and swap in 18+ mature terminology. On all vanilla skins (flex.capades.io,
+   fores, nous, polis, etc.), mature content is NEVER exposed. */
 (function () {
   "use strict";
   var SKINS = {
@@ -62,12 +41,6 @@
     return prefix;
   }
   var prefix = detectSkin();
-  /* Skins with comparison data — the only skins whose gate shows the
-     Compare link and whose compare page has content. Sexcapades has the
-     kink-test comparison table; Poliscapades has the political-affiliation
-     comparisons (the party-platform archetypes). Every other skin has no
-     comparison data: its gate hides the link and its compare page redirects
-     to the gate. (Jason, 2026-11-17.) */
   var COMPARE_SKINS = { sex: true, polis: true };
   var skin = {
     prefix: prefix,
@@ -78,56 +51,47 @@
     hasCompare: !!COMPARE_SKINS[prefix]
   };
   window.__SX_DOC_SKIN = skin;
-  if (skin.isSex) {
-    /* Sexcapades renders as written; just make sure no vanilla-only
-       block ever shows (the <style> rule already hides them). */
-    document.addEventListener("DOMContentLoaded", function () {
-      var els = document.querySelectorAll("[data-sx-vanilla-only]");
-      for (var i = 0; i < els.length; i++) els[i].style.display = "none";
-    });
-    return;
-  }
-  /* Vanilla: longest first, whole-word, case-sensitive. "Sexcapades.IO"
-     before "Sexcapades" (it contains it); "Sexcapades.io" before
-     "Sexcapades" for the same reason. */
-  var RULES = [
+
+  /* Rules for Sexcapades (18+ opt-in swap from vanilla default): */
+  var SEX_RULES = [
+    ["Flex.Capades.IO", "Sex.Capades.IO"],
+    ["Flexcapades.IO", "Sexcapades.IO"],
+    ["Flexcapades.io", "sexcapades.io"],
+    ["Flexcapades", "Sexcapades"],
+    ["flex.capades.io", "sexcapades.io"],
+    ["Depth Factor", "Kink Factor"],
+    ["Cross match", "Krossmatch"],
+    ["Commune DF", "Play KF"],
+    ["Commune MS", "Play MS"],
+    ["Converse DF", "Parlay KF"],
+    ["Converse MS", "Parlay MS"],
+    ["questionnaires", "kink tests"],
+    ["questionnaire", "kink test"],
+    ["Questionnaire", "Kink test"],
+    ["topics", "kinks"],
+    ["Topics", "Kinks"],
+    ["topic", "kink"],
+    ["Topic", "Kink"]
+  ];
+
+  /* Rules for Vanilla Skins (brand name swap from generic Flexcapades): */
+  var VANILLA_RULES = [
+    ["Flex.Capades.IO", skin.brand],
+    ["Flexcapades.IO", skin.brand],
+    ["Flexcapades.io", skin.host],
+    ["Flexcapades", skin.name],
+    ["flex.capades.io", skin.host],
     ["Sex.Capades.IO", skin.brand],
     ["Sexcapades.IO", skin.brand],
     ["Sexcapades.io", skin.host],
     ["Sexcapades", skin.name],
-    ["sexcapades.io", skin.host],
-    ["Kink Factor", "Depth Factor"],
-    ["Krossmatch", "Cross match"],
-    ["Play KF", "Commune DF"],
-    ["Play MS", "Commune MS"],
-    ["Parlay KF", "Converse DF"],
-    ["Parlay MS", "Converse MS"],
-    ["kink categories", "categories"],
-    ["Kink categories", "Categories"],
-    ["kink lines", "topic lines"],
-    ["Kink lines", "Topic lines"],
-    ["kink map", "hypermap"],
-    ["Kink map", "Hypermap"],
-    ["kink maps", "hypermaps"],
-    ["Kink maps", "Hypermaps"],
-    ["kink tests", "questionnaires"],
-    ["kink test", "questionnaire"],
-    ["Kink test", "Questionnaire"],
-    ["kink profile", "profile"],
-    ["Kink profile", "Profile"],
-    ["kink ratings", "ratings"],
-    ["Kink ratings", "Ratings"],
-    ["kink preferences", "preferences"],
-    ["Kink preferences", "Preferences"],
-    ["kink topics", "topics"],
-    ["Kink topics", "Topics"],
-    ["kinks", "topics"],
-    ["Kinks", "Topics"],
-    ["kink", "topic"],
-    ["Kink", "Topic"]
+    ["sexcapades.io", skin.host]
   ];
+
+  var ACTIVE_RULES = skin.isSex ? SEX_RULES : VANILLA_RULES;
+
   function esc(s) { return s.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"); }
-  var RES = RULES.map(function (r) {
+  var RES = ACTIVE_RULES.map(function (r) {
     return [new RegExp("\\b" + esc(r[0]) + "\\b", "g"), r[1]];
   });
   function swapText(s) {
@@ -147,20 +111,17 @@
     for (var i = 0; i < node.childNodes.length; i++) walk(node.childNodes[i]);
   }
   function apply() {
-    /* Visible text: whole document body plus <title>. A <title> may
-       carry data-sx-title-vanilla with a full vanilla replacement
-       (used when the Sexcapades title names things that have no
-       vanilla equivalent, e.g. the compare page's competitors). */
+    if (document.body) {
+      if (skin.isSex) document.body.classList.add("is-sex-skin");
+      else document.body.classList.add("is-vanilla-skin");
+    }
     var titleEl = document.querySelector("title[data-sx-title-vanilla]");
-    if (titleEl) {
-      /* The override goes through the same brand swap, so it can name
-         the skin ("Compare — Sexcapades" -> "Compare — Quantacapades"). */
+    if (!skin.isSex && titleEl) {
       document.title = swapText(titleEl.getAttribute("data-sx-title-vanilla"));
     } else if (document.title) {
       document.title = swapText(document.title);
     }
     if (document.body) walk(document.body);
-    /* User-facing attributes: tooltips, labels, alt text. */
     var attrs = ["title", "aria-label", "alt", "placeholder"];
     attrs.forEach(function (attr) {
       var els = document.querySelectorAll("[" + attr + "]");
@@ -172,8 +133,6 @@
         }
       }
     });
-    /* Meta descriptions/titles (browser-visible; crawlers see the
-       static Sexcapades copy — flagged, not fixable from here). */
     var metas = document.querySelectorAll('meta[name="description"], meta[property="og:title"], meta[property="og:description"], meta[name="twitter:title"], meta[name="twitter:description"]');
     for (var m = 0; m < metas.length; m++) {
       var c = metas[m].getAttribute("content");
@@ -182,8 +141,6 @@
         if (nc !== c) metas[m].setAttribute("content", nc);
       }
     }
-    /* Doc links stay on the skin: rewrite the sexcapades.io host in
-       <a> hrefs only (not <link>/favicon/assets, not mailto:). */
     var links = document.querySelectorAll("a[href]");
     for (var l = 0; l < links.length; l++) {
       var h = links[l].getAttribute("href");
@@ -193,24 +150,25 @@
       });
       if (nh !== h) links[l].setAttribute("href", nh);
     }
-    /* Tear-off QR codes (flyer only): the flyer ships one static
-       Sexcapades QR picture as its default, which is correct on the
-       Sexcapades skin. On a vanilla skin, point every tear-off QR at
-       this skin's pre-generated picture, so a scan lands on the skin's
-       own list view instead of Sexcapades. */
     var flyerQrs = document.querySelectorAll(".mini-qr");
     for (var qi = 0; qi < flyerQrs.length; qi++) {
       flyerQrs[qi].style.backgroundImage = 'url("/hosted/images/flyer-qr-' + prefix + '.svg")';
     }
-    /* Sex-only blocks hide; vanilla-only blocks show (dropping the
-       attribute lifts the no-JS <style> rule, restoring natural
-       display for blocks and inline spans alike). */
-    var sexOnly = document.querySelectorAll("[data-sx-sex-only]");
-    for (var s = 0; s < sexOnly.length; s++) sexOnly[s].style.display = "none";
-    var vanillaOnly = document.querySelectorAll("[data-sx-vanilla-only]");
-    for (var v = 0; v < vanillaOnly.length; v++) vanillaOnly[v].removeAttribute("data-sx-vanilla-only");
 
-    /* Per-skin visitor odometer fetch (2026-11-22): query stats for the active skin. */
+    if (skin.isSex) {
+      /* On 18+ Sexcapades: unhide sex-only blocks, hide vanilla-only blocks */
+      var sexOnly = document.querySelectorAll("[data-sx-sex-only]");
+      for (var s = 0; s < sexOnly.length; s++) sexOnly[s].removeAttribute("hidden"), sexOnly[s].style.display = "";
+      var vanillaOnly = document.querySelectorAll("[data-sx-vanilla-only]");
+      for (var v = 0; v < vanillaOnly.length; v++) vanillaOnly[v].style.display = "none";
+    } else {
+      /* On SFW Vanilla skins: hide sex-only blocks, unhide vanilla-only blocks */
+      var sexOnly = document.querySelectorAll("[data-sx-sex-only]");
+      for (var s = 0; s < sexOnly.length; s++) sexOnly[s].style.display = "none";
+      var vanillaOnly = document.querySelectorAll("[data-sx-vanilla-only]");
+      for (var v = 0; v < vanillaOnly.length; v++) vanillaOnly[v].removeAttribute("hidden"), vanillaOnly[v].style.display = "";
+    }
+
     try {
       var odoDigits = document.querySelectorAll("[id^='odometer-digits']");
       if (odoDigits.length > 0) {
@@ -240,4 +198,3 @@
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", apply);
   else apply();
 })();
-
