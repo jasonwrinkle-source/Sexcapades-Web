@@ -68,7 +68,8 @@
                 "url": "https://www.reddit.com/r/Dance/"
               }
             ]
-          }
+          },
+          "glyph": "cube"
         },
         {
           "id": "xda0002",
@@ -95,7 +96,8 @@
                 "url": "https://www.reddit.com/r/Dance/"
               }
             ]
-          }
+          },
+          "glyph": "star"
         },
         {
           "id": "xda0003",
@@ -122,7 +124,8 @@
                 "url": "https://www.reddit.com/r/Dance/"
               }
             ]
-          }
+          },
+          "glyph": "sun"
         },
         {
           "id": "xda0004",
@@ -150,7 +153,8 @@
                 "url": "https://www.reddit.com/r/Dance/"
               }
             ]
-          }
+          },
+          "glyph": "moon"
         },
         {
           "id": "xda0005",
@@ -175,7 +179,8 @@
                 "url": "https://www.reddit.com/r/Dance/"
               }
             ]
-          }
+          },
+          "glyph": "flame"
         },
         {
           "id": "xda0006",
@@ -200,7 +205,8 @@
                 "url": "https://www.reddit.com/r/Dance/"
               }
             ]
-          }
+          },
+          "glyph": "droplet"
         },
         {
           "id": "xda0007",
@@ -225,7 +231,8 @@
                 "url": "https://www.reddit.com/r/Dance/"
               }
             ]
-          }
+          },
+          "glyph": "tree"
         },
         {
           "id": "xda0008",
@@ -250,7 +257,8 @@
                 "url": "https://www.reddit.com/r/Dance/"
               }
             ]
-          }
+          },
+          "glyph": "rose"
         }
       ]
     },
@@ -289,7 +297,8 @@
                     "url": "https://www.dance-forums.com/"
                   }
                 ]
-              }
+              },
+              "glyph": "heart"
             },
             {
               "id": "xda0010",
@@ -316,7 +325,8 @@
                     "url": "https://www.dance-forums.com/"
                   }
                 ]
-              }
+              },
+              "glyph": "shield"
             },
             {
               "id": "xda0011",
@@ -343,7 +353,8 @@
                     "url": "https://www.dance-forums.com/"
                   }
                 ]
-              }
+              },
+              "glyph": "badge"
             },
             {
               "id": "xda0012",
@@ -370,7 +381,8 @@
                     "url": "https://www.dance-forums.com/"
                   }
                 ]
-              }
+              },
+              "glyph": "crown"
             },
             {
               "id": "xda0013",
@@ -397,7 +409,8 @@
                     "url": "https://www.dance-forums.com/"
                   }
                 ]
-              }
+              },
+              "glyph": "key"
             },
             {
               "id": "xda0014",
@@ -424,7 +437,8 @@
                     "url": "https://www.dance-forums.com/"
                   }
                 ]
-              }
+              },
+              "glyph": "lock"
             }
           ]
         },
@@ -457,7 +471,8 @@
                     "url": "https://www.dance-forums.com/"
                   }
                 ]
-              }
+              },
+              "glyph": "scale"
             },
             {
               "id": "xda0016",
@@ -484,7 +499,8 @@
                     "url": "https://www.dance-forums.com/"
                   }
                 ]
-              }
+              },
+              "glyph": "hands"
             },
             {
               "id": "xda0017",
@@ -511,7 +527,8 @@
                     "url": "https://www.dance-forums.com/"
                   }
                 ]
-              }
+              },
+              "glyph": "eye"
             },
             {
               "id": "xda0018",
@@ -538,7 +555,8 @@
                     "url": "https://www.dance-forums.com/"
                   }
                 ]
-              }
+              },
+              "glyph": "chat"
             },
             {
               "id": "xda0019",
@@ -565,7 +583,8 @@
                     "url": "https://www.dance-forums.com/"
                   }
                 ]
-              }
+              },
+              "glyph": "book"
             },
             {
               "id": "xda0020",
@@ -592,7 +611,8 @@
                     "url": "https://www.dance-forums.com/"
                   }
                 ]
-              }
+              },
+              "glyph": "scroll"
             }
           ]
         }
@@ -628,7 +648,8 @@
                     "url": "https://www.dance-forums.com/"
                   }
                 ]
-              }
+              },
+              "glyph": "note"
             },
             {
               "id": "xda0022",
@@ -650,7 +671,8 @@
                     "url": "https://www.dance-forums.com/"
                   }
                 ]
-              }
+              },
+              "glyph": "spotlight"
             },
             {
               "id": "xda0023",
@@ -672,7 +694,8 @@
                     "url": "https://www.dance-forums.com/"
                   }
                 ]
-              }
+              },
+              "glyph": "hourglass"
             },
             {
               "id": "xda0024",
@@ -694,7 +717,8 @@
                     "url": "https://www.dance-forums.com/"
                   }
                 ]
-              }
+              },
+              "glyph": "compass"
             },
             {
               "id": "xda0027",
@@ -716,7 +740,8 @@
                     "url": "https://www.dance-forums.com/"
                   }
                 ]
-              }
+              },
+              "glyph": "bolt"
             }
           ]
         },
@@ -744,7 +769,8 @@
                     "url": "https://www.reddit.com/r/SwingDancing/"
                   }
                 ]
-              }
+              },
+              "glyph": "stripes"
             },
             {
               "id": "xda0026",
@@ -766,7 +792,8 @@
                     "url": "https://www.dance-forums.com/"
                   }
                 ]
-              }
+              },
+              "glyph": "cradle"
             }
           ]
         }
@@ -825,7 +852,8 @@
                     "url": "https://www.salsaforums.com/"
                   }
                 ]
-              }
+              },
+              "glyph": "split"
             },
             {
               "id": "xda0029",
@@ -847,7 +875,8 @@
                     "url": "https://www.reddit.com/r/Salsa/"
                   }
                 ]
-              }
+              },
+              "glyph": "target"
             },
             {
               "id": "xda0030",
@@ -869,7 +898,8 @@
                     "url": "https://www.salsaforums.com/"
                   }
                 ]
-              }
+              },
+              "glyph": "burst"
             },
             {
               "id": "xda0033",
@@ -891,7 +921,8 @@
                     "url": "https://www.reddit.com/r/Salsa/"
                   }
                 ]
-              }
+              },
+              "glyph": "energy"
             }
           ]
         },
@@ -919,7 +950,8 @@
                     "url": "https://www.dance-forums.com/"
                   }
                 ]
-              }
+              },
+              "glyph": "curves"
             },
             {
               "id": "xda0031",
@@ -941,7 +973,8 @@
                     "url": "https://www.reddit.com/r/Dance/"
                   }
                 ]
-              }
+              },
+              "glyph": "shards"
             }
           ]
         }
@@ -972,7 +1005,8 @@
                 "url": "https://www.dance-forums.com/"
               }
             ]
-          }
+          },
+          "glyph": "knot"
         },
         {
           "id": "xda0036",
@@ -994,7 +1028,8 @@
                 "url": "https://www.dance-forums.com/"
               }
             ]
-          }
+          },
+          "glyph": "infinity"
         },
         {
           "id": "xda0037",
@@ -1016,7 +1051,8 @@
                 "url": "https://www.dance-forums.com/"
               }
             ]
-          }
+          },
+          "glyph": "feather"
         },
         {
           "id": "xda0038",
@@ -1039,7 +1075,8 @@
                 "url": "https://www.dance-forums.com/"
               }
             ]
-          }
+          },
+          "glyph": "ring"
         },
         {
           "id": "xda0039",
@@ -1062,7 +1099,8 @@
                 "url": "https://www.dance-forums.com/"
               }
             ]
-          }
+          },
+          "glyph": "whisper"
         },
         {
           "id": "xda0040",
@@ -1085,7 +1123,8 @@
                 "url": "https://www.dance-forums.com/"
               }
             ]
-          }
+          },
+          "glyph": "trio"
         }
       ]
     },
@@ -1114,7 +1153,8 @@
                 "url": "https://www.reddit.com/r/Dance/"
               }
             ]
-          }
+          },
+          "glyph": "crowd"
         },
         {
           "id": "xda0042",
@@ -1141,7 +1181,8 @@
                 "url": "https://www.reddit.com/r/Dance/"
               }
             ]
-          }
+          },
+          "glyph": "cube"
         },
         {
           "id": "xda0043",
@@ -1161,7 +1202,8 @@
                 "url": "https://www.reddit.com/r/Dance/"
               }
             ]
-          }
+          },
+          "glyph": "star"
         },
         {
           "id": "xda0044",
@@ -1178,7 +1220,8 @@
                 "url": "https://www.reddit.com/r/Dance/"
               }
             ]
-          }
+          },
+          "glyph": "sun"
         },
         {
           "id": "xda0045",
@@ -1195,7 +1238,8 @@
                 "url": "https://www.reddit.com/r/Dance/"
               }
             ]
-          }
+          },
+          "glyph": "moon"
         },
         {
           "id": "xda0046",
@@ -1212,7 +1256,8 @@
                 "url": "https://www.reddit.com/r/Dance/"
               }
             ]
-          }
+          },
+          "glyph": "flame"
         },
         {
           "id": "xda0047",
@@ -1229,7 +1274,8 @@
                 "url": "https://www.reddit.com/r/Dance/"
               }
             ]
-          }
+          },
+          "glyph": "droplet"
         }
       ]
     },
@@ -1263,7 +1309,8 @@
                 "url": "https://www.dance-forums.com/"
               }
             ]
-          }
+          },
+          "glyph": "tree"
         },
         {
           "id": "xda0049",
@@ -1288,7 +1335,8 @@
                 "url": "https://www.dance-forums.com/"
               }
             ]
-          }
+          },
+          "glyph": "rose"
         },
         {
           "id": "xda0050",
@@ -1313,7 +1361,8 @@
                 "url": "https://www.dance-forums.com/"
               }
             ]
-          }
+          },
+          "glyph": "heart"
         },
         {
           "id": "xda0051",
@@ -1338,7 +1387,8 @@
                 "url": "https://www.dance-forums.com/"
               }
             ]
-          }
+          },
+          "glyph": "shield"
         },
         {
           "id": "xda0052",
@@ -1363,7 +1413,8 @@
                 "url": "https://www.dance-forums.com/"
               }
             ]
-          }
+          },
+          "glyph": "badge"
         },
         {
           "id": "xda0053",
@@ -1391,7 +1442,8 @@
                 "url": "https://www.dance-forums.com/"
               }
             ]
-          }
+          },
+          "glyph": "crown"
         },
         {
           "id": "xda0054",
@@ -1419,7 +1471,8 @@
                 "url": "https://www.dance-forums.com/"
               }
             ]
-          }
+          },
+          "glyph": "key"
         },
         {
           "id": "xda0055",
@@ -1449,7 +1502,8 @@
                 "url": "https://www.dance-forums.com/"
               }
             ]
-          }
+          },
+          "glyph": "lock"
         },
         {
           "id": "xda0056",
@@ -1476,7 +1530,8 @@
                 "url": "https://www.dance-forums.com/"
               }
             ]
-          }
+          },
+          "glyph": "scale"
         },
         {
           "id": "xda0057",
@@ -1501,7 +1556,8 @@
                 "url": "https://www.dance-forums.com/"
               }
             ]
-          }
+          },
+          "glyph": "hands"
         }
       ]
     },
@@ -1531,7 +1587,8 @@
                 "url": "https://www.reddit.com/r/DanceTutorials/"
               }
             ]
-          }
+          },
+          "glyph": "eye"
         },
         {
           "id": "xda0059",
@@ -1551,7 +1608,8 @@
                 "url": "https://www.reddit.com/r/DanceTutorials/"
               }
             ]
-          }
+          },
+          "glyph": "chat"
         },
         {
           "id": "xda0060",
@@ -1571,7 +1629,8 @@
                 "url": "https://www.reddit.com/r/DanceTutorials/"
               }
             ]
-          }
+          },
+          "glyph": "book"
         },
         {
           "id": "xda0061",
@@ -1623,7 +1682,8 @@
                 "url": "https://www.reddit.com/r/DanceTutorials/"
               }
             ]
-          }
+          },
+          "glyph": "scroll"
         },
         {
           "id": "xda0062",
@@ -1643,7 +1703,8 @@
                 "url": "https://www.reddit.com/r/DanceTutorials/"
               }
             ]
-          }
+          },
+          "glyph": "note"
         },
         {
           "id": "xda0063",
@@ -1663,7 +1724,8 @@
                 "url": "https://www.reddit.com/r/DanceSport/"
               }
             ]
-          }
+          },
+          "glyph": "spotlight"
         },
         {
           "id": "xda0064",
@@ -1688,7 +1750,8 @@
                 "url": "https://www.reddit.com/r/Dance/"
               }
             ]
-          }
+          },
+          "glyph": "hourglass"
         }
       ]
     },
@@ -1720,7 +1783,8 @@
                 "url": "https://www.dance-forums.com/"
               }
             ]
-          }
+          },
+          "glyph": "compass"
         },
         {
           "id": "xda0066",
@@ -1745,7 +1809,8 @@
                 "url": "https://www.dance-forums.com/"
               }
             ]
-          }
+          },
+          "glyph": "bolt"
         },
         {
           "id": "xda0067",
@@ -1770,7 +1835,8 @@
                 "url": "https://www.reddit.com/r/Dance/"
               }
             ]
-          }
+          },
+          "glyph": "stripes"
         },
         {
           "id": "xda0068",
@@ -1790,7 +1856,8 @@
                 "url": "https://www.reddit.com/r/Dance/"
               }
             ]
-          }
+          },
+          "glyph": "cradle"
         },
         {
           "id": "xda0069",
@@ -1815,7 +1882,8 @@
                 "url": "https://www.dance-forums.com/"
               }
             ]
-          }
+          },
+          "glyph": "split"
         },
         {
           "id": "xda0070",
@@ -1840,7 +1908,8 @@
                 "url": "https://www.dance-forums.com/"
               }
             ]
-          }
+          },
+          "glyph": "target"
         },
         {
           "id": "xda0071",
@@ -1865,7 +1934,8 @@
                 "url": "https://www.dance-forums.com/"
               }
             ]
-          }
+          },
+          "glyph": "burst"
         },
         {
           "id": "xda0072",
@@ -1890,7 +1960,8 @@
                 "url": "https://www.dance-forums.com/"
               }
             ]
-          }
+          },
+          "glyph": "energy"
         },
         {
           "id": "xda0073",
@@ -1915,7 +1986,8 @@
                 "url": "https://www.dance-forums.com/"
               }
             ]
-          }
+          },
+          "glyph": "curves"
         }
       ]
     }
