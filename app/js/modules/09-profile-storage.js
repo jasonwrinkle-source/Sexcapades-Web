@@ -576,4 +576,4 @@ __sxInit(function () {
   setupSavedMenu();
   init();
 })();
-}
+});
