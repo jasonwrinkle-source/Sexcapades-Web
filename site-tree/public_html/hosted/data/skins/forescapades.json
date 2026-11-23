@@ -8833,7 +8833,1658 @@
         "skin": "forescapades"
       },
       "skin": "forescapades",
-      "kind": "sample"
+      "kind": "sample",
+      "stack": "Catholic creed",
+      "stackKey": "for-catholic",
+      "date": "present"
+    },
+    "for-catholic-1965": {
+      "name": "Vatican II (1965)",
+      "count": 38,
+      "about": "Vatican II (1965), rated on the same Fores topics as the current Catholic creed sample — a dated layer in the creed's palimpsest.",
+      "links": [],
+      "payload": {
+        "app": "sexcapades",
+        "version": 16,
+        "noFlash": true,
+        "profileName": "Vatican II (1965)",
+        "archetype": "Catholic creed",
+        "aboutMe": "Vatican II (1965), rated on the same Fores topics as the current Catholic creed sample — a dated layer in the creed's palimpsest.",
+        "ratings": {
+          "xfo0007": {
+            "advocacy": {
+              "one-god-indivisible": -80,
+              "modalism": -75,
+              "one-god-in-three-persons": 95,
+              "intensity": 95
+            },
+            "receptivity": {
+              "one-god-indivisible": -32,
+              "modalism": -30,
+              "one-god-in-three-persons": 38,
+              "intensity": 38
+            }
+          },
+          "xfo0009": {
+            "advocacy": {
+              "true-god-and-true-man": 95,
+              "prophet-and-messiah-not-divine": -85,
+              "jewish-teacher-not-messiah": -90,
+              "intensity": 95
+            },
+            "receptivity": {
+              "true-god-and-true-man": 38,
+              "prophet-and-messiah-not-divine": -34,
+              "jewish-teacher-not-messiah": -36,
+              "intensity": 38
+            }
+          },
+          "xfo0010": {
+            "advocacy": {
+              "conceived-by-the-holy-spirit": 95,
+              "affirmed-not-essential": -90,
+              "not-born-of-a-virgin": -95,
+              "intensity": 95
+            },
+            "receptivity": {
+              "conceived-by-the-holy-spirit": 38,
+              "affirmed-not-essential": -36,
+              "not-born-of-a-virgin": -38,
+              "intensity": 38
+            }
+          },
+          "xfo0011": {
+            "advocacy": {
+              "christ-truly-rose-bodily": 95,
+              "spiritual-resurrection": -90,
+              "jesus-did-not-rise": -95,
+              "intensity": 95
+            },
+            "receptivity": {
+              "christ-truly-rose-bodily": 38,
+              "spiritual-resurrection": -36,
+              "jesus-did-not-rise": -38,
+              "intensity": 38
+            }
+          },
+          "xfo0014": {
+            "advocacy": {
+              "original-sin-inherited": 85,
+              "ancestral-sin-inherited": 20,
+              "no-inherited-sin": -80,
+              "intensity": 85
+            },
+            "receptivity": {
+              "original-sin-inherited": 34,
+              "ancestral-sin-inherited": 8,
+              "no-inherited-sin": -32,
+              "intensity": 34
+            }
+          },
+          "xfo0066": {
+            "advocacy": {
+              "messiah-not-yet-come": -85,
+              "jesus-the-messiah-prophet": -70,
+              "jesus-the-messiah-god-incarnate": 95,
+              "intensity": 95
+            },
+            "receptivity": {
+              "messiah-not-yet-come": -34,
+              "jesus-the-messiah-prophet": -28,
+              "jesus-the-messiah-god-incarnate": 38,
+              "intensity": 38
+            }
+          },
+          "xfo0067": {
+            "advocacy": {
+              "covenant-with-israel-eternal": 45,
+              "fulfilled-in-the-new-covenant": 75,
+              "covenant-renewed-in-islam": -55,
+              "intensity": 75
+            },
+            "receptivity": {
+              "covenant-with-israel-eternal": 18,
+              "fulfilled-in-the-new-covenant": 30,
+              "covenant-renewed-in-islam": -22,
+              "intensity": 30
+            }
+          },
+          "xfo0001": {
+            "advocacy": {
+              "judaism-yahwism-covenant-of-the-torah": 0,
+              "christianity-christology-incarnate-logos": 95,
+              "islam-tawhid-final-prophethood": -30,
+              "intensity": 95
+            },
+            "receptivity": {
+              "judaism-yahwism-covenant-of-the-torah": 0,
+              "christianity-christology-incarnate-logos": 38,
+              "islam-tawhid-final-prophethood": -12,
+              "intensity": 38
+            }
+          },
+          "xfo0083": {
+            "advocacy": {
+              "purely-allegorical": 30,
+              "real-attributes-meaning-deferred": 65,
+              "affirmed-literally-bila-kayfa": -30,
+              "intensity": 65
+            },
+            "receptivity": {
+              "purely-allegorical": 12,
+              "real-attributes-meaning-deferred": 26,
+              "affirmed-literally-bila-kayfa": -12,
+              "intensity": 26
+            }
+          },
+          "xfo0015": {
+            "advocacy": {
+              "text-with-authoritative-tradition": 90,
+              "prima-scriptura": -70,
+              "written-text-alone": -85,
+              "intensity": 90
+            },
+            "receptivity": {
+              "text-with-authoritative-tradition": 36,
+              "prima-scriptura": -28,
+              "written-text-alone": -34,
+              "intensity": 36
+            }
+          },
+          "xfo0016": {
+            "advocacy": {
+              "the-canon-is-the-tanakh": 40,
+              "the-canon-is-the-christian-bible": 95,
+              "the-canon-is-the-quran": -70,
+              "intensity": 95
+            },
+            "receptivity": {
+              "the-canon-is-the-tanakh": 16,
+              "the-canon-is-the-christian-bible": 38,
+              "the-canon-is-the-quran": -28,
+              "intensity": 38
+            }
+          },
+          "xfo0017": {
+            "advocacy": {
+              "scripture-is-without-error": 35,
+              "without-error-in-what-it-teaches": 60,
+              "scripture-is-authoritative-for-salvation": 85,
+              "intensity": 85
+            },
+            "receptivity": {
+              "scripture-is-without-error": 14,
+              "without-error-in-what-it-teaches": 24,
+              "scripture-is-authoritative-for-salvation": 34,
+              "intensity": 34
+            }
+          },
+          "xfo0019": {
+            "advocacy": {
+              "sacred-tradition-is-equally-authoritative": 85,
+              "a-weighty-witness": -55,
+              "tradition-is-a-subordinate-witness": -70,
+              "intensity": 85
+            },
+            "receptivity": {
+              "sacred-tradition-is-equally-authoritative": 34,
+              "a-weighty-witness": -22,
+              "tradition-is-a-subordinate-witness": -28,
+              "intensity": 34
+            }
+          },
+          "xfo0020": {
+            "advocacy": {
+              "papal-primacy-of-jurisdiction": 90,
+              "primacy-of-honor": -85,
+              "no-papal-jurisdiction": -90,
+              "intensity": 90
+            },
+            "receptivity": {
+              "papal-primacy-of-jurisdiction": 36,
+              "primacy-of-honor": -34,
+              "no-papal-jurisdiction": -36,
+              "intensity": 36
+            }
+          },
+          "xfo0022": {
+            "advocacy": {
+              "unbroken-chain-of-ordination": 95,
+              "both-chain-and-fidelity": -50,
+              "succession-is-fidelity-to-doctrine": -55,
+              "intensity": 95
+            },
+            "receptivity": {
+              "unbroken-chain-of-ordination": 38,
+              "both-chain-and-fidelity": -20,
+              "succession-is-fidelity-to-doctrine": -22,
+              "intensity": 38
+            }
+          },
+          "xfo0070": {
+            "advocacy": {
+              "prophecy-ended-with-hebrew-prophets": -70,
+              "jesus-the-final-revelation": 90,
+              "muhammad-the-final-prophet": -80,
+              "intensity": 90
+            },
+            "receptivity": {
+              "prophecy-ended-with-hebrew-prophets": -28,
+              "jesus-the-final-revelation": 36,
+              "muhammad-the-final-prophet": -32,
+              "intensity": 36
+            }
+          },
+          "xfo0071": {
+            "advocacy": {
+              "binding-law": -65,
+              "binding-but-evolves": -35,
+              "guide-interpreted-by-conscience": 40,
+              "intensity": -65
+            },
+            "receptivity": {
+              "binding-law": -26,
+              "binding-but-evolves": -14,
+              "guide-interpreted-by-conscience": 16,
+              "intensity": -26
+            }
+          },
+          "xfo0031": {
+            "advocacy": {
+              "one-visible-communion": 75,
+              "one-church-across-many-bodies": 45,
+              "people-of-god-in-congregations": -55,
+              "intensity": 75
+            },
+            "receptivity": {
+              "one-visible-communion": 30,
+              "one-church-across-many-bodies": 18,
+              "people-of-god-in-congregations": -22,
+              "intensity": 30
+            }
+          },
+          "xfo0032": {
+            "advocacy": {
+              "episcopal": 90,
+              "presbyterian": -70,
+              "congregational": -80,
+              "intensity": 90
+            },
+            "receptivity": {
+              "episcopal": 36,
+              "presbyterian": -28,
+              "congregational": -32,
+              "intensity": 36
+            }
+          },
+          "xfo0033": {
+            "advocacy": {
+              "women-lead-and-are-ordained": -85,
+              "women-as-deacons-not-priests": -70,
+              "leadership-reserved-to-men": 85,
+              "intensity": 85
+            },
+            "receptivity": {
+              "women-lead-and-are-ordained": -34,
+              "women-as-deacons-not-priests": -28,
+              "leadership-reserved-to-men": 34,
+              "intensity": 34
+            }
+          },
+          "xfo0024": {
+            "advocacy": {
+              "made-right-by-faith-alone": -80,
+              "faith-formed-by-love": 80,
+              "made-right-by-faith-and-works": 75,
+              "intensity": 80
+            },
+            "receptivity": {
+              "made-right-by-faith-alone": -32,
+              "faith-formed-by-love": 32,
+              "made-right-by-faith-and-works": 30,
+              "intensity": 32
+            }
+          },
+          "xfo0025": {
+            "advocacy": {
+              "irresistible-grace": -60,
+              "resistible-grace": 80,
+              "prevenient-grace": 45,
+              "intensity": 80
+            },
+            "receptivity": {
+              "irresistible-grace": -24,
+              "resistible-grace": 32,
+              "prevenient-grace": 18,
+              "intensity": 32
+            }
+          },
+          "xfo0026": {
+            "advocacy": {
+              "unconditional-election-and-reprobation": -70,
+              "election-to-salvation-in-christ": 70,
+              "election-conditioned-on-foreknowledge": 30,
+              "intensity": 70
+            },
+            "receptivity": {
+              "unconditional-election-and-reprobation": -28,
+              "election-to-salvation-in-christ": 28,
+              "election-conditioned-on-foreknowledge": 12,
+              "intensity": 28
+            }
+          },
+          "xfo0027": {
+            "advocacy": {
+              "satisfaction-vicarious-atonement": 80,
+              "ransom-christus-victor": 55,
+              "repentance-and-good-deeds": 30,
+              "intensity": 80
+            },
+            "receptivity": {
+              "satisfaction-vicarious-atonement": 32,
+              "ransom-christus-victor": 22,
+              "repentance-and-good-deeds": 12,
+              "intensity": 32
+            }
+          },
+          "xfo0030": {
+            "advocacy": {
+              "venerated-and-invoked": 90,
+              "honoured-not-invoked": -50,
+              "christ-alone-mediator": -65,
+              "intensity": 90
+            },
+            "receptivity": {
+              "venerated-and-invoked": 36,
+              "honoured-not-invoked": -20,
+              "christ-alone-mediator": -26,
+              "intensity": 36
+            }
+          },
+          "xfo0035": {
+            "advocacy": {
+              "seven-sacraments": 95,
+              "two-sacraments-five-sacramental-rites": -85,
+              "two-sacraments-or-ordinances": -90,
+              "intensity": 95
+            },
+            "receptivity": {
+              "seven-sacraments": 38,
+              "two-sacraments-five-sacramental-rites": -34,
+              "two-sacraments-or-ordinances": -36,
+              "intensity": 38
+            }
+          },
+          "xfo0036": {
+            "advocacy": {
+              "infant-baptism-regenerates": 95,
+              "infant-baptism-sign-and-seal": 30,
+              "believers-baptism-by-immersion": -80,
+              "intensity": 95
+            },
+            "receptivity": {
+              "infant-baptism-regenerates": 38,
+              "infant-baptism-sign-and-seal": 12,
+              "believers-baptism-by-immersion": -32,
+              "intensity": 38
+            }
+          },
+          "xfo0037": {
+            "advocacy": {
+              "truly-present-body-and-blood": 95,
+              "spiritually-present-to-faith": 20,
+              "memorial-and-symbol-only": -90,
+              "intensity": 95
+            },
+            "receptivity": {
+              "truly-present-body-and-blood": 38,
+              "spiritually-present-to-faith": 8,
+              "memorial-and-symbol-only": -36,
+              "intensity": 38
+            }
+          },
+          "xfo0053": {
+            "advocacy": {
+              "venerated-images": 75,
+              "images-permitted-not-venerated": 40,
+              "aniconism-no-images": -80,
+              "intensity": -80
+            },
+            "receptivity": {
+              "venerated-images": 30,
+              "images-permitted-not-venerated": 16,
+              "aniconism-no-images": -32,
+              "intensity": -32
+            }
+          },
+          "xfo0056": {
+            "advocacy": {
+              "the-miraculous-gifts-have-ceased": -60,
+              "open-but-cautious": 45,
+              "the-miraculous-gifts-continue-today": 65,
+              "intensity": 65
+            },
+            "receptivity": {
+              "the-miraculous-gifts-have-ceased": -24,
+              "open-but-cautious": 18,
+              "the-miraculous-gifts-continue-today": 26,
+              "intensity": 26
+            }
+          },
+          "xfo0074": {
+            "advocacy": {
+              "shabbat": -20,
+              "sunday": 95,
+              "friday": -55,
+              "intensity": 95
+            },
+            "receptivity": {
+              "shabbat": -8,
+              "sunday": 38,
+              "friday": -22,
+              "intensity": 38
+            }
+          },
+          "xfo0039": {
+            "advocacy": {
+              "one-man-and-one-woman": 95,
+              "marriage-plus-blessed-unions": -85,
+              "two-people": -90,
+              "intensity": 95
+            },
+            "receptivity": {
+              "one-man-and-one-woman": 38,
+              "marriage-plus-blessed-unions": -34,
+              "two-people": -36,
+              "intensity": 38
+            }
+          },
+          "xfo0042": {
+            "advocacy": {
+              "opposed-except-to-save-life": 95,
+              "permitted-in-grave-circumstances": -80,
+              "permitted-as-last-resort": -85,
+              "intensity": 95
+            },
+            "receptivity": {
+              "opposed-except-to-save-life": 38,
+              "permitted-in-grave-circumstances": -32,
+              "permitted-as-last-resort": -34,
+              "intensity": 38
+            }
+          },
+          "xfo0043": {
+            "advocacy": {
+              "sex-only-in-marriage": 95,
+              "welcoming-not-affirming": -80,
+              "same-sex-relationships-affirmed": -90,
+              "intensity": 95
+            },
+            "receptivity": {
+              "sex-only-in-marriage": 38,
+              "welcoming-not-affirming": -32,
+              "same-sex-relationships-affirmed": -36,
+              "intensity": 38
+            }
+          },
+          "xfo0047": {
+            "advocacy": {
+              "total-abstinence-is-the-norm": -75,
+              "moderation-abstinence-counseled": -50,
+              "alcohol-is-permitted-in-moderation": 80,
+              "intensity": 80
+            },
+            "receptivity": {
+              "total-abstinence-is-the-norm": -30,
+              "moderation-abstinence-counseled": -20,
+              "alcohol-is-permitted-in-moderation": 32,
+              "intensity": 32
+            }
+          },
+          "xfo0077": {
+            "advocacy": {
+              "dietary-law-is-binding": -65,
+              "binds-israel-not-the-nations": -35,
+              "no-dietary-law": 70,
+              "intensity": 70
+            },
+            "receptivity": {
+              "dietary-law-is-binding": -26,
+              "binds-israel-not-the-nations": -14,
+              "no-dietary-law": 28,
+              "intensity": 28
+            }
+          },
+          "xfo0059": {
+            "advocacy": {
+              "jesus-will-return-in-glory": 95,
+              "not-affirmed": -90,
+              "jesus-will-not-return": -95,
+              "intensity": 95
+            },
+            "receptivity": {
+              "jesus-will-return-in-glory": 38,
+              "not-affirmed": -36,
+              "jesus-will-not-return": -38,
+              "intensity": 38
+            }
+          },
+          "xfo0061": {
+            "advocacy": {
+              "hell-is-eternal": 85,
+              "annihilation": -45,
+              "hell-is-a-temporary-purification": -55,
+              "intensity": 85
+            },
+            "receptivity": {
+              "hell-is-eternal": 34,
+              "annihilation": -18,
+              "hell-is-a-temporary-purification": -22,
+              "intensity": 34
+            }
+          }
+        },
+        "skin": "forescapades"
+      },
+      "skin": "forescapades",
+      "kind": "sample",
+      "stack": "Catholic creed",
+      "stackKey": "for-catholic",
+      "date": "1965"
+    },
+    "for-catholic-1885": {
+      "name": "Baltimore Catechism (1885)",
+      "count": 38,
+      "about": "Baltimore Catechism (1885), rated on the same Fores topics as the current Catholic creed sample — a dated layer in the creed's palimpsest.",
+      "links": [],
+      "payload": {
+        "app": "sexcapades",
+        "version": 16,
+        "noFlash": true,
+        "profileName": "Baltimore Catechism (1885)",
+        "archetype": "Catholic creed",
+        "aboutMe": "Baltimore Catechism (1885), rated on the same Fores topics as the current Catholic creed sample — a dated layer in the creed's palimpsest.",
+        "ratings": {
+          "xfo0007": {
+            "advocacy": {
+              "one-god-indivisible": -80,
+              "modalism": -80,
+              "one-god-in-three-persons": 95,
+              "intensity": 95
+            },
+            "receptivity": {
+              "one-god-indivisible": -32,
+              "modalism": -32,
+              "one-god-in-three-persons": 38,
+              "intensity": 38
+            }
+          },
+          "xfo0009": {
+            "advocacy": {
+              "true-god-and-true-man": 95,
+              "prophet-and-messiah-not-divine": -85,
+              "jewish-teacher-not-messiah": -90,
+              "intensity": 95
+            },
+            "receptivity": {
+              "true-god-and-true-man": 38,
+              "prophet-and-messiah-not-divine": -34,
+              "jewish-teacher-not-messiah": -36,
+              "intensity": 38
+            }
+          },
+          "xfo0010": {
+            "advocacy": {
+              "conceived-by-the-holy-spirit": 95,
+              "affirmed-not-essential": -90,
+              "not-born-of-a-virgin": -95,
+              "intensity": 95
+            },
+            "receptivity": {
+              "conceived-by-the-holy-spirit": 38,
+              "affirmed-not-essential": -36,
+              "not-born-of-a-virgin": -38,
+              "intensity": 38
+            }
+          },
+          "xfo0011": {
+            "advocacy": {
+              "christ-truly-rose-bodily": 95,
+              "spiritual-resurrection": -90,
+              "jesus-did-not-rise": -95,
+              "intensity": 95
+            },
+            "receptivity": {
+              "christ-truly-rose-bodily": 38,
+              "spiritual-resurrection": -36,
+              "jesus-did-not-rise": -38,
+              "intensity": 38
+            }
+          },
+          "xfo0014": {
+            "advocacy": {
+              "original-sin-inherited": 90,
+              "ancestral-sin-inherited": 10,
+              "no-inherited-sin": -90,
+              "intensity": 90
+            },
+            "receptivity": {
+              "original-sin-inherited": 36,
+              "ancestral-sin-inherited": 4,
+              "no-inherited-sin": -36,
+              "intensity": 36
+            }
+          },
+          "xfo0066": {
+            "advocacy": {
+              "messiah-not-yet-come": -90,
+              "jesus-the-messiah-prophet": -75,
+              "jesus-the-messiah-god-incarnate": 95,
+              "intensity": 95
+            },
+            "receptivity": {
+              "messiah-not-yet-come": -36,
+              "jesus-the-messiah-prophet": -30,
+              "jesus-the-messiah-god-incarnate": 38,
+              "intensity": 38
+            }
+          },
+          "xfo0067": {
+            "advocacy": {
+              "covenant-with-israel-eternal": -45,
+              "fulfilled-in-the-new-covenant": 90,
+              "covenant-renewed-in-islam": -85,
+              "intensity": 90
+            },
+            "receptivity": {
+              "covenant-with-israel-eternal": -18,
+              "fulfilled-in-the-new-covenant": 36,
+              "covenant-renewed-in-islam": -34,
+              "intensity": 36
+            }
+          },
+          "xfo0001": {
+            "advocacy": {
+              "judaism-yahwism-covenant-of-the-torah": -65,
+              "christianity-christology-incarnate-logos": 95,
+              "islam-tawhid-final-prophethood": -85,
+              "intensity": 95
+            },
+            "receptivity": {
+              "judaism-yahwism-covenant-of-the-torah": -26,
+              "christianity-christology-incarnate-logos": 38,
+              "islam-tawhid-final-prophethood": -34,
+              "intensity": 38
+            }
+          },
+          "xfo0083": {
+            "advocacy": {
+              "purely-allegorical": 30,
+              "real-attributes-meaning-deferred": 70,
+              "affirmed-literally-bila-kayfa": -35,
+              "intensity": 70
+            },
+            "receptivity": {
+              "purely-allegorical": 12,
+              "real-attributes-meaning-deferred": 28,
+              "affirmed-literally-bila-kayfa": -14,
+              "intensity": 28
+            }
+          },
+          "xfo0015": {
+            "advocacy": {
+              "text-with-authoritative-tradition": 90,
+              "prima-scriptura": -75,
+              "written-text-alone": -85,
+              "intensity": 90
+            },
+            "receptivity": {
+              "text-with-authoritative-tradition": 36,
+              "prima-scriptura": -30,
+              "written-text-alone": -34,
+              "intensity": 36
+            }
+          },
+          "xfo0016": {
+            "advocacy": {
+              "the-canon-is-the-tanakh": 35,
+              "the-canon-is-the-christian-bible": 95,
+              "the-canon-is-the-quran": -85,
+              "intensity": 95
+            },
+            "receptivity": {
+              "the-canon-is-the-tanakh": 14,
+              "the-canon-is-the-christian-bible": 38,
+              "the-canon-is-the-quran": -34,
+              "intensity": 38
+            }
+          },
+          "xfo0017": {
+            "advocacy": {
+              "scripture-is-without-error": 85,
+              "without-error-in-what-it-teaches": 55,
+              "scripture-is-authoritative-for-salvation": 50,
+              "intensity": 85
+            },
+            "receptivity": {
+              "scripture-is-without-error": 34,
+              "without-error-in-what-it-teaches": 22,
+              "scripture-is-authoritative-for-salvation": 20,
+              "intensity": 34
+            }
+          },
+          "xfo0019": {
+            "advocacy": {
+              "sacred-tradition-is-equally-authoritative": 90,
+              "a-weighty-witness": -60,
+              "tradition-is-a-subordinate-witness": -70,
+              "intensity": 90
+            },
+            "receptivity": {
+              "sacred-tradition-is-equally-authoritative": 36,
+              "a-weighty-witness": -24,
+              "tradition-is-a-subordinate-witness": -28,
+              "intensity": 36
+            }
+          },
+          "xfo0020": {
+            "advocacy": {
+              "papal-primacy-of-jurisdiction": 95,
+              "primacy-of-honor": -90,
+              "no-papal-jurisdiction": -95,
+              "intensity": 95
+            },
+            "receptivity": {
+              "papal-primacy-of-jurisdiction": 38,
+              "primacy-of-honor": -36,
+              "no-papal-jurisdiction": -38,
+              "intensity": 38
+            }
+          },
+          "xfo0022": {
+            "advocacy": {
+              "unbroken-chain-of-ordination": 95,
+              "both-chain-and-fidelity": -55,
+              "succession-is-fidelity-to-doctrine": -60,
+              "intensity": 95
+            },
+            "receptivity": {
+              "unbroken-chain-of-ordination": 38,
+              "both-chain-and-fidelity": -22,
+              "succession-is-fidelity-to-doctrine": -24,
+              "intensity": 38
+            }
+          },
+          "xfo0070": {
+            "advocacy": {
+              "prophecy-ended-with-hebrew-prophets": -70,
+              "jesus-the-final-revelation": 90,
+              "muhammad-the-final-prophet": -85,
+              "intensity": 90
+            },
+            "receptivity": {
+              "prophecy-ended-with-hebrew-prophets": -28,
+              "jesus-the-final-revelation": 36,
+              "muhammad-the-final-prophet": -34,
+              "intensity": 36
+            }
+          },
+          "xfo0071": {
+            "advocacy": {
+              "binding-law": -75,
+              "binding-but-evolves": -35,
+              "guide-interpreted-by-conscience": 35,
+              "intensity": -75
+            },
+            "receptivity": {
+              "binding-law": -30,
+              "binding-but-evolves": -14,
+              "guide-interpreted-by-conscience": 14,
+              "intensity": -30
+            }
+          },
+          "xfo0031": {
+            "advocacy": {
+              "one-visible-communion": 95,
+              "one-church-across-many-bodies": -60,
+              "people-of-god-in-congregations": -70,
+              "intensity": 95
+            },
+            "receptivity": {
+              "one-visible-communion": 38,
+              "one-church-across-many-bodies": -24,
+              "people-of-god-in-congregations": -28,
+              "intensity": 38
+            }
+          },
+          "xfo0032": {
+            "advocacy": {
+              "episcopal": 95,
+              "presbyterian": -75,
+              "congregational": -85,
+              "intensity": 95
+            },
+            "receptivity": {
+              "episcopal": 38,
+              "presbyterian": -30,
+              "congregational": -34,
+              "intensity": 38
+            }
+          },
+          "xfo0033": {
+            "advocacy": {
+              "women-lead-and-are-ordained": -90,
+              "women-as-deacons-not-priests": -75,
+              "leadership-reserved-to-men": 90,
+              "intensity": 90
+            },
+            "receptivity": {
+              "women-lead-and-are-ordained": -36,
+              "women-as-deacons-not-priests": -30,
+              "leadership-reserved-to-men": 36,
+              "intensity": 36
+            }
+          },
+          "xfo0024": {
+            "advocacy": {
+              "made-right-by-faith-alone": -90,
+              "faith-formed-by-love": 80,
+              "made-right-by-faith-and-works": 85,
+              "intensity": -90
+            },
+            "receptivity": {
+              "made-right-by-faith-alone": -36,
+              "faith-formed-by-love": 32,
+              "made-right-by-faith-and-works": 34,
+              "intensity": -36
+            }
+          },
+          "xfo0025": {
+            "advocacy": {
+              "irresistible-grace": -65,
+              "resistible-grace": 80,
+              "prevenient-grace": 45,
+              "intensity": 80
+            },
+            "receptivity": {
+              "irresistible-grace": -26,
+              "resistible-grace": 32,
+              "prevenient-grace": 18,
+              "intensity": 32
+            }
+          },
+          "xfo0026": {
+            "advocacy": {
+              "unconditional-election-and-reprobation": -75,
+              "election-to-salvation-in-christ": 70,
+              "election-conditioned-on-foreknowledge": 30,
+              "intensity": -75
+            },
+            "receptivity": {
+              "unconditional-election-and-reprobation": -30,
+              "election-to-salvation-in-christ": 28,
+              "election-conditioned-on-foreknowledge": 12,
+              "intensity": -30
+            }
+          },
+          "xfo0027": {
+            "advocacy": {
+              "satisfaction-vicarious-atonement": 90,
+              "ransom-christus-victor": 40,
+              "repentance-and-good-deeds": 40,
+              "intensity": 90
+            },
+            "receptivity": {
+              "satisfaction-vicarious-atonement": 36,
+              "ransom-christus-victor": 16,
+              "repentance-and-good-deeds": 16,
+              "intensity": 36
+            }
+          },
+          "xfo0030": {
+            "advocacy": {
+              "venerated-and-invoked": 95,
+              "honoured-not-invoked": -55,
+              "christ-alone-mediator": -75,
+              "intensity": 95
+            },
+            "receptivity": {
+              "venerated-and-invoked": 38,
+              "honoured-not-invoked": -22,
+              "christ-alone-mediator": -30,
+              "intensity": 38
+            }
+          },
+          "xfo0035": {
+            "advocacy": {
+              "seven-sacraments": 95,
+              "two-sacraments-five-sacramental-rites": -85,
+              "two-sacraments-or-ordinances": -90,
+              "intensity": 95
+            },
+            "receptivity": {
+              "seven-sacraments": 38,
+              "two-sacraments-five-sacramental-rites": -34,
+              "two-sacraments-or-ordinances": -36,
+              "intensity": 38
+            }
+          },
+          "xfo0036": {
+            "advocacy": {
+              "infant-baptism-regenerates": 95,
+              "infant-baptism-sign-and-seal": 25,
+              "believers-baptism-by-immersion": -85,
+              "intensity": 95
+            },
+            "receptivity": {
+              "infant-baptism-regenerates": 38,
+              "infant-baptism-sign-and-seal": 10,
+              "believers-baptism-by-immersion": -34,
+              "intensity": 38
+            }
+          },
+          "xfo0037": {
+            "advocacy": {
+              "truly-present-body-and-blood": 95,
+              "spiritually-present-to-faith": 15,
+              "memorial-and-symbol-only": -90,
+              "intensity": 95
+            },
+            "receptivity": {
+              "truly-present-body-and-blood": 38,
+              "spiritually-present-to-faith": 6,
+              "memorial-and-symbol-only": -36,
+              "intensity": 38
+            }
+          },
+          "xfo0053": {
+            "advocacy": {
+              "venerated-images": 85,
+              "images-permitted-not-venerated": 25,
+              "aniconism-no-images": -85,
+              "intensity": 85
+            },
+            "receptivity": {
+              "venerated-images": 34,
+              "images-permitted-not-venerated": 10,
+              "aniconism-no-images": -34,
+              "intensity": 34
+            }
+          },
+          "xfo0074": {
+            "advocacy": {
+              "shabbat": -25,
+              "sunday": 95,
+              "friday": -60,
+              "intensity": 95
+            },
+            "receptivity": {
+              "shabbat": -10,
+              "sunday": 38,
+              "friday": -24,
+              "intensity": 38
+            }
+          },
+          "xfo0039": {
+            "advocacy": {
+              "one-man-and-one-woman": 95,
+              "marriage-plus-blessed-unions": -85,
+              "two-people": -90,
+              "intensity": 95
+            },
+            "receptivity": {
+              "one-man-and-one-woman": 38,
+              "marriage-plus-blessed-unions": -34,
+              "two-people": -36,
+              "intensity": 38
+            }
+          },
+          "xfo0042": {
+            "advocacy": {
+              "opposed-except-to-save-life": 90,
+              "permitted-in-grave-circumstances": -75,
+              "permitted-as-last-resort": -80,
+              "intensity": 90
+            },
+            "receptivity": {
+              "opposed-except-to-save-life": 36,
+              "permitted-in-grave-circumstances": -30,
+              "permitted-as-last-resort": -32,
+              "intensity": 36
+            }
+          },
+          "xfo0043": {
+            "advocacy": {
+              "sex-only-in-marriage": 95,
+              "welcoming-not-affirming": -80,
+              "same-sex-relationships-affirmed": -90,
+              "intensity": 95
+            },
+            "receptivity": {
+              "sex-only-in-marriage": 38,
+              "welcoming-not-affirming": -32,
+              "same-sex-relationships-affirmed": -36,
+              "intensity": 38
+            }
+          },
+          "xfo0047": {
+            "advocacy": {
+              "total-abstinence-is-the-norm": -55,
+              "moderation-abstinence-counseled": 25,
+              "alcohol-is-permitted-in-moderation": 75,
+              "intensity": 75
+            },
+            "receptivity": {
+              "total-abstinence-is-the-norm": -22,
+              "moderation-abstinence-counseled": 10,
+              "alcohol-is-permitted-in-moderation": 30,
+              "intensity": 30
+            }
+          },
+          "xfo0077": {
+            "advocacy": {
+              "dietary-law-is-binding": -70,
+              "binds-israel-not-the-nations": -40,
+              "no-dietary-law": 70,
+              "intensity": 70
+            },
+            "receptivity": {
+              "dietary-law-is-binding": -28,
+              "binds-israel-not-the-nations": -16,
+              "no-dietary-law": 28,
+              "intensity": 28
+            }
+          },
+          "xfo0059": {
+            "advocacy": {
+              "jesus-will-return-in-glory": 95,
+              "not-affirmed": -90,
+              "jesus-will-not-return": -95,
+              "intensity": 95
+            },
+            "receptivity": {
+              "jesus-will-return-in-glory": 38,
+              "not-affirmed": -36,
+              "jesus-will-not-return": -38,
+              "intensity": 38
+            }
+          },
+          "xfo0061": {
+            "advocacy": {
+              "hell-is-eternal": 90,
+              "annihilation": -55,
+              "hell-is-a-temporary-purification": -60,
+              "intensity": 90
+            },
+            "receptivity": {
+              "hell-is-eternal": 36,
+              "annihilation": -22,
+              "hell-is-a-temporary-purification": -24,
+              "intensity": 36
+            }
+          },
+          "xfo0056": {
+            "advocacy": {
+              "the-miraculous-gifts-have-ceased": 50,
+              "open-but-cautious": 25,
+              "the-miraculous-gifts-continue-today": -55,
+              "intensity": -55
+            },
+            "receptivity": {
+              "the-miraculous-gifts-have-ceased": 20,
+              "open-but-cautious": 10,
+              "the-miraculous-gifts-continue-today": -22,
+              "intensity": -22
+            }
+          }
+        },
+        "skin": "forescapades"
+      },
+      "skin": "forescapades",
+      "kind": "sample",
+      "stack": "Catholic creed",
+      "stackKey": "for-catholic",
+      "date": "1885"
+    },
+    "for-catholic-1566": {
+      "name": "Roman Catechism (1566)",
+      "count": 37,
+      "about": "Roman Catechism (1566), rated on the same Fores topics as the current Catholic creed sample — a dated layer in the creed's palimpsest.",
+      "links": [],
+      "payload": {
+        "app": "sexcapades",
+        "version": 16,
+        "noFlash": true,
+        "profileName": "Roman Catechism (1566)",
+        "archetype": "Catholic creed",
+        "aboutMe": "Roman Catechism (1566), rated on the same Fores topics as the current Catholic creed sample — a dated layer in the creed's palimpsest.",
+        "ratings": {
+          "xfo0007": {
+            "advocacy": {
+              "one-god-indivisible": -80,
+              "modalism": -80,
+              "one-god-in-three-persons": 95,
+              "intensity": 95
+            },
+            "receptivity": {
+              "one-god-indivisible": -32,
+              "modalism": -32,
+              "one-god-in-three-persons": 38,
+              "intensity": 38
+            }
+          },
+          "xfo0009": {
+            "advocacy": {
+              "true-god-and-true-man": 95,
+              "prophet-and-messiah-not-divine": -85,
+              "jewish-teacher-not-messiah": -90,
+              "intensity": 95
+            },
+            "receptivity": {
+              "true-god-and-true-man": 38,
+              "prophet-and-messiah-not-divine": -34,
+              "jewish-teacher-not-messiah": -36,
+              "intensity": 38
+            }
+          },
+          "xfo0010": {
+            "advocacy": {
+              "conceived-by-the-holy-spirit": 95,
+              "affirmed-not-essential": -90,
+              "not-born-of-a-virgin": -95,
+              "intensity": 95
+            },
+            "receptivity": {
+              "conceived-by-the-holy-spirit": 38,
+              "affirmed-not-essential": -36,
+              "not-born-of-a-virgin": -38,
+              "intensity": 38
+            }
+          },
+          "xfo0011": {
+            "advocacy": {
+              "christ-truly-rose-bodily": 95,
+              "spiritual-resurrection": -90,
+              "jesus-did-not-rise": -95,
+              "intensity": 95
+            },
+            "receptivity": {
+              "christ-truly-rose-bodily": 38,
+              "spiritual-resurrection": -36,
+              "jesus-did-not-rise": -38,
+              "intensity": 38
+            }
+          },
+          "xfo0014": {
+            "advocacy": {
+              "original-sin-inherited": 90,
+              "ancestral-sin-inherited": 10,
+              "no-inherited-sin": -90,
+              "intensity": 90
+            },
+            "receptivity": {
+              "original-sin-inherited": 36,
+              "ancestral-sin-inherited": 4,
+              "no-inherited-sin": -36,
+              "intensity": 36
+            }
+          },
+          "xfo0066": {
+            "advocacy": {
+              "messiah-not-yet-come": -90,
+              "jesus-the-messiah-prophet": -75,
+              "jesus-the-messiah-god-incarnate": 95,
+              "intensity": 95
+            },
+            "receptivity": {
+              "messiah-not-yet-come": -36,
+              "jesus-the-messiah-prophet": -30,
+              "jesus-the-messiah-god-incarnate": 38,
+              "intensity": 38
+            }
+          },
+          "xfo0067": {
+            "advocacy": {
+              "covenant-with-israel-eternal": -40,
+              "fulfilled-in-the-new-covenant": 90,
+              "covenant-renewed-in-islam": -85,
+              "intensity": 90
+            },
+            "receptivity": {
+              "covenant-with-israel-eternal": -16,
+              "fulfilled-in-the-new-covenant": 36,
+              "covenant-renewed-in-islam": -34,
+              "intensity": 36
+            }
+          },
+          "xfo0001": {
+            "advocacy": {
+              "judaism-yahwism-covenant-of-the-torah": -65,
+              "christianity-christology-incarnate-logos": 95,
+              "islam-tawhid-final-prophethood": -85,
+              "intensity": 95
+            },
+            "receptivity": {
+              "judaism-yahwism-covenant-of-the-torah": -26,
+              "christianity-christology-incarnate-logos": 38,
+              "islam-tawhid-final-prophethood": -34,
+              "intensity": 38
+            }
+          },
+          "xfo0083": {
+            "advocacy": {
+              "purely-allegorical": 30,
+              "real-attributes-meaning-deferred": 70,
+              "affirmed-literally-bila-kayfa": -35,
+              "intensity": 70
+            },
+            "receptivity": {
+              "purely-allegorical": 12,
+              "real-attributes-meaning-deferred": 28,
+              "affirmed-literally-bila-kayfa": -14,
+              "intensity": 28
+            }
+          },
+          "xfo0015": {
+            "advocacy": {
+              "text-with-authoritative-tradition": 90,
+              "prima-scriptura": -75,
+              "written-text-alone": -85,
+              "intensity": 90
+            },
+            "receptivity": {
+              "text-with-authoritative-tradition": 36,
+              "prima-scriptura": -30,
+              "written-text-alone": -34,
+              "intensity": 36
+            }
+          },
+          "xfo0016": {
+            "advocacy": {
+              "the-canon-is-the-tanakh": 35,
+              "the-canon-is-the-christian-bible": 95,
+              "the-canon-is-the-quran": -85,
+              "intensity": 95
+            },
+            "receptivity": {
+              "the-canon-is-the-tanakh": 14,
+              "the-canon-is-the-christian-bible": 38,
+              "the-canon-is-the-quran": -34,
+              "intensity": 38
+            }
+          },
+          "xfo0017": {
+            "advocacy": {
+              "scripture-is-without-error": 85,
+              "without-error-in-what-it-teaches": 60,
+              "scripture-is-authoritative-for-salvation": 55,
+              "intensity": 85
+            },
+            "receptivity": {
+              "scripture-is-without-error": 34,
+              "without-error-in-what-it-teaches": 24,
+              "scripture-is-authoritative-for-salvation": 22,
+              "intensity": 34
+            }
+          },
+          "xfo0019": {
+            "advocacy": {
+              "sacred-tradition-is-equally-authoritative": 90,
+              "a-weighty-witness": -60,
+              "tradition-is-a-subordinate-witness": -70,
+              "intensity": 90
+            },
+            "receptivity": {
+              "sacred-tradition-is-equally-authoritative": 36,
+              "a-weighty-witness": -24,
+              "tradition-is-a-subordinate-witness": -28,
+              "intensity": 36
+            }
+          },
+          "xfo0020": {
+            "advocacy": {
+              "papal-primacy-of-jurisdiction": 95,
+              "primacy-of-honor": -90,
+              "no-papal-jurisdiction": -95,
+              "intensity": 95
+            },
+            "receptivity": {
+              "papal-primacy-of-jurisdiction": 38,
+              "primacy-of-honor": -36,
+              "no-papal-jurisdiction": -38,
+              "intensity": 38
+            }
+          },
+          "xfo0022": {
+            "advocacy": {
+              "unbroken-chain-of-ordination": 95,
+              "both-chain-and-fidelity": -55,
+              "succession-is-fidelity-to-doctrine": -60,
+              "intensity": 95
+            },
+            "receptivity": {
+              "unbroken-chain-of-ordination": 38,
+              "both-chain-and-fidelity": -22,
+              "succession-is-fidelity-to-doctrine": -24,
+              "intensity": 38
+            }
+          },
+          "xfo0070": {
+            "advocacy": {
+              "prophecy-ended-with-hebrew-prophets": -70,
+              "jesus-the-final-revelation": 90,
+              "muhammad-the-final-prophet": -85,
+              "intensity": 90
+            },
+            "receptivity": {
+              "prophecy-ended-with-hebrew-prophets": -28,
+              "jesus-the-final-revelation": 36,
+              "muhammad-the-final-prophet": -34,
+              "intensity": 36
+            }
+          },
+          "xfo0071": {
+            "advocacy": {
+              "binding-law": -75,
+              "binding-but-evolves": -35,
+              "guide-interpreted-by-conscience": 35,
+              "intensity": -75
+            },
+            "receptivity": {
+              "binding-law": -30,
+              "binding-but-evolves": -14,
+              "guide-interpreted-by-conscience": 14,
+              "intensity": -30
+            }
+          },
+          "xfo0031": {
+            "advocacy": {
+              "one-visible-communion": 95,
+              "one-church-across-many-bodies": -60,
+              "people-of-god-in-congregations": -70,
+              "intensity": 95
+            },
+            "receptivity": {
+              "one-visible-communion": 38,
+              "one-church-across-many-bodies": -24,
+              "people-of-god-in-congregations": -28,
+              "intensity": 38
+            }
+          },
+          "xfo0032": {
+            "advocacy": {
+              "episcopal": 95,
+              "presbyterian": -75,
+              "congregational": -85,
+              "intensity": 95
+            },
+            "receptivity": {
+              "episcopal": 38,
+              "presbyterian": -30,
+              "congregational": -34,
+              "intensity": 38
+            }
+          },
+          "xfo0033": {
+            "advocacy": {
+              "women-lead-and-are-ordained": -90,
+              "women-as-deacons-not-priests": -75,
+              "leadership-reserved-to-men": 90,
+              "intensity": 90
+            },
+            "receptivity": {
+              "women-lead-and-are-ordained": -36,
+              "women-as-deacons-not-priests": -30,
+              "leadership-reserved-to-men": 36,
+              "intensity": 36
+            }
+          },
+          "xfo0024": {
+            "advocacy": {
+              "made-right-by-faith-alone": -90,
+              "faith-formed-by-love": 80,
+              "made-right-by-faith-and-works": 85,
+              "intensity": -90
+            },
+            "receptivity": {
+              "made-right-by-faith-alone": -36,
+              "faith-formed-by-love": 32,
+              "made-right-by-faith-and-works": 34,
+              "intensity": -36
+            }
+          },
+          "xfo0025": {
+            "advocacy": {
+              "irresistible-grace": -65,
+              "resistible-grace": 80,
+              "prevenient-grace": 45,
+              "intensity": 80
+            },
+            "receptivity": {
+              "irresistible-grace": -26,
+              "resistible-grace": 32,
+              "prevenient-grace": 18,
+              "intensity": 32
+            }
+          },
+          "xfo0026": {
+            "advocacy": {
+              "unconditional-election-and-reprobation": -75,
+              "election-to-salvation-in-christ": 70,
+              "election-conditioned-on-foreknowledge": 30,
+              "intensity": -75
+            },
+            "receptivity": {
+              "unconditional-election-and-reprobation": -30,
+              "election-to-salvation-in-christ": 28,
+              "election-conditioned-on-foreknowledge": 12,
+              "intensity": -30
+            }
+          },
+          "xfo0027": {
+            "advocacy": {
+              "satisfaction-vicarious-atonement": 90,
+              "ransom-christus-victor": 40,
+              "repentance-and-good-deeds": 40,
+              "intensity": 90
+            },
+            "receptivity": {
+              "satisfaction-vicarious-atonement": 36,
+              "ransom-christus-victor": 16,
+              "repentance-and-good-deeds": 16,
+              "intensity": 36
+            }
+          },
+          "xfo0030": {
+            "advocacy": {
+              "venerated-and-invoked": 95,
+              "honoured-not-invoked": -55,
+              "christ-alone-mediator": -75,
+              "intensity": 95
+            },
+            "receptivity": {
+              "venerated-and-invoked": 38,
+              "honoured-not-invoked": -22,
+              "christ-alone-mediator": -30,
+              "intensity": 38
+            }
+          },
+          "xfo0035": {
+            "advocacy": {
+              "seven-sacraments": 95,
+              "two-sacraments-five-sacramental-rites": -85,
+              "two-sacraments-or-ordinances": -90,
+              "intensity": 95
+            },
+            "receptivity": {
+              "seven-sacraments": 38,
+              "two-sacraments-five-sacramental-rites": -34,
+              "two-sacraments-or-ordinances": -36,
+              "intensity": 38
+            }
+          },
+          "xfo0036": {
+            "advocacy": {
+              "infant-baptism-regenerates": 95,
+              "infant-baptism-sign-and-seal": 25,
+              "believers-baptism-by-immersion": -85,
+              "intensity": 95
+            },
+            "receptivity": {
+              "infant-baptism-regenerates": 38,
+              "infant-baptism-sign-and-seal": 10,
+              "believers-baptism-by-immersion": -34,
+              "intensity": 38
+            }
+          },
+          "xfo0037": {
+            "advocacy": {
+              "truly-present-body-and-blood": 95,
+              "spiritually-present-to-faith": 15,
+              "memorial-and-symbol-only": -90,
+              "intensity": 95
+            },
+            "receptivity": {
+              "truly-present-body-and-blood": 38,
+              "spiritually-present-to-faith": 6,
+              "memorial-and-symbol-only": -36,
+              "intensity": 38
+            }
+          },
+          "xfo0053": {
+            "advocacy": {
+              "venerated-images": 85,
+              "images-permitted-not-venerated": 25,
+              "aniconism-no-images": -85,
+              "intensity": 85
+            },
+            "receptivity": {
+              "venerated-images": 34,
+              "images-permitted-not-venerated": 10,
+              "aniconism-no-images": -34,
+              "intensity": 34
+            }
+          },
+          "xfo0074": {
+            "advocacy": {
+              "shabbat": -25,
+              "sunday": 95,
+              "friday": -60,
+              "intensity": 95
+            },
+            "receptivity": {
+              "shabbat": -10,
+              "sunday": 38,
+              "friday": -24,
+              "intensity": 38
+            }
+          },
+          "xfo0039": {
+            "advocacy": {
+              "one-man-and-one-woman": 95,
+              "marriage-plus-blessed-unions": -85,
+              "two-people": -90,
+              "intensity": 95
+            },
+            "receptivity": {
+              "one-man-and-one-woman": 38,
+              "marriage-plus-blessed-unions": -34,
+              "two-people": -36,
+              "intensity": 38
+            }
+          },
+          "xfo0042": {
+            "advocacy": {
+              "opposed-except-to-save-life": 90,
+              "permitted-in-grave-circumstances": -75,
+              "permitted-as-last-resort": -80,
+              "intensity": 90
+            },
+            "receptivity": {
+              "opposed-except-to-save-life": 36,
+              "permitted-in-grave-circumstances": -30,
+              "permitted-as-last-resort": -32,
+              "intensity": 36
+            }
+          },
+          "xfo0043": {
+            "advocacy": {
+              "sex-only-in-marriage": 95,
+              "welcoming-not-affirming": -80,
+              "same-sex-relationships-affirmed": -90,
+              "intensity": 95
+            },
+            "receptivity": {
+              "sex-only-in-marriage": 38,
+              "welcoming-not-affirming": -32,
+              "same-sex-relationships-affirmed": -36,
+              "intensity": 38
+            }
+          },
+          "xfo0047": {
+            "advocacy": {
+              "total-abstinence-is-the-norm": -80,
+              "moderation-abstinence-counseled": -50,
+              "alcohol-is-permitted-in-moderation": 85,
+              "intensity": 85
+            },
+            "receptivity": {
+              "total-abstinence-is-the-norm": -32,
+              "moderation-abstinence-counseled": -20,
+              "alcohol-is-permitted-in-moderation": 34,
+              "intensity": 34
+            }
+          },
+          "xfo0077": {
+            "advocacy": {
+              "dietary-law-is-binding": -70,
+              "binds-israel-not-the-nations": -40,
+              "no-dietary-law": 70,
+              "intensity": 70
+            },
+            "receptivity": {
+              "dietary-law-is-binding": -28,
+              "binds-israel-not-the-nations": -16,
+              "no-dietary-law": 28,
+              "intensity": 28
+            }
+          },
+          "xfo0059": {
+            "advocacy": {
+              "jesus-will-return-in-glory": 95,
+              "not-affirmed": -90,
+              "jesus-will-not-return": -95,
+              "intensity": 95
+            },
+            "receptivity": {
+              "jesus-will-return-in-glory": 38,
+              "not-affirmed": -36,
+              "jesus-will-not-return": -38,
+              "intensity": 38
+            }
+          },
+          "xfo0061": {
+            "advocacy": {
+              "hell-is-eternal": 90,
+              "annihilation": -55,
+              "hell-is-a-temporary-purification": -60,
+              "intensity": 90
+            },
+            "receptivity": {
+              "hell-is-eternal": 36,
+              "annihilation": -22,
+              "hell-is-a-temporary-purification": -24,
+              "intensity": 36
+            }
+          }
+        },
+        "skin": "forescapades"
+      },
+      "skin": "forescapades",
+      "kind": "sample",
+      "stack": "Catholic creed",
+      "stackKey": "for-catholic",
+      "date": "1566"
     },
     "for-orthodox": {
       "name": "Eastern Orthodox creed",
@@ -9389,7 +11040,1140 @@
         "skin": "forescapades"
       },
       "skin": "forescapades",
-      "kind": "sample"
+      "kind": "sample",
+      "stack": "Eastern Orthodox creed",
+      "stackKey": "for-orthodox",
+      "date": "present"
+    },
+    "for-orthodox-2016": {
+      "name": "Holy and Great Council, Crete (2016)",
+      "count": 30,
+      "about": "Holy and Great Council, Crete (2016), rated on the same Fores topics as the current Eastern Orthodox creed sample — a dated layer in the creed's palimpsest.",
+      "links": [],
+      "payload": {
+        "app": "sexcapades",
+        "version": 16,
+        "noFlash": true,
+        "profileName": "Holy and Great Council, Crete (2016)",
+        "archetype": "Eastern Orthodox creed",
+        "aboutMe": "Holy and Great Council, Crete (2016), rated on the same Fores topics as the current Eastern Orthodox creed sample — a dated layer in the creed's palimpsest.",
+        "ratings": {
+          "xfo0007": {
+            "advocacy": {
+              "one-god-indivisible": -80,
+              "modalism": -75,
+              "one-god-in-three-persons": 95,
+              "intensity": 95
+            },
+            "receptivity": {
+              "one-god-indivisible": -30,
+              "modalism": -28,
+              "one-god-in-three-persons": 36,
+              "intensity": 36
+            }
+          },
+          "xfo0009": {
+            "advocacy": {
+              "true-god-and-true-man": 95,
+              "prophet-and-messiah-not-divine": -85,
+              "jewish-teacher-not-messiah": -90,
+              "intensity": 95
+            },
+            "receptivity": {
+              "true-god-and-true-man": 36,
+              "prophet-and-messiah-not-divine": -32,
+              "jewish-teacher-not-messiah": -34,
+              "intensity": 36
+            }
+          },
+          "xfo0010": {
+            "advocacy": {
+              "conceived-by-the-holy-spirit": 90,
+              "affirmed-not-essential": -85,
+              "not-born-of-a-virgin": -90,
+              "intensity": 90
+            },
+            "receptivity": {
+              "conceived-by-the-holy-spirit": 34,
+              "affirmed-not-essential": -32,
+              "not-born-of-a-virgin": -34,
+              "intensity": 34
+            }
+          },
+          "xfo0011": {
+            "advocacy": {
+              "christ-truly-rose-bodily": 95,
+              "spiritual-resurrection": -90,
+              "jesus-did-not-rise": -95,
+              "intensity": 95
+            },
+            "receptivity": {
+              "christ-truly-rose-bodily": 36,
+              "spiritual-resurrection": -34,
+              "jesus-did-not-rise": -36,
+              "intensity": 36
+            }
+          },
+          "xfo0014": {
+            "advocacy": {
+              "original-sin-inherited": -40,
+              "ancestral-sin-inherited": 85,
+              "no-inherited-sin": -70,
+              "intensity": 85
+            },
+            "receptivity": {
+              "original-sin-inherited": -15,
+              "ancestral-sin-inherited": 32,
+              "no-inherited-sin": -26,
+              "intensity": 32
+            }
+          },
+          "xfo0066": {
+            "advocacy": {
+              "messiah-not-yet-come": -90,
+              "jesus-the-messiah-prophet": -70,
+              "jesus-the-messiah-god-incarnate": 95,
+              "intensity": 95
+            },
+            "receptivity": {
+              "messiah-not-yet-come": -34,
+              "jesus-the-messiah-prophet": -26,
+              "jesus-the-messiah-god-incarnate": 36,
+              "intensity": 36
+            }
+          },
+          "xfo0067": {
+            "advocacy": {
+              "covenant-with-israel-eternal": 30,
+              "fulfilled-in-the-new-covenant": 85,
+              "covenant-renewed-in-islam": -75,
+              "intensity": 85
+            },
+            "receptivity": {
+              "covenant-with-israel-eternal": 11,
+              "fulfilled-in-the-new-covenant": 32,
+              "covenant-renewed-in-islam": -28,
+              "intensity": 32
+            }
+          },
+          "xfo0001": {
+            "advocacy": {
+              "judaism-yahwism-covenant-of-the-torah": -60,
+              "christianity-christology-incarnate-logos": 95,
+              "islam-tawhid-final-prophethood": -65,
+              "intensity": 95
+            },
+            "receptivity": {
+              "judaism-yahwism-covenant-of-the-torah": -23,
+              "christianity-christology-incarnate-logos": 36,
+              "islam-tawhid-final-prophethood": -25,
+              "intensity": 36
+            }
+          },
+          "xfo0015": {
+            "advocacy": {
+              "text-with-authoritative-tradition": 90,
+              "prima-scriptura": -75,
+              "written-text-alone": -85,
+              "intensity": 90
+            },
+            "receptivity": {
+              "text-with-authoritative-tradition": 34,
+              "prima-scriptura": -28,
+              "written-text-alone": -32,
+              "intensity": 34
+            }
+          },
+          "xfo0016": {
+            "advocacy": {
+              "the-canon-is-the-tanakh": 35,
+              "the-canon-is-the-christian-bible": 90,
+              "the-canon-is-the-quran": -80,
+              "intensity": 90
+            },
+            "receptivity": {
+              "the-canon-is-the-tanakh": 13,
+              "the-canon-is-the-christian-bible": 34,
+              "the-canon-is-the-quran": -30,
+              "intensity": 34
+            }
+          },
+          "xfo0019": {
+            "advocacy": {
+              "sacred-tradition-is-equally-authoritative": 90,
+              "a-weighty-witness": -60,
+              "tradition-is-a-subordinate-witness": -70,
+              "intensity": 90
+            },
+            "receptivity": {
+              "sacred-tradition-is-equally-authoritative": 34,
+              "a-weighty-witness": -23,
+              "tradition-is-a-subordinate-witness": -26,
+              "intensity": 34
+            }
+          },
+          "xfo0020": {
+            "advocacy": {
+              "papal-primacy-of-jurisdiction": -85,
+              "primacy-of-honor": -30,
+              "no-papal-jurisdiction": 85,
+              "intensity": -85
+            },
+            "receptivity": {
+              "papal-primacy-of-jurisdiction": -32,
+              "primacy-of-honor": -11,
+              "no-papal-jurisdiction": 32,
+              "intensity": -32
+            }
+          },
+          "xfo0022": {
+            "advocacy": {
+              "unbroken-chain-of-ordination": 90,
+              "both-chain-and-fidelity": -40,
+              "succession-is-fidelity-to-doctrine": -45,
+              "intensity": 90
+            },
+            "receptivity": {
+              "unbroken-chain-of-ordination": 34,
+              "both-chain-and-fidelity": -15,
+              "succession-is-fidelity-to-doctrine": -17,
+              "intensity": 34
+            }
+          },
+          "xfo0070": {
+            "advocacy": {
+              "prophecy-ended-with-hebrew-prophets": -70,
+              "jesus-the-final-revelation": 90,
+              "muhammad-the-final-prophet": -80,
+              "intensity": 90
+            },
+            "receptivity": {
+              "prophecy-ended-with-hebrew-prophets": -26,
+              "jesus-the-final-revelation": 34,
+              "muhammad-the-final-prophet": -30,
+              "intensity": 34
+            }
+          },
+          "xfo0031": {
+            "advocacy": {
+              "one-visible-communion": 90,
+              "one-church-across-many-bodies": -50,
+              "people-of-god-in-congregations": -60,
+              "intensity": 90
+            },
+            "receptivity": {
+              "one-visible-communion": 34,
+              "one-church-across-many-bodies": -19,
+              "people-of-god-in-congregations": -23,
+              "intensity": 34
+            }
+          },
+          "xfo0032": {
+            "advocacy": {
+              "episcopal": 90,
+              "presbyterian": -60,
+              "congregational": -70,
+              "intensity": 90
+            },
+            "receptivity": {
+              "episcopal": 34,
+              "presbyterian": -23,
+              "congregational": -26,
+              "intensity": 34
+            }
+          },
+          "xfo0024": {
+            "advocacy": {
+              "made-right-by-faith-alone": -70,
+              "faith-formed-by-love": -20,
+              "made-right-by-faith-and-works": 70,
+              "intensity": -70
+            },
+            "receptivity": {
+              "made-right-by-faith-alone": -26,
+              "faith-formed-by-love": -8,
+              "made-right-by-faith-and-works": 26,
+              "intensity": -26
+            }
+          },
+          "xfo0025": {
+            "advocacy": {
+              "irresistible-grace": -70,
+              "resistible-grace": 80,
+              "prevenient-grace": 35,
+              "intensity": 80
+            },
+            "receptivity": {
+              "irresistible-grace": -26,
+              "resistible-grace": 30,
+              "prevenient-grace": 13,
+              "intensity": 30
+            }
+          },
+          "xfo0026": {
+            "advocacy": {
+              "unconditional-election-and-reprobation": -75,
+              "election-to-salvation-in-christ": 70,
+              "election-conditioned-on-foreknowledge": 30,
+              "intensity": -75
+            },
+            "receptivity": {
+              "unconditional-election-and-reprobation": -28,
+              "election-to-salvation-in-christ": 26,
+              "election-conditioned-on-foreknowledge": 11,
+              "intensity": -28
+            }
+          },
+          "xfo0027": {
+            "advocacy": {
+              "satisfaction-vicarious-atonement": 20,
+              "ransom-christus-victor": 80,
+              "repentance-and-good-deeds": 35,
+              "intensity": 80
+            },
+            "receptivity": {
+              "satisfaction-vicarious-atonement": 8,
+              "ransom-christus-victor": 30,
+              "repentance-and-good-deeds": 13,
+              "intensity": 30
+            }
+          },
+          "xfo0030": {
+            "advocacy": {
+              "venerated-and-invoked": 70,
+              "honoured-not-invoked": -20,
+              "christ-alone-mediator": -55,
+              "intensity": 70
+            },
+            "receptivity": {
+              "venerated-and-invoked": 26,
+              "honoured-not-invoked": -8,
+              "christ-alone-mediator": -21,
+              "intensity": 26
+            }
+          },
+          "xfo0035": {
+            "advocacy": {
+              "seven-sacraments": 60,
+              "two-sacraments-five-sacramental-rites": -55,
+              "two-sacraments-or-ordinances": -70,
+              "intensity": -70
+            },
+            "receptivity": {
+              "seven-sacraments": 23,
+              "two-sacraments-five-sacramental-rites": -21,
+              "two-sacraments-or-ordinances": -26,
+              "intensity": -26
+            }
+          },
+          "xfo0036": {
+            "advocacy": {
+              "infant-baptism-regenerates": 70,
+              "infant-baptism-sign-and-seal": -30,
+              "believers-baptism-by-immersion": -65,
+              "intensity": 70
+            },
+            "receptivity": {
+              "infant-baptism-regenerates": 26,
+              "infant-baptism-sign-and-seal": -11,
+              "believers-baptism-by-immersion": -25,
+              "intensity": 26
+            }
+          },
+          "xfo0037": {
+            "advocacy": {
+              "truly-present-body-and-blood": 90,
+              "spiritually-present-to-faith": -60,
+              "memorial-and-symbol-only": -85,
+              "intensity": 90
+            },
+            "receptivity": {
+              "truly-present-body-and-blood": 34,
+              "spiritually-present-to-faith": -23,
+              "memorial-and-symbol-only": -32,
+              "intensity": 34
+            }
+          },
+          "xfo0074": {
+            "advocacy": {
+              "shabbat": -15,
+              "sunday": 55,
+              "friday": -45,
+              "intensity": 55
+            },
+            "receptivity": {
+              "shabbat": -6,
+              "sunday": 21,
+              "friday": -17,
+              "intensity": 21
+            }
+          },
+          "xfo0039": {
+            "advocacy": {
+              "one-man-and-one-woman": 95,
+              "marriage-plus-blessed-unions": -85,
+              "two-people": -90,
+              "intensity": 95
+            },
+            "receptivity": {
+              "one-man-and-one-woman": 36,
+              "marriage-plus-blessed-unions": -32,
+              "two-people": -34,
+              "intensity": 36
+            }
+          },
+          "xfo0042": {
+            "advocacy": {
+              "opposed-except-to-save-life": 85,
+              "permitted-in-grave-circumstances": -30,
+              "permitted-as-last-resort": -70,
+              "intensity": 85
+            },
+            "receptivity": {
+              "opposed-except-to-save-life": 32,
+              "permitted-in-grave-circumstances": -11,
+              "permitted-as-last-resort": -26,
+              "intensity": 32
+            }
+          },
+          "xfo0043": {
+            "advocacy": {
+              "sex-only-in-marriage": 90,
+              "welcoming-not-affirming": -55,
+              "same-sex-relationships-affirmed": -85,
+              "intensity": 90
+            },
+            "receptivity": {
+              "sex-only-in-marriage": 34,
+              "welcoming-not-affirming": -21,
+              "same-sex-relationships-affirmed": -32,
+              "intensity": 34
+            }
+          },
+          "xfo0077": {
+            "advocacy": {
+              "dietary-law-is-binding": -35,
+              "binds-israel-not-the-nations": 5,
+              "no-dietary-law": 50,
+              "intensity": 50
+            },
+            "receptivity": {
+              "dietary-law-is-binding": -13,
+              "binds-israel-not-the-nations": 2,
+              "no-dietary-law": 19,
+              "intensity": 19
+            }
+          },
+          "xfo0059": {
+            "advocacy": {
+              "jesus-will-return-in-glory": 90,
+              "not-affirmed": -85,
+              "jesus-will-not-return": -90,
+              "intensity": 90
+            },
+            "receptivity": {
+              "jesus-will-return-in-glory": 34,
+              "not-affirmed": -32,
+              "jesus-will-not-return": -34,
+              "intensity": 34
+            }
+          }
+        },
+        "skin": "forescapades"
+      },
+      "skin": "forescapades",
+      "kind": "sample",
+      "stack": "Eastern Orthodox creed",
+      "stackKey": "for-orthodox",
+      "date": "2016"
+    },
+    "for-orthodox-1848": {
+      "name": "Encyclical of the Eastern Patriarchs (1848)",
+      "count": 16,
+      "about": "Encyclical of the Eastern Patriarchs (1848), rated on the same Fores topics as the current Eastern Orthodox creed sample — a dated layer in the creed's palimpsest.",
+      "links": [],
+      "payload": {
+        "app": "sexcapades",
+        "version": 16,
+        "noFlash": true,
+        "profileName": "Encyclical of the Eastern Patriarchs (1848)",
+        "archetype": "Eastern Orthodox creed",
+        "aboutMe": "Encyclical of the Eastern Patriarchs (1848), rated on the same Fores topics as the current Eastern Orthodox creed sample — a dated layer in the creed's palimpsest.",
+        "ratings": {
+          "xfo0007": {
+            "advocacy": {
+              "one-god-indivisible": -75,
+              "modalism": -70,
+              "one-god-in-three-persons": 95,
+              "intensity": 95
+            },
+            "receptivity": {
+              "one-god-indivisible": -28,
+              "modalism": -26,
+              "one-god-in-three-persons": 36,
+              "intensity": 36
+            }
+          },
+          "xfo0009": {
+            "advocacy": {
+              "true-god-and-true-man": 90,
+              "prophet-and-messiah-not-divine": -80,
+              "jewish-teacher-not-messiah": -85,
+              "intensity": 90
+            },
+            "receptivity": {
+              "true-god-and-true-man": 34,
+              "prophet-and-messiah-not-divine": -30,
+              "jewish-teacher-not-messiah": -32,
+              "intensity": 34
+            }
+          },
+          "xfo0014": {
+            "advocacy": {
+              "original-sin-inherited": -30,
+              "ancestral-sin-inherited": 55,
+              "no-inherited-sin": -55,
+              "intensity": 55
+            },
+            "receptivity": {
+              "original-sin-inherited": -11,
+              "ancestral-sin-inherited": 21,
+              "no-inherited-sin": -21,
+              "intensity": 21
+            }
+          },
+          "xfo0066": {
+            "advocacy": {
+              "messiah-not-yet-come": -85,
+              "jesus-the-messiah-prophet": -65,
+              "jesus-the-messiah-god-incarnate": 90,
+              "intensity": 90
+            },
+            "receptivity": {
+              "messiah-not-yet-come": -32,
+              "jesus-the-messiah-prophet": -25,
+              "jesus-the-messiah-god-incarnate": 34,
+              "intensity": 34
+            }
+          },
+          "xfo0067": {
+            "advocacy": {
+              "covenant-with-israel-eternal": 20,
+              "fulfilled-in-the-new-covenant": 85,
+              "covenant-renewed-in-islam": -75,
+              "intensity": 85
+            },
+            "receptivity": {
+              "covenant-with-israel-eternal": 8,
+              "fulfilled-in-the-new-covenant": 32,
+              "covenant-renewed-in-islam": -28,
+              "intensity": 32
+            }
+          },
+          "xfo0001": {
+            "advocacy": {
+              "judaism-yahwism-covenant-of-the-torah": -55,
+              "christianity-christology-incarnate-logos": 95,
+              "islam-tawhid-final-prophethood": -65,
+              "intensity": 95
+            },
+            "receptivity": {
+              "judaism-yahwism-covenant-of-the-torah": -21,
+              "christianity-christology-incarnate-logos": 36,
+              "islam-tawhid-final-prophethood": -25,
+              "intensity": 36
+            }
+          },
+          "xfo0015": {
+            "advocacy": {
+              "text-with-authoritative-tradition": 90,
+              "prima-scriptura": -70,
+              "written-text-alone": -85,
+              "intensity": 90
+            },
+            "receptivity": {
+              "text-with-authoritative-tradition": 34,
+              "prima-scriptura": -26,
+              "written-text-alone": -32,
+              "intensity": 34
+            }
+          },
+          "xfo0017": {
+            "advocacy": {
+              "scripture-is-without-error": 60,
+              "without-error-in-what-it-teaches": 50,
+              "scripture-is-authoritative-for-salvation": 80,
+              "intensity": 80
+            },
+            "receptivity": {
+              "scripture-is-without-error": 23,
+              "without-error-in-what-it-teaches": 19,
+              "scripture-is-authoritative-for-salvation": 30,
+              "intensity": 30
+            }
+          },
+          "xfo0019": {
+            "advocacy": {
+              "sacred-tradition-is-equally-authoritative": 90,
+              "a-weighty-witness": -55,
+              "tradition-is-a-subordinate-witness": -70,
+              "intensity": 90
+            },
+            "receptivity": {
+              "sacred-tradition-is-equally-authoritative": 34,
+              "a-weighty-witness": -21,
+              "tradition-is-a-subordinate-witness": -26,
+              "intensity": 34
+            }
+          },
+          "xfo0020": {
+            "advocacy": {
+              "papal-primacy-of-jurisdiction": -95,
+              "primacy-of-honor": 25,
+              "no-papal-jurisdiction": 95,
+              "intensity": -95
+            },
+            "receptivity": {
+              "papal-primacy-of-jurisdiction": -36,
+              "primacy-of-honor": 9,
+              "no-papal-jurisdiction": 36,
+              "intensity": -36
+            }
+          },
+          "xfo0022": {
+            "advocacy": {
+              "unbroken-chain-of-ordination": 90,
+              "both-chain-and-fidelity": -40,
+              "succession-is-fidelity-to-doctrine": -45,
+              "intensity": 90
+            },
+            "receptivity": {
+              "unbroken-chain-of-ordination": 34,
+              "both-chain-and-fidelity": -15,
+              "succession-is-fidelity-to-doctrine": -17,
+              "intensity": 34
+            }
+          },
+          "xfo0070": {
+            "advocacy": {
+              "prophecy-ended-with-hebrew-prophets": -65,
+              "jesus-the-final-revelation": 90,
+              "muhammad-the-final-prophet": -80,
+              "intensity": 90
+            },
+            "receptivity": {
+              "prophecy-ended-with-hebrew-prophets": -25,
+              "jesus-the-final-revelation": 34,
+              "muhammad-the-final-prophet": -30,
+              "intensity": 34
+            }
+          },
+          "xfo0031": {
+            "advocacy": {
+              "one-visible-communion": 90,
+              "one-church-across-many-bodies": -55,
+              "people-of-god-in-congregations": -65,
+              "intensity": 90
+            },
+            "receptivity": {
+              "one-visible-communion": 34,
+              "one-church-across-many-bodies": -21,
+              "people-of-god-in-congregations": -25,
+              "intensity": 34
+            }
+          },
+          "xfo0032": {
+            "advocacy": {
+              "episcopal": 85,
+              "presbyterian": -60,
+              "congregational": -65,
+              "intensity": 85
+            },
+            "receptivity": {
+              "episcopal": 32,
+              "presbyterian": -23,
+              "congregational": -25,
+              "intensity": 32
+            }
+          },
+          "xfo0036": {
+            "advocacy": {
+              "infant-baptism-regenerates": 75,
+              "infant-baptism-sign-and-seal": -40,
+              "believers-baptism-by-immersion": -60,
+              "intensity": 75
+            },
+            "receptivity": {
+              "infant-baptism-regenerates": 28,
+              "infant-baptism-sign-and-seal": -15,
+              "believers-baptism-by-immersion": -23,
+              "intensity": 28
+            }
+          },
+          "xfo0037": {
+            "advocacy": {
+              "truly-present-body-and-blood": 80,
+              "spiritually-present-to-faith": -50,
+              "memorial-and-symbol-only": -80,
+              "intensity": 80
+            },
+            "receptivity": {
+              "truly-present-body-and-blood": 30,
+              "spiritually-present-to-faith": -19,
+              "memorial-and-symbol-only": -30,
+              "intensity": 30
+            }
+          }
+        },
+        "skin": "forescapades"
+      },
+      "skin": "forescapades",
+      "kind": "sample",
+      "stack": "Eastern Orthodox creed",
+      "stackKey": "for-orthodox",
+      "date": "1848"
+    },
+    "for-orthodox-1672": {
+      "name": "Confession of Dositheus (1672)",
+      "count": 30,
+      "about": "Confession of Dositheus (1672), rated on the same Fores topics as the current Eastern Orthodox creed sample — a dated layer in the creed's palimpsest.",
+      "links": [],
+      "payload": {
+        "app": "sexcapades",
+        "version": 16,
+        "noFlash": true,
+        "profileName": "Confession of Dositheus (1672)",
+        "archetype": "Eastern Orthodox creed",
+        "aboutMe": "Confession of Dositheus (1672), rated on the same Fores topics as the current Eastern Orthodox creed sample — a dated layer in the creed's palimpsest.",
+        "ratings": {
+          "xfo0007": {
+            "advocacy": {
+              "one-god-indivisible": -80,
+              "modalism": -75,
+              "one-god-in-three-persons": 95,
+              "intensity": 95
+            },
+            "receptivity": {
+              "one-god-indivisible": -30,
+              "modalism": -28,
+              "one-god-in-three-persons": 36,
+              "intensity": 36
+            }
+          },
+          "xfo0009": {
+            "advocacy": {
+              "true-god-and-true-man": 95,
+              "prophet-and-messiah-not-divine": -85,
+              "jewish-teacher-not-messiah": -90,
+              "intensity": 95
+            },
+            "receptivity": {
+              "true-god-and-true-man": 36,
+              "prophet-and-messiah-not-divine": -32,
+              "jewish-teacher-not-messiah": -34,
+              "intensity": 36
+            }
+          },
+          "xfo0010": {
+            "advocacy": {
+              "conceived-by-the-holy-spirit": 95,
+              "affirmed-not-essential": -90,
+              "not-born-of-a-virgin": -95,
+              "intensity": 95
+            },
+            "receptivity": {
+              "conceived-by-the-holy-spirit": 36,
+              "affirmed-not-essential": -34,
+              "not-born-of-a-virgin": -36,
+              "intensity": 36
+            }
+          },
+          "xfo0011": {
+            "advocacy": {
+              "christ-truly-rose-bodily": 95,
+              "spiritual-resurrection": -90,
+              "jesus-did-not-rise": -95,
+              "intensity": 95
+            },
+            "receptivity": {
+              "christ-truly-rose-bodily": 36,
+              "spiritual-resurrection": -34,
+              "jesus-did-not-rise": -36,
+              "intensity": 36
+            }
+          },
+          "xfo0014": {
+            "advocacy": {
+              "original-sin-inherited": -40,
+              "ancestral-sin-inherited": 90,
+              "no-inherited-sin": -70,
+              "intensity": 90
+            },
+            "receptivity": {
+              "original-sin-inherited": -15,
+              "ancestral-sin-inherited": 34,
+              "no-inherited-sin": -26,
+              "intensity": 34
+            }
+          },
+          "xfo0066": {
+            "advocacy": {
+              "messiah-not-yet-come": -90,
+              "jesus-the-messiah-prophet": -70,
+              "jesus-the-messiah-god-incarnate": 95,
+              "intensity": 95
+            },
+            "receptivity": {
+              "messiah-not-yet-come": -34,
+              "jesus-the-messiah-prophet": -26,
+              "jesus-the-messiah-god-incarnate": 36,
+              "intensity": 36
+            }
+          },
+          "xfo0067": {
+            "advocacy": {
+              "covenant-with-israel-eternal": 25,
+              "fulfilled-in-the-new-covenant": 85,
+              "covenant-renewed-in-islam": -80,
+              "intensity": 85
+            },
+            "receptivity": {
+              "covenant-with-israel-eternal": 9,
+              "fulfilled-in-the-new-covenant": 32,
+              "covenant-renewed-in-islam": -30,
+              "intensity": 32
+            }
+          },
+          "xfo0001": {
+            "advocacy": {
+              "judaism-yahwism-covenant-of-the-torah": -60,
+              "christianity-christology-incarnate-logos": 95,
+              "islam-tawhid-final-prophethood": -70,
+              "intensity": 95
+            },
+            "receptivity": {
+              "judaism-yahwism-covenant-of-the-torah": -23,
+              "christianity-christology-incarnate-logos": 36,
+              "islam-tawhid-final-prophethood": -26,
+              "intensity": 36
+            }
+          },
+          "xfo0015": {
+            "advocacy": {
+              "text-with-authoritative-tradition": 90,
+              "prima-scriptura": -75,
+              "written-text-alone": -85,
+              "intensity": 90
+            },
+            "receptivity": {
+              "text-with-authoritative-tradition": 34,
+              "prima-scriptura": -28,
+              "written-text-alone": -32,
+              "intensity": 34
+            }
+          },
+          "xfo0016": {
+            "advocacy": {
+              "the-canon-is-the-tanakh": 40,
+              "the-canon-is-the-christian-bible": 95,
+              "the-canon-is-the-quran": -85,
+              "intensity": 95
+            },
+            "receptivity": {
+              "the-canon-is-the-tanakh": 15,
+              "the-canon-is-the-christian-bible": 36,
+              "the-canon-is-the-quran": -32,
+              "intensity": 36
+            }
+          },
+          "xfo0017": {
+            "advocacy": {
+              "scripture-is-without-error": 70,
+              "without-error-in-what-it-teaches": 50,
+              "scripture-is-authoritative-for-salvation": 85,
+              "intensity": 85
+            },
+            "receptivity": {
+              "scripture-is-without-error": 26,
+              "without-error-in-what-it-teaches": 19,
+              "scripture-is-authoritative-for-salvation": 32,
+              "intensity": 32
+            }
+          },
+          "xfo0019": {
+            "advocacy": {
+              "sacred-tradition-is-equally-authoritative": 90,
+              "a-weighty-witness": -60,
+              "tradition-is-a-subordinate-witness": -70,
+              "intensity": 90
+            },
+            "receptivity": {
+              "sacred-tradition-is-equally-authoritative": 34,
+              "a-weighty-witness": -23,
+              "tradition-is-a-subordinate-witness": -26,
+              "intensity": 34
+            }
+          },
+          "xfo0020": {
+            "advocacy": {
+              "papal-primacy-of-jurisdiction": -85,
+              "primacy-of-honor": -55,
+              "no-papal-jurisdiction": 85,
+              "intensity": -85
+            },
+            "receptivity": {
+              "papal-primacy-of-jurisdiction": -32,
+              "primacy-of-honor": -21,
+              "no-papal-jurisdiction": 32,
+              "intensity": -32
+            }
+          },
+          "xfo0022": {
+            "advocacy": {
+              "unbroken-chain-of-ordination": 90,
+              "both-chain-and-fidelity": -40,
+              "succession-is-fidelity-to-doctrine": -45,
+              "intensity": 90
+            },
+            "receptivity": {
+              "unbroken-chain-of-ordination": 34,
+              "both-chain-and-fidelity": -15,
+              "succession-is-fidelity-to-doctrine": -17,
+              "intensity": 34
+            }
+          },
+          "xfo0070": {
+            "advocacy": {
+              "prophecy-ended-with-hebrew-prophets": -70,
+              "jesus-the-final-revelation": 90,
+              "muhammad-the-final-prophet": -85,
+              "intensity": 90
+            },
+            "receptivity": {
+              "prophecy-ended-with-hebrew-prophets": -26,
+              "jesus-the-final-revelation": 34,
+              "muhammad-the-final-prophet": -32,
+              "intensity": 34
+            }
+          },
+          "xfo0031": {
+            "advocacy": {
+              "one-visible-communion": 90,
+              "one-church-across-many-bodies": -50,
+              "people-of-god-in-congregations": -60,
+              "intensity": 90
+            },
+            "receptivity": {
+              "one-visible-communion": 34,
+              "one-church-across-many-bodies": -19,
+              "people-of-god-in-congregations": -23,
+              "intensity": 34
+            }
+          },
+          "xfo0032": {
+            "advocacy": {
+              "episcopal": 90,
+              "presbyterian": -65,
+              "congregational": -70,
+              "intensity": 90
+            },
+            "receptivity": {
+              "episcopal": 34,
+              "presbyterian": -25,
+              "congregational": -26,
+              "intensity": 34
+            }
+          },
+          "xfo0024": {
+            "advocacy": {
+              "made-right-by-faith-alone": -85,
+              "faith-formed-by-love": 45,
+              "made-right-by-faith-and-works": 80,
+              "intensity": -85
+            },
+            "receptivity": {
+              "made-right-by-faith-alone": -32,
+              "faith-formed-by-love": 17,
+              "made-right-by-faith-and-works": 30,
+              "intensity": -32
+            }
+          },
+          "xfo0025": {
+            "advocacy": {
+              "irresistible-grace": -80,
+              "resistible-grace": 85,
+              "prevenient-grace": 75,
+              "intensity": 85
+            },
+            "receptivity": {
+              "irresistible-grace": -30,
+              "resistible-grace": 32,
+              "prevenient-grace": 28,
+              "intensity": 32
+            }
+          },
+          "xfo0026": {
+            "advocacy": {
+              "unconditional-election-and-reprobation": -85,
+              "election-to-salvation-in-christ": 50,
+              "election-conditioned-on-foreknowledge": 80,
+              "intensity": -85
+            },
+            "receptivity": {
+              "unconditional-election-and-reprobation": -32,
+              "election-to-salvation-in-christ": 19,
+              "election-conditioned-on-foreknowledge": 30,
+              "intensity": -32
+            }
+          },
+          "xfo0027": {
+            "advocacy": {
+              "satisfaction-vicarious-atonement": 35,
+              "ransom-christus-victor": 80,
+              "repentance-and-good-deeds": 25,
+              "intensity": 80
+            },
+            "receptivity": {
+              "satisfaction-vicarious-atonement": 13,
+              "ransom-christus-victor": 30,
+              "repentance-and-good-deeds": 9,
+              "intensity": 30
+            }
+          },
+          "xfo0030": {
+            "advocacy": {
+              "venerated-and-invoked": 95,
+              "honoured-not-invoked": -45,
+              "christ-alone-mediator": -65,
+              "intensity": 95
+            },
+            "receptivity": {
+              "venerated-and-invoked": 36,
+              "honoured-not-invoked": -17,
+              "christ-alone-mediator": -25,
+              "intensity": 36
+            }
+          },
+          "xfo0035": {
+            "advocacy": {
+              "seven-sacraments": 95,
+              "two-sacraments-five-sacramental-rites": -80,
+              "two-sacraments-or-ordinances": -90,
+              "intensity": 95
+            },
+            "receptivity": {
+              "seven-sacraments": 36,
+              "two-sacraments-five-sacramental-rites": -30,
+              "two-sacraments-or-ordinances": -34,
+              "intensity": 36
+            }
+          },
+          "xfo0036": {
+            "advocacy": {
+              "infant-baptism-regenerates": 95,
+              "infant-baptism-sign-and-seal": -55,
+              "believers-baptism-by-immersion": -85,
+              "intensity": 95
+            },
+            "receptivity": {
+              "infant-baptism-regenerates": 36,
+              "infant-baptism-sign-and-seal": -21,
+              "believers-baptism-by-immersion": -32,
+              "intensity": 36
+            }
+          },
+          "xfo0037": {
+            "advocacy": {
+              "truly-present-body-and-blood": 95,
+              "spiritually-present-to-faith": -65,
+              "memorial-and-symbol-only": -90,
+              "intensity": 95
+            },
+            "receptivity": {
+              "truly-present-body-and-blood": 36,
+              "spiritually-present-to-faith": -25,
+              "memorial-and-symbol-only": -34,
+              "intensity": 36
+            }
+          },
+          "xfo0053": {
+            "advocacy": {
+              "venerated-images": 95,
+              "images-permitted-not-venerated": -55,
+              "aniconism-no-images": -90,
+              "intensity": 95
+            },
+            "receptivity": {
+              "venerated-images": 36,
+              "images-permitted-not-venerated": -21,
+              "aniconism-no-images": -34,
+              "intensity": 36
+            }
+          },
+          "xfo0039": {
+            "advocacy": {
+              "one-man-and-one-woman": 85,
+              "marriage-plus-blessed-unions": -80,
+              "two-people": -85,
+              "intensity": 85
+            },
+            "receptivity": {
+              "one-man-and-one-woman": 32,
+              "marriage-plus-blessed-unions": -30,
+              "two-people": -32,
+              "intensity": 32
+            }
+          },
+          "xfo0043": {
+            "advocacy": {
+              "sex-only-in-marriage": 55,
+              "welcoming-not-affirming": -55,
+              "same-sex-relationships-affirmed": -65,
+              "intensity": -65
+            },
+            "receptivity": {
+              "sex-only-in-marriage": 21,
+              "welcoming-not-affirming": -21,
+              "same-sex-relationships-affirmed": -25,
+              "intensity": -25
+            }
+          },
+          "xfo0059": {
+            "advocacy": {
+              "jesus-will-return-in-glory": 90,
+              "not-affirmed": -85,
+              "jesus-will-not-return": -90,
+              "intensity": 90
+            },
+            "receptivity": {
+              "jesus-will-return-in-glory": 34,
+              "not-affirmed": -32,
+              "jesus-will-not-return": -34,
+              "intensity": 34
+            }
+          },
+          "xfo0061": {
+            "advocacy": {
+              "hell-is-eternal": 60,
+              "annihilation": -60,
+              "hell-is-a-temporary-purification": 55,
+              "intensity": 60
+            },
+            "receptivity": {
+              "hell-is-eternal": 23,
+              "annihilation": -23,
+              "hell-is-a-temporary-purification": 21,
+              "intensity": 23
+            }
+          }
+        },
+        "skin": "forescapades"
+      },
+      "skin": "forescapades",
+      "kind": "sample",
+      "stack": "Eastern Orthodox creed",
+      "stackKey": "for-orthodox",
+      "date": "1672"
     },
     "for-lutheran": {
       "name": "Lutheran creed",
@@ -11065,7 +13849,1392 @@
         "skin": "forescapades"
       },
       "skin": "forescapades",
-      "kind": "sample"
+      "kind": "sample",
+      "stack": "Baptist creed",
+      "stackKey": "for-baptist",
+      "date": "present"
+    },
+    "for-baptist-2000": {
+      "name": "Baptist Faith and Message (2000)",
+      "count": 31,
+      "about": "Baptist Faith and Message (2000), rated on the same Fores topics as the current Baptist creed sample — a dated layer in the creed's palimpsest.",
+      "links": [],
+      "payload": {
+        "app": "sexcapades",
+        "version": 16,
+        "noFlash": true,
+        "profileName": "Baptist Faith and Message (2000)",
+        "archetype": "Baptist creed",
+        "aboutMe": "Baptist Faith and Message (2000), rated on the same Fores topics as the current Baptist creed sample — a dated layer in the creed's palimpsest.",
+        "ratings": {
+          "xfo0007": {
+            "advocacy": {
+              "one-god-indivisible": -75,
+              "modalism": -75,
+              "one-god-in-three-persons": 95,
+              "intensity": 95
+            },
+            "receptivity": {
+              "one-god-indivisible": -28,
+              "modalism": -28,
+              "one-god-in-three-persons": 36,
+              "intensity": 36
+            }
+          },
+          "xfo0009": {
+            "advocacy": {
+              "true-god-and-true-man": 95,
+              "prophet-and-messiah-not-divine": -85,
+              "jewish-teacher-not-messiah": -90,
+              "intensity": 95
+            },
+            "receptivity": {
+              "true-god-and-true-man": 36,
+              "prophet-and-messiah-not-divine": -32,
+              "jewish-teacher-not-messiah": -34,
+              "intensity": 36
+            }
+          },
+          "xfo0010": {
+            "advocacy": {
+              "conceived-by-the-holy-spirit": 90,
+              "affirmed-not-essential": -85,
+              "not-born-of-a-virgin": -90,
+              "intensity": 90
+            },
+            "receptivity": {
+              "conceived-by-the-holy-spirit": 34,
+              "affirmed-not-essential": -32,
+              "not-born-of-a-virgin": -34,
+              "intensity": 34
+            }
+          },
+          "xfo0011": {
+            "advocacy": {
+              "christ-truly-rose-bodily": 95,
+              "spiritual-resurrection": -90,
+              "jesus-did-not-rise": -95,
+              "intensity": 95
+            },
+            "receptivity": {
+              "christ-truly-rose-bodily": 36,
+              "spiritual-resurrection": -34,
+              "jesus-did-not-rise": -36,
+              "intensity": 36
+            }
+          },
+          "xfo0014": {
+            "advocacy": {
+              "original-sin-inherited": 65,
+              "ancestral-sin-inherited": 10,
+              "no-inherited-sin": -60,
+              "intensity": 65
+            },
+            "receptivity": {
+              "original-sin-inherited": 25,
+              "ancestral-sin-inherited": 4,
+              "no-inherited-sin": -23,
+              "intensity": 25
+            }
+          },
+          "xfo0066": {
+            "advocacy": {
+              "messiah-not-yet-come": -85,
+              "jesus-the-messiah-prophet": -70,
+              "jesus-the-messiah-god-incarnate": 90,
+              "intensity": 90
+            },
+            "receptivity": {
+              "messiah-not-yet-come": -32,
+              "jesus-the-messiah-prophet": -26,
+              "jesus-the-messiah-god-incarnate": 34,
+              "intensity": 34
+            }
+          },
+          "xfo0001": {
+            "advocacy": {
+              "judaism-yahwism-covenant-of-the-torah": -55,
+              "christianity-christology-incarnate-logos": 95,
+              "islam-tawhid-final-prophethood": -75,
+              "intensity": 95
+            },
+            "receptivity": {
+              "judaism-yahwism-covenant-of-the-torah": -21,
+              "christianity-christology-incarnate-logos": 36,
+              "islam-tawhid-final-prophethood": -28,
+              "intensity": 36
+            }
+          },
+          "xfo0083": {
+            "advocacy": {
+              "purely-allegorical": 25,
+              "real-attributes-meaning-deferred": 55,
+              "affirmed-literally-bila-kayfa": -40,
+              "intensity": 55
+            },
+            "receptivity": {
+              "purely-allegorical": 9,
+              "real-attributes-meaning-deferred": 21,
+              "affirmed-literally-bila-kayfa": -15,
+              "intensity": 21
+            }
+          },
+          "xfo0015": {
+            "advocacy": {
+              "text-with-authoritative-tradition": -80,
+              "prima-scriptura": -70,
+              "written-text-alone": 90,
+              "intensity": 90
+            },
+            "receptivity": {
+              "text-with-authoritative-tradition": -30,
+              "prima-scriptura": -26,
+              "written-text-alone": 34,
+              "intensity": 34
+            }
+          },
+          "xfo0016": {
+            "advocacy": {
+              "the-canon-is-the-tanakh": 30,
+              "the-canon-is-the-christian-bible": 85,
+              "the-canon-is-the-quran": -85,
+              "intensity": 85
+            },
+            "receptivity": {
+              "the-canon-is-the-tanakh": 11,
+              "the-canon-is-the-christian-bible": 32,
+              "the-canon-is-the-quran": -32,
+              "intensity": 32
+            }
+          },
+          "xfo0017": {
+            "advocacy": {
+              "scripture-is-without-error": 90,
+              "without-error-in-what-it-teaches": 60,
+              "scripture-is-authoritative-for-salvation": 55,
+              "intensity": 90
+            },
+            "receptivity": {
+              "scripture-is-without-error": 34,
+              "without-error-in-what-it-teaches": 23,
+              "scripture-is-authoritative-for-salvation": 21,
+              "intensity": 34
+            }
+          },
+          "xfo0019": {
+            "advocacy": {
+              "sacred-tradition-is-equally-authoritative": -85,
+              "a-weighty-witness": -55,
+              "tradition-is-a-subordinate-witness": 85,
+              "intensity": -85
+            },
+            "receptivity": {
+              "sacred-tradition-is-equally-authoritative": -32,
+              "a-weighty-witness": -21,
+              "tradition-is-a-subordinate-witness": 32,
+              "intensity": -32
+            }
+          },
+          "xfo0070": {
+            "advocacy": {
+              "prophecy-ended-with-hebrew-prophets": -40,
+              "jesus-the-final-revelation": 65,
+              "muhammad-the-final-prophet": -65,
+              "intensity": 65
+            },
+            "receptivity": {
+              "prophecy-ended-with-hebrew-prophets": -15,
+              "jesus-the-final-revelation": 25,
+              "muhammad-the-final-prophet": -25,
+              "intensity": 25
+            }
+          },
+          "xfo0031": {
+            "advocacy": {
+              "one-visible-communion": -55,
+              "one-church-across-many-bodies": -35,
+              "people-of-god-in-congregations": 90,
+              "intensity": 90
+            },
+            "receptivity": {
+              "one-visible-communion": -21,
+              "one-church-across-many-bodies": -13,
+              "people-of-god-in-congregations": 34,
+              "intensity": 34
+            }
+          },
+          "xfo0032": {
+            "advocacy": {
+              "episcopal": -75,
+              "presbyterian": -55,
+              "congregational": 95,
+              "intensity": 95
+            },
+            "receptivity": {
+              "episcopal": -28,
+              "presbyterian": -21,
+              "congregational": 36,
+              "intensity": 36
+            }
+          },
+          "xfo0024": {
+            "advocacy": {
+              "made-right-by-faith-alone": 85,
+              "faith-formed-by-love": -65,
+              "made-right-by-faith-and-works": -75,
+              "intensity": 85
+            },
+            "receptivity": {
+              "made-right-by-faith-alone": 32,
+              "faith-formed-by-love": -25,
+              "made-right-by-faith-and-works": -28,
+              "intensity": 32
+            }
+          },
+          "xfo0025": {
+            "advocacy": {
+              "irresistible-grace": -35,
+              "resistible-grace": 60,
+              "prevenient-grace": 30,
+              "intensity": 60
+            },
+            "receptivity": {
+              "irresistible-grace": -13,
+              "resistible-grace": 23,
+              "prevenient-grace": 11,
+              "intensity": 23
+            }
+          },
+          "xfo0026": {
+            "advocacy": {
+              "unconditional-election-and-reprobation": -55,
+              "election-to-salvation-in-christ": 65,
+              "election-conditioned-on-foreknowledge": 25,
+              "intensity": 65
+            },
+            "receptivity": {
+              "unconditional-election-and-reprobation": -21,
+              "election-to-salvation-in-christ": 25,
+              "election-conditioned-on-foreknowledge": 9,
+              "intensity": 25
+            }
+          },
+          "xfo0027": {
+            "advocacy": {
+              "satisfaction-vicarious-atonement": 90,
+              "ransom-christus-victor": 25,
+              "repentance-and-good-deeds": -60,
+              "intensity": 90
+            },
+            "receptivity": {
+              "satisfaction-vicarious-atonement": 34,
+              "ransom-christus-victor": 9,
+              "repentance-and-good-deeds": -23,
+              "intensity": 34
+            }
+          },
+          "xfo0030": {
+            "advocacy": {
+              "venerated-and-invoked": -75,
+              "honoured-not-invoked": 15,
+              "christ-alone-mediator": 80,
+              "intensity": 80
+            },
+            "receptivity": {
+              "venerated-and-invoked": -28,
+              "honoured-not-invoked": 6,
+              "christ-alone-mediator": 30,
+              "intensity": 30
+            }
+          },
+          "xfo0035": {
+            "advocacy": {
+              "seven-sacraments": -85,
+              "two-sacraments-five-sacramental-rites": -75,
+              "two-sacraments-or-ordinances": 90,
+              "intensity": 90
+            },
+            "receptivity": {
+              "seven-sacraments": -32,
+              "two-sacraments-five-sacramental-rites": -28,
+              "two-sacraments-or-ordinances": 34,
+              "intensity": 34
+            }
+          },
+          "xfo0036": {
+            "advocacy": {
+              "infant-baptism-regenerates": -85,
+              "infant-baptism-sign-and-seal": -55,
+              "believers-baptism-by-immersion": 95,
+              "intensity": 95
+            },
+            "receptivity": {
+              "infant-baptism-regenerates": -32,
+              "infant-baptism-sign-and-seal": -21,
+              "believers-baptism-by-immersion": 36,
+              "intensity": 36
+            }
+          },
+          "xfo0037": {
+            "advocacy": {
+              "truly-present-body-and-blood": -80,
+              "spiritually-present-to-faith": 10,
+              "memorial-and-symbol-only": 90,
+              "intensity": 90
+            },
+            "receptivity": {
+              "truly-present-body-and-blood": -30,
+              "spiritually-present-to-faith": 4,
+              "memorial-and-symbol-only": 34,
+              "intensity": 34
+            }
+          },
+          "xfo0056": {
+            "advocacy": {
+              "the-miraculous-gifts-have-ceased": -25,
+              "open-but-cautious": 55,
+              "the-miraculous-gifts-continue-today": 30,
+              "intensity": 55
+            },
+            "receptivity": {
+              "the-miraculous-gifts-have-ceased": -9,
+              "open-but-cautious": 21,
+              "the-miraculous-gifts-continue-today": 11,
+              "intensity": 21
+            }
+          },
+          "xfo0074": {
+            "advocacy": {
+              "shabbat": -25,
+              "sunday": 90,
+              "friday": -60,
+              "intensity": 90
+            },
+            "receptivity": {
+              "shabbat": -9,
+              "sunday": 34,
+              "friday": -23,
+              "intensity": 34
+            }
+          },
+          "xfo0059": {
+            "advocacy": {
+              "jesus-will-return-in-glory": 95,
+              "not-affirmed": -90,
+              "jesus-will-not-return": -95,
+              "intensity": 95
+            },
+            "receptivity": {
+              "jesus-will-return-in-glory": 36,
+              "not-affirmed": -34,
+              "jesus-will-not-return": -36,
+              "intensity": 36
+            }
+          },
+          "xfo0061": {
+            "advocacy": {
+              "hell-is-eternal": 90,
+              "annihilation": -75,
+              "hell-is-a-temporary-purification": -80,
+              "intensity": 90
+            },
+            "receptivity": {
+              "hell-is-eternal": 34,
+              "annihilation": -28,
+              "hell-is-a-temporary-purification": -30,
+              "intensity": 34
+            }
+          },
+          "xfo0033": {
+            "advocacy": {
+              "women-lead-and-are-ordained": -85,
+              "women-as-deacons-not-priests": -30,
+              "leadership-reserved-to-men": 85,
+              "intensity": -85
+            },
+            "receptivity": {
+              "women-lead-and-are-ordained": -32,
+              "women-as-deacons-not-priests": -11,
+              "leadership-reserved-to-men": 32,
+              "intensity": -32
+            }
+          },
+          "xfo0039": {
+            "advocacy": {
+              "one-man-and-one-woman": 95,
+              "marriage-plus-blessed-unions": -85,
+              "two-people": -90,
+              "intensity": 95
+            },
+            "receptivity": {
+              "one-man-and-one-woman": 36,
+              "marriage-plus-blessed-unions": -32,
+              "two-people": -34,
+              "intensity": 36
+            }
+          },
+          "xfo0042": {
+            "advocacy": {
+              "opposed-except-to-save-life": 80,
+              "permitted-in-grave-circumstances": -55,
+              "permitted-as-last-resort": -65,
+              "intensity": 80
+            },
+            "receptivity": {
+              "opposed-except-to-save-life": 30,
+              "permitted-in-grave-circumstances": -21,
+              "permitted-as-last-resort": -25,
+              "intensity": 30
+            }
+          },
+          "xfo0043": {
+            "advocacy": {
+              "sex-only-in-marriage": 95,
+              "welcoming-not-affirming": -85,
+              "same-sex-relationships-affirmed": -90,
+              "intensity": 95
+            },
+            "receptivity": {
+              "sex-only-in-marriage": 36,
+              "welcoming-not-affirming": -32,
+              "same-sex-relationships-affirmed": -34,
+              "intensity": 36
+            }
+          }
+        },
+        "skin": "forescapades"
+      },
+      "skin": "forescapades",
+      "kind": "sample",
+      "stack": "Baptist creed",
+      "stackKey": "for-baptist",
+      "date": "2000"
+    },
+    "for-baptist-1963": {
+      "name": "Baptist Faith and Message (1963)",
+      "count": 27,
+      "about": "Baptist Faith and Message (1963), rated on the same Fores topics as the current Baptist creed sample — a dated layer in the creed's palimpsest.",
+      "links": [],
+      "payload": {
+        "app": "sexcapades",
+        "version": 16,
+        "noFlash": true,
+        "profileName": "Baptist Faith and Message (1963)",
+        "archetype": "Baptist creed",
+        "aboutMe": "Baptist Faith and Message (1963), rated on the same Fores topics as the current Baptist creed sample — a dated layer in the creed's palimpsest.",
+        "ratings": {
+          "xfo0007": {
+            "advocacy": {
+              "one-god-indivisible": -75,
+              "modalism": -75,
+              "one-god-in-three-persons": 95,
+              "intensity": 95
+            },
+            "receptivity": {
+              "one-god-indivisible": -28,
+              "modalism": -28,
+              "one-god-in-three-persons": 36,
+              "intensity": 36
+            }
+          },
+          "xfo0009": {
+            "advocacy": {
+              "true-god-and-true-man": 95,
+              "prophet-and-messiah-not-divine": -85,
+              "jewish-teacher-not-messiah": -90,
+              "intensity": 95
+            },
+            "receptivity": {
+              "true-god-and-true-man": 36,
+              "prophet-and-messiah-not-divine": -32,
+              "jewish-teacher-not-messiah": -34,
+              "intensity": 36
+            }
+          },
+          "xfo0010": {
+            "advocacy": {
+              "conceived-by-the-holy-spirit": 90,
+              "affirmed-not-essential": -85,
+              "not-born-of-a-virgin": -90,
+              "intensity": 90
+            },
+            "receptivity": {
+              "conceived-by-the-holy-spirit": 34,
+              "affirmed-not-essential": -32,
+              "not-born-of-a-virgin": -34,
+              "intensity": 34
+            }
+          },
+          "xfo0011": {
+            "advocacy": {
+              "christ-truly-rose-bodily": 95,
+              "spiritual-resurrection": -90,
+              "jesus-did-not-rise": -95,
+              "intensity": 95
+            },
+            "receptivity": {
+              "christ-truly-rose-bodily": 36,
+              "spiritual-resurrection": -34,
+              "jesus-did-not-rise": -36,
+              "intensity": 36
+            }
+          },
+          "xfo0014": {
+            "advocacy": {
+              "original-sin-inherited": 65,
+              "ancestral-sin-inherited": 10,
+              "no-inherited-sin": -60,
+              "intensity": 65
+            },
+            "receptivity": {
+              "original-sin-inherited": 25,
+              "ancestral-sin-inherited": 4,
+              "no-inherited-sin": -23,
+              "intensity": 25
+            }
+          },
+          "xfo0066": {
+            "advocacy": {
+              "messiah-not-yet-come": -85,
+              "jesus-the-messiah-prophet": -70,
+              "jesus-the-messiah-god-incarnate": 90,
+              "intensity": 90
+            },
+            "receptivity": {
+              "messiah-not-yet-come": -32,
+              "jesus-the-messiah-prophet": -26,
+              "jesus-the-messiah-god-incarnate": 34,
+              "intensity": 34
+            }
+          },
+          "xfo0001": {
+            "advocacy": {
+              "judaism-yahwism-covenant-of-the-torah": -55,
+              "christianity-christology-incarnate-logos": 95,
+              "islam-tawhid-final-prophethood": -75,
+              "intensity": 95
+            },
+            "receptivity": {
+              "judaism-yahwism-covenant-of-the-torah": -21,
+              "christianity-christology-incarnate-logos": 36,
+              "islam-tawhid-final-prophethood": -28,
+              "intensity": 36
+            }
+          },
+          "xfo0083": {
+            "advocacy": {
+              "purely-allegorical": 25,
+              "real-attributes-meaning-deferred": 55,
+              "affirmed-literally-bila-kayfa": -40,
+              "intensity": 55
+            },
+            "receptivity": {
+              "purely-allegorical": 9,
+              "real-attributes-meaning-deferred": 21,
+              "affirmed-literally-bila-kayfa": -15,
+              "intensity": 21
+            }
+          },
+          "xfo0015": {
+            "advocacy": {
+              "text-with-authoritative-tradition": -80,
+              "prima-scriptura": -70,
+              "written-text-alone": 90,
+              "intensity": 90
+            },
+            "receptivity": {
+              "text-with-authoritative-tradition": -30,
+              "prima-scriptura": -26,
+              "written-text-alone": 34,
+              "intensity": 34
+            }
+          },
+          "xfo0016": {
+            "advocacy": {
+              "the-canon-is-the-tanakh": 30,
+              "the-canon-is-the-christian-bible": 85,
+              "the-canon-is-the-quran": -85,
+              "intensity": 85
+            },
+            "receptivity": {
+              "the-canon-is-the-tanakh": 11,
+              "the-canon-is-the-christian-bible": 32,
+              "the-canon-is-the-quran": -32,
+              "intensity": 32
+            }
+          },
+          "xfo0017": {
+            "advocacy": {
+              "scripture-is-without-error": 85,
+              "without-error-in-what-it-teaches": 55,
+              "scripture-is-authoritative-for-salvation": 60,
+              "intensity": 85
+            },
+            "receptivity": {
+              "scripture-is-without-error": 32,
+              "without-error-in-what-it-teaches": 21,
+              "scripture-is-authoritative-for-salvation": 23,
+              "intensity": 32
+            }
+          },
+          "xfo0019": {
+            "advocacy": {
+              "sacred-tradition-is-equally-authoritative": -85,
+              "a-weighty-witness": -55,
+              "tradition-is-a-subordinate-witness": 85,
+              "intensity": -85
+            },
+            "receptivity": {
+              "sacred-tradition-is-equally-authoritative": -32,
+              "a-weighty-witness": -21,
+              "tradition-is-a-subordinate-witness": 32,
+              "intensity": -32
+            }
+          },
+          "xfo0070": {
+            "advocacy": {
+              "prophecy-ended-with-hebrew-prophets": -40,
+              "jesus-the-final-revelation": 65,
+              "muhammad-the-final-prophet": -65,
+              "intensity": 65
+            },
+            "receptivity": {
+              "prophecy-ended-with-hebrew-prophets": -15,
+              "jesus-the-final-revelation": 25,
+              "muhammad-the-final-prophet": -25,
+              "intensity": 25
+            }
+          },
+          "xfo0031": {
+            "advocacy": {
+              "one-visible-communion": -55,
+              "one-church-across-many-bodies": -35,
+              "people-of-god-in-congregations": 90,
+              "intensity": 90
+            },
+            "receptivity": {
+              "one-visible-communion": -21,
+              "one-church-across-many-bodies": -13,
+              "people-of-god-in-congregations": 34,
+              "intensity": 34
+            }
+          },
+          "xfo0032": {
+            "advocacy": {
+              "episcopal": -75,
+              "presbyterian": -55,
+              "congregational": 95,
+              "intensity": 95
+            },
+            "receptivity": {
+              "episcopal": -28,
+              "presbyterian": -21,
+              "congregational": 36,
+              "intensity": 36
+            }
+          },
+          "xfo0024": {
+            "advocacy": {
+              "made-right-by-faith-alone": 85,
+              "faith-formed-by-love": -65,
+              "made-right-by-faith-and-works": -75,
+              "intensity": 85
+            },
+            "receptivity": {
+              "made-right-by-faith-alone": 32,
+              "faith-formed-by-love": -25,
+              "made-right-by-faith-and-works": -28,
+              "intensity": 32
+            }
+          },
+          "xfo0025": {
+            "advocacy": {
+              "irresistible-grace": -40,
+              "resistible-grace": 65,
+              "prevenient-grace": 30,
+              "intensity": 65
+            },
+            "receptivity": {
+              "irresistible-grace": -15,
+              "resistible-grace": 25,
+              "prevenient-grace": 11,
+              "intensity": 25
+            }
+          },
+          "xfo0026": {
+            "advocacy": {
+              "unconditional-election-and-reprobation": -60,
+              "election-to-salvation-in-christ": 65,
+              "election-conditioned-on-foreknowledge": 25,
+              "intensity": 65
+            },
+            "receptivity": {
+              "unconditional-election-and-reprobation": -23,
+              "election-to-salvation-in-christ": 25,
+              "election-conditioned-on-foreknowledge": 9,
+              "intensity": 25
+            }
+          },
+          "xfo0027": {
+            "advocacy": {
+              "satisfaction-vicarious-atonement": 85,
+              "ransom-christus-victor": 25,
+              "repentance-and-good-deeds": -60,
+              "intensity": 85
+            },
+            "receptivity": {
+              "satisfaction-vicarious-atonement": 32,
+              "ransom-christus-victor": 9,
+              "repentance-and-good-deeds": -23,
+              "intensity": 32
+            }
+          },
+          "xfo0030": {
+            "advocacy": {
+              "venerated-and-invoked": -75,
+              "honoured-not-invoked": 15,
+              "christ-alone-mediator": 80,
+              "intensity": 80
+            },
+            "receptivity": {
+              "venerated-and-invoked": -28,
+              "honoured-not-invoked": 6,
+              "christ-alone-mediator": 30,
+              "intensity": 30
+            }
+          },
+          "xfo0035": {
+            "advocacy": {
+              "seven-sacraments": -85,
+              "two-sacraments-five-sacramental-rites": -75,
+              "two-sacraments-or-ordinances": 90,
+              "intensity": 90
+            },
+            "receptivity": {
+              "seven-sacraments": -32,
+              "two-sacraments-five-sacramental-rites": -28,
+              "two-sacraments-or-ordinances": 34,
+              "intensity": 34
+            }
+          },
+          "xfo0036": {
+            "advocacy": {
+              "infant-baptism-regenerates": -85,
+              "infant-baptism-sign-and-seal": -55,
+              "believers-baptism-by-immersion": 95,
+              "intensity": 95
+            },
+            "receptivity": {
+              "infant-baptism-regenerates": -32,
+              "infant-baptism-sign-and-seal": -21,
+              "believers-baptism-by-immersion": 36,
+              "intensity": 36
+            }
+          },
+          "xfo0037": {
+            "advocacy": {
+              "truly-present-body-and-blood": -80,
+              "spiritually-present-to-faith": 10,
+              "memorial-and-symbol-only": 90,
+              "intensity": 90
+            },
+            "receptivity": {
+              "truly-present-body-and-blood": -30,
+              "spiritually-present-to-faith": 4,
+              "memorial-and-symbol-only": 34,
+              "intensity": 34
+            }
+          },
+          "xfo0056": {
+            "advocacy": {
+              "the-miraculous-gifts-have-ceased": -20,
+              "open-but-cautious": 55,
+              "the-miraculous-gifts-continue-today": 25,
+              "intensity": 55
+            },
+            "receptivity": {
+              "the-miraculous-gifts-have-ceased": -8,
+              "open-but-cautious": 21,
+              "the-miraculous-gifts-continue-today": 9,
+              "intensity": 21
+            }
+          },
+          "xfo0074": {
+            "advocacy": {
+              "shabbat": -25,
+              "sunday": 90,
+              "friday": -60,
+              "intensity": 90
+            },
+            "receptivity": {
+              "shabbat": -9,
+              "sunday": 34,
+              "friday": -23,
+              "intensity": 34
+            }
+          },
+          "xfo0059": {
+            "advocacy": {
+              "jesus-will-return-in-glory": 95,
+              "not-affirmed": -90,
+              "jesus-will-not-return": -95,
+              "intensity": 95
+            },
+            "receptivity": {
+              "jesus-will-return-in-glory": 36,
+              "not-affirmed": -34,
+              "jesus-will-not-return": -36,
+              "intensity": 36
+            }
+          },
+          "xfo0061": {
+            "advocacy": {
+              "hell-is-eternal": 90,
+              "annihilation": -75,
+              "hell-is-a-temporary-purification": -80,
+              "intensity": 90
+            },
+            "receptivity": {
+              "hell-is-eternal": 34,
+              "annihilation": -28,
+              "hell-is-a-temporary-purification": -30,
+              "intensity": 34
+            }
+          }
+        },
+        "skin": "forescapades"
+      },
+      "skin": "forescapades",
+      "kind": "sample",
+      "stack": "Baptist creed",
+      "stackKey": "for-baptist",
+      "date": "1963"
+    },
+    "for-baptist-1689": {
+      "name": "Second London Baptist Confession (1689)",
+      "count": 36,
+      "about": "Second London Baptist Confession (1689), rated on the same Fores topics as the current Baptist creed sample — a dated layer in the creed's palimpsest.",
+      "links": [],
+      "payload": {
+        "app": "sexcapades",
+        "version": 16,
+        "noFlash": true,
+        "profileName": "Second London Baptist Confession (1689)",
+        "archetype": "Baptist creed",
+        "aboutMe": "Second London Baptist Confession (1689), rated on the same Fores topics as the current Baptist creed sample — a dated layer in the creed's palimpsest.",
+        "ratings": {
+          "xfo0007": {
+            "advocacy": {
+              "one-god-indivisible": -80,
+              "modalism": -80,
+              "one-god-in-three-persons": 95,
+              "intensity": 95
+            },
+            "receptivity": {
+              "one-god-indivisible": -30,
+              "modalism": -30,
+              "one-god-in-three-persons": 36,
+              "intensity": 36
+            }
+          },
+          "xfo0009": {
+            "advocacy": {
+              "true-god-and-true-man": 95,
+              "prophet-and-messiah-not-divine": -85,
+              "jewish-teacher-not-messiah": -90,
+              "intensity": 95
+            },
+            "receptivity": {
+              "true-god-and-true-man": 36,
+              "prophet-and-messiah-not-divine": -32,
+              "jewish-teacher-not-messiah": -34,
+              "intensity": 36
+            }
+          },
+          "xfo0010": {
+            "advocacy": {
+              "conceived-by-the-holy-spirit": 90,
+              "affirmed-not-essential": -85,
+              "not-born-of-a-virgin": -90,
+              "intensity": 90
+            },
+            "receptivity": {
+              "conceived-by-the-holy-spirit": 34,
+              "affirmed-not-essential": -32,
+              "not-born-of-a-virgin": -34,
+              "intensity": 34
+            }
+          },
+          "xfo0011": {
+            "advocacy": {
+              "christ-truly-rose-bodily": 95,
+              "spiritual-resurrection": -90,
+              "jesus-did-not-rise": -95,
+              "intensity": 95
+            },
+            "receptivity": {
+              "christ-truly-rose-bodily": 36,
+              "spiritual-resurrection": -34,
+              "jesus-did-not-rise": -36,
+              "intensity": 36
+            }
+          },
+          "xfo0014": {
+            "advocacy": {
+              "original-sin-inherited": 90,
+              "ancestral-sin-inherited": -15,
+              "no-inherited-sin": -90,
+              "intensity": 90
+            },
+            "receptivity": {
+              "original-sin-inherited": 34,
+              "ancestral-sin-inherited": -6,
+              "no-inherited-sin": -34,
+              "intensity": 34
+            }
+          },
+          "xfo0066": {
+            "advocacy": {
+              "messiah-not-yet-come": -90,
+              "jesus-the-messiah-prophet": -75,
+              "jesus-the-messiah-god-incarnate": 95,
+              "intensity": 95
+            },
+            "receptivity": {
+              "messiah-not-yet-come": -34,
+              "jesus-the-messiah-prophet": -28,
+              "jesus-the-messiah-god-incarnate": 36,
+              "intensity": 36
+            }
+          },
+          "xfo0067": {
+            "advocacy": {
+              "covenant-with-israel-eternal": 10,
+              "fulfilled-in-the-new-covenant": 85,
+              "covenant-renewed-in-islam": -85,
+              "intensity": 85
+            },
+            "receptivity": {
+              "covenant-with-israel-eternal": 4,
+              "fulfilled-in-the-new-covenant": 32,
+              "covenant-renewed-in-islam": -32,
+              "intensity": 32
+            }
+          },
+          "xfo0001": {
+            "advocacy": {
+              "judaism-yahwism-covenant-of-the-torah": -55,
+              "christianity-christology-incarnate-logos": 95,
+              "islam-tawhid-final-prophethood": -85,
+              "intensity": 95
+            },
+            "receptivity": {
+              "judaism-yahwism-covenant-of-the-torah": -21,
+              "christianity-christology-incarnate-logos": 36,
+              "islam-tawhid-final-prophethood": -32,
+              "intensity": 36
+            }
+          },
+          "xfo0083": {
+            "advocacy": {
+              "purely-allegorical": 35,
+              "real-attributes-meaning-deferred": 60,
+              "affirmed-literally-bila-kayfa": -55,
+              "intensity": 60
+            },
+            "receptivity": {
+              "purely-allegorical": 13,
+              "real-attributes-meaning-deferred": 23,
+              "affirmed-literally-bila-kayfa": -21,
+              "intensity": 23
+            }
+          },
+          "xfo0015": {
+            "advocacy": {
+              "text-with-authoritative-tradition": -85,
+              "prima-scriptura": -75,
+              "written-text-alone": 95,
+              "intensity": 95
+            },
+            "receptivity": {
+              "text-with-authoritative-tradition": -32,
+              "prima-scriptura": -28,
+              "written-text-alone": 36,
+              "intensity": 36
+            }
+          },
+          "xfo0016": {
+            "advocacy": {
+              "the-canon-is-the-tanakh": 35,
+              "the-canon-is-the-christian-bible": 90,
+              "the-canon-is-the-quran": -90,
+              "intensity": 90
+            },
+            "receptivity": {
+              "the-canon-is-the-tanakh": 13,
+              "the-canon-is-the-christian-bible": 34,
+              "the-canon-is-the-quran": -34,
+              "intensity": 34
+            }
+          },
+          "xfo0017": {
+            "advocacy": {
+              "scripture-is-without-error": 90,
+              "without-error-in-what-it-teaches": 60,
+              "scripture-is-authoritative-for-salvation": 70,
+              "intensity": 90
+            },
+            "receptivity": {
+              "scripture-is-without-error": 34,
+              "without-error-in-what-it-teaches": 23,
+              "scripture-is-authoritative-for-salvation": 26,
+              "intensity": 34
+            }
+          },
+          "xfo0019": {
+            "advocacy": {
+              "sacred-tradition-is-equally-authoritative": -85,
+              "a-weighty-witness": -60,
+              "tradition-is-a-subordinate-witness": 85,
+              "intensity": -85
+            },
+            "receptivity": {
+              "sacred-tradition-is-equally-authoritative": -32,
+              "a-weighty-witness": -23,
+              "tradition-is-a-subordinate-witness": 32,
+              "intensity": -32
+            }
+          },
+          "xfo0020": {
+            "advocacy": {
+              "papal-primacy-of-jurisdiction": -95,
+              "primacy-of-honor": -85,
+              "no-papal-jurisdiction": 95,
+              "intensity": -95
+            },
+            "receptivity": {
+              "papal-primacy-of-jurisdiction": -36,
+              "primacy-of-honor": -32,
+              "no-papal-jurisdiction": 36,
+              "intensity": -36
+            }
+          },
+          "xfo0022": {
+            "advocacy": {
+              "unbroken-chain-of-ordination": -75,
+              "both-chain-and-fidelity": -65,
+              "succession-is-fidelity-to-doctrine": 85,
+              "intensity": 85
+            },
+            "receptivity": {
+              "unbroken-chain-of-ordination": -28,
+              "both-chain-and-fidelity": -25,
+              "succession-is-fidelity-to-doctrine": 32,
+              "intensity": 32
+            }
+          },
+          "xfo0070": {
+            "advocacy": {
+              "prophecy-ended-with-hebrew-prophets": -60,
+              "jesus-the-final-revelation": 85,
+              "muhammad-the-final-prophet": -90,
+              "intensity": -90
+            },
+            "receptivity": {
+              "prophecy-ended-with-hebrew-prophets": -23,
+              "jesus-the-final-revelation": 32,
+              "muhammad-the-final-prophet": -34,
+              "intensity": -34
+            }
+          },
+          "xfo0071": {
+            "advocacy": {
+              "binding-law": -55,
+              "binding-but-evolves": -30,
+              "guide-interpreted-by-conscience": 15,
+              "intensity": -55
+            },
+            "receptivity": {
+              "binding-law": -21,
+              "binding-but-evolves": -11,
+              "guide-interpreted-by-conscience": 6,
+              "intensity": -21
+            }
+          },
+          "xfo0031": {
+            "advocacy": {
+              "one-visible-communion": -70,
+              "one-church-across-many-bodies": -30,
+              "people-of-god-in-congregations": 90,
+              "intensity": 90
+            },
+            "receptivity": {
+              "one-visible-communion": -26,
+              "one-church-across-many-bodies": -11,
+              "people-of-god-in-congregations": 34,
+              "intensity": 34
+            }
+          },
+          "xfo0032": {
+            "advocacy": {
+              "episcopal": -75,
+              "presbyterian": -50,
+              "congregational": 95,
+              "intensity": 95
+            },
+            "receptivity": {
+              "episcopal": -28,
+              "presbyterian": -19,
+              "congregational": 36,
+              "intensity": 36
+            }
+          },
+          "xfo0024": {
+            "advocacy": {
+              "made-right-by-faith-alone": 90,
+              "faith-formed-by-love": -70,
+              "made-right-by-faith-and-works": -85,
+              "intensity": 90
+            },
+            "receptivity": {
+              "made-right-by-faith-alone": 34,
+              "faith-formed-by-love": -26,
+              "made-right-by-faith-and-works": -32,
+              "intensity": 34
+            }
+          },
+          "xfo0025": {
+            "advocacy": {
+              "irresistible-grace": 85,
+              "resistible-grace": -60,
+              "prevenient-grace": -55,
+              "intensity": 85
+            },
+            "receptivity": {
+              "irresistible-grace": 32,
+              "resistible-grace": -23,
+              "prevenient-grace": -21,
+              "intensity": 32
+            }
+          },
+          "xfo0026": {
+            "advocacy": {
+              "unconditional-election-and-reprobation": 95,
+              "election-to-salvation-in-christ": -40,
+              "election-conditioned-on-foreknowledge": -75,
+              "intensity": 95
+            },
+            "receptivity": {
+              "unconditional-election-and-reprobation": 36,
+              "election-to-salvation-in-christ": -15,
+              "election-conditioned-on-foreknowledge": -28,
+              "intensity": 36
+            }
+          },
+          "xfo0027": {
+            "advocacy": {
+              "satisfaction-vicarious-atonement": 90,
+              "ransom-christus-victor": 30,
+              "repentance-and-good-deeds": -70,
+              "intensity": 90
+            },
+            "receptivity": {
+              "satisfaction-vicarious-atonement": 34,
+              "ransom-christus-victor": 11,
+              "repentance-and-good-deeds": -26,
+              "intensity": 34
+            }
+          },
+          "xfo0030": {
+            "advocacy": {
+              "venerated-and-invoked": -90,
+              "honoured-not-invoked": 10,
+              "christ-alone-mediator": 95,
+              "intensity": 95
+            },
+            "receptivity": {
+              "venerated-and-invoked": -34,
+              "honoured-not-invoked": 4,
+              "christ-alone-mediator": 36,
+              "intensity": 36
+            }
+          },
+          "xfo0035": {
+            "advocacy": {
+              "seven-sacraments": -90,
+              "two-sacraments-five-sacramental-rites": -80,
+              "two-sacraments-or-ordinances": 90,
+              "intensity": -90
+            },
+            "receptivity": {
+              "seven-sacraments": -34,
+              "two-sacraments-five-sacramental-rites": -30,
+              "two-sacraments-or-ordinances": 34,
+              "intensity": -34
+            }
+          },
+          "xfo0036": {
+            "advocacy": {
+              "infant-baptism-regenerates": -90,
+              "infant-baptism-sign-and-seal": -85,
+              "believers-baptism-by-immersion": 95,
+              "intensity": 95
+            },
+            "receptivity": {
+              "infant-baptism-regenerates": -34,
+              "infant-baptism-sign-and-seal": -32,
+              "believers-baptism-by-immersion": 36,
+              "intensity": 36
+            }
+          },
+          "xfo0037": {
+            "advocacy": {
+              "truly-present-body-and-blood": -85,
+              "spiritually-present-to-faith": 55,
+              "memorial-and-symbol-only": 80,
+              "intensity": -85
+            },
+            "receptivity": {
+              "truly-present-body-and-blood": -32,
+              "spiritually-present-to-faith": 21,
+              "memorial-and-symbol-only": 30,
+              "intensity": -32
+            }
+          },
+          "xfo0053": {
+            "advocacy": {
+              "venerated-images": -75,
+              "images-permitted-not-venerated": -25,
+              "aniconism-no-images": 45,
+              "intensity": -75
+            },
+            "receptivity": {
+              "venerated-images": -28,
+              "images-permitted-not-venerated": -9,
+              "aniconism-no-images": 17,
+              "intensity": -28
+            }
+          },
+          "xfo0056": {
+            "advocacy": {
+              "the-miraculous-gifts-have-ceased": 55,
+              "open-but-cautious": -20,
+              "the-miraculous-gifts-continue-today": -50,
+              "intensity": 55
+            },
+            "receptivity": {
+              "the-miraculous-gifts-have-ceased": 21,
+              "open-but-cautious": -8,
+              "the-miraculous-gifts-continue-today": -19,
+              "intensity": 21
+            }
+          },
+          "xfo0074": {
+            "advocacy": {
+              "shabbat": -30,
+              "sunday": 90,
+              "friday": -70,
+              "intensity": 90
+            },
+            "receptivity": {
+              "shabbat": -11,
+              "sunday": 34,
+              "friday": -26,
+              "intensity": 34
+            }
+          },
+          "xfo0039": {
+            "advocacy": {
+              "one-man-and-one-woman": 90,
+              "marriage-plus-blessed-unions": -80,
+              "two-people": -85,
+              "intensity": 90
+            },
+            "receptivity": {
+              "one-man-and-one-woman": 34,
+              "marriage-plus-blessed-unions": -30,
+              "two-people": -32,
+              "intensity": 34
+            }
+          },
+          "xfo0043": {
+            "advocacy": {
+              "sex-only-in-marriage": 80,
+              "welcoming-not-affirming": -65,
+              "same-sex-relationships-affirmed": -75,
+              "intensity": 80
+            },
+            "receptivity": {
+              "sex-only-in-marriage": 30,
+              "welcoming-not-affirming": -25,
+              "same-sex-relationships-affirmed": -28,
+              "intensity": 30
+            }
+          },
+          "xfo0047": {
+            "advocacy": {
+              "total-abstinence-is-the-norm": -55,
+              "moderation-abstinence-counseled": 35,
+              "alcohol-is-permitted-in-moderation": 45,
+              "intensity": -55
+            },
+            "receptivity": {
+              "total-abstinence-is-the-norm": -21,
+              "moderation-abstinence-counseled": 13,
+              "alcohol-is-permitted-in-moderation": 17,
+              "intensity": -21
+            }
+          },
+          "xfo0077": {
+            "advocacy": {
+              "dietary-law-is-binding": -80,
+              "binds-israel-not-the-nations": -40,
+              "no-dietary-law": 80,
+              "intensity": -80
+            },
+            "receptivity": {
+              "dietary-law-is-binding": -30,
+              "binds-israel-not-the-nations": -15,
+              "no-dietary-law": 30,
+              "intensity": -30
+            }
+          },
+          "xfo0059": {
+            "advocacy": {
+              "jesus-will-return-in-glory": 95,
+              "not-affirmed": -90,
+              "jesus-will-not-return": -95,
+              "intensity": 95
+            },
+            "receptivity": {
+              "jesus-will-return-in-glory": 36,
+              "not-affirmed": -34,
+              "jesus-will-not-return": -36,
+              "intensity": 36
+            }
+          },
+          "xfo0061": {
+            "advocacy": {
+              "hell-is-eternal": 90,
+              "annihilation": -80,
+              "hell-is-a-temporary-purification": -85,
+              "intensity": 90
+            },
+            "receptivity": {
+              "hell-is-eternal": 34,
+              "annihilation": -30,
+              "hell-is-a-temporary-purification": -32,
+              "intensity": 34
+            }
+          }
+        },
+        "skin": "forescapades"
+      },
+      "skin": "forescapades",
+      "kind": "sample",
+      "stack": "Baptist creed",
+      "stackKey": "for-baptist",
+      "date": "1689"
     },
     "for-methodist": {
       "name": "Methodist creed",
