@@ -67,6 +67,22 @@ Each item waits for Jason's kickoff; nothing here dispatches itself.
    - Migration & persistence: `vt[profileId][topicId].advocacy` and `.receptivity` with legacy top-level mirroring; existing profiles seed Advocacy from flat blend + intensity, Receptivity starts unrated (`receptivityKnown = false`); archetype samples cleanly unrated for receptivity without dirtiness.
 
 
+10. ~~**The Palimpsest — Dated Stacks (Polis + Fores):**~~ Settled 2026-11-22, live in build 2348.
+   - Polis: five party stacks as archetypes (Democratic/Republican 2000–2024; Libertarian/Green/Constitution 2000–2020 + present tops) — 34 entries.
+   - Fores: eight creed stacks as archetypes (Baptist, Catholic, Orthodox, Lutheran, Reformed, Methodist, Jewish, Sunni; layers 933–2024 + present tops) — 34 entries.
+   - Stack menus: one parent per stack inside the Archetypes menu, dated-layer submenu, Load whole stack; projection headlines rank top layers only with a "Closest layer across time" line. Dual-listing and mouse-dismissal defects found on Jason's cold-open and fixed the same night (also in 2348).
+   - Stacked entries are ARCHETYPES, not samples (Jason's ruling, 2026-11-22 23:17 CST); menu machinery generalized kind-agnostic; the Samples entry hides while a skin has no samples and returns with a user's local samples.
+
+11. ~~**Sample Second Looks (Catholic + Constitution):**~~ Settled 2026-11-22, live in build 2348.
+   - Catholic current sample: Righteousness before God, faith-formed-by-love −65 → +80 (the tradition's own formula; all three historical layers already held +80).
+   - Constitution current sample corrected to its platform texts: Border Enforcement wall 95 → 65, Voting Access require-ID 70 → 25 (topic polarity was backwards), School Choice vouchers 85 → 35, Deportation rating removed (no platform text in any year). Digital Currency left standing as defensible inference from the monetary planks.
+
+12. **Icon Repair — All Skins:** IN FLIGHT (builder running, 2026-11-23).
+   - Every vanilla skin's catalog block uses ONE shared star glyph for all 111 categories; Nouscapades has no catalog block at all. Job: a distinct, relevant glyph per category for all 18 skins (137 categories), a new Nous block, plus two painter defects from Jason's cold-open: unrated branches wearing glyph color, and branches showing intensity and "Unrated" at once.
+   - Contact sheets to be reviewed before push; Jason's cold-open is the final proof.
+
+13. **Community Pass — Dance / Quest / Nous:** Data DONE + staged 2026-11-23 (183/183 topics, verified communities only, no Discords invented); merge into the skin JSONs waits on item 12 freeing the tree, then push + deploy together.
+
 ---
 
 ## 2. Open Carry-Overs & Backlog
@@ -77,8 +93,12 @@ Items to verify or address when relevant to their subsystem:
 - **The 7 Ambiguous Sliders (pending Shel):**
   - Sliders with text: Nyotaimori ("lie as platter / eat from body"), Siblings ("be the sister / be the brother"), Superheroes ("be the hero / be the villain").
   - Topics without sliders (pole hints only): Growth / shrinking, Size contrast, Surrogacy, Hotwife (live row is Bull / Hotwife / Cuckold triad `t0281`).
-- **R9f — Sadomasochism Reorganization:** APPLIED + PUSHED 2026-11-22 (Jason's "apply now"; commits f21f86a skins, ff2f512/6dca12e modules, bundles 058776a/831e42b/d99b674). Pain (t0051) renamed Sadomasochism with flank labels Sadism/Masochism; Sadism (t0252) retired — sample ratings folded same-direction, converter remaps t0252/topic-sadism to t0051, importer sends Sadism/Sadist to the give side and Masochism/Masochist to the receive side of Sadomasochism, "Pain" kept as alias. Emotional Sadism untouched. Merged catalog now 374 topics. Deployment + cold-open owed.
+- **R9f — Sadomasochism Reorganization:** APPLIED + PUSHED 2026-11-22 (Jason's "apply now"; commits f21f86a skins, ff2f512/6dca12e modules, bundles 058776a/831e42b/d99b674). Pain (t0051) renamed Sadomasochism with flank labels Sadism/Masochism; Sadism (t0252) retired — sample ratings folded same-direction, converter remaps t0252/topic-sadism to t0051, importer sends Sadism/Sadist to the give side and Masochism/Masochist to the receive side of Sadomasochism, "Pain" kept as alias. Emotional Sadism untouched. Merged catalog now 374 topics. Deployed (live in build 2026-11-22_2348); cold-open still owed.
 - **Triangle Palette:** Barycentric corners currently use red / green / blue; center is the mix, not black, and does not deepen as pole numbers spread. Check if spec adjustment is desired.
 - **GibberWear Tester Count:** Currently at 3 of 12; 14-day testing bar pending.
 - **Paddle Formula Live Flip:** `capEnd` matches; live flip verification check (crossing numbers move, placard ratings survive reload) open.
 - **Shortcuts View:** Leave until named by Jason (do not invent a screen).
+- **z90 Bet — Action-Count Run:** Settlement instrument replaced 2026-11-22: the bet settles if rating one n-pole topic on the un-tangled map takes fewer than 7 actions (counting advocacy, receptivity, and intensities). A counted run of the real rating flow is still owed.
+- **Stance-Skin Taper Labels:** Spoke stem aria/tooltip labels still derive from give/receive and read "Unrated" on stance skins (follow-up to the 2026-11-22 advocacy/receptivity tapers).
+- **Sample Flags Awaiting Jason's Word:** Sunni current sample leaves Predestination at all zeros while al-Tahawi (933) defines it at full strength; Lutheran current sample rates faith-formed-by-love at −80, closer to 1580 than to its own 1999 Joint Declaration layer (−30).
+- **Three More Fores Stacks (proposed, not ordered):** Jehovah's Witnesses, Latter-day Saints, Mennonites are not among Fores' eight creeds; stacks proposed 2026-11-22, awaiting Jason's word.
