@@ -287,8 +287,8 @@
     if (pack.skin && String(pack.skin) !== skin) {
       rosterToast("That roster is for a different map — open it on its own map to load it."); return null;
     }
-    /* Each roster lives under its own heading in the Samples menu
-       (Jason, 2026-11-22): entries carry roster/rosterKey tags, and
+    /* Each roster gets its own entry in the add menu (Jason,
+       2026-11-22): entries carry roster/rosterKey tags, and
        importing a pack REPLACES that roster's previous copy — a pack
        is the authority on its own membership, so a member dropped
        from the pack leaves the menu. Personal locals, other rosters,
@@ -313,7 +313,7 @@
       added++;
     });
     if (added) {
-      rosterToast("Roster \u201C" + rosterName + "\u201D loaded: " + added + " member" + (added === 1 ? "" : "s") + (swept ? " (replaced the previous copy)" : "") + (skipped ? ", " + skipped + " skipped" : "") + ". Find them in the Samples menu." + (sourceLabel ? " (" + sourceLabel + ")" : ""));
+      rosterToast("Roster \u201C" + rosterName + "\u201D loaded: " + added + " member" + (added === 1 ? "" : "s") + (swept ? " (replaced the previous copy)" : "") + (skipped ? ", " + skipped + " skipped" : "") + ". Find them under \u201C" + rosterName + "\u201D in the add menu." + (sourceLabel ? " (" + sourceLabel + ")" : ""));
     } else {
       rosterToast("No usable samples in that roster pack" + (skipped ? " — " + skipped + " skipped." : "."));
     }
@@ -1354,14 +1354,30 @@
         target.appendChild(item);
       });
     }
-    /* Roster groups (2026-11-22): local samples tagged with a roster
-       key render under their roster's own heading, after the plain
-       samples — Archetypes, Samples, then one group per roster, so a
-       person in several groups sees each roster apart. */
-    var plainSamples = [], rosterGroups = {}, rosterOrder = [];
+    /* Roster entries (2026-11-22, Jason's ruling): each roster gets
+       its OWN entry in the add menu, beside Archetypes and Samples —
+       not a heading inside the Samples menu. A user carries at most a
+       few rosters, so the main menu stays short, and each roster's
+       submenu holds only its members. Membership comes from the
+       roster tag on an entry, whether the entry is built into the
+       skin (the Friday Knights ship as Questcapades' demo roster) or
+       imported as a local pack; an imported member shadows a built-in
+       of the same name in the same roster (the fresher copy wins).
+       The menus are created here and wired through 06d's
+       __SX_WIRE_SAMPLE_SUBMENU hook, so they behave exactly like the
+       static submenus; without the hook (older bundle), rosters fall
+       back to headed groups inside the Samples menu. */
+    var plainSamples = [], rosterGroups = {}, rosterOrder = [], localRosterNames = {};
     samplesList.forEach(function (key) {
       var e = samples[key];
-      if (e && e.local && e.rosterKey) {
+      if (e && e.rosterKey && e.local) {
+        (localRosterNames[e.rosterKey] = localRosterNames[e.rosterKey] || {})[String(e.name || "").trim().toLowerCase()] = true;
+      }
+    });
+    samplesList.forEach(function (key) {
+      var e = samples[key];
+      if (e && e.rosterKey) {
+        if (!e.local && localRosterNames[e.rosterKey] && localRosterNames[e.rosterKey][String(e.name || "").trim().toLowerCase()]) return;
         if (!rosterGroups[e.rosterKey]) { rosterGroups[e.rosterKey] = { name: e.roster || "Roster", keys: [] }; rosterOrder.push(e.rosterKey); }
         rosterGroups[e.rosterKey].keys.push(key);
       } else plainSamples.push(key);
@@ -1369,33 +1385,83 @@
     if (archMenu) {
       addGroup(archMenu, null, archetypes);
       addGroup(menu, null, plainSamples);
-      rosterOrder.forEach(function (rk) { addGroup(menu, rosterGroups[rk].name, rosterGroups[rk].keys); });
-      if (!samplesList.length) hideSamplesEntry();
+      if (!plainSamples.length) hideSamplesEntry();
       else if (sampleEntry) sampleEntry.hidden = false;
     } else {
       addGroup(menu, "Archetypes", archetypes);
       addGroup(menu, "Samples", plainSamples);
-      rosterOrder.forEach(function (rk) { addGroup(menu, rosterGroups[rk].name, rosterGroups[rk].keys); });
       if (sampleEntry) sampleEntry.hidden = false;
     }
-    /* Roster pack actions (2026-11-22): export this map's local samples
-       as a pack, or import a pack file. They wear the sample-choice
-       class for menu styling (so the rebuild's clear pass removes them
-       with everything else) but carry no data-sample-profile, so the
-       sample loader ignores them. */
-    [["Export roster pack", exportRosterPack], ["Import roster pack", pickRosterFile]].forEach(function (pair) {
-      var item = document.createElement("div");
-      item.className = "sample-profile-item";
+    syncRosterMenus(rosterGroups, rosterOrder, addGroup, menu);
+    ensureRosterAddActions();
+  }
+
+  /* Roster submenu elements, created by rebuildSampleMenu and kept in
+     this registry across rebuilds (keyed by roster key). Vanished
+     rosters (skin switch, roster replaced away) lose their elements. */
+  var rosterMenuEls = {};
+  function syncRosterMenus(rosterGroups, rosterOrder, addGroup, samplesMenu) {
+    var addMenu = document.getElementById("profileAddMenu");
+    var wire = (typeof window.__SX_WIRE_SAMPLE_SUBMENU === "function") ? window.__SX_WIRE_SAMPLE_SUBMENU : null;
+    Object.keys(rosterMenuEls).forEach(function (rk) {
+      if (!rosterGroups[rk]) {
+        rosterMenuEls[rk].entry.remove();
+        rosterMenuEls[rk].menu.remove();
+        delete rosterMenuEls[rk];
+      }
+    });
+    if (!wire || !addMenu || !samplesMenu) {
+      /* Fallback (older bundle): headed groups inside the Samples menu. */
+      rosterOrder.forEach(function (rk) { addGroup(samplesMenu, rosterGroups[rk].name, rosterGroups[rk].keys); });
+      return;
+    }
+    var savedChoice = document.getElementById("loadSavedProfileChoice");
+    rosterOrder.forEach(function (rk) {
+      var group = rosterGroups[rk];
+      var els = rosterMenuEls[rk];
+      if (!els) {
+        var entry = document.createElement("button");
+        entry.type = "button";
+        entry.id = "loadRosterChoice-" + rk;
+        entry.setAttribute("role", "menuitem");
+        entry.setAttribute("aria-haspopup", "menu");
+        entry.setAttribute("aria-expanded", "false");
+        var rmenu = document.createElement("div");
+        rmenu.id = "profileRosterMenu-" + rk;
+        rmenu.className = "profile-add-menu profile-sample-menu";
+        rmenu.setAttribute("role", "menu");
+        rmenu.hidden = true;
+        var back = document.createElement("button");
+        back.type = "button";
+        back.className = "sample-menu-back";
+        back.setAttribute("role", "menuitem");
+        back.textContent = "\u2039 Back";
+        rmenu.appendChild(back);
+        addMenu.insertBefore(entry, savedChoice || null);
+        samplesMenu.parentElement.appendChild(rmenu);
+        wire(entry, rmenu, back);
+        els = rosterMenuEls[rk] = { entry: entry, menu: rmenu };
+      }
+      els.entry.textContent = group.name + "\u2026";
+      els.menu.setAttribute("aria-label", group.name);
+      els.menu.querySelectorAll(".sample-profile-choice, .sample-profile-item, .sample-menu-group").forEach(function (b) { b.remove(); });
+      addGroup(els.menu, null, group.keys);
+    });
+  }
+  /* Export/Import roster pack live in the add menu itself (2026-11-22):
+     they add profiles, they are reachable even on a map whose Samples
+     entry is hidden, and they never need a submenu. Created once. */
+  function ensureRosterAddActions() {
+    var addMenu = document.getElementById("profileAddMenu");
+    if (!addMenu || document.getElementById("exportRosterChoice")) return;
+    [["exportRosterChoice", "Export roster pack", exportRosterPack], ["importRosterChoice", "Import roster pack", pickRosterFile]].forEach(function (spec) {
       var btn = document.createElement("button");
-      btn.className = "sample-profile-choice roster-pack-action";
       btn.type = "button";
+      btn.id = spec[0];
       btn.setAttribute("role", "menuitem");
-      var strong = document.createElement("strong");
-      strong.textContent = pair[0];
-      btn.appendChild(strong);
-      btn.addEventListener("click", pair[1]);
-      item.appendChild(btn);
-      menu.appendChild(item);
+      btn.textContent = spec[1];
+      btn.addEventListener("click", spec[2]);
+      addMenu.appendChild(btn);
     });
   }
 

@@ -1500,7 +1500,9 @@
         },
         "skin": "questcapades"
       },
-      "skin": "questcapades"
+      "skin": "questcapades",
+      "roster": "Friday Knights",
+      "rosterKey": "friday-knights"
     },
     "theo": {
       "kind": "sample",
@@ -1548,7 +1550,9 @@
         },
         "skin": "questcapades"
       },
-      "skin": "questcapades"
+      "skin": "questcapades",
+      "roster": "Friday Knights",
+      "rosterKey": "friday-knights"
     },
     "priya": {
       "kind": "sample",
@@ -1601,7 +1605,9 @@
         },
         "skin": "questcapades"
       },
-      "skin": "questcapades"
+      "skin": "questcapades",
+      "roster": "Friday Knights",
+      "rosterKey": "friday-knights"
     }
   },
   "scribe": {
