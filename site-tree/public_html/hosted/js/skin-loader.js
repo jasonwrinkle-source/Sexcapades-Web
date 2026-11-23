@@ -1683,14 +1683,36 @@
     });
   }
 
+  /* Brand text comes in two forms (Jason's ruling, 2026-11-23): the
+     full dotted domain ("Sex.Capades.IO") and a compact form — the
+     skin's short name plus "*" standing in for "capades" ("Sex*",
+     "Polis*") — for narrow headers. Title-bar brand buttons carry
+     both forms in .sx-brand-full / .sx-brand-compact spans and the
+     CSS width swap picks which one shows, so a resize needs no
+     re-render; this only keeps both spans' text current. A brand
+     element without the spans (the About copy's inline span, the
+     gate's own span) still gets the full name as plain text. */
+  function applyBrandText(el, full, compact) {
+    var f = el.querySelector(".sx-brand-full");
+    var c = el.querySelector(".sx-brand-compact");
+    if (f || c) {
+      if (f) f.textContent = full;
+      if (c) c.textContent = compact;
+    } else {
+      el.textContent = full;
+    }
+  }
+
   function setBrand(skinId, displayName) {
     var prefix = skinPrefixFor(skinId);
-    var dotted = prefix ? (prefix.charAt(0).toUpperCase() + prefix.slice(1) + ".Capades.IO") : "Sex.Capades.IO";
+    var cap = prefix ? (prefix.charAt(0).toUpperCase() + prefix.slice(1)) : "";
+    var dotted = cap ? (cap + ".Capades.IO") : "Sex.Capades.IO";
+    var compact = cap ? (cap + "*") : "*";
     var name = dotted;
     var brand = dotted;
     document.title = dotted + (skinId === "sexcapades" ? "" : " — " + (displayName || skinId));
     var btn = document.getElementById("openAppAbout");
-    if (btn) btn.textContent = name;
+    if (btn) applyBrandText(btn, name, compact);
     var about = document.getElementById("appAboutTitle");
     if (about) {
       about.textContent = "";
@@ -1702,7 +1724,7 @@
     }
     var closeAbout = document.getElementById("closeAppAbout");
     if (closeAbout) closeAbout.setAttribute("aria-label", "Close About " + name);
-    document.querySelectorAll(".sx-brand").forEach(function (b) { b.textContent = name; });
+    document.querySelectorAll(".sx-brand").forEach(function (b) { applyBrandText(b, name, compact); });
     document.querySelectorAll(".sx-tally-brand").forEach(function (b) { b.textContent = brand; });
   }
 
