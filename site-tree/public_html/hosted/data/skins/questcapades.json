@@ -63,7 +63,8 @@
                 "url": "https://www.reddit.com/r/lfg/"
               }
             ]
-          }
+          },
+          "glyph": "chair"
         },
         {
           "name": "Player styles",
@@ -118,7 +119,8 @@
                 "url": "https://rpg.stackexchange.com/"
               }
             ]
-          }
+          },
+          "glyph": "person"
         },
         {
           "id": "xqu0003",
@@ -143,7 +145,8 @@
                 "url": "https://rpg.stackexchange.com/"
               }
             ]
-          }
+          },
+          "glyph": "crown"
         },
         {
           "id": "xqu0004",
@@ -163,7 +166,8 @@
                 "url": "https://www.reddit.com/r/rpg/"
               }
             ]
-          }
+          },
+          "glyph": "badge"
         },
         {
           "id": "xqu0005",
@@ -183,7 +187,8 @@
                 "url": "https://www.reddit.com/r/PBtA/"
               }
             ]
-          }
+          },
+          "glyph": "trio"
         },
         {
           "id": "xqu0006",
@@ -203,7 +208,8 @@
                 "url": "https://www.reddit.com/r/rpg/"
               }
             ]
-          }
+          },
+          "glyph": "eye"
         },
         {
           "id": "xqu0007",
@@ -223,7 +229,8 @@
                 "url": "https://www.reddit.com/r/rpg/"
               }
             ]
-          }
+          },
+          "glyph": "book"
         },
         {
           "id": "xqu0008",
@@ -238,7 +245,8 @@
                 "url": "https://www.reddit.com/r/PBP/"
               }
             ]
-          }
+          },
+          "glyph": "chat"
         }
       ]
     },
@@ -297,7 +305,8 @@
                 "url": "https://rpg.stackexchange.com/"
               }
             ]
-          }
+          },
+          "glyph": "scale"
         },
         {
           "id": "xqu0010",
@@ -319,7 +328,8 @@
                 "url": "https://www.reddit.com/r/rpg/"
               }
             ]
-          }
+          },
+          "glyph": "hourglass"
         },
         {
           "id": "xqu0011",
@@ -341,7 +351,8 @@
                 "url": "https://www.reddit.com/r/rpg/"
               }
             ]
-          }
+          },
+          "glyph": "scroll"
         },
         {
           "id": "xqu0012",
@@ -363,7 +374,8 @@
                 "url": "https://rpg.stackexchange.com/"
               }
             ]
-          }
+          },
+          "glyph": "cube"
         },
         {
           "id": "xqu0013",
@@ -385,7 +397,8 @@
                 "url": "https://www.reddit.com/r/RPGdesign/"
               }
             ]
-          }
+          },
+          "glyph": "note"
         },
         {
           "id": "xqu0014",
@@ -407,7 +420,8 @@
                 "url": "https://www.reddit.com/r/rpg/"
               }
             ]
-          }
+          },
+          "glyph": "badge"
         },
         {
           "id": "xqu0015",
@@ -432,7 +446,8 @@
                 "url": "https://rpg.stackexchange.com/"
               }
             ]
-          }
+          },
+          "glyph": "flame"
         }
       ]
     },
@@ -461,7 +476,8 @@
                 "url": "https://www.reddit.com/r/rpg/"
               }
             ]
-          }
+          },
+          "glyph": "star"
         },
         {
           "id": "xqu0017",
@@ -483,7 +499,8 @@
                 "url": "https://www.reddit.com/r/rpg/"
               }
             ]
-          }
+          },
+          "glyph": "blade"
         },
         {
           "id": "xqu0018",
@@ -505,7 +522,8 @@
                 "url": "https://www.reddit.com/r/rpg/"
               }
             ]
-          }
+          },
+          "glyph": "fangs"
         },
         {
           "id": "xqu0019",
@@ -527,7 +545,8 @@
                 "url": "https://rpg.stackexchange.com/"
               }
             ]
-          }
+          },
+          "glyph": "ufo"
         },
         {
           "id": "xqu0020",
@@ -549,7 +568,8 @@
                 "url": "https://www.reddit.com/r/rpg/"
               }
             ]
-          }
+          },
+          "glyph": "moon"
         },
         {
           "id": "xqu0021",
@@ -566,7 +586,8 @@
                 "url": "https://www.reddit.com/r/rpg/"
               }
             ]
-          }
+          },
+          "glyph": "bolt"
         },
         {
           "id": "xqu0022",
@@ -583,7 +604,8 @@
                 "url": "https://www.reddit.com/r/rpg/"
               }
             ]
-          }
+          },
+          "glyph": "shards"
         },
         {
           "id": "xqu0023",
@@ -600,7 +622,8 @@
                 "url": "https://www.reddit.com/r/rpg/"
               }
             ]
-          }
+          },
+          "glyph": "shield"
         },
         {
           "id": "xqu0024",
@@ -617,7 +640,8 @@
                 "url": "https://www.reddit.com/r/rpg/"
               }
             ]
-          }
+          },
+          "glyph": "house"
         },
         {
           "id": "xqu0025",
@@ -634,7 +658,8 @@
                 "url": "https://www.reddit.com/r/rpg/"
               }
             ]
-          }
+          },
+          "glyph": "calendar"
         },
         {
           "id": "xqu0026",
@@ -651,7 +676,8 @@
                 "url": "https://www.reddit.com/r/rpg/"
               }
             ]
-          }
+          },
+          "glyph": "star"
         },
         {
           "id": "xqu0027",
@@ -668,7 +694,8 @@
                 "url": "https://www.reddit.com/r/rpg/"
               }
             ]
-          }
+          },
+          "glyph": "anchor"
         }
       ]
     },
@@ -727,7 +754,8 @@
                 "url": "https://rpg.stackexchange.com/"
               }
             ]
-          }
+          },
+          "glyph": "cube"
         },
         {
           "id": "xqu0029",
@@ -747,7 +775,8 @@
                 "url": "https://www.reddit.com/r/osr/"
               }
             ]
-          }
+          },
+          "glyph": "burst"
         },
         {
           "id": "xqu0030",
@@ -767,7 +796,8 @@
                 "url": "https://rpg.stackexchange.com/"
               }
             ]
-          }
+          },
+          "glyph": "tree"
         },
         {
           "id": "xqu0031",
@@ -787,7 +817,8 @@
                 "url": "https://rpg.stackexchange.com/"
               }
             ]
-          }
+          },
+          "glyph": "checklist"
         },
         {
           "id": "xqu0032",
@@ -807,7 +838,8 @@
                 "url": "https://www.reddit.com/r/DMAcademy/"
               }
             ]
-          }
+          },
+          "glyph": "cross"
         },
         {
           "id": "xqu0033",
@@ -827,7 +859,8 @@
                 "url": "https://www.reddit.com/r/rpg/"
               }
             ]
-          }
+          },
+          "glyph": "shards"
         },
         {
           "id": "xqu0034",
@@ -842,7 +875,8 @@
                 "url": "https://www.reddit.com/r/rpg/"
               }
             ]
-          }
+          },
+          "glyph": "hands"
         },
         {
           "id": "xqu0035",
@@ -857,7 +891,8 @@
                 "url": "https://www.reddit.com/r/rpg/"
               }
             ]
-          }
+          },
+          "glyph": "note"
         }
       ]
     },
@@ -916,7 +951,8 @@
                 "url": "https://www.reddit.com/r/DnDBehindTheScreen/"
               }
             ]
-          }
+          },
+          "glyph": "arrows"
         },
         {
           "id": "xqu0037",
@@ -936,7 +972,8 @@
                 "url": "https://www.reddit.com/r/rpg/"
               }
             ]
-          }
+          },
+          "glyph": "infinity"
         },
         {
           "id": "xqu0038",
@@ -956,7 +993,8 @@
                 "url": "https://www.reddit.com/r/rpg/"
               }
             ]
-          }
+          },
+          "glyph": "bolt"
         },
         {
           "id": "xqu0039",
@@ -976,7 +1014,8 @@
                 "url": "https://www.reddit.com/r/DMAcademy/"
               }
             ]
-          }
+          },
+          "glyph": "compass"
         },
         {
           "id": "xqu0040",
@@ -996,7 +1035,8 @@
                 "url": "https://www.reddit.com/r/DMAcademy/"
               }
             ]
-          }
+          },
+          "glyph": "scroll"
         },
         {
           "id": "xqu0041",
@@ -1016,7 +1056,8 @@
                 "url": "https://www.reddit.com/r/rpg/"
               }
             ]
-          }
+          },
+          "glyph": "speech"
         },
         {
           "id": "xqu0042",
@@ -1036,7 +1077,8 @@
                 "url": "https://rpg.stackexchange.com/"
               }
             ]
-          }
+          },
+          "glyph": "heart"
         },
         {
           "id": "xqu0043",
@@ -1056,7 +1098,8 @@
                 "url": "https://rpg.stackexchange.com/"
               }
             ]
-          }
+          },
+          "glyph": "split"
         },
         {
           "id": "xqu0044",
@@ -1076,7 +1119,8 @@
                 "url": "https://www.reddit.com/r/DMAcademy/"
               }
             ]
-          }
+          },
+          "glyph": "scale"
         },
         {
           "id": "xqu0045",
@@ -1120,7 +1164,8 @@
                 "url": "https://www.reddit.com/r/DMAcademy/"
               }
             ]
-          }
+          },
+          "glyph": "dial"
         }
       ]
     },
@@ -1149,7 +1194,8 @@
                 "url": "https://rpg.stackexchange.com/"
               }
             ]
-          }
+          },
+          "glyph": "cube"
         },
         {
           "id": "xqu0047",
@@ -1171,7 +1217,8 @@
                 "url": "https://rpg.stackexchange.com/"
               }
             ]
-          }
+          },
+          "glyph": "brain"
         },
         {
           "id": "xqu0048",
@@ -1193,7 +1240,8 @@
                 "url": "https://www.reddit.com/r/DnDBehindTheScreen/"
               }
             ]
-          }
+          },
+          "glyph": "question"
         },
         {
           "id": "xqu0049",
@@ -1215,7 +1263,8 @@
                 "url": "https://www.reddit.com/r/DnDBehindTheScreen/"
               }
             ]
-          }
+          },
+          "glyph": "cage"
         },
         {
           "id": "xqu0050",
@@ -1237,7 +1286,8 @@
                 "url": "https://www.reddit.com/r/DnD/"
               }
             ]
-          }
+          },
+          "glyph": "horns"
         },
         {
           "id": "xqu0051",
@@ -1259,7 +1309,8 @@
                 "url": "https://www.reddit.com/r/DnD/"
               }
             ]
-          }
+          },
+          "glyph": "keyhole"
         },
         {
           "id": "xqu0052",
@@ -1303,7 +1354,8 @@
                 "url": "https://www.reddit.com/r/rpg/"
               }
             ]
-          }
+          },
+          "glyph": "whisper"
         },
         {
           "id": "xqu0054",
@@ -1325,7 +1377,8 @@
                 "url": "https://www.reddit.com/r/rpg/"
               }
             ]
-          }
+          },
+          "glyph": "key"
         }
       ]
     },
@@ -1360,7 +1413,8 @@
                 "url": "https://rpg.stackexchange.com/"
               }
             ]
-          }
+          },
+          "glyph": "checklist"
         },
         {
           "id": "xqu0056",
@@ -1383,7 +1437,8 @@
                 "url": "https://rpg.stackexchange.com/"
               }
             ]
-          }
+          },
+          "glyph": "shield"
         },
         {
           "id": "xqu0057",
@@ -1405,7 +1460,8 @@
                 "url": "https://www.reddit.com/r/rpg/"
               }
             ]
-          }
+          },
+          "glyph": "cup"
         },
         {
           "id": "xqu0058",
@@ -1425,7 +1481,8 @@
                 "url": "https://www.reddit.com/r/lfg/"
               }
             ]
-          }
+          },
+          "glyph": "calendar"
         },
         {
           "id": "xqu0059",
@@ -1445,7 +1502,8 @@
                 "url": "https://www.reddit.com/r/Roll20/"
               }
             ]
-          }
+          },
+          "glyph": "video"
         },
         {
           "id": "xqu0060",
@@ -1465,7 +1523,8 @@
                 "url": "https://www.reddit.com/r/DnD/"
               }
             ]
-          }
+          },
+          "glyph": "tree"
         },
         {
           "id": "xqu0061",
@@ -1485,7 +1544,8 @@
                 "url": "https://www.reddit.com/r/DnDBehindTheScreen/"
               }
             ]
-          }
+          },
+          "glyph": "scroll"
         },
         {
           "id": "xqu0062",
@@ -1505,7 +1565,8 @@
                 "url": "https://www.reddit.com/r/rpg/"
               }
             ]
-          }
+          },
+          "glyph": "note"
         },
         {
           "id": "xqu0063",
@@ -1525,7 +1586,8 @@
                 "url": "https://www.reddit.com/r/DMAcademy/"
               }
             ]
-          }
+          },
+          "glyph": "barred"
         },
         {
           "id": "xqu0064",
@@ -1545,7 +1607,8 @@
                 "url": "https://www.reddit.com/r/DnD/"
               }
             ]
-          }
+          },
+          "glyph": "hands"
         },
         {
           "id": "xqu0065",
@@ -1568,7 +1631,8 @@
                 "url": "https://www.reddit.com/r/lfg/"
               }
             ]
-          }
+          },
+          "glyph": "clock"
         }
       ]
     },
@@ -1595,7 +1659,8 @@
                 "url": "https://www.reddit.com/r/rpg/"
               }
             ]
-          }
+          },
+          "glyph": "note"
         },
         {
           "id": "xqu0067",
@@ -1615,7 +1680,8 @@
                 "url": "https://www.reddit.com/r/DnD/"
               }
             ]
-          }
+          },
+          "glyph": "video"
         },
         {
           "id": "xqu0068",
@@ -1635,7 +1701,8 @@
                 "url": "https://www.reddit.com/r/rpg/"
               }
             ]
-          }
+          },
+          "glyph": "scroll"
         },
         {
           "id": "xqu0069",
@@ -1655,7 +1722,8 @@
                 "url": "https://www.reddit.com/r/worldbuilding/"
               }
             ]
-          }
+          },
+          "glyph": "book"
         },
         {
           "id": "xqu0070",
@@ -1675,7 +1743,8 @@
                 "url": "https://www.reddit.com/r/UnearthedArcana/"
               }
             ]
-          }
+          },
+          "glyph": "star"
         },
         {
           "id": "xqu0071",
@@ -1695,7 +1764,8 @@
                 "url": "https://www.reddit.com/r/DnD/"
               }
             ]
-          }
+          },
+          "glyph": "spark"
         }
       ]
     }
