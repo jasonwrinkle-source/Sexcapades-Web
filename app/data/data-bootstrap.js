@@ -46404,6 +46404,24 @@ yk([ "Spitting", "Spit play", "Being spit on", "Spitting on someone" ], "t0341")
             const t = tl.querySelector("[data-add-profile]"), n = e.byId("loadSampleProfileChoice"), a = e.byId("loadArchetypeChoice");
             t && t.setAttribute("aria-expanded", String(!By.hidden)), n && n.setAttribute("aria-expanded", "false"), a && a.setAttribute("aria-expanded", "false");
         }
+        function SwI(openMenu, trigger) {
+            // Iw's closer: like Sw, but never closes the menu being
+            // opened nor a menu that contains the trigger. A stack
+            // parent row lives INSIDE the Samples/Archetypes submenu,
+            // and Sw's blanket close hid that parent menu the moment
+            // the row was hovered — the layers flyout opened into a
+            // void and the parent was gone, so neither could be used
+            // by mouse. The roster path never hit this: roster
+            // triggers live in the add menu, which Sw does not close.
+            // Sibling submenus (and their flyouts) still close, and
+            // every other caller keeps Sw's full close.
+            [ jy, jyA ].concat(window.__SX_SAMPLE_SUBMENUS || []).forEach(menu => {
+                if (!menu || menu === openMenu || trigger && menu.contains && menu.contains(trigger)) return;
+                menu.hidden = !0, menu.classList.remove("is-submenu"), menu.__sxTrigger && menu.__sxTrigger.setAttribute("aria-expanded", "false");
+            });
+            const t = tl.querySelector("[data-add-profile]"), n = e.byId("loadSampleProfileChoice"), a = e.byId("loadArchetypeChoice");
+            t && t.setAttribute("aria-expanded", String(!By.hidden)), n && jy.hidden && n.setAttribute("aria-expanded", "false"), a && jyA && jyA.hidden && a.setAttribute("aria-expanded", "false");
+        }
         function $w(e, t) {
             if (e === Oy && innerWidth <= 620) return e.style.removeProperty("left"), void e.style.removeProperty("top");
             const n = t.getBoundingClientRect(), i = e.getBoundingClientRect();
@@ -46455,14 +46473,15 @@ yk([ "Spitting", "Spit play", "Being spit on", "Spitting on someone" ], "t0341")
             return Cw[e];
         }
         function Iw(t = {}, menu = jy, trigger = _w) {
-            // Capture the trigger's rect BEFORE kw()/Sw() close the
-            // other submenus: a trigger that lives inside a submenu
-            // (a palimpsest stack's parent row inside Samples) has no
-            // rect once its own menu is hidden. Triggers in the add
-            // menu are unaffected — Sw never hides that menu, so their
-            // rect is the same either way.
+            // Capture the trigger's rect BEFORE kw()/SwI() close the
+            // sibling submenus: a trigger that lives inside a submenu
+            // (a palimpsest stack's parent row inside Samples) is
+            // positioned from its rect, and the sibling closes run
+            // before the flyout is placed. Triggers in the add menu
+            // are unaffected — the closer never hides that menu, so
+            // their rect is the same either way.
             const triggerRect = trigger && trigger.getBoundingClientRect ? trigger.getBoundingClientRect() : null;
-            kw(), Sw();
+            kw(), SwI(menu, trigger);
             const n = tl.querySelector("[data-add-profile]"), i = trigger;
             if (!n || By.hidden || !menu) return;
             Ew(), menu.hidden = !1, menu.classList.add("is-submenu"), n.setAttribute("aria-expanded", "true"), 
