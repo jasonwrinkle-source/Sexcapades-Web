@@ -113,19 +113,26 @@
             const py = cy - (recvVal / 100) * r; // screen y is inverted
 
             if (isUnrated) {
-                // Unrated ghost prompt
+                // Parked unrated ghost prompt at 50% center midpoint
                 ctx.beginPath();
-                ctx.arc(cx, cy, 7.5, 0, 2 * Math.PI);
+                ctx.arc(cx - 9, cy, 7.5, 0, 2 * Math.PI);
                 ctx.lineWidth = 1.5;
                 ctx.setLineDash([3, 3]);
-                ctx.strokeStyle = "rgba(255, 255, 255, 0.75)";
+                ctx.strokeStyle = "rgba(255, 255, 255, 0.55)";
+                ctx.stroke();
+
+                ctx.beginPath();
+                ctx.arc(cx + 9, cy, 8, 0, 2 * Math.PI);
+                ctx.lineWidth = 3;
+                ctx.strokeStyle = "rgba(255, 255, 255, 0.45)";
                 ctx.stroke();
                 ctx.setLineDash([]);
-                ctx.font = "italic 9px system-ui, sans-serif";
+
+                ctx.font = "italic 10px system-ui, sans-serif";
                 ctx.textAlign = "center";
                 ctx.textBaseline = "middle";
                 ctx.fillStyle = "rgba(255, 255, 255, 0.65)";
-                ctx.fillText("Click to rate", cx, cy - 14);
+                ctx.fillText("Click or drag to rate", cx, cy - 16);
             } else {
                 const ziColor = typeof zi === "function" ? zi : (v => v > 20 ? "#4ade80" : v < -20 ? "#f87171" : "#d7bd55");
                 const giveCol = ziColor(g);
@@ -133,23 +140,23 @@
 
                 // Give / Advocacy Flank: Solid Disc (matches hypermap / hot list)
                 ctx.beginPath();
-                ctx.arc(px - 7, py, 7.5, 0, 2 * Math.PI);
+                ctx.arc(px - 9, py, 8.5, 0, 2 * Math.PI);
                 ctx.fillStyle = giveCol;
                 ctx.fill();
-                ctx.lineWidth = 1.5;
+                ctx.lineWidth = 1.8;
                 ctx.strokeStyle = "#ffffff";
                 ctx.stroke();
 
                 // Receive / Receptivity Flank: Thick Ring with Transparent Center (matches hypermap / hot list)
                 ctx.beginPath();
-                ctx.arc(px + 7, py, 8, 0, 2 * Math.PI);
-                ctx.lineWidth = 4;
+                ctx.arc(px + 9, py, 9, 0, 2 * Math.PI);
+                ctx.lineWidth = 4.5;
                 ctx.strokeStyle = recvCol;
                 ctx.stroke();
                 ctx.beginPath();
-                ctx.arc(px + 7, py, 9.8, 0, 2 * Math.PI);
-                ctx.lineWidth = 1;
-                ctx.strokeStyle = "rgba(255,255,255,0.7)";
+                ctx.arc(px + 9, py, 11.2, 0, 2 * Math.PI);
+                ctx.lineWidth = 1.2;
+                ctx.strokeStyle = "rgba(255, 255, 255, 0.85)";
                 ctx.stroke();
             }
         }
