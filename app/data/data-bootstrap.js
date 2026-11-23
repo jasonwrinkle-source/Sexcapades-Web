@@ -676,6 +676,9 @@ const TAXONOMY_CATEGORIES = [];
                 utm_source: d
             }, `sexcapades_event_${e}`);
         }
+        window.__sxSendAnalytics = sxSendAnalytics;
+        window.__sxAnalyticsSkin = sxAnalyticsSkin;
+        window.__sxSendEvent = p;
         // GATE-PASSED SIGNAL (marked by the shell-ui stage, 2026-10-27):
         // the app's gate-passed signal fires once, from the single sender
         // in 02h-inner-opener.js (its top-level call, at bundle load).
@@ -5385,56 +5388,18 @@ const Ce = {
            cannot wait for the loader. Unknown hosts default to
            "sexcapades", matching the loader. Never throws; a failure
            anywhere returns the default instead of losing the event. */
-        function sxAnalyticsSkin() {
-            try {
-                var s = window.__SX_ACTIVE_SKIN;
-                if (s) return String(s);
-            } catch (e) { /* fall through to hostname */ }
-            try {
-                if (typeof window.__SX_SKIN_FROM_URL === "function") {
-                    var u = window.__SX_SKIN_FROM_URL();
-                    if (u) return u;
-                }
-                if (typeof window.__SX_SKIN_FOR_HOSTNAME === "function") {
-                    return window.__SX_SKIN_FOR_HOSTNAME(location.hostname);
-                }
-            } catch (e) { /* fall through to inline map */ }
-            try {
-                var q = new URLSearchParams(location.search || "").get("skin");
-                var known = ["sexcapades", "poliscapades", "forescapades", "philoscapades", "aesthcapades", "vocapades", "techcapades", "dharmacapades", "theoricapades", "praxicapades", "quantacapades", "expericapades", "simulcapades", "mattercapades", "chemcapades", "nouscapades", "dancecapades", "questcapades"];
-                if (q && known.indexOf(q) !== -1) return q;
-                var host = (location.hostname || "").toLowerCase();
-                if (host === "sexcapades.io" || host === "www.sexcapades.io" || host === "flex.capades.io" || host === "capades.io") return "sexcapades";
-                var map = { sex: "sexcapades", polis: "poliscapades", fores: "forescapades", philo: "philoscapades", aesth: "aesthcapades", voca: "vocapades", tech: "techcapades", dharma: "dharmacapades", theori: "theoricapades", praxi: "praxicapades", quanta: "quantacapades", experi: "expericapades", simul: "simulcapades", matter: "mattercapades", chem: "chemcapades", nous: "nouscapades", dance: "dancecapades", quest: "questcapades" };
-                var prefix = /\.capades\.io$/.test(host) ? host.split(".")[0] : "";
-                if (prefix && map[prefix]) return map[prefix];
-            } catch (e) { /* default below */ }
-            return "sexcapades";
-        }
-        function sxSendAnalytics(e, t) {
-            /* Counted hosts: sexcapades.io, www, capades.io, *.capades.io. Localhost/staging stay blocked. */
-            if (!/^(www\.)?sexcapades\.io$|^([^.]+\.)*capades\.io$/.test(location.hostname)) return;
-            /* Per-skin analytics: stamp the current skin on every event
-               payload here, at the one shared send point, so gate_passed,
-               session_stats, quickstart_* and scan_started all carry it
-               without touching their call sites. */
-            try { if (e && typeof e === "object" && !e.skin) e.skin = sxAnalyticsSkin(); } catch (err) { __sxErrLog("analytics-skin", err); }
-            try {
-                if ("sent" === sessionStorage.getItem(t)) return;
-            } catch (e) { __sxErrLog("storage", e); }
-            o.has(t) || (o.add(t), u(e).then(() => {
-                try {
-                    sessionStorage.setItem(t, "sent");
-                } catch (e) { __sxErrLog("storage", e); }
-            }).catch((e) => { __sxErrLog("storage", e); }).finally(() => o.delete(t)));
-        }
+        /* Replaced duplicate analytics pipeline: delegating to 02a's window.__sxSendEvent / sxSendAnalytics */
         function p(e) {
-            sxSendAnalytics({
-                action: "event",
-                uuid: c(),
-                event_type: e,
-                utm_source: d
-            }, `sexcapades_event_${e}`);
+            if (typeof window.__sxSendEvent === "function") {
+                window.__sxSendEvent(e);
+            } else if (typeof window.__sxSendAnalytics === "function") {
+                window.__sxSendAnalytics({
+                    action: "event",
+                    uuid: c(),
+                    event_type: e,
+                    utm_source: d
+                }, `sexcapades_event_${e}`);
+            }
         }
         // GATE-PASSED SIGNAL (marked by the shell-ui stage, 2026-10-27):
         // this single line is the app's gate-passed signal. It fires once

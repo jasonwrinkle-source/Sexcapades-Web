@@ -447,9 +447,9 @@ __sxInit(function () {
 
 
 /* ---- module: skin-menu (Flexcapades prototype) ---- */
-/* Long-press on the app header opens a menu listing the 15 skins, so the
+/* Long-press on the app header opens a menu listing the skins, so the
    Flexcapades engine can be tried on without a subdomain or a new domain.
-   All 15 skins load for real via window.FlexcapadesSkins
+   All skins load for real via window.FlexcapadesSkins
    (app/js/skin-loader.js) — picking a skin swaps its taxonomy in and
    re-renders the map; picking Sexcapades restores the kink map.
    Trigger: pointer hold (~600ms) on the header bar, touch or mouse, OR
@@ -526,6 +526,11 @@ __sxInit(function () {
     var host = (targetEl && targetEl.closest && targetEl.closest("dialog")) || document.querySelector("dialog[open]") || document.body;
     if (menu.parentNode !== host) host.appendChild(menu);
 
+    var activeSkin = window.FlexcapadesSkins ? window.FlexcapadesSkins.active() : "sexcapades";
+    if (typeof window.__SX_RENDER_SKIN_MENU === "function") {
+      window.__SX_RENDER_SKIN_MENU(menu, activeSkin);
+    }
+
     if (targetEl && isBrandTitle(targetEl) && targetEl.getBoundingClientRect) {
       var r = targetEl.getBoundingClientRect();
       x = r.left;
@@ -548,7 +553,6 @@ __sxInit(function () {
       document.addEventListener("pointerup", clearOnce, { once: true });
       document.addEventListener("pointercancel", clearOnce, { once: true });
     }
-    var activeSkin = window.FlexcapadesSkins ? window.FlexcapadesSkins.active() : "sexcapades";
     var cur = menu.querySelector('[data-skin="' + activeSkin + '"]') || menu.querySelector('[data-skin="sexcapades"]');
     if (cur) { try { cur.focus({ preventScroll: true }); } catch (e) { cur.focus(); } }
     markCurrent(activeSkin);
@@ -574,14 +578,8 @@ __sxInit(function () {
       it.setAttribute("aria-checked", it.getAttribute("data-skin") === skin ? "true" : "false");
     });
   }
-  /* Skin id -> subdomain prefix (2026-11-18, Jason): picking a skin
-     from this menu navigates to that skin's subdomain instead of the
-     in-app loader.load() switch — a plain page navigation, which
-     always works. The map is the inverse of HOSTNAME_SKINS in
-     app/js/skin-loader.js (a lookup, NOT a string-strip — stripping
-     "capades" gives the wrong prefix for Philoscapades, Vocapades,
-     and Expericapades). */
-  var SKIN_SUBDOMAIN = { sexcapades: "sex", poliscapades: "polis", forescapades: "fores", philoscapades: "philo", aesthcapades: "aesth", vocapades: "voca", techcapades: "tech", dharmacapades: "dharma", theoricapades: "theori", praxicapades: "praxi", quantacapades: "quanta", expericapades: "experi", simulcapades: "simul", mattercapades: "matter", chemcapades: "chem", nouscapades: "nous", dancecapades: "dance", questcapades: "quest" };
+  /* Skin id -> subdomain prefix: delegated to window.__SX_SKIN_SUBDOMAIN single source. */
+  var SKIN_SUBDOMAIN = (typeof window !== "undefined" && window.__SX_SKIN_SUBDOMAIN) || { sexcapades: "sex", poliscapades: "polis", forescapades: "fores", philoscapades: "philo", aesthcapades: "aesth", vocapades: "voca", techcapades: "tech", dharmacapades: "dharma", theori: "theoricapades", praxi: "praxicapades", quantacapades: "quanta", expericapades: "experi", simulcapades: "simul", mattercapades: "matter", chemcapades: "chem", nouscapades: "nous", dancecapades: "dance", questcapades: "quest" };
   function choose(item) {
     if (!item) return;
     var skin = item.getAttribute("data-skin");

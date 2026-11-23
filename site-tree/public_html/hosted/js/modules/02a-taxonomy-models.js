@@ -369,6 +369,9 @@
                 utm_source: d
             }, `sexcapades_event_${e}`);
         }
+        window.__sxSendAnalytics = sxSendAnalytics;
+        window.__sxAnalyticsSkin = sxAnalyticsSkin;
+        window.__sxSendEvent = p;
         // GATE-PASSED SIGNAL (marked by the shell-ui stage, 2026-10-27):
         // the app's gate-passed signal fires once, from the single sender
         // in 02h-inner-opener.js (its top-level call, at bundle load).

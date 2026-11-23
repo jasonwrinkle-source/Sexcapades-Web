@@ -25,8 +25,8 @@ Each item waits for Jason's kickoff; nothing here dispatches itself.
    - *Constraint:* No multi-card design is authorized until this measurement exists.
 
 2. **Fetish Harvest, Then Analytics Reset:**
-   - Harvest first: unmapped-fetishes script exports its ranked report from live DB (`~/domains/capades-data/`).
-   - Fix the harvest script pointer from old `~/domains/sexcapades-data/` to `~/domains/capades-data/`.
+   - Harvest first: unmapped-fetishes script (`site-tree/harvest_unmapped.sh`) exports its ranked report from live DB (`~/domains/capades-data/flexcapades_data.db`).
+   - Harvest script pointer configured to `~/domains/capades-data/flexcapades_data.db` (and Top 10 preview wired into `site-tree/get_stats.sh`).
    - *Constraint:* The counters reset only after Jason confirms the harvest export is verified.
 
 3. **GibberWear / Scene Sentinel Track:**

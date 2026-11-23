@@ -60,6 +60,14 @@ echo "=== SURVEYS BY APP VERSION + BUILD ==="
 sqlite3 -header -column "$DB" "
 SELECT app_version AS version, COALESCE(NULLIF(app_build,''),'(unknown)') AS build, COUNT(*) AS surveys, AVG(topic_count) AS avg_topics
 FROM surveys GROUP BY app_version, app_build ORDER BY version, build;"
+
+echo ""
+echo "=== UNMAPPED FETISHES (Top 10) ==="
+sqlite3 -header -column "$DB" "
+SELECT COUNT(*) AS count, list_type, fetish_name
+FROM unmapped_fetishes
+GROUP BY fetish_name, list_type
+ORDER BY count DESC LIMIT 10;" 2>/dev/null || echo "(no unmapped_fetishes table yet)"
 echo ""
 } >> "$OUT"
 

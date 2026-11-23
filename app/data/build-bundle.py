@@ -138,7 +138,7 @@ for ch in [
 # Sync auxiliary JS. hosted/js is the tree path. The shell loads the
 # same files from hosted/app-assets, so that copy is written too.
 js_src_dir = os.path.join(base_dir, "../js")
-shell_js = ["view-nav.js", "layout-editor.js", "scene-sentinel.js", "pitch-pitcher.js", "pitch-pitcher-bank.js", "patches.js", "avatar-music.js", "sx-songbook.js", "skin-loader.js"]
+shell_js = ["view-nav.js", "layout-editor.js", "scene-sentinel.js", "pitch-pitcher.js", "pitch-pitcher-bank.js", "patches.js", "avatar-music.js", "sx-songbook.js", "skin-loader.js", "skin-catalog.js"]
 for f in shell_js:
     src_f = os.path.join(js_src_dir, f)
     for dst_dir in [os.path.join(base_dir, "../../site-tree/public_html/hosted/js"), os.path.join(base_dir, "../../site-tree/public_html/qa/js"),

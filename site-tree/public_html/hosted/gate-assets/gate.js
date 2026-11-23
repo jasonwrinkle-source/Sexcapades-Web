@@ -173,7 +173,7 @@
            all (no gate to pass), so in practice this is "sexcapades";
            the field is here so the record is complete and the bundle's
            gate-passed event and this one share the same shape. */
-        var GATE_SKIN_IDS = { sex: "sexcapades", polis: "poliscapades", fores: "forescapades", philo: "philoscapades", aesth: "aesthcapades", voca: "vocapades", tech: "techcapades", dharma: "dharmacapades", theori: "theoricapades", praxi: "praxicapades", quanta: "quantacapades", experi: "expericapades", simul: "simulcapades", matter: "mattercapades", chem: "chemcapades", nous: "nouscapades" };
+        var GATE_SKIN_IDS = (typeof window !== "undefined" && window.__SX_HOSTNAME_SKINS) || { sex: "sexcapades", polis: "poliscapades", fores: "forescapades", philo: "philoscapades", aesth: "aesthcapades", voca: "vocapades", tech: "techcapades", dharma: "dharmacapades", theori: "theoricapades", praxi: "praxicapades", quanta: "quantacapades", experi: "expericapades", simul: "simulcapades", matter: "mattercapades", chem: "chemcapades", nous: "nouscapades", dance: "dancecapades", quest: "questcapades" };
         function gateAnalyticsSkin() {
           try {
             if (typeof gateSkinPrefix === "string" && GATE_SKIN_IDS[gateSkinPrefix]) return GATE_SKIN_IDS[gateSkinPrefix];
@@ -368,7 +368,7 @@
         // recorded and no gate-passed event is sent, because there is no
         // gate to pass. A sex host runs the age gate as before. Any other
         // host (localhost, unknown) with no ?return= is sent to the picker.
-        var GATE_SKINS = {
+        var GATE_SKINS = (typeof window !== "undefined" && window.__SX_GATE_SKINS) || {
           sex: ["Sexcapades", "Sex.Capades.IO"],
           polis: ["Poliscapades", "Polis.Capades.IO"],
           fores: ["Forescapades", "Fores.Capades.IO"],
@@ -838,11 +838,12 @@
           }
 
           var activeSkin = (function() {
+            if (typeof window.__SX_SKIN_FOR_HOSTNAME === "function") return window.__SX_SKIN_FOR_HOSTNAME();
             var host = window.location.hostname.toLowerCase();
             if (host === "sexcapades.io" || host === "www.sexcapades.io" || host === "sex.capades.io") return "sexcapades";
             if (/\.capades\.io$/.test(host)) {
               var p = host.split(".")[0];
-              var rev = { sex: "sexcapades", polis: "poliscapades", fores: "forescapades", philo: "philoscapades", aesth: "aesthcapades", voca: "vocapades", tech: "techcapades", dharma: "dharmacapades", theori: "theoricapades", praxi: "praxicapades", quanta: "quantacapades", experi: "expericapades", simul: "simulcapades", matter: "mattercapades", chem: "chemcapades", nous: "nouscapades" };
+              var rev = (typeof window.__SX_HOSTNAME_SKINS !== "undefined" && window.__SX_HOSTNAME_SKINS) || { sex: "sexcapades", polis: "poliscapades", fores: "forescapades", philo: "philoscapades", aesth: "aesthcapades", voca: "vocapades", tech: "techcapades", dharma: "dharmacapades", theori: "theoricapades", praxi: "praxicapades", quanta: "quantacapades", experi: "expericapades", simul: "simulcapades", matter: "mattercapades", chem: "chemcapades", nous: "nouscapades", dance: "dancecapades", quest: "questcapades" };
               if (rev[p]) return rev[p];
             }
             if (gateSkinPrefix && GATE_SKINS[gateSkinPrefix]) return GATE_SKINS[gateSkinPrefix][0].toLowerCase();
@@ -856,6 +857,9 @@
           }
 
           function openMenu(x, y, swallow, targetEl) {
+            if (typeof window.__SX_RENDER_SKIN_MENU === "function") {
+              window.__SX_RENDER_SKIN_MENU(menu, activeSkin);
+            }
             if (targetEl && targetEl.getBoundingClientRect) {
               var r = targetEl.getBoundingClientRect();
               x = r.left;

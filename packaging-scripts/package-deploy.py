@@ -37,6 +37,7 @@ EXPECTED_MANIFEST_FILES = [
     "vendor/qrcode.min.js",
     "data-bootstrap.js",
     "unrated-map-template.js",
+    "skin-catalog.js",
     "images/guide-avatar.jpg",
     "images/hanky-chart.jpg",
     "images/avatar-1.jpg",
@@ -262,7 +263,8 @@ def package_all(build_num, out_tar_path, src_app_html):
         stage_app_assets(hosted_dir, src_app_html, build_num)
 
         print("5. Optimizing Gate...")
-        gate_export = os.path.join(ROOT_DIR, "site-tree", "public_html", "hosted", "gate.html")
+        gate_src = os.path.join(ROOT_DIR, "app", "gate.html")
+        gate_export = gate_src if os.path.isfile(gate_src) else os.path.join(ROOT_DIR, "site-tree", "public_html", "hosted", "gate.html")
         gate_work = os.path.join(work_dir, "gate")
         run_command([sys.executable, OPTIMIZER, gate_export, gate_work, "gate.html", "gate-assets", "gate"])
         shutil.copy(os.path.join(gate_work, "gate.html"), os.path.join(hosted_dir, "gate.html"))
@@ -286,7 +288,8 @@ def package_all(build_num, out_tar_path, src_app_html):
             shutil.copytree(os.path.join(qs_work, "quickstart-assets"), dest_qa)
 
         print("7. Optimizing Guide...")
-        guide_export = os.path.join(ROOT_DIR, "site-tree", "public_html", "hosted", "guide.html")
+        guide_src = os.path.join(ROOT_DIR, "app", "guide.html")
+        guide_export = guide_src if os.path.isfile(guide_src) else os.path.join(ROOT_DIR, "site-tree", "public_html", "hosted", "guide.html")
         guide_work = os.path.join(work_dir, "guide")
         run_command([sys.executable, OPTIMIZER, guide_export, guide_work, "guide.html", "guide-assets", "guide"])
         shutil.copy(os.path.join(guide_work, "guide.html"), os.path.join(hosted_dir, "guide.html"))
@@ -369,7 +372,7 @@ def verify_app_tarball(tar_path, build_num):
         # Check version manifest
         f_man = tar.extractfile("capades.io/public_html/hosted/app-assets/version-manifest.json")
         man = json.loads(f_man.read().decode("utf-8"))
-        if man["build"] != build_num or len(man["files"]) != 18:
+        if man["build"] != build_num or len(man["files"]) != len(EXPECTED_MANIFEST_FILES):
             raise AssertionError(f"version-manifest.json invalid: {man}")
 
         # Check sw.js cache name
@@ -436,7 +439,7 @@ def verify_all_tarball(tar_path, build_num):
         # Check version manifest
         f_man = tar.extractfile("capades.io/public_html/hosted/app-assets/version-manifest.json")
         man = json.loads(f_man.read().decode("utf-8"))
-        if man["build"] != build_num or len(man["files"]) != 18:
+        if man["build"] != build_num or len(man["files"]) != len(EXPECTED_MANIFEST_FILES):
             raise AssertionError(f"version-manifest.json invalid: {man}")
 
         # Check .htaccess no-cache rule

@@ -414,10 +414,13 @@
      Sexcapades, as before. The ?skin= query param (see skinFromUrl)
      wins over the hostname: it carries a skin selection across the
      age-gate round-trip. */
-  var HOSTNAME_SKINS = { sex: "sexcapades", polis: "poliscapades", fores: "forescapades", philo: "philoscapades", aesth: "aesthcapades", voca: "vocapades", tech: "techcapades", dharma: "dharmacapades", theori: "theoricapades", praxi: "praxicapades", quanta: "quantacapades", experi: "expericapades", simul: "simulcapades", matter: "mattercapades", chem: "chemcapades", nous: "nouscapades", dance: "dancecapades", quest: "questcapades" };
-  var SKIN_IDS = ["sexcapades", "poliscapades", "forescapades", "philoscapades", "aesthcapades", "vocapades", "techcapades", "dharmacapades", "theoricapades", "praxicapades", "quantacapades", "expericapades", "simulcapades", "mattercapades", "chemcapades", "nouscapades", "dancecapades", "questcapades"];
+  var HOSTNAME_SKINS = (typeof window !== "undefined" && window.__SX_HOSTNAME_SKINS) || { sex: "sexcapades", polis: "poliscapades", fores: "forescapades", philo: "philoscapades", aesth: "aesthcapades", voca: "vocapades", tech: "techcapades", dharma: "dharmacapades", theori: "theoricapades", praxi: "praxicapades", quanta: "quantacapades", experi: "expericapades", simul: "simulcapades", matter: "mattercapades", chem: "chemcapades", nous: "nouscapades", dance: "dancecapades", quest: "questcapades" };
+  var SKIN_IDS = (typeof window !== "undefined" && window.__SX_SKIN_IDS) || ["sexcapades", "poliscapades", "forescapades", "philoscapades", "aesthcapades", "vocapades", "techcapades", "dharmacapades", "theoricapades", "praxicapades", "quantacapades", "expericapades", "simulcapades", "mattercapades", "chemcapades", "nouscapades", "dancecapades", "questcapades"];
 
   function skinForHostname(hostname) {
+    if (typeof window !== "undefined" && typeof window.__SX_SKIN_FOR_HOSTNAME === "function") {
+      return window.__SX_SKIN_FOR_HOSTNAME(hostname);
+    }
     var host = (hostname || "").toLowerCase();
     if (host === "sexcapades.io" || host === "www.sexcapades.io") return "sexcapades";
     if (host === "flex.capades.io" || host === "capades.io") return "sexcapades";
@@ -434,6 +437,9 @@
      specific skin's dotted domain. Unknown ids fall back to "sex",
      mirroring skinForHostname's unknown-host default. */
   function skinPrefixFor(skinId) {
+    if (typeof window !== "undefined" && typeof window.__SX_SKIN_PREFIX_FOR === "function") {
+      return window.__SX_SKIN_PREFIX_FOR(skinId);
+    }
     var id = String(skinId || "");
     for (var p in HOSTNAME_SKINS) {
       if (HOSTNAME_SKINS[p] === id) return p;
