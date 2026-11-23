@@ -18,8 +18,12 @@
             e && (!jy.hidden || jyA && !jyA.hidden) && e.setAttribute("aria-expanded", "false");
         }
         function Sw() {
-            // Closes BOTH submenus: Samples (jy) and Archetypes (jyA).
-            [ jy, jyA ].forEach(menu => menu && (menu.hidden = !0, menu.classList.remove("is-submenu")));
+            // Closes BOTH submenus: Samples (jy) and Archetypes (jyA) —
+            // plus any roster submenus the skin loader registered on
+            // window.__SX_SAMPLE_SUBMENUS (2026-11-22 fix: roster menus
+            // opened through Iw but no close path knew about them, so
+            // they would not dismiss).
+            [ jy, jyA ].concat(window.__SX_SAMPLE_SUBMENUS || []).forEach(menu => menu && (menu.hidden = !0, menu.classList.remove("is-submenu"), menu.__sxTrigger && menu.__sxTrigger.setAttribute("aria-expanded", "false")));
             const t = tl.querySelector("[data-add-profile]"), n = e.byId("loadSampleProfileChoice"), a = e.byId("loadArchetypeChoice");
             t && t.setAttribute("aria-expanded", String(!By.hidden)), n && n.setAttribute("aria-expanded", "false"), a && a.setAttribute("aria-expanded", "false");
         }
@@ -30,7 +34,7 @@
             e.style.top = Math.max(8, Math.min(innerHeight - i.height - 8, n.bottom + 7)) + "px";
         }
         function Ew() {
-            [ jy, jyA ].forEach(menu => menu && menu.querySelectorAll("[data-sample-profile]").forEach(e => {
+            [ jy, jyA ].concat(window.__SX_SAMPLE_SUBMENUS || []).forEach(menu => menu && menu.querySelectorAll("[data-sample-profile]").forEach(e => {
                 const t = e.dataset.sampleProfile, n = e.dataset.sampleName, i = Zy[t];
                 i && !vt[i] && delete Zy[t];
                 const a = Boolean(Zy[t] && vt[Zy[t]] || ek(n) || ek(`${n} (sample)`));
@@ -94,7 +98,7 @@
             }
         }
         function Pw(e) {
-            kw(), jy.hidden && (!jyA || jyA.hidden) ? By.hidden ? (By.hidden = !1, e.setAttribute("aria-expanded", "true"), 
+            kw(), jy.hidden && (!jyA || jyA.hidden) && (window.__SX_SAMPLE_SUBMENUS || []).every(m => !m || m.hidden) ? By.hidden ? (By.hidden = !1, e.setAttribute("aria-expanded", "true"), 
             $w(By, e), By.querySelector("button").focus({
                 preventScroll: !0
             })) : xw() : Sw();
@@ -168,7 +172,7 @@
             Dw && (t.clear(Dw), Dw = 0);
         }, Ow = () => {
             Rw(), Dw = t.setTimeout(() => {
-                By.matches(":hover") || jy.matches(":hover") || jyA && jyA.matches(":hover") || Sw();
+                By.matches(":hover") || jy.matches(":hover") || jyA && jyA.matches(":hover") || (window.__SX_SAMPLE_SUBMENUS || []).some(m => m && m.matches(":hover")) || Sw();
             }, 180);
         };
         _w.addEventListener("pointerenter", () => {

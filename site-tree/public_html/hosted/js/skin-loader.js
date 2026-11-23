@@ -1407,6 +1407,9 @@
       if (!rosterGroups[rk]) {
         rosterMenuEls[rk].entry.remove();
         rosterMenuEls[rk].menu.remove();
+        var reg = window.__SX_SAMPLE_SUBMENUS || [];
+        var ix = reg.indexOf(rosterMenuEls[rk].menu);
+        if (ix >= 0) reg.splice(ix, 1);
         delete rosterMenuEls[rk];
       }
     });
@@ -1439,6 +1442,11 @@
         rmenu.appendChild(back);
         addMenu.insertBefore(entry, savedChoice || null);
         samplesMenu.parentElement.appendChild(rmenu);
+        /* Register with 06d's close/refresh paths (Sw, Ew, Ow, Pw all
+           consult window.__SX_SAMPLE_SUBMENUS); __sxTrigger lets Sw
+           reset this entry's aria-expanded when it closes the menu. */
+        rmenu.__sxTrigger = entry;
+        (window.__SX_SAMPLE_SUBMENUS = window.__SX_SAMPLE_SUBMENUS || []).push(rmenu);
         wire(entry, rmenu, back);
         els = rosterMenuEls[rk] = { entry: entry, menu: rmenu };
       }
