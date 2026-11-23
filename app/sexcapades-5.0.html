@@ -6,9 +6,9 @@
 <meta content="width=device-width, initial-scale=1, viewport-fit=cover" name="viewport"/>
 <meta content="The Sexcapades hypermap: rate 400+ kinks across 18 categories on the visual map or in the Hot list, compare profiles with a partner, and generate stories and play guides." name="description"/>
 <meta content="dark" name="color-scheme"/>
-<meta content="2026-11-22_1752" name="sexcapades-build"/>
-<meta content="release-5.0-1122-1752" name="sexcapades-build-tag"/>
-<!-- BUILD-MANIFEST {"build": "2026-11-22_1752", "version": "5.0", "channel": "release"} -->
+<meta content="2026-11-22_1842" name="sexcapades-build"/>
+<meta content="release-5.0-1122-1842" name="sexcapades-build-tag"/>
+<!-- BUILD-MANIFEST {"build": "2026-11-22_1842", "version": "5.0", "channel": "release"} -->
 <script>/* BOOTLOAD-FIX (F1): __sxErrLog queue stub. The P0 shell block that defines
 the real logger now sits just after the boot dialog in the body, so the dialog can
 paint in the first kilobytes; the small head scripts call __sxErrLog from parse-time
@@ -1064,9 +1064,9 @@ window.__sxProgressWidget=function(refs){
 </span>
 <!-- CENTER-AVATAR: the map center's own archived guide portrait (assets/guide-avatar.jpg), restored from the archived builds. The center consumers read this element first; the header music button's image is never borrowed. -->
 <img alt="" aria-hidden="true" class="center-avatar-source" height="512" hidden="" id="sxCenterAvatarSource" src="images/img-1.webp" width="512"/>
-<a aria-label="Open the Syncing Sexcapades Guide" class="review-callout" data-ui-tooltip="Learn how to build, compare, save, and share hypermaps." href="gate.html#guide" id="reviewLink" rel="noopener noreferrer" target="_blank">
+<button aria-controls="appDocsMenu" aria-expanded="false" aria-haspopup="menu" aria-label="Open documentation and guides" class="action-btn review-callout" data-ui-tooltip="Open documentation, guides, glossary, and FAQ." id="reviewLink" type="button">
 <strong aria-hidden="true" class="guide-qmark">?</strong>
-</a>
+</button>
 <dialog aria-label="Charted details" id="horizonDialog">
 <div class="dialog-head">
 <strong>Charted</strong>
@@ -1932,8 +1932,8 @@ window.__sxProgressWidget=function(refs){
 <h2 id="appAboutTitle">About Sex.Capades.IO</h2>
 <div class="app-about-header-meta">
 <div class="app-about-version-cluster">
-<span class="app-about-version">Version 5.0 · Build 2026-11-22_1752</span>
-<span class="app-about-version app-about-buildtag">release-5.0-1122-1752</span>
+<span class="app-about-version">Version 5.0 · Build 2026-11-22_1842</span>
+<span class="app-about-version app-about-buildtag">release-5.0-1122-1842</span>
 <label class="remember-profile-label"><input id="rememberProfileCheckbox2x" type="checkbox"/><span>Remember this tab's profiles on this device</span></label>
 <button class="flush-profiles-btn" id="flushProfilesBtn2x" title="Clear all saved profiles from this device" type="button">Flush profiles</button>
 </div>
@@ -3445,6 +3445,52 @@ window.__sxProgressWidget=function(refs){
 <button aria-checked="false" class="view-nav-item skin-item" data-skin="nouscapades" role="menuitemradio" type="button"><span class="skin-label"><span class="skin-name">Nouscapades</span><span class="skin-desc">what counts as a mind</span></span></button>
 </div>
 <div aria-live="polite" class="skin-note" hidden="" id="skinNote" role="status"></div>
+<div aria-label="Documentation and guides" class="view-nav-menu docs-dropdown-menu" hidden="" id="appDocsMenu" role="menu">
+  <a class="view-nav-item" href="/hosted/how-it-works.html" role="menuitem"><span class="view-nav-text"><strong>How it works</strong><small>The 5-step loop from first rating to deep insight.</small></span></a>
+  <a class="view-nav-item" href="/hosted/quickstart.html" role="menuitem"><span class="view-nav-text"><strong>Quick Start</strong><small>Rate 3 topics per category in under 20 minutes.</small></span></a>
+  <a class="view-nav-item" href="/hosted/guide.html" role="menuitem"><span class="view-nav-text"><strong>Guide</strong><small>Detailed manual for hypermap features and views.</small></span></a>
+  <a class="view-nav-item" href="/hosted/compare.html" id="appCompareLinkItem" role="menuitem"><span class="view-nav-text"><strong>Compare</strong><small>Compare profiles, platforms, and compatibility.</small></span></a>
+  <button class="view-nav-item docs-submenu-trigger" type="button" id="appDocsGlossaryTrigger" aria-haspopup="true" aria-expanded="false" aria-controls="appDocsGlossaryFlyout" role="menuitem">
+    <span class="view-nav-text"><strong>Glossary</strong><small>Terms, metrics, and definitions.</small></span>
+    <span class="docs-flyout-arrow">▸</span>
+  </button>
+  <button class="view-nav-item docs-submenu-trigger" type="button" id="appDocsFaqTrigger" aria-haspopup="true" aria-expanded="false" aria-controls="appDocsFaqFlyout" role="menuitem">
+    <span class="view-nav-text"><strong>FAQ</strong><small>Frequently asked questions and troubleshooting.</small></span>
+    <span class="docs-flyout-arrow">▸</span>
+  </button>
+  <a class="view-nav-item" href="/hosted/flyer.html" role="menuitem"><span class="view-nav-text"><strong>Flyer</strong><small>Overview sheet and quick reference.</small></span></a>
+  <div class="view-nav-divider" aria-hidden="true"></div>
+  <a class="view-nav-item" href="/hosted/privacy.html" role="menuitem"><span class="view-nav-text"><strong>Privacy Policy</strong><small>Zero-knowledge storage and data guarantees.</small></span></a>
+  <a class="view-nav-item" href="/hosted/methodology.html" role="menuitem"><span class="view-nav-text"><strong>Methodology</strong><small>The science and scoring algorithms.</small></span></a>
+  <a class="view-nav-item" href="/sitemap.html" role="menuitem"><span class="view-nav-text"><strong>Sitemap</strong><small>Index of all public pages and tools.</small></span></a>
+  <a class="view-nav-item" href="/engine.html" role="menuitem"><span class="view-nav-text"><strong>TaxoPolemics</strong><small>The underlying taxonomy engine architecture.</small></span></a>
+</div>
+<div class="view-nav-menu docs-flyout" id="appDocsGlossaryFlyout" hidden role="menu" aria-label="Glossary links">
+  <a class="view-nav-item docs-main-link" href="/hosted/glossary.html" role="menuitem"><strong>All Glossary Terms</strong></a>
+  <a class="view-nav-item" href="/hosted/glossary.html#sync-map" role="menuitem">Hypermap</a>
+  <a class="view-nav-item" href="/hosted/glossary.html#quick-start" role="menuitem">Quick Start</a>
+  <a class="view-nav-item" href="/hosted/glossary.html#net" role="menuitem">Net</a>
+  <a class="view-nav-item" href="/hosted/glossary.html#cast" role="menuitem">Cast</a>
+  <a class="view-nav-item" href="/hosted/glossary.html#scribe" role="menuitem">Scribe</a>
+  <a class="view-nav-item" href="/hosted/glossary.html#scene-setter" role="menuitem">Scene Setter</a>
+  <a class="view-nav-item" href="/hosted/glossary.html#scan-or-import" role="menuitem">Scan or Import</a>
+  <a class="view-nav-item" href="/hosted/glossary.html#sync-card" role="menuitem">Sync Card</a>
+  <a class="view-nav-item" href="/hosted/glossary.html#qr-sheet" role="menuitem">QR Sheet</a>
+  <a class="view-nav-item" href="/hosted/glossary.html#compare-sync-maps" role="menuitem">Compare hypermaps?</a>
+  <a class="view-nav-item" href="/hosted/glossary.html#kink-categories" role="menuitem">Categories</a>
+  <a class="view-nav-item" href="/hosted/glossary.html#kink-lines" role="menuitem">Topic lines</a>
+</div>
+<div class="view-nav-menu docs-flyout" id="appDocsFaqFlyout" hidden role="menu" aria-label="FAQ links">
+  <a class="view-nav-item docs-main-link" href="/hosted/faq.html" role="menuitem"><strong>All FAQ Questions</strong></a>
+  <a class="view-nav-item" href="/hosted/faq.html#loading" role="menuitem">The site won’t load, or I see an old version</a>
+  <a class="view-nav-item" href="/hosted/faq.html#profile" role="menuitem">My profile disappeared after refresh</a>
+  <a class="view-nav-item" href="/hosted/faq.html#compare" role="menuitem">How do I compare with a partner?</a>
+  <a class="view-nav-item" href="/hosted/faq.html#privacy" role="menuitem">Is my data private?</a>
+  <a class="view-nav-item" href="/hosted/faq.html#import" role="menuitem">Import isn’t working</a>
+  <a class="view-nav-item" href="/hosted/faq.html#views" role="menuitem">What’s the difference between list view and map view?</a>
+  <a class="view-nav-item" href="/hosted/faq.html#sharing" role="menuitem">How do I share my profile?</a>
+  <a class="view-nav-item" href="/hosted/faq.html#colors" role="menuitem">What do the colors mean?</a>
+</div>
 <dialog aria-labelledby="sxBuzzerTitle" id="sxBuzzerDialog">
 <div class="sx-buzzer-body">
 <h2 id="sxBuzzerTitle">Wrong orientation labels?</h2>

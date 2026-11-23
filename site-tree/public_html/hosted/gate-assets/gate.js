@@ -537,12 +537,24 @@
         // flyer referrals go straight to Quick Start (same as clicking Enter),
         // everyone else lands on the destination menu.
         if (previousGatePass) {
+        // Gate passed: forward directly to app
+        if (previousGatePass) {
           if (isFlyerReferral) {
             window.location.replace(destinationUrls.quickstart);
             return;
           }
-
-          revealDestinations();
+          var prevReturn = getReturnDestination();
+          if (prevReturn) {
+            window.location.replace(prevReturn);
+            return;
+          }
+          var prevDeep = getDeepLinkDestination();
+          if (prevDeep) {
+            window.location.replace(prevDeep);
+            return;
+          }
+          window.location.replace(destinationUrls.app);
+          return;
         }
 
         enterButton.addEventListener('click', function () {
@@ -568,9 +580,7 @@
           }
 
           if (window.sxGateMusicAutoPlay) window.sxGateMusicAutoPlay();
-          revealDestinations();
-          var nextStop = destinationMenu.querySelector('#appViewTrigger, a, button');
-          if (nextStop) nextStop.focus();
+          window.location.assign(destinationUrls.app);
         });
 
         // App view pull-down menu: anchored to the "App" button, drops

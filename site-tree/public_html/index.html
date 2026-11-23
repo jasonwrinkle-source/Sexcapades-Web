@@ -19,11 +19,11 @@
   // capades.io host, and the root page sends each visitor to the right
   // front door. Query params (e.g. ?utm_source=...) and #fragment are
   // forwarded on every route, as the old blanket redirect did.
-  //   sex hosts (sexcapades.io, sex.capades.io) -> the age gate
+  //   sex hosts (sexcapades.io, sex.capades.io) -> age gate (or app if verified)
   //   flex.capades.io                          -> the skin picker
   //   capades.io                               -> the engine page
-  //   <prefix>.capades.io (one of the 15 skins) -> the gate on that skin
-  //   anything else (localhost, unknown hosts) -> the gate, as before
+  //   <prefix>.capades.io (vanilla skins)      -> app directly (bypassing gate)
+  //   anything else (localhost, unknown hosts) -> app directly
   // No meta-refresh: it would drop the fragment before JS runs.
   (function () {
     var host = "";
@@ -31,16 +31,32 @@
     var qs = window.location.search || "";
     var frag = window.location.hash || "";
     function go(path) { window.location.replace(path + qs + frag); }
+    function hasGatePass() {
+      try {
+        if (document.cookie.indexOf('sexcapades_age_verified=1') !== -1) return true;
+        return window.localStorage.getItem('sexcapades_age_verified') === 'true';
+      } catch (e) { return false; }
+    }
     var SEX_HOSTS = { "sexcapades.io": 1, "www.sexcapades.io": 1, "sex.capades.io": 1, "www.sex.capades.io": 1 };
-    if (SEX_HOSTS[host]) { go("/hosted/gate.html"); return; }
+    if (SEX_HOSTS[host]) {
+      if (hasGatePass()) { go("/hosted/app.html"); return; }
+      go("/hosted/gate.html");
+      return;
+    }
     if (host === "flex.capades.io") { go("/picker.html"); return; }
     if (host === "capades.io") { go("/engine.html"); return; }
     var SKINS = { sex: 1, polis: 1, fores: 1, philo: 1, aesth: 1, voca: 1, tech: 1, dharma: 1, theori: 1, praxi: 1, quanta: 1, experi: 1, simul: 1, matter: 1, chem: 1, nous: 1 };
     var prefix = /\.capades\.io$/.test(host) ? host.split(".")[0] : "";
-    // Each skin opens on its own gate page first (picker -> skin ->
-    // gate -> hypermap or Hot List); the gate sends the visitor on.
-    if (prefix && SKINS[prefix]) { go("/hosted/gate.html"); return; }
-    go("/hosted/gate.html");
+    if (prefix && SKINS[prefix]) {
+      if (prefix === "sex") {
+        if (hasGatePass()) { go("/hosted/app.html"); return; }
+        go("/hosted/gate.html");
+        return;
+      }
+      go("/hosted/app.html");
+      return;
+    }
+    go("/hosted/app.html");
   })();
 </script>
 <link rel="manifest" href="/manifest.json" />
