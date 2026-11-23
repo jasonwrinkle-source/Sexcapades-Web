@@ -87,7 +87,7 @@ for p in parts:
         # Strip standalone export { ... }
         code = re.sub(r'^\s*export\s*\{[^}]*\}\s*;?', '', code, flags=re.MULTILINE)
 
-        combined_code.append(code)
+        combined_code.append(f"/* --- Module: {p} --- */\n(function() {{\n" + code + "\n})();\n")
 
 with open(target_app, "w", encoding="utf-8") as out:
     out.write("\n".join(combined_code))

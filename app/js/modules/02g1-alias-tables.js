@@ -1154,7 +1154,7 @@ const Ce = {
             "t0385": [ "wears", "admires" ],
             "t0375": [ "accepts", "surrenders" ]
         };
-        const SX_SUBSUMED_BASE_TOPIC_IDS = {
+        var SX_SUBSUMED_BASE_TOPIC_IDS = {
             "FemDom": "t0009", "D/s": "t0010", "Brats": "t0012", "Switching": "t0014", "Male Authority": "t0015",
             "Ongoing dynamics": "t0008", "24/7": "t0013", "Romantic surrender": "t0375",
             "Hotwife": "t0288",

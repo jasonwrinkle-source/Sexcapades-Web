@@ -177,7 +177,7 @@
             return patch;
         }
 
-        const SX_SUBSUMED_BASE_TOPIC_IDS = {
+        var SX_SUBSUMED_BASE_TOPIC_IDS = {
             "FemDom": "t0009", "D/s": "t0010", "Brats": "t0012", "Switching": "t0014", "Male Authority": "t0015",
             "Ongoing dynamics": "t0008", "24/7": "t0013", "Romantic surrender": "t0375",
             "Hotwife": "t0288",
@@ -972,7 +972,7 @@
         // and label anchors. The full build-by-build history is preserved
         // in the map-render refactor completion report (2026-10-25).
         var MAP_CENTER_X = 900, MAP_CENTER_Y = 620, BRANCH_TOGGLE_DROP = 184.06;
-        const ea = {
+        var ea = {
             photoRadius: 897.58,
             glanceRadii: [ 1013.31, 969.31, 925.31 ],
             outerRadius: 1200,
@@ -994,7 +994,7 @@
         // outerRadius/lineStartRadius (layout + label anchors).
         // FQ2-BAKEIN (A4): branchToggleY is no longer a fixed constant —
         // refreshCenterRing() derives it from the scaled ring (see below).
-        const eaBase = {
+        var eaBase = {
             photoRadius: ea.photoRadius,
             glanceRadii: ea.glanceRadii.slice(),
             spokeStartRadius: ea.spokeStartRadius,

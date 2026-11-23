@@ -1,3 +1,5 @@
+/* --- Module: 01-dispatcher.js --- */
+(function() {
 /* P0 refactor (Build 2026-10-18_2210): shared error logger + single document
    event dispatchers for this bundle.
    - __sxErrLog: every previously empty catch block in this bundle (74
@@ -303,8 +305,16 @@ var __sxInit = window.__sxInit;
     });
 }).then(function() {
 
+})();
+
+/* --- Module: 02b-taxonomy-data.js --- */
+(function() {
 const TAXONOMY_CATEGORIES = [];
 
+})();
+
+/* --- Module: 02a-taxonomy-models.js --- */
+(function() {
     !function() {
         "use strict";
         const {DOM: e, TimerManager: t, setHTML: n} = window.SexcapadesRuntime, i = [ "Hard Limit (×): HARD EXCLUDE the topic. Never mention it—not as action, dialogue, a tease, suggestion, fantasy, setup, backstory, or background detail.", "Not Interested (⊘): HARD EXCLUDE the topic exactly like a Hard Limit. Never mention it—not as action, dialogue, a tease, suggestion, fantasy, setup, backstory, or background detail.", "Favorite (★): PRIORITIZE the topic prominently over unmarked topics while obeying ratings, give/receive roles, shared-ground limits, and consent." ], a = [ "Fantasy-only (☁): INCLUDE only as a clearly imagined fantasy, dream, or internal thought; make clear it is imagined, not real-world play or willingness.", "Already Tried (✓): REFERENCE as past experience (for example, “they’d done this before”) without inventing details or assuming current consent." ], r = [ "Fantasy-only (☁): EXCLUDE entirely from practical play guides; never schedule, suggest, tease, or describe it as real-world play.", "Already Tried (✓): REFERENCE as past experience (for example, “Since you’ve tried X, you might…”) while confirming current consent and avoiding invented details." ], o = new Set;
@@ -1486,6 +1496,10 @@ const TAXONOMY_CATEGORIES = [];
             labelForId: e => topicLabelById[String(e || "")] || null
         });
 
+})();
+
+/* --- Module: 02g1-alias-tables.js --- */
+(function() {
 // ---- Flexcapades Static Alias Tables & Dictionaries (02g1-alias-tables.js) ----
 // Extracted from 02g-definitions-ratings.js for startup speed, modularity, and clean JIT indexing.
 // Contains static topic alias maps, skin category colors & glyphs, icon geometries,
@@ -2642,7 +2656,7 @@ const Ce = {
             "t0385": [ "wears", "admires" ],
             "t0375": [ "accepts", "surrenders" ]
         };
-        const SX_SUBSUMED_BASE_TOPIC_IDS = {
+        var SX_SUBSUMED_BASE_TOPIC_IDS = {
             "FemDom": "t0009", "D/s": "t0010", "Brats": "t0012", "Switching": "t0014", "Male Authority": "t0015",
             "Ongoing dynamics": "t0008", "24/7": "t0013", "Romantic surrender": "t0375",
             "Hotwife": "t0288",
@@ -2654,6 +2668,10 @@ const Ce = {
             "Hair": "t0203", "Long Hair": "t0204", "Facial Hair": "t0208", "Beards": "t0209", "Body Hair": "t0210", "Pubic Hair": "t0211", "Muscles": "t0231"
         };
 
+})();
+
+/* --- Module: 02g-definitions-ratings.js --- */
+(function() {
         const f = Object.freeze([ "Orgasm & reproductive play", "Power exchange", "Service & ritual", "Connection & aftercare", "Psychological dynamics", "Primal & pursuit", "Impact, pain & body modification", "Bondage & restriction", "Sensation & atmosphere", "Body focus & appearance", "Clothing, materials & objects", "Roleplay & identity", "Fantasy & transformation", "Watching, exposure & settings", "Partner configurations", "Positions", "Sex acts", "Fluids & messy play" ]), y = new Map;
         f.forEach((e, t) => {
             h.some(t => t.name === e) && y.set(e, t);
@@ -3359,6 +3377,10 @@ const Ce = {
         }));
         const Ue = new Set([ "t0002", "t0007", "t0008", "t0102", "t0106", "t0107", "t0108", "t0140", "topic-vampires-gothic", "topic-historical-fantasy", "t0377", "t0378", "t0379", "t0380", "t0382", "t0383", "t0384", "t0317", "t0318", "t0319", "t0320", "t0321", "t0322", "t0323", "t0278", "t0279", "t0280", "t0282", "t0258", "t0361", "t0366", "t0396", "t0397", "t0399", "t0401", "t0402", "t0403", "t0269", "t0048", "t0132", "t0143", "t0144", "t0147", "t0148", "t0195", "t0217", "t0219", "t0228", "t0229", "t0230", "t0232", "t0233", "t0259", "t0290", "t0303" ]);
 
+})();
+
+/* --- Module: 02h-inner-opener.js --- */
+(function() {
     !function() {
         "use strict";
         const {DOM: e, TimerManager: t, setHTML: n} = window.SexcapadesRuntime, i = [ "Hard Limit (×): HARD EXCLUDE the topic. Never mention it—not as action, dialogue, a tease, suggestion, fantasy, setup, backstory, or background detail.", "Not Interested (⊘): HARD EXCLUDE the topic exactly like a Hard Limit. Never mention it—not as action, dialogue, a tease, suggestion, fantasy, setup, backstory, or background detail.", "Favorite (★): PRIORITIZE the topic prominently over unmarked topics while obeying ratings, give/receive roles, shared-ground limits, and consent." ], a = [ "Fantasy-only (☁): INCLUDE only as a clearly imagined fantasy, dream, or internal thought; make clear it is imagined, not real-world play or willingness.", "Already Tried (✓): REFERENCE as past experience (for example, “they’d done this before”) without inventing details or assuming current consent." ], r = [ "Fantasy-only (☁): EXCLUDE entirely from practical play guides; never schedule, suggest, tease, or describe it as real-world play.", "Already Tried (✓): REFERENCE as past experience (for example, “Since you’ve tried X, you might…”) while confirming current consent and avoiding invented details." ], o = new Set;
@@ -3550,6 +3572,10 @@ const Ce = {
         // without an owner ruling.
         p("gate_passed");
 
+})();
+
+/* --- Module: 02i-taxonomy-catalog.js --- */
+(function() {
         /* ================= TaxonomyLoader module — BEGIN ================= */
         /* ================================================================
            TaxonomyLoader — the 403-topic taxonomy as a validated data
@@ -6098,6 +6124,10 @@ const Ce = {
         }));
 
 
+})();
+
+/* --- Module: 02i1-topic-descriptions.js --- */
+(function() {
         const Be = {
             aella: {
                 label: "Aella Big Kink Survey",
@@ -6762,6 +6792,10 @@ const Ce = {
             "Praise (aftercare)": [ "praise or reassurance", "praise or reassurance" ]
         };
 
+})();
+
+/* --- Module: 02i2-widget-geometry.js --- */
+(function() {
         const Ue = new Set([ "t0002", "t0007", "t0008", "t0102", "t0106", "t0107", "t0108", "t0140", "topic-vampires-gothic", "topic-historical-fantasy", "t0377", "t0378", "t0379", "t0380", "t0382", "t0383", "t0384", "t0317", "t0318", "t0319", "t0320", "t0321", "t0322", "t0323", "t0278", "t0279", "t0280", "t0282", "t0258", "t0361", "t0366", "t0396", "t0397", "t0399", "t0401", "t0402", "t0403", "t0269", "t0048", "t0132", "t0143", "t0144", "t0147", "t0148", "t0195", "t0217", "t0219", "t0228", "t0229", "t0230", "t0232", "t0233", "t0259", "t0290", "t0303" ]);
         function Ge(e, t = Vi()) {
             const n = (at[t] || {})[e], i = n && n.parentId || e;
@@ -6961,6 +6995,10 @@ const Ce = {
             }
         }));
 
+})();
+
+/* --- Module: 02j-profile-state.js --- */
+(function() {
         const Ke = new Set;
         function ze(e, t) {
             return new Proxy(t, {
@@ -7153,6 +7191,10 @@ const Ce = {
             try { window.SexcapadesEngine?.Map?.invalidateVault(e); } catch (_) {}
         }
 
+})();
+
+/* --- Module: 02k-compare-dials.js --- */
+(function() {
         let sxGroupLeniency = 50, sxWriterLeniency = 50, sxCompareIds = [], Qt = null, Jt = () => {};
         // Last PURE pair computation per group id (blocker stage,
         // 2026-10-27): the tag-free baseline Rd and sxRefreshGroupOwn
@@ -7250,6 +7292,10 @@ const Ce = {
         }
         const rn = new Set, on = new Set, sn = new Map, ln = {}, cn = {}, dn = {}, un = new Map, pn = {}, hn = {}, gn = new Set, mn = window.__SEXCAPADES_LAYOUT || sxGeneratedFallbackDials();
 
+})();
+
+/* --- Module: 02o-ratings-scales.js --- */
+(function() {
         h.forEach(e => {
             rn.add(e.name), un.set(catId(e.name), "all"), (e.subcategories || []).forEach(t => {
                 const n = Un(e.name, t.name);
@@ -7429,7 +7475,7 @@ const Ce = {
             return patch;
         }
 
-        const SX_SUBSUMED_BASE_TOPIC_IDS = {
+        var SX_SUBSUMED_BASE_TOPIC_IDS = {
             "FemDom": "t0009", "D/s": "t0010", "Brats": "t0012", "Switching": "t0014", "Male Authority": "t0015",
             "Ongoing dynamics": "t0008", "24/7": "t0013", "Romantic surrender": "t0375",
             "Hotwife": "t0288",
@@ -8224,7 +8270,7 @@ const Ce = {
         // and label anchors. The full build-by-build history is preserved
         // in the map-render refactor completion report (2026-10-25).
         var MAP_CENTER_X = 900, MAP_CENTER_Y = 620, BRANCH_TOGGLE_DROP = 184.06;
-        const ea = {
+        var ea = {
             photoRadius: 897.58,
             glanceRadii: [ 1013.31, 969.31, 925.31 ],
             outerRadius: 1200,
@@ -8246,7 +8292,7 @@ const Ce = {
         // outerRadius/lineStartRadius (layout + label anchors).
         // FQ2-BAKEIN (A4): branchToggleY is no longer a fixed constant —
         // refreshCenterRing() derives it from the scaled ring (see below).
-        const eaBase = {
+        var eaBase = {
             photoRadius: ea.photoRadius,
             glanceRadii: ea.glanceRadii.slice(),
             spokeStartRadius: ea.spokeStartRadius,
@@ -9548,6 +9594,10 @@ const Ce = {
             window.Ra = Ra;
         }
 
+})();
+
+/* --- Module: 02e-font-ladder.js --- */
+(function() {
         // frozen baselines, reached by successive rescalings of the center
         // node (builds 2026-10-17_1446, 2026-10-17_2027, 2026-10-18_0343,
         // 2026-10-18_1449, 2026-10-19_0119): the photo disc and at-a-glance
@@ -9562,7 +9612,7 @@ const Ce = {
         // and label anchors. The full build-by-build history is preserved
         // in the map-render refactor completion report (2026-10-25).
         var MAP_CENTER_X = 900, MAP_CENTER_Y = 620, BRANCH_TOGGLE_DROP = 184.06;
-        const ea = {
+        var ea = {
             photoRadius: 897.58,
             glanceRadii: [ 1013.31, 969.31, 925.31 ],
             outerRadius: 1200,
@@ -9584,7 +9634,7 @@ const Ce = {
         // outerRadius/lineStartRadius (layout + label anchors).
         // FQ2-BAKEIN (A4): branchToggleY is no longer a fixed constant —
         // refreshCenterRing() derives it from the scaled ring (see below).
-        const eaBase = {
+        var eaBase = {
             photoRadius: ea.photoRadius,
             glanceRadii: ea.glanceRadii.slice(),
             spokeStartRadius: ea.spokeStartRadius,
@@ -9824,6 +9874,10 @@ const Ce = {
             return ea.spokeStartRadius;
         }
 
+})();
+
+/* --- Module: 02f-spoke-geometry.js --- */
+(function() {
         /* ================= SpokeGeometry module — BEGIN ================= */
         /* ================================================================
            SpokeGeometry — spoke path geometry for the map renderer.
@@ -11284,6 +11338,10 @@ const Ce = {
             categoryUnderlineLength: (e, t) => Math.max(36, e.length * t * .5)
         });
 
+})();
+
+/* --- Module: 02d-selection-marking.js --- */
+(function() {
         function Qa(e) {
             if (mn.staticMap) return;
             if (e.preventDefault(), e.stopPropagation(), to) return void (to = !1);
@@ -11477,6 +11535,10 @@ const Ce = {
             link && (event.key === "Enter" || event.key === " ") && focusRelationLink(link, event);
         }, !0);
 
+})();
+
+/* --- Module: 02l-deknotter-session.js --- */
+(function() {
         // DeKnotter run context (E1): module-scoped state behind the
         // dedicated driver API at __SEXCAPADES_LAYOUT_API.deknotter. While
         // a context is active, deknotter.applyPhase validates every
@@ -13034,6 +13096,10 @@ const Ce = {
             return Array.isArray(value) ? "[" + value.map(dkStableStringify).join(",") + "]" : "{" + Object.keys(value).sort().map(key => JSON.stringify(key) + ":" + dkStableStringify(value[key])).join(",") + "}";
         }
 
+})();
+
+/* --- Module: 02m-fit-targets.js --- */
+(function() {
         // Fit-target registry (E4): target radii in final rendered
         // units, keyed by the same stable item identity as the
         // base-state registry above ('topic|<branch>|<topicId>',
@@ -13600,6 +13666,10 @@ const Ce = {
             });
         }
 
+})();
+
+/* --- Module: 02n1-deknotter-diagnostics.js --- */
+(function() {
         // 02n1-deknotter-diagnostics.js — DeKnotter Diagnostic & Witness Utilities
         // Extracted from 02n-deknotter-cascade.js for modularity, clean maintenance,
         // and reduced token cost. Contains layout math helpers, delivered radii calculations,
@@ -14232,6 +14302,10 @@ const Ce = {
             return snap;
         }
 
+})();
+
+/* --- Module: 02n2-deknotter-solver.js --- */
+(function() {
 // 02n2-deknotter-solver.js — DeKnotter Constraint & Relaxation Solver Math
 // Pure calculation routines extracted from 02n-deknotter-cascade.js and 02l-deknotter-session.js
 // Handles ladder descent calculations, ratio checks, geometry projection, and constraint evaluation.
@@ -14317,6 +14391,10 @@ function dkEvaluateCrossingDrop(before, after, threshold = 0.75) {
     };
 }
 
+})();
+
+/* --- Module: 02n-deknotter-cascade.js --- */
+(function() {
         // DeKnotter cascade driver (E5, ASSESSMENT §3.4, §3.7, §5.6,
         // §5.8, §5.11): one full run for one branch, driven entirely
         // through the bundle layout API — never the editor shell's
@@ -16725,6 +16803,10 @@ function dkEvaluateCrossingDrop(before, after, threshold = 0.75) {
             return report;
         }
 
+})();
+
+/* --- Module: 02o-ratings-scales.js --- */
+(function() {
         h.forEach(e => {
             rn.add(e.name), un.set(catId(e.name), "all"), (e.subcategories || []).forEach(t => {
                 const n = Un(e.name, t.name);
@@ -16904,7 +16986,7 @@ function dkEvaluateCrossingDrop(before, after, threshold = 0.75) {
             return patch;
         }
 
-        const SX_SUBSUMED_BASE_TOPIC_IDS = {
+        var SX_SUBSUMED_BASE_TOPIC_IDS = {
             "FemDom": "t0009", "D/s": "t0010", "Brats": "t0012", "Switching": "t0014", "Male Authority": "t0015",
             "Ongoing dynamics": "t0008", "24/7": "t0013", "Romantic surrender": "t0375",
             "Hotwife": "t0288",
@@ -17699,7 +17781,7 @@ function dkEvaluateCrossingDrop(before, after, threshold = 0.75) {
         // and label anchors. The full build-by-build history is preserved
         // in the map-render refactor completion report (2026-10-25).
         var MAP_CENTER_X = 900, MAP_CENTER_Y = 620, BRANCH_TOGGLE_DROP = 184.06;
-        const ea = {
+        var ea = {
             photoRadius: 897.58,
             glanceRadii: [ 1013.31, 969.31, 925.31 ],
             outerRadius: 1200,
@@ -17721,7 +17803,7 @@ function dkEvaluateCrossingDrop(before, after, threshold = 0.75) {
         // outerRadius/lineStartRadius (layout + label anchors).
         // FQ2-BAKEIN (A4): branchToggleY is no longer a fixed constant —
         // refreshCenterRing() derives it from the scaled ring (see below).
-        const eaBase = {
+        var eaBase = {
             photoRadius: ea.photoRadius,
             glanceRadii: ea.glanceRadii.slice(),
             spokeStartRadius: ea.spokeStartRadius,
@@ -19023,6 +19105,10 @@ function dkEvaluateCrossingDrop(before, after, threshold = 0.75) {
             window.Ra = Ra;
         }
 
+})();
+
+/* --- Module: 02p-spoke-selection.js --- */
+(function() {
         /* ================= SpokeSelection module — BEGIN ================= */
         /* ================================================================
            SpokeSelection — spoke hit-testing, selection halos & outline rendering.
@@ -19241,11 +19327,19 @@ function dkEvaluateCrossingDrop(before, after, threshold = 0.75) {
             link && (event.key === "Enter" || event.key === " ") && focusRelationLink(link, event);
         }, !0);
 
+})();
+
+/* --- Module: 02-taxonomy-core.js --- */
+(function() {
         // Map layout geometry (er, nr, rr, and the branch-order helpers)
         // lives in 02c-layout-solver.js. A second copy here is a strict-mode
         // SyntaxError (Identifier 'nr'/'rr' has already been declared) and
         // the bootstrap script never runs.
 
+})();
+
+/* --- Module: 02c-layout-solver.js --- */
+(function() {
         // ===== Map layout geometry ==============================================
         // One pipeline owns spoke radii, collision relief, crossing assignment,
         // and angular nudging. Keep this order stable: each later pass consumes the
@@ -20235,6 +20329,10 @@ function dkEvaluateCrossingDrop(before, after, threshold = 0.75) {
         // and frCollisionPasses the collision/crossing passes. fr itself
         // is now a thin orchestrator.
 
+})();
+
+/* --- Module: 03a-midline-solver.js --- */
+(function() {
         function frBuildTree() {
                 const e = Ia(), t = t => $n ? $n.has(t) : !e || function(e, t) {
                     const n = ft[t], i = n && "group" === n.kind && Array.isArray(n.sourceIds) ? n.sourceIds.filter(e => vt[e] && vht[e]) : [];
@@ -22479,6 +22577,10 @@ function dkEvaluateCrossingDrop(before, after, threshold = 0.75) {
         window.__sxCrossingStagedCloud = (branch, adjacent) => sxCrossingStagedCloud(branch, !!adjacent);
         window.__sxAnnealStageState = () => sxAnnealStageCtx ? { branch: sxAnnealStageCtx.branch, adjacent: !!sxAnnealStageCtx.adjacent } : null;
 
+})();
+
+/* --- Module: 03-map-geometry.js --- */
+(function() {
 
                 function fr() {
             const e = frBuildTree(), t = e.map(e => ({
@@ -22904,6 +23006,10 @@ function dkEvaluateCrossingDrop(before, after, threshold = 0.75) {
         let sxChunkPaint = !1, sxPaintPromise = null, sxChunkBudget = 12;
 
 
+})();
+
+/* --- Module: 03c-map-vault.js --- */
+(function() {
         // SX_PLANE_VAULT: Instant profile switching cache
         // Keeps rendered DOM trees (with attached event listeners)
         // intact in memory inside DocumentFragments.
@@ -23357,6 +23463,10 @@ function dkEvaluateCrossingDrop(before, after, threshold = 0.75) {
         }
 
 
+})();
+
+/* --- Module: 03e2-settle-engine.js --- */
+(function() {
 // ---- Hypermap Settle Engine (03e2-settle-engine.js) ----
 // Decomposed from 03e-map-paint.js for execution speed & modularity.
 // Manages the two-pass layout settle pipeline:
@@ -23858,6 +23968,10 @@ function* sxRunNodeSettle(scCtx, blitSess) {
     sxUpdateOverlapLinks();
 }
 
+})();
+
+/* --- Module: 03f1-polygon-math.js --- */
+(function() {
         /* --- Widget approachability: one shared pole-label system (T5/T6/T3/T7) ---
            Every polygon widget except the triangle draws its pole names
            the same way: rotated to the tangent of the circumscribing
@@ -25163,6 +25277,10 @@ function* sxRunNodeSettle(scCtx, blitSess) {
         };
 
 
+})();
+
+/* --- Module: 03f-polygon-widgets.js --- */
+(function() {
         var sxTriState = {
             topicId: null,
             mode: "advocacy",
@@ -26883,6 +27001,10 @@ function* sxRunNodeSettle(scCtx, blitSess) {
         }
 
 
+})();
+
+/* --- Module: 03f2-switchbox-widget.js --- */
+(function() {
         // --- 2D XY Role Switch-Box State & Widget ---
         var sxSwitchboxState = {
             topicId: null,
@@ -27135,6 +27257,10 @@ function* sxRunNodeSettle(scCtx, blitSess) {
             }
         }
 
+})();
+
+/* --- Module: 03e-map-paint.js --- */
+(function() {
         function* Ar(i = {}) {
             // JOB B GLIDE FIX — previous-positions capture: read the live
             // node positions BEFORE sxVaultCaptureCurrent() runs. The vault
@@ -29224,6 +29350,10 @@ function* sxRunNodeSettle(scCtx, blitSess) {
             }), Ih();
         });
 
+})();
+
+/* --- Module: 03e1-mark-dialog.js --- */
+(function() {
         const Ir = Object.freeze({
             "Rope bondage": "https://en.wikipedia.org/wiki/Rope_bondage",
             "Japanese bondage": "https://en.wikipedia.org/wiki/Japanese_bondage",
@@ -30871,6 +31001,10 @@ function* sxRunNodeSettle(scCtx, blitSess) {
             "Escape" === e.key && ((!Ur || Ur.hidden) ? so() : oo());
         });
 
+})();
+
+/* --- Module: 03d-outline.js --- */
+(function() {
         const Do = e.byId("outlineDialog"), Ro = e.byId("outlineSections"), Oo = e.byId("outlineProfileName"), Bo = e.byId("outlineHeaderCount"), jo = e.byId("outlineProgressText"), qo = e.byId("outlineProgressBar"), Ho = e.byId("outlineTimerToggle"), Wo = e.byId("outlineTimerReset"), Uo = e.byId("outlineShowRated");
         // P1 refactor (Build 2026-10-18_2227): outline-row DOM helpers.
         // getOutlineRow(el) returns the .outline-row containing an element;
@@ -33024,6 +33158,10 @@ function* sxRunNodeSettle(scCtx, blitSess) {
             // (tree flattening), zlRenderRows renders the option rows,
             // zlMove is the keyboard highlight step used by the key handler.
 
+})();
+
+/* --- Module: 04-topic-picker.js --- */
+(function() {
             function zlFlatten() {
                     if (!e.tree) return i.slice();
                     const t = new Map;
@@ -33638,6 +33776,10 @@ zlRenderRows(), t.length ? d(Math.max(0, t.findIndex(e => e.value === s)), {
         // a committed group, vcSingleProfile one profile, and vcFallback
         // the uncommitted-selection summary. vc is a thin orchestrator.
 
+})();
+
+/* --- Module: 05a-sync-engine.js --- */
+(function() {
         function vcScribeReady(t = []) {
                 const n = e.byId("scribeTab");
                 if (!n) return;
@@ -34166,6 +34308,10 @@ zlRenderRows(), t.length ? d(Math.max(0, t.findIndex(e => e.value === s)), {
             }();
         });
 
+})();
+
+/* --- Module: 05b1-sync-compute.js --- */
+(function() {
         function Id(e) {
             const t = [];
             for (let n = 0; n < e.length; n++) for (let i = n + 1; i < e.length; i++) t.push([ e[n], e[i] ]);
@@ -36176,6 +36322,10 @@ zlRenderRows(), t.length ? d(Math.max(0, t.findIndex(e => e.value === s)), {
             ensurePseudoProfileCurrent: sxEnsurePseudoProfileCurrent
         };
 
+})();
+
+/* --- Module: 05b-scribe.js --- */
+(function() {
         const Oc = e.byId("scribeDialog"), Bc = e.byId("scribeChoiceDialog"), jc = e.byId("novelAiDialog");
         let scribeLeadId = null, scribePartnerId = null, scribeCastIds = [];
         function Uc() {
@@ -37075,6 +37225,10 @@ zlRenderRows(), t.length ? d(Math.max(0, t.findIndex(e => e.value === s)), {
             e.byId("sceneDownloadStatus").textContent = "";
         }
 
+})();
+
+/* --- Module: 05b2-scribe-prompts.js --- */
+(function() {
         // Stance-strength word for a pole affinity v in [-100, 100],
         // on the same 80-100 / 56-79 / 36-55 / 0-35 emphasis bands
         // Scribe uses for give/receive. A negative affinity is a stance
@@ -37768,6 +37922,10 @@ zlRenderRows(), t.length ? d(Math.max(0, t.findIndex(e => e.value === s)), {
             return [ sxWriterStamp(o), "", promptText ].join("\n");
         }
 
+})();
+
+/* --- Module: 05-compatibility.js --- */
+(function() {
         function _d(e, t = !1) {
             return e ? `${e.giver}: ${e.giverLabel || "give"}${t ? ` ${e.giverRating}` : ""} → ${e.receiver}: ${e.receiverLabel || "receive"}${t ? ` ${e.receiverRating}` : ""}` : "";
         }
@@ -39769,6 +39927,10 @@ zlRenderRows(), t.length ? d(Math.max(0, t.findIndex(e => e.value === s)), {
             }(), e.byId("openerCopyStatus").textContent = "";
         }
 
+})();
+
+/* --- Module: 05d-scene-setter.js --- */
+(function() {
         const Au = new Map;
         function Cu(e) {
             const t = function(e) {
@@ -40196,6 +40358,10 @@ zlRenderRows(), t.length ? d(Math.max(0, t.findIndex(e => e.value === s)), {
             e.byId("negotiationPanel").dataset.copy = [ "AI PLAY-GUIDE REQUEST", `Create or randomize a practical play guide targeting approximately ${a}. ${r} Use PLAY GUIDE DATA as inspiration while treating NEGOTIATION CHECKLIST DATA as binding. Keep every hard limit completely out. Treat every red topic as a no for that person. Mention each discuss-first clash only as an explicit negotiation point, never as assumed consent or planned action. Work the agreed safewords and stop signals naturally into the guide, and build the aftercare section from every participant’s stated aftercare needs. If a field is not filled out, leave a clear pre-scene decision point instead of inventing an answer.`, "", Tu(n = precomputed || Iu(t)), "", Lu(n), "", sxRolesBlock(n.ids, n.names), "", sxCastBlock(n.ids, n.names), "", sxTermsBlock(n.ids, n.names), "", sxAgeBlock(n.ids, n.names), "", `HARD-EXCLUDED FROM SCENE GENERATION ${n.excluded.length ? n.excluded.map(e => `- ${e}`).join(" ") : n.mutuals.length ? "- no marked limits; mutual deep-red exclusions follow" : n.terms && n.terms.some(Boolean) ? "- no marked limits or mutual deep-red exclusions; limits named in the Terms above still apply" : "- none marked"}${n.mutuals.length ? ` MUTUAL EXCLUSIONS — BOTH PARTNERS RATED DEEP-RED ${n.mutuals.map(e => `- ${e}`).join(" ")}` : ""}` ].join(" "), e.byId("negotiationPanel").dataset.playGuide = e.byId("negotiationPanel").dataset.copy, sxStoreNegotiationGuide(n);
         }
 
+})();
+
+/* --- Module: 05c-share-qr.js --- */
+(function() {
         // Share-link door (refactor item 3, ruled 2026-10-29): Nu is
         // called at boot AND from the hashchange handler, so a share
         // link pasted into a running app imports without a reload.
@@ -41074,6 +41240,10 @@ zlRenderRows(), t.length ? d(Math.max(0, t.findIndex(e => e.value === s)), {
         // builds the sync QR images; apHeaderCard draws the profile
         // header card. ap itself is now a thin orchestrator.
 
+})();
+
+/* --- Module: 06a-export-renderers.js --- */
+(function() {
         async function apLoadAndPrep(e) {
             if (void 0 !== window.jspdf && window.jspdf.jsPDF || !window.__loadPdfLibs || await window.__loadPdfLibs(), 
             void 0 === window.jspdf || !window.jspdf.jsPDF) throw new Error("PDF library did not load.");
@@ -41912,6 +42082,10 @@ zlRenderRows(), t.length ? d(Math.max(0, t.findIndex(e => e.value === s)), {
             }
         }
 
+})();
+
+/* --- Module: 06b-fetlife-importer.js --- */
+(function() {
         // FetLife importer alias map — SECTION START
         // (Refactor Step 1, Build 2026-10-18_0343: this section was
         // given clear delimiters and batch labels. NO mapping was
@@ -43041,6 +43215,10 @@ yk([ "Spitting", "Spit play", "Being spit on", "Spitting on someone" ], "t0341")
             dismissBtn && requestAnimationFrame(() => dismissBtn.focus({ preventScroll: !0 }));
         }
 
+})();
+
+/* --- Module: 06-pdf-exporter.js --- */
+(function() {
         e.byId("scribeTab") && e.byId("scribeTab").addEventListener("pointerenter", yc), e.byId("scribeTab") && e.byId("scribeTab").addEventListener("click", e => {
             yc(), Jd();
         }), e.byId("closeScribeChoice") && e.byId("closeScribeChoice").addEventListener("click", () => Ui(Bc)), Bc && Bc.addEventListener("click", e => {
@@ -45143,6 +45321,10 @@ yk([ "Spitting", "Spit play", "Being spit on", "Spitting on someone" ], "t0341")
             })));
         });
 
+})();
+
+/* --- Module: 06d1-export-dialog.js --- */
+(function() {
 // 06d1-export-dialog.js — Export dialogs, low-res preview, file preparation, and photo cropping
         const kg = e.byId("testResultLoaderDialog"), xg = e.byId("testResultLoaderStatus"), Sg = e.byId("profileImportDialog"), $g = e.byId("profileImportStatus"), Eg = e.byId("completionCelebrationDialog"), Ag = e.byId("completionCelebration"), Cg = e.byId("completionCelebrationCount"), Mg = e.byId("completionConfetti"), completionCompare = e.byId("completionCompare"), completionExport = e.byId("completionExport"), milestoneDialog = e.byId("milestoneCelebrationDialog"), milestoneTitle = e.byId("milestoneCelebrationTitle"), milestoneMessage = e.byId("milestoneCelebrationMessage"), milestoneContinue = e.byId("milestoneContinue"), milestoneCompare = e.byId("milestoneCompare"), milestoneExport = e.byId("milestoneExport"), milestoneImport = e.byId("milestoneImport"), milestoneScribe = e.byId("milestoneScribe"), closeMilestone = e.byId("closeMilestoneCelebration");
         function Ig(e, t = "info", n = !1) {
@@ -45798,6 +45980,10 @@ yk([ "Spitting", "Spit play", "Being spit on", "Spitting on someone" ], "t0341")
         };
         my.addEventListener("pointerup", Ry), my.addEventListener("pointercancel", Ry);
 
+})();
+
+/* --- Module: 06d2-profile-editor.js --- */
+(function() {
 // 06d2-profile-editor.js — Profile editor form controls, demographics, contact blocks, and veil/heat sliders
         const Oy = e.byId("profileLoadMenu"), By = e.byId("profileAddMenu"), jy = e.byId("profileSampleMenu"), jyA = e.byId("profileArchetypeMenu");
         let qy = null, Hy = null, Wy = [], Uy = "", Gy = [], Ky = 0, zy = null, Vy = null, jY = null, Yy = null, Xy = null;
@@ -47195,6 +47381,10 @@ yk([ "Spitting", "Spit play", "Being spit on", "Spitting on someone" ], "t0341")
             am.textContent = `${im.value.length}/${im.maxLength} characters`, om.textContent = `${rm.value.length}/${rm.maxLength} characters`;
         }
 
+})();
+
+/* --- Module: 06d3-profile-about.js --- */
+(function() {
 // 06d3-profile-about.js — Profile about view, archetype projection, local samples, and details opener/saver
         function uw(t) {
             const i = e.byId("profileTimingSummary"), a = e.byId("profileTimingList"), r = St(mt[t]), o = Object.keys(kt).filter(e => r[e]).map(e => {
@@ -47655,6 +47845,10 @@ yk([ "Spitting", "Spit play", "Being spit on", "Spitting on someone" ], "t0341")
             Vy = null, jY = null, "outline" === e ? Ms(y) : "testchooser" === e ? Qy(y) : e ? Ax(e, t, y) : b && b(y);
         }
 
+})();
+
+/* --- Module: 06d-profile-sheet.js --- */
+(function() {
 // 06d-profile-sheet.js — Tab strip coordinator, sample/archetype menus, and active profile selection
         function ww() {
             // Capture the Load menu's origin before kw() clears qy:
@@ -48485,6 +48679,10 @@ yk([ "Spitting", "Spit play", "Being spit on", "Spitting on someone" ], "t0341")
             Xw = null, Js(e, t);
         }
 
+})();
+
+/* --- Module: 06c1-profile-ingest.js --- */
+(function() {
         // E3 (slug-gap build): post-import result dialog — the loud surface
         // for the loud-drop rule (assessment §9 L1+L2). States how many
         // ratings were imported and, only when profile.droppedKeys is
@@ -49292,6 +49490,10 @@ yk([ "Spitting", "Spit play", "Being spit on", "Spitting on someone" ], "t0341")
                 persistent: !0
             }), c;
         }
+})();
+
+/* --- Module: 06c2-profile-converter.js --- */
+(function() {
         const ok = {
             "pleasure control": "cat-orgasm-reproductive-play",
             restraint: "cat-bondage-restriction",
@@ -49632,6 +49834,10 @@ yk([ "Spitting", "Spit play", "Being spit on", "Spitting on someone" ], "t0341")
                 uncertain: !0
             }
         };
+})();
+
+/* --- Module: 06c-converter-pipeline.js --- */
+(function() {
         const yx = Object.freeze({
             importData(data, opts) {
                 return wx(data, Object.assign({ quiet: true }, opts));
@@ -51118,6 +51324,10 @@ yk([ "Spitting", "Spit play", "Being spit on", "Spitting on someone" ], "t0341")
             Zx++, zx(), sxPairLoadInto = null, sxLoadOriginId = null;
         }), e.byId("toastDismiss") && e.byId("toastDismiss").addEventListener("click", eS);
 
+})();
+
+/* --- Module: 06e-kinktest-routes.js --- */
+(function() {
         function ktRender() {
             const per = 10, total = ix.length, pages = Math.ceil(total / per);
             ktPage = Math.max(0, Math.min(ktPage, pages - 1));
@@ -52364,6 +52574,10 @@ yk([ "Spitting", "Spit play", "Being spit on", "Spitting on someone" ], "t0341")
         }
     }();
 
+})();
+
+/* --- Module: 07-header-hug.js --- */
+(function() {
     }();
 });
 
@@ -52407,6 +52621,10 @@ yk([ "Spitting", "Spit play", "Being spit on", "Spitting on someone" ], "t0341")
     setTimeout(hug, 300), setTimeout(hug, 1500);
 })();
 
+})();
+
+/* --- Module: 03b-map-interaction.js --- */
+(function() {
 /* ---- module: map-interaction (folded from patches.js) ---- */
 
 /* ---- drag-vs-tap disambiguation ---- */
@@ -52621,6 +52839,10 @@ __sxInit(function () {
 })();
 });
 
+})();
+
+/* --- Module: 08-ui-wiring.js --- */
+(function() {
 /* ---- module: ui-wiring (folded from patches.js) ---- */
 
 var SX_SHELL_COLLECT_URL = '/hosted/api/collect.php';
@@ -53317,6 +53539,10 @@ __sxInit(function () {
   tabs.addEventListener('click', function () { setTimeout(keepActiveInView, 0); });
 });
 
+})();
+
+/* --- Module: 09-profile-storage.js --- */
+(function() {
 /* ---- module: profile-storage (folded from patches.js) ---- */
 
 __sxInit(function () {
@@ -53896,3 +54122,5 @@ __sxInit(function () {
   init();
 })();
 });
+
+})();
