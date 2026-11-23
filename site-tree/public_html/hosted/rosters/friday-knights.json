@@ -1,0 +1,161 @@
+{
+  "format": "flexcapades-roster",
+  "version": 1,
+  "skin": "questcapades",
+  "name": "Friday Knights",
+  "samples": [
+    {
+      "kind": "sample",
+      "name": "Maren",
+      "about": "Runs the Friday table — fair, prepared, and merciless about scheduling.",
+      "links": [],
+      "count": 14,
+      "payload": {
+        "app": "sexcapades",
+        "version": 16,
+        "noFlash": true,
+        "profileName": "Maren",
+        "archetype": "Maren",
+        "aboutMe": "The Forever GM is her day job; this is her actual seat.",
+        "ratings": {
+          "xqu0022": {
+            "give": 40,
+            "receive": 24
+          },
+          "xqu0018": {
+            "give": 85,
+            "receive": 51
+          },
+          "xqu0055": 70,
+          "xqu0041": 85,
+          "xqu0028": {
+            "line": 25
+          },
+          "xqu0005": 40,
+          "xqu0056": 85,
+          "xqu0021": {
+            "give": 25,
+            "receive": 15
+          },
+          "xqu0009": {
+            "line": 85
+          },
+          "xqu0027": {
+            "give": 70,
+            "receive": 42
+          },
+          "xqu0003": -20,
+          "xqu0050": {
+            "give": -20,
+            "receive": -12
+          },
+          "xqu0032": 25,
+          "xqu0062": 85
+        },
+        "skin": "questcapades"
+      },
+      "skin": "questcapades"
+    },
+    {
+      "kind": "sample",
+      "name": "Theo",
+      "about": "Plays a bard who talks first and rolls later; keeps the party alive socially.",
+      "links": [],
+      "count": 14,
+      "payload": {
+        "app": "sexcapades",
+        "version": 16,
+        "noFlash": true,
+        "profileName": "Theo",
+        "archetype": "Theo",
+        "aboutMe": "Newer to the table, first to volunteer for the recap.",
+        "ratings": {
+          "xqu0055": -20,
+          "xqu0041": 70,
+          "xqu0010": {
+            "give": 85,
+            "receive": 51
+          },
+          "xqu0032": 25,
+          "xqu0025": {
+            "give": 25,
+            "receive": 15
+          },
+          "xqu0059": -20,
+          "xqu0020": {
+            "give": 70,
+            "receive": 42
+          },
+          "xqu0015": 55,
+          "xqu0043": 85,
+          "xqu0021": {
+            "give": 25,
+            "receive": 15
+          },
+          "xqu0008": -20,
+          "xqu0018": {
+            "give": 85,
+            "receive": 51
+          },
+          "xqu0004": 25,
+          "xqu0007": 85
+        },
+        "skin": "questcapades"
+      },
+      "skin": "questcapades"
+    },
+    {
+      "kind": "sample",
+      "name": "Priya",
+      "about": "Min-maxer with a heart of gold; her spreadsheets have spreadsheets.",
+      "links": [],
+      "count": 14,
+      "payload": {
+        "app": "sexcapades",
+        "version": 16,
+        "noFlash": true,
+        "profileName": "Priya",
+        "archetype": "Priya",
+        "aboutMe": "Knows every rule interaction the book allows — and a few it forgot to forbid.",
+        "ratings": {
+          "xqu0044": 70,
+          "xqu0033": 85,
+          "xqu0026": {
+            "give": 25,
+            "receive": 15
+          },
+          "xqu0006": 55,
+          "xqu0053": {
+            "give": 25,
+            "receive": 15
+          },
+          "xqu0046": {
+            "give": 40,
+            "receive": 24
+          },
+          "xqu0009": {
+            "line": 55
+          },
+          "xqu0056": -20,
+          "xqu0018": {
+            "give": 40,
+            "receive": 24
+          },
+          "xqu0052": {
+            "give": 55,
+            "receive": 33
+          },
+          "xqu0055": 25,
+          "xqu0051": {
+            "give": 85,
+            "receive": 51
+          },
+          "xqu0029": 85,
+          "xqu0068": 25
+        },
+        "skin": "questcapades"
+      },
+      "skin": "questcapades"
+    }
+  ]
+}

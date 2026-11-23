@@ -226,6 +226,159 @@
     refresh: refreshSampleMenuWithLocals
   };
 
+  /* ---- Roster packs (2026-11-22, Jason) ----
+     A roster pack is a small JSON file bundling one skin's samples —
+     a group's roster (its DMs and top players, each with an authored
+     menu blurb) that members load in one step as local samples. Pack
+     shape: { format: "flexcapades-roster", version: 1, skin: <skinId>,
+     name: <pack name>, samples: [ <sample entries> ] }. Three doors:
+     export (the Samples menu downloads the current skin's local samples
+     as a pack), file import (the menu reads a pack file), and the
+     hosted door — a pack served from /hosted/rosters/<slug>.json loads
+     when the app opens with #roster=<slug> in the URL, which is what a
+     group puts in a QR code for its members. Hosted packs are the
+     Patreon perk: the pack file lives in the site tree (bridged from
+     the capades-rosters repo), so a group never distributes files
+     itself. Import is name-deduped through the local-samples store, so
+     re-importing a pack updates the roster in place. A pack only loads
+     on its own skin — ratings keyed to another skin's topics would be
+     meaningless here. */
+  var ROSTER_FORMAT = "flexcapades-roster";
+  function rosterToast(msg) {
+    try {
+      var el = document.getElementById("sxRosterToast");
+      if (!el) {
+        el = document.createElement("div");
+        el.id = "sxRosterToast";
+        el.setAttribute("role", "status");
+        el.style.cssText = "position:fixed;left:50%;bottom:24px;transform:translateX(-50%);z-index:9999;max-width:min(92vw,480px);background:#14181c;color:#f2f4f6;border:1px solid #3a4550;border-radius:10px;padding:10px 14px;font:14px/1.45 system-ui,sans-serif;box-shadow:0 8px 28px rgba(0,0,0,.45);";
+        document.body.appendChild(el);
+      }
+      el.textContent = msg;
+      el.style.display = "block";
+      clearTimeout(rosterToast._t);
+      rosterToast._t = setTimeout(function () { el.style.display = "none"; }, 7000);
+    } catch (e) { /* a toast must never break the app */ }
+  }
+  function cleanRosterEntry(raw) {
+    if (!raw || typeof raw !== "object") return null;
+    var name = String(raw.name || "").trim();
+    var payload = raw.payload;
+    if (!name || !payload || typeof payload !== "object" || !payload.ratings || typeof payload.ratings !== "object") return null;
+    if (!Object.keys(payload.ratings).length) return null;
+    var entry = JSON.parse(JSON.stringify(raw));
+    entry.kind = "sample";
+    entry.name = name;
+    delete entry.photo;
+    entry.payload.photos = [];
+    entry.payload.noFlash = true;
+    entry.payload.profileName = entry.payload.profileName || name;
+    entry.count = Object.keys(entry.payload.ratings).length;
+    if (entry.about) entry.about = String(entry.about).slice(0, 300);
+    return entry;
+  }
+  function importRosterPack(pack, sourceLabel) {
+    var api = window.__SX_LOCAL_SAMPLES;
+    if (!api || typeof api.save !== "function") { rosterToast("Roster packs are not available right now — reload and try again."); return null; }
+    if (!pack || pack.format !== ROSTER_FORMAT || !Array.isArray(pack.samples)) {
+      rosterToast("That file is not a roster pack."); return null;
+    }
+    var skin = currentSkinId();
+    if (pack.skin && String(pack.skin) !== skin) {
+      rosterToast("That roster is for a different map — open it on its own map to load it."); return null;
+    }
+    var added = 0, updated = 0, skipped = 0;
+    pack.samples.forEach(function (raw) {
+      var entry = cleanRosterEntry(raw);
+      if (!entry) { skipped++; return; }
+      var saved = null;
+      try { saved = api.save(skin, entry); } catch (e) { saved = null; }
+      if (!saved) { skipped++; return; }
+      if (saved.updated) updated++; else added++;
+    });
+    var label = pack.name ? (" \u201C" + String(pack.name) + "\u201D") : "";
+    if (added || updated) {
+      rosterToast("Roster" + label + " loaded: " + added + " new, " + updated + " updated" + (skipped ? ", " + skipped + " skipped" : "") + ". Find them in the Samples menu." + (sourceLabel ? " (" + sourceLabel + ")" : ""));
+    } else {
+      rosterToast("No usable samples in that roster pack" + (skipped ? " — " + skipped + " skipped." : "."));
+    }
+    return { added: added, updated: updated, skipped: skipped };
+  }
+  function exportRosterPack() {
+    var api = window.__SX_LOCAL_SAMPLES;
+    var skin = currentSkinId();
+    var locals = (api && typeof api.list === "function") ? (api.list(skin) || {}) : {};
+    var samples = Object.keys(locals).map(function (k) {
+      var e = JSON.parse(JSON.stringify(locals[k]));
+      delete e.local;
+      return e;
+    });
+    if (!samples.length) { rosterToast("No local samples on this map yet — save a profile as a local sample first, then export the roster."); return; }
+    var pack = { format: ROSTER_FORMAT, version: 1, skin: skin, name: "", exportedAt: new Date().toISOString(), samples: samples };
+    try {
+      var blob = new Blob([JSON.stringify(pack, null, 2) + "\n"], { type: "application/json" });
+      var a = document.createElement("a");
+      a.href = URL.createObjectURL(blob);
+      a.download = skin + "-roster.json";
+      document.body.appendChild(a);
+      a.click();
+      setTimeout(function () { URL.revokeObjectURL(a.href); a.remove(); }, 400);
+      rosterToast("Roster pack downloaded — " + samples.length + " sample" + (samples.length === 1 ? "" : "s") + " for this map.");
+    } catch (e) { rosterToast("Could not create the roster pack file."); }
+  }
+  var rosterFileInput = null;
+  function pickRosterFile() {
+    if (!rosterFileInput) {
+      rosterFileInput = document.createElement("input");
+      rosterFileInput.type = "file";
+      rosterFileInput.accept = ".json,application/json";
+      rosterFileInput.style.display = "none";
+      rosterFileInput.addEventListener("change", function () {
+        var f = rosterFileInput.files && rosterFileInput.files[0];
+        rosterFileInput.value = "";
+        if (!f) return;
+        var reader = new FileReader();
+        reader.onload = function () {
+          var pack = null;
+          try { pack = JSON.parse(String(reader.result || "")); } catch (e) { pack = null; }
+          if (!pack) { rosterToast("That file could not be read as a roster pack."); return; }
+          importRosterPack(pack, "file");
+        };
+        reader.readAsText(f);
+      });
+      document.body.appendChild(rosterFileInput);
+    }
+    rosterFileInput.click();
+  }
+  window.__SX_ROSTER = { export: exportRosterPack, importFile: pickRosterFile, importPack: importRosterPack };
+  var rosterHashChecked = false;
+  function maybeLoadRosterFromHash() {
+    if (rosterHashChecked) return;
+    var slug = null;
+    try {
+      var body = (window.location.hash || "").replace(/^#/, "");
+      body.split("&").forEach(function (t) {
+        if (t.indexOf("roster=") === 0) slug = decodeURIComponent(t.slice(7));
+      });
+    } catch (e) { slug = null; }
+    if (!slug) { rosterHashChecked = true; return; }
+    if (!/^[a-z0-9][a-z0-9-]{0,63}$/.test(slug)) { rosterHashChecked = true; return; }
+    rosterHashChecked = true;
+    fetch("/hosted/rosters/" + slug + ".json", { credentials: "same-origin" }).then(function (r) {
+      if (!r.ok) throw new Error("not found");
+      return r.json();
+    }).then(function (pack) {
+      importRosterPack(pack, "hosted roster");
+      try {
+        var body = (window.location.hash || "").replace(/^#/, "");
+        var kept = body.split("&").filter(function (t) { return t.indexOf("roster=") !== 0; });
+        history.replaceState(null, "", window.location.pathname + window.location.search + (kept.length ? "#" + kept.join("&") : ""));
+      } catch (e) { /* the token staying is harmless: imports dedupe by name */ }
+    }).catch(function () {
+      rosterToast("That roster link could not be loaded — the pack may have moved.");
+    });
+  }
+
   /* Paint generation (boot-race fix, 2026-11-16): the taxonomy array is
      swapped in place, so a chunked paint already in flight keeps the
      old branch geometry while reading the new taxonomy — and throws on
@@ -784,6 +937,7 @@
     }
     mergeLocalSamplesInto(target);
     rebuildSampleMenu(target);
+    maybeLoadRosterFromHash();
   }
 
   var scribePanelOriginal = null;
@@ -1198,6 +1352,25 @@
       addGroup(menu, "Samples", samplesList);
       if (sampleEntry) sampleEntry.hidden = false;
     }
+    /* Roster pack actions (2026-11-22): export this map's local samples
+       as a pack, or import a pack file. They wear the sample-choice
+       class for menu styling (so the rebuild's clear pass removes them
+       with everything else) but carry no data-sample-profile, so the
+       sample loader ignores them. */
+    [["Export roster pack", exportRosterPack], ["Import roster pack", pickRosterFile]].forEach(function (pair) {
+      var item = document.createElement("div");
+      item.className = "sample-profile-item";
+      var btn = document.createElement("button");
+      btn.className = "sample-profile-choice roster-pack-action";
+      btn.type = "button";
+      btn.setAttribute("role", "menuitem");
+      var strong = document.createElement("strong");
+      strong.textContent = pair[0];
+      btn.appendChild(strong);
+      btn.addEventListener("click", pair[1]);
+      item.appendChild(btn);
+      menu.appendChild(item);
+    });
   }
 
   function setBrand(skinId, displayName) {
