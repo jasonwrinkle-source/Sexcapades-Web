@@ -2277,3 +2277,19 @@
             };
         }
         Cn.addEventListener("pointerdown", sa, !0), Cn.addEventListener("keydown", sa, !0);
+        if (typeof window !== "undefined") {
+            window.Qi = Qi;
+            window.Vi = Vi;
+            window.Xi = Xi;
+            window.Ge = Ge;
+            window.da = da;
+            window.$a = $a;
+            window.Sa = Sa;
+            window.ka = ka;
+            window.Ua = Ua;
+            window.Oa = Oa;
+            window.ba = ba;
+            window.la = la;
+            window.zi = zi;
+            window.Ra = Ra;
+        }

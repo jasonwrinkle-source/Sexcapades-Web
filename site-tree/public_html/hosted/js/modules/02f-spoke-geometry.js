@@ -598,6 +598,20 @@
             if (record && spokeId === record.parentId) return "own";
             return null;
         }
+        const Qi = () => typeof window !== "undefined" && typeof window.Qi === "function" ? window.Qi() : false;
+        const Vi = () => typeof window !== "undefined" && typeof window.Vi === "function" ? window.Vi() : null;
+        const Xi = () => typeof window !== "undefined" && typeof window.Xi === "function" ? window.Xi() : [];
+        const Ge = (e, t) => typeof window !== "undefined" && typeof window.Ge === "function" ? window.Ge(e, t) : null;
+        const da = (e, t) => typeof window !== "undefined" && typeof window.da === "function" ? window.da(e, t) : null;
+        const $a = (e, t, n) => typeof window !== "undefined" && typeof window.$a === "function" ? window.$a(e, t, n) : null;
+        const Sa = (e, t, n, i) => typeof window !== "undefined" && typeof window.Sa === "function" ? window.Sa(e, t, n, i) : null;
+        const ka = (e, t, n = "", i = {}) => typeof window !== "undefined" && typeof window.ka === "function" ? window.ka(e, t, n, i) : "";
+        const Ua = (e) => typeof window !== "undefined" && typeof window.Ua === "function" ? window.Ua(e) : null;
+        const Oa = (e, t) => typeof window !== "undefined" && typeof window.Oa === "function" ? window.Oa(e, t) : null;
+        const ba = (e) => typeof window !== "undefined" && typeof window.ba === "function" ? window.ba(e) : "";
+        const la = (e) => typeof window !== "undefined" && typeof window.la === "function" ? window.la(e) : "var(--line)";
+        const zi = (e) => typeof window !== "undefined" && typeof window.zi === "function" ? window.zi(e) : "var(--line)";
+
         function Ka(e, t, n, i, a, r, o, s, l, c, d, u = 48, p = Ga.FALLBACK_COLOR, g = !0, m = "", f = null, y = null, b = null, v = !1, w = !0, k = h.length, bc = null, sxLeafD = null, sxDepth = null) {
             if (sxSexSkin()) v = !0;
             if (typeof Ra === "function") Ra(e); else if (typeof window !== "undefined" && typeof window.__SX_RA === "function") window.__SX_RA(e);
