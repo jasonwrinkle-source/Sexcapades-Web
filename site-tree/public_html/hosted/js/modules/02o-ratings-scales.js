@@ -390,7 +390,25 @@
             const n = qn[e] || Xn(e) || (at[t] || {})[e];
             return n && n.label ? String(n.label).trim().toLowerCase() : "";
         }
+        function sxIsStanceSkin() {
+            if (typeof window === "undefined") return false;
+            const skin = window.__SX_ACTIVE_SKIN || (typeof window.__SX_SKIN_FROM_URL === "function" ? window.__SX_SKIN_FROM_URL() : null) || (window.__SX_SKIN_PREFIX && window.__SX_HOSTNAME_SKINS ? window.__SX_HOSTNAME_SKINS[window.__SX_SKIN_PREFIX] : null);
+            if (skin && window.__SX_SKINS && window.__SX_SKINS[skin]) {
+                return window.__SX_SKINS[skin].kind === "stance";
+            }
+            const pfx = window.__SX_SKIN_PREFIX;
+            if (pfx) return "sex" !== pfx && "dance" !== pfx && "quest" !== pfx;
+            return false;
+        }
+        window.sxIsStanceSkin = sxIsStanceSkin;
+
         function Jn(e, t, n = Vi()) {
+            if (sxIsStanceSkin()) {
+                const isAdv = "give" === t;
+                const roleLabel = isAdv ? "Advocacy" : "Receptivity";
+                const a = Qn(e, n);
+                return a ? `${roleLabel} · ${a}` : roleLabel;
+            }
             const i = Ge(e, n);
             const a = Qn(e, n);
             const idx = i.keys ? i.keys.indexOf(t) : -1;
@@ -407,6 +425,7 @@
             return a ? `${roleLabel} · ${a}` : roleLabel;
         }
         function ei(e, t, n = Vi()) {
+            if (sxIsStanceSkin()) return "";
             const i = Ge(e, n);
             return i.single || "give" !== i.labels[0] || "receive" !== i.labels[1] ? "" : Jn(e, t, n);
         }
@@ -1563,7 +1582,13 @@
                 const c = h.find(c => catId(c.name) === e);
                 if (!c) return U(0, 0, !1, !1, !1, !1, 0, 0, 0);
                 const d = ca(e, t), g = cuCat(c, t, "give"), r = cuCat(c, t, "receive"), gv = d.giveKnown ? d.give : g.value, rv = d.receiveKnown ? d.receive : r.value;
-                return U(null === gv ? 0 : gv, null === rv ? 0 : rv, null !== gv, null !== rv, !d.giveKnown && null !== g.value, !d.receiveKnown && null !== r.value, d.giveKnown ? 0 : g.rated, d.receiveKnown ? 0 : r.rated, g.total);
+                const rec = U(null === gv ? 0 : gv, null === rv ? 0 : rv, null !== gv, null !== rv, !d.giveKnown && null !== g.value, !d.receiveKnown && null !== r.value, d.giveKnown ? 0 : g.rated, d.receiveKnown ? 0 : r.rated, g.total);
+                const advRoll = cuCat(c, t, "advocacyIntensity"), recRoll = cuCat(c, t, "receptivityIntensity");
+                const advVal = d.advocacyIntensityKnown ? d.advocacyIntensity : advRoll.value;
+                const recVal = d.receptivityIntensityKnown ? d.receptivityIntensity : recRoll.value;
+                if (null !== advVal) { rec.advocacyIntensity = advVal; rec.advocacyIntensityKnown = !0; }
+                if (null !== recVal) { rec.receptivityIntensity = recVal; rec.receptivityIntensityKnown = !0; }
+                return Object.assign(rec, d);
             }
             const z = zn(e);
             if (z) {
@@ -1582,7 +1607,13 @@
                         rated: 0
                     };
                 }, g = one("give"), r = one("receive");
-                return U(null === g.value ? 0 : g.value, null === r.value ? 0 : r.value, null !== g.value, null !== r.value, !g.direct && null !== g.value, !r.direct && null !== r.value, g.rated, r.rated, ids.length);
+                const subRec = U(null === g.value ? 0 : g.value, null === r.value ? 0 : r.value, null !== g.value, null !== r.value, !g.direct && null !== g.value, !r.direct && null !== r.value, g.rated, r.rated, ids.length);
+                const advSub = smSub(z, t, "advocacyIntensity", e), recSub = smSub(z, t, "receptivityIntensity", e);
+                const advVal = d.advocacyIntensityKnown ? d.advocacyIntensity : advSub;
+                const recVal = d.receptivityIntensityKnown ? d.receptivityIntensity : recSub;
+                if (null !== advVal) { subRec.advocacyIntensity = advVal; subRec.advocacyIntensityKnown = !0; }
+                if (null !== recVal) { subRec.receptivityIntensity = recVal; subRec.receptivityIntensityKnown = !0; }
+                return Object.assign(subRec, d);
             }
             const n = ca(e, t);
             if (!Xn(e)) return Object.assign(U(n.give, n.receive, n.giveKnown, n.receiveKnown, !1, !1, 0, 0, 0), n);
@@ -1809,7 +1840,7 @@
         // consulted before these at every call site.
         function sxPlacementFlankColors(rec) {
             if (!rec) return null;
-            const sxStance = "undefined" != typeof window && Boolean(window.__SX_ACTIVE_SKIN) && "sexcapades" !== window.__SX_ACTIVE_SKIN;
+            const sxStance = sxIsStanceSkin();
             if (sxStance) {
                 if (!(rec.advocacyKnown || rec.receptivityKnown)) return null;
                 if (!rec.advocacyIntensityKnown && !rec.receptivityIntensityKnown) return null;
@@ -1917,6 +1948,12 @@
             const i = ca(e, t), a = [];
             if (i.giveKnown) a.push(`give ${ba(i.give)}`);
             if (i.receiveKnown) a.push(`receive ${ba(i.receive)}`);
+            if (i.advocacyIntensityKnown) a.push(`advocacy ${ba(i.advocacyIntensity)}`);
+            else if (i.advocacyKnown && null != i.advocacy?.intensity) a.push(`advocacy ${ba(i.advocacy.intensity)}`);
+            if (i.receptivityIntensityKnown) a.push(`receptivity ${ba(i.receptivityIntensity)}`);
+            else if (i.receptivityKnown && null != i.receptivity?.intensity) a.push(`receptivity ${ba(i.receptivity.intensity)}`);
+            if (i.givePlacementIntensityKnown) a.push(`give ${ba(i.givePlacementIntensity)}`);
+            if (i.receivePlacementIntensityKnown) a.push(`receive ${ba(i.receivePlacementIntensity)}`);
             if (i.lineKnown) a.push(`line ${ba(i.line)}`);
             if (i.polesKnown && i.poles) {
                 const geom = Ge(e);
@@ -1943,9 +1980,44 @@
             return ka(t?.label || "Topic", lo(t), xa(e, n), i);
         }
         function $a(e, t, n = Vi()) {
-            const i = ei(e, t, n) || Jn(e, t, n), a = da(e, n);
+            const a = da(e, n);
+            if (sxIsStanceSkin()) {
+                const isAdv = "give" === t;
+                const roleLabel = isAdv ? "Advocacy" : "Receptivity";
+                const topicName = Qn(e, n);
+                const fullRole = topicName ? `${roleLabel} · ${topicName}` : roleLabel;
+                const known = isAdv ? (a.advocacyIntensityKnown || a.advocacyKnown) : (a.receptivityIntensityKnown || a.receptivityKnown);
+                const val = isAdv ? (a.advocacyIntensityKnown ? a.advocacyIntensity : a.advocacy?.intensity) : (a.receptivityIntensityKnown ? a.receptivityIntensity : a.receptivity?.intensity);
+                return `${fullRole}. ${known && null != val ? `Rating ${ba(val)}.` : "Unrated."}`;
+            }
+            if ("give" === t && a.givePlacementIntensityKnown && null != a.givePlacementIntensity) {
+                const i = ei(e, t, n) || Jn(e, t, n);
+                return `${i}. Rating ${ba(a.givePlacementIntensity)}.`;
+            }
+            if ("receive" === t && a.receivePlacementIntensityKnown && null != a.receivePlacementIntensity) {
+                const i = ei(e, t, n) || Jn(e, t, n);
+                return `${i}. Rating ${ba(a.receivePlacementIntensity)}.`;
+            }
+            const i = ei(e, t, n) || Jn(e, t, n);
             return `${i}. ${a[t + "Known"] ? `Rating ${ba(a[t])}.` : "Unrated."}`;
         }
+        function sxSpokeStemRatingValue(rec, t) {
+            if (!rec) return "Unrated";
+            if (sxIsStanceSkin()) {
+                const isAdv = "give" === t;
+                const known = isAdv ? (rec.advocacyIntensityKnown || rec.advocacyKnown) : (rec.receptivityIntensityKnown || rec.receptivityKnown);
+                const val = isAdv ? (rec.advocacyIntensityKnown ? rec.advocacyIntensity : rec.advocacy?.intensity) : (rec.receptivityIntensityKnown ? rec.receptivityIntensity : rec.receptivity?.intensity);
+                return (known && null != val) ? ba(val) : "Unrated";
+            }
+            if ("give" === t && rec.givePlacementIntensityKnown && null != rec.givePlacementIntensity) {
+                return ba(rec.givePlacementIntensity);
+            }
+            if ("receive" === t && rec.receivePlacementIntensityKnown && null != rec.receivePlacementIntensity) {
+                return ba(rec.receivePlacementIntensity);
+            }
+            return rec[t + "Known"] ? ba(rec[t]) : "Unrated";
+        }
+        window.sxSpokeStemRatingValue = sxSpokeStemRatingValue;
         function Ea(e, t = {}, n = {}, i = {}) {
             const a = e.topics.map(e => Wn(e)).concat(Object.values(i || {}).filter(t => t && t.branch === e.name).map(e => e.id));
             let r = null;

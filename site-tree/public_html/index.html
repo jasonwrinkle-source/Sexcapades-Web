@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <title>Flexcapades</title>
-<meta name="description" content="Flexcapades — fifteen maps, one engine. Hard conversations, mapped: politics, faith, philosophy, and more, plus the first map where it all started." />
-<meta property="og:title" content="Flexcapades — Fifteen Maps, One Engine" />
+<meta name="description" content="Flexcapades — eighteen maps, one engine. Hard conversations, mapped: politics, faith, philosophy, and more, plus the first map where it all started." />
+<meta property="og:title" content="Flexcapades — Eighteen Maps, One Engine" />
 <meta property="og:description" content="Pick a map. Each one opens a different hard conversation." />
 <meta property="og:url" content="https://flex.capades.io/" />
 <meta property="og:type" content="website" />
@@ -12,8 +12,9 @@
 <meta property="og:image:width" content="1200" />
 <meta property="og:image:height" content="630" />
 <meta name="twitter:card" content="summary_large_image" />
-<meta name="twitter:title" content="Flexcapades — Fifteen Maps, One Engine" />
+<meta name="twitter:title" content="Flexcapades — Eighteen Maps, One Engine" />
 <meta name="twitter:description" content="Pick a map. Each one opens a different hard conversation." />
+<script src="/hosted/app-assets/skin-catalog.js"></script>
 <script>
   // Hostname router (2026-11-16): one shared folder serves every
   // capades.io host, and the root page sends each visitor to the right
@@ -45,7 +46,7 @@
     }
     if (host === "flex.capades.io") { go("/picker.html"); return; }
     if (host === "capades.io") { go("/engine.html"); return; }
-    var SKINS = { sex: 1, polis: 1, fores: 1, philo: 1, aesth: 1, voca: 1, tech: 1, dharma: 1, theori: 1, praxi: 1, quanta: 1, experi: 1, simul: 1, matter: 1, chem: 1, nous: 1, dance: 1, quest: 1 };
+    var SKINS = window.__SX_HOSTNAME_SKINS || { sex: 1, polis: 1, fores: 1, philo: 1, aesth: 1, voca: 1, tech: 1, dharma: 1, theori: 1, praxi: 1, quanta: 1, experi: 1, simul: 1, matter: 1, chem: 1, nous: 1, dance: 1, quest: 1 };
     var prefix = /\.capades\.io$/.test(host) ? host.split(".")[0] : "";
     if (prefix && SKINS[prefix]) {
       if (prefix === "sex") {

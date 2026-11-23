@@ -104,11 +104,14 @@
              * @returns {number} Full width at u, map units.
              */
             function flareAt(u, baseWidth, tipWidth, nameFrac = 0.35) {
-                const stemBase = Math.min(baseWidth, 18);
-                // 4x as bulbous flare, tapering 4x farther out (u / 0.32)
-                const bulbousFlare = 4 * Math.max(0, baseWidth - stemBase) * Math.exp(-Math.pow(u / 0.32, 2));
-                const stemWidth = tipWidth + (stemBase - tipWidth) * Math.exp(-1.8 * u);
-                return stemWidth + bulbousFlare;
+                const uName = Math.max(0.15, Math.min(0.65, Number(nameFrac) || 0.35));
+                if (u <= uName) {
+                    const shape = Math.exp(-Math.pow(u / 0.72, 2));
+                    return tipWidth + (baseWidth - tipWidth) * shape;
+                }
+                const wAtName = tipWidth + (baseWidth - tipWidth) * Math.exp(-Math.pow(uName / 0.72, 2));
+                const uPost = (u - uName) / (1 - uName);
+                return tipWidth + (wAtName - tipWidth) * Math.exp(-2.4 * uPost);
             }
             /**
              * Build the tip circle for a spoke: the circle of the CHILD icon
@@ -131,7 +134,7 @@
              * @returns {{x:number, y:number, r:number}} Circle {center x, center y, radius} in map units.
              */
             function buildTipCircle(x0, y0, x1, y1, iconSize) {
-                const tipSeg = segment(x0, y0, x1, y1), tipR = Math.max(12, (Number(iconSize) || 48) / 2), tipBack = Math.max(0, tipR);
+                const tipSeg = segment(x0, y0, x1, y1), tipR = Math.max(12, (Number(iconSize) || 48) / 2), tipBack = Math.max(0, tipR - 1.5);
                 return {
                     x: x1 + tipSeg.ux * tipBack,
                     y: y1 + tipSeg.uy * tipBack,
@@ -216,7 +219,7 @@
                         x: h - tipCircle.x,
                         y: g - tipCircle.y
                     }, sm2 = Math.hypot(sv.x, sv.y) || 1, em2 = Math.hypot(ev.x, ev.y) || 1, spx = tipCircle.x + tipCircle.r * sv.x / sm2, spy = tipCircle.y + tipCircle.r * sv.y / sm2, epx = tipCircle.x + tipCircle.r * ev.x / em2, epy = tipCircle.y + tipCircle.r * ev.y / em2, crx = sv.x * ev.y - sv.y * ev.x, swp = crx >= 0 ? 1 : 0;
-                    return `M ${bSX.toFixed(2)} ${bSY.toFixed(2)} L ${spx.toFixed(2)} ${spy.toFixed(2)} A ${tipCircle.r.toFixed(2)} ${tipCircle.r.toFixed(2)} 0 0 ${swp} ${epx.toFixed(2)} ${epy.toFixed(2)}${bTail}`;
+                    return `M ${bSX.toFixed(2)} ${bSY.toFixed(2)} L ${m.toFixed(2)} ${f.toFixed(2)} L ${spx.toFixed(2)} ${spy.toFixed(2)} A ${tipCircle.r.toFixed(2)} ${tipCircle.r.toFixed(2)} 0 0 ${swp} ${epx.toFixed(2)} ${epy.toFixed(2)}${bTail}`;
                 }
                 return `M ${bSX.toFixed(2)} ${bSY.toFixed(2)} L ${m.toFixed(2)} ${f.toFixed(2)} L ${h.toFixed(2)} ${g.toFixed(2)}${bTail}`;
             }
@@ -306,18 +309,11 @@
                 const p = SAMPLES;
                 const spokeLen = Math.hypot(dx, dy) || 1;
                 const nameFrac = nameLength > 0 ? Math.max(0.15, Math.min(0.65, (nameLength + 14) / spokeLen)) : 0.35;
-                const innerFlare = 10;
-                function innerAt(frac) {
-                    const baseInner = innerHalf + innerFlare * Math.exp(-Math.pow(frac / 0.32, 2));
-                    if (frac <= nameFrac) return baseInner;
-                    // Exponential taper each side after the topic name
-                    const t = (frac - nameFrac) / Math.max(0.01, 1 - nameFrac);
-                    return Math.max(0.5, baseInner * Math.exp(-3.5 * t));
-                }
+                const innerFlare = 3.5;
                 const h = [], g = [], m = [], f = [];
                 for (let si = 0; si <= p; si++) {
                     const frac = si / p;
-                    const curInner = innerAt(frac);
+                    const curInner = innerHalf + innerFlare * Math.exp(-Math.pow(frac / 0.72, 2));
                     const outerW = flareAt(frac, baseWidth, tipWidth, nameFrac);
                     const y = Math.max(curInner + 1.5, stripeHalf + outerW / 2);
                     const b = baseX + dx * frac, v = baseY + dy * frac;
@@ -327,8 +323,8 @@
                     f.push(`${(b + nx * curInner).toFixed(2)} ${(v + ny * curInner).toFixed(2)}`);
                 }
                 baseCircle && baseCircle.r > 0 && Math.hypot(baseX - baseCircle.x, baseY - baseCircle.y) < DEEP_START_FRACTION * baseCircle.r && (baseCircle = null);
-                const curInner0 = innerAt(0);
-                const curInner1 = innerAt(1);
+                const curInner0 = innerHalf + innerFlare;
+                const curInner1 = innerHalf + innerFlare * Math.exp(-Math.pow(1 / 0.72, 2));
                 const y0 = Math.max(curInner0 + 1.5, stripeHalf + flareAt(0, baseWidth, tipWidth, nameFrac) / 2);
                 const yE = Math.max(curInner1 + 1.5, stripeHalf + flareAt(1, baseWidth, tipWidth, nameFrac) / 2);
                 if (baseCircle && baseCircle.r > 0) {
@@ -340,16 +336,6 @@
                     g[0] = pj(baseX - nx * curInner0, baseY - ny * curInner0);
                     m[0] = pj(baseX + nx * y0, baseY + ny * y0);
                     f[0] = pj(baseX + nx * curInner0, baseY + ny * curInner0);
-                }
-                if (tipCircle && tipCircle.r > 0) {
-                    const pjTip = (e2, t2) => {
-                        const n2 = e2 - tipCircle.x, i2 = t2 - tipCircle.y, a2 = Math.hypot(n2, i2) || 1;
-                        return `${(tipCircle.x + tipCircle.r * n2 / a2).toFixed(2)} ${(tipCircle.y + tipCircle.r * i2 / a2).toFixed(2)}`;
-                    };
-                    h[p] = pjTip(baseX + dx - nx * yE, baseY + dy - ny * yE);
-                    g[p] = pjTip(baseX + dx - nx * curInner1, baseY + dy - ny * curInner1);
-                    m[p] = pjTip(baseX + dx + nx * yE, baseY + dy + ny * yE);
-                    f[p] = pjTip(baseX + dx + nx * curInner1, baseY + dy + ny * curInner1);
                 }
                 const b = (side, startOff, endOff) => {
                     if (!baseCircle || !(baseCircle.r > 0) || Math.abs(endOff - startOff) < .01) return "";
@@ -366,9 +352,10 @@
                     const start = {x: baseX + dx + side * nx * startOff - tipCircle.x, y: baseY + dy + side * ny * startOff - tipCircle.y};
                     const end = {x: baseX + dx + side * nx * endOff - tipCircle.x, y: baseY + dy + side * ny * endOff - tipCircle.y};
                     const sm = Math.hypot(start.x, start.y) || 1, em = Math.hypot(end.x, end.y) || 1;
+                    const sx = tipCircle.x + tipCircle.r * start.x / sm, sy = tipCircle.y + tipCircle.r * start.y / sm;
                     const ex = tipCircle.x + tipCircle.r * end.x / em, ey = tipCircle.y + tipCircle.r * end.y / em;
                     const cross = start.x * end.y - start.y * end.x, sweep = cross >= 0 ? 1 : 0;
-                    return ` A ${tipCircle.r.toFixed(2)} ${tipCircle.r.toFixed(2)} 0 0 ${sweep} ${ex.toFixed(2)} ${ey.toFixed(2)}`;
+                    return ` L ${sx.toFixed(2)} ${sy.toFixed(2)} A ${tipCircle.r.toFixed(2)} ${tipCircle.r.toFixed(2)} 0 0 ${sweep} ${ex.toFixed(2)} ${ey.toFixed(2)}`;
                 };
                 if ("innerFirst" === mode) return {
                     top: `M ${g.join(" L ")}${bE(-1, curInner1, yE)} L ${h.slice().reverse().join(" L ")}${b(-1, y0, curInner0)} Z`,
@@ -377,13 +364,12 @@
                 const v = [], w = [];
                 for (let si = p; si >= 0; si--) {
                     const frac = si / p;
-                    const curInner = innerAt(frac);
+                    const curInner = innerHalf + innerFlare * Math.exp(-Math.pow(frac / 0.72, 2));
                     const px = baseX + dx * frac, py = baseY + dy * frac;
                     v.push(`${(px - nx * curInner).toFixed(2)} ${(py - ny * curInner).toFixed(2)}`);
                     w.push(`${(px + nx * curInner).toFixed(2)} ${(py + ny * curInner).toFixed(2)}`);
                 }
                 baseCircle && baseCircle.r > 0 && (v[v.length - 1] = g[0], w[w.length - 1] = f[0]);
-                tipCircle && tipCircle.r > 0 && (v[0] = g[p], w[0] = f[p]);
                 return {
                     top: `M ${h.join(" L ")}${bE(-1, yE, curInner1)} L ${v.join(" L ")}${b(-1, curInner0, y0)} Z`,
                     bottom: `M ${m.join(" L ")}${bE(1, yE, curInner1)} L ${w.join(" L ")}${b(1, curInner0, y0)} Z`
@@ -624,7 +610,10 @@
                 label: i,
                 branch: i,
                 kind: C ? "Topic" : "Category"
-            }, P = (wa(e, I, M), da(e, M)), L = $a(e, "give", M), T = $a(e, "receive", M), F = Sa(e, I, M), N = ka(i, L, P.giveKnown ? ba(P.give) : "Unrated", { tapFirst: !0 }), _ = ka(i, T, P.receiveKnown ? ba(P.receive) : "Unrated", { tapFirst: !0 });
+            }, P = (wa(e, I, M), da(e, M)), L = $a(e, "give", M), T = $a(e, "receive", M), F = Sa(e, I, M);
+            const stemValGive = typeof sxSpokeStemRatingValue === "function" ? sxSpokeStemRatingValue(P, "give") : (P.giveKnown ? ba(P.give) : "Unrated");
+            const stemValReceive = typeof sxSpokeStemRatingValue === "function" ? sxSpokeStemRatingValue(P, "receive") : (P.receiveKnown ? ba(P.receive) : "Unrated");
+            const N = ka(i, L, stemValGive, { tapFirst: !0 }), _ = ka(i, T, stemValReceive, { tapFirst: !0 });
             let D = "";
             const sxShowMapSliders = Boolean(mn && mn.mapSliders);
             const sxZoomOk = "function" !== typeof window.sxMapZoomAllowsWidgets || window.sxMapZoomAllowsWidgets();
