@@ -183,7 +183,8 @@
               "name": "r/careerguidance",
               "url": "https://www.reddit.com/r/careerguidance/"
             }
-          ]
+          ],
+          "glyph": "cube"
         },
         {
           "id": "xvo0002",
@@ -245,7 +246,8 @@
               "name": "r/careerguidance",
               "url": "https://www.reddit.com/r/careerguidance/"
             }
-          ]
+          ],
+          "glyph": "star"
         }
       ]
     },
@@ -314,7 +316,8 @@
               "name": "r/careerguidance",
               "url": "https://www.reddit.com/r/careerguidance/"
             }
-          ]
+          ],
+          "glyph": "sun"
         },
         {
           "id": "xvo0004",
@@ -376,7 +379,8 @@
               "name": "r/careerguidance",
               "url": "https://www.reddit.com/r/careerguidance/"
             }
-          ]
+          ],
+          "glyph": "moon"
         },
         {
           "id": "xvo0005",
@@ -438,7 +442,8 @@
               "name": "r/careerguidance",
               "url": "https://www.reddit.com/r/careerguidance/"
             }
-          ]
+          ],
+          "glyph": "flame"
         },
         {
           "id": "xvo0006",
@@ -500,7 +505,8 @@
               "name": "r/careerguidance",
               "url": "https://www.reddit.com/r/careerguidance/"
             }
-          ]
+          ],
+          "glyph": "droplet"
         }
       ]
     },
@@ -569,7 +575,8 @@
               "name": "r/careerguidance",
               "url": "https://www.reddit.com/r/careerguidance/"
             }
-          ]
+          ],
+          "glyph": "tree"
         },
         {
           "id": "xvo0008",
@@ -631,7 +638,8 @@
               "name": "r/careerguidance",
               "url": "https://www.reddit.com/r/careerguidance/"
             }
-          ]
+          ],
+          "glyph": "rose"
         },
         {
           "id": "xvo0009",
@@ -693,7 +701,8 @@
               "name": "r/careerguidance",
               "url": "https://www.reddit.com/r/careerguidance/"
             }
-          ]
+          ],
+          "glyph": "heart"
         }
       ]
     },
@@ -762,7 +771,8 @@
               "name": "r/careerguidance",
               "url": "https://www.reddit.com/r/careerguidance/"
             }
-          ]
+          ],
+          "glyph": "shield"
         },
         {
           "id": "xvo0011",
@@ -824,7 +834,8 @@
               "name": "r/careerguidance",
               "url": "https://www.reddit.com/r/careerguidance/"
             }
-          ]
+          ],
+          "glyph": "badge"
         },
         {
           "id": "xvo0012",
@@ -886,7 +897,8 @@
               "name": "r/careerguidance",
               "url": "https://www.reddit.com/r/careerguidance/"
             }
-          ]
+          ],
+          "glyph": "crown"
         },
         {
           "id": "xvo0013",
@@ -948,7 +960,8 @@
               "name": "r/careerguidance",
               "url": "https://www.reddit.com/r/careerguidance/"
             }
-          ]
+          ],
+          "glyph": "key"
         },
         {
           "id": "xvo0014",
@@ -1026,7 +1039,8 @@
               "name": "r/careerguidance",
               "url": "https://www.reddit.com/r/careerguidance/"
             }
-          ]
+          ],
+          "glyph": "lock"
         }
       ]
     },
@@ -1087,7 +1101,8 @@
               "name": "r/careerguidance",
               "url": "https://www.reddit.com/r/careerguidance/"
             }
-          ]
+          ],
+          "glyph": "scale"
         },
         {
           "id": "xvo0016",
@@ -1149,7 +1164,8 @@
               "name": "r/careerguidance",
               "url": "https://www.reddit.com/r/careerguidance/"
             }
-          ]
+          ],
+          "glyph": "hands"
         },
         {
           "id": "xvo0017",
@@ -1211,7 +1227,8 @@
               "name": "r/careerguidance",
               "url": "https://www.reddit.com/r/careerguidance/"
             }
-          ]
+          ],
+          "glyph": "eye"
         },
         {
           "id": "xvo0018",
@@ -1281,7 +1298,8 @@
               "name": "r/careerguidance",
               "url": "https://www.reddit.com/r/careerguidance/"
             }
-          ]
+          ],
+          "glyph": "chat"
         }
       ]
     },
@@ -1350,7 +1368,8 @@
               "name": "r/careerguidance",
               "url": "https://www.reddit.com/r/careerguidance/"
             }
-          ]
+          ],
+          "glyph": "book"
         },
         {
           "id": "xvo0020",
@@ -1412,7 +1431,8 @@
               "name": "r/careerguidance",
               "url": "https://www.reddit.com/r/careerguidance/"
             }
-          ]
+          ],
+          "glyph": "scroll"
         },
         {
           "id": "xvo0021",
@@ -1474,7 +1494,8 @@
               "name": "r/careerguidance",
               "url": "https://www.reddit.com/r/careerguidance/"
             }
-          ]
+          ],
+          "glyph": "note"
         }
       ]
     }
