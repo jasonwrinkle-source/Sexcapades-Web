@@ -327,7 +327,7 @@ if(typeof window.__sxErrLog!=="function"){window.__sxErrLog=function(where,err){
       try {
         var q = new URLSearchParams(window.location.search || '').get('skin');
         var host = (window.location.hostname || '').toLowerCase();
-        var map = { sex: 'sexcapades', polis: 'poliscapades', fores: 'forescapades', philo: 'philoscapades', aesth: 'aesthcapades', voca: 'vocapades', tech: 'techcapades', dharma: 'dharmacapades', theori: 'theoricapades', praxi: 'praxicapades', quanta: 'quantacapades', experi: 'expericapades', simul: 'simulcapades', matter: 'mattercapades', chem: 'chemcapades', nous: 'nouscapades' };
+        var map = { sex: 'sexcapades', polis: 'poliscapades', fores: 'forescapades', philo: 'philoscapades', aesth: 'aesthcapades', voca: 'vocapades', tech: 'techcapades', dharma: 'dharmacapades', theori: 'theoricapades', praxi: 'praxicapades', quanta: 'quantacapades', experi: 'expericapades', simul: 'simulcapades', matter: 'mattercapades', chem: 'chemcapades', nous: 'nouscapades', dance: 'dancecapades', quest: 'questcapades' };
         var skin = q || (/\.capades\.io$/.test(host) ? map[host.split('.')[0]] : null);
         if (skin && skin !== 'sexcapades') {
           var l = document.createElement('link');

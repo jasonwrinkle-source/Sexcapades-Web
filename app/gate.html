@@ -2105,7 +2105,7 @@
            all (no gate to pass), so in practice this is "sexcapades";
            the field is here so the record is complete and the bundle's
            gate-passed event and this one share the same shape. */
-        var GATE_SKIN_IDS = { sex: "sexcapades", polis: "poliscapades", fores: "forescapades", philo: "philoscapades", aesth: "aesthcapades", voca: "vocapades", tech: "techcapades", dharma: "dharmacapades", theori: "theoricapades", praxi: "praxicapades", quanta: "quantacapades", experi: "expericapades", simul: "simulcapades", matter: "mattercapades", chem: "chemcapades", nous: "nouscapades" };
+        var GATE_SKIN_IDS = { sex: "sexcapades", polis: "poliscapades", fores: "forescapades", philo: "philoscapades", aesth: "aesthcapades", voca: "vocapades", tech: "techcapades", dharma: "dharmacapades", theori: "theoricapades", praxi: "praxicapades", quanta: "quantacapades", experi: "expericapades", simul: "simulcapades", matter: "mattercapades", chem: "chemcapades", nous: "nouscapades", dance: "dancecapades", quest: "questcapades" };
         function gateAnalyticsSkin() {
           try {
             if (typeof gateSkinPrefix === "string" && GATE_SKIN_IDS[gateSkinPrefix]) return GATE_SKIN_IDS[gateSkinPrefix];
@@ -2316,7 +2316,9 @@
           simul: ["Simulcapades", "Simul.Capades.IO"],
           matter: ["Mattercapades", "Matter.Capades.IO"],
           chem: ["Chemcapades", "Chem.Capades.IO"],
-          nous: ["Nouscapades", "Nous.Capades.IO"]
+          nous: ["Nouscapades", "Nous.Capades.IO"],
+          dance: ["Dancecapades", "Dance.Capades.IO"],
+          quest: ["Questcapades", "Quest.Capades.IO"]
         };
         var gateSkinPrefix = "";
         try {
@@ -2772,7 +2774,7 @@
             if (host === "sexcapades.io" || host === "www.sexcapades.io" || host === "sex.capades.io") return "sexcapades";
             if (/\.capades\.io$/.test(host)) {
               var p = host.split(".")[0];
-              var rev = { sex: "sexcapades", polis: "poliscapades", fores: "forescapades", philo: "philoscapades", aesth: "aesthcapades", voca: "vocapades", tech: "techcapades", dharma: "dharmacapades", theori: "theoricapades", praxi: "praxicapades", quanta: "quantacapades", experi: "expericapades", simul: "simulcapades", matter: "mattercapades", chem: "chemcapades", nous: "nouscapades" };
+              var rev = { sex: "sexcapades", polis: "poliscapades", fores: "forescapades", philo: "philoscapades", aesth: "aesthcapades", voca: "vocapades", tech: "techcapades", dharma: "dharmacapades", theori: "theoricapades", praxi: "praxicapades", quanta: "quantacapades", experi: "expericapades", simul: "simulcapades", matter: "mattercapades", chem: "chemcapades", nous: "nouscapades", dance: "dancecapades", quest: "questcapades" };
               if (rev[p]) return rev[p];
             }
             if (gateSkinPrefix && GATE_SKINS[gateSkinPrefix]) return GATE_SKINS[gateSkinPrefix][0].toLowerCase();
