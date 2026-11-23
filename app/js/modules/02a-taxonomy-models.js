@@ -334,11 +334,11 @@
             } catch (e) { /* fall through to inline map */ }
             try {
                 var q = new URLSearchParams(location.search || "").get("skin");
-                var known = ["sexcapades", "poliscapades", "forescapades", "philoscapades", "aesthcapades", "vocapades", "techcapades", "dharmacapades", "theoricapades", "praxicapades", "quantacapades", "expericapades", "simulcapades", "mattercapades", "chemcapades", "nouscapades", "biocapades", "dancecapades", "questcapades"];
+                var known = ["sexcapades", "poliscapades", "forescapades", "philoscapades", "aesthcapades", "vocapades", "techcapades", "dharmacapades", "theoricapades", "praxicapades", "quantacapades", "expericapades", "simulcapades", "mattercapades", "chemcapades", "nouscapades", "biocapades", "linguacapades", "dancecapades", "questcapades"];
                 if (q && known.indexOf(q) !== -1) return q;
                 var host = (location.hostname || "").toLowerCase();
                 if (host === "sexcapades.io" || host === "www.sexcapades.io" || host === "flex.capades.io" || host === "capades.io") return "sexcapades";
-                var map = { sex: "sexcapades", polis: "poliscapades", fores: "forescapades", philo: "philoscapades", aesth: "aesthcapades", voca: "vocapades", tech: "techcapades", dharma: "dharmacapades", theori: "theoricapades", praxi: "praxicapades", quanta: "quantacapades", experi: "expericapades", simul: "simulcapades", matter: "mattercapades", chem: "chemcapades", nous: "nouscapades", bio: "biocapades", dance: "dancecapades", quest: "questcapades" };
+                var map = { sex: "sexcapades", polis: "poliscapades", fores: "forescapades", philo: "philoscapades", aesth: "aesthcapades", voca: "vocapades", tech: "techcapades", dharma: "dharmacapades", theori: "theoricapades", praxi: "praxicapades", quanta: "quantacapades", experi: "expericapades", simul: "simulcapades", matter: "mattercapades", chem: "chemcapades", nous: "nouscapades", bio: "biocapades", lingua: "linguacapades", dance: "dancecapades", quest: "questcapades" };
                 var prefix = /\.capades\.io$/.test(host) ? host.split(".")[0] : "";
                 if (prefix && map[prefix]) return map[prefix];
             } catch (e) { /* default below */ }
