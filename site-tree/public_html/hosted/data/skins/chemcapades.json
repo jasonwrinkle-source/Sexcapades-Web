@@ -4964,7 +4964,8 @@
         "skin": "chemcapades"
       },
       "skin": "chemcapades",
-      "kind": "sample"
+      "kind": "sample",
+      "emblem": "images/emblems/che-organic.svg"
     },
     "che-physical": {
       "name": "The Physical Chemist",
@@ -5429,7 +5430,8 @@
         "skin": "chemcapades"
       },
       "skin": "chemcapades",
-      "kind": "sample"
+      "kind": "sample",
+      "emblem": "images/emblems/che-physical.svg"
     },
     "che-inorganic": {
       "name": "The Inorganic Chemist",
@@ -5894,7 +5896,8 @@
         "skin": "chemcapades"
       },
       "skin": "chemcapades",
-      "kind": "sample"
+      "kind": "sample",
+      "emblem": "images/emblems/che-inorganic.svg"
     },
     "che-biochemist": {
       "name": "The Biochemist",
@@ -6359,7 +6362,8 @@
         "skin": "chemcapades"
       },
       "skin": "chemcapades",
-      "kind": "sample"
+      "kind": "sample",
+      "emblem": "images/emblems/che-biochemist.svg"
     },
     "che-analytical": {
       "name": "The Analytical Chemist",
@@ -6824,7 +6828,8 @@
         "skin": "chemcapades"
       },
       "skin": "chemcapades",
-      "kind": "sample"
+      "kind": "sample",
+      "emblem": "images/emblems/che-analytical.svg"
     }
   }
 }
