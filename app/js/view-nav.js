@@ -585,38 +585,30 @@ __sxInit(function () {
     var skin = item.getAttribute("data-skin");
     closeMenu();
     var loader = window.FlexcapadesSkins;
-    var prefix = SKIN_SUBDOMAIN[skin];
-    if (prefix) {
-      /* Navigating between skins: always navigate to that skin's subdomain on capades.io.
-         Sexcapades routes to sex.capades.io (never sexcapades.io). */
-      window.location.href = "https://" + prefix + ".capades.io/";
-      return;
-    }
-    /* No prefix in the map — fall back to the in-app load. */
-    if (skin === "sexcapades") {
-      if (loader && loader.active() !== "sexcapades") {
-        loader.load("sexcapades").then(function () {
-          markCurrent("sexcapades");
-          showNote("Back to Sexcapades.");
-        }, function (err) {
-          showNote("Couldn't restore Sexcapades: " + (err && err.message || err));
-        });
-      }
-      return;
-    }
-    if (loader) {
+    if (loader && typeof loader.load === "function") {
       loader.load(skin, skinName(item)).then(function () {
         markCurrent(skin);
         var n = window.__SX_SKIN_TOPIC_COUNT || 0;
         var cats = 0;
         try { cats = window.TaxonomyLoader.loadTaxonomy().categories.length; } catch (e) { cats = 0; }
         showNote(skinName(item) + " loaded — " + n + " topics across " + cats + " categories.");
+        try {
+          var u = new URL(window.location.href);
+          u.searchParams.set("skin", skin);
+          window.history.replaceState(null, "", u.pathname + u.search + u.hash);
+        } catch (_) {}
       }, function (err) {
         showNote("Couldn't load " + skinName(item) + ": " + (err && err.message || err));
       });
       return;
     }
-    showNote(skinName(item) + " isn't loaded yet — its taxonomy lives in a briefing document, not in the app. Only Sexcapades is live today.");
+    try {
+      var u = new URL(window.location.href);
+      u.searchParams.set("skin", skin);
+      window.location.href = u.pathname + u.search + u.hash;
+    } catch (_) {
+      window.location.href = "?skin=" + encodeURIComponent(skin);
+    }
   }
   menu.addEventListener("click", function (ev) {
     var it = ev.target && ev.target.closest ? ev.target.closest("[data-skin]") : null;
