@@ -120,7 +120,7 @@ cp "$DIR/app/css/app.css" "$HOSTED/app-assets/app.css"
 cp "$DIR/app/vendor/"* "$HOSTED/app-assets/vendor/"
 cp "$DIR/app/data/"*.js "$HOSTED/app-assets/"
 cp "$DIR/app/js/"*.js "$HOSTED/app-assets/"
-cp "$DIR/app/images/"* "$HOSTED/app-assets/images/"
+cp -r "$DIR/app/images/"* "$HOSTED/app-assets/images/"
 
 # Bundle all modular scripts into a single cached app.js alongside individual modules
 cat "$DIR/app/js/view-nav.js" "$DIR/app/js/layout-editor.js" "$DIR/app/js/patches.js" "$DIR/app/js/scene-sentinel.js" > "$HOSTED/app-assets/app.js"
