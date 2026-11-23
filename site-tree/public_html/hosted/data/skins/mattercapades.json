@@ -3943,7 +3943,8 @@
         "skin": "mattercapades"
       },
       "skin": "mattercapades",
-      "kind": "sample"
+      "kind": "sample",
+      "emblem": "images/emblems/mat-nuclear.svg"
     },
     "mat-renewables": {
       "name": "The Renewables Advocate",
@@ -4321,7 +4322,8 @@
         "skin": "mattercapades"
       },
       "skin": "mattercapades",
-      "kind": "sample"
+      "kind": "sample",
+      "emblem": "images/emblems/mat-renewables.svg"
     },
     "mat-fusion": {
       "name": "The Fusion Optimist",
@@ -4695,7 +4697,8 @@
         "skin": "mattercapades"
       },
       "skin": "mattercapades",
-      "kind": "sample"
+      "kind": "sample",
+      "emblem": "images/emblems/mat-fusion.svg"
     },
     "mat-quantum": {
       "name": "The Quantum Technologist",
@@ -5071,7 +5074,8 @@
         "skin": "mattercapades"
       },
       "skin": "mattercapades",
-      "kind": "sample"
+      "kind": "sample",
+      "emblem": "images/emblems/mat-quantum.svg"
     },
     "mat-pragmatist": {
       "name": "The Device-First Pragmatist",
@@ -5445,7 +5449,8 @@
         "skin": "mattercapades"
       },
       "skin": "mattercapades",
-      "kind": "sample"
+      "kind": "sample",
+      "emblem": "images/emblems/mat-pragmatist.svg"
     }
   }
 }
