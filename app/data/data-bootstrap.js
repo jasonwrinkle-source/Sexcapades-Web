@@ -46510,6 +46510,32 @@ yk([ "Spitting", "Spit play", "Being spit on", "Spitting on someone" ], "t0341")
                 preventScroll: !0
             });
         }), jy.addEventListener("click", e => sxSampleMenuClick(jy, e)), jyA && jyA.addEventListener("click", e => sxSampleMenuClick(jyA, e)),
+        // Roster submenus (2026-11-22, Jason): each imported or built-in
+        // roster gets its OWN entry in the add menu, beside Archetypes
+        // and Samples. The skin loader creates those entries and menus
+        // dynamically (rosters come and go per skin and per import), so
+        // it wires them through this hook — the same open/close, hover,
+        // delegation, and local-remove treatment the two static
+        // submenus get, from the same in-scope helpers.
+        window.__SX_WIRE_SAMPLE_SUBMENU = (entry, menu, back) => {
+            if (!entry || !menu) return;
+            entry.addEventListener("pointerenter", () => {
+                Rw(), Iw({}, menu, entry);
+            }), entry.addEventListener("focus", () => Iw({}, menu, entry)), entry.addEventListener("click", e => {
+                e.preventDefault(), Iw({
+                    focus: !0
+                }, menu, entry);
+            }), menu.addEventListener("pointerleave", Ow), menu.addEventListener("pointerenter", Rw), menu.addEventListener("click", e => sxSampleMenuClick(menu, e)), menu.addEventListener("click", e => {
+                const t = e.target && e.target.closest ? e.target.closest("[data-remove-local-sample]") : null;
+                if (!t) return;
+                e.stopPropagation();
+                sxRemoveLocalSample(t.getAttribute("data-remove-local-sample"));
+            }), back && back.addEventListener("click", () => {
+                Sw(), entry.focus({
+                    preventScroll: !0
+                });
+            });
+        },
         // Local-sample removal (2026-11-18): the Remove button under a
         // local sample in the Samples menu. It is not a sample-load
         // action, so the loader above ignores it; this listener handles
