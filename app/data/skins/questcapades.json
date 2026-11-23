@@ -1802,7 +1802,8 @@
         "skin": "questcapades"
       },
       "skin": "questcapades",
-      "kind": "archetype"
+      "kind": "archetype",
+      "emblem": "images/emblems/the-forever-gm.svg"
     },
     "the-method-actor": {
       "name": "The Method Actor",
@@ -1884,7 +1885,8 @@
         "skin": "questcapades"
       },
       "skin": "questcapades",
-      "kind": "archetype"
+      "kind": "archetype",
+      "emblem": "images/emblems/the-method-actor.svg"
     },
     "the-rules-lawyer": {
       "name": "The Rules Lawyer",
@@ -1966,7 +1968,8 @@
         "skin": "questcapades"
       },
       "skin": "questcapades",
-      "kind": "archetype"
+      "kind": "archetype",
+      "emblem": "images/emblems/the-rules-lawyer.svg"
     },
     "the-min-maxer": {
       "name": "The Min-Maxer",
@@ -2057,7 +2060,8 @@
         "skin": "questcapades"
       },
       "skin": "questcapades",
-      "kind": "archetype"
+      "kind": "archetype",
+      "emblem": "images/emblems/the-min-maxer.svg"
     },
     "the-loot-goblin": {
       "name": "The Loot Goblin",
@@ -2150,7 +2154,8 @@
         "skin": "questcapades"
       },
       "skin": "questcapades",
-      "kind": "archetype"
+      "kind": "archetype",
+      "emblem": "images/emblems/the-loot-goblin.svg"
     },
     "the-lore-keeper": {
       "name": "The Lore Keeper",
@@ -2236,7 +2241,8 @@
         "skin": "questcapades"
       },
       "skin": "questcapades",
-      "kind": "archetype"
+      "kind": "archetype",
+      "emblem": "images/emblems/the-lore-keeper.svg"
     },
     "the-quiet-newcomer": {
       "name": "The Quiet Newcomer",
@@ -2316,7 +2322,8 @@
         "skin": "questcapades"
       },
       "skin": "questcapades",
-      "kind": "archetype"
+      "kind": "archetype",
+      "emblem": "images/emblems/the-quiet-newcomer.svg"
     },
     "the-one-shot-wanderer": {
       "name": "The One-Shot Wanderer",
@@ -2407,7 +2414,8 @@
         "skin": "questcapades"
       },
       "skin": "questcapades",
-      "kind": "archetype"
+      "kind": "archetype",
+      "emblem": "images/emblems/the-one-shot-wanderer.svg"
     },
     "maren": {
       "kind": "sample",
