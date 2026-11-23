@@ -6,9 +6,9 @@
 <meta content="width=device-width, initial-scale=1, viewport-fit=cover" name="viewport"/>
 <meta content="The Sexcapades hypermap: rate 400+ kinks across 18 categories on the visual map or in the Hot list, compare profiles with a partner, and generate stories and play guides." name="description"/>
 <meta content="dark" name="color-scheme"/>
-<meta content="2026-11-22_2134" name="sexcapades-build"/>
-<meta content="release-5.0-1122-2134" name="sexcapades-build-tag"/>
-<!-- BUILD-MANIFEST {"build": "2026-11-22_2134", "version": "5.0", "channel": "release"} -->
+<meta content="2026-11-22_2202" name="sexcapades-build"/>
+<meta content="release-5.0-1122-2202" name="sexcapades-build-tag"/>
+<!-- BUILD-MANIFEST {"build": "2026-11-22_2202", "version": "5.0", "channel": "release"} -->
 <script>/* BOOTLOAD-FIX (F1): __sxErrLog queue stub. The P0 shell block that defines
 the real logger now sits just after the boot dialog in the body, so the dialog can
 paint in the first kilobytes; the small head scripts call __sxErrLog from parse-time
@@ -18,7 +18,35 @@ window.__sxErrQueue=window.__sxErrQueue||[];
 if(typeof window.__sxErrLog!=="function"){window.__sxErrLog=function(where,err){window.__sxErrQueue.push([where,err]);};}
 </script>
 <link href="/hosted/favicon.ico" rel="icon"/>
-<title>Sex.Capades.IO</title>
+<title>flex.capades.io</title>
+<script>
+  (function () {
+    try {
+      var host = (window.location.hostname || "").toLowerCase();
+      var q = new URLSearchParams(window.location.search || "");
+      var skin = q.get("skin") || "";
+      var sub = "";
+      if (host === "sexcapades.io" || host === "www.sexcapades.io") {
+        sub = "sex";
+      } else if (/\.capades\.io$/.test(host)) {
+        sub = host.split(".")[0];
+      }
+      if (skin) {
+        var map = { sexcapades: "sex", poliscapades: "polis", forescapades: "fores", philoscapades: "philo", aesthcapades: "aesth", vocapades: "voca", techcapades: "tech", dharmacapades: "dharma", theoricapades: "theori", praxicapades: "praxi", quantacapades: "quanta", expericapades: "experi", simulcapades: "simul", mattercapades: "matter", chemcapades: "chem", nouscapades: "nous", dancecapades: "dance", questcapades: "quest" };
+        if (map[skin]) sub = map[skin];
+      }
+      var KNOWN_SKINS = { sex: "Sexcapades", polis: "Poliscapades", fores: "Forescapades", philo: "Philoscapades", aesth: "Aesthcapades", voca: "Vocapades", tech: "Techcapades", dharma: "Dharmacapades", theori: "Theoricapades", praxi: "Praxicapades", quanta: "Quantacapades", experi: "Expericapades", simul: "Simulcapades", matter: "Mattercapades", chem: "Chemcapades", nous: "Nouscapades", dance: "Dancecapades", quest: "Questcapades" };
+      if (sub && KNOWN_SKINS[sub]) {
+        var dotted = sub.charAt(0).toUpperCase() + sub.slice(1) + ".Capades.IO";
+        document.title = dotted + (sub === "sex" ? "" : " \u2014 " + KNOWN_SKINS[sub]);
+      } else {
+        document.title = "flex.capades.io";
+      }
+    } catch (_) {
+      document.title = "flex.capades.io";
+    }
+  })();
+</script>
 <script>
     // Age-gate enforcement with a private-browsing fallback. The gate may
     // return ?verified=1 when persistent storage is unavailable.
@@ -1932,8 +1960,8 @@ window.__sxProgressWidget=function(refs){
 <h2 id="appAboutTitle">About Sex.Capades.IO</h2>
 <div class="app-about-header-meta">
 <div class="app-about-version-cluster">
-<span class="app-about-version">Version 5.0 · Build 2026-11-22_2134</span>
-<span class="app-about-version app-about-buildtag">release-5.0-1122-2134</span>
+<span class="app-about-version">Version 5.0 · Build 2026-11-22_2202</span>
+<span class="app-about-version app-about-buildtag">release-5.0-1122-2202</span>
 <label class="remember-profile-label"><input id="rememberProfileCheckbox2x" type="checkbox"/><span>Remember this tab's profiles on this device</span></label>
 <button class="flush-profiles-btn" id="flushProfilesBtn2x" title="Clear all saved profiles from this device" type="button">Flush profiles</button>
 </div>

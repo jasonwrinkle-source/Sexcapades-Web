@@ -1474,11 +1474,18 @@
   }
 
   function setBrand(skinId, displayName) {
-    var prefix = skinPrefixFor(skinId);
+    var host = "";
+    try { host = (window.location.hostname || "").toLowerCase(); } catch (_) {}
+    var isFlexHost = (host === "flex.capades.io" || host === "capades.io") && (!skinId || skinId === "sexcapades") && !skinFromUrl();
+    var prefix = isFlexHost ? "flex" : skinPrefixFor(skinId);
     var dotted = prefix ? (prefix.charAt(0).toUpperCase() + prefix.slice(1) + ".Capades.IO") : "Sex.Capades.IO";
     var name = dotted;
     var brand = dotted;
-    document.title = dotted + (skinId === "sexcapades" ? "" : " — " + (displayName || skinId));
+    if (isFlexHost) {
+      document.title = "flex.capades.io";
+    } else {
+      document.title = dotted + (skinId === "sexcapades" ? "" : " — " + (displayName || skinId));
+    }
     var btn = document.getElementById("openAppAbout");
     if (btn) btn.textContent = name;
     var about = document.getElementById("appAboutTitle");
