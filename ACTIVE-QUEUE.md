@@ -45,12 +45,8 @@ Each item waits for Jason's kickoff; nothing here dispatches itself.
 ~~5. **Receptivity in Every Score (ruled by Jason 2026-11-23, on voice):**~~
    - ~~Receptivity counts in the scores as its own flank/component wherever advocacy counts (advocacy & receptivity intensities collected as distinct flanks in `sxTopicTerms` and single-profile rating counts `cc`/`dc`).~~
 
-6. **Pair-Topic Tapers Color by Appetite (ruled by Jason 2026-11-23, on voice):**
-   - On Sexcapades pair (two-slider) topics, taper flank colors come from the per-flank appetites (give appetite, receive appetite — the stored intensities), NOT from the leanings.
-   - Reason: the rest of the map already colors tapers by intensity (n-pole topics; stance advocacy/receptivity stems). The pair topics were left coloring by position from the era when intensity was derived from the value.
-   - Consistency rule: tapers speak intensity everywhere; leanings are read from position, never from taper color.
-   - Scope: profile-view pair-topic tapers. Pair-tab fit tapers (Cross/Straight products) are by-design a different quantity — leave them.
-   - While there: re-check the taper mid-seam color flagged 2026-11-23 (it appeared to blend the two flank values) under this rule.
+~~6. **Pair-Topic Tapers Color by Appetite (ruled by Jason 2026-11-23, on voice):**~~
+   - ~~On Sexcapades pair (two-slider) topics, taper flank colors come from stored appetites (`sxPlacementFlankColors`), not position leanings. Mid-seam color uses unblended flank color (`K || z || B.lineColor`).~~
 
 ~~7. **Selection Doors + Click-to-Zoom Cleanup (ruled/reported by Jason 2026-11-23, on voice):**~~
    - ~~*Defects:* Fixed topic picker and search field option indexing across all skins via dynamic skin-ready taxonomy rebuilding (`rebuildTopicPickerData()`).~~
