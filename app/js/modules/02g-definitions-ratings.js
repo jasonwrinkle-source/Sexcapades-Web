@@ -664,9 +664,9 @@
             // Topic-icon inheritance (owner ruling 2026-11-23): a topic
             // with no glyph of its own in ve inherits its category's
             // descriptor glyph from ge instead of the generic star.
-            // Topics present in ve (every Sexcapades catalog topic,
-            // including any assigned the star itself) are untouched.
-            const _veKey = t + "\0" + e, n = ve.get(_veKey) || "star", _ownGlyph = ve.has(_veKey) && n in ye, _catDesc = !_ownGlyph && ge && ge[t] && ge[t].glyph ? ge[t] : null, _glyphFallback = !_ownGlyph && !_catDesc, i = _e.get(_veKey) || 0, a = Le(e, t);
+            // Topics present in ve or registered in window.__SX_SKIN_TOPIC_GLYPHS
+            // are untouched and use their assigned glyph.
+            const _veKey = t + "\0" + e, _skinGlyph = typeof window !== "undefined" && window.__SX_SKIN_TOPIC_GLYPHS ? window.__SX_SKIN_TOPIC_GLYPHS[_veKey] : null, n = _skinGlyph || (window.__SX_EXPORT_BE?.[t] ? ve.get(_veKey) : null) || ve.get(_veKey) || "star", _ownGlyph = Boolean((_skinGlyph && _skinGlyph in ye) || (ve.has(_veKey) && n in ye)), _catDesc = !_ownGlyph && ge && ge[t] && ge[t].glyph ? ge[t] : null, _glyphFallback = !_ownGlyph && !_catDesc, i = _e.get(_veKey) || 0, a = Le(e, t);
             return {
                 glyph: _ownGlyph ? ye[n] : _catDesc ? _catDesc.glyph : ye.star,
                 glyphFallback: _glyphFallback,

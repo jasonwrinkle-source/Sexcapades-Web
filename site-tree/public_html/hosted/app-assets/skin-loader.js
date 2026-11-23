@@ -696,6 +696,7 @@
     var communities = {};
     var popularity = {};
     var readings = {};
+    var topicGlyphs = {};
     var count = 0;
     data.categories.forEach(function (cat) {
       var all = (cat.topics || []).slice();
@@ -705,6 +706,7 @@
       all.forEach(function (t) {
         var wc = widgetConfig(t);
         if (wc) widgets[t.id] = wc;
+        if (t.glyph) topicGlyphs[cat.name + "\0" + (t.label || t.name || t.id)] = t.glyph;
         if (t.hovertip) desc[t.name] = formatHovertip(t);
         /* Widget approachability: per-pole hovertip lines ("Label — text"),
            keyed by topic id then pole key; the placard attaches them to the
@@ -737,6 +739,7 @@
     window.__SX_SKIN_COMMUNITIES = communities;
     window.__SX_SKIN_POPULARITY = popularity;
     window.__SX_POLE_READINGS = readings;
+    window.__SX_SKIN_TOPIC_GLYPHS = topicGlyphs;
     return count;
   }
 

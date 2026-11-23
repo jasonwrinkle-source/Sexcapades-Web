@@ -114,8 +114,8 @@ echo "3e. Building the QA service worker, manifest links, and icons..."
 sed -i "s|sexcapades-v__SX_CACHE__|sexcapades-qa-v__SX_CACHE__|" "$QA_STAGING/sw.js"
 sed -i "s|  '/',|  '/qa/',|" "$QA_STAGING/sw.js"
 sed -i "s|'/manifest.json'|'/qa/manifest.json'|" "$QA_STAGING/sw.js"
-sed -i "s|'/icons/icon-192.png'|'/qa/icons/icon-qa-192-badge.png'|" "$QA_STAGING/sw.js"
-sed -i "s|'/icons/icon-512.png'|'/qa/icons/icon-qa-512-badge.png'|" "$QA_STAGING/sw.js"
+sed -i "s|'/icons/skins/flex-192.png?v=__SX_CACHE__'|'/qa/icons/icon-qa-192-badge.png?v=__SX_CACHE__'|" "$QA_STAGING/sw.js"
+sed -i "s|'/icons/skins/flex-512.png?v=__SX_CACHE__'|'/qa/icons/icon-qa-512-badge.png?v=__SX_CACHE__'|" "$QA_STAGING/sw.js"
 sed -i "s|key.indexOf('sexcapades-[^']*')|key.indexOf('sexcapades-qa-v')|" "$QA_STAGING/sw.js"
 sed -i "s|__SX_CACHE__|$TS|g" "$QA_STAGING/sw.js"
 # QA app pages: register the QA worker and link the QA manifest (the
@@ -195,8 +195,8 @@ if [ -z "$QA_SW" ]; then echo "ERROR: qa/sw.js missing from package!"; exit 1; f
 echo "$QA_SW" | grep -q "sexcapades-qa-v$TS" || { echo "ERROR: qa/sw.js cache name is not sexcapades-qa-v$TS"; exit 1; }
 echo "$QA_SW" | grep -q "'/qa/'" || { echo "ERROR: qa/sw.js CORE_URLS missing /qa/ root"; exit 1; }
 echo "$QA_SW" | grep -q "'/qa/manifest.json'" || { echo "ERROR: qa/sw.js CORE_URLS missing /qa/manifest.json"; exit 1; }
-echo "$QA_SW" | grep -q "'/qa/icons/icon-qa-192-badge.png'" || { echo "ERROR: qa/sw.js CORE_URLS missing the QA 192 badge icon"; exit 1; }
-echo "$QA_SW" | grep -q "'/qa/icons/icon-qa-512-badge.png'" || { echo "ERROR: qa/sw.js CORE_URLS missing the QA 512 badge icon"; exit 1; }
+echo "$QA_SW" | grep -q "'/qa/icons/icon-qa-192-badge.png?v=__SX_CACHE__'" || { echo "ERROR: qa/sw.js CORE_URLS missing the QA 192 badge icon"; exit 1; }
+echo "$QA_SW" | grep -q "'/qa/icons/icon-qa-512-badge.png?v=__SX_CACHE__'" || { echo "ERROR: qa/sw.js CORE_URLS missing the QA 512 badge icon"; exit 1; }
 echo "$QA_SW" | grep -q "key.indexOf('sexcapades-qa-v')" || { echo "ERROR: qa/sw.js purge prefix is not sexcapades-qa-v"; exit 1; }
 echo "$QA_SW" | grep -q "key.indexOf('sexcapades-v')" && { echo "ERROR: qa/sw.js still has the live purge prefix"; exit 1; }
 echo "$QA_SW" | grep -q "superimposed" && { echo "ERROR: qa/sw.js still references the superimposed icons"; exit 1; }
