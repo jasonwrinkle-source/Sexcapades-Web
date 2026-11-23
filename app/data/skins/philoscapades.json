@@ -1073,6 +1073,82 @@
        "url": "https://www.reddit.com/r/askphilosophy/"
       }
      ]
+    },
+    {
+     "id": "xph0022",
+     "name": "Leading Neural Theory",
+     "risk": false,
+     "poles": [
+      {
+       "key": "global-workspace-broadcast",
+       "label": "Global Workspace Broadcast"
+      },
+      {
+       "key": "integrated-information",
+       "label": "Integrated Information (IIT)"
+      },
+      {
+       "key": "predictive-processing",
+       "label": "Predictive Processing"
+      },
+      {
+       "key": "higher-order-thought",
+       "label": "Higher-Order Thought"
+      }
+     ],
+     "widget": "puck",
+     "archetype": "simplex",
+     "hovertip": {
+      "issue": "Which scientific framework best captures the architecture of conscious awareness?",
+      "poles": [
+       {
+        "label": "Global Workspace Broadcast",
+        "text": "Information becomes conscious when widely broadcast across specialized brain networks for flexible action."
+       },
+       {
+        "label": "Integrated Information (IIT)",
+        "text": "Consciousness is identical to a system's irreducible causal integration, measured by phi."
+       },
+       {
+        "label": "Predictive Processing",
+        "text": "Conscious perception is the brain's continuous generative hallucination constrained by sensory prediction errors."
+       },
+       {
+        "label": "Higher-Order Thought",
+        "text": "A mental state becomes conscious only when represented by a meta-cognitive thought about itself."
+       }
+      ]
+     }
+    },
+    {
+     "id": "xph0023",
+     "name": "Causal Power of Qualia",
+     "risk": false,
+     "poles": [
+      {
+       "key": "epiphenomenal-passenger",
+       "label": "Epiphenomenal Passenger"
+      },
+      {
+       "key": "downward-mental-causation",
+       "label": "Downward Mental Causation"
+      }
+     ],
+     "widget": "xy-switchbox",
+     "archetype": null,
+     "hovertip": {
+      "issue": "Does the felt pain of a burn actually move your hand, or do neural circuits do all the causal work?",
+      "poles": [
+       {
+        "label": "Epiphenomenal Passenger",
+        "text": "Physics is causally closed; felt qualia accompany neural firing without pushing atoms around."
+       },
+       {
+        "label": "Downward Mental Causation",
+        "text": "Evolution would never have sculpted vivid pleasure and agony if feeling itself did no causal work."
+       }
+      ]
+     }
     }
    ]
   },
@@ -3449,6 +3525,34 @@
        "autonomous-first-philosophy": 19,
        "intensity": 64
       }
+     },
+     "xph0022": {
+      "advocacy": {
+       "global-workspace-broadcast": 70,
+       "integrated-information": 45,
+       "predictive-processing": 75,
+       "higher-order-thought": 40,
+       "intensity": 75
+      },
+      "receptivity": {
+       "global-workspace-broadcast": 52,
+       "integrated-information": 34,
+       "predictive-processing": 56,
+       "higher-order-thought": 30,
+       "intensity": 56
+      }
+     },
+     "xph0023": {
+      "advocacy": {
+       "epiphenomenal-passenger": 55,
+       "downward-mental-causation": 50,
+       "intensity": 55
+      },
+      "receptivity": {
+       "epiphenomenal-passenger": 41,
+       "downward-mental-causation": 38,
+       "intensity": 41
+      }
      }
     },
     "skin": "philoscapades"
@@ -3740,6 +3844,34 @@
        "autonomous-first-philosophy": 45,
        "intensity": 45
       }
+     },
+     "xph0022": {
+      "advocacy": {
+       "global-workspace-broadcast": 55,
+       "integrated-information": 65,
+       "predictive-processing": 45,
+       "higher-order-thought": 60,
+       "intensity": 65
+      },
+      "receptivity": {
+       "global-workspace-broadcast": 33,
+       "integrated-information": 39,
+       "predictive-processing": 27,
+       "higher-order-thought": 36,
+       "intensity": 39
+      }
+     },
+     "xph0023": {
+      "advocacy": {
+       "epiphenomenal-passenger": 40,
+       "downward-mental-causation": 65,
+       "intensity": 65
+      },
+      "receptivity": {
+       "epiphenomenal-passenger": 24,
+       "downward-mental-causation": 39,
+       "intensity": 39
+      }
      }
     },
     "skin": "philoscapades"
@@ -4030,6 +4162,34 @@
        "naturalized-continuity": 60,
        "autonomous-first-philosophy": 32,
        "intensity": 60
+      }
+     },
+     "xph0022": {
+      "advocacy": {
+       "global-workspace-broadcast": 65,
+       "integrated-information": 40,
+       "predictive-processing": 60,
+       "higher-order-thought": 45,
+       "intensity": 65
+      },
+      "receptivity": {
+       "global-workspace-broadcast": 52,
+       "integrated-information": 32,
+       "predictive-processing": 48,
+       "higher-order-thought": 36,
+       "intensity": 52
+      }
+     },
+     "xph0023": {
+      "advocacy": {
+       "epiphenomenal-passenger": 35,
+       "downward-mental-causation": 70,
+       "intensity": 70
+      },
+      "receptivity": {
+       "epiphenomenal-passenger": 28,
+       "downward-mental-causation": 56,
+       "intensity": 56
       }
      }
     },
@@ -4326,6 +4486,34 @@
        "autonomous-first-philosophy": 56,
        "intensity": 56
       }
+     },
+     "xph0022": {
+      "advocacy": {
+       "global-workspace-broadcast": 25,
+       "integrated-information": 70,
+       "predictive-processing": 35,
+       "higher-order-thought": 30,
+       "intensity": 70
+      },
+      "receptivity": {
+       "global-workspace-broadcast": 18,
+       "integrated-information": 49,
+       "predictive-processing": 24,
+       "higher-order-thought": 21,
+       "intensity": 49
+      }
+     },
+     "xph0023": {
+      "advocacy": {
+       "epiphenomenal-passenger": 30,
+       "downward-mental-causation": 75,
+       "intensity": 75
+      },
+      "receptivity": {
+       "epiphenomenal-passenger": 21,
+       "downward-mental-causation": 52,
+       "intensity": 52
+      }
      }
     },
     "skin": "philoscapades"
@@ -4336,7 +4524,7 @@
   },
   "philo-analytic-naturalist": {
    "name": "The Analytic Naturalist",
-   "count": 21,
+   "count": 23,
    "about": "Treats philosophy as a rigorous partner to mathematics and empirical science, stripping away mystery in favor of clear arguments and physical continuity.",
    "links": [],
    "payload": {
@@ -4668,6 +4856,34 @@
        "phenomenological": 12,
        "intensity": 45
       }
+     },
+     "xph0022": {
+      "advocacy": {
+       "global-workspace-broadcast": 75,
+       "integrated-information": 55,
+       "predictive-processing": 80,
+       "higher-order-thought": 50,
+       "intensity": 80
+      },
+      "receptivity": {
+       "global-workspace-broadcast": 38,
+       "integrated-information": 28,
+       "predictive-processing": 40,
+       "higher-order-thought": 25,
+       "intensity": 40
+      }
+     },
+     "xph0023": {
+      "advocacy": {
+       "epiphenomenal-passenger": 65,
+       "downward-mental-causation": 45,
+       "intensity": 65
+      },
+      "receptivity": {
+       "epiphenomenal-passenger": 32,
+       "downward-mental-causation": 22,
+       "intensity": 32
+      }
      }
     },
     "skin": "philoscapades"
@@ -4678,7 +4894,7 @@
   },
   "philo-existential-humanist": {
    "name": "The Existential Humanist",
-   "count": 21,
+   "count": 23,
    "about": "Begins from lived first-person agency, moral responsibility, and the courage to forge meaning without cosmic guarantees.",
    "links": [],
    "payload": {
@@ -5010,6 +5226,34 @@
        "phenomenological": 48,
        "intensity": 48
       }
+     },
+     "xph0022": {
+      "advocacy": {
+       "global-workspace-broadcast": 35,
+       "integrated-information": 60,
+       "predictive-processing": 40,
+       "higher-order-thought": 35,
+       "intensity": 60
+      },
+      "receptivity": {
+       "global-workspace-broadcast": 21,
+       "integrated-information": 36,
+       "predictive-processing": 24,
+       "higher-order-thought": 21,
+       "intensity": 36
+      }
+     },
+     "xph0023": {
+      "advocacy": {
+       "epiphenomenal-passenger": 35,
+       "downward-mental-causation": 70,
+       "intensity": 70
+      },
+      "receptivity": {
+       "epiphenomenal-passenger": 21,
+       "downward-mental-causation": 42,
+       "intensity": 42
+      }
      }
     },
     "skin": "philoscapades"
@@ -5020,7 +5264,7 @@
   },
   "philo-platonist-contemplative": {
    "name": "The Platonist Contemplative",
-   "count": 21,
+   "count": 23,
    "about": "Sees reason and ethics as windows into an objective, timeless architecture of truth and value that dwarfs transient physical appearances.",
    "links": [],
    "payload": {
@@ -5351,6 +5595,34 @@
        "epistemic": 22,
        "phenomenological": 24,
        "intensity": 34
+      }
+     },
+     "xph0022": {
+      "advocacy": {
+       "global-workspace-broadcast": 20,
+       "integrated-information": 65,
+       "predictive-processing": 30,
+       "higher-order-thought": 25,
+       "intensity": 65
+      },
+      "receptivity": {
+       "global-workspace-broadcast": 8,
+       "integrated-information": 26,
+       "predictive-processing": 12,
+       "higher-order-thought": 10,
+       "intensity": 26
+      }
+     },
+     "xph0023": {
+      "advocacy": {
+       "epiphenomenal-passenger": 30,
+       "downward-mental-causation": 75,
+       "intensity": 75
+      },
+      "receptivity": {
+       "epiphenomenal-passenger": 12,
+       "downward-mental-causation": 30,
+       "intensity": 30
       }
      }
     },
