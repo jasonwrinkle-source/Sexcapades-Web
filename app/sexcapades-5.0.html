@@ -6,9 +6,9 @@
 <meta content="width=device-width, initial-scale=1, viewport-fit=cover" name="viewport"/>
 <meta content="The Sexcapades hypermap: rate 400+ kinks across 18 categories on the visual map or in the Hot list, compare profiles with a partner, and generate stories and play guides." name="description"/>
 <meta content="dark" name="color-scheme"/>
-<meta content="2026-11-23_0720" name="sexcapades-build"/>
-<meta content="release-5.0-1123-0720" name="sexcapades-build-tag"/>
-<!-- BUILD-MANIFEST {"build": "2026-11-23_0720", "version": "5.0", "channel": "release"} -->
+<meta content="2026-11-23_0628" name="sexcapades-build"/>
+<meta content="release-5.0-1123-0628" name="sexcapades-build-tag"/>
+<!-- BUILD-MANIFEST {"build": "2026-11-23_0628", "version": "5.0", "channel": "release"} -->
 <script>/* BOOTLOAD-FIX (F1): __sxErrLog queue stub. The P0 shell block that defines
 the real logger now sits just after the boot dialog in the body, so the dialog can
 paint in the first kilobytes; the small head scripts call __sxErrLog from parse-time
@@ -1934,8 +1934,8 @@ window.__sxProgressWidget=function(refs){
 <h2 id="appAboutTitle">About Sex.Capades.IO</h2>
 <div class="app-about-header-meta">
 <div class="app-about-version-cluster">
-<span class="app-about-version">Version 5.0 · Build 2026-11-23_0720</span>
-<span class="app-about-version app-about-buildtag">release-5.0-1123-0720</span>
+<span class="app-about-version">Version 5.0 · Build 2026-11-23_0628</span>
+<span class="app-about-version app-about-buildtag">release-5.0-1123-0628</span>
 <label class="remember-profile-label"><input id="rememberProfileCheckbox2x" type="checkbox"/><span>Remember this tab's profiles on this device</span></label>
 <button class="flush-profiles-btn" id="flushProfilesBtn2x" title="Clear all saved profiles from this device" type="button">Flush profiles</button>
 </div>
@@ -3078,6 +3078,18 @@ window.__sxProgressWidget=function(refs){
 <div class="mark-switchbox-quad mark-quad-br"><span class="mark-quad-name">Top / Giver</span><small class="mark-quad-poles">(+Give / -Recv)</small></div>
 </div>
 </div>
+<div class="mark-triangle-slider-box mark-dual-slider-box" id="markSwitchboxIntensityBox" hidden="">
+<div class="mark-slider-col mark-slider-adv is-active" id="markSwitchboxAdvCol">
+<span class="mark-tri-slider-label" title="Advocacy">● Adv</span>
+<input aria-label="Advocacy intensity" class="mark-tri-intensity mark-thumb-disc" id="markSwitchboxIntensity" max="100" min="-100" step="1" type="range" value="0"/>
+<output class="mark-tri-intensity-out" id="markSwitchboxIntensityOut">0</output>
+</div>
+<div class="mark-slider-col mark-slider-rec" id="markSwitchboxRecCol">
+<span class="mark-tri-slider-label" title="Receptivity">○ Rec</span>
+<input aria-label="Receptivity intensity" class="mark-tri-intensity mark-thumb-ring" id="markSwitchboxRecIntensity" max="100" min="-100" step="1" type="range" value="0"/>
+<output class="mark-tri-intensity-out" id="markSwitchboxRecIntensityOut">—</output>
+</div>
+</div>
 <div class="mark-switchbox-readout" id="markSwitchboxReadout">
 <div class="mark-switchbox-stat"><span id="markSwitchboxGiveLabel">Give</span>: <b id="markSwitchboxGiveVal">0</b></div>
 <div class="mark-switchbox-stat"><span id="markSwitchboxRecvLabel">Receive</span>: <b id="markSwitchboxRecvVal">0</b></div>
@@ -3093,6 +3105,18 @@ window.__sxProgressWidget=function(refs){
 <label class="mark-rating" hidden="" id="markRole6Row"><span id="markRole6Label">Role 6</span><input id="markRole6" max="100" min="-100" step="1" type="range" value="0" aria-label="Role 6 rating"/><output id="markRole6Out">Unrated</output><button id="markRole6Clear" type="button">Clear</button></label>
 <label class="mark-rating" hidden="" id="markRole7Row"><span id="markRole7Label">Role 7</span><input id="markRole7" max="100" min="-100" step="1" type="range" value="0" aria-label="Role 7 rating"/><output id="markRole7Out">Unrated</output><button id="markRole7Clear" type="button">Clear</button></label>
 <label class="mark-rating" hidden="" id="markRole8Row"><span id="markRole8Label">Role 8</span><input id="markRole8" max="100" min="-100" step="1" type="range" value="0" aria-label="Role 8 rating"/><output id="markRole8Out">Unrated</output><button id="markRole8Clear" type="button">Clear</button></label>
+</div>
+<div class="mark-triangle-slider-box mark-dual-slider-box" id="markLinearIntensityBox" hidden="">
+<div class="mark-slider-col mark-slider-adv is-active" id="markLinearAdvCol">
+<span class="mark-tri-slider-label" title="Advocacy">● Adv</span>
+<input aria-label="Advocacy intensity" class="mark-tri-intensity mark-thumb-disc" id="markLinearIntensity" max="100" min="-100" step="1" type="range" value="0"/>
+<output class="mark-tri-intensity-out" id="markLinearIntensityOut">0</output>
+</div>
+<div class="mark-slider-col mark-slider-rec" id="markLinearRecCol">
+<span class="mark-tri-slider-label" title="Receptivity">○ Rec</span>
+<input aria-label="Receptivity intensity" class="mark-tri-intensity mark-thumb-ring" id="markLinearRecIntensity" max="100" min="-100" step="1" type="range" value="0"/>
+<output class="mark-tri-intensity-out" id="markLinearRecIntensityOut">—</output>
+</div>
 </div>
 <label class="mark-note-field"><span>Your note</span><textarea id="markNoteInput" maxlength="800" placeholder="Add a note for this topic…"></textarea></label>
 </div>
