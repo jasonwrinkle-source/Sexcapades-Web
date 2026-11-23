@@ -1611,7 +1611,12 @@
                 // its scalar.)
                 if (null != td.strongest && Math.abs(td.strongest) > e) flanks.push(td.strongest / 100);
             }
-            else { if (td.raw.giveKnown && Math.abs(td.raw.give) > e) flanks.push(td.raw.give / 100); if (td.raw.receiveKnown && Math.abs(td.raw.receive) > e) flanks.push(td.raw.receive / 100); }
+            else {
+                if (td.raw.giveKnown && Math.abs(td.raw.give) > e) flanks.push(td.raw.give / 100);
+                if (td.raw.receiveKnown && Math.abs(td.raw.receive) > e) flanks.push(td.raw.receive / 100);
+                if (td.raw.advocacyKnown && td.raw.advocacyIntensityKnown && Math.abs(td.raw.advocacyIntensity) > e) flanks.push(td.raw.advocacyIntensity / 100);
+                if (td.raw.receptivityKnown && td.raw.receptivityIntensityKnown && Math.abs(td.raw.receptivityIntensity) > e) flanks.push(td.raw.receptivityIntensity / 100);
+            }
             const ratedE = flanks.length > 0,
                 base = ratedE ? Math.max(...flanks) : 0, flags = sxFlagSum(td);
             const attended = ratedE || flags > 0 || td.notInterested;
