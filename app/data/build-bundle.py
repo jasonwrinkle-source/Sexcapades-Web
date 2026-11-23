@@ -30,7 +30,6 @@ parts = [
     "02n1-deknotter-diagnostics.js",
     "02n2-deknotter-solver.js",
     "02n-deknotter-cascade.js",
-    "02o-ratings-scales.js",
     "02p-spoke-selection.js",
     "02-taxonomy-core.js",
     "02c-layout-solver.js",
