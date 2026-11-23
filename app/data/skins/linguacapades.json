@@ -1653,7 +1653,8 @@
     "skin": "linguacapades"
    },
    "skin": "linguacapades",
-   "kind": "archetype"
+   "kind": "archetype",
+   "emblem": "images/emblems/lingua-ecologist.svg"
   },
   "stylist": {
    "name": "The Classical Stylist",
@@ -2090,7 +2091,8 @@
     "skin": "linguacapades"
    },
    "skin": "linguacapades",
-   "kind": "archetype"
+   "kind": "archetype",
+   "emblem": "images/emblems/lingua-stylist.svg"
   },
   "pragmatist": {
    "name": "The Cognitive Pragmatist",
@@ -2527,7 +2529,8 @@
     "skin": "linguacapades"
    },
    "skin": "linguacapades",
-   "kind": "archetype"
+   "kind": "archetype",
+   "emblem": "images/emblems/lingua-pragmatist.svg"
   }
  },
  "scribe": {
