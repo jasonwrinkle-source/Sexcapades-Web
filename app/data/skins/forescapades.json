@@ -8581,13 +8581,13 @@
             "advocacy": {
               "made-right-by-faith-alone": -80,
               "made-right-by-faith-and-works": 85,
-              "faith-formed-by-love": -65,
+              "faith-formed-by-love": 80,
               "intensity": 85
             },
             "receptivity": {
               "made-right-by-faith-alone": -32,
               "made-right-by-faith-and-works": 34,
-              "faith-formed-by-love": -26,
+              "faith-formed-by-love": 32,
               "intensity": 34
             }
           },
