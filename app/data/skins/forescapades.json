@@ -8833,7 +8833,7 @@
         "skin": "forescapades"
       },
       "skin": "forescapades",
-      "kind": "sample",
+      "kind": "archetype",
       "stack": "Catholic creed",
       "stackKey": "for-catholic",
       "date": "present"
@@ -9387,7 +9387,7 @@
         "skin": "forescapades"
       },
       "skin": "forescapades",
-      "kind": "sample",
+      "kind": "archetype",
       "stack": "Catholic creed",
       "stackKey": "for-catholic",
       "date": "1965"
@@ -9941,7 +9941,7 @@
         "skin": "forescapades"
       },
       "skin": "forescapades",
-      "kind": "sample",
+      "kind": "archetype",
       "stack": "Catholic creed",
       "stackKey": "for-catholic",
       "date": "1885"
@@ -10481,7 +10481,7 @@
         "skin": "forescapades"
       },
       "skin": "forescapades",
-      "kind": "sample",
+      "kind": "archetype",
       "stack": "Catholic creed",
       "stackKey": "for-catholic",
       "date": "1566"
@@ -11040,7 +11040,7 @@
         "skin": "forescapades"
       },
       "skin": "forescapades",
-      "kind": "sample",
+      "kind": "archetype",
       "stack": "Eastern Orthodox creed",
       "stackKey": "for-orthodox",
       "date": "present"
@@ -11482,7 +11482,7 @@
         "skin": "forescapades"
       },
       "skin": "forescapades",
-      "kind": "sample",
+      "kind": "archetype",
       "stack": "Eastern Orthodox creed",
       "stackKey": "for-orthodox",
       "date": "2016"
@@ -11728,7 +11728,7 @@
         "skin": "forescapades"
       },
       "skin": "forescapades",
-      "kind": "sample",
+      "kind": "archetype",
       "stack": "Eastern Orthodox creed",
       "stackKey": "for-orthodox",
       "date": "1848"
@@ -12170,7 +12170,7 @@
         "skin": "forescapades"
       },
       "skin": "forescapades",
-      "kind": "sample",
+      "kind": "archetype",
       "stack": "Eastern Orthodox creed",
       "stackKey": "for-orthodox",
       "date": "1672"
@@ -12733,7 +12733,7 @@
         "skin": "forescapades"
       },
       "skin": "forescapades",
-      "kind": "sample",
+      "kind": "archetype",
       "stack": "Lutheran creed",
       "stackKey": "for-lutheran",
       "date": "present"
@@ -12853,7 +12853,7 @@
         "skin": "forescapades"
       },
       "skin": "forescapades",
-      "kind": "sample",
+      "kind": "archetype",
       "stack": "Lutheran creed",
       "stackKey": "for-lutheran",
       "date": "1999"
@@ -13267,7 +13267,7 @@
         "skin": "forescapades"
       },
       "skin": "forescapades",
-      "kind": "sample",
+      "kind": "archetype",
       "stack": "Lutheran creed",
       "stackKey": "for-lutheran",
       "date": "1580"
@@ -13723,7 +13723,7 @@
         "skin": "forescapades"
       },
       "skin": "forescapades",
-      "kind": "sample",
+      "kind": "archetype",
       "stack": "Lutheran creed",
       "stackKey": "for-lutheran",
       "date": "1530"
@@ -14282,7 +14282,7 @@
         "skin": "forescapades"
       },
       "skin": "forescapades",
-      "kind": "sample",
+      "kind": "archetype",
       "stack": "Reformed creed",
       "stackKey": "for-reformed",
       "date": "present"
@@ -14346,7 +14346,7 @@
         "skin": "forescapades"
       },
       "skin": "forescapades",
-      "kind": "sample",
+      "kind": "archetype",
       "stack": "Reformed creed",
       "stackKey": "for-reformed",
       "date": "1986"
@@ -14466,7 +14466,7 @@
         "skin": "forescapades"
       },
       "skin": "forescapades",
-      "kind": "sample",
+      "kind": "archetype",
       "stack": "Reformed creed",
       "stackKey": "for-reformed",
       "date": "1934"
@@ -14992,7 +14992,7 @@
         "skin": "forescapades"
       },
       "skin": "forescapades",
-      "kind": "sample",
+      "kind": "archetype",
       "stack": "Reformed creed",
       "stackKey": "for-reformed",
       "date": "1646"
@@ -15504,7 +15504,7 @@
         "skin": "forescapades"
       },
       "skin": "forescapades",
-      "kind": "sample",
+      "kind": "archetype",
       "stack": "Reformed creed",
       "stackKey": "for-reformed",
       "date": "1563"
@@ -16067,7 +16067,7 @@
         "skin": "forescapades"
       },
       "skin": "forescapades",
-      "kind": "sample",
+      "kind": "archetype",
       "stack": "Baptist creed",
       "stackKey": "for-baptist",
       "date": "present"
@@ -16523,7 +16523,7 @@
         "skin": "forescapades"
       },
       "skin": "forescapades",
-      "kind": "sample",
+      "kind": "archetype",
       "stack": "Baptist creed",
       "stackKey": "for-baptist",
       "date": "2000"
@@ -16923,7 +16923,7 @@
         "skin": "forescapades"
       },
       "skin": "forescapades",
-      "kind": "sample",
+      "kind": "archetype",
       "stack": "Baptist creed",
       "stackKey": "for-baptist",
       "date": "1963"
@@ -17449,7 +17449,7 @@
         "skin": "forescapades"
       },
       "skin": "forescapades",
-      "kind": "sample",
+      "kind": "archetype",
       "stack": "Baptist creed",
       "stackKey": "for-baptist",
       "date": "1689"
@@ -18008,7 +18008,7 @@
         "skin": "forescapades"
       },
       "skin": "forescapades",
-      "kind": "sample",
+      "kind": "archetype",
       "stack": "Methodist creed",
       "stackKey": "for-methodist",
       "date": "present"
@@ -18114,7 +18114,7 @@
         "skin": "forescapades"
       },
       "skin": "forescapades",
-      "kind": "sample",
+      "kind": "archetype",
       "stack": "Methodist creed",
       "stackKey": "for-methodist",
       "date": "2024"
@@ -18584,7 +18584,7 @@
         "skin": "forescapades"
       },
       "skin": "forescapades",
-      "kind": "sample",
+      "kind": "archetype",
       "stack": "Methodist creed",
       "stackKey": "for-methodist",
       "date": "1972"
@@ -18620,7 +18620,7 @@
         "skin": "forescapades"
       },
       "skin": "forescapades",
-      "kind": "sample",
+      "kind": "archetype",
       "stack": "Methodist creed",
       "stackKey": "for-methodist",
       "date": "1908"
@@ -19076,7 +19076,7 @@
         "skin": "forescapades"
       },
       "skin": "forescapades",
-      "kind": "sample",
+      "kind": "archetype",
       "stack": "Methodist creed",
       "stackKey": "for-methodist",
       "date": "1784"
@@ -19635,7 +19635,7 @@
         "skin": "forescapades"
       },
       "skin": "forescapades",
-      "kind": "sample",
+      "kind": "archetype",
       "stack": "Orthodox Jewish creed",
       "stackKey": "for-jewish",
       "date": "present"
@@ -19783,7 +19783,7 @@
         "skin": "forescapades"
       },
       "skin": "forescapades",
-      "kind": "sample",
+      "kind": "archetype",
       "stack": "Orthodox Jewish creed",
       "stackKey": "for-jewish",
       "date": "2015"
@@ -20141,7 +20141,7 @@
         "skin": "forescapades"
       },
       "skin": "forescapades",
-      "kind": "sample",
+      "kind": "archetype",
       "stack": "Orthodox Jewish creed",
       "stackKey": "for-jewish",
       "date": "1565"
@@ -20443,7 +20443,7 @@
         "skin": "forescapades"
       },
       "skin": "forescapades",
-      "kind": "sample",
+      "kind": "archetype",
       "stack": "Orthodox Jewish creed",
       "stackKey": "for-jewish",
       "date": "1190"
@@ -21037,7 +21037,7 @@
         "skin": "forescapades"
       },
       "skin": "forescapades",
-      "kind": "sample",
+      "kind": "archetype",
       "stack": "Sunni Muslim creed",
       "stackKey": "for-muslim",
       "date": "present"
@@ -21206,7 +21206,7 @@
         "skin": "forescapades"
       },
       "skin": "forescapades",
-      "kind": "sample",
+      "kind": "archetype",
       "stack": "Sunni Muslim creed",
       "stackKey": "for-muslim",
       "date": "2004"
@@ -21473,7 +21473,7 @@
         "skin": "forescapades"
       },
       "skin": "forescapades",
-      "kind": "sample",
+      "kind": "archetype",
       "stack": "Sunni Muslim creed",
       "stackKey": "for-muslim",
       "date": "1111"
@@ -21810,7 +21810,7 @@
         "skin": "forescapades"
       },
       "skin": "forescapades",
-      "kind": "sample",
+      "kind": "archetype",
       "stack": "Sunni Muslim creed",
       "stackKey": "for-muslim",
       "date": "933"
