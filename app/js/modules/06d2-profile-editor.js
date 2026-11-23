@@ -1193,7 +1193,7 @@
             if (!Array.isArray(e)) return [];
             const t = [];
             return e.slice(0, 8).forEach(e => {
-                if (!e || "object" != typeof e || "string" != typeof e.data || !/^data:image\/(?:jpeg|png|webp|gif);base64,[a-z0-9+/=\s]+$/i.test(e.data) || e.data.length > 65e5) return;
+                if (!e || "object" != typeof e || "string" != typeof e.data || !/^data:image\/(?:jpeg|png|webp|gif|svg\+xml);base64,[a-z0-9+/=\s]+$/i.test(e.data) || e.data.length > 65e5) return;
                 const n = Math.max(1, Math.min(3e3, Number(e.width) || 1)), i = Math.max(1, Math.min(3e3, Number(e.height) || 1)), a = A(Number.isFinite(Number(e.cropX)) ? Number(e.cropX) : .5), r = A(Number.isFinite(Number(e.cropY)) ? Number(e.cropY) : .5), o = Math.max(1, Math.min(3, Number(e.cropZoom) || 1)), s = Math.max(-180, Math.min(180, Number(e.cropRotation) || 0)), l = Math.abs(a - .5) > .001 || Math.abs(r - .5) > .001 || Math.abs(o - 1) > .001 || Math.abs(s) > .001, c = !0 === e.manualCrop || l;
                 t.push({
                     data: e.data,

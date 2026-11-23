@@ -1285,12 +1285,12 @@
         btn.setAttribute("data-sample-name", entry.name || key);
         btn.setAttribute("data-sample-count", String(count));
         btn.setAttribute("data-sample-skin", entry.skin || (entry.payload && entry.payload.skin) || currentSkinId());
-        if (entry.photo) {
+        if (entry.photo || entry.emblem) {
           var img = document.createElement("img");
           img.alt = "";
           img.decoding = "async";
           img.loading = "lazy";
-          img.src = entry.photo;
+          img.src = entry.photo || entry.emblem;
           btn.appendChild(img);
         }
         var strong = document.createElement("strong");

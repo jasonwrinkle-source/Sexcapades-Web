@@ -75,7 +75,7 @@
         const Cw = {};
         function Mw(e) {
             if (!Cw[e]) {
-                const t = jy.querySelector(`[data-sample-profile="${CSS.escape(e)}"] img`) || jyA && jyA.querySelector(`[data-sample-profile="${CSS.escape(e)}"] img`), n = t && (t.currentSrc || t.src);
+                const t = jy.querySelector(`[data-sample-profile="${CSS.escape(e)}"] img`) || jyA && jyA.querySelector(`[data-sample-profile="${CSS.escape(e)}"] img`) || document.querySelector(`[data-sample-profile="${CSS.escape(e)}"] img`), n = t && (t.currentSrc || t.src);
                 Cw[e] = n ? fetch(n).then(e => {
                     if (!e.ok) throw new Error("The bundled sample photo could not be opened.");
                     return e.blob();
@@ -148,7 +148,14 @@
                 if (!r || r.name !== i || r.count !== a || !r.payload || !0 !== r.payload.noFlash) throw new Error("The bundled sample is invalid.");
                 const o = JSON.parse(JSON.stringify(r.payload));
                 o.profileName = i, o.sampleProfile = !0, o.skin = o.skin || r.skin || sampleBtn.dataset.sampleSkin || (typeof window !== "undefined" && window.__SX_ACTIVE_SKIN) || "sexcapades";
-                if (r.kind !== "sample" || !photo) {
+                if (r.emblem && photo) {
+                    // Emblem avatars (2026-11-23): the entry's emblem —
+                    // fetched through its menu <img> by Mw, exactly like
+                    // Adam/Eve's real photos — becomes the loaded
+                    // profile's center photo. Stack layers share their
+                    // stack's one emblem (the date does the talking).
+                    o.photos = [ photo ];
+                } else if (r.kind !== "sample" || !photo) {
                     const archPhoto = typeof sxMakeArchetypePhoto === "function" ? sxMakeArchetypePhoto(r.name || i, o.skin) : null;
                     if (archPhoto) o.photos = [ archPhoto ];
                     else if (photo) o.photos = [ photo ];
