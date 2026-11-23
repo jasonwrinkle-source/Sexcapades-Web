@@ -2364,10 +2364,9 @@ const TAXONOMY_CATEGORIES = [];
         }
         function Ka(e, t, n, i, a, r, o, s, l, c, d, u = 48, p = Ga.FALLBACK_COLOR, g = !0, m = "", f = null, y = null, b = null, v = !1, w = !0, k = h.length, bc = null, sxLeafD = null, sxDepth = null) {
             if (sxSexSkin()) v = !0;
-            if (typeof Ra === "function") Ra(e); else if (typeof window !== "undefined" && typeof window.__SX_RA === "function") window.__SX_RA(e);
-            const sxIsBlind = () => (typeof Rt !== "undefined" ? Boolean(Rt) : (typeof window !== "undefined" && Boolean(window.__SX_BLIND)));
+            Ra(e);
             const sxD = null != sxDepth ? sxDepth : sxLeafD === sxIconDiameter(1) ? 1 : sxLeafD === sxIconDiameter(3) ? 3 : 2, sxF = sxFontFactor(sxD), sxSW = sxStrokeWidth(sxD);
-            const x = sxIsBlind() || Qi() ? null : Vi(), S = sxIsBlind() ? null : x || function(e) {
+            const x = Rt || Qi() ? null : Vi(), S = Rt ? null : x || function(e) {
                 const t = Vi();
                 return Qi() && t && (at[t] || {})[e] && gn.has(oi(t, e)) ? t : null;
             }(e), $ = Ge(e, S || Vi()), E = e => `translate(${(a * e).toFixed(2)} ${(r * e).toFixed(2)})`, A = e.replace(/[^a-z0-9-]/g, ""), C = Boolean(topicLabelById[e]), M = S || Vi(), I = qn[e] || Xn(e) || {
@@ -2382,7 +2381,7 @@ const TAXONOMY_CATEGORIES = [];
             let D = "";
             const sxShowMapSliders = Boolean(mn && mn.mapSliders);
             const sxZoomOk = "function" !== typeof window.sxMapZoomAllowsWidgets || window.sxMapZoomAllowsWidgets();
-            const R = g && !sxIsBlind() ? Ua(e) : null, O = Ga.heatWidths(n, sxD);
+            const R = g && !Rt ? Ua(e) : null, O = Ga.heatWidths(n, sxD);
             if (SpokeGeometry.taperedPath(t, O.w0, O.w1), R) {
                 const overlayTip = "Overlaid profiles into this topic", a = `${R.count}/${R.total}`;
                 D += `<path class="group-heat${R.count === R.total ? " all-in" : ""}" d="${t}" stroke="${R.color}" stroke-width="${O.w0}" opacity="${(.2 + .48 * R.count / R.total).toFixed(2)}" tabindex="0" role="img" aria-label="${Hi(`${i}: ${a} overlaid profiles into this topic`)}"${ka(i, overlayTip, a, {
@@ -2443,7 +2442,7 @@ const TAXONOMY_CATEGORIES = [];
                     D += `<path class="visual-rail collapsed-rating-rail" d="${t}" transform="${E(e.offset)}" fill="none" stroke="${zi(a)}" stroke-width="6" stroke-linecap="round" vector-effect="non-scaling-stroke"><title>${r}: ${Math.round(a)}${o}</title></path>`;
                 });
             }
-            if (g && !sxIsBlind() && Qi() && 2 === Xi().length) {
+            if (g && !Rt && Qi() && 2 === Xi().length) {
                 const n = function(e) {
                     const t = Xi();
                     if (t.some(t => "limit" === Oa(e, t))) return "limit";
@@ -2913,7 +2912,7 @@ const TAXONOMY_CATEGORIES = [];
                 });
                 }
             }
-            if (g && !sxIsBlind() && !x) {
+            if (g && !Rt && !x) {
                 const i = Xi(), a = $.keys || ($.single ? [ "give" ] : [ "give", "receive" ]), r = i.length * a.length, o = (n > 7 ? Math.min(18, 4 + 1.6 * r) : Math.min(14, 3 + 1.4 * r)) * (mapFontScale() * sxF / 3), s = Math.max(1.35, n / Math.min(r, 6)) * (mapFontScale() * sxF / 3);
                 i.forEach((n, i) => {
                     const l = da(e, n);
@@ -5070,9 +5069,8 @@ const Ce = {
         for (const _subName of Object.keys(Ee)) {
             if (!(Ee[_subName] in ye)) throw new Error(`Sexcapades glyph check: subcategory "${_subName}" maps to glyph "${Ee[_subName]}", which is missing from the ye glyph dictionary`);
         }
-        const _beTable = window.__SX_EXPORT_BE || {};
-        for (const _branchName of Object.keys(_beTable)) {
-            for (const _glyphName of _beTable[_branchName]) {
+        for (const _branchName of Object.keys(be)) {
+            for (const _glyphName of be[_branchName]) {
                 if (!(_glyphName in ye)) throw new Error(`Sexcapades glyph check: branch "${_branchName}" lists glyph "${_glyphName}", which is missing from the ye glyph dictionary`);
             }
         }
@@ -5172,9 +5170,9 @@ const Ce = {
             // Topic-icon inheritance (owner ruling 2026-11-23): a topic
             // with no glyph of its own in ve inherits its category's
             // descriptor glyph from ge instead of the generic star.
-            // Topics present in ve or registered in window.__SX_SKIN_TOPIC_GLYPHS
-            // are untouched and use their assigned glyph.
-            const _veKey = t + "\0" + e, _skinGlyph = typeof window !== "undefined" && window.__SX_SKIN_TOPIC_GLYPHS ? window.__SX_SKIN_TOPIC_GLYPHS[_veKey] : null, n = _skinGlyph || (window.__SX_EXPORT_BE?.[t] ? ve.get(_veKey) : null) || ve.get(_veKey) || "star", _ownGlyph = Boolean((_skinGlyph && _skinGlyph in ye) || (ve.has(_veKey) && n in ye)), _catDesc = !_ownGlyph && ge && ge[t] && ge[t].glyph ? ge[t] : null, _glyphFallback = !_ownGlyph && !_catDesc, i = _e.get(_veKey) || 0, a = Le(e, t);
+            // Topics present in ve (every Sexcapades catalog topic,
+            // including any assigned the star itself) are untouched.
+            const _veKey = t + "\0" + e, n = ve.get(_veKey) || "star", _ownGlyph = ve.has(_veKey) && n in ye, _catDesc = !_ownGlyph && ge && ge[t] && ge[t].glyph ? ge[t] : null, _glyphFallback = !_ownGlyph && !_catDesc, i = _e.get(_veKey) || 0, a = Le(e, t);
             return {
                 glyph: _ownGlyph ? ye[n] : _catDesc ? _catDesc.glyph : ye.star,
                 glyphFallback: _glyphFallback,
@@ -7676,9 +7674,8 @@ const Ce = {
         for (const _subName of Object.keys(Ee)) {
             if (!(Ee[_subName] in ye)) throw new Error(`Sexcapades glyph check: subcategory "${_subName}" maps to glyph "${Ee[_subName]}", which is missing from the ye glyph dictionary`);
         }
-        const _beTable = window.__SX_EXPORT_BE || {};
-        for (const _branchName of Object.keys(_beTable)) {
-            for (const _glyphName of _beTable[_branchName]) {
+        for (const _branchName of Object.keys(be)) {
+            for (const _glyphName of be[_branchName]) {
                 if (!(_glyphName in ye)) throw new Error(`Sexcapades glyph check: branch "${_branchName}" lists glyph "${_glyphName}", which is missing from the ye glyph dictionary`);
             }
         }
@@ -7864,9 +7861,9 @@ const Ce = {
             // Topic-icon inheritance (owner ruling 2026-11-23): a topic
             // with no glyph of its own in ve inherits its category's
             // descriptor glyph from ge instead of the generic star.
-            // Topics present in ve or registered in window.__SX_SKIN_TOPIC_GLYPHS
-            // are untouched and use their assigned glyph.
-            const _veKey = t + "\0" + e, _skinGlyph = typeof window !== "undefined" && window.__SX_SKIN_TOPIC_GLYPHS ? window.__SX_SKIN_TOPIC_GLYPHS[_veKey] : null, n = _skinGlyph || (window.__SX_EXPORT_BE?.[t] ? ve.get(_veKey) : null) || ve.get(_veKey) || "star", _ownGlyph = Boolean((_skinGlyph && _skinGlyph in ye) || (ve.has(_veKey) && n in ye)), _catDesc = !_ownGlyph && ge && ge[t] && ge[t].glyph ? ge[t] : null, _glyphFallback = !_ownGlyph && !_catDesc, i = _e.get(_veKey) || 0, a = Le(e, t);
+            // Topics present in ve (every Sexcapades catalog topic,
+            // including any assigned the star itself) are untouched.
+            const _veKey = t + "\0" + e, n = ve.get(_veKey) || "star", _ownGlyph = ve.has(_veKey) && n in ye, _catDesc = !_ownGlyph && ge && ge[t] && ge[t].glyph ? ge[t] : null, _glyphFallback = !_ownGlyph && !_catDesc, i = _e.get(_veKey) || 0, a = Le(e, t);
             return {
                 glyph: _ownGlyph ? ye[n] : _catDesc ? _catDesc.glyph : ye.star,
                 glyphFallback: _glyphFallback,
@@ -16487,7 +16484,6 @@ function dkEvaluateCrossingDrop(before, after, threshold = 0.75) {
             for (let t = 0; t < n.length; t++) for (let a = t + 1; a < n.length; a++) i.push(La(e, n[t], n[a]));
             return i.includes("mismatch") ? "mismatch" : i.includes("mutual") ? "mutual" : i.includes("explore") ? "explore" : "other";
         }
-        if (typeof window !== "undefined") window.__SX_RA = Ra;
         function sxIsBranchLimited(e, t = Vi()) {
             const grp = Kd();
             const pIds = grp && Array.isArray(grp.sourceIds) ? grp.sourceIds.filter(id => vt[id]) : (Qi() ? Xi() : [ t ]);
@@ -27792,6 +27788,70 @@ function* sxRunNodeSettle(scCtx, blitSess) {
                     sxUpdateSwitchboxReadouts(sxSwitchboxState.give, sxSwitchboxState.receive, isUnrated);
                 }
             }
+            sxSyncLinearIntensities(id, rec, shape);
+        }
+        /* Placement intensities for the slider family + switchbox (2026-11-23):
+           the canvas widgets carry disc/ring intensity sliders; the linear
+           family, the line, and the switchbox stored the same per-placement
+           intensity with no slider to write it. These two boxes mirror the
+           canvas pattern -- disc thumb writes advocacy intensity, ring thumb
+           writes receptivity intensity, poles untouched. */
+        function sxWritePlacementIntensity(mode, v) {
+            if (!Qr) return;
+            try {
+                const o = Io(Vi());
+                const raw = (o && o[Qr] && typeof o[Qr] === "object") ? o[Qr] : {};
+                const placement = (raw[mode] && typeof raw[mode] === "object") ? raw[mode] : {};
+                const values = {};
+                Object.keys(placement).forEach(k => { if (k !== "intensity") values[k] = placement[k]; });
+                if (typeof sxPersistAdvocacyReceptivity === "function") sxPersistAdvocacyReceptivity(Qr, mode, values, v, Vi());
+                else if (typeof sxPersistIntensity === "function") sxPersistIntensity(Qr, v, Vi());
+            } catch (err) {}
+        }
+        function sxSyncLinearIntensities(id, rec, shape) {
+            const linBox = e.byId("markLinearIntensityBox"), swBox = e.byId("markSwitchboxIntensityBox");
+            if (!linBox && !swBox) return;
+            const w = (shape && shape.widget) || "";
+            const inLinear = w === "linear-sliders" || w === "trilinear-sliders" || w === "quad-sliders" || w === "monopole-slider" || w === "trilinear-line" || Boolean(shape && shape.single);
+            const inSwitch = w === "xy-switchbox";
+            let dual = false;
+            try { dual = typeof sxDualPlacements === "function" && sxDualPlacements(id); } catch (err) { dual = false; }
+            // Flat-line records (scalar "line", no placements) keep today's
+            // behavior; the box serves dual-placement records only.
+            if (w === "trilinear-line" && !(rec && (rec.advocacy || rec.receptivity))) dual = false;
+            if (linBox) linBox.hidden = !(inLinear && dual);
+            if (swBox) swBox.hidden = !(inSwitch && dual);
+            if ((!inLinear && !inSwitch) || !dual) return;
+            const seed = (p) => {
+                if (!p) return 0;
+                if (Number.isFinite(Number(p.intensity))) return Math.round(Number(p.intensity));
+                let best = 0;
+                Object.keys(p).forEach(k => {
+                    if (k === "intensity" || k === "known") return;
+                    const v = Number(p[k]);
+                    if (Number.isFinite(v) && Math.abs(v) > Math.abs(best)) best = v;
+                });
+                return Math.round(best);
+            };
+            const bind = (input, out, mode, p) => {
+                if (!input) return;
+                const val = seed(p);
+                if (typeof sxWidenIntensitySlider === "function") { try { sxWidenIntensitySlider(input, val); } catch (err) {} }
+                const lo = Number(input.min || -100), hi = Number(input.max || 100);
+                input.value = String(Math.max(lo, Math.min(hi, val)));
+                if (out) out.textContent = String(val);
+                if (!input.dataset.sxBound) {
+                    input.dataset.sxBound = "1";
+                    input.addEventListener("input", () => {
+                        const v = Math.max(-400, Math.min(400, Math.round(Number(input.value) || 0)));
+                        if (out) out.textContent = String(v);
+                        sxWritePlacementIntensity(mode, v);
+                    });
+                }
+            };
+            const base = inLinear ? "markLinear" : "markSwitchbox";
+            bind(e.byId(base + "Intensity"), e.byId(base + "IntensityOut"), "advocacy", rec && rec.advocacy);
+            bind(e.byId(base + "RecIntensity"), e.byId(base + "RecIntensityOut"), "receptivity", rec && rec.receptivity);
         }
         function sxBindMarkRatings() {
             sxBindTriangleWidget();
