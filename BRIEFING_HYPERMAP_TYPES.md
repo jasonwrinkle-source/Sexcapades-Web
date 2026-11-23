@@ -213,6 +213,21 @@ At a single date, self against self, the operations are trivial
 time or across authorship, which is precisely the Palimpsest's
 territory.
 
+### Menus: a stack opens as a submenu
+
+In the menus, a palimpsest shows as one entry under the entity's
+name, opening to a submenu of its dated layers — on Poliscapades,
+"Democratic Party platform" opens to *2016 platform*, *2020
+platform*, *2024 platform*, each loadable on its own, with the whole
+stack loadable as the palimpsest for the drift readings above. The
+layers are ordinary samples carrying the same stack name and their
+document's date; the grouping is presentational. (The interaction
+pattern already exists in the app: roster entries in the add menu
+open to their members the same way — a roster is different people in
+a group, a palimpsest is one profile across time.) The 2016
+Democratic ratings from the prototype are the first real second
+layer.
+
 ### The Forescapades archetype-age question — resolved by the type
 
 An old open question asked *which age* of an archetype a Fores
