@@ -843,7 +843,7 @@
         "skin": "questcapades"
       },
       "skin": "questcapades",
-      "kind": "sample"
+      "kind": "archetype"
     },
     "the-method-actor": {
       "name": "The Method Actor",
@@ -925,7 +925,7 @@
         "skin": "questcapades"
       },
       "skin": "questcapades",
-      "kind": "sample"
+      "kind": "archetype"
     },
     "the-rules-lawyer": {
       "name": "The Rules Lawyer",
@@ -1007,7 +1007,7 @@
         "skin": "questcapades"
       },
       "skin": "questcapades",
-      "kind": "sample"
+      "kind": "archetype"
     },
     "the-min-maxer": {
       "name": "The Min-Maxer",
@@ -1098,7 +1098,7 @@
         "skin": "questcapades"
       },
       "skin": "questcapades",
-      "kind": "sample"
+      "kind": "archetype"
     },
     "the-loot-goblin": {
       "name": "The Loot Goblin",
@@ -1191,7 +1191,7 @@
         "skin": "questcapades"
       },
       "skin": "questcapades",
-      "kind": "sample"
+      "kind": "archetype"
     },
     "the-lore-keeper": {
       "name": "The Lore Keeper",
@@ -1277,7 +1277,7 @@
         "skin": "questcapades"
       },
       "skin": "questcapades",
-      "kind": "sample"
+      "kind": "archetype"
     },
     "the-quiet-newcomer": {
       "name": "The Quiet Newcomer",
@@ -1357,7 +1357,7 @@
         "skin": "questcapades"
       },
       "skin": "questcapades",
-      "kind": "sample"
+      "kind": "archetype"
     },
     "the-one-shot-wanderer": {
       "name": "The One-Shot Wanderer",
@@ -1448,7 +1448,7 @@
         "skin": "questcapades"
       },
       "skin": "questcapades",
-      "kind": "sample"
+      "kind": "archetype"
     }
   },
   "scribe": {

@@ -1144,6 +1144,14 @@
           var small = document.createElement("small");
           small.textContent = count + " rated topics";
           btn.appendChild(small);
+          /* Samples (2026-11-22, Jason): the about rides in the same
+             hover tip archetypes use, not an inline paragraph. */
+          if (entry.about) {
+            btn.setAttribute("data-ui-tooltip", entry.about);
+            btn.setAttribute("data-tooltip-name", entry.name || key);
+            btn.setAttribute("data-tooltip-definition", entry.about);
+            btn.setAttribute("data-tooltip-tap-first", "");
+          }
         }
         item.appendChild(btn);
         /* Local sample (2026-11-18): a Remove button under the load
@@ -1161,14 +1169,8 @@
           removeBtn.textContent = "Remove from samples";
           item.appendChild(removeBtn);
         }
-        /* Archetype about + learn-more links: only samples render inline
-           about/links if present; archetypes keep the description in hover tips. */
-        if (!isArchetype && entry.about) {
-          var about = document.createElement("p");
-          about.className = "sample-profile-about";
-          about.textContent = entry.about;
-          item.appendChild(about);
-        }
+        /* Abouts live in the hover tip for BOTH kinds now (samples joined
+           archetypes 2026-11-22, Jason); only samples render inline links. */
         if (!isArchetype && entry.links && entry.links.length) {
           var links = document.createElement("div");
           links.className = "sample-profile-links";

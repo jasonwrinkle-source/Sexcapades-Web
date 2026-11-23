@@ -800,7 +800,7 @@
         "skin": "dancecapades"
       },
       "skin": "dancecapades",
-      "kind": "sample"
+      "kind": "archetype"
     },
     "the-lindy-hopper": {
       "name": "The Lindy Hopper",
@@ -879,7 +879,7 @@
         "skin": "dancecapades"
       },
       "skin": "dancecapades",
-      "kind": "sample"
+      "kind": "archetype"
     },
     "the-tango-purist": {
       "name": "The Tango Purist",
@@ -945,7 +945,7 @@
         "skin": "dancecapades"
       },
       "skin": "dancecapades",
-      "kind": "sample"
+      "kind": "archetype"
     },
     "the-salsa-regular": {
       "name": "The Salsa Regular",
@@ -1022,7 +1022,7 @@
         "skin": "dancecapades"
       },
       "skin": "dancecapades",
-      "kind": "sample"
+      "kind": "archetype"
     },
     "the-switch": {
       "name": "The Switch",
@@ -1098,7 +1098,7 @@
         "skin": "dancecapades"
       },
       "skin": "dancecapades",
-      "kind": "sample"
+      "kind": "archetype"
     },
     "the-competition-dancer": {
       "name": "The Competition Dancer",
@@ -1177,7 +1177,7 @@
         "skin": "dancecapades"
       },
       "skin": "dancecapades",
-      "kind": "sample"
+      "kind": "archetype"
     },
     "the-wedding-guest": {
       "name": "The Wedding Guest",
@@ -1243,7 +1243,7 @@
         "skin": "dancecapades"
       },
       "skin": "dancecapades",
-      "kind": "sample"
+      "kind": "archetype"
     },
     "the-wallflower": {
       "name": "The Wallflower",
@@ -1300,7 +1300,7 @@
         "skin": "dancecapades"
       },
       "skin": "dancecapades",
-      "kind": "sample"
+      "kind": "archetype"
     }
   },
   "scribe": {
