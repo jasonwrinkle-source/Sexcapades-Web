@@ -36,3 +36,5 @@ The songbook follows a two-tier fallback chain for the Flexcapades (flex.capades
 * Theoricapades (Theory / Position)
 * Vocapades (Career / Inclination)
 * Nouscapades (Consciousness / Conviction)
+* Dancecapades (Dance / Groove)
+* Questcapades (Roleplay / Fun)

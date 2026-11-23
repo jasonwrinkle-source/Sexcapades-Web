@@ -78,6 +78,8 @@
         matter: { topics: 29, sample: 'The Nuclear Advocate' },
         chem:   { topics: 40, sample: 'The Organic Chemist' },
         nous:   { topics: 39, sample: 'The Brain Chauvinist' }
+        dance:  { topics: 73, sample: 'The Waltz Romantic' },
+        quest:  { topics: 71, sample: 'The Forever GM' }
       };
       var MAP_FILES;
       if (skinPrefix === 'sex' || !SKIN_FACTS[skinPrefix]) {
