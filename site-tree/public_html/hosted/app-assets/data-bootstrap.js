@@ -5035,10 +5035,15 @@ const Ce = {
         }
         
         function Ae(e, t) {
-            const n = Ee[e] || "star", _glyphFallback = !(e in Ee) || !(n in ye), i = ge[t] || {};
+            // Subcategory-hub inheritance (owner ruling 2026-11-23): a
+            // hub with no glyph of its own in Ee inherits its parent
+            // category's descriptor glyph from ge instead of the
+            // generic star. Ee covers every Sexcapades subcategory
+            // (boot-checked above), so Sexcapades hubs are untouched.
+            const n = Ee[e] || "star", _ownGlyph = (e in Ee) && (n in ye), _catDesc = !_ownGlyph && ge && ge[t] && ge[t].glyph ? ge[t] : null, _glyphFallback = !_ownGlyph && !_catDesc, _hubGlyph = _ownGlyph ? ye[n] : _catDesc ? _catDesc.glyph : ye[n] || ye.star, _hubKey = _ownGlyph || !_catDesc ? n : t, i = ge[t] || {};
             const c = h.find(c => c.name === t), s = c && (c.subcategories || []).find(s => s.name === e), p = s ? fpSub(s.topics, t) : null;
             if (p) return {
-                glyph: ye[n] || ye.star,
+                glyph: _hubGlyph,
                 glyphFallback: _glyphFallback,
                 accent: "",
                 color: p.color,
@@ -5051,7 +5056,7 @@ const Ce = {
             };
             const fallbackColor = i.color || Ga.NO_CODE_COLOR;
             return {
-                glyph: ye[n] || ye.star,
+                glyph: _hubGlyph,
                 glyphFallback: _glyphFallback,
                 accent: "",
                 color: fallbackColor,
@@ -5059,7 +5064,7 @@ const Ce = {
                 labelColor: fallbackColor,
                 labelStroke: "#151816",
                 hankyKey: (Ne.get(t) || {}).key || "subcategory",
-                key: n
+                key: _hubKey
             };
         }
         // Glyph-map integrity (map-render refactor, finding 13): the
@@ -5170,9 +5175,14 @@ const Ce = {
             return `<circle class="icon-accent" cx="${o[0].toFixed(2)}" cy="${o[1].toFixed(2)}" r=".66"/><path class="icon-accent-stroke" d="M ${s[0].toFixed(2)} ${s[1].toFixed(2)} l ${(.28 * (8 - s[0])).toFixed(2)} ${(.28 * (8 - s[1])).toFixed(2)}"/><path class="icon-detail" d="M ${o[0].toFixed(2)} ${o[1].toFixed(2)} Q ${c[0].toFixed(2)} ${c[1].toFixed(2)} ${d[0].toFixed(2)} ${d[1].toFixed(2)} M ${l[0].toFixed(2)} ${l[1].toFixed(2)} l ${(.16 * (8 - l[0])).toFixed(2)} ${(.16 * (8 - l[1])).toFixed(2)}"/><circle class="icon-detail-dot" cx="${l[0].toFixed(2)}" cy="${l[1].toFixed(2)}" r=".34"/>`;
         }
         function Oe(e, t) {
-            const _veKey = t + "\0" + e, n = ve.get(_veKey) || "star", _glyphFallback = !ve.has(_veKey) || !(n in ye), i = _e.get(_veKey) || 0, a = Le(e, t);
+            // Topic-icon inheritance (owner ruling 2026-11-23): a topic
+            // with no glyph of its own in ve inherits its category's
+            // descriptor glyph from ge instead of the generic star.
+            // Topics present in ve (every Sexcapades catalog topic,
+            // including any assigned the star itself) are untouched.
+            const _veKey = t + "\0" + e, n = ve.get(_veKey) || "star", _ownGlyph = ve.has(_veKey) && n in ye, _catDesc = !_ownGlyph && ge && ge[t] && ge[t].glyph ? ge[t] : null, _glyphFallback = !_ownGlyph && !_catDesc, i = _e.get(_veKey) || 0, a = Le(e, t);
             return {
-                glyph: ye[n] || ye.star,
+                glyph: _ownGlyph ? ye[n] : _catDesc ? _catDesc.glyph : ye.star,
                 glyphFallback: _glyphFallback,
                 accent: "",
                 color: a.color,
@@ -5180,7 +5190,7 @@ const Ce = {
                 labelColor: a.labelColor,
                 labelStroke: a.labelStroke,
                 hankyKey: a.key,
-                key: n
+                key: _ownGlyph || !_catDesc ? n : t
             };
         }
         h.forEach(e => e.topics.forEach(t => _e.set(e.name + "\0" + t, De++)));
@@ -7668,10 +7678,15 @@ const Ce = {
             Verbal: "speech"
         });
         function Ae(e, t) {
-            const n = Ee[e] || "star", _glyphFallback = !(e in Ee) || !(n in ye), i = ge[t] || {};
+            // Subcategory-hub inheritance (owner ruling 2026-11-23): a
+            // hub with no glyph of its own in Ee inherits its parent
+            // category's descriptor glyph from ge instead of the
+            // generic star. Ee covers every Sexcapades subcategory
+            // (boot-checked above), so Sexcapades hubs are untouched.
+            const n = Ee[e] || "star", _ownGlyph = (e in Ee) && (n in ye), _catDesc = !_ownGlyph && ge && ge[t] && ge[t].glyph ? ge[t] : null, _glyphFallback = !_ownGlyph && !_catDesc, _hubGlyph = _ownGlyph ? ye[n] : _catDesc ? _catDesc.glyph : ye[n] || ye.star, _hubKey = _ownGlyph || !_catDesc ? n : t, i = ge[t] || {};
             const c = h.find(c => c.name === t), s = c && (c.subcategories || []).find(s => s.name === e), p = s ? fpSub(s.topics, t) : null;
             if (p) return {
-                glyph: ye[n] || ye.star,
+                glyph: _hubGlyph,
                 glyphFallback: _glyphFallback,
                 accent: "",
                 color: p.color,
@@ -7684,7 +7699,7 @@ const Ce = {
             };
             const fallbackColor = i.color || Ga.NO_CODE_COLOR;
             return {
-                glyph: ye[n] || ye.star,
+                glyph: _hubGlyph,
                 glyphFallback: _glyphFallback,
                 accent: "",
                 color: fallbackColor,
@@ -7692,7 +7707,7 @@ const Ce = {
                 labelColor: fallbackColor,
                 labelStroke: "#151816",
                 hankyKey: (Ne.get(t) || {}).key || "subcategory",
-                key: n
+                key: _hubKey
             };
         }
         // Glyph-map integrity (map-render refactor, finding 13): the
@@ -7889,9 +7904,14 @@ const Ce = {
             return `<circle class="icon-accent" cx="${o[0].toFixed(2)}" cy="${o[1].toFixed(2)}" r=".66"/><path class="icon-accent-stroke" d="M ${s[0].toFixed(2)} ${s[1].toFixed(2)} l ${(.28 * (8 - s[0])).toFixed(2)} ${(.28 * (8 - s[1])).toFixed(2)}"/><path class="icon-detail" d="M ${o[0].toFixed(2)} ${o[1].toFixed(2)} Q ${c[0].toFixed(2)} ${c[1].toFixed(2)} ${d[0].toFixed(2)} ${d[1].toFixed(2)} M ${l[0].toFixed(2)} ${l[1].toFixed(2)} l ${(.16 * (8 - l[0])).toFixed(2)} ${(.16 * (8 - l[1])).toFixed(2)}"/><circle class="icon-detail-dot" cx="${l[0].toFixed(2)}" cy="${l[1].toFixed(2)}" r=".34"/>`;
         }
         function Oe(e, t) {
-            const _veKey = t + "\0" + e, n = ve.get(_veKey) || "star", _glyphFallback = !ve.has(_veKey) || !(n in ye), i = _e.get(_veKey) || 0, a = Le(e, t);
+            // Topic-icon inheritance (owner ruling 2026-11-23): a topic
+            // with no glyph of its own in ve inherits its category's
+            // descriptor glyph from ge instead of the generic star.
+            // Topics present in ve (every Sexcapades catalog topic,
+            // including any assigned the star itself) are untouched.
+            const _veKey = t + "\0" + e, n = ve.get(_veKey) || "star", _ownGlyph = ve.has(_veKey) && n in ye, _catDesc = !_ownGlyph && ge && ge[t] && ge[t].glyph ? ge[t] : null, _glyphFallback = !_ownGlyph && !_catDesc, i = _e.get(_veKey) || 0, a = Le(e, t);
             return {
-                glyph: ye[n] || ye.star,
+                glyph: _ownGlyph ? ye[n] : _catDesc ? _catDesc.glyph : ye.star,
                 glyphFallback: _glyphFallback,
                 accent: "",
                 color: a.color,
@@ -7899,7 +7919,7 @@ const Ce = {
                 labelColor: a.labelColor,
                 labelStroke: a.labelStroke,
                 hankyKey: a.key,
-                key: n
+                key: _ownGlyph || !_catDesc ? n : t
             };
         }
         h.forEach(e => e.topics.forEach(t => _e.set(e.name + "\0" + t, De++)));
@@ -45890,7 +45910,7 @@ yk([ "Spitting", "Spit play", "Being spit on", "Spitting on someone" ], "t0341")
             if (!Array.isArray(e)) return [];
             const t = [];
             return e.slice(0, 8).forEach(e => {
-                if (!e || "object" != typeof e || "string" != typeof e.data || !/^data:image\/(?:jpeg|png|webp|gif);base64,[a-z0-9+/=\s]+$/i.test(e.data) || e.data.length > 65e5) return;
+                if (!e || "object" != typeof e || "string" != typeof e.data || !/^data:image\/(?:jpeg|png|webp|gif|svg\+xml);base64,[a-z0-9+/=\s]+$/i.test(e.data) || e.data.length > 65e5) return;
                 const n = Math.max(1, Math.min(3e3, Number(e.width) || 1)), i = Math.max(1, Math.min(3e3, Number(e.height) || 1)), a = A(Number.isFinite(Number(e.cropX)) ? Number(e.cropX) : .5), r = A(Number.isFinite(Number(e.cropY)) ? Number(e.cropY) : .5), o = Math.max(1, Math.min(3, Number(e.cropZoom) || 1)), s = Math.max(-180, Math.min(180, Number(e.cropRotation) || 0)), l = Math.abs(a - .5) > .001 || Math.abs(r - .5) > .001 || Math.abs(o - 1) > .001 || Math.abs(s) > .001, c = !0 === e.manualCrop || l;
                 t.push({
                     data: e.data,
@@ -46629,7 +46649,7 @@ yk([ "Spitting", "Spit play", "Being spit on", "Spitting on someone" ], "t0341")
         const Cw = {};
         function Mw(e) {
             if (!Cw[e]) {
-                const t = jy.querySelector(`[data-sample-profile="${CSS.escape(e)}"] img`) || jyA && jyA.querySelector(`[data-sample-profile="${CSS.escape(e)}"] img`), n = t && (t.currentSrc || t.src);
+                const t = jy.querySelector(`[data-sample-profile="${CSS.escape(e)}"] img`) || jyA && jyA.querySelector(`[data-sample-profile="${CSS.escape(e)}"] img`) || document.querySelector(`[data-sample-profile="${CSS.escape(e)}"] img`), n = t && (t.currentSrc || t.src);
                 Cw[e] = n ? fetch(n).then(e => {
                     if (!e.ok) throw new Error("The bundled sample photo could not be opened.");
                     return e.blob();
@@ -46702,7 +46722,14 @@ yk([ "Spitting", "Spit play", "Being spit on", "Spitting on someone" ], "t0341")
                 if (!r || r.name !== i || r.count !== a || !r.payload || !0 !== r.payload.noFlash) throw new Error("The bundled sample is invalid.");
                 const o = JSON.parse(JSON.stringify(r.payload));
                 o.profileName = i, o.sampleProfile = !0, o.skin = o.skin || r.skin || sampleBtn.dataset.sampleSkin || (typeof window !== "undefined" && window.__SX_ACTIVE_SKIN) || "sexcapades";
-                if (r.kind !== "sample" || !photo) {
+                if (r.emblem && photo) {
+                    // Emblem avatars (2026-11-23): the entry's emblem —
+                    // fetched through its menu <img> by Mw, exactly like
+                    // Adam/Eve's real photos — becomes the loaded
+                    // profile's center photo. Stack layers share their
+                    // stack's one emblem (the date does the talking).
+                    o.photos = [ photo ];
+                } else if (r.kind !== "sample" || !photo) {
                     const archPhoto = typeof sxMakeArchetypePhoto === "function" ? sxMakeArchetypePhoto(r.name || i, o.skin) : null;
                     if (archPhoto) o.photos = [ archPhoto ];
                     else if (photo) o.photos = [ photo ];
