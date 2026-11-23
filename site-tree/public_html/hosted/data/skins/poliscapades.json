@@ -23776,28 +23776,14 @@
           },
           "xpo0044": {
             "advocacy": {
-              "wall-and-hard-enforcement": 95,
-              "technology-agents-pathways": -60,
-              "intensity": 95
+              "wall-and-hard-enforcement": 65,
+              "technology-agents-pathways": -40,
+              "intensity": 65
             },
             "receptivity": {
-              "wall-and-hard-enforcement": 28,
-              "technology-agents-pathways": -18,
-              "intensity": 28
-            }
-          },
-          "xpo0045": {
-            "advocacy": {
-              "mass-deportation": 90,
-              "removal-after-fair-process": -40,
-              "prioritized-removal": -30,
-              "intensity": 90
-            },
-            "receptivity": {
-              "mass-deportation": 27,
-              "removal-after-fair-process": -12,
-              "prioritized-removal": -9,
-              "intensity": 27
+              "wall-and-hard-enforcement": 20,
+              "technology-agents-pathways": -12,
+              "intensity": 20
             }
           },
           "xpo0048": {
@@ -23830,16 +23816,16 @@
           },
           "xpo0051": {
             "advocacy": {
-              "expand-access-no-id": -60,
-              "require-id-same-day-voting": 70,
-              "easy-voting-with-id": -30,
-              "intensity": 70
+              "expand-access-no-id": -55,
+              "easy-voting-with-id": -15,
+              "require-id-same-day-voting": 25,
+              "intensity": -55
             },
             "receptivity": {
-              "expand-access-no-id": -18,
-              "require-id-same-day-voting": 21,
-              "easy-voting-with-id": -9,
-              "intensity": 21
+              "expand-access-no-id": -16,
+              "easy-voting-with-id": -4,
+              "require-id-same-day-voting": 8,
+              "intensity": -16
             }
           },
           "xpo0052": {
@@ -23994,16 +23980,16 @@
           },
           "xpo0080": {
             "advocacy": {
-              "universal-choice-vouchers": 85,
-              "invest-in-public-schools": -85,
-              "charter-schools": -70,
-              "intensity": 85
+              "universal-choice-vouchers": 35,
+              "charter-schools": -30,
+              "invest-in-public-schools": -90,
+              "intensity": -90
             },
             "receptivity": {
-              "universal-choice-vouchers": 26,
-              "invest-in-public-schools": -26,
-              "charter-schools": -21,
-              "intensity": 26
+              "universal-choice-vouchers": 10,
+              "charter-schools": -9,
+              "invest-in-public-schools": -27,
+              "intensity": -27
             }
           },
           "xpo0083": {
