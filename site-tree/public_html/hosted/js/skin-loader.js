@@ -246,8 +246,8 @@
      Sexcapades, as before. The ?skin= query param (see skinFromUrl)
      wins over the hostname: it carries a skin selection across the
      age-gate round-trip. */
-  var HOSTNAME_SKINS = { sex: "sexcapades", polis: "poliscapades", fores: "forescapades", philo: "philoscapades", aesth: "aesthcapades", voca: "vocapades", tech: "techcapades", dharma: "dharmacapades", theori: "theoricapades", praxi: "praxicapades", quanta: "quantacapades", experi: "expericapades", simul: "simulcapades", matter: "mattercapades", chem: "chemcapades", nous: "nouscapades" };
-  var SKIN_IDS = ["sexcapades", "poliscapades", "forescapades", "philoscapades", "aesthcapades", "vocapades", "techcapades", "dharmacapades", "theoricapades", "praxicapades", "quantacapades", "expericapades", "simulcapades", "mattercapades", "chemcapades", "nouscapades"];
+  var HOSTNAME_SKINS = { sex: "sexcapades", polis: "poliscapades", fores: "forescapades", philo: "philoscapades", aesth: "aesthcapades", voca: "vocapades", tech: "techcapades", dharma: "dharmacapades", theori: "theoricapades", praxi: "praxicapades", quanta: "quantacapades", experi: "expericapades", simul: "simulcapades", matter: "mattercapades", chem: "chemcapades", nous: "nouscapades", dance: "dancecapades", quest: "questcapades" };
+  var SKIN_IDS = ["sexcapades", "poliscapades", "forescapades", "philoscapades", "aesthcapades", "vocapades", "techcapades", "dharmacapades", "theoricapades", "praxicapades", "quantacapades", "expericapades", "simulcapades", "mattercapades", "chemcapades", "nouscapades", "dancecapades", "questcapades"];
 
   function skinForHostname(hostname) {
     var host = (hostname || "").toLowerCase();
@@ -1607,18 +1607,20 @@
         if (thisGen !== currentSwitchGen) return activeSkin;
         applySkin(data);
         setBrand("sexcapades", data.name || "Sexcapades");
-        /* Switch-back restores the remembered Sexcapades profile, if any. */
-        if (typeof window.__SX_RESTORE_VIEWPORT_PROFILES === "function") window.__SX_RESTORE_VIEWPORT_PROFILES("sexcapades");
         sxArmSwitchPaint();
-        var layoutApplied = applySexcapadesLayout(data);
-        if (!layoutApplied) rerender();
-        applyTerms("sexcapades", data);
-        rebuildOutlineIfOpen();
-        markSkinTransitionEnd("sexcapades");
-        return "sexcapades";
+        return Promise.resolve(rerender()).then(function () {
+          if (thisGen !== currentSwitchGen) return activeSkin;
+          /* Switch-back restores the remembered Sexcapades profile, if any. */
+          if (typeof window.__SX_RESTORE_VIEWPORT_PROFILES === "function") window.__SX_RESTORE_VIEWPORT_PROFILES("sexcapades");
+          sxArmSwitchPaint();
+          applySexcapadesLayout(data);
+          applyTerms("sexcapades", data);
+          rebuildOutlineIfOpen();
+          markSkinTransitionEnd("sexcapades");
+          return "sexcapades";
+        });
       }, function (err) {
         window.__SX_FORCE_UNRATED_TREE = false;
-        try { rerender(); } catch (_) {}
         if (thisGen === currentSwitchGen) markSkinTransitionEnd(activeSkin || "sexcapades");
         throw err;
       });
@@ -1637,15 +1639,24 @@
       if (typeof window.__SX_CLEAR_VIEWPORT_PROFILES === "function") window.__SX_CLEAR_VIEWPORT_PROFILES(activeSkin);
       applySkin(data);
       setBrand(skinId, displayName || data.name);
-      /* Switch-back restores the remembered profile for this skin, if any. */
-      if (typeof window.__SX_RESTORE_VIEWPORT_PROFILES === "function") window.__SX_RESTORE_VIEWPORT_PROFILES(skinId);
       sxArmSwitchPaint();
-      var layoutApplied = applyDefaultLayout(data);
-      if (!layoutApplied) rerender();
-      applyTerms(skinId, data);
-      rebuildOutlineIfOpen();
-      markSkinTransitionEnd(skinId);
-      return skinId;
+      return Promise.resolve(rerender()).then(function () {
+        if (thisGen !== currentSwitchGen) return activeSkin;
+        /* Switch-back restores the remembered profile for this skin, if any. */
+        if (typeof window.__SX_RESTORE_VIEWPORT_PROFILES === "function") window.__SX_RESTORE_VIEWPORT_PROFILES(skinId);
+        /* The layout import repaints: arm it too, so it paints the
+           full map rather than the no-profile placeholder. */
+        sxArmSwitchPaint();
+        applyDefaultLayout(data);
+        applyTerms(skinId, data);
+        rebuildOutlineIfOpen();
+        markSkinTransitionEnd(skinId);
+        return skinId;
+      }, function (err) {
+        window.__SX_FORCE_UNRATED_TREE = false;
+        if (thisGen === currentSwitchGen) markSkinTransitionEnd(activeSkin || "sexcapades");
+        throw err;
+      });
     }, function (err) {
       if (thisGen === currentSwitchGen) markSkinTransitionEnd(activeSkin || "sexcapades");
       throw err;
@@ -1716,7 +1727,6 @@
           setBrand("sexcapades");
           setManifestForSkin("sexcapades");
           if (typeof window.__SX_REBUILD_OUTLINE === "function") window.__SX_REBUILD_OUTLINE();
-          try { rerender(); } catch (_) {}
           markSkinTransitionEnd("sexcapades");
         }
         return;
@@ -1726,34 +1736,20 @@
         applySkin(data);
         setBrand(boot, data.name);
         sxArmSwitchPaint();
-        var layoutApplied = false;
-        if (window.__SX_WARM_BOOT_RESTORED) {
-          if (data && data.defaultLayout && data.defaultLayout.settings) {
-            try {
-              window.__SEXCAPADES_LAYOUT_DEFAULTS = JSON.parse(JSON.stringify(data.defaultLayout.settings));
-            } catch (_) {}
-          }
-        } else {
-          try {
-            layoutApplied = applyDefaultLayout(data);
-          } catch (e) {
-            layoutApplied = false;
-          }
-          if (!layoutApplied) {
-            rerender();
-          }
-        }
-        applyTerms(boot, data);
-        rebuildOutlineIfOpen();
-        markSkinTransitionEnd(boot);
-        return boot;
+        return Promise.resolve(rerender()).then(function () {
+          sxArmSwitchPaint();
+          applyDefaultLayout(data);
+          applyTerms(boot, data);
+          rebuildOutlineIfOpen();
+          markSkinTransitionEnd(boot);
+          return boot;
+        });
       }).catch(function (err) {
         if (typeof console !== "undefined" && console.warn) console.warn("[FlexcapadesSkins] boot skin failed, staying on Sexcapades:", err);
         registerSexcapadesWidgets();
         setBrand("sexcapades");
         setManifestForSkin("sexcapades");
         if (typeof window.__SX_REBUILD_OUTLINE === "function") window.__SX_REBUILD_OUTLINE();
-        try { rerender(); } catch (_) {}
         markSkinTransitionEnd("sexcapades");
       });
     }, 25);

@@ -44,7 +44,9 @@
     simul: ["Simulcapades", "Simul.Capades.IO"],
     matter: ["Mattercapades", "Matter.Capades.IO"],
     chem: ["Chemcapades", "Chem.Capades.IO"],
-    nous: ["Nouscapades", "Nous.Capades.IO"]
+    nous: ["Nouscapades", "Nous.Capades.IO"],
+    dance: ["Dancecapades", "Dance.Capades.IO"],
+    quest: ["Questcapades", "Quest.Capades.IO"]
   };
   function detectSkin() {
     var host = "";
