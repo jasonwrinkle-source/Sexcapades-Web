@@ -418,7 +418,7 @@
   var SKIN_IDS = (typeof window !== "undefined" && window.__SX_SKIN_IDS) || ["sexcapades", "poliscapades", "forescapades", "philoscapades", "aesthcapades", "vocapades", "techcapades", "dharmacapades", "theoricapades", "praxicapades", "quantacapades", "expericapades", "simulcapades", "mattercapades", "chemcapades", "nouscapades", "biocapades", "linguacapades", "fastcapades", "dancecapades", "questcapades"];
 
   function skinForHostname(hostname) {
-    if (typeof window !== "undefined" && typeof window.__SX_SKIN_FOR_HOSTNAME === "function") {
+    if (typeof window !== "undefined" && typeof window.__SX_SKIN_FOR_HOSTNAME === "function" && window.__SX_SKIN_FOR_HOSTNAME !== skinForHostname) {
       return window.__SX_SKIN_FOR_HOSTNAME(hostname);
     }
     var host = (hostname || "").toLowerCase();
@@ -437,7 +437,7 @@
      specific skin's dotted domain. Unknown ids fall back to "sex",
      mirroring skinForHostname's unknown-host default. */
   function skinPrefixFor(skinId) {
-    if (typeof window !== "undefined" && typeof window.__SX_SKIN_PREFIX_FOR === "function") {
+    if (typeof window !== "undefined" && typeof window.__SX_SKIN_PREFIX_FOR === "function" && window.__SX_SKIN_PREFIX_FOR !== skinPrefixFor) {
       return window.__SX_SKIN_PREFIX_FOR(skinId);
     }
     var id = String(skinId || "");
@@ -2162,7 +2162,7 @@
   /* Test hooks: the hostname mapping and the boot-menu decision are
      pure functions of their input, so probes can call them with every
      hostname without DNS. */
-  window.__SX_SKIN_FOR_HOSTNAME = skinForHostname;
+  if (!window.__SX_SKIN_FOR_HOSTNAME || window.__SX_SKIN_FOR_HOSTNAME === skinForHostname) window.__SX_SKIN_FOR_HOSTNAME = skinForHostname;
   window.__SX_BOOT_SHOULD_OPEN_MENU = bootShouldOpenMenu;
   window.__SX_SKIN_FROM_URL = skinFromUrl;
   window.__SX_HAS_GATE_PASS = hasGatePass;
