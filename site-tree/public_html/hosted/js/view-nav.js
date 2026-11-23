@@ -584,6 +584,25 @@ __sxInit(function () {
     if (!item) return;
     var skin = item.getAttribute("data-skin");
     closeMenu();
+
+    var host = "";
+    try { host = String(location.hostname || "").toLowerCase(); } catch (e) { host = ""; }
+    var isProductionDomain = /\.capades\.io$/.test(host) || host === "sexcapades.io" || host === "www.sexcapades.io";
+
+    if (isProductionDomain) {
+      /* Production deployment: navigate cleanly to the dedicated subdomain URL */
+      var prefix = (typeof window !== "undefined" && typeof window.__SX_SKIN_PREFIX_FOR === "function")
+        ? window.__SX_SKIN_PREFIX_FOR(skin)
+        : (SKIN_SUBDOMAIN[skin] || "sex");
+      var targetHost = prefix + ".capades.io";
+      if (host !== targetHost) {
+        var pagePath = window.location.pathname || "/hosted/app.html";
+        window.location.href = "https://" + targetHost + pagePath + (window.location.hash || "");
+        return;
+      }
+    }
+
+    /* Local dev, localhost, file://, staging, or QA: use in-place runtime skin loading */
     var loader = window.FlexcapadesSkins;
     if (loader && typeof loader.load === "function") {
       loader.load(skin, skinName(item)).then(function () {
