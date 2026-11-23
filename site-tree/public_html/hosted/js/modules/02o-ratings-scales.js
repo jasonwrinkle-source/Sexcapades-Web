@@ -2278,6 +2278,8 @@
         }
         Cn.addEventListener("pointerdown", sa, !0), Cn.addEventListener("keydown", sa, !0);
         if (typeof window !== "undefined") {
+            window.qn = qn;
+            window.Xn = Xn;
             window.Qi = Qi;
             window.Vi = Vi;
             window.Xi = Xi;

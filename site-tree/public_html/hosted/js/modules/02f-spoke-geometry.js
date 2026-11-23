@@ -611,6 +611,8 @@
         const ba = (e) => typeof window !== "undefined" && typeof window.ba === "function" ? window.ba(e) : "";
         const la = (e) => typeof window !== "undefined" && typeof window.la === "function" ? window.la(e) : "var(--line)";
         const zi = (e) => typeof window !== "undefined" && typeof window.zi === "function" ? window.zi(e) : "var(--line)";
+        const qn = typeof window !== "undefined" && window.qn ? window.qn : {};
+        const Xn = (e) => typeof window !== "undefined" && typeof window.Xn === "function" ? window.Xn(e) : null;
 
         function Ka(e, t, n, i, a, r, o, s, l, c, d, u = 48, p = Ga.FALLBACK_COLOR, g = !0, m = "", f = null, y = null, b = null, v = !1, w = !0, k = h.length, bc = null, sxLeafD = null, sxDepth = null) {
             if (sxSexSkin()) v = !0;
