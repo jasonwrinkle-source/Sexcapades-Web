@@ -1,6 +1,4 @@
 /* --- TaxoPolemics / Flexcapades Bundled Bootstrap --- */
-(function() {
-'use strict';
 /* --- Module: 01-dispatcher.js --- */
 /* P0 refactor (Build 2026-10-18_2210): shared error logger + single document
    event dispatchers for this bundle.
@@ -51654,5 +51652,3 @@ __sxInit(function () {
   init();
 })();
 });
-
-})();

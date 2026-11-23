@@ -96,7 +96,7 @@ for p in parts:
 
         combined_code.append(f"/* --- Module: {p} --- */\n" + code)
 
-bundle_text = "/* --- TaxoPolemics / Flexcapades Bundled Bootstrap --- */\n(function() {\n'use strict';\n" + "\n".join(combined_code) + "\n})();\n"
+bundle_text = "/* --- TaxoPolemics / Flexcapades Bundled Bootstrap --- */\n" + "\n".join(combined_code)
 
 with open(target_app, "w", encoding="utf-8") as out:
     out.write(bundle_text)
