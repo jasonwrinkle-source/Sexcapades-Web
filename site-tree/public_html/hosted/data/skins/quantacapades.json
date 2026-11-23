@@ -181,7 +181,8 @@
               "name": "r/quantum",
               "url": "https://www.reddit.com/r/quantum/"
             }
-          ]
+          ],
+          "glyph": "cube"
         },
         {
           "id": "xqu0002",
@@ -233,7 +234,8 @@
               "name": "r/quantum",
               "url": "https://www.reddit.com/r/quantum/"
             }
-          ]
+          ],
+          "glyph": "star"
         },
         {
           "id": "xqu0003",
@@ -285,7 +287,8 @@
               "name": "r/quantum",
               "url": "https://www.reddit.com/r/quantum/"
             }
-          ]
+          ],
+          "glyph": "sun"
         },
         {
           "id": "xqu0004",
@@ -337,7 +340,8 @@
               "name": "r/quantum",
               "url": "https://www.reddit.com/r/quantum/"
             }
-          ]
+          ],
+          "glyph": "moon"
         },
         {
           "id": "xqu0005",
@@ -389,7 +393,8 @@
               "name": "r/quantum",
               "url": "https://www.reddit.com/r/quantum/"
             }
-          ]
+          ],
+          "glyph": "flame"
         }
       ]
     },
@@ -456,7 +461,8 @@
               "name": "r/quantum",
               "url": "https://www.reddit.com/r/quantum/"
             }
-          ]
+          ],
+          "glyph": "droplet"
         },
         {
           "id": "xqu0007",
@@ -508,7 +514,8 @@
               "name": "r/quantum",
               "url": "https://www.reddit.com/r/quantum/"
             }
-          ]
+          ],
+          "glyph": "tree"
         },
         {
           "id": "xqu0008",
@@ -560,7 +567,8 @@
               "name": "r/quantum",
               "url": "https://www.reddit.com/r/quantum/"
             }
-          ]
+          ],
+          "glyph": "rose"
         },
         {
           "id": "xqu0009",
@@ -612,7 +620,8 @@
               "name": "r/quantum",
               "url": "https://www.reddit.com/r/quantum/"
             }
-          ]
+          ],
+          "glyph": "heart"
         },
         {
           "id": "xqu0010",
@@ -664,7 +673,8 @@
               "name": "r/quantum",
               "url": "https://www.reddit.com/r/quantum/"
             }
-          ]
+          ],
+          "glyph": "shield"
         },
         {
           "id": "xqu0011",
@@ -716,7 +726,8 @@
               "name": "r/quantum",
               "url": "https://www.reddit.com/r/quantum/"
             }
-          ]
+          ],
+          "glyph": "badge"
         }
       ]
     },
@@ -775,7 +786,8 @@
               "name": "r/Physics",
               "url": "https://www.reddit.com/r/Physics/"
             }
-          ]
+          ],
+          "glyph": "crown"
         },
         {
           "id": "xqu0013",
@@ -827,7 +839,8 @@
               "name": "r/Physics",
               "url": "https://www.reddit.com/r/Physics/"
             }
-          ]
+          ],
+          "glyph": "key"
         },
         {
           "id": "xqu0014",
@@ -879,7 +892,8 @@
               "name": "r/Physics",
               "url": "https://www.reddit.com/r/Physics/"
             }
-          ]
+          ],
+          "glyph": "lock"
         },
         {
           "id": "xqu0015",
@@ -931,7 +945,8 @@
               "name": "r/Physics",
               "url": "https://www.reddit.com/r/Physics/"
             }
-          ]
+          ],
+          "glyph": "scale"
         },
         {
           "id": "xqu0016",
@@ -983,7 +998,8 @@
               "name": "r/Physics",
               "url": "https://www.reddit.com/r/Physics/"
             }
-          ]
+          ],
+          "glyph": "hands"
         },
         {
           "id": "xqu0017",
@@ -1035,7 +1051,8 @@
               "name": "r/Physics",
               "url": "https://www.reddit.com/r/Physics/"
             }
-          ]
+          ],
+          "glyph": "eye"
         },
         {
           "id": "xqu0018",
@@ -1087,7 +1104,8 @@
               "name": "r/Physics",
               "url": "https://www.reddit.com/r/Physics/"
             }
-          ]
+          ],
+          "glyph": "chat"
         }
       ]
     },
@@ -1146,7 +1164,8 @@
               "name": "r/quantum",
               "url": "https://www.reddit.com/r/quantum/"
             }
-          ]
+          ],
+          "glyph": "book"
         },
         {
           "id": "xqu0020",
@@ -1208,7 +1227,8 @@
               "name": "r/QuantumComputing",
               "url": "https://www.reddit.com/r/QuantumComputing/"
             }
-          ]
+          ],
+          "glyph": "scroll"
         },
         {
           "id": "xqu0021",
@@ -1260,7 +1280,8 @@
               "name": "r/quantum",
               "url": "https://www.reddit.com/r/quantum/"
             }
-          ]
+          ],
+          "glyph": "note"
         }
       ]
     },
@@ -1311,7 +1332,8 @@
               "name": "r/quantum",
               "url": "https://www.reddit.com/r/quantum/"
             }
-          ]
+          ],
+          "glyph": "spotlight"
         },
         {
           "id": "xqu0023",
@@ -1363,7 +1385,8 @@
               "name": "r/quantum",
               "url": "https://www.reddit.com/r/quantum/"
             }
-          ]
+          ],
+          "glyph": "hourglass"
         },
         {
           "id": "xqu0024",
@@ -1415,7 +1438,8 @@
               "name": "r/quantum",
               "url": "https://www.reddit.com/r/quantum/"
             }
-          ]
+          ],
+          "glyph": "compass"
         },
         {
           "id": "xqu0025",
@@ -1459,7 +1483,8 @@
               "name": "r/quantum",
               "url": "https://www.reddit.com/r/quantum/"
             }
-          ]
+          ],
+          "glyph": "bolt"
         },
         {
           "id": "xqu0026",
@@ -1521,7 +1546,8 @@
               "name": "r/QuantumComputing",
               "url": "https://www.reddit.com/r/QuantumComputing/"
             }
-          ]
+          ],
+          "glyph": "stripes"
         }
       ]
     },
@@ -1560,7 +1586,8 @@
             ]
           },
           "question": "How do you derive physical truth?",
-          "source": "BRIEFING_QUANTACAPADES_TAXONOMY.md §2.6.1 — Antigravity 6.1 (YoBiche did not cover this)."
+          "source": "BRIEFING_QUANTACAPADES_TAXONOMY.md §2.6.1 — Antigravity 6.1 (YoBiche did not cover this).",
+          "glyph": "cradle"
         },
         {
           "id": "xqu0028",
@@ -1612,7 +1639,8 @@
               "name": "r/math",
               "url": "https://www.reddit.com/r/math/"
             }
-          ]
+          ],
+          "glyph": "split"
         },
         {
           "id": "xqu0029",
@@ -1652,7 +1680,8 @@
             ]
           },
           "question": "Do you work on the theory or the phenomena?",
-          "source": "BRIEFING_QUANTACAPADES_TAXONOMY.md §2.6.3 — YoBiche (Antigravity did not cover this)."
+          "source": "BRIEFING_QUANTACAPADES_TAXONOMY.md §2.6.3 — YoBiche (Antigravity did not cover this).",
+          "glyph": "target"
         },
         {
           "id": "xqu0030",
@@ -1692,7 +1721,8 @@
             ]
           },
           "question": "Do you think alone or together?",
-          "source": "BRIEFING_QUANTACAPADES_TAXONOMY.md §2.6.4 — YoBiche (Antigravity did not cover this)."
+          "source": "BRIEFING_QUANTACAPADES_TAXONOMY.md §2.6.4 — YoBiche (Antigravity did not cover this).",
+          "glyph": "burst"
         }
       ]
     }
