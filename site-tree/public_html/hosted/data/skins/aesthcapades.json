@@ -173,7 +173,8 @@
               "name": "r/photography",
               "url": "https://www.reddit.com/r/photography/"
             }
-          ]
+          ],
+          "glyph": "cube"
         },
         {
           "id": "xae0002",
@@ -212,7 +213,8 @@
               "name": "r/Art",
               "url": "https://www.reddit.com/r/Art/"
             }
-          ]
+          ],
+          "glyph": "star"
         },
         {
           "id": "xae0003",
@@ -264,7 +266,8 @@
               "name": "r/Art",
               "url": "https://www.reddit.com/r/Art/"
             }
-          ]
+          ],
+          "glyph": "sun"
         },
         {
           "id": "xae0004",
@@ -311,7 +314,8 @@
               "name": "r/Art",
               "url": "https://www.reddit.com/r/Art/"
             }
-          ]
+          ],
+          "glyph": "moon"
         }
       ]
     },
@@ -365,7 +369,8 @@
               "name": "r/musictheory",
               "url": "https://www.reddit.com/r/musictheory/"
             }
-          ]
+          ],
+          "glyph": "flame"
         },
         {
           "id": "xae0006",
@@ -404,7 +409,8 @@
               "name": "r/musictheory",
               "url": "https://www.reddit.com/r/musictheory/"
             }
-          ]
+          ],
+          "glyph": "droplet"
         },
         {
           "id": "xae0007",
@@ -451,7 +457,8 @@
               "name": "r/musictheory",
               "url": "https://www.reddit.com/r/musictheory/"
             }
-          ]
+          ],
+          "glyph": "tree"
         }
       ]
     },
@@ -505,7 +512,8 @@
               "name": "r/literature",
               "url": "https://www.reddit.com/r/literature/"
             }
-          ]
+          ],
+          "glyph": "rose"
         },
         {
           "id": "xae0009",
@@ -552,7 +560,8 @@
               "name": "r/literature",
               "url": "https://www.reddit.com/r/literature/"
             }
-          ]
+          ],
+          "glyph": "heart"
         },
         {
           "id": "xae0010",
@@ -591,7 +600,8 @@
               "name": "r/literature",
               "url": "https://www.reddit.com/r/literature/"
             }
-          ]
+          ],
+          "glyph": "shield"
         }
       ]
     },
@@ -645,7 +655,8 @@
               "name": "r/fashion",
               "url": "https://www.reddit.com/r/fashion/"
             }
-          ]
+          ],
+          "glyph": "badge"
         },
         {
           "id": "xae0012",
@@ -692,7 +703,8 @@
               "name": "r/fashion",
               "url": "https://www.reddit.com/r/fashion/"
             }
-          ]
+          ],
+          "glyph": "crown"
         },
         {
           "id": "xae0013",
@@ -739,7 +751,8 @@
               "name": "r/fashion",
               "url": "https://www.reddit.com/r/fashion/"
             }
-          ]
+          ],
+          "glyph": "key"
         }
       ]
     },
@@ -793,7 +806,8 @@
               "name": "r/architecture",
               "url": "https://www.reddit.com/r/architecture/"
             }
-          ]
+          ],
+          "glyph": "lock"
         },
         {
           "id": "xae0015",
@@ -840,7 +854,8 @@
               "name": "r/architecture",
               "url": "https://www.reddit.com/r/architecture/"
             }
-          ]
+          ],
+          "glyph": "scale"
         },
         {
           "id": "xae0016",
@@ -879,7 +894,8 @@
               "name": "r/architecture",
               "url": "https://www.reddit.com/r/architecture/"
             }
-          ]
+          ],
+          "glyph": "hands"
         }
       ]
     },
@@ -943,7 +959,8 @@
               "name": "r/Art",
               "url": "https://www.reddit.com/r/Art/"
             }
-          ]
+          ],
+          "glyph": "eye"
         },
         {
           "id": "xae0018",
@@ -995,7 +1012,8 @@
               "name": "r/askphilosophy",
               "url": "https://www.reddit.com/r/askphilosophy/"
             }
-          ]
+          ],
+          "glyph": "chat"
         },
         {
           "id": "xae0019",
@@ -1047,7 +1065,8 @@
               "name": "r/askphilosophy",
               "url": "https://www.reddit.com/r/askphilosophy/"
             }
-          ]
+          ],
+          "glyph": "book"
         },
         {
           "id": "xae0020",
@@ -1104,7 +1123,8 @@
               "name": "r/Art",
               "url": "https://www.reddit.com/r/Art/"
             }
-          ]
+          ],
+          "glyph": "scroll"
         },
         {
           "id": "xae0021",
@@ -1164,7 +1184,8 @@
               "name": "r/askphilosophy",
               "url": "https://www.reddit.com/r/askphilosophy/"
             }
-          ]
+          ],
+          "glyph": "note"
         },
         {
           "id": "xae0022",
@@ -1221,7 +1242,8 @@
               "name": "r/Art",
               "url": "https://www.reddit.com/r/Art/"
             }
-          ]
+          ],
+          "glyph": "spotlight"
         }
       ]
     },
@@ -1275,7 +1297,8 @@
               "name": "r/Cooking",
               "url": "https://www.reddit.com/r/Cooking/"
             }
-          ]
+          ],
+          "glyph": "hourglass"
         },
         {
           "id": "xae0024",
@@ -1322,7 +1345,8 @@
               "name": "r/Cooking",
               "url": "https://www.reddit.com/r/Cooking/"
             }
-          ]
+          ],
+          "glyph": "compass"
         },
         {
           "id": "xae0025",
@@ -1369,7 +1393,8 @@
               "name": "r/Cooking",
               "url": "https://www.reddit.com/r/Cooking/"
             }
-          ]
+          ],
+          "glyph": "bolt"
         },
         {
           "id": "xae0026",
@@ -1432,7 +1457,8 @@
               "name": "r/Cooking",
               "url": "https://www.reddit.com/r/Cooking/"
             }
-          ]
+          ],
+          "glyph": "stripes"
         },
         {
           "id": "xae0027",
@@ -1511,7 +1537,8 @@
               "name": "r/Cooking",
               "url": "https://www.reddit.com/r/Cooking/"
             }
-          ]
+          ],
+          "glyph": "cradle"
         },
         {
           "id": "xae0028",
@@ -1543,7 +1570,8 @@
               "name": "r/Cooking",
               "url": "https://www.reddit.com/r/Cooking/"
             }
-          ]
+          ],
+          "glyph": "split"
         },
         {
           "id": "xae0029",
@@ -1582,7 +1610,8 @@
               "name": "r/Cooking",
               "url": "https://www.reddit.com/r/Cooking/"
             }
-          ]
+          ],
+          "glyph": "target"
         },
         {
           "id": "xae0030",
@@ -1629,7 +1658,8 @@
               "name": "r/Cooking",
               "url": "https://www.reddit.com/r/Cooking/"
             }
-          ]
+          ],
+          "glyph": "burst"
         },
         {
           "id": "xae0031",
@@ -1686,7 +1716,8 @@
               "name": "r/askphilosophy",
               "url": "https://www.reddit.com/r/askphilosophy/"
             }
-          ]
+          ],
+          "glyph": "energy"
         }
       ]
     }
