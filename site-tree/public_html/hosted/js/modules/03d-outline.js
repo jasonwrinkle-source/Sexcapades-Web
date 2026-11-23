@@ -1120,6 +1120,7 @@
                 return false;
             }
         }
+        window.__SX_IS_BOOT_SKIN_PENDING = sxIsBootSkinPending;
         window.__SX_REBUILD_OUTLINE = function () {
             if (window.__SX_PENDING_OUTLINE_BOOT) {
                 const pendingArg = window.__SX_PENDING_OUTLINE_BOOT;

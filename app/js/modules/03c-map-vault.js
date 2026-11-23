@@ -193,8 +193,19 @@
         // to "sexcapades" — consistently on save AND restore, or the
         // Sexcapades cache would never match.
         function sxWarmBootSkin() {
-            var s = (typeof window !== "undefined" && window.__SX_ACTIVE_SKIN) || "sexcapades";
-            return String(s);
+            var s = (typeof window !== "undefined" && window.__SX_ACTIVE_SKIN);
+            if (s) return String(s);
+            if (typeof sxAnalyticsSkin === "function") return sxAnalyticsSkin();
+            try {
+                if (typeof window.__SX_SKIN_FROM_URL === "function") {
+                    var u = window.__SX_SKIN_FROM_URL();
+                    if (u) return u;
+                }
+                if (typeof window.__SX_SKIN_FOR_HOSTNAME === "function") {
+                    return window.__SX_SKIN_FOR_HOSTNAME(location.hostname);
+                }
+            } catch (_) {}
+            return "sexcapades";
         }
         function sxWarmBootStorageKey(skin) {
             return SX_WARM_BOOT_STORAGE_KEY + ":" + (skin || sxWarmBootSkin());
@@ -383,6 +394,7 @@
                                 if (typeof yr === "function" && typeof h !== "undefined" && h && h.length) yr(h[0]);
                             } catch (_) {}
                             window.__sxBootChunkPaint = 0;
+                            window.__SX_WARM_BOOT_RESTORED = true;
                             if (typeof window.__sxBootProgress === "function") window.__sxBootProgress(100);
                             if (typeof window.__sxBootFinish === "function") window.__sxBootFinish(false);
                             if (typeof window.__sxLoad === "function") window.__sxLoad(100);

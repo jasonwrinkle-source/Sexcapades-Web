@@ -1068,8 +1068,20 @@
                     warmRestored = await window.SexcapadesEngine?.Map?.tryRestoreWarmBoot?.();
                 } catch (_) {}
                 if (warmRestored) {
+                    window.__SX_WARM_BOOT_RESTORED = true;
                     try { Ih(); } catch (_) {}
                     mS();
+                } else if ((typeof sxIsBootSkinPending === "function" && sxIsBootSkinPending()) || (typeof window.__SX_IS_BOOT_SKIN_PENDING === "function" && window.__SX_IS_BOOT_SKIN_PENDING())) {
+                    // A boot skin is currently loading in parallel. Do not render Sexcapades
+                    // first only to immediately discard it and re-render the target skin.
+                    // The bootSkin pipeline in skin-loader will perform the sole initial render.
+                    mS();
+                    t.setTimeout(() => {
+                        if (!window.__SX_ACTIVE_SKIN && (!In || In.childNodes.length === 0)) {
+                            Mr({ animate: !1 });
+                            Ih();
+                        }
+                    }, 1500);
                 } else {
                     requestAnimationFrame(() => t.setTimeout(() => {
                         Mr({ animate: !1 });

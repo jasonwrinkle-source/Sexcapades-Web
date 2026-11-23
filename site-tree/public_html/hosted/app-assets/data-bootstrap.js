@@ -21813,8 +21813,19 @@ function dkEvaluateCrossingDrop(before, after, threshold = 0.75) {
         // to "sexcapades" — consistently on save AND restore, or the
         // Sexcapades cache would never match.
         function sxWarmBootSkin() {
-            var s = (typeof window !== "undefined" && window.__SX_ACTIVE_SKIN) || "sexcapades";
-            return String(s);
+            var s = (typeof window !== "undefined" && window.__SX_ACTIVE_SKIN);
+            if (s) return String(s);
+            if (typeof sxAnalyticsSkin === "function") return sxAnalyticsSkin();
+            try {
+                if (typeof window.__SX_SKIN_FROM_URL === "function") {
+                    var u = window.__SX_SKIN_FROM_URL();
+                    if (u) return u;
+                }
+                if (typeof window.__SX_SKIN_FOR_HOSTNAME === "function") {
+                    return window.__SX_SKIN_FOR_HOSTNAME(location.hostname);
+                }
+            } catch (_) {}
+            return "sexcapades";
         }
         function sxWarmBootStorageKey(skin) {
             return SX_WARM_BOOT_STORAGE_KEY + ":" + (skin || sxWarmBootSkin());
@@ -22003,6 +22014,7 @@ function dkEvaluateCrossingDrop(before, after, threshold = 0.75) {
                                 if (typeof yr === "function" && typeof h !== "undefined" && h && h.length) yr(h[0]);
                             } catch (_) {}
                             window.__sxBootChunkPaint = 0;
+                            window.__SX_WARM_BOOT_RESTORED = true;
                             if (typeof window.__sxBootProgress === "function") window.__sxBootProgress(100);
                             if (typeof window.__sxBootFinish === "function") window.__sxBootFinish(false);
                             if (typeof window.__sxLoad === "function") window.__sxLoad(100);
@@ -30631,6 +30643,7 @@ function* sxRunNodeSettle(scCtx, blitSess) {
                 return false;
             }
         }
+        window.__SX_IS_BOOT_SKIN_PENDING = sxIsBootSkinPending;
         window.__SX_REBUILD_OUTLINE = function () {
             if (window.__SX_PENDING_OUTLINE_BOOT) {
                 const pendingArg = window.__SX_PENDING_OUTLINE_BOOT;
@@ -50623,8 +50636,20 @@ yk([ "Spitting", "Spit play", "Being spit on", "Spitting on someone" ], "t0341")
                     warmRestored = await window.SexcapadesEngine?.Map?.tryRestoreWarmBoot?.();
                 } catch (_) {}
                 if (warmRestored) {
+                    window.__SX_WARM_BOOT_RESTORED = true;
                     try { Ih(); } catch (_) {}
                     mS();
+                } else if ((typeof sxIsBootSkinPending === "function" && sxIsBootSkinPending()) || (typeof window.__SX_IS_BOOT_SKIN_PENDING === "function" && window.__SX_IS_BOOT_SKIN_PENDING())) {
+                    // A boot skin is currently loading in parallel. Do not render Sexcapades
+                    // first only to immediately discard it and re-render the target skin.
+                    // The bootSkin pipeline in skin-loader will perform the sole initial render.
+                    mS();
+                    t.setTimeout(() => {
+                        if (!window.__SX_ACTIVE_SKIN && (!In || In.childNodes.length === 0)) {
+                            Mr({ animate: !1 });
+                            Ih();
+                        }
+                    }, 1500);
                 } else {
                     requestAnimationFrame(() => t.setTimeout(() => {
                         Mr({ animate: !1 });
