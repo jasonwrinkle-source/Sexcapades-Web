@@ -506,7 +506,7 @@
             }), n;
         }
         const ve = new Map;
-        b.forEach(e => e.topics.forEach((t, n) => ve.set(e.name + "\0" + t, (be[e.name] || [])[n] || "star")));
+        b.forEach(e => e.topics.forEach((t, n) => ve.set(e.name + "\0" + t, (window.__SX_EXPORT_BE?.[e.name] || [])[n] || "star")));
         function xe(e) {
             return ke[e] || e.replace(/([a-z])([A-Z])/g, "$1 $2").replace(/\d+/g, "").trim();
         }

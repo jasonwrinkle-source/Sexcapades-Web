@@ -2101,7 +2101,7 @@
             "Fantasy & transformation": [ "heart", "rose", "stranger", "keyhole", "horns", "ufo", "resize", "swapBody", "paw", "arrows", "hanger", "ribbon", "star" ],
             "Connection & aftercare": [ "chat", "hug", "cup", "cloud", "star", "checklist", "moon", "calendar" ]
         }, ve = new Map;
-        b.forEach(e => e.topics.forEach((t, n) => ve.set(e.name + "\0" + t, (be[e.name] || [])[n] || "star")));
+        b.forEach(e => e.topics.forEach((t, n) => ve.set(e.name + "\0" + t, (window.__SX_EXPORT_BE?.[e.name] || [])[n] || "star")));
         const we = {
             "Power exchange": "crown",
             "Bondage & restriction": "chain links",

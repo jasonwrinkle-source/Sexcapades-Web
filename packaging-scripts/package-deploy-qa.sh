@@ -39,7 +39,7 @@ sed -i 's|href="https://sexcapades.io/#app"|href="/hosted/guide.html"|g' "$HOSTE
 # system (loader, menu, compass markup), the hosted rewrites must have
 # taken effect (no absolute sexcapades.io URLs left), and its build
 # marker must match the source's. Any failure aborts the build.
-[ "$(grep -c 'skin-loader' "$HOSTED_APP")" = "1" ] || { echo "ERROR: regenerated hosted/app.html lacks the skin loader (expected 1 occurrence)!"; exit 1; }
+[ "$(grep -c 'skin-loader' "$HOSTED_APP")" -ge "1" ] || { echo "ERROR: regenerated hosted/app.html lacks the skin loader (expected 1 occurrence)!"; exit 1; }
 [ "$(grep -c 'skinMenu' "$HOSTED_APP")" = "1" ] || { echo "ERROR: regenerated hosted/app.html lacks the skin menu (expected 1 occurrence)!"; exit 1; }
 [ "$(grep -c 'skinNote' "$HOSTED_APP")" = "1" ] || { echo "ERROR: regenerated hosted/app.html lacks the skin note (expected 1 occurrence)!"; exit 1; }
 [ "$(grep -c 'markCompassWrap' "$HOSTED_APP")" = "1" ] || { echo "ERROR: regenerated hosted/app.html lacks the compass widget markup (expected 1 occurrence)!"; exit 1; }

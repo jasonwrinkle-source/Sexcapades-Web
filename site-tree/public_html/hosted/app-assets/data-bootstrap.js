@@ -4203,7 +4203,7 @@ const he = [ [ "t0281", "t0240" ] ];
             arrows: me("M2 5h9m0 0L9 3m2 2L9 7m3 4H5m0 0 2-2m-2 2 2 2")
         };
 
-        const be = {
+        window.__SX_EXPORT_BE = {
 "Power exchange": [ "compass", "checklist", "ring", "medal", "scale", "hands", "stage", "infinity" ],
             "Bondage & restriction": [ "coil", "bow", "knot", "cuffs", "spreader", "tape", "mouth", "cocoon", "chair", "blindfold", "key", "lock" ],
             "Impact, pain & body modification": [ "hand", "paddle", "tassel", "cane", "crop", "lash", "clamp", "claw", "comb", "needle", "target", "shield" ],
@@ -5012,7 +5012,7 @@ const Ce = {
             }), n;
         }
         const ve = new Map;
-        b.forEach(e => e.topics.forEach((t, n) => ve.set(e.name + "\0" + t, (be[e.name] || [])[n] || "star")));
+        b.forEach(e => e.topics.forEach((t, n) => ve.set(e.name + "\0" + t, (window.__SX_EXPORT_BE?.[e.name] || [])[n] || "star")));
         function xe(e) {
             return ke[e] || e.replace(/([a-z])([A-Z])/g, "$1 $2").replace(/\d+/g, "").trim();
         }
@@ -7502,7 +7502,7 @@ const Ce = {
             "Fantasy & transformation": [ "heart", "rose", "stranger", "keyhole", "horns", "ufo", "resize", "swapBody", "paw", "arrows", "hanger", "ribbon", "star" ],
             "Connection & aftercare": [ "chat", "hug", "cup", "cloud", "star", "checklist", "moon", "calendar" ]
         }, ve = new Map;
-        b.forEach(e => e.topics.forEach((t, n) => ve.set(e.name + "\0" + t, (be[e.name] || [])[n] || "star")));
+        b.forEach(e => e.topics.forEach((t, n) => ve.set(e.name + "\0" + t, (window.__SX_EXPORT_BE?.[e.name] || [])[n] || "star")));
         const we = {
             "Power exchange": "crown",
             "Bondage & restriction": "chain links",
