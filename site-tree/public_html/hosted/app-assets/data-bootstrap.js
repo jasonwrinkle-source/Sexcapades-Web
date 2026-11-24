@@ -31061,6 +31061,9 @@ var Vl = [], Yl = [], Xl = new Map();
                     }), ql.appendChild(n);
                 });
             }
+            if (typeof tc !== "undefined" && tc && typeof tc.render === "function") {
+                tc.render(Yl, { grouped: !0 });
+            }
         }
 var sxCommittedFocus = null, sxFocusFrame = 0;
         function sxStopFocusZoom() {

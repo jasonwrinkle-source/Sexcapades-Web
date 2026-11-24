@@ -237,6 +237,9 @@ zlRenderRows(), t.length ? d(Math.max(0, t.findIndex(e => e.value === s)), {
                     }), ql.appendChild(n);
                 });
             }
+            if (typeof tc !== "undefined" && tc && typeof tc.render === "function") {
+                tc.render(Yl, { grouped: !0 });
+            }
         }
         let sxCommittedFocus = null, sxFocusFrame = 0;
         function sxStopFocusZoom() {
