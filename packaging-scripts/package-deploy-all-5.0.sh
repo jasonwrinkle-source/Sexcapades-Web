@@ -210,6 +210,13 @@ verify_failed=""
 fail() { verify_failed=1; echo "  FAIL: $1"; }
 
 echo "11. Verifying tarball..."
+# Verify against a single on-disk extraction of the finished tarball
+# instead of re-reading the archive per check (one decompression pass
+# instead of ~30). The files checked are the tarball's own bytes.
+VERIFY="$WORK/verify"
+mkdir -p "$VERIFY"
+tar --no-same-owner -xzf "$OUTFILE" -C "$VERIFY" || { echo "ERROR: could not extract tarball for verification"; exit 1; }
+V="$VERIFY/capades.io"
 LISTING=$(tar -tzf "$OUTFILE")
 for req in capades.io/public_html/.htaccess \
            capades.io/public_html/index.html \
@@ -245,22 +252,22 @@ if echo "$LISTING" | grep -qx 'capades.io/index.html'; then
   fail "stray capades.io/index.html (would overwrite the gate)"
 fi
 
-if ! tar -xzOf "$OUTFILE" capades.io/public_html/hosted/app.html 2>/dev/null | grep -qF "$EXPECTED_BUILD"; then
+if ! grep -qF "$EXPECTED_BUILD" "$V/public_html/hosted/app.html"; then
   fail "packaged hosted/app.html lacks the source build marker: $EXPECTED_BUILD"
 fi
 
-MANIFEST_JSON=$(tar -xzOf "$OUTFILE" capades.io/public_html/hosted/app-assets/version-manifest.json 2>/dev/null || true)
+MANIFEST_JSON=$(cat "$V/public_html/hosted/app-assets/version-manifest.json" 2>/dev/null || true)
 if [ -z "$MANIFEST_JSON" ]; then
   fail "packaged version-manifest.json missing or unreadable"
 elif ! printf '%s' "$MANIFEST_JSON" | python3 -c "import json,sys; m=json.load(sys.stdin); assert m['build']=='$BUILD_NUM'; assert len(m['files'])==18" 2>/dev/null; then
   fail "packaged version-manifest.json is invalid, names the wrong build, or lists != 18 files"
 fi
 
-if ! tar -xzOf "$OUTFILE" capades.io/public_html/.htaccess 2>/dev/null | grep -q 'version-manifest'; then
+if ! grep -q 'version-manifest' "$V/public_html/.htaccess"; then
   fail "packaged .htaccess lacks the version-manifest no-cache rule"
 fi
 
-SW_CACHE=$(tar -xzOf "$OUTFILE" capades.io/public_html/sw.js 2>/dev/null | grep -o 'sexcapades-v[0-9]\{4\}-[0-9]\{2\}-[0-9]\{2\}_[0-9]\{4\}' | head -1 || true)
+SW_CACHE=$(grep -o 'sexcapades-v[0-9]\{4\}-[0-9]\{2\}-[0-9]\{2\}_[0-9]\{4\}' "$V/public_html/sw.js" | head -1 || true)
 if [ "$SW_CACHE" != "sexcapades-v$BUILD_NUM" ]; then
   fail "packaged sw.js cache name '${SW_CACHE:-none}' != sexcapades-v$BUILD_NUM"
 fi
@@ -273,12 +280,12 @@ if [ "$MANIFEST_COUNT_PKG" != "19" ]; then
   fail "packaged per-skin manifest count $MANIFEST_COUNT_PKG != 19"
 fi
 for mp in $(echo "$LISTING" | grep '^capades.io/public_html/manifests/.*\.json$' || true); do
-  MJ=$(tar -xzOf "$OUTFILE" "$mp" 2>/dev/null || true)
+  MJ=$(cat "$VERIFY/$mp" 2>/dev/null || true)
   if [ -z "$MJ" ]; then fail "packaged manifest unreadable: $mp"; continue; fi
   if printf '%s' "$MJ" | grep -q '__SX_CACHE__'; then fail "packaged manifest carries literal __SX_CACHE__: $mp"; fi
   if ! printf '%s' "$MJ" | grep -q "v=$BUILD_NUM"; then fail "packaged manifest lacks build-stamped icon URLs: $mp"; fi
 done
-SMJ=$(tar -xzOf "$OUTFILE" capades.io/public_html/manifest.json 2>/dev/null || true)
+SMJ=$(cat "$V/public_html/manifest.json" 2>/dev/null || true)
 if [ -z "$SMJ" ]; then
   fail "packaged shared manifest.json missing or unreadable"
 elif ! printf '%s' "$SMJ" | grep -q '/icons/skins/flex-512.png'; then
@@ -288,7 +295,7 @@ elif printf '%s' "$SMJ" | grep -q '/icons/icon-512.png'; then
 elif printf '%s' "$SMJ" | grep -q '__SX_CACHE__'; then
   fail "packaged shared manifest carries literal __SX_CACHE__"
 fi
-SWJ=$(tar -xzOf "$OUTFILE" capades.io/public_html/sw.js 2>/dev/null || true)
+SWJ=$(cat "$V/public_html/sw.js" 2>/dev/null || true)
 if ! printf '%s' "$SWJ" | grep -q "/icons/skins/flex-512.png?v=$BUILD_NUM"; then
   fail "packaged sw.js precache lacks the stamped Flex 512 icon URL"
 fi
@@ -301,7 +308,7 @@ for p in sex flex polis fores chem aesth experi dharma matter philo praxi quanta
   done
 done
 
-SHELL_REFS=$(tar -xzOf "$OUTFILE" capades.io/public_html/hosted/app.html 2>/dev/null | grep -oE '"/hosted/app-assets/[^"]+"' || true)
+SHELL_REFS=$(grep -oE '"/hosted/app-assets/[^"]+"' "$V/public_html/hosted/app.html" || true)
 for ref in $SHELL_REFS; do
   refpath=${ref//\"/}
   case "$refpath" in
@@ -311,16 +318,16 @@ for ref in $SHELL_REFS; do
   esac
 done
 
-if ! tar -xzOf "$OUTFILE" capades.io/public_html/hosted/gate-assets/gate.js 2>/dev/null | grep -q 'getReturnDestination'; then
+if ! grep -q 'getReturnDestination' "$V/public_html/hosted/gate-assets/gate.js"; then
   fail "packaged gate bundle lacks getReturnDestination"
 fi
-if ! tar -xzOf "$OUTFILE" capades.io/public_html/hosted/guide-assets/guide.js 2>/dev/null | grep -q 'showGuidePage'; then
+if ! grep -q 'showGuidePage' "$V/public_html/hosted/guide-assets/guide.js"; then
   fail "packaged guide bundle lacks showGuidePage"
 fi
-if ! tar -xzOf "$OUTFILE" capades.io/public_html/hosted/quickstart.html 2>/dev/null | grep -q '#app/scan'; then
+if ! grep -q '#app/scan' "$V/public_html/hosted/quickstart.html"; then
   fail "packaged quickstart.html lost its Scan link (#app/scan)"
 fi
-if ! tar -xzOf "$OUTFILE" capades.io/public_html/hosted/guide.html 2>/dev/null | grep -q 'sexcapades_age_verified'; then
+if ! grep -q 'sexcapades_age_verified' "$V/public_html/hosted/guide.html"; then
   fail "packaged guide.html lost its inline age-verified check"
 fi
 
