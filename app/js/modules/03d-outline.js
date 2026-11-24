@@ -2141,7 +2141,19 @@
         const Bl = e.byId("searchInput"), jl = e.byId("searchDropdown"), ql = e.byId("topicPicker"), Hl = e.byId("topicPickerButton"), Wl = e.byId("topicPickerMenu"), Ul = [], Gl = G(h, z);
         function Kl(e, t = !1) {
             const n = !t && e.hankyKey && "subcategory" !== e.hankyKey ? ` data-hanky-code="${Hi(e.hankyKey)}"` : "";
-            return `<svg class="glance-tooltip-practice-icon ${t ? "branch-icon" : "topic-icon"}${"subcategory" === e.hankyKey ? " subcategory-icon" : "noCode" === e.hankyKey ? " no-hanky-code-icon" : ""}" viewBox="0 0 48 48" aria-hidden="true"${n} style="--icon-family:${Hi(e.color)};color:${Hi(e.color)}"><circle class="icon-ring-outline icon-ring-outline-outer" cx="24" cy="24" r="23.5"/><circle class="icon-disc" cx="24" cy="24" r="22"/><circle class="icon-ring-outline icon-ring-outline-inner" cx="24" cy="24" r="20.5"/><g transform="${t ? "scale(2)" : "translate(8 8) scale(2)"}">${e.glyph}${e.accent || ""}</g></svg>`;
+            const is24 = t || Boolean(e.glyph && (
+                e.glyph.includes('M9 5a3') ||
+                e.glyph.includes('M5 17') ||
+                e.glyph.includes('M12 3') ||
+                e.glyph.includes('M4 6a2') ||
+                e.glyph.includes('M2 12s') ||
+                e.glyph.includes('M8 11') ||
+                e.glyph.includes('M3 ') ||
+                e.glyph.includes('M20 ')
+            ));
+            const gScale = is24 ? (48 / 28) : 2;
+            const gShift = is24 ? (48 / 14) : 8;
+            return `<svg class="glance-tooltip-practice-icon ${t ? "branch-icon" : "topic-icon"}${"subcategory" === e.hankyKey ? " subcategory-icon" : "noCode" === e.hankyKey ? " no-hanky-code-icon" : ""}" viewBox="0 0 48 48" aria-hidden="true"${n} style="--icon-family:${Hi(e.color)};color:${Hi(e.color)}"><circle class="icon-ring-outline icon-ring-outline-outer" cx="24" cy="24" r="23.5"/><circle class="icon-disc" cx="24" cy="24" r="22"/><circle class="icon-ring-outline icon-ring-outline-inner" cx="24" cy="24" r="20.5"/><g transform="translate(${gShift.toFixed(3)} ${gShift.toFixed(3)}) scale(${gScale.toFixed(4)})">${e.glyph}${e.accent || ""}</g></svg>`;
         }
         function zl(e) {
             let t = [], i = [], a = -1, r = !1;
