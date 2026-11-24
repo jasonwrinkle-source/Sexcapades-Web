@@ -616,22 +616,12 @@
             const HubRenderer = {
                 renderIcon(id, diameter, glyphData, tapTarget, color, cx, cy, isBranch = false, isSubcategory = false, partyHoldings = null, interestDisc = null) {
                     const r = diameter / 2;
-                    const is24 = isBranch || Boolean(glyphData.glyph && (
-                        glyphData.glyph.includes('M9 5a3') ||
-                        glyphData.glyph.includes('M5 17') ||
-                        glyphData.glyph.includes('M12 3') ||
-                        glyphData.glyph.includes('M4 6a2') ||
-                        glyphData.glyph.includes('M2 12s') ||
-                        glyphData.glyph.includes('M8 11') ||
-                        glyphData.glyph.includes('M3 ') ||
-                        glyphData.glyph.includes('M20 ')
-                    ));
-                    const scale = is24 ? (diameter / 28) : (diameter / 24);
-                    const shift = is24 ? (diameter / 14) : (diameter / 6);
+                    const iconSize = diameter * 0.62;
+                    const iconOffset = (diameter - iconSize) / 2;
                     const fallbackAttr = glyphData.glyphFallback ? ' data-glyph-fallback="star"' : "";
                     const cls = isBranch ? `branch-icon${"noCode" === glyphData.hankyKey ? " no-hanky-code-icon" : ""}` :
                         `topic-icon${isSubcategory ? " subcategory-icon" : "noCode" === glyphData.hankyKey ? " no-hanky-code-icon" : ""}${glyphData.glyphFallback ? " glyph-fallback" : ""}`;
-                    const innerContent = `<g transform="translate(${shift.toFixed(3)} ${shift.toFixed(3)}) scale(${scale.toFixed(5)})">${glyphData.glyph}${glyphData.accent || ""}</g>`;
+                    const innerContent = `<svg viewBox="0 0 24 24" width="${iconSize.toFixed(2)}" height="${iconSize.toFixed(2)}" x="${iconOffset.toFixed(2)}" y="${iconOffset.toFixed(2)}" overflow="visible">${glyphData.glyph}${glyphData.accent || ""}</svg>`;
                     let discMarkup;
                     const rd = r - 2;
                     if (partyHoldings && partyHoldings.length === 2 && !isBranch) {
