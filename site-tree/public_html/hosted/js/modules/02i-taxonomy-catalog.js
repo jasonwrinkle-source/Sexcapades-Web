@@ -1418,7 +1418,7 @@
             },
             "Partner configurations": {
                 color: "#5ab0da",
-                glyph: '<path class="icon-glyph" d="M8 11a3 3 0 1 0 0-6 3 3 0 0 0 0 6Zm8 0a3 3 0 1 0 0-6 3 3 0 0 0 0 6ZM3 21v-4a5 5 0 0 1 10 0v4m-2-7a5 5 0 0 1 10 3v4"/>'
+                glyph: '<path class="icon-glyph" d="M4 6a2 2 0 1 0 0-4 2 2 0 0 0 0 4Zm8 0a2 2 0 1 0 0-4 2 2 0 0 0 0 4ZM1 15v-2a3 3 0 0 1 6 0v2m1-5a3 3 0 0 1 6 2v3"/>'
             },
             "Sex acts": {
                 color: "#6ca8df",

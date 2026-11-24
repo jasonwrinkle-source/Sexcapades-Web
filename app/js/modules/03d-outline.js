@@ -2141,10 +2141,7 @@
         const Bl = e.byId("searchInput"), jl = e.byId("searchDropdown"), ql = e.byId("topicPicker"), Hl = e.byId("topicPickerButton"), Wl = e.byId("topicPickerMenu"), Ul = [], Gl = G(h, z);
         function Kl(e, t = !1) {
             const n = !t && e.hankyKey && "subcategory" !== e.hankyKey ? ` data-hanky-code="${Hi(e.hankyKey)}"` : "";
-            const is24 = e.glyph && (e.glyph.includes('viewBox="0 0 24 24"') || e.glyph.includes('M3 ') || e.glyph.includes('M8 ') || e.glyph.includes('M5 ') || e.glyph.includes('M2 12'));
-            const gScale = is24 ? (48 / 36) : 2;
-            const cid = `kl-clip-${String(e.id || 'glyph').toLowerCase().replace(/[^a-z0-9]/g, '-')}`;
-            return `<svg class="glance-tooltip-practice-icon ${t ? "branch-icon" : "topic-icon"}${"subcategory" === e.hankyKey ? " subcategory-icon" : "noCode" === e.hankyKey ? " no-hanky-code-icon" : ""}" viewBox="0 0 48 48" aria-hidden="true"${n} style="--icon-family:${Hi(e.color)};color:${Hi(e.color)}"><defs><clipPath id="${cid}"><circle cx="24" cy="24" r="20.5"/></clipPath></defs><circle class="icon-ring-outline icon-ring-outline-outer" cx="24" cy="24" r="23.5"/><circle class="icon-disc" cx="24" cy="24" r="22"/><circle class="icon-ring-outline icon-ring-outline-inner" cx="24" cy="24" r="20.5"/><g clip-path="url(#${cid})" transform="${t ? "scale(2)" : `translate(8 8) scale(${gScale.toFixed(4)})`}">${e.glyph}${e.accent || ""}</g></svg>`;
+            return `<svg class="glance-tooltip-practice-icon ${t ? "branch-icon" : "topic-icon"}${"subcategory" === e.hankyKey ? " subcategory-icon" : "noCode" === e.hankyKey ? " no-hanky-code-icon" : ""}" viewBox="0 0 48 48" aria-hidden="true"${n} style="--icon-family:${Hi(e.color)};color:${Hi(e.color)}"><circle class="icon-ring-outline icon-ring-outline-outer" cx="24" cy="24" r="23.5"/><circle class="icon-disc" cx="24" cy="24" r="22"/><circle class="icon-ring-outline icon-ring-outline-inner" cx="24" cy="24" r="20.5"/><g transform="${t ? "scale(2)" : "translate(8 8) scale(2)"}">${e.glyph}${e.accent || ""}</g></svg>`;
         }
         function zl(e) {
             let t = [], i = [], a = -1, r = !1;
