@@ -25545,13 +25545,18 @@ var SX_OCTAD_COLORS = ["#22c55e", "#10b981", "#06b6d4", "#3b82f6", "#6366f1", "#
 
             const HubRenderer = {
                 renderIcon(id, diameter, glyphData, tapTarget, color, cx, cy, isBranch = false, isSubcategory = false, partyHoldings = null, interestDisc = null) {
-                    const r = diameter / 2, scale = diameter / 24, shift = diameter / 6;
+                    const r = diameter / 2;
+                    const is24 = glyphData.glyph && (glyphData.glyph.includes('viewBox="0 0 24 24"') || glyphData.glyph.includes('M3 ') || glyphData.glyph.includes('M8 ') || glyphData.glyph.includes('M5 ') || glyphData.glyph.includes('M2 12'));
+                    const glyphScale = is24 ? (diameter / 36) : (diameter / 24);
+                    const shift = diameter / 6;
+                    const clipId = `sx-clip-${String(id || "glyph").toLowerCase().replace(/[^a-z0-9]/g, "-")}`;
+                    const clipDefs = `<defs><clipPath id="${clipId}"><circle cx="${r}" cy="${r}" r="${r - 3.5}"/></clipPath></defs>`;
                     const fallbackAttr = glyphData.glyphFallback ? ' data-glyph-fallback="star"' : "";
                     const cls = isBranch ? `branch-icon${"noCode" === glyphData.hankyKey ? " no-hanky-code-icon" : ""}` :
                         `topic-icon${isSubcategory ? " subcategory-icon" : "noCode" === glyphData.hankyKey ? " no-hanky-code-icon" : ""}${glyphData.glyphFallback ? " glyph-fallback" : ""}`;
                     const innerContent = isBranch ?
-                        `<g transform="scale(${scale.toFixed(5)})">${glyphData.glyph}</g>` :
-                        `<g transform="translate(${shift.toFixed(3)} ${shift.toFixed(3)}) scale(${scale.toFixed(5)})">${glyphData.glyph}${glyphData.accent || ""}</g>`;
+                        `${clipDefs}<g clip-path="url(#${clipId})" transform="scale(${(diameter / 24).toFixed(5)})">${glyphData.glyph}</g>` :
+                        `${clipDefs}<g clip-path="url(#${clipId})" transform="translate(${shift.toFixed(3)} ${shift.toFixed(3)}) scale(${glyphScale.toFixed(5)})">${glyphData.glyph}${glyphData.accent || ""}</g>`;
                     let discMarkup;
                     const rd = r - 2;
                     if (partyHoldings && partyHoldings.length === 2 && !isBranch) {
@@ -30809,7 +30814,10 @@ var Ll = !1, Tl = null, Fl = null;
 var Bl = e.byId("searchInput"), jl = e.byId("searchDropdown"), ql = e.byId("topicPicker"), Hl = e.byId("topicPickerButton"), Wl = e.byId("topicPickerMenu"), Ul = [], Gl = G(h, z);
         function Kl(e, t = !1) {
             const n = !t && e.hankyKey && "subcategory" !== e.hankyKey ? ` data-hanky-code="${Hi(e.hankyKey)}"` : "";
-            return `<svg class="glance-tooltip-practice-icon ${t ? "branch-icon" : "topic-icon"}${"subcategory" === e.hankyKey ? " subcategory-icon" : "noCode" === e.hankyKey ? " no-hanky-code-icon" : ""}" viewBox="0 0 48 48" aria-hidden="true"${n} style="--icon-family:${Hi(e.color)};color:${Hi(e.color)}"><circle class="icon-ring-outline icon-ring-outline-outer" cx="24" cy="24" r="23.5"/><circle class="icon-disc" cx="24" cy="24" r="22"/><circle class="icon-ring-outline icon-ring-outline-inner" cx="24" cy="24" r="20.5"/><g transform="${t ? "scale(2)" : "translate(8 8) scale(2)"}">${e.glyph}${e.accent || ""}</g></svg>`;
+            const is24 = e.glyph && (e.glyph.includes('viewBox="0 0 24 24"') || e.glyph.includes('M3 ') || e.glyph.includes('M8 ') || e.glyph.includes('M5 ') || e.glyph.includes('M2 12'));
+            const gScale = is24 ? (48 / 36) : 2;
+            const cid = `kl-clip-${String(e.id || 'glyph').toLowerCase().replace(/[^a-z0-9]/g, '-')}`;
+            return `<svg class="glance-tooltip-practice-icon ${t ? "branch-icon" : "topic-icon"}${"subcategory" === e.hankyKey ? " subcategory-icon" : "noCode" === e.hankyKey ? " no-hanky-code-icon" : ""}" viewBox="0 0 48 48" aria-hidden="true"${n} style="--icon-family:${Hi(e.color)};color:${Hi(e.color)}"><defs><clipPath id="${cid}"><circle cx="24" cy="24" r="20.5"/></clipPath></defs><circle class="icon-ring-outline icon-ring-outline-outer" cx="24" cy="24" r="23.5"/><circle class="icon-disc" cx="24" cy="24" r="22"/><circle class="icon-ring-outline icon-ring-outline-inner" cx="24" cy="24" r="20.5"/><g clip-path="url(#${cid})" transform="${t ? "scale(2)" : `translate(8 8) scale(${gScale.toFixed(4)})`}">${e.glyph}${e.accent || ""}</g></svg>`;
         }
         function zl(e) {
             let t = [], i = [], a = -1, r = !1;
