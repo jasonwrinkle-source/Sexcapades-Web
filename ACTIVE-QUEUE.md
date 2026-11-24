@@ -10,8 +10,8 @@
 **Maintenance rule (Jason, 2026-11-19).** When you finish or settle an item listed
 here, strike it (`~~...~~`) or mark it settled as part of that same work. Prune
 settled batches periodically so this list reflects only live items. (Pruned
-2026-11-23: all settled items through the palimpsest removed; their record
-lives in git history, the daily logs, and MEMORY.md.)
+2026-11-23: all settled items through the refactoring roadmap cleared; record
+lives in git history, daily logs, and MEMORY.md.)
 
 ---
 
