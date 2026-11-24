@@ -81,6 +81,10 @@ for p in parts:
         # Normalize line endings
         code = code.replace('\r\n', '\n').replace('\r', '\n')
 
+        # Convert top-level const and let to var so module redeclarations in flat bundle scope never throw SyntaxError
+        code = re.sub(r'^(?:        )?const\s+', 'var ', code, flags=re.MULTILINE)
+        code = re.sub(r'^(?:        )?let\s+', 'var ', code, flags=re.MULTILINE)
+
         combined_code.append(f"/* --- Module: {p} --- */\n" + code)
 
 bundle_text = "/* --- TaxoPolemics / Flexcapades Bundled Bootstrap --- */\n" + "\n".join(combined_code) + "\n"
