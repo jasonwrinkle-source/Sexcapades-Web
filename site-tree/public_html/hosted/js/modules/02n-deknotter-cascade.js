@@ -50,59 +50,6 @@
         // pre-run snapshot through restore() and verifies the restore
         // canonically; every exit path ends the run context and
         // leaves the branch's fit registry empty.
-import {
-    dkMedian,
-    dkRange,
-    DK_SHRINK_STEPS_FIXED,
-    DK_LADDER_MAX_STAGES,
-    dkLadderSteps,
-    dkLadderValue,
-    dkFitDeviationCount,
-    dkDeliveredItemRadius,
-    dkDeliveredRadii,
-    dkBranchTaxonomy,
-    dkBakeGate,
-    tallyFitDev,
-    clearBranchFit,
-    diagRound,
-    diagCameraText,
-    yieldNow,
-    witnessFrameSeq,
-    witnessLastFrame,
-    throwBracketBefore,
-    diagPrePaintHub,
-    resetWitnessState,
-    witnessSubs,
-    witnessFrame,
-    witnessRestore,
-    witnessPaintedFrame,
-    diagClosingLines,
-    diagPause,
-    throwBracketPoint,
-    focusThrowedActiveNode,
-    diagText,
-    witnessFinalJudge,
-    diagCaptureView,
-    witnessJudge,
-    dkPaintedNodeCentre,
-    dkPaintedStemSeg,
-    dkPaintedGeometry,
-    diagCamera,
-    diagHubIdentity,
-    witnessPaintedJudge,
-    throwBracketFullPaint,
-    diagRegistrySnapshot,
-    diagOnDemandPaint,
-    diag00Capture,
-    throwBracketSnapshot,
-    diagSnapshot
-} from './02n1-deknotter-diagnostics.js';
-import {
-    dkValidatePhaseRatios,
-    dkComputeLadderSchedule,
-    dkConvertRenderedToOverride,
-    dkEvaluateCrossingDrop
-} from './02n2-deknotter-solver.js';
 
         let lastKeptSnapshot;
         function captureKept(dk, refreshKeptFit, name) {

@@ -2,10 +2,6 @@
 // Pure calculation routines extracted from 02n-deknotter-cascade.js and 02l-deknotter-session.js
 // Handles ladder descent calculations, ratio checks, geometry projection, and constraint evaluation.
 
-import {
-    dkLadderSteps,
-    dkLadderValue
-} from './02n1-deknotter-diagnostics.js';
 
 /**
  * Validates phase length override ratios against baked bases.

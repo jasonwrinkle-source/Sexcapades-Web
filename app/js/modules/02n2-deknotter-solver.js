@@ -2,10 +2,6 @@
 // Pure calculation routines extracted from 02n-deknotter-cascade.js and 02l-deknotter-session.js
 // Handles ladder descent calculations, ratio checks, geometry projection, and constraint evaluation.
 
-import {
-    dkLadderSteps,
-    dkLadderValue
-} from './02n1-deknotter-diagnostics.js';
 
 /**
  * Validates phase length override ratios against baked bases.
@@ -13,7 +9,7 @@ import {
  * @param {number} cap Maximum allowed expansion ratio
  * @returns {Object} { ok: boolean, rejected: Array }
  */
-export function dkValidatePhaseRatios(patch, cap = 200) {
+function dkValidatePhaseRatios(patch, cap = 200) {
     if (!patch) return { ok: true, rejected: [] };
     const rejected = [];
     const checkGroup = (group, type) => {
@@ -40,7 +36,7 @@ export function dkValidatePhaseRatios(patch, cap = 200) {
  * @param {number} maxStages Maximum ladder stages allowed
  * @returns {Array<number>} Array of ladder step values
  */
-export function dkComputeLadderSchedule(from, to, maxStages = 512) {
+function dkComputeLadderSchedule(from, to, maxStages = 512) {
     if (!Number.isFinite(from) || !Number.isFinite(to) || !(from > to) || !(to > 0)) {
         return [];
     }
@@ -61,7 +57,7 @@ export function dkComputeLadderSchedule(from, to, maxStages = 512) {
  * @param {number} target Target distance in rendered map units
  * @returns {number} Converted override length
  */
-export function dkConvertRenderedToOverride(curLen, delivered, target) {
+function dkConvertRenderedToOverride(curLen, delivered, target) {
     if (!Number.isFinite(curLen) || curLen <= 0 ||
         !Number.isFinite(delivered) || delivered <= 0 ||
         !Number.isFinite(target) || target <= 0) {
@@ -77,7 +73,7 @@ export function dkConvertRenderedToOverride(curLen, delivered, target) {
  * @param {number} threshold Drop ratio threshold (e.g. 0.75 for 75%)
  * @returns {Object} { drop: number|null, substantial: boolean }
  */
-export function dkEvaluateCrossingDrop(before, after, threshold = 0.75) {
+function dkEvaluateCrossingDrop(before, after, threshold = 0.75) {
     if (before == null || !(before > 0) || after == null || !Number.isFinite(after)) {
         return { drop: null, substantial: false };
     }

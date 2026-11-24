@@ -1,1 +1,1 @@
-export const TAXONOMY_CATEGORIES = [];
+var TAXONOMY_CATEGORIES = [];

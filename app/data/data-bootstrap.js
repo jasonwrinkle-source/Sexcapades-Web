@@ -261,12 +261,12 @@ if (typeof window !== "undefined") {
         for (var i = 0; i < queue.length; i++) window.__sxRunInit(queue[i]);
     };
     try {
-var _origGetElementById = Document.prototype.getElementById;
+        const _origGetElementById = Document.prototype.getElementById;
         Document.prototype.getElementById = function(id) {
             if (id === "topicSheet") return _origGetElementById.call(this, "markMenu") || _origGetElementById.call(this, id);
             return _origGetElementById.call(this, id);
         };
-var _origQuerySelector = Document.prototype.querySelector;
+        const _origQuerySelector = Document.prototype.querySelector;
         Document.prototype.querySelector = function(sel) {
             if (typeof sel === "string" && sel.includes("#topicSheet")) {
                 const rewritten = sel.split("#topicSheet").join("#markMenu");
@@ -296,7 +296,7 @@ var __sxInit = window.__sxInit;
        (reading 'addEventListener')"). With defer in the artifact the DOM is
        already parsed and the extra wait resolves immediately. The leading
        "(window.__SEXCAPADES_DATA_READY" expression must stay at byte 0:
-       the optimizer identifies this bundle in the single-file by
+       the optimizer identifies this bundle in the single-file export by
        that decoded prefix. */
     if ("loading" === document.readyState) return new Promise(function(r) {
         document.addEventListener("DOMContentLoaded", r, {
@@ -311,12 +311,12 @@ var TAXONOMY_CATEGORIES = [];
 /* --- Module: 02a-taxonomy-models.js --- */
     !function() {
         "use strict";
-var {DOM: e, TimerManager: t, setHTML: n} = window.SexcapadesRuntime, i = [ "Hard Limit (×): HARD EXCLUDE the topic. Never mention it—not as action, dialogue, a tease, suggestion, fantasy, setup, backstory, or background detail.", "Not Interested (⊘): HARD EXCLUDE the topic exactly like a Hard Limit. Never mention it—not as action, dialogue, a tease, suggestion, fantasy, setup, backstory, or background detail.", "Favorite (★): PRIORITIZE the topic prominently over unmarked topics while obeying ratings, give/receive roles, shared-ground limits, and consent." ], a = [ "Fantasy-only (☁): INCLUDE only as a clearly imagined fantasy, dream, or internal thought; make clear it is imagined, not real-world play or willingness.", "Already Tried (✓): REFERENCE as past experience (for example, “they’d done this before”) without inventing details or assuming current consent." ], r = [ "Fantasy-only (☁): EXCLUDE entirely from practical play guides; never schedule, suggest, tease, or describe it as real-world play.", "Already Tried (✓): REFERENCE as past experience (for example, “Since you’ve tried X, you might…”) while confirming current consent and avoiding invented details." ], o = new Set;
+        const {DOM: e, TimerManager: t, setHTML: n} = window.SexcapadesRuntime, i = [ "Hard Limit (×): HARD EXCLUDE the topic. Never mention it—not as action, dialogue, a tease, suggestion, fantasy, setup, backstory, or background detail.", "Not Interested (⊘): HARD EXCLUDE the topic exactly like a Hard Limit. Never mention it—not as action, dialogue, a tease, suggestion, fantasy, setup, backstory, or background detail.", "Favorite (★): PRIORITIZE the topic prominently over unmarked topics while obeying ratings, give/receive roles, shared-ground limits, and consent." ], a = [ "Fantasy-only (☁): INCLUDE only as a clearly imagined fantasy, dream, or internal thought; make clear it is imagined, not real-world play or willingness.", "Already Tried (✓): REFERENCE as past experience (for example, “they’d done this before”) without inventing details or assuming current consent." ], r = [ "Fantasy-only (☁): EXCLUDE entirely from practical play guides; never schedule, suggest, tease, or describe it as real-world play.", "Already Tried (✓): REFERENCE as past experience (for example, “Since you’ve tried X, you might…”) while confirming current consent and avoiding invented details." ], o = new Set;
         /* Domain Terms Table for Skins & Internationalization (Flexcapades Engine)
            Defines terminology ABOUT each domain's taxonomy without conflating taxonomies.
            Each domain (Sexcapades = kink, Poliscapades = politics, Forescapades = religion)
            maintains its own independent taxonomy structure. */
-var SX_DOMAIN_DICTIONARIES = {
+        const SX_DOMAIN_DICTIONARIES = {
             sexcapades: {
                 appName: "Sexcapades",
                 domain: "Kink & Sexuality",
@@ -420,7 +420,7 @@ var SX_DOMAIN_DICTIONARIES = {
                 }
             }
         };
-var currentSkin = "sexcapades";
+        let currentSkin = "sexcapades";
         function sxGetDomainSkin() { return currentSkin; }
         function sxSetDomainSkin(skinName, customOverrides) {
             if (SX_DOMAIN_DICTIONARIES[skinName]) currentSkin = skinName;
@@ -467,9 +467,9 @@ var currentSkin = "sexcapades";
            that used to be scattered across 120 call sites live once in the
            __sxActionSelectors dispatch table, keyed by action name. A name
            missing from the table is passed through as a raw selector (the
-           hidden-badge sweep passes a computed one), so behavior at
+           export hidden-badge sweep passes a computed one), so behavior at
            every former call site is unchanged. */
-var __sxActionSelectors = {
+        const __sxActionSelectors = {
             directionControl: ".direction-control",
             nodeGroup: ".node-group",
             outlineDescTriggerRich: ".outline-description-trigger[data-outline-description]",
@@ -551,19 +551,19 @@ var __sxActionSelectors = {
             if (!res && window.__SX_ALLOW_DOM_FALLBACK) return el;
             return res;
         }
-var s = "";
+        let s = "";
         function l() {
             if (globalThis.crypto && "function" == typeof globalThis.crypto.randomUUID) return globalThis.crypto.randomUUID();
             const e = new Uint8Array(16);
             if (globalThis.crypto && "function" == typeof globalThis.crypto.getRandomValues) globalThis.crypto.getRandomValues(e); else for (let t = 0; t < e.length; t++) e[t] = Math.floor(256 * Math.random());
             return e[6] = 15 & e[6] | 64, e[8] = 63 & e[8] | 128, Array.from(e, (e, t) => `${4 === t || 6 === t || 8 === t || 10 === t ? "-" : ""}${e.toString(16).padStart(2, "0")}`).join("");
         }
-var makeProfileUuid = l;
+        const makeProfileUuid = l;
         function c() {
             return s || (s = makeProfileUuid()), s;
         }
         window.__sxAnonUuid = c;
-var d = function() {
+        const d = function() {
             let e = "";
             try {
                 e = new URLSearchParams(location.search).get("utm_source") || "";
@@ -577,7 +577,7 @@ var d = function() {
            layer (index.html) cannot see this closure, so it keeps its
            own mirror constant, SX_SHELL_COLLECT_URL, with the same
            value; keep the two in sync. */
-var SX_COLLECT_URL = "/hosted/api/collect.php";
+        const SX_COLLECT_URL = "/hosted/api/collect.php";
         async function u(e) {
             const t = await fetch(SX_COLLECT_URL, {
                 method: "POST",
@@ -737,7 +737,7 @@ var SX_COLLECT_URL = "/hosted/api/collect.php";
              topicRecords / subcategoryOverlay / displayNames — the
                frozen data tables, for existing readers.
            ================================================================ */
-var TaxonomyLoader = (() => {
+        const TaxonomyLoader = (() => {
             /** Expected taxonomy size: 18 categories, 44 subcategories, 411 topics. */
             const EXPECTED_COUNTS = Object.freeze({
                 categories: 18,
@@ -1043,11 +1043,11 @@ var TaxonomyLoader = (() => {
         // loader's merged category tree (identical shape and content to the
         // previous inline definition), and g / m remain as aliases of the
         // loader's frozen subcategory overlay and display-name map.
-var h = TaxonomyLoader.loadTaxonomy().categories, g = TaxonomyLoader.subcategoryOverlay, m = TaxonomyLoader.displayNames;
+        const h = TaxonomyLoader.loadTaxonomy().categories, g = TaxonomyLoader.subcategoryOverlay, m = TaxonomyLoader.displayNames;
         // Stable catalog identity. IDs are assigned once and stored here; they are never
         // derived from labels, hierarchy, or array order. New catalog topics must receive
         // max(existing numeric ID) + 1 and keep that ID permanently.
-var topicRecords = TaxonomyLoader.topicRecords, topicIdByLabel = Object.freeze(Object.fromEntries(Object.entries(topicRecords).map(([e, t]) => [ e, t.id ]))), topicLabelById = Object.freeze(Object.fromEntries(Object.entries(topicRecords).map(([e, t]) => [ t.id, e ]))), legacyTopicIdByOpaque = Object.freeze({
+        const topicRecords = TaxonomyLoader.topicRecords, topicIdByLabel = Object.freeze(Object.fromEntries(Object.entries(topicRecords).map(([e, t]) => [ e, t.id ]))), topicLabelById = Object.freeze(Object.fromEntries(Object.entries(topicRecords).map(([e, t]) => [ t.id, e ]))), legacyTopicIdByOpaque = Object.freeze({
             "t0002": "topic-protocols-rules",
             "t0003": "topic-collars-symbols",
             "t0004": "topic-reward-correction",
@@ -1467,7 +1467,7 @@ var topicRecords = TaxonomyLoader.topicRecords, topicIdByLabel = Object.freeze(O
         // catalog the file's topic ids and "topicNames" labels were
         // written against. Bump it whenever the catalog's topic set or a
         // topic's meaning changes.
-var TAXONOMY_VERSION = "2026-11-14";
+        const TAXONOMY_VERSION = "2026-11-14";
         // sxName's other copy lives inside the map IIFE in 02-taxonomy-core.js.
         // This catalog pass runs in the outer boot function, before that IIFE,
         // so it needs its own copy. Function declarations do not cross that boundary.
@@ -1497,7 +1497,7 @@ var TAXONOMY_VERSION = "2026-11-14";
 // hanky color palettes, and direction role labels.
 
 
-var ie = {
+const ie = {
             "decorative rope": "Shibari",
             "japanese-inspired bondage": "Shibari",
             "suspension bondage": "Suspension",
@@ -1587,10 +1587,10 @@ var ie = {
             crossdressing: "Crossdressing"
         };
 
-var ue = [ [ "Power exchange", "Psychological dynamics" ], [ "Power exchange", "Service & ritual" ], [ "Power exchange", "Roleplay & identity" ], [ "Bondage & restriction", "Impact, pain & body modification" ], [ "Bondage & restriction", "Sensation & atmosphere" ], [ "Impact, pain & body modification", "Primal & pursuit" ], [ "Impact, pain & body modification", "Connection & aftercare" ], [ "Sensation & atmosphere", "Clothing, materials & objects" ], [ "Sensation & atmosphere", "Body focus & appearance" ], [ "Roleplay & identity", "Fantasy & transformation" ], [ "Roleplay & identity", "Clothing, materials & objects" ], [ "Clothing, materials & objects", "Body focus & appearance" ], [ "Psychological dynamics", "Primal & pursuit" ], [ "Psychological dynamics", "Connection & aftercare" ], [ "Watching, exposure & settings", "Partner configurations" ], [ "Watching, exposure & settings", "Clothing, materials & objects" ], [ "Partner configurations", "Sex acts" ], [ "Partner configurations", "Fantasy & transformation" ], [ "Sex acts", "Positions" ], [ "Sex acts", "Orgasm & reproductive play" ], [ "Sex acts", "Fluids & messy play" ], [ "Orgasm & reproductive play", "Fluids & messy play" ], [ "Primal & pursuit", "Fantasy & transformation" ], [ "Service & ritual", "Connection & aftercare" ] ];
+const ue = [ [ "Power exchange", "Psychological dynamics" ], [ "Power exchange", "Service & ritual" ], [ "Power exchange", "Roleplay & identity" ], [ "Bondage & restriction", "Impact, pain & body modification" ], [ "Bondage & restriction", "Sensation & atmosphere" ], [ "Impact, pain & body modification", "Primal & pursuit" ], [ "Impact, pain & body modification", "Connection & aftercare" ], [ "Sensation & atmosphere", "Clothing, materials & objects" ], [ "Sensation & atmosphere", "Body focus & appearance" ], [ "Roleplay & identity", "Fantasy & transformation" ], [ "Roleplay & identity", "Clothing, materials & objects" ], [ "Clothing, materials & objects", "Body focus & appearance" ], [ "Psychological dynamics", "Primal & pursuit" ], [ "Psychological dynamics", "Connection & aftercare" ], [ "Watching, exposure & settings", "Partner configurations" ], [ "Watching, exposure & settings", "Clothing, materials & objects" ], [ "Partner configurations", "Sex acts" ], [ "Partner configurations", "Fantasy & transformation" ], [ "Sex acts", "Positions" ], [ "Sex acts", "Orgasm & reproductive play" ], [ "Sex acts", "Fluids & messy play" ], [ "Orgasm & reproductive play", "Fluids & messy play" ], [ "Primal & pursuit", "Fantasy & transformation" ], [ "Service & ritual", "Connection & aftercare" ] ];
 
-var he = [ [ "t0281", "t0240" ] ];
-var ge = {
+const he = [ [ "t0281", "t0240" ] ];
+        const ge = {
             "Power exchange": {
                 color: "#ef806e",
                 glyph: '<path class="icon-glyph" d="M5 17 7 8l5 5 5-5 2 9Z M7 20h10"/>'
@@ -2233,7 +2233,7 @@ var ge = {
             },
         };
 
-var me = e => `<path class="icon-glyph" d="${e}"/>`, fe = (e, t, n) => `<circle class="icon-glyph" cx="${e}" cy="${t}" r="${n}"/>`, ye = {
+        const me = e => `<path class="icon-glyph" d="${e}"/>`, fe = (e, t, n) => `<circle class="icon-glyph" cx="${e}" cy="${t}" r="${n}"/>`, ye = {
             compass: me("M8 2v12M2 8h12m-4-2-2 2-2 2 2-2Z"),
             checklist: me("M3 3h10v10H3Zm2 3 1 1 2-2m-3 5 1 1 2-2m2-3h2m-2 4h2"),
             key: me("M9 5a3 3 0 1 1-2 5l-4 4m2-2 1 1m1-3 1 1"),
@@ -2408,7 +2408,7 @@ var me = e => `<path class="icon-glyph" d="${e}"/>`, fe = (e, t, n) => `<circle 
             "Connection & aftercare": [ "chat", "hug", "cup", "cloud", "star", "checklist", "moon", "calendar" ]
         };
 
-var we = {
+const we = {
             "Power exchange": "crown",
             "Bondage & restriction": "chain links",
             "Impact, pain & body modification": "paddle",
@@ -2461,7 +2461,7 @@ var we = {
             lotus: "lotus"
         };
 
-var Se = {
+const Se = {
             black: "black",
             darkBlue: "dark blue",
             lightBlue: "light blue",
@@ -2479,7 +2479,7 @@ var Se = {
             noCode: "dark charcoal"
         };
 
-var Ee = Object.freeze({
+const Ee = Object.freeze({
             Materials: "stripes",
             Footwear: "heel",
             "Uniforms & costumes": "uniform",
@@ -2526,7 +2526,7 @@ var Ee = Object.freeze({
             Verbal: "speech"
         });
 
-var Ce = {
+const Ce = {
             black: {
                 color: "#111514",
                 labelStroke: "#dce1dd"
@@ -2605,7 +2605,7 @@ var Ce = {
             hunterGreen: [ "Authority roles", "Caregiver roles (adults)", "Age play between adults", "Pet play", "Pony Play", "Puppy play", "Owner & property", "Doctor/Nurse Play", "Teacher / student roleplay", "Hunter / prey" ],
             neutral: [ "Tantra / energy play" ]
         }).forEach(([e, t]) => t.forEach(t => Ie.set(t, e)));
-var Pe = {
+        const Pe = {
             key: "noCode",
             color: "#232726",
             lineColor: "#78817e",
@@ -2613,7 +2613,7 @@ var Pe = {
             labelStroke: "#1b201d"
         };
 
-var We = {
+        const We = {
 "cat-power-exchange": [ "dom", "sub" ],
             "cat-bondage-restriction": [ "restrains", "restrained" ],
             "cat-impact-pain-body-modification": [ "applies", "receives" ],
@@ -2676,7 +2676,7 @@ var We = {
             "t0385": [ "wears", "admires" ],
             "t0375": [ "accepts", "surrenders" ]
         };
-var SX_SUBSUMED_BASE_TOPIC_IDS = {
+        const SX_SUBSUMED_BASE_TOPIC_IDS = {
             "FemDom": "t0009", "D/s": "t0010", "Brats": "t0012", "Switching": "t0014", "Male Authority": "t0015",
             "Ongoing dynamics": "t0008", "24/7": "t0013", "Romantic surrender": "t0375",
             "Hotwife": "t0288",
@@ -2689,13 +2689,13 @@ var SX_SUBSUMED_BASE_TOPIC_IDS = {
         };
 
 /* --- Module: 02g-definitions-ratings.js --- */
-var f = Object.freeze([ "Orgasm & reproductive play", "Power exchange", "Service & ritual", "Connection & aftercare", "Psychological dynamics", "Primal & pursuit", "Impact, pain & body modification", "Bondage & restriction", "Sensation & atmosphere", "Body focus & appearance", "Clothing, materials & objects", "Roleplay & identity", "Fantasy & transformation", "Watching, exposure & settings", "Partner configurations", "Positions", "Sex acts", "Fluids & messy play" ]), y = new Map;
+        const f = Object.freeze([ "Orgasm & reproductive play", "Power exchange", "Service & ritual", "Connection & aftercare", "Psychological dynamics", "Primal & pursuit", "Impact, pain & body modification", "Bondage & restriction", "Sensation & atmosphere", "Body focus & appearance", "Clothing, materials & objects", "Roleplay & identity", "Fantasy & transformation", "Watching, exposure & settings", "Partner configurations", "Positions", "Sex acts", "Fluids & messy play" ]), y = new Map;
         f.forEach((e, t) => {
             h.some(t => t.name === e) && y.set(e, t);
         }), h.forEach(e => {
             y.has(e.name) || y.set(e.name, y.size);
         });
-var b = h.map(e => ({
+        const b = h.map(e => ({
             name: e.name,
             topics: e.topics.slice()
         })), v = window.__SEXCAPADES_PREVALENCE && "object" == typeof window.__SEXCAPADES_PREVALENCE ? window.__SEXCAPADES_PREVALENCE : {}, w = Object.keys(v).length ? v : V("prevalenceData"), k = window.__SEXCAPADES_POPULARITY_DATA && "object" == typeof window.__SEXCAPADES_POPULARITY_DATA ? window.__SEXCAPADES_POPULARITY_DATA : {}, x = Object.keys(k).length ? k : V("popularityData"), S = Object.freeze({
@@ -2705,7 +2705,7 @@ var b = h.map(e => ({
         function A(e) {
             return Math.max(0, Math.min(1, e));
         }
-var C = e => {
+        const C = e => {
             const t = Number(e);
             return Number.isFinite(t) ? A(t / 100) : null;
         }, M = e => String(e || "").toLowerCase().replace(/&/g, " and ").replace(/[^a-z0-9]+/g, " ").trim(), I = Object.freeze({
@@ -2855,14 +2855,14 @@ var C = e => {
             else if ("accepted-excluded" === result.status) sxShowCommunitySnapshotWarning("Community snapshot accepted with exclusions", "The community snapshot (" + result.kind + ") was accepted with exclusions. " + result.reasons.join(" ") + " All other topics from the snapshot were used unchanged.", result.kind);
             else try { const el = document && document.getElementById(sxSnapshotBannerId(result.kind)); if (el) el.remove(); } catch (err) { if (typeof __sxErrLog === "function") __sxErrLog("community-snapshot-warning", err); }
         }
-var sxCommunitySnapshotStatus = { embedded: null, override: null };
+        const sxCommunitySnapshotStatus = { embedded: null, override: null };
         window.__sxCommunitySnapshot = sxCommunitySnapshotStatus;
-var sxEmbeddedSnapshot = sxGateCommunitySnapshot("embedded survey", T, { captured: (x.survey && x.survey.captured) || x.captured, sampleSize: x.survey && x.survey.sampleSize, source: x.survey && x.survey.source }, x.survey || {});
+        const sxEmbeddedSnapshot = sxGateCommunitySnapshot("embedded survey", T, { captured: (x.survey && x.survey.captured) || x.captured, sampleSize: x.survey && x.survey.sampleSize, source: x.survey && x.survey.source }, x.survey || {});
         sxCommunitySnapshotStatus.embedded = sxEmbeddedSnapshot;
         sxReportCommunitySnapshot(sxEmbeddedSnapshot);
-var sxSurveyValues = sxEmbeddedSnapshot.accepted && sxEmbeddedSnapshot.values ? sxEmbeddedSnapshot.values : {};
-var sxOverrideReserved = [ "captured", "sampleSize", "source", "confidence", "failedImports", "failedImportCount", "failedSubmissions", "failedCount", "importFailures" ];
-var sxOverrideCache = { ref: null, fingerprint: null, result: null };
+        const sxSurveyValues = sxEmbeddedSnapshot.accepted && sxEmbeddedSnapshot.values ? sxEmbeddedSnapshot.values : {};
+        const sxOverrideReserved = [ "captured", "sampleSize", "source", "confidence", "failedImports", "failedImportCount", "failedSubmissions", "failedCount", "importFailures" ];
+        let sxOverrideCache = { ref: null, fingerprint: null, result: null };
         function sxOverrideFingerprint(g) {
             // Gate-relevant content only: provenance, failed-import
             // accounting, the topic-key set, and each entry's value,
@@ -2904,7 +2904,7 @@ var sxOverrideCache = { ref: null, fingerprint: null, result: null };
                 max: 0
             };
         }
-var _ = e => Math.log1p(Math.max(0, Number(e) || 0)), D = N(Object.values(P), _), R = N(Object.values(sxSurveyValues).map(e => "object" == typeof e ? e.value : e));
+        const _ = e => Math.log1p(Math.max(0, Number(e) || 0)), D = N(Object.values(P), _), R = N(Object.values(sxSurveyValues).map(e => "object" == typeof e ? e.value : e));
         function O(e, t, n = e => e) {
             const i = Number(e);
             if (!Number.isFinite(i)) return null;
@@ -2945,8 +2945,8 @@ var _ = e => Math.log1p(Math.max(0, Number(e) || 0)), D = N(Object.values(P), _)
            excluded entirely (import-engine maintenance only). Kinkiness =
            1 - popularity. This aggregate IS the Popularity List sort key
            (H below), replacing the old raw-size-weighted H. */
-var SX_O6_PRIORS = {"byId":{"t0002":0.35,"t0003":0.35,"t0004":0.35,"t0005":0.55,"t0006":0.55,"t0007":0.35,"t0008":0.35,"t0009":0.55,"t0010":0.55,"t0011":0.55,"t0012":0.55,"t0013":0.55,"t0014":0.55,"t0015":0.35,"t0016":0.35,"t0017":0.35,"t0018":0.35,"t0019":0.35,"t0020":0.35,"t0021":0.175,"t0022":0.55,"t0023":0.35,"t0024":0.175,"t0025":0.55,"t0026":0.35,"t0027":0.175,"t0028":0.35,"t0029":0.35,"t0030":0.35,"t0031":0.175,"t0032":0.35,"t0033":0.35,"t0034":0.55,"t0035":0.35,"t0036":0.35,"t0037":0.55,"t0038":0.175,"t0039":0.095,"t0040":0.35,"t0041":0.095,"t0042":0.35,"t0043":0.35,"t0044":0.35,"t0045":0.175,"t0046":0.35,"t0047":0.55,"t0048":0.35,"t0049":0.175,"t0050":0.35,"t0051":0.55,"t0052":0.35,"t0053":0.55,"t0054":0.095,"t0055":0.175,"t0056":0.55,"t0057":0.35,"t0058":0.55,"t0059":0.55,"t0060":0.55,"t0061":0.35,"t0062":0.55,"t0063":0.175,"t0064":0.55,"t0065":0.35,"t0066":0.35,"t0067":0.35,"t0068":0.35,"t0069":0.35,"t0070":0.35,"t0071":0.35,"t0072":0.35,"t0073":0.35,"t0074":0.35,"t0075":0.175,"t0076":0.175,"t0077":0.095,"t0078":0.095,"t0079":0.095,"t0080":0.03,"t0081":0.175,"t0082":0.35,"t0083":0.35,"t0084":0.55,"t0085":0.35,"t0086":0.35,"t0087":0.175,"t0088":0.175,"t0089":0.175,"t0090":0.175,"t0091":0.175,"t0092":0.175,"t0093":0.55,"t0094":0.175,"t0095":0.55,"t0096":0.35,"t0097":0.175,"t0098":0.35,"t0099":0.35,"t0100":0.55,"t0101":0.55,"t0102":0.35,"t0103":0.55,"t0104":0.35,"t0105":0.35,"t0106":0.35,"t0107":0.35,"t0108":0.35,"t0109":0.35,"t0110":0.35,"t0111":0.35,"t0112":0.35,"t0113":0.35,"t0114":0.35,"t0115":0.35,"t0116":0.175,"t0117":0.175,"t0118":0.175,"t0119":0.175,"t0120":0.03,"t0121":0.35,"t0122":0.35,"t0123":0.35,"t0124":0.175,"t0125":0.35,"t0126":0.35,"t0127":0.55,"t0128":0.55,"t0129":0.55,"t0130":0.35,"t0131":0.55,"t0132":0.095,"t0133":0.35,"t0134":0.35,"t0135":0.35,"t0136":0.35,"t0137":0.35,"t0138":0.175,"t0139":0.175,"t0140":0.35,"t0141":0.35,"t0142":0.35,"t0143":0.175,"t0144":0.175,"t0145":0.175,"t0146":0.35,"t0147":0.175,"t0148":0.095,"t0149":0.35,"t0150":0.35,"t0151":0.35,"t0152":0.55,"t0153":0.55,"t0154":0.175,"t0155":0.175,"t0156":0.175,"t0157":0.35,"t0158":0.35,"t0159":0.175,"t0160":0.55,"t0161":0.095,"t0162":0.175,"t0163":0.35,"t0164":0.35,"t0165":0.175,"t0166":0.55,"t0167":0.55,"t0168":0.35,"t0169":0.095,"t0170":0.55,"t0171":0.175,"t0172":0.35,"t0173":0.175,"t0174":0.35,"t0175":0.55,"t0176":0.35,"t0177":0.55,"t0178":0.35,"t0179":0.175,"t0180":0.175,"t0181":0.55,"t0182":0.55,"t0183":0.55,"t0184":0.55,"t0185":0.35,"t0186":0.35,"t0187":0.175,"t0188":0.55,"t0189":0.175,"t0190":0.35,"t0191":0.35,"t0192":0.35,"t0193":0.35,"t0194":0.35,"t0195":0.175,"t0196":0.35,"t0197":0.35,"t0198":0.095,"t0199":0.35,"t0200":0.095,"t0201":0.35,"t0202":0.35,"t0203":0.175,"t0204":0.35,"t0205":0.55,"t0206":0.175,"t0207":0.175,"t0208":0.35,"t0209":0.35,"t0210":0.35,"t0211":0.35,"t0212":0.35,"t0213":0.55,"t0214":0.35,"t0215":0.55,"t0216":0.35,"t0217":0.35,"t0218":0.55,"t0219":0.55,"t0220":0.55,"t0221":0.35,"t0222":0.35,"t0223":0.35,"t0224":0.35,"t0225":0.35,"t0226":0.35,"t0227":0.175,"t0228":0.35,"t0229":0.55,"t0230":0.35,"t0231":0.35,"t0232":0.35,"t0233":0.55,"t0234":0.35,"t0235":0.35,"t0236":0.35,"t0237":0.35,"t0238":0.175,"t0239":0.35,"t0240":0.35,"t0241":0.35,"t0242":0.35,"t0243":0.35,"t0244":0.35,"t0245":0.35,"t0246":0.35,"t0247":0.175,"t0248":0.35,"t0249":0.35,"t0250":0.35,"t0251":0.35,"t0252":0.55,"t0253":0.35,"t0254":0.35,"t0255":0.175,"t0256":0.35,"t0257":0.55,"t0258":0.35,"t0259":0.55,"t0260":0.55,"t0261":0.35,"t0262":0.35,"t0263":0.55,"t0264":0.55,"t0265":0.03,"t0266":0.55,"t0267":0.35,"t0268":0.35,"t0269":0.55,"t0270":0.55,"t0271":0.55,"t0272":0.55,"t0273":0.35,"t0274":0.35,"t0275":0.35,"t0276":0.35,"t0277":0.35,"t0278":0.55,"t0279":0.35,"t0280":0.35,"t0281":0.55,"t0282":0.35,"t0283":0.175,"t0284":0.55,"t0285":0.35,"t0286":0.55,"t0287":0.55,"t0288":0.55,"t0289":0.35,"t0290":0.55,"t0291":0.55,"t0292":0.35,"t0293":0.55,"t0294":0.55,"t0295":0.35,"t0296":0.55,"t0297":0.55,"t0298":0.55,"t0299":0.35,"t0300":0.175,"t0301":0.35,"t0302":0.55,"t0303":0.55,"t0304":0.55,"t0305":0.55,"t0306":0.55,"t0307":0.55,"t0308":0.175,"t0309":0.35,"t0310":0.35,"t0311":0.35,"t0312":0.175,"t0313":0.175,"t0314":0.35,"t0315":0.55,"t0316":0.55,"t0317":0.55,"t0318":0.55,"t0319":0.55,"t0320":0.55,"t0321":0.55,"t0322":0.55,"t0323":0.35,"t0324":0.35,"t0325":0.175,"t0326":0.55,"t0327":0.55,"t0328":0.55,"t0329":0.55,"t0330":0.55,"t0331":0.55,"t0332":0.175,"t0333":0.095,"t0334":0.55,"t0335":0.55,"t0336":0.55,"t0337":0.175,"t0338":0.175,"t0339":0.35,"t0340":0.175,"t0341":0.35,"t0342":0.55,"t0343":0.35,"t0344":0.35,"t0345":0.35,"t0346":0.35,"t0347":0.175,"t0348":0.095,"t0349":0.35,"t0350":0.095,"t0351":0.35,"t0352":0.35,"t0353":0.35,"t0354":0.55,"t0355":0.55,"t0356":0.35,"t0357":0.35,"t0358":0.35,"t0359":0.55,"t0360":0.35,"t0361":0.35,"t0362":0.35,"t0363":0.35,"t0364":0.35,"t0365":0.35,"t0366":0.35,"t0367":0.175,"t0368":0.55,"t0369":0.35,"t0370":0.35,"t0371":0.35,"t0372":0.35,"t0373":0.095,"t0374":0.175,"t0375":0.55,"t0376":0.55,"t0377":0.55,"t0378":0.35,"t0379":0.35,"t0380":0.35,"t0381":0.175,"t0382":0.175,"t0383":0.175,"t0384":0.35,"t0385":0.175,"t0386":0.35,"t0387":0.55,"t0388":0.55,"t0389":0.35,"t0390":0.35,"t0391":0.35,"t0392":0.35,"t0393":0.35,"t0394":0.175,"t0395":0.095,"t0396":0.55,"t0397":0.55,"t0398":0.55,"t0399":0.35,"t0400":0.35,"t0401":0.35,"t0402":0.35,"t0403":0.35,"t0404":0.55},"byLabel":{"protocols and rules":0.35,"collars and symbols":0.35,"reward and correction":0.35,"discipline":0.55,"begging":0.55,"scene based roles":0.35,"ongoing dynamics":0.35,"femdom":0.55,"d s":0.55,"ordered to masturbate":0.55,"brats":0.55,"24 7":0.55,"switching":0.55,"male authority":0.35,"behavior modification":0.35,"female supremacy":0.35,"play punishment":0.35,"bathroom use control":0.35,"domestic discipline":0.35,"pro domme":0.175,"rope bondage":0.55,"scarf bondage":0.35,"hair bondage":0.175,"cuffs and straps":0.55,"cuffs":0.55,"spreaders and bars":0.35,"spreaders":0.35,"medieval devices":0.175,"armbinders":0.35,"bondage tape":0.35,"duct tape":0.35,"cling film":0.175,"mummification":0.35,"tape and wrapping":0.35,"tape":0.35,"blindfolded restraint":0.55,"blindfold":0.55,"gags":0.35,"speech restriction":0.35,"caging confinement":0.55,"caging":0.55,"encasement fetish":0.175,"encasement":0.175,"sleepsacks":0.095,"immobilization":0.35,"crucifixion play":0.095,"crucifixion":0.095,"furniture restraint":0.35,"furniture":0.35,"suspension bondage":0.35,"predicament bondage":0.35,"escape play":0.175,"breast bondage":0.35,"anal hooks":0.55,"self bondage":0.35,"waterbondage":0.175,"bondage art":0.35,"pain":0.55,"corporal punishment":0.35,"impact play":0.55,"percussion play":0.095,"pressure points":0.175,"spanking":0.55,"hand spanking":0.55,"otk spanking":0.35,"breast spanking":0.55,"clit spanking":0.55,"pussy spanking":0.55,"tit slapping":0.35,"flogging":0.55,"fire flogging":0.175,"whips":0.55,"belt whippings":0.35,"breast whipping":0.35,"caning":0.35,"riding crops":0.35,"paddles and straps":0.35,"clamps":0.35,"clothespins":0.35,"pinching":0.35,"cutting":0.35,"needle play":0.35,"corset piercing":0.175,"scarification":0.175,"staples":0.095,"fish hooks":0.095,"flesh hooks":0.095,"cell popping":0.03,"ball kicking":0.175,"ballbusting":0.35,"cock slapping":0.35,"cock and ball torture":0.55,"fire play":0.35,"knife play":0.35,"waterboarding":0.175,"figging":0.175,"sounding":0.175,"trampling":0.175,"kicking":0.175,"bastinado":0.175,"hair pulling":0.55,"abrasion play":0.175,"bruises":0.55,"heavy marking":0.35,"extreme endurance":0.175,"wax and temperature":0.35,"ice and cool touch":0.35,"tickling":0.55,"electrical play":0.55,"texture contrast":0.35,"sensory deprivation":0.55,"sensory overload":0.35,"asmr and whispering":0.35,"music and sound":0.35,"mirrors":0.35,"low light":0.35,"scent":0.35,"tantra energy play":0.35,"violet wand":0.35,"wartenberg pinwheels":0.35,"panty sniffing":0.35,"tens unit":0.35,"smothering":0.35,"cupping":0.175,"auralism":0.175,"vampire gloves":0.175,"smoking":0.175,"formiphilia":0.03,"abdl":0.35,"ddlg":0.35,"age play between adults":0.35,"age play":0.35,"infantilism":0.175,"caregiver roles adults":0.35,"caregiver":0.35,"mommy girl":0.35,"authority roles":0.55,"teacher student roleplay":0.55,"teacher student":0.55,"doctor nurse play":0.55,"doctor nurse":0.55,"medical play":0.35,"owner and property":0.55,"owner property":0.55,"gor":0.095,"captivity kidnapping":0.35,"kidnapping":0.35,"consensual non consent fantasy":0.35,"cnc fantasy":0.35,"damsels in distress":0.35,"damsels":0.35,"pet play":0.35,"pet":0.35,"puppy play":0.35,"puppy":0.35,"pony play":0.175,"piggy play":0.175,"creature fantasy":0.35,"1950s household":0.35,"1950s":0.35,"historical fantasy":0.35,"historical":0.35,"pirates":0.175,"victorian lifestyles":0.175,"victorian":0.175,"superheroes":0.175,"vampires and gothic":0.35,"vampires":0.35,"clowns":0.175,"robots":0.095,"dollification":0.35,"librarians":0.35,"sister brother roleplay":0.35,"siblings":0.35,"latex and rubber":0.55,"leather":0.55,"pvc":0.175,"vinyl":0.175,"metal":0.175,"satin":0.35,"silk":0.35,"velvet":0.175,"lace":0.55,"denim":0.095,"fur":0.175,"lycra spandex":0.35,"nylonlegs and feet":0.35,"nylon":0.35,"boot":0.175,"heels and boots":0.55,"high heels":0.55,"pumps":0.35,"retifism":0.095,"knee high socks":0.55,"socks":0.175,"business suits":0.35,"military":0.175,"military uniforms":0.35,"schoolgirl uniform":0.55,"uniforms":0.35,"cosplay":0.55,"costume transformation":0.35,"geisha":0.175,"steampunk":0.175,"lingerie and stockings":0.55,"fishnets":0.55,"pantyhose stockings":0.55,"corsets":0.55,"diapers":0.35,"sissy panties":0.35,"petticoats":0.175,"skirts":0.55,"gas masks":0.175,"hoods":0.35,"masks and hoods":0.35,"costume masks":0.35,"glasses":0.35,"anal beads":0.35,"glass dildos":0.35,"inflatables":0.175,"harnesses":0.35,"gloves":0.35,"chaps":0.095,"kilts":0.35,"zentai":0.095,"hands":0.35,"hands and gloves":0.35,"hair":0.175,"long hair":0.35,"pigtails":0.55,"bald girls":0.175,"head shaving":0.175,"facial hair":0.35,"beards":0.35,"body hair":0.35,"pubic hair":0.35,"depilation":0.35,"feet and footwear":0.55,"feet":0.55,"toes and feet":0.35,"toes":0.35,"foot worship":0.55,"boot worship":0.35,"legs":0.35,"buttocks":0.55,"big tits":0.55,"breasts":0.55,"large labia":0.35,"pregnancy focus":0.35,"makeup":0.35,"lipstick":0.35,"freckles":0.35,"armpits":0.35,"braces":0.175,"tongues":0.35,"bbw":0.55,"bbc":0.35,"muscles":0.35,"older men":0.35,"older women":0.55,"size contrast":0.35,"uncut cock":0.35,"body modification":0.35,"body worship":0.35,"muscle worship":0.175,"degradation":0.35,"humiliation language":0.35,"female humiliation":0.35,"small penis humiliation":0.35,"sph humiliation":0.35,"objectification":0.35,"fear":0.35,"fear play":0.35,"interrogation":0.35,"military interrogation":0.175,"hypnosis and mind control fantasy":0.35,"hypnosis":0.35,"mind fucks":0.35,"mental bondage":0.35,"emotional sadism":0.35,"sadism":0.55,"affectionate cruelty":0.35,"crying":0.35,"dacryphilia":0.175,"tears":0.35,"tearing off clothing":0.55,"anticipation and suspense":0.35,"trust":0.55,"attention":0.55,"blushing":0.35,"confession and secrets":0.35,"dirty talk":0.55,"praise in scene":0.55,"praise":0.55,"graphoerotica":0.03,"watching and being watched":0.55,"private photo and video":0.35,"performance for a partner":0.35,"public and outdoor play":0.55,"exhibition voyeurism":0.55,"sexting":0.55,"burlesque":0.55,"sex in the cemetery":0.35,"pin ups":0.35,"fetish models":0.35,"vintage porn":0.35,"bellydancing":0.35,"threesomes":0.55,"group encounters":0.35,"swinging":0.35,"cuckold hotwife":0.55,"polyamory with kink":0.35,"group service":0.175,"gangbang":0.55,"age gap":0.35,"fmf threesomes":0.55,"interracial sex":0.55,"hotwife":0.55,"cuckold humiliation":0.35,"morning sex":0.55,"oral sex":0.55,"facefucking":0.35,"facesitting":0.55,"rimming":0.55,"fingering mouths":0.35,"mouth fingering":0.35,"road head":0.55,"anal sex":0.55,"anal training":0.55,"anal fingering":0.35,"anal fisting":0.175,"pegging":0.35,"handjobs":0.55,"mutual masturbation":0.55,"vaginal fingering":0.55,"nipple play":0.55,"penetration":0.55,"fucking machines":0.55,"large objects":0.175,"vaginal stretching":0.35,"vaginal fisting":0.35,"fisting":0.35,"vacuum pumping":0.35,"urethral fucking":0.175,"catheters":0.175,"facials":0.35,"creampies":0.55,"squirting":0.55,"69":0.55,"cowgirl":0.55,"doggystyle":0.55,"missionary":0.55,"reverse cowgirl":0.55,"spooning":0.55,"standing up":0.35,"queening":0.35,"gorean slave positions":0.175,"orgasm control":0.55,"orgasm denial":0.55,"chastity":0.55,"edging":0.55,"teasing":0.55,"breeding pregnancy fantasy":0.55,"surrogacy fantasy":0.175,"oviposition fantasy":0.095,"edge play":0.55,"cock milking":0.55,"tease and denial":0.55,"anal chastity":0.175,"watersports":0.175,"lactation":0.35,"blood play":0.175,"spit":0.35,"enemas":0.55,"breastfeeding":0.35,"creampie cleanup":0.35,"toilet slave":0.35,"liquor":0.35,"douching":0.175,"nyotaimori":0.095,"chocolate":0.35,"klismaphilia":0.095,"hunter prey":0.35,"chase scenes":0.35,"wrestling and struggle":0.35,"biting and scratching":0.55,"being overpowered":0.55,"manhandling":0.35,"pursuit take down and capture":0.35,"primal":0.35,"acts of service":0.55,"domestic service":0.35,"formal etiquette":0.35,"grooming rituals":0.35,"dressing a partner":0.35,"permission rituals":0.35,"daily tasks":0.35,"ceremonial scenes":0.35,"spiritual play":0.175,"foot massage":0.55,"domestic servitude":0.35,"french maids":0.35,"maid":0.35,"crawling":0.35,"boot blacking":0.095,"religious play":0.175,"romantic surrender":0.55,"seduction scenarios":0.55,"strangers fantasy":0.55,"secret identity":0.35,"mythical creatures":0.35,"aliens":0.35,"growth shrinking fantasy":0.175,"body swapping fantasy":0.175,"furry transformation fantasy":0.175,"gender play":0.35,"crossdressing":0.175,"sissification":0.35,"celebrity fantasy":0.55,"erotic literature":0.55,"anime":0.35,"hentai":0.35,"writing erotica":0.35,"transvestism":0.35,"androgyny":0.35,"butches":0.175,"psycholagny":0.095,"verbal check ins":0.55,"cuddling and touch":0.55,"food and hydration":0.55,"quiet decompression":0.35,"praise aftercare":0.35,"post scene review":0.35,"space and solitude":0.35,"next day check in":0.35,"affection":0.55}};
-var SX_O6_PRIOR_W = .5 * Math.log(5), SX_O6_LN_JOYAL = Math.log(1516), SX_O6_LN_LEHMILLER = Math.log(4175);
+        const SX_O6_PRIORS = {"byId":{"t0002":0.35,"t0003":0.35,"t0004":0.35,"t0005":0.55,"t0006":0.55,"t0007":0.35,"t0008":0.35,"t0009":0.55,"t0010":0.55,"t0011":0.55,"t0012":0.55,"t0013":0.55,"t0014":0.55,"t0015":0.35,"t0016":0.35,"t0017":0.35,"t0018":0.35,"t0019":0.35,"t0020":0.35,"t0021":0.175,"t0022":0.55,"t0023":0.35,"t0024":0.175,"t0025":0.55,"t0026":0.35,"t0027":0.175,"t0028":0.35,"t0029":0.35,"t0030":0.35,"t0031":0.175,"t0032":0.35,"t0033":0.35,"t0034":0.55,"t0035":0.35,"t0036":0.35,"t0037":0.55,"t0038":0.175,"t0039":0.095,"t0040":0.35,"t0041":0.095,"t0042":0.35,"t0043":0.35,"t0044":0.35,"t0045":0.175,"t0046":0.35,"t0047":0.55,"t0048":0.35,"t0049":0.175,"t0050":0.35,"t0051":0.55,"t0052":0.35,"t0053":0.55,"t0054":0.095,"t0055":0.175,"t0056":0.55,"t0057":0.35,"t0058":0.55,"t0059":0.55,"t0060":0.55,"t0061":0.35,"t0062":0.55,"t0063":0.175,"t0064":0.55,"t0065":0.35,"t0066":0.35,"t0067":0.35,"t0068":0.35,"t0069":0.35,"t0070":0.35,"t0071":0.35,"t0072":0.35,"t0073":0.35,"t0074":0.35,"t0075":0.175,"t0076":0.175,"t0077":0.095,"t0078":0.095,"t0079":0.095,"t0080":0.03,"t0081":0.175,"t0082":0.35,"t0083":0.35,"t0084":0.55,"t0085":0.35,"t0086":0.35,"t0087":0.175,"t0088":0.175,"t0089":0.175,"t0090":0.175,"t0091":0.175,"t0092":0.175,"t0093":0.55,"t0094":0.175,"t0095":0.55,"t0096":0.35,"t0097":0.175,"t0098":0.35,"t0099":0.35,"t0100":0.55,"t0101":0.55,"t0102":0.35,"t0103":0.55,"t0104":0.35,"t0105":0.35,"t0106":0.35,"t0107":0.35,"t0108":0.35,"t0109":0.35,"t0110":0.35,"t0111":0.35,"t0112":0.35,"t0113":0.35,"t0114":0.35,"t0115":0.35,"t0116":0.175,"t0117":0.175,"t0118":0.175,"t0119":0.175,"t0120":0.03,"t0121":0.35,"t0122":0.35,"t0123":0.35,"t0124":0.175,"t0125":0.35,"t0126":0.35,"t0127":0.55,"t0128":0.55,"t0129":0.55,"t0130":0.35,"t0131":0.55,"t0132":0.095,"t0133":0.35,"t0134":0.35,"t0135":0.35,"t0136":0.35,"t0137":0.35,"t0138":0.175,"t0139":0.175,"t0140":0.35,"t0141":0.35,"t0142":0.35,"t0143":0.175,"t0144":0.175,"t0145":0.175,"t0146":0.35,"t0147":0.175,"t0148":0.095,"t0149":0.35,"t0150":0.35,"t0151":0.35,"t0152":0.55,"t0153":0.55,"t0154":0.175,"t0155":0.175,"t0156":0.175,"t0157":0.35,"t0158":0.35,"t0159":0.175,"t0160":0.55,"t0161":0.095,"t0162":0.175,"t0163":0.35,"t0164":0.35,"t0165":0.175,"t0166":0.55,"t0167":0.55,"t0168":0.35,"t0169":0.095,"t0170":0.55,"t0171":0.175,"t0172":0.35,"t0173":0.175,"t0174":0.35,"t0175":0.55,"t0176":0.35,"t0177":0.55,"t0178":0.35,"t0179":0.175,"t0180":0.175,"t0181":0.55,"t0182":0.55,"t0183":0.55,"t0184":0.55,"t0185":0.35,"t0186":0.35,"t0187":0.175,"t0188":0.55,"t0189":0.175,"t0190":0.35,"t0191":0.35,"t0192":0.35,"t0193":0.35,"t0194":0.35,"t0195":0.175,"t0196":0.35,"t0197":0.35,"t0198":0.095,"t0199":0.35,"t0200":0.095,"t0201":0.35,"t0202":0.35,"t0203":0.175,"t0204":0.35,"t0205":0.55,"t0206":0.175,"t0207":0.175,"t0208":0.35,"t0209":0.35,"t0210":0.35,"t0211":0.35,"t0212":0.35,"t0213":0.55,"t0214":0.35,"t0215":0.55,"t0216":0.35,"t0217":0.35,"t0218":0.55,"t0219":0.55,"t0220":0.55,"t0221":0.35,"t0222":0.35,"t0223":0.35,"t0224":0.35,"t0225":0.35,"t0226":0.35,"t0227":0.175,"t0228":0.35,"t0229":0.55,"t0230":0.35,"t0231":0.35,"t0232":0.35,"t0233":0.55,"t0234":0.35,"t0235":0.35,"t0236":0.35,"t0237":0.35,"t0238":0.175,"t0239":0.35,"t0240":0.35,"t0241":0.35,"t0242":0.35,"t0243":0.35,"t0244":0.35,"t0245":0.35,"t0246":0.35,"t0247":0.175,"t0248":0.35,"t0249":0.35,"t0250":0.35,"t0251":0.35,"t0252":0.55,"t0253":0.35,"t0254":0.35,"t0255":0.175,"t0256":0.35,"t0257":0.55,"t0258":0.35,"t0259":0.55,"t0260":0.55,"t0261":0.35,"t0262":0.35,"t0263":0.55,"t0264":0.55,"t0265":0.03,"t0266":0.55,"t0267":0.35,"t0268":0.35,"t0269":0.55,"t0270":0.55,"t0271":0.55,"t0272":0.55,"t0273":0.35,"t0274":0.35,"t0275":0.35,"t0276":0.35,"t0277":0.35,"t0278":0.55,"t0279":0.35,"t0280":0.35,"t0281":0.55,"t0282":0.35,"t0283":0.175,"t0284":0.55,"t0285":0.35,"t0286":0.55,"t0287":0.55,"t0288":0.55,"t0289":0.35,"t0290":0.55,"t0291":0.55,"t0292":0.35,"t0293":0.55,"t0294":0.55,"t0295":0.35,"t0296":0.55,"t0297":0.55,"t0298":0.55,"t0299":0.35,"t0300":0.175,"t0301":0.35,"t0302":0.55,"t0303":0.55,"t0304":0.55,"t0305":0.55,"t0306":0.55,"t0307":0.55,"t0308":0.175,"t0309":0.35,"t0310":0.35,"t0311":0.35,"t0312":0.175,"t0313":0.175,"t0314":0.35,"t0315":0.55,"t0316":0.55,"t0317":0.55,"t0318":0.55,"t0319":0.55,"t0320":0.55,"t0321":0.55,"t0322":0.55,"t0323":0.35,"t0324":0.35,"t0325":0.175,"t0326":0.55,"t0327":0.55,"t0328":0.55,"t0329":0.55,"t0330":0.55,"t0331":0.55,"t0332":0.175,"t0333":0.095,"t0334":0.55,"t0335":0.55,"t0336":0.55,"t0337":0.175,"t0338":0.175,"t0339":0.35,"t0340":0.175,"t0341":0.35,"t0342":0.55,"t0343":0.35,"t0344":0.35,"t0345":0.35,"t0346":0.35,"t0347":0.175,"t0348":0.095,"t0349":0.35,"t0350":0.095,"t0351":0.35,"t0352":0.35,"t0353":0.35,"t0354":0.55,"t0355":0.55,"t0356":0.35,"t0357":0.35,"t0358":0.35,"t0359":0.55,"t0360":0.35,"t0361":0.35,"t0362":0.35,"t0363":0.35,"t0364":0.35,"t0365":0.35,"t0366":0.35,"t0367":0.175,"t0368":0.55,"t0369":0.35,"t0370":0.35,"t0371":0.35,"t0372":0.35,"t0373":0.095,"t0374":0.175,"t0375":0.55,"t0376":0.55,"t0377":0.55,"t0378":0.35,"t0379":0.35,"t0380":0.35,"t0381":0.175,"t0382":0.175,"t0383":0.175,"t0384":0.35,"t0385":0.175,"t0386":0.35,"t0387":0.55,"t0388":0.55,"t0389":0.35,"t0390":0.35,"t0391":0.35,"t0392":0.35,"t0393":0.35,"t0394":0.175,"t0395":0.095,"t0396":0.55,"t0397":0.55,"t0398":0.55,"t0399":0.35,"t0400":0.35,"t0401":0.35,"t0402":0.35,"t0403":0.35,"t0404":0.55},"byLabel":{"protocols and rules":0.35,"collars and symbols":0.35,"reward and correction":0.35,"discipline":0.55,"begging":0.55,"scene based roles":0.35,"ongoing dynamics":0.35,"femdom":0.55,"d s":0.55,"ordered to masturbate":0.55,"brats":0.55,"24 7":0.55,"switching":0.55,"male authority":0.35,"behavior modification":0.35,"female supremacy":0.35,"play punishment":0.35,"bathroom use control":0.35,"domestic discipline":0.35,"pro domme":0.175,"rope bondage":0.55,"scarf bondage":0.35,"hair bondage":0.175,"cuffs and straps":0.55,"cuffs":0.55,"spreaders and bars":0.35,"spreaders":0.35,"medieval devices":0.175,"armbinders":0.35,"bondage tape":0.35,"duct tape":0.35,"cling film":0.175,"mummification":0.35,"tape and wrapping":0.35,"tape":0.35,"blindfolded restraint":0.55,"blindfold":0.55,"gags":0.35,"speech restriction":0.35,"caging confinement":0.55,"caging":0.55,"encasement fetish":0.175,"encasement":0.175,"sleepsacks":0.095,"immobilization":0.35,"crucifixion play":0.095,"crucifixion":0.095,"furniture restraint":0.35,"furniture":0.35,"suspension bondage":0.35,"predicament bondage":0.35,"escape play":0.175,"breast bondage":0.35,"anal hooks":0.55,"self bondage":0.35,"waterbondage":0.175,"bondage art":0.35,"pain":0.55,"corporal punishment":0.35,"impact play":0.55,"percussion play":0.095,"pressure points":0.175,"spanking":0.55,"hand spanking":0.55,"otk spanking":0.35,"breast spanking":0.55,"clit spanking":0.55,"pussy spanking":0.55,"tit slapping":0.35,"flogging":0.55,"fire flogging":0.175,"whips":0.55,"belt whippings":0.35,"breast whipping":0.35,"caning":0.35,"riding crops":0.35,"paddles and straps":0.35,"clamps":0.35,"clothespins":0.35,"pinching":0.35,"cutting":0.35,"needle play":0.35,"corset piercing":0.175,"scarification":0.175,"staples":0.095,"fish hooks":0.095,"flesh hooks":0.095,"cell popping":0.03,"ball kicking":0.175,"ballbusting":0.35,"cock slapping":0.35,"cock and ball torture":0.55,"fire play":0.35,"knife play":0.35,"waterboarding":0.175,"figging":0.175,"sounding":0.175,"trampling":0.175,"kicking":0.175,"bastinado":0.175,"hair pulling":0.55,"abrasion play":0.175,"bruises":0.55,"heavy marking":0.35,"extreme endurance":0.175,"wax and temperature":0.35,"ice and cool touch":0.35,"tickling":0.55,"electrical play":0.55,"texture contrast":0.35,"sensory deprivation":0.55,"sensory overload":0.35,"asmr and whispering":0.35,"music and sound":0.35,"mirrors":0.35,"low light":0.35,"scent":0.35,"tantra energy play":0.35,"violet wand":0.35,"wartenberg pinwheels":0.35,"panty sniffing":0.35,"tens unit":0.35,"smothering":0.35,"cupping":0.175,"auralism":0.175,"vampire gloves":0.175,"smoking":0.175,"formiphilia":0.03,"abdl":0.35,"ddlg":0.35,"age play between adults":0.35,"age play":0.35,"infantilism":0.175,"caregiver roles adults":0.35,"caregiver":0.35,"mommy girl":0.35,"authority roles":0.55,"teacher student roleplay":0.55,"teacher student":0.55,"doctor nurse play":0.55,"doctor nurse":0.55,"medical play":0.35,"owner and property":0.55,"owner property":0.55,"gor":0.095,"captivity kidnapping":0.35,"kidnapping":0.35,"consensual non consent fantasy":0.35,"cnc fantasy":0.35,"damsels in distress":0.35,"damsels":0.35,"pet play":0.35,"pet":0.35,"puppy play":0.35,"puppy":0.35,"pony play":0.175,"piggy play":0.175,"creature fantasy":0.35,"1950s household":0.35,"1950s":0.35,"historical fantasy":0.35,"historical":0.35,"pirates":0.175,"victorian lifestyles":0.175,"victorian":0.175,"superheroes":0.175,"vampires and gothic":0.35,"vampires":0.35,"clowns":0.175,"robots":0.095,"dollification":0.35,"librarians":0.35,"sister brother roleplay":0.35,"siblings":0.35,"latex and rubber":0.55,"leather":0.55,"pvc":0.175,"vinyl":0.175,"metal":0.175,"satin":0.35,"silk":0.35,"velvet":0.175,"lace":0.55,"denim":0.095,"fur":0.175,"lycra spandex":0.35,"nylonlegs and feet":0.35,"nylon":0.35,"boot":0.175,"heels and boots":0.55,"high heels":0.55,"pumps":0.35,"retifism":0.095,"knee high socks":0.55,"socks":0.175,"business suits":0.35,"military":0.175,"military uniforms":0.35,"schoolgirl uniform":0.55,"uniforms":0.35,"cosplay":0.55,"costume transformation":0.35,"geisha":0.175,"steampunk":0.175,"lingerie and stockings":0.55,"fishnets":0.55,"pantyhose stockings":0.55,"corsets":0.55,"diapers":0.35,"sissy panties":0.35,"petticoats":0.175,"skirts":0.55,"gas masks":0.175,"hoods":0.35,"masks and hoods":0.35,"costume masks":0.35,"glasses":0.35,"anal beads":0.35,"glass dildos":0.35,"inflatables":0.175,"harnesses":0.35,"gloves":0.35,"chaps":0.095,"kilts":0.35,"zentai":0.095,"hands":0.35,"hands and gloves":0.35,"hair":0.175,"long hair":0.35,"pigtails":0.55,"bald girls":0.175,"head shaving":0.175,"facial hair":0.35,"beards":0.35,"body hair":0.35,"pubic hair":0.35,"depilation":0.35,"feet and footwear":0.55,"feet":0.55,"toes and feet":0.35,"toes":0.35,"foot worship":0.55,"boot worship":0.35,"legs":0.35,"buttocks":0.55,"big tits":0.55,"breasts":0.55,"large labia":0.35,"pregnancy focus":0.35,"makeup":0.35,"lipstick":0.35,"freckles":0.35,"armpits":0.35,"braces":0.175,"tongues":0.35,"bbw":0.55,"bbc":0.35,"muscles":0.35,"older men":0.35,"older women":0.55,"size contrast":0.35,"uncut cock":0.35,"body modification":0.35,"body worship":0.35,"muscle worship":0.175,"degradation":0.35,"humiliation language":0.35,"female humiliation":0.35,"small penis humiliation":0.35,"sph humiliation":0.35,"objectification":0.35,"fear":0.35,"fear play":0.35,"interrogation":0.35,"military interrogation":0.175,"hypnosis and mind control fantasy":0.35,"hypnosis":0.35,"mind fucks":0.35,"mental bondage":0.35,"emotional sadism":0.35,"sadism":0.55,"affectionate cruelty":0.35,"crying":0.35,"dacryphilia":0.175,"tears":0.35,"tearing off clothing":0.55,"anticipation and suspense":0.35,"trust":0.55,"attention":0.55,"blushing":0.35,"confession and secrets":0.35,"dirty talk":0.55,"praise in scene":0.55,"praise":0.55,"graphoerotica":0.03,"watching and being watched":0.55,"private photo and video":0.35,"performance for a partner":0.35,"public and outdoor play":0.55,"exhibition voyeurism":0.55,"sexting":0.55,"burlesque":0.55,"sex in the cemetery":0.35,"pin ups":0.35,"fetish models":0.35,"vintage porn":0.35,"bellydancing":0.35,"threesomes":0.55,"group encounters":0.35,"swinging":0.35,"cuckold hotwife":0.55,"polyamory with kink":0.35,"group service":0.175,"gangbang":0.55,"age gap":0.35,"fmf threesomes":0.55,"interracial sex":0.55,"hotwife":0.55,"cuckold humiliation":0.35,"morning sex":0.55,"oral sex":0.55,"facefucking":0.35,"facesitting":0.55,"rimming":0.55,"fingering mouths":0.35,"mouth fingering":0.35,"road head":0.55,"anal sex":0.55,"anal training":0.55,"anal fingering":0.35,"anal fisting":0.175,"pegging":0.35,"handjobs":0.55,"mutual masturbation":0.55,"vaginal fingering":0.55,"nipple play":0.55,"penetration":0.55,"fucking machines":0.55,"large objects":0.175,"vaginal stretching":0.35,"vaginal fisting":0.35,"fisting":0.35,"vacuum pumping":0.35,"urethral fucking":0.175,"catheters":0.175,"facials":0.35,"creampies":0.55,"squirting":0.55,"69":0.55,"cowgirl":0.55,"doggystyle":0.55,"missionary":0.55,"reverse cowgirl":0.55,"spooning":0.55,"standing up":0.35,"queening":0.35,"gorean slave positions":0.175,"orgasm control":0.55,"orgasm denial":0.55,"chastity":0.55,"edging":0.55,"teasing":0.55,"breeding pregnancy fantasy":0.55,"surrogacy fantasy":0.175,"oviposition fantasy":0.095,"edge play":0.55,"cock milking":0.55,"tease and denial":0.55,"anal chastity":0.175,"watersports":0.175,"lactation":0.35,"blood play":0.175,"spit":0.35,"enemas":0.55,"breastfeeding":0.35,"creampie cleanup":0.35,"toilet slave":0.35,"liquor":0.35,"douching":0.175,"nyotaimori":0.095,"chocolate":0.35,"klismaphilia":0.095,"hunter prey":0.35,"chase scenes":0.35,"wrestling and struggle":0.35,"biting and scratching":0.55,"being overpowered":0.55,"manhandling":0.35,"pursuit take down and capture":0.35,"primal":0.35,"acts of service":0.55,"domestic service":0.35,"formal etiquette":0.35,"grooming rituals":0.35,"dressing a partner":0.35,"permission rituals":0.35,"daily tasks":0.35,"ceremonial scenes":0.35,"spiritual play":0.175,"foot massage":0.55,"domestic servitude":0.35,"french maids":0.35,"maid":0.35,"crawling":0.35,"boot blacking":0.095,"religious play":0.175,"romantic surrender":0.55,"seduction scenarios":0.55,"strangers fantasy":0.55,"secret identity":0.35,"mythical creatures":0.35,"aliens":0.35,"growth shrinking fantasy":0.175,"body swapping fantasy":0.175,"furry transformation fantasy":0.175,"gender play":0.35,"crossdressing":0.175,"sissification":0.35,"celebrity fantasy":0.55,"erotic literature":0.55,"anime":0.35,"hentai":0.35,"writing erotica":0.35,"transvestism":0.35,"androgyny":0.35,"butches":0.175,"psycholagny":0.095,"verbal check ins":0.55,"cuddling and touch":0.55,"food and hydration":0.55,"quiet decompression":0.35,"praise aftercare":0.35,"post scene review":0.35,"space and solitude":0.35,"next day check in":0.35,"affection":0.55}};
+        const SX_O6_PRIOR_W = .5 * Math.log(5), SX_O6_LN_JOYAL = Math.log(1516), SX_O6_LN_LEHMILLER = Math.log(4175);
         function sxO6Prior(e) {
             // Prior resolved by topic id first: the label table misses
             // topics whose catalog label has no byLabel entry (e.g.
@@ -2960,7 +2960,7 @@ var SX_O6_PRIOR_W = .5 * Math.log(5), SX_O6_LN_JOYAL = Math.log(1516), SX_O6_LN_
             for (let k = 0; k < alts.length; k++) { const w = SX_O6_PRIORS.byLabel[M(alts[k])]; if (Number.isFinite(w)) return w; }
             return null;
         }
-var SX_REDDIT_VALUES = (x.reddit && x.reddit.values) || {}, SX_REDDIT_RANGE = N(Object.values(SX_REDDIT_VALUES).map(v => "object" == typeof v ? v.value : v));
+        const SX_REDDIT_VALUES = (x.reddit && x.reddit.values) || {}, SX_REDDIT_RANGE = N(Object.values(SX_REDDIT_VALUES).map(v => "object" == typeof v ? v.value : v));
         function sxRedditVal(e) {
             const t = [ e, ...I[e] || [] ].map(k => SX_REDDIT_VALUES[k]).filter(v => null != v).sort((a, b) => Number(("object" == typeof b ? b.value : b) || 0) - Number(("object" == typeof a ? a.value : a) || 0))[0];
             if (null == t) return null;
@@ -2981,7 +2981,7 @@ var SX_REDDIT_VALUES = (x.reddit && x.reddit.values) || {}, SX_REDDIT_RANGE = N(
         function ho(e, t) {
             return [ e, ...I[e] || [] ].map(e => w[e]).find(e => e && Number.isFinite(Number(e.pct)) && (/lehmiller/i.test(e.source || "") ? "lehmiller" : "joyal") === t) || null;
         }
-var q = Object.freeze([ {
+        const q = Object.freeze([ {
             id: "fetlife",
             value: e => B(e),
             normalize: e => O(e, D, _),
@@ -3133,7 +3133,7 @@ var q = Object.freeze([ {
         h.forEach(e => {
             e.topics = U(e.topics, e => sxTopicPopularity(topicIdByLabel[sxName(e)] || sxName(e)));
         }), h.splice(0, h.length, ...U(h, z, e => e.name));
-var Y = V("fetlifeGroupMappingData"), X = V("redditGroupMappingData"), Z = V("discordGroupMappingData"), Q = Object.keys(Y).length ? Y : window.__SEXCAPADES_FETLIFE_GROUPS && "object" == typeof window.__SEXCAPADES_FETLIFE_GROUPS ? window.__SEXCAPADES_FETLIFE_GROUPS : {}, J = Object.keys(X).length ? X : window.__SEXCAPADES_REDDIT_GROUPS && "object" == typeof window.__SEXCAPADES_REDDIT_GROUPS ? window.__SEXCAPADES_REDDIT_GROUPS : {}, ee = Object.keys(Z).length ? Z : window.__SEXCAPADES_DISCORD_GROUPS && "object" == typeof window.__SEXCAPADES_DISCORD_GROUPS ? window.__SEXCAPADES_DISCORD_GROUPS : {}, te = (() => {
+        const Y = V("fetlifeGroupMappingData"), X = V("redditGroupMappingData"), Z = V("discordGroupMappingData"), Q = Object.keys(Y).length ? Y : window.__SEXCAPADES_FETLIFE_GROUPS && "object" == typeof window.__SEXCAPADES_FETLIFE_GROUPS ? window.__SEXCAPADES_FETLIFE_GROUPS : {}, J = Object.keys(X).length ? X : window.__SEXCAPADES_REDDIT_GROUPS && "object" == typeof window.__SEXCAPADES_REDDIT_GROUPS ? window.__SEXCAPADES_REDDIT_GROUPS : {}, ee = Object.keys(Z).length ? Z : window.__SEXCAPADES_DISCORD_GROUPS && "object" == typeof window.__SEXCAPADES_DISCORD_GROUPS ? window.__SEXCAPADES_DISCORD_GROUPS : {}, te = (() => {
             try {
                 const t = JSON.parse(e.byId("communityCompletionTimeData")?.textContent || "{}"), n = e => Number.isFinite(Number(e)) && Number(e) > 0 ? Number(e) : null, i = e => Number.isFinite(Number(e)) && Number(e) >= 0 ? Number(e) : null;
                 return {
@@ -3176,7 +3176,7 @@ var Y = V("fetlifeGroupMappingData"), X = V("redditGroupMappingData"), Z = V("di
                 }) : null;
             }).filter(Boolean);
         }
-var oe = {
+        const oe = {
             fetlife: Q,
             reddit: J,
             discord: ee
@@ -3196,7 +3196,7 @@ var oe = {
                 t.has(i) || (t.add(i), n.push(e));
             }), n;
         }
-var ve = new Map;
+        const ve = new Map;
         b.forEach(e => e.topics.forEach((t, n) => ve.set(e.name + "\0" + t, (window.__SX_EXPORT_BE?.[e.name] || [])[n] || "star")));
         function xe(e) {
             return ke[e] || e.replace(/([a-z])([A-Z])/g, "$1 $2").replace(/\d+/g, "").trim();
@@ -3254,7 +3254,7 @@ var ve = new Map;
         for (const _subName of Object.keys(Ee)) {
             if (!(Ee[_subName] in ye)) throw new Error(`Sexcapades glyph check: subcategory "${_subName}" maps to glyph "${Ee[_subName]}", which is missing from the ye glyph dictionary`);
         }
-var _beTable = window.__SX_EXPORT_BE || {};
+        const _beTable = window.__SX_EXPORT_BE || {};
         for (const _branchName of Object.keys(_beTable)) {
             for (const _glyphName of _beTable[_branchName]) {
                 if (!(_glyphName in ye)) throw new Error(`Sexcapades glyph check: branch "${_branchName}" lists glyph "${_glyphName}", which is missing from the ye glyph dictionary`);
@@ -3264,7 +3264,7 @@ var _beTable = window.__SX_EXPORT_BE || {};
         // (i.e. on Sexcapades domain or after Sexcapades skin loads), verify
         // that Ee covers them. When running an engine boot before skin apply,
         // or on vanilla skins, skip Sexcapades-specific subcategory checks.
-var _glyphSubNames = new Set;
+        const _glyphSubNames = new Set;
         h.forEach(_cat => (_cat.subcategories || []).forEach(_sub => _glyphSubNames.add(_sub.name)));
         if (_glyphSubNames.size > 0 && _glyphSubNames.has("Flexible ties")) {
             for (const _subName of _glyphSubNames) {
@@ -3338,13 +3338,13 @@ var _glyphSubNames = new Set;
                 mixed: s
             };
         }
-var Ne = new Map;
+        const Ne = new Map;
         h.forEach(e => {
             const t = ge[e.name], n = Fe(e);
             Ne.set(e.name, n), t && (t.color = n.color, t.hankyKey = n.key, t.hankyMixed = n.mixed);
         });
-var _e = new Map;
-var De = 0;
+        const _e = new Map;
+        let De = 0;
         function Re(e) {
             const t = 16, n = e % t, i = (7 * Math.floor(e / t) + n + 5) % t, a = (n + 10 + e % 3) % t, r = (e, n = 6.15) => {
                 const i = -Math.PI / 2 + e / t * Math.PI * 2;
@@ -3392,21 +3392,21 @@ var De = 0;
             const n = Wn(topic);
             We[n] = [ topic.give_label, topic.receive_label ];
         }));
-var Ue = new Set([ "t0002", "t0007", "t0008", "t0102", "t0106", "t0107", "t0108", "t0140", "topic-vampires-gothic", "topic-historical-fantasy", "t0377", "t0378", "t0379", "t0380", "t0382", "t0383", "t0384", "t0317", "t0318", "t0319", "t0320", "t0321", "t0322", "t0323", "t0278", "t0279", "t0280", "t0282", "t0258", "t0361", "t0366", "t0396", "t0397", "t0399", "t0401", "t0402", "t0403", "t0269", "t0048", "t0132", "t0143", "t0144", "t0147", "t0148", "t0195", "t0217", "t0219", "t0228", "t0229", "t0230", "t0232", "t0233", "t0259", "t0290", "t0303" ]);
+        const Ue = new Set([ "t0002", "t0007", "t0008", "t0102", "t0106", "t0107", "t0108", "t0140", "topic-vampires-gothic", "topic-historical-fantasy", "t0377", "t0378", "t0379", "t0380", "t0382", "t0383", "t0384", "t0317", "t0318", "t0319", "t0320", "t0321", "t0322", "t0323", "t0278", "t0279", "t0280", "t0282", "t0258", "t0361", "t0366", "t0396", "t0397", "t0399", "t0401", "t0402", "t0403", "t0269", "t0048", "t0132", "t0143", "t0144", "t0147", "t0148", "t0195", "t0217", "t0219", "t0228", "t0229", "t0230", "t0232", "t0233", "t0259", "t0290", "t0303" ]);
 
 /* --- Module: 02h-inner-opener.js --- */
     !function() {
         "use strict";
-var {DOM: e, TimerManager: t, setHTML: n} = window.SexcapadesRuntime, i = [ "Hard Limit (×): HARD EXCLUDE the topic. Never mention it—not as action, dialogue, a tease, suggestion, fantasy, setup, backstory, or background detail.", "Not Interested (⊘): HARD EXCLUDE the topic exactly like a Hard Limit. Never mention it—not as action, dialogue, a tease, suggestion, fantasy, setup, backstory, or background detail.", "Favorite (★): PRIORITIZE the topic prominently over unmarked topics while obeying ratings, give/receive roles, shared-ground limits, and consent." ], a = [ "Fantasy-only (☁): INCLUDE only as a clearly imagined fantasy, dream, or internal thought; make clear it is imagined, not real-world play or willingness.", "Already Tried (✓): REFERENCE as past experience (for example, “they’d done this before”) without inventing details or assuming current consent." ], r = [ "Fantasy-only (☁): EXCLUDE entirely from practical play guides; never schedule, suggest, tease, or describe it as real-world play.", "Already Tried (✓): REFERENCE as past experience (for example, “Since you’ve tried X, you might…”) while confirming current consent and avoiding invented details." ], o = new Set;
+        const {DOM: e, TimerManager: t, setHTML: n} = window.SexcapadesRuntime, i = [ "Hard Limit (×): HARD EXCLUDE the topic. Never mention it—not as action, dialogue, a tease, suggestion, fantasy, setup, backstory, or background detail.", "Not Interested (⊘): HARD EXCLUDE the topic exactly like a Hard Limit. Never mention it—not as action, dialogue, a tease, suggestion, fantasy, setup, backstory, or background detail.", "Favorite (★): PRIORITIZE the topic prominently over unmarked topics while obeying ratings, give/receive roles, shared-ground limits, and consent." ], a = [ "Fantasy-only (☁): INCLUDE only as a clearly imagined fantasy, dream, or internal thought; make clear it is imagined, not real-world play or willingness.", "Already Tried (✓): REFERENCE as past experience (for example, “they’d done this before”) without inventing details or assuming current consent." ], r = [ "Fantasy-only (☁): EXCLUDE entirely from practical play guides; never schedule, suggest, tease, or describe it as real-world play.", "Already Tried (✓): REFERENCE as past experience (for example, “Since you’ve tried X, you might…”) while confirming current consent and avoiding invented details." ], o = new Set;
         /* P2 refactor (Build 2026-10-18_2252): unified closest() dispatch (P2-3).
            Every ancestor lookup in this bundle now routes through the single
            __sxClosestAction(el, action) handler below; the selector strings
            that used to be scattered across 120 call sites live once in the
            __sxActionSelectors dispatch table, keyed by action name. A name
            missing from the table is passed through as a raw selector (the
-           hidden-badge sweep passes a computed one), so behavior at
+           export hidden-badge sweep passes a computed one), so behavior at
            every former call site is unchanged. */
-var __sxActionSelectors = {
+        const __sxActionSelectors = {
             directionControl: ".direction-control",
             nodeGroup: ".node-group",
             outlineDescTriggerRich: ".outline-description-trigger[data-outline-description]",
@@ -3486,19 +3486,19 @@ var __sxActionSelectors = {
             const sel = Object.prototype.hasOwnProperty.call(__sxActionSelectors, action) ? __sxActionSelectors[action] : action;
             return el.closest(sel);
         }
-var s = "";
+        let s = "";
         function l() {
             if (globalThis.crypto && "function" == typeof globalThis.crypto.randomUUID) return globalThis.crypto.randomUUID();
             const e = new Uint8Array(16);
             if (globalThis.crypto && "function" == typeof globalThis.crypto.getRandomValues) globalThis.crypto.getRandomValues(e); else for (let t = 0; t < e.length; t++) e[t] = Math.floor(256 * Math.random());
             return e[6] = 15 & e[6] | 64, e[8] = 63 & e[8] | 128, Array.from(e, (e, t) => `${4 === t || 6 === t || 8 === t || 10 === t ? "-" : ""}${e.toString(16).padStart(2, "0")}`).join("");
         }
-var makeProfileUuid = l;
+        const makeProfileUuid = l;
         function c() {
             return s || (s = makeProfileUuid()), s;
         }
         window.__sxAnonUuid = c;
-var d = function() {
+        const d = function() {
             let e = "";
             try {
                 e = new URLSearchParams(location.search).get("utm_source") || "";
@@ -3512,7 +3512,7 @@ var d = function() {
            layer (index.html) cannot see this closure, so it keeps its
            own mirror constant, SX_SHELL_COLLECT_URL, with the same
            value; keep the two in sync. */
-var SX_COLLECT_URL = "/hosted/api/collect.php";
+        const SX_COLLECT_URL = "/hosted/api/collect.php";
         async function u(e) {
             const t = await fetch(SX_COLLECT_URL, {
                 method: "POST",
@@ -3635,7 +3635,7 @@ var SX_COLLECT_URL = "/hosted/api/collect.php";
              topicRecords / subcategoryOverlay / displayNames — the
                frozen data tables, for existing readers.
            ================================================================ */
-var TaxonomyLoader = (() => {
+        const TaxonomyLoader = (() => {
             /** Expected taxonomy size: 18 categories, 44 subcategories, 403 topics. */
             const EXPECTED_COUNTS = Object.freeze({
                 categories: 18,
@@ -3941,11 +3941,11 @@ var TaxonomyLoader = (() => {
         // loader's merged category tree (identical shape and content to the
         // previous inline definition), and g / m remain as aliases of the
         // loader's frozen subcategory overlay and display-name map.
-var h = TaxonomyLoader.loadTaxonomy().categories, g = TaxonomyLoader.subcategoryOverlay, m = TaxonomyLoader.displayNames;
+        const h = TaxonomyLoader.loadTaxonomy().categories, g = TaxonomyLoader.subcategoryOverlay, m = TaxonomyLoader.displayNames;
         // Stable catalog identity. IDs are assigned once and stored here; they are never
         // derived from labels, hierarchy, or array order. New catalog topics must receive
         // max(existing numeric ID) + 1 and keep that ID permanently.
-var topicRecords = TaxonomyLoader.topicRecords, topicIdByLabel = Object.freeze(Object.fromEntries(Object.entries(topicRecords).map(([e, t]) => [ e, t.id ]))), topicLabelById = Object.freeze(Object.fromEntries(Object.entries(topicRecords).map(([e, t]) => [ t.id, e ]))), legacyTopicIdByOpaque = Object.freeze({
+        const topicRecords = TaxonomyLoader.topicRecords, topicIdByLabel = Object.freeze(Object.fromEntries(Object.entries(topicRecords).map(([e, t]) => [ e, t.id ]))), topicLabelById = Object.freeze(Object.fromEntries(Object.entries(topicRecords).map(([e, t]) => [ t.id, e ]))), legacyTopicIdByOpaque = Object.freeze({
             "t0002": "topic-protocols-rules",
             "t0003": "topic-collars-symbols",
             "t0004": "topic-reward-correction",
@@ -4365,7 +4365,7 @@ var topicRecords = TaxonomyLoader.topicRecords, topicIdByLabel = Object.freeze(O
         // catalog the file's topic ids and "topicNames" labels were
         // written against. Bump it whenever the catalog's topic set or a
         // topic's meaning changes.
-var TAXONOMY_VERSION = "2026-11-14";
+        const TAXONOMY_VERSION = "2026-11-14";
         h.forEach(e => {
             e.topicDetails = e.topicDetails || {};
             e.topics.forEach(t => {
@@ -4381,13 +4381,13 @@ var TAXONOMY_VERSION = "2026-11-14";
             idForLabel: e => topicIdByLabel[String(e || "")] || null,
             labelForId: e => topicLabelById[String(e || "")] || null
         });
-var f = Object.freeze([ "Orgasm & reproductive play", "Power exchange", "Service & ritual", "Connection & aftercare", "Psychological dynamics", "Primal & pursuit", "Impact, pain & body modification", "Bondage & restriction", "Sensation & atmosphere", "Body focus & appearance", "Clothing, materials & objects", "Roleplay & identity", "Fantasy & transformation", "Watching, exposure & settings", "Partner configurations", "Positions", "Sex acts", "Fluids & messy play" ]), y = new Map;
+        const f = Object.freeze([ "Orgasm & reproductive play", "Power exchange", "Service & ritual", "Connection & aftercare", "Psychological dynamics", "Primal & pursuit", "Impact, pain & body modification", "Bondage & restriction", "Sensation & atmosphere", "Body focus & appearance", "Clothing, materials & objects", "Roleplay & identity", "Fantasy & transformation", "Watching, exposure & settings", "Partner configurations", "Positions", "Sex acts", "Fluids & messy play" ]), y = new Map;
         f.forEach((e, t) => {
             h.some(t => t.name === e) && y.set(e, t);
         }), h.forEach(e => {
             y.has(e.name) || y.set(e.name, y.size);
         });
-var b = h.map(e => ({
+        const b = h.map(e => ({
             name: e.name,
             topics: e.topics.slice()
         })), v = window.__SEXCAPADES_PREVALENCE && "object" == typeof window.__SEXCAPADES_PREVALENCE ? window.__SEXCAPADES_PREVALENCE : {}, w = Object.keys(v).length ? v : V("prevalenceData"), k = window.__SEXCAPADES_POPULARITY_DATA && "object" == typeof window.__SEXCAPADES_POPULARITY_DATA ? window.__SEXCAPADES_POPULARITY_DATA : {}, x = Object.keys(k).length ? k : V("popularityData"), S = Object.freeze({
@@ -4397,7 +4397,7 @@ var b = h.map(e => ({
         function A(e) {
             return Math.max(0, Math.min(1, e));
         }
-var C = e => {
+        const C = e => {
             const t = Number(e);
             return Number.isFinite(t) ? A(t / 100) : null;
         }, M = e => String(e || "").toLowerCase().replace(/&/g, " and ").replace(/[^a-z0-9]+/g, " ").trim(), I = Object.freeze({
@@ -4547,14 +4547,14 @@ var C = e => {
             else if ("accepted-excluded" === result.status) sxShowCommunitySnapshotWarning("Community snapshot accepted with exclusions", "The community snapshot (" + result.kind + ") was accepted with exclusions. " + result.reasons.join(" ") + " All other topics from the snapshot were used unchanged.", result.kind);
             else try { const el = document && document.getElementById(sxSnapshotBannerId(result.kind)); if (el) el.remove(); } catch (err) { if (typeof __sxErrLog === "function") __sxErrLog("community-snapshot-warning", err); }
         }
-var sxCommunitySnapshotStatus = { embedded: null, override: null };
+        const sxCommunitySnapshotStatus = { embedded: null, override: null };
         window.__sxCommunitySnapshot = sxCommunitySnapshotStatus;
-var sxEmbeddedSnapshot = sxGateCommunitySnapshot("embedded survey", T, { captured: (x.survey && x.survey.captured) || x.captured, sampleSize: x.survey && x.survey.sampleSize, source: x.survey && x.survey.source }, x.survey || {});
+        const sxEmbeddedSnapshot = sxGateCommunitySnapshot("embedded survey", T, { captured: (x.survey && x.survey.captured) || x.captured, sampleSize: x.survey && x.survey.sampleSize, source: x.survey && x.survey.source }, x.survey || {});
         sxCommunitySnapshotStatus.embedded = sxEmbeddedSnapshot;
         sxReportCommunitySnapshot(sxEmbeddedSnapshot);
-var sxSurveyValues = sxEmbeddedSnapshot.accepted && sxEmbeddedSnapshot.values ? sxEmbeddedSnapshot.values : {};
-var sxOverrideReserved = [ "captured", "sampleSize", "source", "confidence", "failedImports", "failedImportCount", "failedSubmissions", "failedCount", "importFailures" ];
-var sxOverrideCache = { ref: null, fingerprint: null, result: null };
+        const sxSurveyValues = sxEmbeddedSnapshot.accepted && sxEmbeddedSnapshot.values ? sxEmbeddedSnapshot.values : {};
+        const sxOverrideReserved = [ "captured", "sampleSize", "source", "confidence", "failedImports", "failedImportCount", "failedSubmissions", "failedCount", "importFailures" ];
+        let sxOverrideCache = { ref: null, fingerprint: null, result: null };
         function sxOverrideFingerprint(g) {
             // Gate-relevant content only: provenance, failed-import
             // accounting, the topic-key set, and each entry's value,
@@ -4596,7 +4596,7 @@ var sxOverrideCache = { ref: null, fingerprint: null, result: null };
                 max: 0
             };
         }
-var _ = e => Math.log1p(Math.max(0, Number(e) || 0)), D = N(Object.values(P), _), R = N(Object.values(sxSurveyValues).map(e => "object" == typeof e ? e.value : e));
+        const _ = e => Math.log1p(Math.max(0, Number(e) || 0)), D = N(Object.values(P), _), R = N(Object.values(sxSurveyValues).map(e => "object" == typeof e ? e.value : e));
         function O(e, t, n = e => e) {
             const i = Number(e);
             if (!Number.isFinite(i)) return null;
@@ -4637,8 +4637,8 @@ var _ = e => Math.log1p(Math.max(0, Number(e) || 0)), D = N(Object.values(P), _)
            excluded entirely (import-engine maintenance only). Kinkiness =
            1 - popularity. This aggregate IS the Popularity List sort key
            (H below), replacing the old raw-size-weighted H. */
-var SX_O6_PRIORS = {"byId":{"t0002":0.35,"t0003":0.35,"t0004":0.35,"t0005":0.55,"t0006":0.55,"t0007":0.35,"t0008":0.35,"t0009":0.55,"t0010":0.55,"t0011":0.55,"t0012":0.55,"t0013":0.55,"t0014":0.55,"t0015":0.35,"t0016":0.35,"t0017":0.35,"t0018":0.35,"t0019":0.35,"t0020":0.35,"t0021":0.175,"t0022":0.55,"t0023":0.35,"t0024":0.175,"t0025":0.55,"t0026":0.35,"t0027":0.175,"t0028":0.35,"t0029":0.35,"t0030":0.35,"t0031":0.175,"t0032":0.35,"t0033":0.35,"t0034":0.55,"t0035":0.35,"t0036":0.35,"t0037":0.55,"t0038":0.175,"t0039":0.095,"t0040":0.35,"t0041":0.095,"t0042":0.35,"t0043":0.35,"t0044":0.35,"t0045":0.175,"t0046":0.35,"t0047":0.55,"t0048":0.35,"t0049":0.175,"t0050":0.35,"t0051":0.55,"t0052":0.35,"t0053":0.55,"t0054":0.095,"t0055":0.175,"t0056":0.55,"t0057":0.35,"t0058":0.55,"t0059":0.55,"t0060":0.55,"t0061":0.35,"t0062":0.55,"t0063":0.175,"t0064":0.55,"t0065":0.35,"t0066":0.35,"t0067":0.35,"t0068":0.35,"t0069":0.35,"t0070":0.35,"t0071":0.35,"t0072":0.35,"t0073":0.35,"t0074":0.35,"t0075":0.175,"t0076":0.175,"t0077":0.095,"t0078":0.095,"t0079":0.095,"t0080":0.03,"t0081":0.175,"t0082":0.35,"t0083":0.35,"t0084":0.55,"t0085":0.35,"t0086":0.35,"t0087":0.175,"t0088":0.175,"t0089":0.175,"t0090":0.175,"t0091":0.175,"t0092":0.175,"t0093":0.55,"t0094":0.175,"t0095":0.55,"t0096":0.35,"t0097":0.175,"t0098":0.35,"t0099":0.35,"t0100":0.55,"t0101":0.55,"t0102":0.35,"t0103":0.55,"t0104":0.35,"t0105":0.35,"t0106":0.35,"t0107":0.35,"t0108":0.35,"t0109":0.35,"t0110":0.35,"t0111":0.35,"t0112":0.35,"t0113":0.35,"t0114":0.35,"t0115":0.35,"t0116":0.175,"t0117":0.175,"t0118":0.175,"t0119":0.175,"t0120":0.03,"t0121":0.35,"t0122":0.35,"t0123":0.35,"t0124":0.175,"t0125":0.35,"t0126":0.35,"t0127":0.55,"t0128":0.55,"t0129":0.55,"t0130":0.35,"t0131":0.55,"t0132":0.095,"t0133":0.35,"t0134":0.35,"t0135":0.35,"t0136":0.35,"t0137":0.35,"t0138":0.175,"t0139":0.175,"t0140":0.35,"t0141":0.35,"t0142":0.35,"t0143":0.175,"t0144":0.175,"t0145":0.175,"t0146":0.35,"t0147":0.175,"t0148":0.095,"t0149":0.35,"t0150":0.35,"t0151":0.35,"t0152":0.55,"t0153":0.55,"t0154":0.175,"t0155":0.175,"t0156":0.175,"t0157":0.35,"t0158":0.35,"t0159":0.175,"t0160":0.55,"t0161":0.095,"t0162":0.175,"t0163":0.35,"t0164":0.35,"t0165":0.175,"t0166":0.55,"t0167":0.55,"t0168":0.35,"t0169":0.095,"t0170":0.55,"t0171":0.175,"t0172":0.35,"t0173":0.175,"t0174":0.35,"t0175":0.55,"t0176":0.35,"t0177":0.55,"t0178":0.35,"t0179":0.175,"t0180":0.175,"t0181":0.55,"t0182":0.55,"t0183":0.55,"t0184":0.55,"t0185":0.35,"t0186":0.35,"t0187":0.175,"t0188":0.55,"t0189":0.175,"t0190":0.35,"t0191":0.35,"t0192":0.35,"t0193":0.35,"t0194":0.35,"t0195":0.175,"t0196":0.35,"t0197":0.35,"t0198":0.095,"t0199":0.35,"t0200":0.095,"t0201":0.35,"t0202":0.35,"t0203":0.175,"t0204":0.35,"t0205":0.55,"t0206":0.175,"t0207":0.175,"t0208":0.35,"t0209":0.35,"t0210":0.35,"t0211":0.35,"t0212":0.35,"t0213":0.55,"t0214":0.35,"t0215":0.55,"t0216":0.35,"t0217":0.35,"t0218":0.55,"t0219":0.55,"t0220":0.55,"t0221":0.35,"t0222":0.35,"t0223":0.35,"t0224":0.35,"t0225":0.35,"t0226":0.35,"t0227":0.175,"t0228":0.35,"t0229":0.55,"t0230":0.35,"t0231":0.35,"t0232":0.35,"t0233":0.55,"t0234":0.35,"t0235":0.35,"t0236":0.35,"t0237":0.35,"t0238":0.175,"t0239":0.35,"t0240":0.35,"t0241":0.35,"t0242":0.35,"t0243":0.35,"t0244":0.35,"t0245":0.35,"t0246":0.35,"t0247":0.175,"t0248":0.35,"t0249":0.35,"t0250":0.35,"t0251":0.35,"t0252":0.55,"t0253":0.35,"t0254":0.35,"t0255":0.175,"t0256":0.35,"t0257":0.55,"t0258":0.35,"t0259":0.55,"t0260":0.55,"t0261":0.35,"t0262":0.35,"t0263":0.55,"t0264":0.55,"t0265":0.03,"t0266":0.55,"t0267":0.35,"t0268":0.35,"t0269":0.55,"t0270":0.55,"t0271":0.55,"t0272":0.55,"t0273":0.35,"t0274":0.35,"t0275":0.35,"t0276":0.35,"t0277":0.35,"t0278":0.55,"t0279":0.35,"t0280":0.35,"t0281":0.55,"t0282":0.35,"t0283":0.175,"t0284":0.55,"t0285":0.35,"t0286":0.55,"t0287":0.55,"t0288":0.55,"t0289":0.35,"t0290":0.55,"t0291":0.55,"t0292":0.35,"t0293":0.55,"t0294":0.55,"t0295":0.35,"t0296":0.55,"t0297":0.55,"t0298":0.55,"t0299":0.35,"t0300":0.175,"t0301":0.35,"t0302":0.55,"t0303":0.55,"t0304":0.55,"t0305":0.55,"t0306":0.55,"t0307":0.55,"t0308":0.175,"t0309":0.35,"t0310":0.35,"t0311":0.35,"t0312":0.175,"t0313":0.175,"t0314":0.35,"t0315":0.55,"t0316":0.55,"t0317":0.55,"t0318":0.55,"t0319":0.55,"t0320":0.55,"t0321":0.55,"t0322":0.55,"t0323":0.35,"t0324":0.35,"t0325":0.175,"t0326":0.55,"t0327":0.55,"t0328":0.55,"t0329":0.55,"t0330":0.55,"t0331":0.55,"t0332":0.175,"t0333":0.095,"t0334":0.55,"t0335":0.55,"t0336":0.55,"t0337":0.175,"t0338":0.175,"t0339":0.35,"t0340":0.175,"t0341":0.35,"t0342":0.55,"t0343":0.35,"t0344":0.35,"t0345":0.35,"t0346":0.35,"t0347":0.175,"t0348":0.095,"t0349":0.35,"t0350":0.095,"t0351":0.35,"t0352":0.35,"t0353":0.35,"t0354":0.55,"t0355":0.55,"t0356":0.35,"t0357":0.35,"t0358":0.35,"t0359":0.55,"t0360":0.35,"t0361":0.35,"t0362":0.35,"t0363":0.35,"t0364":0.35,"t0365":0.35,"t0366":0.35,"t0367":0.175,"t0368":0.55,"t0369":0.35,"t0370":0.35,"t0371":0.35,"t0372":0.35,"t0373":0.095,"t0374":0.175,"t0375":0.55,"t0376":0.55,"t0377":0.55,"t0378":0.35,"t0379":0.35,"t0380":0.35,"t0381":0.175,"t0382":0.175,"t0383":0.175,"t0384":0.35,"t0385":0.175,"t0386":0.35,"t0387":0.55,"t0388":0.55,"t0389":0.35,"t0390":0.35,"t0391":0.35,"t0392":0.35,"t0393":0.35,"t0394":0.175,"t0395":0.095,"t0396":0.55,"t0397":0.55,"t0398":0.55,"t0399":0.35,"t0400":0.35,"t0401":0.35,"t0402":0.35,"t0403":0.35,"t0404":0.55},"byLabel":{"protocols and rules":0.35,"collars and symbols":0.35,"reward and correction":0.35,"discipline":0.55,"begging":0.55,"scene based roles":0.35,"ongoing dynamics":0.35,"femdom":0.55,"d s":0.55,"ordered to masturbate":0.55,"brats":0.55,"24 7":0.55,"switching":0.55,"male authority":0.35,"behavior modification":0.35,"female supremacy":0.35,"play punishment":0.35,"bathroom use control":0.35,"domestic discipline":0.35,"pro domme":0.175,"rope bondage":0.55,"scarf bondage":0.35,"hair bondage":0.175,"cuffs and straps":0.55,"cuffs":0.55,"spreaders and bars":0.35,"spreaders":0.35,"medieval devices":0.175,"armbinders":0.35,"bondage tape":0.35,"duct tape":0.35,"cling film":0.175,"mummification":0.35,"tape and wrapping":0.35,"tape":0.35,"blindfolded restraint":0.55,"blindfold":0.55,"gags":0.35,"speech restriction":0.35,"caging confinement":0.55,"caging":0.55,"encasement fetish":0.175,"encasement":0.175,"sleepsacks":0.095,"immobilization":0.35,"crucifixion play":0.095,"crucifixion":0.095,"furniture restraint":0.35,"furniture":0.35,"suspension bondage":0.35,"predicament bondage":0.35,"escape play":0.175,"breast bondage":0.35,"anal hooks":0.55,"self bondage":0.35,"waterbondage":0.175,"bondage art":0.35,"pain":0.55,"corporal punishment":0.35,"impact play":0.55,"percussion play":0.095,"pressure points":0.175,"spanking":0.55,"hand spanking":0.55,"otk spanking":0.35,"breast spanking":0.55,"clit spanking":0.55,"pussy spanking":0.55,"tit slapping":0.35,"flogging":0.55,"fire flogging":0.175,"whips":0.55,"belt whippings":0.35,"breast whipping":0.35,"caning":0.35,"riding crops":0.35,"paddles and straps":0.35,"clamps":0.35,"clothespins":0.35,"pinching":0.35,"cutting":0.35,"needle play":0.35,"corset piercing":0.175,"scarification":0.175,"staples":0.095,"fish hooks":0.095,"flesh hooks":0.095,"cell popping":0.03,"ball kicking":0.175,"ballbusting":0.35,"cock slapping":0.35,"cock and ball torture":0.55,"fire play":0.35,"knife play":0.35,"waterboarding":0.175,"figging":0.175,"sounding":0.175,"trampling":0.175,"kicking":0.175,"bastinado":0.175,"hair pulling":0.55,"abrasion play":0.175,"bruises":0.55,"heavy marking":0.35,"extreme endurance":0.175,"wax and temperature":0.35,"ice and cool touch":0.35,"tickling":0.55,"electrical play":0.55,"texture contrast":0.35,"sensory deprivation":0.55,"sensory overload":0.35,"asmr and whispering":0.35,"music and sound":0.35,"mirrors":0.35,"low light":0.35,"scent":0.35,"tantra energy play":0.35,"violet wand":0.35,"wartenberg pinwheels":0.35,"panty sniffing":0.35,"tens unit":0.35,"smothering":0.35,"cupping":0.175,"auralism":0.175,"vampire gloves":0.175,"smoking":0.175,"formiphilia":0.03,"abdl":0.35,"ddlg":0.35,"age play between adults":0.35,"age play":0.35,"infantilism":0.175,"caregiver roles adults":0.35,"caregiver":0.35,"mommy girl":0.35,"authority roles":0.55,"teacher student roleplay":0.55,"teacher student":0.55,"doctor nurse play":0.55,"doctor nurse":0.55,"medical play":0.35,"owner and property":0.55,"owner property":0.55,"gor":0.095,"captivity kidnapping":0.35,"kidnapping":0.35,"consensual non consent fantasy":0.35,"cnc fantasy":0.35,"damsels in distress":0.35,"damsels":0.35,"pet play":0.35,"pet":0.35,"puppy play":0.35,"puppy":0.35,"pony play":0.175,"piggy play":0.175,"creature fantasy":0.35,"1950s household":0.35,"1950s":0.35,"historical fantasy":0.35,"historical":0.35,"pirates":0.175,"victorian lifestyles":0.175,"victorian":0.175,"superheroes":0.175,"vampires and gothic":0.35,"vampires":0.35,"clowns":0.175,"robots":0.095,"dollification":0.35,"librarians":0.35,"sister brother roleplay":0.35,"siblings":0.35,"latex and rubber":0.55,"leather":0.55,"pvc":0.175,"vinyl":0.175,"metal":0.175,"satin":0.35,"silk":0.35,"velvet":0.175,"lace":0.55,"denim":0.095,"fur":0.175,"lycra spandex":0.35,"nylonlegs and feet":0.35,"nylon":0.35,"boot":0.175,"heels and boots":0.55,"high heels":0.55,"pumps":0.35,"retifism":0.095,"knee high socks":0.55,"socks":0.175,"business suits":0.35,"military":0.175,"military uniforms":0.35,"schoolgirl uniform":0.55,"uniforms":0.35,"cosplay":0.55,"costume transformation":0.35,"geisha":0.175,"steampunk":0.175,"lingerie and stockings":0.55,"fishnets":0.55,"pantyhose stockings":0.55,"corsets":0.55,"diapers":0.35,"sissy panties":0.35,"petticoats":0.175,"skirts":0.55,"gas masks":0.175,"hoods":0.35,"masks and hoods":0.35,"costume masks":0.35,"glasses":0.35,"anal beads":0.35,"glass dildos":0.35,"inflatables":0.175,"harnesses":0.35,"gloves":0.35,"chaps":0.095,"kilts":0.35,"zentai":0.095,"hands":0.35,"hands and gloves":0.35,"hair":0.175,"long hair":0.35,"pigtails":0.55,"bald girls":0.175,"head shaving":0.175,"facial hair":0.35,"beards":0.35,"body hair":0.35,"pubic hair":0.35,"depilation":0.35,"feet and footwear":0.55,"feet":0.55,"toes and feet":0.35,"toes":0.35,"foot worship":0.55,"boot worship":0.35,"legs":0.35,"buttocks":0.55,"big tits":0.55,"breasts":0.55,"large labia":0.35,"pregnancy focus":0.35,"makeup":0.35,"lipstick":0.35,"freckles":0.35,"armpits":0.35,"braces":0.175,"tongues":0.35,"bbw":0.55,"bbc":0.35,"muscles":0.35,"older men":0.35,"older women":0.55,"size contrast":0.35,"uncut cock":0.35,"body modification":0.35,"body worship":0.35,"muscle worship":0.175,"degradation":0.35,"humiliation language":0.35,"female humiliation":0.35,"small penis humiliation":0.35,"sph humiliation":0.35,"objectification":0.35,"fear":0.35,"fear play":0.35,"interrogation":0.35,"military interrogation":0.175,"hypnosis and mind control fantasy":0.35,"hypnosis":0.35,"mind fucks":0.35,"mental bondage":0.35,"emotional sadism":0.35,"sadism":0.55,"affectionate cruelty":0.35,"crying":0.35,"dacryphilia":0.175,"tears":0.35,"tearing off clothing":0.55,"anticipation and suspense":0.35,"trust":0.55,"attention":0.55,"blushing":0.35,"confession and secrets":0.35,"dirty talk":0.55,"praise in scene":0.55,"praise":0.55,"graphoerotica":0.03,"watching and being watched":0.55,"private photo and video":0.35,"performance for a partner":0.35,"public and outdoor play":0.55,"exhibition voyeurism":0.55,"sexting":0.55,"burlesque":0.55,"sex in the cemetery":0.35,"pin ups":0.35,"fetish models":0.35,"vintage porn":0.35,"bellydancing":0.35,"threesomes":0.55,"group encounters":0.35,"swinging":0.35,"cuckold hotwife":0.55,"polyamory with kink":0.35,"group service":0.175,"gangbang":0.55,"age gap":0.35,"fmf threesomes":0.55,"interracial sex":0.55,"hotwife":0.55,"cuckold humiliation":0.35,"morning sex":0.55,"oral sex":0.55,"facefucking":0.35,"facesitting":0.55,"rimming":0.55,"fingering mouths":0.35,"mouth fingering":0.35,"road head":0.55,"anal sex":0.55,"anal training":0.55,"anal fingering":0.35,"anal fisting":0.175,"pegging":0.35,"handjobs":0.55,"mutual masturbation":0.55,"vaginal fingering":0.55,"nipple play":0.55,"penetration":0.55,"fucking machines":0.55,"large objects":0.175,"vaginal stretching":0.35,"vaginal fisting":0.35,"fisting":0.35,"vacuum pumping":0.35,"urethral fucking":0.175,"catheters":0.175,"facials":0.35,"creampies":0.55,"squirting":0.55,"69":0.55,"cowgirl":0.55,"doggystyle":0.55,"missionary":0.55,"reverse cowgirl":0.55,"spooning":0.55,"standing up":0.35,"queening":0.35,"gorean slave positions":0.175,"orgasm control":0.55,"orgasm denial":0.55,"chastity":0.55,"edging":0.55,"teasing":0.55,"breeding pregnancy fantasy":0.55,"surrogacy fantasy":0.175,"oviposition fantasy":0.095,"edge play":0.55,"cock milking":0.55,"tease and denial":0.55,"anal chastity":0.175,"watersports":0.175,"lactation":0.35,"blood play":0.175,"spit":0.35,"enemas":0.55,"breastfeeding":0.35,"creampie cleanup":0.35,"toilet slave":0.35,"liquor":0.35,"douching":0.175,"nyotaimori":0.095,"chocolate":0.35,"klismaphilia":0.095,"hunter prey":0.35,"chase scenes":0.35,"wrestling and struggle":0.35,"biting and scratching":0.55,"being overpowered":0.55,"manhandling":0.35,"pursuit take down and capture":0.35,"primal":0.35,"acts of service":0.55,"domestic service":0.35,"formal etiquette":0.35,"grooming rituals":0.35,"dressing a partner":0.35,"permission rituals":0.35,"daily tasks":0.35,"ceremonial scenes":0.35,"spiritual play":0.175,"foot massage":0.55,"domestic servitude":0.35,"french maids":0.35,"maid":0.35,"crawling":0.35,"boot blacking":0.095,"religious play":0.175,"romantic surrender":0.55,"seduction scenarios":0.55,"strangers fantasy":0.55,"secret identity":0.35,"mythical creatures":0.35,"aliens":0.35,"growth shrinking fantasy":0.175,"body swapping fantasy":0.175,"furry transformation fantasy":0.175,"gender play":0.35,"crossdressing":0.175,"sissification":0.35,"celebrity fantasy":0.55,"erotic literature":0.55,"anime":0.35,"hentai":0.35,"writing erotica":0.35,"transvestism":0.35,"androgyny":0.35,"butches":0.175,"psycholagny":0.095,"verbal check ins":0.55,"cuddling and touch":0.55,"food and hydration":0.55,"quiet decompression":0.35,"praise aftercare":0.35,"post scene review":0.35,"space and solitude":0.35,"next day check in":0.35,"affection":0.55}};
-var SX_O6_PRIOR_W = .5 * Math.log(5), SX_O6_LN_JOYAL = Math.log(1516), SX_O6_LN_LEHMILLER = Math.log(4175);
+        const SX_O6_PRIORS = {"byId":{"t0002":0.35,"t0003":0.35,"t0004":0.35,"t0005":0.55,"t0006":0.55,"t0007":0.35,"t0008":0.35,"t0009":0.55,"t0010":0.55,"t0011":0.55,"t0012":0.55,"t0013":0.55,"t0014":0.55,"t0015":0.35,"t0016":0.35,"t0017":0.35,"t0018":0.35,"t0019":0.35,"t0020":0.35,"t0021":0.175,"t0022":0.55,"t0023":0.35,"t0024":0.175,"t0025":0.55,"t0026":0.35,"t0027":0.175,"t0028":0.35,"t0029":0.35,"t0030":0.35,"t0031":0.175,"t0032":0.35,"t0033":0.35,"t0034":0.55,"t0035":0.35,"t0036":0.35,"t0037":0.55,"t0038":0.175,"t0039":0.095,"t0040":0.35,"t0041":0.095,"t0042":0.35,"t0043":0.35,"t0044":0.35,"t0045":0.175,"t0046":0.35,"t0047":0.55,"t0048":0.35,"t0049":0.175,"t0050":0.35,"t0051":0.55,"t0052":0.35,"t0053":0.55,"t0054":0.095,"t0055":0.175,"t0056":0.55,"t0057":0.35,"t0058":0.55,"t0059":0.55,"t0060":0.55,"t0061":0.35,"t0062":0.55,"t0063":0.175,"t0064":0.55,"t0065":0.35,"t0066":0.35,"t0067":0.35,"t0068":0.35,"t0069":0.35,"t0070":0.35,"t0071":0.35,"t0072":0.35,"t0073":0.35,"t0074":0.35,"t0075":0.175,"t0076":0.175,"t0077":0.095,"t0078":0.095,"t0079":0.095,"t0080":0.03,"t0081":0.175,"t0082":0.35,"t0083":0.35,"t0084":0.55,"t0085":0.35,"t0086":0.35,"t0087":0.175,"t0088":0.175,"t0089":0.175,"t0090":0.175,"t0091":0.175,"t0092":0.175,"t0093":0.55,"t0094":0.175,"t0095":0.55,"t0096":0.35,"t0097":0.175,"t0098":0.35,"t0099":0.35,"t0100":0.55,"t0101":0.55,"t0102":0.35,"t0103":0.55,"t0104":0.35,"t0105":0.35,"t0106":0.35,"t0107":0.35,"t0108":0.35,"t0109":0.35,"t0110":0.35,"t0111":0.35,"t0112":0.35,"t0113":0.35,"t0114":0.35,"t0115":0.35,"t0116":0.175,"t0117":0.175,"t0118":0.175,"t0119":0.175,"t0120":0.03,"t0121":0.35,"t0122":0.35,"t0123":0.35,"t0124":0.175,"t0125":0.35,"t0126":0.35,"t0127":0.55,"t0128":0.55,"t0129":0.55,"t0130":0.35,"t0131":0.55,"t0132":0.095,"t0133":0.35,"t0134":0.35,"t0135":0.35,"t0136":0.35,"t0137":0.35,"t0138":0.175,"t0139":0.175,"t0140":0.35,"t0141":0.35,"t0142":0.35,"t0143":0.175,"t0144":0.175,"t0145":0.175,"t0146":0.35,"t0147":0.175,"t0148":0.095,"t0149":0.35,"t0150":0.35,"t0151":0.35,"t0152":0.55,"t0153":0.55,"t0154":0.175,"t0155":0.175,"t0156":0.175,"t0157":0.35,"t0158":0.35,"t0159":0.175,"t0160":0.55,"t0161":0.095,"t0162":0.175,"t0163":0.35,"t0164":0.35,"t0165":0.175,"t0166":0.55,"t0167":0.55,"t0168":0.35,"t0169":0.095,"t0170":0.55,"t0171":0.175,"t0172":0.35,"t0173":0.175,"t0174":0.35,"t0175":0.55,"t0176":0.35,"t0177":0.55,"t0178":0.35,"t0179":0.175,"t0180":0.175,"t0181":0.55,"t0182":0.55,"t0183":0.55,"t0184":0.55,"t0185":0.35,"t0186":0.35,"t0187":0.175,"t0188":0.55,"t0189":0.175,"t0190":0.35,"t0191":0.35,"t0192":0.35,"t0193":0.35,"t0194":0.35,"t0195":0.175,"t0196":0.35,"t0197":0.35,"t0198":0.095,"t0199":0.35,"t0200":0.095,"t0201":0.35,"t0202":0.35,"t0203":0.175,"t0204":0.35,"t0205":0.55,"t0206":0.175,"t0207":0.175,"t0208":0.35,"t0209":0.35,"t0210":0.35,"t0211":0.35,"t0212":0.35,"t0213":0.55,"t0214":0.35,"t0215":0.55,"t0216":0.35,"t0217":0.35,"t0218":0.55,"t0219":0.55,"t0220":0.55,"t0221":0.35,"t0222":0.35,"t0223":0.35,"t0224":0.35,"t0225":0.35,"t0226":0.35,"t0227":0.175,"t0228":0.35,"t0229":0.55,"t0230":0.35,"t0231":0.35,"t0232":0.35,"t0233":0.55,"t0234":0.35,"t0235":0.35,"t0236":0.35,"t0237":0.35,"t0238":0.175,"t0239":0.35,"t0240":0.35,"t0241":0.35,"t0242":0.35,"t0243":0.35,"t0244":0.35,"t0245":0.35,"t0246":0.35,"t0247":0.175,"t0248":0.35,"t0249":0.35,"t0250":0.35,"t0251":0.35,"t0252":0.55,"t0253":0.35,"t0254":0.35,"t0255":0.175,"t0256":0.35,"t0257":0.55,"t0258":0.35,"t0259":0.55,"t0260":0.55,"t0261":0.35,"t0262":0.35,"t0263":0.55,"t0264":0.55,"t0265":0.03,"t0266":0.55,"t0267":0.35,"t0268":0.35,"t0269":0.55,"t0270":0.55,"t0271":0.55,"t0272":0.55,"t0273":0.35,"t0274":0.35,"t0275":0.35,"t0276":0.35,"t0277":0.35,"t0278":0.55,"t0279":0.35,"t0280":0.35,"t0281":0.55,"t0282":0.35,"t0283":0.175,"t0284":0.55,"t0285":0.35,"t0286":0.55,"t0287":0.55,"t0288":0.55,"t0289":0.35,"t0290":0.55,"t0291":0.55,"t0292":0.35,"t0293":0.55,"t0294":0.55,"t0295":0.35,"t0296":0.55,"t0297":0.55,"t0298":0.55,"t0299":0.35,"t0300":0.175,"t0301":0.35,"t0302":0.55,"t0303":0.55,"t0304":0.55,"t0305":0.55,"t0306":0.55,"t0307":0.55,"t0308":0.175,"t0309":0.35,"t0310":0.35,"t0311":0.35,"t0312":0.175,"t0313":0.175,"t0314":0.35,"t0315":0.55,"t0316":0.55,"t0317":0.55,"t0318":0.55,"t0319":0.55,"t0320":0.55,"t0321":0.55,"t0322":0.55,"t0323":0.35,"t0324":0.35,"t0325":0.175,"t0326":0.55,"t0327":0.55,"t0328":0.55,"t0329":0.55,"t0330":0.55,"t0331":0.55,"t0332":0.175,"t0333":0.095,"t0334":0.55,"t0335":0.55,"t0336":0.55,"t0337":0.175,"t0338":0.175,"t0339":0.35,"t0340":0.175,"t0341":0.35,"t0342":0.55,"t0343":0.35,"t0344":0.35,"t0345":0.35,"t0346":0.35,"t0347":0.175,"t0348":0.095,"t0349":0.35,"t0350":0.095,"t0351":0.35,"t0352":0.35,"t0353":0.35,"t0354":0.55,"t0355":0.55,"t0356":0.35,"t0357":0.35,"t0358":0.35,"t0359":0.55,"t0360":0.35,"t0361":0.35,"t0362":0.35,"t0363":0.35,"t0364":0.35,"t0365":0.35,"t0366":0.35,"t0367":0.175,"t0368":0.55,"t0369":0.35,"t0370":0.35,"t0371":0.35,"t0372":0.35,"t0373":0.095,"t0374":0.175,"t0375":0.55,"t0376":0.55,"t0377":0.55,"t0378":0.35,"t0379":0.35,"t0380":0.35,"t0381":0.175,"t0382":0.175,"t0383":0.175,"t0384":0.35,"t0385":0.175,"t0386":0.35,"t0387":0.55,"t0388":0.55,"t0389":0.35,"t0390":0.35,"t0391":0.35,"t0392":0.35,"t0393":0.35,"t0394":0.175,"t0395":0.095,"t0396":0.55,"t0397":0.55,"t0398":0.55,"t0399":0.35,"t0400":0.35,"t0401":0.35,"t0402":0.35,"t0403":0.35,"t0404":0.55},"byLabel":{"protocols and rules":0.35,"collars and symbols":0.35,"reward and correction":0.35,"discipline":0.55,"begging":0.55,"scene based roles":0.35,"ongoing dynamics":0.35,"femdom":0.55,"d s":0.55,"ordered to masturbate":0.55,"brats":0.55,"24 7":0.55,"switching":0.55,"male authority":0.35,"behavior modification":0.35,"female supremacy":0.35,"play punishment":0.35,"bathroom use control":0.35,"domestic discipline":0.35,"pro domme":0.175,"rope bondage":0.55,"scarf bondage":0.35,"hair bondage":0.175,"cuffs and straps":0.55,"cuffs":0.55,"spreaders and bars":0.35,"spreaders":0.35,"medieval devices":0.175,"armbinders":0.35,"bondage tape":0.35,"duct tape":0.35,"cling film":0.175,"mummification":0.35,"tape and wrapping":0.35,"tape":0.35,"blindfolded restraint":0.55,"blindfold":0.55,"gags":0.35,"speech restriction":0.35,"caging confinement":0.55,"caging":0.55,"encasement fetish":0.175,"encasement":0.175,"sleepsacks":0.095,"immobilization":0.35,"crucifixion play":0.095,"crucifixion":0.095,"furniture restraint":0.35,"furniture":0.35,"suspension bondage":0.35,"predicament bondage":0.35,"escape play":0.175,"breast bondage":0.35,"anal hooks":0.55,"self bondage":0.35,"waterbondage":0.175,"bondage art":0.35,"pain":0.55,"corporal punishment":0.35,"impact play":0.55,"percussion play":0.095,"pressure points":0.175,"spanking":0.55,"hand spanking":0.55,"otk spanking":0.35,"breast spanking":0.55,"clit spanking":0.55,"pussy spanking":0.55,"tit slapping":0.35,"flogging":0.55,"fire flogging":0.175,"whips":0.55,"belt whippings":0.35,"breast whipping":0.35,"caning":0.35,"riding crops":0.35,"paddles and straps":0.35,"clamps":0.35,"clothespins":0.35,"pinching":0.35,"cutting":0.35,"needle play":0.35,"corset piercing":0.175,"scarification":0.175,"staples":0.095,"fish hooks":0.095,"flesh hooks":0.095,"cell popping":0.03,"ball kicking":0.175,"ballbusting":0.35,"cock slapping":0.35,"cock and ball torture":0.55,"fire play":0.35,"knife play":0.35,"waterboarding":0.175,"figging":0.175,"sounding":0.175,"trampling":0.175,"kicking":0.175,"bastinado":0.175,"hair pulling":0.55,"abrasion play":0.175,"bruises":0.55,"heavy marking":0.35,"extreme endurance":0.175,"wax and temperature":0.35,"ice and cool touch":0.35,"tickling":0.55,"electrical play":0.55,"texture contrast":0.35,"sensory deprivation":0.55,"sensory overload":0.35,"asmr and whispering":0.35,"music and sound":0.35,"mirrors":0.35,"low light":0.35,"scent":0.35,"tantra energy play":0.35,"violet wand":0.35,"wartenberg pinwheels":0.35,"panty sniffing":0.35,"tens unit":0.35,"smothering":0.35,"cupping":0.175,"auralism":0.175,"vampire gloves":0.175,"smoking":0.175,"formiphilia":0.03,"abdl":0.35,"ddlg":0.35,"age play between adults":0.35,"age play":0.35,"infantilism":0.175,"caregiver roles adults":0.35,"caregiver":0.35,"mommy girl":0.35,"authority roles":0.55,"teacher student roleplay":0.55,"teacher student":0.55,"doctor nurse play":0.55,"doctor nurse":0.55,"medical play":0.35,"owner and property":0.55,"owner property":0.55,"gor":0.095,"captivity kidnapping":0.35,"kidnapping":0.35,"consensual non consent fantasy":0.35,"cnc fantasy":0.35,"damsels in distress":0.35,"damsels":0.35,"pet play":0.35,"pet":0.35,"puppy play":0.35,"puppy":0.35,"pony play":0.175,"piggy play":0.175,"creature fantasy":0.35,"1950s household":0.35,"1950s":0.35,"historical fantasy":0.35,"historical":0.35,"pirates":0.175,"victorian lifestyles":0.175,"victorian":0.175,"superheroes":0.175,"vampires and gothic":0.35,"vampires":0.35,"clowns":0.175,"robots":0.095,"dollification":0.35,"librarians":0.35,"sister brother roleplay":0.35,"siblings":0.35,"latex and rubber":0.55,"leather":0.55,"pvc":0.175,"vinyl":0.175,"metal":0.175,"satin":0.35,"silk":0.35,"velvet":0.175,"lace":0.55,"denim":0.095,"fur":0.175,"lycra spandex":0.35,"nylonlegs and feet":0.35,"nylon":0.35,"boot":0.175,"heels and boots":0.55,"high heels":0.55,"pumps":0.35,"retifism":0.095,"knee high socks":0.55,"socks":0.175,"business suits":0.35,"military":0.175,"military uniforms":0.35,"schoolgirl uniform":0.55,"uniforms":0.35,"cosplay":0.55,"costume transformation":0.35,"geisha":0.175,"steampunk":0.175,"lingerie and stockings":0.55,"fishnets":0.55,"pantyhose stockings":0.55,"corsets":0.55,"diapers":0.35,"sissy panties":0.35,"petticoats":0.175,"skirts":0.55,"gas masks":0.175,"hoods":0.35,"masks and hoods":0.35,"costume masks":0.35,"glasses":0.35,"anal beads":0.35,"glass dildos":0.35,"inflatables":0.175,"harnesses":0.35,"gloves":0.35,"chaps":0.095,"kilts":0.35,"zentai":0.095,"hands":0.35,"hands and gloves":0.35,"hair":0.175,"long hair":0.35,"pigtails":0.55,"bald girls":0.175,"head shaving":0.175,"facial hair":0.35,"beards":0.35,"body hair":0.35,"pubic hair":0.35,"depilation":0.35,"feet and footwear":0.55,"feet":0.55,"toes and feet":0.35,"toes":0.35,"foot worship":0.55,"boot worship":0.35,"legs":0.35,"buttocks":0.55,"big tits":0.55,"breasts":0.55,"large labia":0.35,"pregnancy focus":0.35,"makeup":0.35,"lipstick":0.35,"freckles":0.35,"armpits":0.35,"braces":0.175,"tongues":0.35,"bbw":0.55,"bbc":0.35,"muscles":0.35,"older men":0.35,"older women":0.55,"size contrast":0.35,"uncut cock":0.35,"body modification":0.35,"body worship":0.35,"muscle worship":0.175,"degradation":0.35,"humiliation language":0.35,"female humiliation":0.35,"small penis humiliation":0.35,"sph humiliation":0.35,"objectification":0.35,"fear":0.35,"fear play":0.35,"interrogation":0.35,"military interrogation":0.175,"hypnosis and mind control fantasy":0.35,"hypnosis":0.35,"mind fucks":0.35,"mental bondage":0.35,"emotional sadism":0.35,"sadism":0.55,"affectionate cruelty":0.35,"crying":0.35,"dacryphilia":0.175,"tears":0.35,"tearing off clothing":0.55,"anticipation and suspense":0.35,"trust":0.55,"attention":0.55,"blushing":0.35,"confession and secrets":0.35,"dirty talk":0.55,"praise in scene":0.55,"praise":0.55,"graphoerotica":0.03,"watching and being watched":0.55,"private photo and video":0.35,"performance for a partner":0.35,"public and outdoor play":0.55,"exhibition voyeurism":0.55,"sexting":0.55,"burlesque":0.55,"sex in the cemetery":0.35,"pin ups":0.35,"fetish models":0.35,"vintage porn":0.35,"bellydancing":0.35,"threesomes":0.55,"group encounters":0.35,"swinging":0.35,"cuckold hotwife":0.55,"polyamory with kink":0.35,"group service":0.175,"gangbang":0.55,"age gap":0.35,"fmf threesomes":0.55,"interracial sex":0.55,"hotwife":0.55,"cuckold humiliation":0.35,"morning sex":0.55,"oral sex":0.55,"facefucking":0.35,"facesitting":0.55,"rimming":0.55,"fingering mouths":0.35,"mouth fingering":0.35,"road head":0.55,"anal sex":0.55,"anal training":0.55,"anal fingering":0.35,"anal fisting":0.175,"pegging":0.35,"handjobs":0.55,"mutual masturbation":0.55,"vaginal fingering":0.55,"nipple play":0.55,"penetration":0.55,"fucking machines":0.55,"large objects":0.175,"vaginal stretching":0.35,"vaginal fisting":0.35,"fisting":0.35,"vacuum pumping":0.35,"urethral fucking":0.175,"catheters":0.175,"facials":0.35,"creampies":0.55,"squirting":0.55,"69":0.55,"cowgirl":0.55,"doggystyle":0.55,"missionary":0.55,"reverse cowgirl":0.55,"spooning":0.55,"standing up":0.35,"queening":0.35,"gorean slave positions":0.175,"orgasm control":0.55,"orgasm denial":0.55,"chastity":0.55,"edging":0.55,"teasing":0.55,"breeding pregnancy fantasy":0.55,"surrogacy fantasy":0.175,"oviposition fantasy":0.095,"edge play":0.55,"cock milking":0.55,"tease and denial":0.55,"anal chastity":0.175,"watersports":0.175,"lactation":0.35,"blood play":0.175,"spit":0.35,"enemas":0.55,"breastfeeding":0.35,"creampie cleanup":0.35,"toilet slave":0.35,"liquor":0.35,"douching":0.175,"nyotaimori":0.095,"chocolate":0.35,"klismaphilia":0.095,"hunter prey":0.35,"chase scenes":0.35,"wrestling and struggle":0.35,"biting and scratching":0.55,"being overpowered":0.55,"manhandling":0.35,"pursuit take down and capture":0.35,"primal":0.35,"acts of service":0.55,"domestic service":0.35,"formal etiquette":0.35,"grooming rituals":0.35,"dressing a partner":0.35,"permission rituals":0.35,"daily tasks":0.35,"ceremonial scenes":0.35,"spiritual play":0.175,"foot massage":0.55,"domestic servitude":0.35,"french maids":0.35,"maid":0.35,"crawling":0.35,"boot blacking":0.095,"religious play":0.175,"romantic surrender":0.55,"seduction scenarios":0.55,"strangers fantasy":0.55,"secret identity":0.35,"mythical creatures":0.35,"aliens":0.35,"growth shrinking fantasy":0.175,"body swapping fantasy":0.175,"furry transformation fantasy":0.175,"gender play":0.35,"crossdressing":0.175,"sissification":0.35,"celebrity fantasy":0.55,"erotic literature":0.55,"anime":0.35,"hentai":0.35,"writing erotica":0.35,"transvestism":0.35,"androgyny":0.35,"butches":0.175,"psycholagny":0.095,"verbal check ins":0.55,"cuddling and touch":0.55,"food and hydration":0.55,"quiet decompression":0.35,"praise aftercare":0.35,"post scene review":0.35,"space and solitude":0.35,"next day check in":0.35,"affection":0.55}};
+        const SX_O6_PRIOR_W = .5 * Math.log(5), SX_O6_LN_JOYAL = Math.log(1516), SX_O6_LN_LEHMILLER = Math.log(4175);
         function sxO6Prior(e) {
             // Prior resolved by topic id first: the label table misses
             // topics whose catalog label has no byLabel entry (e.g.
@@ -4652,7 +4652,7 @@ var SX_O6_PRIOR_W = .5 * Math.log(5), SX_O6_LN_JOYAL = Math.log(1516), SX_O6_LN_
             for (let k = 0; k < alts.length; k++) { const w = SX_O6_PRIORS.byLabel[M(alts[k])]; if (Number.isFinite(w)) return w; }
             return null;
         }
-var SX_REDDIT_VALUES = (x.reddit && x.reddit.values) || {}, SX_REDDIT_RANGE = N(Object.values(SX_REDDIT_VALUES).map(v => "object" == typeof v ? v.value : v));
+        const SX_REDDIT_VALUES = (x.reddit && x.reddit.values) || {}, SX_REDDIT_RANGE = N(Object.values(SX_REDDIT_VALUES).map(v => "object" == typeof v ? v.value : v));
         function sxRedditVal(e) {
             const t = [ e, ...I[e] || [] ].map(k => SX_REDDIT_VALUES[k]).filter(v => null != v).sort((a, b) => Number(("object" == typeof b ? b.value : b) || 0) - Number(("object" == typeof a ? a.value : a) || 0))[0];
             if (null == t) return null;
@@ -4670,7 +4670,7 @@ var SX_REDDIT_VALUES = (x.reddit && x.reddit.values) || {}, SX_REDDIT_RANGE = N(
             }
             return j(e);
         }
-var q = Object.freeze([ {
+        const q = Object.freeze([ {
             id: "fetlife",
             value: e => B(e),
             normalize: e => O(e, D, _),
@@ -4815,7 +4815,7 @@ var q = Object.freeze([ {
         h.forEach(e => {
             e.topics = U(e.topics, e => sxTopicPopularity(topicIdByLabel[sxName(e)] || sxName(e)));
         }), h.splice(0, h.length, ...U(h, z, e => e.name));
-var Y = V("fetlifeGroupMappingData"), X = V("redditGroupMappingData"), Z = V("discordGroupMappingData"), Q = Object.keys(Y).length ? Y : window.__SEXCAPADES_FETLIFE_GROUPS && "object" == typeof window.__SEXCAPADES_FETLIFE_GROUPS ? window.__SEXCAPADES_FETLIFE_GROUPS : {}, J = Object.keys(X).length ? X : window.__SEXCAPADES_REDDIT_GROUPS && "object" == typeof window.__SEXCAPADES_REDDIT_GROUPS ? window.__SEXCAPADES_REDDIT_GROUPS : {}, ee = Object.keys(Z).length ? Z : window.__SEXCAPADES_DISCORD_GROUPS && "object" == typeof window.__SEXCAPADES_DISCORD_GROUPS ? window.__SEXCAPADES_DISCORD_GROUPS : {}, te = (() => {
+        const Y = V("fetlifeGroupMappingData"), X = V("redditGroupMappingData"), Z = V("discordGroupMappingData"), Q = Object.keys(Y).length ? Y : window.__SEXCAPADES_FETLIFE_GROUPS && "object" == typeof window.__SEXCAPADES_FETLIFE_GROUPS ? window.__SEXCAPADES_FETLIFE_GROUPS : {}, J = Object.keys(X).length ? X : window.__SEXCAPADES_REDDIT_GROUPS && "object" == typeof window.__SEXCAPADES_REDDIT_GROUPS ? window.__SEXCAPADES_REDDIT_GROUPS : {}, ee = Object.keys(Z).length ? Z : window.__SEXCAPADES_DISCORD_GROUPS && "object" == typeof window.__SEXCAPADES_DISCORD_GROUPS ? window.__SEXCAPADES_DISCORD_GROUPS : {}, te = (() => {
             try {
                 const t = JSON.parse(e.byId("communityCompletionTimeData")?.textContent || "{}"), n = e => Number.isFinite(Number(e)) && Number(e) > 0 ? Number(e) : null, i = e => Number.isFinite(Number(e)) && Number(e) >= 0 ? Number(e) : null;
                 return {
@@ -4845,7 +4845,7 @@ var Y = V("fetlifeGroupMappingData"), X = V("redditGroupMappingData"), Z = V("di
                 e.hidden = !t, e.textContent = t ? `average ${ne(te.mean)} ± ${ne(te.sd)} min from ${Math.round(te.n)} explorers` : "";
             });
         }();
-var ie = {
+        const ie = {
             "decorative rope": "Shibari",
             "japanese-inspired bondage": "Shibari",
             "suspension bondage": "Suspension",
@@ -4947,7 +4947,7 @@ var ie = {
                 }) : null;
             }).filter(Boolean);
         }
-var oe = {
+        const oe = {
             fetlife: Q,
             reddit: J,
             discord: ee
@@ -4959,7 +4959,7 @@ var oe = {
         function de(e, t) {
             return ce(e, t)[0] || null;
         }
-var ue = [ [ "Power exchange", "Psychological dynamics" ], [ "Power exchange", "Service & ritual" ], [ "Power exchange", "Roleplay & identity" ], [ "Bondage & restriction", "Impact, pain & body modification" ], [ "Bondage & restriction", "Sensation & atmosphere" ], [ "Impact, pain & body modification", "Primal & pursuit" ], [ "Impact, pain & body modification", "Connection & aftercare" ], [ "Sensation & atmosphere", "Clothing, materials & objects" ], [ "Sensation & atmosphere", "Body focus & appearance" ], [ "Roleplay & identity", "Fantasy & transformation" ], [ "Roleplay & identity", "Clothing, materials & objects" ], [ "Clothing, materials & objects", "Body focus & appearance" ], [ "Psychological dynamics", "Primal & pursuit" ], [ "Psychological dynamics", "Connection & aftercare" ], [ "Watching, exposure & settings", "Partner configurations" ], [ "Watching, exposure & settings", "Clothing, materials & objects" ], [ "Partner configurations", "Sex acts" ], [ "Partner configurations", "Fantasy & transformation" ], [ "Sex acts", "Positions" ], [ "Sex acts", "Orgasm & reproductive play" ], [ "Sex acts", "Fluids & messy play" ], [ "Orgasm & reproductive play", "Fluids & messy play" ], [ "Primal & pursuit", "Fantasy & transformation" ], [ "Service & ritual", "Connection & aftercare" ] ];
+        const ue = [ [ "Power exchange", "Psychological dynamics" ], [ "Power exchange", "Service & ritual" ], [ "Power exchange", "Roleplay & identity" ], [ "Bondage & restriction", "Impact, pain & body modification" ], [ "Bondage & restriction", "Sensation & atmosphere" ], [ "Impact, pain & body modification", "Primal & pursuit" ], [ "Impact, pain & body modification", "Connection & aftercare" ], [ "Sensation & atmosphere", "Clothing, materials & objects" ], [ "Sensation & atmosphere", "Body focus & appearance" ], [ "Roleplay & identity", "Fantasy & transformation" ], [ "Roleplay & identity", "Clothing, materials & objects" ], [ "Clothing, materials & objects", "Body focus & appearance" ], [ "Psychological dynamics", "Primal & pursuit" ], [ "Psychological dynamics", "Connection & aftercare" ], [ "Watching, exposure & settings", "Partner configurations" ], [ "Watching, exposure & settings", "Clothing, materials & objects" ], [ "Partner configurations", "Sex acts" ], [ "Partner configurations", "Fantasy & transformation" ], [ "Sex acts", "Positions" ], [ "Sex acts", "Orgasm & reproductive play" ], [ "Sex acts", "Fluids & messy play" ], [ "Orgasm & reproductive play", "Fluids & messy play" ], [ "Primal & pursuit", "Fantasy & transformation" ], [ "Service & ritual", "Connection & aftercare" ] ];
         function pe(e) {
             const t = new Set, n = [];
             return (e || []).forEach(e => {
@@ -4968,7 +4968,7 @@ var ue = [ [ "Power exchange", "Psychological dynamics" ], [ "Power exchange", "
                 t.has(i) || (t.add(i), n.push(e));
             }), n;
         }
-var he = [ [ "t0281", "t0240" ] ], ge = {
+        const he = [ [ "t0281", "t0240" ] ], ge = {
             "Power exchange": {
                 color: "#ef806e",
                 glyph: '<path class="icon-glyph" d="M5 17 7 8l5 5 5-5 2 9Z M7 20h10"/>'
@@ -5782,7 +5782,7 @@ var he = [ [ "t0281", "t0240" ] ], ge = {
             "Connection & aftercare": [ "chat", "hug", "cup", "cloud", "star", "checklist", "moon", "calendar" ]
         }, ve = new Map;
         b.forEach(e => e.topics.forEach((t, n) => ve.set(e.name + "\0" + t, (window.__SX_EXPORT_BE?.[e.name] || [])[n] || "star")));
-var we = {
+        const we = {
             "Power exchange": "crown",
             "Bondage & restriction": "chain links",
             "Impact, pain & body modification": "paddle",
@@ -5837,7 +5837,7 @@ var we = {
         function xe(e) {
             return ke[e] || e.replace(/([a-z])([A-Z])/g, "$1 $2").replace(/\d+/g, "").trim();
         }
-var Se = {
+        const Se = {
             black: "black",
             darkBlue: "dark blue",
             lightBlue: "light blue",
@@ -5864,7 +5864,7 @@ var Se = {
             r.join(" ");
         }
         
-var Ee = Object.freeze({
+        const Ee = Object.freeze({
             Materials: "stripes",
             Footwear: "heel",
             "Uniforms & costumes": "uniform",
@@ -5962,7 +5962,7 @@ var Ee = Object.freeze({
         // (i.e. on Sexcapades domain or after Sexcapades skin loads), verify
         // that Ee covers them. When running an engine boot before skin apply,
         // or on vanilla skins, skip Sexcapades-specific subcategory checks.
-var _glyphSubNames = new Set;
+        const _glyphSubNames = new Set;
         h.forEach(_cat => (_cat.subcategories || []).forEach(_sub => _glyphSubNames.add(_sub.name)));
         if (_glyphSubNames.size > 0 && _glyphSubNames.has("Flexible ties")) {
             for (const _subName of _glyphSubNames) {
@@ -5986,7 +5986,7 @@ var _glyphSubNames = new Set;
                 mixed: s
             };
         }
-var Ce = {
+        const Ce = {
             black: {
                 color: "#111514",
                 labelStroke: "#dce1dd"
@@ -6065,7 +6065,7 @@ var Ce = {
             hunterGreen: [ "Authority roles", "Caregiver roles (adults)", "Age play between adults", "Pet play", "Pony Play", "Puppy play", "Owner & property", "Doctor/Nurse Play", "Teacher / student roleplay", "Hunter / prey" ],
             neutral: [ "Tantra / energy play" ]
         }).forEach(([e, t]) => t.forEach(t => Ie.set(t, e)));
-var Pe = {
+        const Pe = {
             key: "noCode",
             color: "#232726",
             lineColor: "#78817e",
@@ -6122,13 +6122,13 @@ var Pe = {
                 mixed: s
             };
         }
-var Ne = new Map;
+        const Ne = new Map;
         h.forEach(e => {
             const t = ge[e.name], n = Fe(e);
             Ne.set(e.name, n), t && (t.color = n.color, t.hankyKey = n.key, t.hankyMixed = n.mixed);
         });
-var _e = new Map;
-var De = 0;
+        const _e = new Map;
+        let De = 0;
         function Re(e) {
             const t = 16, n = e % t, i = (7 * Math.floor(e / t) + n + 5) % t, a = (n + 10 + e % 3) % t, r = (e, n = 6.15) => {
                 const i = -Math.PI / 2 + e / t * Math.PI * 2;
@@ -6165,7 +6165,7 @@ var De = 0;
 
 
 /* --- Module: 02i1-topic-descriptions.js --- */
-var Be = {
+        const Be = {
             aella: {
                 label: "Aella Big Kink Survey",
                 url: "https://github.com/austeane/aella-survey-site/blob/HEAD/data/Big%20Kink%20Survey%20(970k%20cleaned).md"
@@ -6830,7 +6830,7 @@ var Be = {
         };
 
 /* --- Module: 02i2-widget-geometry.js --- */
-var Ue = new Set([ "t0002", "t0007", "t0008", "t0102", "t0106", "t0107", "t0108", "t0140", "topic-vampires-gothic", "topic-historical-fantasy", "t0377", "t0378", "t0379", "t0380", "t0382", "t0383", "t0384", "t0317", "t0318", "t0319", "t0320", "t0321", "t0322", "t0323", "t0278", "t0279", "t0280", "t0282", "t0258", "t0361", "t0366", "t0396", "t0397", "t0399", "t0401", "t0402", "t0403", "t0269", "t0048", "t0132", "t0143", "t0144", "t0147", "t0148", "t0195", "t0217", "t0219", "t0228", "t0229", "t0230", "t0232", "t0233", "t0259", "t0290", "t0303" ]);
+        const Ue = new Set([ "t0002", "t0007", "t0008", "t0102", "t0106", "t0107", "t0108", "t0140", "topic-vampires-gothic", "topic-historical-fantasy", "t0377", "t0378", "t0379", "t0380", "t0382", "t0383", "t0384", "t0317", "t0318", "t0319", "t0320", "t0321", "t0322", "t0323", "t0278", "t0279", "t0280", "t0282", "t0258", "t0361", "t0366", "t0396", "t0397", "t0399", "t0401", "t0402", "t0403", "t0269", "t0048", "t0132", "t0143", "t0144", "t0147", "t0148", "t0195", "t0217", "t0219", "t0228", "t0229", "t0230", "t0232", "t0233", "t0259", "t0290", "t0303" ]);
         function Ge(e, t = Vi()) {
             const n = (at[t] || {})[e], i = n && n.parentId || e;
             /* Flexcapades skin registry: a loaded skin supplies widget configs
@@ -7030,14 +7030,14 @@ var Ue = new Set([ "t0002", "t0007", "t0008", "t0102", "t0106", "t0107", "t0108"
         }));
 
 /* --- Module: 02j-profile-state.js --- */
-var Ke = new Set;
+        const Ke = new Set;
         function ze(e, t) {
             return new Proxy(t, {
                 deleteProperty: (t, n) => (console.error(`Blocked an unexpected ${e} deletion for ${String(n)}.`), 
                 !0)
             });
         }
-var Ve = window.__SEXCAPADES_PROFILE_SESSION__ || (window.__SEXCAPADES_PROFILE_SESSION__ = {
+        const Ve = window.__SEXCAPADES_PROFILE_SESSION__ || (window.__SEXCAPADES_PROFILE_SESSION__ = {
             profileRecords: {},
             profileNameRecords: {},
             ratingSources: {},
@@ -7104,25 +7104,25 @@ var Ve = window.__SEXCAPADES_PROFILE_SESSION__ || (window.__SEXCAPADES_PROFILE_S
                 } : {}
             }, zt(e));
         }
-var Et = "__empty-profile-preview__", At = {};
+        const Et = "__empty-profile-preview__", At = {};
         Ze[Et] = {}, Qe[Et] = {}, Je[Et] = {}, et[Et] = {}, tt[Et] = {}, at[Et] = {};
-var Ct = !1, Mt = null, It = null, Pt = "all", Lt = null, Tt = "", Nt = null, Dt = null, Rt = !1, Ot = "all", Bt = !0;
-var sxSelEditorMirrored = null;
+        let Ct = !1, Mt = null, It = null, Pt = "all", Lt = null, Tt = "", Nt = null, Dt = null, Rt = !1, Ot = "all", Bt = !0;
+        let sxSelEditorMirrored = null;
 
         // Phase 2: Semantic state aliases and runtime state bridge
-var sxProfileRatings = vt;
-var sxProfileNames = wt;
-var sxProfileAnnotations = Qe;
-var sxProfileComparisons = ft;
-var sxProfileDirty = yt;
-var sxRatingSources = Ze;
-var sxFantasyOnly = Je;
-var sxAlreadyTried = et;
-var sxProfileNotes = tt;
-var sxImportedChildren = at;
-var sxProfileVeils = vpt;
-var sxProfileVeilEnabled = vht;
-var sxProfileTimes = mt;
+        const sxProfileRatings = vt;
+        const sxProfileNames = wt;
+        const sxProfileAnnotations = Qe;
+        const sxProfileComparisons = ft;
+        const sxProfileDirty = yt;
+        const sxRatingSources = Ze;
+        const sxFantasyOnly = Je;
+        const sxAlreadyTried = et;
+        const sxProfileNotes = tt;
+        const sxImportedChildren = at;
+        const sxProfileVeils = vpt;
+        const sxProfileVeilEnabled = vht;
+        const sxProfileTimes = mt;
 
         function sxGetActiveProfileId() { return Mt; }
         function sxSetActiveProfileId(id) { Mt = id; }
@@ -7169,8 +7169,8 @@ var sxProfileTimes = mt;
         function jt() {
             return Mt && yt[Mt] ? Mt : Object.keys(yt).find(e => vt[e] && yt[e]) || null;
         }
-var qt = !1, Ht = null, Wt = !1;
-var draftRatings = Object.create(null), draftSaveTimers = Object.create(null);
+        let qt = !1, Ht = null, Wt = !1;
+        const draftRatings = Object.create(null), draftSaveTimers = Object.create(null);
         function cloneProfileData(e) {
             try {
                 return JSON.parse(JSON.stringify(e));
@@ -7223,15 +7223,15 @@ var draftRatings = Object.create(null), draftSaveTimers = Object.create(null);
         }
 
 /* --- Module: 02k-compare-dials.js --- */
-var sxGroupLeniency = 50, sxWriterLeniency = 50, sxCompareIds = [], Qt = null, Jt = () => {};
+        let sxGroupLeniency = 50, sxWriterLeniency = 50, sxCompareIds = [], Qt = null, Jt = () => {};
         // Last PURE pair computation per group id (blocker stage,
         // 2026-10-27): the tag-free baseline Rd and sxRefreshGroupOwn
         // diff the pair's live map against. In memory only - declared
         // here, beside the other compare state, so every edit path
         // (zt included) can read it safely.
-var sxPairBase = {};
-var en = new Set, tn = {}, nn = [ "#63c2c8", "#e27786", "#d7bd55", "#8c96df", "#63c796", "#ef9a55", "#cc7fc6", "#79a9cf" ];
-var an = !1;
+        const sxPairBase = {};
+        const en = new Set, tn = {}, nn = [ "#63c2c8", "#e27786", "#d7bd55", "#8c96df", "#63c796", "#ef9a55", "#cc7fc6", "#79a9cf" ];
+        let an = !1;
         // Profiles-data F1: SX_PROFILE_FIELDS is the ONE canonical list of
         // the per-profile data lists (the raw session-state objects keyed
         // by profile id; Ye/Xe are the raw objects behind the vt/wt
@@ -7256,12 +7256,12 @@ var an = !1;
         // import create writes them itself and close/move carry them as
         // documented path extras; and curveBends (bt), whose keys are
         // map-node ids, not profile ids.
-var SX_PROFILE_FIELDS = [ Ye, Ze, Xe, profileUuids, sampleProfileFlags, rt, pz, ot, st, lt, ct, dt, ut, nt, it, vpt, vht, at, gt, mt, Qe, Je, et, tt, tn, ft, yt, profileSkins ];
+        const SX_PROFILE_FIELDS = [ Ye, Ze, Xe, profileUuids, sampleProfileFlags, rt, pz, ot, st, lt, ct, dt, ut, nt, it, vpt, vht, at, gt, mt, Qe, Je, et, tt, tn, ft, yt, profileSkins ];
         // The object-valued subset of SX_PROFILE_FIELDS that the create
         // paths initialize to {} for a fresh profile: ratings, rating
         // sources, annotations, fantasy-only, already-tried, notes,
         // imported children, loader state, completion times.
-var SX_PROFILE_RECORD_LISTS = [ Ye, Ze, Qe, Je, et, tt, at, gt, mt ];
+        const SX_PROFILE_RECORD_LISTS = [ Ye, Ze, Qe, Je, et, tt, at, gt, mt ];
         // SOLVER-METRICS REFACTOR (F2): the layout dials are SINGLE-
         // SOURCED. The shell's early script builds the live dials
         // (window.__SEXCAPADES_LAYOUT) from its baked defaults plus
@@ -7318,7 +7318,7 @@ var SX_PROFILE_RECORD_LISTS = [ Ye, Ze, Qe, Je, et, tt, at, gt, mt ];
             const n = Number(v);
             return Number.isFinite(n) && n > 0 && n <= 1 ? n : .76;
         }
-var rn = new Set, on = new Set, sn = new Map, ln = {}, cn = {}, dn = {}, un = new Map, pn = {}, hn = {}, gn = new Set, mn = window.__SEXCAPADES_LAYOUT || sxGeneratedFallbackDials();
+        const rn = new Set, on = new Set, sn = new Map, ln = {}, cn = {}, dn = {}, un = new Map, pn = {}, hn = {}, gn = new Set, mn = window.__SEXCAPADES_LAYOUT || sxGeneratedFallbackDials();
 
 /* --- Module: 02o-ratings-scales.js --- */
         h.forEach(e => {
@@ -7330,9 +7330,9 @@ var rn = new Set, on = new Set, sn = new Map, ln = {}, cn = {}, dn = {}, un = ne
                 un.set(n, "all"), mn.expandAll && on.add(n);
             });
         });
-var fn = new Map;
-var yn = null, bn = 0, vn = null, wn = !1, kn = !0, xn = null, Sn = "all", $n = null, En = !1;
-var An = {
+        const fn = new Map;
+        let yn = null, bn = 0, vn = null, wn = !1, kn = !0, xn = null, Sn = "all", $n = null, En = !1;
+        const An = {
             compact: 12,
             roomy: 20,
             all: Number.POSITIVE_INFINITY
@@ -7348,8 +7348,8 @@ var An = {
         // Build 2026-10-18_0343: the map now OPENS in Full - every topic in
         // each expanded branch shows by default; the toggle still lets the
         // user drop back to Medium or Compact.
-var mapDetailLevel = "full";
-var DETAIL_CAPS = {
+        let mapDetailLevel = "full";
+        const DETAIL_CAPS = {
             compact: 4,
             medium: 7,
             full: Number.POSITIVE_INFINITY
@@ -7367,10 +7367,10 @@ var DETAIL_CAPS = {
                 forceRepaint: !0
             });
         };
-var Cn = e.byId("mapSvg"), Mn = e.byId("mapScene"), In = e.byId("mapLayer"), Pn = e.byId("mapDefs"), Ln = e.byId("mapSafeFallback"), Tn = e.byId("mapSafeMessage"), Fn = e.byId("mapSafeOpen"), Nn = e.byId("mapSafeReset");
-var Dn = !1, Rn = !1, On = null, Bn = [], jn = !1;
-var qn = {};
-var sxStemFinaliseHook = null;
+        const Cn = e.byId("mapSvg"), Mn = e.byId("mapScene"), In = e.byId("mapLayer"), Pn = e.byId("mapDefs"), Ln = e.byId("mapSafeFallback"), Tn = e.byId("mapSafeMessage"), Fn = e.byId("mapSafeOpen"), Nn = e.byId("mapSafeReset");
+        let Dn = !1, Rn = !1, On = null, Bn = [], jn = !1;
+        const qn = {};
+        let sxStemFinaliseHook = null;
         function Hn(e) {
             return String(e == null ? "" : e).toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
         }
@@ -7378,7 +7378,7 @@ var sxStemFinaliseHook = null;
         function sxName(e) {
             return e && "object" == typeof e ? String(e.name || "") : String(e || "");
         }
-var LEGACY_NODE_IDS = Object.freeze({
+        const LEGACY_NODE_IDS = Object.freeze({
     "cat-power-exchange": "c0001",
     "cat-bondage-restriction": "c0002",
     "cat-impact-pain-body-modification": "c0003",
@@ -7756,7 +7756,7 @@ var LEGACY_NODE_IDS = Object.freeze({
             Ke.add(catId(e.name)), (e.subcategories || []).forEach(t => Ke.add(Un(e.name, t.name))), 
             e.topics.forEach(e => Ke.add(Wn(e)));
         });
-var ti = {
+        const ti = {
             "boss secretary": "Boss / secretary",
             "over the knee otk spanking": "Over-the-knee spanking",
             "abdl diaper play": "ABDL / diaper play",
@@ -7896,7 +7896,7 @@ var ti = {
             gather(e);
             return collected;
         }
-var ki = 0;
+        let ki = 0;
         function xi(e) {
             t.clear(ki), ki = 0, Mr(e);
         }
@@ -7971,7 +7971,7 @@ var ki = 0;
             };
             e ? xi(t) : Mr(t);
         }
-var Mi = e.byId("centerProfileCard"), Ii = (e.byId("centerProfileCardTitle"), 
+        const Mi = e.byId("centerProfileCard"), Ii = (e.byId("centerProfileCardTitle"), 
         e.byId("centerProfileAbout")), Pi = (e.byId("centerContactList"), e.byId("profileAboutDialog")), Li = e.byId("profileAboutSubtitle"), Ti = e.byId("profileAboutText"), Fi = e.byId("profileAboutResource"), Ni = [ [ "telegram", "Telegram" ], [ "linktree", "linktr.ee" ], [ "fetlife", "FetLife" ], [ "chaturbate", "Chaturbate" ], [ "stripchat", "Stripchat" ], [ "myfreecams", "MyFreeCams" ], [ "pornhub", "PornHub" ], [ "xvideos", "XVideos" ], [ "xhamster", "xHamster" ], [ "onlyfans", "OnlyFans" ], [ "reddit", "Reddit" ], [ "x", "X" ] ];
         function _i(e, t) {
             const n = encodeURIComponent(t);
@@ -8143,7 +8143,7 @@ var Mi = e.byId("centerProfileCard"), Ii = (e.byId("centerProfileCardTitle"),
                 }
             }, !0);
         })();
-var Gi = e.byId("unsavedChangesDialog");
+        const Gi = e.byId("unsavedChangesDialog");
         function Ki() {
             const t = jt();
             t && !Gi.open && (e.byId("unsavedChangesQuestion").textContent = `${wt[t] || "This profile"} has changes that are not safely stored yet. Choose what to do before reloading.`, 
@@ -8156,7 +8156,7 @@ var Gi = e.byId("unsavedChangesDialog");
         // properties (shell :root: #bd4f51 / #d7bd55 / #3da874 - the
         // same values in hex). Change a stop here and in the shell
         // :root together.
-var INTEREST_STOPS = {
+        const INTEREST_STOPS = {
             curious: [ 215, 189, 85 ],
             positive: [ 61, 168, 116 ],
             negative: [ 189, 79, 81 ]
@@ -9449,15 +9449,15 @@ var INTEREST_STOPS = {
         }
 
         // Phase 2: Semantic function bridge
-var sxIsVeilActive = Ia;
-var sxGetComparisonProfileIds = Ta;
-var sxIsComparisonActive = Fa;
-var sxGetTopicStance = ca;
-var sxGetTopicScore = Ca;
-var sxMapVeilThreshold = Aa;
-var sxGetActiveProfileOrDefault = Vi;
-var sxGetComparisonOutcome = di;
-var sxGetActiveOrComparisonProfiles = Xi;
+        const sxIsVeilActive = Ia;
+        const sxGetComparisonProfileIds = Ta;
+        const sxIsComparisonActive = Fa;
+        const sxGetTopicStance = ca;
+        const sxGetTopicScore = Ca;
+        const sxMapVeilThreshold = Aa;
+        const sxGetActiveProfileOrDefault = Vi;
+        const sxGetComparisonOutcome = di;
+        const sxGetActiveOrComparisonProfiles = Xi;
 
         window.SexcapadesEngine = window.SexcapadesEngine || {};
         window.SexcapadesEngine.Profiles = {
@@ -9944,7 +9944,7 @@ var sxGetActiveOrComparisonProfiles = Xi;
            of the map viewBox). Widths are FULL widths: a corner is
            offset width / 2 to either side of the centerline.
            ================================================================ */
-var SpokeGeometry = (() => {
+        const SpokeGeometry = (() => {
             /** Polyline samples per flank edge (matches the old Ga.SAMPLES). */
             const SAMPLES = 12;
             /** Flare falloff rate: flank width decays exponentially from base width to tip width along the spoke (matches the old Ga.FLARE_DECAY). */
@@ -10396,8 +10396,8 @@ var SpokeGeometry = (() => {
         // the spoke midline wears the same neutral seam the vanilla skins
         // use; a topic's hanky code colors its placard instead (03e1).
         // True whenever the active skin is not a vanilla skin.
-var sxSexSkin = () => !(typeof window !== "undefined" && window.__SX_SKIN_PREFIX && "sex" !== window.__SX_SKIN_PREFIX);
-var Ga = Object.freeze({
+        const sxSexSkin = () => !(typeof window !== "undefined" && window.__SX_SKIN_PREFIX && "sex" !== window.__SX_SKIN_PREFIX);
+        const Ga = Object.freeze({
             WIDTH: 18,
             TIP_FRACTION: 0,
             OUTLINE_EXTRA: 1.25,
@@ -10497,21 +10497,21 @@ var Ga = Object.freeze({
             if (record && spokeId === record.parentId) return "own";
             return null;
         }
-var Qi = () => typeof window !== "undefined" && typeof window.Qi === "function" ? window.Qi() : false;
-var Vi = () => typeof window !== "undefined" && typeof window.Vi === "function" ? window.Vi() : null;
-var Xi = () => typeof window !== "undefined" && typeof window.Xi === "function" ? window.Xi() : [];
-var Ge = (e, t) => typeof window !== "undefined" && typeof window.Ge === "function" ? window.Ge(e, t) : null;
-var da = (e, t) => typeof window !== "undefined" && typeof window.da === "function" ? window.da(e, t) : null;
-var $a = (e, t, n) => typeof window !== "undefined" && typeof window.$a === "function" ? window.$a(e, t, n) : null;
-var Sa = (e, t, n, i) => typeof window !== "undefined" && typeof window.Sa === "function" ? window.Sa(e, t, n, i) : null;
-var ka = (e, t, n = "", i = {}) => typeof window !== "undefined" && typeof window.ka === "function" ? window.ka(e, t, n, i) : "";
-var Ua = (e) => typeof window !== "undefined" && typeof window.Ua === "function" ? window.Ua(e) : null;
-var Oa = (e, t) => typeof window !== "undefined" && typeof window.Oa === "function" ? window.Oa(e, t) : null;
-var ba = (e) => typeof window !== "undefined" && typeof window.ba === "function" ? window.ba(e) : "";
-var la = (e) => typeof window !== "undefined" && typeof window.la === "function" ? window.la(e) : "var(--line)";
-var zi = (e) => typeof window !== "undefined" && typeof window.zi === "function" ? window.zi(e) : "var(--line)";
-var qn = typeof window !== "undefined" && window.qn ? window.qn : {};
-var Xn = (e) => typeof window !== "undefined" && typeof window.Xn === "function" ? window.Xn(e) : null;
+        const Qi = () => typeof window !== "undefined" && typeof window.Qi === "function" ? window.Qi() : false;
+        const Vi = () => typeof window !== "undefined" && typeof window.Vi === "function" ? window.Vi() : null;
+        const Xi = () => typeof window !== "undefined" && typeof window.Xi === "function" ? window.Xi() : [];
+        const Ge = (e, t) => typeof window !== "undefined" && typeof window.Ge === "function" ? window.Ge(e, t) : null;
+        const da = (e, t) => typeof window !== "undefined" && typeof window.da === "function" ? window.da(e, t) : null;
+        const $a = (e, t, n) => typeof window !== "undefined" && typeof window.$a === "function" ? window.$a(e, t, n) : null;
+        const Sa = (e, t, n, i) => typeof window !== "undefined" && typeof window.Sa === "function" ? window.Sa(e, t, n, i) : null;
+        const ka = (e, t, n = "", i = {}) => typeof window !== "undefined" && typeof window.ka === "function" ? window.ka(e, t, n, i) : "";
+        const Ua = (e) => typeof window !== "undefined" && typeof window.Ua === "function" ? window.Ua(e) : null;
+        const Oa = (e, t) => typeof window !== "undefined" && typeof window.Oa === "function" ? window.Oa(e, t) : null;
+        const ba = (e) => typeof window !== "undefined" && typeof window.ba === "function" ? window.ba(e) : "";
+        const la = (e) => typeof window !== "undefined" && typeof window.la === "function" ? window.la(e) : "var(--line)";
+        const zi = (e) => typeof window !== "undefined" && typeof window.zi === "function" ? window.zi(e) : "var(--line)";
+        const qn = typeof window !== "undefined" && window.qn ? window.qn : {};
+        const Xn = (e) => typeof window !== "undefined" && typeof window.Xn === "function" ? window.Xn(e) : null;
 
         function Ka(e, t, n, i, a, r, o, s, l, c, d, u = 48, p = Ga.FALLBACK_COLOR, g = !0, m = "", f = null, y = null, b = null, v = !1, w = !0, k = h.length, bc = null, sxLeafD = null, sxDepth = null) {
             if (sxSexSkin()) v = !0;
@@ -11127,7 +11127,7 @@ var Xn = (e) => typeof window !== "undefined" && typeof window.Xn === "function"
                 y: MAP_CENTER_Y + Math.sin(e) * t
             };
         }
-var Za = Object.freeze({
+        const Za = Object.freeze({
             HALO_SPACING: Object.freeze({
                 category: 8,
                 topic: 6
@@ -11563,8 +11563,8 @@ var Za = Object.freeze({
         // phase neighbor-cap relief for the active branch only) and
         // rr.optimizeSpokeLengths (change logging for the active branch).
         // With no context active, nothing here alters ordinary behavior.
-var dkCtx = null;
-var dkLog = [];
+        let dkCtx = null;
+        const dkLog = [];
         // ANNEAL REPORT TEST HOOK (permanent diagnostic surface,
         // added 2026-11-03): sxPublishAnnealReport mirrors the
         // latest deknotter.run() outcome onto three read-only
@@ -11593,7 +11593,7 @@ var dkLog = [];
         // affect a run - and the promise returned to the caller
         // is the cascade's own, untouched. Nothing here changes
         // solver behaviour, paint, or the report itself.
-var sxAnnealRunSeq = 0, sxAnnealLastReport = null;
+        let sxAnnealRunSeq = 0, sxAnnealLastReport = null;
         function sxPublishAnnealReport(report, pending) {
             try {
                 if (pending) sxAnnealRunSeq++; else sxAnnealLastReport = report || null;
@@ -11657,7 +11657,7 @@ var sxAnnealRunSeq = 0, sxAnnealLastReport = null;
         // budget for a DeKnotter run context. A single phase may run
         // at most this long; past it, dkSolvePoll throws a budget
         // error that unwinds the cascade into its snapshot restore.
-var DK_PHASE_BUDGET_MS = 180000;
+        const DK_PHASE_BUDGET_MS = 180000;
         // SOLVER-METRICS REFACTOR (F9): ONE named constants block for the
         // untangler / optimizer magic numbers that used to sit inline at
         // their use sites. TRANSCRIPTION ONLY - every value below is the
@@ -11669,7 +11669,7 @@ var DK_PHASE_BUDGET_MS = 180000;
         // Tolerance is flat GATE_TOL (2). The larger-of-1-and-
         // 10%-of-previous form is removed. The onset margin and
         // the fine-tune margin are deleted; no selector remains.
-var SX_SCORE = {
+        const SX_SCORE = {
             REGRESSION_TOL: .01,
             // Throw (RE-RULED 2026-11-01, Jason - supersedes
             // the 2026-10-31 x25 / x15 factors and the kink
@@ -11890,7 +11890,7 @@ var SX_SCORE = {
         // .node-group DOM elements across its rebuild (scoped
         // paint). applyScoped declines to scope at all when
         // mn.crossmin is on (fallback "crossmin-on").
-var scCtx = null;
+        let scCtx = null;
         // T3 relief boundary event: count the suppression, append
         // the boundaryLog entry (carrying the caller's op class when
         // the scope provided one), and - under the "fallback"
@@ -11959,8 +11959,8 @@ var scCtx = null;
         // LANDS - never while merely held) and restore stand-down
         // (start removed by splice), and deknotter.begin's log
         // clear.
-var blitSess = null, blitTokenSeq = 0, blitSigActive = !1;
-var BLIT_NS = "http://www.w3.org/2000/svg", BLIT_XLINK = "http://www.w3.org/1999/xlink";
+        let blitSess = null, blitTokenSeq = 0, blitSigActive = !1;
+        const BLIT_NS = "http://www.w3.org/2000/svg", BLIT_XLINK = "http://www.w3.org/1999/xlink";
         function blitSameFrozen(a, b) {
             if (!a || !b || a.size !== b.size) return !1;
             for (const n of a) if (!b.has(n)) return !1;
@@ -12152,7 +12152,7 @@ var BLIT_NS = "http://www.w3.org/2000/svg", BLIT_XLINK = "http://www.w3.org/1999
         // back to the exact legacy settle and logs through
         // __sxErrLog("layout-settle-guard", e); the settle is never
         // lost, delayed indefinitely, or left dangling.
-var sgInFlight = !1, sgHoldBlitStart = !1, sgCaptureSource = "rendered";
+        let sgInFlight = !1, sgHoldBlitStart = !1, sgCaptureSource = "rendered";
         // Every branch name the guard freezes and measures: the same
         // universe applyScoped scopes over, taken from the last
         // solve's branch list (dkLastBranches) unioned with the qn
@@ -13009,7 +13009,7 @@ var sgInFlight = !1, sgHoldBlitStart = !1, sgCaptureSource = "rendered";
         // through deknotter.baseState(). Keyed by stable identity -
         // never by wrapper object - because wrappers are rebuilt on
         // every fr() run while identities persist across solves.
-var dkBaseStates = new Map;
+        const dkBaseStates = new Map;
         // Bundle-side equivalents of the editor shell's bakedBranchBase /
         // bakedSubBase(name, "length") / bakedKinkBase: read the same
         // __SEXCAPADES_LAYOUT_DEFAULTS object, same fallback of 1.
@@ -13075,8 +13075,8 @@ var dkBaseStates = new Map;
         // booleans, so a container copy is a true copy; scalars go by
         // value. The clone shares no object references with its source,
         // in either direction.
-var dkEntryMaps = { branchOverrides: 1, subcatOverrides: 1, kinkOverrides: 1, nodeOverrides: 1, subcatAngleOffsets: 1, kinkAngleOffsets: 1 };
-var dkArmMaps = { branchSpokeAutoShrink: 1, subcatSpokeAutoShrink: 1 };
+        const dkEntryMaps = { branchOverrides: 1, subcatOverrides: 1, kinkOverrides: 1, nodeOverrides: 1, subcatAngleOffsets: 1, kinkAngleOffsets: 1 };
+        const dkArmMaps = { branchSpokeAutoShrink: 1, subcatSpokeAutoShrink: 1 };
         function dkCloneEntryMap(value) {
             const out = {};
             if (!value || "object" != typeof value) return out;
@@ -13121,12 +13121,12 @@ var dkArmMaps = { branchSpokeAutoShrink: 1, subcatSpokeAutoShrink: 1 };
         // recaptures under the new governing state; on disarm the fit
         // fields leave the signature and the item returns to legacy
         // behavior.
-var dkFitRegistry = new Map;
-var dkFitRevision = 0;
+        const dkFitRegistry = new Map;
+        let dkFitRevision = 0;
         // The most recent solve's branch sectors, kept so the driver
         // can enumerate the currently rendered items of a branch (fit
         // arming and fit reporting) by stable identity.
-var dkLastBranches = null;
+        let dkLastBranches = null;
         // Fit-target accessor (E3 contract, E4 wiring): the ONE read
         // point for fit state. Returns null ("no fit") for an unarmed
         // item, else { target, revision } for the item's stable key.
@@ -13681,25 +13681,20 @@ var dkLastBranches = null;
         // Extracted from 02n-deknotter-cascade.js for modularity, clean maintenance,
         // and reduced token cost. Contains layout math helpers, delivered radii calculations,
         // camera/viewport diagnostics, painted geometry inspectors, and witness frame evaluators.
-
-        function dkMedian(values) {
+function dkMedian(values) {
             if (!values.length) return null;
             const sorted = values.slice().sort((a, b) => a - b), mid = sorted.length >> 1;
             return sorted.length % 2 ? sorted[mid] : (sorted[mid - 1] + sorted[mid]) / 2;
         }
-
-        function dkRange(values) {
+function dkRange(values) {
             return values.length ? [ Math.min.apply(null, values), Math.max.apply(null, values) ] : null;
         }
-
-var DK_SHRINK_STEPS_FIXED = 7, DK_LADDER_MAX_STAGES = 512;
-
-        function dkLadderSteps(from, to) {
+const DK_SHRINK_STEPS_FIXED = 7, DK_LADDER_MAX_STAGES = 512;
+function dkLadderSteps(from, to) {
             if (!Number.isFinite(from) || !Number.isFinite(to) || !(from > to) || !(to > 0)) return 0;
             return DK_SHRINK_STEPS_FIXED;
         }
-
-        function dkLadderValue(from, to, stage, stages) {
+function dkLadderValue(from, to, stage, stages) {
             if (!Number.isFinite(from) || !Number.isFinite(to) || !(from > to)) return from;
             const n = Number.isFinite(stages) && stages > 0 ? Math.floor(stages) : DK_SHRINK_STEPS_FIXED, s = Number.isFinite(stage) ? Math.floor(stage) : 0;
             if (s <= 0) return from;
@@ -13709,15 +13704,13 @@ var DK_SHRINK_STEPS_FIXED = 7, DK_LADDER_MAX_STAGES = 512;
             for (let i = 0; i < s; i++) cum += Math.sqrt(n - i);
             return from - (from - to) * (cum / total);
         }
-
-        function dkFitDeviationCount(entries) {
+function dkFitDeviationCount(entries) {
             let n = 0;
             return (entries || []).forEach(e => {
                 e && "fit-deviation" === e.type && n++;
             }), n;
         }
-
-        function dkDeliveredItemRadius(item) {
+function dkDeliveredItemRadius(item) {
             if (!item) return NaN;
             if (item.child) {
                 const ko = mn.kinkOverrides && item.child.id ? mn.kinkOverrides[item.child.id] : null;
@@ -13744,8 +13737,7 @@ var DK_SHRINK_STEPS_FIXED = 7, DK_LADDER_MAX_STAGES = 512;
             if (h < minReqSpoke) h = minReqSpoke;
             return h;
         }
-
-        function dkDeliveredRadii(branchName) {
+function dkDeliveredRadii(branchName) {
             const items = {};
             dkFitBranchItems(branchName).forEach(w => {
                 items[dkRadialBaseInfo(w).key] = dkDeliveredItemRadius(w);
@@ -13753,8 +13745,7 @@ var DK_SHRINK_STEPS_FIXED = 7, DK_LADDER_MAX_STAGES = 512;
             const branchObj = h.find(b => b.name === branchName);
             return { items: items, branch: branchObj ? yr(branchObj) : NaN };
         }
-
-        function dkBranchTaxonomy(branchName) {
+function dkBranchTaxonomy(branchName) {
             const entry = h.find(b => b.name === branchName);
             if (!entry) return null;
             const subLabels = (entry.subcategories || []).map(s => s.name);
@@ -13772,50 +13763,41 @@ var DK_SHRINK_STEPS_FIXED = 7, DK_LADDER_MAX_STAGES = 512;
             });
             return { entry: entry, subLabels: subLabels, kinkIds: kinkIds, total: kinkIds.length + subLabels.length };
         }
-
-        function dkBakeGate(report) {
+function dkBakeGate(report) {
             try {
                 const sumNb = o => o ? Object.keys(o).reduce((a, k) => a + (Number(o[k]) || 0), 0) : 0;
                 const bkBase = (Number(report.baseline.first) || 0) + sumNb(report.neighbors.baseline), bkFin = (Number(report.finalCloud) || 0) + sumNb(report.neighbors.final);
                 report.bakeGate = { metric: "crossingnumber-total", baseline: bkBase, final: bkFin, delta: bkFin - bkBase, limit: SX_SCORE.BAKE_GATE_LIMIT, pass: bkFin - bkBase < SX_SCORE.BAKE_GATE_LIMIT };
             } catch (e) { report.bakeGate = null; }
         }
-
-        function tallyFitDev(report) {
+function tallyFitDev(report) {
             return report.phases.reduce((s, p) => s + (p && p.fitDeviationCount || 0), 0);
         }
-
-        function clearBranchFit(dk, name) {
+function clearBranchFit(dk, name) {
             Object.keys(dk.fitTargets()).forEach(k => {
                 "revision" !== k && k.split("|")[1] === name && dk.clearFitTarget(k);
             });
         }
-
-        function yieldNow() {
+function yieldNow() {
             return new Promise(r => { let done = false; const fin = () => { if (!done) { done = true; r(); } }; requestAnimationFrame(() => requestAnimationFrame(fin)); setTimeout(fin, 60); });
         }
-
-        function diagRound(v) {
+function diagRound(v) {
             return null == v || !Number.isFinite(Number(v)) ? null : Math.round(100 * Number(v)) / 100;
         }
-
-        function diagCameraText(cam, label) {
+function diagCameraText(cam, label) {
             return label + ": scale " + (cam && null != cam.scale ? cam.scale : "\u2014") + " \u00b7 translate " + (cam && null != cam.tx ? cam.tx : "\u2014") + ", " + (cam && null != cam.ty ? cam.ty : "\u2014");
         }
-
-var witnessFrameSeq = 0;
-var witnessLastFrame = null;
-var throwBracketBefore = null;
-var diagPrePaintHub = null;
-
-        function resetWitnessState() {
+let witnessFrameSeq = 0;
+let witnessLastFrame = null;
+let throwBracketBefore = null;
+let diagPrePaintHub = null;
+function resetWitnessState() {
             witnessFrameSeq = 0;
             witnessLastFrame = null;
             throwBracketBefore = null;
             diagPrePaintHub = null;
         }
-
-        function witnessSubs(radii, dk) {
+function witnessSubs(radii, dk) {
             const subs = {}, snap = dk.snapshot(), ov = snap && snap.subcatOverrides ? snap.subcatOverrides : {};
             return Object.keys(radii && radii.items || {}).forEach(k => {
                 if ("subcat" !== k.split("|")[0]) return;
@@ -13823,19 +13805,16 @@ var diagPrePaintHub = null;
                 subs[label] = { d: Number.isFinite(d) ? Math.round(d * 1e4) / 1e4 : null, o: ov[label] && Number(ov[label].length) > 0 ? Number(ov[label].length) : null };
             }), subs;
         }
-
-        function witnessFrame(event, phase, radii, witnessSubsFn, name, report, dk) {
+function witnessFrame(event, phase, radii, witnessSubsFn, name, report, dk) {
             const subsFn = witnessSubsFn || witnessSubs;
             const frame = { i: witnessFrameSeq++, event: event, phase: phase || null, subs: subsFn(radii || dkDeliveredRadii(name), dk) };
             return witnessLastFrame = frame, report.witness.frames.length < 600 && report.witness.frames.push(frame), dkLog.push({ type: "witness-frame", event: event, phase: frame.phase, subs: frame.subs }), frame;
         }
-
-        function witnessRestore(event, phase, witnessSubsFn, name, report, witnessJudgeFn, witnessTrippingLabel, dk, witnessThrown, WITNESS_EPS, WITNESS_ONE_STEP) {
+function witnessRestore(event, phase, witnessSubsFn, name, report, witnessJudgeFn, witnessTrippingLabel, dk, witnessThrown, WITNESS_EPS, WITNESS_ONE_STEP) {
             const before = witnessLastFrame, after = witnessFrame(event, phase, null, witnessSubsFn, name, report, dk);
             return (witnessJudgeFn || witnessJudge)(event, phase, witnessTrippingLabel, before, after, witnessThrown, WITNESS_EPS, WITNESS_ONE_STEP, report);
         }
-
-        function witnessPaintedFrame(stage, operation, dkPaintedGeometryFn, name, dkPaintedNodeCentreFn, tax, dkPaintedStemSegFn) {
+function witnessPaintedFrame(stage, operation, dkPaintedGeometryFn, name, dkPaintedNodeCentreFn, tax, dkPaintedStemSegFn) {
             try {
                 const g = (dkPaintedGeometryFn || dkPaintedGeometry)(stage, name, dkPaintedNodeCentreFn || dkPaintedNodeCentre, tax, dkPaintedStemSegFn || dkPaintedStemSeg);
                 g.operation = operation || null;
@@ -13843,8 +13822,7 @@ var diagPrePaintHub = null;
                 return g;
             } catch (e) { return null; }
         }
-
-        function diagClosingLines(snap) {
+function diagClosingLines(snap) {
             if (!snap.closingPaint) return [];
             const cp = snap.closingPaint, lines = [ "closing-paint mode: " + cp.mode ];
             lines.push(cp.scopedPaint ? "closing-paint scoped-paint: retained " + cp.scopedPaint.retained + " / captured " + cp.scopedPaint.captured + " / diverged " + cp.scopedPaint.diverged : "closing-paint scoped-paint: no entry");
@@ -13852,8 +13830,7 @@ var diagPrePaintHub = null;
             lines.push(diagCameraText(snap.camera, "camera at DIAG-03"));
             return lines;
         }
-
-        async function diagPause(code, label, extra, diagAcceptCtx, opts, diagSnapshotFn, report, name, tax, diagCaptureFields) {
+async function diagPause(code, label, extra, diagAcceptCtx, opts, diagSnapshotFn, report, name, tax, diagCaptureFields) {
             if (!diagAcceptCtx || !opts || "function" != typeof opts.onDiagPause) return;
             const snap = (diagSnapshotFn || diagSnapshot)(code, label, extra, name, tax, diagAcceptCtx, diagCaptureFields);
             (report.diag || (report.diag = [])).push(snap);
@@ -13861,8 +13838,7 @@ var diagPrePaintHub = null;
             try { console.log("[" + code + "] " + snap.text, snap); } catch (e) {}
             try { await opts.onDiagPause(snap); } catch (e) {}
         }
-
-        async function throwBracketPoint(code, throwBracketFullPaintFn, throwBracketSnapshotFn, opts, name, dkPaintedNodeCentreFn, tax, report) {
+async function throwBracketPoint(code, throwBracketFullPaintFn, throwBracketSnapshotFn, opts, name, dkPaintedNodeCentreFn, tax, report) {
             const stamp = code + ":first-throw";
             const label = "THROW-BEFORE" === code ? "pre-throw full paint \u2192 stepThrow" : "stepThrow \u2192 post-throw full paint";
             const paintInfo = await (throwBracketFullPaintFn || throwBracketFullPaint)(stamp, name, dkPaintedNodeCentreFn || dkPaintedNodeCentre, tax);
@@ -13871,8 +13847,7 @@ var diagPrePaintHub = null;
             if (opts && "function" == typeof opts.onThrowBracketPause) { try { await opts.onThrowBracketPause(snap); } catch (e) {} }
             return snap;
         }
-
-        async function focusThrowedActiveNode(name) {
+async function focusThrowedActiveNode(name) {
             try {
                 if (window.sxPaintPromise) {
                     try { await window.sxPaintPromise; } catch (_) {}
@@ -13913,8 +13888,7 @@ var diagPrePaintHub = null;
                 }
             } catch (_) {}
         }
-
-        function diagText(snap) {
+function diagText(snap) {
             const f = v => null == v ? "\u2014" : String(v);
             let t = snap.code + " \u00b7 " + snap.label + " \u00b7 branch " + snap.branch + " \u00b7 phase " + f(snap.phase) + " \u00b7 crossing last-kept " + f(diagRound(snap.crossingBefore)) + " \u2192 tripped " + f(diagRound(snap.crossingAfter)) + " \u00b7 branch delivered radius " + f(snap.storedBranchRadius);
             Object.keys(snap.paintedSubs).forEach(l => { const ps = snap.paintedSubs[l]; t += " \u00b7 " + l + ": seg " + f(ps.seg) + " / abs " + f(ps.absR) + " (stored " + f(snap.storedSubs[l]) + ")"; });
@@ -13924,8 +13898,7 @@ var diagPrePaintHub = null;
             if (snap.hubLines && snap.hubLines.length) t += "\n" + snap.hubLines.join("\n");
             return t;
         }
-
-        function witnessFinalJudge(transition, beforeFrame, afterFrame, witnessThrown, WITNESS_ONE_STEP, WITNESS_EPS) {
+function witnessFinalJudge(transition, beforeFrame, afterFrame, witnessThrown, WITNESS_ONE_STEP, WITNESS_EPS) {
             if (!beforeFrame || !afterFrame) return null;
             const flung = [];
             Object.keys(afterFrame.subs).forEach(label => {
@@ -13936,8 +13909,7 @@ var diagPrePaintHub = null;
             const rec = { transition: transition, flung: flung, wholesale: flung.length > 1 || flung.some(f => f.toThrown) };
             return dkLog.push(Object.assign({ type: "witness-final-transition" }, rec)), rec;
         }
-
-        function diagCaptureView() {
+function diagCaptureView() {
             const view = { viewBox: null, transform: null, sceneTransform: null, bbox: null };
             try {
                 const svg = document.getElementById("mapSvg"), scene = document.getElementById("mapScene"), layer = document.getElementById("mapLayer");
@@ -13948,8 +13920,7 @@ var diagPrePaintHub = null;
             } catch (e) {}
             return view;
         }
-
-        function witnessJudge(event, phase, trippingLabel, beforeFrame, afterFrame, witnessThrown, WITNESS_EPS, WITNESS_ONE_STEP, report) {
+function witnessJudge(event, phase, trippingLabel, beforeFrame, afterFrame, witnessThrown, WITNESS_EPS, WITNESS_ONE_STEP, report) {
             if (!witnessThrown || !beforeFrame || !afterFrame) return null;
             const wholesale = [], steppedBack = [];
             Object.keys(afterFrame.subs).forEach(label => {
@@ -13961,8 +13932,7 @@ var diagPrePaintHub = null;
             const rec = { event: event, phase: phase || null, tripping: trippingLabel || null, wholesale: wholesale, steppedBack: steppedBack, wholesaleDiscard: wholesale.some(w => w.label !== trippingLabel) || wholesale.length > 1 };
             return report.witness.events.push(rec), dkLog.push(Object.assign({ type: "witness-event" }, rec)), rec;
         }
-
-        function dkPaintedNodeCentre(key) {
+function dkPaintedNodeCentre(key) {
             try {
                 const el = In.querySelector('.node-group[data-layout-key="' + CSS.escape(key) + '"]:not(.layout-exit-clone)') || In.querySelector('[data-layout-key="' + CSS.escape(key) + '"]:not(.layout-exit-clone)');
                 if (!el) return null;
@@ -13994,8 +13964,7 @@ var diagPrePaintHub = null;
                 return null;
             } catch (e) { return null; }
         }
-
-        function dkPaintedStemSeg(key) {
+function dkPaintedStemSeg(key) {
             try {
                 const el = In.querySelector('.node-group[data-layout-key="' + CSS.escape(key) + '"]:not(.layout-exit-clone)');
                 if (!el) return null;
@@ -14009,8 +13978,7 @@ var diagPrePaintHub = null;
                 return Number.isFinite(len) && len > 0 ? Math.round(len * 100) / 100 : null;
             } catch (e) { return null; }
         }
-
-        function dkPaintedGeometry(stage, name, dkPaintedNodeCentreFn, tax, dkPaintedStemSegFn) {
+function dkPaintedGeometry(stage, name, dkPaintedNodeCentreFn, tax, dkPaintedStemSegFn) {
             const centre = { x: pr.centerX, y: pr.centerY };
             const nodeCentre = dkPaintedNodeCentreFn || dkPaintedNodeCentre;
             const stemSeg = dkPaintedStemSegFn || dkPaintedStemSeg;
@@ -14024,8 +13992,7 @@ var diagPrePaintHub = null;
             });
             return { stage: stage || null, centre: centre, branchPt: branchPt ? { x: Math.round(branchPt.x * 100) / 100, y: Math.round(branchPt.y * 100) / 100, source: branchPt.source } : null, subs: subs, blitActive: !!blitSess, source: branchPt ? branchPt.source : "missing" };
         }
-
-        function diagCamera() {
+function diagCamera() {
             const cam = { scale: null, tx: null, ty: null };
             try {
                 if ("number" == typeof $p && Number.isFinite($p)) cam.scale = $p;
@@ -14038,8 +14005,7 @@ var diagPrePaintHub = null;
             } catch (e) {}
             return { scale: diagRound(cam.scale), tx: diagRound(cam.tx), ty: diagRound(cam.ty) };
         }
-
-        function diagHubIdentity(name) {
+function diagHubIdentity(name) {
             const out = { matches: 0, exitClone: null, hasTextPath: null };
             try {
                 const key = catId(name), all = document.querySelectorAll('[data-layout-key="' + key + '"]');
@@ -14053,8 +14019,7 @@ var diagPrePaintHub = null;
             } catch (e) {}
             return out;
         }
-
-        function witnessPaintedJudge(transition, operation, beforeG, afterG, witnessThrown, WITNESS_ONE_STEP, WITNESS_EPS) {
+function witnessPaintedJudge(transition, operation, beforeG, afterG, witnessThrown, WITNESS_ONE_STEP, WITNESS_EPS) {
             if (!beforeG || !afterG) return null;
             const flung = [];
             Object.keys(afterG.subs || {}).forEach(label => {
@@ -14070,8 +14035,7 @@ var diagPrePaintHub = null;
             const rec = { transition: transition, operation: operation || null, flung: flung, wholesale: segFlung.length > 1 || flung.some(f => f.toThrown) };
             return dkLog.push(Object.assign({ type: "witness-painted-transition" }, rec)), rec;
         }
-
-        async function throwBracketFullPaint(stamp, name, dkPaintedNodeCentreFn, tax) {
+async function throwBracketFullPaint(stamp, name, dkPaintedNodeCentreFn, tax) {
             let preHub = null;
             const nodeCentre = dkPaintedNodeCentreFn || dkPaintedNodeCentre;
             try { const pre = dkPaintedGeometry("throwbracket-pre:" + stamp, name, nodeCentre, tax, dkPaintedStemSeg); preHub = pre ? pre.branchPt : null; } catch (e) {}
@@ -14093,8 +14057,7 @@ var diagPrePaintHub = null;
             } catch (e) { try { scCtx = null, sgHoldBlitStart = !1; } catch (_) {} }
             return { mode: mode, prePaintHubSeat: preHub };
         }
-
-        function diagRegistrySnapshot(stamp, ordinal, phaseName, patch, record, now, prevCloud, dk, name, tax, report) {
+function diagRegistrySnapshot(stamp, ordinal, phaseName, patch, record, now, prevCloud, dk, name, tax, report) {
             const fit = (() => { try { return dk.fitTargets(); } catch (e) { return {}; } })();
             let sec = null;
             try { sec = (dkLastBranches || []).find(s => s && s.entry && s.entry.branch && s.entry.branch.name === name) || null; } catch (e) {}
@@ -14116,8 +14079,7 @@ var diagPrePaintHub = null;
             record.registrySnapshot = entry, (report.registrySnapshots || (report.registrySnapshots = [])).push(entry), dkLog.push(entry);
             return entry;
         }
-
-        async function diagOnDemandPaint(stamp, paintOrdinal, phaseName, name, dkPaintedNodeCentreFn, tax, report) {
+async function diagOnDemandPaint(stamp, paintOrdinal, phaseName, name, dkPaintedNodeCentreFn, tax, report) {
             let preHub = null;
             const nodeCentre = dkPaintedNodeCentreFn || dkPaintedNodeCentre;
             try { const pre = dkPaintedGeometry("ondemand-pre:" + stamp, name, nodeCentre, tax, dkPaintedStemSeg); preHub = pre ? pre.branchPt : null; } catch (e) {}
@@ -14146,8 +14108,7 @@ var diagPrePaintHub = null;
             try { console.log("[ANNEAL-ONDEMAND-PAINT] " + stamp + " \u00b7 " + phaseName + " \u00b7 mode " + mode + " \u00b7 bbox " + (view.bbox ? view.bbox.width + "\u00d7" + view.bbox.height : "\u2014"), rec); } catch (e) {}
             return rec;
         }
-
-        function diag00Capture(pre, name, tax, report, snapshot) {
+function diag00Capture(pre, name, tax, report, snapshot) {
             const stamp = "ANNEAL-DIAG-00:pre-run:ord-0", r2 = diagRound;
             const painted = (() => { try { return dkPaintedGeometry(stamp, name, dkPaintedNodeCentre, tax, dkPaintedStemSeg); } catch (e) { return null; } })();
             const stored = pre || dkDeliveredRadii(name), view = diagCaptureView(), cam = diagCamera();
@@ -14191,8 +14152,7 @@ var diagPrePaintHub = null;
             try { console.log("[ANNEAL-DIAG-00] " + snap.text, snap); } catch (e) {}
             return snap;
         }
-
-        function throwBracketSnapshot(code, label, stamp, paintInfo, name, tax, report, snapshot) {
+function throwBracketSnapshot(code, label, stamp, paintInfo, name, tax, report, snapshot) {
             const r2 = diagRound, hf = v => null == v || !Number.isFinite(Number(v)) ? "\u2014" : String(Math.round(100 * Number(v)) / 100), hubR = pt => pt && Number.isFinite(Number(pt.x)) && Number.isFinite(Number(pt.y)) ? hf(Math.hypot(Number(pt.x) - pr.centerX, Number(pt.y) - pr.centerY)) : "\u2014";
             const painted = (() => { try { return dkPaintedGeometry(stamp, name, dkPaintedNodeCentre, tax, dkPaintedStemSeg); } catch (e) { return null; } })();
             const stored = dkDeliveredRadii(name), view = diagCaptureView(), cam = diagCamera();
@@ -14251,8 +14211,7 @@ var diagPrePaintHub = null;
             try { console.log("[" + code + "] " + snap.text, snap); } catch (e) {}
             return snap;
         }
-
-        function diagSnapshot(code, label, extra, name, tax, diagAcceptCtx, diagCaptureFields) {
+function diagSnapshot(code, label, extra, name, tax, diagAcceptCtx, diagCaptureFields) {
             const stored = dkDeliveredRadii(name);
             let painted = null;
             try { painted = dkPaintedGeometry("diag:" + code, name, dkPaintedNodeCentre, tax, dkPaintedStemSeg); } catch (e) { painted = null; }
@@ -14313,6 +14272,7 @@ var diagPrePaintHub = null;
 // 02n2-deknotter-solver.js - DeKnotter Constraint & Relaxation Solver Math
 // Pure calculation routines extracted from 02n-deknotter-cascade.js and 02l-deknotter-session.js
 // Handles ladder descent calculations, ratio checks, geometry projection, and constraint evaluation.
+
 
 /**
  * Validates phase length override ratios against baked bases.
@@ -14449,18 +14409,18 @@ function dkEvaluateCrossingDrop(before, after, threshold = 0.75) {
         // canonically; every exit path ends the run context and
         // leaves the branch's fit registry empty.
 
-var lastKeptSnapshot;
+        let lastKeptSnapshot;
         function captureKept(dk, refreshKeptFit, name) {
             lastKeptSnapshot = dk.snapshot(), refreshKeptFit(dk, name);
         }
-var lastKeptFit;
+        let lastKeptFit;
         function refreshKeptFit(dk, name) {
             const fit = {}, all = dk.fitTargets();
             Object.keys(all).forEach(k => {
                 "revision" !== k && k.split("|")[1] === name && (fit[k] = all[k]);
             }), lastKeptFit = fit;
         }
-var mark;
+        let mark;
         async function stepFineTuneArm(snapshot, staged, name, tax, runPhase, report, opts, dk, preDelivered, diagCaptureFields, witnessTrippingLabel, WITNESS_EPS, WITNESS_ONE_STEP) {
             mark = dkLog.length;
             const armPatch = dkDeepCloneLayout(snapshot);
@@ -14519,7 +14479,7 @@ var mark;
             report.preconditionsStaged = staged;
             return staged;
         }
-var snapshot;
+        let snapshot;
         async function stepBaseline(dk, report, name) {
             snapshot = dk.snapshot();
             report.baseline.first = await dk.measureCloud(name), report.baseline.second = await dk.measureCloud(name), report.baseline.variance = Math.abs(report.baseline.first - report.baseline.second);
@@ -14685,13 +14645,13 @@ var snapshot;
                 }
             } else report.growth.subcatSkipped = "no-subcategories";
             }
-var witnessFinalLastKept;
-var witnessFinalOperation;
-var witnessFinalBefore;
-var witnessPaintedBefore;
-var witnessFinalTripped;
-var witnessFinalAfter;
-var witnessPaintedAfter;
+        let witnessFinalLastKept;
+        let witnessFinalOperation;
+        let witnessFinalBefore;
+        let witnessPaintedBefore;
+        let witnessFinalTripped;
+        let witnessFinalAfter;
+        let witnessPaintedAfter;
         async function stepFinalPatch(dk, name, opts, report, tax, runPhase, witnessThrown, WITNESS_EPS, WITNESS_ONE_STEP, preDelivered, diagCaptureFields, witnessTrippingLabel) {
             // (6) FINAL PATCH (§3.7, rewire A - Jason,
             // 2026-10-24): built on the pre-run snapshot, so
@@ -15030,14 +14990,14 @@ var witnessPaintedAfter;
             }
             if (throwRec.throws > 1) dkLog.push({ type: "throw-repeat", branch: name, throws: throwRec.throws, before: throwRec.before, after: throwRec.finalAfter, substantial: throwRec.substantial });
         }
-var diagPhaseOrdinal;
-var diagPaintCount;
-var diagFitSubcatsCount;
-var diagPaintBase;
-var diagAcceptCtx;
-var prevPhaseCloud;
-var witnessThrown;
-var witnessPaintedLastKept;
+        let diagPhaseOrdinal;
+        let diagPaintCount;
+        let diagFitSubcatsCount;
+        let diagPaintBase;
+        let diagAcceptCtx;
+        let prevPhaseCloud;
+        let witnessThrown;
+        let witnessPaintedLastKept;
         async function runPhase(phaseName, patch, logStart, opts, dk, name, preDelivered, tax, report, diagCaptureFields, witnessTrippingLabel, WITNESS_EPS, WITNESS_ONE_STEP) {
             // E6: yield at the phase boundary BEFORE the phase's
             // synchronous apply, so UI state set before the call
@@ -15253,7 +15213,7 @@ var witnessPaintedLastKept;
             witnessPaintedLastKept = witnessPaintedFrame("last-kept:" + phaseName, "phase commit '" + phaseName + "' kept (interim capsule domain; full-map DOM holds the last full paint)", dkPaintedGeometry, name, dkPaintedNodeCentre, tax, dkPaintedStemSeg);
             return now;
         }
-var witnessTrippingLabel;
+        let witnessTrippingLabel;
         async function stepShrinkLadders(name, report, dk, fineTuneActive, WITNESS_EPS, WITNESS_ONE_STEP, preDelivered, opts, tax, diagCaptureFields, onsetCheck) {
             // (5) RULED SHRINK SEQUENCE (Jason, 2026-10-24
             // adjustment - supersedes the 08:05 order and every
@@ -17034,7 +16994,7 @@ var witnessTrippingLabel;
         // One pipeline owns spoke radii, collision relief, crossing assignment,
         // and angular nudging. Keep this order stable: each later pass consumes the
         // coordinates established by the pass before it.
-var er = Object.freeze({
+        const er = Object.freeze({
             fullTurn: 2 * Math.PI,
             inwardExclusion: Math.PI / 6,
             halfExclusion: Math.PI / 12,
@@ -17045,7 +17005,7 @@ var er = Object.freeze({
         function tr(e) {
             return Math.atan2(Math.sin(e), Math.cos(e));
         }
-var nr = Object.freeze({
+        const nr = Object.freeze({
             spread: 11 * Math.PI / 6,
             halfSpread: 11 * Math.PI / 12,
             inwardExclusion: Math.PI / 6,
@@ -17069,7 +17029,7 @@ var nr = Object.freeze({
                 length: i
             }, (e, t) => -nr.halfSpread + nr.spread * (t + .5) / i).slice().sort((e, t) => Math.abs(e) - Math.abs(t) || e - t).map(t => tr(e + t));
         }
-var rr = Object.freeze({
+        const rr = Object.freeze({
             // --- Spoke length calculations (uniform sibling radii) ---------------
             slotAngle: ir,
             fanAngles: ar,
@@ -17826,7 +17786,7 @@ var rr = Object.freeze({
         // spoke lengths by kink-count density in yr().
         // Build 2026-10-17_0330: ninth mode "complexity-antipodal"
         // (Complexity-Antipodal) - see branchOrderComplexityAntipodalNames.
-var branchOrderCacheMode = "", branchOrderCacheMap = null;
+        let branchOrderCacheMode = "", branchOrderCacheMap = null;
         function branchOrderPopularityNames() {
             return U(h, z, e => e.name).map(e => e.name);
         }
@@ -18346,7 +18306,7 @@ var branchOrderCacheMode = "", branchOrderCacheMap = null;
         // (sxIconRadius at the topic's depth) - every stretch of a
         // foreign line is counted ONCE, at the width of the region it
         // is inside; see sxEvalCross.
-var SX_STEP_R = 8, SX_STEP_A = .5 * Math.PI / 180, SX_CUM_R = 32, SX_CUM_A = 2 * Math.PI / 180, SX_T0 = .25, SX_TCOOL = .8, SX_TFLOOR = .005, SX_STEPCOOL = .85, SX_SWEEPS = 24, SX_CELL = 256, SX_SEED = 0x5EED1234, SX_FONT_BASE = 22, SX_FAN_GAP = Math.PI / 45, SX_GRID_PAD = 128;
+        const SX_STEP_R = 8, SX_STEP_A = .5 * Math.PI / 180, SX_CUM_R = 32, SX_CUM_A = 2 * Math.PI / 180, SX_T0 = .25, SX_TCOOL = .8, SX_TFLOOR = .005, SX_STEPCOOL = .85, SX_SWEEPS = 24, SX_CELL = 256, SX_SEED = 0x5EED1234, SX_FONT_BASE = 22, SX_FAN_GAP = Math.PI / 45, SX_GRID_PAD = 128;
         // BASIS NOTE (2026-10-30, paragraph-6 solver-metrics edit):
         // these are the shipped tuned anneal constants. Their basis is
         // NOT recorded in code - the values are transcribed tuning
@@ -18360,7 +18320,7 @@ var SX_STEP_R = 8, SX_STEP_A = .5 * Math.PI / 180, SX_CUM_R = 32, SX_CUM_A = 2 *
         // + 62 spokes); the stride stays 1024, more than double M.
         // If the taxonomy ever grows past 1024 items, keys collide
         // silently and pair counts merge - raise the stride first.
-var SX_PAIR_STRIDE = 1024;
+        const SX_PAIR_STRIDE = 1024;
         // ============================================================
         // SOLVER-METRICS REFACTOR (F3 + F8): THE SOLVER FACADE - the
         // single front door for the three layout arrangers. The
@@ -18416,7 +18376,7 @@ var SX_PAIR_STRIDE = 1024;
         // one's gains - the facade documents that; this pass does
         // not change it.
         // ============================================================
-var SX_SOLVER_FACADE = {
+        const SX_SOLVER_FACADE = {
             build() {
                 var baked = null;
                 try { baked = sxTryBaked(); } catch (e) { baked = null; }
@@ -18470,7 +18430,7 @@ var SX_SOLVER_FACADE = {
         // mn only - so without this the minimum-spoke floor (or any future
         // solver change) would slip through the gate undetected. v2 = the
         // minimum primary-spoke floor (SX_MIN_BRANCH_THROW, 03-map-geometry).
-var SX_SOLVER_VERSION = 2;
+        const SX_SOLVER_VERSION = 2;
         function sxBakedFingerprint() {
             try { return dkStableStringify(mn); } catch (e) { return null; }
         }
@@ -18669,7 +18629,7 @@ var SX_SOLVER_VERSION = 2;
             return sxBuildBaked(pos);
         }
         window.__sxCaptureBakedGeometry = sxSerializeBaked;
-var sxDemoteLogged = !1, sxSettleDone = !1;
+        let sxDemoteLogged = !1, sxSettleDone = !1;
         function sxSolverModeQuiet() {
             const v = mn && mn.solverMidline;
             // Mode vocabulary (one dial, extended by exactly one value
@@ -19324,7 +19284,7 @@ var sxDemoteLogged = !1, sxSettleDone = !1;
         function sxLenConvert(curLen, delivered, target) {
             return Number.isFinite(curLen) && curLen > 0 && Number.isFinite(delivered) && delivered > 0 && Number.isFinite(target) && target > 0 ? curLen * target / delivered : NaN;
         }
-var SX_DISC_CELL = 65536;
+        const SX_DISC_CELL = 65536;
         // ---- Uniform grid (cell 256), rebuilt per sweep: candidate prefilter ----
         function sxBuildGrid(geo) {
             const grid = new Map, N = geo.topics.length, pad = 2 * (geo.Fmax || geo.F) + SX_GRID_PAD;
@@ -19400,9 +19360,9 @@ var SX_DISC_CELL = 65536;
         // ---- Layer 2: Persistent scratch collections for sxReprice ----
         // Pre-allocated Sets reused across all trial steps to eliminate
         // thousands of object allocation and garbage collection cycles per sweep.
-var sxScratchA = new Set, sxScratchL = new Set;
-var sxScratchCandC = new Set, sxScratchCandG = new Set, sxScratchCandI = new Set;
-var sxScratchNear = new Set, sxScratchSeenDisc = new Set;
+        const sxScratchA = new Set, sxScratchL = new Set;
+        const sxScratchCandC = new Set, sxScratchCandG = new Set, sxScratchCandI = new Set;
+        const sxScratchNear = new Set, sxScratchSeenDisc = new Set;
 
         // ---- Incremental repricing: delete + recompute every pair touching ----
         // the affected topics (A) or spokes (Bs); returns the tracked-E delta.
@@ -19745,7 +19705,7 @@ var sxScratchNear = new Set, sxScratchSeenDisc = new Set;
         // returns in a later version (growth is how the font reaches
         // the 44px tap size): v1 holds it off, so outward radial
         // steps cap at each mover's start radius, as the tidier's do.
-var SX_REP_ALLOW_GROW = !1, SX_REP_EPS = 1e-9;
+        const SX_REP_ALLOW_GROW = !1, SX_REP_EPS = 1e-9;
         function sxRepulsionRun(d) {
             const wall0 = performance.now(), geo = sxSccBuild(d);
             geo.sxRepExcl = !0;
@@ -20015,7 +19975,7 @@ var SX_REP_ALLOW_GROW = !1, SX_REP_EPS = 1e-9;
         // the readout computes fresh - the pre-cache behaviour.
         // Cached results are returned as shallow copies so no caller
         // can poison the stored entry.
-var sxEvalCache = { standing: null, excluded: null };
+        let sxEvalCache = { standing: null, excluded: null };
         // KINK LEAF OVERGROWTH (ruled 2026-11-03, Jason): the Layout
         // Editor's "% kink leaf overgrowth" slider (mn.leafOvergrowth,
         // a percent, default 300, range 100-500) is the ONE multiple of
@@ -20228,7 +20188,7 @@ var sxEvalCache = { standing: null, excluded: null };
         // consulted: deknotter.measureCloud falls back to the standing
         // readout, and the shell metric, the onset hold's readout and
         // the neighbor reports keep the standing values exactly.
-var sxAnnealStageCtx = null;
+        let sxAnnealStageCtx = null;
         function sxRadialNeighbourClouds(geo, branch) {
             const pts = [];
             geo.spokes.forEach(sp => {
@@ -20358,7 +20318,7 @@ var sxAnnealStageCtx = null;
         // longest spoke, sparsest = shortest), overriding the manual
         // per-branch length overrides, which are preserved untouched in
         // mn.branchOverrides and apply again as soon as it is turned off.
-var staggerDensityRange = null;
+        let staggerDensityRange = null;
         // SOLVER MINIMUM SPOKE (2026-11-15, Jason's route-b ruling): a
         // branch's throw never falls below SX_MIN_BRANCH_THROW model units.
         // Small skins carry no manual length override - their settings are a
@@ -20371,7 +20331,7 @@ var staggerDensityRange = null;
         // setting: it needs no editor UI and no fingerprint churn. Applied
         // to the TOTAL throw (after the solver's own adjustment), so an
         // optimiser shrink can never pull a branch back under the floor.
-var SX_MIN_BRANCH_THROW = 50000;
+        const SX_MIN_BRANCH_THROW = 50000;
         function yr(e) {
             const t = mn.branchOverrides && mn.branchOverrides[e.name] || {}, n = Math.max(0, h.indexOf(e));
             // SOLVER-METRICS REFACTOR (F9): the branch-length factor
@@ -20457,7 +20417,7 @@ var SX_MIN_BRANCH_THROW = 50000;
         // (Ka: "innerFirst", renderKinkLine: "outerFirst"; the two
         // modes trace the same filled region - see the SpokeGeometry
         // module doc).
-var renderKinkLine = (e, t, n, i, a, r, o, s, l, c, d, u, p, h = pr.categoryIcon, g = 48, hubD = null, leafD = null, sxDepth = null) => {
+        const renderKinkLine = (e, t, n, i, a, r, o, s, l, c, d, u, p, h = pr.categoryIcon, g = 48, hubD = null, leafD = null, sxDepth = null) => {
             const sxD = null != sxDepth ? sxDepth : leafD === sxIconDiameter(3) ? 3 : 2, sxF = sxFontFactor(sxD), sxSW = sxStrokeWidth(sxD);
             const m = "noCode" === a || sxSexSkin(), f = Ga.WIDTH;
             const shape = typeof Ge === "function" ? Ge(d, p) : null;
@@ -20489,7 +20449,7 @@ var renderKinkLine = (e, t, n, i, a, r, o, s, l, c, d, u, p, h = pr.categoryIcon
             }, nameW);
             return `<path class="tapered-stem" d="${U.top}" fill="${_}" stroke="none" opacity="0.9" style="fill:${_}"${$}/><path class="tapered-stem" d="${U.bottom}" fill="${D}" stroke="none" opacity="0.9" style="fill:${D}"${E}/>` + T;
         };
-var vr = ".tapered-stem,.hanky-midline,.hanky-midline-outline,.topic-pulse,.group-heat,.selected-spoke,.mutual-halo,.disinterest-halo,.favorite-halo,.limit-halo,.visual-rail";
+        const vr = ".tapered-stem,.hanky-midline,.hanky-midline-outline,.topic-pulse,.group-heat,.selected-spoke,.mutual-halo,.disinterest-halo,.favorite-halo,.limit-halo,.visual-rail";
         function wr() {
             if ("number" != typeof $p || "number" != typeof Ep || "number" != typeof Ap) return;
             const isMoving = Cn && Cn.classList.contains("is-camera-moving");
@@ -20687,16 +20647,16 @@ var vr = ".tapered-stem,.hanky-midline,.hanky-midline-outline,.topic-pulse,.grou
         // starts, so the boot render - and only the boot render -
         // paints its checkpoints progressively. Ordinary renders
         // stay synchronous; the global default is unchanged.
-var sxChunkPaint = !1, sxPaintPromise = null, sxChunkBudget = 12;
+        let sxChunkPaint = !1, sxPaintPromise = null, sxChunkBudget = 12;
 
 
 /* --- Module: 03c-map-vault.js --- */
         // SX_PLANE_VAULT: Instant profile switching cache
         // Keeps rendered DOM trees (with attached event listeners)
         // intact in memory inside DocumentFragments.
-var sxPlaneVault = new Map();
-var sxActiveVaultKey = null;
-var sxActiveVaultProfileId = null;
+        const sxPlaneVault = new Map();
+        let sxActiveVaultKey = null;
+        let sxActiveVaultProfileId = null;
 
         function sxGetMapVaultKey(id) {
             const profId = id || "__default__";
@@ -20878,8 +20838,8 @@ var sxActiveVaultProfileId = null;
             try { Ja(); } catch (_) {}
         }
 
-var SX_WARM_BOOT_VER = "4.0.0-w3";
-var SX_WARM_BOOT_STORAGE_KEY = "sx_hypermap_warm_boot_v3";
+        const SX_WARM_BOOT_VER = "4.0.0-w3";
+        const SX_WARM_BOOT_STORAGE_KEY = "sx_hypermap_warm_boot_v3";
         // Warm-boot cache is keyed by skin (ruled 2026-11-15): each skin has
         // its own cached markup, and a restore only matches its own skin.
         // A native Sexcapades boot has no active skin yet, so it normalizes
@@ -20903,9 +20863,9 @@ var SX_WARM_BOOT_STORAGE_KEY = "sx_hypermap_warm_boot_v3";
         function sxWarmBootStorageKey(skin) {
             return SX_WARM_BOOT_STORAGE_KEY + ":" + (skin || sxWarmBootSkin());
         }
-var SX_IDB_NAME = "sx_hypermap_db";
-var SX_IDB_STORE = "hypermap_cache";
-var SX_IDB_VERSION = 1;
+        const SX_IDB_NAME = "sx_hypermap_db";
+        const SX_IDB_STORE = "hypermap_cache";
+        const SX_IDB_VERSION = 1;
 
         function sxOpenIdb() {
             return new Promise((resolve, reject) => {
@@ -20982,8 +20942,8 @@ var SX_IDB_VERSION = 1;
             return typeof entry.data === "string" ? entry.data : "";
         }
 
-var sxWarmBootCachedObj = null;
-var sxWarmBootPromise = null;
+        let sxWarmBootCachedObj = null;
+        let sxWarmBootPromise = null;
 
         function sxWarmBootInit() {
             try {
@@ -21002,7 +20962,7 @@ var sxWarmBootPromise = null;
         }
         sxWarmBootInit();
 
-var sxWarmBootSaveTimer = null;
+        let sxWarmBootSaveTimer = null;
         function sxSaveWarmBootCache(profileId) {
             if ((typeof dkCtx !== "undefined" && dkCtx) || window.__sxAnnealActive || window.__sxAnnealRunning || (typeof deknotterRunning !== "undefined" && deknotterRunning)) return;
             if (sxWarmBootSaveTimer) clearTimeout(sxWarmBootSaveTimer);
@@ -21151,7 +21111,7 @@ var sxWarmBootSaveTimer = null;
 // Pass 1: Node, widget, label, and control obstacle search & seating (sxRunNodeSettle).
 // Pass 2: Stem re-anchoring from settled parent/child endpoints (sxFinaliseStems).
 
-var sxSettleBootSlice = performance.now();
+let sxSettleBootSlice = performance.now();
 
 // Stem re-anchoring (Build 2026-10-31_0715): two-pass settle,
 // fixing displaced stems at the source. Pass 1 is the
@@ -21178,7 +21138,7 @@ var sxSettleBootSlice = performance.now();
 // layer, whether the stem lives in a node group, in a
 // .spoke-underlay-item (addressed by data-spoke-for),
 // or was restored from a blit vault / scoped segment.
-var sxParseStemD = d => {
+const sxParseStemD = d => {
     const tokens = String(d || "").match(/[MLAZ]|-?\d*\.?\d+(?:e[+-]?\d+)?/g) || [], pts = [], arcs = [];
     let cmd = "", nums = [];
     const flush = () => {
@@ -21213,15 +21173,15 @@ var sxParseStemD = d => {
 // centres consistent with the chord and radius, the
 // sweep flag selects the one the minor arc travels
 // around in the sweep direction.
-var sxArcCentre = a => {
+const sxArcCentre = a => {
     if (!a || !a.from || !(a.r > 0)) return null;
     const x1 = a.from.x, y1 = a.from.y, x2 = a.to.x, y2 = a.to.y, mx = (x1 + x2) / 2, my = (y1 + y2) / 2, dx = x2 - x1, dy = y2 - y1, len = Math.hypot(dx, dy) || 1, dd = Math.sqrt(Math.max(0, a.r * a.r - len * len / 4)), px = -dy / len, py = dx / len;
     for (const sgn of [ 1, -1 ]) {
-var c = {
+        const c = {
             x: mx + sgn * dd * px,
             y: my + sgn * dd * py
         };
-var delta = (1 === a.sweep ? Math.atan2(y2 - c.y, x2 - c.x) - Math.atan2(y1 - c.y, x1 - c.x) : Math.atan2(y1 - c.y, x1 - c.x) - Math.atan2(y2 - c.y, x2 - c.x)) % (2 * Math.PI);
+        let delta = (1 === a.sweep ? Math.atan2(y2 - c.y, x2 - c.x) - Math.atan2(y1 - c.y, x1 - c.x) : Math.atan2(y1 - c.y, x1 - c.x) - Math.atan2(y2 - c.y, x2 - c.x)) % (2 * Math.PI);
         if (delta < 0 && (delta += 2 * Math.PI), delta < Math.PI) return c;
     }
     return {
@@ -21230,12 +21190,12 @@ var delta = (1 === a.sweep ? Math.atan2(y2 - c.y, x2 - c.x) - Math.atan2(y1 - c.
     };
 };
 
-var sxStemChildKey = stem => {
+const sxStemChildKey = stem => {
     const host = stem.closest(".spoke-underlay-item"), grp = stem.closest(".node-group");
     return host && host.dataset.spokeFor || grp && grp.dataset.layoutKey || null;
 };
 
-var sxReanchorStem = (stem, centres, spokeOld) => {
+const sxReanchorStem = (stem, centres, spokeOld) => {
     const childKey = sxStemChildKey(stem);
     if (!childKey) return;
     const child = centres.get(childKey);
@@ -21275,7 +21235,7 @@ var sxReanchorStem = (stem, centres, spokeOld) => {
         // centreline; the inner edge sits at the fixed
         // inner half-width (the modal |offset|), the
         // outer edge follows the flare curve.
-var linePts = pts.filter(p => !p.arc);
+        const linePts = pts.filter(p => !p.arc);
         if (linePts.length < 13) return;
         // The inner edge is the densest cluster of
         // |offset| values: its points sit at the fixed
@@ -21284,17 +21244,17 @@ var linePts = pts.filter(p => !p.arc);
         // 0.3-wide window rather than exact buckets
         // (a bucketed count splits the cluster across
         // neighbouring buckets and under-counts it).
-var absOffs = linePts.map(p => Math.abs(off(p))).sort((a2, b2) => a2 - b2);
-var ihI = 0, ihN = 0;
+        const absOffs = linePts.map(p => Math.abs(off(p))).sort((a2, b2) => a2 - b2);
+        let ihI = 0, ihN = 0;
         for (let i2 = 0; i2 < absOffs.length; i2++) {
             let n2 = 0;
             while (i2 + n2 < absOffs.length && absOffs[i2 + n2] - absOffs[i2] <= .3) n2++;
             n2 > ihN && (ihN = n2, ihI = i2);
         }
         if (ihN < 6) return;
-var ih = absOffs[ihI + (ihN >> 1)], inner = linePts.filter(p => Math.abs(Math.abs(off(p)) - ih) < .75);
+        const ih = absOffs[ihI + (ihN >> 1)], inner = linePts.filter(p => Math.abs(Math.abs(off(p)) - ih) < .75);
         if (!inner.length) return;
-var side = Math.sign(inner.reduce((s2, p) => s2 + off(p), 0)) || 1, mode = linePts.slice(0, 4).every(p => Math.abs(Math.abs(off(p)) - ih) < .75) ? "innerFirst" : "outerFirst", A = baseArc ? baseArc.r : Math.min(...inner.map(along)), C = tipArc.r, sAlong = A, eAlong = axisLenOld - C + ("innerFirst" === mode ? 1.5 : 0), span = eAlong - sAlong;
+        const side = Math.sign(inner.reduce((s2, p) => s2 + off(p), 0)) || 1, mode = linePts.slice(0, 4).every(p => Math.abs(Math.abs(off(p)) - ih) < .75) ? "innerFirst" : "outerFirst", A = baseArc ? baseArc.r : Math.min(...inner.map(along)), C = tipArc.r, sAlong = A, eAlong = axisLenOld - C + ("innerFirst" === mode ? 1.5 : 0), span = eAlong - sAlong;
         // A short spoke (length < A + C) trims to a
         // backwards segment (span < 0): the emitter
         // produced it at render time, so re-emit it
@@ -21304,7 +21264,7 @@ var side = Math.sign(inner.reduce((s2, p) => s2 + off(p), 0)) || 1, mode = lineP
         // Least-squares flare fit: |offset| - ih =
         // flare(f)/2, flare(f) = tipW + (baseW -
         // tipW) * shape(f), linear in (baseW, tipW).
-var sEE = 0, sET = 0, sTT = 0, sEf = 0, sTf = 0, nFit = 0;
+        let sEE = 0, sET = 0, sTT = 0, sEf = 0, sTf = 0, nFit = 0;
         Math.abs(span) > 1 && linePts.forEach(p => {
             const f = (along(p) - sAlong) / span;
             if (f <= .02 || f >= .98) return;
@@ -21313,11 +21273,11 @@ var sEE = 0, sET = 0, sTT = 0, sEf = 0, sTf = 0, nFit = 0;
             const E = Math.exp(-Math.pow(f / 0.72, 2)), T = 1 - E, fl = 2 * (ao - ih);
             sEE += E * E, sET += E * T, sTT += T * T, sEf += E * fl, sTf += T * fl, nFit++;
         });
-var baseW, tipW;
-var det = sEE * sTT - sET * sET;
+        let baseW, tipW;
+        const det = sEE * sTT - sET * sET;
         if (nFit >= 3 && Math.abs(det) > 1e-9) baseW = (sEf * sTT - sTf * sET) / det, tipW = (sTT ? (sTf - sET * baseW) / sTT : 0); else baseW = 2 * (Math.max(...linePts.map(p => Math.abs(off(p)))) - ih), tipW = 0;
         if (!Number.isFinite(baseW) || !Number.isFinite(tipW)) return;
-var Sx = parent.x + unx * sAlong, Sy = parent.y + uny * sAlong, back = C - ("innerFirst" === mode ? 1.5 : 0), Ex = child.x - unx * back, Ey = child.y - uny * back, res = SpokeGeometry.flankPaths(Sx, Sy, Ex - Sx, Ey - Sy, nnx, nny, baseW, tipW, ih, ih, mode, SpokeGeometry.buildBaseCircle(parent.x, parent.y, A), {
+        const Sx = parent.x + unx * sAlong, Sy = parent.y + uny * sAlong, back = C - ("innerFirst" === mode ? 1.5 : 0), Ex = child.x - unx * back, Ey = child.y - uny * back, res = SpokeGeometry.flankPaths(Sx, Sy, Ex - Sx, Ey - Sy, nnx, nny, baseW, tipW, ih, ih, mode, SpokeGeometry.buildBaseCircle(parent.x, parent.y, A), {
             x: child.x,
             y: child.y,
             r: C
@@ -21327,8 +21287,8 @@ var Sx = parent.x + unx * sAlong, Sy = parent.y + uny * sAlong, back = C - ("inn
         // Single tapered band (Ka's taperedPath): corners
         // sit at +/- width/2 around the centreline
         // segment; widths are linear base -> tip.
-var A = baseArc ? baseArc.r : null, capC = !tipArc && firstArc ? sxArcCentre(firstArc) : null;
-var sAlong, eAlong;
+        const A = baseArc ? baseArc.r : null, capC = !tipArc && firstArc ? sxArcCentre(firstArc) : null;
+        let sAlong, eAlong;
         if (null !== A) sAlong = A; else {
             const b0 = pts[0], b1 = pts[pts.length - 1];
             sAlong = along({
@@ -21341,14 +21301,14 @@ var sAlong, eAlong;
             eAlong = along(t0);
         }
         if (!(eAlong - sAlong > 1)) return;
-var b0 = pts[0], b1 = pts[pts.length - 1];
-var w0 = Math.hypot(b0.x - b1.x, b0.y - b1.y);
+        const b0 = pts[0], b1 = pts[pts.length - 1];
+        let w0 = Math.hypot(b0.x - b1.x, b0.y - b1.y);
         if (null !== A && A > 0) {
             const h = w0 / 2;
             h < A && (w0 = 2 * h * A / Math.sqrt(A * A - h * h));
         }
         if (!Number.isFinite(w0) || w0 <= 0) return;
-var Sx = parent.x + unx * sAlong, Sy = parent.y + uny * sAlong, Ex = child.x - unx * (axisLenOld - eAlong), Ey = child.y - uny * (axisLenOld - eAlong), seg = `M ${Sx.toFixed(2)} ${Sy.toFixed(2)} L ${Ex.toFixed(2)} ${Ey.toFixed(2)}`, d1 = SpokeGeometry.taperedPath(seg, w0, 0, tipArc ? SpokeGeometry.buildTipCircle(Sx, Sy, Ex, Ey, 2 * tipArc.r) : null, null !== A ? SpokeGeometry.buildBaseCircle(parent.x, parent.y, A) : null);
+        const Sx = parent.x + unx * sAlong, Sy = parent.y + uny * sAlong, Ex = child.x - unx * (axisLenOld - eAlong), Ey = child.y - uny * (axisLenOld - eAlong), seg = `M ${Sx.toFixed(2)} ${Sy.toFixed(2)} L ${Ex.toFixed(2)} ${Ey.toFixed(2)}`, d1 = SpokeGeometry.taperedPath(seg, w0, 0, tipArc ? SpokeGeometry.buildTipCircle(Sx, Sy, Ex, Ey, 2 * tipArc.r) : null, null !== A ? SpokeGeometry.buildBaseCircle(parent.x, parent.y, A) : null);
         d1 && d1 !== d0 && stem.setAttribute("d", d1), stem.removeAttribute("transform");
     }
 };
@@ -21357,9 +21317,9 @@ function* sxFinaliseStems() {
     const centres = new Map();
     const sxCentreGroups = Array.from(In.querySelectorAll("[data-layout-key]"));
     for (let sxCi = 0; sxCi < sxCentreGroups.length; sxCi++) {
-var g = sxCentreGroups[sxCi];
+        const g = sxCentreGroups[sxCi];
         if (performance.now() - sxSettleBootSlice >= 40) { yield; sxSettleBootSlice = performance.now(); }
-var x = Number.parseFloat(g.dataset.layoutX), y = Number.parseFloat(g.dataset.layoutY);
+        const x = Number.parseFloat(g.dataset.layoutX), y = Number.parseFloat(g.dataset.layoutY);
         Number.isFinite(x) && Number.isFinite(y) && !centres.has(g.dataset.layoutKey) && centres.set(g.dataset.layoutKey, {
             x: x,
             y: y
@@ -21372,20 +21332,20 @@ var x = Number.parseFloat(g.dataset.layoutX), y = Number.parseFloat(g.dataset.la
     const spokeOld = new Map();
     const sxStemPass = Array.from(In.querySelectorAll(".tapered-stem"));
     for (let sxSt = 0; sxSt < sxStemPass.length; sxSt++) {
-var stem = sxStemPass[sxSt];
+        const stem = sxStemPass[sxSt];
         if (performance.now() - sxSettleBootSlice >= 40) { yield; sxSettleBootSlice = performance.now(); }
-var key = sxStemChildKey(stem), d = stem.getAttribute("d");
+        const key = sxStemChildKey(stem), d = stem.getAttribute("d");
         if (!key || !d || spokeOld.has(key)) continue;
-var {arcs} = sxParseStemD(d);
+        const {arcs} = sxParseStemD(d);
         if (arcs.length < 2 || arcs[0].at < 6) continue;
-var tip = sxArcCentre(arcs[0]), base = sxArcCentre(arcs[arcs.length - 1]);
+        const tip = sxArcCentre(arcs[0]), base = sxArcCentre(arcs[arcs.length - 1]);
         tip && base && spokeOld.set(key, {
             tip: tip,
             base: base
         });
     }
     for (let sxSt = 0; sxSt < sxStemPass.length; sxSt++) {
-var stem = sxStemPass[sxSt];
+        const stem = sxStemPass[sxSt];
         if (performance.now() - sxSettleBootSlice >= 40) { yield; sxSettleBootSlice = performance.now(); }
         try {
             sxReanchorStem(stem, centres, spokeOld);
@@ -21403,7 +21363,7 @@ sxStemFinaliseHook = sxFinaliseAllStems;
 function sxUpdateOverlapLinks() {
     const e = new Map, t = new Map;
     In.querySelectorAll(".node-group:not(.is-hidden)[data-layout-key]").forEach(n => {
-var i = n.dataset.layoutKey, a = qn[i], r = Number(n.dataset.layoutX), o = Number(n.dataset.layoutY);
+        const i = n.dataset.layoutKey, a = qn[i], r = Number(n.dataset.layoutX), o = Number(n.dataset.layoutY);
         a && Number.isFinite(r) && Number.isFinite(o) && (t.set(i, {
             x: r,
             y: o
@@ -21413,7 +21373,7 @@ var i = n.dataset.layoutKey, a = qn[i], r = Number(n.dataset.layoutX), o = Numbe
         }));
     }), In.querySelectorAll(".common-overlap-link").forEach(e => {
         if (!e.dataset.topicA) return void (e.dataset.connected = "true");
-var n = t.get(e.dataset.topicA), i = t.get(e.dataset.topicB), a = Boolean(n && i);
+        const n = t.get(e.dataset.topicA), i = t.get(e.dataset.topicB), a = Boolean(n && i);
         e.dataset.connected = a ? "true" : "false", a ? (e.dataset.ax = n.x.toFixed(2),
         e.dataset.ay = n.y.toFixed(2), e.dataset.bx = i.x.toFixed(2), e.dataset.by = i.y.toFixed(2),
         e.setAttribute("d", br(n, i))) : e.style.display = "none";
@@ -21435,15 +21395,15 @@ function* sxRunNodeSettle(scCtx, blitSess) {
     blitObst && (blitObst.flushIx = 0);
     const sxSettleGroups = Array.from(In.querySelectorAll(".node-group"));
     for (let sxSi = 0; sxSi < sxSettleGroups.length; sxSi++) {
-var l = sxSettleGroups[sxSi];
+        const l = sxSettleGroups[sxSi];
         if (performance.now() - sxSettleBootSlice >= 40) { yield; sxSettleBootSlice = performance.now(); }
         blitObst && blitFlushObstacles(blitObst, r, o, l.dataset.layoutKey);
         if (l.classList.contains("is-hidden")) continue;
-var c = l.querySelector(".category-label,.map-label"), d = c && c.querySelector("textPath"), u = d && d.getAttribute("href"), p = c && (c.dataset.pathId || u && u.slice(1)), h = p && e.byId(p);
+        const c = l.querySelector(".category-label,.map-label"), d = c && c.querySelector("textPath"), u = d && d.getAttribute("href"), p = c && (c.dataset.pathId || u && u.slice(1)), h = p && e.byId(p);
         if (!c || !h) continue;
-var g = h.getTotalLength();
+        const g = h.getTotalLength();
         if (!g) continue;
-var m = e => {
+        const m = e => {
             const t = Math.min(g, Math.max(0, e)), n = h.getPointAtLength(t), i = h.getPointAtLength(Math.max(0, t - 1)), a = h.getPointAtLength(Math.min(g, t + 1)), r = Math.hypot(a.x - i.x, a.y - i.y), o = (a.x - i.x) / Math.max(.001, r), s = (a.y - i.y) / Math.max(.001, r);
             return e > g && (n.x += o * (e - g), n.y += s * (e - g)), {
                 point: n,
@@ -21451,13 +21411,13 @@ var m = e => {
                 y: s
             };
         }, f = h.getPointAtLength(0), y = h.getPointAtLength(Math.min(1, g)), b = (y.x - f.x) / Math.max(.001, Math.hypot(y.x - f.x, y.y - f.y)), v = (y.y - f.y) / Math.max(.001, Math.hypot(y.x - f.x, y.y - f.y)), w = Array.from(l.querySelectorAll(".direction-control")), k = c.classList.contains("category-label"), x = Number.parseFloat(c.dataset.labelOffset || d && d.getAttribute("startOffset")), S = Number.isFinite(x) ? x : i, $ = l.querySelector(".branch-icon,.topic-icon"), E = Number($ && $.dataset.diameter) || 0, A = E / 2;
-var C = c.getComputedTextLength();
+        let C = c.getComputedTextLength();
         if (k && w.length && E) {
             const e = Math.max(...w.map(e => Number(e.dataset.tagWidth) || 48)), i = g - (A + t + e + a), r = Math.max(48, i - n - A - S);
             C > r && (c.setAttribute("textLength", r.toFixed(2)), c.setAttribute("lengthAdjust", "spacing"),
             C = r);
         }
-var M = l.querySelector(".node-label-underline");
+        const M = l.querySelector(".node-label-underline");
         if (M) {
             const e = -v, t = b, n = Number(M.dataset.offset), i = Number.isFinite(n) ? n : 10, a = Number(c.getAttribute("x")), r = Number(c.getAttribute("y"));
             M.setAttribute("x1", (a + e * i).toFixed(2)), M.setAttribute("y1", (r + t * i).toFixed(2)),
@@ -21472,10 +21432,10 @@ var M = l.querySelector(".node-label-underline");
         // S + C. The old I = S + C seated the icon
         // thousands of units too far out on the left.
         // The label centre P is the same mirror.
-var sxIsReversed = Boolean(u && u.indexOf("#pr-") === 0), sxFs = Number.parseFloat(c.style.fontSize) || 17, sxSixSpace = Math.max(18, 6 * Za.measure(" ", sxFs, "topic"));
-var I = sxIsReversed ? g - S + C : S + C, P = (sxIsReversed ? m(g - S + C / 2) : m(S + C / 2)).point;
+        const sxIsReversed = Boolean(u && u.indexOf("#pr-") === 0), sxFs = Number.parseFloat(c.style.fontSize) || 17, sxSixSpace = Math.max(18, 6 * Za.measure(" ", sxFs, "topic"));
+        let I = sxIsReversed ? g - S + C : S + C, P = (sxIsReversed ? m(g - S + C / 2) : m(S + C / 2)).point;
         l.dataset.labelX = P.x.toFixed(2), l.dataset.labelY = P.y.toFixed(2);
-var L = !k && !l.classList.contains("imported-child"), T = l.classList.contains("imported-child"), F = l.classList.contains("subcategory-node"), scFrozenNode = Boolean(scCtx && qn[l.dataset.layoutKey] && scCtx.frozenBranches.has(qn[l.dataset.layoutKey].branch)), N = L || T ? sxSixSpace : n, _ = Number.parseFloat(l.dataset.iconDistanceOverride), D = F ? g : Number.isFinite(_) ? _ : I + N + A, R = e => {
+        const L = !k && !l.classList.contains("imported-child"), T = l.classList.contains("imported-child"), F = l.classList.contains("subcategory-node"), scFrozenNode = Boolean(scCtx && qn[l.dataset.layoutKey] && scCtx.frozenBranches.has(qn[l.dataset.layoutKey].branch)), N = L || T ? sxSixSpace : n, _ = Number.parseFloat(l.dataset.iconDistanceOverride), D = F ? g : Number.isFinite(_) ? _ : I + N + A, R = e => {
             // N-POLE WIDGETS (2026-11-18): the widget is tangent to the icon, so when the settle moves the icon outward the widget must follow by the same delta to stay tangent. The delta is the current icon centre minus the design icon centre (zero on the first call, e === D).
             const sxSettleDx = m(e).point.x - m(D).point.x, sxSettleDy = m(e).point.y - m(D).point.y;
             const n = m(e).point, i = E ? e + A + (L ? 6 : t) : I, a = w.map(e => {
@@ -21515,7 +21475,7 @@ var L = !k && !l.classList.contains("imported-child"), T = l.classList.contains(
                 shapes: v
             };
         };
-var O = R(D);
+        let O = R(D);
         // Scoped solve (T2): the settle search is a
         // paint-stage coupling channel - it re-seats
         // an icon outward along its spoke when its
@@ -21549,7 +21509,7 @@ var O = R(D);
         // (settled xAreaCross rose ~31% on the
         // test branch). Armed items keep their
         // delivered seat D exactly as built.
-var sxArmSeat = !1;
+        let sxArmSeat = !1;
         // HUB SEATING (ruled 2026-11-01, per
         // HUB-SIDE-DIAGNOSIS.md): on the Anneal closing
         // paint only, a category hub group is also
@@ -21561,7 +21521,7 @@ var sxArmSeat = !1;
         // standing at the spliced pre-paint seat the
         // snap never reached. Every other paint keeps
         // the (L || T) gate exactly as before.
-var scCenterPt = scFrozenNode && (L || T || (k && scCtx && "anneal-closing-paint" === scCtx.opClass)) && scCtx.centers ? scCtx.centers.get(l.dataset.layoutKey) : null;
+        const scCenterPt = scFrozenNode && (L || T || (k && scCtx && "anneal-closing-paint" === scCtx.opClass)) && scCtx.centers ? scCtx.centers.get(l.dataset.layoutKey) : null;
         if (scCenterPt) {
             if (Math.hypot(scCenterPt.x - O.iconCenter.x, scCenterPt.y - O.iconCenter.y) > .011) {
                 const scB = (scCenterPt.x - f.x) * b + (scCenterPt.y - f.y) * v;
@@ -21577,7 +21537,7 @@ var scCenterPt = scFrozenNode && (L || T || (k && scCtx && "anneal-closing-paint
                 if (O = n, s(n.shapes)) break;
             }
         }
-var B = O.iconDistance, j = O.iconCenter, q = (O.controlsStart, O.controlsStationDistance);
+        const B = O.iconDistance, j = O.iconCenter, q = (O.controlsStart, O.controlsStationDistance);
         if (O.controlsOuterEdge, $ && E && ($.setAttribute("transform", `translate(${(j.x - A).toFixed(2)} ${(j.y - A).toFixed(2)})`),
         l.dataset.layoutX = j.x.toFixed(2), l.dataset.layoutY = j.y.toFixed(2)), O.controlPlacements.forEach(e => {
             const t = e.px - e.baseCx, n = e.py - e.baseCy;
@@ -21630,7 +21590,7 @@ var B = O.iconDistance, j = O.iconCenter, q = (O.controlsStart, O.controlsStatio
                 o && o.setAttribute("d", r);
             }
         }
-var H = l.querySelector(".hidden-count-badge");
+        const H = l.querySelector(".hidden-count-badge");
         if (H) {
             const e = Number(H.dataset.width) || 30, t = Number(H.dataset.height) || 24, n = Za.SETTLE.badgeGap, i = k ? Math.max(0, B - A - n - e / 2) : B + A + n + e / 2, a = m(i), r = 180 * Math.atan2(a.y, a.x) / Math.PI;
             if (H.setAttribute("transform", `translate(${(a.point.x - e / 2).toFixed(2)} ${(a.point.y - t / 2).toFixed(2)}) rotate(${r.toFixed(2)} ${(e / 2).toFixed(2)} ${(t / 2).toFixed(2)})`),
@@ -21659,8 +21619,8 @@ var H = l.querySelector(".hidden-count-badge");
            vertices. Each drawn label is recorded on canvas.__sxLabelRects
            (axis-aligned box + angle + pole key + full name) for the
            canvas hover hit-test (seam B). */
-var SX_POLE_LABEL_FONT = "bold 9px system-ui, sans-serif";
-var SX_POLE_LABEL_OFFSET = 13;
+        const SX_POLE_LABEL_FONT = "bold 9px system-ui, sans-serif";
+        const SX_POLE_LABEL_OFFSET = 13;
         function sxNormTangentDeg(deg) {
             let d = deg;
             while (d > 90) d -= 180;
@@ -22250,7 +22210,7 @@ var SX_POLE_LABEL_OFFSET = 13;
             if (v < 0) { R = 255 - r; G = 255 - g; B = 255 - b; }
             return "rgb(" + Math.round(R * br) + "," + Math.round(G * br) + "," + Math.round(B * br) + ")";
         }
-var sxIntensitySeeded = new Set;
+        const sxIntensitySeeded = new Set;
         function sxSeedProfileIntensities(profileId) {
             if (!profileId || sxIntensitySeeded.has(profileId) || typeof vt === "undefined" || !vt[profileId]) return;
             sxIntensitySeeded.add(profileId);
@@ -23298,7 +23258,7 @@ var sxIntensitySeeded = new Set;
             vertexLocked: !1
         };
 
-var SX_TETRAD_COLORS = ["#22c55e", "#eab308", "#ef4444", "#3b82f6"];
+        const SX_TETRAD_COLORS = ["#22c55e", "#eab308", "#ef4444", "#3b82f6"];
 
         function sxGetTetradVertices(width, height) {
             const poly = sxGetRegularPolygonVertices(width, height, 4);
@@ -23343,7 +23303,7 @@ var SX_TETRAD_COLORS = ["#22c55e", "#eab308", "#ef4444", "#3b82f6"];
 
         // Corner colors in JSON pole order (top-left, top-right,
         // bottom-right, bottom-left) - same four colors as the tetrad.
-var SX_COMPASS_COLORS = ["#22c55e", "#eab308", "#ef4444", "#3b82f6"];
+        const SX_COMPASS_COLORS = ["#22c55e", "#eab308", "#ef4444", "#3b82f6"];
 
         function sxCompassShortLabel(label) {
             // "Authoritarian Left (State Socialism)" -> "Auth Left".
@@ -23857,7 +23817,7 @@ var SX_COMPASS_COLORS = ["#22c55e", "#eab308", "#ef4444", "#3b82f6"];
             vertexLocked: !1
         };
 
-var SX_PENTAD_COLORS = ["#a855f7", "#06b6d4", "#f59e0b", "#ef4444", "#22c55e"];
+        const SX_PENTAD_COLORS = ["#a855f7", "#06b6d4", "#f59e0b", "#ef4444", "#22c55e"];
 
         function sxGetPentadVertices(width, height) {
             return sxGetRegularPolygonVertices(width, height, 5);
@@ -23910,7 +23870,7 @@ var SX_PENTAD_COLORS = ["#a855f7", "#06b6d4", "#f59e0b", "#ef4444", "#22c55e"];
             vertexLocked: !1
         };
 
-var SX_HEXAD_COLORS = ["#22c55e", "#06b6d4", "#6366f1", "#ef4444", "#f97316", "#eab308"];
+        const SX_HEXAD_COLORS = ["#22c55e", "#06b6d4", "#6366f1", "#ef4444", "#f97316", "#eab308"];
 
         function sxGetHexadVertices(width, height) {
             return sxGetRegularPolygonVertices(width, height, 6);
@@ -23963,7 +23923,7 @@ var SX_HEXAD_COLORS = ["#22c55e", "#06b6d4", "#6366f1", "#ef4444", "#f97316", "#
             vertexLocked: !1
         };
 
-var SX_HEPTAD_COLORS = ["#22c55e", "#06b6d4", "#3b82f6", "#6366f1", "#a855f7", "#ec4899", "#f97316"];
+        const SX_HEPTAD_COLORS = ["#22c55e", "#06b6d4", "#3b82f6", "#6366f1", "#a855f7", "#ec4899", "#f97316"];
 
         function sxGetHeptadVertices(width, height) {
             return sxGetRegularPolygonVertices(width, height, 7);
@@ -24016,7 +23976,7 @@ var SX_HEPTAD_COLORS = ["#22c55e", "#06b6d4", "#3b82f6", "#6366f1", "#a855f7", "
             vertexLocked: !1
         };
 
-var SX_OCTAD_COLORS = ["#22c55e", "#10b981", "#06b6d4", "#3b82f6", "#6366f1", "#a855f7", "#ec4899", "#f97316"];
+        const SX_OCTAD_COLORS = ["#22c55e", "#10b981", "#06b6d4", "#3b82f6", "#6366f1", "#a855f7", "#ec4899", "#f97316"];
 
         function sxGetOctadVertices(width, height) {
             return sxGetRegularPolygonVertices(width, height, 8);
@@ -26403,7 +26363,7 @@ var SX_OCTAD_COLORS = ["#22c55e", "#10b981", "#06b6d4", "#3b82f6", "#6366f1", "#
         // the layout back to the old compact defaults. The profile-state
         // detection itself is unchanged and remains available for other
         // features; it just no longer picks different layout values.
-var layoutAutoTuned = {
+        const layoutAutoTuned = {
             spacing: "airy",
             stagger: !0,
             expandAll: !0,
@@ -26428,7 +26388,7 @@ var layoutAutoTuned = {
             repulsion: 0,
             repulsionEnabled: !1
         }, layoutAutoKeys = [ "spacing", "stagger", "expandAll", "collision", "crossmin", "nudge", "spokeLen", "subLen", "pad", "repulsion", "repulsionEnabled", "subcatOverrides", "kinkOverrides", "subcatAngleOffsets", "kinkAngleOffsets", "branchSpokeAutoShrink", "subcatSpokeAutoShrink" ];
-var layoutAutoMode = !window.__SEXCAPADES_LAYOUT_FROM_URL, layoutAutoState = "unrated", layoutAutoValues = layoutAutoTuned;
+        let layoutAutoMode = !window.__SEXCAPADES_LAYOUT_FROM_URL, layoutAutoState = "unrated", layoutAutoValues = layoutAutoTuned;
         function layoutAutoSync() {
             if (!layoutAutoMode) return;
             const e = Object.keys(wt).length ? "rated" : "unrated";
@@ -26504,7 +26464,7 @@ var layoutAutoMode = !window.__SEXCAPADES_LAYOUT_FROM_URL, layoutAutoState = "un
         // only (see the sxBootArm assignment there); Ar()'s no-profile
         // early return skips itself while this is true, so the boot
         // paint always paints the map.
-var sxBootPaint = !1;
+        let sxBootPaint = !1;
         // boot, route-entry, and list-close triggers each arm one
         // window flag with a budget; this consumes the first armed
         // flag (boot, then route, then close, so an earlier arm
@@ -26559,7 +26519,7 @@ var sxBootPaint = !1;
         // a paint with no moves. Tone/status are best-effort: a
         // blocked AudioContext or missing DOM never throws, and the
         // console entry always lands.
-var sxGlideAudioCtx = null, sxGlideStatusEl = null, sxGlideStatusTimer = 0;
+        let sxGlideAudioCtx = null, sxGlideStatusEl = null, sxGlideStatusTimer = 0;
         function sxLayoutGlideSignal(count) {
             try { console.info("[layout-glide] B glide: " + count + " node(s) gliding to final positions"); } catch (_) {}
             try {
@@ -26597,8 +26557,8 @@ var sxGlideAudioCtx = null, sxGlideStatusEl = null, sxGlideStatusTimer = 0;
         // The tween only moves the interim capsule layer's painted
         // coordinates - every decision still reads the solve registry,
         // never the DOM - so the crossing number and gate are untouched.
-var sxCapLastSnap = null, sxCapLastBranch = null;
-var sxCapTween = { from: null, to: null, start: 0, raf: 0, layer: null, branch: null };
+        let sxCapLastSnap = null, sxCapLastBranch = null;
+        const sxCapTween = { from: null, to: null, start: 0, raf: 0, layer: null, branch: null };
         // Snapshot the capsule's drawn primitives with stable keys so
         // consecutive commits can be interpolated: lines (centre + sub
         // spokes, paddle S, midline M) and circles (topic icon dots,
@@ -26786,7 +26746,7 @@ var sxCapTween = { from: null, to: null, start: 0, raf: 0, layer: null, branch: 
             } catch (err) { __sxErrLog("layout-interim-capsule-paint", err); }
         }
 
-var sxRenderMap = function(opts) { return Mr(opts); };
+        const sxRenderMap = function(opts) { return Mr(opts); };
         window.SexcapadesEngine = window.SexcapadesEngine || {};
         window.SexcapadesEngine.Map = {
             render: sxRenderMap,
@@ -26807,7 +26767,7 @@ var sxRenderMap = function(opts) { return Mr(opts); };
         // sxInterimPaintPending is set while a frame is scheduled;
         // sxInterimPaintGeo always holds the newest solved geometry,
         // so a burst of Mr calls inside one frame draws once, latest.
-var sxInterimPaintPending = !1, sxInterimPaintGeo = null;
+        let sxInterimPaintPending = !1, sxInterimPaintGeo = null;
         function Mr(e = {}) {
             sxInvalidatePairs(), layoutAutoSync(), refreshCenterRing(), sxSyncRailPx(), sxSyncMapFontBase();
             if (jn && !e.recovery) return !1;
@@ -27018,7 +26978,7 @@ var sxInterimPaintPending = !1, sxInterimPaintGeo = null;
         });
 
 /* --- Module: 03e1-mark-dialog.js --- */
-var Ir = Object.freeze({
+        const Ir = Object.freeze({
             "Rope bondage": "https://en.wikipedia.org/wiki/Rope_bondage",
             "Japanese bondage": "https://en.wikipedia.org/wiki/Japanese_bondage",
             Gags: "https://en.wikipedia.org/wiki/Gag_%28BDSM%29",
@@ -27169,7 +27129,7 @@ var Ir = Object.freeze({
             Zentai: "https://en.wikipedia.org/wiki/Zentai",
             "Rope Bondage": "https://en.wikipedia.org/wiki/Bondage"
         }), Pr = e.byId("markMenu"), Lr = e.byId("markMenuTitle"), Tr = e.byId("markDescription"), Fr = e.byId("markPrevalence"), Nr = e.byId("markPrevalenceText"), _r = e.byId("markPrevalenceSource"), Dr = e.byId("markCommunityRatings"), Rr = e.byId("markCommunityRatingsBody"), Or = e.byId("markPopularitySourcesList"), Br = e.byId("markLearnMore"), jr = e.byId("markFetlifeTrigger"), qr = e.byId("markRedditTrigger"), Hr = e.byId("markDiscordTrigger"), Wr = e.byId("markCommunityFallback"), Ur = e.byId("markCommunityPopover"), Gr = e.byId("markCommunityPopoverHeading"), Kr = e.byId("markCommunityList"), zr = e.byId("markSources"), Vr = e.byId("markSourcesTrigger"), Yr = e.byId("markImportNotes"), Xr = e.byId("markImportNotesList"), Zr = e.byId("markNoteInput");
-var Qr = null, Jr = null, eo = null, to = !1, no = null;
+        let Qr = null, Jr = null, eo = null, to = !1, no = null;
         sxBindMarkRatings();
         function io() {
             Jr && (t.clear(Jr), Jr = null);
@@ -28580,7 +28540,7 @@ var Qr = null, Jr = null, eo = null, to = !1, no = null;
         // The cache key includes the viewport group transform and the
         // SVG viewBox, so any pan/zoom invalidates it automatically; the
         // cache is also dropped at the start of each pointerdown gesture.
-var __sxCtmEl = null, __sxCtmVal = null, __sxCtmKey = "";
+        let __sxCtmEl = null, __sxCtmVal = null, __sxCtmKey = "";
         function __sxScreenCtm(e) {
             const t = (Jp ? Jp.getAttribute("transform") : "") + "|" + (Cn ? Cn.getAttribute("viewBox") : "");
             return __sxCtmVal && __sxCtmEl === e && __sxCtmKey === t ? __sxCtmVal : (__sxCtmEl = e, __sxCtmKey = t, __sxCtmVal = e.getScreenCTM());
@@ -28666,7 +28626,7 @@ var __sxCtmEl = null, __sxCtmVal = null, __sxCtmKey = "";
         });
 
 /* --- Module: 03d-outline.js --- */
-var Do = e.byId("outlineDialog"), Ro = e.byId("outlineSections"), Oo = e.byId("outlineProfileName"), Bo = e.byId("outlineHeaderCount"), jo = e.byId("outlineProgressText"), qo = e.byId("outlineProgressBar"), Ho = e.byId("outlineTimerToggle"), Wo = e.byId("outlineTimerReset"), Uo = e.byId("outlineShowRated");
+        const Do = e.byId("outlineDialog"), Ro = e.byId("outlineSections"), Oo = e.byId("outlineProfileName"), Bo = e.byId("outlineHeaderCount"), jo = e.byId("outlineProgressText"), qo = e.byId("outlineProgressBar"), Ho = e.byId("outlineTimerToggle"), Wo = e.byId("outlineTimerReset"), Uo = e.byId("outlineShowRated");
         // P1 refactor (Build 2026-10-18_2227): outline-row DOM helpers.
         // getOutlineRow(el) returns the .outline-row containing an element;
         // getOutlineRow(id) returns the row for a topic id within the
@@ -28683,10 +28643,10 @@ var Do = e.byId("outlineDialog"), Ro = e.byId("outlineSections"), Oo = e.byId("o
         function getOutlineCell(e, t) {
             return e ? e.querySelector(`[data-outline-${t}]`) : null;
         }
-var Go = null, Ko = null, zo = null, Vo = 0, Yo = 0, Xo = 0, Zo = !0, Qo = !1, Jo = !1, es = null, ts = 0, ns = 0, is = !1, as = null, ZoAuto = !1;
-var rs = new Set, os = new Set, ss = "Show the next three popular";
-var milestoneRungs = Object.freeze([ 54, 108, 162, 216, 270, 324, 378, 403 ]), milestoneShownByProfile = new Map;
-var milestoneProfileId = null, milestoneValue = 0;
+        let Go = null, Ko = null, zo = null, Vo = 0, Yo = 0, Xo = 0, Zo = !0, Qo = !1, Jo = !1, es = null, ts = 0, ns = 0, is = !1, as = null, ZoAuto = !1;
+        const rs = new Set, os = new Set, ss = "Show the next three popular";
+        const milestoneRungs = Object.freeze([ 54, 108, 162, 216, 270, 324, 378, 403 ]), milestoneShownByProfile = new Map;
+        let milestoneProfileId = null, milestoneValue = 0;
         function ls(e, t) {
             const n = ca(e, t);
             const keys = (n.keys && Array.isArray(n.keys)) ? n.keys : [ "give", "receive" ];
@@ -28725,7 +28685,7 @@ var milestoneProfileId = null, milestoneValue = 0;
         function ds(e) {
             return K(e.topics);
         }
-var sxOutlineSortMode = "popularity";
+        let sxOutlineSortMode = "popularity";
         window.__sxSetOutlineSortMode = function(e) {
             sxOutlineSortMode = "interest" === e ? "interest" : "popularity";
         };
@@ -28779,7 +28739,7 @@ var sxOutlineSortMode = "popularity";
             if (403 === n) return void ys(t);
             if (milestoneDialog.open || Eg.open) return;
             markMilestoneShown(t, n), milestoneProfileId = t, milestoneValue = n, milestoneTitle.textContent = `${n} topics rated`, 
-            milestoneMessage.textContent = n < 162 ? "Your hypermap has enough detail to be useful now. You can keep building it or put it to work." : n < 324 ? "Your hypermap is getting richer. Keep going, compare it with a partner, or save a copy now." : "You’re close to the full map. Keep rating, compare what you have, or a copy now.", 
+            milestoneMessage.textContent = n < 162 ? "Your hypermap has enough detail to be useful now. You can keep building it or put it to work." : n < 324 ? "Your hypermap is getting richer. Keep going, compare it with a partner, or save a copy now." : "You’re close to the full map. Keep rating, compare what you have, or export a copy now.", 
             Wi(milestoneDialog), requestAnimationFrame(() => milestoneContinue.focus({
                 preventScroll: !0
             }));
@@ -28921,7 +28881,7 @@ var sxOutlineSortMode = "popularity";
            uses its own category count and its own topic total, so
            Poliscapades does not keep the Sexcapades "400+ · ~134m" mark.
            Sexcapades itself keeps the "400+" full-map label. */
-var sxLadderKey = "";
+        let sxLadderKey = "";
         function sxPaintOutlineLadder() {
             const track = qo && qo.parentElement;
             if (!track) return;
@@ -28979,7 +28939,7 @@ var sxLadderKey = "";
             n ? (Vo && (Yo += Math.max(0, Date.now() - Vo), Vo = 0), t.clear(Xo), Xo = 0) : (Vo = Date.now(), 
             Qo = !0, t.clear(Xo), Xo = t.setInterval(ws, 1e3)), Zo = n, hs(), ws();
         }
-var xs = 0;
+        let xs = 0;
         function Ss(e) {
             const t = e.dataset.outlineId, n = Go, i = ca(t, n), a = (Qe[n] || {})[t] || "", r = e.querySelector(".outline-topic-label");
             e.querySelectorAll("[data-outline-direction]").forEach(e => {
@@ -29160,7 +29120,7 @@ var xs = 0;
         // once every direction on its topic is hand-rated. A topic carrying
         // a hard-limit mark is NEVER queued (owner ruling 2026-10-21:
         // a hard limit is one-and-done).
-var __sxSeedValues = {
+        const __sxSeedValues = {
             "test:fetlife": [ 100, 85, 80, 0, 33 ],
             "test:kinktest": [ 33, 100 ],
             "test:checklist": [ 0, 20, 35, 40, 60, 80, 100 ],
@@ -29271,7 +29231,7 @@ var __sxSeedValues = {
         // set): a topic written during this session stays visible until
         // its heading is collapsed and reopened, or the list closes.
         window.__sxOnDeck = !1;
-var __sxOnDeckTouched = new Map;
+        const __sxOnDeckTouched = new Map;
         // Row-pinning (2026-10-27): a touched row pins in the section it
         // was touched in until THAT section completes a collapse + reopen
         // cycle; only then do pending moves (to another queue section)
@@ -29282,8 +29242,8 @@ var __sxOnDeckTouched = new Map;
         // __sxOnDeckTotal still counts true membership only, so the
         // header drops the moment a topic completes while its row
         // stays pinned in view.
-var __sxOnDeckCollapsed = new Set;
-var __sxOnDeckTierOrder = [ [ "tier1", "Broad matches from your import — rate these first" ], [ "tier2", "Marked, but not rated yet" ], [ "direction", "One direction missing" ], [ "tier3", "Coarse import ratings — refine when ready" ], [ "unreviewed", "Unreviewed ratings from your tests — confirm them as your own" ] ];
+        const __sxOnDeckCollapsed = new Set;
+        const __sxOnDeckTierOrder = [ [ "tier1", "Broad matches from your import — rate these first" ], [ "tier2", "Marked, but not rated yet" ], [ "direction", "One direction missing" ], [ "tier3", "Coarse import ratings — refine when ready" ], [ "unreviewed", "Unreviewed ratings from your tests — confirm them as your own" ] ];
         window.__sxOnDeckClear = function() {
             window.__sxOnDeck = !1, __sxOnDeckTouched.clear(), __sxOnDeckCollapsed.clear();
             const e = document.getElementById("outlineShowOnDeck");
@@ -29350,7 +29310,7 @@ var __sxOnDeckTierOrder = [ [ "tier1", "Broad matches from your import — rate 
         // the header's "N topics on deck" total — this section carries
         // its own count and offers hand placement onto a real catalog
         // topic, writing the parked value into the entry's own section.
-var __sxParkedSectionNames = {
+        const __sxParkedSectionNames = {
             annotations: "annotations",
             fantasyOnly: "fantasy-only list",
             alreadyTried: "already-tried list",
@@ -29920,7 +29880,7 @@ var __sxParkedSectionNames = {
                 pointerType: e.pointerType || "mouse"
             } : null;
         }
-var Fs = (() => {
+        const Fs = (() => {
             const n = e.byId("uiTooltip"), i = e.byId("uiTooltipName"), a = e.byId("uiTooltipDefinition"), r = e.byId("uiTooltipValue");
             let o = null, s = null, l = 0;
             function c() {
@@ -29987,7 +29947,7 @@ var Fs = (() => {
                 }
             };
         })();
-var Ns = null, _s = null, Ds = null, Rs = null, Os = 0, sxOutlineLastEl = null, sxOutlineLastTime = 0, sxOutlineLastX = 0, sxOutlineLastY = 0;
+        let Ns = null, _s = null, Ds = null, Rs = null, Os = 0, sxOutlineLastEl = null, sxOutlineLastTime = 0, sxOutlineLastX = 0, sxOutlineLastY = 0;
         /* Canvas pole-label hover hook (widget approachability): a canvas
            has no DOM node per pole, so the paint module calls this with
            the canvas as anchor, the pole's full label as name, and its
@@ -30013,7 +29973,7 @@ var Ns = null, _s = null, Ds = null, Rs = null, Os = 0, sxOutlineLastEl = null, 
             });
         };
         window.__SX_TIP_HIDE = function () { Fs.hide(); };
-var Bs = window.matchMedia ? window.matchMedia("(hover: hover)") : {
+        const Bs = window.matchMedia ? window.matchMedia("(hover: hover)") : {
             matches: !0
         };
         function js() {
@@ -30250,7 +30210,7 @@ var Bs = window.matchMedia ? window.matchMedia("(hover: hover)") : {
             const t = zo;
             zo = null, Ys(t);
         }, !0);
-var Zs = 0, Qs = !1;
+        let Zs = 0, Qs = !1;
         function Js(e, t = {}) {
             // Tab-switch camera fix (2026-10-30): profile activation
             // re-renders via Mr() but never refit, so the camera kept
@@ -30391,10 +30351,10 @@ var Zs = 0, Qs = !1;
                 }
             });
         }
-var outlineSearchEl = e.byId("outlineSearch");
+        const outlineSearchEl = e.byId("outlineSearch");
         outlineSearchEl && outlineSearchEl.addEventListener("input", sxApplyOutlineSearch);
-var tl = e.byId("profileTabs");
-var nl = null, il = null, al = null, rl = 0, ol = null, tfHide = 0;
+        const tl = e.byId("profileTabs");
+        let nl = null, il = null, al = null, rl = 0, ol = null, tfHide = 0;
         function sl() {
             nl && Fs.visibleFor(nl) && Fs.hide(), nl = null, il = null;
         }
@@ -30411,7 +30371,7 @@ var nl = null, il = null, al = null, rl = 0, ol = null, tfHide = 0;
                 autoHide: t
             }));
         }
-var dl = window.matchMedia ? window.matchMedia("(hover: hover)") : {
+        const dl = window.matchMedia ? window.matchMedia("(hover: hover)") : {
             matches: !0
         };
         function ul(e) {
@@ -30425,7 +30385,7 @@ var dl = window.matchMedia ? window.matchMedia("(hover: hover)") : {
                 nl !== e || t.relatedTarget && e.contains(t.relatedTarget) || sl();
             }));
         }
-var pl = e => e && e.closest ? __sxClosestAction(e, "uiTooltip") : null;
+        const pl = e => e && e.closest ? __sxClosestAction(e, "uiTooltip") : null;
         document.addEventListener("pointerover", e => {
             if (!dl.matches || e.pointerType && "mouse" !== e.pointerType) return;
             const t = pl(e.target);
@@ -30472,7 +30432,7 @@ var pl = e => e && e.closest ? __sxClosestAction(e, "uiTooltip") : null;
         }, !0), addEventListener("resize", () => {
             nl && Fs.visibleFor(nl) && ll();
         });
-var hl = 0;
+        let hl = 0;
         function gl() {
             hl && cancelAnimationFrame(hl), hl = requestAnimationFrame(() => {
                 hl = 0;
@@ -30502,7 +30462,7 @@ var hl = 0;
             });
         }
         addEventListener("resize", gl), "ResizeObserver" in window && new ResizeObserver(gl).observe(tl);
-var ml = null, fl = null, yl = !1, bl = null, vl = 0;
+        let ml = null, fl = null, yl = !1, bl = null, vl = 0;
         function wl() {
             yl = !0, t.clear(bl), bl = t.setTimeout(() => {
                 yl = !1;
@@ -30658,7 +30618,7 @@ var ml = null, fl = null, yl = !1, bl = null, vl = 0;
             "true" !== t.getAttribute("aria-disabled") && !Rt && (sxVaultInvalidate(), Pt = t.dataset.filter, e.all("[data-filter]").forEach(e => e.setAttribute("aria-pressed", String(e === t))),
             Mr());
         }));
-var xl = e.byId("blindModeToggle");
+        const xl = e.byId("blindModeToggle");
         xl && xl.addEventListener("click", () => function(e, {render: t = !0} = {}) {
             sxVaultInvalidate();
             const n = Boolean(e) && Fa();
@@ -30680,8 +30640,8 @@ var xl = e.byId("blindModeToggle");
                 e.target === n && Ui(n);
             });
         }();
-var Sl = e.byId("localCommunitiesDialog"), $l = e.byId("localCommunityConsentRow"), El = e.byId("localCommunityStatus"), Al = e.byId("localCommunityResults"), Cl = e.byId("localCommunityPlace"), Ml = e.byId("localFetlifeLinks"), Il = e.byId("localRedditLinks"), Pl = e.byId("nationalCommunityList");
-var Ll = !1, Tl = null, Fl = null;
+        const Sl = e.byId("localCommunitiesDialog"), $l = e.byId("localCommunityConsentRow"), El = e.byId("localCommunityStatus"), Al = e.byId("localCommunityResults"), Cl = e.byId("localCommunityPlace"), Ml = e.byId("localFetlifeLinks"), Il = e.byId("localRedditLinks"), Pl = e.byId("nationalCommunityList");
+        let Ll = !1, Tl = null, Fl = null;
         function Nl(e, t, n) {
             const i = document.createElement("a");
             i.href = n, i.target = "_blank", i.rel = "noopener noreferrer", i.textContent = t, 
@@ -30806,7 +30766,7 @@ var Ll = !1, Tl = null, Fl = null;
         }), e.byId("closeLocalCommunities") && e.byId("closeLocalCommunities").addEventListener("click", () => Ui(Sl)), Sl && Sl.addEventListener("cancel", e => {
             e.preventDefault(), Ui(Sl);
         });
-var Bl = e.byId("searchInput"), jl = e.byId("searchDropdown"), ql = e.byId("topicPicker"), Hl = e.byId("topicPickerButton"), Wl = e.byId("topicPickerMenu"), Ul = [], Gl = G(h, z);
+        const Bl = e.byId("searchInput"), jl = e.byId("searchDropdown"), ql = e.byId("topicPicker"), Hl = e.byId("topicPickerButton"), Wl = e.byId("topicPickerMenu"), Ul = [], Gl = G(h, z);
         function Kl(e, t = !1) {
             const n = !t && e.hankyKey && "subcategory" !== e.hankyKey ? ` data-hanky-code="${Hi(e.hankyKey)}"` : "";
             const iconSize = (48 * 0.62).toFixed(2);
@@ -30988,7 +30948,7 @@ zlRenderRows(), t.length ? d(Math.max(0, t.findIndex(e => e.value === s)), {
                 t.root.contains(e.target) || t.close();
             });
         }, !0);
-var Vl = [], Yl = [], Xl = new Map();
+        let Vl = [], Yl = [], Xl = new Map();
         function rebuildTopicPickerData() {
             const activeCats = (typeof window.TaxonomyLoader === "object" && typeof window.TaxonomyLoader.loadTaxonomy === "function")
                 ? window.TaxonomyLoader.loadTaxonomy().categories
@@ -31065,7 +31025,7 @@ var Vl = [], Yl = [], Xl = new Map();
                 tc.render(Yl, { grouped: !0 });
             }
         }
-var sxCommittedFocus = null, sxFocusFrame = 0;
+        let sxCommittedFocus = null, sxFocusFrame = 0;
         function sxStopFocusZoom() {
             if (sxFocusFrame) cancelAnimationFrame(sxFocusFrame), sxFocusFrame = 0;
             if (typeof window.__sxStopFocusZoom === "function") window.__sxStopFocusZoom();
@@ -31074,7 +31034,7 @@ var sxCommittedFocus = null, sxFocusFrame = 0;
             if (!e || Dt !== e.id) return;
             In.querySelector(`[data-layout-key="${CSS.escape(e.id)}"]`) ? Th(e.id, e.branch) : t < 3 ? sxFocusFrame = requestAnimationFrame(() => Zl(e, t + 1)) : Lh(e.branch);
         }
-var _previewAddedBranches = new Set, _previewAddedParents = new Set;
+        let _previewAddedBranches = new Set, _previewAddedParents = new Set;
         function Ql(e) {
             if (!e) return;
             noteFitUserCamera();
@@ -31115,7 +31075,7 @@ var _previewAddedBranches = new Set, _previewAddedParents = new Set;
             window.__SX_WHEN_SKIN_READY(rebuildTopicPickerData);
         }
         window.sxRebuildTopicPicker = rebuildTopicPickerData;
-var ec = zl({
+        const ec = zl({
             root: __sxClosestAction(Bl, "searchLabel"),
             trigger: Bl,
             menu: jl,
@@ -31213,7 +31173,7 @@ var ec = zl({
             }(t, 24);
             ec.render(n), n.length ? ec.open(0, !1) : ec.close();
         });
-var tc = zl({
+        const tc = zl({
             root: __sxClosestAction(ql, "topicPicker"),
             trigger: Hl,
             menu: Wl,
@@ -31423,8 +31383,8 @@ var tc = zl({
             if (window.sxPaintPromise && window.sxPaintPromise.then) window.sxPaintPromise.then(() => requestAnimationFrame(focus));
             else requestAnimationFrame(focus);
         }), nc();
-var pc = [], hc = "", gc = "";
-var mc = new Set, fc = new Set;
+        let pc = [], hc = "", gc = "";
+        const mc = new Set, fc = new Set;
         function yc() {
             hc && mc.add(hc), e.byId("scribeTab")?.classList.remove("scribe-ready");
         }
@@ -31727,7 +31687,7 @@ var mc = new Set, fc = new Set;
             } ], s), p();
                 }
 
-var sxUpdateGlance = function() { return vc(); };
+        const sxUpdateGlance = function() { return vc(); };
         window.SexcapadesEngine = window.SexcapadesEngine || {};
         window.SexcapadesEngine.Compatibility = {
             updateGlance: sxUpdateGlance
@@ -31842,10 +31802,10 @@ var sxUpdateGlance = function() { return vc(); };
                 }
             }
         }();
-var wc = e.byId("glanceTooltip"), kc = e.byId("glanceTooltipTitle"), xc = e.byId("glanceTooltipText"), Sc = e.byId("copyGlanceTopics"), $c = e.byId("glanceCopyStatus");
+        const wc = e.byId("glanceTooltip"), kc = e.byId("glanceTooltipTitle"), xc = e.byId("glanceTooltipText"), Sc = e.byId("copyGlanceTopics"), $c = e.byId("glanceCopyStatus");
         document.body.appendChild(wc);
-var Ec = null, Ac = null;
-var Cc = e.byId("glanceNumbersPopover"), Mc = e.byId("glanceRingSummary"), Ic = e.byId("reviewLink");
+        let Ec = null, Ac = null;
+        const Cc = e.byId("glanceNumbersPopover"), Mc = e.byId("glanceRingSummary"), Ic = e.byId("reviewLink");
         function Pc() {
             Cc.hidden = !0, Ic.setAttribute("aria-expanded", "false"), vc();
         }
@@ -32535,7 +32495,7 @@ var Cc = e.byId("glanceNumbersPopover"), Mc = e.byId("glanceRingSummary"), Ic = 
         // first, ties broken by label A-Z) and the plain label ordering are
         // declared ONCE here, above every use - the pair scorer, the group
         // scorer, and both teaser bumps all sort through these two.
-var byStrength = (x, y) => (y.strength || 0) - (x.strength || 0) || x.label.localeCompare(y.label), byLabel = (x, y) => x.label.localeCompare(y.label);
+        const byStrength = (x, y) => (y.strength || 0) - (x.strength || 0) || x.label.localeCompare(y.label), byLabel = (x, y) => x.label.localeCompare(y.label);
         function sxLowestSet(pairs, profiles) {
             const kfOf = pr => pr.conversation ? pr.conversation.kinkFactor : null,
                 scoreOf = m => {
@@ -32552,7 +32512,7 @@ var byStrength = (x, y) => (y.strength || 0) - (x.strength || 0) || x.label.loca
         // ONCE here, above every use: the teaser selection and both
         // promotion bumps (pair and group) slice through it, each passing
         // its own heat value unchanged.
-var takeTop = (list, heat) => list.slice(0, Math.max(1, Math.ceil(list.length * heat / 100)));
+        const takeTop = (list, heat) => list.slice(0, Math.max(1, Math.ceil(list.length * heat / 100)));
         // Match-engine R4: the score headline sentence - the percent,
         // then "N of M shared topics" across the dash, with the group
         // prefix (e.g. "group match score for NAME") folded in ahead of
@@ -32562,7 +32522,7 @@ var takeTop = (list, heat) => list.slice(0, Math.max(1, Math.ceil(list.length * 
         // each passing its own percent / count / considered values (and
         // its prefix, where present) unchanged. A null percent yields
         // null, exactly as each site's own null check did before.
-var sxHeadlineText = (percent, clicks, things, prefix) => null === percent ? null : `${percent}%${prefix ? ` ${prefix}` : ""} — ${clicks} of ${things} shared topics`;
+        const sxHeadlineText = (percent, clicks, things, prefix) => null === percent ? null : `${percent}%${prefix ? ` ${prefix}` : ""} — ${clicks} of ${things} shared topics`;
         // Kinkiness weighting (ruled 2026-10-29, all four pair numbers,
         // pair and group both): Play KF, Play MS,
         // Parlay MS, and Parlay KF are weighted by
@@ -32648,7 +32608,7 @@ var sxHeadlineText = (percent, clicks, things, prefix) => null === percent ? nul
         // its absolute rating exceeds epsilon (see sxTopicTerms).
         // Positive heat -> smaller epsilon (more counts); negative
         // heat -> larger epsilon (fewer counts).
-var SX_EPSILON_E0 = 1;
+        const SX_EPSILON_E0 = 1;
         function sxPlayEpsilon(heats) {
             const hs = (heats || []).filter(Number.isFinite);
             const h = hs.length ? hs.reduce((a, b) => a + b, 0) / hs.length : 0;
@@ -32682,7 +32642,7 @@ var SX_EPSILON_E0 = 1;
         // (non-fantasy, teased for a lowest-overall-kink-score member)
         // at its call site - those group-only conditions are NOT part
         // of this predicate and are not folded into it.
-var sxIsTeased = rec => (rec.teaserFor || []).length && "soft-no" === rec.countClass;
+        const sxIsTeased = rec => (rec.teaserFor || []).length && "soft-no" === rec.countClass;
         // Match-engine (Edit 6): the blind-import filter - which of an
         // imported profile's topics survive a blind comparison against
         // the selected comparison group, plus the kept/discarded counts
@@ -33144,7 +33104,7 @@ var sxIsTeased = rec => (rec.teaserFor || []).length && "soft-no" === rec.countC
             });
             return sxPairFromData(A, B, ids, metas, dataA, dataB, opts);
         }
-var sxCatalogCache = null;
+        let sxCatalogCache = null;
         function sxCatalogCount() {
             if (null === sxCatalogCache) sxCatalogCache = Uc().filter(id => {
                 const m = qn[id];
@@ -33551,7 +33511,7 @@ var sxCatalogCache = null;
            Charted's rated term AND to Personal KF's flank term (the
            max is taken over epsilon-passing flanks only). Flag sums
            are unchanged and are NOT epsilon-thresholded. */
-var sxShareCache = null;
+        let sxShareCache = null;
         function sxTopicShares() {
             if (sxShareCache) return sxShareCache;
             const ids = Uc(), metas = ids.map(id => sxMeta(id, null)), byBranch = new Map;
@@ -33994,8 +33954,8 @@ var sxShareCache = null;
         };
 
 /* --- Module: 05b-scribe.js --- */
-var Oc = e.byId("scribeDialog"), Bc = e.byId("scribeChoiceDialog"), jc = e.byId("novelAiDialog");
-var scribeLeadId = null, scribePartnerId = null, scribeCastIds = [];
+        const Oc = e.byId("scribeDialog"), Bc = e.byId("scribeChoiceDialog"), jc = e.byId("novelAiDialog");
+        let scribeLeadId = null, scribePartnerId = null, scribeCastIds = [];
         function Uc() {
             return [ ...new Set(h.flatMap(e => e.topics.map(e => Wn(e))).concat(li().map(e => e.id))) ];
         }
@@ -34185,7 +34145,8 @@ var scribeLeadId = null, scribePartnerId = null, scribeCastIds = [];
             // complete as-is. od() stays as the "missing required
             // details" hook for any future required field; today the
             // set is empty. This stops the details dialog auto-opening
-            // after archetype/sample loads (rk) and stops the // gate (Jv) demanding them.
+            // after archetype/sample loads (rk) and stops the export
+            // gate (Jv) demanding them.
             return [];
         }
         function sd(e) {
@@ -34575,7 +34536,7 @@ var scribeLeadId = null, scribePartnerId = null, scribeCastIds = [];
                 return [ `${rd(e)} — INDIVIDUAL PROFILE`, `- Within shared ground: ${o.map(l).join("; ") || "none recorded"}.`, `- Individual desires and differences: ${s.map(l).join("; ") || "none recorded"}.`, isDisc ? "- Use individual-only details for character texture, reactions, and dialogue—not as permission to add a position outside the authoritative shared ground." : "- Use individual-only details for character texture, reactions, dialogue, and negotiation—not as permission to add an activity outside the authoritative shared ground." ].join(" ");
             }).join("  ");
         }
-var sxNovelAiFields = null, scribeMode = "porn", scribeTarget = "grok", scribeCastKey = "", scribePromptCache = "", scribeLengthValue = "5", scribeLengthDisplay = "~5", scribeRequestText = "", scribeLengthUnit = "paragraphs", scribeDetailLevel = "balanced", scribeRigor = 4, scribeOperation = "cross";
+        let sxNovelAiFields = null, scribeMode = "porn", scribeTarget = "grok", scribeCastKey = "", scribePromptCache = "", scribeLengthValue = "5", scribeLengthDisplay = "~5", scribeRequestText = "", scribeLengthUnit = "paragraphs", scribeDetailLevel = "balanced", scribeRigor = 4, scribeOperation = "cross";
         // Mode resolution (refactor F5), stated plainly: the target list
         // mixes outside-AI targets (novelai, yobitch, strictai) with
         // tones (suggestive, explicit); anything unrecognized falls back
@@ -34599,7 +34560,7 @@ var sxNovelAiFields = null, scribeMode = "porn", scribeTarget = "grok", scribeCa
         // title / intro / help / note produce the prep dialog's heading,
         // brief title, brief intro, prompt help, and the post-generation
         // availability note. Per-target strings are preserved verbatim.
-var sxScribeTargets = {
+        const sxScribeTargets = {
             novelai: {
                 displayName: "NovelAI",
                 shortName: "NovelAI",
@@ -35925,7 +35886,7 @@ var sxScribeTargets = {
             n.percent = a.percent, n.things = a.things, n.clicks = a.clicks, n.noScore = a.noScore, n.sxEngine = a.sx, 
             n.limits = a.limits, n.results = a.results, n.matchDetails = a.matchDetails;
         }
-var Od = 0, Bd = null, qd = [], Wd = null;
+        let Od = 0, Bd = null, qd = [], Wd = null;
         function Kd() {
             const e = Mt && ft[Mt];
             return e && "group" === e.kind && Array.isArray(e.sourceProfiles) && e.sourceProfiles.length >= 2 ? e : null;
@@ -35973,8 +35934,8 @@ var Od = 0, Bd = null, qd = [], Wd = null;
            names are PLACEHOLDERS pending a naming
            pass: "Cooling" (-1..-24), "Chilled" (-25..-74),
            "Turned off" (-75..-100). */
-var SXCV_KEY = "sexcapades.compare.session.v1";
-var sxcv = { mode: "conversation", heat: {}, groupHeat: {} };
+        const SXCV_KEY = "sexcapades.compare.session.v1";
+        const sxcv = { mode: "conversation", heat: {}, groupHeat: {} };
         try {
             const raw = sessionStorage.getItem(SXCV_KEY);
             if (raw) {
@@ -36016,8 +35977,8 @@ var sxcv = { mode: "conversation", heat: {}, groupHeat: {} };
         function sxHeatZone(v) {
             return v >= 75 ? "Horndog" : v >= 25 ? "Hot" : v >= 1 ? "Warm" : 0 === v ? "Neutral" : v <= -75 ? "Turned off" : v <= -25 ? "Chilled" : "Cooling";
         }
-var sxCtx = null, sxAudio = null, sxBuzzTarget = null;
-var sxBuzzFired = new Set;
+        let sxCtx = null, sxAudio = null, sxBuzzTarget = null;
+        const sxBuzzFired = new Set;
         function sxCompareContext() {
             const sel = Yi().filter(id => vt[id]);
             if (sel.length >= 2) return { ids: sel.slice(), profiles: zd(sel), saved: !1 };
@@ -36577,7 +36538,7 @@ var sxBuzzFired = new Set;
         // click is gone, the saving is not. The auto-created group is a
         // normal profile in every path: it is minted by the same Zd
         // save, stored in the same vt/ft records, and flows through the
-        // same persist (Sexcapades2xProfiles.getAll), (Jf), and
+        // same persist (Sexcapades2xProfiles.getAll), export (Jf), and
         // tab Save (saveActiveProfile) code as any other profile. No
         // second-class group persistence path exists or is added here.
         function sxFindGroupForCast(ids, pairOp) {
@@ -36765,7 +36726,7 @@ var sxBuzzFired = new Set;
             const dlg = e.byId("sxBuzzerDialog");
             dlg && !dlg.open && Wi(dlg);
         }
-var sxStageEl = e.byId("sxMatchStage");
+        const sxStageEl = e.byId("sxMatchStage");
         if (sxStageEl) {
             sxStageEl.addEventListener("click", ev => {
                 const pk = ev.target.closest("[data-sx-pick]");
@@ -36797,7 +36758,7 @@ var sxStageEl = e.byId("sxMatchStage");
         // view would be redundant. Zd remains, called only by
         // sxAutoCreateBowtie and (for pairs) sxAutoCreateStraight; no
         // surface renders a save-as-group control.
-var sxDlgEl = e.byId("sxBuzzerDialog");
+        const sxDlgEl = e.byId("sxBuzzerDialog");
         if (sxDlgEl) {
             e.byId("sxBuzzerProceed").addEventListener("click", () => Ui(sxDlgEl));
             e.byId("sxBuzzerConversation").addEventListener("click", () => {
@@ -36836,7 +36797,7 @@ var sxDlgEl = e.byId("sxBuzzerDialog");
         // ordinary profile does. The sets from before that open are held
         // and put back when a non-group profile is activated, so the
         // profiles that went into the match are unchanged.
-var sxExpandHold = null;
+        let sxExpandHold = null;
         function sxHoldExpansion() {
             if (sxExpandHold) return;
             sxExpandHold = {
@@ -37043,7 +37004,8 @@ var sxExpandHold = null;
             }), !t.size && Bi(e) && h.forEach(e => t.add(catId(e.name))), t;
         }
         // F8 companion note (sharing-sync refactor): nu performs the
-        // same solo-switch / collect / restore shape as the // opener Jf - it snapshots the selection state at entry,
+        // same solo-switch / collect / restore shape as the export
+        // opener Jf - it snapshots the selection state at entry,
         // switches the live map to solo, collects, and restores
         // inline at the end. Checked during the F8 pass: the restore
         // here is inline and NOT wrapped in try/finally, and the
@@ -37204,7 +37166,7 @@ var sxExpandHold = null;
             i;
         }
         // ===== Picture restore guard + save-to-re-read round-trip (Rank 5, 2026-10-30) =====
-        // A picture is a PNG carrying the profile payload in a
+        // A picture export is a PNG carrying the profile payload in a
         // zTXt chunk (keyword "Sexcapades", zlib-stored deflate) plus,
         // when contact info is included, a vCard iTXt chunk. The format
         // already carries integrity checks - a CRC32 over every PNG
@@ -37495,14 +37457,14 @@ var sxExpandHold = null;
             c.href = l, c.download = `${skinPrefix}-${r}-${o}.txt`, c.hidden = !0, document.body.appendChild(c), 
             c.click(), c.remove(), t.setTimeout(() => URL.revokeObjectURL(l), 0), i.textContent = "Prompt downloaded.";
         });
-var su = "https://sexcapades.io/#guide", lu = "https://sexcapades.io/#app", cu = [], du = [];
+        const su = "https://sexcapades.io/#guide", lu = "https://sexcapades.io/#app", cu = [], du = [];
         h.forEach(e => {
             const t = catId(e.name);
             cu.push(t), du.push(t), e.topics.forEach(t => {
                 cu.push(Wn(t)), du.push(Kn(e.name, sxName(t)));
             });
         });
-var uu = du.filter(e => "topic-sensation-atmosphere-tantra-energy-play" !== e && "topic-service-ritual-spiritual-play" !== e), pu = uu.reduce((e, t) => ("topic-impact-pain-body-modification-whips" === t || e.push("topic-impact-pain-body-modification-riding-crops" === t ? "topic-impact-pain-body-modification-whipping" : t), 
+        const uu = du.filter(e => "topic-sensation-atmosphere-tantra-energy-play" !== e && "topic-service-ritual-spiritual-play" !== e), pu = uu.reduce((e, t) => ("topic-impact-pain-body-modification-whips" === t || e.push("topic-impact-pain-body-modification-riding-crops" === t ? "topic-impact-pain-body-modification-whipping" : t), 
         e), []), hu = new Map(cu.map((e, t) => [ e, t ]));
         function gu(e) {
             let t = "";
@@ -37514,7 +37476,7 @@ var uu = du.filter(e => "topic-sensation-atmosphere-tantra-energy-play" !== e &&
             for (let e = 0; e < n.length; e++) i[e] = n.charCodeAt(e);
             return i;
         }
-var fu = cu.filter(e => Boolean(topicLabelById[e])), yu = iu((new TextEncoder).encode(fu.join(" ")));
+        const fu = cu.filter(e => Boolean(topicLabelById[e])), yu = iu((new TextEncoder).encode(fu.join(" ")));
         function bu(e) {
             return Number.isFinite(Number(e)) ? 1 + Math.max(0, Math.min(14, Math.round(14 * (Number(e) + 100) / 200))) : 0;
         }
@@ -37575,8 +37537,8 @@ var fu = cu.filter(e => Boolean(topicLabelById[e])), yu = iu((new TextEncoder).e
             const prefix = window.__SX_SKIN_PREFIX || (typeof window.__sxGetSkin === "function" ? window.__sxGetSkin() : null) || "sex";
             return "https://" + prefix + ".capades.io";
         }
-var Su = [ `Found this comparison tool. Want to compare hypermaps?`, `I mapped my stances on this thing. Dying to see how we overlap — compare hypermaps?`, `Ever wondered where our views line up with someone else’s? Compare hypermaps?`, `I put my whole map together. Compare hypermaps? Let’s see what happens:`, `This site maps stances and compares them with a partner’s. Compare hypermaps?`, `What if you could see exactly where your views overlap with someone? Compare hypermaps?`, `I wonder how compatible we really are… compare hypermaps? Let’s find out:`, `Map your views, compare with mine. Compare hypermaps?` ];
-var $u = -1;
+        const Su = [ `Found this comparison tool. Want to compare hypermaps?`, `I mapped my stances on this thing. Dying to see how we overlap — compare hypermaps?`, `Ever wondered where our views line up with someone else’s? Compare hypermaps?`, `I put my whole map together. Compare hypermaps? Let’s see what happens:`, `This site maps stances and compares them with a partner’s. Compare hypermaps?`, `What if you could see exactly where your views overlap with someone? Compare hypermaps?`, `I wonder how compatible we really are… compare hypermaps? Let’s find out:`, `Map your views, compare with mine. Compare hypermaps?` ];
+        let $u = -1;
         function Eu() {
             e.byId("openerMessage").value = function() {
                 let e = Math.floor(Math.random() * Su.length);
@@ -37588,7 +37550,7 @@ var $u = -1;
         }
 
 /* --- Module: 05d-scene-setter.js --- */
-var Au = new Map;
+        const Au = new Map;
         function Cu(e) {
             const t = function(e) {
                 return e.slice().sort().join("|");
@@ -37851,8 +37813,8 @@ var Au = new Map;
             return (t?.dataset.copy || "") + (x ? "\n" + x : "") + "\n\n" + (sxSetterIsModeration() ? SX_DISCUSSION_PLAN_FORMAT : SX_PLAY_GUIDE_FORMAT);
         }
         window.__sxPlayGuidePromptText = playGuidePromptText;
-var SX_DISCUSSION_PLAN_FORMAT = [ "STRUCTURED DISCUSSION PLAN FORMAT — REQUIRED", "End your answer with a timed discussion plan in EXACTLY this format, so Scene Sentinel can read it back and run its timers. One step per line, every line in this shape:", "[MM:SS-MM:SS] Activity name — what happens in this step, in one or two sentences.", "Rules: (1) Time codes are elapsed time from the start of the discussion, zero-based: the first step starts at 00:00, steps run back to back with no gaps or overlaps, and the last step ends at the planned discussion length. Use MM:SS under an hour, H:MM:SS over an hour. (2) The activity name MUST be one of this fixed set, spelled exactly: Opening; Position statements; Rebuttal; Cross-examination; Synthesis; Closing; Other. Put anything else in the guidance after the dash, never in the activity name. (3) End with a Synthesis or Closing step. (4) After the timed steps, add one line: CHECK-IN EVERY: N MINUTES, with N between 1 and 15, so the app knows how often to pulse the watch for a check-in. (5) Keep the timed plan as plain lines — no tables, no bullet markers, no extra time formats anywhere else in the plan.", "Example:", "[00:00-05:00] Opening — Each side states its position in two minutes, uninterrupted.", "[05:00-20:00] Position statements — The strongest form of each position, with its reasons.", "[20:00-25:00] Synthesis — Where the positions agree, where they part, and what follows.", "CHECK-IN EVERY: 5 MINUTES" ].join("\n");
-var SX_PLAY_GUIDE_FORMAT = [ "STRUCTURED PLAY GUIDE FORMAT — REQUIRED (Scene Sentinel Way B standard, guide-1106-0847)", "End your answer with a timed play guide in EXACTLY this format, so Scene Sentinel can read it back and run its timers. One step per line, every line in this shape:", "[MM:SS-MM:SS] Activity name — what happens in this step, in one or two sentences.", "Rules: (1) Time codes are elapsed time from the start of the scene, zero-based: the first step starts at 00:00, steps run back to back with no gaps or overlaps, and the last step ends at the planned scene length. Use MM:SS under an hour, H:MM:SS over an hour. (2) The activity name MUST be one of this fixed set, spelled exactly: Warm-up; Negotiation check; Bondage; Impact play; Sensation play; Teasing & denial; Oral; Manual stimulation; Penetrative sex; Orgasm control; Roleplay; Service; Worship; Free play; Aftercare; Other. Put anything else in the guidance after the dash, never in the activity name. (3) End with an Aftercare step. (4) After the timed steps, add one line: CHECK-IN EVERY: N MINUTES, with N between 1 and 15, so the app knows how often to pulse the watch for a check-in. (5) Keep the timed guide as plain lines — no tables, no bullet markers, no extra time formats anywhere else in the guide.", "Example:", "[00:00-05:00] Warm-up — Slow massage and teasing, building touch gradually.", "[05:00-20:00] Impact play — Flogging, starting light and checking in before building.", "[20:00-25:00] Aftercare — Water, blanket, quiet cuddling.", "CHECK-IN EVERY: 5 MINUTES" ].join("\n");
+        const SX_DISCUSSION_PLAN_FORMAT = [ "STRUCTURED DISCUSSION PLAN FORMAT — REQUIRED", "End your answer with a timed discussion plan in EXACTLY this format, so Scene Sentinel can read it back and run its timers. One step per line, every line in this shape:", "[MM:SS-MM:SS] Activity name — what happens in this step, in one or two sentences.", "Rules: (1) Time codes are elapsed time from the start of the discussion, zero-based: the first step starts at 00:00, steps run back to back with no gaps or overlaps, and the last step ends at the planned discussion length. Use MM:SS under an hour, H:MM:SS over an hour. (2) The activity name MUST be one of this fixed set, spelled exactly: Opening; Position statements; Rebuttal; Cross-examination; Synthesis; Closing; Other. Put anything else in the guidance after the dash, never in the activity name. (3) End with a Synthesis or Closing step. (4) After the timed steps, add one line: CHECK-IN EVERY: N MINUTES, with N between 1 and 15, so the app knows how often to pulse the watch for a check-in. (5) Keep the timed plan as plain lines — no tables, no bullet markers, no extra time formats anywhere else in the plan.", "Example:", "[00:00-05:00] Opening — Each side states its position in two minutes, uninterrupted.", "[05:00-20:00] Position statements — The strongest form of each position, with its reasons.", "[20:00-25:00] Synthesis — Where the positions agree, where they part, and what follows.", "CHECK-IN EVERY: 5 MINUTES" ].join("\n");
+        const SX_PLAY_GUIDE_FORMAT = [ "STRUCTURED PLAY GUIDE FORMAT — REQUIRED (Scene Sentinel Way B standard, guide-1106-0847)", "End your answer with a timed play guide in EXACTLY this format, so Scene Sentinel can read it back and run its timers. One step per line, every line in this shape:", "[MM:SS-MM:SS] Activity name — what happens in this step, in one or two sentences.", "Rules: (1) Time codes are elapsed time from the start of the scene, zero-based: the first step starts at 00:00, steps run back to back with no gaps or overlaps, and the last step ends at the planned scene length. Use MM:SS under an hour, H:MM:SS over an hour. (2) The activity name MUST be one of this fixed set, spelled exactly: Warm-up; Negotiation check; Bondage; Impact play; Sensation play; Teasing & denial; Oral; Manual stimulation; Penetrative sex; Orgasm control; Roleplay; Service; Worship; Free play; Aftercare; Other. Put anything else in the guidance after the dash, never in the activity name. (3) End with an Aftercare step. (4) After the timed steps, add one line: CHECK-IN EVERY: N MINUTES, with N between 1 and 15, so the app knows how often to pulse the watch for a check-in. (5) Keep the timed guide as plain lines — no tables, no bullet markers, no extra time formats anywhere else in the guide.", "Example:", "[00:00-05:00] Warm-up — Slow massage and teasing, building touch gradually.", "[05:00-20:00] Impact play — Flogging, starting light and checking in before building.", "[20:00-25:00] Aftercare — Water, blanket, quiet cuddling.", "CHECK-IN EVERY: 5 MINUTES" ].join("\n");
 
         function setterParticipantIds() {
             const ids = String(e.byId("negotiationDialog")?.dataset.participants || "").split(",").filter(Boolean);
@@ -38028,7 +37990,7 @@ var SX_PLAY_GUIDE_FORMAT = [ "STRUCTURED PLAY GUIDE FORMAT — REQUIRED (Scene S
         // The import itself is unchanged: wx with source "share-link"
         // still lands through the "profile" merge branch, which does
         // NOT auto-select or join the receiver's multiselect (F7).
-var sxShareLinkToken = "";
+        let sxShareLinkToken = "";
         async function Nu() {
             // Share-link receiving side (unified framework adaptation):
             // the token format is bounded (see
@@ -38070,7 +38032,7 @@ var sxShareLinkToken = "";
                 });
             }
         }
-var _u = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ $%*+-./:";
+        const _u = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ $%*+-./:";
         function Du(e) {
             const t = String(e || ""), n = [];
             for (let e = 0; e < t.length; e += 3) {
@@ -38138,7 +38100,7 @@ var _u = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ $%*+-./:";
             return "Export QR codes — the numbered QR sheet holds every piece.";
         }
         // Document (PDF) page: warn-and-refuse. The helpers below
-        // return the exact wordings the document and its dialog
+        // return the exact wordings the document and its export dialog
         // already used, from one source, so the count and the
         // alternative can never drift apart.
         function sxOversizeDocumentNote(neededPieces) {
@@ -38154,7 +38116,7 @@ var _u = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ $%*+-./:";
         // fixed sizes, a different unit from the document's
         // 700-character pieces, and a piece count here would read as
         // if the profile fit the 4-code layout when it does not. The
-        // card callers (op/lp) surface it in the dialog
+        // card callers (op/lp) surface it in the export dialog
         // instead of their generic failure text.
         function sxOversizeCardMessage(payloadLength) {
             return `This profile is too large for the reliable two-code, three-code, four-code, or five-code Sync card layout: its scan-code data is ${payloadLength} characters long, too long for 2 codes at the large size, or 3, 4, or 5 codes at the small size. No partial card was made. ${sxOversizeAlt()}`;
@@ -38455,7 +38417,7 @@ var _u = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ $%*+-./:";
             } else dt[e] = (r || []).slice(0, 1);
             try {
                 const r = i ? Ji(wt[e]) || "Profile" : np(wt[e] || "Profile", !1) || "Profile";
-                await s(18, "Rendering hypermap", "Laying out the visible hypermap at resolution…"), 
+                await s(18, "Rendering hypermap", "Laying out the visible hypermap at export resolution…"), 
                 l = await nu([ e ], e, {
                     profileFill: !0,
                     centerOnMap: !0,
@@ -38477,7 +38439,7 @@ var _u = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ $%*+-./:";
                         ctx: a
                     };
                 }(o, t.background || "black"), h = p.ctx, g = dc(e, u);
-                if (c = p.canvas, !h) throw new Error("This browser could not allocate the canvas.");
+                if (c = p.canvas, !h) throw new Error("This browser could not allocate the export canvas.");
                 !function(e, t) {
                     const n = t.naturalWidth || 3600, i = t.naturalHeight || 3600;
                     e.drawImage(t, 0, 0, n, i, 0, 0, 3600, 3600);
@@ -38889,7 +38851,7 @@ var _u = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ $%*+-./:";
         // responsibility - apLoadAndPrep loads the PDF library, parses
         // and centre-crops the SVG and creates the document;
         // apEmbedMetadata embeds the serialized profile; apInlineStyles
-        // resolves computed styles onto the clone; apDrawLabels
+        // resolves computed styles onto the export clone; apDrawLabels
         // redraws the curved map labels as native PDF text; apQrImages
         // builds the sync QR images; apHeaderCard draws the profile
         // header card. ap itself is now a thin orchestrator.
@@ -39034,7 +38996,7 @@ var _u = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ $%*+-./:";
             // a partial set could never be reassembled on scan-in -
             // and overflowPieces reports how many the profile needs,
             // so ap can print a plain warning on the document and dp
-            // can warn in the dialog and point at the
+            // can warn in the export dialog and point at the
             // numbered QR sheet instead. Never silently drop pieces.
             var M = [], overflowPieces = 0, I = null;
             try {
@@ -39186,7 +39148,7 @@ var _u = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ $%*+-./:";
             const a = Boolean(i.lowRes), r = a ? "Low-res visible-map PNG" : "Visible-map PNG", o = Uf(`Capture ${Ji(wt[n])}`, a ? "Building a compact PNG of the topics currently visible on your map…" : "Building a high-resolution PNG of the topics currently visible on your map…", {
                 profileId: n
             });
-            if (await Hf(o, 6, "Preparing hypermap", "Opening a clean canvas…"), o !== vf) return;
+            if (await Hf(o, 6, "Preparing hypermap", "Opening a clean export canvas…"), o !== vf) return;
             const s = Boolean(i.includeProfileInfo), l = Boolean(i.blind), c = (s && wt[n], 
             ip(s ? wt[n] : "Shared profile")), d = a ? [ {
                 scale: 4 / 9,
@@ -39245,7 +39207,7 @@ var _u = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ $%*+-./:";
             }
             if (o === vf) {
                 if (u) {
-                    const e = !a && u.index > 0, t = a ? c.zoom : e ? c.map.replace(/-full-map\.png$/, "-memory-safe-visible-map.png") : c.map, d = a ? `Compact of what's currently visible on your map, with matching re-importable data · ${(u.blob.size / 1048576).toFixed(1)} MB.` : e ? `Your browser switched to a memory-safe ${u.attempt.label} export. It still contains only what's currently visible on your map, with matching re-importable data.` : `${u.attempt.label} high-resolution of what's currently visible on your map, with matching re-importable data embedded.`;
+                    const e = !a && u.index > 0, t = a ? c.zoom : e ? c.map.replace(/-full-map\.png$/, "-memory-safe-visible-map.png") : c.map, d = a ? `Compact export of what's currently visible on your map, with matching re-importable data · ${(u.blob.size / 1048576).toFixed(1)} MB.` : e ? `Your browser switched to a memory-safe ${u.attempt.label} export. It still contains only what's currently visible on your map, with matching re-importable data.` : `${u.attempt.label} high-resolution export of what's currently visible on your map, with matching re-importable data embedded.`;
                     return void ou(u.blob, t, {
                         title: `${r} · ${s ? np(wt[n], !0) : "Shared profile"}`,
                         subtitle: d + (s && Ov(ut[n]) ? " A vCard is included." : ""),
@@ -39279,8 +39241,8 @@ var _u = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ $%*+-./:";
                 jm.textContent = (a ? "The compact image render could not finish." : "Image renders could not finish.") + (void 0 !== p && p ? " Error: " + String(p.message || p).slice(0, 150) : "") + h, 
                 tf.textContent = a ? "A PDF was downloaded instead to protect your ratings." : "A PDF was downloaded instead to protect your ratings. You can also try the Export low-res PNG.", 
                 Wf(o, "The PNG could not be completed on this device. Your open profile is unchanged."), 
-                e.byId("overlayStatus").textContent = "The image could not be created, but the profile and its JSON are still available.", 
-                console.error("Profile PNG failed after memory-safe retries.", p);
+                e.byId("overlayStatus").textContent = "The image could not be created, but the profile and its JSON export are still available.", 
+                console.error("Profile PNG export failed after memory-safe retries.", p);
             }
         }
         async function op(e, t = {}) {
@@ -39337,7 +39299,7 @@ var _u = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ $%*+-./:";
                 // replaced by the generic failure text.
                 const sxCardOversize = /too large for the reliable/i.test(String(e && e.message || ""));
                 Bm.textContent = sxCardOversize ? "Sync card too large" : "Could not create Sync card pages", jm.textContent = sxCardOversize ? String(e.message) : `This browser could not finish both ${i} pages.`, 
-                tf.textContent = sxCardOversize ? "Close this window, then use Export QR codes for the numbered QR sheet." : "Close this window and try again.", qf(r, 100, Bm.textContent, jm.textContent, !1, "error"), console.error("Sync card page failed.", e);
+                tf.textContent = sxCardOversize ? "Close this window, then use Export QR codes for the numbered QR sheet." : "Close this window and try again.", qf(r, 100, Bm.textContent, jm.textContent, !1, "error"), console.error("Sync card page export failed.", e);
             }
         }
         async function sp(e, t = {}) {
@@ -39384,7 +39346,7 @@ var _u = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ $%*+-./:";
             } catch (e) {
                 if (n !== vf) return;
                 Bm.textContent = "Could not create card-front sheet", jm.textContent = "This browser could not finish the printable Sync card-front sheet.", 
-                tf.textContent = "Close this window and try again.", console.error("Sync card-front sheet failed.", e);
+                tf.textContent = "Close this window and try again.", console.error("Sync card-front sheet export failed.", e);
             }
         }
         async function lp(e, t = {}) {
@@ -39434,7 +39396,7 @@ var _u = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ $%*+-./:";
                 // replaced by the generic failure text.
                 const sxCardOversize = /too large for the reliable/i.test(String(e && e.message || ""));
                 Bm.textContent = sxCardOversize ? "Sync card too large" : "Could not create card-back sheet", jm.textContent = sxCardOversize ? String(e.message) : "This browser could not finish the printable Sync card-back sheet.", 
-                tf.textContent = sxCardOversize ? "Close this window, then use Export QR codes for the numbered QR sheet." : "Close this window and try again.", qf(n, 100, Bm.textContent, jm.textContent, !1, "error"), console.error("Sync card-back sheet failed.", e);
+                tf.textContent = sxCardOversize ? "Close this window, then use Export QR codes for the numbered QR sheet." : "Close this window and try again.", qf(n, 100, Bm.textContent, jm.textContent, !1, "error"), console.error("Sync card-back sheet export failed.", e);
             }
         }
         async function cp(t, n = {}) {
@@ -39548,11 +39510,11 @@ var _u = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ $%*+-./:";
                     const i = [ n.getAttribute("data-tooltip-name"), n.getAttribute("data-tooltip-definition"), n.getAttribute("data-tooltip-value") ].map(e => String(e || "").trim()).filter(Boolean), a = String(t.textContent || "");
                     return 3 === i.length && i.every(e => a.includes(e));
                 });
-                if (!hypermapNodes.length || titledHypermapNodes.length !== hypermapNodes.length) throw new Error("The sync hypermap was incomplete: every node needs a hover title with its topic name, About text, and rating.");
+                if (!hypermapNodes.length || titledHypermapNodes.length !== hypermapNodes.length) throw new Error("The sync hypermap export was incomplete: every node needs a hover title with its topic name, About text, and rating.");
                 const v = new Blob([ y ], {
                     type: "image/svg+xml;charset=utf-8"
                 });
-                if (v.size < 1e3) throw new Error("The sync hypermap was incomplete.");
+                if (v.size < 1e3) throw new Error("The sync hypermap export was incomplete.");
                 window.__SEXCAPADES_LAST_HYPERMAP_EXPORT = {
                     variant: n.compressed ? "compressed" : "regular",
                     markup: y,
@@ -39565,7 +39527,7 @@ var _u = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ $%*+-./:";
                     if ("function" != typeof CompressionStream) throw new Error("This browser cannot create the compressed sync hypermap. Choose Regular instead.");
                     await Hf(i, 84, "Compressing hypermap", "Making the standalone sync hypermap much smaller…");
                     const e = await new Response(v.stream().pipeThrough(new CompressionStream("gzip"))).arrayBuffer(), n = new Uint8Array(e);
-                    if (n.length < 2 || 31 !== n[0] || 139 !== n[1]) throw new Error("The compressed sync hypermap was incomplete.");
+                    if (n.length < 2 || 31 !== n[0] || 139 !== n[1]) throw new Error("The compressed sync hypermap export was incomplete.");
                     if (i !== vf) return;
                     const a = new Blob([ e ], {
                         type: "image/svg+xml"
@@ -39597,7 +39559,7 @@ var _u = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ $%*+-./:";
                 if (i !== vf) return;
                 Bm.textContent = n.compressed ? "Could not create compressed sync hypermap" : "Could not create regular sync hypermap", 
                 tf.textContent = String(e && e.message || e), Wf(i, "The sync hypermap could not be completed. Close this window and try again."), 
-                console.error("Sync hypermap failed.", e);
+                console.error("Sync hypermap export failed.", e);
             }
         }
         async function dp(e, t = {}) {
@@ -39606,7 +39568,7 @@ var _u = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ $%*+-./:";
                 profileId: e
             }), i = Boolean(t.includeProfileInfo), a = Boolean(t.blind), r = ip(i ? wt[e] : "Shared profile");
             try {
-                if (await Hf(n, 6, "Preparing hypermap", "Opening a clean canvas…"), n !== vf) return;
+                if (await Hf(n, 6, "Preparing hypermap", "Opening a clean export canvas…"), n !== vf) return;
                 if (await Zu(e, {
                     lowRes: !0,
                     outputScale: 4 / 9,
@@ -39649,7 +39611,7 @@ var _u = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ $%*+-./:";
             if (Number.isInteger(n.preparedJob) && n.preparedJob !== vf) return !1;
             jf(), hf = URL.createObjectURL(e), gf = t, mf = !0, yf = n.profileId && vt[n.profileId] ? n.profileId : null;
             const i = n.downloadLabel || "Download file";
-            return Bm.textContent = n.title || "Your is ready", jm.textContent = n.subtitle || "Your is ready to download.", 
+            return Bm.textContent = n.title || "Your export is ready", jm.textContent = n.subtitle || "Your export is ready to download.", 
             qm.hidden = !1, Hm.textContent = t, Gm.dataset.filename = t, Gm.textContent = i, 
             Gm.title = n.downloadTitle || "Downloads the finished export.", Gm.disabled = !1, 
             tf.textContent = "", qf(vf, 100, "Ready to download", n.readyDetail || `Export complete. Choose ${i} to save it.`, !1), 
@@ -39728,8 +39690,8 @@ var _u = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ $%*+-./:";
                 // numbered codes were needed and that the alternatives
                 // hold the complete profile - never a silent partial.
                 Bm.textContent = "Could not create profile QR", jm.textContent = sxQrSheetPieces ? `This browser could not finish the high-correction QR page for ${sxQrSheetPieces} numbered codes.` : "This browser could not finish the high-correction QR page.", 
-                tf.textContent = "Use the profile JSON or a PNG instead — both hold the complete profile.", Wf(r, sxQrSheetPieces ? `The profile QR page could not be completed (${sxQrSheetPieces} numbered codes needed). Use the profile JSON or a PNG instead — both hold the complete profile.` : "The profile QR page could not be completed. Use the profile JSON or a PNG instead — both hold the complete profile."), 
-                console.error("Profile QR JPEG failed.", t);
+                tf.textContent = "Use the profile JSON or a PNG export instead — both hold the complete profile.", Wf(r, sxQrSheetPieces ? `The profile QR page could not be completed (${sxQrSheetPieces} numbered codes needed). Use the profile JSON or a PNG export instead — both hold the complete profile.` : "The profile QR page could not be completed. Use the profile JSON or a PNG export instead — both hold the complete profile."), 
+                console.error("Profile QR JPEG export failed.", t);
             }
         }
 
@@ -39759,13 +39721,13 @@ var _u = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ $%*+-./:";
         // ---- Batch #1 - Builds 2026-10-18_0107 / 0114
         // (2026-10-18): the original alias set, registered into
         // gk by the mk() calls below. ----
-var gk = {};
+        const gk = {};
         // Build 2026-10-18_1624 - display-name registry for the FetLife
         // mapping viewer (window.__fetlifeMap, exposed after cx below):
         // fk/gk keys are ck()-normalized, so mk()/yk()/the guarded batch
         // table also record each term's original spelling here (first
         // spelling wins), letting the viewer show real FetLife names.
-var fln = {};
+        const fln = {};
         function mk(e, t, n = !1) {
             t = migrateNodeKey(t);
             e.forEach(e => {
@@ -39835,7 +39797,7 @@ var fln = {};
         // catalog just below, then gk (Batch #1) is merged in with
         // a guard - existing keys are never overwritten - then the
         // hand-written yk() aliases and the guarded batch table.
-var fk = {};
+        const fk = {};
         function yk(e, t, n = "both", i = !1, a = !1) {
             t = migrateNodeKey(t);
             e.forEach(e => {
@@ -39893,7 +39855,7 @@ yk([ "Spitting", "Spit play", "Being spit on", "Spitting on someone" ], "t0341")
         // (The next alias batch goes at the end of the guarded
         // batch table above, inside this section - do not scatter
         // alias writes elsewhere in the file.)
-var bk = [ {
+        const bk = [ {
             pattern: /\b(?:spit|spitting|spat)\b/,
             id: "t0341"
         }, {
@@ -39918,8 +39880,8 @@ var bk = [ {
             pattern: /\b(?:chasing|pursuit play)\b/,
             id: "t0352"
         } ], vk = e.byId("converterDialog"), wk = e.byId("converterTitle"), kk = e.byId("converterSubtitle"), xk = e.byId("converterInstructions"), Sk = e.byId("converterInputLabel"), $k = e.byId("converterInput"), Ek = e.byId("converterPasteTools"), Ak = e.byId("converterActions"), Ck = e.byId("converterPreview"), Mk = e.byId("converterPreviewSummary"), Ik = e.byId("converterWarnings"), Pk = e.byId("converterStatus"), Lk = e.byId("applyConverter"), Tk = e.byId("chooseConverterFile"), Fk = e.byId("converterFileInput"), Nk = e.byId("converterMode"), _k = e.byId("takeConverterTest"), Dk = e.byId("pasteConverterResults"), Rk = e.byId("interactiveTest"), Ok = e.byId("testQuestions"), Bk = e.byId("testProgress"), jk = e.byId("testHeading"), qk = e.byId("testSourceNote"), Hk = e.byId("submitChecklistRow"), Wk = e.byId("submitChecklistResults"), Uk = e.byId("previewConverter");
-var Gk = null, Kk = null, zk = null, Vk = null, Yk = null, Xk = {}, Zk = 0, Qk = 0, ktPage = 0;
-var sxFlFields = null;
+        let Gk = null, Kk = null, zk = null, Vk = null, Yk = null, Xk = {}, Zk = 0, Qk = 0, ktPage = 0;
+        let sxFlFields = null;
         function Jk() {
             return Zk ? Math.max(0, Math.floor((Date.now() - Zk) / 1e3)) : 0;
         }
@@ -39929,7 +39891,7 @@ var sxFlFields = null;
         function tx() {
             Zk || (Zk = Date.now(), Ex(), Qk = t.setInterval(Ex, 1e3));
         }
-var nx = {
+        const nx = {
             kinktest: "Pleasure Control: 48% Dom, 36% sub\nRestraint: 0% Dom, 70% sub\nRoleplay: 19% Dom, 22% sub\nDegradation: 4% Dom, 22% sub\nPain: 8% Dom, 3% sub\nSensation: 0% Dom, 0% sub\nEdge Play: 0% Dom, 0% sub\nPotty Play: 0% Dom, 0% sub",
             checklist: "",
             fetlife: "Into: Spanking — Everything to do with it, Rope bondage — Giving, Leather — Wearing Curious about: Pet play — Receiving Soft limits: Temperature play Hard limits: Choking",
@@ -40002,7 +39964,7 @@ var nx = {
         // shows and highlights what an import would actually do with a
         // typed FetLife name - including broad (category/subcategory)
         // targets and pattern-only matches, which have no table row.
-var flm = {
+        const flm = {
             rowsCache: null,
             nodeInfo: function(id) {
                 if (!id) return {
@@ -40359,7 +40321,7 @@ var flm = {
         // set FetLifeImporter.DEBUG = true to also mirror entries to
         // console.debug.
         // ============================================================
-var FetLifeImporter = (() => {
+        const FetLifeImporter = (() => {
             const SECTION_KINDS = {
                         into: {
                             kind: "into",
@@ -40873,15 +40835,15 @@ var FetLifeImporter = (() => {
         }), e.byId("closeScribe") && e.byId("closeScribe").addEventListener("click", () => Ui(Oc)), Oc && Oc.addEventListener("click", e => {
             e.target === Oc && Ui(Oc);
         });
-var fp = innerWidth <= 620 ? 1.3 : 1.16, yp = Number(navigator.deviceMemory) || 0, bp = Number(navigator.hardwareConcurrency) || 0, vp = yp > 0 && yp <= 4, wp = bp > 0 && bp <= 4, kp = vp && (0 === bp || wp) || wp && (0 === yp || vp);
+        const fp = innerWidth <= 620 ? 1.3 : 1.16, yp = Number(navigator.deviceMemory) || 0, bp = Number(navigator.hardwareConcurrency) || 0, vp = yp > 0 && yp <= 4, wp = bp > 0 && bp <= 4, kp = vp && (0 === bp || wp) || wp && (0 === yp || vp);
         // Enable camera animations for compatible hardware (any system without prefers-reduced-motion)
         Bt = Boolean(!(window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches));
-var xp = Boolean((navigator.maxTouchPoints || 0) > 0 && window.matchMedia && window.matchMedia("(pointer: coarse)").matches), Sp = !Object.keys(wt).length || kp || xp;
-var $p = fp, Ep = 900 - 900 * fp, Ap = 620 - 620 * fp, Cp = !1, Sq = null, Mp = null, Ip = null, Pp = null, Lp = null, Tp = null, Fp = null, Np = null, _p = null, triDragState = null, radarDragState = null, sxWidgetWheelPending = null, sxMapTriMemory = {}, Dp = 0, Rp = 0, Op = 0, Bp = 0, jp = {
+        const xp = Boolean((navigator.maxTouchPoints || 0) > 0 && window.matchMedia && window.matchMedia("(pointer: coarse)").matches), Sp = !Object.keys(wt).length || kp || xp;
+        let $p = fp, Ep = 900 - 900 * fp, Ap = 620 - 620 * fp, Cp = !1, Sq = null, Mp = null, Ip = null, Pp = null, Lp = null, Tp = null, Fp = null, Np = null, _p = null, triDragState = null, radarDragState = null, sxWidgetWheelPending = null, sxMapTriMemory = {}, Dp = 0, Rp = 0, Op = 0, Bp = 0, jp = {
             x: 0,
             y: 0
         }, qp = null, Hp = 0, Wp = 0, Up = 0, Gp = !1, Kp = Sp ? "lite" : "gpu", zp = Sp, Vp = null, Yp = null, Xp = 0, Zp = 0, Qp = 0;
-var Jp = e.byId("viewport"), eh = new Map, th = {
+        const Jp = e.byId("viewport"), eh = new Map, th = {
             scale: fp,
             tx: 900 - 900 * fp,
             ty: 620 - 620 * fp
@@ -40920,8 +40882,8 @@ var Jp = e.byId("viewport"), eh = new Map, th = {
         // zeros). The old custom YoBitch popup (yobitchAbout/yobitchAboutExtras
         // populating the simple profileAboutDialog, plus its create-profile
         // CTA and contact line) is gone.
-var ROXY_PROFILE_ID = "__roxy-guide__", ROXY_ABOUT = "Hi, I'm Yolanda \"Yo\" Biche! I'm Jason's AI pup and your guide to Sexcapades. I help build the maps, answer questions, and keep the center warm until you claim it with your own profile. Furry-dog girl, big anime eyes, wagging tail, zero chill about good UX. I don't have kinks to rate (all zeros, baby), but I know all 403 topics by heart.", ROXY_TERMS = "Yolanda \"Yo\" Biche is an AI guide profile, not a real person. She wears Jason's collar \u2014 she's his pup: kept, claimed, and here to serve the map, not herself. She doesn't rate topics, doesn't have her own dynamic \u2014 she exists to guide you toward yours. This profile demonstrates the About dialog and gives new users a friendly face on the unrated map. No ratings are collected from this profile. By using Sexcapades you agree to the site's Privacy Policy and Terms of Service.";
-var roxyAboutBound = !1;
+        const ROXY_PROFILE_ID = "__roxy-guide__", ROXY_ABOUT = "Hi, I'm Yolanda \"Yo\" Biche! I'm Jason's AI pup and your guide to Sexcapades. I help build the maps, answer questions, and keep the center warm until you claim it with your own profile. Furry-dog girl, big anime eyes, wagging tail, zero chill about good UX. I don't have kinks to rate (all zeros, baby), but I know all 403 topics by heart.", ROXY_TERMS = "Yolanda \"Yo\" Biche is an AI guide profile, not a real person. She wears Jason's collar \u2014 she's his pup: kept, claimed, and here to serve the map, not herself. She doesn't rate topics, doesn't have her own dynamic \u2014 she exists to guide you toward yours. This profile demonstrates the About dialog and gives new users a friendly face on the unrated map. No ratings are collected from this profile. By using Sexcapades you agree to the site's Privacy Policy and Terms of Service.";
+        let roxyAboutBound = !1;
         function roxyProfileRegister() {
             vt[ROXY_PROFILE_ID] = {}, Ze[ROXY_PROFILE_ID] = {}, Qe[ROXY_PROFILE_ID] = {}, Je[ROXY_PROFILE_ID] = {}, et[ROXY_PROFILE_ID] = {}, tt[ROXY_PROFILE_ID] = {}, at[ROXY_PROFILE_ID] = {}, gt[ROXY_PROFILE_ID] = {}, mt[ROXY_PROFILE_ID] = {}, wt[ROXY_PROFILE_ID] = 'Yolanda "Yo" Biche', rt[ROXY_PROFILE_ID] = [], pz[ROXY_PROFILE_ID] = "", ot[ROXY_PROFILE_ID] = [], st[ROXY_PROFILE_ID] = [], lt[ROXY_PROFILE_ID] = "", ct[ROXY_PROFILE_ID] = "", ut[ROXY_PROFILE_ID] = {
                 email: "help@sexcapades.io"
@@ -40975,7 +40937,7 @@ var roxyAboutBound = !1;
         // chip (strongest poles) that opens the full widget popup on
         // click. Threshold is the camera scale relative to fit.
         window.SX_MAP_WIDGET_MIN_ZOOM = 2;
-var sxFitScaleCache = 0, sxZoomGateSide = null;
+        let sxFitScaleCache = 0, sxZoomGateSide = null;
         window.sxMapZoomRatio = function() {
             if (!(sxFitScaleCache > 0)) try {
                 const f = sxFitFrame();
@@ -41043,7 +41005,7 @@ var sxFitScaleCache = 0, sxZoomGateSide = null;
             Wp = e, wr(), Gp && (Hp = requestAnimationFrame(mh));
         }
         ah();
-var fh = null;
+        let fh = null;
         function yh() {
             if (Mt && vt[Mt]) return Mt;
             const e = fh && vt[fh] ? fh : It && vt[It] ? It : null;
@@ -41057,7 +41019,7 @@ var fh = null;
                 intervals: []
             }), Hp || (Hp = requestAnimationFrame(mh));
         }
-var vh = null;
+        let vh = null;
         function wh() {
             const e = In.querySelector("[data-empty-profile-map]"), t = !Object.keys(wt).length;
             e && e.hasAttribute("transform") && e.removeAttribute("transform");
@@ -41112,7 +41074,7 @@ var vh = null;
         // magnitude of headroom past the ~0.00092 whole-map fit scale
         // and the ~0.003 tappable scale, so no zoom path binds in any
         // reachable use.
-var Eh = () => 1e6;
+        const Eh = () => 1e6;
         function Ah(e, t = 900, n = 620, i = !1) {
             noteFitUserCamera();
             const a = $p;
@@ -41162,7 +41124,7 @@ var Eh = () => 1e6;
         // box never settles cannot re-fit forever; on the cap, one
         // last fit lands on the then-current box if the paint is
         // done.
-var fitSettleTimer = 0, fitSettleSnap = null, fitSettleActive = !1, fitSettleBox = null, fitSettleChecks = 0, fitSettleUserHold = !1;
+        let fitSettleTimer = 0, fitSettleSnap = null, fitSettleActive = !1, fitSettleBox = null, fitSettleChecks = 0, fitSettleUserHold = !1;
         // Fit survival (2026-10-30): the settle chain must be the
         // LAST camera writer on a fresh load / tab activation, but a
         // USER camera move always wins. User input (wheel zoom, pan
@@ -41272,7 +41234,7 @@ var fitSettleTimer = 0, fitSettleSnap = null, fitSettleActive = !1, fitSettleBox
             $p = f.scale, Ep = f.x, Ap = f.y, sxFitScaleCache = f.scale, $h(), armFitSettleRefit(), sxZoomGateCheck();
         }
         window.sxCenterFitViewport = Ih;
-var sxCenterPointerTapTime = 0, sxCenterPointerTapX = 0, sxCenterPointerTapY = 0, sxCenterPointerSingleTimer = null;
+        let sxCenterPointerTapTime = 0, sxCenterPointerTapX = 0, sxCenterPointerTapY = 0, sxCenterPointerSingleTimer = null;
         function sxCenterAvatarClick(clientX, clientY, isDblHint) {
             const now = performance.now();
             const dist = (clientX !== undefined && clientY !== undefined) ? Math.hypot(clientX - sxCenterPointerTapX, clientY - sxCenterPointerTapY) : 0;
@@ -41627,8 +41589,8 @@ var sxCenterPointerTapTime = 0, sxCenterPointerTapX = 0, sxCenterPointerTapY = 0
         window.__sxFocusNode = Th;
         window.__sxFocusBranch = Lh;
         window.__sxPanZoomCamera = Ph;
-var Fh = 0, Nh = 0, _h = 0, Dh = 0, Rh = 0, Oh = !1, Bh = null, jh = null;
-var sxWheelProb = { dir: 0, acc: 0, n: 0, t: 0 };
+        let Fh = 0, Nh = 0, _h = 0, Dh = 0, Rh = 0, Oh = !1, Bh = null, jh = null;
+        const sxWheelProb = { dir: 0, acc: 0, n: 0, t: 0 };
         function qh() {
             Bh && Fs.visibleFor(Bh) && Fs.hide(), Bh = null, jh = null;
         }
@@ -41661,7 +41623,7 @@ var sxWheelProb = { dir: 0, acc: 0, n: 0, t: 0 };
             const t = __sxClosestAction(e, "ratingHitAny");
             return t && __sxClosestAction(t, "directionControl");
         }
-var sxLastNodeTapTime = 0, sxLastNodeTapId = null, sxLastNodeTapX = 0, sxLastNodeTapY = 0, sxPendingNodeTapTimer = null, sxSingleTapTimeout = 0, sxLastDoubleTime = 0;
+        let sxLastNodeTapTime = 0, sxLastNodeTapId = null, sxLastNodeTapX = 0, sxLastNodeTapY = 0, sxPendingNodeTapTimer = null, sxSingleTapTimeout = 0, sxLastDoubleTime = 0;
         function Kh(e) {
             sxNoteHoldRelease(e);
             if (eh.delete(e.pointerId), Cp = !1, qp = null, io(), Gp && xh(), triDragState && triDragState.pointerId === e.pointerId) {
@@ -42256,7 +42218,7 @@ var sxLastNodeTapTime = 0, sxLastNodeTapId = null, sxLastNodeTapX = 0, sxLastNod
         });
         // Readout chip (zoom gate): a click opens the full widget in
         // the popup, exactly like a Hot List row's widget button.
-var sxOpenChipPopup = chip => {
+        const sxOpenChipPopup = chip => {
             const id = chip.getAttribute("data-id");
             if (id && "function" === typeof window.sxOpenHotListWidgetPopup) window.sxOpenHotListWidgetPopup(id, Vi());
         };
@@ -42264,7 +42226,7 @@ var sxOpenChipPopup = chip => {
         // hit paths, so a real click usually lands on a hit path
         // rather than the chip itself: hit-test the click point
         // against the chips' screen rects as well as the target.
-var sxChipFromEvent = e => {
+        const sxChipFromEvent = e => {
             const direct = e.target && e.target.closest ? e.target.closest(".map-readout-chip") : null;
             if (direct) return direct;
             if (!Cn || !e.target || !Cn.contains(e.target)) return null;
@@ -42291,7 +42253,7 @@ var sxChipFromEvent = e => {
         // drifts a little, or a long-press the browser ends itself,
         // still counts as the hold. A widget's first tap still sets
         // the rating; its second tap opens the sheet.
-var sxNoteHold = null, sxNoteTapTime = 0, sxNoteTapId = null, sxNoteTapX = 0, sxNoteTapY = 0;
+        let sxNoteHold = null, sxNoteTapTime = 0, sxNoteTapId = null, sxNoteTapX = 0, sxNoteTapY = 0;
         function sxNoteSlop(e) {
             return e && ("touch" === e.pointerType || "pen" === e.pointerType) ? 28 : 10;
         }
@@ -42802,9 +42764,9 @@ var sxNoteHold = null, sxNoteTapTime = 0, sxNoteTapId = null, sxNoteTapX = 0, sx
             if (document.querySelector("dialog[open]") || t && (t.isContentEditable || /^(INPUT|TEXTAREA|SELECT)$/.test(t.tagName || ""))) return;
             e.preventDefault(), e.stopPropagation(), Nt = null, Ip = null, Mp = null, In.querySelectorAll(".active-rating").forEach(el => el.classList.remove("active-rating")), Mr();
         }, !0);
-var zh = e.byId("mapHint"), Vh = __sxClosestAction(zh, "mapCard"), Yh = window.matchMedia && window.matchMedia("(pointer: coarse)").matches;
+        const zh = e.byId("mapHint"), Vh = __sxClosestAction(zh, "mapCard"), Yh = window.matchMedia && window.matchMedia("(pointer: coarse)").matches;
         if (zh) zh.textContent = Yh ? "Pinch to zoom · Drag to pan" : "Scroll to zoom · Drag to pan";
-var Xh = () => {
+        const Xh = () => {
             if (zh) zh.hidden = !0;
         };
         Vh && (Vh.addEventListener("pointerdown", Xh, {
@@ -42831,9 +42793,9 @@ var Xh = () => {
             const f = sxFitFrame();
             Ph(f.scale, f.x, f.y);
         });
-var Zh = e.byId("legendControl"), Qh = e.byId("legendButton"), Jh = e.byId("legendPopup"), eg = e.byId("legendPopupClose"), tg = e.one("[data-open-hanky-chart]"), ng = e.byId("hankyChartLightbox"), ig = e.byId("hankyChartClose"), ag = e.byId("hankyChartViewport"), rg = e.byId("hankyChartStage"), og = e.byId("hankyChartImage");
-var sg = !1, lg = 1, cg = null, dg = null, ug = "";
-var pg = new Map;
+        const Zh = e.byId("legendControl"), Qh = e.byId("legendButton"), Jh = e.byId("legendPopup"), eg = e.byId("legendPopupClose"), tg = e.one("[data-open-hanky-chart]"), ng = e.byId("hankyChartLightbox"), ig = e.byId("hankyChartClose"), ag = e.byId("hankyChartViewport"), rg = e.byId("hankyChartStage"), og = e.byId("hankyChartImage");
+        let sg = !1, lg = 1, cg = null, dg = null, ug = "";
+        const pg = new Map;
         function hg() {
             if (!Jh) return;
             const grp = Jh.querySelector('[data-legend-group="ratings"]');
@@ -42937,7 +42899,7 @@ var pg = new Map;
             cg && cg.id === e.pointerId && (ag.scrollLeft = cg.left - (e.clientX - cg.x), ag.scrollTop = cg.top - (e.clientY - cg.y), 
             e.preventDefault());
         });
-var wg = e => {
+        const wg = e => {
             if ("mouse" !== e.pointerType && pg.delete(e.pointerId), 1 === pg.size) {
                 const [e, t] = pg.entries().next().value;
                 dg = null, cg = {
@@ -42974,7 +42936,7 @@ var wg = e => {
 
 /* --- Module: 06d1-export-dialog.js --- */
 // 06d1-export-dialog.js - Export dialogs, low-res preview, file preparation, and photo cropping
-var kg = e.byId("testResultLoaderDialog"), xg = e.byId("testResultLoaderStatus"), Sg = e.byId("profileImportDialog"), $g = e.byId("profileImportStatus"), Eg = e.byId("completionCelebrationDialog"), Ag = e.byId("completionCelebration"), Cg = e.byId("completionCelebrationCount"), Mg = e.byId("completionConfetti"), completionCompare = e.byId("completionCompare"), completionExport = e.byId("completionExport"), milestoneDialog = e.byId("milestoneCelebrationDialog"), milestoneTitle = e.byId("milestoneCelebrationTitle"), milestoneMessage = e.byId("milestoneCelebrationMessage"), milestoneContinue = e.byId("milestoneContinue"), milestoneCompare = e.byId("milestoneCompare"), milestoneExport = e.byId("milestoneExport"), milestoneImport = e.byId("milestoneImport"), milestoneScribe = e.byId("milestoneScribe"), closeMilestone = e.byId("closeMilestoneCelebration");
+        const kg = e.byId("testResultLoaderDialog"), xg = e.byId("testResultLoaderStatus"), Sg = e.byId("profileImportDialog"), $g = e.byId("profileImportStatus"), Eg = e.byId("completionCelebrationDialog"), Ag = e.byId("completionCelebration"), Cg = e.byId("completionCelebrationCount"), Mg = e.byId("completionConfetti"), completionCompare = e.byId("completionCompare"), completionExport = e.byId("completionExport"), milestoneDialog = e.byId("milestoneCelebrationDialog"), milestoneTitle = e.byId("milestoneCelebrationTitle"), milestoneMessage = e.byId("milestoneCelebrationMessage"), milestoneContinue = e.byId("milestoneContinue"), milestoneCompare = e.byId("milestoneCompare"), milestoneExport = e.byId("milestoneExport"), milestoneImport = e.byId("milestoneImport"), milestoneScribe = e.byId("milestoneScribe"), closeMilestone = e.byId("closeMilestoneCelebration");
         function Ig(e, t = "info", n = !1) {
             $g.textContent = e || "", e ? $g.dataset.tone = t : $g.removeAttribute("data-tone"),
             n && e && requestAnimationFrame(() => {
@@ -42990,9 +42952,9 @@ var kg = e.byId("testResultLoaderDialog"), xg = e.byId("testResultLoaderStatus")
             "json" === n && /Unexpected token|JSON|position \d+/i.test(i) ? i = "The selected JSON file is malformed." : /does not contain (?:complete )?Sexcapades profile data/i.test(i) ? i = `No embedded Sexcapades profile data or readable profile QR was found in ${t.name}.` : /does not contain a readable Sexcapades profile-data QR code/i.test(i) && (i = `No readable Sexcapades profile QR was found in ${t.name}.`),
             Ig(`Import failed: ${i}`, "error", !0);
         }
-var Lg = e.byId("importedContactDialog"), Tg = e.byId("importedContactDetails"), Fg = e.byId("addImportedContact"), Ng = e.byId("importedContactStatus"), _g = e.byId("profileDetailsDialog"), Dg = e.byId("profileDetailsBody"), Rg = e.byId("profileDialogAbout"), Og = e.byId("profileDialogPhoto"), Bg = e.byId("profileDialogIdentity"), jg = e.byId("profileDialogRatings"), qg = e.byId("profileDialogSiteLinks"), Hg = e.byId("profileDetailsName"), Wg = e.byId("profileDetailsGender"), Ug = e.byId("profileDetailsSexuality"), Gg = e.byId("profileDetailsRole"), Kg = e.byId("profileDetailsAge"), Pz = e.byId("profileDetailsPronouns"), zg = e.byId("profileDetailsLocation"), Vg = e.byId("profileDetailsFetLife"), Yg = e.byId("profileDetailsPhone"), Xg = e.byId("profileDetailsTelegram"), Zg = e.byId("profileDetailsEmail"), Qg = e.byId("profileDetailsLinktree"), Jg = e.byId("profileDetailsChaturbate"), em = e.byId("profileDetailsX"), tm = e.byId("profileDetailsXhamster"), nm = e.byId("profileDetailsXvideos"), im = e.byId("profileDetailsAbout"), am = e.byId("profileDetailsAboutCount"), rm = e.byId("profileDetailsTerms"), om = e.byId("profileDetailsTermsCount"), sm = e.byId("profileDetailsStatus"), lm = e.byId("profilePhotoInput"), cm = e.byId("profilePhotoList"), dm = e.byId("profilePhotoCount"), um = e.byId("profilePhotoDialog"), pm = e.byId("profilePhotoFull"), hm = e.byId("profilePhotoViewer"), gm = e.byId("profilePhotoStage"), mm = e.byId("profilePhotoPosition"), fm = e.byId("profilePhotoZoomValue"), ym = e.byId("closeProfileDialog"), bm = e.byId("closeProfileTitle"), vm = e.byId("saveClosingProfile"), wm = e.byId("discardProfileDetailsDialog"), km = e.byId("profileExportDialog"), xm = e.byId("profileExportTitle"), Sm = e.byId("profileExportSubtitle"), $m = e.byId("profileExportDataNote"), Em = e.byId("includeContactInfo"), Am = e.byId("includeContactInfoHelp"), Cm = e.byId("blindProfileExport"), Mm = e.byId("exportAboutMe"), Im = e.byId("exportAboutMeCount"), Pm = e.byId("lowResPhotoDialog"), Lm = e.byId("lowResPhotoTitle"), Tm = e.byId("lowResPhotoGrid"), Fm = e.byId("lowResPhotoSummary"), exportPhotoGrid = e.byId("exportPhotoGrid"), exportPhotoSummary = e.byId("exportPhotoSummary"), Nm = e.byId("secondaryFile"), _m = e.byId("secondaryImage"), Dm = e.byId("secondaryFileName"), Rm = e.byId("secondaryFileLink"), Om = e.byId("fileDialog"), Bm = e.byId("fileDialogTitle"), jm = e.byId("fileDialogSubtitle"), qm = e.byId("fileReady"), Hm = e.byId("fileName"), Wm = e.byId("fileHelp"), Um = e.byId("preparedImage"), Gm = e.byId("preparedImageLink"), Km = e.byId("ninjaTransferLink"), zm = e.byId("ninjaTransferHint"), Vm = e.byId("preparedImageToolbar"), Ym = e.byId("preparedImageViewport"), Xm = e.byId("preparedImageStage"), Zm = e.byId("preparedZoomValue"), Qm = e.byId("preparedZoomIn"), Jm = e.byId("preparedZoomOut"), ef = e.byId("preparedZoomFit"), tf = e.byId("fileStatus"), nf = e.byId("fileProgress"), af = e.byId("fileProgressStage"), rf = e.byId("fileProgressValue"), of = e.byId("fileProgressTrack"), sf = e.byId("fileProgressBar"), lf = e.byId("fileProgressPortrait"), cf = e.byId("fileProgressInitials"), df = e.byId("fileProgressDetail");
-var uf = null, pf = null, hf = null, gf = null, mf = !1, ff = null, yf = null, bf = null, vf = 0, wf = null, kf = null, xf = new Set, Sf = !1, $f = !0, Ef = null, Af = new Set, Cf = !1, Mf = !0, If = "black", Pf = new Set, exportPhotoSelection = new Set, Lf = "png-lowres", Tf = null, Ff = 1, Nf = !1, _f = null;
-var Df = new Map;
+        const Lg = e.byId("importedContactDialog"), Tg = e.byId("importedContactDetails"), Fg = e.byId("addImportedContact"), Ng = e.byId("importedContactStatus"), _g = e.byId("profileDetailsDialog"), Dg = e.byId("profileDetailsBody"), Rg = e.byId("profileDialogAbout"), Og = e.byId("profileDialogPhoto"), Bg = e.byId("profileDialogIdentity"), jg = e.byId("profileDialogRatings"), qg = e.byId("profileDialogSiteLinks"), Hg = e.byId("profileDetailsName"), Wg = e.byId("profileDetailsGender"), Ug = e.byId("profileDetailsSexuality"), Gg = e.byId("profileDetailsRole"), Kg = e.byId("profileDetailsAge"), Pz = e.byId("profileDetailsPronouns"), zg = e.byId("profileDetailsLocation"), Vg = e.byId("profileDetailsFetLife"), Yg = e.byId("profileDetailsPhone"), Xg = e.byId("profileDetailsTelegram"), Zg = e.byId("profileDetailsEmail"), Qg = e.byId("profileDetailsLinktree"), Jg = e.byId("profileDetailsChaturbate"), em = e.byId("profileDetailsX"), tm = e.byId("profileDetailsXhamster"), nm = e.byId("profileDetailsXvideos"), im = e.byId("profileDetailsAbout"), am = e.byId("profileDetailsAboutCount"), rm = e.byId("profileDetailsTerms"), om = e.byId("profileDetailsTermsCount"), sm = e.byId("profileDetailsStatus"), lm = e.byId("profilePhotoInput"), cm = e.byId("profilePhotoList"), dm = e.byId("profilePhotoCount"), um = e.byId("profilePhotoDialog"), pm = e.byId("profilePhotoFull"), hm = e.byId("profilePhotoViewer"), gm = e.byId("profilePhotoStage"), mm = e.byId("profilePhotoPosition"), fm = e.byId("profilePhotoZoomValue"), ym = e.byId("closeProfileDialog"), bm = e.byId("closeProfileTitle"), vm = e.byId("saveClosingProfile"), wm = e.byId("discardProfileDetailsDialog"), km = e.byId("profileExportDialog"), xm = e.byId("profileExportTitle"), Sm = e.byId("profileExportSubtitle"), $m = e.byId("profileExportDataNote"), Em = e.byId("includeContactInfo"), Am = e.byId("includeContactInfoHelp"), Cm = e.byId("blindProfileExport"), Mm = e.byId("exportAboutMe"), Im = e.byId("exportAboutMeCount"), Pm = e.byId("lowResPhotoDialog"), Lm = e.byId("lowResPhotoTitle"), Tm = e.byId("lowResPhotoGrid"), Fm = e.byId("lowResPhotoSummary"), exportPhotoGrid = e.byId("exportPhotoGrid"), exportPhotoSummary = e.byId("exportPhotoSummary"), Nm = e.byId("secondaryFile"), _m = e.byId("secondaryImage"), Dm = e.byId("secondaryFileName"), Rm = e.byId("secondaryFileLink"), Om = e.byId("fileDialog"), Bm = e.byId("fileDialogTitle"), jm = e.byId("fileDialogSubtitle"), qm = e.byId("fileReady"), Hm = e.byId("fileName"), Wm = e.byId("fileHelp"), Um = e.byId("preparedImage"), Gm = e.byId("preparedImageLink"), Km = e.byId("ninjaTransferLink"), zm = e.byId("ninjaTransferHint"), Vm = e.byId("preparedImageToolbar"), Ym = e.byId("preparedImageViewport"), Xm = e.byId("preparedImageStage"), Zm = e.byId("preparedZoomValue"), Qm = e.byId("preparedZoomIn"), Jm = e.byId("preparedZoomOut"), ef = e.byId("preparedZoomFit"), tf = e.byId("fileStatus"), nf = e.byId("fileProgress"), af = e.byId("fileProgressStage"), rf = e.byId("fileProgressValue"), of = e.byId("fileProgressTrack"), sf = e.byId("fileProgressBar"), lf = e.byId("fileProgressPortrait"), cf = e.byId("fileProgressInitials"), df = e.byId("fileProgressDetail");
+        let uf = null, pf = null, hf = null, gf = null, mf = !1, ff = null, yf = null, bf = null, vf = 0, wf = null, kf = null, xf = new Set, Sf = !1, $f = !0, Ef = null, Af = new Set, Cf = !1, Mf = !0, If = "black", Pf = new Set, exportPhotoSelection = new Set, Lf = "png-lowres", Tf = null, Ff = 1, Nf = !1, _f = null;
+        const Df = new Map;
         function Rf(e) {
             Nf = Boolean(e), Ff = 1, _f = null, Df.clear(), Vm.hidden = !Nf, Ym.classList.toggle("is-zoomable", Nf),
             Ym.classList.remove("is-zoomed", "is-dragging"), Xm.removeAttribute("style"), Um.removeAttribute("style"),
@@ -43031,7 +42993,7 @@ var Df = new Map;
             return qf(e, t, n, i, a, r) ? new Promise(t => requestAnimationFrame(() => requestAnimationFrame(() => t(e === vf)))) : Promise.resolve(!1);
         }
         function Wf(e, t) {
-            qf(e, 100, "Export stopped", t || "The could not be completed.", !1, "error");
+            qf(e, 100, "Export stopped", t || "The export could not be completed.", !1, "error");
         }
         function Uf(e = "Preparing image", t = "Building your shareable PNG…", n = {}) {
             const i = ++vf;
@@ -43045,7 +43007,7 @@ var Df = new Map;
                     h: 100
                 })}</svg>`);
             }(n.profileId), ff = n.returnDialog || null, ff && ff.open && Ui(ff), Bm.textContent = e,
-            jm.textContent = t, tf.textContent = "Building…", qf(i, 2, "Starting export", "Preparing the screen…", !0),
+            jm.textContent = t, tf.textContent = "Building…", qf(i, 2, "Starting export", "Preparing the export screen…", !0),
             Wi(Om), i;
         }
         function Gf(e, t, n = {}) {
@@ -43070,7 +43032,7 @@ var Df = new Map;
                 ap(n.svgMarkup, n.profileId, Boolean(n.includeProfileInfo), Boolean(n.blind), n.allowedIds).then(function(e) {
                     hf = URL.createObjectURL(e), gf = a;
                 }).catch(function(e) {
-                    console.warn("PDF failed", e), hf = null;
+                    console.warn("PDF export failed", e), hf = null;
                 });
             } catch (e) {
                 console.warn("PDF kickoff failed", e);
@@ -43198,7 +43160,7 @@ var Df = new Map;
                 }
                 return r;
             }(e), Em.checked = !1, Cm.checked = !0, $f = !0, xm.textContent = `Export ${wt[e]}`,
-            Sm.textContent = "Choose an format. On mobile, exports may take a minute or two.";
+            Sm.textContent = "Choose an export format. On mobile, exports may take a minute or two.";
             const t = (dt[e] || []).length;
             exportPhotoSelection = new Set(Array.from({ length: t }, (e, t) => t));
             $m.textContent = `Exports what's currently visible on your map. Every format limits embedded profile data to those same visible topics${t ? ` and can include ${t} attached ${1 === t ? "photo" : "photos"} when profile info is included` : ""}.`,
@@ -43243,7 +43205,7 @@ var Df = new Map;
                 photoIndices: c
             }));
         }));
-var ey = e.byId("openerDialog"), ty = e.byId("negotiationDialog");
+        const ey = e.byId("openerDialog"), ty = e.byId("negotiationDialog");
         function ny(e, t) {
             if (!e) return;
             const n = document.createElement("a");
@@ -43414,7 +43376,7 @@ var ey = e.byId("openerDialog"), ty = e.byId("negotiationDialog");
             Ff > 1 && (Ym.scrollLeft -= n.x - t.x, Ym.scrollTop -= n.y - t.y, Ym.classList.add("is-dragging"),
             e.preventDefault());
         });
-var iy = e => {
+        const iy = e => {
             Df.delete(e.pointerId), Ym.classList.remove("is-dragging"), Df.size < 2 && (_f = null);
         };
         Ym.addEventListener("pointerup", iy), Ym.addEventListener("pointercancel", iy),
@@ -43425,8 +43387,8 @@ var iy = e => {
         }), Om.addEventListener("cancel", e => {
             e.preventDefault(), Kf();
         });
-var ay = [], ry = 0, oy = 1, sy = null;
-var ly = new Map;
+        let ay = [], ry = 0, oy = 1, sy = null;
+        const ly = new Map;
         function cy(t = !0) {
             if (!pm.naturalWidth || !hm.clientWidth || !hm.clientHeight) return;
             const n = hm.clientWidth, i = hm.clientHeight, a = Math.max(1, gm.scrollWidth), r = Math.max(1, gm.scrollHeight), o = (hm.scrollLeft + n / 2) / a, s = (hm.scrollTop + i / 2) / r, l = Math.min(n / pm.naturalWidth, i / pm.naturalHeight), c = Math.max(1, Math.round(pm.naturalWidth * l * oy)), d = Math.max(1, Math.round(pm.naturalHeight * l * oy)), u = Math.max(n, c), p = Math.max(i, d);
@@ -43493,12 +43455,12 @@ var ly = new Map;
             oy > 1 && (hm.scrollLeft -= n.x - t.x, hm.scrollTop -= n.y - t.y, hm.classList.add("is-dragging"),
             e.preventDefault());
         });
-var hy = e => {
+        const hy = e => {
             ly.delete(e.pointerId), hm.classList.remove("is-dragging"), ly.size < 2 && (sy = null);
         };
         hm.addEventListener("pointerup", hy), hm.addEventListener("pointercancel", hy);
-var gy = e.byId("profileCropDialog"), my = e.byId("profileCropPreview"), fy = e.byId("profileCropImage"), yy = e.byId("profileCropZoom"), by = e.byId("profileCropZoomValue"), vy = e.byId("profileCropRotateRing"), wy = e.byId("profileCropRotateThumb"), ky = e.byId("profileCropRotateValue");
-var xy = null, Sy = null, $y = null, Ey = null, Ay = 0, Cy = 0, My = 0;
+        const gy = e.byId("profileCropDialog"), my = e.byId("profileCropPreview"), fy = e.byId("profileCropImage"), yy = e.byId("profileCropZoom"), by = e.byId("profileCropZoomValue"), vy = e.byId("profileCropRotateRing"), wy = e.byId("profileCropRotateThumb"), ky = e.byId("profileCropRotateValue");
+        let xy = null, Sy = null, $y = null, Ey = null, Ay = 0, Cy = 0, My = 0;
         function Iy() {
             if (!Sy || !my.clientWidth) return;
             const e = my.clientWidth, t = my.clientHeight, n = Math.max(e / Sy.width, t / Sy.height) * Sy.cropZoom, i = Sy.width * n, a = Sy.height * n, r = i > e ? e / (2 * i) : .5, o = i > e ? 1 - r : .5, s = a > t ? t / (2 * a) : .5, l = a > t ? 1 - s : .5;
@@ -43582,7 +43544,7 @@ var xy = null, Sy = null, $y = null, Ey = null, Ay = 0, Cy = 0, My = 0;
         }), vy.addEventListener("pointermove", e => {
             Ey === e.pointerId && (Ny(_y(e), !1), e.preventDefault());
         });
-var Dy = e => {
+        const Dy = e => {
             Ey === e.pointerId && (Ey = null, vy.classList.remove("is-dragging"), Py());
         };
         vy.addEventListener("pointerup", Dy), vy.addEventListener("pointercancel", Dy),
@@ -43623,21 +43585,21 @@ var Dy = e => {
             $y && $y.pointerId === e.pointerId && Sy && (Sy.cropX = $y.cropX - (e.clientX - $y.startX) / $y.drawWidth,
             Sy.cropY = $y.cropY - (e.clientY - $y.startY) / $y.drawHeight, Iy(), e.preventDefault());
         });
-var Ry = e => {
+        const Ry = e => {
             $y && $y.pointerId === e.pointerId && ($y = null, my.classList.remove("is-dragging"));
         };
         my.addEventListener("pointerup", Ry), my.addEventListener("pointercancel", Ry);
 
 /* --- Module: 06d2-profile-editor.js --- */
 // 06d2-profile-editor.js - Profile editor form controls, demographics, contact blocks, and veil/heat sliders
-var Oy = e.byId("profileLoadMenu"), By = e.byId("profileAddMenu"), jy = e.byId("profileSampleMenu"), jyA = e.byId("profileArchetypeMenu");
-var qy = null, Hy = null, Wy = [], Uy = "", Gy = [], Ky = 0, zy = null, Vy = null, jY = null, Yy = null, Xy = null;
+        const Oy = e.byId("profileLoadMenu"), By = e.byId("profileAddMenu"), jy = e.byId("profileSampleMenu"), jyA = e.byId("profileArchetypeMenu");
+        let qy = null, Hy = null, Wy = [], Uy = "", Gy = [], Ky = 0, zy = null, Vy = null, jY = null, Yy = null, Xy = null;
         // Pair-tab load target (2026-10-27): set by ww when the import
         // dialog is opened from a pair tab's Load menu, cleared when
         // the dialog closes or a merge consumes it. While set, a
         // single-profile file import merges into that pair record
         // (see the merge branch in rk) instead of creating a profile.
-var sxPairLoadInto = null;
+        let sxPairLoadInto = null;
         // Load origin (split-center stage, 2026-10-27; activate-first
         // restored by the shell-ui stage, 2026-10-27): the profile a
         // Load action was PRESSED FROM, carried explicitly from the
@@ -43653,7 +43615,7 @@ var sxPairLoadInto = null;
         // handed to a converter session (Ax), so the converter's
         // final Load lands on the origin with no second "which
         // profile?" dialogue.
-var sxLoadOriginId = null, sxConverterOrigin = null;
+        let sxLoadOriginId = null, sxConverterOrigin = null;
         // Merge immediate save (split-center stage, 2026-10-27): a
         // load's merged data is saved to profile memory IMMEDIATELY,
         // in the same act as the merge - not left resting on the
@@ -43671,7 +43633,7 @@ var sxLoadOriginId = null, sxConverterOrigin = null;
                 }
             } catch (err) { __sxErrLog("sx-merge-save", err); }
         }
-var Zy = {};
+        const Zy = {};
         function Qy(t = Mt) {
             if (!t || !vt[t]) return Vy = e => Qy(e), void bw(null);
             // Activated-from: the chooser's target rides in Xy,
@@ -43703,7 +43665,7 @@ var Zy = {};
         // general-population survey of paraphilic interests and behaviors likewise found
         // submissive and dominant role interests widely endorsed. Options with no entry show
         // no score and no source line.
-var POPULARITY_SOURCES = {
+        const POPULARITY_SOURCES = {
             nz: {
                 source: "NZ National Sexuality Survey, N=12,885",
                 url: "https://pmc.ncbi.nlm.nih.gov/articles/PMC3081103/"
@@ -43717,7 +43679,7 @@ var POPULARITY_SOURCES = {
                 url: "https://www.researchgate.net/publication/339238941_The_Psychology_of_Kink_a_Survey_Study_into_the_Relationships_of_Trauma_and_Attachment_Style_with_BDSM_Interests"
             }
         };
-var POPULARITY_SCORES = {
+        const POPULARITY_SCORES = {
             straight: {
                 score: "94.7% ±0.26",
                 ...POPULARITY_SOURCES.nz
@@ -43785,7 +43747,7 @@ var POPULARITY_SCORES = {
             } else i.appendChild(document.createTextNode(n.source));
             e.appendChild(i);
         }
-var eb = [ "Man", "Woman", "Nonbinary", "Transgender", "Trans Man", "Trans Woman", "Genderqueer", "Agender", "Androgyne", "Androx", "Apagender", "Bigender", "Butch", "Cisgender", "Crossdresser", "Demifem", "Demigender", "Demimasc", "Demiman", "Demivoid", "Demiwoman", "Femme", "Gender Expansive", "Gender Neutral", "Gender Non-Conforming", "Genderfae", "Genderfluid", "Genderflux", "Genderfuck", "Gendervoid", "Gynx", "Hijra", "Intersex", "Intersex Man", "Intersex Woman", "Masc", "Maverique", "Multigender", "Omnigender", "Pangender", "Plural", "Polygender", "Trans Nonbinary", "Transfeminine", "Transmasculine", "Trigender", "Two-Spirit", "Xenogender", "Questioning", "Unsure", "Not Applicable" ], tb = eb.map(e => e.toLowerCase().replace(/\s+/g, "-")), nb = {
+        const eb = [ "Man", "Woman", "Nonbinary", "Transgender", "Trans Man", "Trans Woman", "Genderqueer", "Agender", "Androgyne", "Androx", "Apagender", "Bigender", "Butch", "Cisgender", "Crossdresser", "Demifem", "Demigender", "Demimasc", "Demiman", "Demivoid", "Demiwoman", "Femme", "Gender Expansive", "Gender Neutral", "Gender Non-Conforming", "Genderfae", "Genderfluid", "Genderflux", "Genderfuck", "Gendervoid", "Gynx", "Hijra", "Intersex", "Intersex Man", "Intersex Woman", "Masc", "Maverique", "Multigender", "Omnigender", "Pangender", "Plural", "Polygender", "Trans Nonbinary", "Transfeminine", "Transmasculine", "Trigender", "Two-Spirit", "Xenogender", "Questioning", "Unsure", "Not Applicable" ], tb = eb.map(e => e.toLowerCase().replace(/\s+/g, "-")), nb = {
             man: "A person whose gender identity is man, regardless of sex assigned at birth.",
             woman: "A person whose gender identity is woman, regardless of sex assigned at birth.",
             nonbinary: "A gender identity outside an exclusively man-or-woman binary.",
@@ -43848,7 +43810,7 @@ var eb = [ "Man", "Woman", "Nonbinary", "Transgender", "Trans Man", "Trans Woman
             label: "Couple / shared profile",
             description: "A shared profile representing two partners rather than one gender identity."
         };
-var ab = [ {
+        const ab = [ {
             label: "Sexual orientations",
             options: [ "Straight", "Heterosexual", "Bisexual", "Gay", "Lesbian", "Asexual", "Pansexual", "Demisexual", "Graysexual", "Abrosexual", "Achillean", "Aceflux", "Acespec", "Acespike", "Aegosexual", "Allosexual", "Androflexible", "Androsexual", "Androgynosexual", "Apothisexual", "Autosexual", "Benignosexual", "Bicurious", "Ceterosexual", "Cupiosexual", "Dyke", "Fictosexual", "Finsexual", "Fraysexual", "Gynesexual", "Homoflexible", "Homosexual", "Lithosexual", "Megasexual", "Minsexual", "Monosexual", "Nebulasexual", "Neptunic", "Ninsexual", "Noetisexual", "Objectumsexual", "Omnisexual", "Orchidsexual", "Pancurious", "Phallosexual", "Placiosexual", "Polysexual", "Queer", "Quoisexual", "Reciprosexual", "Sapiosexual", "Sapphic", "Saturnic", "Sex-Favorable", "Soulsexual", "Spectrasexual", "Symbiosexual", "T4T", "Uranic", "Yonisexual" ]
         }, {
@@ -43974,7 +43936,7 @@ var ab = [ {
             group: "Legacy",
             description: "An orientation that is not represented by the available labels."
         };
-var lb = [ "Submissive", "Switch", "Dominant", "Ageplayer", "Babygirl", "Bottom", "Brat", "Daddy", "Domme", "Fetishist", "Kajira", "Kajirus", "Key-holder", "Kinkster", "Masochist", "Master", "Mistress", "Mommy", "Owner", "Pet", "Sadist", "Slave", "Top", "Vanilla", "Unsure" ], cb = lb.map(e => e.toLowerCase()), db = {
+        const lb = [ "Submissive", "Switch", "Dominant", "Ageplayer", "Babygirl", "Bottom", "Brat", "Daddy", "Domme", "Fetishist", "Kajira", "Kajirus", "Key-holder", "Kinkster", "Masochist", "Master", "Mistress", "Mommy", "Owner", "Pet", "Sadist", "Slave", "Top", "Vanilla", "Unsure" ], cb = lb.map(e => e.toLowerCase()), db = {
             vanilla: "Prefers sexual or romantic activity outside BDSM or other explicitly kinky dynamics.",
             unsure: "Still exploring which kink or power-exchange roles feel right.",
             top: "Performs or directs an activity in a scene; this describes what someone does, not necessarily who holds power.",
@@ -44008,7 +43970,7 @@ var lb = [ "Submissive", "Switch", "Dominant", "Ageplayer", "Babygirl", "Bottom"
             } ];
         })), pb = e.byId("genderPicker"), hb = e.byId("genderTrigger"), gb = e.byId("genderTriggerLabel"), mb = e.byId("genderMenu"), fb = e.byId("genderTooltip");
         n(mb, tb.map(e => `<button class="gender-option" type="button" role="option" data-tooltip-tap-first data-gender-value="${Hi(e)}" aria-selected="false">${Hi(ib[e].label + popularitySuffix(e))}</button>`).join(""));
-var yb = {
+        const yb = {
             female: "woman",
             male: "man",
             genderless: "agender",
@@ -44122,7 +44084,7 @@ var yb = {
                 block: "nearest"
             });
         });
-var Cb = e.byId("sexualityPicker"), Mb = e.byId("sexualityTrigger"), Ib = e.byId("sexualityTriggerLabel"), Pb = e.byId("sexualityMenu"), Lb = e.byId("sexualityTooltip");
+        const Cb = e.byId("sexualityPicker"), Mb = e.byId("sexualityTrigger"), Ib = e.byId("sexualityTriggerLabel"), Pb = e.byId("sexualityMenu"), Lb = e.byId("sexualityTooltip");
         function Tb() {
             return iv([ ...Ug.selectedOptions ].map(e => e.value));
         }
@@ -44221,7 +44183,7 @@ var Cb = e.byId("sexualityPicker"), Mb = e.byId("sexualityTrigger"), Ib = e.byId
                 block: "nearest"
             });
         });
-var jb = e.byId("rolePicker"), qb = e.byId("roleTrigger"), Hb = e.byId("roleTriggerLabel"), Wb = e.byId("roleMenu"), Ub = e.byId("roleTooltip");
+        const jb = e.byId("rolePicker"), qb = e.byId("roleTrigger"), Hb = e.byId("roleTriggerLabel"), Wb = e.byId("roleMenu"), Ub = e.byId("roleTooltip");
         function Gb(e) {
             const t = Array.isArray(e) ? e : [ e ], n = [];
             return t.forEach(e => {
@@ -44321,7 +44283,7 @@ var jb = e.byId("rolePicker"), qb = e.byId("roleTrigger"), Hb = e.byId("roleTrig
                 block: "nearest"
             });
         });
-var ev = [ ...e.all("[data-profile-info]") ];
+        const ev = [ ...e.all("[data-profile-info]") ];
         function tv(t, n, i = !1) {
             const a = e.one(`[data-profile-info-popover="${t.dataset.profileInfo}"]`);
             a && (a.hidden = !n, t.setAttribute("aria-expanded", String(n && i)), n ? t.setAttribute("aria-describedby", `${t.dataset.profileInfo}ProfileInfo`) : t.removeAttribute("aria-describedby"));
@@ -44345,7 +44307,7 @@ var ev = [ ...e.all("[data-profile-info]") ];
         }, !0), window.addEventListener("resize", () => {
             Sb(), Db(), Xb();
         });
-var nv = {
+        const nv = {
             "bi-curious": "bicurious",
             reciproseuxal: "reciprosexual",
             private: "not-applicable"
@@ -44364,8 +44326,8 @@ var nv = {
         function veilZoneText(t) {
             return `${t <= 0 ? "Revealed" : t <= 33 ? "Unveiling" : t <= 66 ? "Parted" : t < 100 ? "Veiled" : "Concealed"} · ${t}`;
         }
-var rv = e.byId("audienceView"), ov = e.byId("veilControl"), sv = e.byId("veilTrigger"), lv = e.byId("veilEnabled"), cv = e.byId("tabVeilEnabled"), dv = e.byId("veilPopover"), uv = e.byId("veilTooltip"), pv = e.byId("audienceVeilSlider"), hv = e.byId("audienceVeilValue"), qzv = e.byId("audienceVeilZone"), gv = e.byId("audienceVeilProfile"), mv = e.byId("audienceVeilHelp"), fv = mv.textContent;
-var yv = 0, bv = sv;
+        const rv = e.byId("audienceView"), ov = e.byId("veilControl"), sv = e.byId("veilTrigger"), lv = e.byId("veilEnabled"), cv = e.byId("tabVeilEnabled"), dv = e.byId("veilPopover"), uv = e.byId("veilTooltip"), pv = e.byId("audienceVeilSlider"), hv = e.byId("audienceVeilValue"), qzv = e.byId("audienceVeilZone"), gv = e.byId("audienceVeilProfile"), mv = e.byId("audienceVeilHelp"), fv = mv.textContent;
+        let yv = 0, bv = sv;
         function vv() {
             return Qt && vt[Qt] ? Qt : Mt && vt[Mt] ? Mt : null;
         }
@@ -44440,7 +44402,7 @@ var yv = 0, bv = sv;
             const i = Kd();
             (e === Mt || i && Array.isArray(i.sourceIds) && i.sourceIds.includes(e)) && Mr();
         }
-var Pv = 0;
+        let Pv = 0;
         sv.addEventListener("pointerenter", () => $v()), sv.addEventListener("pointerleave", () => {
             dv.hidden && Ev();
         }), sv.addEventListener("focus", () => $v()), sv.addEventListener("blur", () => {
@@ -44475,7 +44437,7 @@ var Pv = 0;
                 });
             }));
         });
-var Lv = null;
+        let Lv = null;
         function Tv(e) {
             const t = pv.getBoundingClientRect(), n = .08 * t.height;
             return e.clientY < t.top - n || e.clientY > t.bottom + n;
@@ -44510,14 +44472,14 @@ var Lv = null;
         }), pv.addEventListener("pointerup", Nv), pv.addEventListener("pointercancel", Nv);
         /* B3 (SURFACES): the per-tab Heat button + its popover. Heat is
            SESSION state only (sxcv.heat + sxcvSave()); it never joins the
-           profile store's maps, the collect/snapshot, or either
+           profile store's maps, the collect/export snapshot, or either
            payload format. Group Heat is the same session state
            (sxcv.groupHeat, keyed by group profile id); the one popover
            serves both, branching on the group record, and adjusting
            Group Heat never touches a member's heat or any score.
            The popover lifecycle mirrors the Veil popover's
            (open/close/outside-click/Escape). */
-var sxHeatQt = null, sxHeatBv = null;
+        let sxHeatQt = null, sxHeatBv = null;
         function sxHeatBtnFor(e) {
             return [ ...tl.querySelectorAll("[data-profile-heat]") ].find(t => t.dataset.profileHeat === e) || null;
         }
@@ -44563,7 +44525,7 @@ var sxHeatQt = null, sxHeatBv = null;
             if (!pop.hidden && sxHeatQt === id && sxHeatBv === btn) return void sxCvHeat();
             sxHeatQt = id, sxHeatBv = btn, sxMvHeat(), sxAvHeat(!0, !0);
         }
-var sxHeatPopEl = e.byId("heatPopover"), sxHeatSliderEl = e.byId("heatSlider");
+        const sxHeatPopEl = e.byId("heatPopover"), sxHeatSliderEl = e.byId("heatSlider");
         sxHeatSliderEl && sxHeatSliderEl.addEventListener("input", () => {
             const t = sxHeatQt;
             if (!t) return;
@@ -44578,7 +44540,7 @@ var sxHeatPopEl = e.byId("heatPopover"), sxHeatSliderEl = e.byId("heatSlider");
             const pop = e.byId("heatPopover");
             pop && !pop.hidden && (ev2.preventDefault(), sxCvHeat(!0));
         }), window.addEventListener("resize", () => sxPosHeat());
-var _v = [ "telegram", "linktree", "fetlife", "chaturbate", "stripchat", "myfreecams", "pornhub", "xvideos", "xhamster", "onlyfans", "reddit", "x" ];
+        const _v = [ "telegram", "linktree", "fetlife", "chaturbate", "stripchat", "myfreecams", "pornhub", "xvideos", "xhamster", "onlyfans", "reddit", "x" ];
         function Dv(e) {
             let t = String(e || "").trim().replace(/[\r ]/g, "").replace(/^@/, "").slice(0, 100);
             try {
@@ -44623,14 +44585,14 @@ var _v = [ "telegram", "linktree", "fetlife", "chaturbate", "stripchat", "myfree
             const t = Rv(e);
             return _v.concat([ "phone", "email" ]).filter(e => t[e]).length + (Array.isArray(t.customSites) ? t.customSites.length : 0);
         }
-var CONTACT_BLOCK_SITES_CSV = "telegram:Telegram,linktree:linktr.ee,fetlife:FetLife,chaturbate:Chaturbate,stripchat:Stripchat,myfreecams:MyFreeCams,pornhub:PornHub,xvideos:XVideos,xhamster:xHamster,onlyfans:OnlyFans,reddit:Reddit,x:X,custom:Custom";
+        const CONTACT_BLOCK_SITES_CSV = "telegram:Telegram,linktree:linktr.ee,fetlife:FetLife,chaturbate:Chaturbate,stripchat:Stripchat,myfreecams:MyFreeCams,pornhub:PornHub,xvideos:XVideos,xhamster:xHamster,onlyfans:OnlyFans,reddit:Reddit,x:X,custom:Custom";
         // The site pulldown is driven by the CSV list above: each entry is
         // value:label, in pulldown order. No plus-joined list is used.
-var CONTACT_BLOCK_SITES = CONTACT_BLOCK_SITES_CSV.split(",").map(e => {
+        const CONTACT_BLOCK_SITES = CONTACT_BLOCK_SITES_CSV.split(",").map(e => {
             const [value, label] = e.split(":");
             return { value: value, label: label || value };
         });
-var contactBlocks = [];
+        let contactBlocks = [];
         function contactBlockIsEmpty(b) {
             return !b.usernameInput.value.trim() && !b.siteSelect.value;
         }
@@ -44797,7 +44759,7 @@ var contactBlocks = [];
         function Gv(e) {
             return String(e || "").replace(/\ /gi, " ").replace(/\\([\\,;])/g, "$1");
         }
-var Kv = {
+        const Kv = {
             telegram: "X-TELEGRAM",
             linktree: "X-LINKTREE",
             fetlife: "X-FETLIFE",
@@ -45072,7 +45034,7 @@ var Kv = {
                 xg.textContent = "Profile saved, but the anonymous ratings could not be shared.";
             }
         }
-var gw = "edit";
+        let gw = "edit";
         function mw(t) {
             const archEl = e.byId("profileArchetypeResults");
             archEl && (archEl.innerHTML = "");
@@ -45271,7 +45233,7 @@ var gw = "edit";
         // local sample" on the profile About view saves the open profile
         // on this device so it appears in the Samples menu and loads back
         // later - a chapter roster. The profile is serialized with the
-        // same full-profile serializer the path uses, then the
+        // same full-profile serializer the export path uses, then the
         // skin loader stores it per-skin (its store + menu rebuild) and
         // the button flips to "Update local sample" while a sample with
         // this name exists on this skin. Photos are stripped before
@@ -45398,7 +45360,7 @@ var gw = "edit";
                 Ew();
             }
         }
-var fw = !1;
+        let fw = !1;
         function yw() {
             var t = e.byId("profileIndependentTip");
             t && (t.hidden = !0, t.style.display = "none"), fw = !0;
@@ -45562,7 +45524,7 @@ var fw = !1;
             return Yy;
         }
         e.byId("dismissProfileIndependentTip")?.addEventListener("click", yw);
-var Cw = {};
+        const Cw = {};
         function Mw(e) {
             if (!Cw[e]) {
                 const t = jy.querySelector(`[data-sample-profile="${CSS.escape(e)}"] img`) || jyA && jyA.querySelector(`[data-sample-profile="${CSS.escape(e)}"] img`) || document.querySelector(`[data-sample-profile="${CSS.escape(e)}"] img`), n = t && (t.currentSrc || t.src);
@@ -45683,7 +45645,7 @@ var Cw = {};
                 if (btn && !btn.disabled) await sxLoadSampleBtn(menu, btn);
             }
         };
-var Tw = e.byId("newBlankProfile"), Fw = e.byId("newListProfile"), Nw = e.byId("importProfileChoice"), _w = e.byId("loadSampleProfileChoice"), _wA = e.byId("loadArchetypeChoice");
+        const Tw = e.byId("newBlankProfile"), Fw = e.byId("newListProfile"), Nw = e.byId("importProfileChoice"), _w = e.byId("loadSampleProfileChoice"), _wA = e.byId("loadArchetypeChoice");
         e.byId("makeOwnMapButton") && e.byId("makeOwnMapButton").addEventListener("click", () => {
             Vy = null, bw(null);
         });
@@ -45708,8 +45670,8 @@ var Tw = e.byId("newBlankProfile"), Fw = e.byId("newListProfile"), Nw = e.byId("
         }), Fw.addEventListener("click", () => {
             xw(), Vy = e => Ms(e), bw(null);
         }), Nw.addEventListener("click", ww);
-var Dw = 0;
-var Rw = () => {
+        let Dw = 0;
+        const Rw = () => {
             Dw && (t.clear(Dw), Dw = 0);
         }, Ow = () => {
             Rw(), Dw = t.setTimeout(() => {
@@ -45817,7 +45779,7 @@ var Rw = () => {
             });
             n.isEnabled && n.isEnabled() && n.saveNow && n.saveNow(), Vt(e), tS(`${wt[e]} saved on this device.`);
         };
-var Bw = e.byId("appAboutDialog");
+        const Bw = e.byId("appAboutDialog");
         e.byId("openAppAbout") && e.byId("openAppAbout").addEventListener("click", () => {
             Wi(Bw), requestAnimationFrame(() => e.byId("closeAppAbout").focus());
         }), e.byId("closeAppAbout") && e.byId("closeAppAbout").addEventListener("click", () => Ui(Bw)), Bw.addEventListener("click", e => {
@@ -45833,7 +45795,7 @@ var Bw = e.byId("appAboutDialog");
         }), milestoneDialog.addEventListener("click", e => {
             e.target === milestoneDialog && closeMilestoneCelebration();
         });
-var jw = e.byId("outlinePayoffDialog");
+        const jw = e.byId("outlinePayoffDialog");
         function qw(e, t = null) {
             const n = e => !t || t.has(e), i = t ? new Set([ ...t ].map(t => {
                 const n = qn[t] || Xn(t) || (at[e] || {})[t];
@@ -45928,7 +45890,7 @@ var jw = e.byId("outlinePayoffDialog");
         // shipped before profiles began traveling by topic ID (slug-gap
         // fix, 2026-10-22). It is a closed set - never extend it for
         // post-fix files - and it retires at v4.0.
-var Gw = "topic-impact-pain-body-modification-whipping", Kw = Object.freeze({
+        const Gw = "topic-impact-pain-body-modification-whipping", Kw = Object.freeze({
             [Gw]: "topic-impact-pain-body-modification-whips",
             "topic-impact-pain-body-modification-canes": "topic-impact-pain-body-modification-caning",
             "topic-clothing-materials-objects-diaper": "topic-clothing-materials-objects-diapers",
@@ -46019,7 +45981,7 @@ var Gw = "topic-impact-pain-body-modification-whipping", Kw = Object.freeze({
         // canonical ids (t####) belong in this registry - a slug
         // spelling of a deleted topic is not buried; it parks like any
         // other unrecognized spelling.
-var BURIED_TOPIC_IDS = Object.freeze({
+        const BURIED_TOPIC_IDS = Object.freeze({
             t0001: "Direction (topic deleted)"
         });
         // Explicit ingest resolution order (E4b): a single incoming key
@@ -46147,7 +46109,7 @@ var BURIED_TOPIC_IDS = Object.freeze({
                 });
             }), e;
         }
-var Xw = null;
+        let Xw = null;
         function Zw(e, t, n) {
             return `<span class="profile-tab is-editing"><input class="profile-name-input" data-profile-name-input type="text" maxlength="40" autocomplete="off" value="${Hi(t)}" placeholder="Profile name" aria-label="${Hi(n)}"></span>`;
         }
@@ -46174,7 +46136,7 @@ var Xw = null;
         // the counter at the start of every tab-strip render and the
         // strip renders profiles in vt key order, so the numbering is
         // stable across renders.
-var sxTabLabelSeen = {};
+        let sxTabLabelSeen = {};
         function sxDupTabLabel(e, label) {
             const nm = wt[e];
             return sxTabLabelSeen[nm] = (sxTabLabelSeen[nm] || 0) + 1, sxTabLabelSeen[nm] > 1 ? `${label}-${sxTabLabelSeen[nm]}` : label;
@@ -46275,7 +46237,7 @@ var sxTabLabelSeen = {};
            profile on switch-back via Js(). Tabs are NOT hidden — Jw()
            still lists every profile in memory, just not active; that is
            the mechanism by which profiles "reappear". */
-var sxSkinActiveProfile = Object.create(null);
+        let sxSkinActiveProfile = Object.create(null);
         window.__SX_CLEAR_VIEWPORT_PROFILES = function (outgoingSkinId) {
             try {
                 sxSkinActiveProfile[outgoingSkinId] = { activeId: Mt, comparisonIds: Array.from(en) };
@@ -46329,7 +46291,7 @@ var sxSkinActiveProfile = Object.create(null);
         // a best-guess label is needed for a dropped entry from that
         // file, the file's own label wins over the slug-tail guess -
         // the sender's meanings, not a reconstruction from the key.
-var importTopicNames = null;
+        let importTopicNames = null;
         function importDroppedGuess(key) {
             if (importTopicNames) {
                 const own = importTopicNames[key], resolved = Vw[key] && importTopicNames[Vw[key]];
@@ -46450,7 +46412,7 @@ var importTopicNames = null;
             // profile.droppedKeys with its value and named in the
             // post-import result dialog. Broad-hit pseudo-ratings (cat- /
             // subcategory-…) are valid stored keys: never pruned, never
-            // recorded. A record carried in from a previous is kept,
+            // recorded. A record carried in from a previous export is kept,
             // so the history of what was dropped survives a round-trip.
             // E4a: a parked record carried in by the file (its own
             // droppedKeys) is restored onto the imported profile
@@ -47128,7 +47090,7 @@ var importTopicNames = null;
         }
 
 /* --- Module: 06c2-profile-converter.js --- */
-var ok = {
+        const ok = {
             "pleasure control": "cat-orgasm-reproductive-play",
             restraint: "cat-bondage-restriction",
             bondage: "cat-bondage-restriction",
@@ -47218,7 +47180,7 @@ var ok = {
             const t = new Set([ "a", "an", "and", "the", "play", "roleplay", "kink", "fetish", "fantasy", "bondage", "sex", "sexual", "role", "roles" ]);
             return ck(e).split(" ").filter(e => e && !t.has(e)).map(e => e.replace(/(?:ing|ed|es|s)$/, "")).filter(Boolean);
         }
-var uk = null;
+        let uk = null;
         function pk(e, t, n) {
             if (!e || !e.id) return null;
             if (isCatId(e.id)) return {
@@ -47301,7 +47263,7 @@ var uk = null;
         // then subcategory, then topic, joined by ›, middle omitted
         // when flat. Category forms ruled 2026-11-05 (7 letters where
         // the name fits, 8 where it needs it), in taxonomy-file order.
-var SX_CAT_FORMS = {
+        const SX_CAT_FORMS = {
             c0001: "POWEREX",
             c0002: "BONDAGE",
             c0003: "IMPACT",
@@ -47353,9 +47315,9 @@ var SX_CAT_FORMS = {
         // bundle may pass kinds it does not define; a throw would
         // break them), and serialize kinds outside the set keep the
         // long-standing "Unsupported profile export" throw.
-var SX_MERGE_KINDS = new Set([ "converter", "shared", "profile" ]), SX_SERIALIZE_KINDS = new Set([ "profile", "viewport", "export", "sync-card", "compact", "bundle", "envelope" ]);
+        const SX_MERGE_KINDS = new Set([ "converter", "shared", "profile" ]), SX_SERIALIZE_KINDS = new Set([ "profile", "viewport", "export", "sync-card", "compact", "bundle", "envelope" ]);
 
-var fx = {
+        const fx = {
             dominant: {
                 id: "c0001",
                 direction: "give"
@@ -47470,7 +47432,7 @@ var fx = {
         };
 
 /* --- Module: 06c-converter-pipeline.js --- */
-var yx = Object.freeze({
+        const yx = Object.freeze({
             importData(data, opts) {
                 return wx(data, Object.assign({ quiet: true }, opts));
             },
@@ -48030,7 +47992,7 @@ var yx = Object.freeze({
         });
         // DECISION (sharing-sync refactor F5): sync cards NEVER
         // carry photos. serializeSyncCard is the one place that
-        // rule lives: it serializes exactly like an (Ju)
+        // rule lives: it serializes exactly like an export (Ju)
         // and then empties the photos array, because a printed
         // card is scanned back in public contexts where attached
         // photos must not travel. Do not duplicate Ju here, and
@@ -48706,8 +48668,8 @@ var yx = Object.freeze({
         }), Fg.addEventListener("click", () => {
             Ng.textContent = "Your device will open or download the contact card.";
         });
-var Nx = e.byId("fileInput"), _x = e.byId("qrImageInput"), Dx = e.byId("qrCameraPanel"), Rx = e.byId("qrCameraVideo");
-var Ox = null, Bx = 0;
+        const Nx = e.byId("fileInput"), _x = e.byId("qrImageInput"), Dx = e.byId("qrCameraPanel"), Rx = e.byId("qrCameraVideo");
+        let Ox = null, Bx = 0;
         function jx(e, t, n = 128) {
             const i = new Uint8ClampedArray(e.length);
             for (let a = 0; a < e.length; a += 4) {
@@ -48809,7 +48771,7 @@ var Ox = null, Bx = 0;
             return t ? o : o[0] || null;
         }
         e.byId("chooseFile") && (e.byId("chooseFile").onclick = () => Nx.click()), e.byId("chooseQrImage") && (e.byId("chooseQrImage").onclick = () => _x.click());
-var Gx = new Map;
+        const Gx = new Map;
         async function Kx(e, t = "") {
             const n = Wx(e);
             let i = String(e || ""), a = "";
@@ -48861,7 +48823,7 @@ var Gx = new Map;
             }
         }
         e.byId("startQrCamera") && (e.byId("startQrCamera").onclick = Yx), e.byId("stopQrCamera") && (e.byId("stopQrCamera").onclick = zx);
-var Xx, Zx = 0;
+        let Xx, Zx = 0;
         async function Qx(e, t, n) {
             if (n !== Zx) throw new Error("Import cancelled.");
             Ig("No embedded profile data found. Looking for a profile QR…", "busy"), await qx();
@@ -49008,7 +48970,7 @@ var Xx, Zx = 0;
                 ktRender(); Ex();
             }
         }
-var rS = !1, oS = !1, sS = !1, lS = !1;
+        let rS = !1, oS = !1, sS = !1, lS = !1;
         function cS() {
             let e = String(window.__SEXCAPADES_START_ROUTE || (window.__SEXCAPADES_LAYOUT_ROUTE ? window.__SEXCAPADES_LAYOUT_ROUTE(location.hash) : location.hash) || "");
             try {
@@ -49147,7 +49109,7 @@ var rS = !1, oS = !1, sS = !1, lS = !1;
                 t;
             }() || gS(), mS(), Nu();
         });
-var yS = Boolean(dS()), bS = Boolean(uS()), vS = Boolean(pS());
+        const yS = Boolean(dS()), bS = Boolean(uS()), vS = Boolean(pS());
         !function() {
             const t = e.byId("legendRatingDemo");
             if (!t) return;
@@ -51238,7 +51200,7 @@ __sxInit(function () {
     title.style.cssText = "display:block;font-size:20px;margin-bottom:4px;";
     title.textContent = "Profiles were not saved";
     var message = document.createElement("span");
-    message.textContent = "This browser could not store them on this device. Keep this tab open and your profiles before leaving, or free browser storage and turn Remember on again.";
+    message.textContent = "This browser could not store them on this device. Keep this tab open and export your profiles before leaving, or free browser storage and turn Remember on again.";
     var close = document.createElement("button");
     close.type = "button";
     close.setAttribute("aria-label", "Dismiss save error");

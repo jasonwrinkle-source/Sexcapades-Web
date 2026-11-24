@@ -2,25 +2,20 @@
         // Extracted from 02n-deknotter-cascade.js for modularity, clean maintenance,
         // and reduced token cost. Contains layout math helpers, delivered radii calculations,
         // camera/viewport diagnostics, painted geometry inspectors, and witness frame evaluators.
-
-        export function dkMedian(values) {
+function dkMedian(values) {
             if (!values.length) return null;
             const sorted = values.slice().sort((a, b) => a - b), mid = sorted.length >> 1;
             return sorted.length % 2 ? sorted[mid] : (sorted[mid - 1] + sorted[mid]) / 2;
         }
-
-        export function dkRange(values) {
+function dkRange(values) {
             return values.length ? [ Math.min.apply(null, values), Math.max.apply(null, values) ] : null;
         }
-
-        export const DK_SHRINK_STEPS_FIXED = 7, DK_LADDER_MAX_STAGES = 512;
-
-        export function dkLadderSteps(from, to) {
+const DK_SHRINK_STEPS_FIXED = 7, DK_LADDER_MAX_STAGES = 512;
+function dkLadderSteps(from, to) {
             if (!Number.isFinite(from) || !Number.isFinite(to) || !(from > to) || !(to > 0)) return 0;
             return DK_SHRINK_STEPS_FIXED;
         }
-
-        export function dkLadderValue(from, to, stage, stages) {
+function dkLadderValue(from, to, stage, stages) {
             if (!Number.isFinite(from) || !Number.isFinite(to) || !(from > to)) return from;
             const n = Number.isFinite(stages) && stages > 0 ? Math.floor(stages) : DK_SHRINK_STEPS_FIXED, s = Number.isFinite(stage) ? Math.floor(stage) : 0;
             if (s <= 0) return from;
@@ -30,15 +25,13 @@
             for (let i = 0; i < s; i++) cum += Math.sqrt(n - i);
             return from - (from - to) * (cum / total);
         }
-
-        export function dkFitDeviationCount(entries) {
+function dkFitDeviationCount(entries) {
             let n = 0;
             return (entries || []).forEach(e => {
                 e && "fit-deviation" === e.type && n++;
             }), n;
         }
-
-        export function dkDeliveredItemRadius(item) {
+function dkDeliveredItemRadius(item) {
             if (!item) return NaN;
             if (item.child) {
                 const ko = mn.kinkOverrides && item.child.id ? mn.kinkOverrides[item.child.id] : null;
@@ -65,8 +58,7 @@
             if (h < minReqSpoke) h = minReqSpoke;
             return h;
         }
-
-        export function dkDeliveredRadii(branchName) {
+function dkDeliveredRadii(branchName) {
             const items = {};
             dkFitBranchItems(branchName).forEach(w => {
                 items[dkRadialBaseInfo(w).key] = dkDeliveredItemRadius(w);
@@ -74,8 +66,7 @@
             const branchObj = h.find(b => b.name === branchName);
             return { items: items, branch: branchObj ? yr(branchObj) : NaN };
         }
-
-        export function dkBranchTaxonomy(branchName) {
+function dkBranchTaxonomy(branchName) {
             const entry = h.find(b => b.name === branchName);
             if (!entry) return null;
             const subLabels = (entry.subcategories || []).map(s => s.name);
@@ -93,50 +84,41 @@
             });
             return { entry: entry, subLabels: subLabels, kinkIds: kinkIds, total: kinkIds.length + subLabels.length };
         }
-
-        export function dkBakeGate(report) {
+function dkBakeGate(report) {
             try {
                 const sumNb = o => o ? Object.keys(o).reduce((a, k) => a + (Number(o[k]) || 0), 0) : 0;
                 const bkBase = (Number(report.baseline.first) || 0) + sumNb(report.neighbors.baseline), bkFin = (Number(report.finalCloud) || 0) + sumNb(report.neighbors.final);
                 report.bakeGate = { metric: "crossingnumber-total", baseline: bkBase, final: bkFin, delta: bkFin - bkBase, limit: SX_SCORE.BAKE_GATE_LIMIT, pass: bkFin - bkBase < SX_SCORE.BAKE_GATE_LIMIT };
             } catch (e) { report.bakeGate = null; }
         }
-
-        export function tallyFitDev(report) {
+function tallyFitDev(report) {
             return report.phases.reduce((s, p) => s + (p && p.fitDeviationCount || 0), 0);
         }
-
-        export function clearBranchFit(dk, name) {
+function clearBranchFit(dk, name) {
             Object.keys(dk.fitTargets()).forEach(k => {
                 "revision" !== k && k.split("|")[1] === name && dk.clearFitTarget(k);
             });
         }
-
-        export function yieldNow() {
+function yieldNow() {
             return new Promise(r => { let done = false; const fin = () => { if (!done) { done = true; r(); } }; requestAnimationFrame(() => requestAnimationFrame(fin)); setTimeout(fin, 60); });
         }
-
-        export function diagRound(v) {
+function diagRound(v) {
             return null == v || !Number.isFinite(Number(v)) ? null : Math.round(100 * Number(v)) / 100;
         }
-
-        export function diagCameraText(cam, label) {
+function diagCameraText(cam, label) {
             return label + ": scale " + (cam && null != cam.scale ? cam.scale : "\u2014") + " \u00b7 translate " + (cam && null != cam.tx ? cam.tx : "\u2014") + ", " + (cam && null != cam.ty ? cam.ty : "\u2014");
         }
-
-        export let witnessFrameSeq = 0;
-        export let witnessLastFrame = null;
-        export let throwBracketBefore = null;
-        export let diagPrePaintHub = null;
-
-        export function resetWitnessState() {
+let witnessFrameSeq = 0;
+let witnessLastFrame = null;
+let throwBracketBefore = null;
+let diagPrePaintHub = null;
+function resetWitnessState() {
             witnessFrameSeq = 0;
             witnessLastFrame = null;
             throwBracketBefore = null;
             diagPrePaintHub = null;
         }
-
-        export function witnessSubs(radii, dk) {
+function witnessSubs(radii, dk) {
             const subs = {}, snap = dk.snapshot(), ov = snap && snap.subcatOverrides ? snap.subcatOverrides : {};
             return Object.keys(radii && radii.items || {}).forEach(k => {
                 if ("subcat" !== k.split("|")[0]) return;
@@ -144,19 +126,16 @@
                 subs[label] = { d: Number.isFinite(d) ? Math.round(d * 1e4) / 1e4 : null, o: ov[label] && Number(ov[label].length) > 0 ? Number(ov[label].length) : null };
             }), subs;
         }
-
-        export function witnessFrame(event, phase, radii, witnessSubsFn, name, report, dk) {
+function witnessFrame(event, phase, radii, witnessSubsFn, name, report, dk) {
             const subsFn = witnessSubsFn || witnessSubs;
             const frame = { i: witnessFrameSeq++, event: event, phase: phase || null, subs: subsFn(radii || dkDeliveredRadii(name), dk) };
             return witnessLastFrame = frame, report.witness.frames.length < 600 && report.witness.frames.push(frame), dkLog.push({ type: "witness-frame", event: event, phase: frame.phase, subs: frame.subs }), frame;
         }
-
-        export function witnessRestore(event, phase, witnessSubsFn, name, report, witnessJudgeFn, witnessTrippingLabel, dk, witnessThrown, WITNESS_EPS, WITNESS_ONE_STEP) {
+function witnessRestore(event, phase, witnessSubsFn, name, report, witnessJudgeFn, witnessTrippingLabel, dk, witnessThrown, WITNESS_EPS, WITNESS_ONE_STEP) {
             const before = witnessLastFrame, after = witnessFrame(event, phase, null, witnessSubsFn, name, report, dk);
             return (witnessJudgeFn || witnessJudge)(event, phase, witnessTrippingLabel, before, after, witnessThrown, WITNESS_EPS, WITNESS_ONE_STEP, report);
         }
-
-        export function witnessPaintedFrame(stage, operation, dkPaintedGeometryFn, name, dkPaintedNodeCentreFn, tax, dkPaintedStemSegFn) {
+function witnessPaintedFrame(stage, operation, dkPaintedGeometryFn, name, dkPaintedNodeCentreFn, tax, dkPaintedStemSegFn) {
             try {
                 const g = (dkPaintedGeometryFn || dkPaintedGeometry)(stage, name, dkPaintedNodeCentreFn || dkPaintedNodeCentre, tax, dkPaintedStemSegFn || dkPaintedStemSeg);
                 g.operation = operation || null;
@@ -164,8 +143,7 @@
                 return g;
             } catch (e) { return null; }
         }
-
-        export function diagClosingLines(snap) {
+function diagClosingLines(snap) {
             if (!snap.closingPaint) return [];
             const cp = snap.closingPaint, lines = [ "closing-paint mode: " + cp.mode ];
             lines.push(cp.scopedPaint ? "closing-paint scoped-paint: retained " + cp.scopedPaint.retained + " / captured " + cp.scopedPaint.captured + " / diverged " + cp.scopedPaint.diverged : "closing-paint scoped-paint: no entry");
@@ -173,8 +151,7 @@
             lines.push(diagCameraText(snap.camera, "camera at DIAG-03"));
             return lines;
         }
-
-        export async function diagPause(code, label, extra, diagAcceptCtx, opts, diagSnapshotFn, report, name, tax, diagCaptureFields) {
+async function diagPause(code, label, extra, diagAcceptCtx, opts, diagSnapshotFn, report, name, tax, diagCaptureFields) {
             if (!diagAcceptCtx || !opts || "function" != typeof opts.onDiagPause) return;
             const snap = (diagSnapshotFn || diagSnapshot)(code, label, extra, name, tax, diagAcceptCtx, diagCaptureFields);
             (report.diag || (report.diag = [])).push(snap);
@@ -182,8 +159,7 @@
             try { console.log("[" + code + "] " + snap.text, snap); } catch (e) {}
             try { await opts.onDiagPause(snap); } catch (e) {}
         }
-
-        export async function throwBracketPoint(code, throwBracketFullPaintFn, throwBracketSnapshotFn, opts, name, dkPaintedNodeCentreFn, tax, report) {
+async function throwBracketPoint(code, throwBracketFullPaintFn, throwBracketSnapshotFn, opts, name, dkPaintedNodeCentreFn, tax, report) {
             const stamp = code + ":first-throw";
             const label = "THROW-BEFORE" === code ? "pre-throw full paint \u2192 stepThrow" : "stepThrow \u2192 post-throw full paint";
             const paintInfo = await (throwBracketFullPaintFn || throwBracketFullPaint)(stamp, name, dkPaintedNodeCentreFn || dkPaintedNodeCentre, tax);
@@ -192,8 +168,7 @@
             if (opts && "function" == typeof opts.onThrowBracketPause) { try { await opts.onThrowBracketPause(snap); } catch (e) {} }
             return snap;
         }
-
-        export async function focusThrowedActiveNode(name) {
+async function focusThrowedActiveNode(name) {
             try {
                 if (window.sxPaintPromise) {
                     try { await window.sxPaintPromise; } catch (_) {}
@@ -234,8 +209,7 @@
                 }
             } catch (_) {}
         }
-
-        export function diagText(snap) {
+function diagText(snap) {
             const f = v => null == v ? "\u2014" : String(v);
             let t = snap.code + " \u00b7 " + snap.label + " \u00b7 branch " + snap.branch + " \u00b7 phase " + f(snap.phase) + " \u00b7 crossing last-kept " + f(diagRound(snap.crossingBefore)) + " \u2192 tripped " + f(diagRound(snap.crossingAfter)) + " \u00b7 branch delivered radius " + f(snap.storedBranchRadius);
             Object.keys(snap.paintedSubs).forEach(l => { const ps = snap.paintedSubs[l]; t += " \u00b7 " + l + ": seg " + f(ps.seg) + " / abs " + f(ps.absR) + " (stored " + f(snap.storedSubs[l]) + ")"; });
@@ -245,8 +219,7 @@
             if (snap.hubLines && snap.hubLines.length) t += "\n" + snap.hubLines.join("\n");
             return t;
         }
-
-        export function witnessFinalJudge(transition, beforeFrame, afterFrame, witnessThrown, WITNESS_ONE_STEP, WITNESS_EPS) {
+function witnessFinalJudge(transition, beforeFrame, afterFrame, witnessThrown, WITNESS_ONE_STEP, WITNESS_EPS) {
             if (!beforeFrame || !afterFrame) return null;
             const flung = [];
             Object.keys(afterFrame.subs).forEach(label => {
@@ -257,8 +230,7 @@
             const rec = { transition: transition, flung: flung, wholesale: flung.length > 1 || flung.some(f => f.toThrown) };
             return dkLog.push(Object.assign({ type: "witness-final-transition" }, rec)), rec;
         }
-
-        export function diagCaptureView() {
+function diagCaptureView() {
             const view = { viewBox: null, transform: null, sceneTransform: null, bbox: null };
             try {
                 const svg = document.getElementById("mapSvg"), scene = document.getElementById("mapScene"), layer = document.getElementById("mapLayer");
@@ -269,8 +241,7 @@
             } catch (e) {}
             return view;
         }
-
-        export function witnessJudge(event, phase, trippingLabel, beforeFrame, afterFrame, witnessThrown, WITNESS_EPS, WITNESS_ONE_STEP, report) {
+function witnessJudge(event, phase, trippingLabel, beforeFrame, afterFrame, witnessThrown, WITNESS_EPS, WITNESS_ONE_STEP, report) {
             if (!witnessThrown || !beforeFrame || !afterFrame) return null;
             const wholesale = [], steppedBack = [];
             Object.keys(afterFrame.subs).forEach(label => {
@@ -282,8 +253,7 @@
             const rec = { event: event, phase: phase || null, tripping: trippingLabel || null, wholesale: wholesale, steppedBack: steppedBack, wholesaleDiscard: wholesale.some(w => w.label !== trippingLabel) || wholesale.length > 1 };
             return report.witness.events.push(rec), dkLog.push(Object.assign({ type: "witness-event" }, rec)), rec;
         }
-
-        export function dkPaintedNodeCentre(key) {
+function dkPaintedNodeCentre(key) {
             try {
                 const el = In.querySelector('.node-group[data-layout-key="' + CSS.escape(key) + '"]:not(.layout-exit-clone)') || In.querySelector('[data-layout-key="' + CSS.escape(key) + '"]:not(.layout-exit-clone)');
                 if (!el) return null;
@@ -315,8 +285,7 @@
                 return null;
             } catch (e) { return null; }
         }
-
-        export function dkPaintedStemSeg(key) {
+function dkPaintedStemSeg(key) {
             try {
                 const el = In.querySelector('.node-group[data-layout-key="' + CSS.escape(key) + '"]:not(.layout-exit-clone)');
                 if (!el) return null;
@@ -330,8 +299,7 @@
                 return Number.isFinite(len) && len > 0 ? Math.round(len * 100) / 100 : null;
             } catch (e) { return null; }
         }
-
-        export function dkPaintedGeometry(stage, name, dkPaintedNodeCentreFn, tax, dkPaintedStemSegFn) {
+function dkPaintedGeometry(stage, name, dkPaintedNodeCentreFn, tax, dkPaintedStemSegFn) {
             const centre = { x: pr.centerX, y: pr.centerY };
             const nodeCentre = dkPaintedNodeCentreFn || dkPaintedNodeCentre;
             const stemSeg = dkPaintedStemSegFn || dkPaintedStemSeg;
@@ -345,8 +313,7 @@
             });
             return { stage: stage || null, centre: centre, branchPt: branchPt ? { x: Math.round(branchPt.x * 100) / 100, y: Math.round(branchPt.y * 100) / 100, source: branchPt.source } : null, subs: subs, blitActive: !!blitSess, source: branchPt ? branchPt.source : "missing" };
         }
-
-        export function diagCamera() {
+function diagCamera() {
             const cam = { scale: null, tx: null, ty: null };
             try {
                 if ("number" == typeof $p && Number.isFinite($p)) cam.scale = $p;
@@ -359,8 +326,7 @@
             } catch (e) {}
             return { scale: diagRound(cam.scale), tx: diagRound(cam.tx), ty: diagRound(cam.ty) };
         }
-
-        export function diagHubIdentity(name) {
+function diagHubIdentity(name) {
             const out = { matches: 0, exitClone: null, hasTextPath: null };
             try {
                 const key = catId(name), all = document.querySelectorAll('[data-layout-key="' + key + '"]');
@@ -374,8 +340,7 @@
             } catch (e) {}
             return out;
         }
-
-        export function witnessPaintedJudge(transition, operation, beforeG, afterG, witnessThrown, WITNESS_ONE_STEP, WITNESS_EPS) {
+function witnessPaintedJudge(transition, operation, beforeG, afterG, witnessThrown, WITNESS_ONE_STEP, WITNESS_EPS) {
             if (!beforeG || !afterG) return null;
             const flung = [];
             Object.keys(afterG.subs || {}).forEach(label => {
@@ -391,8 +356,7 @@
             const rec = { transition: transition, operation: operation || null, flung: flung, wholesale: segFlung.length > 1 || flung.some(f => f.toThrown) };
             return dkLog.push(Object.assign({ type: "witness-painted-transition" }, rec)), rec;
         }
-
-        export async function throwBracketFullPaint(stamp, name, dkPaintedNodeCentreFn, tax) {
+async function throwBracketFullPaint(stamp, name, dkPaintedNodeCentreFn, tax) {
             let preHub = null;
             const nodeCentre = dkPaintedNodeCentreFn || dkPaintedNodeCentre;
             try { const pre = dkPaintedGeometry("throwbracket-pre:" + stamp, name, nodeCentre, tax, dkPaintedStemSeg); preHub = pre ? pre.branchPt : null; } catch (e) {}
@@ -414,8 +378,7 @@
             } catch (e) { try { scCtx = null, sgHoldBlitStart = !1; } catch (_) {} }
             return { mode: mode, prePaintHubSeat: preHub };
         }
-
-        export function diagRegistrySnapshot(stamp, ordinal, phaseName, patch, record, now, prevCloud, dk, name, tax, report) {
+function diagRegistrySnapshot(stamp, ordinal, phaseName, patch, record, now, prevCloud, dk, name, tax, report) {
             const fit = (() => { try { return dk.fitTargets(); } catch (e) { return {}; } })();
             let sec = null;
             try { sec = (dkLastBranches || []).find(s => s && s.entry && s.entry.branch && s.entry.branch.name === name) || null; } catch (e) {}
@@ -437,8 +400,7 @@
             record.registrySnapshot = entry, (report.registrySnapshots || (report.registrySnapshots = [])).push(entry), dkLog.push(entry);
             return entry;
         }
-
-        export async function diagOnDemandPaint(stamp, paintOrdinal, phaseName, name, dkPaintedNodeCentreFn, tax, report) {
+async function diagOnDemandPaint(stamp, paintOrdinal, phaseName, name, dkPaintedNodeCentreFn, tax, report) {
             let preHub = null;
             const nodeCentre = dkPaintedNodeCentreFn || dkPaintedNodeCentre;
             try { const pre = dkPaintedGeometry("ondemand-pre:" + stamp, name, nodeCentre, tax, dkPaintedStemSeg); preHub = pre ? pre.branchPt : null; } catch (e) {}
@@ -467,8 +429,7 @@
             try { console.log("[ANNEAL-ONDEMAND-PAINT] " + stamp + " \u00b7 " + phaseName + " \u00b7 mode " + mode + " \u00b7 bbox " + (view.bbox ? view.bbox.width + "\u00d7" + view.bbox.height : "\u2014"), rec); } catch (e) {}
             return rec;
         }
-
-        export function diag00Capture(pre, name, tax, report, snapshot) {
+function diag00Capture(pre, name, tax, report, snapshot) {
             const stamp = "ANNEAL-DIAG-00:pre-run:ord-0", r2 = diagRound;
             const painted = (() => { try { return dkPaintedGeometry(stamp, name, dkPaintedNodeCentre, tax, dkPaintedStemSeg); } catch (e) { return null; } })();
             const stored = pre || dkDeliveredRadii(name), view = diagCaptureView(), cam = diagCamera();
@@ -512,8 +473,7 @@
             try { console.log("[ANNEAL-DIAG-00] " + snap.text, snap); } catch (e) {}
             return snap;
         }
-
-        export function throwBracketSnapshot(code, label, stamp, paintInfo, name, tax, report, snapshot) {
+function throwBracketSnapshot(code, label, stamp, paintInfo, name, tax, report, snapshot) {
             const r2 = diagRound, hf = v => null == v || !Number.isFinite(Number(v)) ? "\u2014" : String(Math.round(100 * Number(v)) / 100), hubR = pt => pt && Number.isFinite(Number(pt.x)) && Number.isFinite(Number(pt.y)) ? hf(Math.hypot(Number(pt.x) - pr.centerX, Number(pt.y) - pr.centerY)) : "\u2014";
             const painted = (() => { try { return dkPaintedGeometry(stamp, name, dkPaintedNodeCentre, tax, dkPaintedStemSeg); } catch (e) { return null; } })();
             const stored = dkDeliveredRadii(name), view = diagCaptureView(), cam = diagCamera();
@@ -572,8 +532,7 @@
             try { console.log("[" + code + "] " + snap.text, snap); } catch (e) {}
             return snap;
         }
-
-        export function diagSnapshot(code, label, extra, name, tax, diagAcceptCtx, diagCaptureFields) {
+function diagSnapshot(code, label, extra, name, tax, diagAcceptCtx, diagCaptureFields) {
             const stored = dkDeliveredRadii(name);
             let painted = null;
             try { painted = dkPaintedGeometry("diag:" + code, name, dkPaintedNodeCentre, tax, dkPaintedStemSeg); } catch (e) { painted = null; }
