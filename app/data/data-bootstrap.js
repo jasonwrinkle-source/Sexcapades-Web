@@ -7133,6 +7133,38 @@ const Ce = {
         function sxGetCategoryFilter() { return Pt; }
         function sxSetCategoryFilter(f) { Pt = f; }
 
+        window.FlexcapadesStore = {
+            getActiveProfileId: () => Mt,
+            setActiveProfileId: (id) => { Mt = id; },
+            getProfile: (id) => (id ? vt[id] : null),
+            getAllProfiles: () => vt,
+            getProfileName: (id) => (id ? wt[id] : ""),
+            setProfileName: (id, name) => { if (id) { wt[id] = name; zt(id); } },
+            getRating: (profileId, topicId) => (profileId && vt[profileId] ? vt[profileId][topicId] : null),
+            setRating: (profileId, topicId, valObj) => {
+                if (profileId && vt[profileId] && topicId) {
+                    if (!vt[profileId][topicId]) vt[profileId][topicId] = {};
+                    Object.assign(vt[profileId][topicId], valObj);
+                    zt(profileId);
+                }
+            },
+            saveProfile: (id, data) => {
+                if (id && data) {
+                    vt[id] = data.ratings || data;
+                    if (data.name) wt[id] = data.name;
+                    zt(id);
+                }
+            },
+            isDirty: (id) => Boolean(yt[id]),
+            markDirty: zt,
+            markClean: Vt,
+            getSelectedTopicId: () => Lt,
+            setSelectedTopicId: (id) => { Lt = id; },
+            getSearchTerm: () => Tt,
+            setSearchTerm: (term) => { Tt = term; }
+        };
+        window.Sexcapades2xProfiles = window.FlexcapadesStore;
+
         window.SexcapadesEngine = window.SexcapadesEngine || {};
         window.SX = window.SexcapadesEngine;
         window.SexcapadesEngine.State = {
