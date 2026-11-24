@@ -1133,6 +1133,10 @@
         max-height: 70vh;
         overflow-y: auto;
       }
+      /* Docs menu anchored under the "?" on the picker: the "?" is the
+         trigger, so the menu drops right-aligned below it. */
+      .docs-qmark-wrap { position: relative; display: inline-flex; }
+      .docs-qmark-wrap .docs-dropdown-menu { left: auto; right: 0; }
       .docs-submenu-trigger {
         display: flex;
         align-items: center;

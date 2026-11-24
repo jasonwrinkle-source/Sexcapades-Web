@@ -41,6 +41,17 @@ Each item waits for Jason's kickoff; nothing here dispatches itself.
    - One commit per skin. A topic's glyph replaces the inherited category glyph for that topic only; categories keep theirs.
    - **Nouscapades per-topic glyphs:** DONE (2026-11-23). All 39 topics assigned distinct, relevant 16x16 vector glyphs.
 
+5. **Promote Scribe, Scene Setter, Hot List & Scene Sentinel from dialogs to views (another AI's lane — Grok/Cursor):**
+   - Ruled by Jason 2026-11-24: all four stop being modal windows and become views of the app under the same app header — the header (brand title, "?" docs, music button) is always present, so the skin picker, docs, and About are always reachable from them with no special cases.
+   - Why: the switch-views menu already calls them views and lists them beside Hypermap, but they are built as `<dialog>` elements with their own titlebars floating over the map (Scene Setter `#negotiationDialog`, Scribe `#scribeChoiceDialog`, Hot List `#outlineDialog`, Scene Sentinel `#safetyDialog`). That mismatch is what forced the dialog-host workarounds in the view menu and skin menu, and what left the picker unreachable from inside them once the hidden triggers were removed.
+   - Scope: the openers (`#openNegotiation`, `#scribeTab`, `#openSentinel`, the Hot List entry) and the view routers (`goSetter`, `goScribe`, `goList`, `goSafety` in `view-nav.js`) switch to showing a view section and hiding the map, instead of opening a modal. Each view keeps its own ▾ switch button (already present: `#negotiationViewButton`, `#scribeChoiceViewButton`, `#outlineMapViewButton`, `#safetyViewButton`); return is through the ▾ menu, Hypermap listed there like any other view.
+   - *Ruled behavior — half-written work waits:* navigating away from Scribe, Scene Setter, Hot List, or Scene Sentinel and back restores the in-progress content exactly as left — no unsaved-changes prompt, no discard, no reset. State persists across view switches (hide/show, not destroy, or explicit save/restore — behavior is the contract, mechanism is the builder's call).
+   - *Ruled behavior — map survives the round trip:* scroll, zoom, and selection on the Hypermap are preserved when leaving for any of these views and coming back. Verify, don't assume.
+   - *Constraint — gating unchanged:* setter/safety still require 2+ profiles in multi-select, scribe still 1+ (already enforced by `refreshMenu` disabling the entries — keep it).
+   - *Constraint — dialog-host workarounds:* the view menu's and skin menu's "move the menu into the open dialog" hosting exists only because these views were dialogs. Retire it for these four; keep the mechanism only if some other dialog still hosts a view-switch button — builder to check, not assume.
+   - *Verification:* rebuild the data bundle after any module edit and grep-confirm the new code is IN the bundle; boot the packaged app in a real browser and confirm (a) each of the four opens as a view under the app header, (b) tap on the brand title opens the picker from inside each, (c) a half-written Scribe draft and a half-built Scene Setter agreement survive a round trip to the map and back byte-for-byte, (d) map scroll/zoom/selection survive the same round trip.
+   - *Standing laws:* analytics NEVER disabled (gate_passed/session_stats to collect.php always collected, no opt-out); build timestamps America/Chicago; one builder at a time on the app artifact; timing table in the dispatch brief.
+
 ---
 
 ## 2. Open Carry-Overs & Backlog

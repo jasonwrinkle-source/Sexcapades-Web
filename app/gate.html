@@ -2740,19 +2740,12 @@
 
         // Flexcapades Skin Menu parity for Gate
         (function() {
-          var LONG_PRESS_MS = 600;
-          var MOVE_CANCEL_PX = 12;
           var header = document.getElementById("gateAppHeader");
           var titleBtn = document.getElementById("gateAppAboutBtn");
           var menu = document.getElementById("skinMenu");
           var note = document.getElementById("skinNote");
           if (!header || !menu) return;
 
-          var holdTimer = null;
-          var holdPointerId = null;
-          var holdX = 0, holdY = 0;
-          var holdFired = false;
-          var swallowClick = false;
           var noteTimer = null;
 
           function menuOpen() { return !menu.hidden; }
@@ -2803,7 +2796,7 @@
             });
           }
 
-          function openMenu(x, y, swallow, targetEl) {
+          function openMenu(x, y, targetEl) {
             if (typeof window.__SX_RENDER_SKIN_MENU === "function") {
               window.__SX_RENDER_SKIN_MENU(menu, activeSkin);
             }
@@ -2813,12 +2806,6 @@
               y = r.bottom;
             }
             positionMenu(x, y);
-            if (swallow) {
-              swallowClick = true;
-              var clearOnce = function () { setTimeout(function () { swallowClick = false; }, 0); };
-              document.addEventListener("pointerup", clearOnce, { once: true });
-              document.addEventListener("pointercancel", clearOnce, { once: true });
-            }
             var cur = menu.querySelector('[data-skin="' + activeSkin + '"]') || menu.querySelector('[data-skin="sexcapades"]');
             if (cur) { try { cur.focus({ preventScroll: true }); } catch (e) { cur.focus(); } }
             markCurrent(activeSkin);
@@ -2879,16 +2866,12 @@
              Double click on brand title opens the About dialog. */
           if (titleBtn) {
             titleBtn.addEventListener("click", function (ev) {
-              if (swallowClick) {
-                swallowClick = false;
-                ev.preventDefault();
-                ev.stopPropagation();
-                return;
-              }
               if (ev.shiftKey) {
+                /* Shift+Click is GONE (2026-11-24, Jason's word): no
+                   hidden trigger opens the picker — tap opens it,
+                   double-tap opens About. A shifted click does nothing. */
                 ev.preventDefault();
                 ev.stopPropagation();
-                openMenu(ev.clientX, ev.clientY, false, titleBtn);
                 return;
               }
               ev.preventDefault();
@@ -2911,7 +2894,7 @@
                 if (menuOpen()) {
                   closeMenu();
                 } else {
-                  openMenu(clickX, clickY, false, titleBtn);
+                  openMenu(clickX, clickY, titleBtn);
                 }
               }, BRAND_DBLCLICK_DELAY);
             });
@@ -2927,49 +2910,6 @@
               triggerGateAbout();
             });
           }
-
-          // Shift+Click on the header title or header bar opens the skin menu instantly
-          header.addEventListener("click", function(ev) {
-            if (swallowClick) {
-              ev.preventDefault();
-              ev.stopPropagation();
-              return;
-            }
-            if (ev.shiftKey) {
-              ev.preventDefault();
-              ev.stopPropagation();
-              openMenu(ev.clientX, ev.clientY, false, ev.target);
-            }
-          }, true);
-
-          // Long press on header
-          function cancelHold() {
-            if (holdTimer) { clearTimeout(holdTimer); holdTimer = null; }
-            holdPointerId = null;
-            holdFired = false;
-          }
-
-          header.addEventListener("pointerdown", function(ev) {
-            if (ev.pointerType === "mouse" && ev.button !== 0) return;
-            if (menuOpen()) return;
-            holdPointerId = ev.pointerId;
-            holdX = ev.clientX;
-            holdY = ev.clientY;
-            holdFired = false;
-            holdTimer = setTimeout(function() {
-              holdFired = true;
-              openMenu(holdX, holdY, true, ev.target);
-            }, LONG_PRESS_MS);
-          });
-
-          header.addEventListener("pointermove", function(ev) {
-            if (holdPointerId !== ev.pointerId) return;
-            var dx = ev.clientX - holdX, dy = ev.clientY - holdY;
-            if (dx * dx + dy * dy > MOVE_CANCEL_PX * MOVE_CANCEL_PX) cancelHold();
-          });
-
-          header.addEventListener("pointerup", cancelHold);
-          header.addEventListener("pointercancel", cancelHold);
 
           document.addEventListener("click", function(ev) {
             if (menuOpen() && !menu.contains(ev.target) && !header.contains(ev.target)) {
@@ -2987,7 +2927,7 @@
           if (window.__SX_AUTO_OPEN_PICKER || gateSkinPrefix === "flex" || window.__SX_IS_PICKER) {
             revealDestinations();
             setTimeout(function () {
-              if (titleBtn) openMenu(0, 0, false, titleBtn);
+              if (titleBtn) openMenu(0, 0, titleBtn);
             }, 50);
           }
         })();

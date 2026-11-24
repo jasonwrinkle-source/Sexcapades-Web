@@ -447,47 +447,31 @@ __sxInit(function () {
 
 
 /* ---- module: skin-menu (Flexcapades prototype) ---- */
-/* Long-press on the app header opens a menu listing the skins, so the
-   Flexcapades engine can be tried on without a subdomain or a new domain.
-   All skins load for real via window.FlexcapadesSkins
+/* The skin picker opens from the brand title: a single click on the
+   *capades name drops the menu down (double click opens About instead),
+   so the Flexcapades engine can be tried on without a subdomain or a
+   new domain. All skins load for real via window.FlexcapadesSkins
    (app/js/skin-loader.js) — picking a skin swaps its taxonomy in and
    re-renders the map; picking Sexcapades restores the kink map.
-   Trigger: pointer hold (~600ms) on the header bar, touch or mouse, OR
-   Shift+Click anywhere on the header (see below). Triple-click is GONE:
-   counting taps fought the title's own About button (tap 1 opened About
-   instantly, so a triple could never complete) and is removed entirely —
-   no tap counting anywhere in this module. The hold starts on empty
-   header space and on the title button (the secondary trigger kept for
-   the title); every other header control keeps working untouched, and
-   the hold timer clears on any real movement or scroll so it cannot
-   break scrolling. No visible button, hint, or icon. The click that
-   ends the long-press is swallowed (capture phase), so the menu opening
-   under the pointer can never instantly select an item or close itself.
-   Menu closes on item select, outside tap, or Escape. Shift+Click: a
-   capture-phase click listener on the header opens the menu at the click
-   point when ev.shiftKey is set, and stops the click so the title's
-   About handler (or any other header control) never runs. Normal clicks
-   pass through untouched. */
+   Shift+Click is GONE too (2026-11-24, Jason's word): no hidden
+   trigger opens the picker — tap opens it, double-tap opens About.
+   Triple-click is GONE:
+   counting taps fought the title's own About button and is removed
+   entirely — no tap counting anywhere in this module. The long-press
+   hold is GONE too (2026-11-24, Jason's word): the picker already
+   opens on a tap, so there is no need for a hold to summon it. No
+   visible button, hint, or icon for the picker beyond the title
+   itself. Menu closes on item select, outside tap, or Escape. */
 __sxInit(function () {
 (function () {
   function boot() {
-  var LONG_PRESS_MS = 600;
-  var MOVE_CANCEL_PX = 12;
   var header = document.querySelector("header.intro");
   var menu = document.getElementById("skinMenu");
   var note = document.getElementById("skinNote");
   if (!header || !menu) return;
 
-  var holdTimer = null;
-  var holdPointerId = null;
-  var holdX = 0, holdY = 0;
-  var holdFired = false;
-  var swallowClick = false;
   var noteTimer = null;
 
-  function isInteractive(t) {
-    return !!t && !!t.closest && !!t.closest("button, a, input, select, textarea, label, summary, [role='button'], [contenteditable]");
-  }
   function menuOpen() { return !menu.hidden; }
 
   function showNote(text) {
@@ -520,7 +504,7 @@ __sxInit(function () {
     menu.style.top = top + "px";
     menu.style.visibility = "";
   }
-  function openMenu(x, y, swallow, targetEl) {
+  function openMenu(x, y, targetEl) {
     /* If a modal dialog is open, move menu into that dialog so it stays
        interactive and visible above the modal dialog backdrop; otherwise body. */
     var host = (targetEl && targetEl.closest && targetEl.closest("dialog")) || document.querySelector("dialog[open]") || document.body;
@@ -538,21 +522,6 @@ __sxInit(function () {
     }
 
     positionMenu(x, y);
-    /* Swallow the click that ends this very press: it lands on the menu
-       (or outside it) a beat after pointerup, and must neither select
-       an item nor close the menu. The flag clears on a zero-delay timer
-       scheduled from pointerup, which runs after the click event.
-       Only armed when the caller says so (swallow=true, the long-press
-       path, where that click is still coming). The triple-click path
-       opens from a timer long after the last press ended — no click is
-       pending, and arming it would swallow the user's NEXT click, the
-       one meant to close the menu. */
-    if (swallow) {
-      swallowClick = true;
-      var clearOnce = function () { setTimeout(function () { swallowClick = false; }, 0); };
-      document.addEventListener("pointerup", clearOnce, { once: true });
-      document.addEventListener("pointercancel", clearOnce, { once: true });
-    }
     var cur = menu.querySelector('[data-skin="' + activeSkin + '"]') || menu.querySelector('[data-skin="sexcapades"]');
     if (cur) { try { cur.focus({ preventScroll: true }); } catch (e) { cur.focus(); } }
     markCurrent(activeSkin);
@@ -567,7 +536,7 @@ __sxInit(function () {
      header, centred, with no click to swallow. */
   window.__SX_OPEN_SKIN_MENU = function () {
     var r = header.getBoundingClientRect();
-    openMenu(Math.round(r.left + r.width / 2), Math.round(r.bottom), false);
+    openMenu(Math.round(r.left + r.width / 2), Math.round(r.bottom));
   };
   function skinName(item) {
     var n = item.querySelector(".skin-name");
@@ -637,42 +606,7 @@ __sxInit(function () {
   function isBrandTitle(el) {
     return !!(el && el.closest && el.closest("#openAppAbout, .app-title-button, [data-open-about], .sx-brand"));
   }
-  function isHeaderOrTitle(el) {
-    return !!(el && el.closest && el.closest("header.intro, header.outline-head, header.layout-editor-head, header, .sx-titlebar, .dialog-head, #openAppAbout, .app-title-button, [data-open-about], .sx-brand"));
-  }
 
-  function cancelHold() {
-    if (holdTimer) { clearTimeout(holdTimer); holdTimer = null; }
-    holdPointerId = null;
-    holdFired = false;
-  }
-  document.addEventListener("pointerdown", function (ev) {
-    if (holdPointerId !== null) { cancelHold(); return; }
-    var hit = ev.target && isHeaderOrTitle(ev.target) ? ev.target.closest("header.intro, header.outline-head, header.layout-editor-head, header, .sx-titlebar, .dialog-head, #openAppAbout, .app-title-button, [data-open-about], .sx-brand") : null;
-    if (!hit) return;
-    var onTitle = isBrandTitle(ev.target);
-    if (isInteractive(ev.target) && !onTitle) return;
-    if (ev.button !== undefined && ev.button !== 0) return;
-    holdPointerId = ev.pointerId;
-    holdX = ev.clientX; holdY = ev.clientY;
-    holdFired = false;
-    var holdTarget = hit;
-    holdTimer = setTimeout(function () {
-      holdTimer = null;
-      holdFired = true;
-      openMenu(holdX, holdY, true, holdTarget);
-    }, LONG_PRESS_MS);
-  });
-  document.addEventListener("pointermove", function (ev) {
-    if (holdPointerId === null || ev.pointerId !== holdPointerId) return;
-    if (Math.abs(ev.clientX - holdX) > MOVE_CANCEL_PX || Math.abs(ev.clientY - holdY) > MOVE_CANCEL_PX) cancelHold();
-  });
-  document.addEventListener("pointerup", function (ev) {
-    if (holdPointerId !== null && ev.pointerId === holdPointerId) cancelHold();
-  });
-  document.addEventListener("pointercancel", function (ev) {
-    if (holdPointerId !== null && ev.pointerId === holdPointerId) cancelHold();
-  });
   var brandClickTimer = null;
   var BRAND_DBLCLICK_DELAY = 220;
 
@@ -702,13 +636,6 @@ __sxInit(function () {
     var hit = t && isBrandTitle(t) ? t.closest("#openAppAbout, .app-title-button, [data-open-about], .sx-brand") : null;
     if (!hit) return;
 
-    if (swallowClick) {
-      swallowClick = false;
-      ev.stopImmediatePropagation();
-      ev.preventDefault();
-      return;
-    }
-
     ev.stopImmediatePropagation();
     ev.preventDefault();
 
@@ -730,7 +657,7 @@ __sxInit(function () {
       if (menuOpen()) {
         closeMenu();
       } else {
-        openMenu(clickX, clickY, false, targetEl);
+        openMenu(clickX, clickY, targetEl);
       }
     }, BRAND_DBLCLICK_DELAY);
   }, true);
@@ -749,34 +676,14 @@ __sxInit(function () {
     triggerAppAbout();
   }, true);
 
-  /* Shift+Click trigger: capture-phase click listener on document.
-     A Shift+Click anywhere on headers (main header, outline head, layout editor head),
-     dialog titlebars (.sx-titlebar, .dialog-head), or brand buttons (.app-title-button,
-     [data-open-about], #openAppAbout, .sx-brand) opens the skin menu at the click point,
-     whether in the main view or inside Scribe / Scene Setter / Hot list / Scene Sentinel dialogs.
-     The click is stopped in capture phase with stopImmediatePropagation so it never reaches
-     data-open-about, openAppAbout, or the document-level outside-click closer. Normal clicks
-     pass through untouched. */
-  document.addEventListener("click", function (ev) {
-    if (!ev.shiftKey) return;
-    var t = ev.target;
-    var hit = t && isHeaderOrTitle(t) ? t.closest("header.intro, header.outline-head, header.layout-editor-head, header, .sx-titlebar, .dialog-head, #openAppAbout, .app-title-button, [data-open-about], .sx-brand") : null;
-    if (!hit) return;
-    ev.stopImmediatePropagation();
-    ev.preventDefault();
-    openMenu(ev.clientX, ev.clientY, false, hit);
-  }, true);
   document.addEventListener("contextmenu", function (ev) {
     /* A touch long-press raises contextmenu while the menu is open —
        suppress the browser's own callout so the skin menu owns the
        gesture. Never suppressed when the skin menu is closed. */
-    if (menuOpen() || holdFired) ev.preventDefault();
+    if (menuOpen()) ev.preventDefault();
   });
-  window.addEventListener("scroll", function () { cancelHold(); if (menuOpen()) closeMenu(); }, true);
-  window.addEventListener("blur", cancelHold);
+  window.addEventListener("scroll", function () { if (menuOpen()) closeMenu(); }, true);
   document.addEventListener("click", function (ev) {
-    if (ev.shiftKey) return;
-    if (swallowClick) { swallowClick = false; ev.stopPropagation(); return; }
     if (!menuOpen()) return;
     var t = ev.target;
     if (t && t.closest && !t.closest("#skinMenu")) closeMenu();
