@@ -10377,6 +10377,17 @@ const Ce = {
                 }
                 return { passed: passed, failed: failures.length, failures: failures };
             }
+            const __sxTaperedPathCache = new Map();
+            function cachedTaperedPath(pathData, baseWidth, tipWidth, tipCircle = null, baseCircle = null) {
+                const key = `${pathData}|${baseWidth.toFixed(1)}|${tipWidth.toFixed(1)}|${tipCircle ? `${tipCircle.x.toFixed(1)},${tipCircle.y.toFixed(1)},${tipCircle.r.toFixed(1)}` : '0'}|${baseCircle ? `${baseCircle.x.toFixed(1)},${baseCircle.y.toFixed(1)},${baseCircle.r.toFixed(1)}` : '0'}`;
+                let res = __sxTaperedPathCache.get(key);
+                if (res !== undefined) return res;
+                res = taperedPath(pathData, baseWidth, tipWidth, tipCircle, baseCircle);
+                if (__sxTaperedPathCache.size > 2000) __sxTaperedPathCache.clear();
+                __sxTaperedPathCache.set(key, res);
+                return res;
+            }
+
             return Object.freeze({
                 SAMPLES: SAMPLES,
                 FLARE_DECAY: FLARE_DECAY,
@@ -10385,7 +10396,7 @@ const Ce = {
                 flareAt: flareAt,
                 buildTipCircle: buildTipCircle,
                 buildBaseCircle: buildBaseCircle,
-                taperedPath: taperedPath,
+                taperedPath: cachedTaperedPath,
                 flankPaths: flankPaths,
                 runGeometryTests: runGeometryTests
             });
