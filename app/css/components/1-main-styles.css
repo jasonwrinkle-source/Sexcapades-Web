@@ -1649,7 +1649,7 @@ body[data-sx-view] main.shell>.workspace{display:none!important}
 #negotiationDialog.sx-app-view[open]:not([hidden]),
 #scribeChoiceDialog.sx-app-view[open]:not([hidden]){
   display:grid!important;
-  grid-template-rows:auto auto minmax(0,1fr)!important;
+  grid-template-rows:auto minmax(0,1fr)!important;
 }
 .sx-app-view .sx-titlebar{
   min-height:48px!important;
