@@ -3421,11 +3421,22 @@ var De = 0;
             if (!n) throw new Error(`Missing stored topic ID for "${t}". Assign max(existing ID) + 1 on the topic object.`);
             return n;
         }
-        h.forEach(cat => (cat.topics || []).forEach(topic => {
-            if (!topic || "give_receive" !== topic.type) return;
-            const n = Wn(topic);
-            We[n] = [ topic.give_label, topic.receive_label ];
-        }));
+        function sxPopulateRoleLabelsOuter() {
+            const register = topic => {
+                if (!topic || "give_receive" !== topic.type || !topic.give_label || !topic.receive_label) return;
+                const n = Wn(topic);
+                if (n) We[n] = [ topic.give_label, topic.receive_label ];
+            };
+            h.forEach(cat => {
+                (cat.topics || []).forEach(register);
+                (cat.parentTopics || []).forEach(register);
+                (cat.subcategories || []).forEach(sub => {
+                    (sub.topics || []).forEach(register);
+                    (sub.parentTopics || []).forEach(register);
+                });
+            });
+        }
+        sxPopulateRoleLabelsOuter();
 var Ue = new Set([ "t0002", "t0007", "t0008", "t0102", "t0106", "t0107", "t0108", "t0140", "topic-vampires-gothic", "topic-historical-fantasy", "t0377", "t0378", "t0379", "t0380", "t0382", "t0383", "t0384", "t0317", "t0318", "t0319", "t0320", "t0321", "t0322", "t0323", "t0278", "t0279", "t0280", "t0282", "t0258", "t0361", "t0366", "t0396", "t0397", "t0399", "t0401", "t0402", "t0403", "t0269", "t0048", "t0132", "t0143", "t0144", "t0147", "t0148", "t0195", "t0217", "t0219", "t0228", "t0229", "t0230", "t0232", "t0233", "t0259", "t0290", "t0303" ]);
 
 /* --- Module: 02h-inner-opener.js --- */
@@ -6224,11 +6235,29 @@ var De = 0;
         }
         h.forEach(e => e.topics.forEach(t => _e.set(e.name + "\0" + t, De++)));
         // We (role labels dictionary) is declared and initialized in 02g1-alias-tables.js
-        h.forEach(cat => (cat.topics || []).forEach(topic => {
-            if (!topic || "give_receive" !== topic.type) return;
-            const n = Wn(topic);
-            We[n] = [ topic.give_label, topic.receive_label ];
-        }));
+        function sxSyncRoleLabels() {
+            const register = topic => {
+                if (!topic || "object" !== typeof topic) return;
+                if ("give_receive" === topic.type && topic.give_label && topic.receive_label) {
+                    const n = Wn(topic);
+                    if (n) We[n] = [ topic.give_label, topic.receive_label ];
+                } else if ("single" === topic.type && typeof Ue !== "undefined" && Ue) {
+                    try {
+                        const n = Wn(topic);
+                        if (n) Ue.add(n);
+                    } catch (_) {}
+                }
+            };
+            h.forEach(cat => {
+                (cat.topics || []).forEach(register);
+                (cat.parentTopics || []).forEach(register);
+                (cat.subcategories || []).forEach(sub => {
+                    (sub.topics || []).forEach(register);
+                    (sub.parentTopics || []).forEach(register);
+                });
+            });
+        }
+        sxSyncRoleLabels();
 
 
 /* --- Module: 02i1-topic-descriptions.js --- */
@@ -27094,6 +27123,7 @@ var layoutAutoMode = !window.__SEXCAPADES_LAYOUT_FROM_URL, layoutAutoState = "un
                         Ke.add(n), un.set(n, "all"), on.add(n);
                     });
                 });
+                if (typeof sxSyncRoleLabels === "function") sxSyncRoleLabels();
             } catch (_) {}
         };
         /* Flexcapades skin switch: re-fit the camera to the new map. A plain

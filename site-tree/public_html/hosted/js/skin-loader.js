@@ -699,9 +699,9 @@
     var topicGlyphs = {};
     var count = 0;
     data.categories.forEach(function (cat) {
-      var all = (cat.topics || []).slice();
+      var all = (cat.topics || []).concat(cat.parentTopics || []);
       (cat.subcategories || []).forEach(function (sub) {
-        all = all.concat(sub.topics || []);
+        all = all.concat(sub.topics || [], sub.parentTopics || []);
       });
       all.forEach(function (t) {
         var wc = widgetConfig(t);

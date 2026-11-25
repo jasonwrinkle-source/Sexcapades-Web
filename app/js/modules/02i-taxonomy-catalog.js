@@ -2601,9 +2601,27 @@
         }
         h.forEach(e => e.topics.forEach(t => _e.set(e.name + "\0" + t, De++)));
         // We (role labels dictionary) is declared and initialized in 02g1-alias-tables.js
-        h.forEach(cat => (cat.topics || []).forEach(topic => {
-            if (!topic || "give_receive" !== topic.type) return;
-            const n = Wn(topic);
-            We[n] = [ topic.give_label, topic.receive_label ];
-        }));
+        function sxSyncRoleLabels() {
+            const register = topic => {
+                if (!topic || "object" !== typeof topic) return;
+                if ("give_receive" === topic.type && topic.give_label && topic.receive_label) {
+                    const n = Wn(topic);
+                    if (n) We[n] = [ topic.give_label, topic.receive_label ];
+                } else if ("single" === topic.type && typeof Ue !== "undefined" && Ue) {
+                    try {
+                        const n = Wn(topic);
+                        if (n) Ue.add(n);
+                    } catch (_) {}
+                }
+            };
+            h.forEach(cat => {
+                (cat.topics || []).forEach(register);
+                (cat.parentTopics || []).forEach(register);
+                (cat.subcategories || []).forEach(sub => {
+                    (sub.topics || []).forEach(register);
+                    (sub.parentTopics || []).forEach(register);
+                });
+            });
+        }
+        sxSyncRoleLabels();
 
