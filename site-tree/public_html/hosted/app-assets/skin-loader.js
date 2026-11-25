@@ -619,8 +619,9 @@
       labels: labels.length ? labels : ["give", "receive"]
     };
     if (topic.widget === "monopole-slider") {
+      cfg.poleKeys = keys;
       cfg.keys = ["give"];
-      cfg.labels = ["everything"];
+      cfg.labels = labels.length ? labels : ["everything"];
     }
     if (topic.widget === "xy-switchbox") {
       if (!cfg.keys || !cfg.keys.length) cfg.keys = ["give", "receive"];

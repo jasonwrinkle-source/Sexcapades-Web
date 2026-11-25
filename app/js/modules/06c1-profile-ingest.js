@@ -268,21 +268,6 @@
                     if (!Ke.has(id) && !isCatId(id) && !isSubId(id) && !(at[c] && at[c][id]) && !(window.__SEXCAPADES_TOPIC_CATALOG && window.__SEXCAPADES_TOPIC_CATALOG.labelForId(id))) return;
                 }
                 const topicName = getTopicName(id);
-                if (Ge(id, c).single) {
-                    const candidates = "number" == typeof rating ? [ [ "give", rating ] ] : rating && "object" == typeof rating ? [ [ "give", rating.give ], [ "receive", rating.receive ] ] : [];
-                    const found = candidates.find(([, v]) => Number.isFinite(Number(v)));
-                    if (!found) throw new Error(`This profile contains an unreadable rating for "${topicName}"`);
-                    const value = clamp(found[1]), supplying = found[0];
-                    if (guardManualFlip) {
-                        const blocked = [ "give", "receive" ].some(flank => "manual" === Ao(c, id, flank) && Number.isFinite(Number(existingFlankValue(id, flank))) && Ix(Number(existingFlankValue(id, flank))) !== Ix(value));
-                        if (blocked) return void flipped.push(id);
-                    }
-                    const before = existingFlankValue(id, "give");
-                    vt[c][id] = value;
-                    Co(c, id, "give", sourceFor(id, "give", supplying)), Co(c, id, "receive", sourceFor(id, "receive", supplying));
-                    Number(before) !== value && (changed[id] = value);
-                    return;
-                }
                 const incoming = {};
                 const shape = Ge(id, c);
                 const flanks = shape.keys || [ "give", "receive" ];
@@ -301,22 +286,37 @@
                 // receive: {...} } (2026-11-22). A give/receive OBJECT is
                 // only a placement on a multi-pole topic -- on a dual
                 // topic those keys are the numeric flanks themselves.
-                const hasStancePl = rating && "object" == typeof rating && (rating.advocacy && "object" == typeof rating.advocacy || rating.receptivity && "object" == typeof rating.receptivity);
+                const hasStanceObj = rating && "object" == typeof rating && (rating.advocacy && "object" == typeof rating.advocacy || rating.receptivity && "object" == typeof rating.receptivity);
+                const hasStanceNum = rating && "object" == typeof rating && (Number.isFinite(Number(rating.advocacy)) || Number.isFinite(Number(rating.receptivity)));
+                const hasStancePl = hasStanceObj || hasStanceNum;
                 const hasClassicPl = rating && "object" == typeof rating && flanks.length > 2 && (rating.give && "object" == typeof rating.give || rating.receive && "object" == typeof rating.receive);
                 if (hasStancePl || hasClassicPl) {
-                    const validKeys = new Set(flanks);
+                    const validKeys = new Set(flanks.concat(shape.poleKeys || []));
                     const cleanPlacement = pl => {
                         const out = {};
+                        if (Number.isFinite(Number(pl))) {
+                            const v = clamp(pl);
+                            flanks.forEach(fk => { out[fk] = v; });
+                            (shape.poleKeys || []).forEach(pk => { out[pk] = v; });
+                            out.intensity = Math.max(-400, Math.min(400, Math.round(Number(pl))));
+                            return out;
+                        }
                         Object.entries(pl).forEach(([k, v]) => {
                             if (!Number.isFinite(Number(v))) return;
                             if ("intensity" === k) out.intensity = Math.max(-400, Math.min(400, Math.round(Number(v))));
                             else if (validKeys.has(k)) out[k] = clamp(v);
                         });
+                        if (shape.single && out.give === void 0) {
+                            const pks = (shape.poleKeys || []).concat(Object.keys(pl).filter(k => "intensity" !== k));
+                            const fk = pks.find(k => Number.isFinite(Number(pl[k])));
+                            if (fk !== void 0) out.give = clamp(pl[fk]);
+                            else if (Number.isFinite(Number(out.intensity))) out.give = clamp(out.intensity);
+                        }
                         return out;
                     };
                     const placed = {};
-                    rating.advocacy && "object" == typeof rating.advocacy && (placed.advocacy = cleanPlacement(rating.advocacy));
-                    rating.receptivity && "object" == typeof rating.receptivity && (placed.receptivity = cleanPlacement(rating.receptivity));
+                    if (rating.advocacy && "object" == typeof rating.advocacy || Number.isFinite(Number(rating.advocacy))) placed.advocacy = cleanPlacement(rating.advocacy);
+                    if (rating.receptivity && "object" == typeof rating.receptivity || Number.isFinite(Number(rating.receptivity))) placed.receptivity = cleanPlacement(rating.receptivity);
                     rating.give && "object" == typeof rating.give && (placed.give = cleanPlacement(rating.give));
                     rating.receive && "object" == typeof rating.receive && (placed.receive = cleanPlacement(rating.receive));
                     Object.keys(placed).forEach(side => { if (!Object.keys(placed[side]).length) delete placed[side]; });
@@ -348,6 +348,21 @@
                         }
                         return;
                     }
+                }
+                if (shape.single) {
+                    const candidates = "number" == typeof rating ? [ [ "give", rating ] ] : Array.isArray(rating) ? rating.map(v => [ "give", v ]) : rating && "object" == typeof rating ? [ [ "give", rating.give ], [ "receive", rating.receive ], ...Object.entries(rating).filter(([k]) => "give" !== k && "receive" !== k).map(([, v]) => [ "give", v ]) ] : [];
+                    const found = candidates.find(([, v]) => Number.isFinite(Number(v)));
+                    if (!found) throw new Error(`This profile contains an unreadable rating for "${topicName}"`);
+                    const value = clamp(found[1]), supplying = found[0];
+                    if (guardManualFlip) {
+                        const blocked = [ "give", "receive" ].some(flank => "manual" === Ao(c, id, flank) && Number.isFinite(Number(existingFlankValue(id, flank))) && Ix(Number(existingFlankValue(id, flank))) !== Ix(value));
+                        if (blocked) return void flipped.push(id);
+                    }
+                    const before = existingFlankValue(id, "give");
+                    vt[c][id] = value;
+                    Co(c, id, "give", sourceFor(id, "give", supplying)), Co(c, id, "receive", sourceFor(id, "receive", supplying));
+                    Number(before) !== value && (changed[id] = value);
+                    return;
                 }
                 if (Number.isFinite(Number(rating))) flanks.forEach(flank => { incoming[flank] = clamp(rating); });
                 else if (rating && "object" == typeof rating) {

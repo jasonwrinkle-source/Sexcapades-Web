@@ -1570,6 +1570,20 @@
             }
             const o = Io(r), s = "intensity" === t ? Math.max(-400, Math.min(400, Math.round(Number(n) || 0))) : Math.max(-100, Math.min(100, Number(n)));
             if (Ge(e, r).single) {
+                if (typeof sxIsStanceSkin === "function" && sxIsStanceSkin() && o[e] && "object" == typeof o[e] && (o[e].advocacy || o[e].receptivity)) {
+                    const cur = Object.assign({}, o[e]);
+                    const adv = Object.assign({}, cur.advocacy || {});
+                    adv.give = s;
+                    (Ge(e, r).poleKeys || []).forEach(pk => { adv[pk] = s; });
+                    adv.intensity = s;
+                    cur.advocacy = adv;
+                    o[e] = cur;
+                    Co(r, e, "advocacy", "manual");
+                    zt(r);
+                    $o(e, r);
+                    i && Mr();
+                    return s;
+                }
                 const t = o[e], n = "number" != typeof t || Number(t) !== s;
                 return o[e] = s, Co(r, e, "give", "manual"), Co(r, e, "receive", "manual"), n && zt(r),
                 $o(e, r), i && Mr(), s;

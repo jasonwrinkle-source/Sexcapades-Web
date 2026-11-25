@@ -1186,9 +1186,17 @@
                     const primary = hasAdv ? n.advocacy : n.receptivity;
                     const p = {};
                     keys.forEach(k => {
-                        const val = Number.isFinite(Number(primary[k])) ? Number(primary[k]) : 0;
+                        let hasKey = Object.prototype.hasOwnProperty.call(primary, k);
+                        let rawVal = primary[k];
+                        if (!hasKey && isSingle) {
+                            const pk = ((shape && shape.poleKeys) || []).concat(Object.keys(primary).filter(x => "intensity" !== x && "known" !== x));
+                            const foundKey = pk.find(x => Object.prototype.hasOwnProperty.call(primary, x) && Number.isFinite(Number(primary[x])));
+                            if (foundKey !== void 0) { hasKey = !0; rawVal = primary[foundKey]; }
+                            else if (Number.isFinite(Number(primary.intensity))) { hasKey = !0; rawVal = primary.intensity; }
+                        }
+                        const val = Number.isFinite(Number(rawVal)) ? Number(rawVal) : 0;
                         res[k] = val;
-                        res[k + "Known"] = Object.prototype.hasOwnProperty.call(primary, k);
+                        res[k + "Known"] = hasKey;
                         p[k] = val;
                     });
                     res.poles = p;
