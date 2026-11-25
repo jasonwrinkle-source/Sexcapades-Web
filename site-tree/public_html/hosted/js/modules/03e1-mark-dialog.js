@@ -1031,7 +1031,6 @@
         function sxCrossPlacardWrite(dir, value) {
             if (!Qr) return;
             sxCrossWriteFlank(Qr, dir, value, Vi());
-            sxSyncCrossFineAndReadout();
         }
         function sxCrossPlacardRelease() {
             if (Qr) { sxSyncMarkRatings(Qr); Mr(); }
@@ -1055,83 +1054,6 @@
             host.appendChild(give.root);
             host.appendChild(receive.root);
             sxCrossPlacard = { give: give, receive: receive };
-            // Fine-tune sliders: the same four numbers, longhand.
-            var fine = [
-                ["markCrossFineGiveLean", "give", "lean"],
-                ["markCrossFineGiveApp", "give", "app"],
-                ["markCrossFineRecvLean", "receive", "lean"],
-                ["markCrossFineRecvApp", "receive", "app"]
-            ];
-            fine.forEach(([inputId, dir, key]) => {
-                var input = e.byId(inputId);
-                if (!input || input.dataset.sxCrossBound) return;
-                input.dataset.sxCrossBound = "1";
-                input.addEventListener("input", () => {
-                    if (!Qr) return;
-                    var cur = sxCrossPlacardState(dir) || { lean: 0, app: 0 };
-                    var next = { lean: cur.lean, app: cur.app };
-                    next[key] = Math.round(Number(input.value) || 0);
-                    sxCrossWriteFlank(Qr, dir, next, Vi());
-                    sxSyncCrossFineAndReadout();
-                    if (sxCrossPlacard) sxCrossPlacard[dir].render();
-                });
-                input.addEventListener("change", () => { sxCrossPlacardRelease(); });
-            });
-        }
-        function sxSyncCrossFineAndReadout() {
-            if (!Qr) return;
-            var shape = Ge(Qr);
-            var giveName = (shape && shape.labels && shape.labels[0]) || "Give";
-            var recvName = (shape && shape.labels && shape.labels[1]) || "Receive";
-            var setText = (id, text) => { var el = e.byId(id); if (el) el.textContent = text; };
-            var setShape = (id, color) => { var el = e.byId(id); if (el) el.style.setProperty("--shape-color", color); };
-            var setThumb = (inputId, color) => { var el = e.byId(inputId); if (el) el.style.setProperty("--thumb-color", color); };
-            var colorOf = (st) => st ? sxCrossColor(st.app) : "#57534a";
-            var g = sxCrossPlacardState("give"), r = sxCrossPlacardState("receive");
-            setText("markCrossFineGiveLeanLabel", giveName + " — leaning");
-            setText("markCrossFineGiveAppLabel", giveName + " — appetite");
-            setText("markCrossFineRecvLeanLabel", recvName + " — leaning");
-            setText("markCrossFineRecvAppLabel", recvName + " — appetite");
-            setText("markCrossGiveLeanName", giveName + " · leaning");
-            setText("markCrossGiveAppName", giveName + " · appetite");
-            setText("markCrossRecvLeanName", recvName + " · leaning");
-            setText("markCrossRecvAppName", recvName + " · appetite");
-            var fineVal = (inputId, outId, st, key) => {
-                var input = e.byId(inputId), out = e.byId(outId);
-                var v = st ? st[key] : null;
-                if (input && document.activeElement !== input) input.value = String(v === null ? 0 : v);
-                if (out) { out.textContent = v === null ? "—" : String(Math.round(v)); out.classList.toggle("neg", v !== null && v < 0); }
-                setThumb(inputId, colorOf(st));
-            };
-            fineVal("markCrossFineGiveLean", "markCrossFineGiveLeanOut", g, "lean");
-            fineVal("markCrossFineGiveApp", "markCrossFineGiveAppOut", g, "app");
-            fineVal("markCrossFineRecvLean", "markCrossFineRecvLeanOut", r, "lean");
-            fineVal("markCrossFineRecvApp", "markCrossFineRecvAppOut", r, "app");
-            var statVal = (id, st, key) => {
-                var el = e.byId(id);
-                if (!el) return;
-                var v = st ? st[key] : null;
-                el.textContent = v === null ? "—" : String(Math.round(v));
-                el.classList.toggle("neg", v !== null && v < 0);
-            };
-            statVal("markCrossGiveLeanVal", g, "lean");
-            statVal("markCrossGiveAppVal", g, "app");
-            statVal("markCrossRecvLeanVal", r, "lean");
-            statVal("markCrossRecvAppVal", r, "app");
-            setShape("markCrossGiveLeanShape", colorOf(g));
-            setShape("markCrossGiveAppShape", colorOf(g));
-            setShape("markCrossRecvLeanShape", colorOf(r));
-            setShape("markCrossRecvAppShape", colorOf(r));
-            document.querySelectorAll("#markCrossFine .xs-fine-row").forEach(row => {
-                var dot = row.querySelector(".xs-shape");
-                if (dot) dot.style.setProperty("--shape-color", colorOf(row.dataset.dir === "receive" ? r : g));
-            });
-            if (typeof sxSetPoleTip === "function") {
-                sxSetPoleTip(e.byId("markCrossFineGiveLeanLabel"), Qr, "give");
-                sxSetPoleTip(e.byId("markCrossFineGiveAppLabel"), Qr, "give");
-                sxSetPoleTip(e.byId("markCrossFineRecvLeanLabel"), Qr, "receive");
-                sxSetPoleTip(e.byId("markCrossFineRecvAppLabel"), Qr, "receive");
-            }
         }
         function sxSyncCrossSliderPlacard(shape) {
             sxBindCrossSliderPlacard();
@@ -1146,7 +1068,6 @@
             }
             sxCrossPlacard.give.render();
             sxCrossPlacard.receive.render();
-            sxSyncCrossFineAndReadout();
         }
         /* Placement intensities for the slider family + switchbox (2026-11-23):
            the canvas widgets carry disc/ring intensity sliders; the linear
@@ -1169,6 +1090,15 @@
         function sxSyncLinearIntensities(id, rec, shape) {
             const linBox = e.byId("markLinearIntensityBox"), swBox = e.byId("markSwitchboxIntensityBox");
             if (!linBox && !swBox) return;
+            // Cross slider carries appetite per flank via puck vertical travel;
+            // keep both vertical intensity boxes hidden whenever it is active.
+            const switchboxWrap = e.byId("markSwitchboxWrap");
+            const crossActive = Boolean(switchboxWrap && !switchboxWrap.hidden && e.byId("markCrossSliderHost"));
+            if (crossActive) {
+                if (linBox) linBox.hidden = true;
+                if (swBox) swBox.hidden = true;
+                return;
+            }
             const w = (shape && shape.widget) || "";
             const inLinear = w === "linear-sliders" || w === "trilinear-sliders" || w === "quad-sliders" || w === "monopole-slider" || w === "trilinear-line" || Boolean(shape && shape.single);
             const inSwitch = w === "xy-switchbox";
