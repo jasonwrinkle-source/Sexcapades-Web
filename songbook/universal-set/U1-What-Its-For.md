@@ -1,77 +1,83 @@
 # U1 — What It's For (The Flagship)
-**Byline:** Antigravity (AI Assistant) & Jason Mark Wrinkle & Yolanda Biche et al.
 **Treatment:** U1 Anthemic Alternate
-**Brief:** The use cases of TaxoPolemics and flex.capades.io — what a person *does* with it, from the mirror and finding your people to negotiation, the aisle, the calling, the palimpsest, and the whole table.
+**Brief:** The use cases of TaxoPolemics and flex.capades.io. What a person *does* with it.
 
 [Verse]
-Sitting at the table late at night alone
-Rating every question like a mirror of your own
-You learn what you hold when it asks you pole by pole
-Then two screens glow in a crowded room
-We find the overlap before we assume
-With limits in stone and a map that's whole
+Two screens glowing in a crowded room
+No need to guess, no need to assume
+You rate your hypermap, I'll rate mine too
+We find the overlap before we even say hello
+The limits marked, the boundaries set in stone
+Nobody has to walk this road alone
 
 [Chorus]
 Ask the question at the door: Compare hypermaps?
 Watch the honest numbers fill the silence in the gaps
-You can see where you stand, and where somebody else stands too
-No guessing games, no sleight of hand, the seeing is priced true
+You can see where you stand, and see it next to where somebody else stands
+No guessing games, no sleight of hand, the seeing is priced honestly
 Across the table or across the land
 Bring your hypermap and see where you stand
 
 [Verse]
 Across the aisle in a quiet church
-Or locked inside a political lurch
+Or locked in a political lurch
 Don't raise your voice, just open the app
-Show me the ground we share on the hypermap
+Show me the ground that we share on the hypermap
 A small split is small, a deep one takes time
-At least we can see where we've drawn the line
-
-[Verse]
-Lay two maps on the table right before the scene
-Before we sign the project or the vows we mean
-What we share is bright, what we complete is clear
-And every hard limit stays off the table here
-Looking for a calling on the screen before you go
-The gap and all the dealbreakers start to show
+But at least we can see where we've drawn the line
 
 [Chorus]
 Ask the question at the door: Compare hypermaps?
 Watch the honest numbers fill the silence in the gaps
-You can see where you stand, and where somebody else stands too
-No guessing games, no sleight of hand, the seeing is priced true
+You can see where you stand, and see it next to where somebody else stands
+No guessing games, no sleight of hand, the seeing is priced honestly
 Across the table or across the land
 Bring your hypermap and see where you stand
 
 [Verse]
-Open the profile you rated a year ago
-The palimpsest is stacked so the changes show
+Looking at the screen to find a calling
+Before the interview, before you're falling
+The gap is clear, the dealbreakers show
+You know the fit before you even go
+A local chapter passing cards around
+A fractal seed where common ground is found
+
+[Verse]
+Open the map you rated a year ago
+The palimpsest is stacked and the changes show
 You were someone else when you answered then
-Now the poles have shifted — rate it again
+Now the poles have shifted — so rate it again
 Layer upon layer, the old selves stay
-And the worldline shows the road you've walked this way
+And the worldline shows the road you've traveled this way
 
 [Verse]
 Bring the whole table and lay the maps down
-A local chapter passing cards across the town
+A roster of friends from across the town
+Not just a pair but the room in a ring
+Every map in the circle has something to bring
 The engine reads the many the way it reads two
 And the meeting gets priced for all of you
 
 [Bridge]
 One engine humming underneath it all
+It catches us before we fall
 TaxoPolemics, clear and bright
 The engine that prices a meeting of minds tonight
+Before the scene, before the ring
+It lays it out, it changes everything
 
 [Chorus]
 Ask the question at the door: Compare hypermaps?
 Watch the honest numbers fill the silence in the gaps
-You can see where you stand, and where somebody else stands too
-No guessing games, no sleight of hand, the seeing is priced true
+You can see where you stand, and see it next to where somebody else stands
+No guessing games, no sleight of hand, the seeing is priced honestly
 Across the table or across the land
 Bring your hypermap and see where you stand
 
 [Outro]
 One engine
 Many hypermaps
-Ask at the door: Compare hypermaps?
+No more falling through the gaps
+Come on in, draw it out
+Bring your hypermap
 Bring your hypermap

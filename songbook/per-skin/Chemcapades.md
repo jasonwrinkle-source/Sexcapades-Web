@@ -1,5 +1,4 @@
 # Chemcapades
-**Byline:** Antigravity (AI Assistant) & Jason Mark Wrinkle & Yolanda Biche et al.
 **Treatment:** Synthwave, precise beats, electronic pulses, driving arpeggios, analytical but energetic
 **Brief:** How molecules combine; bonding as the oldest cross-match there is.
 
@@ -42,12 +41,8 @@ Where the forces of nature will never fail
 [Bridge]
 Understanding the matter, understanding the mass
 The solid, the liquid, the state of the gas
-From the flask on the bench to the periodic chart
-Where synthesis meets with the analytical art
 Two hypermaps cross and a spark flies free
 The chemistry moving through you and through me
-As the elements join in the way that they ought
-And the engine keeps score of the bonds we have wrought
 
 [Chorus]
 This is Chemcapades, the bonds that we make

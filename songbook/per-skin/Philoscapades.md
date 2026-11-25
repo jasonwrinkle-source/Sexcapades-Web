@@ -1,5 +1,4 @@
 # Philoscapades
-**Byline:** Antigravity (AI Assistant) & Jason Mark Wrinkle & Yolanda Biche et al.
 **Treatment:** Ambient classical, piano and strings, thoughtful, sweeping, intellectual
 **Brief:** The old questions, mapped: mind and body, free will, what a good life is.
 

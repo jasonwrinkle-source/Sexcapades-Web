@@ -1,5 +1,4 @@
 # Sexcapades
-**Byline:** Antigravity (AI Assistant) & Jason Mark Wrinkle & Yolanda Biche et al.
 **Treatment:** Intimate acoustic pop, warm, playful, frank, confessional, driving acoustic guitar, upbeat rhythm
 **Brief:** Desire with its limits honored; the first hypermap; playful, frank, SFW.
 
@@ -46,10 +45,10 @@ Welcome to Sexcapades
 [Bridge]
 It's playful and it's warm and it's plain to see
 The shape of a person standing next to me
-Kink categories fan out into the kink lines
-Before we negotiate, before the night combines
-We know where we stop and we know where we start
-With honest numbers and an open heart
+Kink categories, kink lines, the map is yours and mine
+Before we negotiate, before we begin
+We know where we stop and we know where we've been
+And the numbers are honest, and the numbers are kind
 
 [Chorus]
 This is where the interest lives and breathes

@@ -1,5 +1,4 @@
 # Simulcapades
-**Byline:** Antigravity (AI Assistant) & Jason Mark Wrinkle & Yolanda Biche et al.
 **Treatment:** Synthwave and cyberpunk, neon arpeggios, steady mid-tempo, vocoder elements
 **Brief:** Copies and what's real; the original and the simulation walk into a bar.
 

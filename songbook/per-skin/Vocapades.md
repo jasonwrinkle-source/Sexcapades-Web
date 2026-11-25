@@ -1,5 +1,4 @@
 # Vocapades
-**Byline:** Antigravity (AI Assistant) & Jason Mark Wrinkle & Yolanda Biche et al.
 **Treatment:** Indie folk, energetic, acoustic guitar and stomp-clap rhythm
 **Brief:** The work a life wants; fit, risk, and the price of a calling.
 

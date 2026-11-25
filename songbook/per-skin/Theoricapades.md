@@ -1,5 +1,4 @@
 # Theoricapades
-**Byline:** Antigravity (AI Assistant) & Jason Mark Wrinkle & Yolanda Biche et al.
 **Treatment:** Intricate chamber pop, pizzicato strings, playful piano, precise vocal harmonies
 **Brief:** Theory itself: what it's for, when a beautiful one is wrong.
 
@@ -24,13 +23,11 @@ Of the models we build in the empty space
 [Verse]
 Is the math just a tool or the shape of the real?
 Is it found in the world or just something we feel?
-Did we invent the proof or uncover the stone
-Where the axioms stood in the quiet alone?
 Circle Minus the models that never connect
-And Straight for the structures we try to detect
+And Straight for the forces we try to detect
 We're building a tower of numbers and signs
 Trying to read what is between the lines
-The theory's a compass we hold in the sea
+The theory is a net that we cast in the sea
 And we're mapping the shape of the mystery
 
 [Chorus]

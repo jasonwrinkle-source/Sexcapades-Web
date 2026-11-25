@@ -1,5 +1,4 @@
 # Poliscapades
-**Byline:** Antigravity (AI Assistant) & Jason Mark Wrinkle & Yolanda Biche et al.
 **Treatment:** Driving folk-rock, earnest, steady drumbeat, acoustic and electric guitars, clear storytelling vocals
 **Brief:** A citizenry that could show its work: where the parties actually stand, pole by pole.
 

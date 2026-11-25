@@ -1,46 +1,54 @@
-# Songbook v5.1.3 (Antigravity Edition)
+# Songbook v5.1.2
 
-**Version:** 5.1.3
+**Version:** 5.1.2
 **Date:** 2026-11-25
 **Format:** Suno Paste Kit ready (Style Prompt + Lyrics tags)
-**Authors / Byline:** Antigravity (AI Assistant) & Jason Mark Wrinkle & Yolanda Biche et al.
+**Authors:** Jason Mark Wrinkle & Yolanda Biche et al.
 
-## Structure & Playback Fallback Chain
-The songbook follows a three-tier fallback chain for the Flexcapades (`flex.capades.io`) family. When a skin needs a song:
+## Structure
+The songbook follows a two-tier fallback chain for the Flexcapades (flex.capades.io) family. When a skin needs a song:
 1. **Skin-specific track:** Try the `per-skin/` directory for its signature song (e.g. `Poliscapades.md`).
-2. **Universal Set fallback:** Use a song from `universal-set/` (U1–U8) which applies to all hypermaps.
+2. **Universal Set fallback:** Use a song from `universal-set/` (U1–U8) which applies to all maps.
 3. **Engine-level fallback:** The TaxoPolemics album (from v5.0).
 
 ## Universal Set (`universal-set/`)
-* U1 — What It's For (The Flagship — includes mirror, negotiation, palimpsest/worldline, and whole-table verses)
-* U2 — One Engine, Many Hypermaps (All 22 skins named in the verses, no fixed total)
-* U3 — Rate What You Hold (Leaning, appetite, advocacy, listening line, archetypes, samples, emblems)
-* U4 — Three Operations (Cross / Commune / Krossmatch / Depth Factor / Kink Factor, Straight / Converse, Circle Minus / Indaba)
-* U5 — Bring Your Hypermap (Sync cards, chapters, munches, roster packs, fractal seeding round)
+* U1 — What It's For (The Flagship)
+* U2 — One Engine, Many Hypermaps
+* U3 — Rate What You Hold
+* U4 — Three Operations
+* U5 — Bring Your Hypermap
 * U6 — The Meeting After The Meeting (Carried over from Explainer set)
-* U7 — Many Views Under One Roof (The views in action: gate, picker, Docs pull-down, About double-click, Hypermap placard, Hot List, Scene Setter, Scribe, Scene Sentinel, Scan or Import, Quick Start, engine page)
-* U8 — Cards, Sheets, Packs & Veils (How hypermaps travel: browser-private profiles, 3.5"×2" Sync Card, QR Sheet, Roster Pack, Scan or Import via camera/image/JSON, Veil, and group outward veil)
+* U7 — Many Views Under One Roof (The views tour)
+* U8 — Cards, Sheets, Packs & Veils (How hypermaps travel)
 
-## Per-Skin Signature Songs (`per-skin/` — All 22 Skins)
-* Aesthcapades (`aesth.capades.io` — Art / Taste)
-* Biocapades (`bio.capades.io` — Life / Perspective)
-* Chemcapades (`chem.capades.io` — Chemistry / Understanding)
-* Dancecapades (`dance.capades.io` — Dance / Groove)
-* Dharmacapades (`dharma.capades.io` — Eastern Religions / Practice)
-* Expericapades (`experi.capades.io` — Experimental Physics / Experience)
-* Fastcapades (`fast.capades.io` — Fasting / Discipline)
-* Flexcapades (`flex.capades.io` — The Meta Map / Stake)
-* Forescapades (`fores.capades.io` — Faith & Ancient Sumer / Belief)
-* Linguacapades (`lingua.capades.io` — Language / Sensibility)
-* Mattercapades (`matter.capades.io` — Applied Physics / Understanding)
-* Nouscapades (`nous.capades.io` — Consciousness / Conviction)
-* Philoscapades (`philo.capades.io` — Philosophy / Position)
-* Poliscapades (`polis.capades.io` — Politics / Conviction)
-* Praxicapades (`praxi.capades.io` — Applied Mathematics / Practice)
-* Quantacapades (`quanta.capades.io` — Theoretical Physics / Understanding)
-* Questcapades (`quest.capades.io` — Tabletop Roleplay / Fun)
-* Sexcapades (`sex.capades.io` — Desire & Limits / Interest)
-* Simulcapades (`simul.capades.io` — Computational Physics / Stance)
-* Techcapades (`tech.capades.io` — Technology / Stance)
-* Theoricapades (`theori.capades.io` — Pure Mathematics / Position)
-* Vocapades (`voca.capades.io` — Vocation & Work / Inclination)
+## Per-Skin Signature Songs (`per-skin/`)
+* Sexcapades (Desire / Interest)
+* Poliscapades (Politics / Conviction)
+* Forescapades (Faith / Belief)
+* Aesthcapades (Art / Taste)
+* Chemcapades (Chemistry / Understanding)
+* Dharmacapades (Practice / Practice)
+* Expericapades (Science / Experience)
+* Mattercapades (Materials / Understanding)
+* Philoscapades (Philosophy / Position)
+* Praxicapades (Work / Practice)
+* Quantacapades (Quantum / Understanding)
+* Simulcapades (Simulation / Stance)
+* Techcapades (Technology / Stance)
+* Theoricapades (Theory / Position)
+* Vocapades (Career / Inclination)
+* Nouscapades (Consciousness / Conviction)
+* Dancecapades (Dance / Groove)
+* Questcapades (Roleplay / Fun)
+* Biocapades (Life / Perspective)
+* Linguacapades (Language / Sensibility)
+* Fastcapades (Fasting / Discipline)
+* Flexcapades (The Meta Map / Stake)
+
+## The AntiGravity Edition
+
+AntiGravity's songbook lives separately, versioned in
+[`antigravity-edition/`](antigravity-edition/) — v1.0 (its first
+four-track book) and v5.1.3 (its third attempt, a full revision of
+this book). It versions its own lyrics and never overwrites this
+book; lines from it enter here only when Jason rules them in.

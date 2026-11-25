@@ -1,5 +1,4 @@
 # Techcapades
-**Byline:** Antigravity (AI Assistant) & Jason Mark Wrinkle & Yolanda Biche et al.
 **Treatment:** Driving alt-rock, distorted bass, rhythmic clapping, urgent vocals
 **Brief:** The tools we live inside; who holds the keys to the platforms.
 

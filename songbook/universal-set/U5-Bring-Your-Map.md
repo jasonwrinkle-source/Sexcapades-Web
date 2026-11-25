@@ -1,7 +1,6 @@
 # U5 — Bring Your Hypermap
-**Byline:** Antigravity (AI Assistant) & Jason Mark Wrinkle & Yolanda Biche et al.
 **Treatment:** E1 Treatment (Extended)
-**Brief:** The social song: sync cards, chapters, munches, roster packs, and fractal seeding sung as a round-like refrain.
+**Brief:** The social song: sync cards, chapters, munches. Fractal seeding sung as a round-like refrain.
 
 [Verse]
 You're at the chapter meeting, looking around
@@ -28,9 +27,9 @@ No awkward questions, no wondering why
 The answers are printed right there in your eye
 I hand you a card and you hand one to him
 And he hands one to her on a sudden whim
-Or we load up a roster pack, bringing everyone in
+Or load a roster pack and bring the whole room in
 A fractal connection that continues to grow
-From a single small seed that we started to sow
+From a single seed that we started to sow
 
 [Chorus]
 Bring your hypermap, bring your code
