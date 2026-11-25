@@ -295,7 +295,19 @@
           }
           var utm = '';
           try { utm = (new URLSearchParams(location.search).get('utm_source') || '').slice(0, 128); } catch (e) { utm = ''; }
-          var payload = JSON.stringify({ action: 'event', uuid: uuid, event_type: 'picker_landing', utm_source: utm });
+          var skin = 'flexcapades';
+          try {
+            if (typeof window.__SX_SKIN_FROM_URL === 'function' && window.__SX_SKIN_FROM_URL()) {
+              skin = window.__SX_SKIN_FROM_URL();
+            } else if (typeof window.__SX_SKIN_FOR_HOSTNAME === 'function') {
+              skin = window.__SX_SKIN_FOR_HOSTNAME(location.hostname);
+            } else {
+              var q = new URLSearchParams(location.search).get('skin');
+              if (q) skin = q.toLowerCase();
+              else if (/\.capades\.io$/i.test(location.hostname)) skin = location.hostname.split('.')[0].toLowerCase();
+            }
+          } catch (e) {}
+          var payload = JSON.stringify({ action: 'event', uuid: uuid, event_type: 'picker_landing', utm_source: utm, skin: skin });
           var endpoint = '/hosted/api/collect.php';
           if (navigator.sendBeacon) {
             try { if (navigator.sendBeacon(endpoint, new Blob([payload], { type: 'application/json' }))) return; } catch (e) {}

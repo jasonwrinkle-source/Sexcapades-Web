@@ -217,7 +217,13 @@
     }
     var utm = '';
     try { utm = (new URLSearchParams(location.search).get('utm_source') || '').slice(0, 128); } catch (e) { utm = ''; }
-    var payload = JSON.stringify({ action: 'event', uuid: uuid, event_type: 'engine_landing', utm_source: utm });
+    var skin = 'flexcapades';
+    try {
+      var q = new URLSearchParams(location.search).get('skin');
+      if (q) skin = q.toLowerCase();
+      else if (/\.capades\.io$/i.test(location.hostname)) skin = location.hostname.split('.')[0].toLowerCase();
+    } catch (e) {}
+    var payload = JSON.stringify({ action: 'event', uuid: uuid, event_type: 'engine_landing', utm_source: utm, skin: skin });
     var endpoint = '/hosted/api/collect.php';
     if (navigator.sendBeacon) {
       try { if (navigator.sendBeacon(endpoint, new Blob([payload], { type: 'application/json' }))) return; } catch (e) { /* fall through to fetch */ }

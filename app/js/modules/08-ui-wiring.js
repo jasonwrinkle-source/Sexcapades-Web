@@ -41,8 +41,26 @@ __sxInit(function () {
     });
   }
 
+  function resolveCurrentSkin() {
+    try {
+      if (typeof window.__sxAnalyticsSkin === 'function') {
+        var s = window.__sxAnalyticsSkin();
+        if (s) return String(s).toLowerCase();
+      }
+      if (window.__SX_ACTIVE_SKIN) return String(window.__SX_ACTIVE_SKIN).toLowerCase();
+      if (typeof window.__SX_SKIN_FROM_URL === 'function' && window.__SX_SKIN_FROM_URL()) {
+        return String(window.__SX_SKIN_FROM_URL()).toLowerCase();
+      }
+      if (typeof window.__SX_SKIN_FOR_HOSTNAME === 'function') {
+        return String(window.__SX_SKIN_FOR_HOSTNAME(location.hostname)).toLowerCase();
+      }
+    } catch (e) {}
+    return 'sexcapades';
+  }
+
   function fetchCount() {
-    fetch(SX_SHELL_COLLECT_URL + '?action=get_stats')
+    var skinId = resolveCurrentSkin();
+    fetch(SX_SHELL_COLLECT_URL + '?action=get_stats&skin=' + encodeURIComponent(skinId))
       .then(function(response) {
         if (!response.ok) throw new Error('Visitor count request failed');
         return response.json();
@@ -75,12 +93,13 @@ __sxInit(function () {
     wrap.appendChild(count);
     about.appendChild(wrap);
 
-    var requested = false;
+    var lastFetchedSkin = '';
     function requestWhenOpen() {
-      if (requested || !about.open) return;
-      requested = true;
+      if (!about.open) return;
+      var curSkin = resolveCurrentSkin();
+      if (lastFetchedSkin === curSkin && !count.classList.contains('is-unavailable')) return;
+      lastFetchedSkin = curSkin;
       fetchCount();
-      observer.disconnect();
     }
     var observer = new MutationObserver(requestWhenOpen);
     observer.observe(about, {attributes: true, attributeFilter: ['open']});

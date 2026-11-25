@@ -15,13 +15,113 @@
  */
 
 header('Content-Type: application/json');
-header('Access-Control-Allow-Origin: https://sexcapades.io');
-header('Access-Control-Allow-Methods: POST, OPTIONS');
+$reqOrigin = $_SERVER['HTTP_ORIGIN'] ?? '';
+if (preg_match('/^https:\/\/([a-z0-9-]+\.)?(sexcapades\.io|capades\.io)$/i', $reqOrigin)) {
+    header('Access-Control-Allow-Origin: ' . $reqOrigin);
+    header('Vary: Origin');
+} else {
+    header('Access-Control-Allow-Origin: https://sexcapades.io');
+}
+header('Access-Control-Allow-Methods: POST, GET, OPTIONS');
 header('Access-Control-Allow-Headers: Content-Type');
 
 if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
     http_response_code(200);
     exit;
+}
+
+// Canonical 22-skin prefix <-> ID map for normalizing incoming `skin` values
+// and inferring the active skin from Origin / Referer / Host when omitted.
+$PREFIX_TO_SKIN = [
+    'sex'    => 'sexcapades',
+    'flex'   => 'flexcapades',
+    'meta'   => 'flexcapades',
+    'dance'  => 'dancecapades',
+    'quest'  => 'questcapades',
+    'aesth'  => 'aesthcapades',
+    'bio'    => 'biocapades',
+    'chem'   => 'chemcapades',
+    'dharma' => 'dharmacapades',
+    'experi' => 'expericapades',
+    'fast'   => 'fastcapades',
+    'fores'  => 'forescapades',
+    'lingua' => 'linguacapades',
+    'matter' => 'mattercapades',
+    'nous'   => 'nouscapades',
+    'philo'  => 'philoscapades',
+    'polis'  => 'poliscapades',
+    'praxi'  => 'praxicapades',
+    'quanta' => 'quantacapades',
+    'simul'  => 'simulcapades',
+    'tech'   => 'techcapades',
+    'theori' => 'theoricapades',
+    'voca'   => 'vocapades',
+];
+$SKIN_TO_PREFIX = [];
+foreach ($PREFIX_TO_SKIN as $pfx => $sid) {
+    if (!isset($SKIN_TO_PREFIX[$sid])) {
+        $SKIN_TO_PREFIX[$sid] = $pfx;
+    }
+}
+
+function normalizeSkinId($raw, $prefixToSkin) {
+    $val = strtolower(substr(trim((string)$raw), 0, 32));
+    if ($val === '' || !preg_match('/^[a-z0-9-]+$/', $val)) {
+        return '';
+    }
+    if (isset($prefixToSkin[$val])) {
+        return $prefixToSkin[$val];
+    }
+    if (in_array($val, $prefixToSkin, true)) {
+        return $val;
+    }
+    return $val;
+}
+
+function inferSkinFromHeaders($prefixToSkin) {
+    // 1. Check Referer query string for ?skin=...
+    $referer = $_SERVER['HTTP_REFERER'] ?? '';
+    if ($referer !== '') {
+        $q = parse_url($referer, PHP_URL_QUERY);
+        if (is_string($q) && $q !== '') {
+            parse_str($q, $qp);
+            if (!empty($qp['skin'])) {
+                $norm = normalizeSkinId($qp['skin'], $prefixToSkin);
+                if ($norm !== '') {
+                    return $norm;
+                }
+            }
+        }
+    }
+    // 2. Check Origin, Referer host, and Host header
+    $candidates = [];
+    if (!empty($_SERVER['HTTP_ORIGIN'])) {
+        $h = parse_url($_SERVER['HTTP_ORIGIN'], PHP_URL_HOST);
+        if (is_string($h)) $candidates[] = strtolower($h);
+    }
+    if ($referer !== '') {
+        $h = parse_url($referer, PHP_URL_HOST);
+        if (is_string($h)) $candidates[] = strtolower($h);
+    }
+    if (!empty($_SERVER['HTTP_HOST'])) {
+        $h = strtolower(preg_replace('/:\d+$/', '', $_SERVER['HTTP_HOST']));
+        $candidates[] = $h;
+    }
+    foreach ($candidates as $host) {
+        if ($host === 'sexcapades.io' || $host === 'www.sexcapades.io') {
+            return 'sexcapades';
+        }
+        if ($host === 'capades.io' || $host === 'www.capades.io') {
+            return 'flexcapades';
+        }
+        if (preg_match('/^(?:www\.)?([a-z0-9-]+)\.capades\.io$/', $host, $m)) {
+            $pfx = $m[1];
+            if (isset($prefixToSkin[$pfx])) {
+                return $prefixToSkin[$pfx];
+            }
+        }
+    }
+    return '';
 }
 
 // get_stats is read-only — allow GET. All write actions require POST.
@@ -217,7 +317,7 @@ if ($action === 'survey') {
     $utmSource = $input['utm_source'] ?? '';
     
     // Validate event type (whitelist)
-    $allowedEvents = ['quickstart_started', 'quickstart_completed', 'qr_sheet_shared', 'gate_passed', 'scan_started', 'session_stats', 'picker_landing'];
+    $allowedEvents = ['quickstart_started', 'quickstart_completed', 'qr_sheet_shared', 'gate_passed', 'scan_started', 'session_stats', 'picker_landing', 'engine_landing'];
     if (!in_array($eventType, $allowedEvents)) {
         http_response_code(400);
         echo json_encode(['error' => 'Invalid event type']);
@@ -227,12 +327,12 @@ if ($action === 'survey') {
     // Sanitize UTM (max 128 chars)
     $utmSource = substr($utmSource, 0, 128);
 
-    // Skin id (per-skin analytics, 2026-11-18): optional, never fails the
-    // request. Kept to lowercase letters/digits/hyphens, max 32 chars;
-    // anything else (or nothing at all) stores as an empty string.
-    $skin = strtolower(substr(trim($input['skin'] ?? ''), 0, 32));
-    if ($skin !== '' && !preg_match('/^[a-z0-9-]+$/', $skin)) {
-        $skin = '';
+    // Skin id (per-skin analytics, 2026-11-18): normalize prefix/full ID,
+    // and fall back to Origin/Referer/Host if omitted so events are always
+    // attributed to the skin being visited.
+    $skin = normalizeSkinId($input['skin'] ?? '', $PREFIX_TO_SKIN);
+    if ($skin === '') {
+        $skin = inferSkinFromHeaders($PREFIX_TO_SKIN);
     }
 
     // Optional session stats payload (topic_count, elapsed_seconds)
@@ -248,7 +348,7 @@ if ($action === 'survey') {
     $stmt->bindValue(':topic_count', $statTopicCount, $statTopicCount === null ? SQLITE3_NULL : SQLITE3_INTEGER);
     $stmt->execute();
     
-    echo json_encode(['ok' => true, 'action' => 'event_logged']);
+    echo json_encode(['ok' => true, 'action' => 'event_logged', 'skin' => $skin]);
     
 } elseif ($action === 'unmapped') {
     // Anonymous unmapped fetish name collection for importer mapping improvement
@@ -282,16 +382,30 @@ if ($action === 'survey') {
     // pattern also covers 'fleet-playwright' / 'fleet-squad' if used later.
     $notFleet = "utm_source IS NULL OR utm_source NOT LIKE 'fleet%'";
 
-    // Optional per-skin breakdown (2026-11-22): if skin is requested, filter
-    // events by that skin. Empty or 'sexcapades' filters for sexcapades (or empty skin).
-    $filterSkin = strtolower(substr(trim($input['skin'] ?? ''), 0, 32));
-    $skinWhere = "";
-    if ($filterSkin !== '') {
-        if ($filterSkin === 'sexcapades' || $filterSkin === 'sex') {
-            $skinWhere = " AND (skin = 'sexcapades' OR skin = 'sex' OR skin IS NULL OR skin = '')";
+    // Per-skin breakdown (strict per-skin isolation): always resolve a canonical
+    // skin ID (from explicit `skin` parameter or Origin/Referer/Host headers,
+    // defaulting to 'sexcapades' so global cross-skin totals are never returned
+    // to skin visitor counters).
+    $filterSkin = normalizeSkinId($input['skin'] ?? '', $PREFIX_TO_SKIN);
+    if ($filterSkin === '') {
+        $filterSkin = inferSkinFromHeaders($PREFIX_TO_SKIN);
+    }
+    if ($filterSkin === '') {
+        $filterSkin = 'sexcapades';
+    }
+
+    if ($filterSkin === 'sexcapades') {
+        // Legacy pre-2026-11-18 Sexcapades events had skin IS NULL or skin = '',
+        // EXCEPT picker_landing / engine_landing rows which were logged with empty
+        // skin from non-Sexcapades skins. Exclude un-skinned landing pings from Sexcapades.
+        $skinWhere = " AND (skin = 'sexcapades' OR skin = 'sex' OR ((skin IS NULL OR skin = '') AND event_type NOT IN ('picker_landing', 'engine_landing')))";
+    } else {
+        $safeSkin = SQLite3::escapeString($filterSkin);
+        $safePrefix = SQLite3::escapeString($SKIN_TO_PREFIX[$filterSkin] ?? $filterSkin);
+        if ($filterSkin === 'flexcapades') {
+            $skinWhere = " AND (skin = 'flexcapades' OR skin = 'flex' OR skin = 'metacapades' OR skin = 'meta')";
         } else {
-            $safeSkin = SQLite3::escapeString($filterSkin);
-            $skinWhere = " AND skin = '$safeSkin'";
+            $skinWhere = " AND (skin = '$safeSkin' OR skin = '$safePrefix')";
         }
     }
 
