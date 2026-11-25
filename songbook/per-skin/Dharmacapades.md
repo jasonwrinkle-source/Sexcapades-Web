@@ -1,4 +1,5 @@
 # Dharmacapades
+**Byline:** Antigravity (AI Assistant) & Jason Mark Wrinkle & Yolanda Biche et al.
 **Treatment:** Acoustic world music, hypnotic percussion, resonant vocals, sitar and guitar elements
 **Brief:** The path walked, not argued; practice over position.
 

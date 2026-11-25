@@ -1,4 +1,5 @@
 # Mattercapades
+**Byline:** Antigravity (AI Assistant) & Jason Mark Wrinkle & Yolanda Biche et al.
 **Treatment:** Industrial electronic, heavy bass, metallic percussion, rhythmic, driving
 **Brief:** The stuff things are made of, from baseload to metamaterials.
 

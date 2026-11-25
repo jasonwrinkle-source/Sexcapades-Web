@@ -1,4 +1,5 @@
 # Expericapades
+**Byline:** Antigravity (AI Assistant) & Jason Mark Wrinkle & Yolanda Biche et al.
 **Treatment:** Indie pop-rock, bright and curious, driven acoustic guitars, snappy percussion
 **Brief:** How experiments are done; the null result gets its verse.
 
