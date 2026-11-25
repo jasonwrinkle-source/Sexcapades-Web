@@ -709,7 +709,7 @@ const he = [ [ "t0281", "t0240" ] ];
                 color: "#e2e8f0",
                 glyph: '<path class="icon-glyph" d="M12 3l7 2.4v5.8c0 4.6-2.9 7.7-7 9.8-4.1-2.1-7-5.2-7-9.8V5.4z M9 11.8l2.2 2.2 4-4.2"/>'
             },
-            /* Flexcapades skin categories: Metacapades (7). Per-category pictograms; distinct colors and glyphs carry the category identity on the map. */
+            /* Flexcapades skin categories: Flexcapades (7). Per-category pictograms; distinct colors and glyphs carry the category identity on the map. */
             "Rating": {
                 color: "#d946ef",
                 glyph: '<path class="icon-glyph" d="M3 12h5.8 M15.2 12H21 M8.8 12a3.2 3.2 0 1 0 6.4 0 3.2 3.2 0 1 0 -6.4 0"/>'

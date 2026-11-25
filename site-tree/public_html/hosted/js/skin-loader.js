@@ -409,13 +409,13 @@
      One shared folder serves every capades.io host, and the app picks
      its skin from the hostname: <prefix>.capades.io loads that skin at
      boot, sexcapades.io (legacy) loads Sexcapades, and flex.capades.io /
-     capades.io boot the default skin (Metacapades) with the skin menu open (the "no
+     capades.io boot the default skin (Flexcapades) with the skin menu open (the "no
      skin picked" state). Anything else (localhost, unknown hosts) boots
      Sexcapades, as before. The ?skin= query param (see skinFromUrl)
      wins over the hostname: it carries a skin selection across the
      age-gate round-trip. */
-  var HOSTNAME_SKINS = (typeof window !== "undefined" && window.__SX_HOSTNAME_SKINS) || { sex: "sexcapades", polis: "poliscapades", fores: "forescapades", philo: "philoscapades", aesth: "aesthcapades", voca: "vocapades", tech: "techcapades", dharma: "dharmacapades", theori: "theoricapades", praxi: "praxicapades", quanta: "quantacapades", experi: "expericapades", simul: "simulcapades", matter: "mattercapades", chem: "chemcapades", nous: "nouscapades", bio: "biocapades", lingua: "linguacapades", fast: "fastcapades", meta: "metacapades", dance: "dancecapades", quest: "questcapades" };
-  var SKIN_IDS = (typeof window !== "undefined" && window.__SX_SKIN_IDS) || ["sexcapades", "poliscapades", "forescapades", "philoscapades", "aesthcapades", "vocapades", "techcapades", "dharmacapades", "theoricapades", "praxicapades", "quantacapades", "expericapades", "simulcapades", "mattercapades", "chemcapades", "nouscapades", "biocapades", "linguacapades", "fastcapades", "metacapades", "dancecapades", "questcapades"];
+  var HOSTNAME_SKINS = (typeof window !== "undefined" && window.__SX_HOSTNAME_SKINS) || { sex: "sexcapades", polis: "poliscapades", fores: "forescapades", philo: "philoscapades", aesth: "aesthcapades", voca: "vocapades", tech: "techcapades", dharma: "dharmacapades", theori: "theoricapades", praxi: "praxicapades", quanta: "quantacapades", experi: "expericapades", simul: "simulcapades", matter: "mattercapades", chem: "chemcapades", nous: "nouscapades", bio: "biocapades", lingua: "linguacapades", fast: "fastcapades", flex: "flexcapades", dance: "dancecapades", quest: "questcapades" };
+  var SKIN_IDS = (typeof window !== "undefined" && window.__SX_SKIN_IDS) || ["sexcapades", "poliscapades", "forescapades", "philoscapades", "aesthcapades", "vocapades", "techcapades", "dharmacapades", "theoricapades", "praxicapades", "quantacapades", "expericapades", "simulcapades", "mattercapades", "chemcapades", "nouscapades", "biocapades", "linguacapades", "fastcapades", "flexcapades", "dancecapades", "questcapades"];
 
   function skinForHostname(hostname) {
     if (typeof window !== "undefined" && typeof window.__SX_SKIN_FOR_HOSTNAME === "function" && window.__SX_SKIN_FOR_HOSTNAME !== skinForHostname) {
@@ -423,7 +423,7 @@
     }
     var host = (hostname || "").toLowerCase();
     if (host === "sexcapades.io" || host === "www.sexcapades.io") return "sexcapades";
-    if (host === "flex.capades.io" || host === "www.flex.capades.io" || host === "capades.io" || host === "www.capades.io") return "metacapades";
+    if (host === "flex.capades.io" || host === "www.flex.capades.io" || host === "capades.io" || host === "www.capades.io") return "flexcapades";
     var prefix = /\.capades\.io$/.test(host) ? host.split(".")[0] : "";
     if (prefix && HOSTNAME_SKINS[prefix]) return HOSTNAME_SKINS[prefix];
     return "sexcapades";

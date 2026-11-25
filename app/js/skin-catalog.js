@@ -24,7 +24,7 @@
     forescapades: { id: "forescapades", prefix: "fores", name: "Forescapades", desc: "religion — Abrahamic faiths", type: "stance" },
     linguacapades: { id: "linguacapades", prefix: "lingua", name: "Linguacapades", desc: "the tongues we think in", type: "stance" },
     mattercapades: { id: "mattercapades", prefix: "matter", name: "Mattercapades", desc: "applied physics", type: "stance" },
-    metacapades: { id: "metacapades", prefix: "meta", name: "Metacapades", desc: "how you use Flexcapades, and how you want it to grow", type: "stance" },
+    flexcapades: { id: "flexcapades", prefix: "flex", name: "Flexcapades", desc: "how you use Flexcapades, and how you want it to grow", type: "stance" },
     nouscapades: { id: "nouscapades", prefix: "nous", name: "Nouscapades", desc: "what counts as a mind", type: "stance" },
     philoscapades: { id: "philoscapades", prefix: "philo", name: "Philoscapades", desc: "philosophy", type: "stance" },
     poliscapades: { id: "poliscapades", prefix: "polis", name: "Poliscapades", desc: "politics", type: "stance" },
@@ -57,7 +57,7 @@
   function skinForHostname(hostname) {
     var host = (hostname || (typeof location !== "undefined" ? location.hostname : "") || "").toLowerCase();
     if (host === "sexcapades.io" || host === "www.sexcapades.io") return "sexcapades";
-    if (host === "flex.capades.io" || host === "www.flex.capades.io" || host === "capades.io" || host === "www.capades.io") return "metacapades";
+    if (host === "flex.capades.io" || host === "www.flex.capades.io" || host === "capades.io" || host === "www.capades.io") return "flexcapades";
     var prefix = /\.capades\.io$/.test(host) ? host.split(".")[0] : "";
     if (prefix && HOSTNAME_TO_SKIN[prefix]) return HOSTNAME_TO_SKIN[prefix];
     return "sexcapades";
