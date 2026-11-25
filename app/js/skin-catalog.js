@@ -156,5 +156,9 @@
     window.__SX_RENDER_SKIN_MENU = renderSkinMenu;
     window.__SX_SET_INITIAL_TITLE = setInitialTabTitle;
     window.__SX_INJECT_PRELOAD = injectPreloadLink;
+    if (typeof document !== "undefined" && document.head) {
+      setInitialTabTitle();
+      injectPreloadLink();
+    }
   }
 })();

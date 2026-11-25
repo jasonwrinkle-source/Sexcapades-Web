@@ -604,7 +604,7 @@ __sxInit(function () {
     });
   }
   /* Skin id -> subdomain prefix: delegated to window.__SX_SKIN_SUBDOMAIN single source. */
-  var SKIN_SUBDOMAIN = (typeof window !== "undefined" && window.__SX_SKIN_SUBDOMAIN) || { sexcapades: "sex", poliscapades: "polis", forescapades: "fores", philoscapades: "philo", aesthcapades: "aesth", vocapades: "voca", techcapades: "tech", dharmacapades: "dharma", theori: "theoricapades", praxi: "praxicapades", quantacapades: "quanta", expericapades: "experi", simulcapades: "simul", mattercapades: "matter", chemcapades: "chem", nouscapades: "nous", biocapades: "bio", linguacapades: "lingua", fastcapades: "fast", flexcapades: "flex", dancecapades: "dance", questcapades: "quest" };
+  var SKIN_SUBDOMAIN = (typeof window !== "undefined" && window.__SX_SKIN_SUBDOMAIN) || {};
   function choose(item) {
     if (!item) return;
     var skin = item.getAttribute("data-skin");
@@ -774,13 +774,13 @@ __sxInit(function () {
 
     function detectActiveSkin() {
       if (window.__SX_ACTIVE_SKIN) return window.__SX_ACTIVE_SKIN;
-      var host = "";
-      try { host = window.location.hostname.toLowerCase(); } catch (e) { host = ""; }
-      if (host.indexOf("polis") !== -1) return "poliscapades";
-      if (host.indexOf("fores") !== -1) return "forescapades";
-      var q = "";
-      try { q = new URLSearchParams(window.location.search || "").get("skin"); } catch (e) { q = ""; }
-      if (q) return q;
+      if (typeof window.__SX_SKIN_FROM_URL === "function") {
+        var u = window.__SX_SKIN_FROM_URL();
+        if (u) return u;
+      }
+      if (typeof window.__SX_SKIN_FOR_HOSTNAME === "function") {
+        return window.__SX_SKIN_FOR_HOSTNAME(window.location.hostname);
+      }
       return "sexcapades";
     }
 

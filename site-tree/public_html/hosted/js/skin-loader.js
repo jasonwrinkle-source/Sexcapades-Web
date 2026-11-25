@@ -414,8 +414,8 @@
      Sexcapades, as before. The ?skin= query param (see skinFromUrl)
      wins over the hostname: it carries a skin selection across the
      age-gate round-trip. */
-  var HOSTNAME_SKINS = (typeof window !== "undefined" && window.__SX_HOSTNAME_SKINS) || { sex: "sexcapades", polis: "poliscapades", fores: "forescapades", philo: "philoscapades", aesth: "aesthcapades", voca: "vocapades", tech: "techcapades", dharma: "dharmacapades", theori: "theoricapades", praxi: "praxicapades", quanta: "quantacapades", experi: "expericapades", simul: "simulcapades", matter: "mattercapades", chem: "chemcapades", nous: "nouscapades", bio: "biocapades", lingua: "linguacapades", fast: "fastcapades", flex: "flexcapades", dance: "dancecapades", quest: "questcapades" };
-  var SKIN_IDS = (typeof window !== "undefined" && window.__SX_SKIN_IDS) || ["sexcapades", "poliscapades", "forescapades", "philoscapades", "aesthcapades", "vocapades", "techcapades", "dharmacapades", "theoricapades", "praxicapades", "quantacapades", "expericapades", "simulcapades", "mattercapades", "chemcapades", "nouscapades", "biocapades", "linguacapades", "fastcapades", "flexcapades", "dancecapades", "questcapades"];
+  var HOSTNAME_SKINS = (typeof window !== "undefined" && window.__SX_HOSTNAME_SKINS) || {};
+  var SKIN_IDS = (typeof window !== "undefined" && window.__SX_SKIN_IDS) || [];
 
   function skinForHostname(hostname) {
     if (typeof window !== "undefined" && typeof window.__SX_SKIN_FOR_HOSTNAME === "function" && window.__SX_SKIN_FOR_HOSTNAME !== skinForHostname) {

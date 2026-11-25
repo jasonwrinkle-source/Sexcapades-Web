@@ -19,8 +19,7 @@ if(typeof window.__sxErrLog!=="function"){window.__sxErrLog=function(where,err){
 </script>
 <link href="/hosted/favicon.ico" rel="icon"/>
 <title>Sex.Capades.IO</title>
-<script>/* Tab title for the boot skin, set before first paint: the shell's static title names Sexcapades and the loader only corrects it after the skin fetch + engine boot, so every other skin flashed "Sex.Capades.IO" in the tab on refresh. Mirrors skin-loader's HOSTNAME_SKINS and setBrand title rule (?skin= wins over hostname). */
-(function(){try{var T={sexcapades:["sex",""],poliscapades:["polis","Poliscapades"],forescapades:["fores","Forescapades"],philoscapades:["philo","Philoscapades"],aesthcapades:["aesth","Aesthcapades"],vocapades:["voca","Vocapades"],techcapades:["tech","Techcapades"],dharmacapades:["dharma","Dharmacapades"],theoricapades:["theori","Theoricapades"],praxicapades:["praxi","Praxicapades"],quantacapades:["quanta","Quantacapades"],expericapades:["experi","Expericapades"],simulcapades:["simul","Simulcapades"],mattercapades:["matter","Mattercapades"],chemcapades:["chem","Chemcapades"],nouscapades:["nous","Nouscapades"],biocapades:["bio","Biocapades"],linguacapades:["lingua","Linguacapades"],fastcapades:["fast","Fastcapades"],flexcapades:["flex","Flexcapades"],dancecapades:["dance","Dancecapades"],questcapades:["quest","Questcapades"]};var id=null,q=new URLSearchParams(location.search).get("skin");if(q&&T[q])id=q;var h=(location.hostname||"").toLowerCase().replace(/^www\./,"");if(!id){if(h==="flex.capades.io"||h==="capades.io"){document.title="Flex.Capades.IO";return;}var p=h.split(".")[0];for(var k in T)if(T[k][0]===p){id=k;break;}}if(id){var e=T[id],d=e[0].charAt(0).toUpperCase()+e[0].slice(1)+".Capades.IO";document.title=e[1]?d+" \u2014 "+e[1]:d;}}catch(_){}})();</script>
+<script src="/hosted/app-assets/skin-catalog.js"></script>
 <script>
     // Age-gate enforcement with a private-browsing fallback. The gate may
     // return ?verified=1 when persistent storage is unavailable.
@@ -320,24 +319,6 @@ if(typeof window.__sxErrLog!=="function"){window.__sxErrLog=function(where,err){
       // Scribe route is gone entirely — button doorway only.)
       if(/^#\/?(app\/)?(?:list|listview)\/?$/i.test(fragment))document.documentElement.classList.add('route-listview-pending');
       return fragment||'#app';
-    })();
-  </script>
-  <script>
-    (function(){
-      try {
-        var q = new URLSearchParams(window.location.search || '').get('skin');
-        var host = (window.location.hostname || '').toLowerCase();
-        var map = { sex: 'sexcapades', polis: 'poliscapades', fores: 'forescapades', philo: 'philoscapades', aesth: 'aesthcapades', voca: 'vocapades', tech: 'techcapades', dharma: 'dharmacapades', theori: 'theoricapades', praxi: 'praxicapades', quanta: 'quantacapades', experi: 'expericapades', simul: 'simulcapades', matter: 'mattercapades', chem: 'chemcapades', nous: 'nouscapades', bio: 'biocapades', lingua: 'linguacapades', fast: 'fastcapades', flex: 'flexcapades', dance: 'dancecapades', quest: 'questcapades' };
-        var skin = q || (/\.capades\.io$/.test(host) ? map[host.split('.')[0]] : null);
-        if (skin && skin !== 'sexcapades') {
-          var l = document.createElement('link');
-          l.rel = 'preload';
-          l.as = 'fetch';
-          l.href = 'data/skins/' + skin + '.json';
-          l.crossOrigin = 'anonymous';
-          document.head.appendChild(l);
-        }
-      } catch(e) {}
     })();
   </script>
 <link href="/manifest.json" rel="manifest"/>
