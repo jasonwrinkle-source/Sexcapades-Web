@@ -130,7 +130,18 @@ if os.path.exists(embedded_comm_src):
             print(f"[Bundle] Synced embedded-communities.js to {ec_dst}")
 
 
+patches_dir = os.path.join(base_dir, "../js/patches")
 patches_src = os.path.join(base_dir, "../js/patches.js")
+if os.path.isdir(patches_dir):
+    patch_files = sorted([f for f in os.listdir(patches_dir) if f.endswith(".js")])
+    if patch_files:
+        patch_chunks = []
+        for pf in patch_files:
+            with open(os.path.join(patches_dir, pf), encoding="utf-8") as pfh:
+                patch_chunks.append(pfh.read().rstrip("\n"))
+        with open(patches_src, "w", encoding="utf-8") as out_p:
+            out_p.write("\n\n".join(patch_chunks) + "\n")
+        print(f"[Bundle] Built patches.js from {len(patch_files)} modules in app/js/patches/")
 patches_hosted = os.path.join(base_dir, "../../site-tree/public_html/hosted/js/patches.js")
 patches_hosted_alt = os.path.join(base_dir, "../../hosted/js/patches.js")
 patches_qa = os.path.join(base_dir, "../../site-tree/public_html/qa/js/patches.js")
