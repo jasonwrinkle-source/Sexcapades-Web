@@ -56,7 +56,7 @@
   function skinForHostname(hostname) {
     var host = (hostname || (typeof location !== "undefined" ? location.hostname : "") || "").toLowerCase();
     if (host === "sexcapades.io" || host === "www.sexcapades.io") return "sexcapades";
-    if (host === "flex.capades.io" || host === "capades.io") return "sexcapades";
+    if (host === "flex.capades.io" || host === "www.flex.capades.io" || host === "capades.io" || host === "www.capades.io") return "poliscapades";
     var prefix = /\.capades\.io$/.test(host) ? host.split(".")[0] : "";
     if (prefix && HOSTNAME_TO_SKIN[prefix]) return HOSTNAME_TO_SKIN[prefix];
     return "sexcapades";

@@ -337,7 +337,8 @@
                 var known = ["sexcapades", "poliscapades", "forescapades", "philoscapades", "aesthcapades", "vocapades", "techcapades", "dharmacapades", "theoricapades", "praxicapades", "quantacapades", "expericapades", "simulcapades", "mattercapades", "chemcapades", "nouscapades", "biocapades", "linguacapades", "fastcapades", "dancecapades", "questcapades"];
                 if (q && known.indexOf(q) !== -1) return q;
                 var host = (location.hostname || "").toLowerCase();
-                if (host === "sexcapades.io" || host === "www.sexcapades.io" || host === "flex.capades.io" || host === "capades.io") return "sexcapades";
+                if (host === "sexcapades.io" || host === "www.sexcapades.io") return "sexcapades";
+                if (host === "flex.capades.io" || host === "www.flex.capades.io" || host === "capades.io" || host === "www.capades.io") return "poliscapades";
                 var map = { sex: "sexcapades", polis: "poliscapades", fores: "forescapades", philo: "philoscapades", aesth: "aesthcapades", voca: "vocapades", tech: "techcapades", dharma: "dharmacapades", theori: "theoricapades", praxi: "praxicapades", quanta: "quantacapades", experi: "expericapades", simul: "simulcapades", matter: "mattercapades", chem: "chemcapades", nous: "nouscapades", bio: "biocapades", lingua: "linguacapades", fast: "fastcapades", dance: "dancecapades", quest: "questcapades" };
                 var prefix = /\.capades\.io$/.test(host) ? host.split(".")[0] : "";
                 if (prefix && map[prefix]) return map[prefix];

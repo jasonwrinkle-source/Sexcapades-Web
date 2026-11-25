@@ -9,6 +9,7 @@
   "use strict";
   var SKINS = {
     sex: ["Sexcapades", "Sex.Capades.IO"],
+    flex: ["Flexcapades", "Flex.Capades.IO"],
     polis: ["Poliscapades", "Polis.Capades.IO"],
     fores: ["Forescapades", "Fores.Capades.IO"],
     philo: ["Philoscapades", "Philo.Capades.IO"],
@@ -24,20 +25,25 @@
     matter: ["Mattercapades", "Matter.Capades.IO"],
     chem: ["Chemcapades", "Chem.Capades.IO"],
     nous: ["Nouscapades", "Nous.Capades.IO"],
+    bio: ["Biocapades", "Bio.Capades.IO"],
+    lingua: ["Linguacapades", "Lingua.Capades.IO"],
+    fast: ["Fastcapades", "Fast.Capades.IO"],
     dance: ["Dancecapades", "Dance.Capades.IO"],
     quest: ["Questcapades", "Quest.Capades.IO"]
   };
   function detectSkin() {
     var host = "";
     try { host = window.location.hostname.toLowerCase(); } catch (e) { host = ""; }
+    var cleanHost = host.replace(/^www\./, "");
     var prefix = "";
-    if (/\.capades\.io$/.test(host)) prefix = host.split(".")[0];
-    else if (host === "sexcapades.io" || host === "www.sexcapades.io") prefix = "sex";
+    if (/\.capades\.io$/.test(cleanHost)) prefix = cleanHost.split(".")[0];
+    else if (cleanHost === "sexcapades.io") prefix = "sex";
     var isSkinHost = !!prefix && !!SKINS[prefix];
     var q = null;
     try { q = new URLSearchParams(window.location.search || "").get("skin"); } catch (e) { q = null; }
+    if (q) q = q.toLowerCase();
     if (!isSkinHost && q && SKINS[q]) prefix = q;
-    if (!prefix || !SKINS[prefix]) prefix = "sex";
+    if (!prefix || !SKINS[prefix]) prefix = "flex";
     return prefix;
   }
   var prefix = detectSkin();
@@ -82,6 +88,8 @@
     ["Flexcapades", skin.name],
     ["flex.capades.io", skin.host],
     ["Sex.Capades.IO", skin.brand],
+    ["Sex.capades.io", skin.brand],
+    ["sex.capades.io", skin.host],
     ["Sexcapades.IO", skin.brand],
     ["Sexcapades.io", skin.host],
     ["Sexcapades", skin.name],
@@ -145,7 +153,7 @@
     for (var l = 0; l < links.length; l++) {
       var h = links[l].getAttribute("href");
       if (!h) continue;
-      var nh = h.replace(/^https?:\/\/((www\.)?sexcapades\.io)(\/|$|\?|#)/i, function (_, __, ___, tail) {
+      var nh = h.replace(/^https?:\/\/((www\.)?(sexcapades\.io|sex\.capades\.io))(\/|$|\?|#)/i, function (_, __, ___, ____, tail) {
         return "https://" + skin.host + (tail || "");
       });
       if (nh !== h) links[l].setAttribute("href", nh);

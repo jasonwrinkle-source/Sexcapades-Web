@@ -385,6 +385,9 @@
           matter: ["Mattercapades", "Matter.Capades.IO"],
           chem: ["Chemcapades", "Chem.Capades.IO"],
           nous: ["Nouscapades", "Nous.Capades.IO"],
+          bio: ["Biocapades", "Bio.Capades.IO"],
+          lingua: ["Linguacapades", "Lingua.Capades.IO"],
+          fast: ["Fastcapades", "Fast.Capades.IO"],
           dance: ["Dancecapades", "Dance.Capades.IO"],
           quest: ["Questcapades", "Quest.Capades.IO"]
         };
@@ -465,6 +468,8 @@
           var gateCloseAbout = document.getElementById("gateCloseAbout");
           if (gateCloseAbout) gateCloseAbout.setAttribute("aria-label", "Close About Flex.Capades.IO");
           document.querySelectorAll(".sx-tally-brand").forEach(function (b) { b.textContent = "Flex.Capades.IO"; });
+          var compareItem = document.getElementById("gateCompareLinkItem");
+          if (compareItem) compareItem.style.display = "none";
           revealDestinations();
         } else if (gateSkinPrefix !== "sex") {
           var hasReturn = false;

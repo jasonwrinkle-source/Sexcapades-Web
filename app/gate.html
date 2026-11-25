@@ -2409,6 +2409,8 @@
           var gateCloseAbout = document.getElementById("gateCloseAbout");
           if (gateCloseAbout) gateCloseAbout.setAttribute("aria-label", "Close About Flex.Capades.IO");
           document.querySelectorAll(".sx-tally-brand").forEach(function (b) { b.textContent = "Flex.Capades.IO"; });
+          var compareItem = document.getElementById("gateCompareLinkItem");
+          if (compareItem) compareItem.style.display = "none";
           revealDestinations();
         } else if (gateSkinPrefix !== "sex") {
           var hasReturn = false;
