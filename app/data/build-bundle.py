@@ -117,6 +117,19 @@ if os.path.exists(template_app) and os.path.exists(os.path.dirname(template_app_
     shutil.copyfile(template_app, template_app_assets)
     print(f"[Bundle] Synced unrated-map-template.js to app-assets/")
 
+embedded_comm_src = os.path.join(base_dir, "embedded-communities.js")
+if os.path.exists(embedded_comm_src):
+    for ec_dst in [
+        os.path.join(base_dir, "../../site-tree/public_html/hosted/data/embedded-communities.js"),
+        os.path.join(base_dir, "../../site-tree/public_html/hosted/app-assets/embedded-communities.js"),
+        os.path.join(base_dir, "../../site-tree/public_html/qa/data/embedded-communities.js"),
+        os.path.join(base_dir, "../../site-tree/public_html/qa/app-assets/embedded-communities.js"),
+    ]:
+        if os.path.exists(os.path.dirname(ec_dst)):
+            shutil.copyfile(embedded_comm_src, ec_dst)
+            print(f"[Bundle] Synced embedded-communities.js to {ec_dst}")
+
+
 patches_src = os.path.join(base_dir, "../js/patches.js")
 patches_hosted = os.path.join(base_dir, "../../site-tree/public_html/hosted/js/patches.js")
 patches_hosted_alt = os.path.join(base_dir, "../../hosted/js/patches.js")
