@@ -696,6 +696,7 @@
     var communities = {};
     var popularity = {};
     var readings = {};
+    var topicGlyphs = {};
     var count = 0;
     data.categories.forEach(function (cat) {
       var all = (cat.topics || []).slice();
@@ -705,6 +706,11 @@
       all.forEach(function (t) {
         var wc = widgetConfig(t);
         if (wc) widgets[t.id] = wc;
+        if (t.glyph) {
+          var gEntry = t.glyphLabel ? { glyph: t.glyph, label: t.glyphLabel } : t.glyph;
+          topicGlyphs[cat.name + "\0" + t.name] = gEntry;
+          if (t.label && t.label !== t.name) topicGlyphs[cat.name + "\0" + t.label] = gEntry;
+        }
         if (t.hovertip) desc[t.name] = formatHovertip(t);
         /* Widget approachability: per-pole hovertip lines ("Label — text"),
            keyed by topic id then pole key; the placard attaches them to the
@@ -737,6 +743,7 @@
     window.__SX_SKIN_COMMUNITIES = communities;
     window.__SX_SKIN_POPULARITY = popularity;
     window.__SX_POLE_READINGS = readings;
+    window.__SX_SKIN_TOPIC_GLYPHS = topicGlyphs;
     return count;
   }
 

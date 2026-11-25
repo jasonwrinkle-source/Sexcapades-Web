@@ -2327,10 +2327,11 @@
             // category's descriptor glyph from ge instead of the
             // generic star. Ee covers every Sexcapades subcategory
             // (boot-checked above), so Sexcapades hubs are untouched.
-            const n = Ee[e] || "star", _ownGlyph = (e in Ee) && (n in ye), _catDesc = !_ownGlyph && ge && ge[t] && ge[t].glyph ? ge[t] : null, _glyphFallback = !_ownGlyph && !_catDesc, _hubGlyph = _ownGlyph ? ye[n] : _catDesc ? _catDesc.glyph : ye[n] || ye.star, _hubKey = _ownGlyph || !_catDesc ? n : t, i = ge[t] || {};
+            const n = Ee[e] || "star", _ownGlyph = (e in Ee) && (n in ye), _catDesc = !_ownGlyph && ge && ge[t] && ge[t].glyph ? ge[t] : null, _glyphFallback = !_ownGlyph && !_catDesc, _hubGlyph = _ownGlyph ? ye[n] : _catDesc ? _catDesc.glyph : ye[n] || ye.star, _hubVb = _ownGlyph ? "0 0 16 16" : _catDesc ? "0 0 24 24" : "0 0 16 16", _hubKey = _ownGlyph || !_catDesc ? n : t, i = ge[t] || {};
             const c = h.find(c => c.name === t), s = c && (c.subcategories || []).find(s => s.name === e), p = s ? fpSub(s.topics, t) : null;
             if (p) return {
                 glyph: _hubGlyph,
+                viewBox: _hubVb,
                 glyphFallback: _glyphFallback,
                 accent: "",
                 color: p.color,
@@ -2344,6 +2345,7 @@
             const fallbackColor = i.color || Ga.NO_CODE_COLOR;
             return {
                 glyph: _hubGlyph,
+                viewBox: _hubVb,
                 glyphFallback: _glyphFallback,
                 accent: "",
                 color: fallbackColor,
@@ -2548,14 +2550,45 @@
             return `<circle class="icon-accent" cx="${o[0].toFixed(2)}" cy="${o[1].toFixed(2)}" r=".66"/><path class="icon-accent-stroke" d="M ${s[0].toFixed(2)} ${s[1].toFixed(2)} l ${(.28 * (8 - s[0])).toFixed(2)} ${(.28 * (8 - s[1])).toFixed(2)}"/><path class="icon-detail" d="M ${o[0].toFixed(2)} ${o[1].toFixed(2)} Q ${c[0].toFixed(2)} ${c[1].toFixed(2)} ${d[0].toFixed(2)} ${d[1].toFixed(2)} M ${l[0].toFixed(2)} ${l[1].toFixed(2)} l ${(.16 * (8 - l[0])).toFixed(2)} ${(.16 * (8 - l[1])).toFixed(2)}"/><circle class="icon-detail-dot" cx="${l[0].toFixed(2)}" cy="${l[1].toFixed(2)}" r=".34"/>`;
         }
         function Oe(e, t) {
-            // Topic-icon inheritance (owner ruling 2026-11-23): a topic
-            // with no glyph of its own in ve inherits its category's
-            // descriptor glyph from ge instead of the generic star.
-            // Topics present in ve (every Sexcapades catalog topic,
-            // including any assigned the star itself) are untouched.
-            const _veKey = t + "\0" + e, n = ve.get(_veKey) || "star", _ownGlyph = ve.has(_veKey) && n in ye, _catDesc = !_ownGlyph && ge && ge[t] && ge[t].glyph ? ge[t] : null, _glyphFallback = !_ownGlyph && !_catDesc, i = _e.get(_veKey) || 0, a = Le(e, t);
+            // Topic-icon inheritance & per-topic glyphs (owner ruling 2026-11-23):
+            // 1. Skin-authored per-topic glyph from window.__SX_SKIN_TOPIC_GLYPHS
+            //    (24x24 SVG path d-string / markup or a ye key) replaces the inherited
+            //    category glyph for that topic only; categories keep theirs.
+            // 2. Sexcapades catalog glyph from ve -> ye (16x16 viewBox).
+            // 3. Otherwise inherit the parent category's descriptor glyph from ge (24x24).
+            // 4. Last resort fallback: ye.star (16x16).
+            const _veKey = t + "\0" + e;
+            const _skinMap = typeof window !== "undefined" ? window.__SX_SKIN_TOPIC_GLYPHS : null;
+            const _skinRaw = _skinMap ? _skinMap[_veKey] : null;
+            let _skinGlyphMarkup = null, _skinKey = null, _skinVb = null;
+            if (_skinRaw) {
+                const _rawStr = "string" == typeof _skinRaw ? _skinRaw : (_skinRaw.glyph || "");
+                const _rawLabel = "object" == typeof _skinRaw && _skinRaw.label ? _skinRaw.label : "";
+                if (_rawStr) {
+                    if (_rawStr in ye) {
+                        _skinGlyphMarkup = ye[_rawStr];
+                        _skinKey = _rawLabel || _rawStr;
+                        _skinVb = "0 0 16 16";
+                    } else if (/^\s*</.test(_rawStr)) {
+                        _skinGlyphMarkup = _rawStr;
+                        _skinKey = _rawLabel || e;
+                        _skinVb = "0 0 24 24";
+                    } else if (/^\s*[Mm]/.test(_rawStr)) {
+                        _skinGlyphMarkup = `<path class="icon-glyph" d="${_rawStr}"/>`;
+                        _skinKey = _rawLabel || e;
+                        _skinVb = "0 0 24 24";
+                    }
+                }
+            }
+            const n = ve.get(_veKey) || "star";
+            const _ownVe = !_skinGlyphMarkup && ve.has(_veKey) && n in ye;
+            const _ownGlyph = Boolean(_skinGlyphMarkup || _ownVe);
+            const _catDesc = !_ownGlyph && ge && ge[t] && ge[t].glyph ? ge[t] : null;
+            const _glyphFallback = !_ownGlyph && !_catDesc;
+            const i = _e.get(_veKey) || 0, a = Le(e, t);
             return {
-                glyph: _ownGlyph ? ye[n] : _catDesc ? _catDesc.glyph : ye.star,
+                glyph: _skinGlyphMarkup ? _skinGlyphMarkup : _ownVe ? ye[n] : _catDesc ? _catDesc.glyph : ye.star,
+                viewBox: _skinGlyphMarkup ? _skinVb : _ownVe ? "0 0 16 16" : _catDesc ? "0 0 24 24" : "0 0 16 16",
                 glyphFallback: _glyphFallback,
                 accent: "",
                 color: a.color,
@@ -2563,7 +2596,7 @@
                 labelColor: a.labelColor,
                 labelStroke: a.labelStroke,
                 hankyKey: a.key,
-                key: _ownGlyph || !_catDesc ? n : t
+                key: _skinGlyphMarkup ? _skinKey : (_ownVe || !_catDesc ? n : t)
             };
         }
         h.forEach(e => e.topics.forEach(t => _e.set(e.name + "\0" + t, De++)));

@@ -2185,7 +2185,7 @@
             const n = !t && e.hankyKey && "subcategory" !== e.hankyKey ? ` data-hanky-code="${Hi(e.hankyKey)}"` : "";
             const iconSize = (48 * 0.62).toFixed(2);
             const iconOffset = ((48 - 48 * 0.62) / 2).toFixed(2);
-            return `<svg class="glance-tooltip-practice-icon ${t ? "branch-icon" : "topic-icon"}${"subcategory" === e.hankyKey ? " subcategory-icon" : "noCode" === e.hankyKey ? " no-hanky-code-icon" : ""}" viewBox="0 0 48 48" aria-hidden="true"${n} style="--icon-family:${Hi(e.color)};color:${Hi(e.color)}"><circle class="icon-ring-outline icon-ring-outline-outer" cx="24" cy="24" r="23.5"/><circle class="icon-disc" cx="24" cy="24" r="22"/><circle class="icon-ring-outline icon-ring-outline-inner" cx="24" cy="24" r="20.5"/><svg viewBox="0 0 24 24" width="${iconSize}" height="${iconSize}" x="${iconOffset}" y="${iconOffset}" overflow="visible">${e.glyph}${e.accent || ""}</svg></svg>`;
+            return `<svg class="glance-tooltip-practice-icon ${t ? "branch-icon" : "topic-icon"}${"subcategory" === e.hankyKey ? " subcategory-icon" : "noCode" === e.hankyKey ? " no-hanky-code-icon" : ""}" viewBox="0 0 48 48" aria-hidden="true"${n} style="--icon-family:${Hi(e.color)};color:${Hi(e.color)}"><circle class="icon-ring-outline icon-ring-outline-outer" cx="24" cy="24" r="23.5"/><circle class="icon-disc" cx="24" cy="24" r="22"/><circle class="icon-ring-outline icon-ring-outline-inner" cx="24" cy="24" r="20.5"/><svg viewBox="${e.viewBox || "0 0 24 24"}" width="${iconSize}" height="${iconSize}" x="${iconOffset}" y="${iconOffset}" overflow="visible">${e.glyph}${e.accent || ""}</svg></svg>`;
         }
         function zl(e) {
             let t = [], i = [], a = -1, r = !1;

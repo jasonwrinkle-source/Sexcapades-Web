@@ -680,7 +680,7 @@
                     const fallbackAttr = glyphData.glyphFallback ? ' data-glyph-fallback="star"' : "";
                     const cls = isBranch ? `branch-icon${"noCode" === glyphData.hankyKey ? " no-hanky-code-icon" : ""}` :
                         `topic-icon${isSubcategory ? " subcategory-icon" : "noCode" === glyphData.hankyKey ? " no-hanky-code-icon" : ""}${glyphData.glyphFallback ? " glyph-fallback" : ""}`;
-                    const innerContent = `<svg viewBox="0 0 24 24" width="${iconSize.toFixed(2)}" height="${iconSize.toFixed(2)}" x="${iconOffset.toFixed(2)}" y="${iconOffset.toFixed(2)}" overflow="visible">${glyphData.glyph}${glyphData.accent || ""}</svg>`;
+                    const innerContent = `<svg viewBox="${glyphData.viewBox || "0 0 24 24"}" width="${iconSize.toFixed(2)}" height="${iconSize.toFixed(2)}" x="${iconOffset.toFixed(2)}" y="${iconOffset.toFixed(2)}" overflow="visible">${glyphData.glyph}${glyphData.accent || ""}</svg>`;
                     let discMarkup;
                     const rd = r - 2;
                     if (partyHoldings && partyHoldings.length === 2 && !isBranch) {
