@@ -23,16 +23,33 @@
             Qo = !0, t.clear(Xo), Xo = t.setInterval(ws, 1e3)), Zo = n, hs(), ws();
         }
         let xs = 0;
+        // Appetite for one inline-slider direction: the stored
+        // per-flank intensity first, the leaning as derivation (the
+        // fader's handle is coloured by appetite, positioned by
+        // leaning). A pole slider on a dual-placement topic belongs
+        // to the primary (advocacy) placement, so its appetite is
+        // that placement's intensity. The trilinear line and the
+        // monopole carry one intensity on the record itself. A pair
+        // topic's record-level intensity is the blend, never a flank
+        // appetite, so it is only used for the line and monopoles.
+        function sxOutlineDirAppetite(rec, dir, lean) {
+            var l = Math.max(-100, Math.min(100, Number(lean) || 0));
+            if (!rec) return l;
+            if (rec[dir + "IntensityKnown"] && Number.isFinite(Number(rec[dir + "Intensity"]))) return Math.max(-100, Math.min(100, Number(rec[dir + "Intensity"])));
+            if (rec.advocacyKnown && rec.advocacyIntensityKnown && Number.isFinite(Number(rec.advocacyIntensity)) && rec.advocacy && typeof rec.advocacy === "object" && Object.prototype.hasOwnProperty.call(rec.advocacy, dir)) return Math.max(-100, Math.min(100, Number(rec.advocacyIntensity)));
+            if ((dir === "line" || rec.isMonopole) && rec.intensityKnown && Number.isFinite(Number(rec.intensity))) return Math.max(-100, Math.min(100, Number(rec.intensity)));
+            return l;
+        }
         function Ss(e) {
             const t = e.dataset.outlineId, n = Go, i = ca(t, n), a = (Qe[n] || {})[t] || "", r = e.querySelector(".outline-topic-label");
             e.querySelectorAll("[data-outline-direction]").forEach(e => {
                 const t = e.dataset.outlineDirection;
-                !function(e, t, n) {
+                !function(e, t, n, app) {
                     const i = Math.max(-100, Math.min(100, Number(n) || 0)), a = __sxClosestAction(e, "outlineRating").querySelector("output");
-                    e.value = String(Math.round(i)), e.classList.toggle("is-unrated", !t), e.style.setProperty("--outline-thumb", t ? zi(i) : "#646d66"), 
+                    e.value = String(Math.round(i)), e.classList.toggle("is-unrated", !t), e.style.setProperty("--outline-thumb", t ? zi(app) : "#646d66"), 
                     e.setAttribute("aria-valuetext", t ? `${Math.round(i)}` : "Unrated"), a.textContent = t ? String(Math.round(i)) : "—", 
                     a.classList.toggle("is-unrated", !t);
-                }(e, Boolean(i[t + "Known"]), i[t]);
+                }(e, Boolean(i[t + "Known"]), i[t], sxOutlineDirAppetite(i, t, i[t]));
             }), e.querySelectorAll("[data-outline-mark]").forEach(e => e.setAttribute("aria-pressed", String(e.dataset.outlineMark === a))), 
             e.querySelector('[data-outline-flag="fantasy"]')?.setAttribute("aria-pressed", String(Boolean(Je[n]?.[t]))), 
             e.querySelector('[data-outline-flag="tried"]')?.setAttribute("aria-pressed", String(Boolean(et[n]?.[t])));

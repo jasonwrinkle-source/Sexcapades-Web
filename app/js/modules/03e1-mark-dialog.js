@@ -1023,17 +1023,30 @@
            the stored values. The fine-tune block below it is the same
            four numbers written out longhand, in sync both ways. */
         var sxCrossPlacard = null;
+        // The current topic's pole keys (shape.keys): the placement
+        // flank read/write needs them to find the spectrum position
+        // inside a per-pole placement object. Set on every sync; null
+        // when the shape carries none (classic pair topics read/write
+        // flat give/receive numbers, and the object branch is skipped).
+        var sxCrossPlacardKeys = null;
         function sxCrossPlacardState(dir) {
             if (!Qr) return null;
             var rec = ca(Qr, Vi());
-            return sxCrossFlankState(rec, dir);
+            return sxCrossFlankState(rec, dir, sxCrossPlacardKeys);
         }
         function sxCrossPlacardWrite(dir, value) {
             if (!Qr) return;
-            sxCrossWriteFlank(Qr, dir, value, Vi());
+            sxCrossWriteFlank(Qr, dir, value, Vi(), sxCrossPlacardKeys);
         }
         function sxCrossPlacardRelease() {
             if (Qr) { sxSyncMarkRatings(Qr); Mr(); }
+        }
+        // The flank keys for the current topic: give/receive on the
+        // classic skin, advocacy/receptivity on stance skins (the
+        // cross slider reads/writes the real keys, so a stance pair
+        // topic shows live advocacy/receptivity pucks, not ghosts).
+        function sxCrossPlacardFlanks() {
+            return sxDualPlacements(Qr) ? ["advocacy", "receptivity"] : ["give", "receive"];
         }
         function sxBindCrossSliderPlacard() {
             var clearBtn = e.byId("markSwitchboxClear");
@@ -1041,7 +1054,16 @@
                 clearBtn.dataset.sxCrossBound = "1";
                 clearBtn.addEventListener("click", () => {
                     if (!Qr) return;
-                    ["give", "receive", "giveIntensity", "receiveIntensity"].forEach(k => Fo(Qr, k, !1));
+                    var fl = sxCrossPlacardFlanks();
+                    if (sxDualPlacements(Qr) && typeof sxClearAdvocacyReceptivity === "function") {
+                        // Placement flanks clear through the placement
+                        // clearer (it drops the object and its flat
+                        // mirror keys); the flat Fo() path would leave
+                        // the placement object behind.
+                        fl.forEach(k => sxClearAdvocacyReceptivity(Qr, k, Vi()));
+                    } else {
+                        fl.forEach(k => { Fo(Qr, k, !1); Fo(Qr, k + "Intensity", !1); });
+                    }
                     sxSyncMarkRatings(Qr);
                     Mr();
                 });
@@ -1049,25 +1071,30 @@
             var host = e.byId("markCrossSliderHost");
             if (!host || host.dataset.bound) return;
             host.dataset.bound = "1";
-            var give = sxCreateCrossSlider({ dir: "give", get: () => sxCrossPlacardState("give"), onChange: v => sxCrossPlacardWrite("give", v), onRelease: () => sxCrossPlacardRelease() });
-            var receive = sxCreateCrossSlider({ dir: "receive", get: () => sxCrossPlacardState("receive"), onChange: v => sxCrossPlacardWrite("receive", v), onRelease: () => sxCrossPlacardRelease() });
-            host.appendChild(give.root);
-            host.appendChild(receive.root);
-            sxCrossPlacard = { give: give, receive: receive };
+            var fl = sxCrossPlacardFlanks();
+            var first = sxCreateCrossSlider({ dir: fl[0], get: () => sxCrossPlacardState(fl[0]), onChange: v => sxCrossPlacardWrite(fl[0], v), onRelease: () => sxCrossPlacardRelease() });
+            var second = sxCreateCrossSlider({ dir: fl[1], get: () => sxCrossPlacardState(fl[1]), onChange: v => sxCrossPlacardWrite(fl[1], v), onRelease: () => sxCrossPlacardRelease() });
+            host.appendChild(first.root);
+            host.appendChild(second.root);
+            sxCrossPlacard = { first: first, second: second };
         }
         function sxSyncCrossSliderPlacard(shape) {
             sxBindCrossSliderPlacard();
             if (!sxCrossPlacard) return;
-            var giveName = (shape && shape.labels && shape.labels[0]) || "Give";
-            var recvName = (shape && shape.labels && shape.labels[1]) || "Receive";
-            sxCrossPlacard.give.setLabel(giveName);
-            sxCrossPlacard.receive.setLabel(recvName);
+            sxCrossPlacardKeys = (shape && shape.keys) || null;
+            var fl = sxCrossPlacardFlanks();
+            sxCrossPlacard.first.setDir(fl[0], () => sxCrossPlacardState(fl[0]), v => sxCrossPlacardWrite(fl[0], v));
+            sxCrossPlacard.second.setDir(fl[1], () => sxCrossPlacardState(fl[1]), v => sxCrossPlacardWrite(fl[1], v));
+            var firstName = (shape && shape.labels && shape.labels[0]) || (fl[0].charAt(0).toUpperCase() + fl[0].slice(1));
+            var secondName = (shape && shape.labels && shape.labels[1]) || (fl[1].charAt(0).toUpperCase() + fl[1].slice(1));
+            sxCrossPlacard.first.setLabel(firstName);
+            sxCrossPlacard.second.setLabel(secondName);
             if (typeof sxSetPoleTip === "function" && Qr) {
-                sxSetPoleTip(sxCrossPlacard.give.labelEl, Qr, "give");
-                sxSetPoleTip(sxCrossPlacard.receive.labelEl, Qr, "receive");
+                sxSetPoleTip(sxCrossPlacard.first.labelEl, Qr, fl[0]);
+                sxSetPoleTip(sxCrossPlacard.second.labelEl, Qr, fl[1]);
             }
-            sxCrossPlacard.give.render();
-            sxCrossPlacard.receive.render();
+            sxCrossPlacard.first.render();
+            sxCrossPlacard.second.render();
         }
         /* Placement intensities for the slider family + switchbox (2026-11-23):
            the canvas widgets carry disc/ring intensity sliders; the linear

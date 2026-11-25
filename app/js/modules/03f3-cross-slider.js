@@ -1,7 +1,9 @@
         // --- Cross Slider: the pair-topic control (2026-11-24) ---
         // Ported from the ruled mockup (ts-spaces/cross-slider-mockup).
-        // Two close-spaced lines, one puck per flank: give is a filled
-        // disc, receive an open ring with a hollow transparent centre.
+        // Two close-spaced lines, one puck per flank: the giving flank
+        // (give on the classic skin, advocacy on stance skins) is a
+        // filled disc, the receiving flank (receive / receptivity) an
+        // open ring with a hollow transparent centre.
         // Puck position along the line is the leaning; drag up/down and
         // the same puck rides a vertical appetite arm that overlays the
         // other line and reserves no layout space. Puck colour is the
@@ -15,8 +17,10 @@
         // the line shows them as 0..100 (lean = (appLean + 100) / 2),
         // so "Lean out" is the left end (-100) and "Lean in" the right
         // (+100). Appetite is the per-flank (n+1)th number, -100..+100,
-        // stored per flank as giveIntensity / receiveIntensity and read
-        // stored-first, derived only when missing (the derivation is
+        // stored per flank as <flank>Intensity (giveIntensity /
+        // receiveIntensity on the classic skin, advocacyIntensity /
+        // receptivityIntensity on stance skins) and read stored-first,
+        // derived only when missing (the derivation is
         // the signed strongest holding of the single flank value --
         // the leaning itself). The 2D switchbox canvas this replaces
         // coupled both flanks into one drag, coloured by leaning, and
@@ -35,8 +39,27 @@
         // per-flank intensity first; without one it derives from the
         // leaning, the way sxPlacementIntensity derives a missing
         // placement intensity (signed strongest holding).
-        function sxCrossFlankState(rec, dir) {
+        // A placement flank (stance skins, and classic n-pole topics)
+        // stores one OBJECT per flank -- {poleA, poleB, intensity} --
+        // not a single number, so Number(rec[dir]) is NaN and reads 0.
+        // With keys (the shape's two pole keys) the leaning is the
+        // spectrum position between the poles: (v0 - v1) / 2. The poles
+        // are opposites on one axis in the generated data, so this
+        // equals the first pole's value there; when a user rates the
+        // poles independently it is the honest midpoint. Appetite is
+        // the placement's stored intensity.
+        function sxCrossFlankState(rec, dir, keys) {
             if (!rec || !rec[dir + "Known"]) return null;
+            if (keys && keys.length >= 2 && rec[dir] && typeof rec[dir] === "object") {
+                var v0 = Number(rec[dir][keys[0]]) || 0, v1 = Number(rec[dir][keys[1]]) || 0;
+                var lean = sxCrossClamp(Math.round((v0 - v1) / 2), -100, 100);
+                var app = null;
+                if (rec[dir + "IntensityKnown"] && Number.isFinite(Number(rec[dir + "Intensity"]))) app = sxCrossClamp(Number(rec[dir + "Intensity"]), -100, 100);
+                else if (Number.isFinite(Number(rec[dir].intensity))) app = sxCrossClamp(Number(rec[dir].intensity), -100, 100);
+                else if (typeof sxSignedIntensity === "function") app = sxCrossClamp(sxSignedIntensity([lean]), -100, 100);
+                else app = lean;
+                return { lean: lean, app: app };
+            }
             var lean = sxCrossClamp(Number(rec[dir]) || 0, -100, 100);
             var app = null;
             if (rec[dir + "IntensityKnown"] && Number.isFinite(Number(rec[dir + "Intensity"]))) app = sxCrossClamp(Number(rec[dir + "Intensity"]), -100, 100);
@@ -47,25 +70,49 @@
         // Write one flank through the flat setters. A null value clears
         // the flank: leaning and its stored appetite both go, so a
         // slide-off unrate leaves no orphan intensity behind.
-        function sxCrossWriteFlank(topicId, dir, value, profileId) {
+        // A placement flank (keys + a dual-placement topic) writes
+        // through the placement persister, not the flat setters: the
+        // flat setter would store a bare number under the flank key and
+        // destroy the per-pole placement object on re-read. The write
+        // preserves the placement's common level -- c = (v0 + v1) / 2 --
+        // and moves only the spectrum position, so a drag never silently
+        // drops how much the user holds both poles.
+        function sxCrossWriteFlank(topicId, dir, value, profileId, keys) {
             if (!topicId) return;
+            var isPlacement = !!(keys && keys.length >= 2 && typeof sxDualPlacements === "function" && sxDualPlacements(topicId));
             if (value === null || value === undefined) {
+                if (isPlacement && typeof sxClearAdvocacyReceptivity === "function") { sxClearAdvocacyReceptivity(topicId, dir, profileId || null); return; }
                 if (typeof Fo === "function") { Fo(topicId, dir, !1, profileId || null); Fo(topicId, dir + "Intensity", !1, profileId || null); }
                 return;
             }
+            var lean = sxCrossClamp(Math.round(Number(value.lean) || 0), -100, 100);
+            var app = sxCrossClamp(Math.round(Number(value.app) || 0), -100, 100);
+            if (isPlacement && typeof sxPersistAdvocacyReceptivity === "function" && typeof ca === "function") {
+                var cur = null;
+                try { cur = ca(topicId, profileId || null); } catch (err) { cur = null; }
+                var placement = cur && cur[dir] && typeof cur[dir] === "object" ? cur[dir] : null;
+                var c0 = placement ? (Number(placement[keys[0]]) || 0) : 0;
+                var c1 = placement ? (Number(placement[keys[1]]) || 0) : 0;
+                var common = (c0 + c1) / 2;
+                var vals = {};
+                vals[keys[0]] = sxCrossClamp(Math.round(common + lean), -100, 100);
+                vals[keys[1]] = sxCrossClamp(Math.round(common - lean), -100, 100);
+                sxPersistAdvocacyReceptivity(topicId, dir, vals, app, profileId || null);
+                return;
+            }
             if (typeof To !== "function") return;
-            To(topicId, dir, sxCrossClamp(Math.round(Number(value.lean) || 0), -100, 100), !1, profileId || null);
-            To(topicId, dir + "Intensity", sxCrossClamp(Math.round(Number(value.app) || 0), -100, 100), !1, profileId || null);
+            To(topicId, dir, lean, !1, profileId || null);
+            To(topicId, dir + "Intensity", app, !1, profileId || null);
         }
 
         function sxCreateCrossSlider(opts) {
             opts = opts || {};
-            var dir = opts.dir === "receive" ? "receive" : "give";
+            var dir = (typeof opts.dir === "string" && opts.dir) ? opts.dir : "give";
             var compact = !!opts.compact;
             var get = opts.get || function () { return null; };
             var onChange = opts.onChange || function () {};
             var onRelease = opts.onRelease || function () {};
-            var label = opts.label || (dir === "give" ? "Give" : "Receive");
+            var label = opts.label || (dir.charAt(0).toUpperCase() + dir.slice(1));
             var inset = compact ? 34 : 38;
             var runoffW = compact ? 24 : 28;
             var root = document.createElement("div");
@@ -326,6 +373,19 @@
                     label = name || label;
                     labelEl.textContent = label;
                     puck.setAttribute("aria-label", label + " leaning and appetite");
+                },
+                // Re-point this instance at a different flank (the
+                // placard creates one pair and re-points it on every
+                // sync, so a classic pair topic followed by a stance
+                // pair topic re-uses the same two sliders with new
+                // dirs, getters, and writers). The label is left
+                // alone -- the caller sets it via setLabel.
+                setDir: function (newDir, newGet, newOnChange) {
+                    dir = newDir;
+                    root.dataset.dir = newDir;
+                    if (typeof newGet === "function") get = newGet;
+                    if (typeof newOnChange === "function") onChange = newOnChange;
+                    render();
                 }
             };
         }

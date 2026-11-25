@@ -1211,21 +1211,25 @@
                 if (!host) return null;
                 crossHost = host;
                 host.innerHTML = "";
+                // The flank keys for this topic: give/receive on the
+                // classic skin, advocacy/receptivity on stance skins.
+                var stance = sxDualPlacements(topicId);
+                var fl = stance ? ["advocacy", "receptivity"] : ["give", "receive"];
                 var getFlank = (dir) => {
                     var rec = ca(topicId, freshPid());
-                    return sxCrossFlankState(rec, dir);
+                    return sxCrossFlankState(rec, dir, keys);
                 };
                 var writeFlank = (dir, value) => {
-                    sxCrossWriteFlank(topicId, dir, value, freshPid());
+                    sxCrossWriteFlank(topicId, dir, value, freshPid(), keys);
                     redraw();
                     paintRow();
                 };
                 crossPair = {
-                    give: sxCreateCrossSlider({ dir: "give", compact: true, get: () => getFlank("give"), onChange: v => writeFlank("give", v), onRelease: () => finishGesture() }),
-                    receive: sxCreateCrossSlider({ dir: "receive", compact: true, get: () => getFlank("receive"), onChange: v => writeFlank("receive", v), onRelease: () => finishGesture() })
+                    first: sxCreateCrossSlider({ dir: fl[0], compact: true, get: () => getFlank(fl[0]), onChange: v => writeFlank(fl[0], v), onRelease: () => finishGesture() }),
+                    second: sxCreateCrossSlider({ dir: fl[1], compact: true, get: () => getFlank(fl[1]), onChange: v => writeFlank(fl[1], v), onRelease: () => finishGesture() })
                 };
-                host.appendChild(crossPair.give.root);
-                host.appendChild(crossPair.receive.root);
+                host.appendChild(crossPair.first.root);
+                host.appendChild(crossPair.second.root);
                 return crossPair;
             };
             const redraw = () => {
@@ -1269,10 +1273,11 @@
                     if (canvas) canvas.style.display = "none";
                     if (pair) {
                         if (crossHost) crossHost.hidden = false;
-                        pair.give.setLabel((shape.labels && shape.labels[0]) || "Give");
-                        pair.receive.setLabel((shape.labels && shape.labels[1]) || "Receive");
-                        pair.give.render();
-                        pair.receive.render();
+                        var stance = sxDualPlacements(topicId);
+                        pair.first.setLabel((shape.labels && shape.labels[0]) || (stance ? "Advocacy" : "Give"));
+                        pair.second.setLabel((shape.labels && shape.labels[1]) || (stance ? "Receptivity" : "Receive"));
+                        pair.first.render();
+                        pair.second.render();
                     }
                     return;
                 }

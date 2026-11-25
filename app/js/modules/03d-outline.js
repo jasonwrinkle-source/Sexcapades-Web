@@ -616,9 +616,95 @@
                 e.hidden = !i;
             }), !0;
         }
+        // Appetite arm for the inline row sliders (2026-11-25): the
+        // map-inline fader is a true cross slider in fader dress, so
+        // a vertical drag while holding the handle opens the arm and
+        // sets the appetite -- the plain slider is supplanted by the
+        // cross slider for exactly this. Same mechanism as the 03f3
+        // cross slider: the arm is an overlay that reserves no layout
+        // space, the same rectangular tab rides it, green top /
+        // yellow zero / red bottom rail, ticks -100/-50/0/50/100,
+        // Appetite/Aversion labels, and a numeric bubble beside the
+        // handle while dragging. The arm is driven by the window
+        // pointermove/pointerup/pointercancel listeners (the row's
+        // Xs / pointerup / pointercancel), never by pointer capture
+        // (capture is attempted on the input as a convenience, in
+        // try/catch, exactly as 03f3 does); a lostpointercapture is
+        // treated as a release. The arm opens only after the pointer
+        // has moved 10px vertically, so a purely horizontal drag
+        // never shows it.
+        var sxOutlineArmNode = null;
+        function sxOutlineArmEl() {
+            if (sxOutlineArmNode) return sxOutlineArmNode;
+            var arm = document.createElement("div");
+            arm.className = "outline-arm";
+            arm.setAttribute("aria-hidden", "true");
+            arm.hidden = true;
+            arm.innerHTML =
+                '<div class="outline-arm-rail"></div>' +
+                '<div class="outline-arm-labels"><span class="up">Appetite</span><span class="down">Aversion</span></div>' +
+                '<div class="outline-arm-handle"></div>' +
+                '<div class="outline-arm-bubble"></div>';
+            [-100, -50, 0, 50, 100].forEach(function (t) {
+                var el = document.createElement("div");
+                el.className = "outline-arm-tick" + (t === 0 ? " zero" : "");
+                el.dataset.tick = t;
+                el.innerHTML = "<span>" + (t > 0 ? "+" + t : t) + "</span>";
+                el.style.top = (16 + (1 - (t + 100) / 200) * 160) + "px";
+                arm.appendChild(el);
+            });
+            document.body.append(arm);
+            sxOutlineArmNode = arm;
+            return arm;
+        }
+        // Pure appetite mapping (harness-extractable): vertical travel
+        // from the drag start maps onto -100..+100 over the rail's
+        // usable height, exactly as 03f3's arm does.
+        function sxOutlineArmAppetite(startApp, startY, clientY, inner) {
+            var h = Math.max(40, Number(inner) || 160);
+            return Math.max(-100, Math.min(100, Math.round((Number(startApp) || 0) + (Number(startY) - Number(clientY)) * (200 / h))));
+        }
+        // Position the arm over the handle (centred on the row) and
+        // place the tab + bubble for the given appetite. The arm's
+        // left follows the thumb as the leaning changes, the same way
+        // 03f3's arm follows its puck.
+        function sxOutlineArmShow(t) {
+            var arm = sxOutlineArmEl();
+            var rect = t.input.getBoundingClientRect();
+            var frac = Math.max(0, Math.min(1, (Number(t.input.value) + 100) / 200));
+            var x = rect.left + frac * rect.width;
+            var h = 192;
+            var top = Math.max(8, Math.min(window.innerHeight - h - 8, rect.top + rect.height / 2 - h / 2));
+            arm.style.left = Math.max(8, Math.min(window.innerWidth - 86, x - 39)) + "px";
+            arm.style.top = top + "px";
+            arm.classList.toggle("bubble-left", x > window.innerWidth - 220);
+            arm.hidden = false;
+            t.armInner = 160;
+            sxOutlineArmMove(t, t.app);
+        }
+        function sxOutlineArmMove(t, app) {
+            var arm = sxOutlineArmNode;
+            if (!arm || arm.hidden) return;
+            var handle = arm.querySelector(".outline-arm-handle");
+            var bubble = arm.querySelector(".outline-arm-bubble");
+            var rect = t.input.getBoundingClientRect();
+            var frac = Math.max(0, Math.min(1, (Number(t.input.value) + 100) / 200));
+            var x = rect.left + frac * rect.width;
+            arm.style.left = Math.max(8, Math.min(window.innerWidth - 86, x - 39)) + "px";
+            arm.classList.toggle("bubble-left", x > window.innerWidth - 220);
+            var a = Math.max(-100, Math.min(100, Number(app) || 0));
+            var y = 16 + (1 - (a + 100) / 200) * 160;
+            handle.style.top = y + "px";
+            handle.style.backgroundColor = zi(a);
+            bubble.style.top = y + "px";
+            bubble.textContent = (a > 0 ? "+" : "") + Math.round(a) + " " + (a > 25 ? "appetite" : a < -25 ? "aversion" : a === 0 ? "neutral" : a > 0 ? "appetite" : "aversion");
+        }
+        function sxOutlineArmHide() {
+            if (sxOutlineArmNode) sxOutlineArmNode.hidden = true;
+        }
         function Ys(e = zo) {
             if (e) {
-                e.input.classList.remove("is-dragging", "is-clear-preview"), e.thumb?.remove();
+                e.input.classList.remove("is-dragging", "is-clear-preview", "is-arm-open"), e.thumb?.remove(), sxOutlineArmHide();
                 try {
                     e.input.hasPointerCapture?.(e.pointerId) && e.input.releasePointerCapture(e.pointerId);
                 } catch (e) { __sxErrLog("pointer-capture", e); }
@@ -630,6 +716,48 @@
             const n = t.rect, i = e.clientX < n.left - 18 || e.clientX > n.right + 18;
             t.clear = i, t.input.classList.toggle("is-clear-preview", i), t.thumb.style.left = `${e.clientX}px`, 
             t.thumb.style.top = `${e.clientY}px`, t.thumb.style.background = i ? "var(--red-deep)" : zi(Number(t.input.value));
+            // Appetite arm: a vertical drag while holding opens the
+            // arm (after 10px, so a purely horizontal drag never
+            // shows it); the arm then tracks the appetite live and
+            // writes it through the persister route. The arm reads
+            // only the window pointermove events -- pointer capture
+            // is never required for it. While the pointer is in the
+            // slide-off clear zone the clear takes precedence and no
+            // appetite is written.
+            if (!i && t.startY !== undefined && t.startApp !== undefined) {
+                var dy = e.clientY - t.startY;
+                if (!t.armShown && Math.abs(dy) > 10 && sxOutlineArmWritable(t.topicId, t.dir, Go)) {
+                    t.armShown = true;
+                    t.input.classList.add("is-arm-open");
+                    sxOutlineArmShow(t);
+                }
+                if (t.armShown) {
+                    var app = sxOutlineArmAppetite(t.startApp, t.startY, e.clientY, t.armInner || 160);
+                    sxOutlineArmMove(t, app);
+                    if (app !== t.app) {
+                        t.app = app;
+                        sxOutlineWriteAppetite(t.topicId, t.dir, app, Go);
+                        t.input.style.setProperty("--outline-thumb", zi(app));
+                    }
+                }
+            }
+        }
+        // End a row drag (pointerup path): commit the leaning, then
+        // any appetite the arm set (the pole is rated by the leaning
+        // write first, so the appetite's unrated guard passes), then
+        // repaint + milestone bookkeeping. The window pointerup and
+        // the lostpointercapture fallback both run this; a
+        // pointercancel only cleans up (live writes already stand).
+        function sxOutlineFinishDrag(e) {
+            if (!zo || zo.pointerId !== e.pointerId) return;
+            Xs(e);
+            const t = zo, {input: n, clear: i} = t;
+            if (zo = null, Ys(t), !Go) return;
+            const previousRatedCount = Number(n.dataset.milestoneStartRated), a = getOutlineRow(n);
+            delete n.dataset.milestoneStartRated, i ? (sxOutlineClearDir(a.dataset.outlineId, n.dataset.outlineDirection, Go) || Fo(a.dataset.outlineId, n.dataset.outlineDirection, !1, Go)) : (sxOutlineWriteDir(a.dataset.outlineId, n.dataset.outlineDirection, Number(n.value), Go) || To(a.dataset.outlineId, n.dataset.outlineDirection, Number(n.value), !0, Go)), 
+            t.armShown && !i && sxOutlineWriteAppetite(t.topicId, t.dir, t.app, Go),
+            Ss(a), ws(), ls(a.dataset.outlineId, Go) ? os.add(a.dataset.outlineId) : os.delete(a.dataset.outlineId), 
+            checkMilestoneTransition(Go, previousRatedCount);
         }
         Ro.addEventListener("pointerover", e => {
             if ("mouse" !== e.pointerType || !Bs.matches) return;
@@ -730,7 +858,127 @@
             e.stopPropagation()));
         }), sxOutlineScroller().addEventListener("scroll", js, {
             passive: !0
-        }), Ro.addEventListener("input", e => {
+        }), // The inline row's sliders write one direction at a time.
+        // For a 2-pole (pair-topic linear) slider on a stance skin the
+        // direction is a pole of the primary (advocacy) placement: a
+        // flat To() would be invisible to ca() (it reads the placement
+        // object), so the write goes through the placement persister,
+        // seeded from the current values so an unrated topic is
+        // created whole and a rated one keeps its other pole and
+        // stored intensity. The 1-pole slider and the trilinear line
+        // keep their flat single-number write, and n-pole topics stay
+        // on their N-gon/radar widgets. Returns true when it handled
+        // the write; false means the caller uses the flat To()/Fo().
+        function sxOutlineWriteDir(topicId, dir, value, profileId) {
+            if (!sxDualPlacements(topicId)) return false;
+            var shape = (typeof Ge === "function") ? Ge(topicId) : null;
+            if (!shape || !shape.keys || shape.keys.length !== 2 || shape.keys.indexOf(dir) === -1) return false;
+            var rec = ca(topicId, profileId);
+            if (!rec) return false;
+            var vals = {};
+            shape.keys.forEach(k => { vals[k] = Math.max(-100, Math.min(100, Number(rec[k]) || 0)); });
+            vals[dir] = Math.max(-100, Math.min(100, Number(value) || 0));
+            sxPersistAdvocacyReceptivity(topicId, "advocacy", vals, rec.advocacyIntensity, profileId);
+            return true;
+        }
+        // Clear one pole of a 2-pole stance placement: the persister
+        // merges with the stored placement, so the pole is dropped
+        // from the stored object first or the merge would resurrect
+        // it; if it was the last pole the whole placement is cleared.
+        function sxOutlineClearDir(topicId, dir, profileId) {
+            if (!sxDualPlacements(topicId)) return false;
+            var shape = (typeof Ge === "function") ? Ge(topicId) : null;
+            if (!shape || !shape.keys || shape.keys.length !== 2 || shape.keys.indexOf(dir) === -1) return false;
+            var rec = ca(topicId, profileId);
+            if (!rec || !rec.advocacy || typeof rec.advocacy !== "object") return false;
+            var vals = {};
+            shape.keys.forEach(k => { if (k !== dir && rec[k + "Known"] && Number.isFinite(Number(rec[k]))) vals[k] = rec[k]; });
+            if (Object.keys(vals).length === 0) {
+                sxClearAdvocacyReceptivity(topicId, "advocacy", profileId);
+                return true;
+            }
+            var store = (typeof vt !== "undefined" && vt[profileId]) ? vt[profileId][topicId] : null;
+            if (store && store.advocacy) delete store.advocacy[dir];
+            sxPersistAdvocacyReceptivity(topicId, "advocacy", vals, rec.advocacyIntensity, profileId);
+            return true;
+        }
+        // Appetite for one inline-slider direction (the arm): write
+        // the appetite the vertical drag sets, through the same route
+        // the placard/popup cross slider uses. Mirrors
+        // sxOutlineDirAppetite's read order so the write lands where
+        // the read looks: a stored per-flank intensity first, then
+        // the advocacy placement for a dual-placement 2-pole topic,
+        // then the record's own intensity for a line/monopole, and
+        // finally the per-flank key for a classic flank that never
+        // stored one. Returns false (no-op) when the flank is
+        // unrated -- an appetite with no leaning to attach to would
+        // be an orphan intensity. (The pointerup finish writes the
+        // leaning first, so a pure vertical drag on an unrated
+        // slider still lands its appetite on release.)
+        function sxOutlineWriteAppetite(topicId, dir, app, profileId) {
+            if (!topicId || !dir) return false;
+            var rec = null;
+            try { rec = ca(topicId, profileId); } catch (err) { rec = null; }
+            if (!rec) return false;
+            if (!rec[dir + "Known"]) return false;
+            var isSingle = Boolean(rec.isMonopole) || ((typeof Ge === "function") && Ge(topicId) && Ge(topicId).single);
+            app = Math.max(-100, Math.min(100, Math.round(Number(app) || 0)));
+            if (rec[dir + "IntensityKnown"] && !isSingle) {
+                if (typeof To !== "function") return false;
+                To(topicId, dir + "Intensity", app, !1, profileId);
+                return true;
+            }
+            if (typeof sxDualPlacements === "function" && sxDualPlacements(topicId)) {
+                var shape = (typeof Ge === "function") ? Ge(topicId) : null;
+                if (shape && shape.keys && shape.keys.indexOf(dir) !== -1) {
+                    var vals = {};
+                    shape.keys.forEach(k => { vals[k] = Math.max(-100, Math.min(100, Number(rec[k]) || 0)); });
+                    if (typeof sxPersistAdvocacyReceptivity === "function") {
+                        sxPersistAdvocacyReceptivity(topicId, "advocacy", vals, app, profileId);
+                        return true;
+                    }
+                    return false;
+                }
+            }
+            if (dir === "line") {
+                if (typeof To !== "function") return false;
+                To(topicId, "intensity", app, !1, profileId);
+                return true;
+            }
+            // A single (monopole) topic on the classic skin has no
+            // appetite storage: its rating is one bare number, and
+            // To() on a single topic overwrites the whole record
+            // with the scalar -- writing "intensity" there would
+            // destroy the rating. The appetite for a classic single
+            // IS the leaning (derived), so there is nothing to store
+            // and the arm does not open for it.
+            if (isSingle) return false;
+            if (typeof To !== "function") return false;
+            To(topicId, dir + "Intensity", app, !1, profileId);
+            return true;
+        }
+        // Whether the arm can write an appetite here (the gate the
+        // drag uses before opening the arm): the flank must be rated,
+        // and the appetite must have a home -- a stored per-flank
+        // intensity, a dual placement, or the record's own intensity
+        // on a line. A classic single has none (see above), so the
+        // arm never opens for it. Re-checked live as the pointer
+        // moves, so rating the pole mid-gesture still opens the arm.
+        function sxOutlineArmWritable(topicId, dir, profileId) {
+            var rec = null;
+            try { rec = ca(topicId, profileId); } catch (err) { rec = null; }
+            if (!rec || !rec[dir + "Known"]) return false;
+            var isSingle = Boolean(rec.isMonopole) || ((typeof Ge === "function") && Ge(topicId) && Ge(topicId).single);
+            if (rec[dir + "IntensityKnown"] && !isSingle) return true;
+            if (typeof sxDualPlacements === "function" && sxDualPlacements(topicId)) {
+                var shape = (typeof Ge === "function") ? Ge(topicId) : null;
+                if (shape && shape.keys && shape.keys.indexOf(dir) !== -1) return true;
+            }
+            if (dir === "line") return true;
+            if (isSingle) return false;
+            return true;
+        }
+        Ro.addEventListener("input", e => {
             const t = __sxClosestAction(e.target, "outlineNoteInput");
             if (t && Go) {
                 const e = getOutlineRow(t), n = e.dataset.outlineId, i = t.value.trim();
@@ -742,7 +990,7 @@
             if (!n || !Go) return;
             const i = getOutlineRow(n).dataset.outlineId;
             "milestoneStartRated" in n.dataset || (n.dataset.milestoneStartRated = String(cs(Go).rated)), 
-            To(i, n.dataset.outlineDirection, Number(n.value), !1, Go), os.add(i), Ss(getOutlineRow(n)), 
+            sxOutlineWriteDir(i, n.dataset.outlineDirection, Number(n.value), Go) || To(i, n.dataset.outlineDirection, Number(n.value), !1, Go), os.add(i), Ss(getOutlineRow(n)), 
             ws();
         }), Ro.addEventListener("change", e => {
             const t = __sxClosestAction(e.target, "outlineDirection");
@@ -774,34 +1022,42 @@
             if (gs(), "Delete" !== e.key && "Backspace" !== e.key) return;
             e.preventDefault();
             const n = getOutlineRow(t);
-            Fo(n.dataset.outlineId, t.dataset.outlineDirection, !1, Go), ls(n.dataset.outlineId, Go) ? os.add(n.dataset.outlineId) : os.delete(n.dataset.outlineId), 
+            sxOutlineClearDir(n.dataset.outlineId, t.dataset.outlineDirection, Go) || Fo(n.dataset.outlineId, t.dataset.outlineDirection, !1, Go), ls(n.dataset.outlineId, Go) ? os.add(n.dataset.outlineId) : os.delete(n.dataset.outlineId), 
             Ss(n), ws();
         }), Ro.addEventListener("pointerdown", e => {
             const t = __sxClosestAction(e.target, "outlineDirection");
             if (!t || !Go) return;
             gs(), Ys();
             const n = document.createElement("span");
-            n.className = "outline-drag-thumb", n.setAttribute("aria-hidden", "true"), document.body.append(n), 
+            n.className = "outline-drag-thumb", n.setAttribute("aria-hidden", "true"), document.body.append(n);
+            const row = getOutlineRow(t), topicId = row ? row.dataset.outlineId : null, dir = t.dataset.outlineDirection;
+            var startApp = Number(t.value) || 0;
+            try { startApp = sxOutlineDirAppetite(ca(topicId, Go), dir, Number(t.value)); } catch (err) { startApp = Number(t.value) || 0; }
             zo = {
                 input: t,
                 rect: t.getBoundingClientRect(),
                 pointerId: e.pointerId,
                 clear: !1,
-                thumb: n
+                thumb: n,
+                topicId: topicId,
+                dir: dir,
+                startY: e.clientY,
+                startApp: startApp,
+                app: startApp,
+                armShown: !1,
+                armInner: 160
             }, t.classList.add("is-dragging");
             try {
                 t.setPointerCapture(e.pointerId);
             } catch (e) { __sxErrLog("pointer-capture", e); }
             Xs(e);
-        }), window.addEventListener("pointermove", Xs, !0), window.addEventListener("pointerup", e => {
-            if (!zo || zo.pointerId !== e.pointerId) return;
-            Xs(e);
-            const t = zo, {input: n, clear: i} = t;
-            if (zo = null, Ys(t), !Go) return;
-            const previousRatedCount = Number(n.dataset.milestoneStartRated), a = getOutlineRow(n);
-            delete n.dataset.milestoneStartRated, i ? Fo(a.dataset.outlineId, n.dataset.outlineDirection, !1, Go) : To(a.dataset.outlineId, n.dataset.outlineDirection, Number(n.value), !0, Go), 
-            Ss(a), ws(), ls(a.dataset.outlineId, Go) ? os.add(a.dataset.outlineId) : os.delete(a.dataset.outlineId), 
-            checkMilestoneTransition(Go, previousRatedCount);
+        }), window.addEventListener("pointermove", Xs, !0), window.addEventListener("pointerup", sxOutlineFinishDrag, !0), Ro.addEventListener("lostpointercapture", e => {
+            // Engine quirk guard (same as 03f3): if capture is lost
+            // without an up, treat it as the release at wherever the
+            // drag currently sits -- the pointerup path, not a
+            // cancel, so the leaning and any arm appetite commit.
+            if (!zo || zo.pointerId !== e.pointerId || e.target !== zo.input) return;
+            sxOutlineFinishDrag(e);
         }, !0), window.addEventListener("pointercancel", e => {
             if (!zo || zo.pointerId !== e.pointerId) return;
             const t = zo;
