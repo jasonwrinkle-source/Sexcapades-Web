@@ -2,6 +2,8 @@
 import os
 import shutil
 import re
+import subprocess
+import sys
 
 base_dir = os.path.dirname(__file__)
 src_dir = os.path.join(base_dir, "../js/modules")
@@ -136,6 +138,11 @@ for ch in [
     if os.path.exists(os.path.dirname(ch)) and os.path.exists(css_src):
         shutil.copyfile(css_src, ch)
         print(f"[Bundle] Synced app.css to {ch}")
+
+# Rebuild docs-skin.js from current skin data
+docs_skin_builder = os.path.join(base_dir, "../../packaging-scripts/build_docs_skin.py")
+if os.path.isfile(docs_skin_builder):
+    subprocess.run([sys.executable, docs_skin_builder], cwd=os.path.join(base_dir, "../.."), check=True)
 
 # Sync auxiliary JS. hosted/js is the tree path. The shell loads the
 # same files from hosted/app-assets, so that copy is written too.
