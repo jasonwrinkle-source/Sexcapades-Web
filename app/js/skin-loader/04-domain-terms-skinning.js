@@ -11,7 +11,7 @@
      questionnaire importers (none do today — only Sexcapades has any).
      Two layers apply the terms:
      (1) the bundle renders labels through window.__SX_TERMS (resolved
-     here on every skin load) — see sxTerm() in 05b-scribe.js — so
+     here on every skin load) — see sxTerm() in 05b1-sync-compute.js — so
      fresh paints come out right;
      (2) applyTerms() rewrites the live DOM on every switch, fixing
      surfaces rendered before the switch that don't repaint (match-tab
@@ -177,7 +177,12 @@
      loads with its current behavior. The import entry point is the layout
      editor's __SEXCAPADES_LAYOUT_TEST.importText; if the editor has
      not booted yet, this is a no-op. Returns true when a layout was applied. */
-  function applyDefaultLayout(data) {
+  /* One layout import. Sexcapades passes mergeSaved so the user's
+     localStorage defaults overlay the shipped settings. The unmerged
+     shipped settings become Reset-to-defaults either way. Other skins
+     pass mergeSaved false: a saved payload is Sexcapades-shaped and
+     must not land on another skin. */
+  function applySkinLayout(data, mergeSaved) {
     var layout = data && data.defaultLayout;
     if (!layout || typeof layout !== "object" || Array.isArray(layout)) return false;
     if (!layout.settings || typeof layout.settings !== "object") return false;
@@ -191,9 +196,11 @@
       if (layout.positions && typeof layout.positions === "object" && Array.isArray(layout.positions.branches)) {
         window.__SX_BAKED_POSITIONS = layout.positions;
       }
+      var settings = mergeSaved ? mergeSavedDefaults(layout.settings) : layout.settings;
       var payload = { app: layout.app, kind: layout.kind, version: layout.version,
         build: layout.build, exportedAt: layout.exportedAt,
-        settings: layout.settings, hash: layout.hash };
+        settings: settings };
+      if (!mergeSaved) payload.hash = layout.hash;
       var r = hook.importText(JSON.stringify(payload));
       if (!r || !r.ok) return false;
       window.__SEXCAPADES_LAYOUT_DEFAULTS = JSON.parse(JSON.stringify(layout.settings));
@@ -202,6 +209,9 @@
       /* keep current behavior on any failure */
       return false;
     }
+  }
+  function applyDefaultLayout(data) {
+    return applySkinLayout(data, false);
   }
 
   /* Personal saved defaults (localStorage "sexcapades-layout-savedDefaults"):
@@ -225,35 +235,9 @@
     return merged;
   }
 
-  /* Sexcapades layout apply: the skin's shipped settings, with the user's
-     saved personal defaults merged over them (the boot script's rule),
-     through the editor's import path. The shipped settings (unmerged)
-     become window.__SEXCAPADES_LAYOUT_DEFAULTS, so "Reset to defaults"
-     restores the shipped values and clears the saved copy, exactly as
-     before. The stored hash is dropped from the import payload: the
-     merged settings no longer match it, and the import path ignores
-     the hash anyway. Returns true when applied. */
+  /* Sexcapades merges saved defaults and drops the stored hash. */
   function applySexcapadesLayout(data) {
-    var layout = data && data.defaultLayout;
-    if (!layout || typeof layout !== "object" || Array.isArray(layout)) return false;
-    if (!layout.settings || typeof layout.settings !== "object") return false;
-    var hook = window.__SEXCAPADES_LAYOUT_TEST;
-    if (!hook || typeof hook.importText !== "function") return false;
-    try {
-      /* Baked positions (2026-11-15): see applyDefaultLayout. */
-      if (layout.positions && typeof layout.positions === "object" && Array.isArray(layout.positions.branches)) {
-        window.__SX_BAKED_POSITIONS = layout.positions;
-      }
-      var payload = { app: layout.app, kind: layout.kind, version: layout.version,
-        build: layout.build, exportedAt: layout.exportedAt,
-        settings: mergeSavedDefaults(layout.settings) };
-      var r = hook.importText(JSON.stringify(payload));
-      if (!r || !r.ok) return false;
-      window.__SEXCAPADES_LAYOUT_DEFAULTS = JSON.parse(JSON.stringify(layout.settings));
-      return true;
-    } catch (e) {
-      return false;
-    }
+    return applySkinLayout(data, true);
   }
 
   /* Boot apply: once the editor hook and the map engine are ready, make
@@ -416,13 +400,12 @@
     isTransitioning: function () { return isSkinTransitioning; }
   };
 
-  /* Boot seam: register the sexcapades.json widget configs so the 17
-     higher-pole topics get their widgets from the file on a native boot,
-     and apply the skin's embedded layout once the editor and engine are
-     ready (see bootApplySexcapades). */
+  /* Boot: applySkin loads the boot skin's categories from its JSON
+     once the editor and engine are ready (see bootSkin). The terms
+     below are the Sexcapades identity set until that apply lands. */
   /* The bundle renders through window.__SX_TERMS from the first paint:
      resolve the Sexcapades (identity) terms at loader init so the
-     helper in 05b-scribe.js never reads an empty map. */
+     helper in 05b1-sync-compute.js never reads an empty map. */
   window.__SX_TERMS = resolveTerms("sexcapades", null);
   window.__SX_HAS_IMPORTERS = true;
   /* Test hooks: the hostname mapping and the boot-menu decision are

@@ -280,8 +280,8 @@
   }
 
   /* Build the Ge() widget registry + placard descriptions from one skin
-     JSON. Shared by applySkin (full swap) and the Sexcapades seam below
-     (widgets only). Returns the topic count. */
+     JSON. Shared by applySkin and the Sexcapades restore path.
+     Returns the topic count. */
   function registerWidgets(data) {
     var widgets = {};
     var desc = {};
@@ -372,14 +372,10 @@
     return null;
   };
 
-  /* Sexcapades seam: sexcapades.json carries the 17 higher-pole topics'
-     widget configs (formerly hardcoded in the widget picker). Register
-     them WITHOUT swapping the categories array — the 02b catalog still
-     supplies categories, topics, and the 403 outline total, and the
-     active skin stays "sexcapades". The fetch starts at loader init
-     (before boot), so the registry is normally populated before the
-     first paint; if it lands after boot completed, re-render once so
-     any topic painted with the generic fallback gets its real widget. */
+  /* Sexcapades fetch shared by restore and the failed-boot fallback.
+     applySkin is the normal boot path and is the only category source.
+     registerSexcapadesWidgets fills widgets, samples, scribe, and setter
+     when that swap cannot run. It does not supply categories. */
   /* Fetch sexcapades.json (cached after the first load). Shared by the
      boot seam and the switch-back path. */
   function sexcapadesData() {
@@ -448,10 +444,9 @@
     setManifestForSkin("sexcapades");
     activeSkin = "sexcapades";
     setAboutDescription("Sex.Capades.IO", null);
-    /* Re-register the sexcapades.json widget configs (same seam as boot):
-       without them the 17 higher-pole topics would fall back to the
-       generic widgets after a switch-back. Synchronous when the file is
-       already cached, async otherwise (the rerender below picks it up). */
+    /* Re-register widgets from the cached sexcapades.json. Synchronous
+       when the file is already cached, async otherwise. registerWidgets
+       replaces the placeholder topic count. */
     if (cache["sexcapades"]) { registerWidgets(cache["sexcapades"]); setSamples(cache["sexcapades"].samples); setScribe(cache["sexcapades"].scribe); setSceneSetter(cache["sexcapades"].sceneSetter); }
     else registerSexcapadesWidgets();
     /* Re-register the Sexcapades category names in the solver's

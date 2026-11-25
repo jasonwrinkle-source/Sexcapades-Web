@@ -17,11 +17,11 @@
    stay the source of truth for whether the baked geometry is valid.
    The shell's inline layout object is only a pre-fetch fallback: the
    live layout comes from the skin file.
-   Sexcapades itself has a skin file too (sexcapades.json): it carries
-   ONLY the 17 higher-pole topics whose widget configs used to live
-   hardcoded in the widget picker. The loader registers those configs
-   at boot (and on every restore to Sexcapades) WITHOUT swapping the
-   categories array — the 02b catalog still supplies everything else.
+   Sexcapades boots from sexcapades.json the same way every other skin
+   boots from its file. 02b-taxonomy-data.js is an empty stub
+   (TAXONOMY_CATEGORIES = []), so applySkin is the only source of
+   categories. A failed boot fetch falls back to registerSexcapadesWidgets,
+   which fills widgets, samples, scribe, and setter without a category swap.
    The loader is a plain top-level script: it can only see window.* —
    the bundle-side hooks it relies on are the Ge() skin registry
    (window.__SX_SKIN_WIDGETS), the placard description registry
@@ -33,7 +33,7 @@
 (function () {
   "use strict";
   var SKIN_DIR = "data/skins/";
-  var SEXCAPADES_TOPIC_COUNT = 403; // the outline copy's total; kept exact
+  var SEXCAPADES_TOPIC_COUNT = 403; // placeholder until registerWidgets counts sexcapades.json
   var cache = {};          // skinId -> parsed skin JSON
   var original = null;     // deep clone of the Sexcapades categories
   var activeSkin = "sexcapades";

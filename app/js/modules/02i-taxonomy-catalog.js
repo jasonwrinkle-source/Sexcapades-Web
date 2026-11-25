@@ -8,6 +8,9 @@
            Ie, Pe, Le, Te, Fe, Ne, _e, De, Re, _topicSubMap, sxSyncTopicGlyphs, Oe, We,
            SX_SUBSUMED_BASE_TOPIC_IDS, and Ue from the outer IIFE (02a, 02g1, 02g). */
         const be = window.__SX_EXPORT_BE || {};
+        /* Only role-label walk. Called at init and from __SX_SKIN_LAYOUT_SYNC
+           after a skin swap. The monopole set Ue is re-seeded later in 02i2;
+           this walk's Ue.add calls do not survive that re-seed. */
         function sxSyncRoleLabels() {
             const register = topic => {
                 if (!topic || "object" !== typeof topic) return;

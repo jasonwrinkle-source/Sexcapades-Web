@@ -119,7 +119,7 @@
             window.__SEXCAPADES_CURRENT_SKIN = currentSkin;
             return SX_DOMAIN_DICTIONARIES[currentSkin];
         }
-        function sxTerm(key, fallback) {
+        function sxDomainTerm(key, fallback) {
             const dict = SX_DOMAIN_DICTIONARIES[currentSkin] || SX_DOMAIN_DICTIONARIES.sexcapades;
             if (!key) return fallback || "";
             if (dict[key] !== undefined) return dict[key];
@@ -148,7 +148,7 @@
         window.SX_DOMAIN_DICTIONARIES = SX_DOMAIN_DICTIONARIES;
         window.sxGetDomainSkin = sxGetDomainSkin;
         window.sxSetDomainSkin = sxSetDomainSkin;
-        window.sxTerm = sxTerm;
+        window.sxDomainTerm = sxDomainTerm;
 
         /* P2 refactor (Build 2026-10-18_2252): unified closest() dispatch (P2-3).
            Every ancestor lookup in this bundle now routes through the single
@@ -352,12 +352,14 @@
             }).catch((e) => { __sxErrLog("storage", e); }).finally(() => o.delete(t)));
         }
         function p(e) {
+            var skin = sxAnalyticsSkin();
             sxSendAnalytics({
                 action: "event",
                 uuid: c(),
                 event_type: e,
-                utm_source: d
-            }, `sexcapades_event_${e}`);
+                utm_source: d,
+                skin: skin
+            }, `sexcapades_event_${e}_${skin}`);
         }
         window.__sxSendAnalytics = sxSendAnalytics;
         window.__sxAnalyticsSkin = sxAnalyticsSkin;

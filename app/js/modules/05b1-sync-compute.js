@@ -1881,6 +1881,7 @@
             var fallback = { krossmatch: "Krossmatch", kinkFactor: "Kink Factor", playMode: "Play", parlayMode: "Parlay", conversationMode: "Conversation", playMS: "Play MS", playKF: "Play KF", parlayMS: "Parlay MS", parlayKF: "Parlay KF", debateMS: "Debate MS", debateKF: "Debate Kink Factor", getRatings: "Hot list · KinkTest · BDSMtest · Yes / No / Maybe · FetLife", heatMax: "Horndog", heatMin: "Turned off" };
             return fallback[key] || key;
         }
+        window.sxTerm = sxTerm;
         /* Score-ring values for a tab/profile context. kind: "profile"
            (outer Charted, inner Personal KF), "bowtie" (outer Play MS,
            inner Play KF, off the pair/group engine aggregates),

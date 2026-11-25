@@ -2080,4 +2080,23 @@
             window.la = la;
             window.zi = zi;
             window.Ra = Ra;
+            /* Readable aliases for the letter bridge. The short names stay:
+               the flat bundle shares one scope, and a rename of the
+               declarations would collide. Callers may use either. */
+            window.sxNodeRegistry = qn;
+            window.sxNodeById = Xn;
+            window.sxComparisonActive = Qi;
+            window.sxActiveProfileId = Vi;
+            window.sxScoringProfileIds = Xi;
+            window.sxWidgetConfig = Ge;
+            window.sxRatingRecord = da;
+            window.sxFlankText = $a;
+            window.sxTopicTooltipAttrs = Sa;
+            window.sxTooltipAttrs = ka;
+            window.sxSharedCountColor = Ua;
+            window.sxAnnotationState = Oa;
+            window.sxSignedNumber = ba;
+            window.sxProfileColor = la;
+            window.sxInterestColor = zi;
+            window.sxFilterBucket = Ra;
         }

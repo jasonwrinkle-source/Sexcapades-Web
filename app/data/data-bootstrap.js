@@ -430,7 +430,7 @@ var currentSkin = "sexcapades";
             window.__SEXCAPADES_CURRENT_SKIN = currentSkin;
             return SX_DOMAIN_DICTIONARIES[currentSkin];
         }
-        function sxTerm(key, fallback) {
+        function sxDomainTerm(key, fallback) {
             const dict = SX_DOMAIN_DICTIONARIES[currentSkin] || SX_DOMAIN_DICTIONARIES.sexcapades;
             if (!key) return fallback || "";
             if (dict[key] !== undefined) return dict[key];
@@ -459,7 +459,7 @@ var currentSkin = "sexcapades";
         window.SX_DOMAIN_DICTIONARIES = SX_DOMAIN_DICTIONARIES;
         window.sxGetDomainSkin = sxGetDomainSkin;
         window.sxSetDomainSkin = sxSetDomainSkin;
-        window.sxTerm = sxTerm;
+        window.sxDomainTerm = sxDomainTerm;
 
         /* P2 refactor (Build 2026-10-18_2252): unified closest() dispatch (P2-3).
            Every ancestor lookup in this bundle now routes through the single
@@ -663,12 +663,14 @@ var SX_COLLECT_URL = "/hosted/api/collect.php";
             }).catch((e) => { __sxErrLog("storage", e); }).finally(() => o.delete(t)));
         }
         function p(e) {
+            var skin = sxAnalyticsSkin();
             sxSendAnalytics({
                 action: "event",
                 uuid: c(),
                 event_type: e,
-                utm_source: d
-            }, `sexcapades_event_${e}`);
+                utm_source: d,
+                skin: skin
+            }, `sexcapades_event_${e}_${skin}`);
         }
         window.__sxSendAnalytics = sxSendAnalytics;
         window.__sxAnalyticsSkin = sxAnalyticsSkin;
@@ -3469,22 +3471,6 @@ var _topicSubMap = new Map;
             if (!n) throw new Error(`Missing stored topic ID for "${t}". Assign max(existing ID) + 1 on the topic object.`);
             return n;
         }
-        function sxPopulateRoleLabelsOuter() {
-            const register = topic => {
-                if (!topic || "give_receive" !== topic.type || !topic.give_label || !topic.receive_label) return;
-                const n = Wn(topic);
-                if (n) We[n] = [ topic.give_label, topic.receive_label ];
-            };
-            h.forEach(cat => {
-                (cat.topics || []).forEach(register);
-                (cat.parentTopics || []).forEach(register);
-                (cat.subcategories || []).forEach(sub => {
-                    (sub.topics || []).forEach(register);
-                    (sub.parentTopics || []).forEach(register);
-                });
-            });
-        }
-        sxPopulateRoleLabelsOuter();
 var Ue = new Set([ "t0002", "t0007", "t0008", "t0102", "t0106", "t0107", "t0108", "t0140", "topic-vampires-gothic", "topic-historical-fantasy", "t0377", "t0378", "t0379", "t0380", "t0382", "t0383", "t0384", "t0317", "t0318", "t0319", "t0320", "t0321", "t0322", "t0323", "t0278", "t0279", "t0280", "t0282", "t0258", "t0361", "t0366", "t0396", "t0397", "t0399", "t0401", "t0402", "t0403", "t0269", "t0048", "t0132", "t0143", "t0144", "t0147", "t0148", "t0195", "t0217", "t0219", "t0228", "t0229", "t0230", "t0232", "t0233", "t0259", "t0290", "t0303" ]);
 
 /* --- Module: 02h-inner-opener.js --- */
@@ -3514,6 +3500,9 @@ var Ue = new Set([ "t0002", "t0007", "t0008", "t0102", "t0106", "t0107", "t0108"
            Ie, Pe, Le, Te, Fe, Ne, _e, De, Re, _topicSubMap, sxSyncTopicGlyphs, Oe, We,
            SX_SUBSUMED_BASE_TOPIC_IDS, and Ue from the outer IIFE (02a, 02g1, 02g). */
 var be = window.__SX_EXPORT_BE || {};
+        /* Only role-label walk. Called at init and from __SX_SKIN_LAYOUT_SYNC
+           after a skin swap. The monopole set Ue is re-seeded later in 02i2;
+           this walk's Ue.add calls do not survive that re-seed. */
         function sxSyncRoleLabels() {
             const register = topic => {
                 if (!topic || "object" !== typeof topic) return;
@@ -4206,13 +4195,16 @@ var Be = {
         };
 
 /* --- Module: 02i2-widget-geometry.js --- */
+        /* Live monopole seed. This re-seed runs after sxSyncRoleLabels, so it
+           is the set Ge() consults. It does not match sexcapades.json
+           type:"single" (37 of these ids are not type single; 22 type-single
+           ids are absent). Rebuilding Ue from the JSON would change widgets. */
 var Ue = new Set([ "t0002", "t0007", "t0008", "t0102", "t0106", "t0107", "t0108", "t0140", "topic-vampires-gothic", "topic-historical-fantasy", "t0377", "t0378", "t0379", "t0380", "t0382", "t0383", "t0384", "t0317", "t0318", "t0319", "t0320", "t0321", "t0322", "t0323", "t0278", "t0279", "t0280", "t0282", "t0258", "t0361", "t0366", "t0396", "t0397", "t0399", "t0401", "t0402", "t0403", "t0269", "t0048", "t0132", "t0143", "t0144", "t0147", "t0148", "t0195", "t0217", "t0219", "t0228", "t0229", "t0230", "t0232", "t0233", "t0259", "t0290", "t0303" ]);
         function Ge(e, t = Vi()) {
             const n = (at[t] || {})[e], i = n && n.parentId || e;
-            /* Flexcapades skin registry: a loaded skin supplies widget configs
-               for its own topic ids — including sexcapades.json, which the
-               loader registers at boot for the 17 higher-pole Sexcapades
-               topics (formerly hardcoded branches here). Consulted first. */
+            /* Flexcapades skin registry: the loaded skin's widget configs,
+               including Sexcapades, which boots from sexcapades.json.
+               Consulted first. */
             const sw = window.__SX_SKIN_WIDGETS;
             if (sw) { const w = sw[e] || sw[i]; if (w) return w; }
             // 4-Pole Tetrad Topics
@@ -6811,6 +6803,25 @@ var sxGetActiveOrComparisonProfiles = Xi;
             window.la = la;
             window.zi = zi;
             window.Ra = Ra;
+            /* Readable aliases for the letter bridge. The short names stay:
+               the flat bundle shares one scope, and a rename of the
+               declarations would collide. Callers may use either. */
+            window.sxNodeRegistry = qn;
+            window.sxNodeById = Xn;
+            window.sxComparisonActive = Qi;
+            window.sxActiveProfileId = Vi;
+            window.sxScoringProfileIds = Xi;
+            window.sxWidgetConfig = Ge;
+            window.sxRatingRecord = da;
+            window.sxFlankText = $a;
+            window.sxTopicTooltipAttrs = Sa;
+            window.sxTooltipAttrs = ka;
+            window.sxSharedCountColor = Ua;
+            window.sxAnnotationState = Oa;
+            window.sxSignedNumber = ba;
+            window.sxProfileColor = la;
+            window.sxInterestColor = zi;
+            window.sxFilterBucket = Ra;
         }
 
 /* --- Module: 02e-font-ladder.js --- */
@@ -22475,6 +22486,107 @@ var SX_OCTAD_COLORS = ["#22c55e", "#10b981", "#06b6d4", "#3b82f6", "#6366f1", "#
         }
 
 /* --- Module: 03e-map-paint.js --- */
+        // =========================================================================
+        // MAP PAINT MODULAR RENDERERS (Phase 4 Step 2 Decomposition)
+        // Hoisted out of Ar() so a paint does not rebuild them.
+        // =========================================================================
+var SpokeRenderer = {
+            renderBranchSpoke(dCat, spokeD, name, nx, ny, o2X, o2Y, cX, cY, catHeat, lineColor, hankyLineClass, giveColor, receiveColor, hankyColor, isNoCode, isRated, filterLen, baseCircle, iconDiameter) {
+                return Ka(dCat, spokeD, 18, name, nx, ny, o2X, o2Y, cX, cY, !1, pr.categoryIcon, catHeat || lineColor, !1, hankyLineClass, giveColor, receiveColor, isNoCode ? Ga.FALLBACK_COLOR : hankyColor, isNoCode, isRated, filterLen, baseCircle, iconDiameter, 1);
+            },
+            renderTopicSpoke(id, pathD, label, nx, ny, oX, oY, lX, lY, isStatic, icon, P, isSecondGen, hankyLineClass, giveColor, receiveColor, lineColor, isNoCode, isRated, filterLen, baseCircle, iconDiameter, depth = 2) {
+                return Ka(id, pathD, isStatic ? 18 : 6, label, nx, ny, oX, oY, lX, lY, !0, icon, P, !0, hankyLineClass, giveColor, receiveColor, lineColor, isNoCode, isRated, filterLen, baseCircle, iconDiameter, depth);
+            }
+        };
+
+var HubRenderer = {
+            renderIcon(id, diameter, glyphData, tapTarget, color, cx, cy, isBranch = false, isSubcategory = false, partyHoldings = null, interestDisc = null) {
+                const r = diameter / 2;
+                const iconSize = diameter * 0.62;
+                const iconOffset = (diameter - iconSize) / 2;
+                const fallbackAttr = glyphData.glyphFallback ? ' data-glyph-fallback="star"' : "";
+                const cls = isBranch ? `branch-icon${"noCode" === glyphData.hankyKey ? " no-hanky-code-icon" : ""}` :
+                    `topic-icon${isSubcategory ? " subcategory-icon" : "noCode" === glyphData.hankyKey ? " no-hanky-code-icon" : ""}${glyphData.glyphFallback ? " glyph-fallback" : ""}`;
+                const innerContent = `<svg viewBox="${glyphData.viewBox || "0 0 24 24"}" width="${iconSize.toFixed(2)}" height="${iconSize.toFixed(2)}" x="${iconOffset.toFixed(2)}" y="${iconOffset.toFixed(2)}" overflow="visible">${glyphData.glyph}${glyphData.accent || ""}</svg>`;
+                let discMarkup;
+                const rd = r - 2;
+                if (partyHoldings && partyHoldings.length === 2 && !isBranch) {
+                    const colA = partyHoldings[0].color || "rgba(128,128,128,0.25)";
+                    const colB = partyHoldings[1].color || "rgba(128,128,128,0.25)";
+                    discMarkup = `<path class="icon-disc icon-disc-left" d="M ${r} 2 A ${rd} ${rd} 0 0 0 ${r} ${r * 2 - 2} Z" fill="${colA}" style="fill:${colA}"/><path class="icon-disc icon-disc-right" d="M ${r} 2 A ${rd} ${rd} 0 0 1 ${r} ${r * 2 - 2} Z" fill="${colB}" style="fill:${colB}"/><line x1="${r}" y1="2" x2="${r}" y2="${r * 2 - 2}" stroke="rgba(0,0,0,0.4)" stroke-width="0.75"/>`;
+                } else if (partyHoldings && partyHoldings.length > 2 && !isBranch) {
+                    const nParts = partyHoldings.length;
+                    let wedges = "";
+                    for (let k = 0; k < nParts; k++) {
+                        const a0 = -Math.PI / 2 + (2 * Math.PI * k) / nParts;
+                        const a1 = -Math.PI / 2 + (2 * Math.PI * (k + 1)) / nParts;
+                        const x0 = (r + rd * Math.cos(a0)).toFixed(2);
+                        const y0 = (r + rd * Math.sin(a0)).toFixed(2);
+                        const x1 = (r + rd * Math.cos(a1)).toFixed(2);
+                        const y1 = (r + rd * Math.sin(a1)).toFixed(2);
+                        const colK = partyHoldings[k].color || "rgba(128,128,128,0.25)";
+                        wedges += `<path class="icon-disc icon-disc-wedge" d="M ${r} ${r} L ${x0} ${y0} A ${rd} ${rd} 0 0 1 ${x1} ${y1} Z" fill="${colK}" style="fill:${colK}"/>`;
+                    }
+                    discMarkup = wedges;
+                } else if (interestDisc) {
+                    // Icons follow the midline coloration of interest
+                    // (Jason, 2026-11-22): a dual topic's disc splits
+                    // into its give and receive interest colors (never
+                    // averaged); a single-value topic wears its one
+                    // interest color; unrated wears the no-code
+                    // charcoal. Identity colors (hanky, category
+                    // palette) no longer paint map icons.
+                    if (interestDisc.left) {
+                        discMarkup = `<path class="icon-disc icon-disc-left" d="M ${r} 2 A ${rd} ${rd} 0 0 0 ${r} ${r * 2 - 2} Z" fill="${interestDisc.left}" style="fill:${interestDisc.left}"/><path class="icon-disc icon-disc-right" d="M ${r} 2 A ${rd} ${rd} 0 0 1 ${r} ${r * 2 - 2} Z" fill="${interestDisc.right}" style="fill:${interestDisc.right}"/><line x1="${r}" y1="2" x2="${r}" y2="${r * 2 - 2}" stroke="rgba(0,0,0,0.4)" stroke-width="0.75"/>`;
+                    } else {
+                        discMarkup = `<circle class="icon-disc" cx="${r}" cy="${r}" r="${rd}" fill="${interestDisc.single}" style="fill:${interestDisc.single}"/>`;
+                    }
+                } else {
+                    discMarkup = `<circle class="icon-disc" cx="${r}" cy="${r}" r="${rd}"/>`;
+                }
+                return `<g class="${cls}"${fallbackAttr} data-diameter="${diameter}" ${tapTarget} aria-hidden="true" style="color:${color}" transform="translate(${(cx - r).toFixed(2)} ${(cy - r).toFixed(2)})"><circle class="icon-ring-outline icon-ring-outline-outer" cx="${r}" cy="${r}" r="${r - .5}"/>${discMarkup}<circle class="icon-ring-outline icon-ring-outline-inner" cx="${r}" cy="${r}" r="${r - 3.5}"/>${innerContent}</g>`;
+            },
+            renderBadges(cx, cy, count, id, ux = 0, uy = 0, offset = 0, isCategory = false) {
+                return yi(cx + ux * offset, cy + uy * offset, count, id, isCategory);
+            }
+        };
+
+var LabelRenderer = {
+            computeAnchoredOffset(routedLength, renderedW, hubR, iconR, gap, isReverse) {
+                let offset, anchor;
+                const hubMargin = 16;
+                const leafMargin = 12;
+                const availSpan = Math.max(10, routedLength - hubR - iconR - hubMargin - leafMargin);
+                const effectiveW = Math.min(renderedW, availSpan);
+                let textLengthAttr = "";
+                if (renderedW > availSpan) {
+                    textLengthAttr = ` textLength="${availSpan.toFixed(1)}" lengthAdjust="spacingAndGlyphs"`;
+                }
+                if (isReverse) {
+                    const idealOffset = iconR + gap + effectiveW;
+                    const minOff = iconR + leafMargin + effectiveW;
+                    const maxOff = routedLength - hubR - hubMargin;
+                    if (minOff <= maxOff) {
+                        offset = Math.min(maxOff, Math.max(idealOffset, minOff));
+                    } else {
+                        offset = maxOff;
+                    }
+                    anchor = ' text-anchor="end"';
+                } else {
+                    const idealOffset = routedLength - iconR - gap - effectiveW;
+                    const minOff = hubR + hubMargin;
+                    const maxOff = routedLength - iconR - leafMargin - effectiveW;
+                    if (minOff <= maxOff) {
+                        offset = Math.max(minOff, Math.min(idealOffset, maxOff));
+                    } else {
+                        offset = minOff;
+                    }
+                    anchor = "";
+                }
+                return { offset, anchor, textLengthAttr, effectiveW };
+            }
+        };
+
         function* Ar(i = {}) {
             // JOB B GLIDE FIX - previous-positions capture: read the live
             // node positions BEFORE sxVaultCaptureCurrent() runs. The vault
@@ -23135,107 +23247,8 @@ var SX_OCTAD_COLORS = ["#22c55e", "#10b981", "#06b6d4", "#3b82f6", "#6366f1", "#
                 };
             }();
 
-            // =========================================================================
-            // MAP PAINT MODULAR RENDERERS (Phase 4 Step 2 Decomposition)
-            // =========================================================================
+            // SpokeRenderer, HubRenderer, and LabelRenderer are hoisted above Ar().
             const sxDiscFor = sxInterestDiscFor;
-
-            const SpokeRenderer = {
-                renderBranchSpoke(dCat, spokeD, name, nx, ny, o2X, o2Y, cX, cY, catHeat, lineColor, hankyLineClass, giveColor, receiveColor, hankyColor, isNoCode, isRated, filterLen, baseCircle, iconDiameter) {
-                    return Ka(dCat, spokeD, 18, name, nx, ny, o2X, o2Y, cX, cY, !1, pr.categoryIcon, catHeat || lineColor, !1, hankyLineClass, giveColor, receiveColor, isNoCode ? Ga.FALLBACK_COLOR : hankyColor, isNoCode, isRated, filterLen, baseCircle, iconDiameter, 1);
-                },
-                renderTopicSpoke(id, pathD, label, nx, ny, oX, oY, lX, lY, isStatic, icon, P, isSecondGen, hankyLineClass, giveColor, receiveColor, lineColor, isNoCode, isRated, filterLen, baseCircle, iconDiameter, depth = 2) {
-                    return Ka(id, pathD, isStatic ? 18 : 6, label, nx, ny, oX, oY, lX, lY, !0, icon, P, !0, hankyLineClass, giveColor, receiveColor, lineColor, isNoCode, isRated, filterLen, baseCircle, iconDiameter, depth);
-                }
-            };
-
-            const HubRenderer = {
-                renderIcon(id, diameter, glyphData, tapTarget, color, cx, cy, isBranch = false, isSubcategory = false, partyHoldings = null, interestDisc = null) {
-                    const r = diameter / 2;
-                    const iconSize = diameter * 0.62;
-                    const iconOffset = (diameter - iconSize) / 2;
-                    const fallbackAttr = glyphData.glyphFallback ? ' data-glyph-fallback="star"' : "";
-                    const cls = isBranch ? `branch-icon${"noCode" === glyphData.hankyKey ? " no-hanky-code-icon" : ""}` :
-                        `topic-icon${isSubcategory ? " subcategory-icon" : "noCode" === glyphData.hankyKey ? " no-hanky-code-icon" : ""}${glyphData.glyphFallback ? " glyph-fallback" : ""}`;
-                    const innerContent = `<svg viewBox="${glyphData.viewBox || "0 0 24 24"}" width="${iconSize.toFixed(2)}" height="${iconSize.toFixed(2)}" x="${iconOffset.toFixed(2)}" y="${iconOffset.toFixed(2)}" overflow="visible">${glyphData.glyph}${glyphData.accent || ""}</svg>`;
-                    let discMarkup;
-                    const rd = r - 2;
-                    if (partyHoldings && partyHoldings.length === 2 && !isBranch) {
-                        const colA = partyHoldings[0].color || "rgba(128,128,128,0.25)";
-                        const colB = partyHoldings[1].color || "rgba(128,128,128,0.25)";
-                        discMarkup = `<path class="icon-disc icon-disc-left" d="M ${r} 2 A ${rd} ${rd} 0 0 0 ${r} ${r * 2 - 2} Z" fill="${colA}" style="fill:${colA}"/><path class="icon-disc icon-disc-right" d="M ${r} 2 A ${rd} ${rd} 0 0 1 ${r} ${r * 2 - 2} Z" fill="${colB}" style="fill:${colB}"/><line x1="${r}" y1="2" x2="${r}" y2="${r * 2 - 2}" stroke="rgba(0,0,0,0.4)" stroke-width="0.75"/>`;
-                    } else if (partyHoldings && partyHoldings.length > 2 && !isBranch) {
-                        const nParts = partyHoldings.length;
-                        let wedges = "";
-                        for (let k = 0; k < nParts; k++) {
-                            const a0 = -Math.PI / 2 + (2 * Math.PI * k) / nParts;
-                            const a1 = -Math.PI / 2 + (2 * Math.PI * (k + 1)) / nParts;
-                            const x0 = (r + rd * Math.cos(a0)).toFixed(2);
-                            const y0 = (r + rd * Math.sin(a0)).toFixed(2);
-                            const x1 = (r + rd * Math.cos(a1)).toFixed(2);
-                            const y1 = (r + rd * Math.sin(a1)).toFixed(2);
-                            const colK = partyHoldings[k].color || "rgba(128,128,128,0.25)";
-                            wedges += `<path class="icon-disc icon-disc-wedge" d="M ${r} ${r} L ${x0} ${y0} A ${rd} ${rd} 0 0 1 ${x1} ${y1} Z" fill="${colK}" style="fill:${colK}"/>`;
-                        }
-                        discMarkup = wedges;
-                    } else if (interestDisc) {
-                        // Icons follow the midline coloration of interest
-                        // (Jason, 2026-11-22): a dual topic's disc splits
-                        // into its give and receive interest colors (never
-                        // averaged); a single-value topic wears its one
-                        // interest color; unrated wears the no-code
-                        // charcoal. Identity colors (hanky, category
-                        // palette) no longer paint map icons.
-                        if (interestDisc.left) {
-                            discMarkup = `<path class="icon-disc icon-disc-left" d="M ${r} 2 A ${rd} ${rd} 0 0 0 ${r} ${r * 2 - 2} Z" fill="${interestDisc.left}" style="fill:${interestDisc.left}"/><path class="icon-disc icon-disc-right" d="M ${r} 2 A ${rd} ${rd} 0 0 1 ${r} ${r * 2 - 2} Z" fill="${interestDisc.right}" style="fill:${interestDisc.right}"/><line x1="${r}" y1="2" x2="${r}" y2="${r * 2 - 2}" stroke="rgba(0,0,0,0.4)" stroke-width="0.75"/>`;
-                        } else {
-                            discMarkup = `<circle class="icon-disc" cx="${r}" cy="${r}" r="${rd}" fill="${interestDisc.single}" style="fill:${interestDisc.single}"/>`;
-                        }
-                    } else {
-                        discMarkup = `<circle class="icon-disc" cx="${r}" cy="${r}" r="${rd}"/>`;
-                    }
-                    return `<g class="${cls}"${fallbackAttr} data-diameter="${diameter}" ${tapTarget} aria-hidden="true" style="color:${color}" transform="translate(${(cx - r).toFixed(2)} ${(cy - r).toFixed(2)})"><circle class="icon-ring-outline icon-ring-outline-outer" cx="${r}" cy="${r}" r="${r - .5}"/>${discMarkup}<circle class="icon-ring-outline icon-ring-outline-inner" cx="${r}" cy="${r}" r="${r - 3.5}"/>${innerContent}</g>`;
-                },
-                renderBadges(cx, cy, count, id, ux = 0, uy = 0, offset = 0, isCategory = false) {
-                    return yi(cx + ux * offset, cy + uy * offset, count, id, isCategory);
-                }
-            };
-
-            const LabelRenderer = {
-                computeAnchoredOffset(routedLength, renderedW, hubR, iconR, gap, isReverse) {
-                    let offset, anchor;
-                    const hubMargin = 16;
-                    const leafMargin = 12;
-                    const availSpan = Math.max(10, routedLength - hubR - iconR - hubMargin - leafMargin);
-                    const effectiveW = Math.min(renderedW, availSpan);
-                    let textLengthAttr = "";
-                    if (renderedW > availSpan) {
-                        textLengthAttr = ` textLength="${availSpan.toFixed(1)}" lengthAdjust="spacingAndGlyphs"`;
-                    }
-                    if (isReverse) {
-                        const idealOffset = iconR + gap + effectiveW;
-                        const minOff = iconR + leafMargin + effectiveW;
-                        const maxOff = routedLength - hubR - hubMargin;
-                        if (minOff <= maxOff) {
-                            offset = Math.min(maxOff, Math.max(idealOffset, minOff));
-                        } else {
-                            offset = maxOff;
-                        }
-                        anchor = ' text-anchor="end"';
-                    } else {
-                        const idealOffset = routedLength - iconR - gap - effectiveW;
-                        const minOff = hubR + hubMargin;
-                        const maxOff = routedLength - iconR - leafMargin - effectiveW;
-                        if (minOff <= maxOff) {
-                            offset = Math.max(minOff, Math.min(idealOffset, maxOff));
-                        } else {
-                            offset = minOff;
-                        }
-                        anchor = "";
-                    }
-                    return { offset, anchor, textLengthAttr, effectiveW };
-                }
-            };
 
             // Boot slices only. A bare yield is swallowed by an ordinary
             // paint, and the boot driver keeps stepping until its 50ms
@@ -31632,6 +31645,7 @@ var sxShareCache = null;
             var fallback = { krossmatch: "Krossmatch", kinkFactor: "Kink Factor", playMode: "Play", parlayMode: "Parlay", conversationMode: "Conversation", playMS: "Play MS", playKF: "Play KF", parlayMS: "Parlay MS", parlayKF: "Parlay KF", debateMS: "Debate MS", debateKF: "Debate Kink Factor", getRatings: "Hot list · KinkTest · BDSMtest · Yes / No / Maybe · FetLife", heatMax: "Horndog", heatMin: "Turned off" };
             return fallback[key] || key;
         }
+        window.sxTerm = sxTerm;
         /* Score-ring values for a tab/profile context. kind: "profile"
            (outer Charted, inner Personal KF), "bowtie" (outer Play MS,
            inner Play KF, off the pair/group engine aggregates),
@@ -48423,8 +48437,26 @@ __sxInit(function () {
     });
   }
 
+  function resolveCurrentSkin() {
+    try {
+      if (typeof window.__sxAnalyticsSkin === 'function') {
+        var s = window.__sxAnalyticsSkin();
+        if (s) return String(s).toLowerCase();
+      }
+      if (window.__SX_ACTIVE_SKIN) return String(window.__SX_ACTIVE_SKIN).toLowerCase();
+      if (typeof window.__SX_SKIN_FROM_URL === 'function' && window.__SX_SKIN_FROM_URL()) {
+        return String(window.__SX_SKIN_FROM_URL()).toLowerCase();
+      }
+      if (typeof window.__SX_SKIN_FOR_HOSTNAME === 'function') {
+        return String(window.__SX_SKIN_FOR_HOSTNAME(location.hostname)).toLowerCase();
+      }
+    } catch (e) {}
+    return 'sexcapades';
+  }
+
   function fetchCount() {
-    fetch(SX_SHELL_COLLECT_URL + '?action=get_stats')
+    var skinId = resolveCurrentSkin();
+    fetch(SX_SHELL_COLLECT_URL + '?action=get_stats&skin=' + encodeURIComponent(skinId))
       .then(function(response) {
         if (!response.ok) throw new Error('Visitor count request failed');
         return response.json();
@@ -48457,12 +48489,13 @@ __sxInit(function () {
     wrap.appendChild(count);
     about.appendChild(wrap);
 
-    var requested = false;
+    var lastFetchedSkin = '';
     function requestWhenOpen() {
-      if (requested || !about.open) return;
-      requested = true;
+      if (!about.open) return;
+      var curSkin = resolveCurrentSkin();
+      if (lastFetchedSkin === curSkin && !count.classList.contains('is-unavailable')) return;
+      lastFetchedSkin = curSkin;
       fetchCount();
-      observer.disconnect();
     }
     var observer = new MutationObserver(requestWhenOpen);
     observer.observe(about, {attributes: true, attributeFilter: ['open']});
