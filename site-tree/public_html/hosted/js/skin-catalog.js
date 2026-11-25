@@ -1,8 +1,8 @@
 /* ---- Flexcapades Skin Catalog (Single Source of Truth) ----
-   Defines the authoritative catalog of all 20 hypermap skins:
+   Defines the authoritative catalog of all 22 hypermap skins:
    - 3 Activity Maps (dancecapades, questcapades, sexcapades)
-   - 17 Stance Maps (aesth, bio, chem, dharma, experi, fores, lingua, matter,
-     nous, philo, polis, praxi, quanta, simul, tech, theori, voca)
+   - 19 Stance Maps (aesth, bio, chem, dharma, experi, fast, fores, lingua, matter,
+     meta, nous, philo, polis, praxi, quanta, simul, tech, theori, voca)
    Provides unified resolution for hostnames, subdomains, preload links,
    initial tab title painting, analytics skin tagging, and menu rendering.
 */
@@ -24,6 +24,7 @@
     forescapades: { id: "forescapades", prefix: "fores", name: "Forescapades", desc: "religion — Abrahamic faiths", type: "stance" },
     linguacapades: { id: "linguacapades", prefix: "lingua", name: "Linguacapades", desc: "the tongues we think in", type: "stance" },
     mattercapades: { id: "mattercapades", prefix: "matter", name: "Mattercapades", desc: "applied physics", type: "stance" },
+    metacapades: { id: "metacapades", prefix: "meta", name: "Metacapades", desc: "how you use Flexcapades, and how you want it to grow", type: "stance" },
     nouscapades: { id: "nouscapades", prefix: "nous", name: "Nouscapades", desc: "what counts as a mind", type: "stance" },
     philoscapades: { id: "philoscapades", prefix: "philo", name: "Philoscapades", desc: "philosophy", type: "stance" },
     poliscapades: { id: "poliscapades", prefix: "polis", name: "Poliscapades", desc: "politics", type: "stance" },
@@ -56,7 +57,7 @@
   function skinForHostname(hostname) {
     var host = (hostname || (typeof location !== "undefined" ? location.hostname : "") || "").toLowerCase();
     if (host === "sexcapades.io" || host === "www.sexcapades.io") return "sexcapades";
-    if (host === "flex.capades.io" || host === "www.flex.capades.io" || host === "capades.io" || host === "www.capades.io") return "poliscapades";
+    if (host === "flex.capades.io" || host === "www.flex.capades.io" || host === "capades.io" || host === "www.capades.io") return "metacapades";
     var prefix = /\.capades\.io$/.test(host) ? host.split(".")[0] : "";
     if (prefix && HOSTNAME_TO_SKIN[prefix]) return HOSTNAME_TO_SKIN[prefix];
     return "sexcapades";

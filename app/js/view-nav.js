@@ -604,7 +604,7 @@ __sxInit(function () {
     });
   }
   /* Skin id -> subdomain prefix: delegated to window.__SX_SKIN_SUBDOMAIN single source. */
-  var SKIN_SUBDOMAIN = (typeof window !== "undefined" && window.__SX_SKIN_SUBDOMAIN) || { sexcapades: "sex", poliscapades: "polis", forescapades: "fores", philoscapades: "philo", aesthcapades: "aesth", vocapades: "voca", techcapades: "tech", dharmacapades: "dharma", theori: "theoricapades", praxi: "praxicapades", quantacapades: "quanta", expericapades: "experi", simulcapades: "simul", mattercapades: "matter", chemcapades: "chem", nouscapades: "nous", biocapades: "bio", linguacapades: "lingua", fastcapades: "fast", dancecapades: "dance", questcapades: "quest" };
+  var SKIN_SUBDOMAIN = (typeof window !== "undefined" && window.__SX_SKIN_SUBDOMAIN) || { sexcapades: "sex", poliscapades: "polis", forescapades: "fores", philoscapades: "philo", aesthcapades: "aesth", vocapades: "voca", techcapades: "tech", dharmacapades: "dharma", theori: "theoricapades", praxi: "praxicapades", quantacapades: "quanta", expericapades: "experi", simulcapades: "simul", mattercapades: "matter", chemcapades: "chem", nouscapades: "nous", biocapades: "bio", linguacapades: "lingua", fastcapades: "fast", metacapades: "meta", dancecapades: "dance", questcapades: "quest" };
   function choose(item) {
     if (!item) return;
     var skin = item.getAttribute("data-skin");

@@ -1,0 +1,35 @@
+{
+  "name": "Metacapades",
+  "short_name": "Metacapades",
+  "description": "The map about the maps: how you use Flexcapades, and how you want it to grow.",
+  "display": "standalone",
+  "orientation": "any",
+  "background_color": "#0b1014",
+  "theme_color": "#0b1014",
+  "start_url": "/",
+  "scope": "/",
+  "categories": [
+    "lifestyle",
+    "social"
+  ],
+  "icons": [
+    {
+      "src": "/icons/skins/meta-192.png?v=__SX_CACHE__",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icons/skins/meta-512.png?v=__SX_CACHE__",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icons/skins/meta-512.png?v=__SX_CACHE__",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ]
+}
