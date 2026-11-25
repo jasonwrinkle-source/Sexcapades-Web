@@ -26,6 +26,8 @@ You're charting the things that make your heart beat fast
 The fantasies that you thought would never last
 We mark the favorites shining like a star
 And leave the limits exactly where they are
+The hanky on the placard wears the color of the night
+A quiet little signal, and the signal's shining bright
 A hard exclude means it never makes the scene
 And that's the safest place we've ever been
 I see your interest and you can look at mine
@@ -43,8 +45,10 @@ Welcome to Sexcapades
 [Bridge]
 It's playful and it's warm and it's plain to see
 The shape of a person standing next to me
+Kink categories, kink lines, the map is yours and mine
 Before we negotiate, before we begin
 We know where we stop and we know where we've been
+And the numbers are honest, and the numbers are kind
 
 [Chorus]
 This is where the interest lives and breathes

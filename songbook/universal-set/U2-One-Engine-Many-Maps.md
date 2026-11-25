@@ -53,6 +53,7 @@ And Sexcapades where it began
 Desire and limits drawn up in a plan
 So many ways to look in the glass
 So many ways to let the truth pass
+We never count the skins in stone—tomorrow there'll be more
 
 [Chorus]
 The engine doesn't care what the conversation's about

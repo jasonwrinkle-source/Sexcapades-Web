@@ -10,7 +10,7 @@ You'll see how the colors begin to align
 Pick a pole, say how far you lean
 Tell me the picture that you've always seen
 Then say how much it matters to you
-And how wide you listen when the other side comes through
+Speak your advocacy out and draw your listening line
 The speaking counts and the listening counts too
 Two appetites on one line, and both of them are you
 
@@ -30,6 +30,8 @@ You're charting a stance or a practice you love
 An experience written in the stars up above
 If you don't know the answer, just leave it alone
 You don't have to rate every seed that is sown
+Or load an archetype to see where you stand
+A sample to borrow, its emblem in hand
 But the ones that you care about, bring them to light
 And watch how the hypermap shines in the night
 

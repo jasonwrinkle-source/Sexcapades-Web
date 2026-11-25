@@ -27,6 +27,7 @@ No awkward questions, no wondering why
 The answers are printed right there in your eye
 I hand you a card and you hand one to him
 And he hands one to her on a sudden whim
+Or load a roster pack and bring the whole room in
 A fractal connection that continues to grow
 From a single seed that we started to sow
 

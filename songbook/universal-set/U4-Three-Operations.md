@@ -11,6 +11,9 @@ It's the communion, the matching of parts
 The complementary shape of two hearts
 I lean one way and you lean the other
 And that's how we manage to fit one another
+The krossmatch is the grid where the numbers align
+And the depth factor prices the meeting in a single line
+On the sex map it's the kink factor, the same design
 
 [Chorus]
 Three ways two hypermaps can meet
@@ -26,6 +29,7 @@ We look for the Straight, the ground that we share
 The interesting conversation waiting right there
 We lean the same way on a topic or two
 We see eye to eye, me and you
+It's the converse, the talking that carries us through
 It's the shared conviction, the common ground
 The echo that answers without a sound
 Where we agree, where the lines run true
@@ -48,6 +52,7 @@ And we price the division right from the start
 It's a gap that is measured, a divide we can trace
 A small split is small, just a bump in the space
 But a deep one is worth a real conversation
+It's an indaba, a meeting to talk it through
 The Circle Minus brings the revelation
 
 [Chorus]

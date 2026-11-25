@@ -11,10 +11,10 @@ The limits marked, the boundaries set in stone
 Nobody has to walk this road alone
 
 [Chorus]
-You can see where you stand
-And see it next to where somebody else stands
-No guessing games, no sleight of hand
-The seeing is priced honestly
+Ask the question at the door: Compare hypermaps?
+Watch the honest numbers fill the silence in the gaps
+You can see where you stand, and see it next to where somebody else stands
+No guessing games, no sleight of hand, the seeing is priced honestly
 Across the table or across the land
 Bring your hypermap and see where you stand
 
@@ -27,10 +27,10 @@ A small split is small, a deep one takes time
 But at least we can see where we've drawn the line
 
 [Chorus]
-You can see where you stand
-And see it next to where somebody else stands
-No guessing games, no sleight of hand
-The seeing is priced honestly
+Ask the question at the door: Compare hypermaps?
+Watch the honest numbers fill the silence in the gaps
+You can see where you stand, and see it next to where somebody else stands
+No guessing games, no sleight of hand, the seeing is priced honestly
 Across the table or across the land
 Bring your hypermap and see where you stand
 
@@ -44,11 +44,11 @@ A fractal seed where common ground is found
 
 [Verse]
 Open the map you rated a year ago
-The layers are stacked and the changes show
+The palimpsest is stacked and the changes show
 You were someone else when you answered then
 Now the poles have shifted — so rate it again
 Layer upon layer, the old selves stay
-And the map shows the road you've traveled this way
+And the worldline shows the road you've traveled this way
 
 [Verse]
 Bring the whole table and lay the maps down
@@ -67,10 +67,10 @@ Before the scene, before the ring
 It lays it out, it changes everything
 
 [Chorus]
-You can see where you stand
-And see it next to where somebody else stands
-No guessing games, no sleight of hand
-The seeing is priced honestly
+Ask the question at the door: Compare hypermaps?
+Watch the honest numbers fill the silence in the gaps
+You can see where you stand, and see it next to where somebody else stands
+No guessing games, no sleight of hand, the seeing is priced honestly
 Across the table or across the land
 Bring your hypermap and see where you stand
 

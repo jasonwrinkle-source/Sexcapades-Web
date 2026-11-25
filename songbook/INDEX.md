@@ -1,14 +1,14 @@
-# Songbook v5.1.1
+# Songbook v5.1.2
 
-**Version:** 5.1.1
-**Date:** 2026-11-24
+**Version:** 5.1.2
+**Date:** 2026-11-25
 **Format:** Suno Paste Kit ready (Style Prompt + Lyrics tags)
 **Authors:** Jason Mark Wrinkle & Yolanda Biche et al.
 
 ## Structure
 The songbook follows a two-tier fallback chain for the Flexcapades (flex.capades.io) family. When a skin needs a song:
 1. **Skin-specific track:** Try the `per-skin/` directory for its signature song (e.g. `Poliscapades.md`).
-2. **Universal Set fallback:** Use a song from `universal-set/` (U1–U6) which applies to all maps.
+2. **Universal Set fallback:** Use a song from `universal-set/` (U1–U8) which applies to all maps.
 3. **Engine-level fallback:** The TaxoPolemics album (from v5.0).
 
 ## Universal Set (`universal-set/`)
@@ -18,6 +18,8 @@ The songbook follows a two-tier fallback chain for the Flexcapades (flex.capades
 * U4 — Three Operations
 * U5 — Bring Your Hypermap
 * U6 — The Meeting After The Meeting (Carried over from Explainer set)
+* U7 — Many Views Under One Roof (The views tour)
+* U8 — Cards, Sheets, Packs & Veils (How hypermaps travel)
 
 ## Per-Skin Signature Songs (`per-skin/`)
 * Sexcapades (Desire / Interest)
@@ -41,3 +43,4 @@ The songbook follows a two-tier fallback chain for the Flexcapades (flex.capades
 * Biocapades (Life / Perspective)
 * Linguacapades (Language / Sensibility)
 * Fastcapades (Fasting / Discipline)
+* Flexcapades (The Meta Map / Stake)

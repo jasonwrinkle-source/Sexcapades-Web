@@ -1,11 +1,16 @@
-# The Songbook — v5.1.1
+# The Songbook — v5.1.2
 
 The songs of TaxoPolemics and Flexcapades, in git from v5.1 on
-(2026-11-21); v5.1.1 (2026-11-24) fills the gaps. Byline on every
-sheet: Jason Mark Wrinkle & Yolanda Biche et al.
+(2026-11-21); v5.1.1 (2026-11-24) fills the gaps; v5.1.2 (2026-11-25)
+folds in the best of AntiGravity's songbook (committed by Jason as
+`ANTIGRAVITY-SONGBOOK.md`, scored 52–66 against v5.1.1): two new
+universal songs, the Flexcapades signature song, the "Compare
+hypermaps?" hook in U1's chorus, and a `COVERAGE.md` proving every
+glossary term is sung somewhere. Byline on every sheet: Jason Mark
+Wrinkle & Yolanda Biche et al.
 
 **The generation prompt for this version is
-[`SONGBOOK-v5.1.1-PROMPT.md`](SONGBOOK-v5.1.1-PROMPT.md)** — hand it to the
+[`SONGBOOK-v5.1.2-PROMPT.md`](SONGBOOK-v5.1.2-PROMPT.md)** — hand it to the
 songwriter and it produces the whole book.
 
 ## Shape
@@ -18,13 +23,15 @@ Two tiers, matching the thing itself (one engine, many maps):
   flex.capades.io, one use case per verse. U2 "One Engine, Many Maps",
   U3 "Rate What You Hold", U4 "Three Operations", U5 "Bring Your Map",
   U6 "The Meeting After the Meeting" (carried over from the explainer
-  album).
+  album), U7 "Many Views Under One Roof" (the views tour),
+  U8 "Cards, Sheets, Packs & Veils" (how hypermaps travel).
 - **`per-skin/`** — one signature song per skin: Sexcapades,
   Poliscapades, Forescapades, Aesthcapades, Chemcapades,
   Dharmacapades, Expericapades, Mattercapades, Philoscapades,
   Praxicapades, Quantacapades, Simulcapades, Techcapades,
   Theoricapades, Vocapades, Nouscapades, Dancecapades,
-  Questcapades, Biocapades, Linguacapades, Fastcapades.
+  Questcapades, Biocapades, Linguacapades, Fastcapades,
+  Flexcapades.
 
 Playback fallback in the app: a skin's own song first, then the
 Universal Set, then the TaxoPolemics album.
