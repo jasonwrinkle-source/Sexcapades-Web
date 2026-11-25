@@ -36,10 +36,30 @@ Each item waits for Jason's kickoff; nothing here dispatches itself.
    - *Open:* Investigate audible-sounds cause (Jason, 2026-11-08: needs investigation, not guessing); entertainment idea (genre map + live group enjoyment meter) open.
 
 
-4. **Per-Topic Glyphs for the Vanilla Skins (another AI's lane — Grok/Cursor):**
+4. **~~Per-Topic Glyphs for the Vanilla Skins (another AI's lane — Grok/Cursor):~~** **DONE (2026-11-25).**
    - Ruled by Jason 2026-11-23: topic-icon inheritance ships first (topics wear their category's glyph; the generic star dies). After that, author a distinct, relevant glyph for EVERY topic on the vanilla skins, skin by skin, Nous first.
    - One commit per skin. A topic's glyph replaces the inherited category glyph for that topic only; categories keep theirs.
-   - **Nouscapades per-topic glyphs:** DONE (2026-11-23). All 39 topics assigned distinct, relevant 16x16 vector glyphs.
+   - **All 20 Vanilla Skins Completed & Verified:** All 896 topics across all 20 vanilla skins have distinct, domain-relevant 24x24 SVG vector glyphs (`glyph` + `glyphLabel`), 0 category glyph collisions, 0 intra-skin duplicates, synced to hosted bundle, committed individually and pushed to `origin/main`:
+     - `nouscapades.json` (51/51) — Commit `e034d88`
+     - `philoscapades.json` (23/23) — Commit `224d085`
+     - `praxicapades.json` (26/26) — Commit `be60296`
+     - `fastcapades.json` (27/27) — Commit `46a7da3`
+     - `vocapades.json` (28/28) — Commit `4b14068`
+     - `mattercapades.json` (29/29) — Commit `cf57800`
+     - `simulcapades.json` (29/29) — Commit `d774e9b`
+     - `quantacapades.json` (30/30) — Commit `cd25523`
+     - `expericapades.json` (31/31) — Commit `6f25370`
+     - `theoricapades.json` (31/31) — Commit `e15a412`
+     - `chemcapades.json` (40/40) — Commit `3be76d3`
+     - `techcapades.json` (33/33) — Commit `5a8801a`
+     - `dharmacapades.json` (34/34) — Commit `17c3e5a`
+     - `linguacapades.json` (34/34) — Commit `dc929f7`
+     - `biocapades.json` (41/41) — Commit `cd0dabd`
+     - `aesthcapades.json` (44/44) — Commit `fef8a5f`
+     - `questcapades.json` (79/79) — Commit `3e087ce`
+     - `dancecapades.json` (82/82) — Commit `d52305f`
+     - `poliscapades.json` (97/97) — Commit `1b8642e`
+     - `forescapades.json` (100/100) — Commit `78e4fa3`
 
 5. **~~Promote Scribe, Scene Setter, Hot List & Scene Sentinel from dialogs to views (another AI's lane — Grok/Cursor):~~** **DONE (2026-11-24).**
    - Ruled by Jason 2026-11-24: all four stop being modal windows and become views of the app under the same app header — the header (brand title, "?" docs, music button) is always present, so the skin picker, docs, and About are always reachable from them with no special cases.
