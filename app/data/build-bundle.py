@@ -220,29 +220,33 @@ write_hosted_app(
     os.path.join(base_dir, "../sexcapades-5.0.html"),
     os.path.join(base_dir, "../../site-tree/public_html/hosted/app.html"))
 
-# Unify app/gate.html + app/gate-assets/ with site-tree/public_html/hosted/gate.html + gate-assets/
-hosted_gate_html = os.path.join(base_dir, "../../site-tree/public_html/hosted/gate.html")
-app_gate_html = os.path.join(base_dir, "../gate.html")
-hosted_gate_assets = os.path.join(base_dir, "../../site-tree/public_html/hosted/gate-assets")
-app_gate_assets = os.path.join(base_dir, "../gate-assets")
-if os.path.exists(hosted_gate_assets):
-    os.makedirs(app_gate_assets, exist_ok=True)
-    for gf in os.listdir(hosted_gate_assets):
-        src_gf = os.path.join(hosted_gate_assets, gf)
-        dst_gf = os.path.join(app_gate_assets, gf)
-        if os.path.isfile(src_gf):
-            shutil.copyfile(src_gf, dst_gf)
-    print("[Bundle] Synced gate-assets/ to app/gate-assets/")
-if os.path.exists(hosted_gate_html):
-    ghtml = open(hosted_gate_html, encoding="utf-8").read()
-    # Strip ?v= cache stamps for source app/gate.html and rewrite skin-catalog.js path
-    ghtml_app = re.sub(r'(\.(?:css|js))\?v=[^"\']+', r'\1', ghtml)
-    ghtml_app = ghtml_app.replace('src="/hosted/app-assets/skin-catalog.js"', 'src="js/skin-catalog.js"')
-    prev_ag = open(app_gate_html, encoding="utf-8").read() if os.path.exists(app_gate_html) else None
-    if prev_ag != ghtml_app:
-        with open(app_gate_html, "w", encoding="utf-8") as fh:
-            fh.write(ghtml_app)
-        print("[Bundle] Unified app/gate.html with site-tree/public_html/hosted/gate.html")
+# Unify app/gate.html, app/guide.html, and app/quickstart.html with site-tree/public_html/hosted/
+for page_name, assets_sub in [("gate.html", "gate-assets"), ("guide.html", "guide-assets"), ("quickstart.html", "quickstart-assets")]:
+    hosted_html = os.path.join(base_dir, "../../site-tree/public_html/hosted", page_name)
+    app_html = os.path.join(base_dir, "..", page_name)
+    hosted_assets = os.path.join(base_dir, "../../site-tree/public_html/hosted", assets_sub)
+    app_assets = os.path.join(base_dir, "..", assets_sub)
+    if os.path.exists(hosted_assets):
+        os.makedirs(app_assets, exist_ok=True)
+        for gf in os.listdir(hosted_assets):
+            if not gf.endswith((".css", ".js", ".json")):
+                continue
+            src_gf = os.path.join(hosted_assets, gf)
+            dst_gf = os.path.join(app_assets, gf)
+            if os.path.isfile(src_gf):
+                shutil.copyfile(src_gf, dst_gf)
+        print(f"[Bundle] Synced {assets_sub}/ (.css/.js) to app/{assets_sub}/")
+    if os.path.exists(hosted_html):
+        phtml = open(hosted_html, encoding="utf-8").read()
+        phtml_app = re.sub(r'(\.(?:css|js))\?v=[^"\']+', r'\1', phtml)
+        phtml_app = phtml_app.replace('src="/hosted/app-assets/skin-catalog.js"', 'src="js/skin-catalog.js"')
+        phtml_app = phtml_app.replace('src="/hosted/js/docs-skin.js"', 'src="js/docs-skin.js"')
+        prev_ap = open(app_html, encoding="utf-8").read() if os.path.exists(app_html) else None
+        if prev_ap != phtml_app:
+            with open(app_html, "w", encoding="utf-8") as fh:
+                fh.write(phtml_app)
+            print(f"[Bundle] Unified app/{page_name} with site-tree/public_html/hosted/{page_name}")
+
 
 
 # Sync skin data files (app/data/skins/*.json) to hosted/data/skins/ and qa/data/skins/
