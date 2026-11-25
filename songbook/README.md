@@ -1,18 +1,27 @@
-# The Songbook — v5.1.2
+# The Songbook — v5.2
 
 The songs of TaxoPolemics and Flexcapades, in git from v5.1 on
 (2026-11-21); v5.1.1 (2026-11-24) fills the gaps; v5.1.2 (2026-11-25)
-folds in the best of AntiGravity's songbook (committed by Jason as
-`ANTIGRAVITY-SONGBOOK.md`, scored 54.5–66 against v5.1.1, corrected
+folds in the best of AntiGravity's first songbook (committed by Jason
+as `ANTIGRAVITY-SONGBOOK.md`, scored 54.5–66 against v5.1.1, corrected
 from 52 — the distinct byline and the number bounds were Jason's
-orders, not violations): two new
-universal songs, the Flexcapades signature song, the "Compare
-hypermaps?" hook in U1's chorus, and a `COVERAGE.md` proving every
-glossary term is sung somewhere. Byline on every sheet: Jason Mark
+orders, not violations): two new universal songs, the Flexcapades
+signature song, the "Compare hypermaps?" hook in U1's chorus, and a
+`COVERAGE.md` proving every glossary term is sung somewhere.
+**v5.2 (2026-11-25) is a new generation: the fold-in of the best of
+AntiGravity's v5.1.3 edition** (its third attempt, scored a 66–66 tie
+against v5.1.2 — a better book to sing, a worse book to verify). Every
+chorus now rhymes, U1 finally has its mirror verse and its negotiation
+verse, U2 and U4 are rewritten line by line, Quest's archetypes are
+real, U7 keeps its scene framing *and* its specifics (search/filter,
+flow and close, check-ins, Scribe's stance-vs-activity split, the
+Glossary), and the coverage matrix is rebuilt with correct numbers
+(total 1,296 topics; 1,283 leaves) and a stated counting method. The
+house byline is now on every sheet. Byline on every sheet: Jason Mark
 Wrinkle & Yolanda Biche et al.
 
 **The generation prompt for this version is
-[`SONGBOOK-v5.1.2-PROMPT.md`](SONGBOOK-v5.1.2-PROMPT.md)** — hand it to the
+[`SONGBOOK-v5.2-PROMPT.md`](SONGBOOK-v5.2-PROMPT.md)** — hand it to the
 songwriter and it produces the whole book.
 
 ## Shape

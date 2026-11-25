@@ -1,4 +1,5 @@
 # Aesthcapades
+**Byline:** Jason Mark Wrinkle & Yolanda Biche et al.
 **Treatment:** Dream pop, shimmering synths, soft vocals, rhythmic bass, artistic and atmospheric
 **Brief:** What you find beautiful and why; taste as a position you can defend.
 

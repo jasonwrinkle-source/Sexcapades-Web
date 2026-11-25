@@ -1,4 +1,5 @@
 # Quantacapades
+**Byline:** Jason Mark Wrinkle & Yolanda Biche et al.
 **Treatment:** Complex electronica, glitchy beats, interwoven synth lines, modern and abstract
 **Brief:** What the wavefunction is; a century of interpretation as a family argument.
 

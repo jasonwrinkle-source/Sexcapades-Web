@@ -1,6 +1,6 @@
-# Songbook v5.1.2
+# Songbook v5.2
 
-**Version:** 5.1.2
+**Version:** 5.2
 **Date:** 2026-11-25
 **Format:** Suno Paste Kit ready (Style Prompt + Lyrics tags)
 **Authors:** Jason Mark Wrinkle & Yolanda Biche et al.
@@ -50,5 +50,7 @@ The songbook follows a two-tier fallback chain for the Flexcapades (flex.capades
 AntiGravity's songbook lives separately, versioned in
 [`antigravity-edition/`](antigravity-edition/) — v1.0 (its first
 four-track book) and v5.1.3 (its third attempt, a full revision of
-this book). It versions its own lyrics and never overwrites this
-book; lines from it enter here only when Jason rules them in.
+this book, scored a 66–66 tie against v5.1.2). It versions its own
+lyrics and never overwrites this book; lines from it enter here only
+when Jason rules them in. v5.2 folds in its best lines (see the
+README for the list).

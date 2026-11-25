@@ -1,4 +1,5 @@
 # Flexcapades
+**Byline:** Jason Mark Wrinkle & Yolanda Biche et al.
 **Treatment:** Bright, plainspoken, a map that teaches itself — clear vocals, acoustic, a manual you can sing
 **Brief:** The map that is its own manual; the usage wing and the advisory wing; the meta skin, home of flex.capades.io. Built from AntiGravity's Track III flex verses ("the map is its own manual"), in YoBiche's voice.
 
@@ -31,10 +32,10 @@ The gate, the guide, the picker, and the plan
 The map is its own manual, and the manual's in your hand
 
 [Verse]
-Then turn to the shaping, the questions we ask
-Who sees what, and the next skin, and the DJ's task
-The guide and its version, the octad and the stacks
-The eastern roads, and the roster that brings the room back
+Then turn to the shaping, the open questions on the floor
+Who sees what, and the next skin, and the DJ at the door
+The guide and its version, the octad and the stack
+The eastern roads, and the roster host that brings the party back
 Your stake in the shaping is a stake in the ground
 The builders are listening—speak up, make a sound
 
@@ -42,7 +43,7 @@ The builders are listening—speak up, make a sound
 The Lawgiver lays the rule, the Witness takes it in
 The Builder makes it work, the Tester tries again
 The Munch Regular keeps the table, the Lurker learns the floor
-Six roles around the table, each one with a stake to show
+Six roles around the circle, each one with a stake to show
 
 [Chorus]
 This is Flexcapades, the map that teaches itself

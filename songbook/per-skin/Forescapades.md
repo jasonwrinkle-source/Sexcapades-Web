@@ -1,4 +1,5 @@
 # Forescapades
+**Byline:** Jason Mark Wrinkle & Yolanda Biche et al.
 **Treatment:** Solemn acoustic folk, reverent, piano and cello, steady build
 **Brief:** Faith: one God, many houses — and the oldest layer, Sumer, beneath them; the conversation the faiths keep almost having.
 
@@ -31,12 +32,12 @@ We don't have to agree on the shape of the crown
 To know that the grace is still coming on down
 
 [Verse]
-Before the three houses, the tablets were read
-In Sumer, where the oldest prayers were said
-A star for the god, and the waters below
-A faith from the river, from long ago
+Before the three houses, the clay tablets were read
+In ancient Sumer, where the earliest prayers were said
+An eight-pointed star and the fresh waters below
+A faith from the rivers of long ago
 From ancient Sumer's tablets to the synagogue and street
-The engine still prices what the houses meet
+The engine still prices where the traditions meet
 
 [Chorus]
 What do you hold, what do you believe?

@@ -1,4 +1,5 @@
 # Nouscapades
+**Byline:** Jason Mark Wrinkle & Yolanda Biche et al.
 **Treatment:** Minimalist electronic, sparse beats, ethereal vocals, contemplative
 **Brief:** What counts as a mind; the dish, the frog, the robot, and the question that won't sit down.
 

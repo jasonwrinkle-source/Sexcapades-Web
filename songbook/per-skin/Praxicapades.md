@@ -1,4 +1,5 @@
 # Praxicapades
+**Byline:** Jason Mark Wrinkle & Yolanda Biche et al.
 **Treatment:** Upbeat indie rock, driving rhythm, work-song elements, energetic vocals
 **Brief:** How work gets done; modeling the world to change it.
 

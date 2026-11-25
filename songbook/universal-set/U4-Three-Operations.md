@@ -1,72 +1,68 @@
 # U4 — Three Operations
+**Byline:** Jason Mark Wrinkle & Yolanda Biche et al.
 **Treatment:** E1 Treatment (Extended)
-**Brief:** Cross, Straight, and Circle Minus in plain words.
+**Brief:** Cross, Straight, and Circle Minus in plain words — with Commune, Converse, Indaba, the Krossmatch grid, Depth Factor, and Kink Factor.
 
 [Verse]
-When you bring your hypermap and I bring mine
-We want to see how the numbers align
-We look for the Cross, what we complete
-In each other, where the two sides meet
-It's the communion, the matching of parts
-The complementary shape of two hearts
-I lean one way and you lean the other
-And that's how we manage to fit one another
-The krossmatch is the grid where the numbers align
-And the depth factor prices the meeting in a single line
-On the sex map it's the kink factor, the same design
+When you bring your hypermap over to mine
+We want to see how the two of us align
+We look for the Cross, where our roles complete
+Where what I want to give and what you take can meet
+That's Commune on the floor, the matching of parts
+The complementary shape of two willing hearts
+The krossmatch is the grid where the directions combine
+And the depth factor prices the pair in a single line
+Or we call it the kink factor when desire's the design
 
 [Chorus]
 Three ways two hypermaps can meet
 Three operations to make it complete
-Every meeting gets its own number to read
-Two maps or a tableful, the numbers still hold true
-And the engine provides all the math that you need
+Two maps or a tableful, the numbers hold true
+Every meeting gets priced for me and for you
 Cross and Straight and Circle Minus
-Let the operations guide us
+Let the three operations guide us
 
 [Verse]
 We look for the Straight, the ground that we share
-The interesting conversation waiting right there
-We lean the same way on a topic or two
-We see eye to eye, me and you
-It's the converse, the talking that carries us through
-It's the shared conviction, the common ground
-The echo that answers without a sound
-Where we agree, where the lines run true
-The Straight operation between me and you
+Where an honest conversation is waiting right there
+We lean the same way on a question or two
+And see eye to eye, between me and you
+That's Converse in the room, where our stances agree
+The shared conviction that sets the talk free
+An echo that answers without any doubt
+Where the Straight operation shows what we're about
 
 [Chorus]
 Three ways two hypermaps can meet
 Three operations to make it complete
-Every meeting gets its own number to read
-Two maps or a tableful, the numbers still hold true
-And the engine provides all the math that you need
+Two maps or a tableful, the numbers hold true
+Every meeting gets priced for me and for you
 Cross and Straight and Circle Minus
-Let the operations guide us
+Let the three operations guide us
 
 [Bridge]
-But what about the places where we just don't align?
-Where your hypermap is heading away from mine?
-We look for the Circle Minus, where we split apart
+But what about the places where we don't align?
+Where your spoke is pointing the other way from mine?
+We run Circle Minus where we split apart
 And we price the division right from the start
 It's a gap that is measured, a divide we can trace
-A small split is small, just a bump in the space
-But a deep one is worth a real conversation
-It's an indaba, a meeting to talk it through
-The Circle Minus brings the revelation
+And the numbers will show us the size of the space
+A small split is small, just a bump in the floor
+A deep one tells us what we need to talk more
+It's an indaba—a meeting to hear every side
+So Circle Minus becomes our guide
 
 [Chorus]
 Three ways two hypermaps can meet
 Three operations to make it complete
-Every meeting gets its own number to read
-Two maps or a tableful, the numbers still hold true
-And the engine provides all the math that you need
+Two maps or a tableful, the numbers hold true
+Every meeting gets priced for me and for you
 Cross and Straight and Circle Minus
-Let the operations guide us
+Let the three operations guide us
 
 [Outro]
 Where we cross
 Where we're straight
-Where we split and debate
+Where we meet and deliberate
 Three operations
 Three operations
