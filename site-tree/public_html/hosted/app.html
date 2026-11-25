@@ -402,6 +402,93 @@ input[type=range]#hotListWidgetIntensity{direction:ltr}
 .mark-switchbox-readout{display:flex;justify-content:space-between;align-items:center;background:rgba(0,0,0,0.3);padding:4px 8px;border-radius:4px;font-size:11px;color:#cbd5e1;flex-wrap:wrap;gap:6px;}
 .mark-switchbox-stat b{color:#38bdf8;}
 .mark-switchbox-role b{color:#4ade80;}
+/* Cross slider (2026-11-24): two lines, one puck per flank. Ported from the ruled mockup; colours from the app's own vars. */
+.xs{padding:2px 0 0;position:relative;--track-inset:38px;--runoff-w:28px;}
+.xs.dragging{z-index:40;}
+.xs+.xs{border-top:1px dashed var(--line);margin-top:2px;padding-top:4px;}
+.xs.compact{--track-inset:34px;--runoff-w:24px;}
+.xs-head{display:flex;align-items:baseline;justify-content:space-between;gap:10px;}
+.xs-name{font-weight:700;letter-spacing:.01em;display:inline-flex;align-items:center;gap:8px;color:var(--ink);}
+.xs-dot{width:10px;height:10px;border-radius:50%;background:var(--dir-color);flex:none;}
+.xs-vals{font-variant-numeric:tabular-nums;color:var(--muted);font-size:.92rem;text-align:right;}
+.xs-vals b{color:var(--ink);font-weight:700;}
+.xs-vals .neg{color:var(--red-deep);}
+.xs-stage{position:relative;height:48px;overflow:visible;touch-action:none;-webkit-user-select:none;user-select:none;-webkit-touch-callout:none;}
+.xs-runoff{position:absolute;top:50%;transform:translateY(-50%);width:var(--runoff-w);height:8px;z-index:1;pointer-events:none;border-radius:999px;opacity:.45;background:repeating-linear-gradient(90deg,var(--muted) 0 4px,transparent 4px,transparent 7px);}
+.xs-runoff.left{left:10px;}
+.xs-runoff.right{right:10px;}
+.xs-runoff::after{content:"×";position:absolute;top:50%;transform:translateY(-54%);font-size:11px;font-weight:700;line-height:1;color:var(--muted);}
+.xs-runoff.left::after{left:1px;}
+.xs-runoff.right::after{right:1px;}
+.xs.off-end .xs-runoff{opacity:.95;}
+.xs-track{position:absolute;left:var(--track-inset);right:var(--track-inset);top:50%;height:8px;transform:translateY(-50%);z-index:3;background:var(--line);border-radius:999px;touch-action:none;cursor:pointer;overflow:visible;}
+.xs-track::before,.xs-track::after{content:"";position:absolute;top:-4px;bottom:-4px;width:2px;background:var(--muted);opacity:.55;border-radius:2px;z-index:4;pointer-events:none;}
+.xs-track::before{left:0;}
+.xs-track::after{right:0;}
+.xs-fill{position:absolute;left:0;top:0;bottom:0;border-radius:999px;background:transparent;width:0;}
+.xs-mid{position:absolute;left:50%;top:-5px;bottom:-5px;width:1px;background:var(--muted);opacity:.35;}
+.xs-puck{position:absolute;top:50%;width:38px;height:38px;border-radius:50%;transform:translate(-50%,calc(-50% + var(--puck-dy,0px)));background:var(--dir-color);border:2px solid var(--panel);box-shadow:0 1px 4px rgba(0,0,0,.45);cursor:grab;touch-action:none;z-index:3;display:grid;place-items:center;outline-offset:3px;}
+.xs[data-dir="receive"] .xs-puck{background:transparent;border:8px solid var(--dir-color);box-shadow:none;filter:drop-shadow(0 1px 2px rgba(0,0,0,.45));}
+.xs[data-dir="receive"] .xs-dot{background:transparent;border:3px solid var(--dir-color);width:12px;height:12px;}
+.xs.unrated{--dir-color:#57534a;}
+.xs.unrated .xs-fill{width:0!important;}
+.xs.unrated .xs-puck{background:#57534a;opacity:.5;filter:grayscale(1);border:2px dashed var(--muted);}
+.xs[data-dir="receive"].unrated .xs-puck{background:transparent;border:5px dashed #57534a;opacity:.55;box-shadow:none;filter:none;}
+.xs.unrated .xs-dot{background:#57534a;}
+.xs[data-dir="receive"].unrated .xs-dot{background:transparent;border-color:#57534a;}
+.xs.off-end .xs-puck{filter:grayscale(1);opacity:.45;}
+.xs.off-end .xs-bubble{opacity:0!important;}
+.xs.off-end .xs-vals{color:var(--red-deep);font-weight:700;}
+.xs-puck:active{cursor:grabbing;}
+.xs-scale{position:absolute;left:var(--track-inset);right:var(--track-inset);top:calc(50% + 15px);display:flex;justify-content:space-between;color:var(--muted);font-size:.68rem;line-height:1;pointer-events:none;}
+.xs-off-label{position:absolute;top:calc(50% + 15px);font-size:.68rem;line-height:1;color:var(--muted);opacity:.75;pointer-events:none;}
+.xs-off-label.left{left:10px;}
+.xs-off-label.right{right:10px;}
+.xs-arm{position:absolute;top:50%;width:78px;height:192px;z-index:2;opacity:0;transform:translate(-50%,-50%) scaleY(.28);transform-origin:center;transition:opacity .16s ease,transform .2s ease;pointer-events:none;background:var(--panel);border:1px solid var(--line);border-radius:12px;box-shadow:0 14px 34px rgba(0,0,0,.32),0 2px 8px rgba(0,0,0,.18);}
+.xs.dragging .xs-arm{opacity:1;transform:translate(-50%,-50%) scaleY(1);}
+.xs-arm .rail{position:absolute;left:50%;margin-left:-3px;top:16px;bottom:16px;width:6px;background:linear-gradient(180deg,var(--green-deep),var(--curious),var(--red-deep));border-radius:3px;}
+.xs-tick{position:absolute;left:calc(50% - 6px);width:12px;height:1px;background:var(--muted);opacity:.6;}
+.xs-tick span{position:absolute;left:15px;top:-8px;font-size:.65rem;color:var(--muted);white-space:nowrap;font-variant-numeric:tabular-nums;}
+.xs-tick.zero{left:calc(50% - 9px);width:18px;background:var(--ink);opacity:.8;}
+.xs-bubble{position:absolute;transform:translate(26px,-50%);background:var(--ink);color:var(--paper);font-size:.78rem;font-weight:700;font-variant-numeric:tabular-nums;padding:2px 8px;border-radius:999px;white-space:nowrap;z-index:6;box-shadow:0 4px 12px rgba(0,0,0,.25);opacity:0;pointer-events:none;transition:opacity .15s ease;}
+.xs.dragging .xs-bubble{opacity:1;}
+.xs:not(.dragging) .xs-puck{transition:transform .2s ease;}
+.xs.dragging .xs-track{z-index:5;}
+.xs-bubble small{font-weight:400;opacity:.75;}
+.xs-arm-labels{position:absolute;inset:0;pointer-events:none;}
+.xs-arm-labels .up,.xs-arm-labels .down{position:absolute;left:6px;transform:none;font-size:.58rem;letter-spacing:.05em;text-transform:uppercase;color:var(--muted);white-space:nowrap;}
+.xs-arm-labels .up{top:4px;color:var(--green-deep);}
+.xs-arm-labels .down{bottom:4px;color:var(--red-deep);}
+.xs.compact .xs-stage{height:42px;}
+.xs.compact .xs-puck{width:32px;height:32px;}
+.xs.compact .xs-name{font-size:.95rem;}
+.xs.compact .xs-vals{font-size:.82rem;}
+.xs.compact .xs-arm{height:184px;}
+/* Cross-slider fine tune (placard exact numbers): four plain horizontal sliders, same four numbers as the pucks. */
+.xs-fine{display:grid;gap:4px;margin-top:6px;}
+.xs-fine-row{display:grid;grid-template-columns:128px 1fr 52px;align-items:center;gap:12px;padding:7px 0;}
+.xs-fine-row+.xs-fine-row{border-top:1px dashed var(--line);}
+.xs-fine-row label{font-size:.92rem;color:var(--ink);display:flex;align-items:center;}
+.xs-fine-row output{text-align:right;font-variant-numeric:tabular-nums;font-weight:700;color:var(--ink);}
+.xs-fine-row output.neg{color:var(--red-deep);}
+.xs-fine-row input[type="range"]{width:100%;min-height:36px;-webkit-appearance:none;appearance:none;background:transparent;cursor:pointer;--thumb-color:var(--curious);}
+.xs-fine-row input[type="range"]::-webkit-slider-runnable-track{height:6px;border-radius:999px;background:var(--line);}
+.xs-fine-row input[type="range"]::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;width:22px;height:22px;margin-top:-8px;border-radius:50%;background:var(--thumb-color);border:2px solid var(--panel);box-shadow:0 1px 4px rgba(0,0,0,.4);}
+.xs-fine-row[data-dir="receive"] input[type="range"]::-webkit-slider-thumb{background:transparent;border:7px solid var(--thumb-color);width:26px;height:26px;margin-top:-10px;box-shadow:none;}
+.xs-fine-row input[type="range"]::-moz-range-track{height:6px;border-radius:999px;background:var(--line);}
+.xs-fine-row input[type="range"]::-moz-range-thumb{width:20px;height:20px;border-radius:50%;background:var(--thumb-color);border:2px solid var(--panel);box-shadow:0 1px 4px rgba(0,0,0,.4);}
+.xs-fine-row[data-dir="receive"] input[type="range"]::-moz-range-thumb{background:transparent;border:6px solid var(--thumb-color);width:14px;height:14px;box-shadow:none;}
+/* Cross-slider readout: the four numbers, disc for give, ring for receive. */
+.xs-readout{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:10px;}
+.xs-stat{background:var(--paper-2);border-radius:10px;padding:10px 12px;}
+.xs-stat .k{font-size:.74rem;letter-spacing:.05em;text-transform:uppercase;color:var(--muted);}
+.xs-stat .v{font-size:1.45rem;font-weight:700;font-variant-numeric:tabular-nums;line-height:1.2;color:var(--ink);}
+.xs-stat .v small{font-size:.8rem;font-weight:400;color:var(--muted);}
+.xs-stat .v.neg{color:var(--red-deep);}
+.xs-shape{display:inline-block;flex:none;width:13px;height:13px;border-radius:50%;vertical-align:-2px;margin-right:7px;background:var(--shape-color,var(--curious));border:1px solid rgba(0,0,0,.15);}
+.xs-shape.ring{background:transparent;border:4px solid var(--shape-color,var(--curious));width:15px;height:15px;vertical-align:-3px;}
+@media (max-width:560px){.xs-readout{grid-template-columns:repeat(2,1fr);}.xs-fine-row{grid-template-columns:104px 1fr 46px;gap:8px;}}
+@media (prefers-reduced-motion:reduce){.xs-arm,.xs-bubble{transition:none;}}
 .outline-widget-btn{display:inline-flex;align-items:center;gap:6px;padding:3px 8px;margin:2px 0;background:rgba(56,189,248,0.15);border:1px solid rgba(56,189,248,0.4);border-radius:4px;color:#38bdf8;font-size:11px;font-weight:600;cursor:pointer;transition:all 0.15s ease;}
 .outline-widget-btn:hover{background:rgba(56,189,248,0.25);border-color:#38bdf8;color:#fff;box-shadow:0 0 8px rgba(56,189,248,0.3);}
 .outline-inline-widget{display:inline-flex;flex-wrap:wrap;align-items:center;gap:8px;width:fit-content;max-width:100%;margin:4px 0 2px;padding:6px 10px;border:1px solid rgba(56,189,248,.35);border-radius:8px;background:rgba(15,23,42,.35)}
@@ -3062,21 +3149,17 @@ window.__sxProgressWidget=function(refs){
 </div>
 <div class="mark-switchbox-wrap" hidden="" id="markSwitchboxWrap">
 <div class="mark-triangle-header">
-<span class="mark-triangle-title" id="markSwitchboxTitle">2D Role Switch-Box</span>
+<span class="mark-triangle-title" id="markSwitchboxTitle">Cross Slider</span>
 <div class="mark-switchbox-tools">
 <button class="mark-tri-clear-btn" id="markSwitchboxClear" type="button">Clear</button>
 </div>
 </div>
-<div class="mark-switchbox-stage">
-<div class="mark-switchbox-canvas-box">
-<canvas class="mark-switchbox-canvas" height="190" id="markSwitchboxCanvas" width="190"></canvas>
-</div>
-<div class="mark-switchbox-quadrants">
-<div class="mark-switchbox-quad mark-quad-tl"><span class="mark-quad-name">Bottom / Receiver</span><small class="mark-quad-poles">(-Give / +Recv)</small></div>
-<div class="mark-switchbox-quad mark-quad-tr"><span class="mark-quad-name">Versatile Switch</span><small class="mark-quad-poles">(+Give / +Recv)</small></div>
-<div class="mark-switchbox-quad mark-quad-bl"><span class="mark-quad-name">Hard Red Limit</span><small class="mark-quad-poles">(-Give / -Recv)</small></div>
-<div class="mark-switchbox-quad mark-quad-br"><span class="mark-quad-name">Top / Giver</span><small class="mark-quad-poles">(+Give / -Recv)</small></div>
-</div>
+<div id="markCrossSliderHost"></div>
+<div class="xs-fine" id="markCrossFine">
+<div class="xs-fine-row" data-dir="give"><label for="markCrossFineGiveLean"><span class="xs-shape" aria-hidden="true"></span><span class="xs-fine-label" id="markCrossFineGiveLeanLabel">Give — leaning</span></label><input aria-label="Give leaning" id="markCrossFineGiveLean" max="100" min="-100" step="1" type="range" value="0"/><output id="markCrossFineGiveLeanOut">—</output></div>
+<div class="xs-fine-row" data-dir="give"><label for="markCrossFineGiveApp"><span class="xs-shape" aria-hidden="true"></span><span class="xs-fine-label" id="markCrossFineGiveAppLabel">Give — appetite</span></label><input aria-label="Give appetite" id="markCrossFineGiveApp" max="100" min="-100" step="1" type="range" value="0"/><output id="markCrossFineGiveAppOut">—</output></div>
+<div class="xs-fine-row" data-dir="receive"><label for="markCrossFineRecvLean"><span class="xs-shape ring" aria-hidden="true"></span><span class="xs-fine-label" id="markCrossFineRecvLeanLabel">Receive — leaning</span></label><input aria-label="Receive leaning" id="markCrossFineRecvLean" max="100" min="-100" step="1" type="range" value="0"/><output id="markCrossFineRecvLeanOut">—</output></div>
+<div class="xs-fine-row" data-dir="receive"><label for="markCrossFineRecvApp"><span class="xs-shape ring" aria-hidden="true"></span><span class="xs-fine-label" id="markCrossFineRecvAppLabel">Receive — appetite</span></label><input aria-label="Receive appetite" id="markCrossFineRecvApp" max="100" min="-100" step="1" type="range" value="0"/><output id="markCrossFineRecvAppOut">—</output></div>
 </div>
 <div class="mark-triangle-slider-box mark-dual-slider-box" id="markSwitchboxIntensityBox" hidden="">
 <div class="mark-slider-col mark-slider-adv is-active" id="markSwitchboxAdvCol">
@@ -3090,10 +3173,11 @@ window.__sxProgressWidget=function(refs){
 <output class="mark-tri-intensity-out" id="markSwitchboxRecIntensityOut">—</output>
 </div>
 </div>
-<div class="mark-switchbox-readout" id="markSwitchboxReadout">
-<div class="mark-switchbox-stat"><span id="markSwitchboxGiveLabel">Give</span>: <b id="markSwitchboxGiveVal">0</b></div>
-<div class="mark-switchbox-stat"><span id="markSwitchboxRecvLabel">Receive</span>: <b id="markSwitchboxRecvVal">0</b></div>
-<div class="mark-switchbox-role"><span id="markSwitchboxRoleLabel">Role</span>: <b id="markSwitchboxRoleVal">Neutral</b></div>
+<div class="xs-readout" id="markSwitchboxReadout">
+<div class="xs-stat"><div class="k"><span class="xs-shape" id="markCrossGiveLeanShape" aria-hidden="true"></span><span id="markCrossGiveLeanName">Give · leaning</span></div><div class="v" id="markCrossGiveLeanVal">—</div></div>
+<div class="xs-stat"><div class="k"><span class="xs-shape" id="markCrossGiveAppShape" aria-hidden="true"></span><span id="markCrossGiveAppName">Give · appetite</span></div><div class="v" id="markCrossGiveAppVal">—</div></div>
+<div class="xs-stat"><div class="k"><span class="xs-shape ring" id="markCrossRecvLeanShape" aria-hidden="true"></span><span id="markCrossRecvLeanName">Receive · leaning</span></div><div class="v" id="markCrossRecvLeanVal">—</div></div>
+<div class="xs-stat"><div class="k"><span class="xs-shape ring" id="markCrossRecvAppShape" aria-hidden="true"></span><span id="markCrossRecvAppName">Receive · appetite</span></div><div class="v" id="markCrossRecvAppVal">—</div></div>
 </div>
 </div>
 <div class="mark-ratings" hidden="" id="markRatings">
@@ -3582,6 +3666,7 @@ window.__sxProgressWidget=function(refs){
 <div class="hot-list-widget-stage" id="hotListWidgetStage">
 <!-- Dynamic interactive widget will be rendered here -->
 <canvas height="240" id="hotListWidgetCanvas" width="240"></canvas>
+<div id="hotListCrossSliderHost" hidden=""></div>
 <div class="mark-triangle-slider-box" style="margin-top:8px;">
 <span class="mark-tri-slider-label">Intensity</span>
 <input aria-label="Widget intensity" class="mark-tri-intensity" id="hotListWidgetIntensity" max="100" min="-100" step="1" style="width:160px;height:24px;writing-mode:horizontal-tb;" type="range" value="0"/>

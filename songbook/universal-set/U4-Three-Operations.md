@@ -16,6 +16,7 @@ And that's how we manage to fit one another
 Three ways two hypermaps can meet
 Three operations to make it complete
 Every meeting gets its own number to read
+Two maps or a tableful, the numbers still hold true
 And the engine provides all the math that you need
 Cross and Straight and Circle Minus
 Let the operations guide us
@@ -34,6 +35,7 @@ The Straight operation between me and you
 Three ways two hypermaps can meet
 Three operations to make it complete
 Every meeting gets its own number to read
+Two maps or a tableful, the numbers still hold true
 And the engine provides all the math that you need
 Cross and Straight and Circle Minus
 Let the operations guide us
@@ -52,6 +54,7 @@ The Circle Minus brings the revelation
 Three ways two hypermaps can meet
 Three operations to make it complete
 Every meeting gets its own number to read
+Two maps or a tableful, the numbers still hold true
 And the engine provides all the math that you need
 Cross and Straight and Circle Minus
 Let the operations guide us

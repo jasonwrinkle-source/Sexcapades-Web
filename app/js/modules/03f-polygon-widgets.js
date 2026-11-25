@@ -1139,13 +1139,15 @@
             const isTetrad = !isCompass && Boolean(shape.tetrad || (shape.keys && shape.keys.length === 4));
             const isTriad = Boolean(shape.triangle || (shape.keys && shape.keys.length === 3));
             const is2Pole = !isOctad && !isHeptad && !isHexad && !isPentad && !isTetrad && !isTriad;
-            // The xy-switchbox has no intensity dimension at all (its two
-            // axes are signed already): the generic intensity slider and
-            // wheel must not rescale its values.
+            // Pair topics carry their appetite per flank on the cross
+            // slider (one puck per flank, arm = appetite), so the
+            // single generic intensity slider stays off here: one
+            // number cannot hold two flanks, and the wheel must not
+            // rescale the leanings.
             const isSwitch = is2Pole && !isCompass && !shape.single;
             if (slider) slider.disabled = isSwitch;
 
-            badgeEl && (badgeEl.textContent = isCompass ? "Political Compass" : isOctad ? "8-Pole Octad" : isHeptad ? "7-Pole Heptad" : isHexad ? "6-Pole Hexad" : isPentad ? "5-Pole Pentad" : isTetrad ? "4-Pole Tetrad" : isTriad ? "3-Pole Triad" : (shape.single ? "Monopole" : "2D Role Switch-Box"));
+            badgeEl && (badgeEl.textContent = isCompass ? "Political Compass" : isOctad ? "8-Pole Octad" : isHeptad ? "7-Pole Heptad" : isHexad ? "6-Pole Hexad" : isPentad ? "5-Pole Pentad" : isTetrad ? "4-Pole Tetrad" : isTriad ? "3-Pole Triad" : (shape.single ? "Monopole" : "Cross Slider"));
 
             const keys = shape.keys || [];
             if (readoutEl) {
@@ -1192,6 +1194,40 @@
                 keys.forEach((k, idx) => { obj[k] = Math.round(valsArr[idx]); });
                 sxPersistAdvocacyReceptivity(topicId, "advocacy", obj, intensity, freshPid());
             };
+            // Cross slider for pair topics (2026-11-24): two compact
+            // lines, one puck per flank, appetite on the arm. Created
+            // once per popup open (the dialog host is cleared first so
+            // a re-open does not stack instances); the inline host
+            // never sees a pair topic, so it is created on demand.
+            var crossPair = null, crossHost = null;
+            const ensureCrossPair = () => {
+                if (crossPair) return crossPair;
+                var host = pick("hotListCrossSliderHost", ".hot-list-cross-host");
+                if (!host && canvas) {
+                    host = document.createElement("div");
+                    host.className = "hot-list-cross-host";
+                    canvas.parentNode.insertBefore(host, canvas.nextSibling);
+                }
+                if (!host) return null;
+                crossHost = host;
+                host.innerHTML = "";
+                var getFlank = (dir) => {
+                    var rec = ca(topicId, freshPid());
+                    return sxCrossFlankState(rec, dir);
+                };
+                var writeFlank = (dir, value) => {
+                    sxCrossWriteFlank(topicId, dir, value, freshPid());
+                    redraw();
+                    paintRow();
+                };
+                crossPair = {
+                    give: sxCreateCrossSlider({ dir: "give", compact: true, get: () => getFlank("give"), onChange: v => writeFlank("give", v), onRelease: () => finishGesture() }),
+                    receive: sxCreateCrossSlider({ dir: "receive", compact: true, get: () => getFlank("receive"), onChange: v => writeFlank("receive", v), onRelease: () => finishGesture() })
+                };
+                host.appendChild(crossPair.give.root);
+                host.appendChild(crossPair.receive.root);
+                return crossPair;
+            };
             const redraw = () => {
                 pId = freshPid();
                 sxSeedProfileIntensities(pId);
@@ -1224,6 +1260,24 @@
                     sliderOut && (sliderOut.textContent = String(Math.round(sliderVal)));
                 }
                 syncReadouts();
+
+                // Pair topics show the cross slider (compact), not the
+                // 2D plane: two lines, one puck per flank, appetite on
+                // the arm. The canvas stays hidden while it is up.
+                if (isSwitch) {
+                    var pair = ensureCrossPair();
+                    if (canvas) canvas.style.display = "none";
+                    if (pair) {
+                        if (crossHost) crossHost.hidden = false;
+                        pair.give.setLabel((shape.labels && shape.labels[0]) || "Give");
+                        pair.receive.setLabel((shape.labels && shape.labels[1]) || "Receive");
+                        pair.give.render();
+                        pair.receive.render();
+                    }
+                    return;
+                }
+                if (canvas) canvas.style.display = "";
+                if (crossHost) crossHost.hidden = true;
 
                 if (isCompass) {
                     const pt = sxCompassPointFromValues(vals[0], vals[1], vals[2], vals[3]);
@@ -1375,17 +1429,6 @@
                     }
                     redraw();
                     paintRow();
-                } else if (is2Pole && !shape.single) {
-                    const cx = canvas.width / 2, cy = canvas.height / 2;
-                    const r = Math.min(cx, cy) - 22;
-                    let dx = px - cx, dy = py - cy;
-                    if (Math.hypot(dx, dy) < 6) { dx = 0; dy = 0; }
-                    const g = Math.max(-100, Math.min(100, Math.round((dx / r) * 100)));
-                    const recv = Math.max(-100, Math.min(100, Math.round((-dy / r) * 100)));
-                    To(topicId, "give", g, !1, pId);
-                    To(topicId, "receive", recv, !1, pId);
-                    redraw();
-                    paintRow();
                 }
             };
 
@@ -1476,6 +1519,13 @@
                         return;
                     }
                     Fo(topicId, "intensity", !1, pId);
+                    // Pair topics: clearing must also drop the stored
+                    // per-flank appetites, or a re-rate would inherit a
+                    // stale appetite from the cleared rating.
+                    if (isSwitch) {
+                        Fo(topicId, "giveIntensity", !1, pId);
+                        Fo(topicId, "receiveIntensity", !1, pId);
+                    }
                     keys.forEach((k, idx) => Fo(topicId, k, !root && idx === keys.length - 1, pId));
                     redraw();
                     if (root) finishGesture();

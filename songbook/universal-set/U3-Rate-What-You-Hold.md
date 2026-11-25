@@ -10,7 +10,9 @@ You'll see how the colors begin to align
 Pick a pole, say how far you lean
 Tell me the picture that you've always seen
 Then say how much it matters to you
-Because that second number is something quite new
+And how wide you listen when the other side comes through
+The speaking counts and the listening counts too
+Two appetites on one line, and both of them are you
 
 [Chorus]
 Rate what you hold, rate what you feel

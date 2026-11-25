@@ -1867,10 +1867,19 @@
                 receive: null != R ? zi(R) : null
             };
             const GA = ya(e, t, "givePlacementIntensity", i), GR = ya(e, t, "receivePlacementIntensity", i);
-            if (null == GA && null == GR) return null;
+            // Classic pair topics have no placement intensities: their
+            // appetite is the stored per-flank intensity (cross slider,
+            // 2026-11-24). Each flank falls back on its own, so a topic
+            // with a placement on one side and a stored appetite on the
+            // other still colours both. Unstored on both sides returns
+            // null and the call site's leaning fallback is the appetite
+            // derivation itself, so nothing changes there.
+            const gI = ya(e, t, "giveIntensity", i), rI = ya(e, t, "receiveIntensity", i);
+            const give = null != GA ? GA : gI, receive = null != GR ? GR : rI;
+            if (null == give && null == receive) return null;
             return {
-                give: null != GA ? zi(GA) : null,
-                receive: null != GR ? zi(GR) : null
+                give: null != give ? zi(give) : null,
+                receive: null != receive ? zi(receive) : null
             };
         }
         function ya(e, t, n, i) {

@@ -38,6 +38,14 @@ One engine running underneath what we see
 From the stars in the sky to the thoughts in your head
 TaxoPolemics hears what is said
 
+[Verse]
+Dancecapades where the lead takes the floor
+Questcapades where the table wants more
+Biocapades for the living green
+Linguacapades for the words in between
+Fastcapades where the plate stays clear
+And the house keeps growing, year by year
+
 [Bridge]
 Nouscapades asks what makes a mind
 The frog and the robot and what they find

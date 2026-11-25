@@ -40,6 +40,7 @@ parts = [
     "03f1-polygon-math.js",
     "03f-polygon-widgets.js",
     "03f2-switchbox-widget.js",
+    "03f3-cross-slider.js",
     "03e-map-paint.js",
     "03e1-mark-dialog.js",
     "03d-outline.js",

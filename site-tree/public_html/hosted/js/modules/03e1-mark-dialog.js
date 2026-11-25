@@ -382,6 +382,12 @@
                     if (sxClassicSkin && !isClassic) el.textContent = isRecLbl ? "○ Receive" : "● Give";
                     else el.textContent = isRecLbl ? "○ Rec" : "● Adv";
                 });
+                // The switchbox intensity box's spoken labels follow the
+                // same skin wording: the classic skin stores give and
+                // receive only, never advocacy/receptivity.
+                const advInput = e.byId("markSwitchboxIntensity"), recInput = e.byId("markSwitchboxRecIntensity");
+                if (advInput) advInput.setAttribute("aria-label", sxClassicSkin && !isClassic ? "Give intensity" : "Advocacy intensity");
+                if (recInput) recInput.setAttribute("aria-label", sxClassicSkin && !isClassic ? "Receive intensity" : "Receptivity intensity");
             }
 
             const triWrap = e.byId("markTriangleWrap");
@@ -462,9 +468,6 @@
             const octadPole0 = e.byId("markOctadPole0"), octadPole1 = e.byId("markOctadPole1"), octadPole2 = e.byId("markOctadPole2"), octadPole3 = e.byId("markOctadPole3"), octadPole4 = e.byId("markOctadPole4"), octadPole5 = e.byId("markOctadPole5"), octadPole6 = e.byId("markOctadPole6"), octadPole7 = e.byId("markOctadPole7");
 
             const switchboxWrap = e.byId("markSwitchboxWrap");
-            const switchboxCanvas = e.byId("markSwitchboxCanvas");
-            const switchboxGiveLabel = e.byId("markSwitchboxGiveLabel");
-            const switchboxRecvLabel = e.byId("markSwitchboxRecvLabel");
 
             const linearRatings = e.byId("markRatings");
 
@@ -1007,21 +1010,143 @@
                     recvOut && (recvOut.textContent = rec[k1 + "Known"] ? String(Math.round(rec[k1])) : "Unrated");
                 } else {
                     setOnlyWrap(switchboxWrap);
-                    const isUnrated = !rec.giveKnown && !rec.receiveKnown;
-                    sxSwitchboxState.topicId = id;
-                    sxSwitchboxState.give = rec.giveKnown ? rec.give : 0;
-                    sxSwitchboxState.receive = rec.receiveKnown ? rec.receive : 0;
-                    sxSwitchboxState.isUnrated = isUnrated;
-                    if (switchboxGiveLabel) switchboxGiveLabel.textContent = shape.labels[0] || "Give";
-                    if (switchboxRecvLabel) switchboxRecvLabel.textContent = shape.labels[1] || "Receive";
-                    sxSetPoleTip(switchboxGiveLabel, id, "give");
-                    sxSetPoleTip(switchboxRecvLabel, id, "receive");
-                    sxSetSwitchboxQuadrants(id);
-                    sxDrawSwitchboxWidget(switchboxCanvas, shape, sxSwitchboxState);
-                    sxUpdateSwitchboxReadouts(sxSwitchboxState.give, sxSwitchboxState.receive, isUnrated);
+                    sxSyncCrossSliderPlacard(shape);
                 }
             }
             sxSyncLinearIntensities(id, rec, shape);
+        }
+        /* Cross slider on the placard (2026-11-24): the pair-topic
+           control is two lines with one puck per flank, not the old
+           2D plane. One instance pair is created once and re-pointed
+           at the dialog's current topic on every sync; its getters
+           read the live record, so a re-render after any write shows
+           the stored values. The fine-tune block below it is the same
+           four numbers written out longhand, in sync both ways. */
+        var sxCrossPlacard = null;
+        function sxCrossPlacardState(dir) {
+            if (!Qr) return null;
+            var rec = ca(Qr, Vi());
+            return sxCrossFlankState(rec, dir);
+        }
+        function sxCrossPlacardWrite(dir, value) {
+            if (!Qr) return;
+            sxCrossWriteFlank(Qr, dir, value, Vi());
+            sxSyncCrossFineAndReadout();
+        }
+        function sxCrossPlacardRelease() {
+            if (Qr) { sxSyncMarkRatings(Qr); Mr(); }
+        }
+        function sxBindCrossSliderPlacard() {
+            var clearBtn = e.byId("markSwitchboxClear");
+            if (clearBtn && !clearBtn.dataset.sxCrossBound) {
+                clearBtn.dataset.sxCrossBound = "1";
+                clearBtn.addEventListener("click", () => {
+                    if (!Qr) return;
+                    ["give", "receive", "giveIntensity", "receiveIntensity"].forEach(k => Fo(Qr, k, !1));
+                    sxSyncMarkRatings(Qr);
+                    Mr();
+                });
+            }
+            var host = e.byId("markCrossSliderHost");
+            if (!host || host.dataset.bound) return;
+            host.dataset.bound = "1";
+            var give = sxCreateCrossSlider({ dir: "give", get: () => sxCrossPlacardState("give"), onChange: v => sxCrossPlacardWrite("give", v), onRelease: () => sxCrossPlacardRelease() });
+            var receive = sxCreateCrossSlider({ dir: "receive", get: () => sxCrossPlacardState("receive"), onChange: v => sxCrossPlacardWrite("receive", v), onRelease: () => sxCrossPlacardRelease() });
+            host.appendChild(give.root);
+            host.appendChild(receive.root);
+            sxCrossPlacard = { give: give, receive: receive };
+            // Fine-tune sliders: the same four numbers, longhand.
+            var fine = [
+                ["markCrossFineGiveLean", "give", "lean"],
+                ["markCrossFineGiveApp", "give", "app"],
+                ["markCrossFineRecvLean", "receive", "lean"],
+                ["markCrossFineRecvApp", "receive", "app"]
+            ];
+            fine.forEach(([inputId, dir, key]) => {
+                var input = e.byId(inputId);
+                if (!input || input.dataset.sxCrossBound) return;
+                input.dataset.sxCrossBound = "1";
+                input.addEventListener("input", () => {
+                    if (!Qr) return;
+                    var cur = sxCrossPlacardState(dir) || { lean: 0, app: 0 };
+                    var next = { lean: cur.lean, app: cur.app };
+                    next[key] = Math.round(Number(input.value) || 0);
+                    sxCrossWriteFlank(Qr, dir, next, Vi());
+                    sxSyncCrossFineAndReadout();
+                    if (sxCrossPlacard) sxCrossPlacard[dir].render();
+                });
+                input.addEventListener("change", () => { sxCrossPlacardRelease(); });
+            });
+        }
+        function sxSyncCrossFineAndReadout() {
+            if (!Qr) return;
+            var shape = Ge(Qr);
+            var giveName = (shape && shape.labels && shape.labels[0]) || "Give";
+            var recvName = (shape && shape.labels && shape.labels[1]) || "Receive";
+            var setText = (id, text) => { var el = e.byId(id); if (el) el.textContent = text; };
+            var setShape = (id, color) => { var el = e.byId(id); if (el) el.style.setProperty("--shape-color", color); };
+            var setThumb = (inputId, color) => { var el = e.byId(inputId); if (el) el.style.setProperty("--thumb-color", color); };
+            var colorOf = (st) => st ? sxCrossColor(st.app) : "#57534a";
+            var g = sxCrossPlacardState("give"), r = sxCrossPlacardState("receive");
+            setText("markCrossFineGiveLeanLabel", giveName + " — leaning");
+            setText("markCrossFineGiveAppLabel", giveName + " — appetite");
+            setText("markCrossFineRecvLeanLabel", recvName + " — leaning");
+            setText("markCrossFineRecvAppLabel", recvName + " — appetite");
+            setText("markCrossGiveLeanName", giveName + " · leaning");
+            setText("markCrossGiveAppName", giveName + " · appetite");
+            setText("markCrossRecvLeanName", recvName + " · leaning");
+            setText("markCrossRecvAppName", recvName + " · appetite");
+            var fineVal = (inputId, outId, st, key) => {
+                var input = e.byId(inputId), out = e.byId(outId);
+                var v = st ? st[key] : null;
+                if (input && document.activeElement !== input) input.value = String(v === null ? 0 : v);
+                if (out) { out.textContent = v === null ? "—" : String(Math.round(v)); out.classList.toggle("neg", v !== null && v < 0); }
+                setThumb(inputId, colorOf(st));
+            };
+            fineVal("markCrossFineGiveLean", "markCrossFineGiveLeanOut", g, "lean");
+            fineVal("markCrossFineGiveApp", "markCrossFineGiveAppOut", g, "app");
+            fineVal("markCrossFineRecvLean", "markCrossFineRecvLeanOut", r, "lean");
+            fineVal("markCrossFineRecvApp", "markCrossFineRecvAppOut", r, "app");
+            var statVal = (id, st, key) => {
+                var el = e.byId(id);
+                if (!el) return;
+                var v = st ? st[key] : null;
+                el.textContent = v === null ? "—" : String(Math.round(v));
+                el.classList.toggle("neg", v !== null && v < 0);
+            };
+            statVal("markCrossGiveLeanVal", g, "lean");
+            statVal("markCrossGiveAppVal", g, "app");
+            statVal("markCrossRecvLeanVal", r, "lean");
+            statVal("markCrossRecvAppVal", r, "app");
+            setShape("markCrossGiveLeanShape", colorOf(g));
+            setShape("markCrossGiveAppShape", colorOf(g));
+            setShape("markCrossRecvLeanShape", colorOf(r));
+            setShape("markCrossRecvAppShape", colorOf(r));
+            document.querySelectorAll("#markCrossFine .xs-fine-row").forEach(row => {
+                var dot = row.querySelector(".xs-shape");
+                if (dot) dot.style.setProperty("--shape-color", colorOf(row.dataset.dir === "receive" ? r : g));
+            });
+            if (typeof sxSetPoleTip === "function") {
+                sxSetPoleTip(e.byId("markCrossFineGiveLeanLabel"), Qr, "give");
+                sxSetPoleTip(e.byId("markCrossFineGiveAppLabel"), Qr, "give");
+                sxSetPoleTip(e.byId("markCrossFineRecvLeanLabel"), Qr, "receive");
+                sxSetPoleTip(e.byId("markCrossFineRecvAppLabel"), Qr, "receive");
+            }
+        }
+        function sxSyncCrossSliderPlacard(shape) {
+            sxBindCrossSliderPlacard();
+            if (!sxCrossPlacard) return;
+            var giveName = (shape && shape.labels && shape.labels[0]) || "Give";
+            var recvName = (shape && shape.labels && shape.labels[1]) || "Receive";
+            sxCrossPlacard.give.setLabel(giveName);
+            sxCrossPlacard.receive.setLabel(recvName);
+            if (typeof sxSetPoleTip === "function" && Qr) {
+                sxSetPoleTip(sxCrossPlacard.give.labelEl, Qr, "give");
+                sxSetPoleTip(sxCrossPlacard.receive.labelEl, Qr, "receive");
+            }
+            sxCrossPlacard.give.render();
+            sxCrossPlacard.receive.render();
+            sxSyncCrossFineAndReadout();
         }
         /* Placement intensities for the slider family + switchbox (2026-11-23):
            the canvas widgets carry disc/ring intensity sliders; the linear
@@ -1094,7 +1219,7 @@
             sxBindHexadWidget();
             sxBindHeptadWidget();
             sxBindOctadWidget();
-            sxBindSwitchboxWidget();
+            sxBindCrossSliderPlacard();
             const give = e.byId("markGive"), recv = e.byId("markReceive"), giveOut = e.byId("markGiveOut"), recvOut = e.byId("markReceiveOut");
             const role3 = e.byId("markRole3"), role3Out = e.byId("markRole3Out");
             const role4 = e.byId("markRole4"), role4Out = e.byId("markRole4Out");

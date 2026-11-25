@@ -1,16 +1,16 @@
-# The Songbook — v5.1
+# The Songbook — v5.1.1
 
 The songs of TaxoPolemics and Flexcapades, in git from v5.1 on
-(2026-11-21). Byline on every sheet: Jason Mark Wrinkle & Yolanda
-Biche et al.
+(2026-11-21); v5.1.1 (2026-11-24) fills the gaps. Byline on every
+sheet: Jason Mark Wrinkle & Yolanda Biche et al.
 
 **The generation prompt for this version is
-[`SONGBOOK-v5.1-PROMPT.md`](SONGBOOK-v5.1-PROMPT.md)** — hand it to the
+[`SONGBOOK-v5.1.1-PROMPT.md`](SONGBOOK-v5.1.1-PROMPT.md)** — hand it to the
 songwriter and it produces the whole book.
 
 ## Shape
 
-Two tiers, matching the thing itself (one engine, sixteen maps):
+Two tiers, matching the thing itself (one engine, many maps):
 
 - **`universal-set/`** — songs true of the engine and the application
   as a whole, sung the same way on every skin. U1 is the flagship,
@@ -23,7 +23,8 @@ Two tiers, matching the thing itself (one engine, sixteen maps):
   Poliscapades, Forescapades, Aesthcapades, Chemcapades,
   Dharmacapades, Expericapades, Mattercapades, Philoscapades,
   Praxicapades, Quantacapades, Simulcapades, Techcapades,
-  Theoricapades, Vocapades, Nouscapades.
+  Theoricapades, Vocapades, Nouscapades, Dancecapades,
+  Questcapades, Biocapades, Linguacapades, Fastcapades.
 
 Playback fallback in the app: a skin's own song first, then the
 Universal Set, then the TaxoPolemics album.

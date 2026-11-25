@@ -42,6 +42,22 @@ You know the fit before you even go
 A local chapter passing cards around
 A fractal seed where common ground is found
 
+[Verse]
+Open the map you rated a year ago
+The layers are stacked and the changes show
+You were someone else when you answered then
+Now the poles have shifted — so rate it again
+Layer upon layer, the old selves stay
+And the map shows the road you've traveled this way
+
+[Verse]
+Bring the whole table and lay the maps down
+A roster of friends from across the town
+Not just a pair but the room in a ring
+Every map in the circle has something to bring
+The engine reads the many the way it reads two
+And the meeting gets priced for all of you
+
 [Bridge]
 One engine humming underneath it all
 It catches us before we fall

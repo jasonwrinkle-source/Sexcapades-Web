@@ -52,6 +52,12 @@ Each item waits for Jason's kickoff; nothing here dispatches itself.
    - *Verification:* rebuild the data bundle after any module edit and grep-confirm the new code is IN the bundle; boot the packaged app in a real browser and confirm (a) each of the four opens as a view under the app header, (b) tap on the brand title opens the picker from inside each, (c) a half-written Scribe draft and a half-built Scene Setter agreement survive a round trip to the map and back byte-for-byte, (d) map scroll/zoom/selection survive the same round trip.
    - *Standing laws:* analytics NEVER disabled (gate_passed/session_stats to collect.php always collected, no opt-out); build timestamps America/Chicago; one builder at a time on the app artifact; timing table in the dispatch brief.
 
+6. **Heat slider vanilla extremes — Burning / Withdrawn (another AI's lane — Grok/Cursor):**
+   - Ruled by Jason 2026-11-24: the heat slider (range −100 to +100, centre "Neutral · 0") wears one vanilla pair on every skin except Sexcapades: **Burning / Withdrawn**. Sexcapades keeps **Horndog / Turned off**. First ruled "Burning / Cold", then refined the same hour: the pair must convey urgency of discourse at the high end and frigidness/introversion at the low end — "Cold" says frigid but not introverted, so the low end is **Withdrawn**. The per-skin extremes table (21 pairs, proposed 2026-11-23) was rejected — too cluttery, complicates the guide.
+   - Implementation: the shared shell currently hard-codes "Horndog" / "Turned off" for all skins; replace with a label lookup — sex skin → Horndog / Turned off, every other skin → Burning / Withdrawn. Centre label unchanged.
+   - *Verification:* boot the packaged app on a vanilla skin (e.g. Polis) and on Sexcapades; confirm the extremes read Burning / Withdrawn and Horndog / Turned off respectively, centre Neutral · 0 on both. Rebuild the data bundle after any module edit and grep-confirm the new code is IN the bundle.
+   - *Standing laws:* analytics NEVER disabled; build timestamps America/Chicago.
+
 ---
 
 ## 2. Open Carry-Overs & Backlog

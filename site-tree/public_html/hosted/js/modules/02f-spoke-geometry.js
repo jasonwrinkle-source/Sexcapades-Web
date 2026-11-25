@@ -762,7 +762,18 @@
                     if (t.giveKnown) parts.push(`Give ${Math.round(t.give)}`);
                     if (t.receiveKnown) parts.push(`Receive ${Math.round(t.receive)}`);
                     chipText = parts.length ? parts.join(" \u00b7 ") : "Unrated";
-                    if (parts.length) chipFill = zi(t.giveKnown && (!t.receiveKnown || Math.abs(t.give) >= Math.abs(t.receive)) ? t.give : t.receive), chipRated = !0;
+                    if (parts.length) {
+                        // Chip fill is the appetite, not the leaning
+                        // (ruling 2026-11-23): each flank's stored
+                        // per-flank intensity first, the leaning itself
+                        // as the derivation when unstored; the strongest
+                        // appetite wins the single fill. The text keeps
+                        // showing the leanings -- that is the rating.
+                        const gApp = t.giveIntensityKnown ? t.giveIntensity : (t.giveKnown ? t.give : null);
+                        const rApp = t.receiveIntensityKnown ? t.receiveIntensity : (t.receiveKnown ? t.receive : null);
+                        const topApp = null != gApp && (null == rApp || Math.abs(gApp) >= Math.abs(rApp)) ? gApp : rApp;
+                        chipFill = null != topApp ? zi(topApp) : Ga.NO_CODE_COLOR, chipRated = !0;
+                    }
                 } else if (f.length >= 2 && !$.single) {
                     const b = strongest(t);
                     if (b) chipText = `${b.label} ${Math.round(b.v)}`, chipFill = zi(b.v), chipRated = !0;

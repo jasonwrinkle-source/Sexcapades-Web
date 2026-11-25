@@ -1,7 +1,7 @@
-# Songbook v5.1
+# Songbook v5.1.1
 
-**Version:** 5.1
-**Date:** 2026-11-21
+**Version:** 5.1.1
+**Date:** 2026-11-24
 **Format:** Suno Paste Kit ready (Style Prompt + Lyrics tags)
 **Authors:** Jason Mark Wrinkle & Yolanda Biche et al.
 
@@ -21,7 +21,7 @@ The songbook follows a two-tier fallback chain for the Flexcapades (flex.capades
 
 ## Per-Skin Signature Songs (`per-skin/`)
 * Sexcapades (Desire / Interest)
-* Poliscapades (Politics / Stance)
+* Poliscapades (Politics / Conviction)
 * Forescapades (Faith / Belief)
 * Aesthcapades (Art / Taste)
 * Chemcapades (Chemistry / Understanding)
@@ -38,3 +38,6 @@ The songbook follows a two-tier fallback chain for the Flexcapades (flex.capades
 * Nouscapades (Consciousness / Conviction)
 * Dancecapades (Dance / Groove)
 * Questcapades (Roleplay / Fun)
+* Biocapades (Life / Perspective)
+* Linguacapades (Language / Sensibility)
+* Fastcapades (Fasting / Discipline)

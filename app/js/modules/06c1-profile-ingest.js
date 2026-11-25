@@ -354,6 +354,14 @@
                     flanks.forEach(flank => {
                         Object.prototype.hasOwnProperty.call(rating, flank) && Number.isFinite(Number(rating[flank])) && (incoming[flank] = clamp(rating[flank]));
                     });
+                    // Per-flank appetites (2026-11-24): the cross slider
+                    // stores giveIntensity / receiveIntensity beside the
+                    // leanings; import keeps them, clamped to the arm's
+                    // ±100, so a shared profile re-opens with its pucks
+                    // coloured as rated.
+                    ["giveIntensity", "receiveIntensity"].forEach(k => {
+                        if (Object.prototype.hasOwnProperty.call(rating, k) && Number.isFinite(Number(rating[k]))) incoming[k] = clamp(Math.round(Number(rating[k])));
+                    });
                     // Pole-key migration for subsumed phantom multi-pole topics:
                     // the old pole keys do not match the target's keys, so the
                     // copy above leaves incoming empty (or partial) and the

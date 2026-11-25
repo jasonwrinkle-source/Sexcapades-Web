@@ -558,40 +558,99 @@
                 const p = -19 * (l.length - 1) / 2, h = l.map((t, n) => t.interactive ? `<text class="node-note-trigger node-marker node-marker-note" data-note-id="${e}" x="${p + 19 * n}" y="0" role="button" tabindex="0" aria-label="Open note for ${Hi(qn[e]?.label || "topic")}">${t.glyph}</text>` : "favorite" !== t.kind || isCatId(e) ? `<text class="node-marker node-marker-${t.kind}" x="${p + 19 * n}" y="0" aria-hidden="true">${t.glyph}</text>` : `<text class="node-marker node-marker-favorite" data-ui-tooltip="${Hi(lo(qn[e]))}" data-tooltip-tap-first x="${p + 19 * n}" y="0" aria-hidden="true">${t.glyph}</text>`).join("");
                 return `<g class="node-marker-cluster" transform="translate(${u.x.toFixed(2)} ${u.y.toFixed(2)})">${h}</g>`;
             };
-            // SX-PAIR-TAPER-PAINT (Phase 2, 2026-10-26): while a
-            // two-profile match tab is the live viewport, topic lines
-            // paint the PAIR's own taper intensities instead of the
-            // active profile's wants. Cross (⋈) tab, per topic: give
-            // flank = crossed give-fit (first give × second receive)
-            // / 100; receive flank = crossed receive-fit (first
-            // receive × second give) / 100. Straight (⊙) tab: give
-            // flank = straight give-likeness (first give × second
-            // give) / 100; receive flank = straight receive-likeness
-            // (first receive × second receive) / 100. The values are
-            // read straight off the pair record the engine already
-            // computed (topicsById ratings; the straight products in
-            // straight.byId) - no match math is recomputed here, and
-            // the two flanks are never averaged or merged into one
-            // number. "First" is the tab's first-named profile, so
-            // swapping the pair exchanges the flanks and leaves the
-            // fit itself unchanged. Colors come from zi(), the same
-            // value-to-color mapping the profile tapers use, on the
-            // same [-100, 100] scale. Any other view - a profile tab,
-            // a cast of 3 or more, blind mode - resolves to null and
-            // the paint below is exactly the profile paint.
+            // SX-PAIR-TAPER-PAINT (2026-11-24, Jason's ruling): on any
+            // two-profile match tab -- Cross ⋈, Straight ⊙, Circle Minus ⊖
+            // -- a topic's line wears the pair's SHARED APPETITE per flank:
+            // the lower of the two profiles' appetites on that flank. One
+            // consistent meaning on all three tabs; the tapers never show
+            // fit, and the tab kind never enters the computation. (The fit
+            // products the tapers used to show -- crossed for ⋈, straight
+            // for ⊙ -- live on in the scores and rings, not the lines.
+            // The 672a4c1 exclusion that kept tapers off ⊖, and the
+            // 9d0c3b9 refactor that deleted the fit computation itself,
+            // are both superseded by this ruling.) The appetite is the
+            // stored flank intensity first, the leaning itself as the
+            // derivation when unstored. Every topic has exactly two flank
+            // intensities -- advocacy / receptivity on stance skins, give
+            // / receive placement intensities on classic n-pole topics,
+            // give / receive intensities on classic pair topics -- so an
+            // octad wears two shared appetites, not eight: its eight
+            // poles are positions, not appetites. Any other view -- a
+            // profile tab, a cast of 3 or more, blind mode -- resolves to
+            // null and the paint below is exactly the profile paint.
+            function sxPairFlankAppetite(rec, dir) {
+                if (!rec) return null;
+                if (typeof sxIsStanceSkin === "function" && sxIsStanceSkin()) {
+                    const intKey = dir === "give" ? "advocacyIntensity" : "receptivityIntensity";
+                    const valKey = dir === "give" ? "advocacy" : "receptivity";
+                    if (rec[intKey + "Known"]) return rec[intKey];
+                    if (rec[valKey + "Known"] && typeof rec[valKey] === "number") return rec[valKey];
+                    return null;
+                }
+                const placeKey = dir === "give" ? "givePlacementIntensity" : "receivePlacementIntensity";
+                const flankKey = dir === "give" ? "giveIntensity" : "receiveIntensity";
+                if (rec[placeKey + "Known"]) return rec[placeKey];
+                if (rec[flankKey + "Known"]) return rec[flankKey];
+                if (rec[dir + "Known"]) return rec[dir];
+                return null;
+            }
+            function sxRawFlankAppetite(rec, dir) {
+                // Same appetite rule as sxPairFlankAppetite, for a LIVE
+                // stored record (no Known flags: a stored number is the
+                // test). Used for 3+ source groups, where there is no
+                // pair record to read parsed records from.
+                if (!rec) return null;
+                if (typeof sxIsStanceSkin === "function" && sxIsStanceSkin()) {
+                    const intKey = dir === "give" ? "advocacyIntensity" : "receptivityIntensity";
+                    const valKey = dir === "give" ? "advocacy" : "receptivity";
+                    if (typeof rec[intKey] === "number") return rec[intKey];
+                    if (typeof rec[valKey] === "number") return rec[valKey];
+                    return null;
+                }
+                const placeKey = dir === "give" ? "givePlacementIntensity" : "receivePlacementIntensity";
+                const flankKey = dir === "give" ? "giveIntensity" : "receiveIntensity";
+                if (typeof rec[placeKey] === "number") return rec[placeKey];
+                if (typeof rec[flankKey] === "number") return rec[flankKey];
+                if (typeof rec[dir] === "number") return rec[dir];
+                return null;
+            }
+            function sxGroupSharedAppetite(sourceIds, topicId) {
+                // Shared appetite across a whole group: the lower of ALL
+                // the sources' appetites per flank (Jason, 2026-11-24:
+                // a group of three or more still shows intensities).
+                // Returns null only when no source rated the topic at
+                // all; a flank any source lacks an appetite for comes
+                // back null (paints neutral), never an operation score.
+                if (!Array.isArray(sourceIds) || sourceIds.length < 2 || typeof vt === "undefined") return null;
+                let giveMin = null, recvMin = null, giveAll = true, recvAll = true, rated = false;
+                for (const id of sourceIds) {
+                    const r = vt[id] ? vt[id][topicId] : null;
+                    if (!r) { giveAll = false; recvAll = false; continue; }
+                    rated = true;
+                    const g = sxRawFlankAppetite(r, "give"), v = sxRawFlankAppetite(r, "receive");
+                    if (null === g) giveAll = false; else giveMin = null === giveMin ? g : Math.min(giveMin, g);
+                    if (null === v) recvAll = false; else recvMin = null === recvMin ? v : Math.min(recvMin, v);
+                }
+                if (!rated) return null;
+                return { give: giveAll ? giveMin : null, receive: recvAll ? recvMin : null };
+            }
             const sxPairTapers = function() {
                 if (Rt) return null;
                 const tab = sxCurrentTab();
-                if (!tab || "circleminus" === tab.kind) return null;
+                if (!tab) return null;
                 const ctx = sxTabContext(tab), ids = ctx ? ctx.ids : tab.ids;
                 if (!ids || 2 !== ids.length) return null;
                 const pair = sxPairByIds(ids[0], ids[1]);
                 if (!pair || !pair.topicsById) return null;
-                const firstIsA = [ ids[0], ids[1] ].sort()[0] === ids[0], cross = "circledot" !== tab.kind;
                 return id => {
                     const rec = pair.topicsById[id];
                     if (!rec) return null;
-                    const mine = firstIsA ? rec.ratings.a : rec.ratings.b, yours = firstIsA ? rec.ratings.b : rec.ratings.a;
+                    const a = rec.ratings.a, b = rec.ratings.b;
+                    if (!a || !b) return null;
+                    const gA = sxPairFlankAppetite(a, "give"), gB = sxPairFlankAppetite(b, "give");
+                    const rA = sxPairFlankAppetite(a, "receive"), rB = sxPairFlankAppetite(b, "receive");
+                    const give = null == gA || null == gB ? null : Math.min(gA, gB);
+                    const receive = null == rA || null == rB ? null : Math.min(rA, rB);
                     return {
                         give: null === give ? null : zi(give),
                         receive: null === receive ? null : zi(receive)
@@ -713,6 +772,15 @@
             const pseudoMeta = isPseudo && typeof ft !== "undefined" ? ft[sxActiveProfile] : null;
             const pseudoOp = pseudoMeta ? (pseudoMeta.operation || pseudoMeta.pairOp) : null;
             const pseudoSources = isPseudo && Array.isArray(pseudoMeta.sourceProfiles) && pseudoMeta.sourceProfiles.length >= 2 ? pseudoMeta.sourceProfiles : null;
+            // Pair-group tapers (Jason, 2026-11-24): a pair group profile's
+            // map paints the pair's SHARED APPETITE per flank -- the lower
+            // of the two sources' appetites -- the same meaning as every
+            // other map. The pair record is resolved once per paint from
+            // the live sources; the operation's own values stay in the
+            // stored record, the rings and the lists. Pair-only: a 3+
+            // source group has no pair record to share across, so it
+            // keeps its operation rendering below.
+            const pseudoPair = isPseudo && pseudoMeta && Array.isArray(pseudoMeta.sourceIds) && 2 === pseudoMeta.sourceIds.length && typeof sxPairByIds === "function" ? sxPairByIds(pseudoMeta.sourceIds[0], pseudoMeta.sourceIds[1]) : null;
             const getPartyHoldings = (topicId) => {
                 if (!pseudoSources) return null;
                 return pseudoSources.map(sp => {
@@ -736,6 +804,53 @@
                 if (!isPseudo || !vt[sxActiveProfile]) return null;
                 const rec = vt[sxActiveProfile][topicId];
                 if (!rec) return null;
+                if (pseudoPair) {
+                    // Tapers show the pair's shared appetite (Jason,
+                    // 2026-11-24): the lower of the two sources'
+                    // appetites per flank -- min, the bottleneck, the
+                    // same meaning as every other map. The operation's
+                    // own values stay in the stored record, the rings
+                    // and the lists; the lines are the appetite layer.
+                    // Appetite reads stored-first, leaning as
+                    // derivation (the same rule as the pair-tab
+                    // tapers). A flank with no appetite on either
+                    // side paints neutral -- never the operation's
+                    // score, which is not an appetite.
+                    const prec = pseudoPair.topicsById ? pseudoPair.topicsById[topicId] : null;
+                    const pa = prec && prec.ratings ? prec.ratings.a : null, pb = prec && prec.ratings ? prec.ratings.b : null;
+                    const gA = sxPairFlankAppetite(pa, "give"), gB = sxPairFlankAppetite(pb, "give");
+                    const rA = sxPairFlankAppetite(pa, "receive"), rB = sxPairFlankAppetite(pb, "receive");
+                    const give = null == gA || null == gB ? null : Math.min(gA, gB);
+                    const receive = null == rA || null == rB ? null : Math.min(rA, rB);
+                    const neutral = Te(lineColor || "var(--neutral-line)");
+                    const mid = null !== give && null !== receive ? zi((give + receive) / 2) : null !== give ? zi(give) : null !== receive ? zi(receive) : neutral;
+                    return {
+                        give: null === give ? neutral : zi(give),
+                        receive: null === receive ? neutral : zi(receive),
+                        mid: mid,
+                        isRated: !0
+                    };
+                }
+                const groupIds = pseudoMeta && Array.isArray(pseudoMeta.sourceIds) ? pseudoMeta.sourceIds : null;
+                if (!pseudoPair && groupIds && groupIds.length > 2) {
+                    // 3+ sources (Jason, 2026-11-24): the lines still show
+                    // intensities -- the shared appetite is the lower of
+                    // ALL the sources' appetites per flank, read from
+                    // their live records. Same rule, same neutral
+                    // fallback; the operation's values never paint as
+                    // appetite.
+                    const shared = sxGroupSharedAppetite(groupIds, topicId);
+                    if (shared) {
+                        const neutral = Te(lineColor || "var(--neutral-line)");
+                        const mid = null !== shared.give && null !== shared.receive ? zi((shared.give + shared.receive) / 2) : null !== shared.give ? zi(shared.give) : null !== shared.receive ? zi(shared.receive) : neutral;
+                        return {
+                            give: null === shared.give ? neutral : zi(shared.give),
+                            receive: null === shared.receive ? neutral : zi(shared.receive),
+                            mid: mid,
+                            isRated: !0
+                        };
+                    }
+                }
                 if (pseudoOp === "minus") {
                     const gv = typeof rec.give === "number" ? rec.give : (typeof rec.singleValue === "number" ? rec.singleValue : 0);
                     const rv = typeof rec.receive === "number" ? rec.receive : (typeof rec.singleValue === "number" ? rec.singleValue : 0);
@@ -795,12 +910,19 @@
                 const sxCatDisc = Rt ? null : sxCategoryInterestDisc(i, C);
                 const sxCatAdv = Rt ? null : fa(i, C, "advocacyIntensity"), sxCatRec = Rt ? null : fa(i, C, "receptivityIntensity");
                 const sxCatGv = Rt ? null : fa(i, C, "givePlacementIntensity"), sxCatRc = Rt ? null : fa(i, C, "receivePlacementIntensity");
+                // Classic pair topics have no placement intensities: the
+                // branch spoke's appetite aggregate is the stored
+                // per-flank intensity (cross slider, 2026-11-24), read
+                // here so the spoke colours by appetite instead of the
+                // leaning aggregate. Unstored falls through to the
+                // leaning aggregate, which is the appetite derivation.
+                const sxCatGI = Rt ? null : fa(i, C, "giveIntensity"), sxCatRI = Rt ? null : fa(i, C, "receiveIntensity");
                 const j = g.labelStartX + g.ux * E, q = g.labelStartY + g.uy * E, H = Math.atan2(l.y - o.y, l.x - o.x), W = Math.cos(H) < 0, U = W ? -g.ux : g.ux, G = j + 0 * (W ? -g.uy : g.uy), K = q - 0 * U, z = 180 * (H + (W ? Math.PI : 0)) / Math.PI, V = W ? ' text-anchor="end"' : "", Y = sxIconDiameter(1), X = Y / 2, Z = Y / 24, Q = ge[i.name], J = Xa(a, yr(i)), ee = Q ? HubRenderer.renderIcon(dCat, Y, Q, Sa(dCat, qn[dCat], C, { tapFirst: !0 }), sxCatDisc ? sxCatDisc.ring : sxCatHeat || Q.color, J.x, J.y, true, false, null, sxCatDisc) : "", te = k(dCat, M, !Rt && qa(dCat, Je), !Rt && qa(dCat, et), !Rt && Boolean(tt[C]?.[dCat]?.length), J, g.ux, g.uy), ne = j - 11 * g.ux, ie = q - 11 * g.uy, ae = i.risk ? `<text class="risk-mark" x="${ne.toFixed(2)}" y="${ie.toFixed(2)}" dy="-8" text-anchor="middle" transform="rotate(${z.toFixed(2)} ${ne.toFixed(2)} ${ie.toFixed(2)})" aria-hidden="true">*</text>` : "", re = r ? h.hidden : n.topics.length, oe = X + 20, se = HubRenderer.renderBadges(J.x, J.y, re, dCat, -g.ux, -g.uy, oe, true), le = r ? function(e, t, n, i, a, r) {
                     if (!n) return "";
                     const o = `+${n} more`, s = Math.max(58, 7 * o.length + 16), l = i + s / 2 * Math.abs(a) + 12 * Math.abs(r), c = t + r * l;
                     return `<g class="hidden-count-badge density-count-badge" data-width="${s}" transform="translate(${(e + a * l - s / 2).toFixed(2)} ${(c - 12).toFixed(2)})" role="note" aria-label="${n} more ${1 === n ? "topic" : "topics"} hidden by hypermap density"><rect width="${s}" height="24" rx="7"/><text x="${(s / 2).toFixed(2)}" y="12" text-anchor="middle" dominant-baseline="middle">${o}</text></g>`;
                 }(l.x, l.y, n.densityHidden, X, g.ux, g.uy) : "";
-                const branchSpokeSvg = SpokeRenderer.renderBranchSpoke(dCat, m, i.name, g.nx, g.ny, o2.x, o2.y, c.x, c.y, sxCatHeat, L, D, null != sxCatAdv ? zi(sxCatAdv) : null != sxCatGv ? zi(sxCatGv) : null === I ? L : N, null != sxCatRec ? zi(sxCatRec) : null != sxCatRc ? zi(sxCatRc) : null === I ? L : _, ("noCode" === P.key ? Ga.FALLBACK_COLOR : P.lineColor || P.color || Ga.FALLBACK_COLOR), "noCode" === P.key, null !== I || null != sxCatAdv || null != sxCatRec || null != sxCatGv || null != sxCatRc, p, SpokeGeometry.buildBaseCircle(pr.centerX, pr.centerY, gen1SpokeBaseRadius()), sxIconDiameter(1));
+                const branchSpokeSvg = SpokeRenderer.renderBranchSpoke(dCat, m, i.name, g.nx, g.ny, o2.x, o2.y, c.x, c.y, sxCatHeat, L, D, null != sxCatAdv ? zi(sxCatAdv) : null != sxCatGv ? zi(sxCatGv) : null != sxCatGI ? zi(sxCatGI) : null === I ? L : N, null != sxCatRec ? zi(sxCatRec) : null != sxCatRc ? zi(sxCatRc) : null != sxCatRI ? zi(sxCatRI) : null === I ? L : _, ("noCode" === P.key ? Ga.FALLBACK_COLOR : P.lineColor || P.color || Ga.FALLBACK_COLOR), "noCode" === P.key, null !== I || null != sxCatAdv || null != sxCatRec || null != sxCatGv || null != sxCatRc || null != sxCatGI || null != sxCatRI, p, SpokeGeometry.buildBaseCircle(pr.centerX, pr.centerY, gen1SpokeBaseRadius()), sxIconDiameter(1));
                 v += `<g class="${w.join(" ")} gen1-line-group" data-layout-key="${dCat}" data-layout-x="${J.x.toFixed(2)}" data-layout-y="${J.y.toFixed(2)}" data-icon-distance-override="${g.labelWidth.toFixed(2)}" data-rated="${null === I ? "false" : "true"}" style="--profile-color:${f};--family-color:${sxCatHeat || (Q && Q.color) || Ga.FALLBACK_COLOR};--gen1-line-color:${sxCatHeat || L};--gen1-line-dash:${R}">${branchSpokeSvg}${sxCatHeat ? `<path class="branch-heat" d="${m}" fill="none" stroke="${sxCatHeat}" stroke-width="4" vector-effect="non-scaling-stroke" stroke-linecap="round" pointer-events="none"/>` : ""}${ee}${te}${ae}${se}${le}<path id="p-${dCat}" d="${y}" fill="none" stroke="transparent"/><line class="node-label-underline" style="stroke:${f}" data-offset="0" x1="${j.toFixed(2)}" y1="${q.toFixed(2)}" x2="${(j + g.ux * catUnderlineW).toFixed(2)}" y2="${(q + g.uy * catUnderlineW).toFixed(2)}"/><text class="category-label" data-id="${dCat}" data-path-id="p-${dCat}" data-label-offset="${E}" ${Sa(dCat, qn[dCat], C)} tabindex="0" role="button" aria-expanded="${r}" aria-label="${Hi(i.name)}${i.risk ? ", higher-risk practice requiring specialized knowledge and explicit negotiation" : ""}${x && x.has(i.name) ? ", contains newly imported additions" : ""}. ${r ? `${h.mode} children shown; press Enter to collapse` : `Children hidden; press Enter to expand with ${h.mode} children`}; press Shift Enter for description and markers." style="font-size:${catFs.toFixed(2)}px" x="${G.toFixed(2)}" y="${K.toFixed(2)}" dominant-baseline="middle"${V} transform="rotate(${z.toFixed(2)} ${G.toFixed(2)} ${K.toFixed(2)})">${Hi(i.name)}</text></g>`;
                 for (let sxTi = 0; sxTi < e.topics.length; sxTi++) {
                     const t = e.topics[sxTi];
