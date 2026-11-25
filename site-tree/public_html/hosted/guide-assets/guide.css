@@ -1,4 +1,4 @@
-[data-sx-vanilla-only]{display:none}
+body:not(.is-vanilla-skin) [data-sx-vanilla-only]{display:none}
 /* Adjust guide title alignment so long brand names do not run under the right figure */
 .opening-row {
   grid-template-columns: 140px minmax(360px, 1fr) minmax(200px, 230px) !important;
