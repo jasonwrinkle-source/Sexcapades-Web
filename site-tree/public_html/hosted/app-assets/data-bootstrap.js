@@ -7239,7 +7239,7 @@ var draftRatings = Object.create(null), draftSaveTimers = Object.create(null);
             i.setAttribute("aria-label", r));
         }
         function zt(e) {
-            e && vt[e] && (yt[e] = !0, queueDraftAutosave(e), Gt(), Kt(e), sxRefreshGroupOwn(e));
+            e && vt[e] && (yt[e] = !0, queueDraftAutosave(e), Gt(), Kt(e), sxRefreshGroupOwn(e), "function" == typeof sxRefreshMatchTabs && sxRefreshMatchTabs());
             try {
                 if (e && typeof Oo !== "undefined" && Oo && (typeof Go === "undefined" || !Go || Go === e)) {
                     const name = e === Et ? "New profile" : (wt[e] || "Profile");
@@ -9423,34 +9423,64 @@ var INTEREST_STOPS = {
             }
             return null;
         }
-        function Ma(e, t) {
-            const n = catId(e.name), i = ft[t], a = i && "group" === i.kind && Array.isArray(i.sourceIds) ? i.sourceIds.filter(e => vt[e] && vht[e]) : [];
-            if (a.length) return a.every(t => {
-                const i = Qe[t]?.[n];
-                if ("favorite" === i) return !0;
-                if ("limit" === i) return Aa(vpt[t]) <= -100;
-                const a = Ea(e, vt[t], Qe[t], at[t]);
-                return null !== a && a >= Aa(vpt[t]);
-            });
-            const r = i && "group" === i.kind && Array.isArray(i.sourceProfiles) ? i.sourceProfiles.filter(e => e && (e.veilEnabled ?? e.netEnabled)) : [];
-            if (r.length) return r.every(t => {
-                const i = t.annotations?.[n];
-                if ("favorite" === i) return !0;
-                if ("limit" === i) return Aa(null != t.veil ? t.veil : t.net) <= -100;
-                const a = Ea(e, t.ratings, t.annotations, t.importedChildren);
-                return null !== a && a >= Aa(null != t.veil ? t.veil : t.net);
-            });
-            const o = Qe[t]?.[n];
-            if ("favorite" === o) return !0;
-            if ("limit" === o) return Aa(vpt[t]) <= -100;
-            const s = Ea(e, vt[t], Qe[t], at[t]);
-            return null !== s && s >= Aa(vpt[t]);
+        function sxTopicPassesVeil(topicId, profId, seen) {
+            if (!profId || !vt[profId]) return !0;
+            seen = seen || new Set;
+            if (seen.has(profId)) return !0;
+            seen.add(profId);
+            const rec = ft[profId];
+            if (rec && "group" === rec.kind) {
+                if (vht[profId]) {
+                    const score = Ca(topicId, vt[profId], Qe[profId]);
+                    if (null === score || score < Aa(vpt[profId])) return !1;
+                }
+                const liveIds = Array.isArray(rec.sourceIds) ? rec.sourceIds.filter(id => vt[id]) : [];
+                if (liveIds.length) return liveIds.every(id => sxTopicPassesVeil(topicId, id, new Set(seen)));
+                const stored = Array.isArray(rec.sourceProfiles) ? rec.sourceProfiles.filter(p => p && (p.veilEnabled ?? p.netEnabled)) : [];
+                if (stored.length) return stored.every(p => {
+                    const score = Ca(topicId, p.ratings, p.annotations);
+                    return null !== score && score >= Aa(null != p.veil ? p.veil : p.net);
+                });
+                return !0;
+            }
+            if (!vht[profId]) return !0;
+            const score = Ca(topicId, vt[profId], Qe[profId]);
+            return null !== score && score >= Aa(vpt[profId]);
         }
-        function Ia(e = Mt) {
+        function Ma(e, t, seen) {
+            if (!t || !vt[t]) return !0;
+            seen = seen || new Set;
+            if (seen.has(t)) return !0;
+            seen.add(t);
+            const n = catId(e.name), i = ft[t];
+            const checkProf = (ratings, annos, kids, veilVal) => {
+                const m = annos?.[n];
+                if ("favorite" === m) return !0;
+                if ("limit" === m) return Aa(veilVal) <= -100;
+                const s = Ea(e, ratings, annos, kids);
+                return null !== s && s >= Aa(veilVal);
+            };
+            if (i && "group" === i.kind) {
+                if (vht[t] && !checkProf(vt[t], Qe[t], at[t], vpt[t])) return !1;
+                const liveIds = Array.isArray(i.sourceIds) ? i.sourceIds.filter(id => vt[id]) : [];
+                if (liveIds.length) return liveIds.every(id => Ma(e, id, new Set(seen)));
+                const r = Array.isArray(i.sourceProfiles) ? i.sourceProfiles.filter(p => p && (p.veilEnabled ?? p.netEnabled)) : [];
+                if (r.length) return r.every(p => checkProf(p.ratings, p.annotations, p.importedChildren, null != p.veil ? p.veil : p.net));
+                return !0;
+            }
+            if (!vht[t]) return !0;
+            return checkProf(vt[t], Qe[t], at[t], vpt[t]);
+        }
+        function Ia(e = Mt, seen) {
+            if (!e) return Boolean($n);
+            seen = seen || new Set;
+            if (seen.has(e)) return !1;
+            seen.add(e);
             const t = ft[e];
             if (t && "group" === t.kind) {
-                const e = Array.isArray(t.sourceIds) ? t.sourceIds.filter(e => vt[e]) : [];
-                return e.length ? e.some(e => vht[e]) : Array.isArray(t.sourceProfiles) && t.sourceProfiles.some(e => e && (e.veilEnabled ?? e.netEnabled));
+                if (vht[e] || $n) return !0;
+                const liveIds = Array.isArray(t.sourceIds) ? t.sourceIds.filter(id => vt[id]) : [];
+                return liveIds.length ? liveIds.some(id => Ia(id, new Set(seen))) : Array.isArray(t.sourceProfiles) && t.sourceProfiles.some(p => p && (p.veilEnabled ?? p.netEnabled));
             }
             return Boolean(vht[e] || $n);
         }
@@ -18044,20 +18074,7 @@ var branchOrderCacheMode = "", branchOrderCacheMap = null;
 
 /* --- Module: 03a-midline-solver.js --- */
         function frBuildTree() {
-                const e = Ia(), t = t => $n ? $n.has(t) : !e || function(e, t) {
-                    const n = ft[t], i = n && "group" === n.kind && Array.isArray(n.sourceIds) ? n.sourceIds.filter(e => vt[e] && vht[e]) : [];
-                    if (i.length) return i.every(t => {
-                        const n = Ca(e, vt[t], Qe[t]);
-                        return null !== n && n >= Aa(vpt[t]);
-                    });
-                    const a = n && "group" === n.kind && Array.isArray(n.sourceProfiles) ? n.sourceProfiles.filter(e => e && (e.veilEnabled ?? e.netEnabled)) : [];
-                    if (a.length) return a.every(t => {
-                        const n = Ca(e, t.ratings, t.annotations);
-                        return null !== n && n >= Aa(null != t.veil ? t.veil : t.net);
-                    });
-                    const r = Ca(e, vt[t], Qe[t]);
-                    return null !== r && r >= Aa(vpt[t]);
-                }(t, Mt), n = Lt ? ri().find(e => e.id === Lt) : null, i = Lt && (qn[Lt] || Xn(Lt) || n), a = i && i.parentId;
+                const e = Ia(), t = t => $n ? $n.has(t) : !e || sxTopicPassesVeil(t, Mt), n = Lt ? ri().find(e => e.id === Lt) : null, i = Lt && (qn[Lt] || Xn(Lt) || n), a = i && i.parentId;
                 const hbSrc = (() => {
                     const rec = ft[Mt], ids = rec && "group" === rec.kind && Array.isArray(rec.sourceIds) ? rec.sourceIds.filter(id => vt[id]) : [];
                     if (ids.length) return ids.map(id => [ vt[id], Qe[id] ]);
@@ -20724,13 +20741,14 @@ var sxActiveVaultProfileId = null;
         function sxGetMapVaultKey(id) {
             const profId = id || "__default__";
             const v = (typeof vht !== "undefined" && Boolean(vht[profId])) ? (typeof av === "function" && typeof vpt !== "undefined" ? av(vpt[profId]) : "on") : "off";
+            const fp = (typeof ft !== "undefined" && ft[profId] && "group" === ft[profId].kind && typeof sxSourcesFingerprint === "function") ? sxSourcesFingerprint(ft[profId].sourceIds) : "";
             const mode = (typeof Qi === "function" && Qi()) ? "compare:" + Array.from(Xi()).sort().join(",") : "single:" + profId;
             const search = (typeof $n !== "undefined" && $n && $n.size) ? Array.from($n).sort().join(",") : "none";
             const detail = typeof mapDetailLevel !== "undefined" ? mapDetailLevel : "norm";
             const cat = typeof Pt !== "undefined" ? Pt : "all";
             const rated = typeof Sn !== "undefined" ? Sn : "all";
             const blind = typeof Rt !== "undefined" ? Rt : false;
-            return `${mode}|det:${detail}|cat:${cat}|srch:${search}|sn:${rated}|veil:${v}|blind:${blind}`;
+            return `${mode}|det:${detail}|cat:${cat}|srch:${search}|sn:${rated}|veil:${v}|blind:${blind}|fp:${fp}`;
         }
 
         function sxVaultCaptureCurrent() {
@@ -32396,7 +32414,7 @@ var sxUpdateGlance = function() { return vc(); };
         }
         function vc() {
             sxKeepCompareRoute();
-            const t = Xi().filter(e => vt[e]), n = t.length > 1 ? Dd(zd(t), null, t.map(id => sxHeatFor(id))) : null, i = Object.keys(At).length > 0, a = Uc(), r = e.byId("glanceSummary"), o = Mt && vt[Mt] ? [ Mt ] : i ? [ Et ] : [], s = na(t.length > 1 ? t : o), l = (s.percent, 
+            const t = Xi().filter(e => vt[e]), n = t.length > 1 ? Dd(zd(t), null, t.map(id => sxHeatDisplayFor(id)), t.map(id => sxVeilFor(id))) : null, i = Object.keys(At).length > 0, a = Uc(), r = e.byId("glanceSummary"), o = Mt && vt[Mt] ? [ Mt ] : i ? [ Et ] : [], s = na(t.length > 1 ? t : o), l = (s.percent,
             e.byId("glanceData")), c = e.byId("glanceCompatibility"), d = c ? c.querySelector("span") : null, u = {
                 mutual: e.byId("mutualLabel"),
                 explore: e.byId("exploreLabel"),
@@ -34524,7 +34542,9 @@ var sxShareCache = null;
         }
         function sxRingValuesForCast(profiles, pairOp) {
             if (!profiles || profiles.length < 2) return null;
-            const grp = sxGroupCompute(profiles, {}), isPair = 2 === profiles.length, pair = isPair ? grp.pairs[0] : null;
+            const heats = profiles.map(p => p && p.id && typeof sxHeatDisplayFor === "function" ? sxHeatDisplayFor(p.id) : p && typeof p.heat === "number" ? p.heat : 0),
+                veils = profiles.map(p => p && p.id && typeof sxVeilFor === "function" ? sxVeilFor(p.id) : p && null != p.veil ? av(p.veil) : 50),
+                grp = sxGroupCompute(profiles, { heat: heats, veil: veils }), isPair = 2 === profiles.length, pair = isPair ? grp.pairs[0] : null;
             /* No Charted pass here (Rank 10, 2026-10-30): this function
                used to compute sxGroupCharted(profiles) into a `charted`
                field on every return, but its only frequent caller (the
@@ -34597,8 +34617,14 @@ var sxShareCache = null;
                 heatA: sxSettings[x] ? sxSettings[x].heat : 0, heatB: sxSettings[y] ? sxSettings[y].heat : 0,
                 veilA: sxSettings[x] ? sxSettings[x].veil : 50, veilB: sxSettings[y] ? sxSettings[y].veil : 50
             });
-            const key = x + "|" + y;
-            if (!sxPairCache.has(key)) sxPairCache.set(key, sxPairCompute(sxProfileById(x), sxProfileById(y), {}));
+            const hX = typeof sxHeatDisplayFor === "function" ? sxHeatDisplayFor(x) : typeof sxHeatFor === "function" ? sxHeatFor(x) : 0,
+                hY = typeof sxHeatDisplayFor === "function" ? sxHeatDisplayFor(y) : typeof sxHeatFor === "function" ? sxHeatFor(y) : 0,
+                vX = typeof sxVeilFor === "function" ? sxVeilFor(x) : 50,
+                vY = typeof sxVeilFor === "function" ? sxVeilFor(y) : 50,
+                veX = Boolean(typeof vht !== "undefined" && vht[x]) ? "1" : "0",
+                veY = Boolean(typeof vht !== "undefined" && vht[y]) ? "1" : "0",
+                key = `${x}|${y}|h:${hX},${hY}|v:${veX}:${vX},${veY}:${vY}`;
+            if (!sxPairCache.has(key)) sxPairCache.set(key, sxPairCompute(sxProfileById(x), sxProfileById(y), { heatA: hX, heatB: hY, veilA: vX, veilB: vY }));
             return sxPairCache.get(key);
         }
         function sxRouteRecord(fit, id) {
@@ -34611,10 +34637,18 @@ var sxShareCache = null;
                 roleLocked: !1
             };
         }
-        function sxComputeProfileFingerprint(id) {
+        function sxComputeProfileFingerprint(id, seen) {
             if (!id || !vt[id]) return "";
-            const r = vt[id] || {}, q = Qe[id] || {}, j = Je[id] || {}, e = et[id] || {};
-            return Object.keys(r).length + ":" + JSON.stringify(r) + "|" + JSON.stringify(q) + "|" + JSON.stringify(j) + "|" + JSON.stringify(e);
+            seen = seen || new Set;
+            if (seen.has(id)) return "";
+            seen.add(id);
+            const r = vt[id] || {}, q = Qe[id] || {}, j = Je[id] || {}, e = et[id] || {},
+                ve = Boolean(typeof vht !== "undefined" && vht[id]) ? "1" : "0",
+                vl = typeof sxVeilFor === "function" ? sxVeilFor(id) : (typeof vpt !== "undefined" && Number.isFinite(Number(vpt[id])) ? Math.round(Number(vpt[id])) : 50),
+                ht = typeof sxHeatDisplayFor === "function" ? sxHeatDisplayFor(id) : (typeof sxHeatFor === "function" ? sxHeatFor(id) : 0),
+                meta = typeof ft !== "undefined" ? ft[id] : null,
+                inner = meta && "group" === meta.kind && Array.isArray(meta.sourceIds) ? "|src:" + meta.sourceIds.map(sId => sId + "=" + sxComputeProfileFingerprint(sId, new Set(seen))).join(",") : "";
+            return Object.keys(r).length + ":" + JSON.stringify(r) + "|" + JSON.stringify(q) + "|" + JSON.stringify(j) + "|" + JSON.stringify(e) + "|v:" + ve + ":" + vl + "|h:" + ht + inner;
         }
         function sxSourcesFingerprint(sourceIds) {
             return (sourceIds || []).map(id => id + "=" + sxComputeProfileFingerprint(id)).join(";");
@@ -34624,10 +34658,14 @@ var sxShareCache = null;
             const meta = ft[id];
             return Boolean(meta && (meta.isPseudoProfile || meta.pairOp));
         }
-        function sxEnsurePseudoProfileCurrent(id) {
+        function sxEnsurePseudoProfileCurrent(id, visited) {
             if (!id || typeof ft === "undefined") return;
+            visited = visited || new Set;
+            if (visited.has(id)) return;
+            visited.add(id);
             const meta = ft[id];
-            if (!meta || !meta.isPseudoProfile || !Array.isArray(meta.sourceIds) || meta.sourceIds.length < 2) return;
+            if (!meta || ("group" !== meta.kind && !meta.isPseudoProfile) || !Array.isArray(meta.sourceIds) || meta.sourceIds.length < 2) return;
+            meta.sourceIds.forEach(srcId => sxEnsurePseudoProfileCurrent(srcId, visited));
             const currentFp = sxSourcesFingerprint(meta.sourceIds);
             if (meta.fingerprint !== currentFp) {
                 if (typeof Rd === "function") Rd(id);
@@ -36244,13 +36282,14 @@ var sxScribeTargets = {
         function _d(e, t = !1) {
             return e ? `${e.giver}: ${e.giverLabel || "give"}${t ? ` ${e.giverRating}` : ""} → ${e.receiver}: ${e.receiverLabel || "receive"}${t ? ` ${e.receiverRating}` : ""}` : "";
         }
-        function Dd(e, t, heat) {
+        function Dd(e, t, heat, veil) {
             // Adapter over the sync engine v1.1: the second argument (the
             // retired leniency value) is accepted for call-site compatibility
             // and ignored - no score, bar, or tolerance reads it anymore.
             // Two profiles read the pair Play aggregation; three or more
             // read the group Play aggregation (strict-majority rules).
-            const grp = sxGroupCompute(e, { heat: heat || [] }), isPair = 2 === e.length, pair = isPair ? grp.pairs[0] : null,
+            const v = Array.isArray(veil) && veil.length ? veil : (e || []).map(p => p && null != p.veil ? av(p.veil) : 50);
+            const grp = sxGroupCompute(e, { heat: heat || [], veil: v }), isPair = 2 === e.length, pair = isPair ? grp.pairs[0] : null,
                 agg = isPair ? pair.play : grp.play, recs = isPair ? pair.topics : grp.topics,
                 n = {}, i = {}, a = {}, r = {}, o = {}, s = {}, l = [], c = [], d = [];
             let p = 0;
@@ -36326,7 +36365,7 @@ var sxScribeTargets = {
                 sx: isPair ? pair : grp
             };
         }
-        function DdStraight(e, heat) {
+        function DdStraight(e, heat, veil) {
             // Straight-pair adapter over the sync engine (2026-10-27),
             // the Dd analog for ⊙ pairs: it derives NO new math. The
             // values are the engine's own straight register - the same
@@ -36340,7 +36379,8 @@ var sxScribeTargets = {
             // rollup (deferred rulings in sxGroupCompute), so results
             // stay empty and noScore stays true; marks and flags ride
             // the shared topics exactly as Dd's ride its matches.
-            const grp = sxGroupCompute(e, { heat: heat || [] }), pair = 2 === e.length ? grp.pairs[0] : null,
+            const v = Array.isArray(veil) && veil.length ? veil : (e || []).map(p => p && null != p.veil ? av(p.veil) : 50);
+            const grp = sxGroupCompute(e, { heat: heat || [], veil: v }), pair = 2 === e.length ? grp.pairs[0] : null,
                 n = {}, i = {}, a = {}, r = {}, o = {};
             if (pair && pair.straight) pair.straight.topics.forEach(srec => {
                 if ("shared" !== srec.status) return;
@@ -36376,12 +36416,13 @@ var sxScribeTargets = {
                 sx: pair
             };
         }
-        function DdMinus(e, heat) {
+        function DdMinus(e, heat, veil) {
             // Circle-minus adapter: disagreement map (Spec Part 2).
             // Spokes carry split depth weighted by joint relevance:
             // for give/receive flanks, the negative same-flank product weighted by joint care;
             // for pole and line topics, the feud from sxDebateFeud weighted by debateIntensity.
-            const grp = sxGroupCompute(e, { heat: heat || [] }), pair = 2 === e.length ? grp.pairs[0] : null,
+            const v = Array.isArray(veil) && veil.length ? veil : (e || []).map(p => p && null != p.veil ? av(p.veil) : 50);
+            const grp = sxGroupCompute(e, { heat: heat || [], veil: v }), pair = 2 === e.length ? grp.pairs[0] : null,
                 n = {}, i = {}, a = {}, r = {}, o = {};
             if (pair && pair.straight) {
                 pair.straight.topics.forEach(srec => {
@@ -36506,6 +36547,7 @@ var sxScribeTargets = {
             if (!n || "group" !== n.kind || !Array.isArray(n.sourceProfiles) || n.sourceProfiles.length < 2) return !1;
             const liveIds = (n.sourceIds || []).filter(id => vt[id]);
             if (liveIds.length >= 2) n.sourceProfiles = liveIds.map(id => ({
+                id: id,
                 name: wt[id],
                 ratings: Pd(vt[id]),
                 annotations: Pd(Qe[id]),
@@ -36519,7 +36561,9 @@ var sxScribeTargets = {
                 net: av(vpt[id]),
                 netEnabled: Boolean(vht[id])
             }));
-            const a = "straight" === n.pairOp ? DdStraight(n.sourceProfiles, (n.sourceIds || []).map(id => sxHeatFor(id))) : "minus" === n.pairOp ? DdMinus(n.sourceProfiles, (n.sourceIds || []).map(id => sxHeatFor(id))) : Dd(n.sourceProfiles, null, (n.sourceIds || []).map(id => sxHeatFor(id)));
+            const heats = (n.sourceIds || []).map(id => sxHeatDisplayFor(id)),
+                veils = (n.sourceIds || []).map(id => sxVeilFor(id)),
+                a = "straight" === n.pairOp ? DdStraight(n.sourceProfiles, heats, veils) : "minus" === n.pairOp ? DdMinus(n.sourceProfiles, heats, veils) : Dd(n.sourceProfiles, null, heats, veils);
             const freshBase = {
                 ratings: Pd(a.ratings),
                 marks: Pd(a.marks),
@@ -36544,40 +36588,92 @@ var sxScribeTargets = {
                 sourceNames: (n.sourceNames || []).slice()
             }, (function() {
                 try {
-                    n.sxMode = sxcv.mode, n.sxHeat = (n.sourceIds || []).map(id => sxHeatFor(id)), n.sxVeil = (n.sourceIds || []).map(id => sxVeilFor(id));
+                    n.sxMode = sxcv.mode, n.sxHeat = heats.slice(), n.sxVeil = veils.slice();
                 } catch (err) {
                     __sxErrLog("sx-stamp", err);
                 }
             })(), (n.isPseudoProfile ? (delete yt[e], Gt(), Kt(e)) : zt(e)),
             !0;
         }
-        // Live-own, snapshot-source (owner ruling, 2026-10-27): a match
-        // tab's OWN changes - slider edits on the pair tab itself and
-        // merges folded into the pair - move its metrics (buckets,
-        // Charted inputs, rings, Kink Factor, Match Score) live, in
-        // real time, while source-profile changes never move an
-        // existing match tab. So this refresh recomputes the record's
-        // derived fields from the pair's OWN stored snapshots
-        // (n.sourceProfiles as of the last mint/recompute - source
-        // edits since then are NOT read) and its STAMPED Heat
-        // (n.sxHeat - a source Heat change stages until a fork, it
-        // does not leak in here), then re-applies the pair's own user
-        // values through the same baseline diff Rd uses. It runs off
-        // zt, the marker every edit funnels through, only for groups
-        // computed this session (a baseline exists); a group restored
-        // from storage has no baseline yet and is left exactly as
-        // saved. It never calls zt itself, so it cannot recurse.
-        function sxRefreshGroupOwn(e) {
-            const n = ft[e];
-            if (!n || "group" !== n.kind || !sxPairBase[e] || !Array.isArray(n.sourceProfiles) || n.sourceProfiles.length < 2) return;
-            const heat = Array.isArray(n.sxHeat) && n.sxHeat.length === n.sourceProfiles.length ? n.sxHeat.slice() : (n.sourceIds || []).map(id => sxHeatFor(id));
-            const a = "straight" === n.pairOp ? DdStraight(n.sourceProfiles, heat) : "minus" === n.pairOp ? DdMinus(n.sourceProfiles, heat) : Dd(n.sourceProfiles, null, heat);
-            sxPairUserApply(e, a), vt[e] = a.ratings, Ze[e] = Object.fromEntries(Object.keys(a.ratings).map(e => [ e, {
+        // Live-source pair & group refresh (owner ruling, 2026-11-24):
+        // veils, heat, and ratings on the source profiles move the pair
+        // view and the match lists live, walking the group dependency
+        // tree inner-first so inner groups recompute before outer ones
+        // that include them as a unit. Re-reads the live source profiles
+        // and current heats/veils the same way Rd does, updates the
+        // baseline while preserving any direct user edits on the group
+        // tab via sxPairUserApply, and invalidates the map vault for
+        // each affected group. Never calls zt itself, so it cannot recurse.
+        function sxRefreshOneGroupLive(gId) {
+            const n = ft[gId];
+            if (!n || "group" !== n.kind || !Array.isArray(n.sourceProfiles) || n.sourceProfiles.length < 2) return;
+            const liveIds = (n.sourceIds || []).filter(id => vt[id]);
+            if (liveIds.length >= 2) n.sourceProfiles = liveIds.map(id => ({
+                id: id,
+                name: wt[id],
+                ratings: Pd(vt[id]),
+                annotations: Pd(Qe[id]),
+                fantasyOnly: Pd(Je[id]),
+                alreadyTried: Pd(et[id]),
+                importedChildren: Pd(at[id]),
+                genders: bb(rt[id]),
+                orientations: iv(ot[id]),
+                veil: av(vpt[id]),
+                veilEnabled: Boolean(vht[id]),
+                net: av(vpt[id]),
+                netEnabled: Boolean(vht[id])
+            }));
+            const heats = liveIds.length >= 2 ? liveIds.map(id => sxHeatDisplayFor(id)) : Array.isArray(n.sxHeat) && n.sxHeat.length === n.sourceProfiles.length ? n.sxHeat.slice() : (n.sourceIds || []).map(id => sxHeatDisplayFor(id)),
+                veils = liveIds.length >= 2 ? liveIds.map(id => sxVeilFor(id)) : Array.isArray(n.sxVeil) && n.sxVeil.length === n.sourceProfiles.length ? n.sxVeil.slice() : (n.sourceIds || []).map(id => sxVeilFor(id));
+            const a = "straight" === n.pairOp ? DdStraight(n.sourceProfiles, heats, veils) : "minus" === n.pairOp ? DdMinus(n.sourceProfiles, heats, veils) : Dd(n.sourceProfiles, null, heats, veils);
+            const freshBase = {
+                ratings: Pd(a.ratings),
+                marks: Pd(a.marks),
+                fantasyFlags: Pd(a.fantasyFlags),
+                triedFlags: Pd(a.triedFlags),
+                children: Pd(a.children)
+            };
+            sxPairUserApply(gId, a), sxPairBase[gId] = freshBase;
+            vt[gId] = a.ratings, Ze[gId] = Object.fromEntries(Object.keys(a.ratings).map(k => [ k, {
                 give: "group",
                 receive: "group"
-            } ])), Qe[e] = a.marks, Je[e] = a.fantasyFlags, et[e] = a.triedFlags, at[e] = a.children, 
+            } ])), Qe[gId] = a.marks, Je[gId] = a.fantasyFlags, et[gId] = a.triedFlags, at[gId] = a.children,
             n.percent = a.percent, n.things = a.things, n.clicks = a.clicks, n.noScore = a.noScore, n.sxEngine = a.sx, 
-            n.limits = a.limits, n.results = a.results, n.matchDetails = a.matchDetails;
+            n.limits = a.limits, n.results = a.results, n.matchDetails = a.matchDetails,
+            n.fingerprint = typeof sxSourcesFingerprint === "function" ? sxSourcesFingerprint(n.sourceIds) : "";
+            try {
+                n.sxHeat = heats.slice(), n.sxVeil = veils.slice();
+            } catch (err) {
+                __sxErrLog("sx-stamp-live", err);
+            }
+            try { typeof sxKvHeat === "function" && sxKvHeat(gId); } catch (_) {}
+            try { window.SexcapadesEngine?.Map?.invalidateVault(gId); } catch (_) {}
+        }
+        function sxGroupDependsOn(gId, targetId, seen) {
+            if (!gId || !targetId) return !1;
+            if (gId === targetId) return !0;
+            seen = seen || new Set;
+            if (seen.has(gId)) return !1;
+            seen.add(gId);
+            const n = ft[gId];
+            if (!n || "group" !== n.kind || !Array.isArray(n.sourceIds)) return !1;
+            return n.sourceIds.some(srcId => srcId === targetId || sxGroupDependsOn(srcId, targetId, new Set(seen)));
+        }
+        function sxRefreshGroupOwn(e) {
+            const allGroups = Object.keys(ft).filter(id => ft[id] && "group" === ft[id].kind && vt[id]);
+            if (!allGroups.length) return;
+            const visited = new Set;
+            const walkInnerFirst = gId => {
+                if (visited.has(gId)) return;
+                visited.add(gId);
+                const n = ft[gId];
+                if (!n || "group" !== n.kind) return;
+                (n.sourceIds || []).forEach(srcId => {
+                    if (ft[srcId] && "group" === ft[srcId].kind && vt[srcId]) walkInnerFirst(srcId);
+                });
+                if (!e || sxGroupDependsOn(gId, e)) sxRefreshOneGroupLive(gId);
+            };
+            allGroups.forEach(walkInnerFirst);
         }
 var Od = 0, Bd = null, qd = [], Wd = null;
         function Kd() {
@@ -36586,6 +36682,7 @@ var Od = 0, Bd = null, qd = [], Wd = null;
         }
         function zd(e = sxCompareIds) {
             return e.filter(e => vt[e]).map(e => ({
+                id: e,
                 name: wt[e],
                 ratings: vt[e],
                 annotations: Qe[e],
@@ -36593,7 +36690,11 @@ var Od = 0, Bd = null, qd = [], Wd = null;
                 alreadyTried: et[e],
                 importedChildren: at[e],
                 genders: bb(rt[e]),
-                orientations: iv(ot[e])
+                orientations: iv(ot[e]),
+                veil: av(vpt[e]),
+                veilEnabled: Boolean(vht[e]),
+                net: av(vpt[e]),
+                netEnabled: Boolean(vht[e])
             }));
         }
         function Vd() {
@@ -36604,7 +36705,7 @@ var Od = 0, Bd = null, qd = [], Wd = null;
             // pinning the current multi-select in qd, recomputing the
             // overlay data, repainting the match tabs - is unchanged.
             const d = Yi().filter(e => vt[e]), u = d.length >= 2;
-            qd = u ? d.slice() : [], Wd = u ? Dd(zd(d), null, d.map(id => sxHeatFor(id))) : null;
+            qd = u ? d.slice() : [], Wd = u ? Dd(zd(d), null, d.map(id => sxHeatDisplayFor(id)), d.map(id => sxVeilFor(id))) : null;
             sxRefreshMatchTabs();
         }
         /* ===== Compare view: presentation layer over the sync engine =====
@@ -36618,15 +36719,12 @@ var Od = 0, Bd = null, qd = [], Wd = null;
            ignored on load, never migrated into any profile. Saved group
            records snapshot mode/Heat/Veil at save time (see the stamp in
            Rd). Group Heat is the same SESSION state, keyed by group
-           profile id in sxcv.groupHeat: its default is the arithmetic
-           mean of the group's stamped member heats (Rd's sxHeat
-           snapshot, falling back to the members' live heats), and a
+           profile id in sxcv.groupHeat: its default is the LOWER
+           (Math.min) of the group's live member heats (falling back to
+           Rd's sxHeat snapshot only if sources are closed), and a
            user-set value overrides that default for that group only.
-           Group Heat never feeds Rd, Dd, DdStraight, or any score; it
-           only exposes and adjusts the group's heat. Negative Heat zone
-           names are PLACEHOLDERS pending a naming
-           pass: "Cooling" (-1..-24), "Chilled" (-25..-74),
-           "Turned off" (-75..-100). */
+           Negative Heat zone names: "Cooling" (-1..-24),
+           "Chilled" (-25..-74), "Turned off" / "Withdrawn" (-75..-100). */
 var SXCV_KEY = "sexcapades.compare.session.v1";
 var sxcv = { mode: "conversation", heat: {}, groupHeat: {} };
         try {
@@ -36647,18 +36745,25 @@ var sxcv = { mode: "conversation", heat: {}, groupHeat: {} };
         function sxIsGroup(e) {
             return !!(e && ft[e] && "group" === ft[e].kind);
         }
-        function sxGroupHeatDefault(e) {
+        function sxGroupHeatDefault(e, seen) {
             const n = ft[e];
             if (!n || "group" !== n.kind) return 0;
-            const expect = Array.isArray(n.sourceProfiles) ? n.sourceProfiles.length : (n.sourceIds || []).length;
+            seen = seen || new Set;
+            if (seen.has(e)) return 0;
+            seen.add(e);
+            const liveIds = (n.sourceIds || []).filter(id => vt[id]);
+            if (liveIds.length >= 2) {
+                const liveVals = liveIds.map(id => sxIsGroup(id) ? sxGroupHeatFor(id, new Set(seen)) : sxHeatFor(id));
+                return Math.max(-100, Math.min(100, Math.round(Math.min(...liveVals))));
+            }
             const stamped = Array.isArray(n.sxHeat) ? n.sxHeat.filter(v => Number.isFinite(Number(v))).map(v => Number(v)) : [];
-            const vals = stamped.length === expect && expect > 0 ? stamped : (n.sourceIds || []).map(id => sxHeatFor(id));
+            const vals = stamped.length ? stamped : (n.sourceIds || []).map(id => sxHeatFor(id));
             if (!vals.length) return 0;
-            return Math.max(-100, Math.min(100, Math.round(vals.reduce((a, b) => a + b, 0) / vals.length)));
+            return Math.max(-100, Math.min(100, Math.round(Math.min(...vals))));
         }
-        function sxGroupHeatFor(e) {
+        function sxGroupHeatFor(e, seen) {
             const v = Number(sxcv.groupHeat[e]);
-            return Number.isFinite(v) ? Math.max(-100, Math.min(100, Math.round(v))) : sxGroupHeatDefault(e);
+            return Number.isFinite(v) ? Math.max(-100, Math.min(100, Math.round(v))) : sxGroupHeatDefault(e, seen);
         }
         function sxHeatDisplayFor(e) {
             return sxIsGroup(e) ? sxGroupHeatFor(e) : sxHeatFor(e);
@@ -36683,7 +36788,7 @@ var sxBuzzFired = new Set;
             return ctx.ids[i] || `sx-person-${i}`;
         }
         function sxRun(ctx) {
-            const heat = ctx.profiles.map((p, i) => sxHeatFor(sxKey(ctx, i))), veil = ctx.profiles.map((p, i) => sxVeilFor(sxKey(ctx, i)));
+            const heat = ctx.profiles.map((p, i) => sxHeatDisplayFor(sxKey(ctx, i))), veil = ctx.profiles.map((p, i) => sxVeilFor(sxKey(ctx, i)));
             return sxGroupCompute(ctx.profiles, { heat: heat, veil: veil });
         }
         function sxRatingText(r) {
@@ -36758,7 +36863,7 @@ var sxBuzzFired = new Set;
         // runs the same Zd save the controls used to trigger), so there
         // is no save click left to relocate.
         function sxStamp(ctx) {
-            const parts = ctx.profiles.map((p, i) => `${p.name || `Profile ${i + 1}`} ${sxHeatZone(sxHeatFor(sxKey(ctx, i)))}`);
+            const parts = ctx.profiles.map((p, i) => `${p.name || `Profile ${i + 1}`} ${sxHeatZone(sxHeatDisplayFor(sxKey(ctx, i)))}`);
             return `${"play" === sxcv.mode ? sxTerm("playMode") : sxTerm("conversationMode")} · Heat: ${parts.join(" · ")}`;
         }
         function sxRenderResults(allowBuzz) {
@@ -37148,7 +37253,10 @@ var sxBuzzFired = new Set;
             pk && (pk.innerHTML = sxPickerHtml());
             const st = tab.section.querySelector("[data-sx-stamp]");
             st && (st.textContent = ctx ? sxStamp(ctx) : "");
-            const pair = ctx && 2 === ctx.profiles.length ? sxPairCompute(ctx.profiles[0], ctx.profiles[1], {}) : null;
+            const pair = ctx && 2 === ctx.profiles.length ? sxPairCompute(ctx.profiles[0], ctx.profiles[1], {
+                heatA: sxHeatDisplayFor(sxKey(ctx, 0)), heatB: sxHeatDisplayFor(sxKey(ctx, 1)),
+                veilA: sxVeilFor(sxKey(ctx, 0)), veilB: sxVeilFor(sxKey(ctx, 1))
+            }) : null;
             const bandLists = sxStraightBands(pair);
             /* Banded Straight Talk list (Job 3): the Job 1 ranked list,
                 split into the Job 2 band sections in ring order — Shop
@@ -37179,7 +37287,10 @@ var sxBuzzFired = new Set;
             pk && (pk.innerHTML = sxPickerHtml());
             const st = tab.section.querySelector("[data-sx-stamp]");
             st && (st.textContent = "");
-            const pair = ctx && 2 === ctx.profiles.length ? sxPairCompute(ctx.profiles[0], ctx.profiles[1], {}) : null;
+            const pair = ctx && 2 === ctx.profiles.length ? sxPairCompute(ctx.profiles[0], ctx.profiles[1], {
+                heatA: sxHeatDisplayFor(sxKey(ctx, 0)), heatB: sxHeatDisplayFor(sxKey(ctx, 1)),
+                veilA: sxVeilFor(sxKey(ctx, 0)), veilB: sxVeilFor(sxKey(ctx, 1))
+            }) : null;
             tab.buckets = sxMinusBuckets(pair), sxUpdateMatchRings(tab);
         }
         function sxRenderMatchTab(tab) {
@@ -45073,7 +45184,7 @@ var yv = 0, bv = sv;
             });
         }
         function Mv() {
-            const e = Mt && vt[Mt] && !ft[Mt] ? Mt : null;
+            const e = Mt && vt[Mt] ? Mt : null;
             if (rv.hidden = !e, e) {
                 const t = av(vpt[e]), n = Boolean(vht[e]);
                 hv.value = String(t), hv.textContent = String(t), lv.checked = n, ov.classList.toggle("is-enabled", n),
@@ -45091,9 +45202,8 @@ var yv = 0, bv = sv;
         function Iv(e, t) {
             if (!e || !vt[e]) return;
             const n = Boolean(vht[e]) !== Boolean(t);
-            vht[e] = Boolean(t), n && zt(e), Mv(), kv(e), sxRefreshMatchTabs();
-            const i = Kd();
-            (e === Mt || i && Array.isArray(i.sourceIds) && i.sourceIds.includes(e)) && Mr();
+            vht[e] = Boolean(t), n && zt(e), Mv(), kv(e), sxRefreshMatchTabs(), vc();
+            (e === Mt || (typeof sxGroupDependsOn === "function" && sxGroupDependsOn(Mt, e)) || (typeof Xi === "function" && Xi().includes(e))) && Mr();
         }
 var Pv = 0;
         sv.addEventListener("pointerenter", () => $v()), sv.addEventListener("pointerleave", () => {
@@ -45102,10 +45212,10 @@ var Pv = 0;
             dv.hidden && Ev();
         }), sv.addEventListener("click", e => {
             e.preventDefault();
-            const t = Mt && vt[Mt] && !ft[Mt] ? Mt : null;
+            const t = Mt && vt[Mt] ? Mt : null;
             $v(!0), t && vht[t] && (Qt = t, bv = sv, Mv(), Av(!0, !0));
         }), lv.addEventListener("change", () => {
-            const e = Mt && vt[Mt] && !ft[Mt] ? Mt : null;
+            const e = Mt && vt[Mt] ? Mt : null;
             e && (Qt = e, bv = sv, Iv(e, lv.checked));
         }), cv.addEventListener("change", () => {
             const e = vv();
@@ -45123,7 +45233,9 @@ var Pv = 0;
             const t = av(pv.value);
             vpt[e] = t, zt(e), kv(e), qzv && (qzv.textContent = veilZoneText(t)), e === Mt && (hv.value = String(t), hv.textContent = String(t),
             sv.style.background = zi(2 * (t - 50)), sv.setAttribute("aria-label", `Intimacy Veil ${t}. Open rating scale.`)),
-            vht[e] && (Pv && cancelAnimationFrame(Pv), Pv = requestAnimationFrame(() => {
+            sxRefreshMatchTabs(), vc();
+            const activeAffected = e === Mt || (typeof sxGroupDependsOn === "function" && sxGroupDependsOn(Mt, e)) || (typeof Xi === "function" && Xi().includes(e));
+            (vht[e] || activeAffected) && (Pv && cancelAnimationFrame(Pv), Pv = requestAnimationFrame(() => {
                 Pv = 0, Mr({
                     animate: !1,
                     forceRepaint: !0
@@ -45168,11 +45280,12 @@ var Lv = null;
            profile store's maps, the collect/export snapshot, or either
            payload format. Group Heat is the same session state
            (sxcv.groupHeat, keyed by group profile id); the one popover
-           serves both, branching on the group record, and adjusting
-           Group Heat never touches a member's heat or any score.
-           The popover lifecycle mirrors the Veil popover's
-           (open/close/outside-click/Escape). */
-var sxHeatQt = null, sxHeatBv = null;
+           serves both, branching on the group record. A member's heat
+           change updates dependent groups' default heat (the lower of
+           the members' heats) and refreshes the pair/group map and
+           match lists live. The popover lifecycle mirrors the Veil
+           popover's (open/close/outside-click/Escape). */
+var sxHeatQt = null, sxHeatBv = null, sxHeatRaf = 0;
         function sxHeatBtnFor(e) {
             return [ ...tl.querySelectorAll("[data-profile-heat]") ].find(t => t.dataset.profileHeat === e) || null;
         }
@@ -45226,7 +45339,17 @@ var sxHeatPopEl = e.byId("heatPopover"), sxHeatSliderEl = e.byId("heatSlider");
             if (!t) return;
             const v = Math.max(-100, Math.min(100, Math.round(Number(sxHeatSliderEl.value) || 0)));
             sxIsGroup(t) ? sxcv.groupHeat[t] = v : sxcv.heat[t] = v, sxcvSave(),
-            sxMvHeat(), sxKvHeat(t), sxRefreshMatchTabs();
+            sxRefreshGroupOwn(t), sxMvHeat(), sxKvHeat(t), Object.keys(ft).forEach(gId => {
+                ft[gId] && "group" === ft[gId].kind && vt[gId] && sxKvHeat(gId);
+            }), sxRefreshMatchTabs(), vc();
+            try { window.SexcapadesEngine?.Map?.invalidateVault(t); } catch (_) {}
+            const activeAffected = t === Mt || (typeof sxGroupDependsOn === "function" && sxGroupDependsOn(Mt, t)) || (typeof Xi === "function" && Xi().includes(t));
+            activeAffected && (sxHeatRaf && cancelAnimationFrame(sxHeatRaf), sxHeatRaf = requestAnimationFrame(() => {
+                sxHeatRaf = 0, Mr({
+                    animate: !1,
+                    forceRepaint: !0
+                });
+            }));
         }), window.__sxOnPtr( ev2 => {
             const pop = e.byId("heatPopover");
             !pop || pop.hidden || pop.contains(ev2.target) || __sxClosestAction(ev2.target, "profileHeat") || sxCvHeat();

@@ -1891,7 +1891,9 @@
         }
         function sxRingValuesForCast(profiles, pairOp) {
             if (!profiles || profiles.length < 2) return null;
-            const grp = sxGroupCompute(profiles, {}), isPair = 2 === profiles.length, pair = isPair ? grp.pairs[0] : null;
+            const heats = profiles.map(p => p && p.id && typeof sxHeatDisplayFor === "function" ? sxHeatDisplayFor(p.id) : p && typeof p.heat === "number" ? p.heat : 0),
+                veils = profiles.map(p => p && p.id && typeof sxVeilFor === "function" ? sxVeilFor(p.id) : p && null != p.veil ? av(p.veil) : 50),
+                grp = sxGroupCompute(profiles, { heat: heats, veil: veils }), isPair = 2 === profiles.length, pair = isPair ? grp.pairs[0] : null;
             /* No Charted pass here (Rank 10, 2026-10-30): this function
                used to compute sxGroupCharted(profiles) into a `charted`
                field on every return, but its only frequent caller (the
@@ -1964,8 +1966,14 @@
                 heatA: sxSettings[x] ? sxSettings[x].heat : 0, heatB: sxSettings[y] ? sxSettings[y].heat : 0,
                 veilA: sxSettings[x] ? sxSettings[x].veil : 50, veilB: sxSettings[y] ? sxSettings[y].veil : 50
             });
-            const key = x + "|" + y;
-            if (!sxPairCache.has(key)) sxPairCache.set(key, sxPairCompute(sxProfileById(x), sxProfileById(y), {}));
+            const hX = typeof sxHeatDisplayFor === "function" ? sxHeatDisplayFor(x) : typeof sxHeatFor === "function" ? sxHeatFor(x) : 0,
+                hY = typeof sxHeatDisplayFor === "function" ? sxHeatDisplayFor(y) : typeof sxHeatFor === "function" ? sxHeatFor(y) : 0,
+                vX = typeof sxVeilFor === "function" ? sxVeilFor(x) : 50,
+                vY = typeof sxVeilFor === "function" ? sxVeilFor(y) : 50,
+                veX = Boolean(typeof vht !== "undefined" && vht[x]) ? "1" : "0",
+                veY = Boolean(typeof vht !== "undefined" && vht[y]) ? "1" : "0",
+                key = `${x}|${y}|h:${hX},${hY}|v:${veX}:${vX},${veY}:${vY}`;
+            if (!sxPairCache.has(key)) sxPairCache.set(key, sxPairCompute(sxProfileById(x), sxProfileById(y), { heatA: hX, heatB: hY, veilA: vX, veilB: vY }));
             return sxPairCache.get(key);
         }
         function sxRouteRecord(fit, id) {
@@ -1978,10 +1986,18 @@
                 roleLocked: !1
             };
         }
-        function sxComputeProfileFingerprint(id) {
+        function sxComputeProfileFingerprint(id, seen) {
             if (!id || !vt[id]) return "";
-            const r = vt[id] || {}, q = Qe[id] || {}, j = Je[id] || {}, e = et[id] || {};
-            return Object.keys(r).length + ":" + JSON.stringify(r) + "|" + JSON.stringify(q) + "|" + JSON.stringify(j) + "|" + JSON.stringify(e);
+            seen = seen || new Set;
+            if (seen.has(id)) return "";
+            seen.add(id);
+            const r = vt[id] || {}, q = Qe[id] || {}, j = Je[id] || {}, e = et[id] || {},
+                ve = Boolean(typeof vht !== "undefined" && vht[id]) ? "1" : "0",
+                vl = typeof sxVeilFor === "function" ? sxVeilFor(id) : (typeof vpt !== "undefined" && Number.isFinite(Number(vpt[id])) ? Math.round(Number(vpt[id])) : 50),
+                ht = typeof sxHeatDisplayFor === "function" ? sxHeatDisplayFor(id) : (typeof sxHeatFor === "function" ? sxHeatFor(id) : 0),
+                meta = typeof ft !== "undefined" ? ft[id] : null,
+                inner = meta && "group" === meta.kind && Array.isArray(meta.sourceIds) ? "|src:" + meta.sourceIds.map(sId => sId + "=" + sxComputeProfileFingerprint(sId, new Set(seen))).join(",") : "";
+            return Object.keys(r).length + ":" + JSON.stringify(r) + "|" + JSON.stringify(q) + "|" + JSON.stringify(j) + "|" + JSON.stringify(e) + "|v:" + ve + ":" + vl + "|h:" + ht + inner;
         }
         function sxSourcesFingerprint(sourceIds) {
             return (sourceIds || []).map(id => id + "=" + sxComputeProfileFingerprint(id)).join(";");
@@ -1991,10 +2007,14 @@
             const meta = ft[id];
             return Boolean(meta && (meta.isPseudoProfile || meta.pairOp));
         }
-        function sxEnsurePseudoProfileCurrent(id) {
+        function sxEnsurePseudoProfileCurrent(id, visited) {
             if (!id || typeof ft === "undefined") return;
+            visited = visited || new Set;
+            if (visited.has(id)) return;
+            visited.add(id);
             const meta = ft[id];
-            if (!meta || !meta.isPseudoProfile || !Array.isArray(meta.sourceIds) || meta.sourceIds.length < 2) return;
+            if (!meta || ("group" !== meta.kind && !meta.isPseudoProfile) || !Array.isArray(meta.sourceIds) || meta.sourceIds.length < 2) return;
+            meta.sourceIds.forEach(srcId => sxEnsurePseudoProfileCurrent(srcId, visited));
             const currentFp = sxSourcesFingerprint(meta.sourceIds);
             if (meta.fingerprint !== currentFp) {
                 if (typeof Rd === "function") Rd(id);

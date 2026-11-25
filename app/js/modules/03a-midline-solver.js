@@ -1,18 +1,5 @@
         function frBuildTree() {
-                const e = Ia(), t = t => $n ? $n.has(t) : !e || function(e, t) {
-                    const n = ft[t], i = n && "group" === n.kind && Array.isArray(n.sourceIds) ? n.sourceIds.filter(e => vt[e] && vht[e]) : [];
-                    if (i.length) return i.every(t => {
-                        const n = Ca(e, vt[t], Qe[t]);
-                        return null !== n && n >= Aa(vpt[t]);
-                    });
-                    const a = n && "group" === n.kind && Array.isArray(n.sourceProfiles) ? n.sourceProfiles.filter(e => e && (e.veilEnabled ?? e.netEnabled)) : [];
-                    if (a.length) return a.every(t => {
-                        const n = Ca(e, t.ratings, t.annotations);
-                        return null !== n && n >= Aa(null != t.veil ? t.veil : t.net);
-                    });
-                    const r = Ca(e, vt[t], Qe[t]);
-                    return null !== r && r >= Aa(vpt[t]);
-                }(t, Mt), n = Lt ? ri().find(e => e.id === Lt) : null, i = Lt && (qn[Lt] || Xn(Lt) || n), a = i && i.parentId;
+                const e = Ia(), t = t => $n ? $n.has(t) : !e || sxTopicPassesVeil(t, Mt), n = Lt ? ri().find(e => e.id === Lt) : null, i = Lt && (qn[Lt] || Xn(Lt) || n), a = i && i.parentId;
                 const hbSrc = (() => {
                     const rec = ft[Mt], ids = rec && "group" === rec.kind && Array.isArray(rec.sourceIds) ? rec.sourceIds.filter(id => vt[id]) : [];
                     if (ids.length) return ids.map(id => [ vt[id], Qe[id] ]);

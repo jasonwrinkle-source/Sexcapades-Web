@@ -787,7 +787,7 @@
             });
         }
         function Mv() {
-            const e = Mt && vt[Mt] && !ft[Mt] ? Mt : null;
+            const e = Mt && vt[Mt] ? Mt : null;
             if (rv.hidden = !e, e) {
                 const t = av(vpt[e]), n = Boolean(vht[e]);
                 hv.value = String(t), hv.textContent = String(t), lv.checked = n, ov.classList.toggle("is-enabled", n),
@@ -805,9 +805,8 @@
         function Iv(e, t) {
             if (!e || !vt[e]) return;
             const n = Boolean(vht[e]) !== Boolean(t);
-            vht[e] = Boolean(t), n && zt(e), Mv(), kv(e), sxRefreshMatchTabs();
-            const i = Kd();
-            (e === Mt || i && Array.isArray(i.sourceIds) && i.sourceIds.includes(e)) && Mr();
+            vht[e] = Boolean(t), n && zt(e), Mv(), kv(e), sxRefreshMatchTabs(), vc();
+            (e === Mt || (typeof sxGroupDependsOn === "function" && sxGroupDependsOn(Mt, e)) || (typeof Xi === "function" && Xi().includes(e))) && Mr();
         }
         let Pv = 0;
         sv.addEventListener("pointerenter", () => $v()), sv.addEventListener("pointerleave", () => {
@@ -816,10 +815,10 @@
             dv.hidden && Ev();
         }), sv.addEventListener("click", e => {
             e.preventDefault();
-            const t = Mt && vt[Mt] && !ft[Mt] ? Mt : null;
+            const t = Mt && vt[Mt] ? Mt : null;
             $v(!0), t && vht[t] && (Qt = t, bv = sv, Mv(), Av(!0, !0));
         }), lv.addEventListener("change", () => {
-            const e = Mt && vt[Mt] && !ft[Mt] ? Mt : null;
+            const e = Mt && vt[Mt] ? Mt : null;
             e && (Qt = e, bv = sv, Iv(e, lv.checked));
         }), cv.addEventListener("change", () => {
             const e = vv();
@@ -837,7 +836,9 @@
             const t = av(pv.value);
             vpt[e] = t, zt(e), kv(e), qzv && (qzv.textContent = veilZoneText(t)), e === Mt && (hv.value = String(t), hv.textContent = String(t),
             sv.style.background = zi(2 * (t - 50)), sv.setAttribute("aria-label", `Intimacy Veil ${t}. Open rating scale.`)),
-            vht[e] && (Pv && cancelAnimationFrame(Pv), Pv = requestAnimationFrame(() => {
+            sxRefreshMatchTabs(), vc();
+            const activeAffected = e === Mt || (typeof sxGroupDependsOn === "function" && sxGroupDependsOn(Mt, e)) || (typeof Xi === "function" && Xi().includes(e));
+            (vht[e] || activeAffected) && (Pv && cancelAnimationFrame(Pv), Pv = requestAnimationFrame(() => {
                 Pv = 0, Mr({
                     animate: !1,
                     forceRepaint: !0
@@ -882,11 +883,12 @@
            profile store's maps, the collect/export snapshot, or either
            payload format. Group Heat is the same session state
            (sxcv.groupHeat, keyed by group profile id); the one popover
-           serves both, branching on the group record, and adjusting
-           Group Heat never touches a member's heat or any score.
-           The popover lifecycle mirrors the Veil popover's
-           (open/close/outside-click/Escape). */
-        let sxHeatQt = null, sxHeatBv = null;
+           serves both, branching on the group record. A member's heat
+           change updates dependent groups' default heat (the lower of
+           the members' heats) and refreshes the pair/group map and
+           match lists live. The popover lifecycle mirrors the Veil
+           popover's (open/close/outside-click/Escape). */
+        let sxHeatQt = null, sxHeatBv = null, sxHeatRaf = 0;
         function sxHeatBtnFor(e) {
             return [ ...tl.querySelectorAll("[data-profile-heat]") ].find(t => t.dataset.profileHeat === e) || null;
         }
@@ -940,7 +942,17 @@
             if (!t) return;
             const v = Math.max(-100, Math.min(100, Math.round(Number(sxHeatSliderEl.value) || 0)));
             sxIsGroup(t) ? sxcv.groupHeat[t] = v : sxcv.heat[t] = v, sxcvSave(),
-            sxMvHeat(), sxKvHeat(t), sxRefreshMatchTabs();
+            sxRefreshGroupOwn(t), sxMvHeat(), sxKvHeat(t), Object.keys(ft).forEach(gId => {
+                ft[gId] && "group" === ft[gId].kind && vt[gId] && sxKvHeat(gId);
+            }), sxRefreshMatchTabs(), vc();
+            try { window.SexcapadesEngine?.Map?.invalidateVault(t); } catch (_) {}
+            const activeAffected = t === Mt || (typeof sxGroupDependsOn === "function" && sxGroupDependsOn(Mt, t)) || (typeof Xi === "function" && Xi().includes(t));
+            activeAffected && (sxHeatRaf && cancelAnimationFrame(sxHeatRaf), sxHeatRaf = requestAnimationFrame(() => {
+                sxHeatRaf = 0, Mr({
+                    animate: !1,
+                    forceRepaint: !0
+                });
+            }));
         }), window.__sxOnPtr( ev2 => {
             const pop = e.byId("heatPopover");
             !pop || pop.hidden || pop.contains(ev2.target) || __sxClosestAction(ev2.target, "profileHeat") || sxCvHeat();

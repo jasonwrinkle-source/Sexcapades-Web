@@ -2068,34 +2068,64 @@
             }
             return null;
         }
-        function Ma(e, t) {
-            const n = catId(e.name), i = ft[t], a = i && "group" === i.kind && Array.isArray(i.sourceIds) ? i.sourceIds.filter(e => vt[e] && vht[e]) : [];
-            if (a.length) return a.every(t => {
-                const i = Qe[t]?.[n];
-                if ("favorite" === i) return !0;
-                if ("limit" === i) return Aa(vpt[t]) <= -100;
-                const a = Ea(e, vt[t], Qe[t], at[t]);
-                return null !== a && a >= Aa(vpt[t]);
-            });
-            const r = i && "group" === i.kind && Array.isArray(i.sourceProfiles) ? i.sourceProfiles.filter(e => e && (e.veilEnabled ?? e.netEnabled)) : [];
-            if (r.length) return r.every(t => {
-                const i = t.annotations?.[n];
-                if ("favorite" === i) return !0;
-                if ("limit" === i) return Aa(null != t.veil ? t.veil : t.net) <= -100;
-                const a = Ea(e, t.ratings, t.annotations, t.importedChildren);
-                return null !== a && a >= Aa(null != t.veil ? t.veil : t.net);
-            });
-            const o = Qe[t]?.[n];
-            if ("favorite" === o) return !0;
-            if ("limit" === o) return Aa(vpt[t]) <= -100;
-            const s = Ea(e, vt[t], Qe[t], at[t]);
-            return null !== s && s >= Aa(vpt[t]);
+        function sxTopicPassesVeil(topicId, profId, seen) {
+            if (!profId || !vt[profId]) return !0;
+            seen = seen || new Set;
+            if (seen.has(profId)) return !0;
+            seen.add(profId);
+            const rec = ft[profId];
+            if (rec && "group" === rec.kind) {
+                if (vht[profId]) {
+                    const score = Ca(topicId, vt[profId], Qe[profId]);
+                    if (null === score || score < Aa(vpt[profId])) return !1;
+                }
+                const liveIds = Array.isArray(rec.sourceIds) ? rec.sourceIds.filter(id => vt[id]) : [];
+                if (liveIds.length) return liveIds.every(id => sxTopicPassesVeil(topicId, id, new Set(seen)));
+                const stored = Array.isArray(rec.sourceProfiles) ? rec.sourceProfiles.filter(p => p && (p.veilEnabled ?? p.netEnabled)) : [];
+                if (stored.length) return stored.every(p => {
+                    const score = Ca(topicId, p.ratings, p.annotations);
+                    return null !== score && score >= Aa(null != p.veil ? p.veil : p.net);
+                });
+                return !0;
+            }
+            if (!vht[profId]) return !0;
+            const score = Ca(topicId, vt[profId], Qe[profId]);
+            return null !== score && score >= Aa(vpt[profId]);
         }
-        function Ia(e = Mt) {
+        function Ma(e, t, seen) {
+            if (!t || !vt[t]) return !0;
+            seen = seen || new Set;
+            if (seen.has(t)) return !0;
+            seen.add(t);
+            const n = catId(e.name), i = ft[t];
+            const checkProf = (ratings, annos, kids, veilVal) => {
+                const m = annos?.[n];
+                if ("favorite" === m) return !0;
+                if ("limit" === m) return Aa(veilVal) <= -100;
+                const s = Ea(e, ratings, annos, kids);
+                return null !== s && s >= Aa(veilVal);
+            };
+            if (i && "group" === i.kind) {
+                if (vht[t] && !checkProf(vt[t], Qe[t], at[t], vpt[t])) return !1;
+                const liveIds = Array.isArray(i.sourceIds) ? i.sourceIds.filter(id => vt[id]) : [];
+                if (liveIds.length) return liveIds.every(id => Ma(e, id, new Set(seen)));
+                const r = Array.isArray(i.sourceProfiles) ? i.sourceProfiles.filter(p => p && (p.veilEnabled ?? p.netEnabled)) : [];
+                if (r.length) return r.every(p => checkProf(p.ratings, p.annotations, p.importedChildren, null != p.veil ? p.veil : p.net));
+                return !0;
+            }
+            if (!vht[t]) return !0;
+            return checkProf(vt[t], Qe[t], at[t], vpt[t]);
+        }
+        function Ia(e = Mt, seen) {
+            if (!e) return Boolean($n);
+            seen = seen || new Set;
+            if (seen.has(e)) return !1;
+            seen.add(e);
             const t = ft[e];
             if (t && "group" === t.kind) {
-                const e = Array.isArray(t.sourceIds) ? t.sourceIds.filter(e => vt[e]) : [];
-                return e.length ? e.some(e => vht[e]) : Array.isArray(t.sourceProfiles) && t.sourceProfiles.some(e => e && (e.veilEnabled ?? e.netEnabled));
+                if (vht[e] || $n) return !0;
+                const liveIds = Array.isArray(t.sourceIds) ? t.sourceIds.filter(id => vt[id]) : [];
+                return liveIds.length ? liveIds.some(id => Ia(id, new Set(seen))) : Array.isArray(t.sourceProfiles) && t.sourceProfiles.some(p => p && (p.veilEnabled ?? p.netEnabled));
             }
             return Boolean(vht[e] || $n);
         }

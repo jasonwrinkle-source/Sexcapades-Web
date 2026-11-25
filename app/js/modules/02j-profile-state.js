@@ -207,7 +207,7 @@
             i.setAttribute("aria-label", r));
         }
         function zt(e) {
-            e && vt[e] && (yt[e] = !0, queueDraftAutosave(e), Gt(), Kt(e), sxRefreshGroupOwn(e));
+            e && vt[e] && (yt[e] = !0, queueDraftAutosave(e), Gt(), Kt(e), sxRefreshGroupOwn(e), "function" == typeof sxRefreshMatchTabs && sxRefreshMatchTabs());
             try {
                 if (e && typeof Oo !== "undefined" && Oo && (typeof Go === "undefined" || !Go || Go === e)) {
                     const name = e === Et ? "New profile" : (wt[e] || "Profile");

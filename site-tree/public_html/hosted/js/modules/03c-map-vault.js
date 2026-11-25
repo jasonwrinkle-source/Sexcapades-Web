@@ -8,13 +8,14 @@
         function sxGetMapVaultKey(id) {
             const profId = id || "__default__";
             const v = (typeof vht !== "undefined" && Boolean(vht[profId])) ? (typeof av === "function" && typeof vpt !== "undefined" ? av(vpt[profId]) : "on") : "off";
+            const fp = (typeof ft !== "undefined" && ft[profId] && "group" === ft[profId].kind && typeof sxSourcesFingerprint === "function") ? sxSourcesFingerprint(ft[profId].sourceIds) : "";
             const mode = (typeof Qi === "function" && Qi()) ? "compare:" + Array.from(Xi()).sort().join(",") : "single:" + profId;
             const search = (typeof $n !== "undefined" && $n && $n.size) ? Array.from($n).sort().join(",") : "none";
             const detail = typeof mapDetailLevel !== "undefined" ? mapDetailLevel : "norm";
             const cat = typeof Pt !== "undefined" ? Pt : "all";
             const rated = typeof Sn !== "undefined" ? Sn : "all";
             const blind = typeof Rt !== "undefined" ? Rt : false;
-            return `${mode}|det:${detail}|cat:${cat}|srch:${search}|sn:${rated}|veil:${v}|blind:${blind}`;
+            return `${mode}|det:${detail}|cat:${cat}|srch:${search}|sn:${rated}|veil:${v}|blind:${blind}|fp:${fp}`;
         }
 
         function sxVaultCaptureCurrent() {
