@@ -21349,21 +21349,25 @@ var SX_OCTAD_COLORS = ["#22c55e", "#10b981", "#06b6d4", "#3b82f6", "#6366f1", "#
                 if (!host) return null;
                 crossHost = host;
                 host.innerHTML = "";
+                // The flank keys for this topic: give/receive on the
+                // classic skin, advocacy/receptivity on stance skins.
+                var stance = sxDualPlacements(topicId);
+                var fl = stance ? ["advocacy", "receptivity"] : ["give", "receive"];
                 var getFlank = (dir) => {
                     var rec = ca(topicId, freshPid());
-                    return sxCrossFlankState(rec, dir);
+                    return sxCrossFlankState(rec, dir, keys);
                 };
                 var writeFlank = (dir, value) => {
-                    sxCrossWriteFlank(topicId, dir, value, freshPid());
+                    sxCrossWriteFlank(topicId, dir, value, freshPid(), keys);
                     redraw();
                     paintRow();
                 };
                 crossPair = {
-                    give: sxCreateCrossSlider({ dir: "give", compact: true, get: () => getFlank("give"), onChange: v => writeFlank("give", v), onRelease: () => finishGesture() }),
-                    receive: sxCreateCrossSlider({ dir: "receive", compact: true, get: () => getFlank("receive"), onChange: v => writeFlank("receive", v), onRelease: () => finishGesture() })
+                    first: sxCreateCrossSlider({ dir: fl[0], compact: true, get: () => getFlank(fl[0]), onChange: v => writeFlank(fl[0], v), onRelease: () => finishGesture() }),
+                    second: sxCreateCrossSlider({ dir: fl[1], compact: true, get: () => getFlank(fl[1]), onChange: v => writeFlank(fl[1], v), onRelease: () => finishGesture() })
                 };
-                host.appendChild(crossPair.give.root);
-                host.appendChild(crossPair.receive.root);
+                host.appendChild(crossPair.first.root);
+                host.appendChild(crossPair.second.root);
                 return crossPair;
             };
             const redraw = () => {
@@ -21407,10 +21411,11 @@ var SX_OCTAD_COLORS = ["#22c55e", "#10b981", "#06b6d4", "#3b82f6", "#6366f1", "#
                     if (canvas) canvas.style.display = "none";
                     if (pair) {
                         if (crossHost) crossHost.hidden = false;
-                        pair.give.setLabel((shape.labels && shape.labels[0]) || "Give");
-                        pair.receive.setLabel((shape.labels && shape.labels[1]) || "Receive");
-                        pair.give.render();
-                        pair.receive.render();
+                        var stance = sxDualPlacements(topicId);
+                        pair.first.setLabel((shape.labels && shape.labels[0]) || (stance ? "Advocacy" : "Give"));
+                        pair.second.setLabel((shape.labels && shape.labels[1]) || (stance ? "Receptivity" : "Receive"));
+                        pair.first.render();
+                        pair.second.render();
                     }
                     return;
                 }
@@ -22163,8 +22168,10 @@ var SX_OCTAD_COLORS = ["#22c55e", "#10b981", "#06b6d4", "#3b82f6", "#6366f1", "#
 /* --- Module: 03f3-cross-slider.js --- */
         // --- Cross Slider: the pair-topic control (2026-11-24) ---
         // Ported from the ruled mockup (ts-spaces/cross-slider-mockup).
-        // Two close-spaced lines, one puck per flank: give is a filled
-        // disc, receive an open ring with a hollow transparent centre.
+        // Two close-spaced lines, one puck per flank: the giving flank
+        // (give on the classic skin, advocacy on stance skins) is a
+        // filled disc, the receiving flank (receive / receptivity) an
+        // open ring with a hollow transparent centre.
         // Puck position along the line is the leaning; drag up/down and
         // the same puck rides a vertical appetite arm that overlays the
         // other line and reserves no layout space. Puck colour is the
@@ -22178,8 +22185,10 @@ var SX_OCTAD_COLORS = ["#22c55e", "#10b981", "#06b6d4", "#3b82f6", "#6366f1", "#
         // the line shows them as 0..100 (lean = (appLean + 100) / 2),
         // so "Lean out" is the left end (-100) and "Lean in" the right
         // (+100). Appetite is the per-flank (n+1)th number, -100..+100,
-        // stored per flank as giveIntensity / receiveIntensity and read
-        // stored-first, derived only when missing (the derivation is
+        // stored per flank as <flank>Intensity (giveIntensity /
+        // receiveIntensity on the classic skin, advocacyIntensity /
+        // receptivityIntensity on stance skins) and read stored-first,
+        // derived only when missing (the derivation is
         // the signed strongest holding of the single flank value --
         // the leaning itself). The 2D switchbox canvas this replaces
         // coupled both flanks into one drag, coloured by leaning, and
@@ -22198,8 +22207,27 @@ var SX_OCTAD_COLORS = ["#22c55e", "#10b981", "#06b6d4", "#3b82f6", "#6366f1", "#
         // per-flank intensity first; without one it derives from the
         // leaning, the way sxPlacementIntensity derives a missing
         // placement intensity (signed strongest holding).
-        function sxCrossFlankState(rec, dir) {
+        // A placement flank (stance skins, and classic n-pole topics)
+        // stores one OBJECT per flank -- {poleA, poleB, intensity} --
+        // not a single number, so Number(rec[dir]) is NaN and reads 0.
+        // With keys (the shape's two pole keys) the leaning is the
+        // spectrum position between the poles: (v0 - v1) / 2. The poles
+        // are opposites on one axis in the generated data, so this
+        // equals the first pole's value there; when a user rates the
+        // poles independently it is the honest midpoint. Appetite is
+        // the placement's stored intensity.
+        function sxCrossFlankState(rec, dir, keys) {
             if (!rec || !rec[dir + "Known"]) return null;
+            if (keys && keys.length >= 2 && rec[dir] && typeof rec[dir] === "object") {
+                var v0 = Number(rec[dir][keys[0]]) || 0, v1 = Number(rec[dir][keys[1]]) || 0;
+                var lean = sxCrossClamp(Math.round((v0 - v1) / 2), -100, 100);
+                var app = null;
+                if (rec[dir + "IntensityKnown"] && Number.isFinite(Number(rec[dir + "Intensity"]))) app = sxCrossClamp(Number(rec[dir + "Intensity"]), -100, 100);
+                else if (Number.isFinite(Number(rec[dir].intensity))) app = sxCrossClamp(Number(rec[dir].intensity), -100, 100);
+                else if (typeof sxSignedIntensity === "function") app = sxCrossClamp(sxSignedIntensity([lean]), -100, 100);
+                else app = lean;
+                return { lean: lean, app: app };
+            }
             var lean = sxCrossClamp(Number(rec[dir]) || 0, -100, 100);
             var app = null;
             if (rec[dir + "IntensityKnown"] && Number.isFinite(Number(rec[dir + "Intensity"]))) app = sxCrossClamp(Number(rec[dir + "Intensity"]), -100, 100);
@@ -22210,25 +22238,49 @@ var SX_OCTAD_COLORS = ["#22c55e", "#10b981", "#06b6d4", "#3b82f6", "#6366f1", "#
         // Write one flank through the flat setters. A null value clears
         // the flank: leaning and its stored appetite both go, so a
         // slide-off unrate leaves no orphan intensity behind.
-        function sxCrossWriteFlank(topicId, dir, value, profileId) {
+        // A placement flank (keys + a dual-placement topic) writes
+        // through the placement persister, not the flat setters: the
+        // flat setter would store a bare number under the flank key and
+        // destroy the per-pole placement object on re-read. The write
+        // preserves the placement's common level -- c = (v0 + v1) / 2 --
+        // and moves only the spectrum position, so a drag never silently
+        // drops how much the user holds both poles.
+        function sxCrossWriteFlank(topicId, dir, value, profileId, keys) {
             if (!topicId) return;
+            var isPlacement = !!(keys && keys.length >= 2 && typeof sxDualPlacements === "function" && sxDualPlacements(topicId));
             if (value === null || value === undefined) {
+                if (isPlacement && typeof sxClearAdvocacyReceptivity === "function") { sxClearAdvocacyReceptivity(topicId, dir, profileId || null); return; }
                 if (typeof Fo === "function") { Fo(topicId, dir, !1, profileId || null); Fo(topicId, dir + "Intensity", !1, profileId || null); }
                 return;
             }
+            var lean = sxCrossClamp(Math.round(Number(value.lean) || 0), -100, 100);
+            var app = sxCrossClamp(Math.round(Number(value.app) || 0), -100, 100);
+            if (isPlacement && typeof sxPersistAdvocacyReceptivity === "function" && typeof ca === "function") {
+                var cur = null;
+                try { cur = ca(topicId, profileId || null); } catch (err) { cur = null; }
+                var placement = cur && cur[dir] && typeof cur[dir] === "object" ? cur[dir] : null;
+                var c0 = placement ? (Number(placement[keys[0]]) || 0) : 0;
+                var c1 = placement ? (Number(placement[keys[1]]) || 0) : 0;
+                var common = (c0 + c1) / 2;
+                var vals = {};
+                vals[keys[0]] = sxCrossClamp(Math.round(common + lean), -100, 100);
+                vals[keys[1]] = sxCrossClamp(Math.round(common - lean), -100, 100);
+                sxPersistAdvocacyReceptivity(topicId, dir, vals, app, profileId || null);
+                return;
+            }
             if (typeof To !== "function") return;
-            To(topicId, dir, sxCrossClamp(Math.round(Number(value.lean) || 0), -100, 100), !1, profileId || null);
-            To(topicId, dir + "Intensity", sxCrossClamp(Math.round(Number(value.app) || 0), -100, 100), !1, profileId || null);
+            To(topicId, dir, lean, !1, profileId || null);
+            To(topicId, dir + "Intensity", app, !1, profileId || null);
         }
 
         function sxCreateCrossSlider(opts) {
             opts = opts || {};
-            var dir = opts.dir === "receive" ? "receive" : "give";
+            var dir = (typeof opts.dir === "string" && opts.dir) ? opts.dir : "give";
             var compact = !!opts.compact;
             var get = opts.get || function () { return null; };
             var onChange = opts.onChange || function () {};
             var onRelease = opts.onRelease || function () {};
-            var label = opts.label || (dir === "give" ? "Give" : "Receive");
+            var label = opts.label || (dir.charAt(0).toUpperCase() + dir.slice(1));
             var inset = compact ? 34 : 38;
             var runoffW = compact ? 24 : 28;
             var root = document.createElement("div");
@@ -22489,6 +22541,19 @@ var SX_OCTAD_COLORS = ["#22c55e", "#10b981", "#06b6d4", "#3b82f6", "#6366f1", "#
                     label = name || label;
                     labelEl.textContent = label;
                     puck.setAttribute("aria-label", label + " leaning and appetite");
+                },
+                // Re-point this instance at a different flank (the
+                // placard creates one pair and re-points it on every
+                // sync, so a classic pair topic followed by a stance
+                // pair topic re-uses the same two sliders with new
+                // dirs, getters, and writers). The label is left
+                // alone -- the caller sets it via setLabel.
+                setDir: function (newDir, newGet, newOnChange) {
+                    dir = newDir;
+                    root.dataset.dir = newDir;
+                    if (typeof newGet === "function") get = newGet;
+                    if (typeof newOnChange === "function") onChange = newOnChange;
+                    render();
                 }
             };
         }
@@ -25739,17 +25804,30 @@ var Qr = null, Jr = null, eo = null, to = !1, no = null;
            the stored values. The fine-tune block below it is the same
            four numbers written out longhand, in sync both ways. */
         var sxCrossPlacard = null;
+        // The current topic's pole keys (shape.keys): the placement
+        // flank read/write needs them to find the spectrum position
+        // inside a per-pole placement object. Set on every sync; null
+        // when the shape carries none (classic pair topics read/write
+        // flat give/receive numbers, and the object branch is skipped).
+        var sxCrossPlacardKeys = null;
         function sxCrossPlacardState(dir) {
             if (!Qr) return null;
             var rec = ca(Qr, Vi());
-            return sxCrossFlankState(rec, dir);
+            return sxCrossFlankState(rec, dir, sxCrossPlacardKeys);
         }
         function sxCrossPlacardWrite(dir, value) {
             if (!Qr) return;
-            sxCrossWriteFlank(Qr, dir, value, Vi());
+            sxCrossWriteFlank(Qr, dir, value, Vi(), sxCrossPlacardKeys);
         }
         function sxCrossPlacardRelease() {
             if (Qr) { sxSyncMarkRatings(Qr); Mr(); }
+        }
+        // The flank keys for the current topic: give/receive on the
+        // classic skin, advocacy/receptivity on stance skins (the
+        // cross slider reads/writes the real keys, so a stance pair
+        // topic shows live advocacy/receptivity pucks, not ghosts).
+        function sxCrossPlacardFlanks() {
+            return sxDualPlacements(Qr) ? ["advocacy", "receptivity"] : ["give", "receive"];
         }
         function sxBindCrossSliderPlacard() {
             var clearBtn = e.byId("markSwitchboxClear");
@@ -25757,7 +25835,16 @@ var Qr = null, Jr = null, eo = null, to = !1, no = null;
                 clearBtn.dataset.sxCrossBound = "1";
                 clearBtn.addEventListener("click", () => {
                     if (!Qr) return;
-                    ["give", "receive", "giveIntensity", "receiveIntensity"].forEach(k => Fo(Qr, k, !1));
+                    var fl = sxCrossPlacardFlanks();
+                    if (sxDualPlacements(Qr) && typeof sxClearAdvocacyReceptivity === "function") {
+                        // Placement flanks clear through the placement
+                        // clearer (it drops the object and its flat
+                        // mirror keys); the flat Fo() path would leave
+                        // the placement object behind.
+                        fl.forEach(k => sxClearAdvocacyReceptivity(Qr, k, Vi()));
+                    } else {
+                        fl.forEach(k => { Fo(Qr, k, !1); Fo(Qr, k + "Intensity", !1); });
+                    }
                     sxSyncMarkRatings(Qr);
                     Mr();
                 });
@@ -25765,25 +25852,30 @@ var Qr = null, Jr = null, eo = null, to = !1, no = null;
             var host = e.byId("markCrossSliderHost");
             if (!host || host.dataset.bound) return;
             host.dataset.bound = "1";
-            var give = sxCreateCrossSlider({ dir: "give", get: () => sxCrossPlacardState("give"), onChange: v => sxCrossPlacardWrite("give", v), onRelease: () => sxCrossPlacardRelease() });
-            var receive = sxCreateCrossSlider({ dir: "receive", get: () => sxCrossPlacardState("receive"), onChange: v => sxCrossPlacardWrite("receive", v), onRelease: () => sxCrossPlacardRelease() });
-            host.appendChild(give.root);
-            host.appendChild(receive.root);
-            sxCrossPlacard = { give: give, receive: receive };
+            var fl = sxCrossPlacardFlanks();
+            var first = sxCreateCrossSlider({ dir: fl[0], get: () => sxCrossPlacardState(fl[0]), onChange: v => sxCrossPlacardWrite(fl[0], v), onRelease: () => sxCrossPlacardRelease() });
+            var second = sxCreateCrossSlider({ dir: fl[1], get: () => sxCrossPlacardState(fl[1]), onChange: v => sxCrossPlacardWrite(fl[1], v), onRelease: () => sxCrossPlacardRelease() });
+            host.appendChild(first.root);
+            host.appendChild(second.root);
+            sxCrossPlacard = { first: first, second: second };
         }
         function sxSyncCrossSliderPlacard(shape) {
             sxBindCrossSliderPlacard();
             if (!sxCrossPlacard) return;
-            var giveName = (shape && shape.labels && shape.labels[0]) || "Give";
-            var recvName = (shape && shape.labels && shape.labels[1]) || "Receive";
-            sxCrossPlacard.give.setLabel(giveName);
-            sxCrossPlacard.receive.setLabel(recvName);
+            sxCrossPlacardKeys = (shape && shape.keys) || null;
+            var fl = sxCrossPlacardFlanks();
+            sxCrossPlacard.first.setDir(fl[0], () => sxCrossPlacardState(fl[0]), v => sxCrossPlacardWrite(fl[0], v));
+            sxCrossPlacard.second.setDir(fl[1], () => sxCrossPlacardState(fl[1]), v => sxCrossPlacardWrite(fl[1], v));
+            var firstName = (shape && shape.labels && shape.labels[0]) || (fl[0].charAt(0).toUpperCase() + fl[0].slice(1));
+            var secondName = (shape && shape.labels && shape.labels[1]) || (fl[1].charAt(0).toUpperCase() + fl[1].slice(1));
+            sxCrossPlacard.first.setLabel(firstName);
+            sxCrossPlacard.second.setLabel(secondName);
             if (typeof sxSetPoleTip === "function" && Qr) {
-                sxSetPoleTip(sxCrossPlacard.give.labelEl, Qr, "give");
-                sxSetPoleTip(sxCrossPlacard.receive.labelEl, Qr, "receive");
+                sxSetPoleTip(sxCrossPlacard.first.labelEl, Qr, fl[0]);
+                sxSetPoleTip(sxCrossPlacard.second.labelEl, Qr, fl[1]);
             }
-            sxCrossPlacard.give.render();
-            sxCrossPlacard.receive.render();
+            sxCrossPlacard.first.render();
+            sxCrossPlacard.second.render();
         }
         /* Placement intensities for the slider family + switchbox (2026-11-23):
            the canvas widgets carry disc/ring intensity sliders; the linear
@@ -26749,16 +26841,33 @@ var sxLadderKey = "";
             Qo = !0, t.clear(Xo), Xo = t.setInterval(ws, 1e3)), Zo = n, hs(), ws();
         }
 var xs = 0;
+        // Appetite for one inline-slider direction: the stored
+        // per-flank intensity first, the leaning as derivation (the
+        // fader's handle is coloured by appetite, positioned by
+        // leaning). A pole slider on a dual-placement topic belongs
+        // to the primary (advocacy) placement, so its appetite is
+        // that placement's intensity. The trilinear line and the
+        // monopole carry one intensity on the record itself. A pair
+        // topic's record-level intensity is the blend, never a flank
+        // appetite, so it is only used for the line and monopoles.
+        function sxOutlineDirAppetite(rec, dir, lean) {
+            var l = Math.max(-100, Math.min(100, Number(lean) || 0));
+            if (!rec) return l;
+            if (rec[dir + "IntensityKnown"] && Number.isFinite(Number(rec[dir + "Intensity"]))) return Math.max(-100, Math.min(100, Number(rec[dir + "Intensity"])));
+            if (rec.advocacyKnown && rec.advocacyIntensityKnown && Number.isFinite(Number(rec.advocacyIntensity)) && rec.advocacy && typeof rec.advocacy === "object" && Object.prototype.hasOwnProperty.call(rec.advocacy, dir)) return Math.max(-100, Math.min(100, Number(rec.advocacyIntensity)));
+            if ((dir === "line" || rec.isMonopole) && rec.intensityKnown && Number.isFinite(Number(rec.intensity))) return Math.max(-100, Math.min(100, Number(rec.intensity)));
+            return l;
+        }
         function Ss(e) {
             const t = e.dataset.outlineId, n = Go, i = ca(t, n), a = (Qe[n] || {})[t] || "", r = e.querySelector(".outline-topic-label");
             e.querySelectorAll("[data-outline-direction]").forEach(e => {
                 const t = e.dataset.outlineDirection;
-                !function(e, t, n) {
+                !function(e, t, n, app) {
                     const i = Math.max(-100, Math.min(100, Number(n) || 0)), a = __sxClosestAction(e, "outlineRating").querySelector("output");
-                    e.value = String(Math.round(i)), e.classList.toggle("is-unrated", !t), e.style.setProperty("--outline-thumb", t ? zi(i) : "#646d66"), 
+                    e.value = String(Math.round(i)), e.classList.toggle("is-unrated", !t), e.style.setProperty("--outline-thumb", t ? zi(app) : "#646d66"), 
                     e.setAttribute("aria-valuetext", t ? `${Math.round(i)}` : "Unrated"), a.textContent = t ? String(Math.round(i)) : "—", 
                     a.classList.toggle("is-unrated", !t);
-                }(e, Boolean(i[t + "Known"]), i[t]);
+                }(e, Boolean(i[t + "Known"]), i[t], sxOutlineDirAppetite(i, t, i[t]));
             }), e.querySelectorAll("[data-outline-mark]").forEach(e => e.setAttribute("aria-pressed", String(e.dataset.outlineMark === a))), 
             e.querySelector('[data-outline-flag="fantasy"]')?.setAttribute("aria-pressed", String(Boolean(Je[n]?.[t]))), 
             e.querySelector('[data-outline-flag="tried"]')?.setAttribute("aria-pressed", String(Boolean(et[n]?.[t])));
@@ -27874,9 +27983,95 @@ var Bs = window.matchMedia ? window.matchMedia("(hover: hover)") : {
                 e.hidden = !i;
             }), !0;
         }
+        // Appetite arm for the inline row sliders (2026-11-25): the
+        // map-inline fader is a true cross slider in fader dress, so
+        // a vertical drag while holding the handle opens the arm and
+        // sets the appetite -- the plain slider is supplanted by the
+        // cross slider for exactly this. Same mechanism as the 03f3
+        // cross slider: the arm is an overlay that reserves no layout
+        // space, the same rectangular tab rides it, green top /
+        // yellow zero / red bottom rail, ticks -100/-50/0/50/100,
+        // Appetite/Aversion labels, and a numeric bubble beside the
+        // handle while dragging. The arm is driven by the window
+        // pointermove/pointerup/pointercancel listeners (the row's
+        // Xs / pointerup / pointercancel), never by pointer capture
+        // (capture is attempted on the input as a convenience, in
+        // try/catch, exactly as 03f3 does); a lostpointercapture is
+        // treated as a release. The arm opens only after the pointer
+        // has moved 10px vertically, so a purely horizontal drag
+        // never shows it.
+        var sxOutlineArmNode = null;
+        function sxOutlineArmEl() {
+            if (sxOutlineArmNode) return sxOutlineArmNode;
+            var arm = document.createElement("div");
+            arm.className = "outline-arm";
+            arm.setAttribute("aria-hidden", "true");
+            arm.hidden = true;
+            arm.innerHTML =
+                '<div class="outline-arm-rail"></div>' +
+                '<div class="outline-arm-labels"><span class="up">Appetite</span><span class="down">Aversion</span></div>' +
+                '<div class="outline-arm-handle"></div>' +
+                '<div class="outline-arm-bubble"></div>';
+            [-100, -50, 0, 50, 100].forEach(function (t) {
+                var el = document.createElement("div");
+                el.className = "outline-arm-tick" + (t === 0 ? " zero" : "");
+                el.dataset.tick = t;
+                el.innerHTML = "<span>" + (t > 0 ? "+" + t : t) + "</span>";
+                el.style.top = (16 + (1 - (t + 100) / 200) * 160) + "px";
+                arm.appendChild(el);
+            });
+            document.body.append(arm);
+            sxOutlineArmNode = arm;
+            return arm;
+        }
+        // Pure appetite mapping (harness-extractable): vertical travel
+        // from the drag start maps onto -100..+100 over the rail's
+        // usable height, exactly as 03f3's arm does.
+        function sxOutlineArmAppetite(startApp, startY, clientY, inner) {
+            var h = Math.max(40, Number(inner) || 160);
+            return Math.max(-100, Math.min(100, Math.round((Number(startApp) || 0) + (Number(startY) - Number(clientY)) * (200 / h))));
+        }
+        // Position the arm over the handle (centred on the row) and
+        // place the tab + bubble for the given appetite. The arm's
+        // left follows the thumb as the leaning changes, the same way
+        // 03f3's arm follows its puck.
+        function sxOutlineArmShow(t) {
+            var arm = sxOutlineArmEl();
+            var rect = t.input.getBoundingClientRect();
+            var frac = Math.max(0, Math.min(1, (Number(t.input.value) + 100) / 200));
+            var x = rect.left + frac * rect.width;
+            var h = 192;
+            var top = Math.max(8, Math.min(window.innerHeight - h - 8, rect.top + rect.height / 2 - h / 2));
+            arm.style.left = Math.max(8, Math.min(window.innerWidth - 86, x - 39)) + "px";
+            arm.style.top = top + "px";
+            arm.classList.toggle("bubble-left", x > window.innerWidth - 220);
+            arm.hidden = false;
+            t.armInner = 160;
+            sxOutlineArmMove(t, t.app);
+        }
+        function sxOutlineArmMove(t, app) {
+            var arm = sxOutlineArmNode;
+            if (!arm || arm.hidden) return;
+            var handle = arm.querySelector(".outline-arm-handle");
+            var bubble = arm.querySelector(".outline-arm-bubble");
+            var rect = t.input.getBoundingClientRect();
+            var frac = Math.max(0, Math.min(1, (Number(t.input.value) + 100) / 200));
+            var x = rect.left + frac * rect.width;
+            arm.style.left = Math.max(8, Math.min(window.innerWidth - 86, x - 39)) + "px";
+            arm.classList.toggle("bubble-left", x > window.innerWidth - 220);
+            var a = Math.max(-100, Math.min(100, Number(app) || 0));
+            var y = 16 + (1 - (a + 100) / 200) * 160;
+            handle.style.top = y + "px";
+            handle.style.backgroundColor = zi(a);
+            bubble.style.top = y + "px";
+            bubble.textContent = (a > 0 ? "+" : "") + Math.round(a) + " " + (a > 25 ? "appetite" : a < -25 ? "aversion" : a === 0 ? "neutral" : a > 0 ? "appetite" : "aversion");
+        }
+        function sxOutlineArmHide() {
+            if (sxOutlineArmNode) sxOutlineArmNode.hidden = true;
+        }
         function Ys(e = zo) {
             if (e) {
-                e.input.classList.remove("is-dragging", "is-clear-preview"), e.thumb?.remove();
+                e.input.classList.remove("is-dragging", "is-clear-preview", "is-arm-open"), e.thumb?.remove(), sxOutlineArmHide();
                 try {
                     e.input.hasPointerCapture?.(e.pointerId) && e.input.releasePointerCapture(e.pointerId);
                 } catch (e) { __sxErrLog("pointer-capture", e); }
@@ -27888,6 +28083,48 @@ var Bs = window.matchMedia ? window.matchMedia("(hover: hover)") : {
             const n = t.rect, i = e.clientX < n.left - 18 || e.clientX > n.right + 18;
             t.clear = i, t.input.classList.toggle("is-clear-preview", i), t.thumb.style.left = `${e.clientX}px`, 
             t.thumb.style.top = `${e.clientY}px`, t.thumb.style.background = i ? "var(--red-deep)" : zi(Number(t.input.value));
+            // Appetite arm: a vertical drag while holding opens the
+            // arm (after 10px, so a purely horizontal drag never
+            // shows it); the arm then tracks the appetite live and
+            // writes it through the persister route. The arm reads
+            // only the window pointermove events -- pointer capture
+            // is never required for it. While the pointer is in the
+            // slide-off clear zone the clear takes precedence and no
+            // appetite is written.
+            if (!i && t.startY !== undefined && t.startApp !== undefined) {
+                var dy = e.clientY - t.startY;
+                if (!t.armShown && Math.abs(dy) > 10 && sxOutlineArmWritable(t.topicId, t.dir, Go)) {
+                    t.armShown = true;
+                    t.input.classList.add("is-arm-open");
+                    sxOutlineArmShow(t);
+                }
+                if (t.armShown) {
+                    var app = sxOutlineArmAppetite(t.startApp, t.startY, e.clientY, t.armInner || 160);
+                    sxOutlineArmMove(t, app);
+                    if (app !== t.app) {
+                        t.app = app;
+                        sxOutlineWriteAppetite(t.topicId, t.dir, app, Go);
+                        t.input.style.setProperty("--outline-thumb", zi(app));
+                    }
+                }
+            }
+        }
+        // End a row drag (pointerup path): commit the leaning, then
+        // any appetite the arm set (the pole is rated by the leaning
+        // write first, so the appetite's unrated guard passes), then
+        // repaint + milestone bookkeeping. The window pointerup and
+        // the lostpointercapture fallback both run this; a
+        // pointercancel only cleans up (live writes already stand).
+        function sxOutlineFinishDrag(e) {
+            if (!zo || zo.pointerId !== e.pointerId) return;
+            Xs(e);
+            const t = zo, {input: n, clear: i} = t;
+            if (zo = null, Ys(t), !Go) return;
+            const previousRatedCount = Number(n.dataset.milestoneStartRated), a = getOutlineRow(n);
+            delete n.dataset.milestoneStartRated, i ? (sxOutlineClearDir(a.dataset.outlineId, n.dataset.outlineDirection, Go) || Fo(a.dataset.outlineId, n.dataset.outlineDirection, !1, Go)) : (sxOutlineWriteDir(a.dataset.outlineId, n.dataset.outlineDirection, Number(n.value), Go) || To(a.dataset.outlineId, n.dataset.outlineDirection, Number(n.value), !0, Go)), 
+            t.armShown && !i && sxOutlineWriteAppetite(t.topicId, t.dir, t.app, Go),
+            Ss(a), ws(), ls(a.dataset.outlineId, Go) ? os.add(a.dataset.outlineId) : os.delete(a.dataset.outlineId), 
+            checkMilestoneTransition(Go, previousRatedCount);
         }
         Ro.addEventListener("pointerover", e => {
             if ("mouse" !== e.pointerType || !Bs.matches) return;
@@ -27988,7 +28225,127 @@ var Bs = window.matchMedia ? window.matchMedia("(hover: hover)") : {
             e.stopPropagation()));
         }), sxOutlineScroller().addEventListener("scroll", js, {
             passive: !0
-        }), Ro.addEventListener("input", e => {
+        }), // The inline row's sliders write one direction at a time.
+        // For a 2-pole (pair-topic linear) slider on a stance skin the
+        // direction is a pole of the primary (advocacy) placement: a
+        // flat To() would be invisible to ca() (it reads the placement
+        // object), so the write goes through the placement persister,
+        // seeded from the current values so an unrated topic is
+        // created whole and a rated one keeps its other pole and
+        // stored intensity. The 1-pole slider and the trilinear line
+        // keep their flat single-number write, and n-pole topics stay
+        // on their N-gon/radar widgets. Returns true when it handled
+        // the write; false means the caller uses the flat To()/Fo().
+        function sxOutlineWriteDir(topicId, dir, value, profileId) {
+            if (!sxDualPlacements(topicId)) return false;
+            var shape = (typeof Ge === "function") ? Ge(topicId) : null;
+            if (!shape || !shape.keys || shape.keys.length !== 2 || shape.keys.indexOf(dir) === -1) return false;
+            var rec = ca(topicId, profileId);
+            if (!rec) return false;
+            var vals = {};
+            shape.keys.forEach(k => { vals[k] = Math.max(-100, Math.min(100, Number(rec[k]) || 0)); });
+            vals[dir] = Math.max(-100, Math.min(100, Number(value) || 0));
+            sxPersistAdvocacyReceptivity(topicId, "advocacy", vals, rec.advocacyIntensity, profileId);
+            return true;
+        }
+        // Clear one pole of a 2-pole stance placement: the persister
+        // merges with the stored placement, so the pole is dropped
+        // from the stored object first or the merge would resurrect
+        // it; if it was the last pole the whole placement is cleared.
+        function sxOutlineClearDir(topicId, dir, profileId) {
+            if (!sxDualPlacements(topicId)) return false;
+            var shape = (typeof Ge === "function") ? Ge(topicId) : null;
+            if (!shape || !shape.keys || shape.keys.length !== 2 || shape.keys.indexOf(dir) === -1) return false;
+            var rec = ca(topicId, profileId);
+            if (!rec || !rec.advocacy || typeof rec.advocacy !== "object") return false;
+            var vals = {};
+            shape.keys.forEach(k => { if (k !== dir && rec[k + "Known"] && Number.isFinite(Number(rec[k]))) vals[k] = rec[k]; });
+            if (Object.keys(vals).length === 0) {
+                sxClearAdvocacyReceptivity(topicId, "advocacy", profileId);
+                return true;
+            }
+            var store = (typeof vt !== "undefined" && vt[profileId]) ? vt[profileId][topicId] : null;
+            if (store && store.advocacy) delete store.advocacy[dir];
+            sxPersistAdvocacyReceptivity(topicId, "advocacy", vals, rec.advocacyIntensity, profileId);
+            return true;
+        }
+        // Appetite for one inline-slider direction (the arm): write
+        // the appetite the vertical drag sets, through the same route
+        // the placard/popup cross slider uses. Mirrors
+        // sxOutlineDirAppetite's read order so the write lands where
+        // the read looks: a stored per-flank intensity first, then
+        // the advocacy placement for a dual-placement 2-pole topic,
+        // then the record's own intensity for a line/monopole, and
+        // finally the per-flank key for a classic flank that never
+        // stored one. Returns false (no-op) when the flank is
+        // unrated -- an appetite with no leaning to attach to would
+        // be an orphan intensity. (The pointerup finish writes the
+        // leaning first, so a pure vertical drag on an unrated
+        // slider still lands its appetite on release.)
+        function sxOutlineWriteAppetite(topicId, dir, app, profileId) {
+            if (!topicId || !dir) return false;
+            var rec = null;
+            try { rec = ca(topicId, profileId); } catch (err) { rec = null; }
+            if (!rec) return false;
+            if (!rec[dir + "Known"]) return false;
+            var isSingle = Boolean(rec.isMonopole) || ((typeof Ge === "function") && Ge(topicId) && Ge(topicId).single);
+            app = Math.max(-100, Math.min(100, Math.round(Number(app) || 0)));
+            if (rec[dir + "IntensityKnown"] && !isSingle) {
+                if (typeof To !== "function") return false;
+                To(topicId, dir + "Intensity", app, !1, profileId);
+                return true;
+            }
+            if (typeof sxDualPlacements === "function" && sxDualPlacements(topicId)) {
+                var shape = (typeof Ge === "function") ? Ge(topicId) : null;
+                if (shape && shape.keys && shape.keys.indexOf(dir) !== -1) {
+                    var vals = {};
+                    shape.keys.forEach(k => { vals[k] = Math.max(-100, Math.min(100, Number(rec[k]) || 0)); });
+                    if (typeof sxPersistAdvocacyReceptivity === "function") {
+                        sxPersistAdvocacyReceptivity(topicId, "advocacy", vals, app, profileId);
+                        return true;
+                    }
+                    return false;
+                }
+            }
+            if (dir === "line") {
+                if (typeof To !== "function") return false;
+                To(topicId, "intensity", app, !1, profileId);
+                return true;
+            }
+            // A single (monopole) topic on the classic skin has no
+            // appetite storage: its rating is one bare number, and
+            // To() on a single topic overwrites the whole record
+            // with the scalar -- writing "intensity" there would
+            // destroy the rating. The appetite for a classic single
+            // IS the leaning (derived), so there is nothing to store
+            // and the arm does not open for it.
+            if (isSingle) return false;
+            if (typeof To !== "function") return false;
+            To(topicId, dir + "Intensity", app, !1, profileId);
+            return true;
+        }
+        // Whether the arm can write an appetite here (the gate the
+        // drag uses before opening the arm): the flank must be rated,
+        // and the appetite must have a home -- a stored per-flank
+        // intensity, a dual placement, or the record's own intensity
+        // on a line. A classic single has none (see above), so the
+        // arm never opens for it. Re-checked live as the pointer
+        // moves, so rating the pole mid-gesture still opens the arm.
+        function sxOutlineArmWritable(topicId, dir, profileId) {
+            var rec = null;
+            try { rec = ca(topicId, profileId); } catch (err) { rec = null; }
+            if (!rec || !rec[dir + "Known"]) return false;
+            var isSingle = Boolean(rec.isMonopole) || ((typeof Ge === "function") && Ge(topicId) && Ge(topicId).single);
+            if (rec[dir + "IntensityKnown"] && !isSingle) return true;
+            if (typeof sxDualPlacements === "function" && sxDualPlacements(topicId)) {
+                var shape = (typeof Ge === "function") ? Ge(topicId) : null;
+                if (shape && shape.keys && shape.keys.indexOf(dir) !== -1) return true;
+            }
+            if (dir === "line") return true;
+            if (isSingle) return false;
+            return true;
+        }
+        Ro.addEventListener("input", e => {
             const t = __sxClosestAction(e.target, "outlineNoteInput");
             if (t && Go) {
                 const e = getOutlineRow(t), n = e.dataset.outlineId, i = t.value.trim();
@@ -28000,7 +28357,7 @@ var Bs = window.matchMedia ? window.matchMedia("(hover: hover)") : {
             if (!n || !Go) return;
             const i = getOutlineRow(n).dataset.outlineId;
             "milestoneStartRated" in n.dataset || (n.dataset.milestoneStartRated = String(cs(Go).rated)), 
-            To(i, n.dataset.outlineDirection, Number(n.value), !1, Go), os.add(i), Ss(getOutlineRow(n)), 
+            sxOutlineWriteDir(i, n.dataset.outlineDirection, Number(n.value), Go) || To(i, n.dataset.outlineDirection, Number(n.value), !1, Go), os.add(i), Ss(getOutlineRow(n)), 
             ws();
         }), Ro.addEventListener("change", e => {
             const t = __sxClosestAction(e.target, "outlineDirection");
@@ -28032,34 +28389,42 @@ var Bs = window.matchMedia ? window.matchMedia("(hover: hover)") : {
             if (gs(), "Delete" !== e.key && "Backspace" !== e.key) return;
             e.preventDefault();
             const n = getOutlineRow(t);
-            Fo(n.dataset.outlineId, t.dataset.outlineDirection, !1, Go), ls(n.dataset.outlineId, Go) ? os.add(n.dataset.outlineId) : os.delete(n.dataset.outlineId), 
+            sxOutlineClearDir(n.dataset.outlineId, t.dataset.outlineDirection, Go) || Fo(n.dataset.outlineId, t.dataset.outlineDirection, !1, Go), ls(n.dataset.outlineId, Go) ? os.add(n.dataset.outlineId) : os.delete(n.dataset.outlineId), 
             Ss(n), ws();
         }), Ro.addEventListener("pointerdown", e => {
             const t = __sxClosestAction(e.target, "outlineDirection");
             if (!t || !Go) return;
             gs(), Ys();
             const n = document.createElement("span");
-            n.className = "outline-drag-thumb", n.setAttribute("aria-hidden", "true"), document.body.append(n), 
+            n.className = "outline-drag-thumb", n.setAttribute("aria-hidden", "true"), document.body.append(n);
+            const row = getOutlineRow(t), topicId = row ? row.dataset.outlineId : null, dir = t.dataset.outlineDirection;
+            var startApp = Number(t.value) || 0;
+            try { startApp = sxOutlineDirAppetite(ca(topicId, Go), dir, Number(t.value)); } catch (err) { startApp = Number(t.value) || 0; }
             zo = {
                 input: t,
                 rect: t.getBoundingClientRect(),
                 pointerId: e.pointerId,
                 clear: !1,
-                thumb: n
+                thumb: n,
+                topicId: topicId,
+                dir: dir,
+                startY: e.clientY,
+                startApp: startApp,
+                app: startApp,
+                armShown: !1,
+                armInner: 160
             }, t.classList.add("is-dragging");
             try {
                 t.setPointerCapture(e.pointerId);
             } catch (e) { __sxErrLog("pointer-capture", e); }
             Xs(e);
-        }), window.addEventListener("pointermove", Xs, !0), window.addEventListener("pointerup", e => {
-            if (!zo || zo.pointerId !== e.pointerId) return;
-            Xs(e);
-            const t = zo, {input: n, clear: i} = t;
-            if (zo = null, Ys(t), !Go) return;
-            const previousRatedCount = Number(n.dataset.milestoneStartRated), a = getOutlineRow(n);
-            delete n.dataset.milestoneStartRated, i ? Fo(a.dataset.outlineId, n.dataset.outlineDirection, !1, Go) : To(a.dataset.outlineId, n.dataset.outlineDirection, Number(n.value), !0, Go), 
-            Ss(a), ws(), ls(a.dataset.outlineId, Go) ? os.add(a.dataset.outlineId) : os.delete(a.dataset.outlineId), 
-            checkMilestoneTransition(Go, previousRatedCount);
+        }), window.addEventListener("pointermove", Xs, !0), window.addEventListener("pointerup", sxOutlineFinishDrag, !0), Ro.addEventListener("lostpointercapture", e => {
+            // Engine quirk guard (same as 03f3): if capture is lost
+            // without an up, treat it as the release at wherever the
+            // drag currently sits -- the pointerup path, not a
+            // cancel, so the leaning and any arm appetite commit.
+            if (!zo || zo.pointerId !== e.pointerId || e.target !== zo.input) return;
+            sxOutlineFinishDrag(e);
         }, !0), window.addEventListener("pointercancel", e => {
             if (!zo || zo.pointerId !== e.pointerId) return;
             const t = zo;
