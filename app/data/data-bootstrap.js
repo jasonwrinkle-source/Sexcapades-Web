@@ -9222,10 +9222,19 @@ var INTEREST_STOPS = {
                 receive: null != R ? zi(R) : null
             };
             const GA = ya(e, t, "givePlacementIntensity", i), GR = ya(e, t, "receivePlacementIntensity", i);
-            if (null == GA && null == GR) return null;
+            // Classic pair topics have no placement intensities: their
+            // appetite is the stored per-flank intensity (cross slider,
+            // 2026-11-24). Each flank falls back on its own, so a topic
+            // with a placement on one side and a stored appetite on the
+            // other still colours both. Unstored on both sides returns
+            // null and the call site's leaning fallback is the appetite
+            // derivation itself, so nothing changes there.
+            const gI = ya(e, t, "giveIntensity", i), rI = ya(e, t, "receiveIntensity", i);
+            const give = null != GA ? GA : gI, receive = null != GR ? GR : rI;
+            if (null == give && null == receive) return null;
             return {
-                give: null != GA ? zi(GA) : null,
-                receive: null != GR ? zi(GR) : null
+                give: null != give ? zi(give) : null,
+                receive: null != receive ? zi(receive) : null
             };
         }
         function ya(e, t, n, i) {
@@ -10693,7 +10702,18 @@ var Xn = (e) => typeof window !== "undefined" && typeof window.Xn === "function"
                     if (t.giveKnown) parts.push(`Give ${Math.round(t.give)}`);
                     if (t.receiveKnown) parts.push(`Receive ${Math.round(t.receive)}`);
                     chipText = parts.length ? parts.join(" \u00b7 ") : "Unrated";
-                    if (parts.length) chipFill = zi(t.giveKnown && (!t.receiveKnown || Math.abs(t.give) >= Math.abs(t.receive)) ? t.give : t.receive), chipRated = !0;
+                    if (parts.length) {
+                        // Chip fill is the appetite, not the leaning
+                        // (ruling 2026-11-23): each flank's stored
+                        // per-flank intensity first, the leaning itself
+                        // as the derivation when unstored; the strongest
+                        // appetite wins the single fill. The text keeps
+                        // showing the leanings -- that is the rating.
+                        const gApp = t.giveIntensityKnown ? t.giveIntensity : (t.giveKnown ? t.give : null);
+                        const rApp = t.receiveIntensityKnown ? t.receiveIntensity : (t.receiveKnown ? t.receive : null);
+                        const topApp = null != gApp && (null == rApp || Math.abs(gApp) >= Math.abs(rApp)) ? gApp : rApp;
+                        chipFill = null != topApp ? zi(topApp) : Ga.NO_CODE_COLOR, chipRated = !0;
+                    }
                 } else if (f.length >= 2 && !$.single) {
                     const b = strongest(t);
                     if (b) chipText = `${b.label} ${Math.round(b.v)}`, chipFill = zi(b.v), chipRated = !0;
@@ -24097,13 +24117,15 @@ var SX_OCTAD_COLORS = ["#22c55e", "#10b981", "#06b6d4", "#3b82f6", "#6366f1", "#
             const isTetrad = !isCompass && Boolean(shape.tetrad || (shape.keys && shape.keys.length === 4));
             const isTriad = Boolean(shape.triangle || (shape.keys && shape.keys.length === 3));
             const is2Pole = !isOctad && !isHeptad && !isHexad && !isPentad && !isTetrad && !isTriad;
-            // The xy-switchbox has no intensity dimension at all (its two
-            // axes are signed already): the generic intensity slider and
-            // wheel must not rescale its values.
+            // Pair topics carry their appetite per flank on the cross
+            // slider (one puck per flank, arm = appetite), so the
+            // single generic intensity slider stays off here: one
+            // number cannot hold two flanks, and the wheel must not
+            // rescale the leanings.
             const isSwitch = is2Pole && !isCompass && !shape.single;
             if (slider) slider.disabled = isSwitch;
 
-            badgeEl && (badgeEl.textContent = isCompass ? "Political Compass" : isOctad ? "8-Pole Octad" : isHeptad ? "7-Pole Heptad" : isHexad ? "6-Pole Hexad" : isPentad ? "5-Pole Pentad" : isTetrad ? "4-Pole Tetrad" : isTriad ? "3-Pole Triad" : (shape.single ? "Monopole" : "2D Role Switch-Box"));
+            badgeEl && (badgeEl.textContent = isCompass ? "Political Compass" : isOctad ? "8-Pole Octad" : isHeptad ? "7-Pole Heptad" : isHexad ? "6-Pole Hexad" : isPentad ? "5-Pole Pentad" : isTetrad ? "4-Pole Tetrad" : isTriad ? "3-Pole Triad" : (shape.single ? "Monopole" : "Cross Slider"));
 
             const keys = shape.keys || [];
             if (readoutEl) {
@@ -24150,6 +24172,40 @@ var SX_OCTAD_COLORS = ["#22c55e", "#10b981", "#06b6d4", "#3b82f6", "#6366f1", "#
                 keys.forEach((k, idx) => { obj[k] = Math.round(valsArr[idx]); });
                 sxPersistAdvocacyReceptivity(topicId, "advocacy", obj, intensity, freshPid());
             };
+            // Cross slider for pair topics (2026-11-24): two compact
+            // lines, one puck per flank, appetite on the arm. Created
+            // once per popup open (the dialog host is cleared first so
+            // a re-open does not stack instances); the inline host
+            // never sees a pair topic, so it is created on demand.
+            var crossPair = null, crossHost = null;
+            const ensureCrossPair = () => {
+                if (crossPair) return crossPair;
+                var host = pick("hotListCrossSliderHost", ".hot-list-cross-host");
+                if (!host && canvas) {
+                    host = document.createElement("div");
+                    host.className = "hot-list-cross-host";
+                    canvas.parentNode.insertBefore(host, canvas.nextSibling);
+                }
+                if (!host) return null;
+                crossHost = host;
+                host.innerHTML = "";
+                var getFlank = (dir) => {
+                    var rec = ca(topicId, freshPid());
+                    return sxCrossFlankState(rec, dir);
+                };
+                var writeFlank = (dir, value) => {
+                    sxCrossWriteFlank(topicId, dir, value, freshPid());
+                    redraw();
+                    paintRow();
+                };
+                crossPair = {
+                    give: sxCreateCrossSlider({ dir: "give", compact: true, get: () => getFlank("give"), onChange: v => writeFlank("give", v), onRelease: () => finishGesture() }),
+                    receive: sxCreateCrossSlider({ dir: "receive", compact: true, get: () => getFlank("receive"), onChange: v => writeFlank("receive", v), onRelease: () => finishGesture() })
+                };
+                host.appendChild(crossPair.give.root);
+                host.appendChild(crossPair.receive.root);
+                return crossPair;
+            };
             const redraw = () => {
                 pId = freshPid();
                 sxSeedProfileIntensities(pId);
@@ -24182,6 +24238,24 @@ var SX_OCTAD_COLORS = ["#22c55e", "#10b981", "#06b6d4", "#3b82f6", "#6366f1", "#
                     sliderOut && (sliderOut.textContent = String(Math.round(sliderVal)));
                 }
                 syncReadouts();
+
+                // Pair topics show the cross slider (compact), not the
+                // 2D plane: two lines, one puck per flank, appetite on
+                // the arm. The canvas stays hidden while it is up.
+                if (isSwitch) {
+                    var pair = ensureCrossPair();
+                    if (canvas) canvas.style.display = "none";
+                    if (pair) {
+                        if (crossHost) crossHost.hidden = false;
+                        pair.give.setLabel((shape.labels && shape.labels[0]) || "Give");
+                        pair.receive.setLabel((shape.labels && shape.labels[1]) || "Receive");
+                        pair.give.render();
+                        pair.receive.render();
+                    }
+                    return;
+                }
+                if (canvas) canvas.style.display = "";
+                if (crossHost) crossHost.hidden = true;
 
                 if (isCompass) {
                     const pt = sxCompassPointFromValues(vals[0], vals[1], vals[2], vals[3]);
@@ -24333,17 +24407,6 @@ var SX_OCTAD_COLORS = ["#22c55e", "#10b981", "#06b6d4", "#3b82f6", "#6366f1", "#
                     }
                     redraw();
                     paintRow();
-                } else if (is2Pole && !shape.single) {
-                    const cx = canvas.width / 2, cy = canvas.height / 2;
-                    const r = Math.min(cx, cy) - 22;
-                    let dx = px - cx, dy = py - cy;
-                    if (Math.hypot(dx, dy) < 6) { dx = 0; dy = 0; }
-                    const g = Math.max(-100, Math.min(100, Math.round((dx / r) * 100)));
-                    const recv = Math.max(-100, Math.min(100, Math.round((-dy / r) * 100)));
-                    To(topicId, "give", g, !1, pId);
-                    To(topicId, "receive", recv, !1, pId);
-                    redraw();
-                    paintRow();
                 }
             };
 
@@ -24434,6 +24497,13 @@ var SX_OCTAD_COLORS = ["#22c55e", "#10b981", "#06b6d4", "#3b82f6", "#6366f1", "#
                         return;
                     }
                     Fo(topicId, "intensity", !1, pId);
+                    // Pair topics: clearing must also drop the stored
+                    // per-flank appetites, or a re-rate would inherit a
+                    // stale appetite from the cleared rating.
+                    if (isSwitch) {
+                        Fo(topicId, "giveIntensity", !1, pId);
+                        Fo(topicId, "receiveIntensity", !1, pId);
+                    }
                     keys.forEach((k, idx) => Fo(topicId, k, !root && idx === keys.length - 1, pId));
                     redraw();
                     if (root) finishGesture();
@@ -24928,6 +24998,339 @@ var SX_OCTAD_COLORS = ["#22c55e", "#10b981", "#06b6d4", "#3b82f6", "#6366f1", "#
                     }
                 });
             }
+        }
+
+/* --- Module: 03f3-cross-slider.js --- */
+        // --- Cross Slider: the pair-topic control (2026-11-24) ---
+        // Ported from the ruled mockup (ts-spaces/cross-slider-mockup).
+        // Two close-spaced lines, one puck per flank: give is a filled
+        // disc, receive an open ring with a hollow transparent centre.
+        // Puck position along the line is the leaning; drag up/down and
+        // the same puck rides a vertical appetite arm that overlays the
+        // other line and reserves no layout space. Puck colour is the
+        // appetite on the app's own interest scale (zi). Slide a puck
+        // off either end into the faded run-off and release to unrate
+        // that flank; the unrated puck ghosts charcoal at the centre
+        // of its own line, never at an end. Vertical travel never
+        // unrates, not even into aversion.
+        //
+        // Scale note: the app stores leanings signed (-100..+100) and
+        // the line shows them as 0..100 (lean = (appLean + 100) / 2),
+        // so "Lean out" is the left end (-100) and "Lean in" the right
+        // (+100). Appetite is the per-flank (n+1)th number, -100..+100,
+        // stored per flank as giveIntensity / receiveIntensity and read
+        // stored-first, derived only when missing (the derivation is
+        // the signed strongest holding of the single flank value --
+        // the leaning itself). The 2D switchbox canvas this replaces
+        // coupled both flanks into one drag, coloured by leaning, and
+        // had no appetite dimension at all.
+        function sxCrossClamp(v, lo, hi) { return Math.max(lo, Math.min(hi, v)); }
+        function sxCrossLeanToPct(lean) { return (sxCrossClamp(Number(lean) || 0, -100, 100) + 100) / 2; }
+        function sxCrossPctToLean(pct) { return sxCrossClamp(Math.round(pct * 2 - 100), -100, 100); }
+        function sxCrossColor(app) {
+            if (typeof zi === "function") return zi(app);
+            var v = Number(app) || 0, n = Math.min(1, Math.abs(v) / 100);
+            var a = [215, 189, 85], b = v > 0 ? [61, 168, 116] : [189, 79, 81];
+            return "rgb(" + Math.round(a[0] + (b[0] - a[0]) * n) + "," + Math.round(a[1] + (b[1] - a[1]) * n) + "," + Math.round(a[2] + (b[2] - a[2]) * n) + ")";
+        }
+        // Read one flank from a parsed record (ca): { lean, app } or
+        // null when the flank is unrated. Appetite is the stored
+        // per-flank intensity first; without one it derives from the
+        // leaning, the way sxPlacementIntensity derives a missing
+        // placement intensity (signed strongest holding).
+        function sxCrossFlankState(rec, dir) {
+            if (!rec || !rec[dir + "Known"]) return null;
+            var lean = sxCrossClamp(Number(rec[dir]) || 0, -100, 100);
+            var app = null;
+            if (rec[dir + "IntensityKnown"] && Number.isFinite(Number(rec[dir + "Intensity"]))) app = sxCrossClamp(Number(rec[dir + "Intensity"]), -100, 100);
+            else if (typeof sxSignedIntensity === "function") app = sxCrossClamp(sxSignedIntensity([lean]), -100, 100);
+            else app = lean;
+            return { lean: lean, app: app };
+        }
+        // Write one flank through the flat setters. A null value clears
+        // the flank: leaning and its stored appetite both go, so a
+        // slide-off unrate leaves no orphan intensity behind.
+        function sxCrossWriteFlank(topicId, dir, value, profileId) {
+            if (!topicId) return;
+            if (value === null || value === undefined) {
+                if (typeof Fo === "function") { Fo(topicId, dir, !1, profileId || null); Fo(topicId, dir + "Intensity", !1, profileId || null); }
+                return;
+            }
+            if (typeof To !== "function") return;
+            To(topicId, dir, sxCrossClamp(Math.round(Number(value.lean) || 0), -100, 100), !1, profileId || null);
+            To(topicId, dir + "Intensity", sxCrossClamp(Math.round(Number(value.app) || 0), -100, 100), !1, profileId || null);
+        }
+
+        function sxCreateCrossSlider(opts) {
+            opts = opts || {};
+            var dir = opts.dir === "receive" ? "receive" : "give";
+            var compact = !!opts.compact;
+            var get = opts.get || function () { return null; };
+            var onChange = opts.onChange || function () {};
+            var onRelease = opts.onRelease || function () {};
+            var label = opts.label || (dir === "give" ? "Give" : "Receive");
+            var inset = compact ? 34 : 38;
+            var runoffW = compact ? 24 : 28;
+            var root = document.createElement("div");
+            root.className = "xs" + (compact ? " compact" : "");
+            root.dataset.dir = dir;
+            root.innerHTML =
+                '<div class="xs-head">' +
+                    '<span class="xs-name"><span class="xs-dot"></span><span class="xs-label"></span></span>' +
+                    '<span class="xs-vals"></span>' +
+                '</div>' +
+                '<div class="xs-stage">' +
+                    '<div class="xs-runoff left" aria-hidden="true"></div>' +
+                    '<div class="xs-runoff right" aria-hidden="true"></div>' +
+                    '<div class="xs-arm"><div class="rail"></div></div>' +
+                    '<div class="xs-track"><div class="xs-fill"></div><div class="xs-mid"></div>' +
+                        '<div class="xs-puck" tabindex="0" role="slider"></div>' +
+                    '</div>' +
+                    '<div class="xs-bubble"></div>' +
+                    '<div class="xs-scale"><span>Lean out</span><span>Lean in</span></div>' +
+                    '<span class="xs-off-label left" aria-hidden="true">off</span>' +
+                    '<span class="xs-off-label right" aria-hidden="true">off</span>' +
+                '</div>';
+            var stage = root.querySelector(".xs-stage");
+            var track = root.querySelector(".xs-track");
+            var fill = root.querySelector(".xs-fill");
+            var puck = root.querySelector(".xs-puck");
+            var arm = root.querySelector(".xs-arm");
+            var bubble = root.querySelector(".xs-bubble");
+            var vals = root.querySelector(".xs-vals");
+            var labelEl = root.querySelector(".xs-label");
+            labelEl.textContent = label;
+            puck.setAttribute("aria-label", label + " leaning and appetite");
+            [-100, -50, 0, 50, 100].forEach(function (t) {
+                var el = document.createElement("div");
+                el.className = "xs-tick" + (t === 0 ? " zero" : "");
+                el.dataset.tick = t;
+                el.innerHTML = "<span>" + (t > 0 ? "+" + t : t) + "</span>";
+                arm.appendChild(el);
+            });
+            var labels = document.createElement("div");
+            labels.className = "xs-arm-labels";
+            labels.innerHTML = '<span class="up">Appetite</span><span class="down">Aversion</span>';
+            arm.appendChild(labels);
+
+            function render() {
+                var s = get();
+                var stageW = stage.clientWidth || 0;
+                var stageH = stage.clientHeight || 48;
+                var h = arm.clientHeight || 192;
+                var pad = 16, inner = Math.max(40, h - pad * 2);
+                var ticks = arm.querySelectorAll(".xs-tick");
+                for (var ti = 0; ti < ticks.length; ti++) {
+                    var t = parseInt(ticks[ti].dataset.tick, 10);
+                    ticks[ti].style.top = (pad + (1 - (t + 100) / 200) * inner) + "px";
+                }
+                if (!s) {
+                    root.classList.add("unrated");
+                    root.style.setProperty("--dir-color", "#57534a");
+                    if (!root.classList.contains("dragging")) {
+                        puck.style.left = "50%";
+                        puck.style.filter = "";
+                        puck.style.opacity = "";
+                    }
+                    puck.style.setProperty("--puck-dy", "0px");
+                    fill.style.width = "0%";
+                    var parkX = inset + Math.max(40, stageW - inset * 2) / 2;
+                    arm.style.left = parkX + "px";
+                    bubble.style.left = parkX + "px";
+                    bubble.style.top = (stageH / 2) + "px";
+                    puck.setAttribute("aria-valuetext", "Unrated. Drag along the line to rate.");
+                    vals.textContent = "Unrated";
+                    return;
+                }
+                root.classList.remove("unrated");
+                var lean = s.lean, app = s.app;
+                var pct = sxCrossLeanToPct(lean);
+                puck.style.left = pct + "%";
+                fill.style.width = pct + "%";
+                root.style.setProperty("--dir-color", sxCrossColor(app));
+                puck.setAttribute("aria-valuetext", "Leaning " + Math.round(lean) + " of 100, appetite " + (app > 0 ? "+" : "") + Math.round(app));
+                var puckX = inset + (pct / 100) * Math.max(40, stageW - inset * 2);
+                arm.style.left = puckX + "px";
+                if (!root.classList.contains("off-end")) {
+                    puck.style.filter = "";
+                    puck.style.opacity = "";
+                }
+                var dragging = root.classList.contains("dragging") && !root.classList.contains("off-end");
+                var dy = dragging ? -app * (inner / 200) : 0;
+                puck.style.setProperty("--puck-dy", dy + "px");
+                bubble.innerHTML = (app > 0 ? "+" : "") + Math.round(app) +
+                    " <small>" + (app > 25 ? "appetite" : app < -25 ? "aversion" : app === 0 ? "neutral" : app > 0 ? "appetite" : "aversion") + "</small>";
+                bubble.style.left = puckX + "px";
+                bubble.style.top = (stageH / 2 + dy) + "px";
+                bubble.style.transform = puckX > stageW - 130 ? "translate(calc(-100% - 26px), -50%)" : "translate(26px, -50%)";
+                if (root.classList.contains("off-end")) vals.textContent = "Release to unrate";
+                else vals.innerHTML = "Leaning <b>" + Math.round(lean) + "</b> · Appetite <b class=\"" + (app < 0 ? "neg" : "") + "\">" + (app > 0 ? "+" : "") + Math.round(app) + "</b>";
+            }
+
+            var drag = null;
+            function runPct(rect) { return (runoffW / rect.width) * 100; }
+            function armInner() {
+                var h = arm.clientHeight || 192;
+                return Math.max(40, h - 32);
+            }
+            function start(e) {
+                var rect = track.getBoundingClientRect();
+                var cur = get();
+                drag = {
+                    id: e.pointerId,
+                    startX: e.clientX,
+                    startY: e.clientY,
+                    startApp: cur ? cur.app : 0,
+                    wasUnrated: !cur,
+                    offEnd: false,
+                    rect: rect
+                };
+                root.classList.add("dragging");
+                root.classList.remove("off-end");
+                // Pointer capture is a convenience, never a load-bearing
+                // wall: some engines throw or quietly drop it for touch.
+                // The drag ALSO listens on window (capture phase) for the
+                // whole gesture, so moves keep arriving and the release
+                // ALWAYS reaches end() no matter what element the browser
+                // retargets events to, at either end of the line.
+                try { if (e.target && e.target.setPointerCapture) e.target.setPointerCapture(e.pointerId); } catch (err) {}
+                window.addEventListener("pointermove", move, true);
+                window.addEventListener("pointerup", end, true);
+                window.addEventListener("pointercancel", end, true);
+                move(e);
+                if (e.preventDefault) e.preventDefault();
+            }
+            function move(e) {
+                if (!drag || e.pointerId !== drag.id) return;
+                var rect = drag.rect;
+                var rawPct = ((e.clientX - rect.left) / rect.width) * 100;
+                var app = sxCrossClamp(drag.startApp + (drag.startY - e.clientY) * (200 / armInner()), -100, 100);
+                var rp = runPct(rect);
+                if (drag.wasUnrated) {
+                    // The unrated puck rests ON the line at its centre, so
+                    // a mere grab must not rate it: nothing happens until
+                    // the finger has actually moved a few px. Then dragging
+                    // it anywhere along the line rates it; in the run-off
+                    // it stays unrated, following the finger so the drag
+                    // can be felt the whole way.
+                    if (Math.abs(e.clientX - drag.startX) < 4 && Math.abs(e.clientY - drag.startY) < 4) return;
+                    if (rawPct >= 0 && rawPct <= 100) {
+                        drag.wasUnrated = false;
+                        onChange({ lean: sxCrossPctToLean(rawPct), app: Math.round(app) });
+                    } else {
+                        puck.style.left = sxCrossClamp(rawPct, -rp, 100 + rp) + "%";
+                        puck.style.setProperty("--puck-dy", "0px");
+                    }
+                    render();
+                    return;
+                }
+                if (rawPct < 0 || rawPct > 100) {
+                    // In the run-off: preview only -- nothing is committed
+                    // until release, and dragging back on cancels it. The
+                    // puck VISIBLY travels the faded extension from the
+                    // moment it crosses the end cap, greying out
+                    // progressively the further into the run-off it goes.
+                    if (!drag.offEnd) { drag.offEnd = true; root.classList.add("off-end"); }
+                    var over = rawPct < 0 ? -rawPct : rawPct - 100;
+                    var t = sxCrossClamp(over / rp, 0, 1);
+                    puck.style.left = sxCrossClamp(rawPct, -rp, 100 + rp) + "%";
+                    puck.style.filter = "grayscale(" + t + ")";
+                    puck.style.opacity = String(1 - 0.55 * t);
+                    puck.style.setProperty("--puck-dy", (-app * (armInner() / 200)) + "px");
+                    arm.style.left = (inset + (sxCrossClamp(rawPct, -rp, 100 + rp) / 100) * rect.width) + "px";
+                    vals.textContent = "Release to unrate";
+                    return;
+                }
+                if (drag.offEnd) {
+                    drag.offEnd = false;
+                    root.classList.remove("off-end");
+                    puck.style.filter = "";
+                    puck.style.opacity = "";
+                }
+                onChange({ lean: sxCrossPctToLean(rawPct), app: Math.round(app) });
+                render();
+            }
+            function end(e) {
+                if (!drag || (e && e.pointerId !== undefined && e.pointerId !== drag.id)) return;
+                var wasOffEnd = drag.offEnd;
+                drag = null;
+                window.removeEventListener("pointermove", move, true);
+                window.removeEventListener("pointerup", end, true);
+                window.removeEventListener("pointercancel", end, true);
+                root.classList.remove("dragging");
+                root.classList.remove("off-end");
+                puck.style.filter = "";
+                puck.style.opacity = "";
+                // The app's slide-off, preserved: releasing off the end
+                // of the line clears this flank to unrated.
+                if (wasOffEnd) onChange(null);
+                render();
+                onRelease(get());
+            }
+            puck.addEventListener("pointerdown", start);
+            track.addEventListener("pointerdown", function (e) {
+                if (e.target === puck || (puck.contains && puck.contains(e.target))) return;
+                start(e);
+            });
+            puck.addEventListener("pointermove", move);
+            track.addEventListener("pointermove", move);
+            puck.addEventListener("pointerup", end);
+            puck.addEventListener("pointercancel", end);
+            track.addEventListener("pointerup", end);
+            track.addEventListener("pointercancel", end);
+            // If capture is lost without an up (engine quirk), treat it
+            // as the release at wherever the puck currently sits.
+            puck.addEventListener("lostpointercapture", function () {
+                if (drag) end({ pointerId: drag.id });
+            });
+            // While a drag is live, stop the page scroll from taking the
+            // gesture over (the takeover is what cancels a finger drag
+            // mid-travel on engines without touch-action support).
+            root.addEventListener("touchmove", function (e) {
+                if (drag && e.preventDefault) e.preventDefault();
+            }, { passive: false });
+
+            puck.addEventListener("wheel", function (e) {
+                if (e.preventDefault) e.preventDefault();
+                if (e.stopPropagation) e.stopPropagation();
+                var s = get();
+                if (!s) return; // unrated: the wheel does not rate -- drag onto the line
+                var step = (e.deltaY < 0 ? 1 : -1) * (e.shiftKey ? 1 : 5);
+                root.classList.add("dragging");
+                onChange({ lean: s.lean, app: sxCrossClamp(Math.round(s.app + step), -100, 100) });
+                render();
+                clearTimeout(puck._wheelT);
+                puck._wheelT = setTimeout(function () { root.classList.remove("dragging"); render(); onRelease(get()); }, 450);
+            }, { passive: false });
+
+            puck.addEventListener("keydown", function (e) {
+                var s = get() || { lean: 0, app: 0 }; // arrows re-rate an unrated flank from mid-line
+                var handled = true;
+                if (e.key === "ArrowRight") s = { lean: sxCrossClamp(s.lean + 4, -100, 100), app: s.app };
+                else if (e.key === "ArrowLeft") s = { lean: sxCrossClamp(s.lean - 4, -100, 100), app: s.app };
+                else if (e.key === "ArrowUp") { s = { lean: s.lean, app: sxCrossClamp(s.app + 4, -100, 100) }; root.classList.add("dragging"); }
+                else if (e.key === "ArrowDown") { s = { lean: s.lean, app: sxCrossClamp(s.app - 4, -100, 100) }; root.classList.add("dragging"); }
+                else handled = false;
+                if (handled) {
+                    if (e.preventDefault) e.preventDefault();
+                    onChange({ lean: Math.round(s.lean), app: Math.round(s.app) });
+                    render();
+                    clearTimeout(puck._keyT);
+                    puck._keyT = setTimeout(function () { root.classList.remove("dragging"); render(); onRelease(get()); }, 600);
+                }
+            });
+
+            render();
+            return {
+                root: root,
+                labelEl: labelEl,
+                render: render,
+                setLabel: function (name) {
+                    label = name || label;
+                    labelEl.textContent = label;
+                    puck.setAttribute("aria-label", label + " leaning and appetite");
+                }
+            };
         }
 
 /* --- Module: 03e-map-paint.js --- */
@@ -25491,40 +25894,99 @@ var SX_OCTAD_COLORS = ["#22c55e", "#10b981", "#06b6d4", "#3b82f6", "#6366f1", "#
                 const p = -19 * (l.length - 1) / 2, h = l.map((t, n) => t.interactive ? `<text class="node-note-trigger node-marker node-marker-note" data-note-id="${e}" x="${p + 19 * n}" y="0" role="button" tabindex="0" aria-label="Open note for ${Hi(qn[e]?.label || "topic")}">${t.glyph}</text>` : "favorite" !== t.kind || isCatId(e) ? `<text class="node-marker node-marker-${t.kind}" x="${p + 19 * n}" y="0" aria-hidden="true">${t.glyph}</text>` : `<text class="node-marker node-marker-favorite" data-ui-tooltip="${Hi(lo(qn[e]))}" data-tooltip-tap-first x="${p + 19 * n}" y="0" aria-hidden="true">${t.glyph}</text>`).join("");
                 return `<g class="node-marker-cluster" transform="translate(${u.x.toFixed(2)} ${u.y.toFixed(2)})">${h}</g>`;
             };
-            // SX-PAIR-TAPER-PAINT (Phase 2, 2026-10-26): while a
-            // two-profile match tab is the live viewport, topic lines
-            // paint the PAIR's own taper intensities instead of the
-            // active profile's wants. Cross (⋈) tab, per topic: give
-            // flank = crossed give-fit (first give × second receive)
-            // / 100; receive flank = crossed receive-fit (first
-            // receive × second give) / 100. Straight (⊙) tab: give
-            // flank = straight give-likeness (first give × second
-            // give) / 100; receive flank = straight receive-likeness
-            // (first receive × second receive) / 100. The values are
-            // read straight off the pair record the engine already
-            // computed (topicsById ratings; the straight products in
-            // straight.byId) - no match math is recomputed here, and
-            // the two flanks are never averaged or merged into one
-            // number. "First" is the tab's first-named profile, so
-            // swapping the pair exchanges the flanks and leaves the
-            // fit itself unchanged. Colors come from zi(), the same
-            // value-to-color mapping the profile tapers use, on the
-            // same [-100, 100] scale. Any other view - a profile tab,
-            // a cast of 3 or more, blind mode - resolves to null and
-            // the paint below is exactly the profile paint.
+            // SX-PAIR-TAPER-PAINT (2026-11-24, Jason's ruling): on any
+            // two-profile match tab -- Cross ⋈, Straight ⊙, Circle Minus ⊖
+            // -- a topic's line wears the pair's SHARED APPETITE per flank:
+            // the lower of the two profiles' appetites on that flank. One
+            // consistent meaning on all three tabs; the tapers never show
+            // fit, and the tab kind never enters the computation. (The fit
+            // products the tapers used to show -- crossed for ⋈, straight
+            // for ⊙ -- live on in the scores and rings, not the lines.
+            // The 672a4c1 exclusion that kept tapers off ⊖, and the
+            // 9d0c3b9 refactor that deleted the fit computation itself,
+            // are both superseded by this ruling.) The appetite is the
+            // stored flank intensity first, the leaning itself as the
+            // derivation when unstored. Every topic has exactly two flank
+            // intensities -- advocacy / receptivity on stance skins, give
+            // / receive placement intensities on classic n-pole topics,
+            // give / receive intensities on classic pair topics -- so an
+            // octad wears two shared appetites, not eight: its eight
+            // poles are positions, not appetites. Any other view -- a
+            // profile tab, a cast of 3 or more, blind mode -- resolves to
+            // null and the paint below is exactly the profile paint.
+            function sxPairFlankAppetite(rec, dir) {
+                if (!rec) return null;
+                if (typeof sxIsStanceSkin === "function" && sxIsStanceSkin()) {
+                    const intKey = dir === "give" ? "advocacyIntensity" : "receptivityIntensity";
+                    const valKey = dir === "give" ? "advocacy" : "receptivity";
+                    if (rec[intKey + "Known"]) return rec[intKey];
+                    if (rec[valKey + "Known"] && typeof rec[valKey] === "number") return rec[valKey];
+                    return null;
+                }
+                const placeKey = dir === "give" ? "givePlacementIntensity" : "receivePlacementIntensity";
+                const flankKey = dir === "give" ? "giveIntensity" : "receiveIntensity";
+                if (rec[placeKey + "Known"]) return rec[placeKey];
+                if (rec[flankKey + "Known"]) return rec[flankKey];
+                if (rec[dir + "Known"]) return rec[dir];
+                return null;
+            }
+            function sxRawFlankAppetite(rec, dir) {
+                // Same appetite rule as sxPairFlankAppetite, for a LIVE
+                // stored record (no Known flags: a stored number is the
+                // test). Used for 3+ source groups, where there is no
+                // pair record to read parsed records from.
+                if (!rec) return null;
+                if (typeof sxIsStanceSkin === "function" && sxIsStanceSkin()) {
+                    const intKey = dir === "give" ? "advocacyIntensity" : "receptivityIntensity";
+                    const valKey = dir === "give" ? "advocacy" : "receptivity";
+                    if (typeof rec[intKey] === "number") return rec[intKey];
+                    if (typeof rec[valKey] === "number") return rec[valKey];
+                    return null;
+                }
+                const placeKey = dir === "give" ? "givePlacementIntensity" : "receivePlacementIntensity";
+                const flankKey = dir === "give" ? "giveIntensity" : "receiveIntensity";
+                if (typeof rec[placeKey] === "number") return rec[placeKey];
+                if (typeof rec[flankKey] === "number") return rec[flankKey];
+                if (typeof rec[dir] === "number") return rec[dir];
+                return null;
+            }
+            function sxGroupSharedAppetite(sourceIds, topicId) {
+                // Shared appetite across a whole group: the lower of ALL
+                // the sources' appetites per flank (Jason, 2026-11-24:
+                // a group of three or more still shows intensities).
+                // Returns null only when no source rated the topic at
+                // all; a flank any source lacks an appetite for comes
+                // back null (paints neutral), never an operation score.
+                if (!Array.isArray(sourceIds) || sourceIds.length < 2 || typeof vt === "undefined") return null;
+                let giveMin = null, recvMin = null, giveAll = true, recvAll = true, rated = false;
+                for (const id of sourceIds) {
+                    const r = vt[id] ? vt[id][topicId] : null;
+                    if (!r) { giveAll = false; recvAll = false; continue; }
+                    rated = true;
+                    const g = sxRawFlankAppetite(r, "give"), v = sxRawFlankAppetite(r, "receive");
+                    if (null === g) giveAll = false; else giveMin = null === giveMin ? g : Math.min(giveMin, g);
+                    if (null === v) recvAll = false; else recvMin = null === recvMin ? v : Math.min(recvMin, v);
+                }
+                if (!rated) return null;
+                return { give: giveAll ? giveMin : null, receive: recvAll ? recvMin : null };
+            }
             const sxPairTapers = function() {
                 if (Rt) return null;
                 const tab = sxCurrentTab();
-                if (!tab || "circleminus" === tab.kind) return null;
+                if (!tab) return null;
                 const ctx = sxTabContext(tab), ids = ctx ? ctx.ids : tab.ids;
                 if (!ids || 2 !== ids.length) return null;
                 const pair = sxPairByIds(ids[0], ids[1]);
                 if (!pair || !pair.topicsById) return null;
-                const firstIsA = [ ids[0], ids[1] ].sort()[0] === ids[0], cross = "circledot" !== tab.kind;
                 return id => {
                     const rec = pair.topicsById[id];
                     if (!rec) return null;
-                    const mine = firstIsA ? rec.ratings.a : rec.ratings.b, yours = firstIsA ? rec.ratings.b : rec.ratings.a;
+                    const a = rec.ratings.a, b = rec.ratings.b;
+                    if (!a || !b) return null;
+                    const gA = sxPairFlankAppetite(a, "give"), gB = sxPairFlankAppetite(b, "give");
+                    const rA = sxPairFlankAppetite(a, "receive"), rB = sxPairFlankAppetite(b, "receive");
+                    const give = null == gA || null == gB ? null : Math.min(gA, gB);
+                    const receive = null == rA || null == rB ? null : Math.min(rA, rB);
                     return {
                         give: null === give ? null : zi(give),
                         receive: null === receive ? null : zi(receive)
@@ -25646,6 +26108,15 @@ var SX_OCTAD_COLORS = ["#22c55e", "#10b981", "#06b6d4", "#3b82f6", "#6366f1", "#
             const pseudoMeta = isPseudo && typeof ft !== "undefined" ? ft[sxActiveProfile] : null;
             const pseudoOp = pseudoMeta ? (pseudoMeta.operation || pseudoMeta.pairOp) : null;
             const pseudoSources = isPseudo && Array.isArray(pseudoMeta.sourceProfiles) && pseudoMeta.sourceProfiles.length >= 2 ? pseudoMeta.sourceProfiles : null;
+            // Pair-group tapers (Jason, 2026-11-24): a pair group profile's
+            // map paints the pair's SHARED APPETITE per flank -- the lower
+            // of the two sources' appetites -- the same meaning as every
+            // other map. The pair record is resolved once per paint from
+            // the live sources; the operation's own values stay in the
+            // stored record, the rings and the lists. Pair-only: a 3+
+            // source group has no pair record to share across, so it
+            // keeps its operation rendering below.
+            const pseudoPair = isPseudo && pseudoMeta && Array.isArray(pseudoMeta.sourceIds) && 2 === pseudoMeta.sourceIds.length && typeof sxPairByIds === "function" ? sxPairByIds(pseudoMeta.sourceIds[0], pseudoMeta.sourceIds[1]) : null;
             const getPartyHoldings = (topicId) => {
                 if (!pseudoSources) return null;
                 return pseudoSources.map(sp => {
@@ -25669,6 +26140,53 @@ var SX_OCTAD_COLORS = ["#22c55e", "#10b981", "#06b6d4", "#3b82f6", "#6366f1", "#
                 if (!isPseudo || !vt[sxActiveProfile]) return null;
                 const rec = vt[sxActiveProfile][topicId];
                 if (!rec) return null;
+                if (pseudoPair) {
+                    // Tapers show the pair's shared appetite (Jason,
+                    // 2026-11-24): the lower of the two sources'
+                    // appetites per flank -- min, the bottleneck, the
+                    // same meaning as every other map. The operation's
+                    // own values stay in the stored record, the rings
+                    // and the lists; the lines are the appetite layer.
+                    // Appetite reads stored-first, leaning as
+                    // derivation (the same rule as the pair-tab
+                    // tapers). A flank with no appetite on either
+                    // side paints neutral -- never the operation's
+                    // score, which is not an appetite.
+                    const prec = pseudoPair.topicsById ? pseudoPair.topicsById[topicId] : null;
+                    const pa = prec && prec.ratings ? prec.ratings.a : null, pb = prec && prec.ratings ? prec.ratings.b : null;
+                    const gA = sxPairFlankAppetite(pa, "give"), gB = sxPairFlankAppetite(pb, "give");
+                    const rA = sxPairFlankAppetite(pa, "receive"), rB = sxPairFlankAppetite(pb, "receive");
+                    const give = null == gA || null == gB ? null : Math.min(gA, gB);
+                    const receive = null == rA || null == rB ? null : Math.min(rA, rB);
+                    const neutral = Te(lineColor || "var(--neutral-line)");
+                    const mid = null !== give && null !== receive ? zi((give + receive) / 2) : null !== give ? zi(give) : null !== receive ? zi(receive) : neutral;
+                    return {
+                        give: null === give ? neutral : zi(give),
+                        receive: null === receive ? neutral : zi(receive),
+                        mid: mid,
+                        isRated: !0
+                    };
+                }
+                const groupIds = pseudoMeta && Array.isArray(pseudoMeta.sourceIds) ? pseudoMeta.sourceIds : null;
+                if (!pseudoPair && groupIds && groupIds.length > 2) {
+                    // 3+ sources (Jason, 2026-11-24): the lines still show
+                    // intensities -- the shared appetite is the lower of
+                    // ALL the sources' appetites per flank, read from
+                    // their live records. Same rule, same neutral
+                    // fallback; the operation's values never paint as
+                    // appetite.
+                    const shared = sxGroupSharedAppetite(groupIds, topicId);
+                    if (shared) {
+                        const neutral = Te(lineColor || "var(--neutral-line)");
+                        const mid = null !== shared.give && null !== shared.receive ? zi((shared.give + shared.receive) / 2) : null !== shared.give ? zi(shared.give) : null !== shared.receive ? zi(shared.receive) : neutral;
+                        return {
+                            give: null === shared.give ? neutral : zi(shared.give),
+                            receive: null === shared.receive ? neutral : zi(shared.receive),
+                            mid: mid,
+                            isRated: !0
+                        };
+                    }
+                }
                 if (pseudoOp === "minus") {
                     const gv = typeof rec.give === "number" ? rec.give : (typeof rec.singleValue === "number" ? rec.singleValue : 0);
                     const rv = typeof rec.receive === "number" ? rec.receive : (typeof rec.singleValue === "number" ? rec.singleValue : 0);
@@ -25728,12 +26246,19 @@ var SX_OCTAD_COLORS = ["#22c55e", "#10b981", "#06b6d4", "#3b82f6", "#6366f1", "#
                 const sxCatDisc = Rt ? null : sxCategoryInterestDisc(i, C);
                 const sxCatAdv = Rt ? null : fa(i, C, "advocacyIntensity"), sxCatRec = Rt ? null : fa(i, C, "receptivityIntensity");
                 const sxCatGv = Rt ? null : fa(i, C, "givePlacementIntensity"), sxCatRc = Rt ? null : fa(i, C, "receivePlacementIntensity");
+                // Classic pair topics have no placement intensities: the
+                // branch spoke's appetite aggregate is the stored
+                // per-flank intensity (cross slider, 2026-11-24), read
+                // here so the spoke colours by appetite instead of the
+                // leaning aggregate. Unstored falls through to the
+                // leaning aggregate, which is the appetite derivation.
+                const sxCatGI = Rt ? null : fa(i, C, "giveIntensity"), sxCatRI = Rt ? null : fa(i, C, "receiveIntensity");
                 const j = g.labelStartX + g.ux * E, q = g.labelStartY + g.uy * E, H = Math.atan2(l.y - o.y, l.x - o.x), W = Math.cos(H) < 0, U = W ? -g.ux : g.ux, G = j + 0 * (W ? -g.uy : g.uy), K = q - 0 * U, z = 180 * (H + (W ? Math.PI : 0)) / Math.PI, V = W ? ' text-anchor="end"' : "", Y = sxIconDiameter(1), X = Y / 2, Z = Y / 24, Q = ge[i.name], J = Xa(a, yr(i)), ee = Q ? HubRenderer.renderIcon(dCat, Y, Q, Sa(dCat, qn[dCat], C, { tapFirst: !0 }), sxCatDisc ? sxCatDisc.ring : sxCatHeat || Q.color, J.x, J.y, true, false, null, sxCatDisc) : "", te = k(dCat, M, !Rt && qa(dCat, Je), !Rt && qa(dCat, et), !Rt && Boolean(tt[C]?.[dCat]?.length), J, g.ux, g.uy), ne = j - 11 * g.ux, ie = q - 11 * g.uy, ae = i.risk ? `<text class="risk-mark" x="${ne.toFixed(2)}" y="${ie.toFixed(2)}" dy="-8" text-anchor="middle" transform="rotate(${z.toFixed(2)} ${ne.toFixed(2)} ${ie.toFixed(2)})" aria-hidden="true">*</text>` : "", re = r ? h.hidden : n.topics.length, oe = X + 20, se = HubRenderer.renderBadges(J.x, J.y, re, dCat, -g.ux, -g.uy, oe, true), le = r ? function(e, t, n, i, a, r) {
                     if (!n) return "";
                     const o = `+${n} more`, s = Math.max(58, 7 * o.length + 16), l = i + s / 2 * Math.abs(a) + 12 * Math.abs(r), c = t + r * l;
                     return `<g class="hidden-count-badge density-count-badge" data-width="${s}" transform="translate(${(e + a * l - s / 2).toFixed(2)} ${(c - 12).toFixed(2)})" role="note" aria-label="${n} more ${1 === n ? "topic" : "topics"} hidden by hypermap density"><rect width="${s}" height="24" rx="7"/><text x="${(s / 2).toFixed(2)}" y="12" text-anchor="middle" dominant-baseline="middle">${o}</text></g>`;
                 }(l.x, l.y, n.densityHidden, X, g.ux, g.uy) : "";
-                const branchSpokeSvg = SpokeRenderer.renderBranchSpoke(dCat, m, i.name, g.nx, g.ny, o2.x, o2.y, c.x, c.y, sxCatHeat, L, D, null != sxCatAdv ? zi(sxCatAdv) : null != sxCatGv ? zi(sxCatGv) : null === I ? L : N, null != sxCatRec ? zi(sxCatRec) : null != sxCatRc ? zi(sxCatRc) : null === I ? L : _, ("noCode" === P.key ? Ga.FALLBACK_COLOR : P.lineColor || P.color || Ga.FALLBACK_COLOR), "noCode" === P.key, null !== I || null != sxCatAdv || null != sxCatRec || null != sxCatGv || null != sxCatRc, p, SpokeGeometry.buildBaseCircle(pr.centerX, pr.centerY, gen1SpokeBaseRadius()), sxIconDiameter(1));
+                const branchSpokeSvg = SpokeRenderer.renderBranchSpoke(dCat, m, i.name, g.nx, g.ny, o2.x, o2.y, c.x, c.y, sxCatHeat, L, D, null != sxCatAdv ? zi(sxCatAdv) : null != sxCatGv ? zi(sxCatGv) : null != sxCatGI ? zi(sxCatGI) : null === I ? L : N, null != sxCatRec ? zi(sxCatRec) : null != sxCatRc ? zi(sxCatRc) : null != sxCatRI ? zi(sxCatRI) : null === I ? L : _, ("noCode" === P.key ? Ga.FALLBACK_COLOR : P.lineColor || P.color || Ga.FALLBACK_COLOR), "noCode" === P.key, null !== I || null != sxCatAdv || null != sxCatRec || null != sxCatGv || null != sxCatRc || null != sxCatGI || null != sxCatRI, p, SpokeGeometry.buildBaseCircle(pr.centerX, pr.centerY, gen1SpokeBaseRadius()), sxIconDiameter(1));
                 v += `<g class="${w.join(" ")} gen1-line-group" data-layout-key="${dCat}" data-layout-x="${J.x.toFixed(2)}" data-layout-y="${J.y.toFixed(2)}" data-icon-distance-override="${g.labelWidth.toFixed(2)}" data-rated="${null === I ? "false" : "true"}" style="--profile-color:${f};--family-color:${sxCatHeat || (Q && Q.color) || Ga.FALLBACK_COLOR};--gen1-line-color:${sxCatHeat || L};--gen1-line-dash:${R}">${branchSpokeSvg}${sxCatHeat ? `<path class="branch-heat" d="${m}" fill="none" stroke="${sxCatHeat}" stroke-width="4" vector-effect="non-scaling-stroke" stroke-linecap="round" pointer-events="none"/>` : ""}${ee}${te}${ae}${se}${le}<path id="p-${dCat}" d="${y}" fill="none" stroke="transparent"/><line class="node-label-underline" style="stroke:${f}" data-offset="0" x1="${j.toFixed(2)}" y1="${q.toFixed(2)}" x2="${(j + g.ux * catUnderlineW).toFixed(2)}" y2="${(q + g.uy * catUnderlineW).toFixed(2)}"/><text class="category-label" data-id="${dCat}" data-path-id="p-${dCat}" data-label-offset="${E}" ${Sa(dCat, qn[dCat], C)} tabindex="0" role="button" aria-expanded="${r}" aria-label="${Hi(i.name)}${i.risk ? ", higher-risk practice requiring specialized knowledge and explicit negotiation" : ""}${x && x.has(i.name) ? ", contains newly imported additions" : ""}. ${r ? `${h.mode} children shown; press Enter to collapse` : `Children hidden; press Enter to expand with ${h.mode} children`}; press Shift Enter for description and markers." style="font-size:${catFs.toFixed(2)}px" x="${G.toFixed(2)}" y="${K.toFixed(2)}" dominant-baseline="middle"${V} transform="rotate(${z.toFixed(2)} ${G.toFixed(2)} ${K.toFixed(2)})">${Hi(i.name)}</text></g>`;
                 for (let sxTi = 0; sxTi < e.topics.length; sxTi++) {
                     const t = e.topics[sxTi];
@@ -27405,6 +27930,12 @@ var Qr = null, Jr = null, eo = null, to = !1, no = null;
                     if (sxClassicSkin && !isClassic) el.textContent = isRecLbl ? "○ Receive" : "● Give";
                     else el.textContent = isRecLbl ? "○ Rec" : "● Adv";
                 });
+                // The switchbox intensity box's spoken labels follow the
+                // same skin wording: the classic skin stores give and
+                // receive only, never advocacy/receptivity.
+                const advInput = e.byId("markSwitchboxIntensity"), recInput = e.byId("markSwitchboxRecIntensity");
+                if (advInput) advInput.setAttribute("aria-label", sxClassicSkin && !isClassic ? "Give intensity" : "Advocacy intensity");
+                if (recInput) recInput.setAttribute("aria-label", sxClassicSkin && !isClassic ? "Receive intensity" : "Receptivity intensity");
             }
 
             const triWrap = e.byId("markTriangleWrap");
@@ -27485,9 +28016,6 @@ var Qr = null, Jr = null, eo = null, to = !1, no = null;
             const octadPole0 = e.byId("markOctadPole0"), octadPole1 = e.byId("markOctadPole1"), octadPole2 = e.byId("markOctadPole2"), octadPole3 = e.byId("markOctadPole3"), octadPole4 = e.byId("markOctadPole4"), octadPole5 = e.byId("markOctadPole5"), octadPole6 = e.byId("markOctadPole6"), octadPole7 = e.byId("markOctadPole7");
 
             const switchboxWrap = e.byId("markSwitchboxWrap");
-            const switchboxCanvas = e.byId("markSwitchboxCanvas");
-            const switchboxGiveLabel = e.byId("markSwitchboxGiveLabel");
-            const switchboxRecvLabel = e.byId("markSwitchboxRecvLabel");
 
             const linearRatings = e.byId("markRatings");
 
@@ -28030,21 +28558,143 @@ var Qr = null, Jr = null, eo = null, to = !1, no = null;
                     recvOut && (recvOut.textContent = rec[k1 + "Known"] ? String(Math.round(rec[k1])) : "Unrated");
                 } else {
                     setOnlyWrap(switchboxWrap);
-                    const isUnrated = !rec.giveKnown && !rec.receiveKnown;
-                    sxSwitchboxState.topicId = id;
-                    sxSwitchboxState.give = rec.giveKnown ? rec.give : 0;
-                    sxSwitchboxState.receive = rec.receiveKnown ? rec.receive : 0;
-                    sxSwitchboxState.isUnrated = isUnrated;
-                    if (switchboxGiveLabel) switchboxGiveLabel.textContent = shape.labels[0] || "Give";
-                    if (switchboxRecvLabel) switchboxRecvLabel.textContent = shape.labels[1] || "Receive";
-                    sxSetPoleTip(switchboxGiveLabel, id, "give");
-                    sxSetPoleTip(switchboxRecvLabel, id, "receive");
-                    sxSetSwitchboxQuadrants(id);
-                    sxDrawSwitchboxWidget(switchboxCanvas, shape, sxSwitchboxState);
-                    sxUpdateSwitchboxReadouts(sxSwitchboxState.give, sxSwitchboxState.receive, isUnrated);
+                    sxSyncCrossSliderPlacard(shape);
                 }
             }
             sxSyncLinearIntensities(id, rec, shape);
+        }
+        /* Cross slider on the placard (2026-11-24): the pair-topic
+           control is two lines with one puck per flank, not the old
+           2D plane. One instance pair is created once and re-pointed
+           at the dialog's current topic on every sync; its getters
+           read the live record, so a re-render after any write shows
+           the stored values. The fine-tune block below it is the same
+           four numbers written out longhand, in sync both ways. */
+        var sxCrossPlacard = null;
+        function sxCrossPlacardState(dir) {
+            if (!Qr) return null;
+            var rec = ca(Qr, Vi());
+            return sxCrossFlankState(rec, dir);
+        }
+        function sxCrossPlacardWrite(dir, value) {
+            if (!Qr) return;
+            sxCrossWriteFlank(Qr, dir, value, Vi());
+            sxSyncCrossFineAndReadout();
+        }
+        function sxCrossPlacardRelease() {
+            if (Qr) { sxSyncMarkRatings(Qr); Mr(); }
+        }
+        function sxBindCrossSliderPlacard() {
+            var clearBtn = e.byId("markSwitchboxClear");
+            if (clearBtn && !clearBtn.dataset.sxCrossBound) {
+                clearBtn.dataset.sxCrossBound = "1";
+                clearBtn.addEventListener("click", () => {
+                    if (!Qr) return;
+                    ["give", "receive", "giveIntensity", "receiveIntensity"].forEach(k => Fo(Qr, k, !1));
+                    sxSyncMarkRatings(Qr);
+                    Mr();
+                });
+            }
+            var host = e.byId("markCrossSliderHost");
+            if (!host || host.dataset.bound) return;
+            host.dataset.bound = "1";
+            var give = sxCreateCrossSlider({ dir: "give", get: () => sxCrossPlacardState("give"), onChange: v => sxCrossPlacardWrite("give", v), onRelease: () => sxCrossPlacardRelease() });
+            var receive = sxCreateCrossSlider({ dir: "receive", get: () => sxCrossPlacardState("receive"), onChange: v => sxCrossPlacardWrite("receive", v), onRelease: () => sxCrossPlacardRelease() });
+            host.appendChild(give.root);
+            host.appendChild(receive.root);
+            sxCrossPlacard = { give: give, receive: receive };
+            // Fine-tune sliders: the same four numbers, longhand.
+            var fine = [
+                ["markCrossFineGiveLean", "give", "lean"],
+                ["markCrossFineGiveApp", "give", "app"],
+                ["markCrossFineRecvLean", "receive", "lean"],
+                ["markCrossFineRecvApp", "receive", "app"]
+            ];
+            fine.forEach(([inputId, dir, key]) => {
+                var input = e.byId(inputId);
+                if (!input || input.dataset.sxCrossBound) return;
+                input.dataset.sxCrossBound = "1";
+                input.addEventListener("input", () => {
+                    if (!Qr) return;
+                    var cur = sxCrossPlacardState(dir) || { lean: 0, app: 0 };
+                    var next = { lean: cur.lean, app: cur.app };
+                    next[key] = Math.round(Number(input.value) || 0);
+                    sxCrossWriteFlank(Qr, dir, next, Vi());
+                    sxSyncCrossFineAndReadout();
+                    if (sxCrossPlacard) sxCrossPlacard[dir].render();
+                });
+                input.addEventListener("change", () => { sxCrossPlacardRelease(); });
+            });
+        }
+        function sxSyncCrossFineAndReadout() {
+            if (!Qr) return;
+            var shape = Ge(Qr);
+            var giveName = (shape && shape.labels && shape.labels[0]) || "Give";
+            var recvName = (shape && shape.labels && shape.labels[1]) || "Receive";
+            var setText = (id, text) => { var el = e.byId(id); if (el) el.textContent = text; };
+            var setShape = (id, color) => { var el = e.byId(id); if (el) el.style.setProperty("--shape-color", color); };
+            var setThumb = (inputId, color) => { var el = e.byId(inputId); if (el) el.style.setProperty("--thumb-color", color); };
+            var colorOf = (st) => st ? sxCrossColor(st.app) : "#57534a";
+            var g = sxCrossPlacardState("give"), r = sxCrossPlacardState("receive");
+            setText("markCrossFineGiveLeanLabel", giveName + " — leaning");
+            setText("markCrossFineGiveAppLabel", giveName + " — appetite");
+            setText("markCrossFineRecvLeanLabel", recvName + " — leaning");
+            setText("markCrossFineRecvAppLabel", recvName + " — appetite");
+            setText("markCrossGiveLeanName", giveName + " · leaning");
+            setText("markCrossGiveAppName", giveName + " · appetite");
+            setText("markCrossRecvLeanName", recvName + " · leaning");
+            setText("markCrossRecvAppName", recvName + " · appetite");
+            var fineVal = (inputId, outId, st, key) => {
+                var input = e.byId(inputId), out = e.byId(outId);
+                var v = st ? st[key] : null;
+                if (input && document.activeElement !== input) input.value = String(v === null ? 0 : v);
+                if (out) { out.textContent = v === null ? "—" : String(Math.round(v)); out.classList.toggle("neg", v !== null && v < 0); }
+                setThumb(inputId, colorOf(st));
+            };
+            fineVal("markCrossFineGiveLean", "markCrossFineGiveLeanOut", g, "lean");
+            fineVal("markCrossFineGiveApp", "markCrossFineGiveAppOut", g, "app");
+            fineVal("markCrossFineRecvLean", "markCrossFineRecvLeanOut", r, "lean");
+            fineVal("markCrossFineRecvApp", "markCrossFineRecvAppOut", r, "app");
+            var statVal = (id, st, key) => {
+                var el = e.byId(id);
+                if (!el) return;
+                var v = st ? st[key] : null;
+                el.textContent = v === null ? "—" : String(Math.round(v));
+                el.classList.toggle("neg", v !== null && v < 0);
+            };
+            statVal("markCrossGiveLeanVal", g, "lean");
+            statVal("markCrossGiveAppVal", g, "app");
+            statVal("markCrossRecvLeanVal", r, "lean");
+            statVal("markCrossRecvAppVal", r, "app");
+            setShape("markCrossGiveLeanShape", colorOf(g));
+            setShape("markCrossGiveAppShape", colorOf(g));
+            setShape("markCrossRecvLeanShape", colorOf(r));
+            setShape("markCrossRecvAppShape", colorOf(r));
+            document.querySelectorAll("#markCrossFine .xs-fine-row").forEach(row => {
+                var dot = row.querySelector(".xs-shape");
+                if (dot) dot.style.setProperty("--shape-color", colorOf(row.dataset.dir === "receive" ? r : g));
+            });
+            if (typeof sxSetPoleTip === "function") {
+                sxSetPoleTip(e.byId("markCrossFineGiveLeanLabel"), Qr, "give");
+                sxSetPoleTip(e.byId("markCrossFineGiveAppLabel"), Qr, "give");
+                sxSetPoleTip(e.byId("markCrossFineRecvLeanLabel"), Qr, "receive");
+                sxSetPoleTip(e.byId("markCrossFineRecvAppLabel"), Qr, "receive");
+            }
+        }
+        function sxSyncCrossSliderPlacard(shape) {
+            sxBindCrossSliderPlacard();
+            if (!sxCrossPlacard) return;
+            var giveName = (shape && shape.labels && shape.labels[0]) || "Give";
+            var recvName = (shape && shape.labels && shape.labels[1]) || "Receive";
+            sxCrossPlacard.give.setLabel(giveName);
+            sxCrossPlacard.receive.setLabel(recvName);
+            if (typeof sxSetPoleTip === "function" && Qr) {
+                sxSetPoleTip(sxCrossPlacard.give.labelEl, Qr, "give");
+                sxSetPoleTip(sxCrossPlacard.receive.labelEl, Qr, "receive");
+            }
+            sxCrossPlacard.give.render();
+            sxCrossPlacard.receive.render();
+            sxSyncCrossFineAndReadout();
         }
         /* Placement intensities for the slider family + switchbox (2026-11-23):
            the canvas widgets carry disc/ring intensity sliders; the linear
@@ -28117,7 +28767,7 @@ var Qr = null, Jr = null, eo = null, to = !1, no = null;
             sxBindHexadWidget();
             sxBindHeptadWidget();
             sxBindOctadWidget();
-            sxBindSwitchboxWidget();
+            sxBindCrossSliderPlacard();
             const give = e.byId("markGive"), recv = e.byId("markReceive"), giveOut = e.byId("markGiveOut"), recvOut = e.byId("markReceiveOut");
             const role3 = e.byId("markRole3"), role3Out = e.byId("markRole3Out");
             const role4 = e.byId("markRole4"), role4Out = e.byId("markRole4Out");
@@ -46679,6 +47329,14 @@ var importTopicNames = null;
                 else if (rating && "object" == typeof rating) {
                     flanks.forEach(flank => {
                         Object.prototype.hasOwnProperty.call(rating, flank) && Number.isFinite(Number(rating[flank])) && (incoming[flank] = clamp(rating[flank]));
+                    });
+                    // Per-flank appetites (2026-11-24): the cross slider
+                    // stores giveIntensity / receiveIntensity beside the
+                    // leanings; import keeps them, clamped to the arm's
+                    // ±100, so a shared profile re-opens with its pucks
+                    // coloured as rated.
+                    ["giveIntensity", "receiveIntensity"].forEach(k => {
+                        if (Object.prototype.hasOwnProperty.call(rating, k) && Number.isFinite(Number(rating[k]))) incoming[k] = clamp(Math.round(Number(rating[k])));
                     });
                     // Pole-key migration for subsumed phantom multi-pole topics:
                     // the old pole keys do not match the target's keys, so the
