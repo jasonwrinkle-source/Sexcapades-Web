@@ -36,30 +36,10 @@ Each item waits for Jason's kickoff; nothing here dispatches itself.
    - *Open:* Investigate audible-sounds cause (Jason, 2026-11-08: needs investigation, not guessing); entertainment idea (genre map + live group enjoyment meter) open.
 
 
-4. **~~Per-Topic Glyphs for the Vanilla Skins (another AI's lane — Grok/Cursor):~~** **DONE (2026-11-25).**
+4. **Per-Topic Glyphs for the Vanilla Skins (another AI's lane — Grok/Cursor):**
    - Ruled by Jason 2026-11-23: topic-icon inheritance ships first (topics wear their category's glyph; the generic star dies). After that, author a distinct, relevant glyph for EVERY topic on the vanilla skins, skin by skin, Nous first.
    - One commit per skin. A topic's glyph replaces the inherited category glyph for that topic only; categories keep theirs.
-   - **All 20 Vanilla Skins Completed & Verified:** All 896 topics across all 20 vanilla skins have distinct, domain-relevant 24x24 SVG vector glyphs (`glyph` + `glyphLabel`), 0 category glyph collisions, 0 intra-skin duplicates, synced to hosted bundle, committed individually and pushed to `origin/main`:
-     - `nouscapades.json` (51/51) — Commit `e034d88`
-     - `philoscapades.json` (23/23) — Commit `224d085`
-     - `praxicapades.json` (26/26) — Commit `be60296`
-     - `fastcapades.json` (27/27) — Commit `46a7da3`
-     - `vocapades.json` (28/28) — Commit `4b14068`
-     - `mattercapades.json` (29/29) — Commit `cf57800`
-     - `simulcapades.json` (29/29) — Commit `d774e9b`
-     - `quantacapades.json` (30/30) — Commit `cd25523`
-     - `expericapades.json` (31/31) — Commit `6f25370`
-     - `theoricapades.json` (31/31) — Commit `e15a412`
-     - `chemcapades.json` (40/40) — Commit `3be76d3`
-     - `techcapades.json` (33/33) — Commit `5a8801a`
-     - `dharmacapades.json` (34/34) — Commit `17c3e5a`
-     - `linguacapades.json` (34/34) — Commit `dc929f7`
-     - `biocapades.json` (41/41) — Commit `cd0dabd`
-     - `aesthcapades.json` (44/44) — Commit `fef8a5f`
-     - `questcapades.json` (79/79) — Commit `3e087ce`
-     - `dancecapades.json` (82/82) — Commit `d52305f`
-     - `poliscapades.json` (97/97) — Commit `1b8642e`
-     - `forescapades.json` (100/100) — Commit `78e4fa3`
+   - **Nouscapades per-topic glyphs:** DONE (2026-11-23). All 39 topics assigned distinct, relevant 16x16 vector glyphs.
 
 5. **~~Promote Scribe, Scene Setter, Hot List & Scene Sentinel from dialogs to views (another AI's lane — Grok/Cursor):~~** **DONE (2026-11-24).**
    - Ruled by Jason 2026-11-24: all four stop being modal windows and become views of the app under the same app header — the header (brand title, "?" docs, music button) is always present, so the skin picker, docs, and About are always reachable from them with no special cases.
@@ -119,6 +99,15 @@ Each item waits for Jason's kickoff; nothing here dispatches itself.
    - JS (`app/js/modules/03e1-mark-dialog.js`): remove the fine-tune binding (the `fine` array + input/change listeners in `sxBindCrossSliderPlacard`, ~1059-1085) and the fine/readout sync (`sxSyncCrossFineAndReadout`, ~1087+, including its calls from `sxCrossPlacardWrite` — the cross slider component's own render shows the state). In `sxSyncLinearIntensities` (~1169), keep both intensity boxes hidden when the cross slider is the active control. The intensity boxes serve other widget families (linear sliders, switchbox on stance skins, n-pole) and must stay for those; the removal is scoped to pair topics only. The `#markRatings` linear sliders are in a different wrap already hidden for pair topics (`setOnlyWrap(switchboxWrap)`) — no change needed there. The `.xs-fine` / `.xs-readout` CSS in both HTML files may stay (harmless) or be pruned — builder's call.
    - Note: the four fine-tune sliders + stat readout were part of the cross-slider build itself (c7a6512, per the mockup spec) — this ruling supersedes that part of the mockup. The hot-list popup compact variant is the reference design (already cross-slider-only).
    - *Verification:* rebuild the data bundle after any module edit and grep-confirm the new code is IN the bundle; boot the packaged app, open a pair topic's placard, confirm ONLY the cross slider shows (no fine-tune sliders, no vertical intensity sliders, no stat chips); drag a puck and confirm the rating still writes and survives reload; confirm the hot-list popup is unchanged; confirm non-pair topics (linear sliders, switchbox on stance skins, n-pole) still show their intensity boxes.
+   - *Standing laws:* analytics NEVER disabled; build timestamps America/Chicago; one builder at a time on the app artifact; timing table in the dispatch brief.
+
+11. **Fores: add Sumerian religion as a worldview archetype (another AI's lane — Grok/Cursor or Gemini; AFTER Gemini's icon pass):**
+   - Ruled by Jason 2026-11-25 02:49: Sumerian religion joins Fores as a worldview archetype — sourced from the Sumerian texts IN GENERAL, not just Gilgamesh: the Eridu Genesis flood (Ziusudra — the flood source itself, older than Gilgamesh's retelling), Enki and Enlil (Enlil sends the flood, Enki warns), the Anunnaki (the divine assembly), Inanna, the me (divine decrees/law), Kur (the afterlife). NOT the figure Gilgamesh; the religion as a worldview.
+   - Why it earns its place: the flood story is the direct ancestor of the Noah story every Abrahamic stack on the map carries — shared DNA, not a garnish. It would be the oldest voice on the map by over a thousand years (oldest layer now is Maimonides, 1190).
+   - Scope note: the corpus crosses into Babylon (Standard Babylonian Gilgamesh, Enuma Elish survive through Babylonian copies) — the entry is Mesopotamian in scope even if named Sumerian. Name the entry "Sumerian Religion" (key `for-sumerian`, following the `for-<slug>` pattern); exact display name is the builder's call with Jason's veto.
+   - Line-drawing (Jason's ruling context): admitted on the flood-ancestry principle. Egypt has a thinner version of the same claim (Exodus setting, wisdom literature, Akhenaten) — a hearing, not a seat; separate decision, not compelled by this one. The Vedas are NOT part of this door — living scripture, a separate Eastern-traditions question. The map is curated, not complete; Sumerian in does not compel Egypt in.
+   - Build: add one entry to the `samples` dict in `app/data/skins/forescapades.json` (BOTH copies: app + hosted), same shape as the three personas (`for-traditionalist-guardian` etc.): `{name, count: 100, about, links, payload: {app: "sexcapades", version, noFlash: true, profileName, archetype, aboutMe, ratings: {<all 100 topics>}}, skin: "forescapades", kind: "archetype", emblem: "images/emblems/for-sumerian.svg"}`. Ratings follow the sample formula (receptivity = round-half-even(openness × advocacy) per pole; each placement's intensity = its signed largest-|value| pole). Ratings are a scholarly RECONSTRUCTION of the Sumerian worldview, not a confession — flag that in the `about` text. Emblem required (standing law) — motif is the builder's call (cuneiform, Anunnaki star, Enki's waters are candidates), Jason's veto stands. Do NOT touch skin files until Gemini's icon pass is done — sequence this build after it.
+   - *Verification:* the entry loads in the app's Archetypes menu; all 100 topics rated (no missing keys); emblem renders; boot the packaged app and open the archetype's map.
    - *Standing laws:* analytics NEVER disabled; build timestamps America/Chicago; one builder at a time on the app artifact; timing table in the dispatch brief.
 
 ---
