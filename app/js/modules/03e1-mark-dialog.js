@@ -352,7 +352,7 @@
             const r = "fetlife" === t ? "FetLife" : "discord" === t ? "Discord" : "stackexchange" === t ? "Stack Exchange" : "Reddit";
             if (!a.length) return void oo();
             if (no === e && !Ur.hidden) return void oo();
-            oo(), ro(), no = e, e.setAttribute("aria-expanded", "true"), Gr.textContent = `${r} communities for ${i}`,
+            oo(), ro(), no = e, e.setAttribute("aria-expanded", "true"), Gr.textContent = "guide" === t ? `Guide: ${i}` : `${r} communities for ${i}`,
             n(Kr, ""), a.forEach(e => wo(e.name, e.scope, e.url)), Ur.hidden = !1, bo(e), Kr.querySelector("a")?.focus({
                 preventScroll: !0
             });
@@ -1376,7 +1376,7 @@
                         const a = triggers[idx];
                         a.style.removeProperty("display"), a.hidden = !1, a.dataset.network = k,
                         a.dataset.topic = e, a.dataset.skinTopicId = r.id,
-                        a.textContent = "Discuss on " + (displayName[k] || k),
+                        a.textContent = "guide" === k ? "Read the guide" : "Discuss on " + (displayName[k] || k),
                         a.setAttribute("aria-expanded", "false"), t = !0;
                     });
                     Wr.hidden = !0, Wr.textContent = "";
