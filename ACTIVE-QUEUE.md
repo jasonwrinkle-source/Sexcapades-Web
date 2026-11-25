@@ -79,6 +79,11 @@ Each item waits for Jason's kickoff; nothing here dispatches itself.
     - Ruled by Jason 2026-11-25 02:49: Sumerian religion joins Fores as a worldview archetype (`for-sumerian`, "Sumerian Religion"), Mesopotamian in corpus scope (Eridu Genesis / Ziusudra flood, Atrahasis, Enki and Enlil, Anunnaki divine assembly, Inanna, the *me*, Enheduanna, Enuma Elish, Gilgamesh, and Kur).
     - Implementation: added `for-sumerian` to `samples` in both `app/data/skins/forescapades.json` and `site-tree/public_html/hosted/data/skins/forescapades.json` (100/100 topics rated, `openness = 0.50` with exact `round-half-even` receptivity and signed largest-`|value|` intensity, scholarly reconstruction flagged in `about`, Oxford ETCSL link); created 512×512 Dingir star + Abzu waters emblem SVG (`for-sumerian.svg`) across `app/images/emblems/`, `hosted/images/emblems/`, and `hosted/app-assets/images/emblems/`. Evaluated `@TheAncientSealUS` / `D56BjN1DfZM` ("The Sumerian Tablets Explain the Antichrist") and excluded its speculative/conspiratorial claims in favor of primary Assyriological sources.
 
+12. **Sexcapades: audit & assign custom G/R labels across remaining 77 generic topics + unify Footwear labels:**
+    - Queued by Jason 2026-11-25 03:55.
+    - Scope: audit all 77 Sexcapades topics in `app/data/skins/sexcapades.json` (and hosted copy) that still fall back to generic `G` / `R` after Item #9 (16 in Sex acts, 9 in Roleplay & identity, 8 in Impact/pain/body mod, 7 in Psychological dynamics, 7 in Service & ritual, 5 in Orgasm & reproductive play, 4 in Sensation & atmosphere, 4 in Clothing/materials/objects including `t0168` Pumps, plus 17 across the remaining 7 categories) and assign domain-specific `give_label` / `receive_label` pairs (or `type: "single"` where appropriate).
+    - Unify Footwear (`t0166` Heels & boots currently `wears`/`admires` in `02g1-alias-tables.js` vs `t0167` High Heels, `t0169` Retifism, `t0170` Knee High Socks, `t0171` Socks currently `on me`/`on them` in `sexcapades.json`, plus `t0168` Pumps) onto one consistent `wears` / `admires` convention.
+
 ---
 
 ## 2. Open Carry-Overs & Backlog
