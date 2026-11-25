@@ -603,6 +603,19 @@ __sxInit(function () {
       it.setAttribute("aria-checked", it.getAttribute("data-skin") === skin ? "true" : "false");
     });
   }
+  /* Installed window: standalone, fullscreen, window-controls overlay,
+     or an iOS home-screen app. A skin pick stays on this origin. A jump
+     to another *.capades.io host leaves the manifest scope, and the
+     browser draws its address bar over the app. A normal tab still jumps. */
+  function sxInstalledApp() {
+    try {
+      if (window.matchMedia("(display-mode: standalone)").matches) return true;
+      if (window.matchMedia("(display-mode: fullscreen)").matches) return true;
+      if (window.matchMedia("(display-mode: window-controls-overlay)").matches) return true;
+      if (window.navigator.standalone) return true;
+    } catch (e) {}
+    return false;
+  }
   /* Skin id -> subdomain prefix: delegated to window.__SX_SKIN_SUBDOMAIN single source. */
   var SKIN_SUBDOMAIN = (typeof window !== "undefined" && window.__SX_SKIN_SUBDOMAIN) || {};
   function choose(item) {
@@ -614,7 +627,7 @@ __sxInit(function () {
     try { host = String(location.hostname || "").toLowerCase(); } catch (e) { host = ""; }
     var isProductionDomain = /\.capades\.io$/.test(host) || host === "sexcapades.io" || host === "www.sexcapades.io";
 
-    if (isProductionDomain) {
+    if (isProductionDomain && !sxInstalledApp()) {
       /* Production deployment: navigate cleanly to the dedicated subdomain URL */
       var prefix = (typeof window !== "undefined" && typeof window.__SX_SKIN_PREFIX_FOR === "function")
         ? window.__SX_SKIN_PREFIX_FOR(skin)

@@ -78,7 +78,11 @@ if [ "$MANIFEST_COUNT" != "19" ]; then
   echo "ERROR: expected 19 per-skin manifests, found $MANIFEST_COUNT"
   exit 1
 fi
-for m in "$MANIFEST_STAGED" "$MANIFESTS_DIR"/*.json; do
+# picker.html loads gate.js with the same token. An old service worker
+# is cache-first on the exact URL, so a new query is what makes an
+# already-installed window fetch this build's gate.js.
+PICKER_STAGED="$STAGING/capades.io/public_html/picker.html"
+for m in "$MANIFEST_STAGED" "$MANIFESTS_DIR"/*.json "$PICKER_STAGED"; do
   [ -f "$m" ] || continue
   sed -i "s/__SX_CACHE__/$BUILD_NUM/g" "$m"
   if grep -q '__SX_CACHE__' "$m"; then
@@ -90,7 +94,7 @@ for m in "$MANIFEST_STAGED" "$MANIFESTS_DIR"/*.json; do
     exit 1
   fi
 done
-echo "   PWA manifests stamped: 19 per-skin + shared, ?v=$BUILD_NUM"
+echo "   PWA manifests stamped: 19 per-skin + shared, picker gate.js, ?v=$BUILD_NUM"
 
 HOSTED="$STAGING/capades.io/public_html/hosted"
 

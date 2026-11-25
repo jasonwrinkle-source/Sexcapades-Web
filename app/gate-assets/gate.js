@@ -850,11 +850,28 @@
 
           var SKIN_SUBDOMAIN = (typeof window !== "undefined" && window.__SX_SKIN_SUBDOMAIN) || {};
 
+          /* Installed window stays on this origin. A jump to another
+             *.capades.io host leaves the manifest scope and the browser
+             draws its address bar over the app. A normal tab still jumps. */
+          function sxInstalledApp() {
+            try {
+              if (window.matchMedia("(display-mode: standalone)").matches) return true;
+              if (window.matchMedia("(display-mode: fullscreen)").matches) return true;
+              if (window.matchMedia("(display-mode: window-controls-overlay)").matches) return true;
+              if (window.navigator.standalone) return true;
+            } catch (e) {}
+            return false;
+          }
+
           function choose(item) {
             if (!item) return;
             var skin = item.getAttribute("data-skin");
             closeMenu();
             var prefix = SKIN_SUBDOMAIN[skin];
+            if (prefix && sxInstalledApp()) {
+              window.location.href = "/hosted/app.html?skin=" + encodeURIComponent(skin);
+              return;
+            }
             if (prefix) {
               window.location.href = "https://" + prefix + ".capades.io/";
               return;
