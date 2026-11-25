@@ -142,6 +142,21 @@ if os.path.isdir(patches_dir):
         with open(patches_src, "w", encoding="utf-8") as out_p:
             out_p.write("\n\n".join(patch_chunks) + "\n")
         print(f"[Bundle] Built patches.js from {len(patch_files)} modules in app/js/patches/")
+
+for mod_name in ["layout-editor", "skin-loader"]:
+    mod_dir = os.path.join(base_dir, f"../js/{mod_name}")
+    mod_target = os.path.join(base_dir, f"../js/{mod_name}.js")
+    if os.path.isdir(mod_dir):
+        mod_files = sorted([f for f in os.listdir(mod_dir) if f.endswith(".js")])
+        if mod_files:
+            mod_chunks = []
+            for mf in mod_files:
+                with open(os.path.join(mod_dir, mf), encoding="utf-8") as mfh:
+                    mod_chunks.append(mfh.read())
+            with open(mod_target, "w", encoding="utf-8") as out_m:
+                out_m.write("".join(mod_chunks))
+            print(f"[Bundle] Built {mod_name}.js from {len(mod_files)} modules in app/js/{mod_name}/")
+
 patches_hosted = os.path.join(base_dir, "../../site-tree/public_html/hosted/js/patches.js")
 patches_hosted_alt = os.path.join(base_dir, "../../hosted/js/patches.js")
 patches_qa = os.path.join(base_dir, "../../site-tree/public_html/qa/js/patches.js")
