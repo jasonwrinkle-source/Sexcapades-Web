@@ -710,6 +710,7 @@
           var gEntry = t.glyphLabel ? { glyph: t.glyph, label: t.glyphLabel } : t.glyph;
           topicGlyphs[cat.name + "\0" + t.name] = gEntry;
           if (t.label && t.label !== t.name) topicGlyphs[cat.name + "\0" + t.label] = gEntry;
+          if (t.id) topicGlyphs[t.id] = gEntry;
         }
         if (t.hovertip) desc[t.name] = formatHovertip(t);
         /* Widget approachability: per-pole hovertip lines ("Label — text"),

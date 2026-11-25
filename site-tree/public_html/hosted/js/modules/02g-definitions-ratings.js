@@ -663,17 +663,45 @@
             }, o = r(n), s = r(i), l = r(a, 5.55), c = r((n + 1) % t, 6.45), d = r((n + 2) % t, 6.15);
             return `<circle class="icon-accent" cx="${o[0].toFixed(2)}" cy="${o[1].toFixed(2)}" r=".66"/><path class="icon-accent-stroke" d="M ${s[0].toFixed(2)} ${s[1].toFixed(2)} l ${(.28 * (8 - s[0])).toFixed(2)} ${(.28 * (8 - s[1])).toFixed(2)}"/><path class="icon-detail" d="M ${o[0].toFixed(2)} ${o[1].toFixed(2)} Q ${c[0].toFixed(2)} ${c[1].toFixed(2)} ${d[0].toFixed(2)} ${d[1].toFixed(2)} M ${l[0].toFixed(2)} ${l[1].toFixed(2)} l ${(.16 * (8 - l[0])).toFixed(2)} ${(.16 * (8 - l[1])).toFixed(2)}"/><circle class="icon-detail-dot" cx="${l[0].toFixed(2)}" cy="${l[1].toFixed(2)}" r=".34"/>`;
         }
+        const _topicSubMap = new Map;
+        function sxSyncTopicGlyphs() {
+            ve.clear(), _topicSubMap.clear();
+            const beTable = window.__SX_EXPORT_BE || {};
+            h.forEach(cat => {
+                const list = beTable[cat.name] || [];
+                const flat = [];
+                (cat.topics || []).forEach(t => flat.push(sxName(t)));
+                (cat.parentTopics || []).forEach(t => flat.push(sxName(t)));
+                (cat.subcategories || []).forEach(sub => {
+                    (sub.topics || []).forEach(t => {
+                        const nm = sxName(t);
+                        _topicSubMap.set(cat.name + "\0" + nm, sub.name);
+                        flat.push(nm);
+                    });
+                    (sub.parentTopics || []).forEach(t => {
+                        const nm = sxName(t);
+                        _topicSubMap.set(cat.name + "\0" + nm, sub.name);
+                        flat.push(nm);
+                    });
+                });
+                flat.forEach((nm, idx) => {
+                    if (list[idx] && list[idx] in ye) ve.set(cat.name + "\0" + nm, list[idx]);
+                });
+            });
+        }
         function Oe(e, t) {
             // Topic-icon inheritance & per-topic glyphs (owner ruling 2026-11-23):
             // 1. Skin-authored per-topic glyph from window.__SX_SKIN_TOPIC_GLYPHS
             //    (24x24 SVG path d-string / markup or a ye key) replaces the inherited
             //    category glyph for that topic only; categories keep theirs.
             // 2. Sexcapades catalog glyph from ve -> ye (16x16 viewBox).
-            // 3. Otherwise inherit the parent category's descriptor glyph from ge (24x24).
-            // 4. Last resort fallback: ye.star (16x16).
+            // 3. Parent subcategory glyph from Ee -> ye (16x16 viewBox) when inside a subcategory.
+            // 4. Otherwise inherit the parent category's descriptor glyph from ge (24x24).
+            // 5. Last resort fallback: ye.star (16x16).
             const _veKey = t + "\0" + e;
             const _skinMap = typeof window !== "undefined" ? window.__SX_SKIN_TOPIC_GLYPHS : null;
-            const _skinRaw = _skinMap ? _skinMap[_veKey] : null;
+            const _tid = _skinMap && !_skinMap[_veKey] && typeof Wn === "function" ? Wn(e) : null;
+            const _skinRaw = _skinMap ? (_skinMap[_veKey] || (_tid ? _skinMap[_tid] : null)) : null;
             let _skinGlyphMarkup = null, _skinKey = null, _skinVb = null;
             if (_skinRaw) {
                 const _rawStr = "string" == typeof _skinRaw ? _skinRaw : (_skinRaw.glyph || "");
@@ -696,13 +724,15 @@
             }
             const n = ve.get(_veKey) || "star";
             const _ownVe = !_skinGlyphMarkup && ve.has(_veKey) && n in ye;
-            const _ownGlyph = Boolean(_skinGlyphMarkup || _ownVe);
+            const _subName = !_skinGlyphMarkup && !_ownVe ? _topicSubMap.get(_veKey) : null;
+            const _subKey = _subName && (_subName in Ee) && (Ee[_subName] in ye) ? Ee[_subName] : null;
+            const _ownGlyph = Boolean(_skinGlyphMarkup || _ownVe || _subKey);
             const _catDesc = !_ownGlyph && ge && ge[t] && ge[t].glyph ? ge[t] : null;
             const _glyphFallback = !_ownGlyph && !_catDesc;
             const i = _e.get(_veKey) || 0, a = Le(e, t);
             return {
-                glyph: _skinGlyphMarkup ? _skinGlyphMarkup : _ownVe ? ye[n] : _catDesc ? _catDesc.glyph : ye.star,
-                viewBox: _skinGlyphMarkup ? _skinVb : _ownVe ? "0 0 16 16" : _catDesc ? "0 0 24 24" : "0 0 16 16",
+                glyph: _skinGlyphMarkup ? _skinGlyphMarkup : _ownVe ? ye[n] : _subKey ? ye[_subKey] : _catDesc ? _catDesc.glyph : ye.star,
+                viewBox: _skinGlyphMarkup ? _skinVb : (_ownVe || _subKey) ? "0 0 16 16" : _catDesc ? "0 0 24 24" : "0 0 16 16",
                 glyphFallback: _glyphFallback,
                 accent: "",
                 color: a.color,
@@ -710,7 +740,7 @@
                 labelColor: a.labelColor,
                 labelStroke: a.labelStroke,
                 hankyKey: a.key,
-                key: _skinGlyphMarkup ? _skinKey : (_ownVe || !_catDesc ? n : t)
+                key: _skinGlyphMarkup ? _skinKey : _ownVe ? n : _subKey ? _subKey : (!_catDesc ? n : t)
             };
         }
         h.forEach(e => e.topics.forEach(t => _e.set(e.name + "\0" + t, De++)));

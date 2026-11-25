@@ -1107,7 +1107,7 @@ const Ce = {
             purple: [ "Needle Play", "Body Modification" ],
             orange: [ "Penetration" ],
             white: [ "Handjobs" ],
-            pink: [ "Pumps", "Pegging" ],
+            pink: [ "Pumping", "Vacuum pumping", "Pegging" ],
             green: [ "Group service", "Spiritual play" ],
             hunterGreen: [ "Authority roles", "Caregiver roles (adults)", "Age play between adults", "Pet play", "Pony Play", "Puppy play", "Owner & property", "Doctor/Nurse Play", "Teacher / student roleplay", "Hunter / prey" ],
             neutral: [ "Tantra / energy play" ]

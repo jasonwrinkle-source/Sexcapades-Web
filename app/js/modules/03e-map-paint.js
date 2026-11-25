@@ -1674,6 +1674,7 @@
                     });
                 });
                 if (typeof sxSyncRoleLabels === "function") sxSyncRoleLabels();
+                if (typeof sxSyncTopicGlyphs === "function") sxSyncTopicGlyphs();
             } catch (_) {}
         };
         /* Flexcapades skin switch: re-fit the camera to the new map. A plain
