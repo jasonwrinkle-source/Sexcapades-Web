@@ -1223,8 +1223,8 @@ window.__sxProgressWidget=function(refs){
 <div class="veil-tooltip" hidden="" id="veilTooltip" role="tooltip">Intimacy Veil hides topics below this profile’s interest threshold. Move toward Concealed for fewer, stronger interests; toward Revealed to include more.</div>
 <div aria-label="Heat level" class="veil-popover sx-heat-popover" hidden="" id="heatPopover" role="group">
 <strong class="sr-only" id="heatProfileName">Profile</strong>
-<span class="veil-scale"><span>Horndog</span><span class="veil-track-wrap"><input aria-label="Heat for the profile" id="heatSlider" max="100" min="-100" step="1" type="range" value="0"/></span><span>Turned off</span></span>
-<output class="sx-heat-out" for="heatSlider" id="heatValue">Neutral · 0</output>
+<span class="veil-scale"><span data-sx-term="heatMax">Horndog</span><span class="veil-track-wrap"><input aria-label="Heat for the profile" id="heatSlider" max="100" min="-100" step="1" type="range" value="0"/></span><span data-sx-term="heatMin">Turned off</span></span>
+<output class="sx-heat-out" data-sx-term="heatMax,heatMin" for="heatSlider" id="heatValue">Neutral · 0</output>
 <div class="sx-heat-watch" hidden="" id="heatWatchOffer">
 <button class="action-btn compact" id="heatWatchSetupBtn" type="button">Sync to watch</button>
 <span class="sx-heat-watch-status" id="heatWatchStatus" role="status"></span>

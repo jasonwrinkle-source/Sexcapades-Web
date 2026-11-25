@@ -425,7 +425,7 @@
             return Number.isFinite(v) ? Math.max(0, Math.min(100, Math.round(v))) : 50;
         }
         function sxHeatZone(v) {
-            return v >= 75 ? "Horndog" : v >= 25 ? "Hot" : v >= 1 ? "Warm" : 0 === v ? "Neutral" : v <= -75 ? "Turned off" : v <= -25 ? "Chilled" : "Cooling";
+            return v >= 75 ? sxTerm("heatMax") : v >= 25 ? "Hot" : v >= 1 ? "Warm" : 0 === v ? "Neutral" : v <= -75 ? sxTerm("heatMin") : v <= -25 ? "Chilled" : "Cooling";
         }
         let sxCtx = null, sxAudio = null, sxBuzzTarget = null;
         const sxBuzzFired = new Set;
@@ -574,7 +574,7 @@
                render in this seat — the header paint shows the same
                Play MS / Play KF for the active match
                tab through sxRingValuesForCast. */
-            n(root, `<div class="sx-stamp" data-sx-term="playMode,conversationMode">${Hi(sxStamp(ctx))}</div>${coverageHtml}${explainer}${listsHtml}${hotHtml}`);
+            n(root, `<div class="sx-stamp" data-sx-term="playMode,conversationMode,heatMax,heatMin">${Hi(sxStamp(ctx))}</div>${coverageHtml}${explainer}${listsHtml}${hotHtml}`);
             const sxTabNow = sxCurrentTab();
             sxTabNow && "bowtie" === sxTabNow.kind && (sxTabNow.buckets = sxBowtieBuckets(ctx, grp), sxUpdateMatchRings(sxTabNow));
             allowBuzz && sxMaybeBuzz(ctx, grp);

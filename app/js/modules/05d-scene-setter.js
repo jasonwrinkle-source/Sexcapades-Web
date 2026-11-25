@@ -54,7 +54,7 @@
                         let s = `${d.owner} marked this Not Interested`;
                         if (d.heat > 0 && d.flanks && d.flanks.length) {
                             const ft = d.flanks.map(f => `${f.dir}${d.heat >= 34 ? ` (${"strong" === f.stance ? "strong" : "curious"}${d.heat >= 67 && null != f.rating ? `, ${Math.round(f.rating)}` : ""})` : ""}`).join(" and ");
-                            s += 100 === d.heat ? `, at full Horndog heat (+100) ${d.partner} is offering more of themselves: ${d.partner} wants to ${ft}` : `; at the current Heat (+${d.heat}) it is teaser-eligible only: ${d.partner} wants to ${ft}`;
+                            s += 100 === d.heat ? `, at full ${sxTerm("heatMax")} heat (+100) ${d.partner} is offering more of themselves: ${d.partner} wants to ${ft}` : `; at the current Heat (+${d.heat}) it is teaser-eligible only: ${d.partner} wants to ${ft}`;
                         } else s += "; at the current Heat it is teaser-eligible only";
                         return s;
                     }).join("; ");

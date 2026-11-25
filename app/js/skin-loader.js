@@ -1783,7 +1783,9 @@
     parlayKF: { sex: "Parlay KF", vanilla: "Converse DF" },
     debateMS: { sex: "Debate MS", vanilla: "Debate MS" },
     debateKF: { sex: "Debate KF", vanilla: "Debate DF" },
-    getRatings: { sex: "Hot list · KinkTest · BDSMtest · Yes / No / Maybe · FetLife", vanilla: "Hot list", exact: true }
+    getRatings: { sex: "Hot list · KinkTest · BDSMtest · Yes / No / Maybe · FetLife", vanilla: "Hot list", exact: true },
+    heatMax: { sex: "Horndog", vanilla: "Burning" },
+    heatMin: { sex: "Turned off", vanilla: "Withdrawn" }
   };
   /* The four skin-specific questionnaire importers, wherever they are
      offered: the test-result loader dialog, the profile tab's load

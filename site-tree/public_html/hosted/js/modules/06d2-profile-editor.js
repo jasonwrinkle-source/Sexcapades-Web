@@ -900,6 +900,8 @@
             if (!pop) return;
             if (!t || !vt[t]) return void sxCvHeat();
             const v = sxHeatDisplayFor(t), sl = e.byId("heatSlider"), out = e.byId("heatValue"), nm = e.byId("heatProfileName"), grp = sxIsGroup(t);
+            const scaleSpans = pop.querySelectorAll(".veil-scale > span:not(.veil-track-wrap)");
+            scaleSpans.length >= 2 && (scaleSpans[0].textContent = sxTerm("heatMax"), scaleSpans[scaleSpans.length - 1].textContent = sxTerm("heatMin"));
             sl && (sl.value = String(v)), out && (out.textContent = `${sxHeatZone(v)} · ${v > 0 ? "+" + v : v}`),
             nm && (nm.textContent = wt[t] || "Profile"), sl && sl.setAttribute("aria-label", `${grp ? "Group heat" : "Heat"} for ${wt[t] || (grp ? "the group" : "the profile")}`);
         }
