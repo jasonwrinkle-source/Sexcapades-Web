@@ -99,20 +99,13 @@ target_app_assets = os.path.join(base_dir, "../../site-tree/public_html/hosted/a
 target_qa = os.path.join(base_dir, "../../site-tree/public_html/qa/data/data-bootstrap.js")
 target_qa_assets = os.path.join(base_dir, "../../site-tree/public_html/qa/app-assets/data-bootstrap.js")
 
-for th in [target_hosted, target_hosted_alt, target_app_assets, target_qa, target_qa_assets]:
+for th in [target_hosted_alt, target_app_assets, target_qa, target_qa_assets]:
     if os.path.exists(os.path.dirname(th)):
         shutil.copyfile(target_app, th)
         print(f"[Bundle] Synced to {th}")
 
-template_src = os.path.join(base_dir, "../../site-tree/public_html/hosted/data/unrated-map-template.js")
 template_app = os.path.join(base_dir, "unrated-map-template.js")
 template_app_assets = os.path.join(base_dir, "../../site-tree/public_html/hosted/app-assets/unrated-map-template.js")
-if os.path.exists(template_src):
-    shutil.copyfile(template_src, template_app)
-    print(f"[Bundle] Synced unrated-map-template.js to app/data/")
-elif os.path.exists(template_app):
-    shutil.copyfile(template_app, template_src)
-    print(f"[Bundle] Synced unrated-map-template.js to site-tree/public_html/hosted/data/")
 if os.path.exists(template_app) and os.path.exists(os.path.dirname(template_app_assets)):
     shutil.copyfile(template_app, template_app_assets)
     print(f"[Bundle] Synced unrated-map-template.js to app-assets/")
@@ -120,7 +113,6 @@ if os.path.exists(template_app) and os.path.exists(os.path.dirname(template_app_
 embedded_comm_src = os.path.join(base_dir, "embedded-communities.js")
 if os.path.exists(embedded_comm_src):
     for ec_dst in [
-        os.path.join(base_dir, "../../site-tree/public_html/hosted/data/embedded-communities.js"),
         os.path.join(base_dir, "../../site-tree/public_html/hosted/app-assets/embedded-communities.js"),
         os.path.join(base_dir, "../../site-tree/public_html/qa/data/embedded-communities.js"),
         os.path.join(base_dir, "../../site-tree/public_html/qa/app-assets/embedded-communities.js"),
@@ -157,19 +149,16 @@ for mod_name in ["layout-editor", "skin-loader"]:
                 out_m.write("".join(mod_chunks))
             print(f"[Bundle] Built {mod_name}.js from {len(mod_files)} modules in app/js/{mod_name}/")
 
-patches_hosted = os.path.join(base_dir, "../../site-tree/public_html/hosted/js/patches.js")
 patches_hosted_alt = os.path.join(base_dir, "../../hosted/js/patches.js")
 patches_qa = os.path.join(base_dir, "../../site-tree/public_html/qa/js/patches.js")
-for ph in [patches_hosted, patches_hosted_alt, patches_qa]:
+for ph in [patches_hosted_alt, patches_qa]:
     if os.path.exists(os.path.dirname(ph)) and os.path.exists(patches_src):
         shutil.copyfile(patches_src, ph)
         print(f"[Bundle] Synced patches.js to {ph}")
 
-# Sync app.css to the served copies. hosted/css is the tree path;
-# hosted/app-assets/app.css is the file app.html actually loads.
+# Sync app.css to the served copy in hosted/app-assets/app.css.
 css_src = os.path.join(base_dir, "../css/app.css")
 for ch in [
-    os.path.join(base_dir, "../../site-tree/public_html/hosted/css/app.css"),
     os.path.join(base_dir, "../../site-tree/public_html/hosted/app-assets/app.css"),
     os.path.join(base_dir, "../../site-tree/public_html/qa/css/app.css"),
     os.path.join(base_dir, "../../site-tree/public_html/qa/app-assets/app.css")
@@ -183,14 +172,19 @@ docs_skin_builder = os.path.join(base_dir, "../../packaging-scripts/build_docs_s
 if os.path.isfile(docs_skin_builder):
     subprocess.run([sys.executable, docs_skin_builder], cwd=os.path.join(base_dir, "../.."), check=True)
 
-# Sync auxiliary JS. hosted/js is the tree path. The shell loads the
-# same files from hosted/app-assets, so that copy is written too.
+# Sync auxiliary JS to hosted/app-assets (and docs-skin.js to hosted/js for docs pages).
 js_src_dir = os.path.join(base_dir, "../js")
 shell_js = ["view-nav.js", "layout-editor.js", "scene-sentinel.js", "pitch-pitcher.js", "pitch-pitcher-bank.js", "patches.js", "avatar-music.js", "sx-songbook.js", "skin-loader.js", "skin-catalog.js", "docs-skin.js"]
 for f in shell_js:
     src_f = os.path.join(js_src_dir, f)
-    for dst_dir in [os.path.join(base_dir, "../../site-tree/public_html/hosted/js"), os.path.join(base_dir, "../../site-tree/public_html/qa/js"),
-                    os.path.join(base_dir, "../../site-tree/public_html/hosted/app-assets"), os.path.join(base_dir, "../../site-tree/public_html/qa/app-assets")]:
+    dst_dirs = [
+        os.path.join(base_dir, "../../site-tree/public_html/hosted/app-assets"),
+        os.path.join(base_dir, "../../site-tree/public_html/qa/js"),
+        os.path.join(base_dir, "../../site-tree/public_html/qa/app-assets")
+    ]
+    if f == "docs-skin.js":
+        dst_dirs.append(os.path.join(base_dir, "../../site-tree/public_html/hosted/js"))
+    for dst_dir in dst_dirs:
         dst_f = os.path.join(dst_dir, f)
         if os.path.exists(src_f) and os.path.exists(dst_dir):
             shutil.copyfile(src_f, dst_f)
@@ -262,8 +256,6 @@ for page_name, assets_sub in [("gate.html", "gate-assets"), ("guide.html", "guid
                 fh.write(phtml_app)
             print(f"[Bundle] Unified app/{page_name} with site-tree/public_html/hosted/{page_name}")
 
-
-
 # Sync skin data files (app/data/skins/*.json) to hosted/data/skins/ and qa/data/skins/
 # so a runtime-fetched skin loads in the hosted and QA trees, not just source.
 skins_src_dir = os.path.join(base_dir, "skins")
@@ -276,26 +268,5 @@ for skins_dst in [os.path.join(base_dir, "../../site-tree/public_html/hosted/dat
                 continue
             shutil.copyfile(os.path.join(skins_src_dir, sf), os.path.join(skins_dst, sf))
             print(f"[Bundle] Synced skins/{sf} to {skins_dst}/")
-
-# Sync module files to hosted/js/modules/ and qa/js/modules/
-hosted_modules_dir = os.path.join(base_dir, "../../site-tree/public_html/hosted/js/modules")
-qa_modules_dir = os.path.join(base_dir, "../../site-tree/public_html/qa/js/modules")
-os.makedirs(hosted_modules_dir, exist_ok=True)
-if os.path.exists(os.path.dirname(qa_modules_dir)):
-    os.makedirs(qa_modules_dir, exist_ok=True)
-for p in parts:
-    src_p = os.path.join(src_dir, p)
-    for m_dir in [hosted_modules_dir, qa_modules_dir]:
-        if os.path.exists(m_dir):
-            dst_p = os.path.join(m_dir, p)
-            if os.path.exists(src_p):
-                with open(src_p, encoding="utf-8") as f:
-                    code = f.read()
-                code = re.sub(r'^\s*import\s+.*?;\s*', '', code, flags=re.MULTILINE)
-                code = re.sub(r'\bexport\s+(const|let|var|function|class)\s+', r'\1 ', code)
-                code = re.sub(r'^\s*export\s*\{[^}]*\}\s*;?', '', code, flags=re.MULTILINE)
-                with open(dst_p, "w", encoding="utf-8") as f_dst:
-                    f_dst.write(code)
-print(f"[Bundle] Synced {len(parts)} unbundled modules to hosted/js/modules/ and qa/js/modules/")
 
 print(f"[Bundle] Complete! Generated {round(os.path.getsize(target_app)/1024, 1)} KB ES-bundled bundle.")
