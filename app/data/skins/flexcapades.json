@@ -3993,5 +3993,590 @@
       "help": "Enabled phases are added to the generated moderation prompt as a Discussion structure section, in opening, development, closing order. Turn a phase off to leave it out."
     }
   },
-  "defaultLayout": {}
+  "defaultLayout": {
+  "app": "sexcapades",
+  "kind": "layout-settings",
+  "version": 3,
+  "build": "2026-11-25_1336",
+  "exportedAt": "2026-11-25T20:07:24.566Z",
+  "settings": {
+    "spacing": "airy",
+    "branchOrder": "landscape-antipodal",
+    "propFan": true,
+    "subcatOrder": true,
+    "staggerDensity": false,
+    "stagger": true,
+    "expandAll": true,
+    "collision": "grow",
+    "crossmin": false,
+    "nudge": false,
+    "showRelations": false,
+    "spokeLen": 2.6,
+    "subLen": 1.2,
+    "pad": 1.4,
+    "repulsion": 0,
+    "repulsionEnabled": false,
+    "staticMap": false,
+    "fontScale": 30,
+    "centerRingScale": 10,
+    "leafOvergrowth": 100,
+    "branchOverrides": {
+      "Shaping it": {
+        "length": 0.4141117850042227
+      },
+      "Planning the night": {
+        "length": 0.16843866666666668
+      },
+      "Keeping it": {
+        "length": 0.1696386666666667
+      },
+      "Rating": {
+        "length": 0.2437386666666667
+      },
+      "Comparing": {
+        "length": 0.26833866666666667
+      },
+      "Guarding it": {
+        "length": 0.1390386666666667
+      },
+      "Learning it": {
+        "length": 0.18553866666666669
+      }
+    },
+    "subcatOverrides": {},
+    "kinkOverrides": {
+      "xfl0026": {
+        "length": 1
+      },
+      "xfl0023": {
+        "length": 1
+      },
+      "xfl0027": {
+        "length": 1
+      },
+      "xfl0025": {
+        "length": 1
+      },
+      "xfl0024": {
+        "length": 1
+      },
+      "xfl0029": {
+        "length": 1
+      },
+      "xfl0028": {
+        "length": 1
+      },
+      "xfl0011": {
+        "length": 1
+      },
+      "xfl0010": {
+        "length": 1
+      },
+      "xfl0012": {
+        "length": 1
+      },
+      "xfl0009": {
+        "length": 1
+      },
+      "xfl0014": {
+        "length": 1
+      },
+      "xfl0013": {
+        "length": 1
+      },
+      "xfl0015": {
+        "length": 1
+      },
+      "xfl0016": {
+        "length": 1
+      },
+      "xfl0004": {
+        "length": 1
+      },
+      "xfl0002": {
+        "length": 1
+      },
+      "xfl0003": {
+        "length": 1
+      },
+      "xfl0001": {
+        "length": 1
+      },
+      "xfl0006": {
+        "length": 1
+      },
+      "xfl0007": {
+        "length": 1
+      },
+      "xfl0005": {
+        "length": 1
+      },
+      "xfl0008": {
+        "length": 1
+      },
+      "xfl0019": {
+        "length": 1
+      },
+      "xfl0018": {
+        "length": 1
+      },
+      "xfl0017": {
+        "length": 1
+      },
+      "xfl0020": {
+        "length": 1
+      },
+      "xfl0022": {
+        "length": 1
+      },
+      "xfl0021": {
+        "length": 1
+      }
+    },
+    "subcatAngleOffsets": {},
+    "kinkAngleOffsets": {},
+    "branchSpokeAutoShrink": {},
+    "subcatSpokeAutoShrink": {},
+    "solverMidline": "repulsion",
+    "mapSliders": false,
+    "animations": false
+  },
+  "hash": "#layout-spacing=airy&layout-branchOrder=landscape-antipodal&layout-propFan=1&layout-subcatOrder=1&layout-staggerDensity=0&layout-stagger=1&layout-expandAll=1&layout-collision=grow&layout-crossmin=0&layout-nudge=0&layout-showRelations=0&layout-spokeLen=2.60&layout-subLen=1.20&layout-pad=1.40&layout-repulsion=0.00&layout-repulsionEnabled=0&layout-staticMap=0&layout-animations=0&layout-mapSliders=0&layout-fontScale=30.00&layout-centerRingScale=10.00&layout-leafOvergrowth=100&layout-autoShrinkFactor=0.76&layout-subcatCloudShrinkFactor=0.76&layout-branches=eyJTaGFwaW5nIGl0Ijp7Imxlbmd0aCI6MC40MTQxMTE3ODUwMDQyMjI3fSwiUGxhbm5pbmcgdGhlIG5pZ2h0Ijp7Imxlbmd0aCI6MC4xNjg0Mzg2NjY2NjY2NjY2OH0sIktlZXBpbmcgaXQiOnsibGVuZ3RoIjowLjE2OTYzODY2NjY2NjY2Njd9LCJSYXRpbmciOnsibGVuZ3RoIjowLjI0MzczODY2NjY2NjY2Njd9LCJDb21wYXJpbmciOnsibGVuZ3RoIjowLjI2ODMzODY2NjY2NjY2NjY3fSwiR3VhcmRpbmcgaXQiOnsibGVuZ3RoIjowLjEzOTAzODY2NjY2NjY2Njd9LCJMZWFybmluZyBpdCI6eyJsZW5ndGgiOjAuMTg1NTM4NjY2NjY2NjY2Njl9fQ&layout-kinkOverrides=eyJ4ZmwwMDI2Ijp7Imxlbmd0aCI6MX0sInhmbDAwMjMiOnsibGVuZ3RoIjoxfSwieGZsMDAyNyI6eyJsZW5ndGgiOjF9LCJ4ZmwwMDI1Ijp7Imxlbmd0aCI6MX0sInhmbDAwMjQiOnsibGVuZ3RoIjoxfSwieGZsMDAyOSI6eyJsZW5ndGgiOjF9LCJ4ZmwwMDI4Ijp7Imxlbmd0aCI6MX0sInhmbDAwMTEiOnsibGVuZ3RoIjoxfSwieGZsMDAxMCI6eyJsZW5ndGgiOjF9LCJ4ZmwwMDEyIjp7Imxlbmd0aCI6MX0sInhmbDAwMDkiOnsibGVuZ3RoIjoxfSwieGZsMDAxNCI6eyJsZW5ndGgiOjF9LCJ4ZmwwMDEzIjp7Imxlbmd0aCI6MX0sInhmbDAwMTUiOnsibGVuZ3RoIjoxfSwieGZsMDAxNiI6eyJsZW5ndGgiOjF9LCJ4ZmwwMDA0Ijp7Imxlbmd0aCI6MX0sInhmbDAwMDIiOnsibGVuZ3RoIjoxfSwieGZsMDAwMyI6eyJsZW5ndGgiOjF9LCJ4ZmwwMDAxIjp7Imxlbmd0aCI6MX0sInhmbDAwMDYiOnsibGVuZ3RoIjoxfSwieGZsMDAwNyI6eyJsZW5ndGgiOjF9LCJ4ZmwwMDA1Ijp7Imxlbmd0aCI6MX0sInhmbDAwMDgiOnsibGVuZ3RoIjoxfSwieGZsMDAxOSI6eyJsZW5ndGgiOjF9LCJ4ZmwwMDE4Ijp7Imxlbmd0aCI6MX0sInhmbDAwMTciOnsibGVuZ3RoIjoxfSwieGZsMDAyMCI6eyJsZW5ndGgiOjF9LCJ4ZmwwMDIyIjp7Imxlbmd0aCI6MX0sInhmbDAwMjEiOnsibGVuZ3RoIjoxfX0&layout-nodeOverrides=eyJTaGFwaW5nIGl0Ijp7Imxlbmd0aCI6MC40MTQxMTE3ODUwMDQyMjI3LCJkZXB0aCI6MSwia2luZCI6ImJyYW5jaCJ9LCJQbGFubmluZyB0aGUgbmlnaHQiOnsibGVuZ3RoIjowLjE2ODQzODY2NjY2NjY2NjY4LCJkZXB0aCI6MSwia2luZCI6ImJyYW5jaCJ9LCJLZWVwaW5nIGl0Ijp7Imxlbmd0aCI6MC4xNjk2Mzg2NjY2NjY2NjY3LCJkZXB0aCI6MSwia2luZCI6ImJyYW5jaCJ9LCJSYXRpbmciOnsibGVuZ3RoIjowLjI0MzczODY2NjY2NjY2NjcsImRlcHRoIjoxLCJraW5kIjoiYnJhbmNoIn0sIkNvbXBhcmluZyI6eyJsZW5ndGgiOjAuMjY4MzM4NjY2NjY2NjY2NjcsImRlcHRoIjoxLCJraW5kIjoiYnJhbmNoIn0sIkd1YXJkaW5nIGl0Ijp7Imxlbmd0aCI6MC4xMzkwMzg2NjY2NjY2NjY3LCJkZXB0aCI6MSwia2luZCI6ImJyYW5jaCJ9LCJMZWFybmluZyBpdCI6eyJsZW5ndGgiOjAuMTg1NTM4NjY2NjY2NjY2NjksImRlcHRoIjoxLCJraW5kIjoiYnJhbmNoIn0sInhmbDAwMjYiOnsibGVuZ3RoIjoxLCJkZXB0aCI6Mywia2luZCI6ImtpbmsifSwieGZsMDAyMyI6eyJsZW5ndGgiOjEsImRlcHRoIjozLCJraW5kIjoia2luayJ9LCJ4ZmwwMDI3Ijp7Imxlbmd0aCI6MSwiZGVwdGgiOjMsImtpbmQiOiJraW5rIn0sInhmbDAwMjUiOnsibGVuZ3RoIjoxLCJkZXB0aCI6Mywia2luZCI6ImtpbmsifSwieGZsMDAyNCI6eyJsZW5ndGgiOjEsImRlcHRoIjozLCJraW5kIjoia2luayJ9LCJ4ZmwwMDI5Ijp7Imxlbmd0aCI6MSwiZGVwdGgiOjMsImtpbmQiOiJraW5rIn0sInhmbDAwMjgiOnsibGVuZ3RoIjoxLCJkZXB0aCI6Mywia2luZCI6ImtpbmsifSwieGZsMDAxMSI6eyJsZW5ndGgiOjEsImRlcHRoIjozLCJraW5kIjoia2luayJ9LCJ4ZmwwMDEwIjp7Imxlbmd0aCI6MSwiZGVwdGgiOjMsImtpbmQiOiJraW5rIn0sInhmbDAwMTIiOnsibGVuZ3RoIjoxLCJkZXB0aCI6Mywia2luZCI6ImtpbmsifSwieGZsMDAwOSI6eyJsZW5ndGgiOjEsImRlcHRoIjozLCJraW5kIjoia2luayJ9LCJ4ZmwwMDE0Ijp7Imxlbmd0aCI6MSwiZGVwdGgiOjMsImtpbmQiOiJraW5rIn0sInhmbDAwMTMiOnsibGVuZ3RoIjoxLCJkZXB0aCI6Mywia2luZCI6ImtpbmsifSwieGZsMDAxNSI6eyJsZW5ndGgiOjEsImRlcHRoIjozLCJraW5kIjoia2luayJ9LCJ4ZmwwMDE2Ijp7Imxlbmd0aCI6MSwiZGVwdGgiOjMsImtpbmQiOiJraW5rIn0sInhmbDAwMDQiOnsibGVuZ3RoIjoxLCJkZXB0aCI6Mywia2luZCI6ImtpbmsifSwieGZsMDAwMiI6eyJsZW5ndGgiOjEsImRlcHRoIjozLCJraW5kIjoia2luayJ9LCJ4ZmwwMDAzIjp7Imxlbmd0aCI6MSwiZGVwdGgiOjMsImtpbmQiOiJraW5rIn0sInhmbDAwMDEiOnsibGVuZ3RoIjoxLCJkZXB0aCI6Mywia2luZCI6ImtpbmsifSwieGZsMDAwNiI6eyJsZW5ndGgiOjEsImRlcHRoIjozLCJraW5kIjoia2luayJ9LCJ4ZmwwMDA3Ijp7Imxlbmd0aCI6MSwiZGVwdGgiOjMsImtpbmQiOiJraW5rIn0sInhmbDAwMDUiOnsibGVuZ3RoIjoxLCJkZXB0aCI6Mywia2luZCI6ImtpbmsifSwieGZsMDAwOCI6eyJsZW5ndGgiOjEsImRlcHRoIjozLCJraW5kIjoia2luayJ9LCJ4ZmwwMDE5Ijp7Imxlbmd0aCI6MSwiZGVwdGgiOjMsImtpbmQiOiJraW5rIn0sInhmbDAwMTgiOnsibGVuZ3RoIjoxLCJkZXB0aCI6Mywia2luZCI6ImtpbmsifSwieGZsMDAxNyI6eyJsZW5ndGgiOjEsImRlcHRoIjozLCJraW5kIjoia2luayJ9LCJ4ZmwwMDIwIjp7Imxlbmd0aCI6MSwiZGVwdGgiOjMsImtpbmQiOiJraW5rIn0sInhmbDAwMjIiOnsibGVuZ3RoIjoxLCJkZXB0aCI6Mywia2luZCI6ImtpbmsifSwieGZsMDAyMSI6eyJsZW5ndGgiOjEsImRlcHRoIjozLCJraW5kIjoia2luayJ9fQ",
+  "positions": {
+    "skin": "flexcapades",
+    "solverVersion": 2,
+    "capturedAt": "2026-11-25T20:07:24.564Z",
+    "settingsHash": "#layout-spacing=airy&layout-branchOrder=landscape-antipodal&layout-propFan=1&layout-subcatOrder=1&layout-staggerDensity=0&layout-stagger=1&layout-expandAll=1&layout-collision=grow&layout-crossmin=0&layout-nudge=0&layout-showRelations=0&layout-spokeLen=2.60&layout-subLen=1.20&layout-pad=1.40&layout-repulsion=0.00&layout-repulsionEnabled=0&layout-staticMap=0&layout-animations=0&layout-mapSliders=0&layout-fontScale=30.00&layout-centerRingScale=10.00&layout-leafOvergrowth=100&layout-autoShrinkFactor=0.76&layout-subcatCloudShrinkFactor=0.76&layout-branches=eyJTaGFwaW5nIGl0Ijp7Imxlbmd0aCI6MC40MTQxMTE3ODUwMDQyMjI3fSwiUGxhbm5pbmcgdGhlIG5pZ2h0Ijp7Imxlbmd0aCI6MC4xNjg0Mzg2NjY2NjY2NjY2OH0sIktlZXBpbmcgaXQiOnsibGVuZ3RoIjowLjE2OTYzODY2NjY2NjY2Njd9LCJSYXRpbmciOnsibGVuZ3RoIjowLjI0MzczODY2NjY2NjY2Njd9LCJDb21wYXJpbmciOnsibGVuZ3RoIjowLjI2ODMzODY2NjY2NjY2NjY3fSwiR3VhcmRpbmcgaXQiOnsibGVuZ3RoIjowLjEzOTAzODY2NjY2NjY2Njd9LCJMZWFybmluZyBpdCI6eyJsZW5ndGgiOjAuMTg1NTM4NjY2NjY2NjY2Njl9fQ&layout-kinkOverrides=eyJ4ZmwwMDI2Ijp7Imxlbmd0aCI6MX0sInhmbDAwMjMiOnsibGVuZ3RoIjoxfSwieGZsMDAyNyI6eyJsZW5ndGgiOjF9LCJ4ZmwwMDI1Ijp7Imxlbmd0aCI6MX0sInhmbDAwMjQiOnsibGVuZ3RoIjoxfSwieGZsMDAyOSI6eyJsZW5ndGgiOjF9LCJ4ZmwwMDI4Ijp7Imxlbmd0aCI6MX0sInhmbDAwMTEiOnsibGVuZ3RoIjoxfSwieGZsMDAxMCI6eyJsZW5ndGgiOjF9LCJ4ZmwwMDEyIjp7Imxlbmd0aCI6MX0sInhmbDAwMDkiOnsibGVuZ3RoIjoxfSwieGZsMDAxNCI6eyJsZW5ndGgiOjF9LCJ4ZmwwMDEzIjp7Imxlbmd0aCI6MX0sInhmbDAwMTUiOnsibGVuZ3RoIjoxfSwieGZsMDAxNiI6eyJsZW5ndGgiOjF9LCJ4ZmwwMDA0Ijp7Imxlbmd0aCI6MX0sInhmbDAwMDIiOnsibGVuZ3RoIjoxfSwieGZsMDAwMyI6eyJsZW5ndGgiOjF9LCJ4ZmwwMDAxIjp7Imxlbmd0aCI6MX0sInhmbDAwMDYiOnsibGVuZ3RoIjoxfSwieGZsMDAwNyI6eyJsZW5ndGgiOjF9LCJ4ZmwwMDA1Ijp7Imxlbmd0aCI6MX0sInhmbDAwMDgiOnsibGVuZ3RoIjoxfSwieGZsMDAxOSI6eyJsZW5ndGgiOjF9LCJ4ZmwwMDE4Ijp7Imxlbmd0aCI6MX0sInhmbDAwMTciOnsibGVuZ3RoIjoxfSwieGZsMDAyMCI6eyJsZW5ndGgiOjF9LCJ4ZmwwMDIyIjp7Imxlbmd0aCI6MX0sInhmbDAwMjEiOnsibGVuZ3RoIjoxfX0&layout-nodeOverrides=eyJTaGFwaW5nIGl0Ijp7Imxlbmd0aCI6MC40MTQxMTE3ODUwMDQyMjI3LCJkZXB0aCI6MSwia2luZCI6ImJyYW5jaCJ9LCJQbGFubmluZyB0aGUgbmlnaHQiOnsibGVuZ3RoIjowLjE2ODQzODY2NjY2NjY2NjY4LCJkZXB0aCI6MSwia2luZCI6ImJyYW5jaCJ9LCJLZWVwaW5nIGl0Ijp7Imxlbmd0aCI6MC4xNjk2Mzg2NjY2NjY2NjY3LCJkZXB0aCI6MSwia2luZCI6ImJyYW5jaCJ9LCJSYXRpbmciOnsibGVuZ3RoIjowLjI0MzczODY2NjY2NjY2NjcsImRlcHRoIjoxLCJraW5kIjoiYnJhbmNoIn0sIkNvbXBhcmluZyI6eyJsZW5ndGgiOjAuMjY4MzM4NjY2NjY2NjY2NjcsImRlcHRoIjoxLCJraW5kIjoiYnJhbmNoIn0sIkd1YXJkaW5nIGl0Ijp7Imxlbmd0aCI6MC4xMzkwMzg2NjY2NjY2NjY3LCJkZXB0aCI6MSwia2luZCI6ImJyYW5jaCJ9LCJMZWFybmluZyBpdCI6eyJsZW5ndGgiOjAuMTg1NTM4NjY2NjY2NjY2NjksImRlcHRoIjoxLCJraW5kIjoiYnJhbmNoIn0sInhmbDAwMjYiOnsibGVuZ3RoIjoxLCJkZXB0aCI6Mywia2luZCI6ImtpbmsifSwieGZsMDAyMyI6eyJsZW5ndGgiOjEsImRlcHRoIjozLCJraW5kIjoia2luayJ9LCJ4ZmwwMDI3Ijp7Imxlbmd0aCI6MSwiZGVwdGgiOjMsImtpbmQiOiJraW5rIn0sInhmbDAwMjUiOnsibGVuZ3RoIjoxLCJkZXB0aCI6Mywia2luZCI6ImtpbmsifSwieGZsMDAyNCI6eyJsZW5ndGgiOjEsImRlcHRoIjozLCJraW5kIjoia2luayJ9LCJ4ZmwwMDI5Ijp7Imxlbmd0aCI6MSwiZGVwdGgiOjMsImtpbmQiOiJraW5rIn0sInhmbDAwMjgiOnsibGVuZ3RoIjoxLCJkZXB0aCI6Mywia2luZCI6ImtpbmsifSwieGZsMDAxMSI6eyJsZW5ndGgiOjEsImRlcHRoIjozLCJraW5kIjoia2luayJ9LCJ4ZmwwMDEwIjp7Imxlbmd0aCI6MSwiZGVwdGgiOjMsImtpbmQiOiJraW5rIn0sInhmbDAwMTIiOnsibGVuZ3RoIjoxLCJkZXB0aCI6Mywia2luZCI6ImtpbmsifSwieGZsMDAwOSI6eyJsZW5ndGgiOjEsImRlcHRoIjozLCJraW5kIjoia2luayJ9LCJ4ZmwwMDE0Ijp7Imxlbmd0aCI6MSwiZGVwdGgiOjMsImtpbmQiOiJraW5rIn0sInhmbDAwMTMiOnsibGVuZ3RoIjoxLCJkZXB0aCI6Mywia2luZCI6ImtpbmsifSwieGZsMDAxNSI6eyJsZW5ndGgiOjEsImRlcHRoIjozLCJraW5kIjoia2luayJ9LCJ4ZmwwMDE2Ijp7Imxlbmd0aCI6MSwiZGVwdGgiOjMsImtpbmQiOiJraW5rIn0sInhmbDAwMDQiOnsibGVuZ3RoIjoxLCJkZXB0aCI6Mywia2luZCI6ImtpbmsifSwieGZsMDAwMiI6eyJsZW5ndGgiOjEsImRlcHRoIjozLCJraW5kIjoia2luayJ9LCJ4ZmwwMDAzIjp7Imxlbmd0aCI6MSwiZGVwdGgiOjMsImtpbmQiOiJraW5rIn0sInhmbDAwMDEiOnsibGVuZ3RoIjoxLCJkZXB0aCI6Mywia2luZCI6ImtpbmsifSwieGZsMDAwNiI6eyJsZW5ndGgiOjEsImRlcHRoIjozLCJraW5kIjoia2luayJ9LCJ4ZmwwMDA3Ijp7Imxlbmd0aCI6MSwiZGVwdGgiOjMsImtpbmQiOiJraW5rIn0sInhmbDAwMDUiOnsibGVuZ3RoIjoxLCJkZXB0aCI6Mywia2luZCI6ImtpbmsifSwieGZsMDAwOCI6eyJsZW5ndGgiOjEsImRlcHRoIjozLCJraW5kIjoia2luayJ9LCJ4ZmwwMDE5Ijp7Imxlbmd0aCI6MSwiZGVwdGgiOjMsImtpbmQiOiJraW5rIn0sInhmbDAwMTgiOnsibGVuZ3RoIjoxLCJkZXB0aCI6Mywia2luZCI6ImtpbmsifSwieGZsMDAxNyI6eyJsZW5ndGgiOjEsImRlcHRoIjozLCJraW5kIjoia2luayJ9LCJ4ZmwwMDIwIjp7Imxlbmd0aCI6MSwiZGVwdGgiOjMsImtpbmQiOiJraW5rIn0sInhmbDAwMjIiOnsibGVuZ3RoIjoxLCJkZXB0aCI6Mywia2luZCI6ImtpbmsifSwieGZsMDAyMSI6eyJsZW5ndGgiOjEsImRlcHRoIjozLCJraW5kIjoia2luayJ9fQ",
+    "fingerprint": "{\"animations\":false,\"autoShrinkFactor\":0.76,\"branchOrder\":\"landscape-antipodal\",\"branchOverrides\":{\"Comparing\":{\"length\":0.26833866666666667},\"Guarding it\":{\"length\":0.1390386666666667},\"Keeping it\":{\"length\":0.1696386666666667},\"Learning it\":{\"length\":0.18553866666666669},\"Planning the night\":{\"length\":0.16843866666666668},\"Rating\":{\"length\":0.2437386666666667},\"Shaping it\":{\"length\":0.4141117850042227}},\"branchSpokeAutoShrink\":{},\"centerRingScale\":10,\"collision\":\"grow\",\"crossmin\":false,\"expandAll\":true,\"fontScale\":30,\"kinkAngleOffsets\":{},\"kinkOverrides\":{\"xfl0001\":{\"length\":1},\"xfl0002\":{\"length\":1},\"xfl0003\":{\"length\":1},\"xfl0004\":{\"length\":1},\"xfl0005\":{\"length\":1},\"xfl0006\":{\"length\":1},\"xfl0007\":{\"length\":1},\"xfl0008\":{\"length\":1},\"xfl0009\":{\"length\":1},\"xfl0010\":{\"length\":1},\"xfl0011\":{\"length\":1},\"xfl0012\":{\"length\":1},\"xfl0013\":{\"length\":1},\"xfl0014\":{\"length\":1},\"xfl0015\":{\"length\":1},\"xfl0016\":{\"length\":1},\"xfl0017\":{\"length\":1},\"xfl0018\":{\"length\":1},\"xfl0019\":{\"length\":1},\"xfl0020\":{\"length\":1},\"xfl0021\":{\"length\":1},\"xfl0022\":{\"length\":1},\"xfl0023\":{\"length\":1},\"xfl0024\":{\"length\":1},\"xfl0025\":{\"length\":1},\"xfl0026\":{\"length\":1},\"xfl0027\":{\"length\":1},\"xfl0028\":{\"length\":1},\"xfl0029\":{\"length\":1}},\"leafOvergrowth\":100,\"mapSliders\":false,\"nodeOverrides\":{},\"nudge\":false,\"pad\":1.4,\"propFan\":true,\"repulsion\":0,\"repulsionEnabled\":false,\"showRelations\":false,\"solverMidline\":\"repulsion\",\"spacing\":\"airy\",\"spokeLen\":2.6,\"stagger\":true,\"staggerDensity\":false,\"staticMap\":false,\"subLen\":1.2,\"subcatAngleOffsets\":{},\"subcatCloudShrinkFactor\":0.76,\"subcatOrder\":true,\"subcatOverrides\":{},\"subcatSpokeAutoShrink\":{}}",
+    "treeSignature": "xflc01:xfl0001[],xfl0002[],xfl0003[],xfl0004[]|xflc02:xfl0005[],xfl0006[],xfl0007[],xfl0008[]|xflc03:xfl0009[],xfl0010[],xfl0011[],xfl0012[]|xflc04:xfl0013[],xfl0014[],xfl0015[],xfl0016[]|xflc05:xfl0017[],xfl0018[],xfl0019[]|xflc06:xfl0020[],xfl0021[],xfl0022[]|xflc07:xfl0023[],xfl0024[],xfl0025[],xfl0026[],xfl0027[],xfl0028[],xfl0029[]",
+    "crossings": 56.02505206380282,
+    "branches": [
+      {
+        "name": "Learning it",
+        "catId": "xflc06",
+        "angle": -1.2458039833200905,
+        "sector": 0.6499846869496123,
+        "topicCloudRadius": 210.8,
+        "topicCloudRadiusBase": 210.8,
+        "spokeAdjust20": 0,
+        "topics": [
+          {
+            "id": "xfl0020",
+            "angle": -1.451632467520801,
+            "sector": 0.2058284842007106,
+            "cloudAngle": 0.6740581938736722,
+            "cloudRadius": 210.8,
+            "cloudCount": 3,
+            "cloudIndex": 0,
+            "curve": false,
+            "radialFit20": null,
+            "children": []
+          },
+          {
+            "id": "xfl0022",
+            "angle": -1.2458039833200905,
+            "sector": 0.2058284842007106,
+            "cloudAngle": -1.2458039833200902,
+            "cloudRadius": 218.45277227278902,
+            "cloudCount": 3,
+            "cloudIndex": 1,
+            "curve": false,
+            "radialFit20": null,
+            "children": []
+          },
+          {
+            "id": "xfl0021",
+            "angle": -1.03997549911938,
+            "sector": 0.2058284842007106,
+            "cloudAngle": 3.117519146665734,
+            "cloudRadius": 210.8,
+            "cloudCount": 3,
+            "cloudIndex": 2,
+            "curve": false,
+            "radialFit20": null,
+            "children": []
+          }
+        ]
+      },
+      {
+        "name": "Planning the night",
+        "catId": "xflc03",
+        "angle": -0.48748851521220926,
+        "sector": 0.86664624926615,
+        "topicCloudRadius": 210.8,
+        "topicCloudRadiusBase": 210.8,
+        "spokeAdjust20": 0,
+        "topics": [
+          {
+            "id": "xfl0011",
+            "angle": -0.799390889297058,
+            "sector": 0.20793491605656583,
+            "cloudAngle": 1.6723564341307733,
+            "cloudRadius": 210.8,
+            "cloudCount": 4,
+            "cloudIndex": 0,
+            "curve": false,
+            "radialFit20": null,
+            "children": []
+          },
+          {
+            "id": "xfl0010",
+            "angle": -0.5914559732404921,
+            "sector": 0.20793491605656583,
+            "cloudAngle": 0.23245980123545174,
+            "cloudRadius": 210.8,
+            "cloudCount": 4,
+            "cloudIndex": 1,
+            "curve": false,
+            "radialFit20": null,
+            "children": []
+          },
+          {
+            "id": "xfl0012",
+            "angle": -0.38352105718392626,
+            "sector": 0.20793491605656583,
+            "cloudAngle": -1.2074368316598703,
+            "cloudRadius": 210.8,
+            "cloudCount": 4,
+            "cloudIndex": 2,
+            "curve": false,
+            "radialFit20": null,
+            "children": []
+          },
+          {
+            "id": "xfl0009",
+            "angle": -0.17558614112736046,
+            "sector": 0.20793491605656583,
+            "cloudAngle": -2.6473334645551923,
+            "cloudRadius": 210.8,
+            "cloudCount": 4,
+            "cloudIndex": 3,
+            "curve": false,
+            "radialFit20": null,
+            "children": []
+          }
+        ]
+      },
+      {
+        "name": "Shaping it",
+        "catId": "xflc07",
+        "angle": 0.7041500775287468,
+        "sector": 1.5166309362157622,
+        "topicCloudRadius": 275.6803581893318,
+        "topicCloudRadiusBase": 275.6803581893318,
+        "spokeAdjust20": 0,
+        "topics": [
+          {
+            "id": "xfl0026",
+            "angle": 0.06912535559622868,
+            "sector": 0.21167490731083932,
+            "cloudAngle": -3.110641001830288,
+            "cloudRadius": 555.9835770679813,
+            "cloudCount": 7,
+            "cloudIndex": 0,
+            "curve": false,
+            "radialFit20": null,
+            "children": []
+          },
+          {
+            "id": "xfl0023",
+            "angle": 0.280800262907068,
+            "sector": 0.21167490731083932,
+            "cloudAngle": 2.3497462294091145,
+            "cloudRadius": 614.3992956172034,
+            "cloudCount": 7,
+            "cloudIndex": 1,
+            "curve": false,
+            "radialFit20": null,
+            "children": []
+          },
+          {
+            "id": "xfl0027",
+            "angle": 0.4924751702179073,
+            "sector": 0.21167490731083932,
+            "cloudAngle": 1.5269481534689304,
+            "cloudRadius": 569.6295731523475,
+            "cloudCount": 7,
+            "cloudIndex": 2,
+            "curve": false,
+            "radialFit20": null,
+            "children": []
+          },
+          {
+            "id": "xfl0025",
+            "angle": 0.7041500775287466,
+            "sector": 0.21167490731083932,
+            "cloudAngle": 0.7041500775287468,
+            "cloudRadius": 569.6295731523473,
+            "cloudCount": 7,
+            "cloudIndex": 3,
+            "curve": false,
+            "radialFit20": null,
+            "children": []
+          },
+          {
+            "id": "xfl0024",
+            "angle": 0.9158249848395859,
+            "sector": 0.21167490731083932,
+            "cloudAngle": -0.11864799841143725,
+            "cloudRadius": 594.9352745622623,
+            "cloudCount": 7,
+            "cloudIndex": 4,
+            "curve": false,
+            "radialFit20": null,
+            "children": []
+          },
+          {
+            "id": "xfl0029",
+            "angle": 1.1274998921504251,
+            "sector": 0.21167490731083932,
+            "cloudAngle": -0.9414460743516209,
+            "cloudRadius": 539.3337040261246,
+            "cloudCount": 7,
+            "cloudIndex": 5,
+            "curve": false,
+            "radialFit20": null,
+            "children": []
+          },
+          {
+            "id": "xfl0028",
+            "angle": 1.3391747994612644,
+            "sector": 0.21167490731083932,
+            "cloudAngle": -1.7642441502918054,
+            "cloudRadius": 275.6803581893318,
+            "cloudCount": 7,
+            "cloudIndex": 6,
+            "curve": false,
+            "radialFit20": null,
+            "children": []
+          }
+        ]
+      },
+      {
+        "name": "Guarding it",
+        "catId": "xflc05",
+        "angle": 1.7874578891114339,
+        "sector": 0.6499846869496123,
+        "topicCloudRadius": 210.8,
+        "topicCloudRadiusBase": 210.8,
+        "spokeAdjust20": 0,
+        "topics": [
+          {
+            "id": "xfl0019",
+            "angle": 1.5816294049107233,
+            "sector": 0.2058284842007106,
+            "cloudAngle": -2.5758652408743896,
+            "cloudRadius": 210.8,
+            "cloudCount": 3,
+            "cloudIndex": 0,
+            "curve": false,
+            "radialFit20": null,
+            "children": []
+          },
+          {
+            "id": "xfl0018",
+            "angle": 1.7874578891114339,
+            "sector": 0.2058284842007106,
+            "cloudAngle": 1.7874578891114346,
+            "cloudRadius": 210.8,
+            "cloudCount": 3,
+            "cloudIndex": 1,
+            "curve": false,
+            "radialFit20": null,
+            "children": []
+          },
+          {
+            "id": "xfl0017",
+            "angle": 1.9932863733121444,
+            "sector": 0.2058284842007106,
+            "cloudAngle": -0.13240428808232796,
+            "cloudRadius": 210.8,
+            "cloudCount": 3,
+            "cloudIndex": 2,
+            "curve": false,
+            "radialFit20": null,
+            "children": []
+          }
+        ]
+      },
+      {
+        "name": "Rating",
+        "catId": "xflc01",
+        "angle": 2.545773357219315,
+        "sector": 0.86664624926615,
+        "topicCloudRadius": 210.8,
+        "topicCloudRadiusBase": 210.8,
+        "spokeAdjust20": 0,
+        "topics": [
+          {
+            "id": "xfl0004",
+            "angle": 2.233870983134466,
+            "sector": 0.20793491605656583,
+            "cloudAngle": -1.577567000617288,
+            "cloudRadius": 358.1951320039357,
+            "cloudCount": 4,
+            "cloudIndex": 0,
+            "curve": false,
+            "radialFit20": null,
+            "children": []
+          },
+          {
+            "id": "xfl0002",
+            "angle": 2.441805899191032,
+            "sector": 0.20793491605656583,
+            "cloudAngle": -3.01746363351261,
+            "cloudRadius": 471.60250415312316,
+            "cloudCount": 4,
+            "cloudIndex": 1,
+            "curve": false,
+            "radialFit20": null,
+            "children": []
+          },
+          {
+            "id": "xfl0003",
+            "angle": 2.649740815247598,
+            "sector": 0.20793491605656583,
+            "cloudAngle": 1.8258250407716545,
+            "cloudRadius": 422.3831319138768,
+            "cloudCount": 4,
+            "cloudIndex": 2,
+            "curve": false,
+            "radialFit20": null,
+            "children": []
+          },
+          {
+            "id": "xfl0001",
+            "angle": 2.857675731304164,
+            "sector": 0.20793491605656583,
+            "cloudAngle": 0.38592840787633254,
+            "cloudRadius": 210.8,
+            "cloudCount": 4,
+            "cloudIndex": 3,
+            "curve": false,
+            "radialFit20": null,
+            "children": []
+          }
+        ]
+      },
+      {
+        "name": "Comparing",
+        "catId": "xflc02",
+        "angle": 3.4124196064854653,
+        "sector": 0.86664624926615,
+        "topicCloudRadius": 210.8,
+        "topicCloudRadiusBase": 210.8,
+        "spokeAdjust20": 0,
+        "topics": [
+          {
+            "id": "xfl0006",
+            "angle": 3.100517232400616,
+            "sector": 0.20793491605656583,
+            "cloudAngle": -0.7109207513511377,
+            "cloudRadius": 473.81372943817775,
+            "cloudCount": 4,
+            "cloudIndex": 0,
+            "curve": false,
+            "radialFit20": null,
+            "children": []
+          },
+          {
+            "id": "xfl0007",
+            "angle": 3.308452148457182,
+            "sector": 0.20793491605656583,
+            "cloudAngle": -2.15081738424646,
+            "cloudRadius": 417.2786133996414,
+            "cloudCount": 4,
+            "cloudIndex": 1,
+            "curve": false,
+            "radialFit20": null,
+            "children": []
+          },
+          {
+            "id": "xfl0005",
+            "angle": 3.516387064513748,
+            "sector": 0.20793491605656583,
+            "cloudAngle": 2.6924712900378047,
+            "cloudRadius": 438.1730068820433,
+            "cloudCount": 4,
+            "cloudIndex": 2,
+            "curve": false,
+            "radialFit20": null,
+            "children": []
+          },
+          {
+            "id": "xfl0008",
+            "angle": 3.724321980570314,
+            "sector": 0.20793491605656583,
+            "cloudAngle": 1.2525746571424827,
+            "cloudRadius": 210.8,
+            "cloudCount": 4,
+            "cloudIndex": 3,
+            "curve": false,
+            "radialFit20": null,
+            "children": []
+          }
+        ]
+      },
+      {
+        "name": "Keeping it",
+        "catId": "xflc04",
+        "angle": 4.2790658557516155,
+        "sector": 0.86664624926615,
+        "topicCloudRadius": 210.8,
+        "topicCloudRadiusBase": 210.8,
+        "spokeAdjust20": 0,
+        "topics": [
+          {
+            "id": "xfl0014",
+            "angle": 3.9671634816667662,
+            "sector": 0.20793491605656583,
+            "cloudAngle": 0.15572549791501242,
+            "cloudRadius": 210.8,
+            "cloudCount": 4,
+            "cloudIndex": 0,
+            "curve": false,
+            "radialFit20": null,
+            "children": []
+          },
+          {
+            "id": "xfl0013",
+            "angle": 4.175098397723332,
+            "sector": 0.20793491605656583,
+            "cloudAngle": -1.2841711349803095,
+            "cloudRadius": 237.71057664267866,
+            "cloudCount": 4,
+            "cloudIndex": 1,
+            "curve": false,
+            "radialFit20": null,
+            "children": []
+          },
+          {
+            "id": "xfl0015",
+            "angle": 4.383033313779897,
+            "sector": 0.20793491605656583,
+            "cloudAngle": -2.7240677678756313,
+            "cloudRadius": 291.96621374440036,
+            "cloudCount": 4,
+            "cloudIndex": 2,
+            "curve": false,
+            "radialFit20": null,
+            "children": []
+          },
+          {
+            "id": "xfl0016",
+            "angle": 4.590968229836463,
+            "sector": 0.20793491605656583,
+            "cloudAngle": 2.119220906408633,
+            "cloudRadius": 210.8,
+            "cloudCount": 4,
+            "cloudIndex": 3,
+            "curve": false,
+            "radialFit20": null,
+            "children": []
+          }
+        ]
+      }
+    ]
+  }
+}
 }
