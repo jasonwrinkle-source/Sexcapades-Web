@@ -31,10 +31,14 @@ parts = [
     "02m-fit-targets.js",
     "02n1-deknotter-diagnostics.js",
     "02n2-deknotter-solver.js",
+    "02n3-cascade-steps.js",
+    "02n4-cascade-shrink.js",
     "02n-deknotter-cascade.js",
     "02p-spoke-selection.js",
     "02-taxonomy-core.js",
     "02c-layout-solver.js",
+    "03a0-midline-tree.js",
+    "03a1-midline-energy.js",
     "03a-midline-solver.js",
     "03-map-geometry.js",
     "03c-map-vault.js",
@@ -43,11 +47,19 @@ parts = [
     "03f-polygon-widgets.js",
     "03f2-switchbox-widget.js",
     "03f3-cross-slider.js",
+    "03e0-map-renderers.js",
+    "03e4-paint-generator.js",
     "03e-map-paint.js",
     "03e1-mark-dialog.js",
+    "03d0-outline-state.js",
+    "03d1-outline-ladder.js",
+    "03d2-outline-timer.js",
+    "03d3-outline-rows.js",
+    "03d4-outline-ondeck.js",
     "03d-outline.js",
     "04-topic-picker.js",
     "05a-sync-engine.js",
+    "05b0-score-terms.js",
     "05b1-sync-compute.js",
     "05b-scribe.js",
     "05b2-scribe-prompts.js",
@@ -171,6 +183,20 @@ for ch in [
 docs_skin_builder = os.path.join(base_dir, "../../packaging-scripts/build_docs_skin.py")
 if os.path.isfile(docs_skin_builder):
     subprocess.run([sys.executable, docs_skin_builder], cwd=os.path.join(base_dir, "../.."), check=True)
+
+# Scene Sentinel is one boot script. The part files are the source;
+# this join is what the page and the packager load.
+sentinel_dir = os.path.join(base_dir, "../js/scene-sentinel")
+sentinel_out = os.path.join(base_dir, "../js/scene-sentinel.js")
+if os.path.isdir(sentinel_dir):
+    sentinel_parts = sorted(fn for fn in os.listdir(sentinel_dir) if fn.endswith(".js"))
+    sentinel_body = []
+    for fn in sentinel_parts:
+        with open(os.path.join(sentinel_dir, fn), encoding="utf-8") as sf:
+            sentinel_body.append(sf.read())
+    with open(sentinel_out, "w", encoding="utf-8") as sf:
+        sf.write("".join(sentinel_body))
+    print(f"[Bundle] Built scene-sentinel.js from {len(sentinel_parts)} parts")
 
 # Sync auxiliary JS to hosted/app-assets (and docs-skin.js to hosted/js for docs pages).
 js_src_dir = os.path.join(base_dir, "../js")

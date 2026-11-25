@@ -11582,7 +11582,7 @@ function dkEvaluateCrossingDrop(before, after, threshold = 0.75) {
     };
 }
 
-/* --- Module: 02n-deknotter-cascade.js --- */
+/* --- Module: 02n3-cascade-steps.js --- */
         // DeKnotter cascade driver (E5, ASSESSMENT §3.4, §3.7, §5.6,
         // §5.8, §5.11): one full run for one branch, driven entirely
         // through the bundle layout API - never the editor shell's
@@ -12440,6 +12440,8 @@ var witnessPaintedLastKept;
             witnessPaintedLastKept = witnessPaintedFrame("last-kept:" + phaseName, "phase commit '" + phaseName + "' kept (interim capsule domain; full-map DOM holds the last full paint)", dkPaintedGeometry, name, dkPaintedNodeCentre, tax, dkPaintedStemSeg);
             return now;
         }
+
+/* --- Module: 02n4-cascade-shrink.js --- */
 var witnessTrippingLabel;
         async function stepShrinkLadders(name, report, dk, fineTuneActive, WITNESS_EPS, WITNESS_ONE_STEP, preDelivered, opts, tax, diagCaptureFields, onsetCheck) {
             // (5) RULED SHRINK SEQUENCE (Jason, 2026-10-24
@@ -12911,6 +12913,8 @@ var witnessTrippingLabel;
             }
                 return { branchBackedOut: branchBackedOut, gateRejected: branchGateRejected };
             }
+
+/* --- Module: 02n-deknotter-cascade.js --- */
         async function dkRunCascade(branchName, opts) {
             resetWitnessState();
             const api = window.__SEXCAPADES_LAYOUT_API, dk = api.deknotter, name = null == branchName ? "" : String(branchName), tax = dkBranchTaxonomy(name);
@@ -15206,7 +15210,7 @@ var branchOrderCacheMode = "", branchOrderCacheMap = null;
         // and frCollisionPasses the collision/crossing passes. fr itself
         // is now a thin orchestrator.
 
-/* --- Module: 03a-midline-solver.js --- */
+/* --- Module: 03a0-midline-tree.js --- */
         function frBuildTree() {
                 const e = Ia(), t = t => $n ? $n.has(t) : !e || sxTopicPassesVeil(t, Mt), n = Lt ? ri().find(e => e.id === Lt) : null, i = Lt && (qn[Lt] || Xn(Lt) || n), a = i && i.parentId;
                 const hbSrc = (() => {
@@ -15506,6 +15510,8 @@ var branchOrderCacheMode = "", branchOrderCacheMap = null;
                 e.curve = !1, e.autoBend = 0;
             });
         }
+
+/* --- Module: 03a1-midline-energy.js --- */
         // ==== Stage 1 midline solver: SCC v2 hybrid energy + seeded annealer ====
         // Replaces the paint-stage settle search (Ar's inline radial loop)
         // when mn.solverMidline is "settle" (Stage 1 ASSESSMENT §§1.5, 3, 4).
@@ -16674,6 +16680,8 @@ var sxScratchNear = new Set, sxScratchSeenDisc = new Set;
             });
             return maps.tc + maps.tg + maps.ti - before;
         }
+
+/* --- Module: 03a-midline-solver.js --- */
         function sxMulberry32(seed) {
             let a = seed >>> 0;
             return function() {
@@ -22485,7 +22493,7 @@ var SX_OCTAD_COLORS = ["#22c55e", "#10b981", "#06b6d4", "#3b82f6", "#6366f1", "#
             };
         }
 
-/* --- Module: 03e-map-paint.js --- */
+/* --- Module: 03e0-map-renderers.js --- */
         // =========================================================================
         // MAP PAINT MODULAR RENDERERS (Phase 4 Step 2 Decomposition)
         // Hoisted out of Ar() so a paint does not rebuild them.
@@ -22587,6 +22595,8 @@ var LabelRenderer = {
             }
         };
 
+
+/* --- Module: 03e4-paint-generator.js --- */
         function* Ar(i = {}) {
             // JOB B GLIDE FIX - previous-positions capture: read the live
             // node positions BEFORE sxVaultCaptureCurrent() runs. The vault
@@ -24066,6 +24076,8 @@ var LabelRenderer = {
                 }
             } catch (_) {}
         }
+
+/* --- Module: 03e-map-paint.js --- */
         function Cr(e, t = "rendering problem") {
             window.__sxLoad && window.__sxLoad(-1);
             jn = !0, On = null, Tn && (Tn.textContent = `The hypermap hit a ${t}. Your open profile is unchanged.`),
@@ -26418,7 +26430,7 @@ var __sxCtmEl = null, __sxCtmVal = null, __sxCtmKey = "";
             "Escape" === e.key && ((!Ur || Ur.hidden) ? so() : oo());
         });
 
-/* --- Module: 03d-outline.js --- */
+/* --- Module: 03d0-outline-state.js --- */
 var Do = e.byId("outlineDialog"), Ro = e.byId("outlineSections"), Oo = e.byId("outlineProfileName"), Bo = e.byId("outlineHeaderCount"), jo = e.byId("outlineProgressText"), qo = e.byId("outlineProgressBar"), Ho = e.byId("outlineTimerToggle"), Wo = e.byId("outlineTimerReset"), Uo = e.byId("outlineShowRated");
         // P1 refactor (Build 2026-10-18_2227): outline-row DOM helpers.
         // getOutlineRow(el) returns the .outline-row containing an element;
@@ -26667,6 +26679,8 @@ var sxOutlineSortMode = "popularity";
                 e.total > 0 && e.rated === e.total && ys();
             }, 160);
         }
+
+/* --- Module: 03d1-outline-ladder.js --- */
         /* Hot List ladder (Jason, 2026-11-19): the tick marks are one
            pass of the list — the top 3 topics in every category — and
            the time is that many topics at the same 20 seconds each
@@ -26708,6 +26722,8 @@ var sxLadderKey = "";
             sxLadderKey = "";
             sxPaintOutlineLadder();
         };
+
+/* --- Module: 03d2-outline-timer.js --- */
         function ws() {
             if (!Go || Go !== Et && !vt[Go]) return;
             const e = cs(Go), t = e.total > 0 && e.rated === e.total, n = t && !Jo;
@@ -26767,6 +26783,8 @@ var xs = 0;
             a.setAttribute("role", "img"), a.setAttribute("aria-label", `Popularity details for ${t.label}`), 
             a) : null;
         }
+
+/* --- Module: 03d3-outline-rows.js --- */
         function As(e, t) {
             const n = document.createElement("div"), i = Ge(e.id, t), a = Boolean(e.expandable);
             n.className = "outline-row" + ("Imported" === e.kind ? " is-imported" : ""), n.dataset.outlineId = e.id, 
@@ -26900,6 +26918,8 @@ var xs = 0;
             return f.rows = 2, f.maxLength = 800, f.dataset.outlineNoteInput = "", f.placeholder = "Add context, preferences, or anything you want to remember…", 
             g.append(m, f), n.append(g), Ss(n), n;
         }
+
+/* --- Module: 03d4-outline-ondeck.js --- */
         // On Deck (2026-10-21): completion-queue membership. A topic is
         // queued when its rating state is incomplete — Tier 1: unrated
         // topics under a persisted FetLife broad-hit branch/subcategory;
@@ -27234,6 +27254,8 @@ var __sxParkedSectionNames = {
                 n && __sxOnDeckMarkTouched(n);
             }
         });
+
+/* --- Module: 03d-outline.js --- */
         function Cs(e = {}) {
             const t = Go;
             if (!t || t !== Et && !vt[t]) return;
@@ -27389,7 +27411,7 @@ var __sxParkedSectionNames = {
                 });
                 const S = document.createElement("button");
                 S.type = "button", S.className = "outline-more", n(S, '<span class="outline-more-label"></span>'), 
-                h.append(S), p.append(v), Ro.append(p);
+                v.append(S), p.append(v), Ro.append(p);
                 const $ = e => {
                     const n = Array.from(v.querySelectorAll(".outline-row[data-outline-topic-rank]")).sort((e, t) => Number(e.dataset.outlineTopicRank) - Number(t.dataset.outlineTopicRank)), i = Array.from(v.querySelectorAll(".outline-row[data-outline-id]")), a = x.setLimit(e);
                     p.dataset.outlineVisible = String(a);
@@ -27549,6 +27571,9 @@ var __sxParkedSectionNames = {
             return true;
         };
 var sxOutlineScrollTop = 0, sxOutlineScrollLeft = 0, sxOutlinePausedByViewSwitch = !1, sxOutlineRatedAtOpen = -1;
+        function sxOutlineScroller() {
+            return Do && Do.querySelector(".outline-shell") || Ro;
+        }
         function Ms(n = Vi(), forceFresh = !1) {
             p("quickstart_started");
             if (sxIsBootSkinPending()) {
@@ -27572,11 +27597,11 @@ var sxOutlineScrollTop = 0, sxOutlineScrollLeft = 0, sxOutlinePausedByViewSwitch
                 } else {
                     hs(), ws();
                 }
-                Ro.scrollTop = sxOutlineScrollTop;
-                Ro.scrollLeft = sxOutlineScrollLeft;
+                sxOutlineScroller().scrollTop = sxOutlineScrollTop;
+                sxOutlineScroller().scrollLeft = sxOutlineScrollLeft;
                 requestAnimationFrame(() => {
-                    Ro.scrollTop = sxOutlineScrollTop;
-                    Ro.scrollLeft = sxOutlineScrollLeft;
+                    sxOutlineScroller().scrollTop = sxOutlineScrollTop;
+                    sxOutlineScroller().scrollLeft = sxOutlineScrollLeft;
                 });
                 return;
             }
@@ -27589,12 +27614,12 @@ var sxOutlineScrollTop = 0, sxOutlineScrollLeft = 0, sxOutlinePausedByViewSwitch
             pw(!i), Cs(), Ro.dataset.outlineProfile = String(n), Ro.dataset.outlineSkin = curSkin,
             hs(), sxPaintOutlineLadder(), ws(), Zo || (Xo = t.setInterval(ws, 1e3));
             const o = e.byId("outlineQuickstartTip");
-            o && (o.hidden = is), Wi(Do), sxOutlineScrollTop = 0, sxOutlineScrollLeft = 0, Ro.scrollTop = 0, Ro.scrollLeft = 0, requestAnimationFrame(() => (Ro.scrollTop = 0, Ro.scrollLeft = 0, Do.querySelector("summary")?.focus()));
+            o && (o.hidden = is), Wi(Do), sxOutlineScrollTop = 0, sxOutlineScrollLeft = 0, sxOutlineScroller().scrollTop = 0, sxOutlineScroller().scrollLeft = 0, requestAnimationFrame(() => (sxOutlineScroller().scrollTop = 0, sxOutlineScroller().scrollLeft = 0, Do.querySelector("summary")?.focus({ preventScroll: true })));
         }
         function Is(n = !0, skipPaint = !1) {
             if (!Do.open) return;
-            sxOutlineScrollTop = Ro ? Ro.scrollTop : 0;
-            sxOutlineScrollLeft = Ro ? Ro.scrollLeft : 0;
+            sxOutlineScrollTop = sxOutlineScroller().scrollTop;
+            sxOutlineScrollLeft = sxOutlineScroller().scrollLeft;
             try {
                 bs();
             } catch (e) { __sxErrLog("ui-refresh", e); }
@@ -27961,7 +27986,7 @@ var Bs = window.matchMedia ? window.matchMedia("(hover: hover)") : {
             if (n && ("Enter" === e.key || " " === e.key)) return e.shiftKey ? (e.preventDefault(), 
             e.stopPropagation(), void (Ns === n && Fs.visibleFor(n) ? js() : Ws(n))) : void (__sxClosestAction(n, "summaryAncestor") || Vs(n) && (e.preventDefault(), 
             e.stopPropagation()));
-        }), Ro.addEventListener("scroll", js, {
+        }), sxOutlineScroller().addEventListener("scroll", js, {
             passive: !0
         }), Ro.addEventListener("input", e => {
             const t = __sxClosestAction(e.target, "outlineNoteInput");
@@ -29760,6 +29785,25 @@ var Cc = e.byId("glanceNumbersPopover"), Mc = e.byId("glanceRingSummary"), Ic = 
                 Cc.style.top = r + "px";
             }();
         });
+
+/* --- Module: 05b0-score-terms.js --- */
+        /* Domain-terms skinning (first i18n step, 2026-11-15): the active
+           skin's words, resolved by the skin loader into
+           window.__SX_TERMS (the loader owns the table; see
+           skin-loader.js). Sexcapades keeps its own words; other skins
+           get the vanilla equivalents. Falls back to the Sexcapades
+           form when the loader hasn't run yet — never blank, and never
+           wrong for the default skin. Shared by this module and
+           05-compatibility.js (the bundle concatenates the modules
+           into one scope, so this declaration is visible there). */
+        function sxTerm(key) {
+            var T = (typeof window !== "undefined" && window.__SX_TERMS) || null;
+            var v = T && T[key];
+            if (typeof v === "string" && v) return v;
+            var fallback = { krossmatch: "Krossmatch", kinkFactor: "Kink Factor", playMode: "Play", parlayMode: "Parlay", conversationMode: "Conversation", playMS: "Play MS", playKF: "Play KF", parlayMS: "Parlay MS", parlayKF: "Parlay KF", debateMS: "Debate MS", debateKF: "Debate Kink Factor", getRatings: "Hot list · KinkTest · BDSMtest · Yes / No / Maybe · FetLife", heatMax: "Horndog", heatMin: "Turned off" };
+            return fallback[key] || key;
+        }
+        window.sxTerm = sxTerm;
 
 /* --- Module: 05b1-sync-compute.js --- */
         function Id(e) {
@@ -31629,23 +31673,6 @@ var sxShareCache = null;
                 kfAgg = sxPlayWeightedPct(recs, r => r.entryKF, r => r.consideredKF);
             return { outer: msAgg.pct, inner: kfAgg.pct, counted: msAgg.counted, considered: msAgg.considered };
         }
-        /* Domain-terms skinning (first i18n step, 2026-11-15): the active
-           skin's words, resolved by the skin loader into
-           window.__SX_TERMS (the loader owns the table; see
-           skin-loader.js). Sexcapades keeps its own words; other skins
-           get the vanilla equivalents. Falls back to the Sexcapades
-           form when the loader hasn't run yet — never blank, and never
-           wrong for the default skin. Shared by this module and
-           05-compatibility.js (the bundle concatenates the modules
-           into one scope, so this declaration is visible there). */
-        function sxTerm(key) {
-            var T = (typeof window !== "undefined" && window.__SX_TERMS) || null;
-            var v = T && T[key];
-            if (typeof v === "string" && v) return v;
-            var fallback = { krossmatch: "Krossmatch", kinkFactor: "Kink Factor", playMode: "Play", parlayMode: "Parlay", conversationMode: "Conversation", playMS: "Play MS", playKF: "Play KF", parlayMS: "Parlay MS", parlayKF: "Parlay KF", debateMS: "Debate MS", debateKF: "Debate Kink Factor", getRatings: "Hot list · KinkTest · BDSMtest · Yes / No / Maybe · FetLife", heatMax: "Horndog", heatMin: "Turned off" };
-            return fallback[key] || key;
-        }
-        window.sxTerm = sxTerm;
         /* Score-ring values for a tab/profile context. kind: "profile"
            (outer Charted, inner Personal KF), "bowtie" (outer Play MS,
            inner Play KF, off the pair/group engine aggregates),

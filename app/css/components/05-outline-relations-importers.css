@@ -248,13 +248,20 @@ tr.is-edited td{background:color-mix(in srgb,var(--focus) 7%,transparent)}
 #outlineDialog .sx-titlebar-actions .survey-consent-compact small{display:none}
 #outlineDialog .outline-head{grid-template-columns:minmax(0,1fr);grid-template-rows:auto auto}
 #outlineDialog .outline-head-actions{grid-column:1;grid-row:1;display:flex;align-items:center;justify-content:flex-start;gap:8px 14px;flex-wrap:wrap;align-self:auto;min-width:0}
-#outlineDialog .outline-head-actions .outline-progress{display:block;flex:0 1 33.333%;min-width:150px;margin:0;padding:15px 0 0;grid-column:auto;grid-row:auto}
-#outlineDialog .outline-head-actions .outline-progress-track{height:8px;margin:0}
-#outlineDialog .outline-head-actions .outline-ladder-mark:after{display:none}
+#outlineDialog .outline-head-actions .outline-progress{display:block;flex:0 1 200px;max-width:220px;min-width:96px;margin:0;padding:9px 0 0;grid-column:auto;grid-row:auto}
+#outlineDialog .outline-head-actions .outline-progress-track{height:4px;margin:0}
+#outlineDialog .outline-head-actions .outline-ladder-mark{top:-2px;width:2px;height:8px}
+#outlineDialog .outline-head-actions .outline-ladder-mark:after{display:none;bottom:10px}
 #outlineDialog .outline-head-actions .outline-ladder-mark[data-label="54 · ~18m"]:after,#outlineDialog .outline-head-actions .outline-ladder-mark.outline-ladder-first:after,#outlineDialog .outline-head-actions .outline-ladder-mark.outline-ladder-full:after{display:block;font-size:8px}
 #outlineDialog .outline-head-actions .outline-progress-meta{justify-content:flex-start}
 #outlineDialog .outline-quickstart-tip{grid-column:1;grid-row:2}
-@media(max-width:620px){#outlineDialog .sx-titlebar-actions{margin-left:0;justify-content:flex-start}#outlineDialog .outline-head-actions .outline-progress{min-width:120px}}
+/* The intro header already carries the view switch. The list's own
+   title bar and topic controls scroll away with the sections. */
+#outlineDialog .sx-titlebar>.view-nav-btn{display:none}
+#outlineDialog .outline-shell{display:block!important;height:100%;min-height:0;overflow:auto;overscroll-behavior:contain;-webkit-overflow-scrolling:touch;touch-action:pan-y}
+#outlineDialog .outline-sections{overflow:visible;min-height:0}
+#outlineDialog .outline-rows>.outline-more{grid-column:1 / -1;grid-row:auto;justify-self:end;margin:4px 12px 10px}
+@media(max-width:620px){#outlineDialog .sx-titlebar-actions{margin-left:0;justify-content:flex-start}#outlineDialog .outline-head-actions .outline-progress{min-width:88px;max-width:160px}}
 
 
 /* Build 2026-10-19_1525 — map touch-selection guard: nothing inside the
