@@ -1623,3 +1623,43 @@ body.sx-no-importers [data-test-choice="checklist"] {
 .viewpoint-tabs-row{min-width:0}
 #profileTabs{min-width:0;scrollbar-width:thin}
 #profileTabs .profile-tab-button{touch-action:pan-x pan-y}
+
+/* Promote Hot List, Scene Sentinel, Scene Setter & Scribe from modal dialogs to
+   in-page views inside main.shell under the shared header.intro (Item #5). */
+.sx-app-view[hidden]:not([open]){display:none!important}
+body[data-sx-view] main.shell>.toolbar,
+body[data-sx-view] main.shell>.workspace{display:none!important}
+.sx-app-view[open]:not([hidden]){
+  position:relative!important;
+  inset:auto!important;
+  width:100%!important;
+  max-width:none!important;
+  height:calc(100dvh - var(--sx-view-header-height,104px) - 8px)!important;
+  max-height:none!important;
+  margin:0!important;
+  padding:0!important;
+  border:1px solid var(--line)!important;
+  border-radius:10px!important;
+  background:var(--paper)!important;
+  color:var(--ink);
+  box-sizing:border-box!important;
+  overflow:hidden;
+}
+#outlineDialog.sx-app-view[open]:not([hidden]),
+#safetyDialog.sx-app-view[open]:not([hidden]){display:block!important}
+#negotiationDialog.sx-app-view[open]:not([hidden]),
+#scribeChoiceDialog.sx-app-view[open]:not([hidden]){
+  display:grid!important;
+  grid-template-rows:auto auto minmax(0,1fr)!important;
+}
+.sx-app-view .sx-titlebar{
+  min-height:48px!important;
+  height:auto!important;
+  max-height:none!important;
+  padding:6px 14px!important;
+}
+.sx-app-view .sx-titlebar>.sx-brand,
+.sx-app-view .sx-titlebar>.sx-guide-slot{display:none!important}
+.sx-app-view .dialog-head{padding:12px 16px;border-bottom:1px solid var(--line);background:var(--paper-2)}
+.sx-app-view .dialog-body{padding:16px;overflow-y:auto;min-height:0;display:grid;gap:14px;align-content:start}
+

@@ -1,12 +1,8 @@
         e.byId("scribeTab") && e.byId("scribeTab").addEventListener("pointerenter", yc), e.byId("scribeTab") && e.byId("scribeTab").addEventListener("click", e => {
             yc(), Jd();
-        }), e.byId("closeScribeChoice") && e.byId("closeScribeChoice").addEventListener("click", () => Ui(Bc)), Bc && Bc.addEventListener("click", e => {
-            e.target === Bc && Ui(Bc);
-        }), e.byId("closeNovelAi") && e.byId("closeNovelAi").addEventListener("click", () => Ui(jc)), jc && jc.addEventListener("click", e => {
+        }), e.byId("closeScribeChoice") && e.byId("closeScribeChoice").addEventListener("click", () => Ui(Bc)), e.byId("closeNovelAi") && e.byId("closeNovelAi").addEventListener("click", () => Ui(jc)), jc && jc.addEventListener("click", e => {
             e.target === jc && Ui(jc);
-        }), e.byId("closeScribe") && e.byId("closeScribe").addEventListener("click", () => Ui(Oc)), Oc && Oc.addEventListener("click", e => {
-            e.target === Oc && Ui(Oc);
-        });
+        }), e.byId("closeScribe") && e.byId("closeScribe").addEventListener("click", () => Ui(Oc));
         const fp = innerWidth <= 620 ? 1.3 : 1.16, yp = Number(navigator.deviceMemory) || 0, bp = Number(navigator.hardwareConcurrency) || 0, vp = yp > 0 && yp <= 4, wp = bp > 0 && bp <= 4, kp = vp && (0 === bp || wp) || wp && (0 === yp || vp);
         // Enable camera animations for compatible hardware (any system without prefers-reduced-motion)
         Bt = Boolean(!(window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches));

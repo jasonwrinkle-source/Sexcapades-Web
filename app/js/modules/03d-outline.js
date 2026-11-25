@@ -1125,58 +1125,106 @@
             if (window.__SX_PENDING_OUTLINE_BOOT) {
                 const pendingArg = window.__SX_PENDING_OUTLINE_BOOT;
                 window.__SX_PENDING_OUTLINE_BOOT = null;
-                Ms(pendingArg);
+                Ms(pendingArg, !0);
                 document.documentElement.classList.remove("route-listview-pending");
                 return true;
             }
+            Ro.dataset.outlineProfile = "";
+            Ro.dataset.outlineSkin = "";
             if (!Do || !Do.open) return false;
             Cs();
+            Ro.dataset.outlineProfile = Go || "";
+            Ro.dataset.outlineSkin = String(window.__SX_ACTIVE_SKIN || "sexcapades");
             if (typeof window.__SX_SYNC_OUTLINE_LADDER === "function") window.__SX_SYNC_OUTLINE_LADDER();
             return true;
         };
-        function Ms(n = Vi()) {
+        let sxOutlineScrollTop = 0, sxOutlineScrollLeft = 0, sxOutlinePausedByViewSwitch = !1, sxOutlineRatedAtOpen = -1;
+        function Ms(n = Vi(), forceFresh = !1) {
             p("quickstart_started");
             if (sxIsBootSkinPending()) {
                 window.__SX_PENDING_OUTLINE_BOOT = n || Vi();
                 return;
             }
             const i = n === Et;
-            if (!i && !vt[n]) return Vy = e => Ms(e), void bw(null);
+            if (!i && !vt[n]) return Vy = e => Ms(e, !0), void bw(null);
+            const curSkin = String(window.__SX_ACTIVE_SKIN || "sexcapades");
+            const hasSpecialMode = Boolean(window.__sxFetLifeReview instanceof Set && window.__sxFetLifeReview.size) || Boolean(window.__sxOutlineHits && window.__sxOutlineHits.size);
+            const canResumeView = !forceFresh && !hasSpecialMode && Go === n && Ro && Ro.children.length > 0 && Ro.dataset.outlineProfile === String(n) && Ro.dataset.outlineSkin === curSkin;
+            if (canResumeView) {
+                e.byId("doneOutlineButton").textContent = i ? "Create profile from ratings" : "Submit what you’ve got";
+                pw(!i);
+                Oo.textContent = (n === Et ? "New profile" : wt[n] || "Profile") + (yt[n] ? " *" : "");
+                sxOutlineRatedAtOpen = cs(n).rated;
+                Wi(Do);
+                if (sxOutlinePausedByViewSwitch) {
+                    sxOutlinePausedByViewSwitch = !1;
+                    ks(!1);
+                } else {
+                    hs(), ws();
+                }
+                Ro.scrollTop = sxOutlineScrollTop;
+                Ro.scrollLeft = sxOutlineScrollLeft;
+                requestAnimationFrame(() => {
+                    Ro.scrollTop = sxOutlineScrollTop;
+                    Ro.scrollLeft = sxOutlineScrollLeft;
+                });
+                return;
+            }
             const a = i ? null : St(mt[n]).outline, r = cs(n);
             Jo = r.total > 0 && r.rated === r.total, t.clear(Xo), Xo = 0, Go = n, Ko = null, 
             Yo = 1e3 * (a?.durationSeconds || 0), Zo = Jo, Qo = Boolean(a?.timerRan) || !Zo, 
             Vo = Zo ? 0 : Date.now(), !Jo && Zo && (Zo = !1, Vo = Date.now(), Qo = !0), Uo.checked = !1, 
-            e.byId("doneOutlineButton").textContent = i ? "Create profile from ratings" : "Submit what you’ve got", 
-            pw(!i), Cs(), hs(), sxPaintOutlineLadder(), ws(), Zo || (Xo = t.setInterval(ws, 1e3));
+            sxOutlinePausedByViewSwitch = !1, sxOutlineRatedAtOpen = r.rated,
+            e.byId("doneOutlineButton").textContent = i ? "Create profile from ratings" : "Submit what you’ve got",
+            pw(!i), Cs(), Ro.dataset.outlineProfile = String(n), Ro.dataset.outlineSkin = curSkin,
+            hs(), sxPaintOutlineLadder(), ws(), Zo || (Xo = t.setInterval(ws, 1e3));
             const o = e.byId("outlineQuickstartTip");
-            o && (o.hidden = is), Wi(Do), Ro.scrollTop = 0, Ro.scrollLeft = 0, requestAnimationFrame(() => (Ro.scrollTop = 0, Ro.scrollLeft = 0, Do.querySelector("summary")?.focus()));
+            o && (o.hidden = is), Wi(Do), sxOutlineScrollTop = 0, sxOutlineScrollLeft = 0, Ro.scrollTop = 0, Ro.scrollLeft = 0, requestAnimationFrame(() => (Ro.scrollTop = 0, Ro.scrollLeft = 0, Do.querySelector("summary")?.focus()));
         }
         function Is(n = !0, skipPaint = !1) {
             if (!Do.open) return;
-            sxOutlineSortMode = "popularity", window.__sxFetLifeReview = null;
-            window.__sxOnDeckClear && window.__sxOnDeckClear();
+            sxOutlineScrollTop = Ro ? Ro.scrollTop : 0;
+            sxOutlineScrollLeft = Ro ? Ro.scrollLeft : 0;
             try {
                 bs();
             } catch (e) { __sxErrLog("ui-refresh", e); }
             js(), pw(!1);
             const i = Go;
-            if (n && i && vt[i] && Qo) {
-                const e = cs(i);
-                $t(i, "outline", ps(), e.rated, e.total, {
-                    timerRan: !0
-                });
-            }
-            t.clear(Xo), Xo = 0, Ui(Do), e.byId("doneOutlineButton").textContent = i === Et ? "Create profile from ratings" : "Submit what you’ve got", 
-            Go = null, Ko = null, Vo = 0, Yo = 0, Zo = !0, Qs = !1, Qo = !1, Jo = !1;
             const a = zo;
             zo = null, Ys(a);
-            const r = i === Et && Object.keys(At).length > 0;
-            i && vt[i] || r ? (ji(i, {
-                forceRated: !Bi(i)
-            }), Jw(), skipPaint || (Mr({
-                animate: !1,
-                forceRepaint: !0
-            }), Ih())) : skipPaint || Mr();
+            if (!n) {
+                // Explicit submit ("Submit what you've got"): finalize session and refit map
+                sxOutlineSortMode = "popularity", window.__sxFetLifeReview = null;
+                window.__sxOnDeckClear && window.__sxOnDeckClear();
+                t.clear(Xo), Xo = 0, Ui(Do), e.byId("doneOutlineButton").textContent = i === Et ? "Create profile from ratings" : "Submit what you’ve got",
+                Go = null, Ko = null, Vo = 0, Yo = 0, Zo = !0, Qs = !1, Qo = !1, Jo = !1, sxOutlinePausedByViewSwitch = !1;
+                if (Ro) { Ro.dataset.outlineProfile = ""; Ro.replaceChildren(); }
+                const r = i === Et && Object.keys(At).length > 0;
+                i && vt[i] || r ? (ji(i, {
+                    forceRated: !Bi(i)
+                }), Jw(), skipPaint || (Mr({
+                    animate: !1,
+                    forceRepaint: !0
+                }), Ih())) : skipPaint || Mr();
+            } else {
+                // View switch away from Hot List: preserve in-progress DOM, scroll, search, and map camera/selection
+                if (!Zo) {
+                    sxOutlinePausedByViewSwitch = !0;
+                    ks(!0);
+                }
+                if (i && vt[i] && Qo) {
+                    const e = cs(i);
+                    $t(i, "outline", ps(), e.rated, e.total, {
+                        timerRan: !0
+                    });
+                }
+                Ui(Do);
+                const ratedNow = i ? cs(i).rated : -1;
+                if (!skipPaint && ratedNow !== sxOutlineRatedAtOpen) {
+                    Jw();
+                    Mr({ animate: !1 });
+                }
+            }
             let o = String(location.hash || "");
             try {
                 o = decodeURIComponent(o);
@@ -1300,7 +1348,7 @@
                     t.clear(l), o && o !== e && o.isConnected && "uiTooltip" === o.getAttribute("aria-describedby") && o.removeAttribute("aria-describedby"), 
                     o = e, s = u.point ?? null, n.classList.toggle("ui-tooltip--panel", Boolean(e.closest && e.closest(".layout-editor"))), i.textContent = p.name, a.textContent = p.definition, 
                     a.hidden = !p.definition, r.textContent = p.value;
-                    const h = (e.closest ? e.closest("dialog") : null) || (Do.open ? Do : document.body);
+                    const h = (e.closest ? e.closest("dialog") : null) || document.body;
                     n.parentNode !== h && h.appendChild(n), n.hidden = !1, e.setAttribute("aria-describedby", "uiTooltip"), 
                     d(s, e), u.autoHide && (l = t.setTimeout(() => {
                         o === e && c();
@@ -1695,12 +1743,6 @@
                 Is(!1), xg.textContent = `Submitted ${t.rated} of over 400 topics${i ? ` after ${xt(n)} total` : ""}. Ratings${i ? " and accumulated time" : ""} saved with ${wt[e]}.`, 
                 requestAnimationFrame(() => Ls(e, t));
             });
-        }), Do && Do.addEventListener("cancel", e => {
-            e.preventDefault(), sxChunkClose(() => Is());
-        }), /* Build 2026-10-18_0343: the list view has no × button — a tap/click that starts and ends on the dialog backdrop closes it; Escape closes via the cancel handler above. */ Do && Do.addEventListener("pointerdown", e => {
-            Do._bk = e.target === Do;
-        }), Do && Do.addEventListener("click", e => {
-            Do._bk && e.target === Do && sxChunkClose(() => Is()), Do._bk = !1;
         }), e.byId("startListRatingButton")?.addEventListener("click", () => {
             Ms(Vi());
         });

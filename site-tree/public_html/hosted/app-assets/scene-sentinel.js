@@ -313,7 +313,7 @@ __sxInit(function () {
     PRE_KEYS.forEach(function (p) {
       var c = SexcapadesRuntime.DOM.byId(p.check), t = SexcapadesRuntime.DOM.byId(p.text);
       if (c) c.checked = !!state.pre[p.key].c;
-      if (t) t.value = state.pre[p.key].t || "";
+      if (t && document.activeElement !== t) t.value = state.pre[p.key].t || "";
     });
     renderPreReady();
   }
@@ -1408,7 +1408,7 @@ __sxInit(function () {
   }
   function renderGuide() {
     var g = state.guide;
-    if (gwGuideInput && document.activeElement !== gwGuideInput) gwGuideInput.value = g.text || "";
+    if (gwGuideInput && document.activeElement !== gwGuideInput && (!gwGuideInput.value || gwGuideInput.value === (g.text || ""))) gwGuideInput.value = g.text || "";
     if (gwGuidePulseSel && document.activeElement !== gwGuidePulseSel) gwGuidePulseSel.value = String(g.pulseMin || 5);
     if (gwGuideSteps) {
       gwGuideSteps.innerHTML = "";

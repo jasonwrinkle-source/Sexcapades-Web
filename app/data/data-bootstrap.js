@@ -30464,58 +30464,106 @@ var __sxParkedSectionNames = {
             if (window.__SX_PENDING_OUTLINE_BOOT) {
                 const pendingArg = window.__SX_PENDING_OUTLINE_BOOT;
                 window.__SX_PENDING_OUTLINE_BOOT = null;
-                Ms(pendingArg);
+                Ms(pendingArg, !0);
                 document.documentElement.classList.remove("route-listview-pending");
                 return true;
             }
+            Ro.dataset.outlineProfile = "";
+            Ro.dataset.outlineSkin = "";
             if (!Do || !Do.open) return false;
             Cs();
+            Ro.dataset.outlineProfile = Go || "";
+            Ro.dataset.outlineSkin = String(window.__SX_ACTIVE_SKIN || "sexcapades");
             if (typeof window.__SX_SYNC_OUTLINE_LADDER === "function") window.__SX_SYNC_OUTLINE_LADDER();
             return true;
         };
-        function Ms(n = Vi()) {
+var sxOutlineScrollTop = 0, sxOutlineScrollLeft = 0, sxOutlinePausedByViewSwitch = !1, sxOutlineRatedAtOpen = -1;
+        function Ms(n = Vi(), forceFresh = !1) {
             p("quickstart_started");
             if (sxIsBootSkinPending()) {
                 window.__SX_PENDING_OUTLINE_BOOT = n || Vi();
                 return;
             }
             const i = n === Et;
-            if (!i && !vt[n]) return Vy = e => Ms(e), void bw(null);
+            if (!i && !vt[n]) return Vy = e => Ms(e, !0), void bw(null);
+            const curSkin = String(window.__SX_ACTIVE_SKIN || "sexcapades");
+            const hasSpecialMode = Boolean(window.__sxFetLifeReview instanceof Set && window.__sxFetLifeReview.size) || Boolean(window.__sxOutlineHits && window.__sxOutlineHits.size);
+            const canResumeView = !forceFresh && !hasSpecialMode && Go === n && Ro && Ro.children.length > 0 && Ro.dataset.outlineProfile === String(n) && Ro.dataset.outlineSkin === curSkin;
+            if (canResumeView) {
+                e.byId("doneOutlineButton").textContent = i ? "Create profile from ratings" : "Submit what you’ve got";
+                pw(!i);
+                Oo.textContent = (n === Et ? "New profile" : wt[n] || "Profile") + (yt[n] ? " *" : "");
+                sxOutlineRatedAtOpen = cs(n).rated;
+                Wi(Do);
+                if (sxOutlinePausedByViewSwitch) {
+                    sxOutlinePausedByViewSwitch = !1;
+                    ks(!1);
+                } else {
+                    hs(), ws();
+                }
+                Ro.scrollTop = sxOutlineScrollTop;
+                Ro.scrollLeft = sxOutlineScrollLeft;
+                requestAnimationFrame(() => {
+                    Ro.scrollTop = sxOutlineScrollTop;
+                    Ro.scrollLeft = sxOutlineScrollLeft;
+                });
+                return;
+            }
             const a = i ? null : St(mt[n]).outline, r = cs(n);
             Jo = r.total > 0 && r.rated === r.total, t.clear(Xo), Xo = 0, Go = n, Ko = null, 
             Yo = 1e3 * (a?.durationSeconds || 0), Zo = Jo, Qo = Boolean(a?.timerRan) || !Zo, 
             Vo = Zo ? 0 : Date.now(), !Jo && Zo && (Zo = !1, Vo = Date.now(), Qo = !0), Uo.checked = !1, 
-            e.byId("doneOutlineButton").textContent = i ? "Create profile from ratings" : "Submit what you’ve got", 
-            pw(!i), Cs(), hs(), sxPaintOutlineLadder(), ws(), Zo || (Xo = t.setInterval(ws, 1e3));
+            sxOutlinePausedByViewSwitch = !1, sxOutlineRatedAtOpen = r.rated,
+            e.byId("doneOutlineButton").textContent = i ? "Create profile from ratings" : "Submit what you’ve got",
+            pw(!i), Cs(), Ro.dataset.outlineProfile = String(n), Ro.dataset.outlineSkin = curSkin,
+            hs(), sxPaintOutlineLadder(), ws(), Zo || (Xo = t.setInterval(ws, 1e3));
             const o = e.byId("outlineQuickstartTip");
-            o && (o.hidden = is), Wi(Do), Ro.scrollTop = 0, Ro.scrollLeft = 0, requestAnimationFrame(() => (Ro.scrollTop = 0, Ro.scrollLeft = 0, Do.querySelector("summary")?.focus()));
+            o && (o.hidden = is), Wi(Do), sxOutlineScrollTop = 0, sxOutlineScrollLeft = 0, Ro.scrollTop = 0, Ro.scrollLeft = 0, requestAnimationFrame(() => (Ro.scrollTop = 0, Ro.scrollLeft = 0, Do.querySelector("summary")?.focus()));
         }
         function Is(n = !0, skipPaint = !1) {
             if (!Do.open) return;
-            sxOutlineSortMode = "popularity", window.__sxFetLifeReview = null;
-            window.__sxOnDeckClear && window.__sxOnDeckClear();
+            sxOutlineScrollTop = Ro ? Ro.scrollTop : 0;
+            sxOutlineScrollLeft = Ro ? Ro.scrollLeft : 0;
             try {
                 bs();
             } catch (e) { __sxErrLog("ui-refresh", e); }
             js(), pw(!1);
             const i = Go;
-            if (n && i && vt[i] && Qo) {
-                const e = cs(i);
-                $t(i, "outline", ps(), e.rated, e.total, {
-                    timerRan: !0
-                });
-            }
-            t.clear(Xo), Xo = 0, Ui(Do), e.byId("doneOutlineButton").textContent = i === Et ? "Create profile from ratings" : "Submit what you’ve got", 
-            Go = null, Ko = null, Vo = 0, Yo = 0, Zo = !0, Qs = !1, Qo = !1, Jo = !1;
             const a = zo;
             zo = null, Ys(a);
-            const r = i === Et && Object.keys(At).length > 0;
-            i && vt[i] || r ? (ji(i, {
-                forceRated: !Bi(i)
-            }), Jw(), skipPaint || (Mr({
-                animate: !1,
-                forceRepaint: !0
-            }), Ih())) : skipPaint || Mr();
+            if (!n) {
+                // Explicit submit ("Submit what you've got"): finalize session and refit map
+                sxOutlineSortMode = "popularity", window.__sxFetLifeReview = null;
+                window.__sxOnDeckClear && window.__sxOnDeckClear();
+                t.clear(Xo), Xo = 0, Ui(Do), e.byId("doneOutlineButton").textContent = i === Et ? "Create profile from ratings" : "Submit what you’ve got",
+                Go = null, Ko = null, Vo = 0, Yo = 0, Zo = !0, Qs = !1, Qo = !1, Jo = !1, sxOutlinePausedByViewSwitch = !1;
+                if (Ro) { Ro.dataset.outlineProfile = ""; Ro.replaceChildren(); }
+                const r = i === Et && Object.keys(At).length > 0;
+                i && vt[i] || r ? (ji(i, {
+                    forceRated: !Bi(i)
+                }), Jw(), skipPaint || (Mr({
+                    animate: !1,
+                    forceRepaint: !0
+                }), Ih())) : skipPaint || Mr();
+            } else {
+                // View switch away from Hot List: preserve in-progress DOM, scroll, search, and map camera/selection
+                if (!Zo) {
+                    sxOutlinePausedByViewSwitch = !0;
+                    ks(!0);
+                }
+                if (i && vt[i] && Qo) {
+                    const e = cs(i);
+                    $t(i, "outline", ps(), e.rated, e.total, {
+                        timerRan: !0
+                    });
+                }
+                Ui(Do);
+                const ratedNow = i ? cs(i).rated : -1;
+                if (!skipPaint && ratedNow !== sxOutlineRatedAtOpen) {
+                    Jw();
+                    Mr({ animate: !1 });
+                }
+            }
             let o = String(location.hash || "");
             try {
                 o = decodeURIComponent(o);
@@ -30639,7 +30687,7 @@ var Fs = (() => {
                     t.clear(l), o && o !== e && o.isConnected && "uiTooltip" === o.getAttribute("aria-describedby") && o.removeAttribute("aria-describedby"), 
                     o = e, s = u.point ?? null, n.classList.toggle("ui-tooltip--panel", Boolean(e.closest && e.closest(".layout-editor"))), i.textContent = p.name, a.textContent = p.definition, 
                     a.hidden = !p.definition, r.textContent = p.value;
-                    const h = (e.closest ? e.closest("dialog") : null) || (Do.open ? Do : document.body);
+                    const h = (e.closest ? e.closest("dialog") : null) || document.body;
                     n.parentNode !== h && h.appendChild(n), n.hidden = !1, e.setAttribute("aria-describedby", "uiTooltip"), 
                     d(s, e), u.autoHide && (l = t.setTimeout(() => {
                         o === e && c();
@@ -31034,12 +31082,6 @@ var Zs = 0, Qs = !1;
                 Is(!1), xg.textContent = `Submitted ${t.rated} of over 400 topics${i ? ` after ${xt(n)} total` : ""}. Ratings${i ? " and accumulated time" : ""} saved with ${wt[e]}.`, 
                 requestAnimationFrame(() => Ls(e, t));
             });
-        }), Do && Do.addEventListener("cancel", e => {
-            e.preventDefault(), sxChunkClose(() => Is());
-        }), /* Build 2026-10-18_0343: the list view has no × button — a tap/click that starts and ends on the dialog backdrop closes it; Escape closes via the cancel handler above. */ Do && Do.addEventListener("pointerdown", e => {
-            Do._bk = e.target === Do;
-        }), Do && Do.addEventListener("click", e => {
-            Do._bk && e.target === Do && sxChunkClose(() => Is()), Do._bk = !1;
         }), e.byId("startListRatingButton")?.addEventListener("click", () => {
             Ms(Vi());
         });
@@ -41632,13 +41674,9 @@ var FetLifeImporter = (() => {
 /* --- Module: 06-pdf-exporter.js --- */
         e.byId("scribeTab") && e.byId("scribeTab").addEventListener("pointerenter", yc), e.byId("scribeTab") && e.byId("scribeTab").addEventListener("click", e => {
             yc(), Jd();
-        }), e.byId("closeScribeChoice") && e.byId("closeScribeChoice").addEventListener("click", () => Ui(Bc)), Bc && Bc.addEventListener("click", e => {
-            e.target === Bc && Ui(Bc);
-        }), e.byId("closeNovelAi") && e.byId("closeNovelAi").addEventListener("click", () => Ui(jc)), jc && jc.addEventListener("click", e => {
+        }), e.byId("closeScribeChoice") && e.byId("closeScribeChoice").addEventListener("click", () => Ui(Bc)), e.byId("closeNovelAi") && e.byId("closeNovelAi").addEventListener("click", () => Ui(jc)), jc && jc.addEventListener("click", e => {
             e.target === jc && Ui(jc);
-        }), e.byId("closeScribe") && e.byId("closeScribe").addEventListener("click", () => Ui(Oc)), Oc && Oc.addEventListener("click", e => {
-            e.target === Oc && Ui(Oc);
-        });
+        }), e.byId("closeScribe") && e.byId("closeScribe").addEventListener("click", () => Ui(Oc));
 var fp = innerWidth <= 620 ? 1.3 : 1.16, yp = Number(navigator.deviceMemory) || 0, bp = Number(navigator.hardwareConcurrency) || 0, vp = yp > 0 && yp <= 4, wp = bp > 0 && bp <= 4, kp = vp && (0 === bp || wp) || wp && (0 === yp || vp);
         // Enable camera animations for compatible hardware (any system without prefers-reduced-motion)
         Bt = Boolean(!(window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches));
@@ -44038,35 +44076,53 @@ var ey = e.byId("openerDialog"), ty = e.byId("negotiationDialog");
                 return n.length >= 2 ? n : [];
             }();
             if (t.length < 2) return;
-            const i = Iu(t), a = e.byId("negotiationPanel"), r = Cu(t), isMod = sxSetterIsModeration(), mod = isMod ? sxSetterModerationData(t) : null, setterSpec = window.__SX_SETTER || null;
-            e.byId("negotiationSubtitle").textContent = isMod ? `${i.names.join(" + ")} · ${(setterSpec && setterSpec.panel && setterSpec.panel.subtitleSuffix) || "the ground rules stay in every discussion plan."}` : `${i.names.join(" + ")} · limits stay out of every play suggestion.`, e.byId("negotiationProfiles").textContent = i.names.join(" + "),
-            n(a, isMod ? sxSetterModerationPanelHtml(i, mod) : `<p class="sx-stamp">${Hi(sxWriterStamp(i.ids))}</p><fieldset class="guide-block guide-block-limits"><legend>Hard limits + red topics</legend><div class="guide-limits-grid">${i.names.map((e, t) => `<div class="guide-limit-group"><h5>${Hi(e)} · hard limits</h5><ul>${Pu(i.terms[t] ? i.limits[t].concat(`Terms (binding): "${i.terms[t]}"`) : i.limits[t], "None marked.")}</ul></div><div class="guide-limit-group"><h5>${Hi(e)} · red topics</h5><ul>${Pu(i.reds[t], "None rated red.")}</ul></div>`).join("")}</div></fieldset><section class="guide-block guide-block-mutual"><h4>Mutual exclusions — both partners rated deep-red</h4><ul>${Pu(i.mutuals, "No topic is rated deep-red by both partners.")}</ul></section><section class="guide-block guide-block-discuss"><h4>Discuss first</h4><ul>${Pu(i.discuss, "No green-versus-red clashes found.")}</ul></section><section class="guide-block"><h4>Fill out before play</h4><div class="negotiation-fields"><label class="negotiation-field"><span>Safewords + nonverbal stop signals</span><small>Choose a shared system, define exactly what slows or stops play, and name a backup signal for anyone who cannot speak.</small><div class="signal-presets" role="group" aria-label="Common stop-signal starters"><label class="signal-preset"><input data-signal-preset="Stoplight: green = continue, yellow = slow down/check in, red = stop." type="checkbox"/>Stoplight</label><label class="signal-preset"><input data-signal-preset="Nonverbal stop: drop a held object." type="checkbox"/>Drop object</label><label class="signal-preset"><input data-signal-preset="Nonverbal stop: three firm taps." type="checkbox"/>Three taps</label></div><textarea data-negotiation-safewords placeholder="Example: green = continue; yellow = slow and check in; red = stop. If speech is difficult, dropping the held object or three firm taps means stop.">${Hi(r.safewords)}</textarea></label>${i.names.map((e, t) => `<label class="negotiation-field"><span>${Hi(e)} · aftercare needs</span><small>Write what ${Hi(e)} needs immediately after play and later: touch or space, reassurance, water or food, cleanup, medication or accessibility needs, check-in timing, and anything to avoid.</small><textarea data-negotiation-aftercare="${Hi(i.ids[t])}" placeholder="Example: water first, then quiet cuddling; no debrief until tomorrow; text check-in by noon…">${Hi(r.aftercare[i.ids[t]] || "")}</textarea></label>`).join("")}</div><h5>Rated aftercare preferences from the map</h5><p class="guide-source-intro">These suggestions come from each profile’s <strong>Connection &amp; aftercare</strong> ratings. Put lasting personal aftercare details in a note on an aftercare map topic; use the boxes above to confirm what applies to this specific plan.</p>${i.names.map((e, t) => `<strong>${Hi(e)}</strong><ul>${Pu(i.ratedAftercare[t], "None recorded.")}</ul>`).join("")}</section><section class="guide-block"><h4>Play guide source material</h4><p class="guide-source-intro">This is the profile-derived idea pool the AI may arrange into a guide. It is not an agreement: the limits, stop signals, aftercare fields, and decisions above are the binding checklist.</p><div class="guide-source-grid"><div class="guide-source-group"><h5>Warm-up ideas</h5><ul>${Pu(i.warmup, "Agree on a gentle start together.")}</ul></div><div class="guide-source-group"><h5>Main-play ideas</h5><ul>${Pu(i.main, "No shared green/green main-play topic is recorded.")}</ul></div><div class="guide-source-group"><h5>Aftercare ideas</h5><ul>${Pu(i.aftercare, "Agree on aftercare before starting.")}</ul></div><div class="guide-source-group"><h5>Hard-excluded</h5><ul>${Pu([ ...new Set(i.excluded.concat(i.mutuals)) ].concat(i.names.map((e, t) => i.terms[t] ? e + " — hard limits named in Terms (binding), quoted above" : "").filter(Boolean)), "None marked.")}</ul></div><div class="guide-source-group"><h5>Fantasy only — excluded from practical play</h5><ul>${Pu(i.fantasy || [], "No fantasy-only topics are in the shared pool.")}</ul></div><div class="guide-source-group"><h5>Teasers — soft no revisited at the current Heat</h5><ul>${Pu(i.teasers || [], "No soft-no topics are teaser-eligible at the current settings.")}</ul></div></div></section>`),
-            // The safeword/aftercare inputs exist only on Sexcapades:
-            // a moderation skin has no safewords or aftercare to save,
-            // so the listener (which reads the safewords textarea) is
-            // not attached there - it would throw on a null query.
-            !isMod && a.addEventListener("input", () => {
-                r.safewords = a.querySelector("[data-negotiation-safewords]").value, a.querySelectorAll("[data-negotiation-aftercare]").forEach(e => {
-                    r.aftercare[e.dataset.negotiationAftercare] = e.value;
-                }), Fu(t), e.byId("negotiationCopyStatus").textContent = "Checklist saved for both documents.", e.byId("negotiationGuideStatus") && (e.byId("negotiationGuideStatus").textContent = "Checklist saved for both documents.");
-            }), !isMod && a.querySelectorAll("[data-signal-preset]").forEach(e => {
-                const t = String(e.dataset.signalPreset || ""), n = a.querySelector("[data-negotiation-safewords]");
-                e.checked = Boolean(t && n.value.includes(t)), e.addEventListener("change", () => {
-                    const i = n.value.split("\n").map(e => e.trim()).filter(Boolean).filter(e => e !== t);
-                    e.checked && i.push(t), n.value = i.join("\n"), n.dispatchEvent(new Event("input", {
-                        bubbles: !0
-                    }));
+            const i = Iu(t), a = e.byId("negotiationPanel"), r = Cu(t), isMod = sxSetterIsModeration(), mod = isMod ? sxSetterModerationData(t) : null, setterSpec = window.__SX_SETTER || null, skinKey = String((window.__SX_ACTIVE_SKIN || "sexcapades") + ":" + (isMod ? "mod" : "play")), partKey = t.join(",");
+            e.byId("negotiationSubtitle").textContent = isMod ? `${i.names.join(" + ")} · ${(setterSpec && setterSpec.panel && setterSpec.panel.subtitleSuffix) || "the ground rules stay in every discussion plan."}` : `${i.names.join(" + ")} · limits stay out of every play suggestion.`, e.byId("negotiationProfiles").textContent = i.names.join(" + ");
+            const reuseExistingPanel = Boolean(a && a.children.length > 0 && ty && ty.dataset.participants === partKey && ty.dataset.setterSkinKey === skinKey);
+            if (!reuseExistingPanel) {
+                n(a, isMod ? sxSetterModerationPanelHtml(i, mod) : `<p class="sx-stamp">${Hi(sxWriterStamp(i.ids))}</p><fieldset class="guide-block guide-block-limits"><legend>Hard limits + red topics</legend><div class="guide-limits-grid">${i.names.map((e, t) => `<div class="guide-limit-group"><h5>${Hi(e)} · hard limits</h5><ul>${Pu(i.terms[t] ? i.limits[t].concat(`Terms (binding): "${i.terms[t]}"`) : i.limits[t], "None marked.")}</ul></div><div class="guide-limit-group"><h5>${Hi(e)} · red topics</h5><ul>${Pu(i.reds[t], "None rated red.")}</ul></div>`).join("")}</div></fieldset><section class="guide-block guide-block-mutual"><h4>Mutual exclusions — both partners rated deep-red</h4><ul>${Pu(i.mutuals, "No topic is rated deep-red by both partners.")}</ul></section><section class="guide-block guide-block-discuss"><h4>Discuss first</h4><ul>${Pu(i.discuss, "No green-versus-red clashes found.")}</ul></section><section class="guide-block"><h4>Fill out before play</h4><div class="negotiation-fields"><label class="negotiation-field"><span>Safewords + nonverbal stop signals</span><small>Choose a shared system, define exactly what slows or stops play, and name a backup signal for anyone who cannot speak.</small><div class="signal-presets" role="group" aria-label="Common stop-signal starters"><label class="signal-preset"><input data-signal-preset="Stoplight: green = continue, yellow = slow down/check in, red = stop." type="checkbox"/>Stoplight</label><label class="signal-preset"><input data-signal-preset="Nonverbal stop: drop a held object." type="checkbox"/>Drop object</label><label class="signal-preset"><input data-signal-preset="Nonverbal stop: three firm taps." type="checkbox"/>Three taps</label></div><textarea data-negotiation-safewords placeholder="Example: green = continue; yellow = slow and check in; red = stop. If speech is difficult, dropping the held object or three firm taps means stop.">${Hi(r.safewords)}</textarea></label>${i.names.map((e, t) => `<label class="negotiation-field"><span>${Hi(e)} · aftercare needs</span><small>Write what ${Hi(e)} needs immediately after play and later: touch or space, reassurance, water or food, cleanup, medication or accessibility needs, check-in timing, and anything to avoid.</small><textarea data-negotiation-aftercare="${Hi(i.ids[t])}" placeholder="Example: water first, then quiet cuddling; no debrief until tomorrow; text check-in by noon…">${Hi(r.aftercare[i.ids[t]] || "")}</textarea></label>`).join("")}</div><h5>Rated aftercare preferences from the map</h5><p class="guide-source-intro">These suggestions come from each profile’s <strong>Connection &amp; aftercare</strong> ratings. Put lasting personal aftercare details in a note on an aftercare map topic; use the boxes above to confirm what applies to this specific plan.</p>${i.names.map((e, t) => `<strong>${Hi(e)}</strong><ul>${Pu(i.ratedAftercare[t], "None recorded.")}</ul>`).join("")}</section><section class="guide-block"><h4>Play guide source material</h4><p class="guide-source-intro">This is the profile-derived idea pool the AI may arrange into a guide. It is not an agreement: the limits, stop signals, aftercare fields, and decisions above are the binding checklist.</p><div class="guide-source-grid"><div class="guide-source-group"><h5>Warm-up ideas</h5><ul>${Pu(i.warmup, "Agree on a gentle start together.")}</ul></div><div class="guide-source-group"><h5>Main-play ideas</h5><ul>${Pu(i.main, "No shared green/green main-play topic is recorded.")}</ul></div><div class="guide-source-group"><h5>Aftercare ideas</h5><ul>${Pu(i.aftercare, "Agree on aftercare before starting.")}</ul></div><div class="guide-source-group"><h5>Hard-excluded</h5><ul>${Pu([ ...new Set(i.excluded.concat(i.mutuals)) ].concat(i.names.map((e, t) => i.terms[t] ? e + " — hard limits named in Terms (binding), quoted above" : "").filter(Boolean)), "None marked.")}</ul></div><div class="guide-source-group"><h5>Fantasy only — excluded from practical play</h5><ul>${Pu(i.fantasy || [], "No fantasy-only topics are in the shared pool.")}</ul></div><div class="guide-source-group"><h5>Teasers — soft no revisited at the current Heat</h5><ul>${Pu(i.teasers || [], "No soft-no topics are teaser-eligible at the current settings.")}</ul></div></div></section>`);
+                // The safeword/aftercare inputs exist only on Sexcapades:
+                // a moderation skin has no safewords or aftercare to save,
+                // so the listener (which reads the safewords textarea) is
+                // not attached there - it would throw on a null query.
+                if (!isMod && !a.__sxNegotiationInputWired) {
+                    a.__sxNegotiationInputWired = true;
+                    a.addEventListener("input", () => {
+                        const curIds = String(e.byId("negotiationDialog")?.dataset.participants || "").split(",").filter(Boolean);
+                        if (curIds.length < 2) return;
+                        const curState = Cu(curIds), swEl = a.querySelector("[data-negotiation-safewords]");
+                        if (swEl) curState.safewords = swEl.value;
+                        a.querySelectorAll("[data-negotiation-aftercare]").forEach(el => {
+                            curState.aftercare[el.dataset.negotiationAftercare] = el.value;
+                        });
+                        Fu(curIds);
+                        e.byId("negotiationCopyStatus").textContent = "Checklist saved for both documents.";
+                        e.byId("negotiationGuideStatus") && (e.byId("negotiationGuideStatus").textContent = "Checklist saved for both documents.");
+                    });
+                }
+                !isMod && a.querySelectorAll("[data-signal-preset]").forEach(e => {
+                    const t = String(e.dataset.signalPreset || ""), n = a.querySelector("[data-negotiation-safewords]");
+                    e.checked = Boolean(t && n.value.includes(t)), e.addEventListener("change", () => {
+                        const i = n.value.split("\n").map(e => e.trim()).filter(Boolean).filter(e => e !== t);
+                        e.checked && i.push(t), n.value = i.join("\n"), n.dispatchEvent(new Event("input", {
+                            bubbles: !0
+                        }));
+                    });
                 });
-            }), Fu(t, i, mod), e.byId("negotiationCopyStatus").textContent = "", e.byId("negotiationDialog").dataset.participants = t.join(","), e.byId("setterLength") && (e.byId("setterLength").value = r.length), e.byId("setterLengthUnit") && (e.byId("setterLengthUnit").value = r.lengthUnit), e.byId("setterDetailLevel") && (e.byId("setterDetailLevel").value = r.detail), e.byId("setterNegotiationLength") && (e.byId("setterNegotiationLength").value = r.negotiationLength || "1"), e.byId("setterNegotiationLengthUnit") && (e.byId("setterNegotiationLengthUnit").value = r.negotiationLengthUnit || "pages"), e.byId("negotiationGuideStatus") && (e.byId("negotiationGuideStatus").textContent = ""), Wi(e.byId("negotiationDialog"));
+                e.byId("negotiationCopyStatus").textContent = "";
+                e.byId("negotiationGuideStatus") && (e.byId("negotiationGuideStatus").textContent = "");
+                e.byId("setterLength") && (e.byId("setterLength").value = r.length);
+                e.byId("setterLengthUnit") && (e.byId("setterLengthUnit").value = r.lengthUnit);
+                e.byId("setterDetailLevel") && (e.byId("setterDetailLevel").value = r.detail);
+                e.byId("setterNegotiationLength") && (e.byId("setterNegotiationLength").value = r.negotiationLength || "1");
+                e.byId("setterNegotiationLengthUnit") && (e.byId("setterNegotiationLengthUnit").value = r.negotiationLengthUnit || "pages");
+            }
+            Fu(t, i, mod), e.byId("negotiationDialog").dataset.participants = partKey, e.byId("negotiationDialog").dataset.setterSkinKey = skinKey, Wi(e.byId("negotiationDialog"));
         }), e.byId("closeOpener").onclick = () => Ui(ey), e.byId("closeNegotiation") && (e.byId("closeNegotiation").onclick = () => Ui(ty)),
         ey.addEventListener("click", e => {
             e.target === ey && Ui(ey);
-        }), ty.addEventListener("click", e => {
-            e.target === ty && Ui(ty);
         }), ey.addEventListener("cancel", e => {
             e.preventDefault(), Ui(ey);
-        }), ty.addEventListener("cancel", e => {
-            e.preventDefault(), Ui(ty);
         }), e.byId("copyOpenerMessage") && e.byId("copyOpenerMessage").addEventListener("click", async () => {
             const t = e.byId("openerMessage");
             await sxCopyText(t.value, e.byId("openerCopyStatus"), "Message copied", "Copy failed", null, {
@@ -49876,7 +49932,7 @@ var rS = !1, oS = !1, sS = !1, lS = !1;
         }
         function gS() {
             const e = uS();
-            return window.__SEXCAPADES_START_ROUTE = "", e ? !oS && (oS = !0, Do.open ? Is() : (sxRouteRender(), !0)) : (oS = !1, !1);
+            return window.__SEXCAPADES_START_ROUTE = "", e ? !oS && (oS = !0, Do.open ? Is() : (In && In.children.length > 0 || sxRouteRender(), !0)) : (oS = !1, !1);
         }
         function xS() {
             return /^#\/?(?:app\/)?compare\/?$/i.test(cS());

@@ -248,8 +248,8 @@
   /* ---- stop on display change ---- */
   function watchDisplayChanges() {
     var stop = function () { if (activeBtn) stopPlayback(); refreshHeaderLabel(); };
-    Array.prototype.forEach.call(document.querySelectorAll("dialog"), function (d) {
-      new MutationObserver(stop).observe(d, { attributes: true, attributeFilter: ["open"] });
+    Array.prototype.forEach.call(document.querySelectorAll("dialog, .sx-app-view"), function (d) {
+      new MutationObserver(stop).observe(d, { attributes: true, attributeFilter: ["open", "hidden"] });
     });
     var tabs = document.getElementById("profileTabs");
     if (tabs) new MutationObserver(stop).observe(tabs, {
@@ -279,9 +279,9 @@
   var slotCount = 0;
   function wireSlot(slot) {
     if (slot.getAttribute("data-sx-music-wired")) return;
-    var anchor = slot.querySelector("a.review-callout");
+    var anchor = slot.querySelector(".review-callout");
     if (!anchor) return; /* clone not landed yet; the observer retries */
-    var dlg = slot.closest("dialog");
+    var dlg = slot.closest("dialog, .sx-app-view");
     var key = dlg ? SLOT_KEYS[dlg.id] : null;
     if (!key) return;
     var headerBtn = document.getElementById("sxAvatarMusicBtn");

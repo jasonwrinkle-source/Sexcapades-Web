@@ -27,22 +27,90 @@ window.__sxSmallScreenMax = 620;
    Dialogs created dynamically without an id (e.g. the converter target
    prompt) are opened/closed element-wise through open/close. */
 window.__sxDialog = (function () {
+  var VIEW_IDS = {
+    outlineDialog: "list",
+    safetyDialog: "safety",
+    negotiationDialog: "setter",
+    scribeChoiceDialog: "scribe",
+    scribeDialog: "scribe"
+  };
+  function isViewEl(d) {
+    return !!(d && d.id && VIEW_IDS[d.id]);
+  }
+  function ensureViewOpenProp(d) {
+    if (!d || d.__sxViewOpenWired) return;
+    if (typeof HTMLDialogElement !== "undefined" && d instanceof HTMLDialogElement) return;
+    d.__sxViewOpenWired = true;
+    try {
+      Object.defineProperty(d, "open", {
+        configurable: true,
+        enumerable: true,
+        get: function () { return d.hasAttribute("open") && !d.hidden; },
+        set: function (v) { if (v) openDialog(d); else closeDialog(d); }
+      });
+    } catch (e) {}
+  }
+  function syncActiveViewAttr() {
+    var active = "map";
+    var order = ["negotiationDialog", "scribeChoiceDialog", "scribeDialog", "safetyDialog", "outlineDialog"];
+    for (var i = 0; i < order.length; i++) {
+      var el = document.getElementById(order[i]);
+      if (el) {
+        ensureViewOpenProp(el);
+        if (el.hasAttribute("open") && !el.hidden) {
+          active = VIEW_IDS[order[i]];
+          break;
+        }
+      }
+    }
+    if (document.body) {
+      if (active === "map") {
+        delete document.body.dataset.sxView;
+      } else {
+        document.body.dataset.sxView = active;
+      }
+    }
+  }
   function openDialog(d) {
-    if (!d || d.open) return;
+    if (!d) return;
+    if (isViewEl(d)) {
+      ensureViewOpenProp(d);
+      if (d.hasAttribute("open") && !d.hidden) { syncActiveViewAttr(); return; }
+      d.hidden = false;
+      d.setAttribute("open", "");
+      d.classList.add("fallback-open");
+      syncActiveViewAttr();
+      if (typeof window.__sxSyncViewButton === "function") window.__sxSyncViewButton();
+      return;
+    }
+    if (d.open) return;
     try { if (typeof d.showModal === "function") d.showModal(); else { d.setAttribute("open", ""); d.classList.add("fallback-open"); } }
     catch (e) { d.setAttribute("open", ""); d.classList.add("fallback-open"); }
   }
   function closeDialog(d) {
     if (!d) return;
+    if (isViewEl(d)) {
+      ensureViewOpenProp(d);
+      d.removeAttribute("open");
+      d.hidden = true;
+      d.classList.remove("fallback-open");
+      syncActiveViewAttr();
+      if (typeof window.__sxSyncViewButton === "function") window.__sxSyncViewButton();
+      return;
+    }
     try { if (typeof d.close === "function" && d.open) d.close(); else d.removeAttribute("open"); }
     catch (e) { d.removeAttribute("open"); }
     d.classList.remove("fallback-open");
   }
-  function getDialog(id) { return id ? document.getElementById(id) : null; }
-  function dialogIds() { return Array.prototype.map.call(document.querySelectorAll("dialog[id]"), function (d) { return d.id; }).sort(); }
+  function getDialog(id) {
+    var el = id ? document.getElementById(id) : null;
+    if (el && isViewEl(el)) ensureViewOpenProp(el);
+    return el;
+  }
+  function dialogIds() { return Array.prototype.map.call(document.querySelectorAll("dialog[id], .sx-app-view[id]"), function (d) { return d.id; }).sort(); }
   function openDialogById(id) { openDialog(getDialog(id)); }
   function closeDialogById(id) { closeDialog(getDialog(id)); }
-  return { open: openDialog, close: closeDialog, get: getDialog, ids: dialogIds, openById: openDialogById, closeById: closeDialogById };
+  return { open: openDialog, close: closeDialog, get: getDialog, ids: dialogIds, openById: openDialogById, closeById: closeDialogById, isView: isViewEl, syncView: syncActiveViewAttr };
 })();
 
 
@@ -76,11 +144,11 @@ __sxInit(function () {
   function syncBtn() { if (typeof window.__sxSyncViewButton === "function") window.__sxSyncViewButton(); }
 
   var menu = SexcapadesRuntime.DOM.byId("viewNavMenu");
-  var listDlg = SexcapadesRuntime.DOM.byId("outlineDialog");
-  var safetyDlg = SexcapadesRuntime.DOM.byId("safetyDialog");
-  var scribeDlg = SexcapadesRuntime.DOM.byId("scribeDialog");
-  var scribeChoiceDlg = SexcapadesRuntime.DOM.byId("scribeChoiceDialog");
-  var setterDlg = SexcapadesRuntime.DOM.byId("negotiationDialog");
+  var listDlg = window.__sxDialog.get("outlineDialog");
+  var safetyDlg = window.__sxDialog.get("safetyDialog");
+  var scribeDlg = window.__sxDialog.get("scribeDialog");
+  var scribeChoiceDlg = window.__sxDialog.get("scribeChoiceDialog");
+  var setterDlg = window.__sxDialog.get("negotiationDialog");
   var menuBtn = null;
 
   function currentView() {
@@ -259,10 +327,7 @@ __sxInit(function () {
   }
   function openMenu(btn) {
     if (!menu || !btn) return;
-    /* Move the menu into the button's dialog (if any) so it stays
-       interactive above a modal dialog; on the map it lives in body. */
-    var host = btn.closest("dialog") || document.body;
-    if (menu.parentNode !== host) host.appendChild(menu);
+    if (menu.parentNode !== document.body) document.body.appendChild(menu);
     menuBtn = btn;
     refreshMenu();
     positionMenu(btn);
@@ -276,7 +341,6 @@ __sxInit(function () {
     var btn = menuBtn;
     menu.hidden = true;
     menuBtn = null;
-    if (menu.parentNode !== document.body) document.body.appendChild(menu);
     if (btn) {
       btn.setAttribute("aria-expanded", "false");
       if (refocus) { try { btn.focus({ preventScroll: true }); } catch (e) { btn.focus(); } }
@@ -293,8 +357,7 @@ __sxInit(function () {
     else if (v === "scribe") goScribe();
     else if (v === "import") goImport();
     if (btn && document.contains(btn)) {
-      var host = btn.closest("dialog");
-      if (!host || !host.open) { try { btn.focus({ preventScroll: true }); } catch (e) { __sxErrLog("focus", e); } }
+      try { btn.focus({ preventScroll: true }); } catch (e) { __sxErrLog("focus", e); }
     }
   }
   if (menu) menu.addEventListener("click", function (ev) {
@@ -476,21 +539,18 @@ __sxInit(function () {
 
   function showNote(text) {
     if (!note) return;
-    var host = document.querySelector("dialog[open]") || document.body;
-    if (note.parentNode !== host) host.appendChild(note);
+    if (note.parentNode !== document.body) document.body.appendChild(note);
     note.textContent = text;
     note.hidden = false;
     if (noteTimer) clearTimeout(noteTimer);
     noteTimer = setTimeout(function () {
       note.hidden = true;
       noteTimer = null;
-      if (note.parentNode !== document.body) document.body.appendChild(note);
     }, 5000);
   }
   if (note) note.addEventListener("click", function () {
     note.hidden = true;
     if (noteTimer) { clearTimeout(noteTimer); noteTimer = null; }
-    if (note.parentNode !== document.body) document.body.appendChild(note);
   });
 
   function positionMenu(x, y) {
@@ -505,10 +565,7 @@ __sxInit(function () {
     menu.style.visibility = "";
   }
   function openMenu(x, y, targetEl) {
-    /* If a modal dialog is open, move menu into that dialog so it stays
-       interactive and visible above the modal dialog backdrop; otherwise body. */
-    var host = (targetEl && targetEl.closest && targetEl.closest("dialog")) || document.querySelector("dialog[open]") || document.body;
-    if (menu.parentNode !== host) host.appendChild(menu);
+    if (menu.parentNode !== document.body) document.body.appendChild(menu);
 
     var activeSkin = window.FlexcapadesSkins ? window.FlexcapadesSkins.active() : "sexcapades";
     if (typeof window.__SX_RENDER_SKIN_MENU === "function") {
@@ -529,7 +586,6 @@ __sxInit(function () {
   function closeMenu() {
     if (!menuOpen()) return;
     menu.hidden = true;
-    if (menu.parentNode !== document.body) document.body.appendChild(menu);
   }
   /* Programmatic open for the flex.capades.io boot (skin-loader calls
      this once when the hostname picks no skin): opens just below the

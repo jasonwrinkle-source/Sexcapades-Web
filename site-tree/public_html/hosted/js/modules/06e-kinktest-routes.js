@@ -129,7 +129,7 @@
         }
         function gS() {
             const e = uS();
-            return window.__SEXCAPADES_START_ROUTE = "", e ? !oS && (oS = !0, Do.open ? Is() : (sxRouteRender(), !0)) : (oS = !1, !1);
+            return window.__SEXCAPADES_START_ROUTE = "", e ? !oS && (oS = !0, Do.open ? Is() : (In && In.children.length > 0 || sxRouteRender(), !0)) : (oS = !1, !1);
         }
         function xS() {
             return /^#\/?(?:app\/)?compare\/?$/i.test(cS());
