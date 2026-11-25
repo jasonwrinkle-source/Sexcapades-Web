@@ -1,0 +1,297 @@
+/* Compare view on the sync engine: the readings live in match tabs in the
+   profile tab strip (Krossmatch / Straight Talk); the stage below hosts the
+   active tab's readings. Heat lives on the profile tabs (session state);
+   Veil lives on the profile tabs (profile data). */
+#sxMatchStage{flex:0 1 auto;min-height:0;max-height:48%;overflow-y:auto;overscroll-behavior:contain;text-align:left}
+#sxMatchStage[hidden]{display:none}
+.workspace:has(#sxMatchStage:not([hidden])){grid-template-rows:auto minmax(0,1fr)}
+.sx-headline-chips{display:flex;gap:10px 22px;flex-wrap:wrap;align-items:baseline}
+.sx-headline-chip{display:inline-flex;gap:8px;align-items:baseline}
+#profileTabs .sx-match-tab{position:relative;display:flex;flex:0 0 auto;min-width:0;align-items:stretch;min-height:var(--sx-tab-height);height:var(--sx-tab-height);padding:0 2px;border:1px solid var(--line);border-bottom:0;border-radius:15px 15px 0 0;background:#292f2b;color:var(--muted)}
+#profileTabs .sx-match-tab.is-active{border-color:transparent;border-bottom-color:var(--paper-2);background:var(--paper-2)}
+.sx-match-root{display:grid;gap:12px;padding:12px 14px 14px;max-width:none}
+.sx-match-root[hidden]{display:none}
+.sx-match-root input[type="range"]{transform:none;width:100%;min-height:44px;accent-color:var(--focus);margin:0}
+.sx-compare-head{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:10px 14px;border-bottom:1px solid var(--line);position:sticky;top:0;background:var(--paper-2);z-index:2}
+.sx-compare-title{font:700 20px/1 "Barlow Condensed",sans-serif;letter-spacing:.02em}
+.sx-match-rings{display:block;width:min(300px,70vw);height:auto;margin:0 auto}
+.sx-ring-topics{margin:6px 0 0;padding-left:18px;color:var(--muted);font-size:13px;line-height:1.5}
+.sx-ring-listing{display:grid;gap:4px}
+.profile-tab-heat{position:absolute;z-index:3;left:50%;bottom:0;transform:translateX(-50%);display:inline-flex;flex-direction:row;align-items:center;justify-content:center;gap:2px;height:14px;min-height:14px!important;margin-left:0;max-width:100%;overflow:visible;padding:0 2px;border:0;border-radius:5px;background:transparent;color:var(--muted);font-size:10px;font-weight:700;line-height:1;opacity:.75;touch-action:manipulation;white-space:nowrap}
+.profile-tab-heat .sx-heat-zone{order:0;font-size:9px;line-height:1}
+.profile-tab-heat svg{width:10px;height:10px;flex:0 0 auto;display:block}
+.sx-heat-popover{display:grid;gap:8px;justify-items:stretch}
+.sx-heat-out{font-weight:800;color:var(--focus);font-variant-numeric:tabular-nums;font-size:13.5px;text-align:center}.sx-veil-out{font-weight:800;color:var(--focus);font-variant-numeric:tabular-nums;font-size:13.5px;text-align:center;white-space:nowrap}#veilPopover{width:auto;min-width:92px}#veilPopover>small{max-width:94px}
+.sx-pair-line{padding:10px 14px 0;font-size:13px;font-weight:700;color:var(--ink)}
+.sx-pair-line[hidden]{display:none}
+.sx-picker{display:grid;gap:8px}
+.sx-picker-label{font:600 15px/1.1 "Barlow Condensed",sans-serif;text-transform:uppercase;letter-spacing:.06em;color:var(--muted)}
+.sx-pick-row{display:flex;gap:8px;flex-wrap:wrap}
+.sx-pick{min-height:44px;padding:9px 14px;border:1px solid var(--line-strong);border-radius:999px;background:var(--panel);color:var(--ink);font-weight:700;font-size:14.5px;cursor:pointer}
+.sx-pick[aria-pressed="true"]{border-color:var(--focus);background:color-mix(in srgb,var(--focus) 18%,var(--panel));color:#fff}
+.sx-pick:focus-visible{outline:2px solid var(--focus);outline-offset:2px}
+.sx-picker-help{margin:0;color:var(--muted);font-size:12.5px;line-height:1.4}
+.sx-mode-row{display:flex;gap:8px;flex-wrap:wrap}
+.sx-mode-btn{flex:1 1 150px;min-height:44px;padding:9px 12px;border:1px solid var(--line-strong);border-radius:8px;background:var(--panel);color:var(--ink);font-weight:700;font-size:15px;cursor:pointer}
+.sx-mode-btn[aria-pressed="true"]{border-color:var(--focus);background:color-mix(in srgb,var(--focus) 18%,var(--panel));color:#fff}
+.sx-mode-btn:focus-visible{outline:2px solid var(--focus);outline-offset:2px}
+.sx-mode-help{margin:0;color:var(--muted);font-size:13px;line-height:1.4}
+.sx-people{display:grid;gap:10px}
+.sx-person{border:1px solid var(--line);border-radius:9px;padding:10px 12px;background:var(--panel)}
+.sx-person-name{font-weight:800;font-size:15px;margin-bottom:4px}
+.sx-ctl{display:grid;grid-template-columns:auto minmax(0,1fr) auto;align-items:center;gap:4px 10px;margin-top:2px}
+.sx-ctl-label{font-weight:700;font-size:13.5px;white-space:nowrap}
+.sx-ctl-out{font-weight:800;color:var(--focus);font-variant-numeric:tabular-nums;white-space:nowrap;font-size:13.5px}
+.sx-ctl input[type="range"]{grid-column:1/-1}
+.sx-ctl-help{grid-column:1/-1;margin:0;color:var(--muted);font-size:12px;line-height:1.4}
+.sx-stamp{font-size:13px;font-weight:700;color:var(--ink);border-top:1px solid var(--line);padding-top:10px}
+.sx-headline{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap}
+.sx-headline-label{font:600 15px/1.1 "Barlow Condensed",sans-serif;text-transform:uppercase;letter-spacing:.06em;color:var(--muted)}
+.sx-headline-value{font-size:24px;font-weight:850;line-height:1.1}
+.sx-coverage{margin:0;color:var(--muted);font-size:13px;line-height:1.5}
+.sx-explainer{margin:0;font-size:13.5px;line-height:1.45;color:var(--ink)}
+.sx-section{display:grid;gap:6px}
+.sx-section>h3{margin:4px 0 0;font:600 19px/1.1 "Barlow Condensed",sans-serif}
+.sx-section-sub{margin:0;color:var(--muted);font-size:12.5px;line-height:1.4}
+.sx-count{color:var(--muted);font-size:13px;font-weight:600}
+.sx-rows{display:grid;gap:6px}
+.sx-row{border:1px solid var(--line);border-radius:8px;padding:8px 10px;background:var(--paper-2);display:grid;gap:3px}
+.sx-row-top{display:flex;align-items:baseline;gap:8px;flex-wrap:wrap}
+.sx-row-top strong{font-size:14.5px}
+.sx-badge{display:inline-block;padding:1px 7px;border:1px solid var(--line-strong);border-radius:999px;font-size:11.5px;font-weight:700;color:var(--ink);white-space:nowrap}
+.sx-badge.is-flag{border-color:var(--amber);color:var(--amber)}
+.sx-badge.is-limit{border-color:var(--red);color:var(--red)}
+.sx-row-ratings{display:flex;gap:6px 16px;flex-wrap:wrap;color:var(--muted);font-size:12.5px}
+.sx-row-ratings b{color:var(--ink)}
+.sx-row-fit{font-size:12.5px;color:var(--green);font-weight:650}
+.sx-row-shape{font-size:12.5px;color:var(--amber);font-weight:650}
+.sx-empty{margin:0;color:var(--muted);font-size:13px}
+.sx-limit-group{border:1px solid var(--line);border-radius:8px;background:var(--paper-2);padding:6px 10px}
+.sx-limit-group summary{cursor:pointer;font-size:14px;padding:4px 0}
+.sx-limit-group ul{margin:4px 0 6px;padding-left:18px;color:var(--muted);font-size:12.5px}
+.sx-hot-score{font-weight:800;color:var(--focus);font-variant-numeric:tabular-nums}
+.sx-actions{display:flex;gap:8px;flex-wrap:wrap;border-top:1px solid var(--line);padding-top:10px}
+#sxBuzzerDialog{width:min(440px,calc(100vw - 24px));border:1px solid var(--line-strong);border-radius:12px;background:var(--panel);color:var(--ink);padding:0;box-shadow:var(--shadow)}
+#sxBuzzerDialog::backdrop{background:rgba(0,0,0,.55)}
+.sx-buzzer-body{padding:18px;display:grid;gap:10px}
+.sx-buzzer-body h2{margin:0;font:600 24px/1.1 "Barlow Condensed",sans-serif}
+.sx-buzzer-body p{margin:0;line-height:1.5;font-size:14.5px}
+.sx-buzzer-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:4px}
+.sx-buzzer-actions .action-btn{flex:1 1 120px;min-height:44px}
+@media(max-width:560px){.sx-headline-value{font-size:21px}.sx-ctl{grid-template-columns:auto minmax(0,1fr) auto}}
+
+.selected-spoke {
+    fill: none !important;
+    stroke: color-mix(in srgb, currentColor 60%, transparent) !important;
+    stroke-width: 14px;
+    vector-effect: non-scaling-stroke;
+    pointer-events: none !important;
+}
+.outline-search-wrap{flex:1 1 180px;min-width:140px;max-width:320px}
+.outline-search-input{width:100%;min-height:44px;padding:8px 12px;border:1px solid var(--line);border-radius:8px;background:var(--paper-2);color:var(--ink);font-size:16px}
+.mark-ratings{display:grid;gap:8px;margin:4px 0 12px}
+.mark-rating{display:grid;grid-template-columns:200px minmax(0,1fr) 64px auto;gap:8px;align-items:center;font-size:14px;font-weight:700}
+.mark-rating[hidden]{display:none!important}
+.mark-rating>span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;min-width:0}
+.mark-rating input[type=range]{width:100%;height:28px;padding:0;appearance:none;-webkit-appearance:none;background:transparent;cursor:pointer}
+.mark-rating input[type=range]::-webkit-slider-runnable-track{height:10px;border:1px solid var(--line-strong);border-radius:5px;background:linear-gradient(90deg,var(--red-deep),var(--curious),var(--green-deep))}
+.mark-rating input[type=range]::-webkit-slider-thumb{width:20px;height:20px;margin-top:-6px;appearance:none;-webkit-appearance:none;border:3px solid var(--panel);border-radius:50%;background:#fff;box-shadow:0 1px 4px #00000073}
+.mark-rating input[type=range]::-moz-range-track{height:10px;border:1px solid var(--line-strong);border-radius:5px;background:linear-gradient(90deg,var(--red-deep),var(--curious),var(--green-deep))}
+.mark-rating input[type=range]::-moz-range-thumb{width:15px;height:15px;border:3px solid var(--panel);border-radius:50%;background:#fff;box-shadow:0 1px 4px #00000073}
+.mark-rating input[type=range]:focus-visible{outline:2px solid var(--focus);outline-offset:2px;border-radius:6px}
+.mark-rating output{width:64px;text-align:right;font-weight:650;color:var(--muted)}
+.mark-rating button{min-height:32px;padding:4px 8px;border:1px solid var(--line);border-radius:7px;background:var(--paper-2)}
+@media (max-width:760px){.mark-rating{grid-template-columns:120px minmax(0,1fr) 56px auto}.mark-rating output{width:56px}}
+.branch-heat{pointer-events:none}
+/* Relation connectors are a focus affordance. At a search zoom their
+   non-scaling dashes read as thick leftover lines, and they only
+   collapse visually once the camera returns near fit. Keep them for a
+   relation focus and hide them otherwise. */
+#mapSvg .common-overlap-link.relation-visual{opacity:0!important}
+#mapSvg.relation-focused .common-overlap-link.relation-visual{opacity:.28!important}
+#mapSvg.relation-focused .common-overlap-link.relation-visual.rel-active{opacity:1!important}
+/* The shared range rule rotates every popover slider so its maximum
+   sits at the top. Heat wants that (Horndog is the maximum). Veil does
+   not: 0 is Revealed, drawn at the top, and 100 is Concealed, drawn at
+   the bottom. Clockwise rotation puts the minimum at the top, and the
+   gradient is reversed so that end stays green. */
+#profileTabs .profile-tab:has(.profile-tab-heat){min-width:168px}#profileTabs .profile-tab-button [data-profile-label]{overflow:visible;text-overflow:clip}
+#veilPopover input[type=range]{transform:translate(-50%,-50%) rotate(90deg)}
+#veilPopover input[type=range]::-webkit-slider-runnable-track{background:linear-gradient(90deg,#3fbb79,#f2c94c,#d14f59)}
+#veilPopover input[type=range]::-moz-range-track{background:linear-gradient(90deg,#3fbb79,#f2c94c,#d14f59)}
+
+/* Scribe Story Ingredients disclosure triangles */
+details.scene-phase {
+  margin: 6px 0;
+  border-radius: 6px;
+  background: rgba(15, 23, 42, 0.4);
+  border: 1px solid rgba(148, 163, 184, 0.12);
+  padding: 4px 10px;
+}
+details.scene-phase summary {
+  cursor: pointer;
+  user-select: none;
+  padding: 4px 0;
+  color: #93c5fd;
+  font-size: 13px;
+  font-weight: 700;
+  list-style-position: inside;
+}
+details.scene-phase summary h4 {
+  display: inline-block;
+  margin: 0 0 0 4px;
+  font-size: 13px;
+  color: inherit;
+  vertical-align: middle;
+}
+details.scene-phase[open] {
+  padding-bottom: 8px;
+  background: rgba(15, 23, 42, 0.6);
+}
+details.scene-phase ul {
+  margin: 6px 0 4px 18px;
+  padding: 0;
+}
+
+/* Placard widget wraps: the sync hides inactive wraps with the hidden
+   attribute, but the wraps' own display:flex/grid rules beat the browser's
+   default [hidden] rule, so hidden wraps still painted (all widgets listed
+   on every placard). This rule restores hiding for all nine wraps. */
+#markTriangleWrap[hidden],
+#markTetradWrap[hidden],
+#markCompassWrap[hidden],
+#markPentadWrap[hidden],
+#markHexadWrap[hidden],
+#markHeptadWrap[hidden],
+#markOctadWrap[hidden],
+#markSwitchboxWrap[hidden],
+#markRatings[hidden] {
+  display: none !important;
+}
+#appAboutDescription .sx-brand{font:inherit}
+#appAboutTitle .sx-about-name{font-family:"Source Sans 3",sans-serif}
+
+/* Profile-to-archetype projection: compact layout */
+.profile-archetype-section{padding:8px 0}
+.profile-archetype-header{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.profile-archetype-header h3{margin:0;font-size:15px}
+.profile-archetype-header p{margin:2px 0 0;font-size:12px;color:var(--muted)}
+.profile-archetype-header .action-btn{white-space:nowrap;padding:4px 10px;font-size:12px;min-height:30px}
+.profile-archetype-results{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:6px;margin-top:8px}
+.profile-archetype-results:empty{display:none}
+.profile-archetype-row{border:1px solid var(--line);border-radius:6px;padding:6px 8px;background:var(--paper-2);transition:border-color .15s}
+.profile-archetype-row[data-ui-tooltip]{cursor:help}
+.profile-archetype-row[data-ui-tooltip]:focus-visible{outline:2px solid var(--focus);outline-offset:2px}
+.profile-archetype-row-top{display:flex;align-items:baseline;justify-content:space-between;gap:6px}
+.profile-archetype-name{font:700 14px/1.2 "Barlow Condensed",sans-serif;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.profile-archetype-score{font:800 14px/1 "Source Sans 3",sans-serif;color:var(--green);flex-shrink:0}
+.profile-archetype-drivers{margin:2px 0 0;color:var(--muted);font-size:11px;line-height:1.2;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.profile-archetype-about{margin:2px 0 0;color:var(--muted);font-size:11px;line-height:1.2}
+.profile-archetype-note{grid-column:1 / -1;margin:6px 0 0;color:var(--muted);font-size:11px;line-height:1.3}
+/* Local samples (2026-11-18): Remove button under a local sample in the Samples menu. */
+.sample-local-remove{justify-self:start;border:0;background:transparent;color:color-mix(in srgb,var(--paper) 72%,transparent);font:600 12px/1.4 "Source Sans 3",sans-serif;text-decoration:underline;cursor:pointer;padding:2px 4px}
+.sample-local-remove:hover,.sample-local-remove:focus-visible{color:var(--red);outline:2px solid var(--focus);outline-offset:2px}
+
+/* Widget tighter bounding & trilinear slider 3-pole track positioning */
+.outline-inline-widget{display:inline-flex;flex-wrap:wrap;align-items:center;gap:8px;width:fit-content;max-width:100%;margin:4px 0 2px;padding:6px 10px;border:1px solid rgba(56,189,248,.35);border-radius:8px;background:rgba(15,23,42,.35)}
+.outline-inline-readout{display:flex;justify-content:space-around;background:rgba(0,0,0,0.3);padding:4px 8px;border-radius:4px;font-size:11px;color:#cbd5e1;flex-wrap:wrap;gap:6px;width:100%;margin-top:4px;}
+.outline-inline-readout .mark-tri-stat{display:inline-flex;align-items:center;gap:3px;cursor:help;}
+.outline-inline-readout .mark-tri-stat span{cursor:help;font-weight:600;}
+.outline-inline-readout .mark-tri-stat span:hover{text-decoration:underline;}
+.outline-rating-trilinear{display:flex!important;flex-direction:column!important;width:100%!important;min-width:260px;max-width:480px;gap:3px!important;padding:2px 0;}
+.outline-trilinear-poles{display:flex;justify-content:space-between;align-items:flex-end;position:relative;width:calc(100% - 3.8ch);margin:0 0 2px 0;padding:0 2px;font-size:11px;line-height:1.2;}
+.outline-trilinear-pole{cursor:help;transition:opacity 0.15s ease;}
+.outline-trilinear-pole:hover{text-decoration:underline;opacity:1;}
+.outline-trilinear-pole.tri-pole-left{text-align:left;max-width:33%;color:#f87171;font-weight:600;}
+.outline-trilinear-pole.tri-pole-center{position:absolute;left:50%;transform:translateX(-50%);text-align:center;max-width:36%;color:#fbbf24;font-weight:600;white-space:normal;}
+.outline-trilinear-pole.tri-pole-right{text-align:right;max-width:33%;margin-left:auto;color:#4ade80;font-weight:600;}
+.outline-trilinear-slider-row{display:flex;align-items:center;gap:8px;width:100%;}
+.outline-trilinear-slider-row input[type=range]{flex:1 1 auto;width:100%;margin:0;}
+.outline-trilinear-slider-row output{flex:0 0 3ch;min-width:3ch;text-align:right;font-size:11px;font-weight:600;}
+#markRatings.is-trilinear .mark-rating{display:grid!important;grid-template-areas:"poles poles poles" "slider output clear";grid-template-columns:1fr auto auto!important;align-items:center;gap:8px 12px;width:100%!important;max-width:100%!important;padding:8px 12px;border:1px solid var(--line);border-radius:8px;background:var(--paper-2);box-sizing:border-box;}
+#markRatings.is-trilinear .mark-rating[hidden]{display:none!important;}
+#markRatings.is-trilinear #markGiveLabel{grid-area:poles;width:100%;overflow:visible!important;white-space:normal!important;min-width:0;}
+#markRatings.is-trilinear #markGive{grid-area:slider;width:100%;min-width:140px;height:28px;}
+#markRatings.is-trilinear #markGiveOut{grid-area:output;width:auto;min-width:44px;text-align:right;font-size:13px;font-weight:700;}
+#markRatings.is-trilinear #markGiveClear{grid-area:clear;min-height:28px;padding:2px 10px;font-size:12px;}
+.mark-trilinear-poles{display:flex;justify-content:space-between;align-items:flex-end;position:relative;width:100%;font-size:12px;line-height:1.3;margin-bottom:4px;box-sizing:border-box;}
+.mark-trilinear-pole{cursor:help;transition:opacity 0.15s ease;}
+.mark-trilinear-pole:hover{text-decoration:underline;opacity:1;}
+.mark-trilinear-pole.tri-pole-left{text-align:left;max-width:32%;color:#f87171;font-weight:600;}
+.mark-trilinear-pole.tri-pole-center{position:absolute;left:50%;transform:translateX(-50%);text-align:center;max-width:36%;color:#fbbf24;font-weight:600;}
+.mark-trilinear-pole.tri-pole-right{text-align:right;max-width:32%;margin-left:auto;color:#4ade80;font-weight:600;}
+
+#hotListWidgetReadout,
+.mark-triangle-readout {
+  display: none !important;
+}
+
+body.sx-no-importers [data-converter="kinktest"],
+body.sx-no-importers [data-converter="checklist"],
+body.sx-no-importers [data-converter="fetlife"],
+body.sx-no-importers [data-converter="bdsmtest"],
+body.sx-no-importers [data-profile-converter="kinktest"],
+body.sx-no-importers [data-profile-converter="checklist"],
+body.sx-no-importers [data-profile-converter="fetlife"],
+body.sx-no-importers [data-profile-converter="bdsmtest"],
+body.sx-no-importers [data-profile-details-converter="kinktest"],
+body.sx-no-importers [data-profile-details-converter="checklist"],
+body.sx-no-importers [data-profile-details-converter="fetlife"],
+body.sx-no-importers [data-profile-details-converter="bdsmtest"],
+body.sx-no-importers [data-test-choice="kinktest"],
+body.sx-no-importers [data-test-choice="checklist"] {
+  display: none !important;
+}
+
+.mark-menu.hanky-backed{background-color:var(--hanky-bg);background-image:repeating-linear-gradient(45deg,color-mix(in srgb,var(--paper) 9%,transparent) 0 12px,transparent 12px 24px)}
+.mark-hanky{display:flex;align-items:center;gap:8px;font-size:12px;font-weight:650;letter-spacing:.02em;color:var(--paper)}
+.mark-hanky-swatch{flex:0 0 18px;width:18px;height:18px;border-radius:4px;border:1px solid color-mix(in srgb,var(--paper) 45%,transparent)}
+
+/* Profile tab strip travel (2026-11-23): the strip already had overflow-x:auto,
+   but its grid/flex parents could not shrink below content width on desktop, so
+   the strip pushed the toolbar wide and the operations tabs sat off-viewport
+   with no way to travel. Let the parents shrink, let touch drags starting on a
+   tab pan the strip, and keep the scrollbar thin. */
+.viewpoint-tabs-row{min-width:0}
+#profileTabs{min-width:0;scrollbar-width:thin}
+#profileTabs .profile-tab-button{touch-action:pan-x pan-y}
+
+/* Promote Hot List, Scene Sentinel, Scene Setter & Scribe from modal dialogs to
+   in-page views inside main.shell under the shared header.intro (Item #5). */
+.sx-app-view[hidden]:not([open]){display:none!important}
+body[data-sx-view] main.shell>.toolbar,
+body[data-sx-view] main.shell>.workspace{display:none!important}
+.sx-app-view[open]:not([hidden]){
+  position:relative!important;
+  inset:auto!important;
+  width:100%!important;
+  max-width:none!important;
+  height:calc(100dvh - var(--sx-view-header-height,104px) - 8px)!important;
+  max-height:none!important;
+  margin:0!important;
+  padding:0!important;
+  border:1px solid var(--line)!important;
+  border-radius:10px!important;
+  background:var(--paper)!important;
+  color:var(--ink);
+  box-sizing:border-box!important;
+  overflow:hidden;
+}
+#outlineDialog.sx-app-view[open]:not([hidden]),
+#safetyDialog.sx-app-view[open]:not([hidden]){display:block!important}
+#negotiationDialog.sx-app-view[open]:not([hidden]),
+#scribeChoiceDialog.sx-app-view[open]:not([hidden]){
+  display:grid!important;
+  grid-template-rows:auto minmax(0,1fr)!important;
+}
+.sx-app-view .sx-titlebar{
+  min-height:48px!important;
+  height:auto!important;
+  max-height:none!important;
+  padding:6px 14px!important;
+}
+.sx-app-view .sx-titlebar>.sx-brand,
+.sx-app-view .sx-titlebar>.sx-guide-slot{display:none!important}
+.sx-app-view .dialog-head{padding:12px 16px;border-bottom:1px solid var(--line);background:var(--paper-2)}
+.sx-app-view .dialog-body{padding:16px;overflow-y:auto;min-height:0;display:grid;gap:14px;align-content:start}
+

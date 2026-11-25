@@ -1,0 +1,226 @@
+/* Always-available branch deselect (Build 2026-10-19 — batch 1 item 3):
+   a Clear selection chip lives in the map controls bar and is visible
+   whenever a branch/topic is selected on the map, whether or not the
+   Layout Editor panel is open, so there is always a 44px way to clear
+   the selection (tapping empty map space and the panel's own Clear
+   selection button remain as additional paths). */
+.map-clear-selection{display:inline-flex;align-items:center;gap:6px;min-height:44px;padding:7px 12px;border:1px solid var(--focus);border-radius:7px;background:color-mix(in srgb,var(--focus) 16%,var(--panel));color:var(--ink);font-weight:700;font-size:13.5px;line-height:1.15;cursor:pointer;white-space:nowrap}
+.map-clear-selection[hidden]{display:none}
+.map-clear-selection:focus-visible{outline:2px solid var(--focus);outline-offset:2px}
+/* Edit Profile title-bar actions (Build 2026-10-19 — batch 2): Save and
+   the Get ratings dropdown live in the dialog head next to the title and
+   the X (the old in-form Save/Cancel row and the bottom "Tests and
+   imports" footer box are gone; the X acts as cancel via the existing
+   close wiring). Everything in the head is a 44px target, the head wraps
+   instead of crowding the X on narrow screens, the Get ratings menu
+   drops DOWN from the head (it used to open upward from the footer), and
+   the whole action group hides in About mode like the form did. */
+#profileDetailsDialog .dialog-head{flex-wrap:wrap;gap:10px 12px}
+#profileDetailsDialog .dialog-head>div:first-child{flex:1 1 200px;min-width:0}
+.profile-head-actions{display:flex;align-items:flex-start;gap:8px;flex-wrap:wrap}
+.profile-head-actions .action-btn{min-height:44px}
+#profileDetailsDialog .close-btn{width:44px;height:44px;flex:0 0 44px;font-size:22px}
+#appAboutDialog .close-btn,#testResultLoaderDialog .close-btn{width:44px;height:44px;flex:0 0 44px;font-size:22px}
+.profile-head-actions .take-test-toggle{width:auto;display:grid;justify-items:start;gap:1px;padding:6px 12px;line-height:1.1;text-align:left}
+.profile-head-actions .take-test-toggle strong{font-size:13px}
+.profile-head-actions .take-test-toggle small{color:color-mix(in srgb,currentColor 76%,transparent);font-size:10px;font-weight:600;line-height:1.15}
+.profile-head-actions .take-test-menu{top:calc(100% + 6px);bottom:auto;left:auto;right:0;width:min(300px,calc(100vw - 24px))}
+#profileDetailsDialog[data-profile-mode="about"] .profile-head-actions{display:none}
+
+
+/* Build 2026-10-16_0949 — Progressive rating-milestone celebrations and next-step actions. */
+.first-visit-cta:not([hidden]){position:relative;display:inline-flex;justify-self:center;align-items:center;width:auto;padding:5px;border:0;background:transparent}
+.list-view-entry{min-height:38px;padding:7px 15px;border:1px solid color-mix(in srgb,var(--focus) 82%,white);border-radius:8px;background:color-mix(in srgb,var(--focus) 18%,var(--panel));color:var(--ink);font-size:14px;font-weight:850;box-shadow:0 0 0 1px color-mix(in srgb,var(--focus) 24%,transparent),0 0 16px color-mix(in srgb,var(--focus) 42%,transparent);animation:list-entry-pulse 2.4s ease-in-out infinite}
+.list-view-entry:hover,.list-view-entry:focus-visible{background:var(--focus);color:#091112;outline:3px solid color-mix(in srgb,var(--focus) 38%,transparent);outline-offset:2px}
+.list-view-entry-tip{position:absolute;z-index:100;left:50%;top:calc(100% + 6px);width:min(330px,calc(100vw - 32px));padding:8px 10px;border:1px solid var(--line-strong);border-radius:7px;background:var(--panel);color:var(--ink);box-shadow:0 7px 22px #0008;font-size:12px;font-weight:650;line-height:1.35;text-align:left;transform:translateX(-50%);opacity:0;visibility:hidden;pointer-events:none}
+.first-visit-cta:hover .list-view-entry-tip,.first-visit-cta:focus-within .list-view-entry-tip{opacity:1;visibility:visible}
+@keyframes list-entry-pulse{50%{box-shadow:0 0 0 2px color-mix(in srgb,var(--focus) 36%,transparent),0 0 23px color-mix(in srgb,var(--focus) 62%,transparent)}}
+@media(prefers-reduced-motion:reduce){.list-view-entry{animation:none}}
+.outline-subcategory{border-top:0!important}
+.outline-head{grid-template-columns:minmax(0,1fr) auto;grid-template-rows:auto auto auto auto;gap:8px 14px;padding:14px 18px 11px}
+.outline-title-row{grid-column:1;grid-row:1;display:flex;align-items:baseline;gap:10px;min-width:0;flex-wrap:wrap}
+.outline-title-row .outline-header-count{margin-left:clamp(12px,2vw,30px)}
+.outline-head-center{grid-column:1;grid-row:2;display:grid;grid-template-columns:minmax(190px,1fr) auto;grid-template-areas:"consent action" "consent privacy";align-items:center;justify-self:stretch;gap:2px 10px;padding:0}
+.outline-head-center .survey-consent{grid-area:consent}.outline-head-center .action-btn{grid-area:action}.outline-head-center>small{grid-area:privacy;justify-self:center}
+.survey-consent-compact{min-width:0;padding:7px 9px;font-size:12px}.survey-consent-compact input{width:18px;height:18px}.survey-consent-compact small{font-size:10px}
+.outline-head-actions{grid-column:2;grid-row:1 / span 2;display:flex;align-items:center;justify-content:flex-end;align-self:start;gap:8px;flex-wrap:nowrap}
+.outline-progress-meta{display:flex;align-items:center;justify-content:flex-end;gap:6px;min-width:0}.outline-progress-meta output{font-size:11px;font-weight:800;white-space:nowrap;font-variant-numeric:tabular-nums}
+.outline-head .close-btn{position:static;grid-column:auto;grid-row:auto}
+.outline-instruction-row{grid-column:1 / -1;grid-row:3;display:grid;grid-template-columns:minmax(245px,.95fr) minmax(420px,1.55fr);align-items:end;gap:16px;margin-top:2px}
+.outline-head .outline-instruction-row p{grid-column:auto;grid-row:auto;margin:0;max-width:none}
+.outline-progress{display:block;grid-column:auto;grid-row:auto;margin:0;padding:0 24px 0 10px;min-width:0}
+.outline-progress-track{height:8px;margin:0}
+.outline-ladder-mark:after{font-size:8px;bottom:17px}
+.outline-quickstart-tip{grid-column:1 / -1;grid-row:4}
+.import-survey-consent{margin-bottom:12px}
+@media(max-width:980px){.outline-head{grid-template-columns:1fr;grid-template-rows:auto auto auto auto auto}.outline-title-row{grid-column:1;grid-row:1}.outline-head-actions{grid-column:1;grid-row:2;justify-content:flex-start}.outline-head-center{grid-column:1;grid-row:3}.outline-instruction-row{grid-column:1;grid-row:4;grid-template-columns:1fr;gap:22px}.outline-quickstart-tip{grid-row:5}.outline-progress{padding-inline:18px}}
+@media(max-width:620px){.first-visit-cta:not([hidden]){display:flex;width:auto;padding:5px}.first-visit-cta .list-view-entry{width:auto;min-height:42px;padding:8px 14px;font-size:14px}.outline-head{padding:10px}.outline-title-row .outline-header-count{margin-left:8px}.outline-head-actions{justify-content:space-between;gap:5px}.outline-show-rated{min-height:36px;padding:5px 7px;font-size:12px}.outline-progress-meta{gap:4px}.outline-progress-meta output{font-size:10px}.outline-timer-toggle{width:28px;height:28px}.outline-timer-reset{width:auto}.outline-head-center{grid-template-columns:1fr auto;grid-template-areas:"consent consent" "action privacy";gap:7px}.outline-head-center>small{justify-self:start}.outline-instruction-row{gap:20px}.outline-ladder-mark:after{display:none}.outline-ladder-mark[data-label="54 · ~18m"]:after,.outline-ladder-mark.outline-ladder-first:after,.outline-ladder-mark.outline-ladder-full:after{display:block;font-size:7px}.survey-consent-compact small{display:none}}
+#milestoneCelebrationDialog{width:min(560px,calc(100vw - 24px));border-color:color-mix(in srgb,var(--focus) 70%,var(--line))}.milestone-celebration-shell{position:relative;display:grid;justify-items:center;gap:10px;padding:27px 24px 24px;text-align:center}.milestone-celebration-close{position:absolute;right:12px;top:12px}.milestone-celebration-mark{display:grid;place-items:center;width:54px;height:54px;border:2px solid var(--focus);border-radius:50%;background:color-mix(in srgb,var(--focus) 14%,var(--paper-2));color:var(--focus)}.milestone-celebration-mark svg{width:30px;height:30px;fill:none;stroke:currentColor;stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round}.milestone-kicker{margin:0;color:var(--focus);font-size:12px;font-weight:800;letter-spacing:.08em;text-transform:uppercase}.milestone-celebration-shell h2{margin:0;font:750 32px/1 Barlow Condensed,sans-serif}.milestone-celebration-shell>p:not(.milestone-kicker){max-width:430px;margin:0;color:var(--muted);font-size:15px;line-height:1.45}.milestone-question{margin:6px 0 0;color:var(--ink);font-size:15px}.milestone-actions{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:9px;width:100%;margin-top:2px}.milestone-actions .action-btn{min-height:46px}.completion-celebration .milestone-question{margin-top:18px}.completion-contribution-actions.milestone-actions{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));width:100%}@media(max-width:560px){.milestone-actions,.completion-contribution-actions.milestone-actions{grid-template-columns:1fr}.milestone-celebration-shell{padding:24px 18px 18px}.milestone-actions .action-btn{width:100%}}
+
+
+/* Build 2026-10-16_0949: Keep advanced profile tools hidden until a profile tab is open (Fix 6). */
+.scribe-zone[hidden],.scribe-separator[hidden]{display:none!important}
+
+
+/* View navigation dropdown: one shared pull-down menu for every view-nav
+   button (map title row, list view, Scene Sentinel, Scribe, Scene Setter).
+   The menu element is moved into whichever dialog is open when it is
+   invoked, so it stays interactive above modal dialogs. */
+.view-nav-menu{position:fixed;z-index:4000;min-width:196px;padding:6px;border:1px solid var(--line);border-radius:12px;background:var(--panel);color:var(--ink);box-shadow:0 18px 40px rgba(0,0,0,.5)}
+.view-nav-menu[hidden]{display:none}
+.view-nav-item{display:flex;align-items:center;gap:8px;width:100%;min-height:44px;padding:9px 12px;font-size:15.5px;font-weight:600;text-align:left;border:0;border-radius:8px;background:none;color:var(--ink);cursor:pointer;white-space:nowrap}
+.view-nav-item:before{content:"";flex:0 0 1em;text-align:center}
+.view-nav-item[aria-checked="true"]:before{content:"✓";color:var(--focus)}
+.view-nav-item:hover,.view-nav-item:focus-visible,.view-nav-item.is-active{background:var(--paper-2);outline:2px solid var(--focus);outline-offset:-2px}
+.view-nav-item.is-disabled{opacity:.45;cursor:not-allowed;pointer-events:auto}
+.view-nav-item.is-disabled:hover,.view-nav-item.is-disabled.is-active{background:none;outline:none}
+/* SKIN MENU (Flexcapades prototype, 2026-11-15): long-press on the app
+   header opens this menu to choose a skin. Same panel as the view-nav
+   menu; each row is a skin name over a one-line descriptor. The checkmark
+   comes from the shared .view-nav-item[aria-checked="true"] rule. The
+   note is a small toast for the honest "not loaded yet" message when a
+   skin with no app catalog data is picked.
+   Two-column layout (2026-11-15, Jason's word: 15 skins in one column
+   ran 812px tall and the last five fell off a 600px-tall page): the menu
+   is a 2-column grid with a smaller font, so all 15 fit in ~8 rows and
+   under 420px tall. Scoped to .skin-menu only — the shared view-nav
+   menu and its items are untouched. */
+.skin-menu{display:grid;grid-template-columns:1fr 1fr;column-gap:2px;max-width:min(660px,calc(100vw - 16px))}
+.skin-menu .view-nav-item{white-space:normal;font-size:13.5px;min-height:40px;padding:7px 10px}
+.skin-menu .skin-name{font-size:13.5px;font-weight:600;line-height:1.2}
+.skin-menu .skin-desc{font-size:11.5px;font-weight:400;line-height:1.25;color:var(--muted);white-space:normal}
+.skin-label{display:flex;flex-direction:column;align-items:flex-start;gap:1px;min-width:0}
+.skin-name{font-size:15.5px;font-weight:600;line-height:1.2}
+.skin-desc{font-size:12.5px;font-weight:400;line-height:1.25;color:var(--muted);white-space:normal}
+.skin-note{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);z-index:4100;max-width:min(480px,calc(100vw - 32px));padding:12px 16px;border:1px solid var(--line);border-radius:12px;background:var(--panel);color:var(--ink);font-size:14.5px;line-height:1.4;box-shadow:0 18px 40px rgba(0,0,0,.5);cursor:pointer}
+.skin-note[hidden]{display:none}
+.docs-dropdown-menu{display:flex;flex-direction:column;gap:2px;min-width:260px;max-width:min(340px,calc(100vw - 16px));max-height:75vh;overflow-y:auto}
+.docs-dropdown-menu .view-nav-item{flex-direction:row;align-items:center;justify-content:flex-start;text-decoration:none;padding:7px 10px;min-height:38px}
+.docs-dropdown-menu .view-nav-item:before{display:none}
+.docs-dropdown-menu .view-nav-text{display:flex;flex-direction:column;gap:1px;min-width:0;flex:1 1 auto;text-align:left}
+.docs-dropdown-menu .view-nav-text strong{font-size:13.5px;color:var(--ink);font-weight:600;line-height:1.2}
+.docs-dropdown-menu .view-nav-text small{font-size:11px;color:var(--muted);font-weight:400;line-height:1.25;white-space:normal}
+.docs-submenu-trigger{display:flex;align-items:center;justify-content:space-between;gap:8px;width:100%;background:none;border:0;cursor:pointer}
+.docs-flyout-arrow{font-size:12px;color:var(--focus);margin-left:auto}
+.view-nav-menu.docs-flyout:not([hidden]){position:fixed;z-index:4050;min-width:240px;max-width:calc(100vw - 24px);max-height:75vh;overflow-y:auto;display:flex;flex-direction:column;gap:2px}
+.view-nav-menu.docs-flyout .view-nav-item{font-size:13px;padding:6px 10px;min-height:32px;text-decoration:none}
+.view-nav-menu.docs-flyout .view-nav-item:before{display:none}
+.view-nav-menu.docs-flyout a.docs-main-link{font-weight:700;color:var(--focus)}
+.view-nav-divider{height:1px;margin:6px 4px;background:var(--line)}
+/* Every view's selector button: fixed width sized for "Scene Sentinel ▾",
+   so it never changes width between views, in dialog heads as in the title row. */
+.view-nav-btn{width:176px;flex:0 0 auto;text-align:center;justify-content:center}
+.dialog-head>.view-nav-btn{order:-1;margin:0 10px 0 0;align-self:center}
+.safety-head>.view-nav-btn{order:-1;margin:0 10px 0 0;align-self:center}
+@media(max-width:960px){.view-nav-btn{width:166px}}
+@media(max-width:620px){.view-nav-btn{width:150px}}
+@media(max-width:430px){.view-nav-btn{width:140px}}
+/* Single doorway (owner ruling, 2026-10-27): Scribe and Scene Setter are
+   reached ONLY through their toolbar buttons (#scribeTab and
+   #openNegotiation) — the view pull-down no longer carries entries for
+   them and there is no deep-link route into Scribe. The buttons' own
+   visibility stays governed by the bundle (hidden until profiles are
+   loaded / a multi-select exists), exactly as before. */
+
+
+/* Unified five-view title bar: every main view (Sync Map, Popularity List,
+   Scribe, Scene Setter, Scene Sentinel) opens with the SAME bar — the
+   Sexcapades.IO branding (shrunk to fit, opens About) first at top-left,
+   the view selector button immediately to its right, and the avatar +
+   Syncing Sexcapades Guide cluster at top-right. No close buttons on any of the
+   five views: leave a view through the selector (Escape and backdrop clicks
+   also still close the dialogs). All five views fill the whole viewport on
+   the same page background. */
+/* All five views (Hypermap, Hot List, Scene Sentinel, Scene Setter, Scribe) share
+   the identical 104px header height so switching views has zero vertical jump. */
+:root{--sx-view-header-height:104px}
+main.shell>header.intro{grid-template-columns:minmax(105px,max-content) auto minmax(0,1fr) max-content;grid-template-areas:"title switch center review";min-height:var(--sx-view-header-height);box-sizing:border-box}
+main.shell>header.intro h1{font-size:clamp(21px,2vw,29px)}
+.sx-titlebar{display:flex;align-items:center;gap:10px;min-height:var(--sx-view-header-height);height:var(--sx-view-header-height);max-height:var(--sx-view-header-height);padding:0 14px;box-sizing:border-box;border-bottom:1px solid var(--line);background:var(--paper-2)}
+.sx-titlebar .view-nav-btn{flex:0 0 auto;margin:0}
+.sx-brand{font-family:"Barlow Condensed",sans-serif;font-size:clamp(21px,2vw,29px);font-weight:700;line-height:.94;white-space:nowrap}
+.sx-brand-compact{display:none}
+.sx-guide-slot{margin-left:auto;flex:0 0 auto}
+.sx-titlebar .guide-avatar-wrap,
+.sx-titlebar .sx-slot-wrap{width:50px;height:50px;flex:0 0 50px;margin:0}
+.sx-titlebar .avatar-music-btn{width:50px;height:50px}
+.sx-titlebar .avatar-music-btn img{width:40px;height:40px}
+#outlineDialog,#safetyDialog,#negotiationDialog{width:100vw!important;height:100dvh!important;max-width:none!important;max-height:none!important;border:0;border-radius:0}
+#negotiationDialog,#scribeDialog,#scribeChoiceDialog{background:var(--paper)}
+.outline-shell{grid-template-rows:auto auto minmax(0,1fr)!important;background:var(--paper)}
+.safety-shell{grid-template-rows:auto minmax(0,1fr)!important;background:var(--paper)}
+#negotiationDialog[open],#scribeDialog[open],#scribeChoiceDialog[open]{grid-template-rows:auto auto minmax(0,1fr)}
+@media(max-width:620px){main.shell>header.intro{grid-template-columns:minmax(0,1fr) auto auto;grid-template-areas:"title switch review" "center center center"}.sx-titlebar{min-height:64px;height:auto;max-height:none;padding:8px 10px;gap:8px}.sx-brand{font-size:20px}.sx-brand-full{display:none}.sx-brand-compact{display:inline}}
+@media(max-width:430px){main.shell>header.intro{grid-template-columns:minmax(0,1fr) auto auto;grid-template-areas:"title switch review" "center center center"}}
+
+
+/* AVATAR-MUSIC: header cluster separation + player states.
+   The pill moves from the guide anchor to the cluster itself; the avatar is a
+   music button, the Horizon ring keeps its overlay seat, the guide text keeps
+   its own anchor door. */
+#guideCluster{border:1px solid var(--line);border-radius:999px;background:var(--panel);padding:3px 9px 3px 3px;gap:7px}
+#guideCluster .review-callout{border:0;background:transparent;padding:0}
+#guideCluster .review-callout .guide-qmark,.sx-guide-slot .review-callout .guide-qmark{display:grid;place-items:center;min-width:44px;min-height:44px;font-size:30px;line-height:1}
+#guideCluster .review-callout:hover,#guideCluster .review-callout:focus-visible{border-color:transparent;outline:2px solid color-mix(in srgb,var(--focus) 35%,transparent);outline-offset:2px}
+.guide-avatar-wrap{position:relative;display:grid;place-items:center;width:50px;height:50px;flex:0 0 50px}
+/* AVATAR-MUSIC: the ring overlay must not swallow the avatar button — the SVG
+   root takes no pointer events; its hit paths keep their stroke targets, so
+   Horizon clicks land on the ring band and center clicks land on the button. */
+
+/* Two-ring header (O7, ruled 2026-10-29): the avatar does NOT scale; the two
+   ring bands do. Band thickness = font size: the seat is sized in em
+   (6.75em = 108px at the 16px root) and each band is 16 of 108 viewBox
+   units, so a band renders exactly one font-size thick and grows when the
+   font size grows. Outer ring = Charted (profile) / Play MS (pair);
+   inner ring = Personal Kink Factor / Play KF.
+   UNIFY (2026-11-02, owner ruling, PROVISIONAL "for now"): the header rings
+   are OUT of the map unification and sit on their own FIXED header scale.
+   Stated quantities: the VISIBLE band stroke shrinks to ONE-QUARTER of
+   its former width — 16 -> 4 viewBox units (16px -> 4px on the 108px
+   desktop seat, ~12.4px -> ~3.1px on the 84px phone seat) — and stays
+   fixed there at every map font setting and zoom. NOT shrunk: the seat
+   (6.75em / 5.25em — header layout; a header redesign is a separate
+   tentative job), the ring radii (46 / 29 — geometry, not width), the
+   caption text (.header-ring-numbers, 11px — at one-quarter it would be
+   2.75px and unreadable), and the invisible tap band
+   (#guideCluster .horizon-ring-hit, 11 units — a touch target, not a
+   visible width; shrinking it would defeat the owner's tappability
+   requirement). */
+.guide-avatar-wrap{width:6.75em;height:6.75em;flex:0 0 6.75em;margin-bottom:15px}
+#headerHorizonRing .horizon-ring-track{fill:none;stroke-width:4;stroke:var(--line-strong);opacity:.4}
+#headerHorizonRing .horizon-ring-value{fill:none;stroke-width:4;vector-effect:none}
+#headerHorizonRing .horizon-ring-value-inner{stroke:var(--green)}
+#guideCluster .horizon-ring-hit{fill:none;stroke:transparent;stroke-width:16}
+.header-ring-numbers{position:absolute;left:50%;top:100%;transform:translateX(-50%);margin-top:2px;white-space:nowrap;font-size:11px;line-height:1.25;color:var(--muted);text-align:center;pointer-events:none}
+@media (max-width:640px){.guide-avatar-wrap{width:5.25em;height:5.25em;flex-basis:5.25em}}
+.sx-score-rings{display:inline-flex;align-items:center;gap:8px;vertical-align:middle}
+.sx-score-rings svg{flex:0 0 auto}
+.sx-score-rings .sx-score-ring-track{fill:none;stroke:var(--line);stroke-width:16;opacity:.55}
+.sx-score-rings .sx-score-ring-outer{fill:none;stroke:var(--focus);stroke-width:16}
+.sx-score-rings .sx-score-ring-inner{fill:none;stroke:var(--green);stroke-width:16}
+.sx-score-ring-nums{display:flex;flex-direction:column;gap:1px;font-size:11px;line-height:1.3;color:var(--muted)}
+.sx-score-ring-nums b{color:var(--ink);font-weight:700}
+#guideCluster #headerHorizonRing{pointer-events:none}
+#guideCluster .horizon-ring-hit{pointer-events:stroke}
+/* Shell-ui (2026-10-27): widen the Horizon ring's tap band in the header
+   cluster (8 -> 11 viewBox units, ~8.6px at the ring's 50px seat) so the
+   band is a reliable finger target at phone width. The ring's center
+   stays the avatar music button by design (see AVATAR-MUSIC note above):
+   the band, not the disc, is the Horizon target, and the widened band's
+   inner edge still clears the 40px avatar image. */
+#guideCluster .horizon-ring-hit{stroke-width:11}
+.avatar-music-btn{position:relative;z-index:1;display:grid;place-items:center;width:50px;height:50px;padding:0;margin:0;border:0;background:transparent;border-radius:50%;cursor:pointer}
+.avatar-music-btn img{display:block;width:40px;height:40px;border-radius:50%;object-fit:cover;object-position:center}
+.avatar-music-btn:focus-visible{outline:2px solid var(--focus);outline-offset:2px}
+.avatar-music-btn.is-loading img{opacity:.55}
+.avatar-music-btn.is-loading::after{content:"…";position:absolute;right:0;bottom:0;width:17px;height:17px;border-radius:50%;background:var(--muted);color:#fff;font-size:12px;line-height:15px;text-align:center}
+.avatar-music-btn.is-playing{box-shadow:0 0 0 2px var(--focus),0 0 0 5px color-mix(in srgb,var(--focus) 30%,transparent)}
+.avatar-music-btn.is-playing img{animation:sxAvatarMusicPulse 1.6s ease-in-out infinite}
+.avatar-music-btn.is-playing::after{content:"♪";position:absolute;right:0;bottom:0;width:17px;height:17px;border-radius:50%;background:var(--focus);color:#fff;font-size:11px;line-height:17px;text-align:center}
+@keyframes sxAvatarMusicPulse{0%,100%{transform:scale(1)}50%{transform:scale(1.06)}}
+.sx-guide-slot{display:inline-flex;align-items:center;gap:7px}
+.sx-guide-slot .review-callout{border:0;background:transparent;padding:0}
+.sx-avatar-music-sr{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
+
+
+

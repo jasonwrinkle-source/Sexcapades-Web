@@ -1,0 +1,342 @@
+/* Group 3b (Build 2026-10-20_0814): overscroll-behavior:contain on the
+   editor's scroll containers — without it, wheel and touch scrolling
+   chain past the panel's scroll ends into the page and map behind. */
+.layout-editor{position:fixed;right:max(12px,env(safe-area-inset-right));bottom:max(12px,env(safe-area-inset-bottom));z-index:1800;width:min(390px,calc(100vw - 24px));max-height:min(760px,calc(100vh - 24px));overflow:auto;overscroll-behavior:contain;border:1px solid var(--line-strong);border-radius:10px;background:var(--panel);color:var(--ink);box-shadow:0 20px 55px rgba(0,0,0,.55)}
+.layout-editor[hidden]{display:none}.layout-editor-head{position:sticky;top:0;z-index:2;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 14px;border-bottom:1px solid var(--line);background:var(--panel);flex-wrap:wrap}.layout-editor-row-flash{animation:layoutRowFlash 1.8s ease-out}@keyframes layoutRowFlash{0%,55%{background:rgba(103,232,249,.22)}100%{background:transparent}}@media (prefers-reduced-motion:reduce){.layout-editor-row-flash{animation:none;background:rgba(103,232,249,.22)}}.layout-editor-head h2{margin:0;font:600 24px/1 Barlow Condensed,sans-serif}.layout-editor-close{display:grid;place-items:center;width:34px;height:34px;padding:0;border:1px solid var(--line);border-radius:7px;background:var(--paper-2);font-size:22px;line-height:1}.layout-editor-body{display:grid;gap:10px;padding:14px}.layout-editor-section-title{margin:0;font:600 18px/1.1 Barlow Condensed,sans-serif}.layout-editor-fieldset{margin:0;padding:0;border:0}.layout-editor-preset-label,.layout-editor-field label{display:block;margin-bottom:7px;font-weight:600}.layout-editor-presets{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px}.layout-editor-presets label{position:relative}.layout-editor-presets input{position:absolute;inset:0;width:100%;height:100%;margin:0;appearance:none;border:1px solid var(--line);border-radius:6px;background:var(--paper-2);cursor:pointer}.layout-editor-presets span{position:relative;display:block;padding:8px 6px;text-align:center;font-size:14px;pointer-events:none}.layout-editor-presets input:checked{border-color:var(--focus);background:color-mix(in srgb,var(--focus) 18%,var(--paper-2))}.layout-editor-presets input:checked+span{color:#fff}.layout-editor-presets input:focus-visible{outline:2px solid var(--focus);outline-offset:2px}.layout-editor-toggle{display:flex;align-items:center;justify-content:space-between;gap:16px;min-height:44px}.layout-editor-toggle span{font-weight:600;line-height:1.2}.layout-editor-toggle input{width:20px;height:20px;margin:0;accent-color:var(--focus);flex:0 0 auto}.layout-editor-advanced{border-block:1px solid var(--line)}.layout-editor-advanced summary{padding:11px 0;font:600 18px/1 Barlow Condensed,sans-serif;cursor:pointer}.layout-editor-advanced-body{display:grid;gap:10px;padding:3px 0 14px}.layout-editor-field select{width:100%;padding:8px;border:1px solid var(--line);border-radius:6px;background:var(--paper-2)}.layout-editor-range{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:4px 10px;align-items:center}.layout-editor-range label{margin:0;font-weight:600}.layout-editor-range output{min-width:46px;text-align:right;color:var(--focus);font-variant-numeric:tabular-nums}.layout-editor-range input{grid-column:1/-1;width:100%;accent-color:var(--focus)}.layout-editor-branch{display:grid;gap:11px;padding-top:2px}.layout-editor-branch h3{margin:0;font-size:15px}.layout-editor-spoke-note{margin:0;color:var(--muted);font-size:12px;line-height:1.35}.layout-editor-spoke-list{display:grid;gap:0;max-height:320px;overflow:auto;overscroll-behavior:contain;padding-right:2px}.layout-editor-spoke-row{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:2px 10px;align-items:center;padding:6px 0;border-bottom:1px solid var(--line)}.layout-editor-spoke-row label{margin:0;font-weight:600;font-size:13px;line-height:1.2}.layout-editor-spoke-row output{min-width:44px;text-align:right;color:var(--focus);font-variant-numeric:tabular-nums;font-size:13px}.layout-editor-spoke-controls{grid-column:1/-1;display:grid;grid-template-columns:minmax(0,1fr) 64px;gap:8px;align-items:center}.layout-editor-spoke-controls input[type=range]{width:100%;accent-color:var(--focus)}.layout-editor-spoke-controls input[type=number]{width:100%;padding:5px 6px;border:1px solid var(--line);border-radius:6px;background:var(--paper-2);color:var(--ink);font-variant-numeric:tabular-nums}.layout-editor-spoke-reset{padding:8px 12px;border:1px solid var(--line-strong);border-radius:7px;background:var(--paper-2);font-weight:600}.layout-editor-actions{display:flex;flex-wrap:wrap;gap:8px}.layout-editor-actions button{flex:1 1 145px;min-height:44px;padding:9px 12px;border:1px solid var(--line-strong);border-radius:7px;background:var(--paper-2);font-weight:600}#layoutMetricMeasure.is-busy{cursor:progress}#layoutMetricMeasure.is-busy::before{content:"";display:inline-block;width:.85em;height:.85em;margin-right:.5em;vertical-align:-.12em;border:2px solid var(--line-strong);border-top-color:var(--focus);border-radius:50%;animation:metricBusySpin .7s linear infinite}@keyframes metricBusySpin{to{transform:rotate(360deg)}}@media (prefers-reduced-motion:reduce){#layoutMetricMeasure.is-busy::before{animation:none}}.layout-editor-actions button:last-of-type{border-color:var(--focus);background:color-mix(in srgb,var(--focus) 16%,var(--paper-2))}.layout-editor-status{min-height:1.25em;margin:0;color:var(--muted);font-size:13px}.layout-editor button:hover,.layout-editor button:focus-visible,.layout-editor summary:focus-visible,.layout-editor select:focus-visible{border-color:var(--focus);outline:2px solid var(--focus);outline-offset:2px}.layout-editor-note{margin:-4px 0 0;color:var(--muted);font-size:12px;line-height:1.35}
+/* Layout Editor three-tier refactor (UI only): collapsible Basic / Advanced / Per-Spoke tiers, checkboxes left of labels in two-column grids, popup-style selector rows, 44px touch targets. No wiring, values, or geometry changed. */
+.le-tier{border-block:1px solid var(--line)}
+.le-tier-head{display:flex;align-items:center;min-height:44px;padding:10px 0;font:600 19px/1.1 Barlow Condensed,sans-serif;cursor:pointer}
+.le-tier-body{display:grid;gap:12px;padding:2px 0 14px}
+.le-toggle-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(158px,1fr));gap:0 14px}
+.le-toggle-grid .layout-editor-toggle{justify-content:flex-start;gap:10px}
+.le-select-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(165px,1fr));gap:12px;align-items:start}
+.le-select-row .layout-editor-preset-row,.le-select-row .layout-editor-filter-row{display:block}
+.le-select-row .layout-editor-preset-label{display:block;margin-bottom:7px}
+.le-select-row .layout-editor-presets{min-width:0}
+.layout-editor .layout-editor-field select{min-height:44px;padding:10px 12px;font-size:15px}
+.layout-editor .branch-order-btn{min-height:44px}
+.layout-editor .layout-editor-close{width:34px;height:28px;min-width:34px;min-height:28px;border-radius:6px;font-size:18px}
+.layout-editor .layout-editor-spoke-reset{min-height:44px}
+.layout-editor .layout-editor-range input[type=range]{min-height:30px}
+#layoutBranchSubLen,#layoutBranchKinkLen{min-height:44px}
+@media(max-width:420px){.le-toggle-grid{grid-template-columns:1fr 1fr}.le-select-row{grid-template-columns:1fr}}
+.le-select-row .layout-editor-presets{grid-template-columns:repeat(3,minmax(0,1fr))!important;min-width:0!important}
+.le-select-row .layout-editor-presets span{padding:7px 2px;font-size:13px;overflow:hidden;text-overflow:ellipsis}
+.layout-editor .layout-editor-toggle{justify-content:flex-start;gap:10px}
+.le-select-row .layout-editor-presets span{font-size:12.5px;padding:7px 1px}
+@media(max-width:520px){.layout-editor{right:8px;bottom:8px;width:calc(100vw - 16px);max-height:calc(100dvh - 16px)}.layout-editor-body{gap:13px;padding:12px}.layout-editor-head{padding:10px 12px}}
+
+/* Layout Editor fullscreen mode (Build 2026-10-19_1742; rebuilt as
+   rails flanking a live map by Layout groups Phase 1 below): the
+   Fullscreen button fills the screen with the editor. Every label
+   and control stays exactly as it is; only the layout changes. */
+.layout-editor-winbtns{display:inline-flex;align-items:center;gap:6px;flex:0 0 auto;margin-left:auto}.layout-editor-fullscreen-btn{flex:0 0 auto;display:grid;place-items:center;width:34px;height:28px;padding:0;border:1px solid var(--line-strong);border-radius:6px;background:var(--paper-2);color:var(--ink);font-size:15px;line-height:1;cursor:pointer}.layout-editor-fullscreen-btn[aria-pressed="true"]{background:color-mix(in srgb,var(--focus) 22%,var(--paper-2))}
+.layout-editor.layout-fullscreen{inset:0;width:auto;max-width:none;max-height:none;height:100dvh;border:0;border-radius:0;z-index:4000}
+/* Panel minimise (status strip) + map reframe: the Minimise control in
+   the panel head collapses the panel to a slim strip — branch,
+   crossing, elapsed and Cancel stay live during an Anneal run while
+   the kink cloud is fully visible; Expand restores the panel with
+   every control and receipt intact (the body is only display:none,
+   never rebuilt, so a run in flight is untouched). While the full
+   panel is open on a wide screen, html.le-panel-docked (driven by the
+   editor script) makes the map card yield the panel's width on the
+   right, so the cloud being worked on sits in the open area instead
+   of under the panel; the reservation lifts when the panel closes,
+   minimises, or goes fullscreen. */
+.layout-editor-minimise-btn{flex:0 0 auto;display:grid;place-items:center;width:34px;height:28px;padding:0;border:1px solid var(--line-strong);border-radius:6px;background:var(--paper-2);color:var(--ink);font-size:16px;line-height:1;cursor:pointer}
+.layout-editor-strip{display:none}
+.layout-editor.layout-minimised{width:min(430px,calc(100vw - 24px));max-height:none;overflow:visible}
+.layout-editor.layout-minimised .layout-editor-head,.layout-editor.layout-minimised .layout-editor-body{display:none}
+.layout-editor.layout-minimised .layout-editor-strip{display:flex;align-items:center;gap:10px;padding:10px 12px}
+.le-strip-status{flex:1 1 auto;min-width:0;margin:0;font-size:14px;line-height:1.3}
+.le-strip-cross,.le-strip-elapsed{color:var(--focus);font-variant-numeric:tabular-nums;white-space:nowrap}
+.le-strip-cancel,.le-strip-expand{flex:0 0 auto;min-height:44px;padding:9px 12px;border:1px solid var(--line-strong);border-radius:7px;background:var(--paper-2);color:var(--ink);font-weight:600;cursor:pointer}
+.le-strip-cancel{border-color:var(--red-deep)}
+@media(min-width:1024px){html.le-panel-docked .map-card{margin-right:414px}}
+@media(max-width:520px){.layout-editor.layout-minimised{right:8px;bottom:8px;width:calc(100vw - 16px)}}
+/* Layout groups Phase 1 (Q1/Q3/Q5/Q6/Q7/Q4): fullscreen is rails
+   flanking a LIVE map — selection on the left, globals on the right,
+   the map visible and interactive in the open center column. One
+   control set: the rail wrappers are display:contents outside
+   fullscreen, so the 390px panel stacks the same sections in one
+   column with the current selection first (Q6). Sizes & showing sits
+   in the global column with Spacing, and Overlaps stacks there as
+   its own block (Q7). Measurements docks on the map column as a
+   strip, collapsing to a chip when Off (Q5). Tilt-each-branch lives
+   in a drawer spanning under the rails (Q3). Rows are 44px
+   everywhere (Q4) — the old 36px fullscreen rows are gone. */
+.le-rail,.le-mapcol{display:contents}
+.layout-editor-body #layoutSectionSelection{order:1}
+.layout-editor-body #layoutSectionSpacing{order:2}
+.layout-editor-body #layoutSectionCollision{order:3}
+.layout-editor-body #layoutSectionDisplay{order:4}
+.layout-editor-body #layoutSectionEveryday{order:0}
+.layout-editor-body .layout-editor-actions{order:6}
+.layout-editor.layout-fullscreen{display:flex;flex-direction:column;overflow:hidden;background:transparent;box-shadow:none;pointer-events:none}
+.layout-editor.layout-fullscreen .layout-editor-head{position:static;padding:8px 14px;background:var(--panel);border-bottom:1px solid var(--line);pointer-events:auto}
+.layout-editor.layout-fullscreen .layout-editor-body{flex:1 1 auto;min-height:0;display:grid;grid-template-columns:minmax(272px,330px) minmax(0,1fr) minmax(272px,330px);grid-template-rows:minmax(0,1fr) auto;gap:0;padding:0;pointer-events:none}
+.layout-editor.layout-fullscreen .le-rail{display:block;min-height:0;overflow-y:auto;overscroll-behavior:contain;background:var(--panel);padding:10px 14px;pointer-events:auto}
+.layout-editor.layout-fullscreen .le-rail-left{grid-column:1;grid-row:1/3;border-right:1px solid var(--line-strong)}
+.layout-editor.layout-fullscreen .le-rail-right{grid-column:3;grid-row:1;border-left:1px solid var(--line-strong)}
+.layout-editor.layout-fullscreen .layout-editor-actions{grid-column:3;grid-row:2;background:var(--panel);border-left:1px solid var(--line-strong);border-top:1px solid var(--line);padding:10px 14px;pointer-events:auto}
+.layout-editor.layout-fullscreen .le-mapcol{display:flex;grid-column:2;grid-row:1/3;align-items:flex-end;justify-content:center;min-height:0;padding:0 12px 14px;pointer-events:none}
+
+
+
+
+
+.layout-editor.layout-fullscreen #layoutMeasureGroup.le-metric-off #layoutMetricMeasure,.layout-editor.layout-fullscreen #layoutMeasureGroup.le-metric-off .layout-editor-field:has(#layoutMetricOverlay){display:none}
+.le-tilt-drawer{position:relative;border-top:1px solid var(--line-strong);background:var(--panel);padding:12px 14px}
+.le-tilt-drawer[hidden]{display:none}
+.le-tilt-drawer-close{position:absolute;top:8px;right:10px;display:grid;place-items:center;width:44px;height:44px;padding:0;border:1px solid var(--line);border-radius:7px;background:var(--paper-2);font-size:22px;line-height:1}
+.le-tilt-drawer .layout-editor-spoke-list{max-height:300px}
+.layout-editor.layout-fullscreen .le-tilt-drawer{flex:0 0 auto;max-height:48dvh;overflow-y:auto;overscroll-behavior:contain;pointer-events:auto}
+.layout-editor.layout-fullscreen .le-tilt-drawer .layout-editor-spoke-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 28px;max-height:34dvh}
+@media(max-width:900px){.layout-editor.layout-fullscreen .layout-editor-body{display:flex;flex-direction:column;overflow-y:auto;overscroll-behavior:contain;background:var(--panel);pointer-events:auto}.layout-editor.layout-fullscreen .le-rail{display:contents}.layout-editor.layout-fullscreen .le-mapcol{display:contents}.layout-editor.layout-fullscreen .layout-editor-actions{border:0;padding:0}.layout-editor.layout-fullscreen .le-tilt-drawer .layout-editor-spoke-list{grid-template-columns:1fr;max-height:300px}}
+
+/* 2026-10-14 approved batch refinements. UNIFY 2026-11-02: the former
+   .map-label x1 override that lived here is removed — the base .map-label
+   rule now carries the x1 size itself, so ONE rule governs topic glyphs. */
+.common-overlap-link{stroke-width:2.5;opacity:.28}
+#profileAboutDialog{width:min(920px,calc(100dvw - 20px))}
+#profileDetailsDialog[data-profile-mode="about"]{width:min(1040px,calc(100dvw - 24px))}
+#outlineDialog{width:min(1080px,calc(100vw - 16px))}
+.profile-tab-button{margin-bottom:-2px;border-bottom-left-radius:0;border-bottom-right-radius:0;position:relative;z-index:2}
+.profile-tab-button[aria-selected="true"],.profile-tab-button.is-selected{box-shadow:none;background:var(--paper-2);border-color:var(--line-strong);border-bottom-color:var(--paper-2)}
+.profile-tabs-wrap{position:relative;z-index:3}
+.map-stage{position:relative;z-index:1}
+.profile-dialog-photo{position:relative;overflow:visible}
+.profile-dialog-photo img{position:relative;z-index:1}
+.profile-glance-rings{position:absolute;inset:-10px;z-index:2;width:calc(100% + 20px);height:calc(100% + 20px);pointer-events:auto}
+.profile-glance-rings circle{fill:none;stroke-width:4;transform:rotate(-90deg);transform-origin:50% 50%}
+.profile-glance-rings .ring-track{stroke:rgba(255,255,255,.12)}
+.profile-glance-rings .ring-green{stroke:var(--green)}.profile-glance-rings .ring-yellow{stroke:var(--curious)}.profile-glance-rings .ring-red{stroke:var(--red)}
+.profile-dialog-ratings{align-items:flex-start}.profile-dialog-rating-total{color:var(--muted)}
+@media (orientation:landscape) and (max-height:620px){#profileAboutDialog,#profileDetailsDialog[data-profile-mode="about"]{width:min(1100px,calc(100dvw - 12px));max-height:calc(100dvh - 12px)}}
+
+.outline-rating{gap:3px}.outline-rating-group{column-gap:5px}.outline-row{column-gap:8px}.outline-head-center{display:flex;align-items:center;gap:8px}.outline-head-center small{white-space:nowrap}
+#audienceView{display:none!important}.export-photo-picker{display:grid;gap:8px;padding:10px;border:1px solid var(--line);background:color-mix(in srgb,var(--panel) 78%,transparent)}
+.export-photo-picker-head{display:flex;align-items:flex-start;justify-content:space-between;gap:12px}.export-photo-picker-head>div:first-child{display:grid;gap:2px}.export-photo-picker-head small{color:var(--muted)}.export-photo-picker-head>div:last-child{display:flex;gap:6px}.action-btn.compact{padding:5px 9px;font-size:13px}.export-photo-picker .lowres-photo-grid{grid-template-columns:repeat(auto-fill,minmax(92px,1fr))}.export-photo-picker .lowres-photo-choice[disabled]{cursor:default;opacity:1}.map-label,.map-label textPath{overflow:visible}
+.outline-rows,.outline-subcategory-rows{border-left:1px solid rgba(239,242,236,.72)!important}
+.outline-subcategory{border-top-color:rgba(239,242,236,.72)!important}
+
+/* P1 touch, mobile, relationship, first-run, label, Scribe, and negotiation fixes — Build 2026-10-15_2320 */
+.direction-hit{cursor:pointer;outline:none;fill:none;stroke:transparent!important;stroke-width:var(--sx-rail-hit-px,44px)!important;vector-effect:non-scaling-stroke;pointer-events:stroke!important}
+/* Give/receive slider track to the 44px spec (Build 2026-10-19_0305, Jason's order): the visible tangential track (.rating-rail) is 44px thick at every zoom — it renders with vector-effect non-scaling-stroke, so this stroke-width is 44 screen px (was 18 x control scale, about 11-22.5px — "as thick as a capital letter"). The bundle's rail stroke-width attribute is 44 as well, so the rendered attribute and the computed style agree. Track length is unchanged (320 x control scale in map units, about 198-400 units — at least 44px wherever the slider renders). The .direction-hit / .rating-track-hit strokes above are the separate tap-target geometry and are untouched, as are the continuous no-snap drag and the label-to-control gap. */
+.rating-rail{stroke-width:var(--sx-rail-px,44px)!important;vector-effect:non-scaling-stroke}
+/* Slider blow-up repair (2026-11-01): the rule above previously read max(44px, calc(var(--map-font-base) * 2)) — the track thickness was derived from the font size with no fixed bound, so at the baked 40x text size (--map-font-base 880px) an opened slider's track rendered 1760 screen px thick and filled the whole map at high zoom-out, exactly as Jason reported. The thickness is now the fixed 44 screen px of the 2026-10-19_0305 spec at every font size and every zoom (non-scaling-stroke already keeps it zoom-independent); the bundle's rail stroke-width attribute is fixed at 44 to match. Track length, the 44px tap-target strokes, drag behaviour and the label-to-control gap are unchanged. */
+/* Slider size repair #2 (2026-11-01, Jason: an inadvertently clicked slider at Full zoom-out was still a fat pill dominating the bunched centre spokes): a fixed 44px thickness is the right size up close but not at high zoom-out, where the track's delivered screen length shrinks with the camera while a non-scaling 44px stroke does not — the rail became almost as thick as it was long. The rail and its two hit strokes now read --sx-rail-px / --sx-rail-hit-px, which the bundle's sxSyncRailPx() recomputes on every render and every camera settle from the track's delivered screen length: thickness is 14% of the delivered length, capped at the full 44px up close and floored at 9px; the hit strokes are 1.6x the visible thickness, likewise capped at 44px and floored at 14px, so the 44px touch contract holds wherever the camera makes the track full-size and shrinks with it at Full. The 44px fallbacks in the var()s keep the old behaviour if the sync has not run yet. */
+.common-overlap-link.relation-visual{stroke:#fff!important;stroke-width:1.1!important;opacity:.28!important;stroke-dasharray:.01 6!important;stroke-linecap:round!important;vector-effect:non-scaling-stroke}
+#mapSvg.camera-lite.is-camera-moving .common-overlap-link.relation-visual{opacity:.16!important;stroke-dasharray:.01 6!important}
+#mapSvg .category-label,#mapSvg .map-label{letter-spacing:-.01em}
+.dataset-empty-notice{margin:8px 12px;padding:9px 12px;border:1px solid var(--line);border-radius:8px;background:var(--paper-2);color:var(--muted);font-size:13px;line-height:1.4}
+.survey-consent{display:flex;align-items:flex-start;gap:9px;padding:10px 12px;border:1px solid var(--line);border-radius:8px;background:var(--paper-2);color:var(--ink);font-size:14px;font-weight:700;line-height:1.35}
+.survey-consent input{width:20px;height:20px;flex:0 0 auto;margin-top:1px;accent-color:var(--focus)}
+.survey-consent span{display:grid;gap:3px}.survey-consent small{color:var(--muted);font-size:12px;font-weight:500}
+.first-visit-cta:not([hidden]){display:grid;grid-template-columns:auto auto minmax(220px,1fr);align-items:center;padding:10px 12px;border-block:1px solid var(--line);background:color-mix(in srgb,var(--focus) 8%,var(--paper));color:var(--ink)}
+.first-visit-cta span{font-size:13px;line-height:1.4}.first-visit-cta span strong{color:var(--focus)}
+.map-controls .icon-btn{min-width:44px;width:44px;height:44px;min-height:44px}.map-controls .legend-button{width:auto;min-width:104px}
+#profileTabs{max-width:100%;overflow-x:auto;overflow-y:hidden;flex-wrap:nowrap;scrollbar-width:thin;overscroll-behavior-inline:contain;-webkit-overflow-scrolling:touch}
+#profileTabs>*,#profileTabs .profile-tab-button{flex:0 0 auto}
+@media (max-width:430px){
+  .shell{max-width:100%;overflow-x:hidden}
+  .intro{grid-template-columns:minmax(0,1fr) auto;grid-template-areas:"title review" "center center";align-items:center;gap:7px 5px}
+  .intro h1{grid-area:title;min-width:0;overflow:hidden;text-overflow:ellipsis}
+  .guide-cluster{grid-area:review;justify-self:end}
+  .header-center{grid-area:center;width:100%;min-width:0}
+  .header-search-row{grid-template-columns:minmax(0,1.12fr) minmax(0,.88fr);gap:7px;width:100%}
+  .header-search-row .search,.header-search-row .topic-picker{min-width:0}
+  .header-search-row .search input{height:44px;min-height:44px;font-size:16px!important;padding-inline:10px 38px}
+  .header-search-row .search span{right:8px;width:28px;height:28px;font-size:18px}
+  .header-search-row #topicPickerButton{height:44px;min-height:44px;padding-inline:10px 30px;font-size:14px}
+  .profile-tools,.viewpoint-tabs-row{min-width:0;width:100%;max-width:100%}
+  #profileTabs{width:100%}
+  .map-controls{max-width:calc(100% - 18px);flex-wrap:wrap}
+  .map-controls .icon-btn{min-width:44px;width:44px;height:44px;min-height:44px}
+  .map-controls .legend-button{width:auto;min-width:96px}
+  .first-visit-cta:not([hidden]){grid-template-columns:1fr;gap:8px;text-align:left}
+  .first-visit-cta .action-btn{width:100%;min-height:48px;font-size:16px}
+}
+
+/* Batch A: compact controls, folder tabs, and profile-color map cue */
+.intro{padding:1px 2px 4px;gap:9px}
+.guide-avatar{width:50px;height:50px;flex-basis:50px}.review-callout img{width:40px;height:40px}
+.scribe-zone{display:flex;align-items:center;gap:6px;flex:1 1 auto;min-width:0;padding-right:0;flex-wrap:wrap}.scribe-zone>.filters{display:flex;align-items:center;justify-content:flex-start;gap:3px;flex:1 1 420px;min-width:260px;margin:0}.scribe-zone>.filters[hidden]{display:none}.scribe-zone>.filters .filter-chip{flex:0 1 auto}.scribe-zone>.filters .filter-chip[aria-disabled="true"]{opacity:.45;cursor:not-allowed}
+.layout-editor-preset-row,.layout-editor-filter-row{display:grid;grid-template-columns:62px minmax(0,1fr);align-items:center;gap:10px}.layout-editor-preset-label{margin:0}.layout-editor-presets{position:relative;display:grid;grid-template-columns:repeat(3,minmax(74px,1fr));gap:0;padding:2px;border:1px solid var(--line);border-radius:8px;background:var(--paper);min-width:244px}.layout-editor-presets label{min-width:0}.layout-editor-presets input{inset:2px!important;width:calc(100% - 4px)!important;height:calc(100% - 4px)!important}.layout-editor-presets span{min-width:0;white-space:nowrap}.layout-editor-presets label:first-child input{border-radius:6px 0 0 6px}.layout-editor-presets label:last-child input{border-radius:0 6px 6px 0}.layout-editor-presets input{border-radius:0;border:0}.layout-editor-presets label+label input{border-left:1px solid var(--line)}.layout-editor-presets span{padding:7px 5px}.layout-editor-body{gap:10px}.layout-editor-advanced-body{gap:10px}.layout-editor-status,.layout-editor-note,.layout-editor-section-title{display:none!important}
+/* Tab heights (shell-ui single source): --sx-tab-height / --sx-tab-height-heat are defined once in :root in the head style block. The rules below, the head base rule, and the match-tab rules in the tail style blocks all read those variables; do not restate 48px/45px literals here. The tail selected/multiselected state rules stay in their tail blocks: their later cascade position is load-bearing. */
+#profileTabs{align-items:flex-end;background:transparent;padding:0;gap:3px;scrollbar-width:thin}
+#profileTabs .profile-tab{position:relative;flex-direction:column;align-items:stretch;min-height:var(--sx-tab-height)!important;height:var(--sx-tab-height)!important;max-height:var(--sx-tab-height)!important;padding:0 2px;border:1px solid var(--line);border-bottom:0;border-radius:15px 15px 0 0;background:#292f2b;box-shadow:inset 0 1px rgba(255,255,255,.05)}
+#profileTabs .profile-tab:has(.profile-tab-heat){min-height:var(--sx-tab-height-heat)!important;height:var(--sx-tab-height-heat)!important;max-height:var(--sx-tab-height-heat)!important;min-width:124px}
+#profileTabs .profile-tab:has(.profile-tab-heat) .profile-tab-save{top:1px}
+#profileTabs .profile-tab:has(.profile-tab-heat) .profile-tab-close{top:1px!important}
+#profileTabs .profile-tab:has(.profile-tab-heat) .profile-tab-button{min-height:var(--sx-tab-height-heat)!important;height:var(--sx-tab-height-heat)!important;max-height:var(--sx-tab-height-heat)!important;padding-top:5px!important;align-items:flex-start}
+#profileTabs .profile-tab:has(.profile-tab-heat) .profile-tab-button.has-profile-color:after{bottom:auto;top:20px}
+#profileTabs .profile-tab:has(.profile-tab-heat) .profile-tab-veil{left:auto;right:4px}
+#profileTabs .profile-tab:has(.profile-tab-heat) .profile-tab-load{right:auto;left:4px}
+#profileTabs .profile-tab-tail>.profile-tab{align-self:flex-end}
+#profileTabs .profile-tab:before,#profileTabs .profile-tab:after{content:"";position:absolute;bottom:0;width:8px;height:10px;pointer-events:none}
+#profileTabs .profile-tab:before{left:-7px;border-bottom-right-radius:10px;box-shadow:4px 4px 0 2px #292f2b}
+#profileTabs .profile-tab:after{right:-7px;border-bottom-left-radius:10px;box-shadow:-4px 4px 0 2px #292f2b}
+#profileTabs .profile-tab:has(.profile-tab-button[aria-selected="true"]){z-index:5;border-color:var(--profile-color,var(--focus));background:#39413b;box-shadow:0 -2px 0 var(--profile-color,var(--focus)),0 -5px 16px color-mix(in srgb,var(--profile-color,var(--focus)) 28%,transparent)}
+#profileTabs .profile-tab:has(.profile-tab-button[aria-selected="true"]):before{box-shadow:4px 4px 0 2px #39413b}#profileTabs .profile-tab:has(.profile-tab-button[aria-selected="true"]):after{box-shadow:-4px 4px 0 2px #39413b}
+#profileTabs .profile-tab-button{min-height:var(--sx-tab-height)!important;height:var(--sx-tab-height)!important;max-height:var(--sx-tab-height)!important;padding:3px 27px 5px!important;align-items:center;border:0!important;border-radius:14px 14px 0 0!important;background:transparent!important;box-shadow:none!important;color:var(--muted);font-size:13px;font-weight:650;line-height:1}
+#profileTabs .profile-tab-button.is-selected{color:var(--ink)}#profileTabs .profile-tab-button.is-active{color:#fff;text-shadow:0 0 8px color-mix(in srgb,var(--profile-color) 55%,transparent)}
+#profileTabs .profile-tab-button.has-profile-color:after{left:26px;right:26px;bottom:1px;height:3px}
+#profileTabs .profile-tab-save{left:4px;top:4px;z-index:7;width:20px;height:20px;min-height:20px;pointer-events:auto}#profileTabs .profile-tab-close{top:4px!important;right:4px!important;left:auto;display:grid;place-items:center;width:20px!important;height:20px!important;min-width:20px!important;min-height:20px!important;padding:0;font-size:16px!important;line-height:1}
+
+#mapSvg .active-profile-ring{fill:none;stroke:var(--active-profile-color,var(--focus));stroke-width:7;opacity:.95;vector-effect:non-scaling-stroke;pointer-events:none}#mapSvg .center-name-arc-text{fill:var(--active-profile-color,var(--ink));font-weight:700}
+@media(max-width:760px){.scribe-zone>.filters{order:3;flex-basis:100%;min-width:0}.scribe-zone>.filters .filter-chip{flex:1 1 auto}.intro{padding-top:0}.guide-avatar{width:46px;height:46px;flex-basis:46px}.review-callout img{width:36px;height:36px}}
+
+
+/* Keep profile creation controls visible while the long form scrolls. */
+#profileDetailsBody>.profile-dialog-primary-actions{position:sticky;top:-1px;z-index:6;justify-content:flex-end;margin:-6px -8px 0;padding:8px;background:color-mix(in srgb,var(--panel) 94%,transparent);border-bottom:1px solid var(--line);box-shadow:0 8px 14px rgba(0,0,0,.18)}
+#profileDetailsBody[data-profile-mode="about"]>.profile-dialog-primary-actions{display:none}
+.profile-site-link-empty{color:var(--muted);cursor:default;text-decoration:none}
+@media(max-width:520px){#profileDetailsBody>.profile-dialog-primary-actions{margin:-5px -6px 0}.profile-dialog-primary-actions .action-btn{flex:1 1 0}}
+
+
+#sxBootDialog{position:fixed;inset:0;z-index:2000;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;background:#151816;color:#eff2ec;font-family:"Source Sans 3",sans-serif;pointer-events:auto;opacity:1;transition:opacity .3s ease;--pw-watch:72px;--pw-pct:36px;--pw-label:15px;--pw-barw:min(440px,80%);--pw-ink:#eff2ec;--pw-muted:#c5cbc5;--pw-track:#3b423d;--pw-accent:#63c796;--pw-spin:sxBootRingSpin}
+#sxBootDialog[hidden]{display:none}
+#sxBootDialog.is-done{opacity:0;pointer-events:none}
+/* F5: ONE shared structural block paints both progress-widget instances
+   (this boot dialog and the map loading overlay below, whose root sets
+   its own --pw-* values). Per-instance theme travels in the --pw-*
+   variables on each instance root, so computed appearance is unchanged:
+   watch size, percent size, label size, bar width, ink/muted/track/
+   accent colors, and each instance's own ring-spin keyframe name. */
+.sx-boot-watch,.map-load-watch{width:var(--pw-watch);height:var(--pw-watch);color:var(--pw-ink)}
+.sx-boot-hand,.map-load-hand{transform-box:view-box;transform-origin:24px 27px}
+.sx-boot-pct,.map-load-pct{font-size:var(--pw-pct);font-weight:700;line-height:1;color:var(--pw-ink);font-variant-numeric:tabular-nums}
+.sx-boot-bar,.map-load-bar{width:var(--pw-barw);height:8px;border-radius:4px;background:var(--pw-track);overflow:hidden}
+.sx-boot-bar span,.map-load-bar span{display:block;height:100%;width:0;background:var(--pw-accent);border-radius:4px;transition:width .04s linear}
+.sx-boot-label,.map-load-label{max-width:min(460px,90vw);padding:0 16px;font-size:var(--pw-label);color:var(--pw-muted);text-align:center;line-height:1.35}
+.sx-boot-ring,.map-load-ring{fill:none;stroke:var(--pw-accent);stroke-width:1.6;stroke-dasharray:4 5;opacity:.65;transform-box:fill-box;transform-origin:center;animation:var(--pw-spin) 7s linear infinite}
+@keyframes sxBootRingSpin{to{transform:rotate(360deg)}}
+@keyframes mapLoadRingSpin{to{transform:rotate(360deg)}}
+@media (prefers-reduced-motion:reduce){.sx-boot-ring,.map-load-ring{animation:none}}
+@media (prefers-reduced-motion:reduce){#sxBootDialog{transition:none}.sx-boot-bar span{transition:none}}
+/* BOOTLOAD-FIX (F4): compositor-driven aliveness — transform-only keyframes;
+   the hand, bar and percent stay truthful and JS-driven. */
+.sx-boot-bar{position:relative}
+.sx-boot-bar::after{content:"";position:absolute;top:0;bottom:0;left:0;width:45%;background:linear-gradient(90deg,rgba(255,255,255,0),rgba(255,255,255,.32),rgba(255,255,255,0));animation:sxBootSheen 1.7s ease-in-out infinite}
+@keyframes sxBootSheen{from{transform:translateX(-130%)}to{transform:translateX(300%)}}
+#sxBootDialog.is-done .sx-boot-ring,#sxBootDialog.is-done .sx-boot-bar::after{animation:none}
+@media (prefers-reduced-motion:reduce){.sx-boot-bar::after{animation:none}}
+
+.skip-link{position:absolute;left:0;top:0;width:1px;height:1px;padding:0;overflow:hidden;clip-path:inset(50%);white-space:nowrap;background:var(--paper-2,#202521);color:var(--ink,#eff2ec);z-index:9999;border-radius:0 0 8px 0}.skip-link:focus{width:auto;height:auto;padding:8px 16px;clip-path:none;overflow:visible}
+
+/* Map loading indicator: covers the map card only while the first render is
+   still running (revealed by the bootstrap script below after ~1s, so fast
+   loads never flash it). Progress percentages are reported by the render
+   pipeline itself via window.__sxLoad at its natural checkpoints. */
+#mapLoadOverlay{position:absolute;inset:0;z-index:6;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;background:rgba(21,24,22,.88);opacity:0;pointer-events:none;transition:opacity .3s ease;--pw-watch:64px;--pw-pct:34px;--pw-label:14px;--pw-barw:min(440px,80%);--pw-ink:var(--ink);--pw-muted:var(--muted);--pw-track:var(--line);--pw-accent:var(--green);--pw-spin:mapLoadRingSpin}
+#mapLoadOverlay[hidden]{display:none}
+#mapLoadOverlay.is-visible{opacity:1}
+#mapLoadOverlay.is-done{opacity:0}
+/* BOOTLOAD-FIX (F4): the overlay watch carries the same rotating dashed
+   ring as the boot watch, so a task session stays visibly alive through
+   the synchronous apply block it was armed in front of. F5: the widget's
+   structural rules (watch/hand/percent/bar/label/ring, incl. the ring's
+   spin keyframes and the reduced-motion rule) live ONCE in the shared
+   block inside the boot dialog's style element above; this root only
+   carries the instance theme via its --pw-* variables. */
+#mapLoadOverlay.is-done .map-load-ring{animation:none}
+/* #9 MID-SESSION PILL: a small floating "working" pill — an artist's
+   paintbrush drawing a sine wave — shown beside (never instead of) the
+   overlay above. Its motion is CSS transforms ONLY (the wave scrolls by
+   translateX, the brush bobs by translateY), so the browser's compositor
+   keeps it moving while a synchronous render blocks the main thread; any
+   JS-driven animation would freeze with the block. It never shows a
+   percent: during a render's tail it shows moving brush with no number,
+   and elapsed text appears only once the work passes 1 s (the Oct 17
+   stopwatch precedent). Body-level and fixed so it survives view
+   switches, dialog open/close and editor close during its window. */
+#sxPill{position:fixed;left:50%;bottom:calc(18px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);z-index:2500;display:flex;align-items:center;gap:10px;padding:8px 14px 8px 10px;border:1px solid var(--line-strong);border-radius:999px;background:var(--panel);color:var(--ink);box-shadow:var(--shadow);font-size:13.5px;font-weight:600;line-height:1;pointer-events:none}
+#sxPill[hidden]{display:none}
+#sxPill .sx-pill-art{flex:0 0 auto;display:block}
+#sxPill .sx-pill-wavepath{fill:none;stroke:var(--green);stroke-width:2.2;stroke-linecap:round}
+#sxPill .sx-pill-wave{animation:sxPillWaveScroll 2.4s linear infinite}
+#sxPill .sx-pill-brush{animation:sxPillBrushBob 1.2s ease-in-out infinite alternate}
+#sxPill .sx-pill-handle{fill:var(--amber)}
+#sxPill .sx-pill-ferrule{fill:var(--muted)}
+#sxPill .sx-pill-bristle{fill:var(--green-deep)}
+#sxPill .sx-pill-tip{fill:var(--green)}
+#sxPill .sx-pill-elapsed{color:var(--muted);font-variant-numeric:tabular-nums}
+@keyframes sxPillWaveScroll{to{transform:translateX(-96px)}}
+@keyframes sxPillBrushBob{from{transform:translateY(-3.5px)}to{transform:translateY(3.5px)}}
+@media (prefers-reduced-motion:reduce){#sxPill .sx-pill-wave,#sxPill .sx-pill-brush{animation:none}}
+/* #9 button-local busy mark for persistent buttons that carry no
+   is-busy rule of their own (the editor buttons that do — Reset,
+   Anneal, Measure — keep theirs: their ID rules win over this class).
+   Same spinner shape as the house is-busy rules. */
+.sx-pill-btn-busy{cursor:progress}
+.sx-pill-btn-busy::before{content:"";display:inline-block;width:.85em;height:.85em;margin-right:.5em;vertical-align:-.12em;border:2px solid var(--line-strong);border-top-color:var(--focus);border-radius:50%;animation:sxPillBtnSpin .7s linear infinite}
+@keyframes sxPillBtnSpin{to{transform:rotate(360deg)}}
+@media (prefers-reduced-motion:reduce){.sx-pill-btn-busy::before{animation:none}}
+
+
+#safetyDialog{width:min(1080px,calc(100vw - 16px));height:min(920px,calc(100dvh - 20px));max-height:calc(100dvh - 20px);border-radius:14px;padding:0}
+#safetyDialog[open]{display:block}
+.safety-shell{display:grid;grid-template-rows:auto minmax(0,1fr);height:100%;min-height:0;background:var(--panel)}
+.safety-head{display:flex;align-items:flex-start;gap:12px;padding:16px 18px 12px;border-bottom:1px solid var(--line)}
+.safety-head h2{margin:0;font-size:22px}
+.safety-head p{margin:4px 0 0;color:var(--muted);font-size:14px;line-height:1.45;max-width:640px}
+.safety-head .close-btn{margin-left:auto;flex:0 0 auto}
+.safety-sections{overflow-y:auto;padding:14px 18px 20px;display:grid;gap:14px;grid-template-columns:repeat(2,minmax(0,1fr));align-items:stretch}
+.safety-sections>.safety-card:last-child{grid-column:1/-1}
+.safety-card{border:1px solid var(--line);border-radius:12px;background:var(--paper-2);padding:14px 16px;display:grid;gap:10px;align-content:start}
+.safety-card h3{margin:0;font-size:17px}
+.safety-card h4{margin:0;font-size:14px}
+.safety-hint{margin:0;color:var(--muted);font-size:13.5px;line-height:1.45}
+.safety-signal-btn{display:grid;gap:4px;place-items:center;min-height:132px;width:100%;border-radius:14px;border:2px solid var(--line-strong);background:var(--panel);color:var(--ink);cursor:pointer;touch-action:manipulation;-webkit-user-select:none;user-select:none}
+.safety-signal-btn .safety-signal-main{font-size:24px;font-weight:800;letter-spacing:.01em}
+.safety-signal-btn .safety-signal-sub{font-size:13px;color:var(--muted)}
+.safety-signal-btn[data-state="green"]{background:var(--green-deep);border-color:var(--green);color:#fff}
+.safety-signal-btn[data-state="green"] .safety-signal-sub{color:#eafff3}
+.safety-signal-btn[data-state="yellow"]{background:var(--curious);border-color:var(--amber);color:#221c05}
+.safety-signal-btn[data-state="yellow"] .safety-signal-sub{color:#4a3d08}
+.safety-signal-btn[data-state="red"]{background:var(--red-deep);border-color:var(--red);color:#fff}
+.safety-signal-btn[data-state="red"] .safety-signal-sub{color:#ffe9e9}
+.safety-signal-btn:focus-visible{outline:3px solid var(--focus);outline-offset:2px}
+.safety-log-head{display:flex;align-items:center;justify-content:space-between;gap:8px}
+.safety-mini-btn{min-height:30px;padding:4px 10px;font-size:13px}
+.safety-log{list-style:none;margin:0;padding:0;display:grid;gap:6px;max-height:180px;overflow-y:auto}
+.safety-log li{display:flex;align-items:baseline;gap:8px;font-size:13.5px;color:var(--ink);border-bottom:1px solid var(--line);padding-bottom:5px}
+.safety-log .safety-dot{flex:0 0 auto;width:10px;height:10px;border-radius:50%;align-self:center}
+.safety-dot[data-kind="checkin"]{background:var(--green)}
+.safety-dot[data-kind="slow"]{background:var(--curious)}
+.safety-dot[data-kind="stop"]{background:var(--red)}
+.safety-dot[data-kind="mood"]{background:var(--focus)}
+.safety-log time{margin-left:auto;color:var(--muted);font-size:12.5px;white-space:nowrap}
+.safety-empty{margin:0;color:var(--muted);font-size:13.5px}
+.safety-row{display:flex;flex-wrap:wrap;gap:10px;align-items:end}
+.safety-field{display:grid;gap:4px;font-size:13px;color:var(--muted)}
+.safety-field input,.safety-field select{min-height:38px;padding:6px 10px;border:1px solid var(--line-strong);border-radius:8px;background:var(--panel);color:var(--ink);font-size:15px}
+.safety-status{margin:0;font-size:14px;color:var(--ink)}
+.safety-due,.safety-missed{display:grid;gap:8px;border-radius:10px;padding:12px;font-size:14.5px}
+.safety-due{border:1.5px solid var(--curious);background:color-mix(in srgb,var(--curious) 16%,var(--panel))}
+.safety-missed{border:1.5px solid var(--red);background:color-mix(in srgb,var(--red-deep) 22%,var(--panel))}
+.safety-due[hidden],.safety-missed[hidden]{display:none}
+.safety-alert-actions{display:flex;flex-wrap:wrap;gap:8px}
+.safety-contacts{list-style:none;margin:0;padding:0;display:grid;gap:8px}
+.safety-contacts li{display:flex;flex-wrap:wrap;align-items:center;gap:8px;border:1px solid var(--line);border-radius:10px;padding:8px 10px;background:var(--panel)}
+.safety-contacts .safety-contact-name{font-weight:700}
+.safety-contacts .safety-contact-phone{color:var(--muted);font-size:13.5px}
+.safety-contacts .safety-contact-actions{margin-left:auto;display:flex;gap:6px}
+.safety-contact-form{flex-wrap:nowrap;align-items:stretch;min-width:0;width:100%}
+.safety-contact-form input{flex:1 1 0;min-width:0;min-height:44px;padding:6px 10px;border:1px solid var(--line-strong);border-radius:8px;background:var(--panel);color:var(--ink);font-size:15px}
+.safety-contact-add{flex:0 0 44px;width:44px;height:44px;min-height:44px;padding:0;font-size:24px;line-height:1;display:grid;place-items:center}
+.safety-pre-list{display:grid;gap:10px}
+.safety-pre-item{display:grid;grid-template-columns:26px minmax(110px,auto) 1fr;align-items:center;gap:8px;font-size:14.5px}
+.safety-pre-item input[type="checkbox"]{width:20px;height:20px;accent-color:var(--green-deep)}
+.safety-pre-text{min-height:36px;padding:6px 10px;border:1px solid var(--line-strong);border-radius:8px;background:var(--panel);color:var(--ink);font-size:14px;min-width:0}
+.safety-ready{margin:0;border-radius:10px;padding:10px 12px;font-size:14px;border:1px solid var(--line-strong);color:var(--muted)}
+.safety-ready[data-ready="true"]{border-color:var(--green);background:color-mix(in srgb,var(--green-deep) 20%,var(--panel));color:var(--ink);font-weight:700}
+.safety-moods{display:grid;gap:8px}
+.safety-moods[hidden]{display:none}
+.safety-mood-row{display:flex;flex-wrap:wrap;gap:8px}
+.safety-mood-btn[aria-pressed="true"]{border-color:var(--focus);background:var(--focus);color:#091112}
+.safety-log-title{margin-top:2px}
+@media(max-width:620px){#safetyDialog{inset:0;width:100vw;height:100dvh;max-width:none;max-height:none;border:0;border-radius:0}.safety-sections{grid-template-columns:1fr;padding:12px}.safety-pre-item{grid-template-columns:26px 1fr}.safety-pre-text{grid-column:2}}
+
+

@@ -1,0 +1,309 @@
+/* Build 2026-10-16_0949: Progressive rating-milestone celebrations and next-step actions. */
+#headerHorizonRing{position:absolute;inset:0;left:0;top:0;width:100%;height:100%;transform:none;z-index:6;pointer-events:auto}.guide-cluster{gap:4px}.guide-avatar{position:relative}.guide-avatar>img{position:relative;z-index:1}
+.active-profile-actions{display:flex;align-items:center;gap:6px;flex-wrap:wrap}.active-profile-actions[hidden]{display:none!important}.active-profile-actions .action-btn{min-height:34px;padding:6px 11px}.active-profile-actions .save-disc-btn svg{display:block;width:19px;height:19px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}.unsaved-change-actions{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));width:100%}
+/* The viewport-driving tab is seamless; profile color is reserved for multi-select. */
+#profileTabs .profile-tab{color:var(--muted)}#profileTabs .profile-tab-button{font-weight:500}
+#profileTabs .profile-tab:has(.profile-tab-button.is-active){z-index:5;border-color:transparent;border-bottom-color:var(--paper-2);background:var(--paper-2);box-shadow:none}
+#profileTabs .profile-tab:has(.profile-tab-button.is-active):before{box-shadow:4px 4px 0 2px var(--paper-2)}#profileTabs .profile-tab:has(.profile-tab-button.is-active):after{box-shadow:-4px 4px 0 2px var(--paper-2)}
+#profileTabs .profile-tab:has(.profile-tab-button.is-multiselected){z-index:6;border:2px solid var(--profile-color,var(--focus));border-bottom-width:2px;background:#39413b;box-shadow:0 -2px 0 color-mix(in srgb,var(--profile-color) 82%,transparent)}
+#profileTabs .profile-tab:has(.profile-tab-button.is-multiselected):before{box-shadow:4px 4px 0 2px #39413b}#profileTabs .profile-tab:has(.profile-tab-button.is-multiselected):after{box-shadow:-4px 4px 0 2px #39413b}
+#profileTabs .profile-tab-button.is-active{color:#fff!important;text-shadow:none}#profileTabs .profile-tab-button.is-multiselected{color:var(--ink)}#profileTabs .profile-tab-button.has-profile-color:after{display:none}
+/* Compact vertical Cast: red/narrow at top, green/wide at bottom. */
+.group-leniency-control{width:144px;grid-template-columns:1fr;grid-template-rows:auto 160px auto;justify-items:center;gap:5px;padding:8px 7px 7px;background:var(--paper-2)}.group-leniency-head{grid-column:1;grid-row:1}.group-leniency-head>span:first-child{color:var(--red);font-weight:850}.group-leniency-head strong{color:var(--ink)}.group-leniency-head #groupOverlapScore{color:var(--muted);font-size:10px}.group-leniency-control input{grid-column:1;grid-row:2;width:150px;transform:rotate(90deg)}.group-leniency-control input::-webkit-slider-runnable-track{background:linear-gradient(90deg,var(--red-deep),var(--curious),var(--green-deep))}.group-leniency-control input::-moz-range-track{background:linear-gradient(90deg,var(--red-deep),var(--curious),var(--green-deep))}.group-leniency-scale{grid-column:1;grid-row:2;flex-direction:column-reverse;align-items:stretch}.group-leniency-scale>span:first-child{color:var(--green)}.group-leniency-scale>span:last-child{color:var(--red)}
+.cast-results-readout{grid-column:1;grid-row:3;width:100%;padding-top:5px;border-top:1px solid var(--line);font-size:10px;line-height:1.25}.cast-results-readout[hidden]{display:none}.cast-results-readout>strong{display:block;margin-bottom:3px;color:var(--ink);font-size:11px}.cast-results-readout ul{display:grid;gap:3px;margin:0;padding:0;list-style:none}.cast-results-readout li{display:grid;gap:1px}.cast-results-readout b{color:var(--ink)}.cast-results-readout span{color:var(--muted)}
+/* Search rows keep their type label and full matching topic text at every width. */
+.search-dropdown .topic-dropdown-option{display:grid;grid-template-columns:88px minmax(0,1fr);padding:8px 10px}.search-dropdown .match-label{display:block;width:auto;min-width:0}
+/* List-view actions share the title row, including on narrow screens. */
+.outline-title-row{flex-wrap:wrap}.outline-title-row>.outline-head-center{display:flex;align-items:center;gap:8px;margin-left:auto;grid-column:auto;grid-row:auto;padding:0}.outline-title-row>.outline-head-center small{white-space:nowrap}
+@media(max-width:760px){.outline-title-row{grid-column:1/-1!important}.outline-title-row>.outline-head-center{margin-left:0}.outline-head p{grid-row:2}.outline-progress{grid-row:3}.outline-head-actions{grid-row:4}.outline-quickstart-tip{grid-row:5}}
+@media(max-width:560px){.profile-tools{align-items:flex-start}.active-profile-actions{width:auto;flex:0 0 auto;justify-content:flex-end}.unsaved-change-actions{grid-template-columns:1fr}.unsaved-change-actions .action-btn{width:100%}.group-leniency-control{width:144px}.outline-title-row>.outline-head-center{width:100%;justify-content:flex-start}.outline-title-row>.outline-head-center .action-btn{min-height:36px;padding:6px 9px}}
+
+
+/* Mobile list-view header reflow: keep controls, instructions, and ladder in distinct rows. */
+@media(max-width:620px){
+  .outline-head{display:grid;grid-template-columns:minmax(0,1fr);grid-template-rows:auto auto auto auto auto;gap:10px;padding:10px}
+  .outline-title-row{grid-column:1;grid-row:1;align-items:baseline;gap:6px 10px}
+  .outline-title-row .outline-header-count{margin-left:0}
+  .outline-head-center{grid-column:1;grid-row:2;grid-template-columns:minmax(0,1fr) auto;grid-template-areas:"consent consent" "action privacy";gap:7px 8px}
+  .outline-head-actions{grid-column:1;grid-row:3;justify-content:space-between;align-self:auto;gap:5px}
+  .outline-instruction-row{grid-column:1;grid-row:4;display:grid;grid-template-columns:minmax(0,1fr);gap:24px;margin:0}
+  .outline-head .outline-instruction-row p{grid-column:1;grid-row:1;max-width:none;margin:0}
+  .outline-progress{grid-column:1;grid-row:2;padding:0 18px;margin:0}
+  .outline-quickstart-tip{grid-column:1;grid-row:5}
+}
+
+
+/* Build 2026-10-16_1814 — Group A: List view glow (A1), legend heat chips (A2), distinct center +N toggle (A3). */
+#mapListViewButton.list-view-glow{border-color:var(--focus);animation:listViewGlowPulse 1.6s ease-in-out infinite}
+@keyframes listViewGlowPulse{0%,100%{box-shadow:0 0 4px 1px color-mix(in srgb,var(--focus) 30%,transparent)}50%{box-shadow:0 0 0 3px color-mix(in srgb,var(--focus) 45%,transparent),0 0 18px 6px color-mix(in srgb,var(--focus) 65%,transparent)}}
+@media(prefers-reduced-motion:reduce){#mapListViewButton.list-view-glow{animation:none;box-shadow:0 0 0 3px color-mix(in srgb,var(--focus) 55%,transparent)}}
+.legend-heat-chip{display:inline-block;flex:0 0 auto;width:16px;height:16px;border-radius:5px;border:1px solid var(--line-strong)}
+.legend-heat-chip.is-green{background:var(--green-deep)}
+.legend-heat-chip.is-yellow{background:var(--curious)}
+.legend-heat-chip.is-red{background:var(--red-deep)}
+.legend-count-badge.is-branch-toggle{background:#0b0d0c;border-color:var(--focus)}
+.legend-count-badge.is-center-toggle{background:#2b3a47;border-color:var(--focus)}
+.center-branch-toggle rect{fill:#2b3a47}
+.center-branch-toggle:hover rect{fill:#3a4f63}
+.center-branch-toggle.is-blank-profile rect{fill:#33485e}
+
+
+/* Build 2026-10-16_1943 — detail toggle compacted (FIX 2: only the selected level shows until tapped open; no "Detail" label). The 1830 center-card styles are gone with the card. Build 2026-10-16_2233 removed the YoBitch About-dialog extras (FIX 1) styles: Yolanda Biche's About now uses the standard profile About dialog. */
+.detail-control{display:flex;align-items:center;gap:4px;margin-left:6px;padding:3px;border:1px solid var(--line);border-radius:999px;background:color-mix(in srgb,var(--panel) 88%,transparent)}
+.detail-btn{display:none;min-height:38px;padding:6px 11px;border:0;border-radius:999px;background:transparent;color:var(--muted);font-family:"Source Sans 3",sans-serif;font-size:13px;font-weight:700;cursor:pointer}
+.detail-btn:hover{color:var(--ink)}
+.detail-btn:focus-visible{outline:2px solid var(--focus);outline-offset:-2px}
+.detail-btn[aria-pressed="true"]{display:block;background:var(--focus);color:#0d2224}
+.detail-control.is-open .detail-btn{display:block}
+@media(max-width:620px){.detail-control{margin-left:0}}
+/* Build 2026-10-16_2020 — Branch order toggle in the layout editor: same collapsed
+   pattern as the detail control — only the selected mode shows until tapped open.
+   Group 3a (Build 2026-10-20_0814): that pattern left every non-current option
+   at display:none in a real rendered session — the group read as a static
+   label, and once opened its middle options sat behind the current option's
+   tooltip card. All nine modes then rendered at all times as a segmented
+   control; a click selects at once.
+   Layout groups Phase 2 (Q8): the segmented row is replaced by the ruled
+   scheme — a selector-button (#layoutBranchOrderBtn, styled with the
+   shared .le-selector-btn rules in the editor style block) showing the
+   current mode, and this control as its pop-up menu overlay: the shared
+   .le-menu fixed-position panel floating above the layout, so the nine
+   options are fully visible when open and nothing renders at rest. The
+   in-flow expansion retry stays reverted for the two recorded reasons
+   above; the overlay avoids both structurally. */
+.branch-order-btn{display:flex;align-items:center;width:100%;min-height:44px;padding:8px 12px;border:0;border-radius:8px;background:transparent;color:var(--muted);font-family:"Source Sans 3",sans-serif;font-size:13.5px;font-weight:700;text-align:left;cursor:pointer}
+.branch-order-btn:hover{color:var(--ink)}
+.branch-order-btn:focus-visible{outline:2px solid var(--focus);outline-offset:-2px}
+.branch-order-btn[aria-pressed="true"]{background:var(--focus);color:#0d2224}
+
+
+/* Build 2026-10-17_0243: relation lines — subtle tight dots (thin, quiet, discoverable
+   on inspection), fat invisible hit target for tapping */
+#mapSvg .common-overlap-link.relation-visual{stroke:#fff!important;stroke-width:1.5!important;stroke-dasharray:.1 2.8!important;stroke-linecap:round!important;opacity:.55!important;pointer-events:none!important}
+#mapSvg.camera-lite.is-camera-moving .common-overlap-link.relation-visual{opacity:.4!important;stroke-dasharray:.1 2.8!important;stroke-linecap:round!important}
+#mapSvg .common-overlap-link.relation-hit{stroke-width:17}
+/* Relation focus (click a relation line): dim everything except the two endpoint clusters */
+#mapSvg.relation-focused .node-group{opacity:.14!important}
+#mapSvg.relation-focused .map-label-stack-item{opacity:.14!important}
+#mapSvg.relation-focused text.map-label{opacity:.14!important}
+#mapSvg.relation-focused .direction-control{opacity:.14!important}
+#mapSvg.relation-focused .spoke-underlay-item{opacity:.14!important}
+#mapSvg.relation-focused .concept-path{opacity:.14!important}
+#mapSvg.relation-focused .common-overlap-link.relation-visual{opacity:.16!important}
+#mapSvg.relation-focused .node-group.rel-endpoint{opacity:1!important;filter:brightness(1.35) saturate(1.2)}
+#mapSvg.relation-focused .map-label-stack-item.rel-endpoint{opacity:1!important}
+#mapSvg.relation-focused text.map-label.rel-endpoint{opacity:1!important;font-weight:700}
+#mapSvg.relation-focused .direction-control.rel-endpoint{opacity:1!important}
+#mapSvg.relation-focused .spoke-underlay-item.rel-endpoint{opacity:1!important;filter:brightness(1.45) saturate(1.25) drop-shadow(0 0 2.5px var(--focus))!important}
+#mapSvg.relation-focused .common-overlap-link.relation-visual.rel-active{opacity:1!important;stroke:var(--focus)!important;stroke-width:2.4!important;stroke-dasharray:none!important;stroke-linecap:round!important}
+#mapSvg.relation-focused .node-group.rel-endpoint .concept-path{opacity:1!important}
+#mapSvg.relation-focused .node-group.rel-endpoint .node-label-underline{opacity:1!important}
+/* Build 2026-10-17_1436: relation lines are hidden unless the layout editor's
+   "Show relation lines" toggle (layout-showRelations) is on — default off. */
+#mapSvg.relations-off .common-overlap-layer{display:none!important}
+
+
+/* Build 2026-10-18_1624 — FetLife mapping viewer dialog + clickable broad-term pills. */
+#fetlifeMapDialog{width:min(780px,calc(100vw - 24px))}
+.fetlife-map-body{gap:12px}
+.fetlife-map-body .share-section{gap:6px}
+.fetlife-map-body input[type="text"]{width:100%;box-sizing:border-box;min-height:42px;padding:9px 11px;border:1px solid var(--line-strong);border-radius:8px;background:var(--paper-2);color:var(--ink);font:inherit;font-size:15px}
+.fetlife-map-body input[type="text"]:focus-visible{outline:2px solid var(--focus);outline-offset:1px}
+.fetlife-map-result{margin:0;padding:10px 12px;border:1px solid var(--focus);border-radius:8px;background:color-mix(in srgb,var(--focus) 12%,transparent);font-size:14.5px;line-height:1.5}
+.fetlife-map-result[hidden]{display:none}
+.fetlife-map-result .fl-result-path{display:block;color:var(--muted);font-size:13px}
+.fetlife-map-count{margin:0;color:var(--muted);font-size:13px}
+.fetlife-map-table{width:100%;border-collapse:collapse;font-size:14px}
+.fetlife-map-table th{position:sticky;top:0;background:var(--paper-2);text-align:left;padding:8px 10px;font-size:12.5px;color:var(--muted);z-index:1}
+.fetlife-map-table td{padding:7px 10px;border-top:1px solid var(--line);vertical-align:top}
+.fetlife-map-table tr[hidden]{display:none}
+.fetlife-map-table .fl-name{font-weight:650}
+.fetlife-map-table .fl-path{display:block;color:var(--muted);font-size:12.5px}
+.fetlife-map-table tr.is-chosen td{background:color-mix(in srgb,var(--focus) 16%,transparent)}
+.fetlife-map-table tr.is-chosen{outline:2px solid var(--focus);outline-offset:-2px}
+.fetlife-map-kind{display:inline-block;border:1px solid var(--line-strong);border-radius:999px;padding:1px 7px;font-size:11px;font-weight:700;color:var(--muted);white-space:nowrap}
+.fetlife-map-uncertain{color:var(--muted);font-size:12px;white-space:nowrap}
+.fetlife-map-hint{color:var(--muted);font-size:12.5px;align-self:center}
+button.fetlife-broad-count{background:transparent;font-family:inherit;cursor:pointer}
+button.fetlife-broad-count:hover,button.fetlife-broad-count:focus-visible{outline:2px solid var(--focus);outline-offset:1px}
+.fetlife-broad-terms{flex:1 1 100%;list-style:none;margin:2px 0 4px;padding:8px 10px;border:1px solid var(--line);border-radius:8px;background:var(--paper-2);display:grid;gap:5px}
+.fetlife-broad-terms[hidden]{display:none}
+.fetlife-broad-terms li{font-size:13.5px;line-height:1.4;color:var(--muted)}
+.fetlife-broad-terms b{color:var(--ink);font-weight:700}
+.fetlife-broad-terms .fl-arrow{color:var(--focus);font-weight:800}
+/* Build 2026-10-18_1658 — mapping editor controls. */
+.fetlife-map-addrow{display:flex;flex-wrap:wrap;align-items:center;gap:10px;font-size:14px}
+.fetlife-map-addrow[hidden]{display:none}
+.fetlife-map-edit{display:grid;gap:10px;padding:12px;border:1px solid var(--focus);border-radius:10px;background:color-mix(in srgb,var(--focus) 6%,transparent)}
+.fetlife-map-edit[hidden]{display:none}
+.fetlife-map-edit h3{margin:0;font-size:16px}
+.fetlife-map-edit select{width:100%;box-sizing:border-box;padding:8px 10px;border:1px solid var(--line-strong);border-radius:8px;background:var(--paper-2);color:var(--ink);font:inherit;font-size:14.5px}
+.fetlife-map-edit select:focus-visible{outline:2px solid var(--focus);outline-offset:1px}
+.fetlife-map-target-path{margin:0;color:var(--muted);font-size:13px;min-height:1.2em}
+.fetlife-map-edit-msg{margin:0;font-size:13.5px;color:var(--ink)}
+.fetlife-map-edit-msg[hidden]{display:none}
+.fetlife-map-edit-actions{flex-wrap:wrap}
+.fetlife-map-remove{margin-left:auto;color:var(--red,#e66)}
+.fetlife-map-editbar{display:flex;flex-wrap:wrap;align-items:center;gap:8px 14px}
+.fetlife-map-edited{margin:0;font-size:13px;font-weight:700;color:var(--focus)}
+.fetlife-map-edited[hidden]{display:none}
+.fetlife-map-editbar-actions{margin-left:auto;display:flex;gap:8px;flex-wrap:wrap}
+.fetlife-map-edited-badge{display:inline-block;border:1px solid var(--focus);border-radius:999px;padding:0 6px;font-size:10.5px;font-weight:800;color:var(--focus);vertical-align:1px;white-space:nowrap}
+.fetlife-map-rowbtn{min-height:32px;padding:4px 10px;font-size:12.5px;white-space:nowrap}
+tr.is-edited td{background:color-mix(in srgb,var(--focus) 7%,transparent)}
+.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+/* Build 2026-10-19_0155 — mapping editor header rework: pinned control bar,
+   inset-label search fields, dedicated table scroll region. */
+#fetlifeMapDialog{width:min(1020px,calc(100vw - 24px))}
+#fetlifeMapDialog[open]{display:flex;flex-direction:column}
+#fetlifeMapTitle{cursor:help}
+#fetlifeMapTitle:hover{text-decoration:underline dotted var(--focus);text-underline-offset:5px}
+#fetlifeMapDialog .fetlife-map-body{display:flex;flex-direction:column;overflow:hidden;flex:1 1 auto;min-height:0}
+.fetlife-map-topbar{display:grid;gap:9px;padding-bottom:11px;border-bottom:1px solid var(--line)}
+.fetlife-map-searchrow{display:flex;flex-wrap:wrap;align-items:center;gap:12px}
+#fetlifeMapDialog .fetlife-map-field{position:relative;display:block;min-width:0;flex:1 1 230px;margin-top:5px}
+#fetlifeMapDialog .fetlife-map-field>span{position:absolute;z-index:2;top:-7px;left:11px;max-width:calc(100% - 22px);padding:0 4px;background:var(--panel);color:var(--muted);font-size:12px;font-weight:700;line-height:14px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+#fetlifeMapDialog .fetlife-map-field input{width:100%;min-width:0;height:46px;border:1px solid var(--line-strong);background:var(--paper-2);border-radius:8px;padding:4px 11px 0;color:var(--ink);font:inherit;font-size:15px;outline:none}
+#fetlifeMapDialog .fetlife-map-field input:focus{border-color:var(--focus);box-shadow:0 0 0 3px color-mix(in srgb,var(--focus) 18%,transparent)}
+.fetlife-map-topbar-actions{display:flex;gap:8px;flex-wrap:wrap;margin-left:auto}
+.fetlife-map-scroll{overflow-y:auto;flex:1 1 auto;min-height:0;overscroll-behavior:contain;display:grid;gap:12px;align-content:start}
+.fetlife-map-table{border-collapse:separate;border-spacing:0}
+.fetlife-map-table th{border-bottom:1px solid var(--line-strong)}
+
+
+#fetlifeGuide{display:grid;gap:12px}
+#fetlifeGuide[hidden]{display:none}
+.fetlife-flow{display:flex;flex-wrap:wrap;align-items:center;gap:6px}
+.fetlife-flow-step{border:1px solid var(--line-strong);border-radius:8px;background:var(--panel);color:var(--ink);padding:6px 10px;font-size:13.5px;font-weight:700;line-height:1.2}
+.fetlife-flow-arrow{color:var(--focus);font-weight:800}
+.fetlife-points{margin:0;padding-left:22px;columns:2;column-gap:30px}
+.fetlife-points li{break-inside:avoid;margin:0 0 8px;color:var(--ink);font-size:14px;line-height:1.42}
+.fetlife-points a{color:var(--focus);font-weight:700;text-underline-offset:3px}
+@media(max-width:620px){.fetlife-points{columns:1}}
+.take-test-dropdown{position:relative}
+.take-test-toggle{width:100%}
+.take-test-menu{position:absolute;bottom:calc(100% + 6px);left:0;right:0;z-index:40;display:grid;gap:4px;padding:6px;background:var(--paper-2);border:1px solid var(--line-strong);border-radius:10px;box-shadow:var(--shadow)}
+.take-test-menu[hidden]{display:none}
+.take-test-menu button{min-height:42px;padding:8px 10px;border:0;border-radius:6px;background:transparent;color:var(--ink);text-align:left;font-weight:700;font-size:14px;cursor:pointer}
+.take-test-menu button:hover,.take-test-menu button:focus-visible{background:var(--panel);outline:2px solid var(--focus);outline-offset:-2px}
+#sourceTip{position:fixed;z-index:2000;max-width:min(330px,calc(100vw - 16px));background:var(--panel);border:1px solid var(--line-strong);border-radius:10px;box-shadow:var(--shadow);padding:10px 12px;pointer-events:auto}
+#sourceTip[hidden]{display:none}
+.source-tip-name{display:block;color:var(--ink);font-size:14.5px;margin-bottom:3px}
+.source-tip-note{display:block;color:var(--ink);font-size:13.5px;line-height:1.4}
+.source-tip-link{display:inline-block;margin-top:6px;color:var(--focus);font-weight:700;text-underline-offset:3px}
+.source-tip-link:hover,.source-tip-link:focus-visible{outline:2px solid var(--focus);outline-offset:2px;border-radius:3px}
+/* Touch targets (Build 2026-10-19_0113): the plus (+) button and the Cast leniency trigger in the profile tab bar's add stack are proper 44px x 44px touch targets at every width (was 22px x 19px on desktop, 24px x 21px at <=620px). The add stack widens to 44px with two 44px rows (a single 44px row when there is no Cast trigger) so the two targets stack in their usual spots — plus on top, Cast below it — without overlapping each other or the neighboring profile tabs; the tab bar grows taller to fit and the profile tabs stay bottom-aligned. Colors, icons, and behavior are unchanged: the "+" keeps its 22px glyph and the cast reel icon keeps 20px/16px. The plus menu's "Load sample profile" item stays un-hidden, restoring the sample-profile submenu (its wiring was intact); "New profile in list view" and "Scan or Import" stay hidden. */
+#profileTabs .profile-add-stack{display:flex;flex-direction:row;grid-template-rows:44px;flex:0 0 auto;width:auto;align-items:stretch}
+#profileTabs .profile-add{flex:0 0 44px;width:44px;min-width:44px;height:44px;min-height:44px;font-size:22px}
+#profileTabs .profile-match-btn{width:44px;min-width:44px;height:44px;min-height:44px;font-size:20px;line-height:1;display:grid;place-items:center}
+@media(max-width:620px){#profileTabs .profile-add{flex:0 0 44px;width:44px;min-width:44px;height:44px;min-height:44px} #profileTabs .profile-match-btn{width:44px;min-width:44px;height:44px;min-height:44px} #profileTabs .profile-add-stack{flex-basis:auto;width:auto}}
+#profileAddMenu{min-height:0}
+#profileAddMenu button[hidden]{display:none}
+.take-test-menu .get-ratings-list{background:color-mix(in srgb,var(--red-deep) 62%,transparent);color:#fff}
+.take-test-menu .get-ratings-list:hover,.take-test-menu .get-ratings-list:focus-visible{background:color-mix(in srgb,var(--red-deep) 85%,transparent);outline:2px solid var(--focus);outline-offset:-2px}
+
+
+/* Title-row view selector: the view selector button sits in the title row
+   immediately right of the Sexcapades.IO logo (grid area "switch"), at a
+   FIXED width sized for its longest label, "Scene Sentinel ▾", so the
+   button never changes width between views. "Find a topic" gives up width
+   to make room: the search field is capped and the topic picker takes the
+   remaining space. The same dropdown button (same fixed width, current-view
+   label) also sits in the list view, Scene Sentinel, Scribe, and Scene
+   Setter headers. */
+.map-view-switch{position:static;min-height:36px;padding:7px 12px;border-color:var(--focus);background:color-mix(in srgb,var(--panel) 94%,transparent);color:var(--ink);box-shadow:none;white-space:nowrap;font-weight:700}
+.map-view-switch:hover,.map-view-switch:focus-visible{border-color:var(--focus);outline:2px solid var(--focus);outline-offset:2px}
+.intro{grid-template-columns:minmax(140px,max-content) auto minmax(0,1fr) max-content;grid-template-areas:"title switch center review"}
+.intro>.map-view-switch{grid-area:switch;width:176px;flex:0 0 auto;text-align:center;justify-content:center}
+.header-search-row{grid-template-columns:minmax(100px,320px) minmax(170px,1fr)}
+.outline-title-row .map-view-switch{align-self:center;flex:0 0 auto}
+@media(max-width:960px){.intro{grid-template-columns:minmax(120px,max-content) auto minmax(0,1fr) max-content}.intro>.map-view-switch{width:166px}.header-search-row{grid-template-columns:minmax(90px,260px) minmax(140px,1fr)}}
+@media(max-width:620px){.intro{grid-template-columns:minmax(0,1fr) auto auto;grid-template-areas:"title switch review" "center center center"}.intro>.map-view-switch{width:150px;min-height:30px;padding:5px 8px;font-family:"Barlow Condensed",sans-serif;font-size:16px;font-weight:600;letter-spacing:.02em}.header-search-row{grid-template-columns:minmax(70px,.9fr) minmax(100px,1.1fr)}}
+@media(max-width:430px){.intro{grid-template-columns:minmax(0,1fr) auto auto;grid-template-areas:"title switch review" "center center center"}.intro>.map-view-switch{width:140px;min-height:44px;padding:6px 7px;font-size:15px}.header-search-row{grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:6px}.header-search-row #topicPickerButton{padding-inline:6px 22px;font-size:12.5px}.header-search-row #topicPickerButton:after{right:6px}.header-search-row .search input{padding-inline:9px 30px}.header-search-row .search span{right:5px;width:24px;height:24px}.header-search-row .search input::placeholder{font-size:13.5px}}
+
+
+/* Popularity List header rework (Jason's order): the old header line under
+   the title bar ("Rate in list view" + profile name + rated count) is struck.
+   The profile name now sits in the title bar itself as plain text beside the
+   Sexcapades.IO branding, right of the view selector — it reads as the
+   current profile's name ("New Profile" for an unsaved one) and is not a
+   button; the bundle still writes it by id. The rated count moved down beside
+   the progress bar. The list view's primary submit button ("Submit what
+   you've got" — the action that creates the profile), the Privacy Policy
+   link, and the Share anonymous ratings consent moved up into the title bar,
+   top-right, immediately left of the avatar + Syncing Sexcapades Guide
+   cluster, with the consent adjacent to the Privacy Policy link. The
+   progress bar is shortened to one third of its former full-header width and
+   now shares one line with "Show prior ratings", the rated count, and the
+   elapsed timer inside .outline-head-actions; at that width only the first
+   and full-map ladder labels stay visible. */
+#outlineDialog .sx-titlebar{flex-wrap:wrap}
+#outlineDialog .sx-titlebar-profile{flex:0 1 auto;align-self:center;font-size:15px}
+#outlineDialog .sx-titlebar-actions{display:flex;align-items:center;gap:12px;margin-left:auto;flex:0 1 auto;flex-wrap:wrap;justify-content:flex-end}
+#outlineDialog .sx-guide-slot{margin-left:0}
+#outlineDialog .sx-titlebar-actions .action-btn{min-height:38px;white-space:nowrap}
+#outlineDialog .sx-titlebar-actions>small{white-space:nowrap;font-size:13px}
+#outlineDialog .sx-titlebar-actions>small a{color:var(--focus);font-weight:700}
+#outlineDialog .sx-titlebar-actions .survey-consent-compact{padding:5px 9px;font-size:12px;align-items:center}
+#outlineDialog .sx-titlebar-actions .survey-consent-compact small{display:none}
+#outlineDialog .outline-head{grid-template-columns:minmax(0,1fr);grid-template-rows:auto auto}
+#outlineDialog .outline-head-actions{grid-column:1;grid-row:1;display:flex;align-items:center;justify-content:flex-start;gap:8px 14px;flex-wrap:wrap;align-self:auto;min-width:0}
+#outlineDialog .outline-head-actions .outline-progress{display:block;flex:0 1 33.333%;min-width:150px;margin:0;padding:15px 0 0;grid-column:auto;grid-row:auto}
+#outlineDialog .outline-head-actions .outline-progress-track{height:8px;margin:0}
+#outlineDialog .outline-head-actions .outline-ladder-mark:after{display:none}
+#outlineDialog .outline-head-actions .outline-ladder-mark[data-label="54 · ~18m"]:after,#outlineDialog .outline-head-actions .outline-ladder-mark.outline-ladder-first:after,#outlineDialog .outline-head-actions .outline-ladder-mark.outline-ladder-full:after{display:block;font-size:8px}
+#outlineDialog .outline-head-actions .outline-progress-meta{justify-content:flex-start}
+#outlineDialog .outline-quickstart-tip{grid-column:1;grid-row:2}
+@media(max-width:620px){#outlineDialog .sx-titlebar-actions{margin-left:0;justify-content:flex-start}#outlineDialog .outline-head-actions .outline-progress{min-width:120px}}
+
+
+/* Build 2026-10-19_1525 — map touch-selection guard: nothing inside the
+   map SVG may start a native selection or a touch callout, so a
+   triple-tap on the center node can never paint the browser's blue
+   selection box over the map (see the map-touch-selection-guard patch
+   block). Scoped to the map; text elsewhere stays selectable. */
+#mapSvg,#mapSvg *{-webkit-user-select:none!important;user-select:none!important;-webkit-touch-callout:none!important}
+#mapSvg ::selection{background:transparent}
+/* Branch selection dimming (Build 2026-10-19_1535): tapping/clicking a
+   branch or section selects it — everything else dims so the selection
+   reads at a glance. Mirrors the relation-focused pattern above. The
+   map-selection-dim patch block toggles .has-selection on #mapSvg and
+   .sel-keep on the selected branch's node group and spoke underlay; the
+   .selected-spoke highlight path itself is unchanged. */
+#mapSvg.has-selection .node-group{opacity:.35!important}
+#mapSvg.has-selection .node-group.sel-keep{opacity:1!important;filter:brightness(1.15)}
+#mapSvg.has-selection .spoke-underlay-item{opacity:.35!important}
+#mapSvg.has-selection .spoke-underlay-item.sel-keep{opacity:1!important;filter:brightness(1.2)}
+#mapSvg.has-selection .map-label-stack-item{opacity:.35!important}
+#mapSvg.has-selection .map-label-stack-item.sel-keep{opacity:1!important;filter:brightness(1.15)}
+#mapSvg.has-selection text.map-label{opacity:.35!important}
+#mapSvg.has-selection text.map-label.sel-keep{opacity:1!important;filter:brightness(1.15)}
+#mapSvg.has-selection .direction-control{opacity:.35!important}
+#mapSvg.has-selection .direction-control.sel-keep{opacity:1!important;filter:brightness(1.15)}
+/* 44px touch-target pass (Build 2026-10-19_1742): beta testers found
+   controls under the 44px touch floor. The rules below only grow hit
+   areas — min-width/min-height and grid track sizes — while glyphs
+   and the visual design stay the size they were. Text inputs also get
+   a 16px font minimum, which stops iOS auto-zooming on focus. (There
+   is no global 30px button min-height to raise: the base button rule
+   sets none, and every control the testers flagged is named here.) */
+.legend-popup-close,.glance-popover-close,.hanky-chart-close{min-width:44px;min-height:44px}
+button.mark-menu-close{flex:0 0 44px;width:44px;height:44px}
+.outline-marks{grid-template-columns:repeat(6,44px)}
+.outline-mark{width:44px;height:44px}
+.outline-timer-toggle{min-width:44px;min-height:44px}
+.outline-quickstart-dismiss{min-width:44px;min-height:44px}
+.outline-more-label{min-height:44px}
+.outline-show-rated{min-height:44px}
+.outline-payoff-dismiss{min-height:44px}
+.outline-subcategory-summary{min-height:44px}
+input[type="text"],input[type="search"],input[type="number"],input[type="email"],input[type="url"],input[type="tel"],input[type="password"],input:not([type]){font-size:16px;min-height:44px}
+textarea{font-size:16px}
+.header-search-row .search input{font-size:16px}
+.profile-username-fields .profile-contact-field input{font-size:16px}
+.profile-floating-field textarea{font-size:16px}
+.about-export-edit textarea{font-size:16px}
+.novel-ai-field textarea,.novel-ai-field.is-prompt textarea{font-size:16px}
+.fetlife-map-body input[type="text"]{font-size:16px;min-height:44px}
+
+
