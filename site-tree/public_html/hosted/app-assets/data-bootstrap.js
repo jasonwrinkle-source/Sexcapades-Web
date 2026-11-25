@@ -645,12 +645,12 @@ var SX_COLLECT_URL = "/hosted/api/collect.php";
             } catch (e) { /* fall through to inline map */ }
             try {
                 var q = new URLSearchParams(location.search || "").get("skin");
-                var known = ["sexcapades", "poliscapades", "forescapades", "philoscapades", "aesthcapades", "vocapades", "techcapades", "dharmacapades", "theoricapades", "praxicapades", "quantacapades", "expericapades", "simulcapades", "mattercapades", "chemcapades", "nouscapades", "biocapades", "linguacapades", "fastcapades", "metacapades", "dancecapades", "questcapades"];
+                var known = ["sexcapades", "poliscapades", "forescapades", "philoscapades", "aesthcapades", "vocapades", "techcapades", "dharmacapades", "theoricapades", "praxicapades", "quantacapades", "expericapades", "simulcapades", "mattercapades", "chemcapades", "nouscapades", "biocapades", "linguacapades", "fastcapades", "dancecapades", "questcapades"];
                 if (q && known.indexOf(q) !== -1) return q;
                 var host = (location.hostname || "").toLowerCase();
                 if (host === "sexcapades.io" || host === "www.sexcapades.io") return "sexcapades";
-                if (host === "flex.capades.io" || host === "www.flex.capades.io" || host === "capades.io" || host === "www.capades.io") return "metacapades";
-                var map = { sex: "sexcapades", polis: "poliscapades", fores: "forescapades", philo: "philoscapades", aesth: "aesthcapades", voca: "vocapades", tech: "techcapades", dharma: "dharmacapades", theori: "theoricapades", praxi: "praxicapades", quanta: "quantacapades", experi: "expericapades", simul: "simulcapades", matter: "mattercapades", chem: "chemcapades", nous: "nouscapades", bio: "biocapades", lingua: "linguacapades", fast: "fastcapades", meta: "metacapades", dance: "dancecapades", quest: "questcapades" };
+                if (host === "flex.capades.io" || host === "www.flex.capades.io" || host === "capades.io" || host === "www.capades.io") return "poliscapades";
+                var map = { sex: "sexcapades", polis: "poliscapades", fores: "forescapades", philo: "philoscapades", aesth: "aesthcapades", voca: "vocapades", tech: "techcapades", dharma: "dharmacapades", theori: "theoricapades", praxi: "praxicapades", quanta: "quantacapades", experi: "expericapades", simul: "simulcapades", matter: "mattercapades", chem: "chemcapades", nous: "nouscapades", bio: "biocapades", lingua: "linguacapades", fast: "fastcapades", dance: "dancecapades", quest: "questcapades" };
                 var prefix = /\.capades\.io$/.test(host) ? host.split(".")[0] : "";
                 if (prefix && map[prefix]) return map[prefix];
             } catch (e) { /* default below */ }
@@ -2202,35 +2202,6 @@ var ge = {
             "Interior life & safety": {
                 color: "#e2e8f0",
                 glyph: '<path class="icon-glyph" d="M12 3l7 2.4v5.8c0 4.6-2.9 7.7-7 9.8-4.1-2.1-7-5.2-7-9.8V5.4z M9 11.8l2.2 2.2 4-4.2"/>'
-            },
-            /* Flexcapades skin categories: Metacapades (7). Per-category pictograms; distinct colors and glyphs carry the category identity on the map. */
-            "Rating": {
-                color: "#d946ef",
-                glyph: '<path class="icon-glyph" d="M3 12h5.8 M15.2 12H21 M8.8 12a3.2 3.2 0 1 0 6.4 0 3.2 3.2 0 1 0 -6.4 0"/>'
-            },
-            "Comparing": {
-                color: "#8b5cf6",
-                glyph: '<path class="icon-glyph" d="M5.5 12a4.5 4.5 0 1 0 9 0 4.5 4.5 0 1 0 -9 0 M9.5 12a4.5 4.5 0 1 0 9 0 4.5 4.5 0 1 0 -9 0"/>'
-            },
-            "Planning the night": {
-                color: "#f59e0b",
-                glyph: '<path class="icon-glyph" d="M20 13.5A8.5 8.5 0 1 1 10.5 3.5 6.8 6.8 0 0 0 20 13.5"/>'
-            },
-            "Keeping it": {
-                color: "#14b8a6",
-                glyph: '<path class="icon-glyph" d="M4 4.5h16v4.5H4z M5 9v10.5h14V9 M10 13h4"/>'
-            },
-            "Guarding it": {
-                color: "#ef4444",
-                glyph: '<path class="icon-glyph" d="M8 11V8a4 4 0 0 1 8 0v3 M5.5 11h13v9.5h-13z"/>'
-            },
-            "Learning it": {
-                color: "#0ea5e9",
-                glyph: '<path class="icon-glyph" d="M6 3.5h12V21H6z M9 8h6 M9 11.5h6"/>'
-            },
-            "Shaping it": {
-                color: "#84cc16",
-                glyph: '<path class="icon-glyph" d="M4.5 19.5l1-4L16 5a2.1 2.1 0 0 1 3 3L8.5 18.5z M13.5 7.5l3 3"/>'
             },
             /* Flexcapades skin categories: Linguacapades (7). Per-category pictograms; distinct colors and glyphs carry the category identity on the map. */
             "Rules & standards": {
@@ -5683,35 +5654,6 @@ var he = [ [ "t0281", "t0240" ] ], ge = {
             "Interior life & safety": {
                 color: "#e2e8f0",
                 glyph: '<path class="icon-glyph" d="M12 3l7 2.4v5.8c0 4.6-2.9 7.7-7 9.8-4.1-2.1-7-5.2-7-9.8V5.4z M9 11.8l2.2 2.2 4-4.2"/>'
-            },
-            /* Flexcapades skin categories: Metacapades (7). Per-category pictograms; distinct colors and glyphs carry the category identity on the map. */
-            "Rating": {
-                color: "#d946ef",
-                glyph: '<path class="icon-glyph" d="M3 12h5.8 M15.2 12H21 M8.8 12a3.2 3.2 0 1 0 6.4 0 3.2 3.2 0 1 0 -6.4 0"/>'
-            },
-            "Comparing": {
-                color: "#8b5cf6",
-                glyph: '<path class="icon-glyph" d="M5.5 12a4.5 4.5 0 1 0 9 0 4.5 4.5 0 1 0 -9 0 M9.5 12a4.5 4.5 0 1 0 9 0 4.5 4.5 0 1 0 -9 0"/>'
-            },
-            "Planning the night": {
-                color: "#f59e0b",
-                glyph: '<path class="icon-glyph" d="M20 13.5A8.5 8.5 0 1 1 10.5 3.5 6.8 6.8 0 0 0 20 13.5"/>'
-            },
-            "Keeping it": {
-                color: "#14b8a6",
-                glyph: '<path class="icon-glyph" d="M4 4.5h16v4.5H4z M5 9v10.5h14V9 M10 13h4"/>'
-            },
-            "Guarding it": {
-                color: "#ef4444",
-                glyph: '<path class="icon-glyph" d="M8 11V8a4 4 0 0 1 8 0v3 M5.5 11h13v9.5h-13z"/>'
-            },
-            "Learning it": {
-                color: "#0ea5e9",
-                glyph: '<path class="icon-glyph" d="M6 3.5h12V21H6z M9 8h6 M9 11.5h6"/>'
-            },
-            "Shaping it": {
-                color: "#84cc16",
-                glyph: '<path class="icon-glyph" d="M4.5 19.5l1-4L16 5a2.1 2.1 0 0 1 3 3L8.5 18.5z M13.5 7.5l3 3"/>'
             },
             /* Flexcapades skin categories: Linguacapades (7). Per-category pictograms; distinct colors and glyphs carry the category identity on the map. */
             "Rules & standards": {
@@ -30593,11 +30535,11 @@ var __sxParkedSectionNames = {
                 }
                 if (!target || target === "sexcapades") {
                     const q = new URLSearchParams(location.search || "").get("skin");
-                    const known = ["sexcapades", "poliscapades", "forescapades", "philoscapades", "aesthcapades", "vocapades", "techcapades", "dharmacapades", "theoricapades", "praxicapades", "quantacapades", "expericapades", "simulcapades", "mattercapades", "chemcapades", "nouscapades", "biocapades", "linguacapades", "fastcapades", "metacapades", "dancecapades", "questcapades"];
+                    const known = ["sexcapades", "poliscapades", "forescapades", "philoscapades", "aesthcapades", "vocapades", "techcapades", "dharmacapades", "theoricapades", "praxicapades", "quantacapades", "expericapades", "simulcapades", "mattercapades", "chemcapades", "nouscapades", "biocapades", "linguacapades", "fastcapades", "dancecapades", "questcapades"];
                     if (q && known.indexOf(q) !== -1) target = q;
                     else {
                         const host = (location.hostname || "").toLowerCase();
-                        const map = { sex: "sexcapades", polis: "poliscapades", fores: "forescapades", philo: "philoscapades", aesth: "aesthcapades", voca: "vocapades", tech: "techcapades", dharma: "dharmacapades", theori: "theoricapades", praxi: "praxicapades", quanta: "quantacapades", experi: "expericapades", simul: "simulcapades", matter: "mattercapades", chem: "chemcapades", nous: "nouscapades", bio: "biocapades", lingua: "linguacapades", fast: "fastcapades", meta: "metacapades", dance: "dancecapades", quest: "questcapades" };
+                        const map = { sex: "sexcapades", polis: "poliscapades", fores: "forescapades", philo: "philoscapades", aesth: "aesthcapades", voca: "vocapades", tech: "techcapades", dharma: "dharmacapades", theori: "theoricapades", praxi: "praxicapades", quanta: "quantacapades", experi: "expericapades", simul: "simulcapades", matter: "mattercapades", chem: "chemcapades", nous: "nouscapades", bio: "biocapades", lingua: "linguacapades", fast: "fastcapades", dance: "dancecapades", quest: "questcapades" };
                         const prefix = /\.capades\.io$/.test(host) ? host.split(".")[0] : "";
                         if (prefix && map[prefix]) target = map[prefix];
                     }
