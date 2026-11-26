@@ -572,12 +572,17 @@
     // onset rule and the run-order list use), and selection is in
     // sync with the map both ways — a branch selected on the map
     // is checked off here (checkAnnealBranchFromMap, called from
-    // focusEditorOn; checking is additive, a map tap never unchecks
-    // a row or clears other picks), and checking a row here selects
-    // that branch on the map (the checklist click handler below).
+    // focusEditorOn; checking is additive, a plain map tap never
+    // unchecks a row or clears other picks), and checking a row
+    // here selects that branch on the map (the checklist click
+    // handler below). Ctrl/Cmd-click without Shift or Alt is the
+    // multi-select (ruled 2026-11-25, Jason):
+    // toggleAnnealBranchFromMap flips that one branch and the map
+    // tap does not select the spoke.
     function buildAnnealChecklist(){var wrap=document.getElementById("layoutAnnealChecklistRows");if(!wrap||wrap.children.length||!window.__SEXCAPADES_LAYOUT_API||!window.__SEXCAPADES_LAYOUT_API.branches)return;branchNames().forEach(function(name){var row=document.createElement("button");row.type="button";row.className="le-anneal-opt";row.setAttribute("data-anneal-check","");row.setAttribute("data-value",name);row.setAttribute("aria-selected","false");row.setAttribute("aria-label","Anneal "+name);var nm=document.createElement("span");nm.className="le-anneal-name";nm.textContent=name;row.appendChild(nm);var cr=document.createElement("span");cr.className="le-anneal-cross";cr.setAttribute("data-anneal-cross","");cr.textContent="crossing —";row.appendChild(cr);wrap.appendChild(row)})}
     function refreshAnnealCrossings(){var wrap=document.getElementById("layoutAnnealChecklistRows");if(!wrap||!wrap.children.length)return;var clouds=null;try{var m=typeof window.__sxCrossingMeasure==="function"?window.__sxCrossingMeasure():null;clouds=m&&m.clouds?m.clouds:null}catch(e){clouds=null}Array.prototype.forEach.call(wrap.querySelectorAll("[data-anneal-check]"),function(opt){var name=opt.getAttribute("data-value"),v=clouds?Number(clouds[name]):NaN,el=opt.querySelector("[data-anneal-cross]");if(el)el.textContent=Number.isFinite(v)?("crossing "+dkFmtLead(v)):"crossing —";opt.setAttribute("aria-label","Anneal "+name+(Number.isFinite(v)?(", crossing "+dkFmtLead(v)):""))})}
     function checkAnnealBranchFromMap(branch){if(!branch)return;buildAnnealChecklist();var wrap=document.getElementById("layoutAnnealChecklistRows");if(!wrap)return;var changed=false;Array.prototype.forEach.call(wrap.querySelectorAll("[data-anneal-check]"),function(opt){if(opt.getAttribute("data-value")===branch&&opt.getAttribute("aria-selected")!=="true"){opt.setAttribute("aria-selected","true");changed=true}});if(changed)syncAnnealChecklist()}
+    function toggleAnnealBranchFromMap(branch){if(!branch)return;buildAnnealChecklist();var wrap=document.getElementById("layoutAnnealChecklistRows");if(!wrap)return;Array.prototype.forEach.call(wrap.querySelectorAll("[data-anneal-check]"),function(opt){if(opt.getAttribute("data-value")===branch)opt.setAttribute("aria-selected",opt.getAttribute("aria-selected")==="true"?"false":"true")});syncDeknotterBtn()}
     function annealCheckedBranches(){var wrap=document.getElementById("layoutAnnealChecklistRows");if(!wrap)return[];var checked={};Array.prototype.forEach.call(wrap.querySelectorAll("[data-anneal-check]"),function(opt){if(opt.getAttribute("aria-selected")==="true")checked[opt.getAttribute("data-value")]=true});return branchNames().filter(function(name){return !!checked[name]})}
     function syncAnnealChecklist(){buildAnnealChecklist();refreshAnnealCrossings();var picked=annealCheckedBranches(),trig=document.getElementById("layoutAnnealTriggerLabel"),note=document.getElementById("layoutAnnealScopeNote");if(trig)trig.textContent=!picked.length?"All branches — whole map":(picked.length===1?picked[0]:picked.length+" branches picked");if(note)note.textContent=!picked.length?"Nothing picked — Anneal runs on the whole map.":(picked.length===1?"Anneal will run on "+picked[0]+" only.":"Anneal will run on the "+picked.length+" picked branches only, in decreasing crossing order, highest crossing first.")}
     function setAnnealChecklist(on){var wrap=document.getElementById("layoutAnnealChecklistRows");if(!wrap)return;Array.prototype.forEach.call(wrap.querySelectorAll("[data-anneal-check]"),function(opt){opt.setAttribute("aria-selected",String(!!on))});syncDeknotterBtn()}
@@ -2420,6 +2425,26 @@
     // so the next editor open lands on the selected branch. Setting
     // the selects on a hidden panel is inert until it opens.
     function selectNode(key){if(!key)return;if(focusEditorOn(key)){lastFocusKey=key;pendingFocusKey=null}else pendingFocusKey=key}
+    // Ctrl/Cmd-click on the map. resolveFocus covers cat- / topic
+    // keys. A category or subcategory spoke carries its stored id
+    // (xflc01 and the like), which resolveFocus does not name, so
+    // the taxonomy walk below is what turns that tap into a branch.
+    function branchNameForNode(key){
+      var f=resolveFocus(key);if(f&&f.branch)return f.branch;
+      if(!key)return "";
+      var tax=taxonomy();if(!tax||!tax.categories)return "";
+      var c,s,t,cat,subs,topics;
+      for(c=0;c<tax.categories.length;c++){
+        cat=tax.categories[c];if(!cat)continue;
+        if(cat.id===key||cat.name===key)return cat.name;
+        subs=cat.subcategories||[];
+        for(s=0;s<subs.length;s++)if(subs[s]&&(subs[s].id===key||subs[s].name===key))return cat.name;
+        topics=cat.topics||[];
+        for(t=0;t<topics.length;t++)if(topics[t]&&(topics[t].id===key||topics[t].name===key))return cat.name;
+      }
+      return "";
+    }
+    function toggleAnnealFromNode(key){var branch=branchNameForNode(key);if(!branch)return;try{toggleAnnealBranchFromMap(branch)}catch(e){__sxErrLog("layout-anneal-map-toggle",e)}}
     window.__sxGetActiveNodeKey=function(){
       var svg=document.getElementById("mapSvg");
       return (svg?selectedNodeKey(svg):null)||lastFocusKey||null;
@@ -2516,7 +2541,7 @@
     panel.addEventListener("click",function(){dismissUiTooltip()},true);
     document.addEventListener("keydown",function(event){if(event.key==="Escape")dismissUiTooltip()});
     try{var uiTipEl=document.getElementById("uiTooltip");if(uiTipEl){var uiTipTimer=null;new MutationObserver(function(){if(uiTipTimer){clearTimeout(uiTipTimer);uiTipTimer=null}if(!uiTipEl.hidden&&!panel.hidden)uiTipTimer=setTimeout(dismissUiTooltip,3400)}).observe(uiTipEl,{attributes:true,attributeFilter:["hidden","class","style"]})}}catch (e) { __sxErrLog("ui-tooltip-dismiss", e); }
-    window.__SEXCAPADES_LAYOUT_UI={open:open,close:shut,selectNode:selectNode,clearSelection:clearSelectionUI,applyEditorState:applyEditorState,sync:sync};close.addEventListener("click",shut);
+    window.__SEXCAPADES_LAYOUT_UI={open:open,close:shut,selectNode:selectNode,clearSelection:clearSelectionUI,applyEditorState:applyEditorState,sync:sync,toggleAnnealFromNode:toggleAnnealFromNode};close.addEventListener("click",shut);
     document.addEventListener("keydown",function(event){var k=(event.key||"").toLowerCase();if(event.ctrlKey&&event.shiftKey&&(k==="l"||(event.code&&event.code==="KeyL"))){event.preventDefault();panel.hidden?open():shut()}else if(event.ctrlKey&&event.shiftKey&&(k==="s"||(event.code&&event.code==="KeyS"))){var t=event.target;if(t){var tg=t.tagName;if(tg==="TEXTAREA"||tg==="SELECT"||t.isContentEditable)return;if(tg==="INPUT"){var ty=(t.type||"text").toLowerCase();if(ty==="text"||ty==="search"||ty==="url"||ty==="email"||ty==="password"||ty==="number"||ty==="tel"||ty==="date"||ty==="time"||ty==="datetime-local"||ty==="month"||ty==="week")return}}event.preventDefault();var ms=document.getElementById(ids.mapSliders);if(!ms)return;ms.click()}else if(event.key==="Escape"&&!panel.hidden){event.preventDefault();if(!clearSelectionUI())shut()}});
     document.querySelectorAll("[data-layout-spacing]").forEach(function(input){input.addEventListener("change",function(){if(!input.checked)return;var name=input.dataset.layoutSpacing,next=collect();if(name==="custom"){if(customSpacing)Object.assign(next,customSpacing);next.spacing="custom"}else{if(spacingNameFor(spacingValuesOf(config()))==="custom")customSpacing=spacingValuesOf(config());Object.assign(next,bundles[name],{spacing:name})}apply(next)})});
     document.querySelectorAll("[data-layout-rating]").forEach(function(input){input.addEventListener("change",function(){if(!input.checked)return;/* LR-G5: this handler used to click the hidden mirror button (former id layoutRatedToggle) in a loop until its text matched the chosen value; the bundle now drives global visibility from the radios' own change events and the checked radio IS the rating state — nothing is clicked or read here beyond the editor sync */sync()})});

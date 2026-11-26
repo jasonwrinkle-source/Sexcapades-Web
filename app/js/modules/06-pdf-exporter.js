@@ -870,6 +870,20 @@
                     if (held >= 400 && moved < 28) sxShowTopicTip(n.id, n.startX, n.startY, e.pointerType, n.tipEl);
                     return;
                 }
+                // Ctrl/Cmd-click (no Shift, no Alt) toggles this node's
+                // branch in the Anneal checklist. It does not select,
+                // focus, or open the sheet. `to` is already set above,
+                // so the click that follows this pointerup is swallowed.
+                if (sxMapAnnealChord(e)) {
+                    if (sxPendingNodeTapTimer) {
+                        try { window.clearTimeout(sxPendingNodeTapTimer); } catch (_) {}
+                        sxPendingNodeTapTimer = null;
+                    }
+                    sxLastNodeTapTime = 0;
+                    sxLastNodeTapId = null;
+                    sxToggleAnnealFromMap(n.id);
+                    return;
+                }
 
                 const now = performance.now();
                 const timeDiff = now - sxLastNodeTapTime;

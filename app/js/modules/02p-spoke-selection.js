@@ -4,11 +4,24 @@
            (Refactor Step 3, Build 2026-10-18: extracted selection & interaction
            methods; SpokeGeometry, Za, and Ka live in 02f-spoke-geometry.js).
            ================================================================ */
+        // Ctrl/Cmd without Shift or Alt toggles the node's branch in
+        // the Anneal checklist. The pointerup path in 06-pdf-exporter
+        // is the live tap (it sets `to` and swallows the click that
+        // follows). This click path runs only when that tap did not.
+        function sxMapAnnealChord(e) {
+            return !!(e && (e.ctrlKey || e.metaKey) && !e.shiftKey && !e.altKey);
+        }
+        function sxToggleAnnealFromMap(id) {
+            if (!id || !window.__SEXCAPADES_LAYOUT_UI || "function" != typeof window.__SEXCAPADES_LAYOUT_UI.toggleAnnealFromNode) return;
+            try { window.__SEXCAPADES_LAYOUT_UI.toggleAnnealFromNode(id); }
+            catch (err) { __sxErrLog("layout-anneal-ctrl", err); }
+        }
         function Qa(e) {
             if (mn.staticMap) return;
             if (e.preventDefault(), e.stopPropagation(), to) return void (to = !1);
             const t = e.currentTarget, n = t.dataset.id || t.dataset.topicId || __sxClosestAction(t, "nodeGroup")?.dataset.layoutKey;
             if (!n) return;
+            if (sxMapAnnealChord(e)) return void sxToggleAnnealFromMap(n);
             selectSpokeNode(n, !0);
             const rec = qn[n] || Xn(n);
             const branch = rec ? rec.branch : (typeof ci === "function" ? ci(n) : "") || "";
@@ -139,6 +152,7 @@
             if (e.preventDefault(), e.stopPropagation(), to) return void (to = !1);
             const t = e.currentTarget, n = t.dataset.id || t.dataset.topicId || __sxClosestAction(t, "nodeGroup")?.dataset.layoutKey;
             if (!n) return;
+            if (sxMapAnnealChord(e)) return void sxToggleAnnealFromMap(n);
             selectSpokeNode(n, !0);
             const rec = qn[n] || Xn(n);
             const branch = rec ? rec.branch : (typeof ci === "function" ? ci(n) : "") || "";

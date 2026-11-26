@@ -1025,6 +1025,26 @@
     // so the next editor open lands on the selected branch. Setting
     // the selects on a hidden panel is inert until it opens.
     function selectNode(key){if(!key)return;if(focusEditorOn(key)){lastFocusKey=key;pendingFocusKey=null}else pendingFocusKey=key}
+    // Ctrl/Cmd-click on the map. resolveFocus covers cat- / topic
+    // keys. A category or subcategory spoke carries its stored id
+    // (xflc01 and the like), which resolveFocus does not name, so
+    // the taxonomy walk below is what turns that tap into a branch.
+    function branchNameForNode(key){
+      var f=resolveFocus(key);if(f&&f.branch)return f.branch;
+      if(!key)return "";
+      var tax=taxonomy();if(!tax||!tax.categories)return "";
+      var c,s,t,cat,subs,topics;
+      for(c=0;c<tax.categories.length;c++){
+        cat=tax.categories[c];if(!cat)continue;
+        if(cat.id===key||cat.name===key)return cat.name;
+        subs=cat.subcategories||[];
+        for(s=0;s<subs.length;s++)if(subs[s]&&(subs[s].id===key||subs[s].name===key))return cat.name;
+        topics=cat.topics||[];
+        for(t=0;t<topics.length;t++)if(topics[t]&&(topics[t].id===key||topics[t].name===key))return cat.name;
+      }
+      return "";
+    }
+    function toggleAnnealFromNode(key){var branch=branchNameForNode(key);if(!branch)return;try{toggleAnnealBranchFromMap(branch)}catch(e){__sxErrLog("layout-anneal-map-toggle",e)}}
     window.__sxGetActiveNodeKey=function(){
       var svg=document.getElementById("mapSvg");
       return (svg?selectedNodeKey(svg):null)||lastFocusKey||null;
