@@ -1,3 +1,162 @@
-!function(){"use strict";if(!window.SexcapadesRuntime){var e=new Map,t=new Map,r=new Map,n=document.getElementById.bind(document),i=document.querySelector.bind(document),a=document.querySelectorAll.bind(document),o=/(?:dialog\[open\]|#profileTabs|data-check|data-leniency-trigger|:(?:active|checked|disabled|focus|focus-within|hover|not|open|target))/,c={byId:function(t){var r=String(t),i=e.get(r);return i&&i.isConnected&&i.id===r||((i=n(r))?e.set(r,i):e.delete(r)),i},one:function(e){var r=String(e),n=!o.test(r),a=n?t.get(r):null;return a&&a.isConnected&&a.matches(r)||(a=i(r),n&&a&&t.set(r,a)),a},all:function(e){var t=String(e),n=!o.test(t),i=n?r.get(t):null;return i&&i.every(function(e){return e.isConnected&&e.matches(t)})||(i=Array.from(a(t)),n&&r.set(t,i)),i},invalidate:function(){t.clear(),r.clear()},clear:function(){e.clear(),t.clear(),r.clear()}},l={setTimeout:window.setTimeout.bind(window),setInterval:window.setInterval.bind(window),clearTimeout:window.clearTimeout.bind(window),clearInterval:window.clearInterval.bind(window),requestAnimationFrame:window.requestAnimationFrame.bind(window),cancelAnimationFrame:window.cancelAnimationFrame.bind(window)},u=new Map,s={register:function(e,t){return u.set(e,"interval"===t?"interval":"raf"===t?"raf":"timeout"),e},setTimeout:function(e,t){var r=Array.prototype.slice.call(arguments,2),n=l.setTimeout(function(){u.delete(n),e.apply(window,r)},t);return s.register(n,"timeout")},setInterval:function(e,t){var r=Array.prototype.slice.call(arguments,2),n=l.setInterval(function(){e.apply(window,r)},t);return s.register(n,"interval")},requestAnimationFrame:function(e){var n=l.requestAnimationFrame(function(t){u.delete(n),e(t)});return s.register(n,"raf")},clear:function(e){null!=e&&("interval"===u.get(e)?l.clearInterval(e):"raf"===u.get(e)?l.cancelAnimationFrame(e):l.clearTimeout(e),u.delete(e))},clearAll:function(){u.forEach(function(e,t){"interval"===e?l.clearInterval(t):"raf"===e?l.cancelAnimationFrame(t):l.clearTimeout(t)}),u.clear()},size:function(){return u.size}};window.addEventListener("pagehide",function(){s.clearAll(),c.clear()}),window.SexcapadesRuntime=Object.freeze({DOM:c,TimerManager:s,setHTML:function(e,t){if(!e)throw new TypeError("setHTML requires a target element.");return e.innerHTML=String(null==t?"":t),Array.from(e.querySelectorAll('script,iframe,object,embed,base,meta[http-equiv="refresh"]')).forEach(function(e){e.remove()}),Array.from(e.querySelectorAll("*")).forEach(function(e){Array.from(e.attributes||[]).forEach(function(t){var r=t.name.toLowerCase(),n=t.value;("on"===r.slice(0,2)||"srcdoc"===r||("href"===r||"src"===r||"xlink:href"===r||"formaction"===r)&&function(e){return/^\s*(?:javascript|vbscript):/i.test(String(e||""))}(n)||"style"===r&&/(?:expression\s*\(|url\s*\(\s*['"]?\s*(?:javascript|vbscript):|@import)/i.test(n))&&e.removeAttribute(t.name)})}),c.invalidate(),e}})}}();
+(function () {
+  "use strict";
+  if (!window.SexcapadesRuntime) {
+    var byIdCache = new Map();
+    var oneCache = new Map();
+    var allCache = new Map();
+    var getById = document.getElementById.bind(document);
+    var queryOne = document.querySelector.bind(document);
+    var queryAll = document.querySelectorAll.bind(document);
+    var dynamicSelectorRe = /(?:dialog\[open\]|#profileTabs|data-check|data-leniency-trigger|:(?:active|checked|disabled|focus|focus-within|hover|not|open|target))/;
+    var DOM = {
+      byId: function (id) {
+        var key = String(id);
+        var el = byIdCache.get(key);
+        if (el && el.isConnected && el.id === key) return el;
+        el = getById(key);
+        if (el) {
+          byIdCache.set(key, el);
+        } else if (window.__SX_ALLOW_DOM_FALLBACK) {
+          el = document.createElement("div");
+          el.id = key;
+          el.setAttribute("data-test-stub", "true");
+          el.appendChild(document.createElement("span"));
+          var container = document.getElementById("sxHarnessMockContainer") || document.body || document.documentElement;
+          container.appendChild(el);
+          byIdCache.set(key, el);
+        } else {
+          byIdCache.delete(key);
+        }
+        return el;
+      },
+      one: function (selector) {
+        var key = String(selector);
+        var cacheable = !dynamicSelectorRe.test(key);
+        var el = cacheable ? oneCache.get(key) : null;
+        if (el && el.isConnected && el.matches(key)) return el;
+        el = queryOne(key);
+        if (!el && window.__SX_ALLOW_DOM_FALLBACK) {
+          if (key.charAt(0) === "#" && !/[ .>+~:[\]]/.test(key.slice(1))) {
+            el = DOM.byId(key.slice(1));
+          } else {
+            el = document.createElement("div");
+            el.setAttribute("data-test-stub-query", key);
+            el.appendChild(document.createElement("span"));
+            var container = document.getElementById("sxHarnessMockContainer") || document.body || document.documentElement;
+            container.appendChild(el);
+          }
+        }
+        if (cacheable && el) oneCache.set(key, el);
+        return el;
+      },
+      all: function (selector) {
+        var key = String(selector);
+        var cacheable = !dynamicSelectorRe.test(key);
+        var list = cacheable ? allCache.get(key) : null;
+        if (list && list.every(function (el) { return el.isConnected && el.matches(key); })) return list;
+        list = Array.from(queryAll(key));
+        if (cacheable) allCache.set(key, list);
+        return list;
+      },
+      invalidate: function () { oneCache.clear(); allCache.clear(); },
+      clear: function () { byIdCache.clear(); oneCache.clear(); allCache.clear(); }
+    };
+    var nativeTimers = {
+      setTimeout: window.setTimeout.bind(window),
+      setInterval: window.setInterval.bind(window),
+      clearTimeout: window.clearTimeout.bind(window),
+      clearInterval: window.clearInterval.bind(window),
+      requestAnimationFrame: window.requestAnimationFrame.bind(window),
+      cancelAnimationFrame: window.cancelAnimationFrame.bind(window)
+    };
+    var activeTimers = new Map();
+    var TimerManager = {
+      register: function (id, kind) {
+        activeTimers.set(id, kind === "interval" ? "interval" : kind === "raf" ? "raf" : "timeout");
+        return id;
+      },
+      setTimeout: function (fn, delay) {
+        var args = Array.prototype.slice.call(arguments, 2);
+        var id = nativeTimers.setTimeout(function () { activeTimers.delete(id); fn.apply(window, args); }, delay);
+        return TimerManager.register(id, "timeout");
+      },
+      setInterval: function (fn, delay) {
+        var args = Array.prototype.slice.call(arguments, 2);
+        var id = nativeTimers.setInterval(function () { fn.apply(window, args); }, delay);
+        return TimerManager.register(id, "interval");
+      },
+      requestAnimationFrame: function (fn) {
+        var id = nativeTimers.requestAnimationFrame(function (ts) { activeTimers.delete(id); fn(ts); });
+        return TimerManager.register(id, "raf");
+      },
+      clear: function (id) {
+        if (id != null) {
+          var kind = activeTimers.get(id);
+          if (kind === "interval") nativeTimers.clearInterval(id);
+          else if (kind === "raf") nativeTimers.cancelAnimationFrame(id);
+          else nativeTimers.clearTimeout(id);
+          activeTimers.delete(id);
+        }
+      },
+      clearAll: function () {
+        activeTimers.forEach(function (kind, id) {
+          if (kind === "interval") nativeTimers.clearInterval(id);
+          else if (kind === "raf") nativeTimers.cancelAnimationFrame(id);
+          else nativeTimers.clearTimeout(id);
+        });
+        activeTimers.clear();
+      },
+      size: function () { return activeTimers.size; }
+    };
+    window.addEventListener("pagehide", function () { TimerManager.clearAll(); DOM.clear(); });
+    window.SexcapadesRuntime = Object.freeze({
+      DOM: DOM,
+      TimerManager: TimerManager,
+      setHTML: function (target, html) {
+        if (!target) throw new TypeError("setHTML requires a target element.");
+        target.innerHTML = String(html == null ? "" : html);
+        Array.from(target.querySelectorAll('script,iframe,object,embed,base,meta[http-equiv="refresh"]')).forEach(function (el) { el.remove(); });
+        Array.from(target.querySelectorAll("*")).forEach(function (el) {
+          Array.from(el.attributes || []).forEach(function (attr) {
+            var name = attr.name.toLowerCase();
+            var val = attr.value;
+            var badScheme = (name === "href" || name === "src" || name === "xlink:href" || name === "formaction") && /^\s*(?:javascript|vbscript):/i.test(String(val || ""));
+            var badStyle = name === "style" && /(?:expression\s*\(|url\s*\(\s*['"]?\s*(?:javascript|vbscript):|@import)/i.test(val);
+            if (name.slice(0, 2) === "on" || name === "srcdoc" || badScheme || badStyle) {
+              el.removeAttribute(attr.name);
+            }
+          });
+        });
+        DOM.invalidate();
+        return target;
+      }
+    });
+  }
+  window.TaxoPolemicsRuntime = window.SexcapadesRuntime;
+  window.FlexcapadesRuntime = window.SexcapadesRuntime;
+})();
 
-window.__loadScriptOnce=function(){var n={};return function(o){return n[o]||(n[o]=new Promise(function(e,r){var d=document.createElement("script");d.src=o,d.onload=function(){e()},d.onerror=function(){delete n[o],r(new Error("Could not load "+o))},document.head.appendChild(d)})),n[o]}}(),window.__loadQrScanner=function(){return window.__loadScriptOnce("https://cdn.jsdelivr.net/npm/jsqr@1.4.0/dist/jsQR.js")},window.__loadPdfLibs=function(){var b=(location.pathname.indexOf("/hosted/")===0||!location.pathname.endsWith(".html"))?"/hosted/app-assets/":"";return window.__loadScriptOnce(b+"vendor/jspdf.umd.min.js").then(function(){return window.__loadScriptOnce(b+"vendor/svg2pdf.umd.min.js")})};
+window.__loadScriptOnce = (function () {
+  var loaded = {};
+  return function (url) {
+    if (!loaded[url]) {
+      loaded[url] = new Promise(function (resolve, reject) {
+        var s = document.createElement("script");
+        s.src = url;
+        s.onload = function () { resolve(); };
+        s.onerror = function () { delete loaded[url]; reject(new Error("Could not load " + url)); };
+        document.head.appendChild(s);
+      });
+    }
+    return loaded[url];
+  };
+})();
+window.__loadQrScanner = function () {
+  return window.__loadScriptOnce("https://cdn.jsdelivr.net/npm/jsqr@1.4.0/dist/jsQR.js");
+};
+window.__loadPdfLibs = function () {
+  var base = (location.pathname.indexOf("/hosted/") === 0 || !location.pathname.endsWith(".html")) ? "/hosted/app-assets/" : "";
+  return window.__loadScriptOnce(base + "vendor/jspdf.umd.min.js").then(function () {
+    return window.__loadScriptOnce(base + "vendor/svg2pdf.umd.min.js");
+  });
+};

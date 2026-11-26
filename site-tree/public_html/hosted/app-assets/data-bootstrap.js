@@ -185,9 +185,11 @@ if (!window.SexcapadesRuntime) {
                 return e;
             }
         });
-        window.TaxoPolemicsRuntime = window.SexcapadesRuntime;
-        window.FlexcapadesRuntime = window.SexcapadesRuntime;
     })();
+}
+if (window.SexcapadesRuntime) {
+    window.TaxoPolemicsRuntime = window.SexcapadesRuntime;
+    window.FlexcapadesRuntime = window.SexcapadesRuntime;
 }
 if (typeof window !== "undefined") {
     if (!window.__SEXCAPADES_LAYOUT_DEFAULTS || typeof window.__SEXCAPADES_LAYOUT_DEFAULTS !== "object") {
