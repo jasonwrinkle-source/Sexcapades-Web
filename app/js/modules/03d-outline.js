@@ -545,6 +545,11 @@
             };
         })();
         let Ns = null, _s = null, Ds = null, Rs = null, Os = 0, sxOutlineLastEl = null, sxOutlineLastTime = 0, sxOutlineLastX = 0, sxOutlineLastY = 0;
+        // Double-click opens the placard (2026-11-25): the single-click
+        // toggle below is deferred briefly so a double-click can claim
+        // the gesture for the placard instead of flickering the
+        // expand/collapse first.
+        let sxOutlineClickTimer = 0, sxOutlineClickTarget = null;
         /* Canvas pole-label hover hook (widget approachability): a canvas
            has no DOM node per pole, so the paint module calls this with
            the canvas as anchor, the pole's full label as name, and its
@@ -615,6 +620,39 @@
             return e.setAttribute("aria-expanded", String(i)), $s(Ro, n).forEach(e => {
                 e.hidden = !i;
             }), !0;
+        }
+        // Single-click on a topic label (2026-11-25): the toggle the row
+        // click handler used to do at once — close the open description,
+        // or expand/collapse a parent topic. The branch (close vs.
+        // expand) is captured at click time, so a state change inside
+        // the defer window cannot flip it.
+        function sxOutlineDescClickToggle(n, isClose) {
+            if (isClose) { Rs = null; window.clearTimeout(Os); }
+            else if (__sxClosestAction(n, "summaryAncestor")) { js(); }
+            else { Vs(n); }
+        }
+        function sxOutlineDescClickWillToggle(n) {
+            if (Rs === n) return true;
+            if (__sxClosestAction(n, "summaryAncestor")) return false;
+            return "true" === n.dataset.outlineExpandable && !!getOutlineRow(n)?.dataset.outlineId;
+        }
+        // Double-click on a Hot List row opens the topic placard
+        // (2026-11-25). Interactive controls keep their own gestures
+        // (fader drag, mark and note buttons), so a double-click there
+        // does not open the placard.
+        function sxOutlineRowDblclick(e) {
+            if (!(e.target instanceof Element)) return false;
+            if (e.target.closest(".outline-rating-group, input, button, textarea, select")) return false;
+            const row = __sxClosestAction(e.target, "outlineRow");
+            if (!row || !row.dataset.outlineId) return false;
+            if (sxOutlineClickTimer) { window.clearTimeout(sxOutlineClickTimer); sxOutlineClickTimer = 0; sxOutlineClickTarget = null; }
+            js();
+            if (Rs && row.contains(Rs)) { Rs = null; window.clearTimeout(Os); }
+            if (typeof xo !== "function") return false;
+            e.preventDefault(), e.stopPropagation();
+            const r = row.getBoundingClientRect();
+            xo(row.dataset.outlineId, r.left + r.width / 2, r.bottom + 8);
+            return true;
         }
         // Appetite arm for the inline row sliders (2026-11-25): the
         // map-inline fader is a true cross slider in fader dress, so
@@ -841,8 +879,15 @@
             t && Rs === t && (e.preventDefault(), e.stopPropagation());
         }, !0), Ro.addEventListener("click", e => {
             const n = __sxClosestAction(e.target, "outlineDescTriggerRich");
-            if (n) return Rs === n ? (Rs = null, t.clear(Os), e.preventDefault(), void e.stopPropagation()) : void (__sxClosestAction(n, "summaryAncestor") ? js() : Vs(n) && (e.preventDefault(), 
-            e.stopPropagation()));
+            if (!n) return;
+            if (!sxOutlineDescClickWillToggle(n)) { sxOutlineDescClickToggle(n, false); return; }
+            e.preventDefault(), e.stopPropagation();
+            const isClose = (Rs === n);
+            window.clearTimeout(sxOutlineClickTimer), sxOutlineClickTarget = n, sxOutlineClickTimer = window.setTimeout(() => {
+                sxOutlineClickTimer = 0, sxOutlineClickTarget = null, sxOutlineDescClickToggle(n, isClose);
+            }, 280);
+        }), Ro.addEventListener("dblclick", e => {
+            sxOutlineRowDblclick(e);
         }), Ro.addEventListener("keydown", e => {
             const t = __sxClosestAction(e.target, "outlineBranchDisclosure");
             if (t && ("Enter" === e.key || " " === e.key)) {

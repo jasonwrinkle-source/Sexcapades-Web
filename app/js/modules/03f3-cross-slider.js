@@ -7,11 +7,13 @@
         // Puck position along the line is the leaning; drag up/down and
         // the same puck rides a vertical appetite arm that overlays the
         // other line and reserves no layout space. Puck colour is the
-        // appetite on the app's own interest scale (zi). Slide a puck
-        // off either end into the faded run-off and release to unrate
-        // that flank; the unrated puck ghosts charcoal at the centre
-        // of its own line, never at an end. Vertical travel never
-        // unrates, not even into aversion.
+        // appetite on the app's own interest scale (zi). Drag a puck
+        // off either end of the line and release to unrate that flank
+        // — the unrate is implied by the action, not spelled out: there
+        // are no "off" labels and no faded run-off extensions at the
+        // ends (2026-11-25). The unrated puck ghosts charcoal at the
+        // centre of its own line, never at an end. Vertical travel
+        // never unrates, not even into aversion.
         //
         // Scale note: the app stores leanings signed (-100..+100) and
         // the line shows them as 0..100 (lean = (appLean + 100) / 2),
@@ -114,7 +116,7 @@
             var onRelease = opts.onRelease || function () {};
             var label = opts.label || (dir.charAt(0).toUpperCase() + dir.slice(1));
             var inset = compact ? 34 : 38;
-            var runoffW = compact ? 24 : 28;
+            var overW = compact ? 24 : 28; // overshoot allowance past the track end (px) — no visible run-off is drawn; the drag past the end is what unrates.
             var root = document.createElement("div");
             root.className = "xs" + (compact ? " compact" : "");
             root.dataset.dir = dir;
@@ -124,16 +126,12 @@
                     '<span class="xs-vals"></span>' +
                 '</div>' +
                 '<div class="xs-stage">' +
-                    '<div class="xs-runoff left" aria-hidden="true"></div>' +
-                    '<div class="xs-runoff right" aria-hidden="true"></div>' +
                     '<div class="xs-arm"><div class="rail"></div></div>' +
                     '<div class="xs-track"><div class="xs-fill"></div><div class="xs-mid"></div>' +
                         '<div class="xs-puck" tabindex="0" role="slider"></div>' +
                     '</div>' +
                     '<div class="xs-bubble"></div>' +
                     '<div class="xs-scale"><span>Lean out</span><span>Lean in</span></div>' +
-                    '<span class="xs-off-label left" aria-hidden="true">off</span>' +
-                    '<span class="xs-off-label right" aria-hidden="true">off</span>' +
                 '</div>';
             var stage = root.querySelector(".xs-stage");
             var track = root.querySelector(".xs-track");
@@ -212,7 +210,7 @@
             }
 
             var drag = null;
-            function runPct(rect) { return (runoffW / rect.width) * 100; }
+            function overPct(rect) { return (overW / rect.width) * 100; }
             function armInner() {
                 var h = arm.clientHeight || 192;
                 return Math.max(40, h - 32);
@@ -249,12 +247,12 @@
                 var rect = drag.rect;
                 var rawPct = ((e.clientX - rect.left) / rect.width) * 100;
                 var app = sxCrossClamp(drag.startApp + (drag.startY - e.clientY) * (200 / armInner()), -100, 100);
-                var rp = runPct(rect);
+                var rp = overPct(rect);
                 if (drag.wasUnrated) {
                     // The unrated puck rests ON the line at its centre, so
                     // a mere grab must not rate it: nothing happens until
                     // the finger has actually moved a few px. Then dragging
-                    // it anywhere along the line rates it; in the run-off
+                    // it anywhere along the line rates it; past the end
                     // it stays unrated, following the finger so the drag
                     // can be felt the whole way.
                     if (Math.abs(e.clientX - drag.startX) < 4 && Math.abs(e.clientY - drag.startY) < 4) return;
@@ -269,11 +267,12 @@
                     return;
                 }
                 if (rawPct < 0 || rawPct > 100) {
-                    // In the run-off: preview only -- nothing is committed
+                    // Past the end: preview only -- nothing is committed
                     // until release, and dragging back on cancels it. The
-                    // puck VISIBLY travels the faded extension from the
-                    // moment it crosses the end cap, greying out
-                    // progressively the further into the run-off it goes.
+                    // puck travels past the end cap from the moment it
+                    // crosses it, greying out progressively the further
+                    // past the end it goes. No run-off is drawn; the
+                    // unrate is implied by the drag itself (2026-11-25).
                     if (!drag.offEnd) { drag.offEnd = true; root.classList.add("off-end"); }
                     var over = rawPct < 0 ? -rawPct : rawPct - 100;
                     var t = sxCrossClamp(over / rp, 0, 1);

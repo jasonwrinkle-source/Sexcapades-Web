@@ -64,7 +64,20 @@
         };
 
         const LabelRenderer = {
-            computeAnchoredOffset(routedLength, renderedW, hubR, iconR, gap, isReverse) {
+            // CENTRED LABEL (2026-11-25): the label's centre sits at the
+            // spoke's midpoint (routedLength / 2) — its position along the
+            // spoke, not its orientation, is what changed. This replaces the
+            // 2026-11-18 icon-anchored placement, which put the label's
+            // icon-side end a gap inside the icon at the far end of the
+            // spoke. The text runs hub -> icon on the forward path
+            // (text-anchor "start": the text starts at offset, so its
+            // centre is at offset + effectiveW / 2) and icon -> hub on the
+            // reverse path (text-anchor "end": the text ends at offset, so
+            // its centre is at routedLength - offset + effectiveW / 2 from
+            // the hub). The clamp bounds are unchanged: a label too wide
+            // for its spoke is held on the spoke (hub/icon clearances) and
+            // lands as close to the midpoint as it can.
+            computeCenteredOffset(routedLength, renderedW, hubR, iconR, isReverse) {
                 let offset, anchor;
                 const hubMargin = 16;
                 const leafMargin = 12;
@@ -75,7 +88,7 @@
                     textLengthAttr = ` textLength="${availSpan.toFixed(1)}" lengthAdjust="spacingAndGlyphs"`;
                 }
                 if (isReverse) {
-                    const idealOffset = iconR + gap + effectiveW;
+                    const idealOffset = routedLength / 2 + effectiveW / 2;
                     const minOff = iconR + leafMargin + effectiveW;
                     const maxOff = routedLength - hubR - hubMargin;
                     if (minOff <= maxOff) {
@@ -85,7 +98,7 @@
                     }
                     anchor = ' text-anchor="end"';
                 } else {
-                    const idealOffset = routedLength - iconR - gap - effectiveW;
+                    const idealOffset = routedLength / 2 - effectiveW / 2;
                     const minOff = hubR + hubMargin;
                     const maxOff = routedLength - iconR - leafMargin - effectiveW;
                     if (minOff <= maxOff) {
@@ -96,6 +109,20 @@
                     anchor = "";
                 }
                 return { offset, anchor, textLengthAttr, effectiveW };
+            },
+            // CENTRED LABEL (2026-11-25): the branch (category) name is a
+            // plain <text>, not a textPath, so its centre is shifted
+            // instead. Its anchor point sits at (spokeLen - labelWidth +
+            // offsetE) from the spoke start; the text runs outward from
+            // the anchor on the right (text-anchor "start") and inward
+            // from it on the left (text-anchor "end"), so the centre is
+            // at that point +/- textW / 2. Returns the shift (along the
+            // spoke, positive outward) that puts the centre at the
+            // midpoint. The font size and underline length still come
+            // from offsetE unchanged — only the position moves.
+            computeCategoryCentreShift(spokeLen, labelWidth, offsetE, textW, isReverse) {
+                const centreNow = (spokeLen - labelWidth + offsetE) + (isReverse ? -textW / 2 : textW / 2);
+                return spokeLen / 2 - centreNow;
             }
         };
 

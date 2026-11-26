@@ -1,4 +1,6 @@
 .mark-triangle-wrap, .mark-tetrad-wrap, .mark-compass-wrap, .mark-pentad-wrap, .mark-hexad-wrap, .mark-heptad-wrap, .mark-switchbox-wrap{margin:6px 0 4px 0;padding:6px 10px;background:rgba(15,23,42,0.85);border:1px solid rgba(56,189,248,0.3);border-radius:8px;display:flex;flex-direction:column;gap:6px;width:fit-content;max-width:100%;align-self:center;}
+/* 2-pole cross slider (2026-11-25): the card is the pair-topic control, so it uses the full dialog content width instead of shrinking to its content (~360px on desktop). The other wraps keep fit-content for their canvases. */
+.mark-switchbox-wrap{width:100%;}
 .mark-triangle-header{display:flex;justify-content:space-between;align-items:center;}
 .mark-triangle-title{font-size:11px;text-transform:uppercase;letter-spacing:0.05em;color:#94a3b8;font-weight:600;}
 .mark-tri-clear-btn{background:transparent;border:1px solid #475569;color:#94a3b8;font-size:10px;padding:2px 8px;border-radius:4px;cursor:pointer;}
@@ -10,6 +12,8 @@
 .mark-triangle-canvas-box{position:relative;display:flex;align-items:center;justify-content:center;}
 .mark-triangle-canvas, .mark-tetrad-canvas, .mark-compass-canvas, .mark-pentad-canvas, .mark-hexad-canvas, .mark-heptad-canvas, .mark-switchbox-canvas{touch-action:none;cursor:crosshair;background:radial-gradient(circle at center,rgba(30,41,59,0.6) 0%,rgba(15,23,42,0.9) 100%);border-radius:6px;box-shadow:inset 0 0 12px rgba(0,0,0,0.5);}
 .mark-triangle-slider-box{display:flex;flex-direction:row;align-items:center;justify-content:center;gap:6px;}
+/* The intensity boxes are hidden by the `hidden` attribute whenever the cross slider is active (sxSyncLinearIntensities) — but author `display:flex` above beats the UA [hidden]{display:none}, so without this the boxes stayed visible on the placard (2026-11-25: both the INTEREST pair in the card and the ADV/REC pair below it showed on a pair topic). */
+.mark-triangle-slider-box[hidden]{display:none;}
 .mark-slider-col{display:flex;flex-direction:column;align-items:center;gap:3px;transition:opacity 0.15s ease;}
 .mark-slider-col.is-active .mark-tri-slider-label{color:#f8fafc;font-weight:700;}
 .mark-slider-col:not(.is-active){opacity:0.45;}
@@ -47,10 +51,10 @@ input[type=range]#hotListWidgetIntensity{direction:ltr}
 .mark-switchbox-stat b{color:#38bdf8;}
 .mark-switchbox-role b{color:#4ade80;}
 /* Cross slider (2026-11-24): two lines, one puck per flank. Ported from the ruled mockup; colours from the app's own vars. */
-.xs{padding:2px 0 0;position:relative;--track-inset:38px;--runoff-w:28px;}
+.xs{padding:2px 0 0;position:relative;--track-inset:38px;}
 .xs.dragging{z-index:40;}
 .xs+.xs{border-top:1px dashed var(--line);margin-top:2px;padding-top:4px;}
-.xs.compact{--track-inset:34px;--runoff-w:24px;}
+.xs.compact{--track-inset:34px;}
 .xs-head{display:flex;align-items:baseline;justify-content:space-between;gap:10px;}
 .xs-name{font-weight:700;letter-spacing:.01em;display:inline-flex;align-items:center;gap:8px;color:var(--ink);}
 .xs-dot{width:10px;height:10px;border-radius:50%;background:var(--dir-color);flex:none;}
@@ -58,13 +62,6 @@ input[type=range]#hotListWidgetIntensity{direction:ltr}
 .xs-vals b{color:var(--ink);font-weight:700;}
 .xs-vals .neg{color:var(--red-deep);}
 .xs-stage{position:relative;height:48px;overflow:visible;touch-action:none;-webkit-user-select:none;user-select:none;-webkit-touch-callout:none;}
-.xs-runoff{position:absolute;top:50%;transform:translateY(-50%);width:var(--runoff-w);height:8px;z-index:1;pointer-events:none;border-radius:999px;opacity:.45;background:repeating-linear-gradient(90deg,var(--muted) 0 4px,transparent 4px,transparent 7px);}
-.xs-runoff.left{left:10px;}
-.xs-runoff.right{right:10px;}
-.xs-runoff::after{content:"×";position:absolute;top:50%;transform:translateY(-54%);font-size:11px;font-weight:700;line-height:1;color:var(--muted);}
-.xs-runoff.left::after{left:1px;}
-.xs-runoff.right::after{right:1px;}
-.xs.off-end .xs-runoff{opacity:.95;}
 .xs-track{position:absolute;left:var(--track-inset);right:var(--track-inset);top:50%;height:8px;transform:translateY(-50%);z-index:3;background:var(--line);border-radius:999px;touch-action:none;cursor:pointer;overflow:visible;}
 .xs-track::before,.xs-track::after{content:"";position:absolute;top:-4px;bottom:-4px;width:2px;background:var(--muted);opacity:.55;border-radius:2px;z-index:4;pointer-events:none;}
 .xs-track::before{left:0;}
@@ -85,9 +82,6 @@ input[type=range]#hotListWidgetIntensity{direction:ltr}
 .xs.off-end .xs-vals{color:var(--red-deep);font-weight:700;}
 .xs-puck:active{cursor:grabbing;}
 .xs-scale{position:absolute;left:var(--track-inset);right:var(--track-inset);top:calc(50% + 15px);display:flex;justify-content:space-between;color:var(--muted);font-size:.68rem;line-height:1;pointer-events:none;}
-.xs-off-label{position:absolute;top:calc(50% + 15px);font-size:.68rem;line-height:1;color:var(--muted);opacity:.75;pointer-events:none;}
-.xs-off-label.left{left:10px;}
-.xs-off-label.right{right:10px;}
 .xs-arm{position:absolute;top:50%;width:78px;height:192px;z-index:2;opacity:0;transform:translate(-50%,-50%) scaleY(.28);transform-origin:center;transition:opacity .16s ease,transform .2s ease;pointer-events:none;background:var(--panel);border:1px solid var(--line);border-radius:12px;box-shadow:0 14px 34px rgba(0,0,0,.32),0 2px 8px rgba(0,0,0,.18);}
 .xs.dragging .xs-arm{opacity:1;transform:translate(-50%,-50%) scaleY(1);}
 .xs-arm .rail{position:absolute;left:50%;margin-left:-3px;top:16px;bottom:16px;width:6px;background:linear-gradient(180deg,var(--green-deep),var(--curious),var(--red-deep));border-radius:3px;}

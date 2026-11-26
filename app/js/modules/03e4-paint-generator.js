@@ -818,7 +818,19 @@
                 // leaning aggregate. Unstored falls through to the
                 // leaning aggregate, which is the appetite derivation.
                 const sxCatGI = Rt ? null : fa(i, C, "giveIntensity"), sxCatRI = Rt ? null : fa(i, C, "receiveIntensity");
-                const j = g.labelStartX + g.ux * E, q = g.labelStartY + g.uy * E, H = Math.atan2(l.y - o.y, l.x - o.x), W = Math.cos(H) < 0, U = W ? -g.ux : g.ux, G = j + 0 * (W ? -g.uy : g.uy), K = q - 0 * U, z = 180 * (H + (W ? Math.PI : 0)) / Math.PI, V = W ? ' text-anchor="end"' : "", Y = sxIconDiameter(1), X = Y / 2, Z = Y / 24, Q = ge[i.name], J = Xa(a, yr(i)), ee = Q ? HubRenderer.renderIcon(dCat, Y, Q, Sa(dCat, qn[dCat], C, { tapFirst: !0 }), sxCatDisc ? sxCatDisc.ring : sxCatHeat || Q.color, J.x, J.y, true, false, null, sxCatDisc) : "", te = k(dCat, M, !Rt && qa(dCat, Je), !Rt && qa(dCat, et), !Rt && Boolean(tt[C]?.[dCat]?.length), J, g.ux, g.uy), ne = j - 11 * g.ux, ie = q - 11 * g.uy, ae = i.risk ? `<text class="risk-mark" x="${ne.toFixed(2)}" y="${ie.toFixed(2)}" dy="-8" text-anchor="middle" transform="rotate(${z.toFixed(2)} ${ne.toFixed(2)} ${ie.toFixed(2)})" aria-hidden="true">*</text>` : "", re = r ? h.hidden : n.topics.length, oe = X + 20, se = HubRenderer.renderBadges(J.x, J.y, re, dCat, -g.ux, -g.uy, oe, true), le = r ? function(e, t, n, i, a, r) {
+                // CENTRED LABEL (2026-11-25): shift the category name so
+                // its centre sits at the spoke's midpoint (half the
+                // spoke's length from the branch node to the category
+                // icon). The anchor point today is at (spokeLen -
+                // labelWidth + E), its centre at that point +/- the
+                // text half-width (plus on the right, minus on the left,
+                // where the text ends at the anchor). The shift moves
+                // the text, its risk mark and its underline together;
+                // the font size and underline length still come from E
+                // unchanged. (Math.cos(a) is the same test as the W
+                // below: the spoke runs at the branch angle a.)
+                const catSpokeLen = s - ea.lineStartRadius, catCentreShift = LabelRenderer.computeCategoryCentreShift(catSpokeLen, g.labelWidth, E, catTextW, Math.cos(a) < 0);
+                const j = g.labelStartX + g.ux * E + g.ux * catCentreShift, q = g.labelStartY + g.uy * E + g.uy * catCentreShift, H = Math.atan2(l.y - o.y, l.x - o.x), W = Math.cos(H) < 0, U = W ? -g.ux : g.ux, G = j + 0 * (W ? -g.uy : g.uy), K = q - 0 * U, z = 180 * (H + (W ? Math.PI : 0)) / Math.PI, V = W ? ' text-anchor="end"' : "", Y = sxIconDiameter(1), X = Y / 2, Z = Y / 24, Q = ge[i.name], J = Xa(a, yr(i)), ee = Q ? HubRenderer.renderIcon(dCat, Y, Q, Sa(dCat, qn[dCat], C, { tapFirst: !0 }), sxCatDisc ? sxCatDisc.ring : sxCatHeat || Q.color, J.x, J.y, true, false, null, sxCatDisc) : "", te = k(dCat, M, !Rt && qa(dCat, Je), !Rt && qa(dCat, et), !Rt && Boolean(tt[C]?.[dCat]?.length), J, g.ux, g.uy), ne = j - 11 * g.ux, ie = q - 11 * g.uy, ae = i.risk ? `<text class="risk-mark" x="${ne.toFixed(2)}" y="${ie.toFixed(2)}" dy="-8" text-anchor="middle" transform="rotate(${z.toFixed(2)} ${ne.toFixed(2)} ${ie.toFixed(2)})" aria-hidden="true">*</text>` : "", re = r ? h.hidden : n.topics.length, oe = X + 20, se = HubRenderer.renderBadges(J.x, J.y, re, dCat, -g.ux, -g.uy, oe, true), le = r ? function(e, t, n, i, a, r) {
                     if (!n) return "";
                     const o = `+${n} more`, s = Math.max(58, 7 * o.length + 16), l = i + s / 2 * Math.abs(a) + 12 * Math.abs(r), c = t + r * l;
                     return `<g class="hidden-count-badge density-count-badge" data-width="${s}" transform="translate(${(e + a * l - s / 2).toFixed(2)} ${(c - 12).toFixed(2)})" role="note" aria-label="${n} more ${1 === n ? "topic" : "topics"} hidden by hypermap density"><rect width="${s}" height="24" rx="7"/><text x="${(s / 2).toFixed(2)}" y="12" text-anchor="middle" dominant-baseline="middle">${o}</text></g>`;
@@ -888,19 +900,17 @@
                         textW2 = Za.measure(a, fs2, "topic");
                         renderedW2 = textW2 - 6 * Math.max(0, a.length - 1);
                     }
-                    const gap2 = Math.max(18, 6 * Za.measure(" ", fs2, "topic"));
                     let F, N;
-                    // ICON-ANCHORED LABEL (2026-11-18): the label sits
-                    // at the far end of the spoke, its icon-side end a
-                    // six-space gap inside the icon; the hub side
-                    // absorbs the slack, so labels no longer look
-                    // centred on their spokes. Rendered width =
-                    // measured width minus the halo (6 per character
-                    // gap) the render does not draw, so the gap is
-                    // measured to the glyphs actually drawn.
-                    const anchored2 = LabelRenderer.computeAnchoredOffset(y.routedLength, renderedW2, hubR2, iconR2, gap2, L);
-                    F = anchored2.offset;
-                    N = anchored2.anchor;
+                    // CENTRED LABEL (2026-11-25): the label's centre
+                    // sits at the spoke's midpoint (half the routed
+                    // length from the hub to the icon) — its position
+                    // along the spoke, not its orientation, is what
+                    // changed. Rendered width = measured width minus
+                    // the halo (6 per character gap) the render does
+                    // not draw.
+                    const centred2 = LabelRenderer.computeCenteredOffset(y.routedLength, renderedW2, hubR2, iconR2, L);
+                    F = centred2.offset;
+                    N = centred2.anchor;
                     const sxRevPath = L ? `<path id="pr-${r}" class="concept-path" d="${y.reverseD}" fill="none" stroke="transparent"/>` : "", O = o || Rt ? null : Qe[D]?.[r], B = o ? Ae(a, i.name) : Oe(a, i.name), j = o || Rt ? null : ca(r, D), q = o && !Rt ? ya(n.group, D, "give", r) : null, H = o && !Rt ? ya(n.group, D, "receive", r) : null;
                     const shape2 = Ge(r, D);
                     const isTriple2 = Boolean(shape2 && shape2.keys && shape2.keys.length === 3);
@@ -921,7 +931,7 @@
                     const V = y.icon.x, Y = y.icon.y, X = n.allImported, Z = n.topicFilter, J = on.has(r), ee = o ? Sa(r, qn[r], D, { tapFirst: !0 }) : ka(a, $e(qn[r], B, R, {
                         key: B.hankyKey
                     }, O), xa(r, D), { tapFirst: !0 }), te = sxIconDiameter(2), ne = te / 2, ie = te / 6, ae = te / 24, re = HubRenderer.renderIcon(r, te, B, ee, sxIconInterest ? sxIconInterest.ring : B.color, V, Y, false, o, getPartyHoldings(r), sxIconInterest), oe = o ? "" : k(r, O, !Rt && qa(r, Je), !Rt && qa(r, et), !Rt && Boolean(tt[D]?.[r]?.length), y.icon, y.ux, y.uy), se = J ? Z.hidden : X.length || (o ? n.group.topics.length : 0), /* HUB-BACKBONE badge: a wholly-unrated collapsed hub wears +N with N = its TOTAL topic count (owner ruling 2026-10-23); expanded and partially-rated hubs keep today's counts; plain topics unchanged */ le = HubRenderer.renderBadges(y.icon.x, y.icon.y, se, r, y.ux, y.uy, ne + 20), ce = X.length ? ` aria-expanded="${J}"` : "", de = X.length ? `${J ? "Topics shown" : "Topics hidden"}; press Enter to ${J ? "collapse" : "expand"}. ` : "", sxFl = isPseudo ? sxGetPseudoSpokeColors(r, B ? B.lineColor : null) : (sxPairTapers ? sxPairTapers(r) : null), sxPlC2 = sxFl ? null : sxPlacementFlankColors(j), sxPlS2 = sxFl ? null : sxSubPlacementFlankColors(o ? n.group : null, D, r), peTr = Ga.trimToIcons(l.x, l.y, V, Y, sxIconRadius(1), sxIconRadius(2)), peT = `M ${peTr.sx0.toFixed(2)} ${peTr.sy0.toFixed(2)} L ${peTr.sx1.toFixed(2)} ${peTr.sy1.toFixed(2)}`, ue = o ? renderKinkLine(l.x, l.y, V, Y, B.hankyKey, Rt ? "var(--green)" : null != R ? zi(R) : Te(B.lineColor), sxFl ? sxFl.give : sxPlS2 ? sxPlS2.give : Rt || null !== q ? K : null, sxFl ? sxFl.receive : sxPlS2 ? sxPlS2.receive : Rt || null !== H ? z : null, sxFl ? !0 : null !== R, t.cloudCount, r, a, D, pr.categoryIcon, pr.subcategoryIcon, sxIconDiameter(1), sxIconDiameter(2), 2) : renderKinkLine(l.x, l.y, V, Y, B.hankyKey, Rt ? "var(--green)" : (sxFl && sxFl.mid ? sxFl.mid : midColor2), sxFl ? sxFl.give : sxPlC2 ? sxPlC2.give : Rt || (isTriple2 ? j && j[shape2.keys[0] + "Known"] : j && j.giveKnown) ? K : null, sxFl ? sxFl.receive : sxPlC2 ? sxPlC2.receive : Rt || (isTriple2 ? j && j[shape2.keys[2] + "Known"] : j && j.receiveKnown) ? z : null, sxFl ? !0 : null !== R, t.cloudCount, r, a, D, pr.categoryIcon, 48, sxIconDiameter(1), sxIconDiameter(2), 2), pe = o ? "" : `<g class="second-gen-rating-controls-only">${SpokeRenderer.renderTopicSpoke(r, peT, a, y.nx, y.ny, l.x, l.y, V, Y, true, pr.topicIcon, G, true, "", null, null, null, false, true, h.length, null, sxIconDiameter(2), 2)}</g>`, he = o ? "map-label concept-path-label subcategory-label" : "map-label concept-path-label hanky-topic-label", ge = o ? `${Hi(a)} subcategory. ${de}` : `${Hi(a)}. ${de}Press Shift Enter for description and markers.`;
-                    v += `<g class="${E.join(" ")}" data-layout-key="${r}" data-layout-x="${V.toFixed(2)}" data-layout-y="${Y.toFixed(2)}" data-has-visible-children="${t.children.length ? "true" : "false"}" data-hanky-color="${B.hankyKey}" data-rated="${null === R && !(o && !Rt && (null !== ya(n.group, D, "advocacyIntensity", r) || null !== ya(n.group, D, "receptivityIntensity", r) || null !== ya(n.group, D, "givePlacementIntensity", r) || null !== ya(n.group, D, "receivePlacementIntensity", r) || null !== ya(n.group, D, "intensity", r))) ? "false" : "true"}" style="--profile-color:${f};--family-color:${o ? Q.color : B.color};--hanky-color:${B.labelColor};--hanky-label-stroke:${B.labelStroke}">${ue}${pe}${re}${oe}${le}<path id="p-${r}" class="concept-path" d="${w}" fill="none" stroke="transparent"/>${sxRevPath}<text class="${he}" data-topic-id="${r}" data-id="${r}" data-path-id="p-${r}" data-label-offset="${F.toFixed(2)}" ${Sa(r, qn[r], D)} tabindex="0" role="button"${ce} aria-label="${ge}" style="font-size:${fs2.toFixed(2)}px" dominant-baseline="middle" xml:space="preserve"><textPath href="#${T}" xlink:href="#${T}" startOffset="${F.toFixed(2)}"${N}${anchored2.textLengthAttr}>${Hi(a)}</textPath></text></g>`,
+                    v += `<g class="${E.join(" ")}" data-layout-key="${r}" data-layout-x="${V.toFixed(2)}" data-layout-y="${Y.toFixed(2)}" data-has-visible-children="${t.children.length ? "true" : "false"}" data-hanky-color="${B.hankyKey}" data-rated="${null === R && !(o && !Rt && (null !== ya(n.group, D, "advocacyIntensity", r) || null !== ya(n.group, D, "receptivityIntensity", r) || null !== ya(n.group, D, "givePlacementIntensity", r) || null !== ya(n.group, D, "receivePlacementIntensity", r) || null !== ya(n.group, D, "intensity", r))) ? "false" : "true"}" style="--profile-color:${f};--family-color:${o ? Q.color : B.color};--hanky-color:${B.labelColor};--hanky-label-stroke:${B.labelStroke}">${ue}${pe}${re}${oe}${le}<path id="p-${r}" class="concept-path" d="${w}" fill="none" stroke="transparent"/>${sxRevPath}<text class="${he}" data-topic-id="${r}" data-id="${r}" data-path-id="p-${r}" data-label-offset="${F.toFixed(2)}" ${Sa(r, qn[r], D)} tabindex="0" role="button"${ce} aria-label="${ge}" style="font-size:${fs2.toFixed(2)}px" dominant-baseline="middle" xml:space="preserve"><textPath href="#${T}" xlink:href="#${T}" startOffset="${F.toFixed(2)}"${N}${centred2.textLengthAttr}>${Hi(a)}</textPath></text></g>`,
                     t.children.forEach(e => {
                         window.__sxNodeTick && window.__sxNodeTick();
                         // Per-kink length override for subcategory
@@ -985,14 +995,13 @@
                             textW3 = Za.measure(n.label, fs3, "topic");
                             renderedW3 = textW3 - 6 * Math.max(0, n.label.length - 1);
                         }
-                        const gap3 = Math.max(16, 6 * Za.measure(" ", fs3, "topic"));
                         let m, y;
-                        // ICON-ANCHORED LABEL (2026-11-18): same as the
-                        // cloud-topics loop above - far end of the spoke,
-                        // six-space gap inside the icon, rendered width.
-                        const anchored3 = LabelRenderer.computeAnchoredOffset(p.routedLength, renderedW3, hubR3, iconR3, gap3, h);
-                        m = anchored3.offset;
-                        y = anchored3.anchor;
+                        // CENTRED LABEL (2026-11-25): same as the
+                        // cloud-topics loop above — the label's centre
+                        // sits at the spoke's midpoint.
+                        const centred3 = LabelRenderer.computeCenteredOffset(p.routedLength, renderedW3, hubR3, iconR3, h);
+                        m = centred3.offset;
+                        y = centred3.anchor;
                         const b = h ? `<path id="pr-${n.id}" class="concept-path" d="${p.reverseD}" fill="none" stroke="transparent"/>` : "", w = Rt ? null : ua(n.id, D), x = Rt ? null : Qe[D]?.[n.id], S = Rt ? null : ca(n.id, D), $ = Le(n.label, i.name);
                         const shape3 = Ge(n.id, D);
                         const isTriple3 = Boolean(shape3 && shape3.keys && shape3.keys.length === 3);
@@ -1019,7 +1028,7 @@
                         const sxIconInterest3 = !Rt && !isPseudo && !sxPairTapers && !getPartyHoldings(n.id) ? sxDiscFor(S, shape3) : null;
                         const q = HubRenderer.renderIcon(n.id, T, L, ka(n.label, $e(n, L, w, $, x), xa(n.id, D), { tapFirst: !0 }), sxIconInterest3 ? sxIconInterest3.ring : L.color, N, _, false, false, getPartyHoldings(n.id), sxIconInterest3);
                         const H = k(n.id, x, !Rt && qa(n.id, Je), !Rt && qa(n.id, et), !Rt && Boolean(tt[D]?.[n.id]?.length), p.icon, p.ux, p.uy), sxFl = isPseudo ? sxGetPseudoSpokeColors(n.id, $.lineColor) : (sxPairTapers ? sxPairTapers(n.id) : null), sxPlC3 = sxFl ? null : sxPlacementFlankColors(S), pTr = Ga.trimToIcons(V, Y, o ? N : l.x, o ? _ : l.y, sxIconRadius(2), sxIconRadius(3)), pT = `M ${pTr.sx0.toFixed(2)} ${pTr.sy0.toFixed(2)} L ${pTr.sx1.toFixed(2)} ${pTr.sy1.toFixed(2)}`, W = o ? renderKinkLine(V, Y, N, _, $.key, sxFl && sxFl.mid ? sxFl.mid : midColor3, sxFl ? sxFl.give : sxPlC3 ? sxPlC3.give : Rt || (isTriple3 ? S && S[shape3.keys[0] + "Known"] : S && S.giveKnown) ? M : null, sxFl ? sxFl.receive : sxPlC3 ? sxPlC3.receive : Rt || (isTriple3 ? S && S[shape3.keys[2] + "Known"] : S && S.receiveKnown) ? I : null, sxFl ? !0 : null !== w, e.cloudCount, n.id, n.label, D, pr.subcategoryIcon, 48, sxIconDiameter(2), sxIconDiameter(3), 3) : "", U = o ? `<g class="second-gen-rating-controls-only">${SpokeRenderer.renderTopicSpoke(n.id, pT, n.label, p.nx, p.ny, V, Y, N, _, true, pr.topicIcon, P, true, "", null, null, null, false, true, h.length, null, sxIconDiameter(3), 3)}</g>` : SpokeRenderer.renderTopicSpoke(n.id, pT, n.label, p.nx, p.ny, V, Y, l.x, l.y, false, pr.importedIcon, P, true, null === w && "noCode" === $.key ? "no-hanky-code-line" : "", null, null, $.lineColor, "noCode" === $.key, null !== w, h.length, SpokeGeometry.buildBaseCircle(V, Y, sxIconRadius(2)), sxIconDiameter(3), 3), G = o ? `${Hi(n.label)} in ${Hi(a)}. Press Shift Enter for description and markers.` : `${Hi(n.label)}, imported under ${Hi(a)}.${Hi(j)} Press Shift Enter for description and markers.`;
-                        v += `<g class="${O.join(" ")}" data-layout-key="${n.id}" data-layout-x="${N.toFixed(2)}" data-layout-y="${_.toFixed(2)}" data-rated="${null === w && !(S && (S.advocacyIntensityKnown || S.receptivityIntensityKnown || S.givePlacementIntensityKnown || S.receivePlacementIntensityKnown || S.intensityKnown || S.polesKnown || S.lineKnown)) ? "false" : "true"}" style="--profile-color:${f};--family-color:${Q.color}">${W}${U}${q}${H}<path id="p-${n.id}" class="concept-path" d="${p.labelD}" fill="none" stroke="transparent"/>${b}<text class="map-label concept-path-label${o ? " hanky-topic-label" : ""}" data-topic-id="${n.id}" data-id="${n.id}" data-path-id="p-${n.id}" data-label-offset="${m.toFixed(2)}" ${Sa(n.id, n, D)} tabindex="0" role="button" aria-label="${G}" style="font-size:${fs3.toFixed(2)}px" dominant-baseline="middle" xml:space="preserve"><textPath href="#${g}" xlink:href="#${g}" startOffset="${m.toFixed(2)}"${y}${anchored3.textLengthAttr}>${Hi(n.label)}</textPath></text></g>`;
+                        v += `<g class="${O.join(" ")}" data-layout-key="${n.id}" data-layout-x="${N.toFixed(2)}" data-layout-y="${_.toFixed(2)}" data-rated="${null === w && !(S && (S.advocacyIntensityKnown || S.receptivityIntensityKnown || S.givePlacementIntensityKnown || S.receivePlacementIntensityKnown || S.intensityKnown || S.polesKnown || S.lineKnown)) ? "false" : "true"}" style="--profile-color:${f};--family-color:${Q.color}">${W}${U}${q}${H}<path id="p-${n.id}" class="concept-path" d="${p.labelD}" fill="none" stroke="transparent"/>${b}<text class="map-label concept-path-label${o ? " hanky-topic-label" : ""}" data-topic-id="${n.id}" data-id="${n.id}" data-path-id="p-${n.id}" data-label-offset="${m.toFixed(2)}" ${Sa(n.id, n, D)} tabindex="0" role="button" aria-label="${G}" style="font-size:${fs3.toFixed(2)}px" dominant-baseline="middle" xml:space="preserve"><textPath href="#${g}" xlink:href="#${g}" startOffset="${m.toFixed(2)}"${y}${centred3.textLengthAttr}>${Hi(n.label)}</textPath></text></g>`;
                     });
                 }
             }
