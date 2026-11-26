@@ -2682,6 +2682,98 @@ var SX_SUBSUMED_BASE_TOPIC_IDS = {
             "Hair": "t0203", "Long Hair": "t0204", "Facial Hair": "t0208", "Beards": "t0209", "Body Hair": "t0210", "Pubic Hair": "t0211", "Muscles": "t0231"
         };
 
+/* --- Module: 02q-mark-labels.js --- */
+// Rating-mark display labels — the single source of truth.
+//
+// Engine keys NEVER change: favorite, limit, notinterested, fantasyonly,
+// alreadytried. Scoring and behavior are driven by the key, so relabeling
+// changes NO scoring — only the words and symbols a person sees.
+//
+// The table maps each key to {label, symbol, tooltip} for kink (the "sex"
+// skin, what Sexcapades shows today) and for vanilla (every other skin).
+// Vanilla is detected by the same mechanism as the vanilla guard and
+// docs-skin: window.__SX_SKIN_PREFIX, "sex" vs anything else.
+//
+// Symbol sets: kink = ★ ⊘ × ☁ ✓ ; vanilla = ★ ○ × ☁ ✓.
+// The ONLY symbol that changes between kink and vanilla is notinterested
+// (⊘ → ○, U+25CB empty circle): ⊘ means "prohibited", which fits "not
+// interested" but contradicts "no stake" (explicitly not a rejection).
+//
+// The "neutral" state (clearing a mark) is "no mark", not a label, and is
+// untouched. Outline flag keys "fantasy" / "tried" are normalized to the
+// engine keys "fantasyonly" / "alreadytried" by the lookup helpers.
+
+var sxMarkLabelTable = {
+    favorite: {
+        kink: { label: "Favorite", symbol: "★", tooltip: "Favorite" },
+        vanilla: { label: "Champion", symbol: "★", tooltip: "Champion — a position I stand for fully and would defend. My strongest stance on this question." }
+    },
+    limit: {
+        kink: { label: "Hard limit", symbol: "×", tooltip: "Hard limit" },
+        vanilla: { label: "Red line", symbol: "×", tooltip: "Red line — a position I will not accept, full stop. Marks this whole branch off the table, not just this topic." }
+    },
+    notinterested: {
+        kink: { label: "Not interested", symbol: "⊘", tooltip: "Not interested — not for me, but not a hard boundary" },
+        vanilla: { label: "No stake", symbol: "○", tooltip: "No stake — this question doesn't matter to me. Not a rejection (that's a red line), just no position here. Hidden, but it doesn't close the branch." }
+    },
+    fantasyonly: {
+        kink: { label: "Fantasy only", symbol: "☁", tooltip: "Fantasy only — I fantasize about this but would not do it in real life" },
+        vanilla: { label: "In principle only", symbol: "☁", tooltip: "In principle only — an idea I entertain in my head, not a stance I'd act on or live by. Kept out of practical plans." }
+    },
+    alreadytried: {
+        kink: { label: "Already tried", symbol: "✓", tooltip: "Already tried — I have already done this" },
+        vanilla: { label: "Lived it", symbol: "✓", tooltip: "Lived it — I've actually lived by this position, or been in the situation it describes. Tested in practice, not just theoretical." }
+    }
+};
+
+function sxIsVanillaSkin() {
+    return typeof window !== "undefined" && window.__SX_SKIN_PREFIX && "sex" !== window.__SX_SKIN_PREFIX;
+}
+
+function sxMarkKeyNormalize(key) {
+    return "fantasy" === key ? "fantasyonly" : "tried" === key ? "alreadytried" : key;
+}
+
+function sxMarkLabel(key) {
+    const row = sxMarkLabelTable[sxMarkKeyNormalize(key)];
+    if (!row) return null;
+    return sxIsVanillaSkin() ? row.vanilla : row.kink;
+}
+
+function sxMarkLabelFor(key, vanilla) {
+    const row = sxMarkLabelTable[sxMarkKeyNormalize(key)];
+    if (!row) return null;
+    return vanilla ? row.vanilla : row.kink;
+}
+
+// Short hover text for map-icon tooltips ("★ marks a Favorite.").
+// Built from the table: the symbol, the label, and — for "not interested" /
+// "no stake" — the first clause of the tooltip, which is what distinguishes
+// it from a hard limit / red line.
+function sxMarkHoverText(key) {
+    const m = sxMarkLabel(key);
+    if (!m) return "";
+    if ("notinterested" === sxMarkKeyNormalize(key)) {
+var rest = m.tooltip.replace(/^.*? — /, "").split(". ")[0];
+        return m.symbol + " marks " + m.label + ": " + rest + ".";
+    }
+    return m.symbol + " marks a " + m.label + ".";
+}
+
+// Uppercase plural heading for section titles ("HARD LIMITS" / "RED LINES").
+// The label is uppercased and pluralized with a trailing S.
+function sxMarkHeading(key) {
+    const m = sxMarkLabel(key);
+    if (!m) return "";
+    return m.label.toUpperCase() + "S";
+}
+
+function sxMarkHeadingFor(key, vanilla) {
+    const m = sxMarkLabelFor(key, vanilla);
+    if (!m) return "";
+    return m.label.toUpperCase() + "S";
+}
+
 /* --- Module: 02g-definitions-ratings.js --- */
 var f = Object.freeze([ "Orgasm & reproductive play", "Power exchange", "Service & ritual", "Connection & aftercare", "Psychological dynamics", "Primal & pursuit", "Impact, pain & body modification", "Bondage & restriction", "Sensation & atmosphere", "Body focus & appearance", "Clothing, materials & objects", "Roleplay & identity", "Fantasy & transformation", "Watching, exposure & settings", "Partner configurations", "Positions", "Sex acts", "Fluids & messy play" ]), y = new Map;
         f.forEach((e, t) => {
@@ -3200,7 +3292,7 @@ var ve = new Map;
             t && t.glyphFallback && r.push("The star symbol is shown because no symbol is assigned here.");
             return "Category" === e.kind ? r.push("noCode" === i.key ? "Dark-charcoal icon: no children have a hanky code." : `${o} icon: predominant hanky color among coded child topics${i.mixed ? "; dashed spoke means the coded children vary widely" : ""}.`) : r.push("noCode" === i.key ? "Dark-charcoal icon: this topic has no hanky code." : `${o} icon: this topic’s hanky-code color.`), 
             r.push(null === n ? "The spoke's center line is a neutral seam; the rating colors live on the spoke's flanks." : "Green-to-yellow-to-red spoke: current rating colors."), 
-            "favorite" === a ? r.push("★ marks a Favorite.") : "notinterested" === a ? r.push("⊘ marks Not Interested: not for this person, but not a hard boundary.") : "limit" === a && r.push("× marks a hard Limit."), 
+            ("favorite" === a || "notinterested" === a || "limit" === a) && r.push(sxMarkHoverText(a)), 
             e.risk && r.push("* marks a higher-risk practice needing specialized knowledge and explicit negotiation."), 
             r.join(" ");
         }
@@ -26189,9 +26281,11 @@ var Qr = null, Jr = null, eo = null, to = !1, no = null;
                     var t = function() {
                         if (!e.markers) return "";
                         var t = [];
-                        return [ [ "favorite", "favorite ★" ], [ "limit", "hard limit ×" ], [ "notinterested", "not interested ⊘" ], [ "fantasyonly", "fantasy only" ], [ "alreadytried", "already tried ✓" ] ].forEach(function(n) {
-                            var i = e.markers[n[0]];
-                            i && i.n > 0 && t.push(Math.round(i.pct) + "% ±" + Math.round(i.ci) + "% " + n[1]);
+                        return [ "favorite", "limit", "notinterested", "fantasyonly", "alreadytried" ].forEach(function(key) {
+                            var m = sxMarkLabel(key);
+                            if (!m) return;
+                            var i = e.markers[key];
+                            i && i.n > 0 && t.push(Math.round(i.pct) + "% ±" + Math.round(i.ci) + "% " + m.label.toLowerCase() + " " + m.symbol);
                         }), t.length ? '<p style="font-size:11px;opacity:0.7;margin:6px 0 0;">' + t.join(" · ") + "</p>" : "";
                     }();
                     if (e.enough_data) {
@@ -26283,6 +26377,7 @@ var Qr = null, Jr = null, eo = null, to = !1, no = null;
             Pr.querySelectorAll("[data-mark]").forEach(e => e.setAttribute("aria-checked", String(e.dataset.mark === (s || "neutral"))));
             Pr.querySelector('[data-topic-flag="fantasy"]').setAttribute("aria-pressed", String(Boolean(Je[sxActiveProfileId()]?.[e])));
             Pr.querySelector('[data-topic-flag="tried"]').setAttribute("aria-pressed", String(Boolean(et[sxActiveProfileId()]?.[e])));
+            sxRelabelMarkButtons(Pr);
             Pr.dataset.openedAt = String(performance.now());
             // Hanky code lives on the placard now (Jason, 2026-11-22):
             // on the Sexcapades skin a coded topic's sheet wears its
@@ -26586,6 +26681,34 @@ var __sxCtmEl = null, __sxCtmVal = null, __sxCtmKey = "";
             return y && (y.setAttribute("fill", sxInterestColor(s)), y.setAttribute("opacity", "1")), e.setAttribute("aria-valuenow", String(s)), 
             e.setAttribute("aria-valuetext", r ? "Release to clear" : String(Math.round(s))), 
             r ? Number.NaN : s;
+        }
+        // Mark-picker buttons (07-placard.html) are static HTML in the kink
+        // wording. Relabel them from the mark-label table on every dialog
+        // open so a vanilla skin shows its own terms and symbols. "neutral"
+        // is "no mark", not a label, and is left alone.
+        function sxRelabelMarkButtons(root) {
+            if (!root || typeof sxMarkLabel !== "function") return;
+            root.querySelectorAll("[data-mark]").forEach(btn => {
+                const key = btn.dataset.mark;
+                if (!key || "neutral" === key) return;
+                const m = sxMarkLabel(key);
+                if (!m) return;
+                const sym = btn.querySelector("b"), lab = btn.querySelector("span");
+                if (sym) sym.textContent = m.symbol;
+                if (lab) lab.textContent = m.label;
+                btn.title = m.tooltip;
+            });
+            root.querySelectorAll("[data-topic-flag]").forEach(btn => {
+                const key = btn.dataset.topicFlag;
+                if (!key) return;
+                const m = sxMarkLabel(key);
+                if (!m) return;
+                const sym = btn.querySelector("b"), lab = btn.querySelector("span");
+                if (sym) sym.textContent = m.symbol;
+                if (lab) lab.textContent = m.label;
+                btn.title = m.tooltip;
+                btn.setAttribute("aria-label", m.tooltip);
+            });
         }
         Pr && Pr.querySelectorAll("[data-mark]").forEach(e => e.addEventListener("click", () => {
             if (!Qr || performance.now() - Number(Pr.dataset.openedAt || 0) < 400) return;
@@ -27044,15 +27167,19 @@ var xs = 0;
             }
             r.append(c);
             const u = document.createElement("span");
-            u.className = "outline-marks", [ [ "favorite", "★", "Favorite" ], [ "notinterested", "⊘", "Not interested — not for me, but not a hard boundary" ], [ "limit", "×", "Hard limit" ] ].forEach(([t, n, i]) => {
+            u.className = "outline-marks", [ "favorite", "notinterested", "limit" ].forEach(t => {
+                const m = sxMarkLabel(t);
+                if (!m) return;
                 const a = document.createElement("button");
-                a.type = "button", a.className = "outline-mark", a.dataset.outlineMark = t, a.textContent = n, 
-                a.title = i, a.setAttribute("aria-label", `${i}: ${e.label}`), a.setAttribute("aria-pressed", "false"), 
+                a.type = "button", a.className = "outline-mark", a.dataset.outlineMark = t, a.textContent = m.symbol,
+                a.title = m.tooltip, a.setAttribute("aria-label", `${m.tooltip}: ${e.label}`), a.setAttribute("aria-pressed", "false"),
                 u.append(a);
-            }), [ [ "fantasy", "☁", "Fantasy only — I fantasize about this but would not do it in real life" ], [ "tried", "✓", "Already tried — I have already done this" ] ].forEach(([t, n, i]) => {
+            }), [ "fantasy", "tried" ].forEach(t => {
+                const m = sxMarkLabel(t);
+                if (!m) return;
                 const a = document.createElement("button");
-                a.type = "button", a.className = "outline-mark", a.dataset.outlineFlag = t, a.textContent = n, 
-                a.title = i, a.setAttribute("aria-label", `${i}: ${e.label}`), a.setAttribute("aria-pressed", "false"), 
+                a.type = "button", a.className = "outline-mark", a.dataset.outlineFlag = t, a.textContent = m.symbol,
+                a.title = m.tooltip, a.setAttribute("aria-label", `${m.tooltip}: ${e.label}`), a.setAttribute("aria-pressed", "false"),
                 u.append(a);
             });
             const p = document.createElement("button");
@@ -32664,11 +32791,14 @@ var scribeLeadId = null, scribePartnerId = null, scribeCastIds = [];
             };
         }
         function sxMarkerCaveatText(e) {
-            return `${e.fantasyOnly ? " Fantasy only: keep this fictional and do not treat it as real-world willingness." : ""}${e.alreadyTried ? " Already tried: past experience may be referenced without inventing details." : ""}`;
+            const v = sxIsVanillaSkin();
+            const fo = e.fantasyOnly ? sxMarkLabelFor("fantasyonly", v) : null, at = e.alreadyTried ? sxMarkLabelFor("alreadytried", v) : null;
+            return `${fo ? ` ${fo.label}: keep this ${v ? "as an idea and do not treat it as a real-world position" : "fictional and do not treat it as real-world willingness"}.` : ""}${at ? ` ${at.label}: past experience may be referenced without inventing details.` : ""}`;
         }
         function sxMarkerSummaryText(e, t) {
             const n = Array.isArray(t) ? t : [ t ], i = e => n.filter(t => e(t)).map(e => sxCastNameText(e)).join(", ") || "none";
-            return `MARKERS — Favorite (★): ${i(t => "favorite" === sxAnnotationState(e, t))}; Hard Limit (×): ${i(t => sxHasAppliedMarker(e, t, "limit"))}; Not Interested (⊘): ${i(t => sxHasAppliedMarker(e, t, "notinterested"))}; Fantasy-only (☁): ${i(t => sxIsFantasyOnly(e, t))}; Already Tried (✓): ${i(t => sxHasAlreadyTried(e, t))}.`;
+            const fav = sxMarkLabel("favorite"), lim = sxMarkLabel("limit"), ni = sxMarkLabel("notinterested"), fo = sxMarkLabel("fantasyonly"), at = sxMarkLabel("alreadytried");
+            return `MARKERS — ${fav.label} (${fav.symbol}): ${i(t => "favorite" === sxAnnotationState(e, t))}; ${lim.label} (${lim.symbol}): ${i(t => sxHasAppliedMarker(e, t, "limit"))}; ${ni.label} (${ni.symbol}): ${i(t => sxHasAppliedMarker(e, t, "notinterested"))}; ${fo.label} (${fo.symbol}): ${i(t => sxIsFantasyOnly(e, t))}; ${at.label} (${at.symbol}): ${i(t => sxHasAlreadyTried(e, t))}.`;
         }
         // Established-rule note (writers, do not unify without a ruling):
         // the single-profile builder sxSingleProfileData() below establishes a topic by
@@ -32721,7 +32851,7 @@ var scribeLeadId = null, scribePartnerId = null, scribeCastIds = [];
                         score: i,
                         kind: l ? "favorite" : "interest",
                         ...a,
-                        detail: isDisc ? (l ? `${t} marked this Favorite${stance ? " · holds " + stance : ""}.` : `${t} holds ${stance || "no recorded stance"}.`) + sxMarkerCaveatText(a) : `${t}${l ? " marked this Favorite" : ""}${l && stance ? " · " : l ? "" : " wants to do · "}${stance || "confirm the roles before starting"}.${sxMarkerCaveatText(a)}`
+                        detail: isDisc ? (l ? `${t} marked this ${sxMarkLabel("favorite").label}${stance ? " · holds " + stance : ""}.` : `${t} holds ${stance || "no recorded stance"}.`) + sxMarkerCaveatText(a) : `${t}${l ? " marked this " + sxMarkLabel("favorite").label : ""}${l && stance ? " · " : l ? "" : " wants to do · "}${stance || "confirm the roles before starting"}.${sxMarkerCaveatText(a)}`
                     });
                 } else if (d.length || sxIsFantasyOnly(r, e)) {
                     const n = sxFantasyTriedFlags(r, e), a = d.length ? Math.max(...d) : 1;
@@ -32732,7 +32862,7 @@ var scribeLeadId = null, scribePartnerId = null, scribeCastIds = [];
                         score: a,
                         kind: "curious",
                         ...n,
-                        detail: isDisc ? `${t} recorded a mild stance: ${sxRatingProseText(s, r) || "no strong stance"}. A mild stance is not a settled position.${sxMarkerCaveatText(n)}` : `${n.fantasyOnly ? "Fictional fantasy only:" : "Curious about — discuss before deciding:"} ${t} recorded ${sxRatingProseText(s, r) || "no real-world willingness"}. ${n.fantasyOnly ? "Do not treat this as a practical activity." : "Curious about is not Want to do; ask explicitly and make opting out easy."}${sxMarkerCaveatText(n)}`
+                        detail: isDisc ? `${t} recorded a mild stance: ${sxRatingProseText(s, r) || "no strong stance"}. A mild stance is not a settled position.${sxMarkerCaveatText(n)}` : `${n.fantasyOnly ? (sxIsVanillaSkin() ? "In principle only:" : "Fictional fantasy only:") : "Curious about — discuss before deciding:"} ${t} recorded ${sxRatingProseText(s, r) || "no real-world willingness"}. ${n.fantasyOnly ? (sxIsVanillaSkin() ? "Do not treat this as a real-world position." : "Do not treat this as a practical activity.") : "Curious about is not Want to do; ask explicitly and make opting out easy."}${sxMarkerCaveatText(n)}`
                     });
                 }
             }), n.sort((e, t) => ("favorite" === t.kind) - ("favorite" === e.kind) || t.score - e.score || e.label.localeCompare(t.label)), 
@@ -33067,7 +33197,7 @@ var sxScribeTargets = {
                 storyMeta: "NovelAI story",
                 head: () => "NovelAI Create Novel fields.",
                 title: () => "NovelAI erotic story",
-                intro: () => "Separated into copy-ready NovelAI fields. The Prompt includes slider ratings plus Favorite, Limit, Not Interested, Fantasy-only, and Already Tried markers.",
+                intro: () => `Separated into copy-ready NovelAI fields. The Prompt includes slider ratings plus ${sxMarkLabel("favorite").label}, ${sxMarkLabel("limit").label}, ${sxMarkLabel("notinterested").label}, ${sxMarkLabel("fantasyonly").label}, and ${sxMarkLabel("alreadytried").label} markers.`,
                 help: () => "Copy each generated field into the matching NovelAI Create Novel field.",
                 note: () => "NovelAI story fields generated, including the target length."
             },
@@ -33228,13 +33358,13 @@ var sxScribeTargets = {
                 ? `Top ${f.curious.length} of ${f.totalCurious} curious`
                 : `${f.curious.length} curious`;
             const opLabel = s ? "" : "full_arc" === scribeOperation ? "Full arc (⋈⊙⊖)" : "minus" === scribeOperation ? (o.length >= 3 ? "Polylectic (⊖)" : "Dialectic (⊖)") : "straight" === scribeOperation ? "Common ground (⊙)" : "Communion (⋈)";
-            n(e.byId("sceneBriefMeta"), `<span>${sxEscapeHtmlText(b)}</span>${opLabel ? `<span>${sxEscapeHtmlText(opLabel)}</span>` : ""}<span>${u ? (isDisc ? "Informed discussion" : targetInfo.storyMeta) : `${k} play guide`}</span><span>Target ${sxEscapeHtmlText(scribeLengthValue)} ${unitWord(scribeLengthValue, scribeLengthUnit)} · ${sxEscapeHtmlText("detailed" === scribeDetailLevel ? "high detail" : "concise" === scribeDetailLevel ? "concise" : "balanced detail")}</span>${s ? "" : `<span>Cast ${sxWriterLeniency}</span>`}<span>${estCountText}</span><span>${curCountText}</span>${g.length ? `<span>${g.length} fantasy-only ${u ? "kept fictional" : "excluded"}</span>` : ""}${m.length ? `<span>${m.length} already tried</span>` : ""}<span>${f.limits} limit${1 === f.limits ? "" : "s"} excluded</span>`);
+            n(e.byId("sceneBriefMeta"), `<span>${sxEscapeHtmlText(b)}</span>${opLabel ? `<span>${sxEscapeHtmlText(opLabel)}</span>` : ""}<span>${u ? (isDisc ? "Informed discussion" : targetInfo.storyMeta) : `${k} play guide`}</span><span>Target ${sxEscapeHtmlText(scribeLengthValue)} ${unitWord(scribeLengthValue, scribeLengthUnit)} · ${sxEscapeHtmlText("detailed" === scribeDetailLevel ? "high detail" : "concise" === scribeDetailLevel ? "concise" : "balanced detail")}</span>${s ? "" : `<span>Cast ${sxWriterLeniency}</span>`}<span>${estCountText}</span><span>${curCountText}</span>${g.length ? `<span>${g.length} ${sxMarkLabel("fantasyonly").label.toLowerCase()} ${u ? (isDisc ? "kept as ideas" : "kept fictional") : "excluded"}</span>` : ""}${m.length ? `<span>${m.length} ${sxMarkLabel("alreadytried").label.toLowerCase()}</span>` : ""}<span>${f.limits} ${sxMarkLabel("limit").label.toLowerCase()}${1 === f.limits ? "" : "s"} excluded</span>`);
             const establishedLabels = f.established.map(e => e.label).join(" · ") || "None recorded", curiousLabels = f.curious.map(e => e.label).join(" · ") || "None recorded";
             e.byId("sceneNegotiationTitle").textContent = u ? (isDisc ? ("minus" === scribeOperation ? (o.length >= 3 ? "Polylectic debate ingredients" : "Dialectic debate ingredients") : "straight" === scribeOperation ? "Common ground ingredients" : "full_arc" === scribeOperation ? "Full arc ingredients (3 movements)" : "Discussion ingredients") : ("minus" === scribeOperation ? "Contrasting story ingredients" : "Story ingredients")) : "Negotiation notes";
             const roleDynamicItem = p.length ? `<li><strong>Established role dynamic</strong><span>${sxEscapeHtmlText(h)} Keep these dominant/submissive roles stable; do not suggest switching them.</span></li>` : "";
-            if (u) n(e.byId("sceneNegotiation"), `<li><strong>Cast</strong><span>${sxEscapeHtmlText(s ? (isDisc ? d : d + " with an unnamed adult partner") : w)}</span></li>${roleDynamicItem}<li><strong>${isDisc ? "Established stances" : "Want to do"}</strong><span>${sxEscapeHtmlText(establishedLabels)}</span></li><li><strong>${isDisc ? "Curious stances" : "Curious about"}</strong><span>${sxEscapeHtmlText(curiousLabels)}</span></li>${g.length ? `<li><strong>Fantasy only</strong><span>${sxEscapeHtmlText(g.map(e => e.label).join(" · "))}. Keep these fictional; they do not signal real-world willingness.</span></li>` : ""}${m.length ? `<li><strong>Already tried</strong><span>${sxEscapeHtmlText(m.map(e => e.label).join(" · "))}. Past experience may shape the story without inventing details.</span></li>` : ""}`); else {
+            if (u) n(e.byId("sceneNegotiation"), `<li><strong>Cast</strong><span>${sxEscapeHtmlText(s ? (isDisc ? d : d + " with an unnamed adult partner") : w)}</span></li>${roleDynamicItem}<li><strong>${isDisc ? "Established stances" : "Want to do"}</strong><span>${sxEscapeHtmlText(establishedLabels)}</span></li><li><strong>${isDisc ? "Curious stances" : "Curious about"}</strong><span>${sxEscapeHtmlText(curiousLabels)}</span></li>${g.length ? `<li><strong>${sxMarkLabel("fantasyonly").label}</strong><span>${sxEscapeHtmlText(g.map(e => e.label).join(" · "))}. ${isDisc ? "Keep these as ideas; they do not signal a real-world position." : "Keep these fictional; they do not signal real-world willingness."}</span></li>` : ""}${m.length ? `<li><strong>${sxMarkLabel("alreadytried").label}</strong><span>${sxEscapeHtmlText(m.map(e => e.label).join(" · "))}. Past experience may shape the story without inventing details.</span></li>` : ""}`); else {
                 const t = s ? `<li><strong>Source profile</strong><span>${sxEscapeHtmlText(d)} only. A partner’s preferences are not assumed.</span></li>` : `<li><strong>Group profiles</strong><span>${sxEscapeHtmlText(w)}</span></li>`;
-                n(e.byId("sceneNegotiation"), `${t}${roleDynamicItem}<li><strong>Want to do</strong><span>${sxEscapeHtmlText(establishedLabels)}</span></li><li><strong>Curious about</strong><span>${sxEscapeHtmlText(curiousLabels)}</span></li>${g.length ? `<li><strong>Fantasy only — excluded</strong><span>${sxEscapeHtmlText(g.map(e => e.label).join(" · "))}. Do not schedule or suggest these in real-world play.</span></li>` : ""}${m.length ? `<li><strong>Already tried</strong><span>${sxEscapeHtmlText(m.map(e => e.label).join(" · "))}. Prior experience may inform pacing and check-ins.</span></li>` : ""}<li><strong>Before starting</strong><span>Confirm every named activity, actual intensity, pacing, roles, stop signals, and practical details. Curious about is not Want to do; ask explicitly before including it.</span></li>`);
+                n(e.byId("sceneNegotiation"), `${t}${roleDynamicItem}<li><strong>Want to do</strong><span>${sxEscapeHtmlText(establishedLabels)}</span></li><li><strong>Curious about</strong><span>${sxEscapeHtmlText(curiousLabels)}</span></li>${g.length ? `<li><strong>${sxMarkLabel("fantasyonly").label} — excluded</strong><span>${sxEscapeHtmlText(g.map(e => e.label).join(" · "))}. ${isDisc ? "Do not treat these as positions anyone holds." : "Do not schedule or suggest these in real-world play."}</span></li>` : ""}${m.length ? `<li><strong>${sxMarkLabel("alreadytried").label}</strong><span>${sxEscapeHtmlText(m.map(e => e.label).join(" · "))}. ${isDisc ? "Prior experience may inform the discussion." : "Prior experience may inform pacing and check-ins."}</span></li>` : ""}<li><strong>Before starting</strong><span>Confirm every named activity, actual intensity, pacing, roles, stop signals, and practical details. Curious about is not Want to do; ask explicitly before including it.</span></li>`);
             }
             const renderPhaseList = (listId, items, emptyText) => {
                 const r = e.byId(listId);
@@ -33536,9 +33666,9 @@ var sxScribeTargets = {
                 const t = sxNormalizeGenders(rt[e]), n = sxNormalizeOrientations(ot[e]), i = n.find(e => ![ "sapiosexual", "demisexual", "asexual", "questioning", "other", "private" ].includes(e)) || n[0], a = sxCastNameText(e), r = t.some(e => [ "man", "trans-man", "intersex-man" ].includes(e)) && !t.some(e => [ "woman", "trans-woman", "intersex-woman" ].includes(e)), o = t.some(e => [ "woman", "trans-woman", "intersex-woman" ].includes(e)) && !t.some(e => [ "man", "trans-man", "intersex-man" ].includes(e)), s = sxOrientationLabelsText(n, " and "), l = [ n.includes("sapiosexual") ? "Treat intellectual connection as an important part of attraction." : "", n.includes("demisexual") && "demisexual" !== i ? "Do not invent attraction without a strong emotional bond." : "" ].filter(Boolean).join(" "), c = e => `${e}${l ? ` ${l}` : ""}`;
                 if (!n.length) return c(`${a}’s orientation is unspecified. Choose an adult partner gender without inventing anatomy or unsupported relationship history.`);
                 return "straight" === i || "heterosexual" === i ? c(r ? `Choose an adult woman as ${a}’s unnamed partner to fit ${a}’s ${s.toLowerCase()} identity.` : o ? `Choose an adult man as ${a}’s unnamed partner to fit ${a}’s ${s.toLowerCase()} identity.` : `Choose an adult partner configuration consistent with ${a}’s ${s.toLowerCase()} identity; this shared profile does not identify one person’s gender.`) : "lesbian" === i ? c(`Choose an adult woman as ${a}’s unnamed partner. Do not infer anatomy.`) : "gay" === i ? c(r ? `Choose an adult man as ${a}’s unnamed partner. Do not infer anatomy.` : o ? `Choose an adult woman as ${a}’s unnamed partner. Do not infer anatomy.` : `Choose an adult partner gender consistent with ${a}’s gay identity; the profile does not identify one person’s gender.`) : "heteroflexible" === i ? c(r ? `Prefer an adult woman as ${a}’s unnamed partner, while allowing another gender when the story deliberately reflects ${a}’s heteroflexible identity.` : o ? `Prefer an adult man as ${a}’s unnamed partner, while allowing another gender when the story deliberately reflects ${a}’s heteroflexible identity.` : `Choose an adult partner gender consistent with ${a}’s heteroflexible identity.`) : "homoflexible" === i ? c(r ? `Prefer an adult man as ${a}’s unnamed partner, while allowing another gender when the story deliberately reflects ${a}’s homoflexible identity.` : o ? `Prefer an adult woman as ${a}’s unnamed partner, while allowing another gender when the story deliberately reflects ${a}’s homoflexible identity.` : `Choose an adult partner gender consistent with ${a}’s homoflexible identity.`) : [ "bisexual", "pansexual", "queer", "fluid", "bicurious", "omnisexual" ].includes(i) ? c(`Choose an adult partner gender that fits ${a}’s ${s.toLowerCase()} identity; do not default automatically to an opposite-gender partner, and do not infer anatomy.`) : c("asexual" === i ? `${a} is asexual, which does not determine partner gender. Choose any adult partner gender only as the story needs, without inventing sexual-attraction assumptions.` : "demisexual" === i ? `${a} is demisexual, which does not determine partner gender. Choose any adult partner gender without inventing anatomy or unsupported relationship history.` : `${a}’s recorded sexuality (${s}) does not determine one partner gender. Choose an adult partner gender without contradicting that identity or inventing anatomy.`);
-            }(scribeLeadId)}` : "", M = u ? f.established.filter(e => "Connection & aftercare" !== e.branch) : f.established, I = u ? f.curious.filter(e => "Connection & aftercare" !== e.branch) : f.curious, P = g.length ? u ? `- FANTASY ONLY: ${g.map(e => e.label).join(", ")}. These may appear only as clearly imagined fantasies; never treat them as real-world willingness or consent.` : `- ${g.length} fantasy-only ${1 === g.length ? "topic is" : "topics are"} omitted from this practical guide. Their names are intentionally absent from the prompt.` : "", L = m.length ? `- ALREADY TRIED: ${m.map(e => e.label).join(", ")}. Explicitly reference this as past experience without inventing details or assuming current consent.` : "";
+            }(scribeLeadId)}` : "", M = u ? f.established.filter(e => "Connection & aftercare" !== e.branch) : f.established, I = u ? f.curious.filter(e => "Connection & aftercare" !== e.branch) : f.curious, P = g.length ? u ? `- ${sxMarkLabelFor("fantasyonly", u).label.toUpperCase()}: ${g.map(e => e.label).join(", ")}. These may appear only as clearly entertained ideas; never treat them as real-world positions or consent.` : `- ${g.length} ${sxMarkLabelFor("fantasyonly", u).label.toLowerCase().replace(" ", "-")} ${1 === g.length ? "topic is" : "topics are"} omitted from this practical guide. Their names are intentionally absent from the prompt.` : "", L = m.length ? `- ${sxMarkLabelFor("alreadytried", u).label.toUpperCase()}: ${m.map(e => e.label).join(", ")}. Explicitly reference this as past experience without inventing details or assuming current consent.` : "";
             var T;
-            const F = [ (T = u, [ "MARKER HANDLING — BINDING:", ...i, ...T ? a : r ].map(e => "MARKER HANDLING — BINDING:" === e ? e : `- ${e}`).join(" ")), P, L, M.concat(I).map(e => `- ${e.label}: ${sxMarkerSummaryText(e.id, o)} SLIDER RATINGS AND ROLES — ${(u ? sxStripPromptLeadText : sxAliasProfileOneText)(e.detail)}`).join(" ") ].filter(Boolean).join(" ") || "- none recorded", N = sxHardLimitLines(o).length, _ = N ? `- ${N} hard-excluded ${1 === N ? "topic is" : "topics are"} omitted from this prompt. Their names are intentionally absent.` : "- No hard-excluded topics are marked.", D = sxScribeIsDiscussion() ? "" : s ? "" : [ "ESTABLISHED ROLE DYNAMICS — INFERRED FROM RECORDED DIRECTION SCORES", p.length ? p.map(e => `- ${e.text}`).join(" ") : "- No clear complementary dominant/submissive pairing is established.", "- When a clear pairing is listed, keep those dominant/submissive roles stable throughout. Do not suggest, schedule, or narrate a role reversal; explicit per-activity give/receive directions still control who performs each named activity." ].join(" "), R = s ? "" : [ "AUTHORITATIVE FULL-GROUP SHARED GROUND — PRECOMPUTED", `- Scores computed by the sync comparison engine (v1.1).`, `- Established: ${M.map(e => `${e.label} (${Math.round(e.score)}%${e.route ? `; ${sxDirectedPairText(e.route, !0)}` : e.routes ? `; ${e.routes.map(e => sxDirectedPairText(e, !0)).join(" | ")}` : ""})`).join("; ") || "none"}.`, `- Curious: ${I.map(e => `${e.label} (${Math.round(e.score)}%${e.route ? `; ${sxDirectedPairText(e.route, !0)}` : e.routes ? `; ${e.routes.map(e => sxDirectedPairText(e, !0)).join(" | ")}` : ""})`).join("; ") || "none"}.`, "- This is the already-computed overlap for every selected profile. Treat it as authoritative. Do not calculate, infer, broaden, or recompute the intersection yourself.", sxScribeIsDiscussion() ? "- Positions may come only from this full-group shared ground. Pairwise and individual profiles add character texture and dynamics, not new positions." : "- Activities may come only from this full-group shared ground. Pairwise and individual profiles add character texture and dynamics, not new activity permission." ].join(" "), O = s ? "" : function(e, n = {}) {
+            const F = [ (T = u, [ "MARKER HANDLING — BINDING:", ...i, ...T ? a : r ].map(e => "MARKER HANDLING — BINDING:" === e ? e : `- ${e}`).join(" ")), P, L, M.concat(I).map(e => `- ${e.label}: ${sxMarkerSummaryText(e.id, o)} SLIDER RATINGS AND ROLES — ${(u ? sxStripPromptLeadText : sxAliasProfileOneText)(e.detail)}`).join(" ") ].filter(Boolean).join(" ") || "- none recorded", N = sxHardLimitLines(o).length, _ = N ? `- ${N} ${u ? "red-line-excluded" : "hard-excluded"} ${1 === N ? "topic is" : "topics are"} omitted from this prompt. Their names are intentionally absent.` : `- No ${u ? "red-line-excluded" : "hard-excluded"} topics are marked.`, D = sxScribeIsDiscussion() ? "" : s ? "" : [ "ESTABLISHED ROLE DYNAMICS — INFERRED FROM RECORDED DIRECTION SCORES", p.length ? p.map(e => `- ${e.text}`).join(" ") : "- No clear complementary dominant/submissive pairing is established.", "- When a clear pairing is listed, keep those dominant/submissive roles stable throughout. Do not suggest, schedule, or narrate a role reversal; explicit per-activity give/receive directions still control who performs each named activity." ].join(" "), R = s ? "" : [ "AUTHORITATIVE FULL-GROUP SHARED GROUND — PRECOMPUTED", `- Scores computed by the sync comparison engine (v1.1).`, `- Established: ${M.map(e => `${e.label} (${Math.round(e.score)}%${e.route ? `; ${sxDirectedPairText(e.route, !0)}` : e.routes ? `; ${e.routes.map(e => sxDirectedPairText(e, !0)).join(" | ")}` : ""})`).join("; ") || "none"}.`, `- Curious: ${I.map(e => `${e.label} (${Math.round(e.score)}%${e.route ? `; ${sxDirectedPairText(e.route, !0)}` : e.routes ? `; ${e.routes.map(e => sxDirectedPairText(e, !0)).join(" | ")}` : ""})`).join("; ") || "none"}.`, "- This is the already-computed overlap for every selected profile. Treat it as authoritative. Do not calculate, infer, broaden, or recompute the intersection yourself.", sxScribeIsDiscussion() ? "- Positions may come only from this full-group shared ground. Pairwise and individual profiles add character texture and dynamics, not new positions." : "- Activities may come only from this full-group shared ground. Pairwise and individual profiles add character texture and dynamics, not new activity permission." ].join(" "), O = s ? "" : function(e, n = {}) {
                 if (e.length < 3) return "";
                 const i = new Set(sxAllTopicIds().filter(t => e.some(e => sxIsLimitOrUninterested(t, e)))), a = new Set(n.excludeFantasy ? sxAllTopicIds().filter(t => e.some(e => sxIsFantasyOnly(t, e))) : []);
                 return sxAllUnorderedPairs(e).map(([e, n]) => {
@@ -35679,9 +35809,9 @@ var sxExpandHold = null;
                     if (!t || !i) return;
                     const l = sxFillAncestorFlanks(t, n), c = [ i, `Give: ${l.giveKnown ? Math.round(l.give) : "unrated"} · Receive: ${l.receiveKnown ? Math.round(l.receive) : "unrated"}` ];
                     s && c.push(sxPlacardAboutText(s));
-                    const d = [], u = sxAnnotationState(t, n);
-                    "favorite" === u ? d.push("Favorite") : "limit" === u ? d.push("Hard Limit") : "notinterested" === u && d.push("Not Interested"), 
-                    Boolean(Je[n]?.[t]) && d.push("Fantasy-only"), Boolean(et[n]?.[t]) && d.push("Already Tried"), 
+                    const d = [], u = sxAnnotationState(t, n), _fm = sxMarkLabel(u);
+                    _fm && d.push(_fm.label),
+                    Boolean(Je[n]?.[t]) && d.push(sxMarkLabel("fantasyonly").label), Boolean(et[n]?.[t]) && d.push(sxMarkLabel("alreadytried").label), 
                     Boolean(tt[n]?.[t]?.length) && d.push("Has note"), d.length && c.push(d.join(" · ")), 
                     a(e, c.join("\n"));
                 }), t.querySelectorAll(".direction-control[data-id][data-direction]").forEach(e => {
@@ -36346,13 +36476,13 @@ var Au = new Map;
         function sxNegotiationChecklistText(e, t = {}) {
             const n = [ sxWriterStamp(e.ids), `NEGOTIATION CHECKLIST DATA — BINDING — ${e.names.join(" + ")}` ], i = Boolean(t.hideExcluded), sxNoTerms = Boolean(t.hideTerms);
             return e.names.forEach((t, a) => {
-                const r = [ ...(i ? e.limits[a].length ? [ `- ${e.limits[a].length} hard-excluded ${1 === e.limits[a].length ? "topic is" : "topics are"} omitted; names intentionally absent.` ] : [] : e.limits[a].map(e => `- ${e}`)), ...(e.terms && e.terms[a] && !sxNoTerms ? [ sxBindingTermsLine(e.terms[a]) ] : []) ];
-                r.length || r.push("- None marked"), n.push("", `${t} — HARD LIMITS`, ...r, `${t} — RED TOPICS`, ...e.reds[a].length ? e.reds[a].map(e => `- ${e}`) : [ "- None rated red" ], `${t} — STATED AFTERCARE NEEDS`, ...e.aftercareNeeds[a] ? [ sxStatedAftercareLine(e.aftercareNeeds[a]) ] : e.ratedAftercare[a].length ? e.ratedAftercare[a].map(e => `- ${e}`) : [ "- Not filled out; agree before play." ]);
+                const r = [ ...(i ? e.limits[a].length ? [ `- ${e.limits[a].length} ${sxIsVanillaSkin() ? "red-line-excluded" : "hard-excluded"} ${1 === e.limits[a].length ? "topic is" : "topics are"} omitted; names intentionally absent.` ] : [] : e.limits[a].map(e => `- ${e}`)), ...(e.terms && e.terms[a] && !sxNoTerms ? [ sxBindingTermsLine(e.terms[a]) ] : []) ];
+                r.length || r.push("- None marked"), n.push("", `${t} — ${sxMarkHeading("limit")}`, ...r, `${t} — RED TOPICS`, ...e.reds[a].length ? e.reds[a].map(e => `- ${e}`) : [ "- None rated red" ], `${t} — STATED AFTERCARE NEEDS`, ...e.aftercareNeeds[a] ? [ sxStatedAftercareLine(e.aftercareNeeds[a]) ] : e.ratedAftercare[a].length ? e.ratedAftercare[a].map(e => `- ${e}`) : [ "- Not filled out; agree before play." ]);
             }), n.push("", "MUTUAL EXCLUSIONS — BOTH PARTNERS RATED DEEP-RED", ...e.mutuals && e.mutuals.length ? e.mutuals.map(e => `- ${e}`) : [ "- None — no topic is rated deep-red by both partners." ]), n.push("", "DISCUSS FIRST — GREEN / RED CLASHES", ...e.discuss.length ? e.discuss.map(e => `- ${e}`) : [ "- No green-versus-red clashes found." ], "", "SAFEWORDS + STOP SIGNALS", `- ${e.safewords || "Not filled out; choose verbal safewords and a nonverbal stop signal before play."}`, "", "OTHER BEFORE-PLAY CHECKS", "- Agree what “pause” means and who may call it.", "- Confirm intensity, pacing, injuries, medication, allergies, and supplies."), 
             n.join(" ");
         }
         function sxPlayGuideSourceText(e) {
-            return [ "PLAY GUIDE DATA — SOURCE MATERIAL", "Warm-up", ...e.warmup.length ? e.warmup.map(e => `- ${e}`) : [ "- Agree on a gentle start together." ], "Main play", ...e.main.length ? e.main.map(e => `- ${e}`) : [ "- No shared green/green main-play topic is recorded." ], "Aftercare ideas from rated profiles", ...e.aftercare.length ? e.aftercare.map(e => `- ${e}`) : [ "- No shared aftercare topic is recorded." ], ...(e.fantasy && e.fantasy.length ? [ "Fantasy only — excluded from practical play", ...e.fantasy.map(e => `- ${e}`) ] : []), ...(e.teasers && e.teasers.length ? [ "Teasers — soft no revisited at the current Heat (flagged; teaser-eligible only, never a match)", ...e.teasers.map(e => `- ${e}`) ] : []) ].join(" ");
+            return [ "PLAY GUIDE DATA — SOURCE MATERIAL", "Warm-up", ...e.warmup.length ? e.warmup.map(e => `- ${e}`) : [ "- Agree on a gentle start together." ], "Main play", ...e.main.length ? e.main.map(e => `- ${e}`) : [ "- No shared green/green main-play topic is recorded." ], "Aftercare ideas from rated profiles", ...e.aftercare.length ? e.aftercare.map(e => `- ${e}`) : [ "- No shared aftercare topic is recorded." ], ...(e.fantasy && e.fantasy.length ? [ `${sxMarkLabel("fantasyonly").label} — excluded from practical ${sxIsVanillaSkin() ? "plans" : "play"}`, ...e.fantasy.map(e => `- ${e}`) ] : []), ...(e.teasers && e.teasers.length ? [ "Teasers — soft no revisited at the current Heat (flagged; teaser-eligible only, never a match)", ...e.teasers.map(e => `- ${e}`) ] : []) ].join(" ");
         }
         function sxNegotiationLengthSpec(t) {
             const raw = String(t.negotiationLength || "1").trim().replace(/[–—]/g, "-"), unit = [ "words", "paragraphs", "pages", "chapters" ].includes(String(t.negotiationLengthUnit || "")) ? String(t.negotiationLengthUnit) : "pages", m = raw.match(/(\d+(?:\.\d+)?)(?:\s*-\s*(\d+(?:\.\d+)?))?/), first = m ? Number(m[1]) : 1, labelNum = m ? m[2] ? `${m[1]}–${m[2]}` : `${m[1]}` : "1", pages = "words" === unit ? first / 500 : "paragraphs" === unit ? first / 5 : first, tier = pages <= 1 ? "compact" : pages <= 3 ? "standard" : "full", mod = sxSetterIsModeration();
@@ -36368,14 +36498,14 @@ var Au = new Map;
         function sxStoreNegotiationGuide(g) {
             const st = sxSceneCastPrefs(g.ids), sp = sxNegotiationLengthSpec(st), list = (items, empty) => items && items.length ? items.map(x => `- ${x}`) : [ `- ${empty}` ], L = [ "NEGOTIATION GUIDE", g.names.join(" + "), sxWriterStamp(g.ids), `Target length: ${sp.label} · Detail: ${sp.tierLabel}`, "This document records the completed negotiation checklist as the agreement itself. A hypermap match is not consent." ], roles = sxRolesBlock(g.ids, g.names), cast = sxCastBlock(g.ids, g.names), termsBlock = sxTermsBlock(g.ids, g.names), hardExcluded = [ ...new Set((g.excluded || []).concat(g.mutuals || [])) ];
             roles && L.push("", roles), cast && L.push("", cast), g.names.forEach((name, idx) => {
-                L.push("", `${name} — HARD LIMITS`, ...list(g.limits[idx], "None marked."));
+                L.push("", `${name} — ${sxMarkHeading("limit")}`, ...list(g.limits[idx], "None marked."));
                 g.terms && g.terms[idx] && L.push(sxBindingTermsLine(g.terms[idx]));
                 L.push("", `${name} — RED TOPICS`, ...list(g.reds[idx], "None rated red."));
             }), L.push("", "MUTUAL EXCLUSIONS — BOTH PARTNERS RATED DEEP-RED", ...list(g.mutuals, "None — no topic is rated deep-red by both partners.")), L.push("", "DISCUSS FIRST — GREEN / RED CLASHES", ...list(g.discuss, "No green-versus-red clashes found.")), L.push("", "SAFEWORDS + STOP SIGNALS", ...list(g.safewords ? [ g.safewords ] : [], "Not filled out; choose verbal safewords and a nonverbal stop signal before play.")), L.push("", "AFTERCARE"), g.names.forEach((name, idx) => {
                 L.push("", `${name} — STATED AFTERCARE NEEDS`, ...(g.aftercareNeeds[idx] ? [ sxStatedAftercareLine(g.aftercareNeeds[idx]) ] : list([], "Not filled out; agree before play.")));
-            }), L.push("", "HARD-EXCLUDED NOTICE", "The topics below are hard-excluded: outside this agreement and outside any play guide generated from it.", ...list(hardExcluded, "None marked.")), g.terms && g.terms.some(Boolean) && L.push("- Limits named in a profile’s Terms also apply, exactly as quoted in this guide."), termsBlock && L.push("", termsBlock), L.push("", "BEFORE-PLAY CHECKS"), "compact" === sp.tier ? L.push("- Confirm the meaning of “pause”, intensity and pacing, injuries, medication, allergies, and supplies before play.") : L.push("- Agree what “pause” means and who may call it.", "- Confirm intensity, pacing, injuries, medication, allergies, and supplies."), "compact" === sp.tier ? L.push("", "PER-TOPIC DETAIL — FOLDED AT THIS LENGTH", `- Rated aftercare preferences: ${g.names.map((name, idx) => `${name} ${g.ratedAftercare[idx].length} recorded`).join("; ")}.`, `- Topic detail folded: ${g.warmup.length} warm-up, ${g.main.length} main-play, and ${g.aftercare.length} aftercare ideas are recorded; fantasy-only and teaser entries stay labelled in the full setting.`) : (L.push("", "PER-TOPIC DETAIL — RATED AFTERCARE PREFERENCES"), g.names.forEach((name, idx) => {
+            }), L.push("", sxIsVanillaSkin() ? "RED-LINE-EXCLUDED NOTICE" : "HARD-EXCLUDED NOTICE", `The topics below are ${sxIsVanillaSkin() ? "red-line-excluded" : "hard-excluded"}: outside this agreement and outside any play guide generated from it.`, ...list(hardExcluded, "None marked.")), g.terms && g.terms.some(Boolean) && L.push(`- ${sxIsVanillaSkin() ? "Red lines" : "Limits"} named in a profile’s Terms also apply, exactly as quoted in this guide.`), termsBlock && L.push("", termsBlock), L.push("", "BEFORE-PLAY CHECKS"), "compact" === sp.tier ? L.push("- Confirm the meaning of “pause”, intensity and pacing, injuries, medication, allergies, and supplies before play.") : L.push("- Agree what “pause” means and who may call it.", "- Confirm intensity, pacing, injuries, medication, allergies, and supplies."), "compact" === sp.tier ? L.push("", "PER-TOPIC DETAIL — FOLDED AT THIS LENGTH", `- Rated aftercare preferences: ${g.names.map((name, idx) => `${name} ${g.ratedAftercare[idx].length} recorded`).join("; ")}.`, `- Topic detail folded: ${g.warmup.length} warm-up, ${g.main.length} main-play, and ${g.aftercare.length} aftercare ideas are recorded; ${sxMarkLabel("fantasyonly").label.toLowerCase().replace(" ", "-")} and teaser entries stay labelled in the full setting.`) : (L.push("", "PER-TOPIC DETAIL — RATED AFTERCARE PREFERENCES"), g.names.forEach((name, idx) => {
                 L.push("", `${name} — RATED AFTERCARE PREFERENCES`, ...list(g.ratedAftercare[idx], "None recorded."));
-            })), "full" === sp.tier && (L.push("", "APPENDIX — PER-TOPIC DETAIL", "", "Warm-up", ...list(g.warmup, "Agree on a gentle start together."), "", "Main play", ...list(g.main, "No shared green/green main-play topic is recorded."), "", "Aftercare ideas from rated profiles", ...list(g.aftercare, "No shared aftercare topic is recorded."), "", "Fantasy only — excluded from practical play", ...list(g.fantasy, "No fantasy-only topics are in the shared pool."), "", "Teasers — soft no revisited at the current Heat (flagged; teaser-eligible only, never a match)", ...list(g.teasers, "No soft-no topics are teaser-eligible at the current settings."))), L.push("", "End of negotiation guide.");
+            })), "full" === sp.tier && (L.push("", "APPENDIX — PER-TOPIC DETAIL", "", "Warm-up", ...list(g.warmup, "Agree on a gentle start together."), "", "Main play", ...list(g.main, "No shared green/green main-play topic is recorded."), "", "Aftercare ideas from rated profiles", ...list(g.aftercare, "No shared aftercare topic is recorded."), "", `${sxMarkLabel("fantasyonly").label} — excluded from practical ${sxIsVanillaSkin() ? "plans" : "play"}`, ...list(g.fantasy, `No ${sxMarkLabel("fantasyonly").label.toLowerCase().replace(" ", "-")} topics are in the shared pool.`), "", "Teasers — soft no revisited at the current Heat (flagged; teaser-eligible only, never a match)", ...list(g.teasers, "No soft-no topics are teaser-eligible at the current settings."))), L.push("", "End of negotiation guide.");
             const doc = L.join("\n"), panel = e.byId("negotiationPanel");
             return panel && (panel.dataset.negotiationGuide = doc, panel.dataset.negotiationLength = sp.label, panel.dataset.negotiationDetail = sp.tier), doc;
         }
@@ -36474,7 +36604,7 @@ var SX_PLAY_GUIDE_FORMAT = [ "STRUCTURED PLAY GUIDE FORMAT — REQUIRED (Scene S
             // and have no meaning for a stance map.
             const fmtStance = e => `- ${e.label} (${Math.round(e.score)}%${null != e.agreement ? `; agreement ${Math.round(e.agreement * 100)}%` : ""}): ${e.detail || ""}`,
                 stanceDetail = `ESTABLISHED STANCES: ${mod.established.map(fmtStance).join(" ") || "none recorded"}. CURIOUS STANCES: ${mod.curious.map(fmtStance).join(" ") || "none recorded"}.`;
-            return [ "AI MODERATION-PLAN REQUEST", `${opening} targeting approximately ${a}. ${detailLine} Use DISCUSSION DATA as inspiration while treating GROUND RULES as binding. Give each side its strongest form before comparing, and never let one side speak for the other. Use only the named topics below as the positions in the discussion. Do not invent positions, sources, or facts beyond the supplied data. If a field is not filled out, leave a clear pre-discussion decision point instead of inventing an answer.`, "", `CAST: ${mod.names.join(" + ")} (by name only)`, "", `STANCE DETAIL: ${stanceDetail}`, "", sxDiscussionDataBlock(iuData), "", sxGroundRulesBlock(mod), "", sxTermsBlock(mod.ids, mod.names), "", `HARD-EXCLUDED FROM DISCUSSION ${iuData.excluded.length ? iuData.excluded.map(x => `- ${x}`).join(" ") : iuData.mutuals.length ? "- no marked limits; mutual deep-red exclusions follow" : iuData.terms && iuData.terms.some(Boolean) ? "- no marked limits or mutual deep-red exclusions; limits named in the Terms above still apply" : "- none marked"}${iuData.mutuals.length ? ` MUTUAL EXCLUSIONS — BOTH PARTNERS RATED DEEP-RED ${iuData.mutuals.map(x => `- ${x}`).join(" ")}` : ""}`, "", "Rules:", ...rules.map(r => `- ${r}`), rigorLine ? `- ${rigorLine}` : "" ].join(" ");
+            return [ "AI MODERATION-PLAN REQUEST", `${opening} targeting approximately ${a}. ${detailLine} Use DISCUSSION DATA as inspiration while treating GROUND RULES as binding. Give each side its strongest form before comparing, and never let one side speak for the other. Use only the named topics below as the positions in the discussion. Do not invent positions, sources, or facts beyond the supplied data. If a field is not filled out, leave a clear pre-discussion decision point instead of inventing an answer.`, "", `CAST: ${mod.names.join(" + ")} (by name only)`, "", `STANCE DETAIL: ${stanceDetail}`, "", sxDiscussionDataBlock(iuData), "", sxGroundRulesBlock(mod), "", sxTermsBlock(mod.ids, mod.names), "", `${sxIsVanillaSkin() ? "RED-LINE-EXCLUDED" : "HARD-EXCLUDED"} FROM DISCUSSION ${iuData.excluded.length ? iuData.excluded.map(x => `- ${x}`).join(" ") : iuData.mutuals.length ? "- no marked red lines; mutual deep-red exclusions follow" : iuData.terms && iuData.terms.some(Boolean) ? "- no marked red lines or mutual deep-red exclusions; red lines named in the Terms above still apply" : "- none marked"}${iuData.mutuals.length ? ` MUTUAL EXCLUSIONS — BOTH PARTNERS RATED DEEP-RED ${iuData.mutuals.map(x => `- ${x}`).join(" ")}` : ""}`, "", "Rules:", ...rules.map(r => `- ${r}`), rigorLine ? `- ${rigorLine}` : "" ].join(" ");
         }
         function sxStoreDiscussionAgreement(ids, iuData, mod) {
             // The vanilla branch of sxStoreNegotiationGuide: a
@@ -36528,7 +36658,7 @@ var SX_PLAY_GUIDE_FORMAT = [ "STRUCTURED PLAY GUIDE FORMAT — REQUIRED (Scene S
             // attached (06d). Called from the dialog's open handler.
             const spec = window.__SX_SETTER || null,
                 rules = (spec && Array.isArray(spec.groundRules)) ? spec.groundRules : [];
-            return `<p class="sx-stamp">${sxEscapeHtmlText(sxWriterStamp(i.ids))}</p><section class="guide-block"><h4>Ground rules</h4><p class="guide-source-intro">The ground rules below are the binding layer for the discussion plan. The shared ground and the per-person stances come from the selected profiles' recorded ratings.</p><h5>Where they agree</h5><ul>${sxListItemMarkup(mod.agree.map(e => null == e.agreement ? e.label : `${e.label} — ${Math.round(e.agreement * 100)}% agreement`), "No shared established stance.")}</ul><h5>Where they part</h5><ul>${sxListItemMarkup(mod.part.map(e => `${e.label} — ${Math.round(e.agreement * 100)}% agreement`), "No shared established stance where they part.")}</ul>${mod.perPerson.map((p, pi) => `<strong>${sxEscapeHtmlText(mod.names[pi])}</strong><ul>${sxListItemMarkup((p.established || []).slice().sort((x, y) => Math.abs(y.score) - Math.abs(x.score)).slice(0, 5).map(e => `${e.label} (${Math.round(e.score)}%)`), "No established stance recorded.")}</ul>`).join("")}<h5>Ground rules</h5><ul>${sxListItemMarkup(rules, "Steelman every position: state each side in its strongest form before comparing.")}</ul></section><section class="guide-block"><h4>Discussion source material</h4><p class="guide-source-intro">This is the profile-derived idea pool the AI may arrange into a plan. It is not an agreement: the ground rules above are the binding layer.</p><div class="guide-source-grid"><div class="guide-source-group"><h5>Opening ideas</h5><ul>${sxListItemMarkup(i.warmup, "Agree on a gentle opening together.")}</ul></div><div class="guide-source-group"><h5>Development ideas</h5><ul>${sxListItemMarkup(i.main, "No shared development topic is recorded.")}</ul></div><div class="guide-source-group"><h5>Closing ideas</h5><ul>${sxListItemMarkup(i.aftercare, "No shared closing topic is recorded.")}</ul></div><div class="guide-source-group"><h5>Hard-excluded</h5><ul>${sxListItemMarkup([ ...new Set(i.excluded.concat(i.mutuals)) ].concat(i.names.map((e, t) => i.terms[t] ? e + " — hard limits named in Terms (binding), quoted above" : "").filter(Boolean)), "None marked.")}</ul></div></div></section>`;
+            return `<p class="sx-stamp">${sxEscapeHtmlText(sxWriterStamp(i.ids))}</p><section class="guide-block"><h4>Ground rules</h4><p class="guide-source-intro">The ground rules below are the binding layer for the discussion plan. The shared ground and the per-person stances come from the selected profiles' recorded ratings.</p><h5>Where they agree</h5><ul>${sxListItemMarkup(mod.agree.map(e => null == e.agreement ? e.label : `${e.label} — ${Math.round(e.agreement * 100)}% agreement`), "No shared established stance.")}</ul><h5>Where they part</h5><ul>${sxListItemMarkup(mod.part.map(e => `${e.label} — ${Math.round(e.agreement * 100)}% agreement`), "No shared established stance where they part.")}</ul>${mod.perPerson.map((p, pi) => `<strong>${sxEscapeHtmlText(mod.names[pi])}</strong><ul>${sxListItemMarkup((p.established || []).slice().sort((x, y) => Math.abs(y.score) - Math.abs(x.score)).slice(0, 5).map(e => `${e.label} (${Math.round(e.score)}%)`), "No established stance recorded.")}</ul>`).join("")}<h5>Ground rules</h5><ul>${sxListItemMarkup(rules, "Steelman every position: state each side in its strongest form before comparing.")}</ul></section><section class="guide-block"><h4>Discussion source material</h4><p class="guide-source-intro">This is the profile-derived idea pool the AI may arrange into a plan. It is not an agreement: the ground rules above are the binding layer.</p><div class="guide-source-grid"><div class="guide-source-group"><h5>Opening ideas</h5><ul>${sxListItemMarkup(i.warmup, "Agree on a gentle opening together.")}</ul></div><div class="guide-source-group"><h5>Development ideas</h5><ul>${sxListItemMarkup(i.main, "No shared development topic is recorded.")}</ul></div><div class="guide-source-group"><h5>Closing ideas</h5><ul>${sxListItemMarkup(i.aftercare, "No shared closing topic is recorded.")}</ul></div><div class="guide-source-group"><h5>${sxIsVanillaSkin() ? "Red-line-excluded" : "Hard-excluded"}</h5><ul>${sxListItemMarkup([ ...new Set(i.excluded.concat(i.mutuals)) ].concat(i.names.map((e, t) => i.terms[t] ? e + ` — ${sxIsVanillaSkin() ? "red lines" : "hard limits"} named in Terms (binding), quoted above` : "").filter(Boolean)), "None marked.")}</ul></div></div></section>`;
         }
         // Draft data computed once per open (writers refactor): the
         // open handler hands Fu the Iu() result it already computed
@@ -41889,7 +42019,7 @@ var ey = e.byId("openerDialog"), ty = e.byId("negotiationDialog");
             e.byId("negotiationSubtitle").textContent = isMod ? `${i.names.join(" + ")} · ${(setterSpec && setterSpec.panel && setterSpec.panel.subtitleSuffix) || "the ground rules stay in every discussion plan."}` : `${i.names.join(" + ")} · limits stay out of every play suggestion.`, e.byId("negotiationProfiles").textContent = i.names.join(" + ");
             const reuseExistingPanel = Boolean(a && a.children.length > 0 && ty && ty.dataset.participants === partKey && ty.dataset.setterSkinKey === skinKey);
             if (!reuseExistingPanel) {
-                n(a, isMod ? sxSetterModerationPanelHtml(i, mod) : `<p class="sx-stamp">${sxEscapeHtmlText(sxWriterStamp(i.ids))}</p><fieldset class="guide-block guide-block-limits"><legend>Hard limits + red topics</legend><div class="guide-limits-grid">${i.names.map((e, t) => `<div class="guide-limit-group"><h5>${sxEscapeHtmlText(e)} · hard limits</h5><ul>${sxListItemMarkup(i.terms[t] ? i.limits[t].concat(`Terms (binding): "${i.terms[t]}"`) : i.limits[t], "None marked.")}</ul></div><div class="guide-limit-group"><h5>${sxEscapeHtmlText(e)} · red topics</h5><ul>${sxListItemMarkup(i.reds[t], "None rated red.")}</ul></div>`).join("")}</div></fieldset><section class="guide-block guide-block-mutual"><h4>Mutual exclusions — both partners rated deep-red</h4><ul>${sxListItemMarkup(i.mutuals, "No topic is rated deep-red by both partners.")}</ul></section><section class="guide-block guide-block-discuss"><h4>Discuss first</h4><ul>${sxListItemMarkup(i.discuss, "No green-versus-red clashes found.")}</ul></section><section class="guide-block"><h4>Fill out before play</h4><div class="negotiation-fields"><label class="negotiation-field"><span>Safewords + nonverbal stop signals</span><small>Choose a shared system, define exactly what slows or stops play, and name a backup signal for anyone who cannot speak.</small><div class="signal-presets" role="group" aria-label="Common stop-signal starters"><label class="signal-preset"><input data-signal-preset="Stoplight: green = continue, yellow = slow down/check in, red = stop." type="checkbox"/>Stoplight</label><label class="signal-preset"><input data-signal-preset="Nonverbal stop: drop a held object." type="checkbox"/>Drop object</label><label class="signal-preset"><input data-signal-preset="Nonverbal stop: three firm taps." type="checkbox"/>Three taps</label></div><textarea data-negotiation-safewords placeholder="Example: green = continue; yellow = slow and check in; red = stop. If speech is difficult, dropping the held object or three firm taps means stop.">${sxEscapeHtmlText(r.safewords)}</textarea></label>${i.names.map((e, t) => `<label class="negotiation-field"><span>${sxEscapeHtmlText(e)} · aftercare needs</span><small>Write what ${sxEscapeHtmlText(e)} needs immediately after play and later: touch or space, reassurance, water or food, cleanup, medication or accessibility needs, check-in timing, and anything to avoid.</small><textarea data-negotiation-aftercare="${sxEscapeHtmlText(i.ids[t])}" placeholder="Example: water first, then quiet cuddling; no debrief until tomorrow; text check-in by noon…">${sxEscapeHtmlText(r.aftercare[i.ids[t]] || "")}</textarea></label>`).join("")}</div><h5>Rated aftercare preferences from the map</h5><p class="guide-source-intro">These suggestions come from each profile’s <strong>Connection &amp; aftercare</strong> ratings. Put lasting personal aftercare details in a note on an aftercare map topic; use the boxes above to confirm what applies to this specific plan.</p>${i.names.map((e, t) => `<strong>${sxEscapeHtmlText(e)}</strong><ul>${sxListItemMarkup(i.ratedAftercare[t], "None recorded.")}</ul>`).join("")}</section><section class="guide-block"><h4>Play guide source material</h4><p class="guide-source-intro">This is the profile-derived idea pool the AI may arrange into a guide. It is not an agreement: the limits, stop signals, aftercare fields, and decisions above are the binding checklist.</p><div class="guide-source-grid"><div class="guide-source-group"><h5>Warm-up ideas</h5><ul>${sxListItemMarkup(i.warmup, "Agree on a gentle start together.")}</ul></div><div class="guide-source-group"><h5>Main-play ideas</h5><ul>${sxListItemMarkup(i.main, "No shared green/green main-play topic is recorded.")}</ul></div><div class="guide-source-group"><h5>Aftercare ideas</h5><ul>${sxListItemMarkup(i.aftercare, "Agree on aftercare before starting.")}</ul></div><div class="guide-source-group"><h5>Hard-excluded</h5><ul>${sxListItemMarkup([ ...new Set(i.excluded.concat(i.mutuals)) ].concat(i.names.map((e, t) => i.terms[t] ? e + " — hard limits named in Terms (binding), quoted above" : "").filter(Boolean)), "None marked.")}</ul></div><div class="guide-source-group"><h5>Fantasy only — excluded from practical play</h5><ul>${sxListItemMarkup(i.fantasy || [], "No fantasy-only topics are in the shared pool.")}</ul></div><div class="guide-source-group"><h5>Teasers — soft no revisited at the current Heat</h5><ul>${sxListItemMarkup(i.teasers || [], "No soft-no topics are teaser-eligible at the current settings.")}</ul></div></div></section>`);
+                n(a, isMod ? sxSetterModerationPanelHtml(i, mod) : `<p class="sx-stamp">${sxEscapeHtmlText(sxWriterStamp(i.ids))}</p><fieldset class="guide-block guide-block-limits"><legend>${sxMarkHeading("limit")} + red topics</legend><div class="guide-limits-grid">${i.names.map((e, t) => `<div class="guide-limit-group"><h5>${sxEscapeHtmlText(e)} · ${sxMarkLabel("limit").label.toLowerCase()}s</h5><ul>${sxListItemMarkup(i.terms[t] ? i.limits[t].concat(`Terms (binding): "${i.terms[t]}"`) : i.limits[t], "None marked.")}</ul></div><div class="guide-limit-group"><h5>${sxEscapeHtmlText(e)} · red topics</h5><ul>${sxListItemMarkup(i.reds[t], "None rated red.")}</ul></div>`).join("")}</div></fieldset><section class="guide-block guide-block-mutual"><h4>Mutual exclusions — both partners rated deep-red</h4><ul>${sxListItemMarkup(i.mutuals, "No topic is rated deep-red by both partners.")}</ul></section><section class="guide-block guide-block-discuss"><h4>Discuss first</h4><ul>${sxListItemMarkup(i.discuss, "No green-versus-red clashes found.")}</ul></section><section class="guide-block"><h4>Fill out before play</h4><div class="negotiation-fields"><label class="negotiation-field"><span>Safewords + nonverbal stop signals</span><small>Choose a shared system, define exactly what slows or stops play, and name a backup signal for anyone who cannot speak.</small><div class="signal-presets" role="group" aria-label="Common stop-signal starters"><label class="signal-preset"><input data-signal-preset="Stoplight: green = continue, yellow = slow down/check in, red = stop." type="checkbox"/>Stoplight</label><label class="signal-preset"><input data-signal-preset="Nonverbal stop: drop a held object." type="checkbox"/>Drop object</label><label class="signal-preset"><input data-signal-preset="Nonverbal stop: three firm taps." type="checkbox"/>Three taps</label></div><textarea data-negotiation-safewords placeholder="Example: green = continue; yellow = slow and check in; red = stop. If speech is difficult, dropping the held object or three firm taps means stop.">${sxEscapeHtmlText(r.safewords)}</textarea></label>${i.names.map((e, t) => `<label class="negotiation-field"><span>${sxEscapeHtmlText(e)} · aftercare needs</span><small>Write what ${sxEscapeHtmlText(e)} needs immediately after play and later: touch or space, reassurance, water or food, cleanup, medication or accessibility needs, check-in timing, and anything to avoid.</small><textarea data-negotiation-aftercare="${sxEscapeHtmlText(i.ids[t])}" placeholder="Example: water first, then quiet cuddling; no debrief until tomorrow; text check-in by noon…">${sxEscapeHtmlText(r.aftercare[i.ids[t]] || "")}</textarea></label>`).join("")}</div><h5>Rated aftercare preferences from the map</h5><p class="guide-source-intro">These suggestions come from each profile’s <strong>Connection &amp; aftercare</strong> ratings. Put lasting personal aftercare details in a note on an aftercare map topic; use the boxes above to confirm what applies to this specific plan.</p>${i.names.map((e, t) => `<strong>${sxEscapeHtmlText(e)}</strong><ul>${sxListItemMarkup(i.ratedAftercare[t], "None recorded.")}</ul>`).join("")}</section><section class="guide-block"><h4>Play guide source material</h4><p class="guide-source-intro">This is the profile-derived idea pool the AI may arrange into a guide. It is not an agreement: the limits, stop signals, aftercare fields, and decisions above are the binding checklist.</p><div class="guide-source-grid"><div class="guide-source-group"><h5>Warm-up ideas</h5><ul>${sxListItemMarkup(i.warmup, "Agree on a gentle start together.")}</ul></div><div class="guide-source-group"><h5>Main-play ideas</h5><ul>${sxListItemMarkup(i.main, "No shared green/green main-play topic is recorded.")}</ul></div><div class="guide-source-group"><h5>Aftercare ideas</h5><ul>${sxListItemMarkup(i.aftercare, "Agree on aftercare before starting.")}</ul></div><div class="guide-source-group"><h5>${sxIsVanillaSkin() ? "Red-line-excluded" : "Hard-excluded"}</h5><ul>${sxListItemMarkup([ ...new Set(i.excluded.concat(i.mutuals)) ].concat(i.names.map((e, t) => i.terms[t] ? e + ` — ${sxIsVanillaSkin() ? "red lines" : "hard limits"} named in Terms (binding), quoted above` : "").filter(Boolean)), "None marked.")}</ul></div><div class="guide-source-group"><h5>${sxMarkLabel("fantasyonly").label} — excluded from practical ${sxIsVanillaSkin() ? "plans" : "play"}</h5><ul>${sxListItemMarkup(i.fantasy || [], `No ${sxMarkLabel("fantasyonly").label.toLowerCase().replace(" ", "-")} topics are in the shared pool.`)}</ul></div><div class="guide-source-group"><h5>Teasers — soft no revisited at the current Heat</h5><ul>${sxListItemMarkup(i.teasers || [], "No soft-no topics are teaser-eligible at the current settings.")}</ul></div></div></section>`);
                 // The safeword/aftercare inputs exist only on Sexcapades:
                 // a moderation skin has no safewords or aftercare to save,
                 // so the listener (which reads the safewords textarea) is
