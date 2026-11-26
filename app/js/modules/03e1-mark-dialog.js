@@ -7,15 +7,15 @@
         var sxCrossPlacardKeys = null;
         function sxCrossPlacardState(dir) {
             if (!Qr) return null;
-            var rec = ca(Qr, Vi());
+            var rec = sxDecodeTopicStance(Qr, sxActiveProfileId());
             return sxCrossFlankState(rec, dir, sxCrossPlacardKeys);
         }
         function sxCrossPlacardWrite(dir, value) {
             if (!Qr) return;
-            sxCrossWriteFlank(Qr, dir, value, Vi(), sxCrossPlacardKeys);
+            sxCrossWriteFlank(Qr, dir, value, sxActiveProfileId(), sxCrossPlacardKeys);
         }
         function sxCrossPlacardRelease() {
-            if (Qr) { sxSyncMarkRatings(Qr); Mr(); }
+            if (Qr) { sxSyncMarkRatings(Qr); sxRequestMapPaint(); }
         }
         // The flank keys for the current topic: give/receive on the
         // classic skin, advocacy/receptivity on stance skins (the
@@ -36,12 +36,12 @@
                         // clearer (it drops the object and its flat
                         // mirror keys); the flat Fo() path would leave
                         // the placement object behind.
-                        fl.forEach(k => sxClearAdvocacyReceptivity(Qr, k, Vi()));
+                        fl.forEach(k => sxClearAdvocacyReceptivity(Qr, k, sxActiveProfileId()));
                     } else {
-                        fl.forEach(k => { Fo(Qr, k, !1); Fo(Qr, k + "Intensity", !1); });
+                        fl.forEach(k => { sxClearTopicRating(Qr, k, !1); sxClearTopicRating(Qr, k + "Intensity", !1); });
                     }
                     sxSyncMarkRatings(Qr);
-                    Mr();
+                    sxRequestMapPaint();
                 });
             }
             var host = e.byId("markCrossSliderHost");
@@ -81,13 +81,13 @@
         function sxWritePlacementIntensity(mode, v) {
             if (!Qr) return;
             try {
-                const o = Io(Vi());
+                const o = sxRatingsForProfile(sxActiveProfileId());
                 const raw = (o && o[Qr] && typeof o[Qr] === "object") ? o[Qr] : {};
                 const placement = (raw[mode] && typeof raw[mode] === "object") ? raw[mode] : {};
                 const values = {};
                 Object.keys(placement).forEach(k => { if (k !== "intensity") values[k] = placement[k]; });
-                if (typeof sxPersistAdvocacyReceptivity === "function") sxPersistAdvocacyReceptivity(Qr, mode, values, v, Vi());
-                else if (typeof sxPersistIntensity === "function") sxPersistIntensity(Qr, v, Vi());
+                if (typeof sxPersistAdvocacyReceptivity === "function") sxPersistAdvocacyReceptivity(Qr, mode, values, v, sxActiveProfileId());
+                else if (typeof sxPersistIntensity === "function") sxPersistIntensity(Qr, v, sxActiveProfileId());
             } catch (err) {}
         }
         function sxSyncLinearIntensities(id, rec, shape) {
@@ -165,21 +165,21 @@
             const show = (input, out, known) => { out && (out.textContent = known ? String(Math.round(Number(input.value))) : "Unrated"); };
             const getKey = (idx, fallback) => {
                 if (!Qr) return fallback;
-                const shape = Ge(Qr);
+                const shape = sxWidgetConfig(Qr);
                 return (shape.keys && shape.keys[idx]) || fallback;
             };
             give.addEventListener("input", () => show(give, giveOut, !0));
             give.addEventListener("change", () => {
                 if (Qr) {
                     const k = getKey(0, "give");
-                    To(Qr, k, Number(give.value), !0);
+                    sxStoreFlankRating(Qr, k, Number(give.value), !0);
                     sxSyncMarkRatings(Qr);
                 }
             });
             e.byId("markGiveClear") && e.byId("markGiveClear").addEventListener("click", () => {
                 if (Qr) {
                     const k = getKey(0, "give");
-                    Fo(Qr, k, !0);
+                    sxClearTopicRating(Qr, k, !0);
                     sxSyncMarkRatings(Qr);
                 }
             });
@@ -188,14 +188,14 @@
                 recv.addEventListener("change", () => {
                     if (Qr) {
                         const k = getKey(1, "receive");
-                        To(Qr, k, Number(recv.value), !0);
+                        sxStoreFlankRating(Qr, k, Number(recv.value), !0);
                         sxSyncMarkRatings(Qr);
                     }
                 });
                 e.byId("markReceiveClear") && e.byId("markReceiveClear").addEventListener("click", () => {
                     if (Qr) {
                         const k = getKey(1, "receive");
-                        Fo(Qr, k, !0);
+                        sxClearTopicRating(Qr, k, !0);
                         sxSyncMarkRatings(Qr);
                     }
                 });
@@ -205,14 +205,14 @@
                 role3.addEventListener("change", () => {
                     if (Qr) {
                         const k = getKey(2, "role3");
-                        To(Qr, k, Number(role3.value), !0);
+                        sxStoreFlankRating(Qr, k, Number(role3.value), !0);
                         sxSyncMarkRatings(Qr);
                     }
                 });
                 e.byId("markRole3Clear") && e.byId("markRole3Clear").addEventListener("click", () => {
                     if (Qr) {
                         const k = getKey(2, "role3");
-                        Fo(Qr, k, !0);
+                        sxClearTopicRating(Qr, k, !0);
                         sxSyncMarkRatings(Qr);
                     }
                 });
@@ -222,14 +222,14 @@
                 role4.addEventListener("change", () => {
                     if (Qr) {
                         const k = getKey(3, "role4");
-                        To(Qr, k, Number(role4.value), !0);
+                        sxStoreFlankRating(Qr, k, Number(role4.value), !0);
                         sxSyncMarkRatings(Qr);
                     }
                 });
                 e.byId("markRole4Clear") && e.byId("markRole4Clear").addEventListener("click", () => {
                     if (Qr) {
                         const k = getKey(3, "role4");
-                        Fo(Qr, k, !0);
+                        sxClearTopicRating(Qr, k, !0);
                         sxSyncMarkRatings(Qr);
                     }
                 });
@@ -239,14 +239,14 @@
                 role5.addEventListener("change", () => {
                     if (Qr) {
                         const k = getKey(4, "role5");
-                        To(Qr, k, Number(role5.value), !0);
+                        sxStoreFlankRating(Qr, k, Number(role5.value), !0);
                         sxSyncMarkRatings(Qr);
                     }
                 });
                 e.byId("markRole5Clear") && e.byId("markRole5Clear").addEventListener("click", () => {
                     if (Qr) {
                         const k = getKey(4, "role5");
-                        Fo(Qr, k, !0);
+                        sxClearTopicRating(Qr, k, !0);
                         sxSyncMarkRatings(Qr);
                     }
                 });
@@ -256,14 +256,14 @@
                 role6.addEventListener("change", () => {
                     if (Qr) {
                         const k = getKey(5, "role6");
-                        To(Qr, k, Number(role6.value), !0);
+                        sxStoreFlankRating(Qr, k, Number(role6.value), !0);
                         sxSyncMarkRatings(Qr);
                     }
                 });
                 e.byId("markRole6Clear") && e.byId("markRole6Clear").addEventListener("click", () => {
                     if (Qr) {
                         const k = getKey(5, "role6");
-                        Fo(Qr, k, !0);
+                        sxClearTopicRating(Qr, k, !0);
                         sxSyncMarkRatings(Qr);
                     }
                 });
@@ -273,14 +273,14 @@
                 role7.addEventListener("change", () => {
                     if (Qr) {
                         const k = getKey(6, "role7");
-                        To(Qr, k, Number(role7.value), !0);
+                        sxStoreFlankRating(Qr, k, Number(role7.value), !0);
                         sxSyncMarkRatings(Qr);
                     }
                 });
                 e.byId("markRole7Clear") && e.byId("markRole7Clear").addEventListener("click", () => {
                     if (Qr) {
                         const k = getKey(6, "role7");
-                        Fo(Qr, k, !0);
+                        sxClearTopicRating(Qr, k, !0);
                         sxSyncMarkRatings(Qr);
                     }
                 });
@@ -290,52 +290,52 @@
                 role8.addEventListener("change", () => {
                     if (Qr) {
                         const k = getKey(7, "role8");
-                        To(Qr, k, Number(role8.value), !0);
+                        sxStoreFlankRating(Qr, k, Number(role8.value), !0);
                         sxSyncMarkRatings(Qr);
                     }
                 });
                 e.byId("markRole8Clear") && e.byId("markRole8Clear").addEventListener("click", () => {
                     if (Qr) {
                         const k = getKey(7, "role8");
-                        Fo(Qr, k, !0);
+                        sxClearTopicRating(Qr, k, !0);
                         sxSyncMarkRatings(Qr);
                     }
                 });
             }
         }
-        function xo(e, t, i, a = {}) {
-            if (Rt || !qn[e]) return;
-            Qr && Qr !== e && ao();
-            const r = qn[e], o = je[r.branch] || {}, s = Qe[Vi()][e];
+        function sxOpenMarkPlacard(e, t, i, a = {}) {
+            if (Rt || !sxNodeRegistry[e]) return;
+            Qr && Qr !== e && sxSavePlacardNote();
+            const r = sxNodeRegistry[e], o = je[r.branch] || {}, s = Qe[sxActiveProfileId()][e];
             const sxTitleBranch = "Category" === r.kind ? sxBranchByName(r.branch) : null;
-            const sxTitleDisc = sxTitleBranch ? sxCategoryInterestDisc(sxTitleBranch, Vi()) : "Subcategory" === r.kind ? (sgSub(e) ? sxSubInterestDisc(sgSub(e), Vi(), e) : null) : sxTopicInterestDisc(e, Vi());
+            const sxTitleDisc = sxTitleBranch ? sxCategoryInterestDisc(sxTitleBranch, sxActiveProfileId()) : "Subcategory" === r.kind ? (sgSub(e) ? sxSubInterestDisc(sgSub(e), sxActiveProfileId(), e) : null) : sxTopicInterestDisc(e, sxActiveProfileId());
             const sxTitleDiscSvg = d => d.left ? `<path d="M 24 2 A 22 22 0 0 0 24 46 Z" fill="${d.left}" style="fill:${d.left}"/><path d="M 24 2 A 22 22 0 0 1 24 46 Z" fill="${d.right}" style="fill:${d.right}"/><line x1="24" y1="2" x2="24" y2="46" stroke="rgba(0,0,0,0.4)" stroke-width="0.75"/>` : `<circle class="icon-disc" cx="24" cy="24" r="22" fill="${d.single}" style="fill:${d.single}"/>`;
             Qr = e, n(Lr, function(e) {
                 const t = e.risk ? '<span class="mark-risk" role="img" aria-label="Higher-risk practice requiring specialized knowledge and explicit negotiation">*</span>' : "";
                 if ("Category" === e.kind) {
                     const n = ge[e.branch];
-                    return n ? `<span>${t}${Hi(e.label)}</span><svg class="mark-title-icon branch-icon${sxTitleDisc ? "" : "noCode" === n.hankyKey ? " no-hanky-code-icon" : ""}" viewBox="0 0 48 48" aria-hidden="true" style="--icon-family:${sxTitleDisc ? sxTitleDisc.ring : n.color};color:${sxTitleDisc ? sxTitleDisc.ring : n.color}"><circle class="icon-ring-outline icon-ring-outline-outer" cx="24" cy="24" r="23.5"/>${sxTitleDisc ? sxTitleDiscSvg(sxTitleDisc) : '<circle class="icon-disc" cx="24" cy="24" r="22"/>'}<circle class="icon-ring-outline icon-ring-outline-inner" cx="24" cy="24" r="20.5"/><g transform="scale(2)">${n.glyph}</g></svg><sup class="mark-menu-title-note">(${Hi(we[e.branch] || "symbol")})</sup>` : `<span>${t}${Hi(e.label)}</span>`;
+                    return n ? `<span>${t}${sxEscapeHtmlText(e.label)}</span><svg class="mark-title-icon branch-icon${sxTitleDisc ? "" : "noCode" === n.hankyKey ? " no-hanky-code-icon" : ""}" viewBox="0 0 48 48" aria-hidden="true" style="--icon-family:${sxTitleDisc ? sxTitleDisc.ring : n.color};color:${sxTitleDisc ? sxTitleDisc.ring : n.color}"><circle class="icon-ring-outline icon-ring-outline-outer" cx="24" cy="24" r="23.5"/>${sxTitleDisc ? sxTitleDiscSvg(sxTitleDisc) : '<circle class="icon-disc" cx="24" cy="24" r="22"/>'}<circle class="icon-ring-outline icon-ring-outline-inner" cx="24" cy="24" r="20.5"/><g transform="scale(2)">${n.glyph}</g></svg><sup class="mark-menu-title-note">(${sxEscapeHtmlText(we[e.branch] || "symbol")})</sup>` : `<span>${t}${sxEscapeHtmlText(e.label)}</span>`;
                 }
-                const n = "Subcategory" === e.kind, i = n ? Ae(e.label, e.branch) : Oe(e.label, e.branch);
-                return `<span>${t}${Hi(e.label)}</span><svg class="mark-title-icon topic-icon${n ? " subcategory-icon" : sxTitleDisc ? "" : "noCode" === i.hankyKey ? " no-hanky-code-icon" : ""}" viewBox="0 0 48 48" aria-hidden="true" style="--icon-family:${sxTitleDisc ? sxTitleDisc.ring : i.color};color:${sxTitleDisc ? sxTitleDisc.ring : i.color}"><circle class="icon-ring-outline icon-ring-outline-outer" cx="24" cy="24" r="23.5"/>${sxTitleDisc ? sxTitleDiscSvg(sxTitleDisc) : '<circle class="icon-disc" cx="24" cy="24" r="22"/>'}<circle class="icon-ring-outline icon-ring-outline-inner" cx="24" cy="24" r="20.5"/><svg viewBox="${i.viewBox || "0 0 24 24"}" width="29.76" height="29.76" x="9.12" y="9.12" overflow="visible">${i.glyph}${i.accent}</svg></svg><sup class="mark-menu-title-note">(${Hi(xe(i.key))})</sup>`;
-            }(r)), Tr.textContent = lo(r);
-            const l = po(r), c = l ? null : co(r.label), d = l ? null : B(r.label);
+                const n = "Subcategory" === e.kind, i = n ? sxHubIcon(e.label, e.branch) : sxTopicIcon(e.label, e.branch);
+                return `<span>${t}${sxEscapeHtmlText(e.label)}</span><svg class="mark-title-icon topic-icon${n ? " subcategory-icon" : sxTitleDisc ? "" : "noCode" === i.hankyKey ? " no-hanky-code-icon" : ""}" viewBox="0 0 48 48" aria-hidden="true" style="--icon-family:${sxTitleDisc ? sxTitleDisc.ring : i.color};color:${sxTitleDisc ? sxTitleDisc.ring : i.color}"><circle class="icon-ring-outline icon-ring-outline-outer" cx="24" cy="24" r="23.5"/>${sxTitleDisc ? sxTitleDiscSvg(sxTitleDisc) : '<circle class="icon-disc" cx="24" cy="24" r="22"/>'}<circle class="icon-ring-outline icon-ring-outline-inner" cx="24" cy="24" r="20.5"/><svg viewBox="${i.viewBox || "0 0 24 24"}" width="29.76" height="29.76" x="9.12" y="9.12" overflow="visible">${i.glyph}${i.accent}</svg></svg><sup class="mark-menu-title-note">(${sxEscapeHtmlText(sxLabelFromKey(i.key))})</sup>`;
+            }(r)), Tr.textContent = sxPlacardAboutText(r);
+            const l = sxChildPrevalenceStats(r), c = l ? null : sxTopPrevalenceRow(r.label), d = l ? null : sxPeakPopularity(r.label);
             if (Fr.hidden = !l && !c && !Number.isFinite(d), l) {
                 const e = "category" === l.kind ? "Topics in this category" : "Child topics";
-                Nr.textContent = `${e} range from ${uo(l.min)}% to ${uo(l.max)}% common; average ${uo(l.average)}% across ${l.count} with study data.`, 
+                Nr.textContent = `${e} range from ${sxNumberAsText(l.min)}% to ${sxNumberAsText(l.max)}% common; average ${sxNumberAsText(l.average)}% across ${l.count} with study data.`, 
                 _r.textContent = `Simple average of available child-topic prevalence estimates${l.missing ? `; ${l.missing} without study data skipped` : ""}.`;
             } else if (c) {
                 const e = /\bfantasiz/i.test(c.label) ? c.label : `Adults fantasize about this: ${c.label}`;
-                Nr.textContent = c.display || `${e} (${uo(c.pct)}%)`, _r.textContent = `Source: ${c.source}${Number.isFinite(d) ? ` · ${Math.round(d).toLocaleString()} FetLife kinksters` : ""}`;
+                Nr.textContent = c.display || `${e} (${sxNumberAsText(c.pct)}%)`, _r.textContent = `Source: ${c.source}${Number.isFinite(d) ? ` · ${Math.round(d).toLocaleString()} FetLife kinksters` : ""}`;
             } else Number.isFinite(d) ? (Nr.textContent = `${Math.round(d).toLocaleString()} FetLife kinksters list this interest.`, 
             _r.textContent = `Source: FetLife · captured ${x.captured || x.fetlife?.captured || "2026-10-08"}`) : (Nr.textContent = "", 
             _r.textContent = "");
             var u;
-            Dr.hidden = !0, n(Rr, ""), fo(r, 0), e && 0 === e.indexOf("topic-") && (u = e, fetch("https://sexcapades.io/hosted/api/histogram.php?topic=" + encodeURIComponent(u)).then(function(e) {
+            Dr.hidden = !0, n(Rr, ""), sxFillPopularitySources(r, 0), e && 0 === e.indexOf("topic-") && (u = e, fetch("https://sexcapades.io/hosted/api/histogram.php?topic=" + encodeURIComponent(u)).then(function(e) {
                 return e.json();
             }).then(function(e) {
                 if (Qr === u && e && e.ok) {
-                    Dr.hidden = !1, fo(r, e.count);
+                    Dr.hidden = !1, sxFillPopularitySources(r, e.count);
                     var t = function() {
                         if (!e.markers) return "";
                         var t = [];
@@ -355,7 +355,7 @@
                 }
             }).catch(function (e) { __sxErrLog("histogram-submit", e); }));
             const p = Ir[r.label];
-            Br.hidden = !p, p ? Br.href = p : Br.removeAttribute("href"), oo(), function(e) {
+            Br.hidden = !p, p ? Br.href = p : Br.removeAttribute("href"), sxHideCommunityPopover(), function(e) {
                 /* Skin communities (vanilla): the topic's own communities
                    from its skin file, grouped by network. A vanilla topic
                    with none hides the whole community block. A topic with
@@ -397,14 +397,14 @@
                         key: "discord",
                         trigger: Hr
                     } ].forEach(n => {
-                        const i = ce(e, n.key), a = n.trigger;
+                        const i = sxLinksFor(e, n.key), a = n.trigger;
                         a.style.removeProperty("display"), a.hidden = !i.length, a.dataset.network = n.key,
                         a.dataset.topic = e, a.removeAttribute("data-skin-topic-id"),
                         a.textContent = "Discuss on " + ("fetlife" === n.key ? "FetLife" : "discord" === n.key ? "Discord" : "Reddit"),
                         a.setAttribute("aria-expanded", "false"), i.length && (t = !0);
                     }), Wr.hidden = t, Wr.textContent = t ? "" : "Reddit, FetLife, Discord: no dedicated community found";
                 }
-            }(r.label), ro(), n(zr, function() {
+            }(r.label), sxHideMarkSources(), n(zr, function() {
                 /* Included from, skinned per skin: on a vanilla topic it
                    lists the networks the topic's communities came from
                    (each skin shows its own source labels). Sexcapades
@@ -425,14 +425,14 @@
                     const t = Be[e];
                     return `<a href="${t.url}" target="_blank" rel="noopener noreferrer">${t.label}</a>`;
                 }).join("");
-            }()), Vr.hidden = !zr.innerHTML;            const h = tt[Vi()]?.[e] || [], aftercareNote = "Connection & aftercare" === r.branch;
+            }()), Vr.hidden = !zr.innerHTML;            const h = tt[sxActiveProfileId()]?.[e] || [], aftercareNote = "Connection & aftercare" === r.branch;
             Zr.maxLength = aftercareNote ? 1600 : 800, Zr.placeholder = aftercareNote ? "Describe your aftercare needs: touch or space, reassurance, water or food, cleanup, medication or accessibility needs, check-in timing, and anything to avoid…" : "Add a note for this topic…", __sxClosestAction(Zr, "markNoteField")?.classList.toggle("is-aftercare-note", aftercareNote);
             Zr.value = h.join(" ");
             Yr.hidden = !0;
             n(Xr, "");
             Pr.querySelectorAll("[data-mark]").forEach(e => e.setAttribute("aria-checked", String(e.dataset.mark === (s || "neutral"))));
-            Pr.querySelector('[data-topic-flag="fantasy"]').setAttribute("aria-pressed", String(Boolean(Je[Vi()]?.[e])));
-            Pr.querySelector('[data-topic-flag="tried"]').setAttribute("aria-pressed", String(Boolean(et[Vi()]?.[e])));
+            Pr.querySelector('[data-topic-flag="fantasy"]').setAttribute("aria-pressed", String(Boolean(Je[sxActiveProfileId()]?.[e])));
+            Pr.querySelector('[data-topic-flag="tried"]').setAttribute("aria-pressed", String(Boolean(et[sxActiveProfileId()]?.[e])));
             Pr.dataset.openedAt = String(performance.now());
             // Hanky code lives on the placard now (Jason, 2026-11-22):
             // on the Sexcapades skin a coded topic's sheet wears its
@@ -478,11 +478,11 @@
                 preventScroll: !0
             });
         }
-        function So(e) {
+        function sxToggleBranchFocus(e) {
             noteFitUserCamera();
             if (Nt) return;
-            let t = qn[e];
-            if (t || h.some(n => n.topics.some(i => Wn(i) === e && (t = {
+            let t = sxNodeRegistry[e];
+            if (t || h.some(n => n.topics.some(i => sxResolveTopicId(i) === e && (t = {
                 id: e,
                 label: sxName(i),
                 branch: n.name,
@@ -491,129 +491,129 @@
                 poleReading: i && i.poleReading || null,
                 poleEnemies: i && Array.isArray(i.poleEnemies) ? i.poleEnemies : null
             }, !0))), t) {
-                if (qn[e] = t, Nt = null, "Category" === t.kind) {
-                    if (wn = !1, rn.has(t.branch)) return rn.delete(t.branch), Lt = null, void Mr();
+                if (sxNodeRegistry[e] = t, Nt = null, "Category" === t.kind) {
+                    if (wn = !1, rn.has(t.branch)) return rn.delete(t.branch), Lt = null, void sxRequestMapPaint();
                     rn.add(t.branch);
                 } else wn = !1, rn.add(t.branch);
-                Lt = e, Mr(), Th(e, t.branch);
+                Lt = e, sxRequestMapPaint(), sxFrameNodeInCamera(e, t.branch);
             }
         }
-        function $o(e, t = Vi()) {
-            const n = qn[e] || Xn(e) || (at[t] || {})[e];
+        function sxDropAttentionNode(e, t = sxActiveProfileId()) {
+            const n = sxNodeRegistry[e] || sxNodeById(e) || (at[t] || {})[e];
             if (!n) return;
             const i = ln[t], a = cn[t], r = dn[t];
             if (a?.delete(e), r?.delete(e), "Category" === n.kind) return void i?.delete(n.branch);
             const o = new Set([ ...a || [], ...r || [] ]);
             Array.from(o).some(e => {
-                const i = qn[e] || Xn(e) || (at[t] || {})[e];
-                return (i && i.branch || ci(e)) === n.branch && !Eo(t, e);
+                const i = sxNodeRegistry[e] || sxNodeById(e) || (at[t] || {})[e];
+                return (i && i.branch || sxLookupNodeBranch(e)) === n.branch && !sxIsManualSource(t, e);
             }) || i?.delete(n.branch);
         }
-        function Eo(e, t) {
+        function sxIsManualSource(e, t) {
             const n = Ze[e]?.[t];
             return n && Object.keys(n).length ? Object.values(n).includes("manual") : !0;
         }
-        function Ao(e, t, n) {
+        function sxFlankSource(e, t, n) {
             return Ze[e]?.[t]?.[n] || "manual";
         }
-        function Co(e, t, n, i) {
-            if ("manual" === i) return Mo(e, t, n);
+        function sxSetFlankSource(e, t, n, i) {
+            if ("manual" === i) return sxClearFlankSource(e, t, n);
             Ze[e] || (Ze[e] = {}), Ze[e][t] || (Ze[e][t] = {}), Ze[e][t][n] = i;
         }
-        function Mo(e, t, n) {
+        function sxClearFlankSource(e, t, n) {
             const i = Ze[e]?.[t];
             i && (delete i[n], Object.keys(i).length || delete Ze[e][t]);
         }
-        function Io(e) {
+        function sxRatingsForProfile(e) {
             return e === Et ? At : vt[e];
         }
-        function Po() {
+        function sxPromptNewProfile() {
             Ct || Mt || (Ct = !0, requestAnimationFrame(() => {
                 if (Mt) return;
                 const t = e.one("#profileTabs [data-add-profile]");
-                t && e.byId("profileAddMenu").hidden && Pw(t);
+                t && e.byId("profileAddMenu").hidden && sxToggleAddProfileMenu(t);
             }));
         }
-        function Lo(e) {
+        function sxAdoptDraftRatings(e) {
             return !!(e && vt[e] && Object.keys(At).length) && (Object.entries(At).forEach(([t, n]) => {
-                if (Ge(t, e).single || "number" == typeof n) {
+                if (sxWidgetConfig(t, e).single || "number" == typeof n) {
                     const i = ("number" == typeof n ? [ n ] : [ n && n.give, n && n.receive ]).map(Number).find(Number.isFinite);
                     if (void 0 === i) return;
-                    return vt[e][t] = Math.max(-100, Math.min(100, i)), Co(e, t, "give", "manual"), 
-                    void Co(e, t, "receive", "manual");
+                    return vt[e][t] = Math.max(-100, Math.min(100, i)), sxSetFlankSource(e, t, "give", "manual"), 
+                    void sxSetFlankSource(e, t, "receive", "manual");
                 }
                 if (!n || "object" != typeof n) return;
                 const i = vt[e][t], a = i && "object" == typeof i ? Object.assign({}, i) : {};
-                const flanks = (Ge(t, e).keys) || [ "give", "receive" ];
+                const flanks = (sxWidgetConfig(t, e).keys) || [ "give", "receive" ];
                 flanks.forEach(i => {
                     Object.prototype.hasOwnProperty.call(n, i) && Number.isFinite(Number(n[i])) && (a[i] = Math.max(-100, Math.min(100, Number(n[i]))), 
-                    Co(e, t, i, "manual"));
+                    sxSetFlankSource(e, t, i, "manual"));
                 }), Object.keys(a).length && (vt[e][t] = a);
-            }), Object.keys(At).forEach(e => delete At[e]), Ze[Et] = {}, Ct = !1, zt(e), !0);
+            }), Object.keys(At).forEach(e => delete At[e]), Ze[Et] = {}, Ct = !1, sxTouchProfile(e), !0);
         }
         // Hot List freeze fix (2026-11-15): an explicitly passed empty-template
         // id (Et) is NOT a valid write target - it used to mint a new "New
         // profile" on every call (the dialog passes its captured Et per move).
         // Fall through to the selected profile so at most one profile is
         // minted, on the first write, and later writes reuse it.
-        function To(e, t, n, i = !0, a = null) {
+        function sxStoreFlankRating(e, t, n, i = !0, a = null) {
             let r = a && vt[a] ? a : Mt && vt[Mt] ? Mt : Et;
             if (typeof sxIsPseudoProfile === "function" && sxIsPseudoProfile(r)) return 0;
-            if (r === Et && typeof ik === "function" && typeof SX_PROFILE_RECORD_LISTS !== "undefined") {
-                const pid = ik("New profile");
+            if (r === Et && typeof sxAllocateProfileId === "function" && typeof SX_PROFILE_RECORD_LISTS !== "undefined") {
+                const pid = sxAllocateProfileId("New profile");
                 SX_PROFILE_RECORD_LISTS.forEach(k => k[pid] = {});
                 wt[pid] = "New profile";
                 vt[pid] = {};
-                Lo(pid);
+                sxAdoptDraftRatings(pid);
                 Mt = pid;
                 if (typeof Go !== "undefined" && Go === Et) Go = pid;
                 if (typeof sxAutoSelect === "function") sxAutoSelect(pid);
                 r = pid;
-                if (typeof Jw === "function") Jw();
+                if (typeof sxRenderProfileTabs === "function") sxRenderProfileTabs();
             }
-            const o = Io(r), s = "intensity" === t ? Math.max(-400, Math.min(400, Math.round(Number(n) || 0))) : Math.max(-100, Math.min(100, Number(n)));
-            if (Ge(e, r).single) {
+            const o = sxRatingsForProfile(r), s = "intensity" === t ? Math.max(-400, Math.min(400, Math.round(Number(n) || 0))) : Math.max(-100, Math.min(100, Number(n)));
+            if (sxWidgetConfig(e, r).single) {
                 if (typeof sxIsStanceSkin === "function" && sxIsStanceSkin() && o[e] && "object" == typeof o[e] && (o[e].advocacy || o[e].receptivity)) {
                     const cur = Object.assign({}, o[e]);
                     const adv = Object.assign({}, cur.advocacy || {});
                     adv.give = s;
-                    (Ge(e, r).poleKeys || []).forEach(pk => { adv[pk] = s; });
+                    (sxWidgetConfig(e, r).poleKeys || []).forEach(pk => { adv[pk] = s; });
                     adv.intensity = s;
                     cur.advocacy = adv;
                     o[e] = cur;
-                    Co(r, e, "advocacy", "manual");
-                    zt(r);
-                    $o(e, r);
-                    i && Mr();
+                    sxSetFlankSource(r, e, "advocacy", "manual");
+                    sxTouchProfile(r);
+                    sxDropAttentionNode(e, r);
+                    i && sxRequestMapPaint();
                     return s;
                 }
                 const t = o[e], n = "number" != typeof t || Number(t) !== s;
-                return o[e] = s, Co(r, e, "give", "manual"), Co(r, e, "receive", "manual"), n && zt(r),
-                $o(e, r), i && Mr(), s;
+                return o[e] = s, sxSetFlankSource(r, e, "give", "manual"), sxSetFlankSource(r, e, "receive", "manual"), n && sxTouchProfile(r),
+                sxDropAttentionNode(e, r), i && sxRequestMapPaint(), s;
             }
             const l = o[e], c = l && "object" == typeof l ? Object.assign({}, l) : {}, d = !Object.prototype.hasOwnProperty.call(c, t) || Number(c[t]) !== s;
-            return c[t] = s, o[e] = c, Co(r, e, t, "manual"), d && zt(r), $o(e, r),
-            i && Mr(), c[t];
+            return c[t] = s, o[e] = c, sxSetFlankSource(r, e, t, "manual"), d && sxTouchProfile(r), sxDropAttentionNode(e, r),
+            i && sxRequestMapPaint(), c[t];
         }
         // Same Et guard as To() above: a stale empty-template id must not
         // mint a profile per call.
-        function Fo(e, t, n = !0, i = null) {
+        function sxClearTopicRating(e, t, n = !0, i = null) {
             let a = i && vt[i] ? i : Mt && vt[Mt] ? Mt : Et;
             if (typeof sxIsPseudoProfile === "function" && sxIsPseudoProfile(a)) return;
-            if (a === Et && typeof ik === "function" && typeof SX_PROFILE_RECORD_LISTS !== "undefined") {
-                const pid = ik("New profile");
+            if (a === Et && typeof sxAllocateProfileId === "function" && typeof SX_PROFILE_RECORD_LISTS !== "undefined") {
+                const pid = sxAllocateProfileId("New profile");
                 SX_PROFILE_RECORD_LISTS.forEach(k => k[pid] = {});
                 wt[pid] = "New profile";
                 vt[pid] = {};
-                Lo(pid);
+                sxAdoptDraftRatings(pid);
                 Mt = pid;
                 if (typeof Go !== "undefined" && Go === Et) Go = pid;
                 if (typeof sxAutoSelect === "function") sxAutoSelect(pid);
                 a = pid;
-                if (typeof Jw === "function") Jw();
+                if (typeof sxRenderProfileTabs === "function") sxRenderProfileTabs();
             }
-            const r = Io(a), o = r[e], s = Ge(e, a).single, l = "number" == typeof o || Boolean(o && "object" == typeof o && Object.prototype.hasOwnProperty.call(o, t));
-            if (s) delete r[e], Mo(a, e, "give"), Mo(a, e, "receive"); else if ("number" == typeof o) {
+            const r = sxRatingsForProfile(a), o = r[e], s = sxWidgetConfig(e, a).single, l = "number" == typeof o || Boolean(o && "object" == typeof o && Object.prototype.hasOwnProperty.call(o, t));
+            if (s) delete r[e], sxClearFlankSource(a, e, "give"), sxClearFlankSource(a, e, "receive"); else if ("number" == typeof o) {
                 const n = "give" === t ? "receive" : "give";
                 r[e] = {
                     [n]: o
@@ -622,7 +622,7 @@
                 const n = Object.assign({}, o);
                 delete n[t], Object.keys(n).length ? r[e] = n : delete r[e];
             }
-            s || Mo(a, e, t), Nt = null, l && (zt(a), $o(e, a)), n && Mr();
+            s || sxClearFlankSource(a, e, t), Nt = null, l && (sxTouchProfile(a), sxDropAttentionNode(e, a)), n && sxRequestMapPaint();
         }
         // P1 refactor (Build 2026-10-18_2227): getScreenCTM cache. During
         // a pointer gesture the viewport does not move, so the screen CTM
@@ -640,17 +640,17 @@
         function __sxInvalidateCtm() {
             __sxCtmEl = null, __sxCtmVal = null, __sxCtmKey = "";
         }
-        function No(e, t, n, i = !1) {
+        function sxRatingAlongRail(e, t, n, i = !1) {
             const a = Number(e.dataset.x0), r = Number(e.dataset.y0), o = Number(e.dataset.x1), s = Number(e.dataset.y1), l = __sxScreenCtm(e);
             if (!l) return null;
             const c = Cn.createSVGPoint();
             c.x = t, c.y = n;
             const d = c.matrixTransform(l.inverse()), u = o - a, p = s - r, h = u * u + p * p, g = h ? ((d.x - a) * u + (d.y - r) * p) / h : .5;
             if (g < -.08 || g > 1.08) return Number.NaN;
-            const m = A(g);
+            const m = sxClampUnit(g);
             return 200 * (m <= .16 ? 0 : m >= .84 ? 1 : (m - .16) / .68) - 100;
         }
-        function _o(e, t) {
+        function sxPreviewSpokeThumb(e, t) {
             const n = e.dataset.id, i = e.dataset.direction, a = __sxClosestAction(e, "nodeGroup"), r = Number.isNaN(t);
             if (a) {
                 const t = __sxClosestAction(e, "directionControl");
@@ -659,7 +659,7 @@
             }
             const o = a && a.querySelector(`.visual-rail[data-id="${n}"][data-direction="${i}"]`);
             if (o && o.classList.add("active-rating"), null === t || r) {
-                const e = da(n, Vi());
+                const e = sxRatingRecord(n, sxActiveProfileId());
                 t = e[i + "Known"] ? e[i] : 0;
             }
             const s = Math.max(-100, Math.min(100, Number(t))), l = (s + 100) / 200, c = Number(e.dataset.x0), d = Number(e.dataset.y0), u = Number(e.dataset.x1), p = Number(e.dataset.y1), h = Number(e.dataset.nx), g = Number(e.dataset.ny), m = Number(e.dataset.offset);
@@ -671,48 +671,48 @@
                 (t || a).insertBefore(f, t ? e : null);
             }
             f && (f.classList.add("active-rating"), f.setAttribute("cx", (c + (u - c) * l + h * m).toFixed(2)), 
-            f.setAttribute("cy", (d + (p - d) * l + g * m).toFixed(2)), f.setAttribute("fill", zi(s)));
+            f.setAttribute("cy", (d + (p - d) * l + g * m).toFixed(2)), f.setAttribute("fill", sxInterestColor(s)));
             const y = a && a.querySelector(`.direction-tag-bg[data-id="${n}"][data-direction="${i}"]`);
-            return y && (y.setAttribute("fill", zi(s)), y.setAttribute("opacity", "1")), e.setAttribute("aria-valuenow", String(s)), 
+            return y && (y.setAttribute("fill", sxInterestColor(s)), y.setAttribute("opacity", "1")), e.setAttribute("aria-valuenow", String(s)), 
             e.setAttribute("aria-valuetext", r ? "Release to clear" : String(Math.round(s))), 
             r ? Number.NaN : s;
         }
         Pr && Pr.querySelectorAll("[data-mark]").forEach(e => e.addEventListener("click", () => {
             if (!Qr || performance.now() - Number(Pr.dataset.openedAt || 0) < 400) return;
-            const t = Vi();
+            const t = sxActiveProfileId();
             if (typeof sxIsPseudoProfile === "function" && sxIsPseudoProfile(t)) return;
-            const previousRatedCount = cs(t).rated, n = Qr, i = e.dataset.mark, a = Qe[t][n];
+            const previousRatedCount = sxOutlineRatedCounts(t).rated, n = Qr, i = e.dataset.mark, a = Qe[t][n];
             "neutral" === i ? delete Qe[t][n] : Qe[t][n] = i, Pr.querySelectorAll("[data-mark]").forEach(e => e.setAttribute("aria-checked", String(e.dataset.mark === ("neutral" === i ? "neutral" : i)))), 
-            a !== ("neutral" === i ? void 0 : i) && zt(t), Mr(), checkMilestoneTransition(t, previousRatedCount);
+            a !== ("neutral" === i ? void 0 : i) && sxTouchProfile(t), sxRequestMapPaint(), checkMilestoneTransition(t, previousRatedCount);
         })), Pr && Pr.querySelectorAll("[data-topic-flag]").forEach(e => e.addEventListener("click", () => {
             if (!Qr || performance.now() - Number(Pr.dataset.openedAt || 0) < 400) return;
-            const t = Vi();
+            const t = sxActiveProfileId();
             if (typeof sxIsPseudoProfile === "function" && sxIsPseudoProfile(t)) return;
-            const previousRatedCount = cs(t).rated, n = Qr, i = "fantasy" === e.dataset.topicFlag ? Je : et, a = !i[t]?.[n];
+            const previousRatedCount = sxOutlineRatedCounts(t).rated, n = Qr, i = "fantasy" === e.dataset.topicFlag ? Je : et, a = !i[t]?.[n];
             i[t] || (i[t] = {}), a ? i[t][n] = !0 : delete i[t][n], e.setAttribute("aria-pressed", String(a)), 
-            zt(t), Mr(), checkMilestoneTransition(t, previousRatedCount);
+            sxTouchProfile(t), sxRequestMapPaint(), checkMilestoneTransition(t, previousRatedCount);
         })), Zr && Zr.addEventListener("change", () => {
-            ao(), Mr({
+            sxSavePlacardNote(), sxRequestMapPaint({
                 animate: !1
             });
         }), Vr && Vr.addEventListener("click", () => {
-            oo();
+            sxHideCommunityPopover();
             const e = zr ? zr.hidden : !0;
             zr && (zr.hidden = !e), Vr.setAttribute("aria-expanded", String(e));
         }), zr && zr.addEventListener("click", e => e.stopPropagation()), jr && jr.addEventListener("click", e => {
-            e.preventDefault(), e.stopPropagation(), ko(jr);
+            e.preventDefault(), e.stopPropagation(), sxToggleCommunityList(jr);
         }), qr && qr.addEventListener("click", e => {
-            e.preventDefault(), e.stopPropagation(), ko(qr);
+            e.preventDefault(), e.stopPropagation(), sxToggleCommunityList(qr);
         }), Hr && Hr.addEventListener("click", e => {
-            e.preventDefault(), e.stopPropagation(), ko(Hr);
+            e.preventDefault(), e.stopPropagation(), sxToggleCommunityList(Hr);
         }), Ur && Ur.addEventListener("click", e => {
-            e.stopPropagation(), __sxClosestAction(e.target, "openLocalCommunities") && (oo(), 
-            so(), Ol());
+            e.stopPropagation(), __sxClosestAction(e.target, "openLocalCommunities") && (sxHideCommunityPopover(), 
+            sxCloseMarkPlacard(), sxOpenLocalCommunities());
         }), window.addEventListener("resize", () => {
-            no && Ur && !Ur.hidden && bo(no);
-        }), e.byId("closeMarkMenu") && e.byId("closeMarkMenu").addEventListener("click", so), window.__sxOnPtr( e => {
-            (!Pr || Pr.hidden) || (!zr || zr.hidden) || __sxClosestAction(e.target, "markMeta") || ro(), (!Ur || Ur.hidden) || Ur.contains(e.target) || e.target === no || oo(),
-            (!Pr || Pr.hidden) || Pr.contains(e.target) || so();
+            no && Ur && !Ur.hidden && sxPlaceCommunityPopover(no);
+        }), e.byId("closeMarkMenu") && e.byId("closeMarkMenu").addEventListener("click", sxCloseMarkPlacard), window.__sxOnPtr( e => {
+            (!Pr || Pr.hidden) || (!zr || zr.hidden) || __sxClosestAction(e.target, "markMeta") || sxHideMarkSources(), (!Ur || Ur.hidden) || Ur.contains(e.target) || e.target === no || sxHideCommunityPopover(),
+            (!Pr || Pr.hidden) || Pr.contains(e.target) || sxCloseMarkPlacard();
         }, !0), window.__sxOnKey( e => {
-            "Escape" === e.key && ((!Ur || Ur.hidden) ? so() : oo());
+            "Escape" === e.key && ((!Ur || Ur.hidden) ? sxCloseMarkPlacard() : sxHideCommunityPopover());
         });

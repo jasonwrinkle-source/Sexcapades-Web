@@ -11,7 +11,7 @@
         // still lands through the "profile" merge branch, which does
         // NOT auto-select or join the receiver's multiselect (F7).
         let sxShareLinkToken = "";
-        async function Nu() {
+        async function sxImportShareHash() {
             // Share-link receiving side (unified framework adaptation):
             // the token format is bounded (see
             // sxShareLinkMaxTokenLength), so a token longer than any
@@ -28,7 +28,7 @@
             const sxHash = String(location.hash || "");
             const e = sxHash.match(/^#share=([A-Za-z0-9_-]+)$/);
             if (!e) {
-                if (sxHash.startsWith("#share=")) tS("That share link could not be opened: it looks cut off or damaged, so nothing was imported. Ask for the complete link, or use Export QR codes — the numbered QR sheet holds the complete profile.", {
+                if (sxHash.startsWith("#share=")) sxShowStatusToast("That share link could not be opened: it looks cut off or damaged, so nothing was imported. Ask for the complete link, or use Export QR codes — the numbered QR sheet holds the complete profile.", {
                     tone: "error",
                     persistent: !0
                 });
@@ -36,24 +36,24 @@
             }
             if (e[1] === sxShareLinkToken) return;
             sxShareLinkToken = e[1];
-            if (e[1].length > sxShareLinkMaxTokenLength()) return void tS(sxOversizeShareMessage(e[1].length), {
+            if (e[1].length > sxShareLinkMaxTokenLength()) return void sxShowStatusToast(sxOversizeShareMessage(e[1].length), {
                 tone: "error",
                 persistent: !0
             });
             try {
-                wx(yx.parse("share-link", e[1]), {
+                sxMergeAsProfile(yx.parse("share-link", e[1]), {
                     source: "share-link"
                 });
             } catch (e) {
                 const sxMsg = yx.errorMessage(e, "That share link could not be opened.");
-                tS(sxMsg + (/incomplete|not a readable/i.test(sxMsg) ? " Ask for the complete link, or use Export QR codes — the numbered QR sheet holds the complete profile." : ""), {
+                sxShowStatusToast(sxMsg + (/incomplete|not a readable/i.test(sxMsg) ? " Ask for the complete link, or use Export QR codes — the numbered QR sheet holds the complete profile." : ""), {
                     tone: "error",
                     persistent: !0
                 });
             }
         }
         const _u = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ $%*+-./:";
-        function Du(e) {
+        function sxDecodeBase45(e) {
             const t = String(e || ""), n = [];
             for (let e = 0; e < t.length; e += 3) {
                 const i = t.length - e;
@@ -66,10 +66,10 @@
             }
             return new Uint8Array(n);
         }
-        async function Ru(e, t = tu(e), n = !0, i = !1, a = !1) {
+        async function sxEncodeShareToken(e, t = sxRatedNodeSet(e), n = !0, i = !1, a = !1) {
             return async function(e) {
                 const t = (new TextEncoder).encode(e);
-                if ("function" != typeof CompressionStream) return "SCP2J:" + gu(t);
+                if ("function" != typeof CompressionStream) return "SCP2J:" + sxBase64UrlText(t);
                 const n = new Blob([ t ]).stream().pipeThrough(new CompressionStream("deflate"));
                 return "SCP3:" + function(e) {
                     let t = "";
@@ -82,7 +82,7 @@
                     }
                     return t;
                 }(new Uint8Array(await new Response(n).arrayBuffer()));
-            }(JSON.stringify(function(e, t = tu(e), n = !0, i = !1, a = !1) {
+            }(JSON.stringify(function(e, t = sxRatedNodeSet(e), n = !0, i = !1, a = !1) {
                 return yx.serialize("compact", {
                     person: e,
                     allowedIds: t,
@@ -167,7 +167,7 @@
         // wire format and the iu CRC32 hash are byte-identical to
         // both old paths, so existing codes stay readable.
         function chunkPayload(e, t = {}) {
-            const n = String(e || ""), i = iu((new TextEncoder).encode(n)).toString(36).toUpperCase();
+            const n = String(e || ""), i = sxChecksumCrc32((new TextEncoder).encode(n)).toString(36).toUpperCase();
             // Splitter guardrails (unified framework core): an empty
             // payload has no pieces, and supplying BOTH chunkCount and
             // chunkSize is an error - count used to win silently and
@@ -189,7 +189,7 @@
                 length: a
             }, (e, r) => `SCP4:${i}:${r + 1}:${a}:${n.slice(r * s, (r + 1) * s)}`);
         }
-        function ju(e, t, r) {
+        function sxCanEncodeQr(e, t, r) {
             if (!window.QRCode || "function" != typeof QRCode.create) return !1;
             try {
                 return e.forEach(e => QRCode.create(e, {
@@ -254,23 +254,23 @@
                 return out;
             }
         }
-        async function qu(e, t = 1536, n = {}) {
+        async function sxRenderSingleQr(e, t = 1536, n = {}) {
             // Element wrapper: single-code by default (reject-only),
             // and a caller-supplied oversize option passes through to
             // qrEncode, so a caller that needs splitting gets it
             // instead of a silent rejection. Width, version, and
             // error-correction pass through unchanged.
-            return zu((await qrEncode(e, {
+            return sxLoadImageSrc((await qrEncode(e, {
                 width: t,
                 version: n.version,
                 errorCorrectionLevel: n.errorCorrectionLevel,
                 oversize: n.oversize
             }))[0]);
         }
-        function Hu(e, t) {
+        function sxDecodeQrProfile(e, t) {
             const n = e => Vw[e] || e, i = {}, a = [];
             (e.d || []).forEach(e => {
-                const r = n(t[Number(e[1])]), o = ii(i, e[0], r);
+                const r = n(t[Number(e[1])]), o = sxCreateImportedTopic(i, e[0], r);
                 a.push(o && o.id || "");
             });
             const r = e => {
@@ -317,11 +317,11 @@
                 contact: e.c || {},
                 aboutMe: e.b || "",
                 termsOfService: e.u || "",
-                veil: av(null != e.j ? e.j : e.e),
+                veil: sxClampVeilLevel(null != e.j ? e.j : e.e),
                 veilEnabled: Boolean(null != e.z ? e.z : e.f),
-                net: av(e.e),
+                net: sxClampVeilLevel(e.e),
                 netEnabled: Boolean(e.f),
-                completionTimes: St(e.q),
+                completionTimes: sxNormalizeTimers(e.q),
                 ratings: o,
                 annotations: s,
                 fantasyOnly: l,
@@ -330,15 +330,15 @@
                 importedChildren: i
             };
         }
-        function Wu(e, t, n, i, a, r) {
+        function sxTraceRoundRect(e, t, n, i, a, r) {
             const o = Math.max(0, Math.min(r, i / 2, a / 2));
             e.moveTo(t + o, n), e.lineTo(t + i - o, n), e.quadraticCurveTo(t + i, n, t + i, n + o), 
             e.lineTo(t + i, n + a - o), e.quadraticCurveTo(t + i, n + a, t + i - o, n + a), 
             e.lineTo(t + o, n + a), e.quadraticCurveTo(t, n + a, t, n + a - o), e.lineTo(t, n + o), 
             e.quadraticCurveTo(t, n, t + o, n);
         }
-        function Uu(e) {
-            const t = Rv(ut[e] || {}), n = [];
+        function sxPreferredUserText(e) {
+            const t = sxNormalizeContactRecord(ut[e] || {}), n = [];
             if ([ "telegram", "linktree", "fetlife", "chaturbate", "stripchat", "myfreecams", "pornhub", "xvideos", "xhamster", "onlyfans", "reddit", "x" ].forEach(e => {
                 t[e] && n.push(t[e]);
             }), (t.customSites || []).forEach(e => {
@@ -357,7 +357,7 @@
                 (!a || e.n > a.n) && (a = e);
             }), a && a.n > 1 ? a.user : t.fetlife ? t.fetlife : n[0];
         }
-        function Gu(e, t, n, i, a, r, o) {
+        function sxPaintScoreRings(e, t, n, i, a, r, o) {
             const s = Math.max(4, .133 * i[0]), l = Math.max(10, Math.round(.234 * i[0]));
             i.forEach((i, l) => {
                 const c = Math.max(0, Math.min(100, Number(a[l]) || 0));
@@ -373,7 +373,7 @@
                 e.fillStyle = r[o], e.font = "700 " + l + "px system-ui, sans-serif", e.fillText(s + "%", t + u * Math.cos(d), n + u * Math.sin(d));
             }), e.restore();
         }
-        function Ku(e, t, n = {}) {
+        function sxShareEnvelope(e, t, n = {}) {
             return Object.assign({
                 app: "sexcapades-share",
                 appUrl: lu,
@@ -382,35 +382,35 @@
                 profiles: t
             }, n);
         }
-        function zu(e) {
+        function sxLoadImageSrc(e) {
             return new Promise((t, n) => {
                 const i = new Image;
                 i.onload = () => t(i), i.onerror = () => n(new Error("An attached photo could not be prepared for the compact export.")), 
                 i.src = e;
             });
         }
-        function Vu(e) {
+        function sxBlobToDataUrl(e) {
             return new Promise((t, n) => {
                 const i = new FileReader;
                 i.onload = () => t(String(i.result || "")), i.onerror = () => n(new Error("An attached photo could not be prepared for the compact export.")), 
                 i.readAsDataURL(e);
             });
         }
-        function Yu(e, t, n) {
+        function sxCanvasToBlob(e, t, n) {
             return new Promise(i => e.toBlob(i, t, n));
         }
-        async function Xu(e) {
-            const t = await zu(e.data), n = t.naturalWidth || e.width, i = t.naturalHeight || e.height, a = Math.max(n, i), r = Math.min(1, 400 / a), o = Math.max(1, Math.round(n * r)), s = Math.max(1, Math.round(i * r)), l = document.createElement("canvas");
+        async function sxShrinkSharePhoto(e) {
+            const t = await sxLoadImageSrc(e.data), n = t.naturalWidth || e.width, i = t.naturalHeight || e.height, a = Math.max(n, i), r = Math.min(1, 400 / a), o = Math.max(1, Math.round(n * r)), s = Math.max(1, Math.round(i * r)), l = document.createElement("canvas");
             l.width = o, l.height = s;
             const c = l.getContext("2d");
             c.fillStyle = "#151816", c.fillRect(0, 0, o, s), c.imageSmoothingEnabled = !0, c.imageSmoothingQuality = "high", 
             c.drawImage(t, 0, 0, o, s);
             let d = null;
-            for (const e of [ .72, .62, .52, .44, .36 ]) if (d = await Yu(l, "image/jpeg", e), 
+            for (const e of [ .72, .62, .52, .44, .36 ]) if (d = await sxCanvasToBlob(l, "image/jpeg", e), 
             d && d.size <= 48e3) break;
             if (!d) throw new Error("An attached photo could not be prepared for the compact export.");
             return {
-                data: await Vu(d),
+                data: await sxBlobToDataUrl(d),
                 width: o,
                 height: s,
                 cropX: e.cropX,
@@ -421,24 +421,24 @@
                 manualCrop: !0 === e.manualCrop
             };
         }
-        async function Zu(e, t = {}) {
+        async function sxExportVisibleMap(e, t = {}) {
             const n = Boolean(t.lowRes), i = Boolean(t.includeProfileInfo), a = Boolean(t.blind), r = dt[e], o = Math.max(.25, Math.min(1, Number(t.outputScale) || (n ? 4 / 9 : .8))), s = "function" == typeof t.progress ? t.progress : async () => {};
             let l = null, c = null, d = null;
             if (i) {
                 if (n) {
                     await s(10, "Preparing photos", "Sizing selected profile photos for this export…"), 
                     d = await async function(e, t) {
-                        const n = Yv(e), i = Array.isArray(t) ? new Set(t.map(Number)) : new Set(n.map((e, t) => t));
-                        return Promise.all(n.filter((e, t) => i.has(t)).map(Xu));
+                        const n = sxClonePhotoRecords(e), i = Array.isArray(t) ? new Set(t.map(Number)) : new Set(n.map((e, t) => t));
+                        return Promise.all(n.filter((e, t) => i.has(t)).map(sxShrinkSharePhoto));
                     }(r, t.photoIndices), dt[e] = d;
                     const n = (r || [])[0];
                     n && !dt[e].length && (dt[e] = [ n ]);
                 }
             } else dt[e] = (r || []).slice(0, 1);
             try {
-                const r = i ? Ji(wt[e]) || "Profile" : np(wt[e] || "Profile", !1) || "Profile";
+                const r = i ? sxFirstWordText(wt[e]) || "Profile" : sxShortNameText(wt[e] || "Profile", !1) || "Profile";
                 await s(18, "Rendering hypermap", "Laying out the visible hypermap at export resolution…"), 
-                l = await nu([ e ], e, {
+                l = await sxRenderExportMap([ e ], e, {
                     profileFill: !0,
                     centerOnMap: !0,
                     outputScale: o,
@@ -458,7 +458,7 @@
                         canvas: n,
                         ctx: a
                     };
-                }(o, t.background || "black"), h = p.ctx, g = dc(e, u);
+                }(o, t.background || "black"), h = p.ctx, g = sxGlanceBucketsFor(e, u);
                 if (c = p.canvas, !h) throw new Error("This browser could not allocate the export canvas.");
                 !function(e, t) {
                     const n = t.naturalWidth || 3600, i = t.naturalHeight || 3600;
@@ -466,7 +466,7 @@
                 }(h, l);
                 const m = t.background || "black";
                 !function(e, t, n, i = "black", a = !1) {
-                    const r = a ? String(Ji(wt[t] || "Profile")).replace(/\s+/g, " ").trim() || "Profile" : "Shared profile", o = a ? Uu(t) : "", s = "white" === i ? "#151816" : "#edf2ee", l = "#d7bd55", c = [ n && n.percentages ? n.percentages.green : 0, n && n.percentages ? n.percentages.yellow : 0, n && n.percentages ? n.percentages.red : 0 ];
+                    const r = a ? String(sxFirstWordText(wt[t] || "Profile")).replace(/\s+/g, " ").trim() || "Profile" : "Shared profile", o = a ? sxPreferredUserText(t) : "", s = "white" === i ? "#151816" : "#edf2ee", l = "#d7bd55", c = [ n && n.percentages ? n.percentages.green : 0, n && n.percentages ? n.percentages.yellow : 0, n && n.percentages ? n.percentages.red : 0 ];
                     e.save(), e.textBaseline = "top", e.textAlign = "left";
                     const d = "SEXCAPADES PROFILE";
                     e.font = "700 42px system-ui, sans-serif";
@@ -475,14 +475,14 @@
                     const p = e.measureText(r).width;
                     e.font = "600 54px system-ui, sans-serif";
                     const h = o ? e.measureText("@" + o).width : 0, g = Math.max(u, p, h), m = Math.min(2e3, Math.max(900, Math.ceil(g + 430 + 96))), f = o ? 400 : 360;
-                    e.beginPath(), Wu(e, 72, 72, m, f, 26), "transparent" !== i && (e.fillStyle = "rgba(13,17,15,.84)", 
+                    e.beginPath(), sxTraceRoundRect(e, 72, 72, m, f, 26), "transparent" !== i && (e.fillStyle = "rgba(13,17,15,.84)", 
                     e.fill()), e.strokeStyle = "rgba(99,112,104,.7)", e.lineWidth = 3, e.stroke();
                     const y = 120;
                     e.fillStyle = l, e.font = "700 42px system-ui, sans-serif", e.fillText(d, y, 106), 
                     e.fillStyle = s, e.font = "700 88px system-ui, sans-serif", "transparent" === i && (e.lineJoin = "round", 
                     e.strokeStyle = "rgba(17,21,19,.92)", e.lineWidth = 12, e.strokeText(r, y, 164)), 
-                    eu(e, r, y, 164, m - 430 - 96, 94, 2), o && (e.fillStyle = l, e.font = "600 54px system-ui, sans-serif", 
-                    e.fillText("@" + o, y, 368)), Gu(e, 72 + m - 215, 72 + f / 2, [ 128, 106, 84 ], c, [ "#63c796", "#d7bd55", "#e06f6a" ], "white" === i ? .16 : .26);
+                    sxDrawWrappedLines(e, r, y, 164, m - 430 - 96, 94, 2), o && (e.fillStyle = l, e.font = "600 54px system-ui, sans-serif", 
+                    e.fillText("@" + o, y, 368)), sxPaintScoreRings(e, 72 + m - 215, 72 + f / 2, [ 128, 106, 84 ], c, [ "#63c796", "#d7bd55", "#e06f6a" ], "white" === i ? .16 : .26);
                     const b = a ? String(nt[t] || "").trim() : "";
                     if (b) {
                         e.font = "500 40px system-ui, sans-serif";
@@ -493,7 +493,7 @@
                             e.measureText(i).width > t && c ? (l.push(c), c = n) : c = i;
                         }), c && l.push(c);
                         const d = l.slice(0, r), u = d.length * n + 1.4 * a, p = 72 + f + 24;
-                        e.beginPath(), Wu(e, 72, p, m, u, 26), "transparent" !== i && (e.fillStyle = "rgba(13,17,15,.84)", 
+                        e.beginPath(), sxTraceRoundRect(e, 72, p, m, u, 26), "transparent" !== i && (e.fillStyle = "rgba(13,17,15,.84)", 
                         e.fill()), e.strokeStyle = "rgba(99,112,104,.7)", e.lineWidth = 3, e.stroke(), e.textAlign = "left", 
                         e.textBaseline = "top", d.forEach((t, o) => {
                             const c = t + (o === r - 1 && l.length > r ? "…" : "");
@@ -506,29 +506,29 @@
                 n && i && (dt[e] = d);
                 const f = yx.serialize("envelope", {
                     bundleKind: "profile",
-                    profiles: [ bx(e, u, i, "", a) ],
+                    profiles: [ sxSerializeExportPayload(e, u, i, "", a) ],
                     extra: n ? {
                         lowResolution: !0
                     } : {}
-                }), y = i && Ov(ut[e]) ? zv(e) : "", b = n ? await async function(e, t, n = "", i = 2097152, a = null) {
-                    let r = e, o = await ru(r, t, n, a);
+                }), y = i && sxCountFilledContacts(ut[e]) ? sxBuildProfileVcardText(e) : "", b = n ? await async function(e, t, n = "", i = 2097152, a = null) {
+                    let r = e, o = await sxEmbedProfilePng(r, t, n, a);
                     for (;o.size > i && r.width > 960; ) {
                         a && await a(82, "Optimizing PNG size", "Reducing the compact image so it stays easy to share…");
                         const e = document.createElement("canvas"), i = .85;
                         e.width = Math.max(960, Math.round(r.width * i)), e.height = Math.round(r.height * e.width / r.width);
                         const s = e.getContext("2d");
                         s.imageSmoothingEnabled = !0, s.imageSmoothingQuality = "high", s.drawImage(r, 0, 0, e.width, e.height), 
-                        r = e, o = await ru(r, t, n, a);
+                        r = e, o = await sxEmbedProfilePng(r, t, n, a);
                     }
                     return o;
-                }(c, f, y, 2097152, s) : await ru(c, f, y, s);
+                }(c, f, y, 2097152, s) : await sxEmbedProfilePng(c, f, y, s);
                 return b.sexcapadesNodeIds = Array.from(u), b;
             } finally {
                 l && (l.removeAttribute("src"), l.src = ""), c && (c.width = 1, c.height = 1), dt[e] !== r && (dt[e] = r, 
-                Mr());
+                sxRequestMapPaint());
             }
         }
-        function Qu(e, t, n = "") {
+        function sxSerializeProfileOut(e, t, n = "") {
             // E4a (slug-gap design-away, 2026-10-22): every serialization
             // of a profile that leaves the app passes through here (full
             // profile, filtered export, share payload, Sync Card), and
@@ -551,10 +551,10 @@
                 }), n;
             }(e, t), o = i(Qe[e]), s = i(Je[e]), l = i(et[e]), c = i(tt[e]), d = i(at[e]), u = [], p = [], h = [], g = [], m = [], f = [];
             const out = (t.forEach(t => {
-                if (!(qn[t] || Xn(t) || (at[e] || {})[t])) return;
-                const n = ca(t, e), i = o[t];
+                if (!(sxNodeRegistry[t] || sxNodeById(t) || (at[e] || {})[t])) return;
+                const n = sxDecodeTopicStance(t, e), i = o[t];
                 "favorite" === i && h.push(t), "limit" === i && g.push(t), s[t] && m.push(t), l[t] && f.push(t), 
-                (typeof ua === "function" ? ua(t, e) : null) !== null ? (ua(t, e) > 35 ? u.push(t) : ua(t, e) >= 0 && p.push(t)) : (n.giveKnown && n.give > 35 || n.receiveKnown && n.receive > 35 ? u.push(t) : (n.giveKnown && n.give >= 0 || n.receiveKnown && n.receive >= 0) && p.push(t));
+                (typeof sxAverageKnownPoles === "function" ? sxAverageKnownPoles(t, e) : null) !== null ? (sxAverageKnownPoles(t, e) > 35 ? u.push(t) : sxAverageKnownPoles(t, e) >= 0 && p.push(t)) : (n.giveKnown && n.give > 35 || n.receiveKnown && n.receive > 35 ? u.push(t) : (n.giveKnown && n.give >= 0 || n.receiveKnown && n.receive >= 0) && p.push(t));
             }), {
                 app: "sexcapades",
                 version: 17,
@@ -565,17 +565,17 @@
                    name on exported profiles so re-imports and cross-skin
                    import checks know which map this profile is for. */
                 skin: profileSkins[e] || (typeof window !== "undefined" && window.__SX_ACTIVE_SKIN) || "sexcapades",
-                gender: bb(rt[e]),
+                gender: sxNormalizeGenders(rt[e]),
                 pronouns: String(pz[e] || ""),
-                sexuality: iv(ot[e]),
-                roles: Gb(st[e]),
-                age: Xv(lt[e]),
-                location: Zv(ct[e]),
-                photos: Yv(dt[e]),
-                color: la(e),
-                veil: av(vpt[e]),
+                sexuality: sxNormalizeOrientations(ot[e]),
+                roles: sxNormalizeRoles(st[e]),
+                age: sxNormalizeAgeText(lt[e]),
+                location: sxNormalizeLocationText(ct[e]),
+                photos: sxClonePhotoRecords(dt[e]),
+                color: sxProfileColor(e),
+                veil: sxClampVeilLevel(vpt[e]),
                 veilEnabled: Boolean(vht[e]),
-                net: av(vpt[e]),
+                net: sxClampVeilLevel(vpt[e]),
                 netEnabled: Boolean(vht[e]),
                 ratings: a,
                 ratingSources: r,
@@ -585,9 +585,9 @@
                 notes: c,
                 importedChildren: d,
                 droppedKeys: (droppedKeyRecords[e] || []).slice(),
-                importAttention: qw(e, t),
-                completionTimes: St(mt[e]),
-                contact: Ov(ut[e]) ? Rv(ut[e]) : void 0,
+                importAttention: sxCollectImportAttention(e, t),
+                completionTimes: sxNormalizeTimers(mt[e]),
+                contact: sxCountFilledContacts(ut[e]) ? sxNormalizeContactRecord(ut[e]) : void 0,
                 aboutMe: String(nt[e] || ""),
                 termsOfService: String(it[e] || ""),
                 lists: {
@@ -636,8 +636,8 @@
             sxPairRec && "group" === sxPairRec.kind && (out.pairKind = "group", out.pairOp = sxNormalizePairOp(sxPairRec.pairOp));
             return out;
         }
-        function Ju(e, t, n = !1, i = "", a = !1) {
-            const r = Qu(e, t, n ? i || wt[e] || "Profile" : "Shared profile");
+        function sxShareProfileSubset(e, t, n = !1, i = "", a = !1) {
+            const r = sxSerializeProfileOut(e, t, n ? i || wt[e] || "Profile" : "Shared profile");
             if (a && (r.blind = !0), n) return r;
             // E4a: the share subset is self-describing too, with
             // topicNames restricted to the topics this subset carries.
@@ -663,13 +663,13 @@
                 alreadyTried: r.alreadyTried
             };
         }
-        async function ep(e, n = {}) {
-            const i = Boolean(n.includeProfileInfo), a = Boolean(n.blind), r = i ? Rv(ut[e]) : {}, o = i ? wt[e] || "Profile" : "Shared profile", s = n.background || "black", l = n.printFont ? "Georgia, serif" : "system-ui, sans-serif", c = "function" == typeof n.progress ? n.progress : async () => {};
+        async function sxRenderSyncCard(e, n = {}) {
+            const i = Boolean(n.includeProfileInfo), a = Boolean(n.blind), r = i ? sxNormalizeContactRecord(ut[e]) : {}, o = i ? wt[e] || "Profile" : "Shared profile", s = n.background || "black", l = n.printFont ? "Georgia, serif" : "system-ui, sans-serif", c = "function" == typeof n.progress ? n.progress : async () => {};
             await c(7, "Rendering card hypermap", "Drawing the rated topics for the card front…");
-            const d = await nu([ e ], e, {
+            const d = await sxRenderExportMap([ e ], e, {
                 outputWidth: 1600,
                 outputHeight: 1600,
-                displayName: i ? Ji(wt[e]) || "Profile" : "Shared profile",
+                displayName: i ? sxFirstWordText(wt[e]) || "Profile" : "Shared profile",
                 background: s,
                 allowedIds: n.allowedIds
             }), u = new Set(d.sexcapadesNodeIds || []), p = (() => {
@@ -678,7 +678,7 @@
             })(), h = p.getContext("2d");
             "transparent" !== s && (h.fillStyle = "white" === s ? "#ffffff" : "#151816", h.fillRect(0, 0, p.width, p.height));
             const g = "white" === s ? "#151816" : "#eff2ec", m = "white" === s ? "#4f5a53" : "#d7ded8", f = 936, y = 1128;
-            h.save(), h.beginPath(), Wu(h, f, 36, y, y, 22), h.clip(), "transparent" !== s && (h.fillStyle = "white" === s ? "#ffffff" : "#202521", 
+            h.save(), h.beginPath(), sxTraceRoundRect(h, f, 36, y, y, 22), h.clip(), "transparent" !== s && (h.fillStyle = "white" === s ? "#ffffff" : "#202521", 
             h.fillRect(f, 36, y, y)), function(e, t, n, i, a, r, o = 1) {
                 const s = t.naturalWidth || t.width, l = t.naturalHeight || t.height, c = a / r;
                 let d = s, u = l;
@@ -690,18 +690,18 @@
             }(h, d, f, 36, y, y, 1.2), h.restore(), h.strokeStyle = "#59645d", h.lineWidth = 5, 
             h.strokeRect(f, 36, y, y), h.textBaseline = "top", h.fillStyle = "#d7bd55", h.font = `700 25px ${l}`, 
             h.fillText("SYNC CARD · FRONT", 72, 58), h.fillStyle = g, h.font = `700 56px ${l}`, 
-            eu(h, o, 72, 98, 760, 62, 2), await c(28, "Building card front", "Creating the scan-to-import code…");
-            const b = "https://" + (window.__SX_SKIN_PREFIX || "sex") + ".capades.io/#app/scan", v = await qu(b, 720);
+            sxDrawWrappedLines(h, o, 72, 98, 760, 62, 2), await c(28, "Building card front", "Creating the scan-to-import code…");
+            const b = "https://" + (window.__SX_SKIN_PREFIX || "sex") + ".capades.io/#app/scan", v = await sxRenderSingleQr(b, 720);
             h.fillStyle = "#fff", h.fillRect(76, 236, 748, 748), h.imageSmoothingEnabled = !1, 
             h.drawImage(v, 100, 260, 700, 700), h.imageSmoothingEnabled = !0, h.textAlign = "center", 
             h.fillStyle = g, h.font = `700 32px ${l}`, h.fillText("Scan to import this card", 450, 996), 
             h.font = `600 24px ${l}`, h.fillStyle = m, h.fillText(b, 450, 1054);
             const w = yx.serialize("envelope", {
                 bundleKind: "profile",
-                profiles: [ vx(e, u, o, i, a) ]
-            }), k = i && Ov(ut[e]) ? zv(e) : "";
+                profiles: [ sxSerializeCardPayload(e, u, o, i, a) ]
+            }), k = i && sxCountFilledContacts(ut[e]) ? sxBuildProfileVcardText(e) : "";
             await c(40, "Encoding card front", "Preparing the front image…");
-            const x = await ru(p, w, k);
+            const x = await sxEmbedProfilePng(p, w, k);
             if (n.frontOnly) return d.removeAttribute("src"), d.src = "", window.lastExportSvgMarkup = null, 
             {
                 front: x,
@@ -710,11 +710,11 @@
                 vcard: k
             };
             await c(52, "Checking card size", "Seeing whether this profile fits a Sync card…");
-            const sxCardEncoded = await Ru(e, u, i, a, !0), sxCardFit = function(e) {
+            const sxCardEncoded = await sxEncodeShareToken(e, u, i, a, !0), sxCardFit = function(e) {
                 const t = chunkPayload(e, {
                     chunkCount: 2
                 });
-                if (ju(t, 18, "M")) return {
+                if (sxCanEncodeQr(t, 18, "M")) return {
                     parts: t,
                     size: 600,
                     columns: 1,
@@ -724,7 +724,7 @@
                 const r = chunkPayload(e, {
                     chunkCount: 3
                 });
-                if (ju(r, 18, "M")) return {
+                if (sxCanEncodeQr(r, 18, "M")) return {
                     parts: r,
                     size: 450,
                     columns: 2,
@@ -734,7 +734,7 @@
                 const n = chunkPayload(e, {
                     chunkCount: 4
                 });
-                if (ju(n, 15, "M")) return {
+                if (sxCanEncodeQr(n, 15, "M")) return {
                     parts: n,
                     size: 450,
                     columns: 2,
@@ -744,7 +744,7 @@
                 const a = chunkPayload(e, {
                     chunkCount: 5
                 });
-                if (ju(a, 15, "M")) return {
+                if (sxCanEncodeQr(a, 15, "M")) return {
                     parts: a,
                     size: 360,
                     columns: 2,
@@ -758,20 +758,20 @@
             const $ = S.getContext("2d");
             $.fillStyle = "white" === s ? "#ffffff" : "#151816", "transparent" !== s && $.fillRect(0, 0, S.width, S.height), 
             $.textBaseline = "top", $.fillStyle = "#d7bd55", $.font = `700 25px ${l}`, $.fillText("SYNC CARD · BACK", 72, 54);
-            const E = await qu(su, 720);
+            const E = await sxRenderSingleQr(su, 720);
             $.fillStyle = "#fff", $.fillRect(60, 100, 444, 444), $.imageSmoothingEnabled = !1, 
             $.drawImage(E, 72, 112, 420, 420), $.imageSmoothingEnabled = !0, $.fillStyle = g, 
             $.font = `700 27px ${l}`, $.fillText("Syncing Sexcapades Guide", 72, 560), $.font = `500 19px ${l}`, 
             $.fillStyle = m, $.fillText(su, 72, 602);
-            const A = Di(r);
+            const A = sxListContactLinks(r);
             $.fillStyle = g, $.font = `700 30px ${l}`, $.fillText("Contact", 550, 112), $.font = `600 23px ${l}`;
             let C = 160;
             A.length ? A.forEach(e => {
-                C = eu($, `${e.label}: ${e.user}`, 550, C, 578, 31, 2) + 9;
+                C = sxDrawWrappedLines($, `${e.label}: ${e.user}`, 550, C, 578, 31, 2) + 9;
             }) : ($.fillStyle = m, $.font = `500 22px ${l}`, $.fillText("No contact details included.", 550, C));
             const M = sxCardFit, I = M.parts, P = [];
             for (let e = 0; e < I.length; e++) await c(58 + Math.round(22 * (e + 1) / I.length), "Building profile codes", `Creating profile code ${e + 1} of ${I.length}…`), 
-            P.push(await qu(I[e], 900, {
+            P.push(await sxRenderSingleQr(I[e], 900, {
                 version: M.maxVersion,
                 errorCorrectionLevel: M.errorCorrectionLevel
             })), await new Promise(e => t.setTimeout(e, 0));
@@ -805,7 +805,7 @@
                 $.setLineDash([]);
             }
             await c(86, "Encoding card back", "Preparing the back image…");
-            const j = await ru(S, w, k);
+            const j = await sxEmbedProfilePng(S, w, k);
             return d.removeAttribute("src"), d.src = "", window.lastExportSvgMarkup = null, 
             await c(96, "Finalizing Sync card", "Checking both finished images…"), {
                 front: x,
@@ -814,7 +814,7 @@
                 vcard: k
             };
         }
-        function tp(e, t = !1, n = "letter") {
+        function sxTileCardSheet(e, t = !1, n = "letter") {
             const i = "a4" == ("a4" === n ? "a4" : "letter") ? {
                 width: 2480,
                 height: 3508,
@@ -846,11 +846,11 @@
             }
             return u.stroke(), u.restore(), a;
         }
-        function np(e, t = !1) {
+        function sxShortNameText(e, t = !1) {
             const n = String(e || "Profile").replace(/\s+/g, " ").trim() || "Profile";
             return t ? n : n.split(" ")[0] || "Profile";
         }
-        function ip(e) {
+        function sxExportFileNames(e) {
             const t = String(e || "Profile").replace(/[\\/:*?"<>|\u0000-\u001f]+/g, " ").replace(/\s+/g, "-").replace(/^-+|-+$/g, "") || "Profile", n = t.toLowerCase();
             return {
                 map: `Sexcapades-${t}-visible-map.png`,

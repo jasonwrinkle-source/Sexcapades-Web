@@ -10,7 +10,7 @@
             pitch: 150,
             minimumRadius: 170
         });
-        function tr(e) {
+        function sxWrapAngle(e) {
             return Math.atan2(Math.sin(e), Math.cos(e));
         }
         const nr = Object.freeze({
@@ -21,27 +21,27 @@
             pitch: er.pitch,
             minimumRadius: er.minimumRadius
         });
-        function ir(e, t, n) {
+        function sxFanAngle(e, t, n) {
             const i = Math.max(0, Number(t) || 0);
-            if (!i) return tr(e);
+            if (!i) return sxWrapAngle(e);
             const a = Math.ceil(i / 2), r = i % 2 == 1 ? 1 : -1;
-            return tr(e + Math.max(-nr.halfSpread, Math.min(nr.halfSpread, r * a * (Number(n) || 0))));
+            return sxWrapAngle(e + Math.max(-nr.halfSpread, Math.min(nr.halfSpread, r * a * (Number(n) || 0))));
         }
-        function ar(e, t, n) {
+        function sxFanAngles(e, t, n) {
             const i = Math.max(0, Number(t) || 0);
             if (!i) return [];
             const a = Math.ceil((i - 1) / 2), r = a > 0 ? nr.spread / (2 * a + 1) : 0, o = Math.max(Math.abs(Number(n) || 0), r);
             return !o || a * o <= nr.halfSpread ? Array.from({
                 length: i
-            }, (t, n) => ir(e, n, o)) : Array.from({
+            }, (t, n) => sxFanAngle(e, n, o)) : Array.from({
                 length: i
-            }, (e, t) => -nr.halfSpread + nr.spread * (t + .5) / i).slice().sort((e, t) => Math.abs(e) - Math.abs(t) || e - t).map(t => tr(e + t));
+            }, (e, t) => -nr.halfSpread + nr.spread * (t + .5) / i).slice().sort((e, t) => Math.abs(e) - Math.abs(t) || e - t).map(t => sxWrapAngle(e + t));
         }
         const rr = Object.freeze({
             // --- Spoke length calculations (uniform sibling radii) ---------------
-            slotAngle: ir,
-            fanAngles: ar,
-            childFanAngles: (e, t, n) => ar(e, t, n),
+            slotAngle: sxFanAngle,
+            fanAngles: sxFanAngles,
+            childFanAngles: (e, t, n) => sxFanAngles(e, t, n),
             stepForRadius: e => nr.pitch / Math.max(1, e),
             cloudRadiusFor(e) {
                 const t = Math.max(nr.minimumRadius, e * nr.pitch / nr.referenceSpread / .82), n = Math.ceil(Math.max(0, (Number(e) || 0) - 1) / 2), i = n > 0 ? n * nr.pitch / nr.halfSpread : 0;
@@ -100,8 +100,8 @@
             },
             _rotateSibling(e, t) {
                 const n = Math.atan2(Math.sin(t - e.cloudAngle), Math.cos(t - e.cloudAngle));
-                e.cloudAngle = tr(t), (e.children || []).forEach(e => {
-                    e.cloudAngle = tr(e.cloudAngle + n);
+                e.cloudAngle = sxWrapAngle(t), (e.children || []).forEach(e => {
+                    e.cloudAngle = sxWrapAngle(e.cloudAngle + n);
                 });
             },
             // --- Angular nudge -------------------------------------------------
@@ -290,7 +290,7 @@
                 };
             },
             branchAnchor(e) {
-                const t = yr(e.entry.branch);
+                const t = sxBranchSpokeLength(e.entry.branch);
                 return {
                     x: pr.centerX + Math.cos(e.angle) * t,
                     y: pr.centerY + Math.sin(e.angle) * t
@@ -474,7 +474,7 @@
                 }), a;
             },
             segmentDistance(e, t, n, i, a, r) {
-                const o = a - n, s = r - i, l = o * o + s * s, c = l ? A(((e - n) * o + (t - i) * s) / l) : 0;
+                const o = a - n, s = r - i, l = o * o + s * s, c = l ? sxClampUnit(((e - n) * o + (t - i) * s) / l) : 0;
                 return {
                     distance: Math.hypot(e - (n + o * c), t - (i + s * c)),
                     fraction: c
@@ -746,13 +746,13 @@
                 Cn.style.setProperty("--sx-rail-px", rail.toFixed(1) + "px"), Cn.style.setProperty("--sx-rail-hit-px", Math.max(14, Math.min(44, rail * 1.6)).toFixed(1) + "px");
             } catch (err) { __sxErrLog("rail-px-sync", err); }
         }
-        function hr(e) {
+        function sxDepthRadius(e) {
             return [ 128, 180, 1080, 3300 ][e] || 3300 + 1700 * (e - 3);
         }
-        function gr(e, t, n, i, a = 0) {
+        function sxAngularDemand(e, t, n, i, a = 0) {
             return Za.angularDemand(e, t, n, i, a);
         }
-        function mr(e, t, n, i, a, r, o = 0) {
+        function sxAllocateSectors(e, t, n, i, a, r, o = 0) {
             return Za.allocateSectors(e, t, n, i, a, r, o);
         }
         // Branch order (Build 2026-10-16_2020): mn.branchOrder selects the angular
@@ -796,10 +796,10 @@
         // (Complexity-Antipodal) - see branchOrderComplexityAntipodalNames.
         let branchOrderCacheMode = "", branchOrderCacheMap = null;
         function branchOrderPopularityNames() {
-            return U(h, z, e => e.name).map(e => e.name);
+            return sxSortByScore(h, sxBranchMeanScore, e => e.name).map(e => e.name);
         }
         function branchOrderRelationsNames(start) {
-            const order = start.slice(), count = order.length, pos = new Map(order.map((name, i) => [ name, i ])), pairs = pe(ue).filter(pair => pos.has(pair[0]) && pos.has(pair[1])), step = 2 * Math.PI / count, chord = (a, b) => {
+            const order = start.slice(), count = order.length, pos = new Map(order.map((name, i) => [ name, i ])), pairs = sxUniquePairs(ue).filter(pair => pos.has(pair[0]) && pos.has(pair[1])), step = 2 * Math.PI / count, chord = (a, b) => {
                 const d = Math.min(Math.abs(pos.get(a) - pos.get(b)), count - Math.abs(pos.get(a) - pos.get(b))) * step;
                 return 2 * Math.sin(d / 2);
             }, total = () => pairs.reduce((sum, pair) => sum + chord(pair[0], pair[1]), 0);
@@ -817,7 +817,7 @@
             return order;
         }
         function branchOrderStaggerNames() {
-            const count = h.length, byDensity = h.slice().sort((a, b) => b.topics.length - a.topics.length || (z(b) ?? 0) - (z(a) ?? 0) || a.name.localeCompare(b.name)), order = new Array(count).fill(null), angle = p => -Math.PI / 2 + p * 2 * Math.PI / count, nearest = target => {
+            const count = h.length, byDensity = h.slice().sort((a, b) => b.topics.length - a.topics.length || (sxBranchMeanScore(b) ?? 0) - (sxBranchMeanScore(a) ?? 0) || a.name.localeCompare(b.name)), order = new Array(count).fill(null), angle = p => -Math.PI / 2 + p * 2 * Math.PI / count, nearest = target => {
                 let best = -1, bestDist = Infinity, bestSin = -Infinity;
                 for (let p = 0; p < count; p++) {
                     if (order[p]) continue;
@@ -834,7 +834,7 @@
             return rest.forEach((p, i) => order[p] = middle[i].name), order;
         }
         function branchOrderAlternateNames() {
-            const byDensity = h.slice().sort((a, b) => b.topics.length - a.topics.length || (z(b) ?? 0) - (z(a) ?? 0) || a.name.localeCompare(b.name)), order = [];
+            const byDensity = h.slice().sort((a, b) => b.topics.length - a.topics.length || (sxBranchMeanScore(b) ?? 0) - (sxBranchMeanScore(a) ?? 0) || a.name.localeCompare(b.name)), order = [];
             let lo = 0, hi = byDensity.length - 1, dense = !0;
             while (lo <= hi) dense ? (order.push(byDensity[lo++].name), dense = !1) : (order.push(byDensity[hi--].name), dense = !0);
             return order;
@@ -849,7 +849,7 @@
         // with the fewest sub-branches and no two sub-branch-heavy branches
         // sit adjacent.
         function branchOrderSubBranchesNames() {
-            const count = h.length, subCount = e => (e.subcategories || []).length, bySub = h.slice().sort((a, b) => subCount(b) - subCount(a) || b.topics.length - a.topics.length || (z(b) ?? 0) - (z(a) ?? 0) || a.name.localeCompare(b.name)), order = new Array(count).fill(null), angle = p => -Math.PI / 2 + p * 2 * Math.PI / count, nearest = target => {
+            const count = h.length, subCount = e => (e.subcategories || []).length, bySub = h.slice().sort((a, b) => subCount(b) - subCount(a) || b.topics.length - a.topics.length || (sxBranchMeanScore(b) ?? 0) - (sxBranchMeanScore(a) ?? 0) || a.name.localeCompare(b.name)), order = new Array(count).fill(null), angle = p => -Math.PI / 2 + p * 2 * Math.PI / count, nearest = target => {
                 let best = -1, bestDist = Infinity, bestSin = -Infinity;
                 for (let p = 0; p < count; p++) {
                     if (order[p]) continue;
@@ -886,7 +886,7 @@
         // count - structural branching complexity is spread around the map
         // instead of topic bulk.
         function branchOrderAntipodalNames() {
-            const count = h.length, totalChildren = e => e.subcategories && e.subcategories.length ? e.subcategories.length + (e.parentTopics || []).length : e.topics.length, byTotal = h.slice().sort((a, b) => totalChildren(b) - totalChildren(a) || b.topics.length - a.topics.length || (z(b) ?? 0) - (z(a) ?? 0) || a.name.localeCompare(b.name)), order = new Array(count).fill(null), angle = p => -Math.PI / 2 + p * 2 * Math.PI / count, half = count / 2;
+            const count = h.length, totalChildren = e => e.subcategories && e.subcategories.length ? e.subcategories.length + (e.parentTopics || []).length : e.topics.length, byTotal = h.slice().sort((a, b) => totalChildren(b) - totalChildren(a) || b.topics.length - a.topics.length || (sxBranchMeanScore(b) ?? 0) - (sxBranchMeanScore(a) ?? 0) || a.name.localeCompare(b.name)), order = new Array(count).fill(null), angle = p => -Math.PI / 2 + p * 2 * Math.PI / count, half = count / 2;
             let start = 0, bestDist = Infinity;
             for (let p = 0; p < count; p++) {
                 const a = angle(p), d = Math.abs(Math.atan2(Math.sin(a), Math.cos(a)));
@@ -904,7 +904,7 @@
                 const deg = (angle(p) * 180 / Math.PI + 360) % 360;
                 quadrants[deg >= 270 ? 0 : deg < 90 ? 1 : deg < 180 ? 2 : 3].push(p);
             }
-            const byWeight = h.slice().sort((a, b) => b.topics.length - a.topics.length || (z(b) ?? 0) - (z(a) ?? 0) || a.name.localeCompare(b.name)), dealt = [ [], [], [], [] ], load = [ 0, 0, 0, 0 ], order = new Array(count).fill(null);
+            const byWeight = h.slice().sort((a, b) => b.topics.length - a.topics.length || (sxBranchMeanScore(b) ?? 0) - (sxBranchMeanScore(a) ?? 0) || a.name.localeCompare(b.name)), dealt = [ [], [], [], [] ], load = [ 0, 0, 0, 0 ], order = new Array(count).fill(null);
             byWeight.forEach(e => {
                 let pick = -1;
                 for (let q = 0; q < 4; q++) {
@@ -916,7 +916,7 @@
             return quadrants.forEach((slots, q) => slots.forEach((p, i) => order[p] = dealt[q][i])), order;
         }
         function branchOrderBranchingNames() {
-            const count = h.length, angle = p => -Math.PI / 2 + p * 2 * Math.PI / count, branched = h.filter(e => e.subcategories && e.subcategories.length).sort((a, b) => b.subcategories.length - a.subcategories.length || b.topics.length - a.topics.length || (z(b) ?? 0) - (z(a) ?? 0) || a.name.localeCompare(b.name)), flat = h.filter(e => !(e.subcategories && e.subcategories.length)).sort((a, b) => b.topics.length - a.topics.length || (z(b) ?? 0) - (z(a) ?? 0) || a.name.localeCompare(b.name)), order = new Array(count).fill(null), spread = [];
+            const count = h.length, angle = p => -Math.PI / 2 + p * 2 * Math.PI / count, branched = h.filter(e => e.subcategories && e.subcategories.length).sort((a, b) => b.subcategories.length - a.subcategories.length || b.topics.length - a.topics.length || (sxBranchMeanScore(b) ?? 0) - (sxBranchMeanScore(a) ?? 0) || a.name.localeCompare(b.name)), flat = h.filter(e => !(e.subcategories && e.subcategories.length)).sort((a, b) => b.topics.length - a.topics.length || (sxBranchMeanScore(b) ?? 0) - (sxBranchMeanScore(a) ?? 0) || a.name.localeCompare(b.name)), order = new Array(count).fill(null), spread = [];
             branched.forEach((e, k) => {
                 const target = -Math.PI / 2 + k * 2 * Math.PI / branched.length;
                 let best = -1, bestDist = Infinity;
@@ -954,7 +954,7 @@
                     if (dist < bestDist - 1e-9 || Math.abs(dist - bestDist) <= 1e-9 && sin > bestSin) best = p, bestDist = dist, bestSin = sin;
                 }
                 return best;
-            }, pairTargets = [ 0, -Math.PI / 2, -Math.PI / 4, Math.PI / 4, -3 * Math.PI / 8, 3 * Math.PI / 8 ], anchors = h.filter(e => subCount(e) > 0).sort((a, b) => subCount(b) - subCount(a) || b.topics.length - a.topics.length || (z(b) ?? 0) - (z(a) ?? 0) || a.name.localeCompare(b.name)).slice(0, 2 * pairTargets.length), anchorSlots = [];
+            }, pairTargets = [ 0, -Math.PI / 2, -Math.PI / 4, Math.PI / 4, -3 * Math.PI / 8, 3 * Math.PI / 8 ], anchors = h.filter(e => subCount(e) > 0).sort((a, b) => subCount(b) - subCount(a) || b.topics.length - a.topics.length || (sxBranchMeanScore(b) ?? 0) - (sxBranchMeanScore(a) ?? 0) || a.name.localeCompare(b.name)).slice(0, 2 * pairTargets.length), anchorSlots = [];
             anchors.forEach((e, i) => {
                 let p;
                 if (i % 2 === 0) p = nearest(pairTargets[i / 2]); else {
@@ -963,7 +963,7 @@
                 }
                 order[p] = e.name, used.add(e.name), anchorSlots.push(p);
             });
-            const buffers = h.filter(e => !used.has(e.name)).sort((a, b) => subCount(a) - subCount(b) || a.topics.length - b.topics.length || (z(a) ?? 0) - (z(b) ?? 0) || a.name.localeCompare(b.name)), rest = [];
+            const buffers = h.filter(e => !used.has(e.name)).sort((a, b) => subCount(a) - subCount(b) || a.topics.length - b.topics.length || (sxBranchMeanScore(a) ?? 0) - (sxBranchMeanScore(b) ?? 0) || a.name.localeCompare(b.name)), rest = [];
             for (let p = 0; p < count; p++) order[p] || rest.push(p);
             rest.sort((p, q) => {
                 const steps = s => anchorSlots.length ? Math.min(...anchorSlots.map(a => Math.min(Math.abs(s - a), count - Math.abs(s - a)))) : 0;

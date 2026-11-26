@@ -81,34 +81,34 @@
             70: [ "t0070", "receive" ],
             71: [ "t0327", "give" ]
         }, lk = new Set([ 2, 6, 7, 10, 17, 18, 19, 23, 24, 25, 26, 27, 29, 31, 32, 33, 35, 38, 40, 43, 44, 46, 47, 48, 52, 53, 56, 59, 60, 61, 63, 65, 68, 69 ]);
-        function ck(e) {
+        function sxNormalizeTermText(e) {
             return String(e || "").toLowerCase().replace(/&/g, " and ").replace(/[’']/g, "").replace(/[^a-z0-9]+/g, " ").trim().replace(/\s+/g, " ");
         }
-        function dk(e) {
+        function sxStemFetishTokens(e) {
             const t = new Set([ "a", "an", "and", "the", "play", "roleplay", "kink", "fetish", "fantasy", "bondage", "sex", "sexual", "role", "roles" ]);
-            return ck(e).split(" ").filter(e => e && !t.has(e)).map(e => e.replace(/(?:ing|ed|es|s)$/, "")).filter(Boolean);
+            return sxNormalizeTermText(e).split(" ").filter(e => e && !t.has(e)).map(e => e.replace(/(?:ing|ed|es|s)$/, "")).filter(Boolean);
         }
         let uk = null;
-        function pk(e, t, n) {
+        function sxResolveAliasTarget(e, t, n) {
             if (!e || !e.id) return null;
             if (isCatId(e.id)) return {
                 id: migrateNodeKey(e.id),
-                label: mx(migrateNodeKey(e.id)),
+                label: sxCatalogLabelText(migrateNodeKey(e.id)),
                 child: null
             };
-            const i = e.id, a = Xn(i), r = function(e) {
-                const t = ni(e);
+            const i = e.id, a = sxNodeById(i), r = function(e) {
+                const t = sxCleanImportLabelText(e);
                 if (!t) return null;
                 const n = function() {
                     if (uk) return uk;
                     const e = {}, t = (t, n) => {
-                        const i = ck(t);
+                        const i = sxNormalizeTermText(t);
                         i && !e[i] && (e[i] = n);
                         const a = i.replace(/\s+/g, "");
                         a && a !== i && !e[a] && (e[a] = n);
                     };
                     for (const e of h) for (const n of e.topics) {
-                        const e = Wn(n);
+                        const e = sxResolveTopicId(n);
                         t(n, e);
                         const i = String(n).replace(/\s*[\(\[\{][^\)\]\}]*[\)\]\}]\s*/g, "").trim();
                         i && i !== n && t(i, e), String(n).split("/").forEach(i => {
@@ -121,32 +121,32 @@
                     }
                     return uk = e, e;
                 }();
-                let i = n[ck(t)];
+                let i = n[sxNormalizeTermText(t)];
                 if (i) return i;
-                if (i = n[ck(t).replace(/\s+/g, "")], i) return i;
+                if (i = n[sxNormalizeTermText(t).replace(/\s+/g, "")], i) return i;
                 const a = t.replace(/\s*[\(\[\{][^\)\]\}]*[\)\]\}]\s*/g, "").trim();
-                if (a && a !== t && (i = n[ck(a)], i)) return i;
-                const r = ck(t), o = new Set;
+                if (a && a !== t && (i = n[sxNormalizeTermText(a)], i)) return i;
+                const r = sxNormalizeTermText(t), o = new Set;
                 r.endsWith("s") ? o.add(r.slice(0, -1)) : o.add(r + "s"), r.endsWith("es") && o.add(r.slice(0, -2));
                 for (const e of o) if (i = n[e], i) return i;
                 return null;
             }(t);
             if (r && r !== i) return {
                 id: r,
-                label: mx(r),
+                label: sxCatalogLabelText(r),
                 child: null
             };
             if (a && function(e, t, n) {
-                const i = ni(e);
-                if (!i || ck(i) === ck(t.label)) return !1;
+                const i = sxCleanImportLabelText(e);
+                if (!i || sxNormalizeTermText(i) === sxNormalizeTermText(t.label)) return !1;
                 if (n.uncertain || n.specific) return !0;
-                const a = new Set(dk(i)), r = new Set(dk(t.label));
+                const a = new Set(sxStemFetishTokens(i)), r = new Set(sxStemFetishTokens(t.label));
                 return !!a.size && (![ ...a ].filter(e => r.has(e)).length || [ ...a ].some(e => !r.has(e)) && [ ...r ].some(e => !a.has(e)));
             }(t, a, e)) {
-                const sxSugName = ni(t);
+                const sxSugName = sxCleanImportLabelText(t);
                 if (sxSugName) return {
                     id: i,
-                    label: mx(i),
+                    label: sxCatalogLabelText(i),
                     child: null,
                     suggestion: {
                         name: sxSugName,
@@ -156,14 +156,14 @@
             }
             return {
                 id: i,
-                label: mx(i),
+                label: sxCatalogLabelText(i),
                 child: null
             };
         }
-        function hk(e) {
+        function sxAliasTargetText(e) {
             if (!e || !e.child) return e ? e.label : "";
-            const t = Xn(e.child.parentId);
-            return `${t ? t.label : mx(e.child.parentId)} → ${e.child.label}`;
+            const t = sxNodeById(e.child.parentId);
+            return `${t ? t.label : sxCatalogLabelText(e.child.parentId)} → ${e.child.label}`;
         }
         // Minting-suggestions build (2026-11-05): pathed display for
         // converter mapping targets and suggestion parent paths, in the
@@ -194,24 +194,24 @@
         function sxNodePath(e) {
             if (!e) return "";
             const id = migrateNodeKey(e);
-            if (isCatId(id)) return SX_CAT_FORMS[id] || mx(id);
-            const s = zn(id);
+            if (isCatId(id)) return SX_CAT_FORMS[id] || sxCatalogLabelText(id);
+            const s = sxFindSubcategoryNode(id);
             if (s) {
                 const c = h.find(c => c.name === s.branch);
                 return `${c ? SX_CAT_FORMS[c.id] || s.branch : s.branch}›${s.label}`;
             }
-            const n = Xn(id);
+            const n = sxNodeById(id);
             if (n && "Topic" === n.kind) {
                 const c = h.find(c => c.name === n.branch), form = c ? SX_CAT_FORMS[c.id] || n.branch : n.branch;
                 if (n.parentId) {
-                    const p = zn(n.parentId);
+                    const p = sxFindSubcategoryNode(n.parentId);
                     if (p) return `${form}›${p.label}›${n.label}`;
                 }
                 return `${form}›${n.label}`;
             }
-            const ch = qn[id];
+            const ch = sxNodeRegistry[id];
             if (ch && ch.parentId) return `${sxNodePath(ch.parentId)}›${ch.label}`;
-            return mx(id);
+            return sxCatalogLabelText(id);
         }
         // ============================================================
 

@@ -93,7 +93,7 @@ const sxReanchorStem = (stem, centres, spokeOld) => {
     if (!childKey) return;
     const child = centres.get(childKey);
     if (!child) return;
-    const rec = qn[childKey];
+    const rec = sxNodeRegistry[childKey];
     let parent = null;
     const parentKey = rec && (rec.parentId || (rec.branch ? catId(rec.branch) : null));
     if (parentKey && (parent = centres.get(parentKey) || null), !parent && isCatId(childKey)) parent = {
@@ -256,7 +256,7 @@ sxStemFinaliseHook = sxFinaliseAllStems;
 function sxUpdateOverlapLinks() {
     const e = new Map, t = new Map;
     In.querySelectorAll(".node-group:not(.is-hidden)[data-layout-key]").forEach(n => {
-        const i = n.dataset.layoutKey, a = qn[i], r = Number(n.dataset.layoutX), o = Number(n.dataset.layoutY);
+        const i = n.dataset.layoutKey, a = sxNodeRegistry[i], r = Number(n.dataset.layoutX), o = Number(n.dataset.layoutY);
         a && Number.isFinite(r) && Number.isFinite(o) && (t.set(i, {
             x: r,
             y: o
@@ -269,8 +269,8 @@ function sxUpdateOverlapLinks() {
         const n = t.get(e.dataset.topicA), i = t.get(e.dataset.topicB), a = Boolean(n && i);
         e.dataset.connected = a ? "true" : "false", a ? (e.dataset.ax = n.x.toFixed(2),
         e.dataset.ay = n.y.toFixed(2), e.dataset.bx = i.x.toFixed(2), e.dataset.by = i.y.toFixed(2),
-        e.setAttribute("d", br(n, i))) : e.style.display = "none";
-    }), wr();
+        e.setAttribute("d", sxHubTangentPathText(n, i))) : e.style.display = "none";
+    }), sxClipCameraOverlays();
 }
 
 function* sxRunNodeSettle(scCtx, blitSess) {
@@ -328,7 +328,7 @@ function* sxRunNodeSettle(scCtx, blitSess) {
         const sxIsReversed = Boolean(u && u.indexOf("#pr-") === 0), sxFs = Number.parseFloat(c.style.fontSize) || 17, sxSixSpace = Math.max(18, 6 * Za.measure(" ", sxFs, "topic"));
         let I = sxIsReversed ? g - S + C : S + C, P = (sxIsReversed ? m(g - S + C / 2) : m(S + C / 2)).point;
         l.dataset.labelX = P.x.toFixed(2), l.dataset.labelY = P.y.toFixed(2);
-        const L = !k && !l.classList.contains("imported-child"), T = l.classList.contains("imported-child"), F = l.classList.contains("subcategory-node"), scFrozenNode = Boolean(scCtx && qn[l.dataset.layoutKey] && scCtx.frozenBranches.has(qn[l.dataset.layoutKey].branch)), N = L || T ? sxSixSpace : n, _ = Number.parseFloat(l.dataset.iconDistanceOverride), D = F ? g : Number.isFinite(_) ? _ : I + N + A, R = e => {
+        const L = !k && !l.classList.contains("imported-child"), T = l.classList.contains("imported-child"), F = l.classList.contains("subcategory-node"), scFrozenNode = Boolean(scCtx && sxNodeRegistry[l.dataset.layoutKey] && scCtx.frozenBranches.has(sxNodeRegistry[l.dataset.layoutKey].branch)), N = L || T ? sxSixSpace : n, _ = Number.parseFloat(l.dataset.iconDistanceOverride), D = F ? g : Number.isFinite(_) ? _ : I + N + A, R = e => {
             // N-POLE WIDGETS (2026-11-18): the widget is tangent to the icon, so when the settle moves the icon outward the widget must follow by the same delta to stay tangent. The delta is the current icon centre minus the design icon centre (zero on the first call, e === D).
             const sxSettleDx = m(e).point.x - m(D).point.x, sxSettleDy = m(e).point.y - m(D).point.y;
             const n = m(e).point, i = E ? e + A + (L ? 6 : t) : I, a = w.map(e => {

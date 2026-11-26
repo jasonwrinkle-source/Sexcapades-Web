@@ -16,16 +16,16 @@
             try { window.__SEXCAPADES_LAYOUT_UI.toggleAnnealFromNode(id); }
             catch (err) { __sxErrLog("layout-anneal-ctrl", err); }
         }
-        function Qa(e) {
+        function sxOnSpokeClick(e) {
             if (mn.staticMap) return;
             if (e.preventDefault(), e.stopPropagation(), to) return void (to = !1);
             const t = e.currentTarget, n = t.dataset.id || t.dataset.topicId || __sxClosestAction(t, "nodeGroup")?.dataset.layoutKey;
             if (!n) return;
             if (sxMapAnnealChord(e)) return void sxToggleAnnealFromMap(n);
             selectSpokeNode(n, !0);
-            const rec = qn[n] || Xn(n);
-            const branch = rec ? rec.branch : (typeof ci === "function" ? ci(n) : "") || "";
-            if (typeof Th === "function") Th(n, branch);
+            const rec = sxNodeRegistry[n] || sxNodeById(n);
+            const branch = rec ? rec.branch : (typeof sxLookupNodeBranch === "function" ? sxLookupNodeBranch(n) : "") || "";
+            if (typeof sxFrameNodeInCamera === "function") sxFrameNodeInCamera(n, branch);
             else if (typeof window.__sxFocusNode === "function") window.__sxFocusNode(n, branch);
         }
         function clearSelectionMarking() {
@@ -140,7 +140,7 @@
             // runs) that exists only in the rendered DOM.
             if (!n) return;
             Lt = n, Nt = null, sxSelEditorMirrored = n;
-            applySelectionMarking(n, qn[n] || Xn(n) || (at[Vi()] || {})[n] || null);
+            applySelectionMarking(n, sxNodeRegistry[n] || sxNodeById(n) || (at[sxActiveProfileId()] || {})[n] || null);
             if (notify === !1) return;
             try {
                 window.__SEXCAPADES_LAYOUT_UI && window.__SEXCAPADES_LAYOUT_UI.selectNode && window.__SEXCAPADES_LAYOUT_UI.selectNode(n);
@@ -154,19 +154,19 @@
             if (!n) return;
             if (sxMapAnnealChord(e)) return void sxToggleAnnealFromMap(n);
             selectSpokeNode(n, !0);
-            const rec = qn[n] || Xn(n);
-            const branch = rec ? rec.branch : (typeof ci === "function" ? ci(n) : "") || "";
-            if (typeof Th === "function") Th(n, branch);
+            const rec = sxNodeRegistry[n] || sxNodeById(n);
+            const branch = rec ? rec.branch : (typeof sxLookupNodeBranch === "function" ? sxLookupNodeBranch(n) : "") || "";
+            if (typeof sxFrameNodeInCamera === "function") sxFrameNodeInCamera(n, branch);
             else if (typeof window.__sxFocusNode === "function") window.__sxFocusNode(n, branch);
         }
-        function Ja() {
+        function sxRefreshMapChrome() {
             // A rating-details pass can clear the expanded-branch set
             // while the map is still in its expanded state (kn). Re-seed
             // that set before deciding which topic names stay visible, so
             // fit zoom does not lose every label.
             kn && !rn.size && h.forEach(e => e && e.name && rn.add(e.name));
             In.querySelectorAll(".map-label").forEach(e => {
-                const t = qn[e.dataset.topicId];
+                const t = sxNodeRegistry[e.dataset.topicId];
                 if (!t) return;
                 const n = Tt && String(t.label || "").toLowerCase().includes(Tt);
                 e.classList.toggle("revealed", Boolean(n || rn.has(t.branch)));
@@ -205,11 +205,11 @@
             event?.preventDefault(), event?.stopPropagation();
             const branchNames = [link.dataset.branchA, link.dataset.branchB].filter(Boolean), topicIds = [link.dataset.topicA, link.dataset.topicB].filter(Boolean);
             topicIds.forEach(id => {
-                const topic = qn[id] || Xn(id);
+                const topic = sxNodeRegistry[id] || sxNodeById(id);
                 topic?.branch && branchNames.push(topic.branch);
             });
             branchNames.forEach(name => rn.add(name));
-            if (branchNames.length) Mr();
+            if (branchNames.length) sxRequestMapPaint();
             requestAnimationFrame(() => requestAnimationFrame(() => {
                 const endpointIds = topicIds.length ? topicIds : branchNames.map(name => catId(name));
                 const points = endpointIds.map(id => In.querySelector(`[data-layout-key="${CSS.escape(id)}"]`)).filter(Boolean).map(node => {
@@ -218,7 +218,7 @@
                 }).filter(point => Number.isFinite(point.x) && Number.isFinite(point.y));
                 if (points.length < 2) return;
                 const [a,b] = points, cx = (a.x + b.x) / 2, cy = (a.y + b.y) / 2, pad = innerWidth <= 620 ? 70 : 110, spanX = Math.abs(b.x-a.x) + 170, spanY = Math.abs(b.y-a.y) + 170, scale = Math.max(.28, Math.min(innerWidth <= 620 ? 2.2 : 2.6, (nh.width-2*pad)/Math.max(spanX,1), (nh.height-2*pad)/Math.max(spanY,1)));
-                const prevBt = Bt; Bt = !0; Ph(scale, nh.x + nh.width/2 - cx*scale, nh.y + nh.height/2 - cy*scale); Bt = prevBt;
+                const prevBt = Bt; Bt = !0; sxEaseViewportCamera(scale, nh.x + nh.width/2 - cx*scale, nh.y + nh.height/2 - cy*scale); Bt = prevBt;
             }));
         }
         document.addEventListener("click", function(event) {

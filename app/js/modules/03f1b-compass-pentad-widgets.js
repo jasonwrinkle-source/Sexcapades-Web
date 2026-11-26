@@ -16,7 +16,7 @@
                 if (advCol) advCol.classList.toggle("is-active", newMode === "advocacy");
                 if (recCol) recCol.classList.toggle("is-active", newMode === "receptivity");
                 if (Qr) {
-                    const shape = Ge(Qr);
+                    const shape = sxWidgetConfig(Qr);
                     sxDrawCompassWidget(canvas, shape, sxCompassState);
                 }
             };
@@ -56,7 +56,7 @@
                 }
 
                 if (Qr) {
-                    const shape = Ge(Qr);
+                    const shape = sxWidgetConfig(Qr);
                     sxDrawCompassWidget(canvas, shape, sxCompassState);
                     sxApplyCompassRatings(Qr, true);
                 }
@@ -149,7 +149,7 @@
                     if (Qr) sxApplyCompassRatings(Qr, true);
                 }
                 if (Qr) {
-                    const shape = Ge(Qr);
+                    const shape = sxWidgetConfig(Qr);
                     sxDrawCompassWidget(canvas, shape, sxCompassState);
                 }
             }, { passive: false });
@@ -164,7 +164,7 @@
                     advSlider.style.setProperty("--adv-color", sxIntensityRGB(255, 255, 255, sxCompassState.intensity));
                     if (Qr) {
                         sxPersistIntensity(Qr, sxCompassState.intensity);
-                        const shape = Ge(Qr);
+                        const shape = sxWidgetConfig(Qr);
                         sxDrawCompassWidget(canvas, shape, sxCompassState);
                         sxApplyCompassRatings(Qr, true);
                     }
@@ -181,7 +181,7 @@
                     if (recOut) recOut.textContent = String(Math.round(sxCompassState.recIntensity));
                     recSlider.style.setProperty("--rec-color", sxIntensityRGB(56, 189, 248, sxCompassState.recIntensity));
                     if (Qr) {
-                        const shape = Ge(Qr);
+                        const shape = sxWidgetConfig(Qr);
                         sxDrawCompassWidget(canvas, shape, sxCompassState);
                         sxApplyCompassRatings(Qr, true);
                     }

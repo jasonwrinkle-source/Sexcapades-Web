@@ -7,16 +7,16 @@
         const b = h.map(e => ({
             name: e.name,
             topics: e.topics.slice()
-        })), v = window.__SEXCAPADES_PREVALENCE && "object" == typeof window.__SEXCAPADES_PREVALENCE ? window.__SEXCAPADES_PREVALENCE : {}, w = Object.keys(v).length ? v : V("prevalenceData"), k = window.__SEXCAPADES_POPULARITY_DATA && "object" == typeof window.__SEXCAPADES_POPULARITY_DATA ? window.__SEXCAPADES_POPULARITY_DATA : {}, x = Object.keys(k).length ? k : V("popularityData"), S = Object.freeze({
+        })), v = window.__SEXCAPADES_PREVALENCE && "object" == typeof window.__SEXCAPADES_PREVALENCE ? window.__SEXCAPADES_PREVALENCE : {}, w = Object.keys(v).length ? v : sxJsonFromElement("prevalenceData"), k = window.__SEXCAPADES_POPULARITY_DATA && "object" == typeof window.__SEXCAPADES_POPULARITY_DATA ? window.__SEXCAPADES_POPULARITY_DATA : {}, x = Object.keys(k).length ? k : sxJsonFromElement("popularityData"), S = Object.freeze({
             joyal: 1516,
             lehmiller: 4175
         }), $ = e => Math.max(0, Number(e) || 0), E = e => Math.log1p(Math.max(0, Number(e) || 0));
-        function A(e) {
+        function sxClampUnit(e) {
             return Math.max(0, Math.min(1, e));
         }
         const C = e => {
             const t = Number(e);
-            return Number.isFinite(t) ? A(t / 100) : null;
+            return Number.isFinite(t) ? sxClampUnit(t / 100) : null;
         }, M = e => String(e || "").toLowerCase().replace(/&/g, " and ").replace(/[^a-z0-9]+/g, " ").trim(), I = Object.freeze({
             "Gender Play": [ "Genderplay" ],
             "Doctor/Nurse Play": [ "Doctor / nurse roleplay" ],
@@ -203,7 +203,7 @@
             sxOverrideCache = { ref: g, fingerprint, result };
             return result;
         }
-        function N(e, t = e => e) {
+        function sxFiniteRange(e, t = e => e) {
             const n = e.map(Number).filter(Number.isFinite).map(t);
             return n.length ? {
                 min: Math.min(...n),
@@ -213,21 +213,21 @@
                 max: 0
             };
         }
-        const _ = e => Math.log1p(Math.max(0, Number(e) || 0)), D = N(Object.values(P), _), R = N(Object.values(sxSurveyValues).map(e => "object" == typeof e ? e.value : e));
-        function O(e, t, n = e => e) {
+        const _ = e => Math.log1p(Math.max(0, Number(e) || 0)), D = sxFiniteRange(Object.values(P), _), R = sxFiniteRange(Object.values(sxSurveyValues).map(e => "object" == typeof e ? e.value : e));
+        function sxUnitInRange(e, t, n = e => e) {
             const i = Number(e);
             if (!Number.isFinite(i)) return null;
             const a = n(i), r = t.max - t.min;
-            return r > 0 ? A((a - t.min) / r) : .5;
+            return r > 0 ? sxClampUnit((a - t.min) / r) : .5;
         }
-        function B(e) {
+        function sxPeakPopularity(e) {
             const t = F.get(M(e)), n = function(e, t) {
                 const n = (e || []).map(e => t.get(M(e).replace(/^r /, ""))).filter(Number.isFinite);
                 return n.length ? Math.max(...n) : null;
             }([ ...L[e] || [], ...I[e] || [] ], F), i = [ t, n ].filter(Number.isFinite);
             return i.length ? Math.max(...i) : null;
         }
-        function j(e) {
+        function sxSurveySnapshot(e) {
             const t = [ e, ...I[e] || [] ].map(e => sxSurveyValues[e]).filter(e => null != e).sort((e, t) => Number(("object" == typeof t ? t.value : t) || 0) - Number(("object" == typeof e ? e.value : e) || 0))[0];
             if (null == t) return null;
             const n = "object" == typeof t ? Object.assign({}, t) : {
@@ -269,7 +269,7 @@
             for (let k = 0; k < alts.length; k++) { const w = SX_O6_PRIORS.byLabel[M(alts[k])]; if (Number.isFinite(w)) return w; }
             return null;
         }
-        const SX_REDDIT_VALUES = (x.reddit && x.reddit.values) || {}, SX_REDDIT_RANGE = N(Object.values(SX_REDDIT_VALUES).map(v => "object" == typeof v ? v.value : v));
+        const SX_REDDIT_VALUES = (x.reddit && x.reddit.values) || {}, SX_REDDIT_RANGE = sxFiniteRange(Object.values(SX_REDDIT_VALUES).map(v => "object" == typeof v ? v.value : v));
         function sxRedditVal(e) {
             const t = [ e, ...I[e] || [] ].map(k => SX_REDDIT_VALUES[k]).filter(v => null != v).sort((a, b) => Number(("object" == typeof b ? b.value : b) || 0) - Number(("object" == typeof a ? a.value : a) || 0))[0];
             if (null == t) return null;
@@ -285,43 +285,43 @@
                     if (null != t) { const n = "object" == typeof t ? Object.assign({}, t) : { value: t }; n.sampleSize = Math.max(0, Number(n.sampleSize) || 0); return n; }
                 }
             }
-            return j(e);
+            return sxSurveySnapshot(e);
         }
-        function ho(e, t) {
+        function sxLehmillerRow(e, t) {
             return [ e, ...I[e] || [] ].map(e => w[e]).find(e => e && Number.isFinite(Number(e.pct)) && (/lehmiller/i.test(e.source || "") ? "lehmiller" : "joyal") === t) || null;
         }
         const q = Object.freeze([ {
             id: "fetlife",
-            value: e => B(e),
-            normalize: e => O(e, D, _),
+            value: e => sxPeakPopularity(e),
+            normalize: e => sxUnitInRange(e, D, _),
             weight: e => .5 * E(e)
         }, {
             id: "joyal",
-            value: e => ho(e, "joyal"),
+            value: e => sxLehmillerRow(e, "joyal"),
             normalize: e => C(e && e.pct),
             weight: e => e ? SX_O6_LN_JOYAL : 0
         }, {
             id: "lehmiller",
-            value: e => ho(e, "lehmiller"),
+            value: e => sxLehmillerRow(e, "lehmiller"),
             normalize: e => C(e && e.pct),
             weight: e => e ? SX_O6_LN_LEHMILLER : 0
         }, {
             id: "reddit",
             value: e => sxRedditVal(e),
-            normalize: e => O(e && e.value, SX_REDDIT_RANGE),
+            normalize: e => sxUnitInRange(e && e.value, SX_REDDIT_RANGE),
             weight: e => .5 * Math.log(Math.max(1, Number(e && e.sampleSize) || Number(e && e.value) || 0))
         }, {
             id: "community",
             value: e => sxCommunityVal(e),
-            normalize: e => O(e && e.value, R),
+            normalize: e => sxUnitInRange(e && e.value, R),
             weight: e => .5 * Math.log(Math.max(1, Number(e && e.sampleSize) || 0))
         }, {
             id: "priors",
             value: e => sxO6Prior(e),
-            normalize: e => Number.isFinite(e) ? A(e) : null,
+            normalize: e => Number.isFinite(e) ? sxClampUnit(e) : null,
             weight: () => SX_O6_PRIOR_W
         } ]);
-        function H(e) {
+        function sxBlendedScore(e) {
             let t = 0, n = 0;
             return q.forEach(i => {
                 const a = i.value(e);
@@ -389,13 +389,13 @@
             }
             const lb = topicLabelById[key];
             if (lb) {
-                const p = H(lb);
+                const p = sxBlendedScore(lb);
                 if (null != p) return p;
                 const pr = SX_O6_PRIORS.byId[key];
                 return Number.isFinite(pr) ? pr : null;
             }
-            if (labelFallback) return H(labelFallback);
-            return H(key);
+            if (labelFallback) return sxBlendedScore(labelFallback);
+            return sxBlendedScore(key);
         }
         function sxTopicKinkiness(idOrLabel, labelFallback) {
             const p = sxTopicPopularity(idOrLabel, labelFallback);
@@ -409,30 +409,30 @@
             tooSmallNotes: sxO6TooSmallNotes,
             communitySnapshot: sxCommunitySnapshotStatus
         };
-        function W(e, t) {
+        function sxCompareScoreDesc(e, t) {
             const n = Number.isFinite(e.score), i = Number.isFinite(t.score);
             return n !== i ? n ? -1 : 1 : n && i && e.score !== t.score ? t.score - e.score : String(e.label).localeCompare(String(t.label)) || e.index - t.index;
         }
-        function U(e, t, n) {
+        function sxSortByScore(e, t, n) {
             const i = n || (e => e?.label || e);
             return e.map((e, n) => ({
                 value: e,
                 index: n,
                 score: t(e),
                 label: i(e)
-            })).sort(W).map(e => e.value);
+            })).sort(sxCompareScoreDesc).map(e => e.value);
         }
-        function G(e, t) {
-            return U(e, t);
+        function sxOrderByScore(e, t) {
+            return sxSortByScore(e, t);
         }
-        function K(e) {
-            const t = (e || []).map(H).filter(Number.isFinite);
+        function sxMeanScore(e) {
+            const t = (e || []).map(sxBlendedScore).filter(Number.isFinite);
             return t.length ? t.reduce((e, t) => e + t, 0) / t.length : null;
         }
-        function z(e) {
-            return K((e.topics || []).map(sxName));
+        function sxBranchMeanScore(e) {
+            return sxMeanScore((e.topics || []).map(sxName));
         }
-        function V(t) {
+        function sxJsonFromElement(t) {
             try {
                 return JSON.parse(e.byId(t)?.textContent || "{}");
             } catch (e) {
@@ -440,9 +440,9 @@
             }
         }
         h.forEach(e => {
-            e.topics = U(e.topics, e => sxTopicPopularity(topicIdByLabel[sxName(e)] || sxName(e)));
-        }), h.splice(0, h.length, ...U(h, z, e => e.name));
-        const Y = V("fetlifeGroupMappingData"), X = V("redditGroupMappingData"), Z = V("discordGroupMappingData"), Q = Object.keys(Y).length ? Y : window.__SEXCAPADES_FETLIFE_GROUPS && "object" == typeof window.__SEXCAPADES_FETLIFE_GROUPS ? window.__SEXCAPADES_FETLIFE_GROUPS : {}, J = Object.keys(X).length ? X : window.__SEXCAPADES_REDDIT_GROUPS && "object" == typeof window.__SEXCAPADES_REDDIT_GROUPS ? window.__SEXCAPADES_REDDIT_GROUPS : {}, ee = Object.keys(Z).length ? Z : window.__SEXCAPADES_DISCORD_GROUPS && "object" == typeof window.__SEXCAPADES_DISCORD_GROUPS ? window.__SEXCAPADES_DISCORD_GROUPS : {}, te = (() => {
+            e.topics = sxSortByScore(e.topics, e => sxTopicPopularity(topicIdByLabel[sxName(e)] || sxName(e)));
+        }), h.splice(0, h.length, ...sxSortByScore(h, sxBranchMeanScore, e => e.name));
+        const Y = sxJsonFromElement("fetlifeGroupMappingData"), X = sxJsonFromElement("redditGroupMappingData"), Z = sxJsonFromElement("discordGroupMappingData"), Q = Object.keys(Y).length ? Y : window.__SEXCAPADES_FETLIFE_GROUPS && "object" == typeof window.__SEXCAPADES_FETLIFE_GROUPS ? window.__SEXCAPADES_FETLIFE_GROUPS : {}, J = Object.keys(X).length ? X : window.__SEXCAPADES_REDDIT_GROUPS && "object" == typeof window.__SEXCAPADES_REDDIT_GROUPS ? window.__SEXCAPADES_REDDIT_GROUPS : {}, ee = Object.keys(Z).length ? Z : window.__SEXCAPADES_DISCORD_GROUPS && "object" == typeof window.__SEXCAPADES_DISCORD_GROUPS ? window.__SEXCAPADES_DISCORD_GROUPS : {}, te = (() => {
             try {
                 const t = JSON.parse(e.byId("communityCompletionTimeData")?.textContent || "{}"), n = e => Number.isFinite(Number(e)) && Number(e) > 0 ? Number(e) : null, i = e => Number.isFinite(Number(e)) && Number(e) >= 0 ? Number(e) : null;
                 return {
@@ -460,19 +460,19 @@
                 };
             }
         })();
-        function ne(e) {
+        function sxOneDecimal(e) {
             const t = Math.round(10 * e) / 10;
             return Number.isInteger(t) ? String(t) : t.toFixed(1);
         }
         !function() {
             const t = null !== te.median && null !== te.mean && null !== te.sd && null !== te.n;
             e.all("[data-list-rate-estimate-headline]").forEach(e => {
-                e.textContent = t ? `Most explorers finish in ~${ne(te.median)} minutes. Pause anytime — partial profiles still make a functional hypermap.` : "Most people finish in less than an hour. Pause anytime — partial profiles still make a functional hypermap.";
+                e.textContent = t ? `Most explorers finish in ~${sxOneDecimal(te.median)} minutes. Pause anytime — partial profiles still make a functional hypermap.` : "Most people finish in less than an hour. Pause anytime — partial profiles still make a functional hypermap.";
             }), e.all("[data-list-rate-estimate-detail]").forEach(e => {
-                e.hidden = !t, e.textContent = t ? `average ${ne(te.mean)} ± ${ne(te.sd)} min from ${Math.round(te.n)} explorers` : "";
+                e.hidden = !t, e.textContent = t ? `average ${sxOneDecimal(te.mean)} ± ${sxOneDecimal(te.sd)} min from ${Math.round(te.n)} explorers` : "";
             });
         }();
-        function re(e) {
+        function sxValidLinks(e) {
             const t = Array.isArray(e) ? e : [], n = new Set;
             return t.map(e => {
                 if (!e || "object" != typeof e) return null;
@@ -490,14 +490,14 @@
             reddit: J,
             discord: ee
         };
-        function ce(e, t) {
+        function sxLinksFor(e, t) {
             const n = oe[t];
-            return n && Object.prototype.hasOwnProperty.call(n, e) ? re(n[e]) : [];
+            return n && Object.prototype.hasOwnProperty.call(n, e) ? sxValidLinks(n[e]) : [];
         }
-        function de(e, t) {
-            return ce(e, t)[0] || null;
+        function sxPrimaryLink(e, t) {
+            return sxLinksFor(e, t)[0] || null;
         }
-        function pe(e) {
+        function sxUniquePairs(e) {
             const t = new Set, n = [];
             return (e || []).forEach(e => {
                 if (!e || e.length < 2 || !e[0] || !e[1] || e[0] === e[1]) return;
@@ -507,11 +507,11 @@
         }
         const ve = new Map;
         b.forEach(e => e.topics.forEach((t, n) => ve.set(e.name + "\0" + t, (window.__SX_EXPORT_BE?.[e.name] || [])[n] || "star")));
-        function xe(e) {
+        function sxLabelFromKey(e) {
             return ke[e] || e.replace(/([a-z])([A-Z])/g, "$1 $2").replace(/\d+/g, "").trim();
         }
-        function $e(e, t, n, i, a) {
-            const r = [ `${"Category" === e.kind ? we[e.branch] || "branch symbol" : xe(t.key)}: ${"Category" === e.kind ? "branch" : "topic"} symbol for ${e.label}.` ], o = Se[i.key] || "hanky";
+        function sxIconHoverText(e, t, n, i, a) {
+            const r = [ `${"Category" === e.kind ? we[e.branch] || "branch symbol" : sxLabelFromKey(t.key)}: ${"Category" === e.kind ? "branch" : "topic"} symbol for ${e.label}.` ], o = Se[i.key] || "hanky";
             t && t.glyphFallback && r.push("The star symbol is shown because no symbol is assigned here.");
             return "Category" === e.kind ? r.push("noCode" === i.key ? "Dark-charcoal icon: no children have a hanky code." : `${o} icon: predominant hanky color among coded child topics${i.mixed ? "; dashed spoke means the coded children vary widely" : ""}.`) : r.push("noCode" === i.key ? "Dark-charcoal icon: this topic has no hanky code." : `${o} icon: this topic’s hanky-code color.`), 
             r.push(null === n ? "The spoke's center line is a neutral seam; the rating colors live on the spoke's flanks." : "Green-to-yellow-to-red spoke: current rating colors."), 
@@ -520,7 +520,7 @@
             r.join(" ");
         }
         
-        function Ae(e, t) {
+        function sxHubIcon(e, t) {
             // Subcategory-hub inheritance (owner ruling 2026-11-23): a
             // hub with no glyph of its own in Ee inherits its parent
             // category's descriptor glyph from ge instead of the
@@ -589,7 +589,7 @@
             const t = new Map;
             let n = 0;
             if ((topics || []).forEach(i => {
-                const a = Le(i, branch).key;
+                const a = sxHankyStyle(i, branch).key;
                 "noCode" !== a && (n += 1, t.set(a, (t.get(a) || 0) + 1));
             }), !n) return null;
             const i = Math.max(...t.values()), a = Array.from(t.entries()).filter(([, e]) => e === i).map(([e]) => e), r = Me[branch], o = r && a.includes(r) ? r : a[0], s = 1 !== a.length || i / n < .5;
@@ -599,7 +599,7 @@
                 mixed: s
             };
         }
-        function Le(e, t) {
+        function sxHankyStyle(e, t) {
             const n = Ie.get(e) || Me[t];
             if (!n) return {
                 ...Pe
@@ -613,7 +613,7 @@
                 labelStroke: i.labelStroke
             };
         }
-        function Te(e) {
+        function sxReadableHex(e) {
             const t = /^#([\da-f]{2})([\da-f]{2})([\da-f]{2})$/i.exec(e || "");
             if (!t) return e;
             const n = t.slice(1).map(e => parseInt(e, 16)), i = e => {
@@ -628,11 +628,11 @@
             }
             return `#${n.map(e => Math.round(e + (255 - e) * r)).map(e => e.toString(16).padStart(2, "0")).join("")}`;
         }
-        function Fe(e) {
+        function sxBranchHanky(e) {
             const t = new Map;
             let n = 0;
             if (e.topics.forEach(i => {
-                const a = Le(i, e.name).key;
+                const a = sxHankyStyle(i, e.name).key;
                 "noCode" !== a && (n += 1, t.set(a, (t.get(a) || 0) + 1));
             }), !n) return {
                 ...Pe,
@@ -651,12 +651,12 @@
         }
         const Ne = new Map;
         h.forEach(e => {
-            const t = ge[e.name], n = Fe(e);
+            const t = ge[e.name], n = sxBranchHanky(e);
             Ne.set(e.name, n), t && (t.color = n.color, t.hankyKey = n.key, t.hankyMixed = n.mixed);
         });
         const _e = new Map;
         let De = 0;
-        function Re(e) {
+        function sxOrbitAccentSvg(e) {
             const t = 16, n = e % t, i = (7 * Math.floor(e / t) + n + 5) % t, a = (n + 10 + e % 3) % t, r = (e, n = 6.15) => {
                 const i = -Math.PI / 2 + e / t * Math.PI * 2;
                 return [ 8 + Math.cos(i) * n, 8 + Math.sin(i) * n ];
@@ -689,7 +689,7 @@
                 });
             });
         }
-        function Oe(e, t) {
+        function sxTopicIcon(e, t) {
             // Topic-icon inheritance & per-topic glyphs (owner ruling 2026-11-23):
             // 1. Skin-authored per-topic glyph from window.__SX_SKIN_TOPIC_GLYPHS
             //    (24x24 SVG path d-string / markup or a ye key) replaces the inherited
@@ -700,7 +700,7 @@
             // 5. Last resort fallback: ye.star (16x16).
             const _veKey = t + "\0" + e;
             const _skinMap = typeof window !== "undefined" ? window.__SX_SKIN_TOPIC_GLYPHS : null;
-            const _tid = _skinMap && !_skinMap[_veKey] && typeof Wn === "function" ? Wn(e) : null;
+            const _tid = _skinMap && !_skinMap[_veKey] && typeof sxTopicStorageId === "function" ? sxTopicStorageId(e) : null;
             const _skinRaw = _skinMap ? (_skinMap[_veKey] || (_tid ? _skinMap[_tid] : null)) : null;
             let _skinGlyphMarkup = null, _skinKey = null, _skinVb = null;
             if (_skinRaw) {
@@ -729,7 +729,7 @@
             const _ownGlyph = Boolean(_skinGlyphMarkup || _ownVe || _subKey);
             const _catDesc = !_ownGlyph && ge && ge[t] && ge[t].glyph ? ge[t] : null;
             const _glyphFallback = !_ownGlyph && !_catDesc;
-            const i = _e.get(_veKey) || 0, a = Le(e, t);
+            const i = _e.get(_veKey) || 0, a = sxHankyStyle(e, t);
             return {
                 glyph: _skinGlyphMarkup ? _skinGlyphMarkup : _ownVe ? ye[n] : _subKey ? ye[_subKey] : _catDesc ? _catDesc.glyph : ye.star,
                 viewBox: _skinGlyphMarkup ? _skinVb : (_ownVe || _subKey) ? "0 0 16 16" : _catDesc ? "0 0 24 24" : "0 0 16 16",
@@ -744,7 +744,7 @@
             };
         }
         h.forEach(e => e.topics.forEach(t => _e.set(e.name + "\0" + t, De++)));
-        function Wn(e) {
+        function sxTopicStorageId(e) {
             if (e && "object" == typeof e && e.id) return e.id;
             const t = sxName(e);
             for (const cat of h) {

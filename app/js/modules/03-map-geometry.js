@@ -1,5 +1,5 @@
 
-                function fr() {
+                function sxSolveSpokeGeometry() {
             const e = frBuildTree(), t = e.map(e => ({
                 entry: e,
                 label: e.branch.name,
@@ -7,7 +7,7 @@
                 minDemand: e.minDemand
             }));
             t.sort((e, t) => (branchOrderRankMap().get(e.entry.branch.name) ?? 0) - (branchOrderRankMap().get(t.entry.branch.name) ?? 0));
-            const n = mr(t, -Math.PI / 2, 2 * Math.PI, hr(1), pr.categoryIcon, 25), i = n.length;
+            const n = sxAllocateSectors(t, -Math.PI / 2, 2 * Math.PI, sxDepthRadius(1), pr.categoryIcon, 25), i = n.length;
             frAssignCategoryAngles(n, i);
             const a = [], r = [];
             frAllocateTopicSectors(n, a, r);
@@ -105,7 +105,7 @@
         // to the TOTAL throw (after the solver's own adjustment), so an
         // optimiser shrink can never pull a branch back under the floor.
         const SX_MIN_BRANCH_THROW = 50000;
-        function yr(e) {
+        function sxBranchSpokeLength(e) {
             const t = mn.branchOverrides && mn.branchOverrides[e.name] || {}, n = Math.max(0, h.indexOf(e));
             // SOLVER-METRICS REFACTOR (F9): the branch-length factor
             // pile-up split into named factors - same values, same
@@ -145,10 +145,10 @@
             }
             return Math.max(SX_MIN_BRANCH_THROW, 1450 * mn.spokeLen * manualFactor * staggerFactor * collisionFactor * shrinkFactor + solverAdjust + pr.categoryIcon / 2 + 30);
         }
-        function br(e, t) {
+        function sxHubTangentPathText(e, t) {
             const n = pr.centerX, i = pr.centerY, a = (pr.centerRadius + 150) * centerRingScale(), kp = p => { const dx = p.x - n, dy = p.y - i, dd = Math.hypot(dx, dy); return dd >= a + 2 ? p : dd < 1e-6 ? { x: n + a + 2, y: i } : { x: n + dx / dd * (a + 2), y: i + dy / dd * (a + 2) }; };
             e = kp(e), t = kp(t);
-            const r = t.x - e.x, o = t.y - e.y, s = r * r + o * o, l = s ? A(((n - e.x) * r + (i - e.y) * o) / s) : 0, c = e.x + r * l, d = e.y + o * l;
+            const r = t.x - e.x, o = t.y - e.y, s = r * r + o * o, l = s ? sxClampUnit(((n - e.x) * r + (i - e.y) * o) / s) : 0, c = e.x + r * l, d = e.y + o * l;
             if (Math.hypot(c - n, d - i) >= a) return `M ${e.x.toFixed(2)} ${e.y.toFixed(2)} L ${t.x.toFixed(2)} ${t.y.toFixed(2)}`;
             const u = e => {
                 const t = e.x - n, r = e.y - i, o = Math.hypot(t, r);
@@ -193,21 +193,21 @@
         const renderKinkLine = (e, t, n, i, a, r, o, s, l, c, d, u, p, h = pr.categoryIcon, g = 48, hubD = null, leafD = null, sxDepth = null) => {
             const sxD = null != sxDepth ? sxDepth : leafD === sxIconDiameter(3) ? 3 : 2, sxF = sxFontFactor(sxD), sxSW = sxStrokeWidth(sxD);
             const m = "noCode" === a || sxSexSkin(), f = Ga.WIDTH;
-            const shape = typeof Ge === "function" ? Ge(d, p) : null;
+            const shape = typeof sxWidgetConfig === "function" ? sxWidgetConfig(d, p) : null;
             const isTriple = Boolean(shape && shape.keys && shape.keys.length === 3);
             let y = m ? Ga.NO_CODE_COLOR : r || Ga.NO_CODE_COLOR;
-            const b = m ? ` stroke-dasharray="${f} 11.9"` : "", v = qn[d] || Xn(d) || {
+            const b = m ? ` stroke-dasharray="${f} 11.9"` : "", v = sxNodeRegistry[d] || sxNodeById(d) || {
                 id: d,
                 label: u,
                 branch: u,
                 kind: "Topic"
-            }, w = (wa(d, v, p), $a(d, "give", p)), k = $a(d, "receive", p), x = da(d, p);
+            }, w = (sxDescribeRatingText(d, v, p), sxFlankText(d, "give", p)), k = sxFlankText(d, "receive", p), x = sxRatingRecord(d, p);
             if (isTriple && x && x[shape.keys[1] + "Known"]) {
-                y = zi(x[shape.keys[1]]);
+                y = sxInterestColor(x[shape.keys[1]]);
             }
-            const stemRatingGive = typeof sxSpokeStemRatingValue === "function" ? sxSpokeStemRatingValue(x, "give") : (x.giveKnown ? ba(x.give) : "Unrated");
-            const stemRatingReceive = typeof sxSpokeStemRatingValue === "function" ? sxSpokeStemRatingValue(x, "receive") : (x.receiveKnown ? ba(x.receive) : "Unrated");
-            const S = Sa(d, v, p), $ = ka(u, w, stemRatingGive, { tapFirst: !0 }), E = ka(u, k, stemRatingReceive, { tapFirst: !0 }), A = null != hubD ? hubD / 2 : sxIconRadius(sxD > 1 ? sxD - 1 : 1), C = null != leafD ? leafD / 2 : sxIconRadius(sxD), {sx0: M, sy0: I, sx1: P, sy1: L} = Ga.trimToIcons(e, t, n, i, A, C), T = (m ? "" : `<line class="hanky-midline-outline" x1="${M}" y1="${I}" x2="${P}" y2="${L}" stroke="${Ga.OUTLINE_COLOR}" stroke-width="${Ga.CLOUD_OUTLINE_WIDTH(f, sxD)}" stroke-linecap="butt" opacity="0.9" pointer-events="none"/>`) + `<line class="hanky-midline${m ? " hanky-none" : ""}" x1="${M}" y1="${I}" x2="${P}" y2="${L}" stroke="${y}" stroke-width="${sxSW}"${b} opacity="1" stroke-linecap="butt"${S}/>`, F = Boolean(o), N = Boolean(s);
+            const stemRatingGive = typeof sxSpokeStemRatingValue === "function" ? sxSpokeStemRatingValue(x, "give") : (x.giveKnown ? sxSignedNumber(x.give) : "Unrated");
+            const stemRatingReceive = typeof sxSpokeStemRatingValue === "function" ? sxSpokeStemRatingValue(x, "receive") : (x.receiveKnown ? sxSignedNumber(x.receive) : "Unrated");
+            const S = sxTopicTooltipAttrs(d, v, p), $ = sxTooltipAttrs(u, w, stemRatingGive, { tapFirst: !0 }), E = sxTooltipAttrs(u, k, stemRatingReceive, { tapFirst: !0 }), A = null != hubD ? hubD / 2 : sxIconRadius(sxD > 1 ? sxD - 1 : 1), C = null != leafD ? leafD / 2 : sxIconRadius(sxD), {sx0: M, sy0: I, sx1: P, sy1: L} = Ga.trimToIcons(e, t, n, i, A, C), T = (m ? "" : `<line class="hanky-midline-outline" x1="${M}" y1="${I}" x2="${P}" y2="${L}" stroke="${Ga.OUTLINE_COLOR}" stroke-width="${Ga.CLOUD_OUTLINE_WIDTH(f, sxD)}" stroke-linecap="butt" opacity="0.9" pointer-events="none"/>`) + `<line class="hanky-midline${m ? " hanky-none" : ""}" x1="${M}" y1="${I}" x2="${P}" y2="${L}" stroke="${y}" stroke-width="${sxSW}"${b} opacity="1" stroke-linecap="butt"${S}/>`, F = Boolean(o), N = Boolean(s);
             if (!l || !F && !N) return T;
             // Flank rule (Jason, 2026-11-22): each stem wears only its own
             // flank's color; a one-sided rating leaves the absent flank's stem
@@ -223,7 +223,7 @@
             return `<path class="tapered-stem" d="${U.top}" fill="${_}" stroke="none" opacity="0.9" style="fill:${_}"${$}/><path class="tapered-stem" d="${U.bottom}" fill="${D}" stroke="none" opacity="0.9" style="fill:${D}"${E}/>` + T;
         };
         const vr = ".tapered-stem,.hanky-midline,.hanky-midline-outline,.topic-pulse,.group-heat,.selected-spoke,.mutual-halo,.disinterest-halo,.favorite-halo,.limit-halo,.visual-rail";
-        function wr() {
+        function sxClipCameraOverlays() {
             if ("number" != typeof $p || "number" != typeof Ep || "number" != typeof Ap) return;
             const isMoving = Cn && Cn.classList.contains("is-camera-moving");
             if (isMoving) {
@@ -247,7 +247,7 @@
                 t.style.display = s ? "" : "none";
             });
         }
-        function kr(e, t) {
+        function sxPreviewCurveBend(e, t) {
             const n = Math.max(-260, Math.min(260, t));
             bt[e.id] = n, e.pendingBend = n, bn || (bn = requestAnimationFrame(() => {
                 bn = 0, yn === e && function(e) {
@@ -257,21 +257,21 @@
                 }(e);
             }));
         }
-        function xr(e = !0) {
+        function sxClearCurvePreview(e = !0) {
             bn && (cancelAnimationFrame(bn), bn = 0);
             const t = yn;
             return t ? (t.previewGroup?.classList.remove("is-curve-previewing"), t.previewPath?.remove(), 
-            yn = null, e && Mr({
+            yn = null, e && sxRequestMapPaint({
                 anchorId: t.id
             }), t) : null;
         }
-        function Sr(e, t, n) {
+        function sxBendFromPointer(e, t, n) {
             const i = Cn.createSVGPoint();
             i.x = t, i.y = n;
             const a = i.matrixTransform(e.screenToLayer || __sxScreenCtm(In).inverse()), r = a.x - e.startX, o = a.y - e.startY;
             return e.startBend + r * e.nx + o * e.ny;
         }
-        function $r() {
+        function sxClearLayoutMotion() {
             void 0 !== Zp && Zp && (t.clear(Zp), Zp = 0), void 0 !== Qp && Qp && (cancelAnimationFrame(Qp), 
             Qp = 0), Cn.classList.remove("is-layout-moving"), In.querySelectorAll(".layout-exit-clone").forEach(e => e.remove()), 
             In.querySelectorAll(".rich-line-draw").forEach(e => {
@@ -283,15 +283,15 @@
                 e.style.removeProperty("--layout-exit-dy");
             });
         }
-        async function Er(n) {
+        async function sxDownloadOverlapShare(n) {
             let i = [];
             try {
-                i = Xi().slice(0, 2);
+                i = sxScoringProfileIds().slice(0, 2);
             } catch (e) { __sxErrLog("top-profiles", e); }
             if (i.length < 2) return;
             const a = i.map(e => {
                 try {
-                    return Ji(wt[e]) || "Partner";
+                    return sxFirstWordText(wt[e]) || "Partner";
                 } catch (e) {
                     return "Partner";
                 }
@@ -335,7 +335,7 @@
             v.fillStyle = "#0d1110", v.fillRect(0, w, y, 430), v.strokeStyle = "rgba(99,194,200,.45)", 
             v.lineWidth = 3, v.beginPath(), v.moveTo(0, w), v.lineTo(y, w), v.stroke();
             try {
-                const e = await qu("https://sexcapades.io/#app", 480);
+                const e = await sxRenderSingleQr("https://sexcapades.io/#app", 480);
                 v.fillStyle = "#ffffff", v.fillRect(48, 1688, 304, 304), v.imageSmoothingEnabled = !1, 
                 v.drawImage(e, 60, 1700, 280, 280), v.imageSmoothingEnabled = !0;
             } catch (e) {
@@ -355,7 +355,7 @@
                 // other export; the layout above and the
                 // no-profile-data rule stay overlap-only.
                 const i = e => String(e || "partner").replace(/[^a-z0-9]+/gi, "-").slice(0, 20), r = URL.createObjectURL(e);
-                ny(r, `Sexcapades-overlap-${i(a[0])}-${i(a[1])}.png`), t.setTimeout(() => {
+                sxClickDownloadLink(r, `Sexcapades-overlap-${i(a[0])}-${i(a[1])}.png`), t.setTimeout(() => {
                     URL.revokeObjectURL(r);
                 }, 1500);
             }, "image/png");

@@ -15,11 +15,11 @@
             const register = topic => {
                 if (!topic || "object" !== typeof topic) return;
                 if ("give_receive" === topic.type && topic.give_label && topic.receive_label) {
-                    const n = Wn(topic);
+                    const n = sxResolveTopicId(topic);
                     if (n) We[n] = [ topic.give_label, topic.receive_label ];
                 } else if ("single" === topic.type && typeof Ue !== "undefined" && Ue) {
                     try {
-                        const n = Wn(topic);
+                        const n = sxResolveTopicId(topic);
                         if (n) Ue.add(n);
                     } catch (_) {}
                 }

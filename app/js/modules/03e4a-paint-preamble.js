@@ -1,4 +1,4 @@
-        function* Ar(i = {}) {
+        function* sxGenerateMapPaint(i = {}) {
             // JOB B GLIDE FIX - previous-positions capture: read the live
             // node positions BEFORE sxVaultCaptureCurrent() runs. The vault
             // moves In's children into a fragment (emptying In) whenever a
@@ -20,9 +20,9 @@
             // Run the seeder before painting so a freshly loaded
             // profile's discs are colored on first paint, not only
             // after a sheet has been opened.
-            try { "function" == typeof sxSeedProfileIntensities && sxSeedProfileIntensities(Vi()); } catch (_) {}
+            try { "function" == typeof sxSeedProfileIntensities && sxSeedProfileIntensities(sxActiveProfileId()); } catch (_) {}
             const scT0 = performance.now();
-            ki && (t.clear(ki), ki = 0), dh(), uh(), $r(), window.__sxLoad && window.__sxLoad(5 /* F5 checkpoint contract (at __sxProgressWidget in index.html): displayed band value — render start */);
+            ki && (t.clear(ki), ki = 0), sxCancelPoseTween(), sxCancelZoomFrame(), sxClearLayoutMotion(), window.__sxLoad && window.__sxLoad(5 /* F5 checkpoint contract (at __sxProgressWidget in index.html): displayed band value — render start */);
             // Blit session (P3) paint-top gate: end the session
             // before a non-scoped paint or a scoped paint whose
             // frozen set differs from the session's, so this paint
@@ -46,7 +46,7 @@
             const scKeep = scCtx ? new Map : null;
             if (scKeep) try {
                 In.querySelectorAll(".node-group[data-layout-key]:not(.layout-exit-clone)").forEach(el => {
-                    const info = qn[el.dataset.layoutKey];
+                    const info = sxNodeRegistry[el.dataset.layoutKey];
                     info && info.branch && scCtx.frozenBranches.has(info.branch) && scKeep.set(el.dataset.layoutKey, el);
                 });
             } catch (_) { __sxErrLog("layout-scoped-paint-capture", _); }
@@ -91,7 +91,7 @@
                 }
                 scKeep.forEach((el, key) => {
                     const seg = {
-                        branch: (qn[key] || {}).branch || null,
+                        branch: (sxNodeRegistry[key] || {}).branch || null,
                         label: null,
                         labelStack: !1,
                         controls: [],
@@ -131,7 +131,7 @@
                     const n = "mutual" === Pt || "explore" === Pt || "mismatch" === Pt;
                     let i = 0;
                     try {
-                        i = Xi().length;
+                        i = sxScoringProfileIds().length;
                     } catch (e) {
                         i = 0;
                     }
@@ -169,17 +169,17 @@
             const sxCapsuleKeep = (() => { try { return In.querySelector(":scope > .sx-interim-capsules"); } catch (_) { return null; } })();
             const c = !Object.keys(wt).length;
             if (n(Pn, `<linearGradient id="curiousGradient" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" stop-color="var(--red-deep)"/><stop offset="50%" stop-color="var(--curious)"/><stop offset="100%" stop-color="var(--green-deep)"/></linearGradient><clipPath id="centerPhotoClip"><circle cx="900" cy="620" r="${ea.photoRadius}"/></clipPath>`),
-            n(In, ""), Object.keys(qn).forEach(e => delete qn[e]), h.forEach(e => {
+            n(In, ""), Object.keys(sxNodeRegistry).forEach(e => delete sxNodeRegistry[e]), h.forEach(e => {
                 const t = catId(e.name);
-                qn[t] = {
+                sxNodeRegistry[t] = {
                     id: t,
                     label: e.name,
                     branch: e.name,
                     kind: "Category",
                     risk: e.risk
                 }, (e.subcategories || []).forEach(n => {
-                    const i = Un(e.name, n.name);
-                    qn[i] = {
+                    const i = sxResolveSubcategoryId(e.name, n.name);
+                    sxNodeRegistry[i] = {
                         id: i,
                         label: n.name,
                         branch: e.name,
@@ -189,33 +189,33 @@
                         topics: (n.topics || []).map(sxName)
                     };
                 }), e.topics.forEach(t => {
-                    const n = Wn(t), i = Vn(e, t);
-                    qn[n] = {
+                    const n = sxResolveTopicId(t), i = sxFindTopicSubcategory(e, t);
+                    sxNodeRegistry[n] = {
                         id: n,
                         label: sxName(t),
                         branch: e.name,
                         kind: "Topic",
                         risk: Boolean(t && t.risk),
-                        parentId: i ? Un(e.name, i.name) : null,
+                        parentId: i ? sxResolveSubcategoryId(e.name, i.name) : null,
                         poleReading: t && t.poleReading || null,
                         poleEnemies: t && Array.isArray(t.poleEnemies) ? t.poleEnemies : null
                     };
                 });
-            }), window.__sxLoad && window.__sxLoad(12 /* F5 checkpoint contract (at __sxProgressWidget in index.html): displayed band value — topic index */), (!(c || Mt && vt[Mt]) && !sxBootPaint && !window.__SX_FORCE_UNRATED_TREE)) return n(In, `<g>${oa()}${function(e) {
+            }), window.__sxLoad && window.__sxLoad(12 /* F5 checkpoint contract (at __sxProgressWidget in index.html): displayed band value — topic index */), (!(c || Mt && vt[Mt]) && !sxBootPaint && !window.__SX_FORCE_UNRATED_TREE)) return n(In, `<g>${sxGlanceRingsMarkup()}${function(e) {
                 const t = 1.75 * ea.photoRadius, n = Za.fitWithin(e, 22 * mapFontScale(), 15, t, "center"), i = Za.fitAttr(e, n, "center", t);
-                return `<text x="900" y="600" text-anchor="middle" class="center-label" pointer-events="none" style="font-size:${n.toFixed(2)}px"${i}>${Hi(e)}</text>`;
+                return `<text x="900" y="600" text-anchor="middle" class="center-label" pointer-events="none" style="font-size:${n.toFixed(2)}px"${i}>${sxEscapeHtmlText(e)}</text>`;
             }("Select a profile")}<text x="900" y="640" text-anchor="middle" class="center-sub" pointer-events="none">tap a profile tab to begin</text></g>`),
-            window.__sxLoad && window.__sxLoad(100), void vc();
+            window.__sxLoad && window.__sxLoad(100), void sxRefreshSyncGlance();
             // Fix 2 (see sxCapsuleKeep above): re-append the
             // preserved interim capsule layer over the cleared map
             // layer; the markup install below removes it in the
             // same step that lands the full paint.
             if (sxCapsuleKeep && !sxCapsuleKeep.isConnected) try { In.appendChild(sxCapsuleKeep); } catch (_) {}
             yield;
-            li().forEach(e => {
-                qn[e.id] = e;
+            sxCollectAllImports().forEach(e => {
+                sxNodeRegistry[e.id] = e;
             });
-            const d = SX_SOLVER_FACADE.build(), u = "all" === Pt ? [] : ri();
+            const d = SX_SOLVER_FACADE.build(), u = "all" === Pt ? [] : sxCollectComparedImports();
             /* Skin switch (2026-11-17): the unrated-tree flag is one-shot
                per paint, like the boot-chunk arm — consumed here, right
                after the solve that used it, so no later paint sees it. */
@@ -228,19 +228,19 @@
             const p = Math.max(1, d.branches.filter(e => {
                 const t = e.entry, n = t.branch, i = t.selected, a = t.catId;
                 if ($n && !$n.has(a) && !t.topics.some(e => $n.has(e.id))) return !1;
-                if (("rated" === Sn ? !hi(n, Vi()) : "unrated" === Sn && !mi(n, Vi())) && !i) return !1;
+                if (("rated" === Sn ? !sxHasRatedBranchTopic(n, sxActiveProfileId()) : "unrated" === Sn && !sxHasUnratedBranchTopic(n, sxActiveProfileId())) && !i) return !1;
                 if ("all" !== Pt) {
                     const e = n.topics.some(e => {
-                        const t = Wn(e);
-                        return Ra(t) === Pt || u.some(e => e.parentId === t && Ra(e.id) === Pt);
+                        const t = sxResolveTopicId(e);
+                        return sxFilterBucket(t) === Pt || u.some(e => e.parentId === t && sxFilterBucket(e.id) === Pt);
                     });
-                    if (Ra(a) !== Pt && !e) return !1;
+                    if (sxFilterBucket(a) !== Pt && !e) return !1;
                 }
                 return !0;
             }).length), g = function() {
-                const e = Object.keys(vt).filter(e => vt[e] && wt[e]), t = Xi(), n = (t.length >= 2 ? t : Mt && vt[Mt] ? [ Mt ] : e.slice(0, 1)).map(e => Ji(wt[e])).filter(Boolean);
+                const e = Object.keys(vt).filter(e => vt[e] && wt[e]), t = sxScoringProfileIds(), n = (t.length >= 2 ? t : Mt && vt[Mt] ? [ Mt ] : e.slice(0, 1)).map(e => sxFirstWordText(wt[e])).filter(Boolean);
                 return 1 === n.length ? n[0] : 2 === n.length ? `${n[0]} & ${n[1]}` : n.length > 2 ? `${n.slice(0, -1).join(", ")} & ${n[n.length - 1]}` : "Add a profile";
-            }(), f = Rt ? "var(--green)" : c ? Ga.FALLBACK_COLOR : la(Vi());
+            }(), f = Rt ? "var(--green)" : c ? Ga.FALLBACK_COLOR : sxProfileColor(sxActiveProfileId());
             /* Two-ring header (O1/O4): the header rings are the single home
                for the headline numbers. Group tabs show the pair pair
                (outer Play MS, inner Play KF; circledot tabs
@@ -345,7 +345,7 @@
             } catch (err) { __sxErrLog("sx-header-rings", err); }
             const y = "Tap to open the About dialog for this profile";
             let v = function(e) {
-                const t = !(Qi() ? Xi() : [ Vi() ]).some(e => {
+                const t = !(sxComparisonActive() ? sxScoringProfileIds() : [ sxActiveProfileId() ]).some(e => {
                     const t = e === Et ? At : vt[e] || {};
                     return Object.values(t).some(e => "number" == typeof e || Boolean(e && "object" == typeof e && (Object.prototype.hasOwnProperty.call(e, "give") || Object.prototype.hasOwnProperty.call(e, "receive") || Object.prototype.hasOwnProperty.call(e, "line") || Object.keys(e).some(k => k !== "intensity" && Number.isFinite(Number(e[k]))))));
                 }), n = new Map, i = new Map;
@@ -357,10 +357,10 @@
                             positive: !1,
                             negative: !1
                         };
-                        const n = t.topics.map(e => Wn(e)), i = Qi() ? Xi() : [ Vi() ];
+                        const n = t.topics.map(e => sxResolveTopicId(e)), i = sxComparisonActive() ? sxScoringProfileIds() : [ sxActiveProfileId() ];
                         let a = !1, r = !1;
                         return i.forEach(e => n.forEach(t => {
-                            const n = ca(t, e), i = Qe[e]?.[t];
+                            const n = sxDecodeTopicStance(t, e), i = Qe[e]?.[t];
                             a = a || n.giveKnown && n.give > 0 || n.receiveKnown && n.receive > 0 || "favorite" === i,
                             r = r || n.giveKnown && n.give < 0 || n.receiveKnown && n.receive < 0 || "limit" === i;
                         })), {
@@ -373,12 +373,12 @@
                     const t = n.get(e);
                     if (void 0 === t) return null;
                     const i = a.get(e) || 0;
-                    return a.set(e, i + 1), Xa(t, 600 + 64 * i);
-                }, o = pe(ue).map(n => {
+                    return a.set(e, i + 1), sxPolarPoint(t, 600 + 64 * i);
+                }, o = sxUniquePairs(ue).map(n => {
                     const a = e.find(e => e.entry.branch.name === n[0]), o = e.find(e => e.entry.branch.name === n[1]), s = e => {
                         if (!e) return !1;
                         const t = catId(e.entry.branch.name);
-                        return !($n && !$n.has(t)) && ("all" === Pt || Ra(t) === Pt || e.topics.some(e => Ra(e.topic.id) === Pt || e.children.some(e => Ra(e.child.id) === Pt)));
+                        return !($n && !$n.has(t)) && ("all" === Pt || sxFilterBucket(t) === Pt || e.topics.some(e => sxFilterBucket(e.topic.id) === Pt || e.children.some(e => sxFilterBucket(e.child.id) === Pt)));
                     };
                     if (!s(a) || !s(o)) return "";
                     const l = i.get(n[0]), c = i.get(n[1]);
@@ -386,9 +386,9 @@
                     if (!t && !l.positive && !c.positive) return "";
                     const d = r(n[0]), u = r(n[1]);
                     if (!d || !u) return "";
-                    const attrs = `data-branch-a="${Hi(n[0])}" data-branch-b="${Hi(n[1])}" data-ax="${d.x.toFixed(2)}" data-ay="${d.y.toFixed(2)}" data-bx="${u.x.toFixed(2)}" data-by="${u.y.toFixed(2)}" d="${br(d, u)}"`;
-                    return `<path class="common-overlap-link relation-visual" ${attrs}/><path class="common-overlap-link relation-hit" tabindex="0" role="button" aria-label="Show related branches ${Hi(n[0])} and ${Hi(n[1])}" ${attrs}/>`;
-                }).join(""), s = e.flatMap(e => e.topics || []), l = Qi() ? Xi() : [ Vi() ], c = e => {
+                    const attrs = `data-branch-a="${sxEscapeHtmlText(n[0])}" data-branch-b="${sxEscapeHtmlText(n[1])}" data-ax="${d.x.toFixed(2)}" data-ay="${d.y.toFixed(2)}" data-bx="${u.x.toFixed(2)}" data-by="${u.y.toFixed(2)}" d="${sxHubTangentPathText(d, u)}"`;
+                    return `<path class="common-overlap-link relation-visual" ${attrs}/><path class="common-overlap-link relation-hit" tabindex="0" role="button" aria-label="Show related branches ${sxEscapeHtmlText(n[0])} and ${sxEscapeHtmlText(n[1])}" ${attrs}/>`;
+                }).join(""), s = e.flatMap(e => e.topics || []), l = sxComparisonActive() ? sxScoringProfileIds() : [ sxActiveProfileId() ], c = e => {
                     const t = s.find(t => t.topic.id === e);
                     if (t) return t;
                     for (const t of s) {
@@ -396,13 +396,13 @@
                         if (n) return n;
                     }
                     return null;
-                }, d = o + pe(he).map(e => {
+                }, d = o + sxUniquePairs(he).map(e => {
                     const n = c(e[0]), i = c(e[1]);
                     if (!n || !i) return "";
                     const a = e => {
                         let t = !1, n = !1;
                         return l.forEach(i => {
-                            const a = ca(e, i), r = Qe[i]?.[e];
+                            const a = sxDecodeTopicStance(e, i), r = Qe[i]?.[e];
                             t = t || a.giveKnown && a.give > 0 || a.receiveKnown && a.receive > 0 || "favorite" === r,
                             n = n || a.giveKnown && a.give < 0 || a.receiveKnown && a.receive < 0 || "limit" === r;
                         }), {
@@ -411,13 +411,13 @@
                         };
                     }, r = a(e[0]), o = a(e[1]);
                     if (!t && !r.positive && !o.positive) return "";
-                    const s = Xa(n.cloudAngle ?? n.angle, hr(2)), d = Xa(i.cloudAngle ?? i.angle, hr(2));
-                    const attrs = `data-topic-a="${e[0]}" data-topic-b="${e[1]}" data-ax="${s.x.toFixed(2)}" data-ay="${s.y.toFixed(2)}" data-bx="${d.x.toFixed(2)}" data-by="${d.y.toFixed(2)}" d="${br(s, d)}"`;
+                    const s = sxPolarPoint(n.cloudAngle ?? n.angle, sxDepthRadius(2)), d = sxPolarPoint(i.cloudAngle ?? i.angle, sxDepthRadius(2));
+                    const attrs = `data-topic-a="${e[0]}" data-topic-b="${e[1]}" data-ax="${s.x.toFixed(2)}" data-ay="${s.y.toFixed(2)}" data-bx="${d.x.toFixed(2)}" data-by="${d.y.toFixed(2)}" d="${sxHubTangentPathText(s, d)}"`;
                     return `<path class="common-overlap-link topic-overlap-link relation-visual" ${attrs}/><path class="common-overlap-link topic-overlap-link relation-hit" tabindex="0" role="button" aria-label="Show related topics" ${attrs}/>`;
                 }).join("");
                 return d ? `<g class="common-overlap-layer" aria-hidden="true">${d}</g>` : "";
             }(d.branches) + (c ? function() {
-                return `<g data-empty-profile-map data-roxy-center>${oa()}${function() {
+                return `<g data-empty-profile-map data-roxy-center>${sxGlanceRingsMarkup()}${function() {
                     const img = document.querySelector("#sxCenterAvatarSource") || document.querySelector(".guide-avatar img"), src = img && img.getAttribute("src");
                     if (!src) return "";
                     const t = 2 * ea.photoRadius, rect = {
@@ -426,16 +426,16 @@
                         w: t,
                         h: t
                     };
-                    return `<g clip-path="url(#centerPhotoClip)">${aa({
+                    return `<g clip-path="url(#centerPhotoClip)">${sxCroppedPhotoMarkup({
                         data: src,
                         width: img.naturalWidth || 512,
                         height: img.naturalHeight || 512
                     }, rect, "center-photo")}</g>`;
                 }()}<circle class="center-hit" data-roxy-center-hit cx="900" cy="620" r="${ea.photoRadius + 3}" tabindex="0" role="button" aria-label="Yolanda &quot;Yo&quot; Biche, your map guide. Tap to open About Yolanda &quot;Yo&quot; Biche."/>${function(e) {
                     const t = ea.photoRadius, n = Za.fitWithin(e, 22 * mapFontScale(), 15, 288, "center"), i = Za.fitAttr(e, n, "center", 288);
-                    return `<g class="center-circumference-text"><path id="center-bottom-arc" class="center-arc-path" d="M ${(900 - t).toFixed(0)} 620 A ${t} ${t} 0 0 0 ${(900 + t).toFixed(0)} 620"/><text class="center-arc-text center-name-arc-text" style="font-size:${n.toFixed(2)}px" dy="-1"${i}><textPath href="#center-bottom-arc" xlink:href="#center-bottom-arc" startOffset="50%" text-anchor="middle">${Hi(e)}</textPath></text></g>`;
+                    return `<g class="center-circumference-text"><path id="center-bottom-arc" class="center-arc-path" d="M ${(900 - t).toFixed(0)} 620 A ${t} ${t} 0 0 0 ${(900 + t).toFixed(0)} 620"/><text class="center-arc-text center-name-arc-text" style="font-size:${n.toFixed(2)}px" dy="-1"${i}><textPath href="#center-bottom-arc" xlink:href="#center-bottom-arc" startOffset="50%" text-anchor="middle">${sxEscapeHtmlText(e)}</textPath></text></g>`;
                 }('Yolanda "Yo" Biche')}</g>`;
-            }() : `<g>${oa()}${function() {
+            }() : `<g>${sxGlanceRingsMarkup()}${function() {
                 // Split center (split-center stage, 2026-10-27): when the
                 // map's own profile is a saved pair/group tab, the center
                 // shows WHO and WHAT KIND with zero math - the members'
@@ -453,10 +453,10 @@
                 // keeps its single full disc. This paints only where a
                 // map is painted - the legacy 3+ match panel is a
                 // separate section and never comes through here.
-                const sxSplitGrp = !Qi() && Mt && ft[Mt] && "group" === ft[Mt].kind && Array.isArray(ft[Mt].sourceIds) ? ft[Mt] : null, sxSplitIds = sxSplitGrp ? sxSplitGrp.sourceIds.filter(e => vt[e]).slice(0, 8) : [];
+                const sxSplitGrp = !sxComparisonActive() && Mt && ft[Mt] && "group" === ft[Mt].kind && Array.isArray(ft[Mt].sourceIds) ? ft[Mt] : null, sxSplitIds = sxSplitGrp ? sxSplitGrp.sourceIds.filter(e => vt[e]).slice(0, 8) : [];
                 const sxCenterIds = sxSplitIds.length >= 2 ? sxSplitIds : function() {
-                    const e = Xi();
-                    return Qi() && e.length >= 2 ? e : Mt && vt[Mt] ? [ Mt ] : [];
+                    const e = sxScoringProfileIds();
+                    return sxComparisonActive() && e.length >= 2 ? e : Mt && vt[Mt] ? [ Mt ] : [];
                 }(), e = sxCenterIds.slice(0, 8).map(e => {
                     const photo = (dt[e] || [])[0];
                     if (photo && photo.data && !photo.data.includes("avatar-anon.webp")) return photo;
@@ -514,7 +514,7 @@
                         h: s
                     });
                 }
-                const sxCenterPhotos = `<g clip-path="url(#centerPhotoClip)">${e.map((e, t) => aa(e, r[t], "center-photo")).join("")}</g>`;
+                const sxCenterPhotos = `<g clip-path="url(#centerPhotoClip)">${e.map((e, t) => sxCroppedPhotoMarkup(e, r[t], "center-photo")).join("")}</g>`;
                 if (sxSplitIds.length < 2) return sxCenterPhotos;
                 const sxSplitOp = sxNormalizePairOp(sxSplitGrp.pairOp), sxSplitGlyph = sxPairJoin(sxSplitOp).trim(), sxSeamPlate = Math.max(120, ea.photoRadius * .17), sxSeamW = t / a, sxSeams = [];
                 for (let sxK = 1; sxK < a; sxK++) {
@@ -522,9 +522,9 @@
                     sxSeams.push(`<g class="center-split-seam"><circle cx="${sxSeamX.toFixed(1)}" cy="620" r="${sxSeamPlate.toFixed(1)}"/><text x="${sxSeamX.toFixed(1)}" y="620" style="font-size:${(sxSeamPlate * 1.05).toFixed(0)}px" text-anchor="middle" dominant-baseline="middle">${sxSplitGlyph}</text></g>`);
                 }
                 return sxCenterPhotos + `<g class="center-split-seams" data-split-center="pair" data-pair-op="${sxSplitOp}" data-split-count="${a}" aria-hidden="true">${sxSeams.join("")}</g>`;
-            }()}<circle class="center-hit" cx="900" cy="620" r="${ea.photoRadius + 3}" tabindex="0" role="button" aria-label="${Hi(g)}. ${Hi(y)}."/>${function(e) {
+            }()}<circle class="center-hit" cx="900" cy="620" r="${ea.photoRadius + 3}" tabindex="0" role="button" aria-label="${sxEscapeHtmlText(g)}. ${sxEscapeHtmlText(y)}."/>${function(e) {
                 const t = ea.photoRadius, n = Za.fitWithin(e, 22 * mapFontScale(), 15, 288, "center"), i = Za.fitAttr(e, n, "center", 288);
-                return `<g class="center-circumference-text"><path id="center-bottom-arc" class="center-arc-path" d="M ${(900 - t).toFixed(0)} 620 A ${t} ${t} 0 0 0 ${(900 + t).toFixed(0)} 620"/><text class="center-arc-text center-name-arc-text" style="font-size:${n.toFixed(2)}px" dy="-1"${i}><textPath href="#center-bottom-arc" xlink:href="#center-bottom-arc" startOffset="50%" text-anchor="middle">${Hi(e)}</textPath></text></g>`;
+                return `<g class="center-circumference-text"><path id="center-bottom-arc" class="center-arc-path" d="M ${(900 - t).toFixed(0)} 620 A ${t} ${t} 0 0 0 ${(900 + t).toFixed(0)} 620"/><text class="center-arc-text center-name-arc-text" style="font-size:${n.toFixed(2)}px" dy="-1"${i}><textPath href="#center-bottom-arc" xlink:href="#center-bottom-arc" startOffset="50%" text-anchor="middle">${sxEscapeHtmlText(e)}</textPath></text></g>`;
             }(g)}${function() {
                 if (!Mt || !vt[Mt]) return "";
                 // FQ2-BAKEIN (A4, size driver): the toggle's SIZE scales with
@@ -533,7 +533,7 @@
                 // 16px (17px blank) were all fixed constants that followed
                 // neither knob. Its POSITION (ea.branchToggleY) follows the
                 // center ring instead - see refreshCenterRing().
-                const e = Vi(), t = "rated" === Sn, n = h.filter(n => t ? !hi(n, e) : !mi(n, e)).length, i = t && 0 === Object.keys(vt[e] || {}).length, a = t ? "unrated" : "rated", r = i ? 240 : 72, fsT = mapFontScale(), rW = r * fsT, rH = 44 * fsT, o = i ? `+${n} · show unrated branches` : `+${n}`, s = `${n} ${a} primary branches hidden. Switch the whole map to show ${a} branches.`;
+                const e = sxActiveProfileId(), t = "rated" === Sn, n = h.filter(n => t ? !sxHasRatedBranchTopic(n, e) : !sxHasUnratedBranchTopic(n, e)).length, i = t && 0 === Object.keys(vt[e] || {}).length, a = t ? "unrated" : "rated", r = i ? 240 : 72, fsT = mapFontScale(), rW = r * fsT, rH = 44 * fsT, o = i ? `+${n} · show unrated branches` : `+${n}`, s = `${n} ${a} primary branches hidden. Switch the whole map to show ${a} branches.`;
                 return `<g class="center-branch-toggle${i ? " is-blank-profile" : ""}" data-center-branch-toggle-wrap transform="translate(${900 - rW / 2} ${ea.branchToggleY})"><rect data-center-branch-toggle width="${rW}" height="${rH}" rx="${16 * fsT}" tabindex="0" role="button" aria-label="${s}" pointer-events="all"><title>Switch the whole map to show ${a} branches</title></rect><text x="${rW / 2}" y="${23 * fsT}" style="font-size:${(i ? 17 : 16) * fsT}px" text-anchor="middle" dominant-baseline="middle" pointer-events="none">${o}</text></g>`;
             }()}</g>`);
             const w = [], k = (e, t, n, i, a, r, o, s) => {
@@ -555,6 +555,6 @@
                 const c = Za.markerCandidates(e), d = l.length > 2 ? 34 : l.length > 1 ? 23 : 13;
                 let u = Za.pickMarkerAnchor(w, r, o, s, c, d);
                 u || (u = Za.markerAnchorAt(r, o, s, c[c.length - 1], d)), w.push(u);
-                const p = -19 * (l.length - 1) / 2, h = l.map((t, n) => t.interactive ? `<text class="node-note-trigger node-marker node-marker-note" data-note-id="${e}" x="${p + 19 * n}" y="0" role="button" tabindex="0" aria-label="Open note for ${Hi(qn[e]?.label || "topic")}">${t.glyph}</text>` : "favorite" !== t.kind || isCatId(e) ? `<text class="node-marker node-marker-${t.kind}" x="${p + 19 * n}" y="0" aria-hidden="true">${t.glyph}</text>` : `<text class="node-marker node-marker-favorite" data-ui-tooltip="${Hi(lo(qn[e]))}" data-tooltip-tap-first x="${p + 19 * n}" y="0" aria-hidden="true">${t.glyph}</text>`).join("");
+                const p = -19 * (l.length - 1) / 2, h = l.map((t, n) => t.interactive ? `<text class="node-note-trigger node-marker node-marker-note" data-note-id="${e}" x="${p + 19 * n}" y="0" role="button" tabindex="0" aria-label="Open note for ${sxEscapeHtmlText(sxNodeRegistry[e]?.label || "topic")}">${t.glyph}</text>` : "favorite" !== t.kind || isCatId(e) ? `<text class="node-marker node-marker-${t.kind}" x="${p + 19 * n}" y="0" aria-hidden="true">${t.glyph}</text>` : `<text class="node-marker node-marker-favorite" data-ui-tooltip="${sxEscapeHtmlText(sxPlacardAboutText(sxNodeRegistry[e]))}" data-tooltip-tap-first x="${p + 19 * n}" y="0" aria-hidden="true">${t.glyph}</text>`).join("");
                 return `<g class="node-marker-cluster" transform="translate(${u.x.toFixed(2)} ${u.y.toFixed(2)})">${h}</g>`;
             };

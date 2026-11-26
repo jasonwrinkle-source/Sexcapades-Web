@@ -1,54 +1,54 @@
         function frBuildTree() {
-                const e = Ia(), t = t => $n ? $n.has(t) : !e || sxTopicPassesVeil(t, Mt), n = Lt ? ri().find(e => e.id === Lt) : null, i = Lt && (qn[Lt] || Xn(Lt) || n), a = i && i.parentId;
+                const e = sxIsVeilEnabled(), t = t => $n ? $n.has(t) : !e || sxTopicPassesVeil(t, Mt), n = Lt ? sxCollectComparedImports().find(e => e.id === Lt) : null, i = Lt && (sxNodeRegistry[Lt] || sxNodeById(Lt) || n), a = i && i.parentId;
                 const hbSrc = (() => {
                     const rec = ft[Mt], ids = rec && "group" === rec.kind && Array.isArray(rec.sourceIds) ? rec.sourceIds.filter(id => vt[id]) : [];
                     if (ids.length) return ids.map(id => [ vt[id], Qe[id] ]);
                     const profs = rec && "group" === rec.kind && Array.isArray(rec.sourceProfiles) ? rec.sourceProfiles.filter(p => p) : [];
                     return profs.length ? profs.map(p => [ p.ratings, p.annotations ]) : [ [ vt[Mt], Qe[Mt] ] ];
-                })(), hbRated = id => hbSrc.some(([r, a]) => null !== Ca(id, r, a)), hbCtx = hbSrc.some(([r, a]) => {
+                })(), hbRated = id => hbSrc.some(([r, a]) => null !== sxScoreTopicForVeil(id, r, a)), hbCtx = hbSrc.some(([r, a]) => {
                     const ks = new Set([ ...Object.keys(r || {}), ...Object.keys(a || {}) ]);
-                    for (const k of ks) if (null !== Ca(k, r, a)) return !0;
+                    for (const k of ks) if (null !== sxScoreTopicForVeil(k, r, a)) return !0;
                     return !1;
                 }); /* DIMFIX F1 (extends HUB-BACKBONE): rating-presence for the hub dim, computed from ACTUAL ratings over the active context (groups: rated-in-any source), never routed through the Net visibility filter t() — with Net off t() passes every topic, so an allImported-based stamp can never fire for ordinary profiles. The source resolution mirrors t()'s cascade minus its Net gates (no ht / netEnabled filtering) and minus its threshold. hbCtx is the Finding C guard (owner-ruled 2026-10-23): a context with no ratings anywhere flags nothing, so a zero-rating profile stands at full register. */
                 let r = Math.max(0, 560 - h.length);
                 return h.slice().filter(e => function(e, t = Mt) {
-                    return !Object.keys(vt).length || window.__SX_FORCE_UNRATED_TREE || !(!t || !vt[t]) && (!(!$n || !$n.has(catId(e.name))) || !Ia(t) || Ma(e, t));
+                    return !Object.keys(vt).length || window.__SX_FORCE_UNRATED_TREE || !(!t || !vt[t]) && (!(!$n || !$n.has(catId(e.name))) || !sxIsVeilEnabled(t) || sxIsBranchVeilShown(e, t));
                 }(e)).map(e => {
-                    const i = catId(e.name), o = rn.has(e.name), s = DETAIL_CAPS[mapDetailLevel], l = !En && !$n && Number.isFinite(s), c = G(e.subcategories?.length ? (e.parentTopics || []).map(e => ({
-                        id: Wn(e),
+                    const i = catId(e.name), o = rn.has(e.name), s = DETAIL_CAPS[mapDetailLevel], l = !En && !$n && Number.isFinite(s), c = sxOrderByScore(e.subcategories?.length ? (e.parentTopics || []).map(e => ({
+                        id: sxResolveTopicId(e),
                         label: sxName(e),
                         isSubcategory: !1
                     })).concat(e.subcategories.map(t => ({
-                        id: Un(e.name, t.name),
+                        id: sxResolveSubcategoryId(e.name, t.name),
                         label: t.name,
                         isSubcategory: !0,
                         group: t
                     }))) : e.topics.map(e => ({
-                        id: Wn(e),
+                        id: sxResolveTopicId(e),
                         label: sxName(e),
                         isSubcategory: !1
-                    })), e => e.isSubcategory ? K(e.group.topics) : H(e.label)), d = e => e.isSubcategory ? e.group.topics.some(e => t(Wn(e))) : t(e.id), u = t => Boolean(Tt && (String(t.label || "").toLowerCase().includes(Tt) || String(e.name || "").toLowerCase().includes(Tt) || t.isSubcategory && t.group.topics.some(e => sxName(e).toLowerCase().includes(Tt)))), p = c.filter((e, t) => {
-                        const n = e.id === Lt || e.id === a || e.isSubcategory && e.group.topics.some(e => Wn(e) === Lt);
+                    })), e => e.isSubcategory ? sxMeanScore(e.group.topics) : sxBlendedScore(e.label)), d = e => e.isSubcategory ? e.group.topics.some(e => t(sxResolveTopicId(e))) : t(e.id), u = t => Boolean(Tt && (String(t.label || "").toLowerCase().includes(Tt) || String(e.name || "").toLowerCase().includes(Tt) || t.isSubcategory && t.group.topics.some(e => sxName(e).toLowerCase().includes(Tt)))), p = c.filter((e, t) => {
+                        const n = e.id === Lt || e.id === a || e.isSubcategory && e.group.topics.some(e => sxResolveTopicId(e) === Lt);
                         /* HUB-BACKBONE W1: a subcategory child stands on its own standing (the backbone); d(e) is unchanged because it also feeds densityHidden */
-                        return (d(e) || e.isSubcategory) && (!l || t < s || topicRatedForDetail(e.id) || e.isSubcategory && e.group.topics.some(e => topicRatedForDetail(Wn(e))) || u(e) || n);
-                    }), h = l ? c.filter(d).length - p.length : 0, g = fi(i, p.map(e => e.id)), m = [];
+                        return (d(e) || e.isSubcategory) && (!l || t < s || topicRatedForDetail(e.id) || e.isSubcategory && e.group.topics.some(e => topicRatedForDetail(sxResolveTopicId(e))) || u(e) || n);
+                    }), h = l ? c.filter(d).length - p.length : 0, g = sxFilterVisibleNodes(i, p.map(e => e.id)), m = [];
                     p.forEach(i => {
                         if (Dn || r <= 0) return;
                         const s = u(i);
                         if (!En && !o && !s) return;
                         if (!En && o && !$n && g.mode && !i.isSubcategory && !g.visible.includes(i.id) && !s) return; /* HUB-BACKBONE W2: subcategories are exempt from the rated-topic filter guard — a hub's presence must not depend on a rating predicate; its children's own filtering is untouched */
                         if (r--, i.isSubcategory) {
-                            const n = G(i.group.topics.filter(e => t(Wn(e))), H).map(t => ({
-                                id: Wn(t),
+                            const n = sxOrderByScore(i.group.topics.filter(e => t(sxResolveTopicId(e))), sxBlendedScore).map(t => ({
+                                id: sxResolveTopicId(t),
                                 label: sxName(t),
                                 branch: e.name,
                                 kind: "Topic",
                                 risk: Boolean(((e.topics || []).find(topic => sxName(topic) === sxName(t)) || {}).risk),
                                 parentId: i.id,
                                 isStaticTopic: !0
-                            })), a = fi(i.id, n.map(e => e.id)), o = on.has(i.id) ? n.filter(e => a.visible.includes(e.id) || e.id === Lt || Tt && String(e.label || "").toLowerCase().includes(Tt)).filter((e, t) => !Number.isFinite(DETAIL_CAPS[mapDetailLevel]) || t < DETAIL_CAPS[mapDetailLevel] || topicRatedForDetail(e.id)).slice(0, r) : [];
+                            })), a = sxFilterVisibleNodes(i.id, n.map(e => e.id)), o = on.has(i.id) ? n.filter(e => a.visible.includes(e.id) || e.id === Lt || Tt && String(e.label || "").toLowerCase().includes(Tt)).filter((e, t) => !Number.isFinite(DETAIL_CAPS[mapDetailLevel]) || t < DETAIL_CAPS[mapDetailLevel] || topicRatedForDetail(e.id)).slice(0, r) : [];
                             r = Math.max(0, r - o.length);
-                            const s = gr(i.label, hr(2), pr.subcategoryIcon, 18, 176), l = o.reduce((e, t) => e + gr(t.label, hr(3), pr.topicIcon, 15, 112), 0);
+                            const s = sxAngularDemand(i.label, sxDepthRadius(2), pr.subcategoryIcon, 18, 176), l = o.reduce((e, t) => e + sxAngularDemand(t.label, sxDepthRadius(3), pr.topicIcon, 15, 112), 0);
                             return void m.push({
                                 id: i.id,
                                 label: i.label,
@@ -59,15 +59,15 @@
                                 minDemand: Math.max(s, l),
                                 allImported: n,
                                 topicFilter: a,
-                                unratedHub: !i.group.topics.some(e => hbRated(Wn(e))) /* DIMFIX F1, owner supersession 2026-10-28: a wholly-unrated hub dims in every context — the Finding C guard (no dim when a context has no ratings anywhere) no longer applies, so zero-rating profiles and the no-profile unrated map dim their hubs too */
+                                unratedHub: !i.group.topics.some(e => hbRated(sxResolveTopicId(e))) /* DIMFIX F1, owner supersession 2026-10-28: a wholly-unrated hub dims in every context — the Finding C guard (no dim when a context has no ratings anywhere) no longer applies, so zero-rating profiles and the no-profile unrated map dim their hubs too */
                             });
                         }
                         const l = i.id, c = i.label;
-                        let d = G(ri().filter(e => e.parentId === l && t(e.id)), e => H(e.label)).slice(0, r);
+                        let d = sxOrderByScore(sxCollectComparedImports().filter(e => e.parentId === l && t(e.id)), e => sxBlendedScore(e.label)).slice(0, r);
                         a === l && n && !d.some(e => e.id === n.id) && (d = [ n, ...d.slice(0, Math.max(0, r - 1)) ]);
-                        const p = fi(l, d.map(e => e.id)), h = on.has(l) ? d.filter(e => p.visible.includes(e.id) || e.id === Lt).slice(0, r) : [];
+                        const p = sxFilterVisibleNodes(l, d.map(e => e.id)), h = on.has(l) ? d.filter(e => p.visible.includes(e.id) || e.id === Lt).slice(0, r) : [];
                         r = Math.max(0, r - h.length);
-                        const f = gr(c, hr(2), pr.topicIcon, 18, 176), y = h.reduce((e, t) => e + gr(t.label, hr(3), pr.importedIcon, 15, 112), 0);
+                        const f = sxAngularDemand(c, sxDepthRadius(2), pr.topicIcon, 18, 176), y = h.reduce((e, t) => e + sxAngularDemand(t.label, sxDepthRadius(3), pr.importedIcon, 15, 112), 0);
                         m.push({
                             id: l,
                             label: c,
@@ -102,7 +102,7 @@
                         }
                         for (let i = 0; i < n; i++) m[i] = out[i];
                     }
-                    const f = gr(e.name, hr(1), pr.categoryIcon, 25), y = m.reduce((e, t) => e + t.minDemand, 0);
+                    const f = sxAngularDemand(e.name, sxDepthRadius(1), pr.categoryIcon, 25), y = m.reduce((e, t) => e + t.minDemand, 0);
                     return {
                         branch: e,
                         catId: i,
@@ -129,19 +129,19 @@
         function frAllocateTopicSectors(n, a, r) {
             n.forEach(e => {
                 const t = e.entry, n = Math.min(.025 * e.sector, Math.PI / 180), i = e.start + n, o = Math.max(.001, e.sector - 2 * n);
-                e.topics = mr(t.topics.map(e => ({
+                e.topics = sxAllocateSectors(t.topics.map(e => ({
                     topic: e,
                     label: e.label,
                     weight: e.weight,
                     minDemand: e.minDemand
-                })), i, o, hr(2), pr.topicIcon, 18, 196), e.topics.forEach(n => {
+                })), i, o, sxDepthRadius(2), pr.topicIcon, 18, 196), e.topics.forEach(n => {
                     n.branchName = t.branch.name, n.startAngle = e.angle, a.push(n);
                     const i = n.topic, o = Math.min(.02 * n.sector, Math.PI / 240), s = n.start + o, l = Math.max(.001, n.sector - 2 * o);
-                    n.children = mr(i.children.map(e => ({
+                    n.children = sxAllocateSectors(i.children.map(e => ({
                         child: e,
                         label: e.label,
                         weight: 1
-                    })), s, l, hr(3), pr.importedIcon, 15, 118), n.children.forEach(e => {
+                    })), s, l, sxDepthRadius(3), pr.importedIcon, 15, 118), n.children.forEach(e => {
                         e.branchName = t.branch.name, e.parentTopic = i, e.startAngle = n.angle, r.push(e);
                     });
                 });
@@ -157,9 +157,9 @@
                 t.forEach((e, t) => {
                     e.cloudCount = n, e.cloudIndex = t, e.cloudAngle = function(e, t, n) {
                         const i = Math.max(1, Number(n) || 1);
-                        if (1 === i) return tr(e);
+                        if (1 === i) return sxWrapAngle(e);
                         const a = e + Math.PI, r = (Math.max(0, Math.min(i - 1, Number(t) || 0)) + .5) / i;
-                        return tr(a - er.halfExclusion - er.spread * r);
+                        return sxWrapAngle(a - er.halfExclusion - er.spread * r);
                     }(i, t, n);
                     try {
                         var _ao = 0;
@@ -170,7 +170,7 @@
                             var _kao = mn.kinkAngleOffsets[e.topic.id];
                             if (_kao && typeof _kao.angle === "number") _ao = _kao.angle;
                         }
-                        if (_ao) e.cloudAngle = tr(e.cloudAngle + _ao * Math.PI / 180);
+                        if (_ao) e.cloudAngle = sxWrapAngle(e.cloudAngle + _ao * Math.PI / 180);
                     } catch (_) { __sxErrLog("layout-override", _); }
                 }), t.filter(e => e.topic.isSubcategory).forEach(e => {
                     const t = e.children.length, n = rr.cloudRadiusFor(t);
@@ -186,7 +186,7 @@
                         e.cloudCount = t, e.cloudIndex = i, e.cloudAngle = a[i], e.cloudRadius = null != _fv ? _fv : n * 1.2 * cloudMul;
                         try {
                             var _kao3 = mn.kinkAngleOffsets && e.child && e.child.id ? mn.kinkAngleOffsets[e.child.id] : null;
-                            if (_kao3 && typeof _kao3.angle === "number" && _kao3.angle) e.cloudAngle = tr(e.cloudAngle + _kao3.angle * Math.PI / 180);
+                            if (_kao3 && typeof _kao3.angle === "number" && _kao3.angle) e.cloudAngle = sxWrapAngle(e.cloudAngle + _kao3.angle * Math.PI / 180);
                         } catch (_) { __sxErrLog("layout-override", _); }
                     });
                 });
@@ -202,11 +202,11 @@
                 // through yr(). Each skipped evaluation is counted.
                 if (scCtx && e.entry && e.entry.branch && scCtx.frozenBranches.has(e.entry.branch.name)) return void scCtx.dropped.clamp++;
                 e.topicCloudRadiusBase = e.topicCloudRadius;
-                const t = yr(e.entry.branch), i = 900 + Math.cos(e.angle) * t, a = 620 + Math.sin(e.angle) * t;
+                const t = sxBranchSpokeLength(e.entry.branch), i = 900 + Math.cos(e.angle) * t, a = 620 + Math.sin(e.angle) * t;
                 let r = 1 / 0;
                 n.forEach(t => {
                     if (t === e) return;
-                    const n = yr(t.entry.branch), o = 900 + Math.cos(t.angle) * n, s = 620 + Math.sin(t.angle) * n, l = Math.hypot(o - i, s - a);
+                    const n = sxBranchSpokeLength(t.entry.branch), o = 900 + Math.cos(t.angle) * n, s = 620 + Math.sin(t.angle) * n, l = Math.hypot(o - i, s - a);
                     l < r && (r = l);
                 });
                 if (r < 1 / 0) {

@@ -1,6 +1,6 @@
         function sxScrapeFetLifeProfile(raw) {
             try {
-                const html = ux(String(raw || "")) || String(raw || "");
+                const html = sxMimeHtmlText(String(raw || "")) || String(raw || "");
                 if (!/<(?:html|body|main|section|article|div|h1)\b/i.test(html)) return null;
                 const doc = (new DOMParser).parseFromString(html, "text/html");
                 doc.querySelectorAll("script,style,noscript,svg,iframe").forEach(e => e.remove());
@@ -9,7 +9,7 @@
                 if (h1) for (const span of h1.querySelectorAll("span")) {
                     const m = clean(span.textContent).match(/^(\d{2,3})([A-Za-z]{1,3})\b/);
                     if (!m) continue;
-                    const age = Xv(m[1]);
+                    const age = sxNormalizeAgeText(m[1]);
                     age && (out.age = age);
                     const gender = {
                         M: "man",
@@ -58,10 +58,10 @@
                     if (!selectEl || !terms) return null;
                     const vals = [], seen = new Set;
                     return terms.forEach(term => {
-                        const key = ck(term), slug = term.toLowerCase().replace(/\s+/g, "-");
+                        const key = sxNormalizeTermText(term), slug = term.toLowerCase().replace(/\s+/g, "-");
                         [ ...selectEl.options ].forEach(opt => {
                             const label = clean(opt.textContent).replace(/\s*\([^()]*\)\s*$/, "");
-                            (ck(label) === key || opt.value === slug) && !seen.has(opt.value) && (seen.add(opt.value), vals.push(opt.value));
+                            (sxNormalizeTermText(label) === key || opt.value === slug) && !seen.has(opt.value) && (seen.add(opt.value), vals.push(opt.value));
                         });
                     }), vals.length ? vals : null;
                 };
@@ -96,11 +96,11 @@
             }
         }
         function sxStageFetLifeProfile(target, fields) {
-            if (!bw(target)) return;
+            if (!sxOpenProfileDetails(target)) return;
             const sc = ut[target] || {}, filled = v => String(v || "").trim().length > 0;
-            fields.gender && !bb(rt[target] || []).length && kb(fields.gender), fields.orientation && !iv(ot[target] || []).length && Fb(fields.orientation), 
-            fields.role && !Gb(st[target] || []).length && Vb(fields.role), fields.age && !filled(lt[target]) && (Kg.value = fields.age), fields.about && !filled(nt[target]) && (im.value = fields.about), 
-            fields.username && !filled(sc.fetlife) && stageContactUsername(fields.username), fields.pronouns && !filled(pz[target]) && (Pz.value = String(fields.pronouns).trim().slice(0, 60)), xb(), Eb(), Ob(), Yb(), Qb(), dw(), 
+            fields.gender && !sxNormalizeGenders(rt[target] || []).length && sxApplyGenderSelection(fields.gender), fields.orientation && !sxNormalizeOrientations(ot[target] || []).length && sxApplyOrientationSelection(fields.orientation), 
+            fields.role && !sxNormalizeRoles(st[target] || []).length && sxApplyRoleSelection(fields.role), fields.age && !filled(lt[target]) && (Kg.value = fields.age), fields.about && !filled(nt[target]) && (im.value = fields.about), 
+            fields.username && !filled(sc.fetlife) && stageContactUsername(fields.username), fields.pronouns && !filled(pz[target]) && (Pz.value = String(fields.pronouns).trim().slice(0, 60)), sxRefreshGenderPicker(), sxCloseGenderPicker(), sxCloseOrientationPicker(), sxRefreshRolePicker(), sxCloseRolePicker(), sxRefreshAboutCounts(), 
             sm.textContent = "Filled in from the FetLife page you loaded — check them over, then Save to keep them. Close without saving to discard them.";
         }
         function sxOpenStagedProfile(target, fields) {
@@ -128,8 +128,8 @@
             if (!t) return;
             const n = t.dataset.testIndex, i = t.dataset.testGroup;
             Xk[n] || (Xk[n] = {}), Ok.addEventListener("input", e => { const t = __sxClosestAction(e.target, "testNote"); if (!t) return; const n = t.getAttribute("data-test-note"); Xk[n] || (Xk[n] = {}), Xk[n].note = t.value; }), Xk[n][i] = t.dataset.testValue, __sxClosestAction(t, "testChoiceGroup").querySelectorAll("button").forEach(e => e.setAttribute("aria-pressed", String(e === t))), 
-            Ex();
-        }), _k.addEventListener("click", () => xx("test")), Dk.addEventListener("click", () => xx("paste")), 
+            sxWriteTestProgress();
+        }), _k.addEventListener("click", () => sxSwitchTestOrPaste("test")), Dk.addEventListener("click", () => sxSwitchTestOrPaste("paste")), 
         e.byId("previewTestAnswers") && e.byId("previewTestAnswers").addEventListener("click", () => {
             const e = function() {
                 if ("kinktest" === Gk) {
@@ -146,10 +146,10 @@
                                 3: 33,
                                 4: 100
                             }[l];
-                            sx(e, o.id, o.direction, t), c = String(t);
+                            sxPushFlankSample(e, o.id, o.direction, t), c = String(t);
                         }
                         i.push(`#${o.number} ${o.question} → ${sxNodePath(o.id)} · ${o.direction} · ${c}`), r++;
-                    }), lx(e, {
+                    }), sxMeanFlankRatings(e, {
                         annotations: t,
                         discreteNodes: n,
                         mappedLines: r,
@@ -170,9 +170,9 @@
                     const c = Xk[l] || {}, cc = axCat[e] || "Yes / No / Maybe",
                         ha = c.answer && void 0 !== v[c.answer], nt = c.note && c.note.trim();
                     if (!ha && !nt) return;
-                    const d = ox(e);
+                    const d = sxMatchHtmlFetish(e);
                     if (!d) return void (ha && r.push(`${cc} / “${e}” has no matching topic and was skipped.`));
-                    const u = pk(d, e, i);
+                    const u = sxResolveAliasTarget(d, e, i);
                     if (u) {
                         ha && (s(u.id, "give", v[c.answer]), s(u.id, "receive", v[c.answer]), a.push({
                             text: `${cc} / ${e} → ${sxNodePath(u.id)} · give + receive · ${v[c.answer]}`,
@@ -201,7 +201,7 @@
                     mappings: a
                 };
             }();
-            e.mappedLines ? (Cx(e), Ck.scrollIntoView({
+            e.mappedLines ? (sxRenderMatchPreview(e), Ck.scrollIntoView({
                 block: "nearest"
             })) : Pk.textContent = "Choose at least one answer first.";
         }), Wk.addEventListener("click", () => {
@@ -211,33 +211,33 @@
             }).filter(Boolean);
             e.length ? ($k.value = e.join("\n"), $k.dispatchEvent(new Event("input", {
                 bubbles: !0
-            })), Mx(), Ck.scrollIntoView({
+            })), sxRunConverterPreview(), Ck.scrollIntoView({
                 block: "nearest"
             })) : Pk.textContent = "Choose at least one answer first.";
-        }), e.all("[data-converter]").forEach(e => e.addEventListener("click", () => Ax(e.dataset.converter, e.dataset.converterMode || "auto"))), 
+        }), e.all("[data-converter]").forEach(e => e.addEventListener("click", () => sxOpenResultConverter(e.dataset.converter, e.dataset.converterMode || "auto"))), 
         e.all("[data-test-choice]").forEach(t => t.addEventListener("click", () => {
             const n = Xy || Mt;
-            Ui(e.byId("testChooserDialog")), Xy = null, n && vt[n] && Ax(t.dataset.testChoice, "test", n);
+            sxCloseModalDialog(e.byId("testChooserDialog")), Xy = null, n && vt[n] && sxOpenResultConverter(t.dataset.testChoice, "test", n);
         })), e.byId("rateInListViewChoice") && e.byId("rateInListViewChoice").addEventListener("click", () => {
             const t = Xy || Mt;
-            Ui(e.byId("testChooserDialog")), Xy = null, t && vt[t] && (t !== Mt && Js(t), Ms(t));
-        }), e.byId("closeTestChooser") && e.byId("closeTestChooser").addEventListener("click", Jy), e.byId("testChooserDialog") && e.byId("testChooserDialog").addEventListener("click", e => {
-            "testChooserDialog" === e.target.id && Jy();
+            sxCloseModalDialog(e.byId("testChooserDialog")), Xy = null, t && vt[t] && (t !== Mt && sxLoadProfileMap(t), sxOpenHotList(t));
+        }), e.byId("closeTestChooser") && e.byId("closeTestChooser").addEventListener("click", sxCloseTestChooser), e.byId("testChooserDialog") && e.byId("testChooserDialog").addEventListener("click", e => {
+            "testChooserDialog" === e.target.id && sxCloseTestChooser();
         }), e.byId("testChooserDialog") && e.byId("testChooserDialog").addEventListener("cancel", e => {
-            e.preventDefault(), Jy();
-        }), e.byId("closeConverter") && (e.byId("closeConverter").onclick = Px), vk.addEventListener("click", e => {
-            e.target === vk && Px();
+            e.preventDefault(), sxCloseTestChooser();
+        }), e.byId("closeConverter") && (e.byId("closeConverter").onclick = sxCloseResultConverter), vk.addEventListener("click", e => {
+            e.target === vk && sxCloseResultConverter();
         }), vk.addEventListener("cancel", e => {
-            e.preventDefault(), Px();
+            e.preventDefault(), sxCloseResultConverter();
         }), e.byId("loadConverterExample") && (e.byId("loadConverterExample").onclick = () => {
             Vk = null, Yk = null, $k.value = "fetlife" === Gk ? fetlifeSampleHtml : "checklist" === Gk ? ax.map((e, t) => `${e}: ${t % 6}`).join("\n") : nx[Gk] || "", 
-            Ck.hidden = !0, Lk.disabled = !0, Pk.textContent = "", "fetlife" === Gk && Mx();
+            Ck.hidden = !0, Lk.disabled = !0, Pk.textContent = "", "fetlife" === Gk && sxRunConverterPreview();
         }), Tk && (Tk.onclick = () => Fk.click()), Fk.addEventListener("change", e => {
             const t = e.target.files[0];
             if (!t) return;
             const n = new FileReader;
             n.onload = () => {
-                const i = px(String(n.result || ""));
+                const i = sxFetishSectionFromPage(String(n.result || ""));
                 sxFlFields = sxScrapeFetLifeProfile(String(n.result || ""));
                 Vk = i.text, Yk = function(e) {
                     const t = {
@@ -294,10 +294,10 @@
                         "watching others wearing": "watching others wear"
                     };
                     let o = null, s = null;
-                    gx(String(e || "")).forEach(e => {
+                    sxLinesFromFetishPaste(String(e || "")).forEach(e => {
                         const i = e.replace(/\u00a0/g, " ").replace(/^[\s•·*]+|[\s•·*]+$/g, "").trim();
                         if (!i) return;
-                        const l = ck(i), c = l.replace(/\s+\d+$/, "");
+                        const l = sxNormalizeTermText(i), c = l.replace(/\s+\d+$/, "");
                         if (a[c]) return o = a[c], void (s = null);
                         if (r[c]) return void (s = r[c]);
                         if ([ "fetishes", "kinks", "fetish list", "kink list", "edit", "show more", "show less" ].includes(l) || /^(?:view|show)\s+all\b/i.test(i) || /^https?:\/\//i.test(i)) return;
@@ -309,10 +309,10 @@
                         const u = (d.shift() || "").replace(/^[-*•·\d.)\s]+/, "").trim();
                         if (!u) return;
                         let p = d.join(" ").trim(), h = o;
-                        const g = ck(p), m = Object.keys(a).sort((e, t) => t.length - e.length).find(e => new RegExp(`(?:^|\\b)${e.replace(/ /g, "\\s+")}(?:\\b|$)`, "i").test(g));
+                        const g = sxNormalizeTermText(p), m = Object.keys(a).sort((e, t) => t.length - e.length).find(e => new RegExp(`(?:^|\\b)${e.replace(/ /g, "\\s+")}(?:\\b|$)`, "i").test(g));
                         if (m && (h = a[m], p = p.replace(new RegExp(`(?:^|[·—–,;|\\s])${m.replace(/ /g, "\\s+")}(?=$|[·—–,;|\\s])`, "i"), " ").replace(/^[\s,;|·—–]+|[\s,;|·—–]+$/g, "").trim()), 
                         !h) return;
-                        const f = Object.keys(r).find(e => new RegExp(`(?:^|\\b)${e.replace(/ /g, "\\s+")}(?:\\b|$)`, "i").test(ck(p))), y = p || (f ? r[f] : s), b = y ? `${u} — ${y}` : u, v = ck(b);
+                        const f = Object.keys(r).find(e => new RegExp(`(?:^|\\b)${e.replace(/ /g, "\\s+")}(?:\\b|$)`, "i").test(sxNormalizeTermText(p))), y = p || (f ? r[f] : s), b = y ? `${u} — ${y}` : u, v = sxNormalizeTermText(b);
                         n[h] || (n[h] = new Set), n[h].has(v) || (t[h].push(b), n[h].add(v));
                     });
                     const l = [ "into", "curious", "soft", "hard" ], c = [ "favorite", "not", "neutral", "fantasy", "tried" ];
@@ -327,7 +327,7 @@
             }, n.onerror = () => {
                 Pk.textContent = "Could not read that saved page.", e.target.value = "";
             }, n.readAsText(t);
-        }), (e.byId("previewConverter") || {}).onclick = Mx, Lk && (Lk.onclick = function() {
+        }), (e.byId("previewConverter") || {}).onclick = sxRunConverterPreview, Lk && (Lk.onclick = function() {
             if (Kk && !Lk.disabled) {
                 const sxIds = Object.keys(wt).filter(e => Boolean(vt[e]) && !(ft[e] && "group" === ft[e].kind));
                 if (!sxIds.length) return void (Pk.textContent = Object.keys(wt).some(e => Boolean(vt[e])) ? "Only pair/group profiles are open, and test results can't be loaded directly into a pair. Open one of the pair's own profiles first." : "No profile exists to load these results into.");
@@ -363,7 +363,7 @@
                 const sxDlg = document.createElement("dialog");
                 sxDlg.className = "converter-target-dialog";
                 const sxClosePrompt = function() {
-                    Ui(sxDlg), sxDlg.remove();
+                    sxCloseModalDialog(sxDlg), sxDlg.remove();
                 }, sxTitle = document.createElement("h3");
                 sxTitle.textContent = "Load into which profile?", sxDlg.appendChild(sxTitle), Object.keys(wt).some(e => vt[e] && ft[e] && "group" === ft[e].kind) && (() => {
                     const sxNote = document.createElement("p");
@@ -402,21 +402,21 @@
                     sxClosePrompt();
                 }), sxDlg.addEventListener("close", () => {
                     sxDlg.remove();
-                }), document.body.appendChild(sxDlg), Wi(sxDlg);
+                }), document.body.appendChild(sxDlg), sxOpenModalDialog(sxDlg);
             }
         }), $k.addEventListener("input", () => {
             sxFlFields = null, Vk = null, Yk = null, Ck.hidden = !0, Lk.disabled = !0, Kk = null, Pk.textContent = "";
-        }), e.byId("closeImportedContact") && (e.byId("closeImportedContact").onclick = Tx), e.byId("doneImportedContact") && (e.byId("doneImportedContact").onclick = Tx), 
+        }), e.byId("closeImportedContact") && (e.byId("closeImportedContact").onclick = sxCloseContactDialog), e.byId("doneImportedContact") && (e.byId("doneImportedContact").onclick = sxCloseContactDialog), 
         Lg.addEventListener("click", e => {
-            e.target === Lg && Tx();
+            e.target === Lg && sxCloseContactDialog();
         }), Lg.addEventListener("cancel", e => {
-            e.preventDefault(), Tx();
+            e.preventDefault(), sxCloseContactDialog();
         }), Fg.addEventListener("click", () => {
             Ng.textContent = "Your device will open or download the contact card.";
         });
         const Nx = e.byId("fileInput"), _x = e.byId("qrImageInput"), Dx = e.byId("qrCameraPanel"), Rx = e.byId("qrCameraVideo");
         let Ox = null, Bx = 0;
-        function jx(e, t, n = 128) {
+        function sxFilterQrLuma(e, t, n = 128) {
             const i = new Uint8ClampedArray(e.length);
             for (let a = 0; a < e.length; a += 4) {
                 const r = .299 * e[a] + .587 * e[a + 1] + .114 * e[a + 2];
@@ -426,21 +426,21 @@
             }
             return i;
         }
-        function qx() {
+        function sxYieldToNextFrame() {
             return new Promise(e => requestAnimationFrame(() => t.setTimeout(e, 0)));
         }
-        async function Hx(e, t, n = 1 / 0) {
+        async function sxDecodeCanvasQr(e, t, n = 1 / 0) {
             const i = e.getImageData(0, 0, t.width, t.height), a = {
                 inversionAttempts: "dontInvert"
             };
-            await qx();
+            await sxYieldToNextFrame();
             let r = jsQR(i.data, i.width, i.height, a);
             if (r && r.data) return r.data;
             if (performance.now() > n) return null;
-            const o = jx(i.data, "contrast");
-            if (await qx(), r = jsQR(o, i.width, i.height, a), r && r.data) return r.data;
+            const o = sxFilterQrLuma(i.data, "contrast");
+            if (await sxYieldToNextFrame(), r = jsQR(o, i.width, i.height, a), r && r.data) return r.data;
             if (performance.now() > n) return null;
-            const s = jx(o, "threshold", function(e) {
+            const s = sxFilterQrLuma(o, "threshold", function(e) {
                 const t = new Uint32Array(256);
                 let n = 0, i = 0;
                 for (let a = 0; a < e.length; a += 4) {
@@ -458,11 +458,11 @@
                 }
                 return s;
             }(o));
-            return await qx(), r = jsQR(s, i.width, i.height, {
+            return await sxYieldToNextFrame(), r = jsQR(s, i.width, i.height, {
                 inversionAttempts: "attemptBoth"
             }), r && r.data || null;
         }
-        function Wx(e) {
+        function sxParseScp4Chunk(e) {
             const t = String(e || "").match(/^SCP4:([0-9A-Z]+):(\d+):(\d+):([\s\S]*)$/);
             if (!t) return null;
             const n = Number(t[2]), i = Number(t[3]);
@@ -473,10 +473,10 @@
                 data: t[4]
             };
         }
-        async function Ux(e, t = !1) {
+        async function sxScanProfileQrImage(e, t = !1) {
             if ("function" != typeof window.jsQR && (window.__loadQrScanner && await window.__loadQrScanner(), 
             "function" != typeof window.jsQR)) throw new Error("The QR reader did not load.");
-            const n = e instanceof HTMLVideoElement, i = n ? e : "function" == typeof createImageBitmap && e instanceof Blob ? await createImageBitmap(e) : await zu(await Vu(e)), a = n ? e.videoWidth : i.naturalWidth || i.width, r = n ? e.videoHeight : i.naturalHeight || i.height, o = [], s = new Set, l = performance.now() + (n ? 900 : 8500), c = e => !(!e || s.has(e) || (s.add(e), 
+            const n = e instanceof HTMLVideoElement, i = n ? e : "function" == typeof createImageBitmap && e instanceof Blob ? await createImageBitmap(e) : await sxLoadImageSrc(await sxBlobToDataUrl(e)), a = n ? e.videoWidth : i.naturalWidth || i.width, r = n ? e.videoHeight : i.naturalHeight || i.height, o = [], s = new Set, l = performance.now() + (n ? 900 : 8500), c = e => !(!e || s.has(e) || (s.add(e), 
             o.push(e), 0));
             if (!a || !r) return n || "function" != typeof i.close || i.close(), t ? [] : null;
             if ("function" == typeof BarcodeDetector) try {
@@ -487,7 +487,7 @@
                 if (o.length && !t) return o[0];
             } catch (e) { __sxErrLog("app", e); }
             const d = n ? [ [ 0, 0, a, r, 1100 ] ] : [ [ .755 * a, .69 * r, .235 * a, .235 * r, 1320 ], [ .72 * a, .62 * r, .28 * a, .38 * r, 1120 ], [ 0, .62 * r, .32 * a, .38 * r, 1120 ], [ 0, 0, .34 * a, .38 * r, 1120 ], [ .66 * a, 0, .34 * a, .38 * r, 1120 ], [ 0, 0, a, r, 1200 ], [ .5 * a, .5 * r, .5 * a, .5 * r, 1120 ], [ 0, .5 * r, .5 * a, .5 * r, 1120 ], [ .5 * a, 0, .5 * a, .5 * r, 1120 ], [ 0, 0, .5 * a, .5 * r, 1120 ] ], u = new Set, p = e => {
-                const n = Wx(e);
+                const n = sxParseScp4Chunk(e);
                 if (!t || !n || u.has(n.total)) return;
                 u.add(n.total);
                 const i = 1 === n.total ? 1 : n.total <= 6 ? 2 : 3, o = Math.ceil(n.total / i), s = .047 * a, l = .035 * r, c = n.total > 1 ? .045 * r : 0, p = .0275 * a, h = .021 * r, g = (a - 2 * s - p * (i - 1)) / i, m = (r - 2 * l - c - .082 * r - h * (o - 1)) / o;
@@ -507,9 +507,9 @@
                     h.width = Math.max(1, Math.round(y * k)), h.height = Math.max(1, Math.round(b * k)), 
                     g.clearRect(0, 0, h.width, h.height), g.imageSmoothingEnabled = !1, g.filter = "none", 
                     g.drawImage(i, d, f, y, b, 0, 0, h.width, h.height);
-                    const x = await Hx(g, h, l);
+                    const x = await sxDecodeCanvasQr(g, h, l);
                     if (x && (c(x), p(x), !t)) return x;
-                    await qx();
+                    await sxYieldToNextFrame();
                 }
             } finally {
                 h.width = 1, h.height = 1, n || "function" != typeof i.close || i.close();
@@ -518,70 +518,70 @@
         }
         e.byId("chooseFile") && (e.byId("chooseFile").onclick = () => Nx.click()), e.byId("chooseQrImage") && (e.byId("chooseQrImage").onclick = () => _x.click());
         const Gx = new Map;
-        async function Kx(e, t = "") {
-            const n = Wx(e);
+        async function sxImportNumberedQr(e, t = "") {
+            const n = sxParseScp4Chunk(e);
             let i = String(e || ""), a = "";
             if (n) {
                 let e = Gx.get(n.bundleId);
                 if (e && e.total === n.total || (e = {
                     total: n.total,
                     parts: new Map
-                }, Gx.set(n.bundleId, e)), e.parts.set(n.index, n.data), e.parts.size < e.total) return Ig(`Captured profile QR ${n.index}/${e.total} · ${e.parts.size} of ${e.total} collected. Scan the remaining numbered codes in any order.`, "busy"), 
+                }, Gx.set(n.bundleId, e)), e.parts.set(n.index, n.data), e.parts.size < e.total) return sxSetImportStatus(`Captured profile QR ${n.index}/${e.total} · ${e.parts.size} of ${e.total} collected. Scan the remaining numbered codes in any order.`, "busy"), 
                 null;
                 if (i = Array.from({
                     length: e.total
-                }, (t, n) => e.parts.get(n + 1) || "").join(""), !i || iu((new TextEncoder).encode(i)).toString(36).toUpperCase() !== n.bundleId) throw Gx.delete(n.bundleId), 
+                }, (t, n) => e.parts.get(n + 1) || "").join(""), !i || sxChecksumCrc32((new TextEncoder).encode(i)).toString(36).toUpperCase() !== n.bundleId) throw Gx.delete(n.bundleId), 
                 new Error("The numbered profile QR set is incomplete or damaged.");
                 Gx.delete(n.bundleId), a = `Recovered all ${e.total} numbered profile QR codes.`;
             }
-            const r = kx(await yx.parse("qr", i)), o = a || t || `Imported ${wt[r]} from profile-data QR.`;
-            return Sg.open && Ui(Sg), Ig(o, "success"), (t || a) && tS(o), r;
+            const r = sxMergeAsShared(await yx.parse("qr", i)), o = a || t || `Imported ${wt[r]} from profile-data QR.`;
+            return Sg.open && sxCloseModalDialog(Sg), sxSetImportStatus(o, "success"), (t || a) && sxShowStatusToast(o), r;
         }
-        async function zx() {
+        async function sxHaltQrCamera() {
             Bx && cancelAnimationFrame(Bx), Bx = 0, Ox && (Ox.getTracks().forEach(e => e.stop()), 
             Ox = null), Rx.srcObject = null, Dx.hidden = !0;
         }
-        async function Vx() {
+        async function sxWatchQrCamera() {
             if (Ox) {
                 try {
-                    const e = await Ux(Rx);
-                    if (e && await Kx(e)) return void await zx();
+                    const e = await sxScanProfileQrImage(Rx);
+                    if (e && await sxImportNumberedQr(e)) return void await sxHaltQrCamera();
                 } catch (e) {
-                    Ig(`QR import failed: ${e.message || "That QR code could not be read."}`, "error", !0);
+                    sxSetImportStatus(`QR import failed: ${e.message || "That QR code could not be read."}`, "error", !0);
                 }
-                Bx = requestAnimationFrame(Vx);
+                Bx = requestAnimationFrame(sxWatchQrCamera);
             }
         }
-        async function Yx() {
-            p("scan_started");
+        async function sxOpenQrCamera() {
+            sxSendEvent("scan_started");
             try {
-                await zx(), Ox = await navigator.mediaDevices.getUserMedia({
+                await sxHaltQrCamera(), Ox = await navigator.mediaDevices.getUserMedia({
                     video: {
                         facingMode: {
                             ideal: "environment"
                         }
                     },
                     audio: !1
-                }), Rx.srcObject = Ox, Dx.hidden = !1, await Rx.play(), Ig("Point the camera at a profile-data QR. For a numbered set, scan every code in any order.", "busy"), 
-                Vx();
+                }), Rx.srcObject = Ox, Dx.hidden = !1, await Rx.play(), sxSetImportStatus("Point the camera at a profile-data QR. For a numbered set, scan every code in any order.", "busy"), 
+                sxWatchQrCamera();
             } catch (e) {
-                Ig("Camera scanning is unavailable or permission was not granted.", "error", !0);
+                sxSetImportStatus("Camera scanning is unavailable or permission was not granted.", "error", !0);
             }
         }
-        e.byId("startQrCamera") && (e.byId("startQrCamera").onclick = Yx), e.byId("stopQrCamera") && (e.byId("stopQrCamera").onclick = zx);
+        e.byId("startQrCamera") && (e.byId("startQrCamera").onclick = sxOpenQrCamera), e.byId("stopQrCamera") && (e.byId("stopQrCamera").onclick = sxHaltQrCamera);
         let Xx, Zx = 0;
-        async function Qx(e, t, n) {
+        async function sxImportEmbeddedQr(e, t, n) {
             if (n !== Zx) throw new Error("Import cancelled.");
-            Ig("No embedded profile data found. Looking for a profile QR…", "busy"), await qx();
-            const i = await Ux(e, !0);
+            sxSetImportStatus("No embedded profile data found. Looking for a profile QR…", "busy"), await sxYieldToNextFrame();
+            const i = await sxScanProfileQrImage(e, !0);
             if (n !== Zx) throw new Error("Import cancelled.");
-            const a = i.filter(e => Wx(e) || String(e || "").startsWith("SCP3:") || String(e || "").startsWith("SCP2J:"));
+            const a = i.filter(e => sxParseScp4Chunk(e) || String(e || "").startsWith("SCP3:") || String(e || "").startsWith("SCP2J:"));
             if (!a.length) throw t;
             let r = null, o = null;
             for (const e of a) {
-                o = Wx(e) || o;
-                const t = await Kx(e, "metadata has been stripped, data has been recovered from QR code.");
-                t && (r = t), await qx();
+                o = sxParseScp4Chunk(e) || o;
+                const t = await sxImportNumberedQr(e, "metadata has been stripped, data has been recovered from QR code.");
+                t && (r = t), await sxYieldToNextFrame();
             }
             if (r) return r;
             if (o) {
@@ -590,20 +590,20 @@
             }
             throw t;
         }
-        function Jx(e) {
+        function sxImportSelectedFile(e) {
             const t = e.target.files[0];
             if (!t) return;
             const n = ++Zx;
-            Ig(`Reading ${t.name}…`, "busy");
+            sxSetImportStatus(`Reading ${t.name}…`, "busy");
             const i = new FileReader;
             i.onload = async () => {
                 if (n !== Zx) return;
                 const a = new Uint8Array(i.result), r = 137 === a[0] && 80 === a[1] && 78 === a[2] && 71 === a[3], o = "application/pdf" === t.type || /\.pdf$/i.test(t.name) || 37 === a[0] && 80 === a[1] && 68 === a[2] && 70 === a[3], s = "application/json" === t.type || /\.json$/i.test(t.name), l = "image/svg+xml" === t.type || /\.svg$/i.test(t.name), c = /\.svgz$/i.test(t.name) || 31 === a[0] && 139 === a[1], d = String(t.type || "").startsWith("image/") || r;
                 let u = "read";
                 try {
-                    if (await qx(), n !== Zx) return;
-                    if (s) u = "json", kx(yx.parse("json", (new TextDecoder).decode(a))); else if (o) u = "pdf", 
-                    kx(yx.parse("pdf", a)); else if (l || c) {
+                    if (await sxYieldToNextFrame(), n !== Zx) return;
+                    if (s) u = "json", sxMergeAsShared(yx.parse("json", (new TextDecoder).decode(a))); else if (o) u = "pdf", 
+                    sxMergeAsShared(yx.parse("pdf", a)); else if (l || c) {
                         u = c ? "svgz" : "svg";
                         let e = a;
                         if (c) {
@@ -620,10 +620,10 @@
                             } catch (e) {
                                 throw new Error("The profile data embedded in this SVG is damaged or incomplete.");
                             }
-                            u = "profile", kx(e);
+                            u = "profile", sxMergeAsShared(e);
                         } else {
                             if (c) throw new Error("This SVGZ does not contain embedded Sexcapades profile data.");
-                            u = "qr", await Qx(t, new Error("This SVG does not contain embedded Sexcapades profile data."), n);
+                            u = "qr", await sxImportEmbeddedQr(t, new Error("This SVG does not contain embedded Sexcapades profile data."), n);
                         }
                     } else {
                         if (!d) throw new Error("Choose a current Sexcapades SVG, SVGZ, PNG, PDF, sync card or profile-QR image, or profile JSON file.");
@@ -632,34 +632,34 @@
                             try {
                                 e = await yx.parse("png", a);
                             } catch (e) {
-                                u = "qr", await Qx(t, e, n);
+                                u = "qr", await sxImportEmbeddedQr(t, e, n);
                             }
                             if (e) {
                                 u = "profile";
-                                const t = kx(e.payload);
-                                e.vcard && Fx(e.vcard, t);
+                                const t = sxMergeAsShared(e.payload);
+                                e.vcard && sxApplyImportedVcard(e.vcard, t);
                             }
-                        } else u = "qr", await Qx(t, new Error("This image does not contain a readable Sexcapades profile-data QR code."), n);
+                        } else u = "qr", await sxImportEmbeddedQr(t, new Error("This image does not contain a readable Sexcapades profile-data QR code."), n);
                     }
                 } catch (e) {
-                    n === Zx && Pg(e, t, u);
+                    n === Zx && sxShowImportFailure(e, t, u);
                 }
                 e.target.value = "";
             }, i.onerror = () => {
-                n === Zx && Pg(new Error("The file could not be read."), t, "read"), e.target.value = "";
+                n === Zx && sxShowImportFailure(new Error("The file could not be read."), t, "read"), e.target.value = "";
             }, i.readAsArrayBuffer(t);
         }
-        function eS() {
+        function sxClearStatusToast() {
             const n = e.byId("toast"), i = e.byId("toastMessage");
             t.clear(Xx), n.classList.remove("show", "is-persistent"), n.removeAttribute("data-tone"), 
             n.setAttribute("role", "status"), i.textContent = "";
         }
-        function tS(n, i = {}) {
+        function sxShowStatusToast(n, i = {}) {
             const a = e.byId("toast"), r = e.byId("toastMessage"), o = !0 === i.persistent || "error" === i.tone;
             r.textContent = n, a.classList.toggle("is-persistent", o), i.tone ? a.dataset.tone = i.tone : a.removeAttribute("data-tone"), 
             a.setAttribute("role", "error" === i.tone ? "alert" : "status"), a.classList.add("show"), 
             t.clear(Xx), o || (Xx = t.setTimeout(() => a.classList.remove("show"), 1800));
         }
-        Nx.addEventListener("change", Jx), _x.addEventListener("change", Jx), Sg.addEventListener("close", () => {
-            Zx++, zx(), sxPairLoadInto = null, sxLoadOriginId = null;
-        }), e.byId("toastDismiss") && e.byId("toastDismiss").addEventListener("click", eS);
+        Nx.addEventListener("change", sxImportSelectedFile), _x.addEventListener("change", sxImportSelectedFile), Sg.addEventListener("close", () => {
+            Zx++, sxHaltQrCamera(), sxPairLoadInto = null, sxLoadOriginId = null;
+        }), e.byId("toastDismiss") && e.byId("toastDismiss").addEventListener("click", sxClearStatusToast);

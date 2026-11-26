@@ -1,9 +1,9 @@
         h.forEach(e => {
             rn.add(e.name), un.set(catId(e.name), "all"), (e.subcategories || []).forEach(t => {
-                const n = Un(e.name, t.name);
+                const n = sxResolveSubcategoryId(e.name, t.name);
                 un.set(n, "all"), mn.expandAll && on.add(n);
             }), e.topics.forEach(t => {
-                const n = Wn(t);
+                const n = sxResolveTopicId(t);
                 un.set(n, "all"), mn.expandAll && on.add(n);
             });
         });
@@ -31,24 +31,24 @@
             medium: 7,
             full: Number.POSITIVE_INFINITY
         };
-        function topicRatedForDetail(e, t = Vi()) {
-            const n = da(e, t);
+        function topicRatedForDetail(e, t = sxActiveProfileId()) {
+            const n = sxRatingRecord(e, t);
             return Boolean(n && (n.giveKnown || n.receiveKnown));
         }
         window.__SEXCAPADES_SET_MAP_DETAIL = function(level) {
             if (!Object.prototype.hasOwnProperty.call(DETAIL_CAPS, level) || level === mapDetailLevel) return;
             try { window.SexcapadesEngine?.Map?.invalidateVault(); } catch (_) {}
             mapDetailLevel = level, document.querySelectorAll("[data-detail-level]").forEach(e => e.setAttribute("aria-pressed", String(e.dataset.detailLevel === level))),
-            Mr({
+            sxRequestMapPaint({
                 animate: !1,
                 forceRepaint: !0
             });
         };
         const Cn = e.byId("mapSvg"), Mn = e.byId("mapScene"), In = e.byId("mapLayer"), Pn = e.byId("mapDefs"), Ln = e.byId("mapSafeFallback"), Tn = e.byId("mapSafeMessage"), Fn = e.byId("mapSafeOpen"), Nn = e.byId("mapSafeReset");
         let Dn = !1, Rn = !1, On = null, Bn = [], jn = !1;
-        const qn = {};
+        const sxNodeRegistry = {};
         let sxStemFinaliseHook = null;
-        function Hn(e) {
+        function sxSlugifyLabel(e) {
             return String(e == null ? "" : e).toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
         }
 
@@ -191,7 +191,7 @@
             "Hands & gloves": "t0202", "Feet": "t0213", "Buttocks": "t0218", "Breasts": "t0220", "Pregnancy focus": "t0222",
             "Hair": "t0203", "Long Hair": "t0204", "Facial Hair": "t0208", "Beards": "t0209", "Body Hair": "t0210", "Pubic Hair": "t0211", "Muscles": "t0231"
         };
-        function Wn(e) {
+        function sxResolveTopicId(e) {
             if (e && "object" == typeof e && e.id) return e.id;
             const t = sxName(e);
             for (const cat of h) {
@@ -211,17 +211,17 @@
             if (!cat || !cat.id) throw new Error(`Missing stored category ID for "${e}". Assign max(existing category ID) + 1 on the category; do not derive it from the name.`);
             return cat.id;
         }
-        function Un(e, t) {
+        function sxResolveSubcategoryId(e, t) {
             const cat = h.find(c => c.name === String(e || ""));
             const sub = cat && (cat.subcategories || []).find(s => s.name === String(t || ""));
             if (!sub || !sub.id) throw new Error(`Missing stored subcategory ID for "${e}" / "${t}". Assign max(existing subcategory ID) + 1 on the subcategory; do not derive it from the name.`);
             return sub.id;
         }
-        function Kn(e, t) {
-            return "topic-" + Hn(String(e || "")) + "-" + Hn(String(t || ""));
+        function sxBuildTopicSlugId(e, t) {
+            return "topic-" + sxSlugifyLabel(String(e || "")) + "-" + sxSlugifyLabel(String(t || ""));
         }
-        function zn(e) {
-            for (const t of h) for (const n of t.subcategories || []) if (Un(t.name, n.name) === e || n.id === e) return {
+        function sxFindSubcategoryNode(e) {
+            for (const t of h) for (const n of t.subcategories || []) if (sxResolveSubcategoryId(t.name, n.name) === e || n.id === e) return {
                 id: e,
                 label: n.name,
                 branch: t.name,
@@ -233,14 +233,14 @@
             };
             return null;
         }
-        function Vn(e, t) {
+        function sxFindTopicSubcategory(e, t) {
             const name = sxName(t);
             return (e.subcategories || []).find(sub => (sub.topics || []).some(topic => sxName(topic) === name)) || null;
         }
-        function Yn(e) {
-            return e.subcategories?.length ? (e.parentTopics || []).map(Wn).concat(e.subcategories.map(t => Un(e.name, t.name))) : e.topics.map(Wn);
+        function sxListCategoryChildIds(e) {
+            return e.subcategories?.length ? (e.parentTopics || []).map(sxResolveTopicId).concat(e.subcategories.map(t => sxResolveSubcategoryId(e.name, t.name))) : e.topics.map(sxResolveTopicId);
         }
-        function Xn(e) {
+        function sxNodeById(e) {
             if (!e) return null;
             for (const cat of h) {
                 if (cat.id === e || catId(cat.name) === e || cat.name === e) {
@@ -252,24 +252,24 @@
                         risk: Boolean(cat.risk),
                         parentId: null,
                         depth: 1,
-                        subcategories: (cat.subcategories || []).map(s => Un(cat.name, s.name)),
-                        topics: (cat.topics || []).map(Wn)
+                        subcategories: (cat.subcategories || []).map(s => sxResolveSubcategoryId(cat.name, s.name)),
+                        topics: (cat.topics || []).map(sxResolveTopicId)
                     };
                 }
             }
-            const t = zn(e);
+            const t = sxFindSubcategoryNode(e);
             if (t) return t;
             for (const t of h) {
-                const n = t.topics.find(top => Wn(top) === e);
+                const n = t.topics.find(top => sxResolveTopicId(top) === e);
                 if (n) {
-                    const i = Vn(t, n);
+                    const i = sxFindTopicSubcategory(t, n);
                     return {
                         id: e,
                         label: sxName(n),
                         branch: t.name,
                         kind: "Topic",
                         risk: Boolean(((t.topics || []).find(topic => sxName(topic) === sxName(n)) || {}).risk),
-                        parentId: i ? Un(t.name, i.name) : catId(t.name),
+                        parentId: i ? sxResolveSubcategoryId(t.name, i.name) : catId(t.name),
                         depth: i ? 3 : 2,
                         poleReading: n.poleReading || null,
                         poleEnemies: Array.isArray(n.poleEnemies) ? n.poleEnemies : null
@@ -280,25 +280,25 @@
         }
 
         // ===== Phase 4 Uniform Node Type: Universal Node Engine =====
-        function sxNodeRecord(id, profileId = Vi()) {
+        function sxNodeRecord(id, profileId = sxActiveProfileId()) {
             if (!id) return null;
-            let rec = qn[id] || Xn(id);
+            let rec = sxNodeRegistry[id] || sxNodeById(id);
             if (!rec && typeof at !== "undefined" && at[profileId]) {
                 rec = at[profileId][id] || null;
             }
-            if (!rec && typeof li === "function") {
-                rec = li().find(x => x.id === id) || null;
+            if (!rec && typeof sxCollectAllImports === "function") {
+                rec = sxCollectAllImports().find(x => x.id === id) || null;
             }
             if (rec && !rec.depth) {
                 if ("Category" === rec.kind) rec.depth = 1;
                 else if ("Subcategory" === rec.kind) rec.depth = 2;
-                else if (rec.parentId && (isSubId(rec.parentId) || (qn[rec.parentId] || {}).kind === "Subcategory")) rec.depth = 3;
-                else if (rec.parentId) rec.depth = ((qn[rec.parentId] || {}).depth || 2) + 1;
+                else if (rec.parentId && (isSubId(rec.parentId) || (sxNodeRegistry[rec.parentId] || {}).kind === "Subcategory")) rec.depth = 3;
+                else if (rec.parentId) rec.depth = ((sxNodeRegistry[rec.parentId] || {}).depth || 2) + 1;
                 else rec.depth = 2;
             }
             return rec;
         }
-        function sxNodeAncestorIds(id, profileId = Vi()) {
+        function sxNodeAncestorIds(id, profileId = sxActiveProfileId()) {
             const ancestors = [];
             const seen = new Set();
             let curr = id;
@@ -319,26 +319,26 @@
             }
             return ancestors;
         }
-        function sxNodeChildrenIds(id, profileId = Vi()) {
+        function sxNodeChildrenIds(id, profileId = sxActiveProfileId()) {
             const rec = sxNodeRecord(id, profileId);
             if (!rec) return [];
             const children = [];
             if ("Category" === rec.kind) {
                 const cat = h.find(c => (c.id === id || catId(c.name) === id));
                 if (cat) {
-                    (cat.subcategories || []).forEach(s => children.push(Un(cat.name, s.name)));
-                    (cat.parentTopics || []).forEach(t => children.push(Wn(t)));
+                    (cat.subcategories || []).forEach(s => children.push(sxResolveSubcategoryId(cat.name, s.name)));
+                    (cat.parentTopics || []).forEach(t => children.push(sxResolveTopicId(t)));
                     if (!(cat.subcategories || []).length) {
-                        (cat.topics || []).forEach(t => children.push(Wn(t)));
+                        (cat.topics || []).forEach(t => children.push(sxResolveTopicId(t)));
                     }
                 }
             } else if ("Subcategory" === rec.kind) {
                 const sub = sgSub(id);
                 if (sub) {
-                    (sub.topics || []).forEach(t => children.push(Wn(t)));
+                    (sub.topics || []).forEach(t => children.push(sxResolveTopicId(t)));
                 }
-                if (typeof ai === "function") {
-                    ai(id, profileId).forEach(cid => children.push(cid));
+                if (typeof sxListImportedChildIds === "function") {
+                    sxListImportedChildIds(id, profileId).forEach(cid => children.push(cid));
                 }
             }
             if (typeof at !== "undefined" && at[profileId]) {
@@ -350,11 +350,11 @@
             }
             return children;
         }
-        function sxNodeRollup(id, profileId = Vi(), flank = "give", currentDepth = null, maxDepth = 3) {
+        function sxNodeRollup(id, profileId = sxActiveProfileId(), flank = "give", currentDepth = null, maxDepth = 3) {
             const rec = sxNodeRecord(id, profileId);
             if (!rec) return { value: null, rated: 0, total: 0 };
             const depth = currentDepth ?? (rec.depth || 1);
-            const direct = ha(id, profileId, flank);
+            const direct = sxReadKnownRatingField(id, profileId, flank);
             if (null != direct) {
                 return { value: direct, rated: 1, total: 1, isDirect: !0 };
             }
@@ -384,13 +384,13 @@
         window.sxNodeAncestorIds = sxNodeAncestorIds;
         window.sxNodeChildrenIds = sxNodeChildrenIds;
         window.sxNodeRollup = sxNodeRollup;
-        function Zn(e, t) {
+        function sxGiveReceiveNounText(e, t) {
             if ("give" !== t && "receive" !== t) return "";
-            const n = qn[e] || Xn(e) || (at[Vi()] || {})[e], i = n && n.parentId && (qn[n.parentId] || Xn(n.parentId)), a = n && (He[n.label] || i && He[i.label]);
+            const n = sxNodeRegistry[e] || sxNodeById(e) || (at[sxActiveProfileId()] || {})[e], i = n && n.parentId && (sxNodeRegistry[n.parentId] || sxNodeById(n.parentId)), a = n && (He[n.label] || i && He[i.label]);
             return a && a["give" === t ? 0 : 1] || "";
         }
-        function Qn(e, t = Vi()) {
-            const n = qn[e] || Xn(e) || (at[t] || {})[e];
+        function sxNodeLabelText(e, t = sxActiveProfileId()) {
+            const n = sxNodeRegistry[e] || sxNodeById(e) || (at[t] || {})[e];
             return n && n.label ? String(n.label).trim().toLowerCase() : "";
         }
         function sxIsStanceSkin() {
@@ -405,15 +405,15 @@
         }
         window.sxIsStanceSkin = sxIsStanceSkin;
 
-        function Jn(e, t, n = Vi()) {
+        function sxRoleLabelText(e, t, n = sxActiveProfileId()) {
             if (sxIsStanceSkin()) {
                 const isAdv = "give" === t;
                 const roleLabel = isAdv ? "Advocacy" : "Receptivity";
-                const a = Qn(e, n);
+                const a = sxNodeLabelText(e, n);
                 return a ? `${roleLabel} · ${a}` : roleLabel;
             }
-            const i = Ge(e, n);
-            const a = Qn(e, n);
+            const i = sxWidgetConfig(e, n);
+            const a = sxNodeLabelText(e, n);
             const idx = i.keys ? i.keys.indexOf(t) : -1;
             let roleLabel = (idx >= 0 && i.labels && i.labels[idx]) ? i.labels[idx] : ("give" === t ? i.labels[0] : i.labels[1]) || t;
             if (i.single) {
@@ -427,14 +427,14 @@
             }
             return a ? `${roleLabel} · ${a}` : roleLabel;
         }
-        function ei(e, t, n = Vi()) {
+        function sxClassicFlankText(e, t, n = sxActiveProfileId()) {
             if (sxIsStanceSkin()) return "";
-            const i = Ge(e, n);
-            return i.single || "give" !== i.labels[0] || "receive" !== i.labels[1] ? "" : Jn(e, t, n);
+            const i = sxWidgetConfig(e, n);
+            return i.single || "give" !== i.labels[0] || "receive" !== i.labels[1] ? "" : sxRoleLabelText(e, t, n);
         }
         h.forEach(e => {
-            Ke.add(catId(e.name)), (e.subcategories || []).forEach(t => Ke.add(Un(e.name, t.name))),
-            e.topics.forEach(e => Ke.add(Wn(e)));
+            Ke.add(catId(e.name)), (e.subcategories || []).forEach(t => Ke.add(sxResolveSubcategoryId(e.name, t.name))),
+            e.topics.forEach(e => Ke.add(sxResolveTopicId(e)));
         });
         const ti = {
             "boss secretary": "Boss / secretary",
@@ -455,21 +455,21 @@
             ageplayer: "Age play",
             threesome: "Threesome"
         };
-        function ni(e) {
+        function sxCleanImportLabelText(e) {
             let t = String(e || "").replace(/\u00a0/g, " ").replace(/\s+/g, " ").trim();
             const n = "(?:everything|anything|all)(?:\\s+there\\s+is)?\\s+(?:to\\s+do\\s+)?(?:with|about)\\s+(?:it|this|that)|everything\\s+to\\s+do\\s+with\\s+it|giving(?:\\s*(?:and|&)\\s*receiving)?|receiving|both|switch|as\\s+a\\s+top|as\\s+a\\s+bottom|top|bottom|watching(?:\\s+others\\s+wear(?:ing)?)?|wearing";
             return t = t.replace(new RegExp(`\\s*(?:[—–|,:;]+\\s*)?[\\(\\[\\{]\\s*(?:${n})\\s*[\\)\\]\\}]\\s*$`, "i"), ""),
             t = t.replace(new RegExp(`\\s*(?:[—–|,:;]+|\\betc\\.?\\s*)\\s*(?:${n})(?:\\s*(?:etc\\.?|and\\s+so\\s+on))?\\s*$`, "i"), ""),
             t = t.replace(new RegExp(`\\s+(?:${n})\\s*$`, "i"), ""), t = t.replace(/(?:[,;/]\s*)?\betc\.?\s*$/i, "").replace(/\s*[—–|,:;]+\s*$/, "").replace(/\s+/g, " ").trim(),
-            (ti[ck(t)] || t).slice(0, 60);
+            (ti[sxNormalizeTermText(t)] || t).slice(0, 60);
         }
-        function ii(e, t, n) {
-            const i = Xn(n);
+        function sxCreateImportedTopic(e, t, n) {
+            const i = sxNodeById(n);
             if (!i) return null;
-            const a = ni(t);
+            const a = sxCleanImportLabelText(t);
             if (!a) return null;
-            const r = "subtopic-" + Hn(n) + "-" + Hn(a);
-            return Hn(a) ? (e[r] = {
+            const r = "subtopic-" + sxSlugifyLabel(n) + "-" + sxSlugifyLabel(a);
+            return sxSlugifyLabel(a) ? (e[r] = {
                 id: r,
                 label: a,
                 parentId: n,
@@ -478,97 +478,97 @@
                 risk: i.risk
             }, e[r]) : null;
         }
-        function ai(e, t) {
+        function sxListImportedChildIds(e, t) {
             return Object.values(at[t] || {}).filter(t => t.parentId === e).map(e => e.id);
         }
-        function ri() {
-            const e = Qi() ? Xi() : [ Vi() ], t = {};
+        function sxCollectComparedImports() {
+            const e = sxComparisonActive() ? sxScoringProfileIds() : [ sxActiveProfileId() ], t = {};
             let n = 0;
             return e.forEach(e => {
                 n >= 560 || Object.values(at[e] || {}).some(e => n >= 560 || (t[e.id] || (t[e.id] = e,
                 n++), !1));
             }), Object.values(t);
         }
-        function oi(e, t) {
+        function sxMakeProfileNodeKey(e, t) {
             return `${e}\0${t}`;
         }
-        function si(e, t = Vi()) {
-            if (!Qi() || !t || !e.startsWith("subtopic-") || (at[t] || {})[e]) return null;
-            const n = ca(e, t);
-            return n.giveKnown || n.receiveKnown ? null : Xi().filter(e => e !== t).map(t => (at[t] || {})[e]).find(Boolean) || null;
+        function sxFindPeerImportNode(e, t = sxActiveProfileId()) {
+            if (!sxComparisonActive() || !t || !e.startsWith("subtopic-") || (at[t] || {})[e]) return null;
+            const n = sxDecodeTopicStance(e, t);
+            return n.giveKnown || n.receiveKnown ? null : sxScoringProfileIds().filter(e => e !== t).map(t => (at[t] || {})[e]).find(Boolean) || null;
         }
-        function li() {
+        function sxCollectAllImports() {
             const e = {};
             let t = 0;
             return Object.values(at).some(n => Object.values(n || {}).some(n => t >= 560 || (e[n.id] || (e[n.id] = n,
             t++), !1))), Object.values(e);
         }
-        function ci(e) {
-            const t = qn[e];
+        function sxLookupNodeBranch(e) {
+            const t = sxNodeRegistry[e];
             if (t && t.branch) return t.branch;
             for (const t of h) {
                 if (e === catId(t.name)) return t.name;
-                if ((t.subcategories || []).some(n => e === Un(t.name, n.name))) return t.name;
-                if (t.topics.some(t => e === Wn(t))) return t.name;
+                if ((t.subcategories || []).some(n => e === sxResolveSubcategoryId(t.name, n.name))) return t.name;
+                if (t.topics.some(t => e === sxResolveTopicId(t))) return t.name;
             }
             return null;
         }
-        function di(e, t = Mt) {
+        function sxClassifyGroupMatch(e, t = Mt) {
             const n = t && ft[t];
             if (!n || "group" !== n.kind || !n.results) return null;
-            const i = qn[e] || Xn(e) || (at[t] || {})[e], a = i && i.label;
+            const i = sxNodeRegistry[e] || sxNodeById(e) || (at[t] || {})[e], a = i && i.label;
             return a ? (n.results.matches || []).includes(a) ? "mutual" : (n.results.curiousAbout || []).includes(a) ? "explore" : (n.results.mismatched || []).includes(a) ? "mismatch" : "other" : "other";
         }
-        function ui(e, t = Vi()) {
-            const n = da(e, t);
+        function sxHasKnownRating(e, t = sxActiveProfileId()) {
+            const n = sxRatingRecord(e, t);
             return Boolean(n.giveKnown || n.receiveKnown || n.lineKnown || n.polesKnown);
         }
-        function pi(e, t = Vi()) {
-            if (ui(e, t)) return !0;
-            const n = zn(e);
-            return n ? n.topics.some(e => pi(Wn(e), t)) : !isCatId(e) && !isSubId(e) && ai(e, t).some(e => ui(e, t));
+        function sxHasSelfOrChildRating(e, t = sxActiveProfileId()) {
+            if (sxHasKnownRating(e, t)) return !0;
+            const n = sxFindSubcategoryNode(e);
+            return n ? n.topics.some(e => sxHasSelfOrChildRating(sxResolveTopicId(e), t)) : !isCatId(e) && !isSubId(e) && sxListImportedChildIds(e, t).some(e => sxHasKnownRating(e, t));
         }
-        function hi(e, t = Vi()) {
-            return e.topics.map(e => Wn(e)).concat(Object.values(at[t] || {}).filter(t => t.branch === e.name).map(e => e.id)).some(e => ui(e, t));
+        function sxHasRatedBranchTopic(e, t = sxActiveProfileId()) {
+            return e.topics.map(e => sxResolveTopicId(e)).concat(Object.values(at[t] || {}).filter(t => t.branch === e.name).map(e => e.id)).some(e => sxHasKnownRating(e, t));
         }
-        function gi(e, t = Vi()) {
-            const n = zn(e);
-            return n ? n.topics.some(e => gi(Wn(e), t)) : !ui(e, t) || !isCatId(e) && !isSubId(e) && ai(e, t).some(e => !ui(e, t));
+        function sxIsUnratedVisible(e, t = sxActiveProfileId()) {
+            const n = sxFindSubcategoryNode(e);
+            return n ? n.topics.some(e => sxIsUnratedVisible(sxResolveTopicId(e), t)) : !sxHasKnownRating(e, t) || !isCatId(e) && !isSubId(e) && sxListImportedChildIds(e, t).some(e => !sxHasKnownRating(e, t));
         }
-        function mi(e, t = Vi()) {
-            return e.topics.map(e => Wn(e)).concat(Object.values(at[t] || {}).filter(t => t.branch === e.name).map(e => e.id)).some(e => !ui(e, t));
+        function sxHasUnratedBranchTopic(e, t = sxActiveProfileId()) {
+            return e.topics.map(e => sxResolveTopicId(e)).concat(Object.values(at[t] || {}).filter(t => t.branch === e.name).map(e => e.id)).some(e => !sxHasKnownRating(e, t));
         }
-        function fi(e, t) {
-            const n = un.get(e) || "rated", i = "all" === n ? t.slice() : t.filter(e => "rated" === n ? pi(e) : gi(e));
+        function sxFilterVisibleNodes(e, t) {
+            const n = un.get(e) || "rated", i = "all" === n ? t.slice() : t.filter(e => "rated" === n ? sxHasSelfOrChildRating(e) : sxIsUnratedVisible(e));
             return {
                 mode: n,
                 visible: i,
                 hidden: t.length - i.length
             };
         }
-        function yi(e, t, n, i, a = !1) {
+        function sxHiddenCountMarkup(e, t, n, i, a = !1) {
             if (!n && !a) return "";
             const r = `+${n}`, o = Math.max(36, 8 * r.length + 16), s = `${n} hidden ${1 === n ? "child" : "children"}`;
             return e = Math.max(nh.x + o / 2 + 54, Math.min(nh.x + nh.width - o / 2 - 54, e)),
-            t = Math.max(nh.y + 14 + 54, Math.min(nh.y + nh.height - 14 - 54, t)), `<g class="hidden-count-badge" data-id="${Hi(i)}" data-width="${o}" data-height="28" transform="translate(${(e - o / 2).toFixed(2)} ${(t - 14).toFixed(2)})" tabindex="0" role="button" aria-label="${(typeof mx==='function'&&mx(i))||i}: ${s}. Switch between rated and unrated children."><rect width="${o}" height="28" rx="8"/><text x="${(o / 2).toFixed(2)}" y="14" text-anchor="middle" dominant-baseline="middle">${r}</text></g>`;
+            t = Math.max(nh.y + 14 + 54, Math.min(nh.y + nh.height - 14 - 54, t)), `<g class="hidden-count-badge" data-id="${sxEscapeHtmlText(i)}" data-width="${o}" data-height="28" transform="translate(${(e - o / 2).toFixed(2)} ${(t - 14).toFixed(2)})" tabindex="0" role="button" aria-label="${(typeof sxCatalogLabelText==='function'&&sxCatalogLabelText(i))||i}: ${s}. Switch between rated and unrated children."><rect width="${o}" height="28" rx="8"/><text x="${(o / 2).toFixed(2)}" y="14" text-anchor="middle" dominant-baseline="middle">${r}</text></g>`;
         }
-        function bi(e) {
+        function sxListNodeChildIds(e) {
             const t = h.find(t => t.name === e.branch);
-            return "Category" === e.kind ? t ? Yn(t) : [] : "Subcategory" === e.kind ? (e.topics || []).map(Wn) : ai(e.id, Vi());
+            return "Category" === e.kind ? t ? sxListCategoryChildIds(t) : [] : "Subcategory" === e.kind ? (e.topics || []).map(sxResolveTopicId) : sxListImportedChildIds(e.id, sxActiveProfileId());
         }
-        function vi(e) {
-            const t = qn[e];
-            t && bi(t).length && (("Category" === t.kind ? rn.has(t.branch) : on.has(e)) ? (un.set(e, "rated" === un.get(e) ? "unrated" : "rated"),
-            rn.add(t.branch), "Topic" === t.kind && on.add(e), wn = !1, Lt = e, vn = e, Mr()) : Si(e));
+        function sxFlipFilterOrExpand(e) {
+            const t = sxNodeRegistry[e];
+            t && sxListNodeChildIds(t).length && (("Category" === t.kind ? rn.has(t.branch) : on.has(e)) ? (un.set(e, "rated" === un.get(e) ? "unrated" : "rated"),
+            rn.add(t.branch), "Topic" === t.kind && on.add(e), wn = !1, Lt = e, vn = e, sxRequestMapPaint()) : sxToggleNodeBranch(e));
         }
-        function wi(e) {
+        function sxCollectDescendantIds(e) {
             const collected = new Set();
             function gather(node) {
-                const kids = bi(node);
+                const kids = sxListNodeChildIds(node);
                 kids.forEach(kidId => {
                     if (!collected.has(kidId)) {
                         collected.add(kidId);
-                        const kidRec = qn[kidId] || Xn(kidId);
+                        const kidRec = sxNodeRegistry[kidId] || sxNodeById(kidId);
                         if (kidRec) gather(kidRec);
                     }
                 });
@@ -577,70 +577,70 @@
             return collected;
         }
         let ki = 0;
-        function xi(e) {
-            t.clear(ki), ki = 0, Mr(e);
+        function sxClearTimerAndRepaint(e) {
+            t.clear(ki), ki = 0, sxRequestMapPaint(e);
         }
-        function Si(e) {
+        function sxToggleNodeBranch(e) {
             noteFitUserCamera();
-            const t = qn[e];
-            if (!t) return So(e);
-            if (!bi(t).length) return So(e);
+            const t = sxNodeRegistry[e];
+            if (!t) return sxToggleBranchFocus(e);
+            if (!sxListNodeChildIds(t).length) return sxToggleBranchFocus(e);
             if (wn = !1, "Category" === t.kind) {
-                if (!kn) return Ei(), Lt = e, void Mr();
+                if (!kn) return sxRestoreExpandedBranches(), Lt = e, void sxRequestMapPaint();
                 if (rn.has(t.branch)) {
-                    const e = wi(t);
-                    return rn.delete(t.branch), Lt = null, void xi({
+                    const e = sxCollectDescendantIds(t);
+                    return rn.delete(t.branch), Lt = null, void sxClearTimerAndRepaint({
                         exitIds: e
                     });
                 }
-                return rn.add(t.branch), Lt = e, Mr(), void (Bt && requestAnimationFrame(() => Th(e, t.branch)));
+                return rn.add(t.branch), Lt = e, sxRequestMapPaint(), void (Bt && requestAnimationFrame(() => sxFrameNodeInCamera(e, t.branch)));
             }
             if (rn.add(t.branch), on.has(e)) {
-                const n = wi(t);
-                return on.delete(e), Lt = null, void xi({
+                const n = sxCollectDescendantIds(t);
+                return on.delete(e), Lt = null, void sxClearTimerAndRepaint({
                     exitIds: n
                 });
             }
-            on.add(e), Lt = e, Mr(), Bt && requestAnimationFrame(() => Th(e, t.branch));
+            on.add(e), Lt = e, sxRequestMapPaint(), Bt && requestAnimationFrame(() => sxFrameNodeInCamera(e, t.branch));
         }
-        function $i(e) {
+        function sxImportPeerOrToggle(e) {
             noteFitUserCamera();
             (function(e) {
-                const t = Vi(), n = si(e, t);
+                const t = sxActiveProfileId(), n = sxFindPeerImportNode(e, t);
                 if (!n) return !1;
                 at[t] || (at[t] = {});
-                const i = ii(at[t], n.label, n.parentId);
-                return !!i && (Ke.add(i.id), gn.add(oi(t, i.id)), zt(t), rn.add(i.branch), on.add(i.parentId),
-                Lt = i.id, Nt = null, Mr({
+                const i = sxCreateImportedTopic(at[t], n.label, n.parentId);
+                return !!i && (Ke.add(i.id), gn.add(sxMakeProfileNodeKey(t, i.id)), sxTouchProfile(t), rn.add(i.branch), on.add(i.parentId),
+                Lt = i.id, Nt = null, sxRequestMapPaint({
                     anchorId: i.id
                 }), !0);
-            })(e) || Si(e);
+            })(e) || sxToggleNodeBranch(e);
         }
-        function Ei() {
+        function sxRestoreExpandedBranches() {
             xn && (rn.clear(), xn.branches.forEach(e => rn.add(e)), on.clear(), xn.topics.forEach(e => on.add(e))),
             xn = null, kn = !0;
         }
-        function Ai() {
+        function sxReflowMapViewBox() {
             requestAnimationFrame(() => requestAnimationFrame(() => {
                 const e = Cn.getAttribute("viewBox");
                 e && (Cn.removeAttribute("viewBox"), Cn.getBoundingClientRect(), Cn.setAttribute("viewBox", e));
             }));
         }
-        function Ci() {
+        function sxToggleAllBranches() {
             let e = null;
             kn ? (e = new Set([ ...rn ].flatMap(e => {
                 const t = h.find(t => t.name === e);
-                return t ? Yn(t).flatMap(e => {
-                    const t = Xn(e);
+                return t ? sxListCategoryChildIds(t).flatMap(e => {
+                    const t = sxNodeById(e);
                     return "Subcategory" === t?.kind ? [ e, ...t.topics.flatMap(e => {
-                        const t = Wn(e);
-                        return [ t, ...ai(t, Vi()) ];
-                    }) ] : [ e, ...ai(e, Vi()) ];
+                        const t = sxResolveTopicId(e);
+                        return [ t, ...sxListImportedChildIds(t, sxActiveProfileId()) ];
+                    }) ] : [ e, ...sxListImportedChildIds(e, sxActiveProfileId()) ];
                 }) : [];
             })), xn = {
                 branches: [ ...rn ],
                 topics: [ ...on ]
-            }, rn.clear(), on.clear(), kn = !1) : Ei();
+            }, rn.clear(), on.clear(), kn = !1) : sxRestoreExpandedBranches();
             const t = {
                 anchorPoint: {
                     x: 900,
@@ -649,11 +649,11 @@
                 exitIds: e,
                 forceRepaint: !e
             };
-            e ? xi(t) : Mr(t);
+            e ? sxClearTimerAndRepaint(t) : sxRequestMapPaint(t);
         }
         const Mi = e.byId("centerProfileCard"), Ii = (e.byId("centerProfileCardTitle"),
         e.byId("centerProfileAbout")), Pi = (e.byId("centerContactList"), e.byId("profileAboutDialog")), Li = e.byId("profileAboutSubtitle"), Ti = e.byId("profileAboutText"), Fi = e.byId("profileAboutResource"), Ni = [ [ "telegram", "Telegram" ], [ "linktree", "linktr.ee" ], [ "fetlife", "FetLife" ], [ "chaturbate", "Chaturbate" ], [ "stripchat", "Stripchat" ], [ "myfreecams", "MyFreeCams" ], [ "pornhub", "PornHub" ], [ "xvideos", "XVideos" ], [ "xhamster", "xHamster" ], [ "onlyfans", "OnlyFans" ], [ "reddit", "Reddit" ], [ "x", "X" ] ];
-        function _i(e, t) {
+        function sxBuildProfileSiteUrl(e, t) {
             const n = encodeURIComponent(t);
             return {
                 fetlife: `https://fetlife.com/users/${n}`,
@@ -670,58 +670,58 @@
                 reddit: `https://reddit.com/user/${n}`
             }[e] || "";
         }
-        function Di(e) {
-            const t = Rv(e);
+        function sxListContactLinks(e) {
+            const t = sxNormalizeContactRecord(e);
             return Ni.filter(([e]) => t[e]).map(([e, n]) => ({
                 label: n,
                 user: t[e],
-                href: _i(e, t[e])
+                href: sxBuildProfileSiteUrl(e, t[e])
             })).concat((t.customSites || []).map(e => ({
                 label: e.site,
                 user: e.username,
                 href: e.url
             })));
         }
-        function Ri() {
+        function sxHideCenterProfile() {
             Mi.hidden = !0;
         }
-        function Oi() {
-            !Object.keys(wt).length ? roxyAbout() : (Ri(), Ci());
+        function sxAboutOrToggleBranches() {
+            !Object.keys(wt).length ? roxyAbout() : (sxHideCenterProfile(), sxToggleAllBranches());
         }
-        function Bi(e = Vi()) {
-            return h.every(t => !ui(catId(t.name), e));
+        function sxHasNoRatedCategory(e = sxActiveProfileId()) {
+            return h.every(t => !sxHasKnownRating(catId(t.name), e));
         }
-        function ji(t, n = {}) {
+        function sxSelectExpandedProfile(t, n = {}) {
             It = t, Mt = t, hn[t] = "saved";
             wn = !1, kn = !0, xn = null, Sn = "all", rn.clear(), on.clear(), Lt = null,
             Nt = null, Tt = "";
             const a = e.byId("searchInput");
             a && (a.value = "");
             const r = e.byId("topicPicker");
-            r && (r.value = "", nc()), h.forEach(e => {
+            r && (r.value = "", sxRefreshPickerButton()), h.forEach(e => {
                 const n = catId(e.name);
                 un.set(n, "all"), rn.add(e.name), (e.subcategories || []).forEach(n => {
-                    const i = Un(e.name, n.name);
+                    const i = sxResolveSubcategoryId(e.name, n.name);
                     un.set(i, "all"), on.add(i);
                 }), e.topics.forEach(e => {
-                    const n = Wn(e);
+                    const n = sxResolveTopicId(e);
                     un.set(n, "all"), on.add(n);
                 });
             });
         }
-        function qi(e, t, n = {}) {
+        function sxLandProfileOnMap(e, t, n = {}) {
             if (n.hasAttentionState) !function(e, t) {
-                const n = t => Boolean(qn[t] || Xn(t) || (at[e] || {})[t]), i = new Set((Array.isArray(t && t.nodes) ? t.nodes : []).filter(t => n(t) && !Eo(e, t))), a = new Set((Array.isArray(t && t.newest) ? t.newest : []).filter(t => n(t) && !Eo(e, t)));
+                const n = t => Boolean(sxNodeRegistry[t] || sxNodeById(t) || (at[e] || {})[t]), i = new Set((Array.isArray(t && t.nodes) ? t.nodes : []).filter(t => n(t) && !sxIsManualSource(e, t))), a = new Set((Array.isArray(t && t.newest) ? t.newest : []).filter(t => n(t) && !sxIsManualSource(e, t)));
                 Object.keys(vt[e] || {}).forEach(t => {
-                    n(t) && !Eo(e, t) && ((at[e] || {})[t] ? a.add(t) : i.add(t));
+                    n(t) && !sxIsManualSource(e, t) && ((at[e] || {})[t] ? a.add(t) : i.add(t));
                 });
                 const r = new Set([ ...i, ...a ].map(t => {
-                    const n = qn[t] || Xn(t) || (at[e] || {})[t];
-                    return n && n.branch || ci(t);
+                    const n = sxNodeRegistry[t] || sxNodeById(t) || (at[e] || {})[t];
+                    return n && n.branch || sxLookupNodeBranch(t);
                 }).filter(Boolean)), o = Array.isArray(t && t.branches) ? t.branches : [];
                 ln[e] = new Set([ ...o, ...r ].filter(t => {
                     const n = catId(t);
-                    return (e => h.some(t => t.name === e))(t) && (r.has(t) || ui(n, e) && !Eo(e, n));
+                    return (e => h.some(t => t.name === e))(t) && (r.has(t) || sxHasKnownRating(n, e) && !sxIsManualSource(e, n));
                 })), cn[e] = i, dn[e] = a;
             }(e, n.attentionState); else {
                 const i = function(e) {
@@ -736,18 +736,18 @@
                 !function(e, t) {
                     const n = ln[e] || new Set, i = cn[e] || new Set, a = dn[e] || new Set;
                     t.forEach(t => {
-                        const r = qn[t] || Xn(t) || (at[e] || {})[t], o = r && r.branch || ci(t);
+                        const r = sxNodeRegistry[t] || sxNodeById(t) || (at[e] || {})[t], o = r && r.branch || sxLookupNodeBranch(t);
                         o && n.add(o), r && "Topic" === r.kind ? i.add(t) : r && r.parentId && (i.add(r.parentId),
                         a.add(t));
                     }), ln[e] = n, cn[e] = i, dn[e] = a;
                 }(e, n.noFlash ? [] : i.changed);
             }
-            ji(e), Jw(), Mr({
+            sxSelectExpandedProfile(e), sxRenderProfileTabs(), sxRequestMapPaint({
                 animate: !1,
                 forceRepaint: !0
-            }), Ih(), Ai();
+            }), sxApplyMapFit(), sxReflowMapViewBox();
         }
-        function Hi(e) {
+        function sxEscapeHtmlText(e) {
             return (e == null ? "" : String(e)).replace(/[&<>"']/g, e => ({
                 "&": "&amp;",
                 "<": "&lt;",
@@ -756,7 +756,7 @@
                 "'": "&#039;"
             }[e]));
         }
-        function Wi(e) {
+        function sxOpenModalDialog(e) {
             var h = window.__sxDialog;
             if (h && h.open) return void h.open(e);
             if (e && !e.open) try {
@@ -766,7 +766,7 @@
                 e.setAttribute("open", ""), e.classList.add("fallback-open");
             }
         }
-        function Ui(e) {
+        function sxCloseModalDialog(e) {
             var h = window.__sxDialog;
             if (h && h.close) return void h.close(e);
             if (e) {
@@ -778,19 +778,19 @@
                 e.classList.remove("fallback-open");
             }
         }
-        e.byId("closeCenterProfileCard") && e.byId("closeCenterProfileCard").addEventListener("click", Ri), Ii && Ii.addEventListener("click", function() {
+        e.byId("closeCenterProfileCard") && e.byId("closeCenterProfileCard").addEventListener("click", sxHideCenterProfile), Ii && Ii.addEventListener("click", function() {
             const e = Ii.dataset.profileId;
-            e && vt[e] && (Ri(), bw(e, {
+            e && vt[e] && (sxHideCenterProfile(), sxOpenProfileDetails(e, {
                 mode: "about"
             }));
-        }), e.byId("closeProfileAbout") && e.byId("closeProfileAbout").addEventListener("click", () => Ui(Pi)), Pi && Pi.addEventListener("cancel", e => {
-            e.preventDefault(), Ui(Pi);
+        }), e.byId("closeProfileAbout") && e.byId("closeProfileAbout").addEventListener("click", () => sxCloseModalDialog(Pi)), Pi && Pi.addEventListener("cancel", e => {
+            e.preventDefault(), sxCloseModalDialog(Pi);
         }), e.byId("toggleCenterBranches") && e.byId("toggleCenterBranches").addEventListener("click", () => {
-            Ri(), Ci();
+            sxHideCenterProfile(), sxToggleAllBranches();
         }), e.byId("editCenterProfile") && e.byId("editCenterProfile").addEventListener("click", () => {
-            Ri(), bw(Mt);
+            sxHideCenterProfile(), sxOpenProfileDetails(Mt);
         }), window.__sxOnPtr( e => {
-            Mi.hidden || Mi.contains(e.target) || __sxClosestAction(e.target, "centerHit") || Ri();
+            Mi.hidden || Mi.contains(e.target) || __sxClosestAction(e.target, "centerHit") || sxHideCenterProfile();
         }, !0), (() => {
             let sxTapX = 0, sxTapY = 0, sxTapDown = !1, sxTapOnMap = !1;
             window.__sxOnPtr( e => {
@@ -824,10 +824,10 @@
             }, !0);
         })();
         const Gi = e.byId("unsavedChangesDialog");
-        function Ki() {
-            const t = jt();
+        function sxPromptUnsavedReload() {
+            const t = sxDirtyProfileId();
             t && !Gi.open && (e.byId("unsavedChangesQuestion").textContent = `${wt[t] || "This profile"} has changes that are not safely stored yet. Choose what to do before reloading.`,
-            Wi(Gi), requestAnimationFrame(() => e.byId("saveUnsavedToMemory").focus()));
+            sxOpenModalDialog(Gi), requestAnimationFrame(() => e.byId("saveUnsavedToMemory").focus()));
         }
         // Interest-color stops - the one source both interest encodings
         // derive from (map-render refactor, finding 7): zi() interpolates

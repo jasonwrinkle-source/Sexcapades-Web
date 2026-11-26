@@ -1,8 +1,8 @@
-        e.byId("scribeTab") && e.byId("scribeTab").addEventListener("pointerenter", yc), e.byId("scribeTab") && e.byId("scribeTab").addEventListener("click", e => {
-            yc(), Jd();
-        }), e.byId("closeScribeChoice") && e.byId("closeScribeChoice").addEventListener("click", () => Ui(Bc)), e.byId("closeNovelAi") && e.byId("closeNovelAi").addEventListener("click", () => Ui(jc)), jc && jc.addEventListener("click", e => {
-            e.target === jc && Ui(jc);
-        }), e.byId("closeScribe") && e.byId("closeScribe").addEventListener("click", () => Ui(Oc));
+        e.byId("scribeTab") && e.byId("scribeTab").addEventListener("pointerenter", sxClearScribeReady), e.byId("scribeTab") && e.byId("scribeTab").addEventListener("click", e => {
+            sxClearScribeReady(), sxEnterScribeCast();
+        }), e.byId("closeScribeChoice") && e.byId("closeScribeChoice").addEventListener("click", () => sxCloseModalDialog(Bc)), e.byId("closeNovelAi") && e.byId("closeNovelAi").addEventListener("click", () => sxCloseModalDialog(jc)), jc && jc.addEventListener("click", e => {
+            e.target === jc && sxCloseModalDialog(jc);
+        }), e.byId("closeScribe") && e.byId("closeScribe").addEventListener("click", () => sxCloseModalDialog(Oc));
         const fp = innerWidth <= 620 ? 1.3 : 1.16, yp = Number(navigator.deviceMemory) || 0, bp = Number(navigator.hardwareConcurrency) || 0, vp = yp > 0 && yp <= 4, wp = bp > 0 && bp <= 4, kp = vp && (0 === bp || wp) || wp && (0 === yp || vp);
         // Enable camera animations for compatible hardware (any system without prefers-reduced-motion)
         Bt = Boolean(!(window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches));
@@ -21,7 +21,7 @@
             width: 3200,
             height: 3200
         }, ih = 3;
-        function ah() {
+        function sxApplyCameraMode() {
             const e = "gpu" === Kp;
             if (Mn.dataset.cameraMode = Kp, Mn.classList.toggle("camera-gpu", e), Cn.classList.toggle("camera-gpu", e),
             Cn.classList.toggle("camera-lite", !e), Cn.classList.toggle("rich-map-motion", Boolean(Bt && e)),
@@ -30,12 +30,12 @@
                 Cn.setAttribute("viewBox", `${n} ${i} ${e} ${t}`);
             } else Cn.setAttribute("viewBox", `${nh.x} ${nh.y} ${nh.width} ${nh.height}`);
         }
-        function rh(e) {
+        function sxCaptureSvgPointer(e) {
             try {
                 Cn.setPointerCapture(e);
             } catch (e) { __sxErrLog("pointer-capture", e); }
         }
-        function oh() {
+        function sxClearCenterHold() {
             _p && (t.clear(_p), _p = null);
         }
         // Yolanda Biche guide profile (Build 2026-10-16_2206; renamed from Roxy Beggz in Build 2026-10-17): a proper profile
@@ -72,26 +72,26 @@
             [ Ye, Xe, Ze, Qe, Je, et, tt, nt, it, at, rt, pz, ot, st, lt, ct, dt, ut, vpt, vht, gt, mt, ft, yt ].forEach(e => delete e[ROXY_PROFILE_ID]), delete profileUuids[ROXY_PROFILE_ID], delete sampleProfileFlags[ROXY_PROFILE_ID], Hy === ROXY_PROFILE_ID && (Hy = null);
         }
         function roxyAbout() {
-            roxyProfileRegister(), Ri(), bw(ROXY_PROFILE_ID, {
+            roxyProfileRegister(), sxHideCenterProfile(), sxOpenProfileDetails(ROXY_PROFILE_ID, {
                 mode: "about"
             }), roxyAboutBound || (roxyAboutBound = !0, _g.addEventListener("close", roxyProfileRemove));
         }
-        function sh() {
+        function sxOpenMapAbout() {
             if (Dp = performance.now(), !Mt || !vt[Mt]) return void (!Object.keys(wt).length ? roxyAbout() : (e.byId("profileAboutTitle").textContent = "About Sexcapades",
             Li.textContent = "Build your hypermap, then compare where you connect.", Ti.textContent = "Open a topic and rate what you would give or receive. Your first rating stays on the hypermap while you create or import a profile. Use the + tab whenever you want to add another profile.",
-            Fi.hidden = !1, Ri(), void Wi(Pi)));
-            bw(Mt, {
+            Fi.hidden = !1, sxHideCenterProfile(), void sxOpenModalDialog(Pi)));
+            sxOpenProfileDetails(Mt, {
                 mode: "about"
             });
         }
-        function lh(e, t) {
+        function sxPointerToMapPoint(e, t) {
             const n = Mn.parentElement.getBoundingClientRect(), i = Math.min(n.width / 3200, n.height / 3200), a = 3200 * i, r = 3200 * i, o = (n.width - a) / 2 + 700 * i, s = (n.height - r) / 2 + 980 * i;
             return {
                 x: (e - n.left - o) / i,
                 y: (t - n.top - s) / i
             };
         }
-        function ch() {
+        function sxCameraCssMatrix() {
             const e = Mn.parentElement.getBoundingClientRect(), t = Math.min(e.width / 3200, e.height / 3200), n = 3200 * t, i = 3200 * t, a = (e.width - n) / 2 + 700 * t, r = (e.height - i) / 2 + 980 * t, o = $p / th.scale;
             return {
                 ratio: o,
@@ -121,74 +121,74 @@
             if (null === sxZoomGateSide) return void (sxZoomGateSide = side);
             if (side !== sxZoomGateSide) {
                 sxZoomGateSide = side;
-                if (typeof Mr === "function") Mr();
+                if (typeof sxRequestMapPaint === "function") sxRequestMapPaint();
             }
         }
-        function dh() {
+        function sxCancelPoseTween() {
             if (!Yp) return;
             const e = Yp;
             Yp = null, e.animation.onfinish = null, e.animation.oncancel = null, e.animation.cancel(),
             Ep = e.tx, Ap = e.ty, $p = e.scale, Jp.setAttribute("transform", `translate(${Ep} ${Ap}) scale(${$p})`),
-            wh(), th.scale = $p, th.tx = Ep, th.ty = Ap, Mn.style.transform = "none";
+            sxSyncEmptyDirectionHits(), th.scale = $p, th.tx = Ep, th.ty = Ap, Mn.style.transform = "none";
             sxZoomGateCheck();
         }
-        function uh() {
+        function sxCancelZoomFrame() {
             Xp && (cancelAnimationFrame(Xp), Xp = 0, Cn.classList.remove("is-camera-moving"));
         }
-        function ph(e = !1) {
+        function sxDowngradeSlowCamera(e = !1) {
             if (!Vp) return !1;
             const t = Vp.intervals;
             if (t.length < 4) return !1;
             const n = t.filter(e => e > 24).length, i = t.reduce((e, t) => e + t, 0) / t.length;
             return n >= Math.max(3, Math.ceil(.5 * t.length)) || i > 28 ? (Kp = "lite", zp = !0,
             Vp = null, Jp.setAttribute("transform", `translate(${Ep} ${Ap}) scale(${$p})`),
-            th.scale = $p, th.tx = Ep, th.ty = Ap, Mn.style.transform = "none", ah(), !0) : (zp = !0,
+            th.scale = $p, th.tx = Ep, th.ty = Ap, Mn.style.transform = "none", sxApplyCameraMode(), !0) : (zp = !0,
             Vp = null, !1);
         }
-        function hh() {
+        function sxFlushGpuCamera() {
             Jp.setAttribute("transform", `translate(${Ep} ${Ap}) scale(${$p})`), th.scale = $p,
             th.tx = Ep, th.ty = Ap, Mn.style.transform = "none";
             const e = Cn.getAttribute("viewBox");
             Cn.removeAttribute("viewBox"), Cn.setAttribute("viewBox", e);
         }
-        function gh(e) {
+        function sxIsCameraDeltaWild(e) {
             const t = Mn.parentElement.getBoundingClientRect(), n = Math.max(160, .52 * Math.min(t.width, t.height));
             return e.ratio > 1.9 || e.ratio < .7 || Math.abs(e.dx) > n || Math.abs(e.dy) > n;
         }
-        function mh(e) {
+        function sxStepCameraFrame(e) {
             if (Hp = 0, "lite" === Kp) Jp.setAttribute("transform", `translate(${Ep} ${Ap}) scale(${$p})`),
             th.scale = $p, th.tx = Ep, th.ty = Ap, Mn.style.transform = "none"; else {
-                let t = ch();
-                gh(t) && (hh(), t = ch()), Mn.style.transform = `matrix(${t.ratio},0,0,${t.ratio},${t.dx},${t.dy})`,
+                let t = sxCameraCssMatrix();
+                sxIsCameraDeltaWild(t) && (sxFlushGpuCamera(), t = sxCameraCssMatrix()), Mn.style.transform = `matrix(${t.ratio},0,0,${t.ratio},${t.dx},${t.dy})`,
                 function(e) {
                     if (Vp) {
                         if (null !== Vp.last) {
                             const t = e - Vp.last;
                             t < 180 && Vp.intervals.push(t);
                         }
-                        Vp.last = e, Vp.intervals.length >= 12 && ph();
+                        Vp.last = e, Vp.intervals.length >= 12 && sxDowngradeSlowCamera();
                     }
                 }(e);
             }
-            Wp = e, wr(), Gp && (Hp = requestAnimationFrame(mh));
+            Wp = e, sxClipCameraOverlays(), Gp && (Hp = requestAnimationFrame(sxStepCameraFrame));
         }
-        ah();
+        sxApplyCameraMode();
         let fh = null;
-        function yh() {
+        function sxLiveCameraProfile() {
             if (Mt && vt[Mt]) return Mt;
             const e = fh && vt[fh] ? fh : It && vt[It] ? It : null;
             return e ? (Mt = e, It = e, e) : null;
         }
-        function bh() {
-            uh(), !Gp && (fh = yh()), Gp = !0, Cn.classList.add("is-camera-moving");
-            const e = yh();
-            e && Cn.style.setProperty("--camera-steady-stroke", la(e)), "gpu" !== Kp || zp || Vp || (Vp = {
+        function sxMarkCameraMoving() {
+            sxCancelZoomFrame(), !Gp && (fh = sxLiveCameraProfile()), Gp = !0, Cn.classList.add("is-camera-moving");
+            const e = sxLiveCameraProfile();
+            e && Cn.style.setProperty("--camera-steady-stroke", sxProfileColor(e)), "gpu" !== Kp || zp || Vp || (Vp = {
                 last: null,
                 intervals: []
-            }), Hp || (Hp = requestAnimationFrame(mh));
+            }), Hp || (Hp = requestAnimationFrame(sxStepCameraFrame));
         }
         let vh = null;
-        function wh() {
+        function sxSyncEmptyDirectionHits() {
             const e = In.querySelector("[data-empty-profile-map]"), t = !Object.keys(wt).length;
             e && e.hasAttribute("transform") && e.removeAttribute("transform");
             const n = t && kn && $p < 1;
@@ -197,11 +197,11 @@
                 e.setAttribute("role", "slider"), e.removeAttribute("aria-hidden"));
             });
         }
-        function kh() {
-            yh(), uh(), dh(), t.clear(Up), Up = 0, Hp && (cancelAnimationFrame(Hp), Hp = 0),
-            "gpu" === Kp && Vp && ph(!0), Jp.setAttribute("transform", `translate(${Ep} ${Ap}) scale(${$p})`),
-            wh(), th.scale = $p, th.tx = Ep, th.ty = Ap, Mn.style.transform = "none", Cn.classList.remove("is-camera-moving"),
-            Cn.classList.toggle("is-zoomed", $p > 1.3), wr(), Ja(), fh = null, sxSyncRailPx();
+        function sxSettleViewportCamera() {
+            sxLiveCameraProfile(), sxCancelZoomFrame(), sxCancelPoseTween(), t.clear(Up), Up = 0, Hp && (cancelAnimationFrame(Hp), Hp = 0),
+            "gpu" === Kp && Vp && sxDowngradeSlowCamera(!0), Jp.setAttribute("transform", `translate(${Ep} ${Ap}) scale(${$p})`),
+            sxSyncEmptyDirectionHits(), th.scale = $p, th.tx = Ep, th.ty = Ap, Mn.style.transform = "none", Cn.classList.remove("is-camera-moving"),
+            Cn.classList.toggle("is-zoomed", $p > 1.3), sxClipCameraOverlays(), sxRefreshMapChrome(), fh = null, sxSyncRailPx();
             // Blit session (P3) camera hook: the viewBox (after any
             // mode downgrade) and the transform are committed above;
             // re-rasterize the session image if the settled scale
@@ -212,14 +212,14 @@
                 __sxErrLog("layout-blit-camera", _);
             }
         }
-        function xh() {
-            kh(), Gp = !1;
+        function sxStopViewportCamera() {
+            sxSettleViewportCamera(), Gp = !1;
         }
-        function Sh() {
-            t.clear(Up), Up = t.setTimeout(xh, 130);
+        function sxDebounceCameraStop() {
+            t.clear(Up), Up = t.setTimeout(sxStopViewportCamera, 130);
         }
-        function $h() {
-            kh(), Gp = !1, hg();
+        function sxRestViewportCamera() {
+            sxSettleViewportCamera(), Gp = !1, sxUnhideLegendEntries();
         }
         // Zoom range (2026-10-31): the fitted scale can be ~0.05 while the old
         // camera floor was .12, so the first wheel/button/pinch step from a
@@ -243,24 +243,24 @@
         // and the ~0.003 tappable scale, so no zoom path binds in any
         // reachable use.
         const Eh = () => 1e6;
-        function Ah(e, t = 900, n = 620, i = !1) {
+        function sxScaleCameraAtPoint(e, t = 900, n = 620, i = !1) {
             noteFitUserCamera();
             const a = $p;
             $p = Math.max(1e-9, Math.min(Eh(), e)), Ep = t - $p / a * (t - Ep), Ap = n - $p / a * (n - Ap),
-            i ? (bh(), Sh()) : $h(), sxZoomGateCheck();
+            i ? (sxMarkCameraMoving(), sxDebounceCameraStop()) : sxRestViewportCamera(), sxZoomGateCheck();
         }
-        function Ch() {
+        function sxTwoPointerMapSpan() {
             const e = Array.from(eh.values());
             if (e.length < 2) return null;
-            const t = lh(e[0].x, e[0].y), n = lh(e[1].x, e[1].y);
+            const t = sxPointerToMapPoint(e[0].x, e[0].y), n = sxPointerToMapPoint(e[1].x, e[1].y);
             return {
                 cx: (t.x + n.x) / 2,
                 cy: (t.y + n.y) / 2,
                 distance: Math.hypot(n.x - t.x, n.y - t.y)
             };
         }
-        function Mh() {
-            const e = Ch();
+        function sxStorePinchBaseline() {
+            const e = sxTwoPointerMapSpan();
             !e || e.distance < 1 || (t.clear(Up), Cp = !1, qp = {
                 distance: e.distance,
                 scale: $p,
@@ -339,7 +339,7 @@
                 if (!laidOut || painting || animating) return;
                 fitSettleActive = !0;
                 try {
-                    Ih();
+                    sxApplyMapFit();
                 } catch (e) {
                     __sxErrLog("app", e);
                 } finally {
@@ -365,7 +365,7 @@
             // re-fit so the settled fit is the last camera state.
             fitSettleActive = !0;
             try {
-                Ih();
+                sxApplyMapFit();
             } catch (e) {
                 __sxErrLog("app", e);
             } finally {
@@ -386,7 +386,7 @@
                     if (!Number.isFinite(t.x) || !Number.isFinite(t.y) || t.width <= 0 || t.height <= 0) return;
                     i = Math.min(i, t.x), a = Math.min(a, t.y), r = Math.max(r, t.x + t.width), o = Math.max(o, t.y + t.height);
                 } catch (e) { __sxErrLog("app", e); }
-            }, l = Qi() ? Xi() : Mt && vt[Mt] ? [ Mt ] : [], c = l.length ? l.every(e => 0 === Object.keys(vt[e] || {}).length) : 0 === Object.keys(At).length;
+            }, l = sxComparisonActive() ? sxScoringProfileIds() : Mt && vt[Mt] ? [ Mt ] : [], c = l.length ? l.every(e => 0 === Object.keys(vt[e] || {}).length) : 0 === Object.keys(At).length;
             (In.querySelectorAll(".node-group:not(.is-hidden)").forEach(s), s(In.querySelector(".center-glance-rings")));
             /* Fit framing (Build 2026-10-17_2026): fit against the REAL visible region — the viewBox is square (3200x3200) but the map card usually is not, so the visible span in world units grows along the card's long axis; the old square assumption fitted wide maps as if the screen were only as wide as it is tall, leaving the map small with the center node dominating. Tighter padding/margin, and one shared scale cap for rated and unrated profiles (the unrated cap of 1 no longer holds the full map back). The Fit button and every opening/profile-change view call this same function, so both frame the full map the same way. Build 2026-10-18_0343: the rated-profile branch (category node groups only, looser padding, .12 scale floor) could open noticeably zoomed-in with outer topics off-screen, so framing now always accumulates every visible node group and uses the tighter padding and a 1e-9 floor for every profile. */
             const d = Math.max(pr.centerRadius, t - i, r - t) + 20, u = Math.max(pr.centerRadius, n - a, o - n) + 20, p = innerWidth <= 620 ? 90 : 44, sw = Cn && Cn.clientWidth ? Cn.clientWidth : innerWidth, sh = Cn && Cn.clientHeight ? Cn.clientHeight : innerHeight, asp = sw > 0 && sh > 0 ? sw / sh : 1, hw = e.width / 2 * Math.max(1, asp), hh = e.height / 2 * Math.max(1, 1 / asp), g = Math.min((hw - p) / d, (hh - p) / u), m = innerWidth <= 620 ? 2.18 : 2.3, scale = Math.max(1e-9, Math.min(m, g));
@@ -397,11 +397,11 @@
                 empty: c
             };
         }
-        function Ih() {
+        function sxApplyMapFit() {
             const f = sxFitFrame();
-            $p = f.scale, Ep = f.x, Ap = f.y, sxFitScaleCache = f.scale, $h(), armFitSettleRefit(), sxZoomGateCheck();
+            $p = f.scale, Ep = f.x, Ap = f.y, sxFitScaleCache = f.scale, sxRestViewportCamera(), armFitSettleRefit(), sxZoomGateCheck();
         }
-        window.sxCenterFitViewport = Ih;
+        window.sxCenterFitViewport = sxApplyMapFit;
         let sxCenterPointerTapTime = 0, sxCenterPointerTapX = 0, sxCenterPointerTapY = 0, sxCenterPointerSingleTimer = null;
         function sxCenterAvatarClick(clientX, clientY, isDblHint) {
             const now = performance.now();
@@ -410,7 +410,7 @@
             if (isDbl) {
                 if (sxCenterPointerSingleTimer) { clearTimeout(sxCenterPointerSingleTimer); sxCenterPointerSingleTimer = null; }
                 sxCenterPointerTapTime = 0;
-                sh();
+                sxOpenMapAbout();
             } else {
                 sxCenterPointerTapTime = now;
                 sxCenterPointerTapX = clientX || 0;
@@ -418,11 +418,11 @@
                 if (sxCenterPointerSingleTimer) clearTimeout(sxCenterPointerSingleTimer);
                 sxCenterPointerSingleTimer = setTimeout(() => {
                     sxCenterPointerSingleTimer = null;
-                    Ih();
+                    sxApplyMapFit();
                 }, 280);
             }
         }
-        function Ph(e, t, n) {
+        function sxEaseViewportCamera(e, t, n) {
             if (!Number.isFinite(e) || !Number.isFinite(t) || !Number.isFinite(n)) return;
             noteFitUserCamera();
             try {
@@ -437,12 +437,12 @@
                       Boolean(window.__sxAnnealRunning) ||
                       Boolean(typeof deknotterRunning !== "undefined" && deknotterRunning);
             if (!Bt || i) {
-                uh(), dh(), $p = e, Ep = t, Ap = n, $h();
+                sxCancelZoomFrame(), sxCancelPoseTween(), $p = e, Ep = t, Ap = n, sxRestViewportCamera();
                 return;
             }
             if (Xp) { cancelAnimationFrame(Xp); Xp = 0; }
-            uh(), dh();
-            Gp && xh();
+            sxCancelZoomFrame(), sxCancelPoseTween();
+            Gp && sxStopViewportCamera();
             const a = Ep, r = Ap, o = $p, s = performance.now();
             const duration = 720;
             Cn.classList.add("is-camera-moving");
@@ -456,8 +456,8 @@
                 Ep = a + (t - a) * u;
                 Ap = r + (n - r) * u;
                 Jp.setAttribute("transform", `translate(${Ep} ${Ap}) scale(${$p})`);
-                wh();
-                wr();
+                sxSyncEmptyDirectionHits();
+                sxClipCameraOverlays();
                 if (progress < 1) {
                     Xp = requestAnimationFrame(l);
                 } else {
@@ -466,7 +466,7 @@
                     Ep = t;
                     Ap = n;
                     noteFitUserCamera();
-                    kh();
+                    sxSettleViewportCamera();
                     if (window.__sxZoomFromNavigation) {
                         window.__sxZoomFromNavigation = false;
                         if (typeof clearSpokeSelection === "function") clearSpokeSelection();
@@ -486,14 +486,14 @@
             }
             sxLastDoubleTime = performance.now();
         };
-        function Lh(e) {
+        function sxFocusCategoryCamera(e) {
             const cat = h.find(c => c.name === e || c.id === e || catId(c.name) === e || sxName(c.name) === sxName(e));
             if (cat) {
-                return void Th(cat.id, cat.name);
+                return void sxFrameNodeInCamera(cat.id, cat.name);
             }
-            Ih();
+            sxApplyMapFit();
         }
-        function Th(e, t) {
+        function sxFrameNodeInCamera(e, t) {
             const rawId = String(e || "").trim();
             const rawBranch = String(t || "").trim();
             const migrated = typeof migrateNodeKey === "function" ? migrateNodeKey(rawId) : rawId;
@@ -512,7 +512,7 @@
             if (!cat) {
                 for (const c of h) {
                     for (const s of (c.subcategories || [])) {
-                        const sidCandidate = typeof Un === "function" ? Un(c.name, s.name) : `subcategory-${s.name}`;
+                        const sidCandidate = typeof sxResolveSubcategoryId === "function" ? sxResolveSubcategoryId(c.name, s.name) : `subcategory-${s.name}`;
                         if (s.id === rawId || s.id === migrated || sidCandidate === rawId || sidCandidate === migrated) { sub = { cat: c, sub: s, id: sidCandidate }; break; }
                         if (rawId && (s.name === rawId || s.name.toLowerCase() === rawId.toLowerCase())) { sub = { cat: c, sub: s, id: sidCandidate }; break; }
                         const sSlug = s.name.toLowerCase().replace(/[^a-z0-9]+/g, "-");
@@ -523,7 +523,7 @@
             }
 
             let sid = cat ? cat.id : (sub ? (sub.id || sub.sub.id) : migrated);
-            const rec = qn[sid] || Xn(sid) || qn[rawId] || Xn(rawId) || null;
+            const rec = sxNodeRegistry[sid] || sxNodeById(sid) || sxNodeRegistry[rawId] || sxNodeById(rawId) || null;
             let isCat = Boolean(cat) || isCatId(sid);
             let isSub = Boolean(sub) || isSubId(sid);
 
@@ -538,38 +538,38 @@
                         const targetScale = Math.max(1e-9, Math.min(2.5, ($p > 1.0 ? $p : 1.35)));
                         const tx = (vb.x + vb.width / 2) - lx * targetScale;
                         const ty = (vb.y + vb.height / 2) - ly * targetScale;
-                        return void Ph(targetScale, tx, ty);
+                        return void sxEaseViewportCamera(targetScale, tx, ty);
                     }
                 }
                 // If not currently rendered, expand its branch/parent so it gets painted, then center on it!
                 if (rec.branch && !rn.has(rec.branch)) {
                     rn.add(rec.branch);
                     if (rec.parentId && !on.has(rec.parentId)) on.add(rec.parentId);
-                    Mr();
-                    const runner = () => Th(sid, rec.branch);
+                    sxRequestMapPaint();
+                    const runner = () => sxFrameNodeInCamera(sid, rec.branch);
                     if (window.sxPaintPromise) window.sxPaintPromise.then(() => requestAnimationFrame(runner));
                     else window.setTimeout(runner, 80);
                     return;
                 }
                 if (rec.parentId && !on.has(rec.parentId)) {
                     on.add(rec.parentId);
-                    Mr();
-                    const runner = () => Th(sid, rec.branch);
+                    sxRequestMapPaint();
+                    const runner = () => sxFrameNodeInCamera(sid, rec.branch);
                     if (window.sxPaintPromise) window.sxPaintPromise.then(() => requestAnimationFrame(runner));
                     else window.setTimeout(runner, 80);
                     return;
                 }
             }
 
-            const branchName = cat ? cat.name : (sub ? sub.cat.name : (rawBranch || (rec && rec.branch) || ci(sid) || ""));
+            const branchName = cat ? cat.name : (sub ? sub.cat.name : (rawBranch || (rec && rec.branch) || sxLookupNodeBranch(sid) || ""));
             const catSlug = cat ? cat.name.toLowerCase().replace(/[^a-z0-9]+/g, "-") : "";
             const subSlug = sub ? sub.sub.name.toLowerCase().replace(/[^a-z0-9]+/g, "-") : "";
 
             // Auto-expand if currently collapsed so the children are rendered
             if (isCat && branchName && !rn.has(branchName)) {
                 rn.add(branchName);
-                Mr();
-                const runner = () => Th(cat ? cat.id : sid, branchName);
+                sxRequestMapPaint();
+                const runner = () => sxFrameNodeInCamera(cat ? cat.id : sid, branchName);
                 if (window.sxPaintPromise) window.sxPaintPromise.then(() => requestAnimationFrame(runner));
                 else window.setTimeout(runner, 80);
                 return;
@@ -577,8 +577,8 @@
             if (isSub && branchName && (!rn.has(branchName) || !on.has(sid))) {
                 rn.add(branchName);
                 on.add(sid);
-                Mr();
-                const runner = () => Th(sid, branchName);
+                sxRequestMapPaint();
+                const runner = () => sxFrameNodeInCamera(sid, branchName);
                 if (window.sxPaintPromise) window.sxPaintPromise.then(() => requestAnimationFrame(runner));
                 else window.setTimeout(runner, 80);
                 return;
@@ -612,16 +612,16 @@
                 if (isCat && cat) {
                     if (k === cat.id || k === `cat-${catSlug}` || k.includes(catSlug)) return false;
                     if (node.classList.contains("gen1-line-group")) return false;
-                    const nodeBranch = ci(k);
+                    const nodeBranch = sxLookupNodeBranch(k);
                     if (nodeBranch === cat.name || sxName(nodeBranch) === sxName(cat.name)) return true;
-                    const item = qn[k] || Xn(k);
+                    const item = sxNodeRegistry[k] || sxNodeById(k);
                     if (item && (item.branch === cat.name || sxName(item.branch) === sxName(cat.name))) return true;
                     return false;
                 }
                 if (isSub && sub) {
-                    const subId = sub.id || (typeof Un === "function" ? Un(sub.cat.name, sub.sub.name) : sub.sub.id);
+                    const subId = sub.id || (typeof sxResolveSubcategoryId === "function" ? sxResolveSubcategoryId(sub.cat.name, sub.sub.name) : sub.sub.id);
                     if (k === subId) return false;
-                    const item = qn[k] || Xn(k);
+                    const item = sxNodeRegistry[k] || sxNodeById(k);
                     if (item && (item.parentId === subId || item.subcategoryId === subId || item.subId === subId)) return true;
                     const topicLabel = item ? (item.label || item.name) : null;
                     if (topicLabel && (sub.sub.topics || []).some(t => sxName(t) === sxName(topicLabel))) return true;
@@ -633,13 +633,13 @@
             // If children haven't painted yet, wait for paint promise or schedule next frame
             if (isCat && childEls.length === 0) {
                 if (window.sxPaintPromise) {
-                    window.sxPaintPromise.then(() => requestAnimationFrame(() => Th(cat ? cat.id : sid, branchName)));
+                    window.sxPaintPromise.then(() => requestAnimationFrame(() => sxFrameNodeInCamera(cat ? cat.id : sid, branchName)));
                     return;
                 }
                 if (!window.__thRetry || window.__thRetry < 8) {
                     window.__thRetry = (window.__thRetry || 0) + 1;
                     requestAnimationFrame(() => requestAnimationFrame(() => {
-                        Th(cat ? cat.id : sid, branchName);
+                        sxFrameNodeInCamera(cat ? cat.id : sid, branchName);
                     }));
                     return;
                 }
@@ -665,7 +665,7 @@
                     const t = h[e], n = t && branchOrderRankMap().has(t.name) ? branchOrderRankMap().get(t.name) : e;
                     return -Math.PI / 2 + n / h.length * Math.PI * 2;
                 }(cIdx);
-                const pt = Xa(nAng, (typeof yr === "function" ? yr(cat) : 1200) || 1200);
+                const pt = sxPolarPoint(nAng, (typeof sxBranchSpokeLength === "function" ? sxBranchSpokeLength(cat) : 1200) || 1200);
                 anchorX = pt.x;
                 anchorY = pt.y;
             }
@@ -729,7 +729,7 @@
                     add(Number(el.dataset.layoutX), Number(el.dataset.layoutY));
                     add(Number(el.dataset.labelX), Number(el.dataset.labelY));
                 });
-                if (!Number.isFinite(minX)) return void (branchName && Lh(branchName));
+                if (!Number.isFinite(minX)) return void (branchName && sxFocusCategoryCamera(branchName));
                 const spanX = Math.max(0, maxX - minX), spanY = Math.max(0, maxY - minY);
                 const padX = Math.max(3600, spanX * 0.14);
                 const padY = Math.max(3600, spanY * 0.14);
@@ -749,44 +749,44 @@
                 const targetScale = Math.max(1e-9, Math.min(2, fitScale));
                 const tx = (vb.x + vb.width / 2) - cx * targetScale;
                 const ty = (vb.y + vb.height / 2) - cy * targetScale;
-                return void Ph(targetScale, tx, ty);
+                return void sxEaseViewportCamera(targetScale, tx, ty);
             }
 
-            if (branchName) return void Lh(branchName);
+            if (branchName) return void sxFocusCategoryCamera(branchName);
         }
-        window.__sxFocusNode = Th;
-        window.__sxFocusBranch = Lh;
-        window.__sxPanZoomCamera = Ph;
+        window.__sxFocusNode = sxFrameNodeInCamera;
+        window.__sxFocusBranch = sxFocusCategoryCamera;
+        window.__sxPanZoomCamera = sxEaseViewportCamera;
         let Fh = 0, Nh = 0, _h = 0, Dh = 0, Rh = 0, Oh = !1, Bh = null, jh = null;
         const sxWheelProb = { dir: 0, acc: 0, n: 0, t: 0 };
-        function qh() {
+        function sxHideRatingFlyout() {
             Bh && Fs.visibleFor(Bh) && Fs.hide(), Bh = null, jh = null;
         }
-        function Hh(e) {
-            const t = e.dataset.id, n = e.dataset.direction, i = qn[t] || Xn(t) || (at[Vi()] || {})[t], a = da(t, Vi()), r = Boolean(a?.[n + "Known"]) ? ba(a[n]) : "Unrated";
+        function sxRatingFlyoutFields(e) {
+            const t = e.dataset.id, n = e.dataset.direction, i = sxNodeRegistry[t] || sxNodeById(t) || (at[sxActiveProfileId()] || {})[t], a = sxRatingRecord(t, sxActiveProfileId()), r = Boolean(a?.[n + "Known"]) ? sxSignedNumber(a[n]) : "Unrated";
             return {
                 name: i?.label || "Rating",
-                definition: e.dataset.ratingTooltip || ei(t, n) || Jn(t, n),
+                definition: e.dataset.ratingTooltip || sxClassicFlankText(t, n) || sxRoleLabelText(t, n),
                 value: r
             };
         }
-        function Wh(e = Bh, t = jh) {
+        function sxMoveRatingFlyout(e = Bh, t = jh) {
             if (!e || !Fs.visibleFor(e)) return;
             Fs.show(e, {
-                ...Hh(e),
+                ...sxRatingFlyoutFields(e),
                 point: t
             });
             const n = e.querySelector(".slider-thumb.active-rating") || e.querySelector(".direction-tag-bg") || e;
             Fs.position(t, n);
         }
-        function Uh(e, t = !1, n = null) {
+        function sxOpenRatingFlyout(e, t = !1, n = null) {
             e ? (Bh = e, jh = n, Fs.show(e, {
-                ...Hh(e),
+                ...sxRatingFlyoutFields(e),
                 point: n,
                 autoHide: t
-            }), Wh(e, n)) : qh();
+            }), sxMoveRatingFlyout(e, n)) : sxHideRatingFlyout();
         }
-        function Gh(e) {
+        function sxFindDirectionControl(e) {
             if (!e || !e.closest) return null;
             const t = __sxClosestAction(e, "ratingHitAny");
             return t && __sxClosestAction(t, "directionControl");

@@ -2,7 +2,7 @@
             if (mn.staticMap) return;
             if (Xp) { cancelAnimationFrame(Xp); Xp = 0; }
             Cn && Cn.classList.remove("is-camera-moving");
-            __sxInvalidateCtm(), Gp && xh(), eh.set(e.pointerId, {
+            __sxInvalidateCtm(), Gp && sxStopViewportCamera(), eh.set(e.pointerId, {
                 x: e.clientX,
                 y: e.clientY
             });
@@ -30,7 +30,7 @@
             const sxWidgetNoteHit = octadHit || heptadHit || hexadHit || pentadHit || tetradHit || triHit;
             if (sxWidgetNoteHit && 1 === eh.size && sxWidgetNoteOnDown(e, sxWidgetNoteHit.dataset && sxWidgetNoteHit.dataset.id)) return;
             if (octadHit && 1 === eh.size) {
-                e.preventDefault(), e.stopPropagation(), rh(e.pointerId);
+                e.preventDefault(), e.stopPropagation(), sxCaptureSvgPointer(e.pointerId);
                 const topicId = octadHit.dataset.id;
                 if (topicId) {
                     Nt = { id: topicId, direction: "octad" };
@@ -44,7 +44,7 @@
                 return;
             }
             if (heptadHit && 1 === eh.size) {
-                e.preventDefault(), e.stopPropagation(), rh(e.pointerId);
+                e.preventDefault(), e.stopPropagation(), sxCaptureSvgPointer(e.pointerId);
                 const topicId = heptadHit.dataset.id;
                 if (topicId) {
                     Nt = { id: topicId, direction: "heptad" };
@@ -54,7 +54,7 @@
                 return;
             }
             if (hexadHit && 1 === eh.size) {
-                e.preventDefault(), e.stopPropagation(), rh(e.pointerId);
+                e.preventDefault(), e.stopPropagation(), sxCaptureSvgPointer(e.pointerId);
                 const topicId = hexadHit.dataset.id;
                 if (topicId) {
                     Nt = { id: topicId, direction: "hexad" };
@@ -64,7 +64,7 @@
                 return;
             }
             if (pentadHit && 1 === eh.size) {
-                e.preventDefault(), e.stopPropagation(), rh(e.pointerId);
+                e.preventDefault(), e.stopPropagation(), sxCaptureSvgPointer(e.pointerId);
                 const topicId = pentadHit.dataset.id;
                 if (topicId) {
                     Nt = { id: topicId, direction: "pentad" };
@@ -74,7 +74,7 @@
                 return;
             }
             if (tetradHit && 1 === eh.size) {
-                e.preventDefault(), e.stopPropagation(), rh(e.pointerId);
+                e.preventDefault(), e.stopPropagation(), sxCaptureSvgPointer(e.pointerId);
                 const topicId = tetradHit.dataset.id;
                 if (topicId) {
                     Nt = { id: topicId, direction: "tetrad" };
@@ -86,7 +86,7 @@
                 return;
             }
             if (triHit && 1 === eh.size) {
-                e.preventDefault(), e.stopPropagation(), rh(e.pointerId);
+                e.preventDefault(), e.stopPropagation(), sxCaptureSvgPointer(e.pointerId);
                 const topicId = triHit.dataset.id;
                 if (topicId) {
                     Nt = { id: topicId, direction: "triangle" };
@@ -109,7 +109,7 @@
                     // carries its own transform).
                     const mapPt = sxMapClientToLocal(e, triHit) || pt.matrixTransform(__sxScreenCtm(In).inverse());
                     const bary = sxPointToBarycentric(mapPt.x, mapPt.y, v0, v1, v2);
-                    const shape = Ge(topicId);
+                    const shape = sxWidgetConfig(topicId);
                     // Live intensity (placard memory, else signed sum of
                     // stored absolute values, else gesture memory); 0
                     // defaults to 70, the placard's drag-start rule. The
@@ -119,9 +119,9 @@
                         const v0r = Math.round(bary.w0 * intensity);
                         const v1r = Math.round(bary.w1 * intensity);
                         const v2r = Math.round(bary.w2 * intensity);
-                        To(topicId, shape.keys[0], v0r, !1);
-                        To(topicId, shape.keys[1], v1r, !1);
-                        To(topicId, shape.keys[2], v2r, !1);
+                        sxStoreFlankRating(topicId, shape.keys[0], v0r, !1);
+                        sxStoreFlankRating(topicId, shape.keys[1], v1r, !1);
+                        sxStoreFlankRating(topicId, shape.keys[2], v2r, !1);
                         sxMapPatchTriLive(topicId, v0, v1, v2, bary, [v0r, v1r, v2r], intensity);
                         sxMapTriRemember(topicId, intensity, bary.w0, bary.w1, bary.w2);
                     }
@@ -130,12 +130,12 @@
                         id: topicId,
                         v0: v0, v1: v1, v2: v2,
                         intensity: intensity,
-                        prevRated: cs(Vi()).rated
+                        prevRated: sxOutlineRatedCounts(sxActiveProfileId()).rated
                     };
                 }
                 return;
             }
-            if (a && 1 === eh.size) return e.preventDefault(), e.stopPropagation(), rh(e.pointerId),
+            if (a && 1 === eh.size) return e.preventDefault(), e.stopPropagation(), sxCaptureSvgPointer(e.pointerId),
             void (Lp = {
                 pointerId: e.pointerId,
                 id: a.dataset.id,
@@ -146,7 +146,7 @@
                 Nt = null;
                 In.querySelectorAll(".active-rating").forEach(e => e.classList.remove("active-rating"));
             }
-            if (i && 1 === eh.size) return e.preventDefault(), e.stopPropagation(), rh(e.pointerId), 
+            if (i && 1 === eh.size) return e.preventDefault(), e.stopPropagation(), sxCaptureSvgPointer(e.pointerId), 
             void (Tp = {
                 pointerId: e.pointerId,
                 index: Number(i.dataset.centerGlanceIndex),
@@ -154,7 +154,7 @@
                 startX: e.clientX,
                 startY: e.clientY
             });
-            if (c && 1 === eh.size) return e.preventDefault(), e.stopPropagation(), rh(e.pointerId), 
+            if (c && 1 === eh.size) return e.preventDefault(), e.stopPropagation(), sxCaptureSvgPointer(e.pointerId), 
             void (Pp = {
                 pointerId: e.pointerId,
                 id: c.dataset.id,
@@ -164,19 +164,19 @@
             });
             if (n && 1 === eh.size) {
                 if ("touch" === e.pointerType) return;
-                return e.preventDefault(), e.stopPropagation(), rh(e.pointerId), Fp = {
+                return e.preventDefault(), e.stopPropagation(), sxCaptureSvgPointer(e.pointerId), Fp = {
                     pointerId: e.pointerId,
                     startX: e.clientX,
                     startY: e.clientY,
                     longPressed: !1
-                }, oh(), void (_p = t.setTimeout(() => {
-                    Fp && Fp.pointerId === e.pointerId && (Fp.longPressed = !0, sh());
+                }, sxClearCenterHold(), void (_p = t.setTimeout(() => {
+                    Fp && Fp.pointerId === e.pointerId && (Fp.longPressed = !0, sxOpenMapAbout());
                 }, 520));
             }
             if (r && 1 === eh.size) {
                 const sxTapNow = performance.now(), sxTapDist = Math.hypot(e.clientX - sxLastNodeTapX, e.clientY - sxLastNodeTapY);
                 if (e.detail >= 2 || sxLastNodeTapId === r.dataset.id && sxTapNow - sxLastNodeTapTime < 520 && sxTapDist < 60) {
-                    e.preventDefault(), e.stopPropagation(), rh(e.pointerId);
+                    e.preventDefault(), e.stopPropagation(), sxCaptureSvgPointer(e.pointerId);
                     eo = {
                         pointerId: e.pointerId,
                         id: r.dataset.id,
@@ -189,9 +189,9 @@
                 }
                 e.preventDefault(), e.stopPropagation();
                 const n = r.dataset.id, i = r.dataset.direction;
-                if ("mouse" !== e.pointerType && Uh(__sxClosestAction(r, "directionControl"), !0, Ts(e)), 
+                if ("mouse" !== e.pointerType && sxOpenRatingFlyout(__sxClosestAction(r, "directionControl"), !0, sxPointerPoint(e)), 
                 Nt && (Nt.id !== n || Nt.direction !== i)) return;
-                return rh(e.pointerId), Ip = {
+                return sxCaptureSvgPointer(e.pointerId), Ip = {
                     pointerId: e.pointerId,
                     el: r,
                     id: n,
@@ -205,16 +205,16 @@
                 Nt = {
                     id: n,
                     direction: i
-                }, _o(r, null), io(), void (Jr = t.setTimeout(() => {
+                }, sxPreviewSpokeThumb(r, null), sxClearPlacardTimer(), void (Jr = t.setTimeout(() => {
                     Ip && Ip.pointerId === e.pointerId && !Ip.dragged && (Ip.longPressed = !0, Nt = {
                         id: Ip.id,
                         direction: Ip.direction
-                    }, _o(Ip.el, null));
+                    }, sxPreviewSpokeThumb(Ip.el, null));
                 }, 420));
             }
             if (s && 1 === eh.size) {
                 const n = s.dataset.id || s.dataset.topicId || s.dataset.spokeFor || s.closest?.(".node-group")?.dataset.layoutKey || __sxClosestAction(s, "nodeGroup")?.dataset.layoutKey;
-                e.preventDefault(), e.stopPropagation(), rh(e.pointerId);
+                e.preventDefault(), e.stopPropagation(), sxCaptureSvgPointer(e.pointerId);
                 const i = Cn.createSVGPoint();
                 i.x = e.clientX, i.y = e.clientY;
                 const a = i.matrixTransform(__sxScreenCtm(In).inverse());
@@ -237,11 +237,11 @@
                     curveNy: Number(o && o.dataset.ny) || 0,
                     longPressed: !1,
                     tipEl: s.closest?.("[data-ui-tooltip]") || s
-                }, io(), void (Jr = t.setTimeout(() => {
+                }, sxClearPlacardTimer(), void (Jr = t.setTimeout(() => {
                     eo && eo.pointerId === e.pointerId && (eo.longPressed = !0, to = !0, sxShowTopicTip(n, eo.startX, eo.startY, e.pointerType, eo.tipEl));
                 }, 520));
             }
-            return l && 1 === eh.size ? (e.preventDefault(), e.stopPropagation(), rh(e.pointerId), 
+            return l && 1 === eh.size ? (e.preventDefault(), e.stopPropagation(), sxCaptureSvgPointer(e.pointerId), 
             Nt = {
                 id: l.dataset.id,
                 direction: l.dataset.direction
@@ -250,10 +250,10 @@
                 el: l,
                 id: l.dataset.id,
                 direction: l.dataset.direction,
-                value: _o(l, No(l, e.clientX, e.clientY))
-            })) : (Gp || (fh = yh()), rh(e.pointerId), eh.size >= 2 ? (io(), oh(), Mp = null, 
-            Ip = null, Pp = null, Lp = null, Tp = null, eo = null, Fp = null, Sq = null, triDragState = null, radarDragState = null, yn && xr(!0), 
-            void Mh()) : void (__sxClosestAction(e.target, "categoryLabel") || (Cp = !0, jp = {
+                value: sxPreviewSpokeThumb(l, sxRatingAlongRail(l, e.clientX, e.clientY))
+            })) : (Gp || (fh = sxLiveCameraProfile()), sxCaptureSvgPointer(e.pointerId), eh.size >= 2 ? (sxClearPlacardTimer(), sxClearCenterHold(), Mp = null, 
+            Ip = null, Pp = null, Lp = null, Tp = null, eo = null, Fp = null, Sq = null, triDragState = null, radarDragState = null, yn && sxClearCurvePreview(!0), 
+            void sxStorePinchBaseline()) : void (__sxClosestAction(e.target, "categoryLabel") || (Cp = !0, jp = {
                 x: e.clientX,
                 y: e.clientY
             }, Sq = {
@@ -268,11 +268,11 @@
                 x: e.clientX,
                 y: e.clientY
             }), eh.size >= 2) {
-                Mp = null, Pp = null, Lp = null, triDragState = null, radarDragState = null, qp || Mh();
-                const e = Ch();
+                Mp = null, Pp = null, Lp = null, triDragState = null, radarDragState = null, qp || sxStorePinchBaseline();
+                const e = sxTwoPointerMapSpan();
                 if (!qp || !e) return;
                 return noteFitUserCamera(), $p = Math.max(1e-9, Math.min(Eh(), qp.scale * (e.distance / qp.distance))), 
-                Ep = e.cx - qp.contentX * $p, Ap = e.cy - qp.contentY * $p, void bh();
+                Ep = e.cx - qp.contentX * $p, Ap = e.cy - qp.contentY * $p, void sxMarkCameraMoving();
             }
             if (Pp && Pp.pointerId === e.pointerId) return void (Math.hypot(e.clientX - Pp.startX, e.clientY - Pp.startY) >= 10 && (Pp = null, 
             Cp = !0, jp = {
@@ -291,7 +291,7 @@
             }));
             if (Fp && Fp.pointerId === e.pointerId) {
                 if (Math.hypot(e.clientX - Fp.startX, e.clientY - Fp.startY) >= 16) {
-                    if (oh(), Fp.longPressed) return void (Fp = null);
+                    if (sxClearCenterHold(), Fp.longPressed) return void (Fp = null);
                     Fp = null, Cp = !0, jp = {
                         x: e.clientX,
                         y: e.clientY
@@ -299,8 +299,8 @@
                 }
                 return;
             }
-            if (yn && yn.pointerId === e.pointerId) return void kr(yn, Sr(yn, e.clientX, e.clientY));
-            if (Ip && Ip.pointerId === e.pointerId) return void (Math.hypot(e.clientX - Ip.startX, e.clientY - Ip.startY) >= 10 && (io(), 
+            if (yn && yn.pointerId === e.pointerId) return void sxPreviewCurveBend(yn, sxBendFromPointer(yn, e.clientX, e.clientY));
+            if (Ip && Ip.pointerId === e.pointerId) return void (Math.hypot(e.clientX - Ip.startX, e.clientY - Ip.startY) >= 10 && (sxClearPlacardTimer(), 
             Ip = null, Nt = null, In.querySelectorAll(".active-rating").forEach(e => e.classList.remove("active-rating")), 
             Cp = !0, jp = {
                 x: e.clientX,
@@ -323,15 +323,15 @@
                 pt.x = e.clientX, pt.y = e.clientY;
                 const mapPt = sxMapClientToLocal(e, triHitNow) || pt.matrixTransform(__sxScreenCtm(In).inverse());
                 const bary = sxPointToBarycentric(mapPt.x, mapPt.y, st.v0, st.v1, st.v2);
-                const shape = Ge(st.id);
+                const shape = sxWidgetConfig(st.id);
                 if (shape && shape.keys && shape.keys.length === 3) {
                     const intensity = st.intensity;
                     const v0r = Math.round(bary.w0 * intensity);
                     const v1r = Math.round(bary.w1 * intensity);
                     const v2r = Math.round(bary.w2 * intensity);
-                    To(st.id, shape.keys[0], v0r, !1);
-                    To(st.id, shape.keys[1], v1r, !1);
-                    To(st.id, shape.keys[2], v2r, !1);
+                    sxStoreFlankRating(st.id, shape.keys[0], v0r, !1);
+                    sxStoreFlankRating(st.id, shape.keys[1], v1r, !1);
+                    sxStoreFlankRating(st.id, shape.keys[2], v2r, !1);
                     sxMapPatchTriLive(st.id, st.v0, st.v1, st.v2, bary, [v0r, v1r, v2r], intensity);
                     sxMapTriRemember(st.id, intensity, bary.w0, bary.w1, bary.w2);
                 }
@@ -341,7 +341,7 @@
             if (eo && eo.pointerId === e.pointerId) {
                 if (eo.longPressed) return;
                 if (Math.hypot(e.clientX - eo.startX, e.clientY - eo.startY) >= sxNoteSlop(e)) {
-                    io();
+                    sxClearPlacardTimer();
                     eo = null;
                     Cp = !0;
                     jp = {
@@ -352,22 +352,22 @@
                     return;
                 }
             }
-            if (Mp && Mp.pointerId === e.pointerId) return void (Mp.value = _o(Mp.el, No(Mp.el, e.clientX, e.clientY)));
+            if (Mp && Mp.pointerId === e.pointerId) return void (Mp.value = sxPreviewSpokeThumb(Mp.el, sxRatingAlongRail(Mp.el, e.clientX, e.clientY)));
             if (!Cp) return;
             const t = Mn.parentElement.getBoundingClientRect();
             noteFitUserCamera(), Ep += (e.clientX - jp.x) * (1800 / t.width), Ap += (e.clientY - jp.y) * (1240 / t.height), 
             jp = {
                 x: e.clientX,
                 y: e.clientY
-            }, bh();
-        }), Cn.addEventListener("pointerup", Kh), Cn.addEventListener("pointercancel", Kh), 
+            }, sxMarkCameraMoving();
+        }), Cn.addEventListener("pointerup", sxReleaseMapGesture), Cn.addEventListener("pointercancel", sxReleaseMapGesture), 
         /* Build 2026-10-18_1305: viewport lockup fix. Kh was only registered on the map SVG, so a pointerup/pointercancel delivered anywhere else never cleaned up the gesture state — the pointer stayed in the active-pointer map (eh) forever, every later press read as a phantom extra finger (all tap branches require exactly one active pointer, and pan is unreachable in the multi-pointer path), and only wheel zoom, which never consults eh, kept working. The exposed path: a touch long-press on the center node opens the modal About dialog (sh via Wi/showModal) while the finger is still down — the touch branch takes no pointer capture — so the release lands on the dialog, not the SVG. Rescue: window-level capture listeners run the same Kh cleanup whenever the map owns the pointer (tracked in eh or any gesture state) but the release lands outside the map; lostpointercapture on the SVG cleans up the same way if capture is lost mid-gesture. In-map releases are untouched (Cn.contains guard) and Kh is idempotent, so normal gestures behave exactly as before. */
         window.addEventListener("pointerup", e => {
-            (eh.has(e.pointerId) || [ Pp, Lp, Tp, Fp, Ip, Mp, eo, yn, triDragState, radarDragState ].some(t => t && t.pointerId === e.pointerId)) && !Cn.contains(e.target) && Kh(e);
+            (eh.has(e.pointerId) || [ Pp, Lp, Tp, Fp, Ip, Mp, eo, yn, triDragState, radarDragState ].some(t => t && t.pointerId === e.pointerId)) && !Cn.contains(e.target) && sxReleaseMapGesture(e);
         }, !0), window.addEventListener("pointercancel", e => {
-            (eh.has(e.pointerId) || [ Pp, Lp, Tp, Fp, Ip, Mp, eo, yn, triDragState, radarDragState ].some(t => t && t.pointerId === e.pointerId)) && !Cn.contains(e.target) && Kh(e);
+            (eh.has(e.pointerId) || [ Pp, Lp, Tp, Fp, Ip, Mp, eo, yn, triDragState, radarDragState ].some(t => t && t.pointerId === e.pointerId)) && !Cn.contains(e.target) && sxReleaseMapGesture(e);
         }, !0), Cn.addEventListener("lostpointercapture", e => {
-            (eh.has(e.pointerId) || [ Pp, Lp, Tp, Fp, Ip, Mp, eo, yn, triDragState, radarDragState ].some(t => t && t.pointerId === e.pointerId)) && Kh(e);
+            (eh.has(e.pointerId) || [ Pp, Lp, Tp, Fp, Ip, Mp, eo, yn, triDragState, radarDragState ].some(t => t && t.pointerId === e.pointerId)) && sxReleaseMapGesture(e);
         }), Cn.addEventListener("touchstart", e => {
             if (mn.staticMap || 1 !== e.touches.length || !e.target.closest || !__sxClosestAction(e.target, "centerHit")) return;
             const n = e.touches[0];
@@ -377,8 +377,8 @@
                 startY: n.clientY,
                 moved: !1,
                 longPressed: !1
-            }, oh(), _p = t.setTimeout(() => {
-                Np && Np.identifier === n.identifier && !Np.moved && (Np.longPressed = !0, sh());
+            }, sxClearCenterHold(), _p = t.setTimeout(() => {
+                Np && Np.identifier === n.identifier && !Np.moved && (Np.longPressed = !0, sxOpenMapAbout());
             }, 520);
         }, {
             passive: !1
@@ -386,21 +386,21 @@
             if (!Np) return;
             const t = Array.from(e.touches).find(e => e.identifier === Np.identifier);
             t && (Math.hypot(t.clientX - Np.startX, t.clientY - Np.startY) >= 32 && (Np.moved = !0, 
-            oh()), e.preventDefault(), e.stopPropagation());
+            sxClearCenterHold()), e.preventDefault(), e.stopPropagation());
         }, {
             passive: !1
         }), Cn.addEventListener("touchend", e => {
             if (!Np) return;
             const touchPoint = Array.from(e.changedTouches).find(e => e.identifier === Np.identifier), n = Np.longPressed, i = Boolean(touchPoint && !Np.moved && !n && Math.hypot(touchPoint.clientX - Np.startX, touchPoint.clientY - Np.startY) < 32);
-            oh(), Np = null, Fp = null, eh.clear(), Cp = !1, e.preventDefault(), e.stopPropagation(), 
+            sxClearCenterHold(), Np = null, Fp = null, eh.clear(), Cp = !1, e.preventDefault(), e.stopPropagation(), 
             n ? Dp = performance.now() : i && (Dp = performance.now(), function() {
                 const e = performance.now();
                 e - Op < 520 ? Rp += 1 : Rp = 1, Op = e, Bp && t.clear(Bp), 3 === Rp ? (Rp = 0, 
                 window.__SEXCAPADES_LAYOUT_UI && window.__SEXCAPADES_LAYOUT_UI.open()) : Bp = t.setTimeout(() => {
                     if (2 === Rp) {
-                        sh();
+                        sxOpenMapAbout();
                     } else if (1 === Rp) {
-                        Ih();
+                        sxApplyMapFit();
                     }
                     Rp = 0, Bp = 0;
                 }, 280);
@@ -408,13 +408,13 @@
         }, {
             passive: !1
         }), Cn.addEventListener("touchcancel", () => {
-            oh(), Np = null, Fp = null, Tp = null, Pp = null, Lp = null, eh.clear(), Cp = !1, 
-            Gp && xh();
+            sxClearCenterHold(), Np = null, Fp = null, Tp = null, Pp = null, Lp = null, eh.clear(), Cp = !1, 
+            Gp && sxStopViewportCamera();
         }, {
             passive: !0
         }), window.__sxOnPtr( e => {
-            Bh && Fs.visibleFor(Bh) && !__sxClosestAction(e.target, "directionControl") && qh(), Nt && !Cn.contains(e.target) && (Nt = null, 
-            Mr());
+            Bh && Fs.visibleFor(Bh) && !__sxClosestAction(e.target, "directionControl") && sxHideRatingFlyout(), Nt && !Cn.contains(e.target) && (Nt = null, 
+            sxRequestMapPaint());
         }, !0);
         // Slider Escape close (repair #2, 2026-11-01, Jason's requirement,
         // second report: Escape still did not close the opened slider):
@@ -437,7 +437,7 @@
             if (!Nt && !In.querySelector(".rating-rail.active-rating,.slider-thumb.active-rating,.rating-track-hit.active-rating")) return;
             const t = e.target;
             if (document.querySelector("dialog[open]") || t && (t.isContentEditable || /^(INPUT|TEXTAREA|SELECT)$/.test(t.tagName || ""))) return;
-            e.preventDefault(), e.stopPropagation(), Nt = null, Ip = null, Mp = null, In.querySelectorAll(".active-rating").forEach(el => el.classList.remove("active-rating")), Mr();
+            e.preventDefault(), e.stopPropagation(), Nt = null, Ip = null, Mp = null, In.querySelectorAll(".active-rating").forEach(el => el.classList.remove("active-rating")), sxRequestMapPaint();
         }, !0);
         const zh = e.byId("mapHint"), Vh = __sxClosestAction(zh, "mapCard"), Yh = window.matchMedia && window.matchMedia("(pointer: coarse)").matches;
         if (zh) zh.textContent = Yh ? "Pinch to zoom · Drag to pan" : "Scroll to zoom · Drag to pan";
@@ -454,9 +454,9 @@
             once: !0,
             capture: !0
         })), e.byId("mapZoomOut") && (e.byId("mapZoomOut").onclick = () => {
-            mn.staticMap || Ah($p / 1.25);
+            mn.staticMap || sxScaleCameraAtPoint($p / 1.25);
         }), e.byId("mapZoomIn") && (e.byId("mapZoomIn").onclick = () => {
-            mn.staticMap || Ah(1.25 * $p);
+            mn.staticMap || sxScaleCameraAtPoint(1.25 * $p);
         }), e.byId("mapFit") && (e.byId("mapFit").onclick = () => {
             if (mn.staticMap) return;
             // Fit eases on the same machines that already ease a focus zoom:
@@ -464,14 +464,14 @@
             // device keep the instant frame. Opening and profile changes
             // still call Ih() and land in one step.
             const sxFitMotion = Bt && !kp && !xp;
-            if (!sxFitMotion) return void Ih();
+            if (!sxFitMotion) return void sxApplyMapFit();
             const f = sxFitFrame();
-            Ph(f.scale, f.x, f.y);
+            sxEaseViewportCamera(f.scale, f.x, f.y);
         });
         const Zh = e.byId("legendControl"), Qh = e.byId("legendButton"), Jh = e.byId("legendPopup"), eg = e.byId("legendPopupClose"), tg = e.one("[data-open-hanky-chart]"), ng = e.byId("hankyChartLightbox"), ig = e.byId("hankyChartClose"), ag = e.byId("hankyChartViewport"), rg = e.byId("hankyChartStage"), og = e.byId("hankyChartImage");
         let sg = !1, lg = 1, cg = null, dg = null, ug = "";
         const pg = new Map;
-        function hg() {
+        function sxUnhideLegendEntries() {
             if (!Jh) return;
             const grp = Jh.querySelector('[data-legend-group="ratings"]');
             if (grp) grp.hidden = !1;
@@ -481,15 +481,15 @@
             const emptyEl = e.byId("legendEmpty");
             if (emptyEl) emptyEl.hidden = !0;
         }
-        function gg(e) {
-            e && hg(), Jh.hidden = !e, Qh.setAttribute("aria-expanded", String(e));
+        function sxSetLegendVisible(e) {
+            e && sxUnhideLegendEntries(), Jh.hidden = !e, Qh.setAttribute("aria-expanded", String(e));
         }
-        function mg(e = {}) {
-            sg = !1, gg(!1), e.focus && Qh.focus({
+        function sxCloseMapLegend(e = {}) {
+            sg = !1, sxSetLegendVisible(!1), e.focus && Qh.focus({
                 preventScroll: !0
             });
         }
-        function fg(e = !1, t = null) {
+        function sxPlaceHankyChart(e = !1, t = null) {
             const n = og.naturalWidth || 576, i = og.naturalHeight || 1024, a = ag.clientWidth, r = ag.clientHeight;
             if (!a || !r) return;
             const o = t ? t.viewX : a / 2, s = t ? t.viewY : r / 2, l = t ? t.contentX : e ? (ag.scrollLeft + a / 2) / Math.max(1, rg.scrollWidth) : .5, c = t ? t.contentY : e ? (ag.scrollTop + r / 2) / Math.max(1, rg.scrollHeight) : .5, d = Math.min(a / n, r / i), u = Math.max(1, Math.round(n * d * lg)), p = Math.max(1, Math.round(i * d * lg));
@@ -498,16 +498,16 @@
                 ag.scrollLeft = Math.max(0, l * rg.scrollWidth - o), ag.scrollTop = Math.max(0, c * rg.scrollHeight - s);
             });
         }
-        function yg(e, t = !0, n = null) {
-            lg = Math.max(1, Math.min(4, e)), fg(t, n);
+        function sxScaleHankyChart(e, t = !0, n = null) {
+            lg = Math.max(1, Math.min(4, e)), sxPlaceHankyChart(t, n);
         }
-        function bg(e = {}) {
+        function sxHideHankyLightbox(e = {}) {
             ng.hidden || (ng.hidden = !0, document.documentElement.style.overflow = ug, cg = null, 
             dg = null, pg.clear(), ag.classList.remove("is-dragging"), e.focus && tg.focus({
                 preventScroll: !0
             }));
         }
-        function vg() {
+        function sxStartHankyPinch() {
             const e = Array.from(pg.values());
             if (e.length < 2) return void (dg = null);
             const [t, n] = e, i = ag.getBoundingClientRect(), a = (t.x + n.x) / 2 - i.left, r = (t.y + n.y) / 2 - i.top;
@@ -519,24 +519,24 @@
             }, cg = null, ag.classList.add("is-dragging");
         }
         Qh.addEventListener("click", e => {
-            e.stopPropagation(), sg ? mg() : (sg = !0, gg(!0));
+            e.stopPropagation(), sg ? sxCloseMapLegend() : (sg = !0, sxSetLegendVisible(!0));
         }), eg.addEventListener("click", e => {
-            e.stopPropagation(), mg({
+            e.stopPropagation(), sxCloseMapLegend({
                 focus: !0
             });
         }), Jh.addEventListener("click", e => e.stopPropagation()), tg.addEventListener("click", function() {
-            sg = !0, gg(!0), lg = 1.8, ug = document.documentElement.style.overflow, document.documentElement.style.overflow = "hidden", 
+            sg = !0, sxSetLegendVisible(!0), lg = 1.8, ug = document.documentElement.style.overflow, document.documentElement.style.overflow = "hidden", 
             ng.hidden = !1, requestAnimationFrame(() => {
-                fg(), ig.focus({
+                sxPlaceHankyChart(), ig.focus({
                     preventScroll: !0
                 });
             });
-        }), ig.addEventListener("click", () => bg({
+        }), ig.addEventListener("click", () => sxHideHankyLightbox({
             focus: !0
-        })), e.byId("hankyChartZoomOut") && e.byId("hankyChartZoomOut").addEventListener("click", () => yg(lg / 1.35)), 
-        e.byId("hankyChartZoomIn") && e.byId("hankyChartZoomIn").addEventListener("click", () => yg(1.35 * lg)), e.byId("hankyChartFit") && e.byId("hankyChartFit").addEventListener("click", () => yg(1, !1)), 
+        })), e.byId("hankyChartZoomOut") && e.byId("hankyChartZoomOut").addEventListener("click", () => sxScaleHankyChart(lg / 1.35)), 
+        e.byId("hankyChartZoomIn") && e.byId("hankyChartZoomIn").addEventListener("click", () => sxScaleHankyChart(1.35 * lg)), e.byId("hankyChartFit") && e.byId("hankyChartFit").addEventListener("click", () => sxScaleHankyChart(1, !1)), 
         ng.addEventListener("click", e => {
-            e.target === ng && bg({
+            e.target === ng && sxHideHankyLightbox({
                 focus: !0
             });
         }), ag.addEventListener("pointerdown", e => {
@@ -550,7 +550,7 @@
             } : (pg.set(e.pointerId, {
                 x: e.clientX,
                 y: e.clientY
-            }), pg.size >= 2 ? vg() : cg = {
+            }), pg.size >= 2 ? sxStartHankyPinch() : cg = {
                 id: e.pointerId,
                 x: e.clientX,
                 y: e.clientY,
@@ -562,9 +562,9 @@
                 x: e.clientX,
                 y: e.clientY
             }), pg.size >= 2)) {
-                dg || vg();
+                dg || sxStartHankyPinch();
                 const [t, n] = Array.from(pg.values()), i = ag.getBoundingClientRect(), a = (t.x + n.x) / 2 - i.left, r = (t.y + n.y) / 2 - i.top, o = Math.max(1, Math.hypot(t.x - n.x, t.y - n.y));
-                return yg(dg.scale * o / dg.distance, !1, {
+                return sxScaleHankyChart(dg.scale * o / dg.distance, !1, {
                     contentX: dg.contentX,
                     contentY: dg.contentY,
                     viewX: a,
@@ -584,27 +584,27 @@
                     left: ag.scrollLeft,
                     top: ag.scrollTop
                 };
-            } else pg.size ? vg() : (dg = null, cg = null, ag.classList.remove("is-dragging"));
+            } else pg.size ? sxStartHankyPinch() : (dg = null, cg = null, ag.classList.remove("is-dragging"));
             "mouse" === e.pointerType && cg && cg.id === e.pointerId && (cg = null, ag.classList.remove("is-dragging"));
         };
         ag.addEventListener("pointerup", wg), ag.addEventListener("pointercancel", wg), 
         ag.addEventListener("wheel", e => {
-            (e.ctrlKey || e.metaKey) && (e.preventDefault(), yg(lg * (e.deltaY < 0 ? 1.18 : 1 / 1.18)));
+            (e.ctrlKey || e.metaKey) && (e.preventDefault(), sxScaleHankyChart(lg * (e.deltaY < 0 ? 1.18 : 1 / 1.18)));
         }, {
             passive: !1
         }), ag.addEventListener("keydown", e => {
-            "+" === e.key || "=" === e.key ? (e.preventDefault(), yg(1.35 * lg)) : "-" === e.key ? (e.preventDefault(), 
-            yg(lg / 1.35)) : "0" === e.key && (e.preventDefault(), yg(1, !1));
+            "+" === e.key || "=" === e.key ? (e.preventDefault(), sxScaleHankyChart(1.35 * lg)) : "-" === e.key ? (e.preventDefault(), 
+            sxScaleHankyChart(lg / 1.35)) : "0" === e.key && (e.preventDefault(), sxScaleHankyChart(1, !1));
         }), og.addEventListener("load", () => {
-            ng.hidden || fg();
+            ng.hidden || sxPlaceHankyChart();
         }), window.addEventListener("resize", () => {
-            ng.hidden || fg(!0);
+            ng.hidden || sxPlaceHankyChart(!0);
         }), window.__sxOnPtr( e => {
-            Jh.hidden || !ng.hidden || Zh.contains(e.target) || mg();
+            Jh.hidden || !ng.hidden || Zh.contains(e.target) || sxCloseMapLegend();
         }, !0), window.__sxOnKey( e => {
-            "Escape" === e.key && (ng.hidden ? Jh.hidden || (e.preventDefault(), mg({
+            "Escape" === e.key && (ng.hidden ? Jh.hidden || (e.preventDefault(), sxCloseMapLegend({
                 focus: !0
-            })) : (e.preventDefault(), bg({
+            })) : (e.preventDefault(), sxHideHankyLightbox({
                 focus: !0
             })));
         });

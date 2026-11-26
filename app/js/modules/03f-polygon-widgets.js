@@ -29,10 +29,10 @@
             // handler re-resolves the id before reading/writing - otherwise
             // reads keep hitting the empty template and the readout never moves.
             // An explicitly passed real profile id is preserved as-is.
-            let pId = profileId || Vi();
-            const freshPid = () => (profileId && profileId !== Et) ? profileId : Vi();
-            const shape = Ge(topicId, pId);
-            const item = qn[topicId] || Xn(topicId) || (at[pId] || {})[topicId] || {};
+            let pId = profileId || sxActiveProfileId();
+            const freshPid = () => (profileId && profileId !== Et) ? profileId : sxActiveProfileId();
+            const shape = sxWidgetConfig(topicId, pId);
+            const item = sxNodeRegistry[topicId] || sxNodeById(topicId) || (at[pId] || {})[topicId] || {};
             const titleEl = pick("hotListWidgetTitle", ".outline-inline-title");
             const badgeEl = pick("hotListWidgetBadge", ".outline-inline-badge");
             const descEl = pick("hotListWidgetDesc", ".outline-inline-desc");
@@ -48,7 +48,7 @@
 
             const label = item.label || item.name || topicId;
             titleEl && (titleEl.textContent = label);
-            descEl && (descEl.textContent = lo(item));
+            descEl && (descEl.textContent = sxPlacardAboutText(item));
 
             const isOctad = Boolean(shape.octad || (shape.keys && shape.keys.length === 8));
             const isHeptad = Boolean(shape.heptad || (shape.keys && shape.keys.length === 7));
@@ -88,7 +88,7 @@
             });
 
             const syncReadouts = () => {
-                const curRec = ca(topicId, pId);
+                const curRec = sxDecodeTopicStance(topicId, pId);
                 keys.forEach((k, idx) => {
                     const isK = curRec[k + "Known"];
                     const v = isK ? Math.round(curRec[k]) : "—";
@@ -105,7 +105,7 @@
             // setter paths below.
             const dualRec = () => {
                 if (!sxDualPlacements(topicId)) return null;
-                const r = ca(topicId, freshPid());
+                const r = sxDecodeTopicStance(topicId, freshPid());
                 return (r.advocacyKnown || r.givePlacementKnown) ? r : null;
             };
             const persistPrimary = (valsArr, intensity) => {
@@ -135,7 +135,7 @@
                 var stance = sxDualPlacements(topicId);
                 var fl = stance ? ["advocacy", "receptivity"] : ["give", "receive"];
                 var getFlank = (dir) => {
-                    var rec = ca(topicId, freshPid());
+                    var rec = sxDecodeTopicStance(topicId, freshPid());
                     return sxCrossFlankState(rec, dir, keys);
                 };
                 var writeFlank = (dir, value) => {
@@ -154,7 +154,7 @@
             const redraw = () => {
                 pId = freshPid();
                 sxSeedProfileIntensities(pId);
-                const curRec = ca(topicId, pId);
+                const curRec = sxDecodeTopicStance(topicId, pId);
                 const vals = keys.map(k => (curRec[k + "Known"] ? curRec[k] : 0));
                 if (canvas.__sxInline) {
                     const map = {};
@@ -270,14 +270,14 @@
             const paintRow = () => {
                 if (root) return;
                 const row = Ro && Ro.querySelector(`.outline-row[data-outline-id="${CSS.escape(topicId)}"]`);
-                row && Ss(row);
+                row && sxSyncOutlineRow(row);
             };
             const finishGesture = () => {
                 if (root) {
-                    try { ws(); } catch (err) {}
+                    try { sxRefreshHotListStatus(); } catch (err) {}
                     return;
                 }
-                Mr();
+                sxRequestMapPaint();
                 paintRow();
             };
 
@@ -302,7 +302,7 @@
                 if (isOctad || isHeptad || isHexad || isPentad || isTetrad) {
                     const getVerts = isOctad ? sxGetOctadVertices : isHeptad ? sxGetHeptadVertices : isHexad ? sxGetHexadVertices : isPentad ? sxGetPentadVertices : sxGetTetradVertices;
                     const { cx, cy, r, vertices } = getVerts(canvas.width, canvas.height);
-                    const curRec = ca(topicId, pId);
+                    const curRec = sxDecodeTopicStance(topicId, pId);
                     const curVals = keys.map(k => (curRec[k + "Known"] ? curRec[k] : 0));
                     const isAllZero = curVals.every(v => !v);
 
@@ -325,10 +325,10 @@
                     } else if (isAllZero && val > 0) {
                         const base = Math.max(20, Math.round(val * 0.5));
                         keys.forEach((k, idx) => {
-                            To(topicId, k, (idx === activeIdx) ? val : base, !1, pId);
+                            sxStoreFlankRating(topicId, k, (idx === activeIdx) ? val : base, !1, pId);
                         });
                     } else {
-                        To(topicId, keys[activeIdx], val, !1, pId);
+                        sxStoreFlankRating(topicId, keys[activeIdx], val, !1, pId);
                     }
                     redraw();
                     paintRow();
@@ -338,7 +338,7 @@
                     const vals = sxCompassValuesFromPoint(u, v, 100);
                     const dRec = dualRec();
                     if (dRec) persistPrimary(vals, dRec.intensityKnown ? dRec.intensity : sxDerivedFromVals(vals, "compass"));
-                    else keys.forEach((k, idx) => To(topicId, k, vals[idx], !1, pId));
+                    else keys.forEach((k, idx) => sxStoreFlankRating(topicId, k, vals[idx], !1, pId));
                     redraw();
                     paintRow();
                 } else if (isTriad) {
@@ -347,9 +347,9 @@
                     const dRec = dualRec();
                     if (dRec) persistPrimary([Math.round(w0 * 100), Math.round(w1 * 100), Math.round(w2 * 100)], dRec.intensityKnown ? dRec.intensity : sxDerivedFromVals([Math.round(w0 * 100), Math.round(w1 * 100), Math.round(w2 * 100)], "triad"));
                     else {
-                        To(topicId, keys[0], Math.round(w0 * 100), !1, pId);
-                        To(topicId, keys[1], Math.round(w1 * 100), !1, pId);
-                        To(topicId, keys[2], Math.round(w2 * 100), !1, pId);
+                        sxStoreFlankRating(topicId, keys[0], Math.round(w0 * 100), !1, pId);
+                        sxStoreFlankRating(topicId, keys[1], Math.round(w1 * 100), !1, pId);
+                        sxStoreFlankRating(topicId, keys[2], Math.round(w2 * 100), !1, pId);
                     }
                     redraw();
                     paintRow();
@@ -398,7 +398,7 @@
                 // Wheel tracks 10x (owner order, 2026-11-25): one notch
                 // moves the value ten times as far as before.
                 const step = (evt.shiftKey ? 50 : 10) * (evt.deltaY < 0 ? 1 : -1);
-                const curRec = ca(topicId, pId);
+                const curRec = sxDecodeTopicStance(topicId, pId);
                 const vals = keys.map(k => (curRec[k + "Known"] ? curRec[k] : 0));
                 const family = isCompass ? "compass" : isTriad ? "triad" : "radar";
                 const cur = curRec.intensityKnown ? Number(curRec.intensity) || 0 : sxDerivedFromVals(vals, family);
@@ -407,9 +407,9 @@
                 redraw();
                 if (root) {
                     clearTimeout(root.__sxWheelWs);
-                    root.__sxWheelWs = setTimeout(() => { try { ws(); } catch (err) {} }, 200);
+                    root.__sxWheelWs = setTimeout(() => { try { sxRefreshHotListStatus(); } catch (err) {} }, 200);
                 } else {
-                    Mr();
+                    sxRequestMapPaint();
                     paintRow();
                 }
             };
@@ -423,7 +423,7 @@
                     // The slider edits only the stored +1. Pole numbers stay.
                     const dRecS = dualRec();
                     if (dRecS) {
-                        const curRecS = ca(topicId, pId);
+                        const curRecS = sxDecodeTopicStance(topicId, pId);
                         persistPrimary(keys.map(k => (curRecS[k + "Known"] ? curRecS[k] : 0)), Number(slider.value));
                     } else sxPersistIntensity(topicId, Number(slider.value), pId);
                     redraw();
@@ -444,15 +444,15 @@
                         else paintRow();
                         return;
                     }
-                    Fo(topicId, "intensity", !1, pId);
+                    sxClearTopicRating(topicId, "intensity", !1, pId);
                     // Pair topics: clearing must also drop the stored
                     // per-flank appetites, or a re-rate would inherit a
                     // stale appetite from the cleared rating.
                     if (isSwitch) {
-                        Fo(topicId, "giveIntensity", !1, pId);
-                        Fo(topicId, "receiveIntensity", !1, pId);
+                        sxClearTopicRating(topicId, "giveIntensity", !1, pId);
+                        sxClearTopicRating(topicId, "receiveIntensity", !1, pId);
                     }
-                    keys.forEach((k, idx) => Fo(topicId, k, !root && idx === keys.length - 1, pId));
+                    keys.forEach((k, idx) => sxClearTopicRating(topicId, k, !root && idx === keys.length - 1, pId));
                     redraw();
                     if (root) finishGesture();
                     else paintRow();
@@ -465,7 +465,7 @@
             }
             const closeDialog = () => {
                 try { dlg.close(); } catch (e) { dlg.hidden = true; }
-                Mr();
+                sxRequestMapPaint();
             };
             closeBtn && (closeBtn.onclick = closeDialog);
             doneBtn && (doneBtn.onclick = closeDialog);
@@ -496,7 +496,7 @@
                 if (advCol) advCol.classList.toggle("is-active", newMode === "advocacy");
                 if (recCol) recCol.classList.toggle("is-active", newMode === "receptivity");
                 if (Qr) {
-                    const shape = Ge(Qr);
+                    const shape = sxWidgetConfig(Qr);
                     sxDrawTriangleWidget(canvas, shape, sxTriState, sxTriState.intensity);
                 }
             };
@@ -538,7 +538,7 @@
                 }
 
                 if (Qr) {
-                    const shape = Ge(Qr);
+                    const shape = sxWidgetConfig(Qr);
                     sxDrawTriangleWidget(canvas, shape, sxTriState, sxTriState.intensity);
                     const v0El = e.byId("markTriVal0"), v1El = e.byId("markTriVal1"), v2El = e.byId("markTriVal2");
                     const activeIntensity = (mode === "receptivity") ? sxTriState.recIntensity : sxTriState.intensity;
@@ -647,7 +647,7 @@
                     if (Qr) sxApplyTriRatings(Qr, true);
                 }
                 if (Qr) {
-                    const shape = Ge(Qr);
+                    const shape = sxWidgetConfig(Qr);
                     sxDrawTriangleWidget(canvas, shape, sxTriState, sxTriState.intensity);
                 }
             }, { passive: false });
@@ -662,7 +662,7 @@
                     advSlider.style.setProperty("--adv-color", sxIntensityRGB(255, 255, 255, sxTriState.intensity));
                     if (Qr) {
                         sxPersistIntensity(Qr, sxTriState.intensity);
-                        const shape = Ge(Qr);
+                        const shape = sxWidgetConfig(Qr);
                         sxDrawTriangleWidget(canvas, shape, sxTriState, sxTriState.intensity);
                         sxApplyTriRatings(Qr, true);
                     }
@@ -679,7 +679,7 @@
                     if (recOut) recOut.textContent = String(Math.round(sxTriState.recIntensity));
                     recSlider.style.setProperty("--rec-color", sxIntensityRGB(56, 189, 248, sxTriState.recIntensity));
                     if (Qr) {
-                        const shape = Ge(Qr);
+                        const shape = sxWidgetConfig(Qr);
                         sxDrawTriangleWidget(canvas, shape, sxTriState, sxTriState.intensity);
                         sxApplyTriRatings(Qr, true);
                     }

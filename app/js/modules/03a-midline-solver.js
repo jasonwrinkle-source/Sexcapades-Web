@@ -578,7 +578,7 @@
                     };
                 })
             }));
-            return { F: SX_FONT_BASE * fontScale, fontScale: fontScale, fontStatus: fontStatus, fontCheck: fontCheck, prof: Vi(), fontSize: fontSize, iconR: iconR, pr: prSnap, tagScale: tagScale, rim: rim, mn: mnSnap, order: order, branch: branch };
+            return { F: SX_FONT_BASE * fontScale, fontScale: fontScale, fontStatus: fontStatus, fontCheck: fontCheck, prof: sxActiveProfileId(), fontSize: fontSize, iconR: iconR, pr: prSnap, tagScale: tagScale, rim: rim, mn: mnSnap, order: order, branch: branch };
         }
         function sxCrossingSig() {
             return dkStableStringify(sxSccInputs(dkLastBranches));

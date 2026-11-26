@@ -147,8 +147,8 @@
             // Sexcapades names apply only on the Sexcapades skin (T2).
             const classic = !window.__SX_ACTIVE_SKIN || window.__SX_ACTIVE_SKIN === "sexcapades";
             let g = "Giver", r = "Receiver";
-            if (topicId && typeof Ge === "function") {
-                const shape = Ge(topicId);
+            if (topicId && typeof sxWidgetConfig === "function") {
+                const shape = sxWidgetConfig(topicId);
                 if (shape && shape.labels) {
                     if (shape.labels[0]) g = sxShortRoleWord(shape.labels[0], "Giver");
                     if (shape.labels[1]) r = sxShortRoleWord(shape.labels[1], "Receiver");
@@ -181,14 +181,14 @@
                 const line = window.__SX_POLE_LINE_FOR(topicId, key);
                 if (line) return line;
             }
-            if (typeof Ge === "function") {
-                const shape = Ge(topicId);
+            if (typeof sxWidgetConfig === "function") {
+                const shape = sxWidgetConfig(topicId);
                 if (key === "give" || key === "receive") {
                     const idx = key === "give" ? 0 : 1;
                     const verb = shape && shape.labels && shape.labels[idx];
                     if (verb && verb !== "give" && verb !== "receive") return (key === "give" ? "Give — " : "Receive — ") + verb;
                     let name = "";
-                    const rec = (typeof qn !== "undefined" && qn[topicId]) || null;
+                    const rec = (typeof sxNodeRegistry !== "undefined" && sxNodeRegistry[topicId]) || null;
                     if (rec) name = rec.label || rec.name || "";
                     if (!name) {
                         const t = e.byId("markMenuTitle");
@@ -470,7 +470,7 @@
         }
         function sxPersistIntensity(topicId, value, profileId) {
             const v = Math.max(-400, Math.min(400, Math.round(Number(value) || 0)));
-            To(topicId, "intensity", v, !1, profileId || null);
+            sxStoreFlankRating(topicId, "intensity", v, !1, profileId || null);
             return v;
         }
         // Dual placements apply on every stance skin, and -- since
@@ -480,25 +480,25 @@
         function sxDualPlacements(topicId) {
             if (window.__SX_ACTIVE_SKIN && "sexcapades" !== window.__SX_ACTIVE_SKIN) return !0;
             if (!topicId) return !1;
-            const shape = typeof Ge === "function" ? Ge(topicId) : null;
+            const shape = typeof sxWidgetConfig === "function" ? sxWidgetConfig(topicId) : null;
             return Boolean(shape && shape.keys && shape.keys.length >= 3);
         }
         function sxPersistAdvocacyReceptivity(topicId, mode, values, intensity, profileId) {
             let r = profileId && vt[profileId] ? profileId : (Mt && vt[Mt] ? Mt : Et);
             if (typeof sxIsPseudoProfile === "function" && sxIsPseudoProfile(r)) return;
-            if (r === Et && typeof ik === "function" && typeof SX_PROFILE_RECORD_LISTS !== "undefined") {
-                const pid = ik("New profile");
+            if (r === Et && typeof sxAllocateProfileId === "function" && typeof SX_PROFILE_RECORD_LISTS !== "undefined") {
+                const pid = sxAllocateProfileId("New profile");
                 SX_PROFILE_RECORD_LISTS.forEach(k => k[pid] = {});
                 wt[pid] = "New profile";
                 vt[pid] = {};
-                Lo(pid);
+                sxAdoptDraftRatings(pid);
                 Mt = pid;
                 if (typeof Go !== "undefined" && Go === Et) Go = pid;
                 if (typeof sxAutoSelect === "function") sxAutoSelect(pid);
                 r = pid;
-                if (typeof Jw === "function") Jw();
+                if (typeof sxRenderProfileTabs === "function") sxRenderProfileTabs();
             }
-            const o = Io(r);
+            const o = sxRatingsForProfile(r);
             const existing = o[topicId] && typeof o[topicId] === "object" ? Object.assign({}, o[topicId]) : {};
             const isClassic = !window.__SX_ACTIVE_SKIN || window.__SX_ACTIVE_SKIN === "sexcapades";
             if (isClassic) {
@@ -508,7 +508,7 @@
                 // mirroring advocacy/receptivity on stance skins (mode
                 // "advocacy" writes give, "receptivity" writes receive);
                 // the give placement mirrors flat, as advocacy does.
-                const shape = typeof Ge === "function" ? Ge(topicId, r) : null;
+                const shape = typeof sxWidgetConfig === "function" ? sxWidgetConfig(topicId, r) : null;
                 if (shape && shape.keys && shape.keys.length > 2) {
                     const placement = Object.assign({}, values);
                     if (intensity != null) placement.intensity = intensity;
@@ -530,15 +530,15 @@
                         Object.keys(placement).forEach(k => { existing[k] = placement[k]; });
                     }
                     o[topicId] = existing;
-                    zt(r);
-                    $o(topicId, r);
+                    sxTouchProfile(r);
+                    sxDropAttentionNode(topicId, r);
                     return;
                 }
                 Object.keys(values).forEach(k => { existing[k] = values[k]; });
                 if (intensity != null) existing.intensity = intensity;
                 o[topicId] = existing;
-                zt(r);
-                $o(topicId, r);
+                sxTouchProfile(r);
+                sxDropAttentionNode(topicId, r);
                 return;
             }
             const placement = Object.assign({}, values);
@@ -561,8 +561,8 @@
                 Object.keys(placement).forEach(k => { existing[k] = placement[k]; });
             }
             o[topicId] = existing;
-            zt(r);
-            $o(topicId, r);
+            sxTouchProfile(r);
+            sxDropAttentionNode(topicId, r);
         }
         function sxClearAdvocacyReceptivity(topicId, mode, profileId) {
             let r = profileId && vt[profileId] ? profileId : (Mt && vt[Mt] ? Mt : Et);
@@ -576,13 +576,13 @@
             } else {
                 delete existing.advocacy;
                 delete existing.give;
-                const shape = typeof Ge === "function" ? Ge(topicId, r) : null;
+                const shape = typeof sxWidgetConfig === "function" ? sxWidgetConfig(topicId, r) : null;
                 if (shape && shape.keys) shape.keys.forEach(k => delete existing[k]);
                 delete existing.intensity;
                 if (!existing.receptivity && !existing.receive) delete vt[r][topicId];
             }
-            zt(r);
-            $o(topicId, r);
+            sxTouchProfile(r);
+            sxDropAttentionNode(topicId, r);
         }
         function sxWidenIntensitySlider(slider, value) {
             if (!slider) return;
@@ -616,11 +616,11 @@
                     sxPersistIntensity(topicId, Math.abs(Number(raw.line)), profileId);
                     return;
                 }
-                const shape = Ge(topicId, profileId);
+                const shape = sxWidgetConfig(topicId, profileId);
                 const family = sxFamilyOf(shape);
                 if (!family) return;
                 const keys = shape.keys || [];
-                const rec = ca(topicId, profileId);
+                const rec = sxDecodeTopicStance(topicId, profileId);
                 if (!keys.some(k => rec[k + "Known"])) return;
                 const vals = keys.map(k => rec[k + "Known"] ? rec[k] : 0);
                 sxPersistIntensity(topicId, sxDerivedFromVals(vals, family), profileId);
@@ -954,13 +954,13 @@
 
         function sxApplyPolygonRatings(topicId, state, poleCount, skipSync) {
             if (!topicId) return;
-            const shape = Ge(topicId);
+            const shape = sxWidgetConfig(topicId);
             if (!shape || !shape.keys || shape.keys.length < poleCount) return;
             const isClassic = !sxDualPlacements(topicId);
             if (isClassic) {
                 sxPersistIntensity(topicId, state.intensity);
                 for (let k = 0; k < poleCount; k++) {
-                    To(topicId, shape.keys[k], Math.round(state["p" + k]), k === poleCount - 1);
+                    sxStoreFlankRating(topicId, shape.keys[k], Math.round(state["p" + k]), k === poleCount - 1);
                 }
             } else {
                 const mode = state.mode || "advocacy";
@@ -983,13 +983,13 @@
 
         function sxClearPolygonRatings(topicId, poleCount) {
             if (!topicId) return;
-            const shape = Ge(topicId);
+            const shape = sxWidgetConfig(topicId);
             if (!shape || !shape.keys || shape.keys.length < poleCount) return;
             const isClassic = !sxDualPlacements(topicId);
             if (isClassic) {
-                Fo(topicId, "intensity", !1);
+                sxClearTopicRating(topicId, "intensity", !1);
                 for (let k = 0; k < poleCount; k++) {
-                    Fo(topicId, shape.keys[k], k === poleCount - 1);
+                    sxClearTopicRating(topicId, shape.keys[k], k === poleCount - 1);
                 }
             } else {
                 const state = (poleCount === 4) ? sxTetradState : (poleCount === 5) ? sxPentadState : (poleCount === 6) ? sxHexadState : (poleCount === 7) ? sxHeptadState : sxOctadState;
@@ -1032,7 +1032,7 @@
                 if (advCol) advCol.classList.toggle("is-active", newMode === "advocacy");
                 if (recCol) recCol.classList.toggle("is-active", newMode === "receptivity");
                 if (Qr) {
-                    const shape = Ge(Qr);
+                    const shape = sxWidgetConfig(Qr);
                     drawFn(canvas, shape, state);
                 }
             };
@@ -1100,7 +1100,7 @@
                 }
 
                 if (Qr) {
-                    const shape = Ge(Qr);
+                    const shape = sxWidgetConfig(Qr);
                     drawFn(canvas, shape, state);
                     applyFn(Qr, true);
                 }
@@ -1208,7 +1208,7 @@
                     if (Qr) applyFn(Qr, true);
                 }
                 if (Qr) {
-                    const shape = Ge(Qr);
+                    const shape = sxWidgetConfig(Qr);
                     drawFn(canvas, shape, state);
                 }
             }, { passive: false });
@@ -1223,7 +1223,7 @@
                     if (advOut) advOut.textContent = String(val);
                     advSlider.style.setProperty("--adv-color", sxIntensityRGB(255, 255, 255, val));
                     if (Qr) {
-                        const shape = Ge(Qr);
+                        const shape = sxWidgetConfig(Qr);
                         drawFn(canvas, shape, state);
                         applyFn(Qr, true);
                     }
@@ -1241,7 +1241,7 @@
                     if (recOut) recOut.textContent = String(val);
                     recSlider.style.setProperty("--rec-color", sxIntensityRGB(56, 189, 248, val));
                     if (Qr) {
-                        const shape = Ge(Qr);
+                        const shape = sxWidgetConfig(Qr);
                         drawFn(canvas, shape, state);
                         applyFn(Qr, true);
                     }

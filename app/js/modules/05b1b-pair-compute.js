@@ -38,8 +38,8 @@
                 const sA = sxSides(a, heatA), sB = sxSides(b, heatB), pos = s => "strong" === s || "curious" === s, anyPos = s => pos(s.give) || pos(s.receive),
                     posFlanks = (s, td) => [ "give", "receive" ].filter(d => pos(s[d])).map(d => ({ dir: d, stance: s[d], rating: sxRawVal(td, d) }));
                 /* Teaser candidacy gate (suppression, 2026-10-26): a topic is a teaser candidate only if the excited partner's best positive rating clears the veiled owner's veil threshold, interest >= 80 - 1.8 * veil (Aa). The owner's mark interest (-100) is what the veil hides, so it cannot be the operand that opens the gate: the literal mark-interest reading would admit rows only at veil 100 and would perversely admit unrated marks (null coerces to 0) over rated ones. Candidacy stays marks-only: notInterested marks, never bare -100 ratings. */
-                const flanksA = posFlanks(sB, b), intA = flanksA.map(f => f.rating).filter(Number.isFinite), passA = intA.length > 0 && Math.max(...intA) >= Aa(veilA);
-                const flanksB = posFlanks(sA, a), intB = flanksB.map(f => f.rating).filter(Number.isFinite), passB = intB.length > 0 && Math.max(...intB) >= Aa(veilB);
+                const flanksA = posFlanks(sB, b), intA = flanksA.map(f => f.rating).filter(Number.isFinite), passA = intA.length > 0 && Math.max(...intA) >= sxClampVeilThreshold(veilA);
+                const flanksB = posFlanks(sA, a), intB = flanksB.map(f => f.rating).filter(Number.isFinite), passB = intB.length > 0 && Math.max(...intB) >= sxClampVeilThreshold(veilB);
                 a.notInterested && heatA > 0 && anyPos(sB) && passA && teaserCand.push({ rec: rec, side: "a", owner: nameA, partner: nameB, heat: heatA, flanks: flanksA });
                 b.notInterested && heatB > 0 && anyPos(sA) && passB && teaserCand.push({ rec: rec, side: "b", owner: nameB, partner: nameA, heat: heatB, flanks: flanksB });
                 if (!(a.rated && b.rated)) return void (a.rated !== b.rated && oneSidedCount++);
@@ -414,7 +414,7 @@
             };
         }
         function sxPairCompute(A, B, opts) {
-            const ids = Uc(), metas = [], dataA = [], dataB = [];
+            const ids = sxAllTopicIds(), metas = [], dataA = [], dataB = [];
             ids.forEach(id => {
                 const m = sxMeta(id, [ A, B ]);
                 metas.push(m), dataA.push(m ? sxTopicData(A, id, m) : null), dataB.push(m ? sxTopicData(B, id, m) : null);
@@ -423,21 +423,21 @@
         }
         let sxCatalogCache = null;
         function sxCatalogCount() {
-            if (null === sxCatalogCache) sxCatalogCache = Uc().filter(id => {
-                const m = qn[id];
+            if (null === sxCatalogCache) sxCatalogCache = sxAllTopicIds().filter(id => {
+                const m = sxNodeRegistry[id];
                 return m && "Category" !== m.kind;
             }).length;
             return sxCatalogCache;
         }
         function sxGenderClass(genders) {
-            const g = bb(genders || []), man = [ "man", "trans-man", "intersex-man", "demiman" ], woman = [ "woman", "trans-woman", "intersex-woman", "demiwoman" ],
+            const g = sxNormalizeGenders(genders || []), man = [ "man", "trans-man", "intersex-man", "demiman" ], woman = [ "woman", "trans-woman", "intersex-woman", "demiwoman" ],
                 hasM = g.some(x => man.includes(x)), hasW = g.some(x => woman.includes(x));
             if (hasM && !hasW && g.every(x => man.includes(x))) return "man";
             if (hasW && !hasM && g.every(x => woman.includes(x))) return "woman";
             return null;
         }
         function sxExclusiveAttraction(profile) {
-            const o = iv(profile.orientations || []);
+            const o = sxNormalizeOrientations(profile.orientations || []);
             if (!o.length) return null;
             const self = sxGenderClass(profile.genders);
             let target = null;

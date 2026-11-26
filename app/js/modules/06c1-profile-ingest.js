@@ -63,7 +63,7 @@
             const uBox0 = e.byId("importResultUnmatched"), nBox0 = e.byId("importResultNotApplied");
             uBox0 && (uBox0.hidden = !0), nBox0 && (nBox0.hidden = !0);
             const closeBtn = e.byId("closeImportResult"), okBtn = e.byId("dismissImportResult");
-            closeBtn && (closeBtn.onclick = () => Ui(dlg)), okBtn && (okBtn.onclick = () => Ui(dlg)), Wi(dlg);
+            closeBtn && (closeBtn.onclick = () => sxCloseModalDialog(dlg)), okBtn && (okBtn.onclick = () => sxCloseModalDialog(dlg)), sxOpenModalDialog(dlg);
         }
         function showConverterResultDialog(name, ratingCount, unmatched, notApplied, dropped, sourceLabel) {
             const dlg = e.byId("importResultDialog"), summary = e.byId("importResultSummary");
@@ -103,7 +103,7 @@
                 }), nBox.hidden = !1) : (nHeading.textContent = "", nBox.hidden = !0);
             }
             const closeBtn = e.byId("closeImportResult"), okBtn = e.byId("dismissImportResult");
-            closeBtn && (closeBtn.onclick = () => Ui(dlg)), okBtn && (okBtn.onclick = () => Ui(dlg)), Wi(dlg);
+            closeBtn && (closeBtn.onclick = () => sxCloseModalDialog(dlg)), okBtn && (okBtn.onclick = () => sxCloseModalDialog(dlg)), sxOpenModalDialog(dlg);
         }
         // F3(a) (profiles-data refactor, Edit 3): the import path's
         // dropped/parked/retired bookkeeping, extracted from rk with
@@ -221,7 +221,7 @@
                 return cur && "object" == typeof cur ? cur[flank] : void 0;
             };
             const getTopicName = id => {
-                const item = qn[id] || Xn(id) || (at[c] || {})[id];
+                const item = sxNodeRegistry[id] || sxNodeById(id) || (at[c] || {})[id];
                 return (item && (item.label || item.name)) || id;
             };
             Object.entries(ratings).forEach(([origId, rating]) => {
@@ -273,7 +273,7 @@
                 }
                 const topicName = getTopicName(id);
                 const incoming = {};
-                const shape = Ge(id, c);
+                const shape = sxWidgetConfig(id, c);
                 const flanks = shape.keys || [ "give", "receive" ];
                 // Placement-shaped ratings (2026-11-22): stance skins store
                 // { advocacy: {...poles, intensity}, receptivity: {...} } --
@@ -329,10 +329,10 @@
                         let blocked = !1;
                         const writable = {};
                         Object.entries(placed).forEach(([side, obj]) => {
-                            if (guardManualFlip && "manual" === Ao(c, id, side)) {
+                            if (guardManualFlip && "manual" === sxFlankSource(c, id, side)) {
                                 const cur = vt[c][id];
                                 const curObj = cur && "object" == typeof cur ? cur[side] : null;
-                                if (curObj && Ix(strongest(curObj)) !== Ix(strongest(obj))) return void (blocked = !0);
+                                if (curObj && sxRatingCampText(strongest(curObj)) !== sxRatingCampText(strongest(obj))) return void (blocked = !0);
                             }
                             writable[side] = obj;
                         });
@@ -346,7 +346,7 @@
                             } else next = writable;
                             Object.keys(writable).forEach(side => {
                                 (changed[id] || (changed[id] = {}))[side] = writable[side];
-                                Co(c, id, side, sourceFor(id, side, side));
+                                sxSetFlankSource(c, id, side, sourceFor(id, side, side));
                             });
                             vt[c][id] = next;
                         }
@@ -359,12 +359,12 @@
                     if (!found) throw new Error(`This profile contains an unreadable rating for "${topicName}"`);
                     const value = clamp(found[1]), supplying = found[0];
                     if (guardManualFlip) {
-                        const blocked = [ "give", "receive" ].some(flank => "manual" === Ao(c, id, flank) && Number.isFinite(Number(existingFlankValue(id, flank))) && Ix(Number(existingFlankValue(id, flank))) !== Ix(value));
+                        const blocked = [ "give", "receive" ].some(flank => "manual" === sxFlankSource(c, id, flank) && Number.isFinite(Number(existingFlankValue(id, flank))) && sxRatingCampText(Number(existingFlankValue(id, flank))) !== sxRatingCampText(value));
                         if (blocked) return void flipped.push(id);
                     }
                     const before = existingFlankValue(id, "give");
                     vt[c][id] = value;
-                    Co(c, id, "give", sourceFor(id, "give", supplying)), Co(c, id, "receive", sourceFor(id, "receive", supplying));
+                    sxSetFlankSource(c, id, "give", sourceFor(id, "give", supplying)), sxSetFlankSource(c, id, "receive", sourceFor(id, "receive", supplying));
                     Number(before) !== value && (changed[id] = value);
                     return;
                 }
@@ -633,7 +633,7 @@
                 const applied = {};
                 let anyBlocked = !1;
                 Object.entries(incoming).forEach(([flank, value]) => {
-                    if (guardManualFlip && "manual" === Ao(c, id, flank) && Number.isFinite(Number(existingFlankValue(id, flank))) && Ix(Number(existingFlankValue(id, flank))) !== Ix(value)) return void (anyBlocked = !0);
+                    if (guardManualFlip && "manual" === sxFlankSource(c, id, flank) && Number.isFinite(Number(existingFlankValue(id, flank))) && sxRatingCampText(Number(existingFlankValue(id, flank))) !== sxRatingCampText(value)) return void (anyBlocked = !0);
                     applied[flank] = value;
                 });
                 anyBlocked && flipped.push(id);
@@ -646,7 +646,7 @@
                 } else next = applied;
                 Object.keys(applied).forEach(flank => {
                     Number(existingFlankValue(id, flank)) !== applied[flank] && ((changed[id] || (changed[id] = {}))[flank] = applied[flank]);
-                    Co(c, id, flank, sourceFor(id, flank, flank));
+                    sxSetFlankSource(c, id, flank, sourceFor(id, flank, flank));
                 });
                 vt[c][id] = next;
             });
@@ -719,8 +719,8 @@
                 }
             }
         }
-        function rk(e, n = {}) {
-            eS();
+        function sxIngestProfileFile(e, n = {}) {
+            sxClearStatusToast();
             const i = ("string" == typeof e.profileName ? e.profileName : "").trim().replace(/\s+/g, " ").slice(0, 40);
             if (!i) throw new Error("This profile file does not include a profile name.");
             sxCheckSkinCompatibility(e);
@@ -728,7 +728,7 @@
             const a = {};
             e.importedChildren && "object" == typeof e.importedChildren && Object.values(e.importedChildren).forEach(e => {
                 if (!e || "object" != typeof e) return;
-                const t = ii(a, e.label, e.parentId);
+                const t = sxCreateImportedTopic(a, e.label, e.parentId);
                 if (!t || e.id !== t.id) throw new Error("This profile uses an unknown imported-topic ID.");
             });
             const r = new Set([ ...Ke, ...Object.keys(a) ]);
@@ -762,43 +762,43 @@
                 // target itself, so the pressed-from rule holds even
                 // if a future caller reaches this branch without the
                 // Load menu's origin discipline.
-                c !== Mt && Js(c);
+                c !== Mt && sxLoadProfileMap(c);
                 if (e.importedChildren && "object" == typeof e.importedChildren) {
                     const ma = Object.assign({}, at[c] || {});
                     Object.values(e.importedChildren).forEach(en => {
                         if (!en || "object" != typeof en) return;
-                        const t = ii(ma, en.label, en.parentId);
+                        const t = sxCreateImportedTopic(ma, en.label, en.parentId);
                         t && Ke.add(t.id);
                     }), at[c] = ma;
                 }
                 importProfileRatings(c, e), ingestProfileSections(c, e, noteDropped, !0), e.droppedKeys = parked.concat(dropped), droppedKeyRecords[c] = e.droppedKeys,
-                sxPairLoadInto = null, Ui(Sg), zt(c), sxMergeSaveNow(c), sxSel(c), sxSel(null, "dismiss"), Jw(), Mr({
+                sxPairLoadInto = null, sxCloseModalDialog(Sg), sxTouchProfile(c), sxMergeSaveNow(c), sxSel(c), sxSel(null, "dismiss"), sxRenderProfileTabs(), sxRequestMapPaint({
                     animate: !1,
                     forceRepaint: !0
-                }), Ih(), n.quiet || tS(`Loaded into ${wt[c]}: the file's ${Object.keys(e.ratings || {}).length} ratings merged with the pair's existing data.${dropped.length ? ` ${dropped.length} ${1 === dropped.length ? "entry was" : "entries were"} not loaded because their topic keys match no current topic.` : ""}`, {
+                }), sxApplyMapFit(), n.quiet || sxShowStatusToast(`Loaded into ${wt[c]}: the file's ${Object.keys(e.ratings || {}).length} ratings merged with the pair's existing data.${dropped.length ? ` ${dropped.length} ${1 === dropped.length ? "entry was" : "entries were"} not loaded because their topic keys match no current topic.` : ""}`, {
                     persistent: !0
                 });
                 return c;
             }
             const o = function(e) {
-                if (!ek(e)) return e;
+                if (!sxFindProfileByName(e)) return e;
                 let t = 2, n = "";
                 do {
                     const i = ` (${t++})`;
                     n = e.slice(0, Math.max(1, 40 - i.length)).trimEnd() + i;
-                } while (ek(n));
+                } while (sxFindProfileByName(n));
                 return n;
-            }(i), s = (Xi(), function(e = {}) {
+            }(i), s = (sxScoringProfileIds(), function(e = {}) {
                 if (!(Array.isArray(e.comparisonIds) ? !1 !== e.comparisonActive : an)) return [];
-                const t = Array.isArray(e.comparisonIds) ? e.comparisonIds : Yi(), n = [ ...new Set(t.filter(e => vt[e])) ];
+                const t = Array.isArray(e.comparisonIds) ? e.comparisonIds : sxListLiveSelections(), n = [ ...new Set(t.filter(e => vt[e])) ];
                 return n.length >= 2 ? n : [];
-            }(n)), l = !0 === e.blind && s.length >= 2, c = ik(o);
-            n.quiet || sxSel(c), SX_PROFILE_RECORD_LISTS.forEach(e => e[c] = {}), wt[c] = o, profileUuids[c] = /^[0-9a-f-]{36}$/i.test(String(e.profileUuid || "")) ? String(e.profileUuid) : makeProfileUuid(), sampleProfileFlags[c] = !0 === e.sampleProfile || Boolean(e.archetype), rt[c] = bb(e.gender), pz[c] = String(e.pronouns || "").trim().slice(0, 60),
-            ot[c] = iv(e.sexuality), st[c] = Gb(e.roles || e.role), lt[c] = Xv(e.age), ct[c] = Zv(e.location),
-            dt[c] = Vv(e.photos), ut[c] = Rv(e.contact), nt[c] = String(e.aboutMe || "").trim().slice(0, 1500),
-            it[c] = String(e.termsOfService || "").trim().slice(0, 1500), vpt[c] = av(null != e.veil ? e.veil : e.net),
+            }(n)), l = !0 === e.blind && s.length >= 2, c = sxAllocateProfileId(o);
+            n.quiet || sxSel(c), SX_PROFILE_RECORD_LISTS.forEach(e => e[c] = {}), wt[c] = o, profileUuids[c] = /^[0-9a-f-]{36}$/i.test(String(e.profileUuid || "")) ? String(e.profileUuid) : makeProfileUuid(), sampleProfileFlags[c] = !0 === e.sampleProfile || Boolean(e.archetype), rt[c] = sxNormalizeGenders(e.gender), pz[c] = String(e.pronouns || "").trim().slice(0, 60),
+            ot[c] = sxNormalizeOrientations(e.sexuality), st[c] = sxNormalizeRoles(e.roles || e.role), lt[c] = sxNormalizeAgeText(e.age), ct[c] = sxNormalizeLocationText(e.location),
+            dt[c] = sxSanitizePhotoRecords(e.photos), ut[c] = sxNormalizeContactRecord(e.contact), nt[c] = String(e.aboutMe || "").trim().slice(0, 1500),
+            it[c] = String(e.termsOfService || "").trim().slice(0, 1500), vpt[c] = sxClampVeilLevel(null != e.veil ? e.veil : e.net),
             vht[c] = Boolean(null != e.veilEnabled ? e.veilEnabled : e.netEnabled), at[c] = a, gt[c] = e.loaderState && "object" == typeof e.loaderState ? e.loaderState : {},
-            mt[c] = St(e.completionTimes), delete ft[c], "group" === e.pairKind && (ft[c] = {
+            mt[c] = sxNormalizeTimers(e.completionTimes), delete ft[c], "group" === e.pairKind && (ft[c] = {
                 kind: "group",
                 pairOp: sxNormalizePairOp(e.pairOp)
             }), Object.keys(a).forEach(e => Ke.add(e)),
@@ -808,20 +808,20 @@
                right now. Jw() shows a tab only for the current skin
                (untagged = legacy, shows everywhere). */
             profileSkins[c] = "string" == typeof e.skin && e.skin ? e.skin : window.__SX_ACTIVE_SKIN || "sexcapades",
-            la(c);
+            sxProfileColor(c);
             importProfileRatings(c, e), ingestProfileSections(c, e, noteDropped, !1), e.ratingSources && "object" == typeof e.ratingSources && Object.keys(e.ratingSources).forEach(k => {
                 r.has(k) || noteDropped(k, "ratingSources", e.ratingSources[k]);
             });
             const u = l ? sxBlindFilter(c, s) : null;
-            Ui(Sg);
+            sxCloseModalDialog(Sg);
             const p = Object.prototype.hasOwnProperty.call(e, "importAttention");
             e.importAttention && "object" == typeof e.importAttention && [ "nodes", "newest" ].forEach(nm => {
                 Array.isArray(e.importAttention[nm]) && e.importAttention[nm].forEach(id => {
-                    if ("string" != typeof id || qn[id] || Xn(id) || a[id]) return;
+                    if ("string" != typeof id || sxNodeRegistry[id] || sxNodeById(id) || a[id]) return;
                     noteDropped(id, "importAttention", id);
                 });
             }), e.droppedKeys = parked.concat(dropped), droppedKeyRecords[c] = e.droppedKeys, n.quiet || !0 === e.sampleProfile || showImportResultDialog(o, Object.keys(vt[c]).length, dropped, retired);
-            return (n.autoSelect ? sxAutoSelect(c) : Zi(c)), sxLoadLanding(c, n), qi(c, {
+            return (n.autoSelect ? sxAutoSelect(c) : sxClearSelectionColor(c)), sxLoadLanding(c, n), sxLandProfileOnMap(c, {
                 ratings: vt[c],
                 annotations: Qe[c],
                 notes: tt[c],
@@ -830,10 +830,10 @@
                 noFlash: !0 === e.noFlash,
                 hasAttentionState: p,
                 attentionState: e.importAttention
-            }), (e.sampleProfile || e.archetype || sampleProfileFlags[c] ? Vt(c) : (zt(c), sxMergeSaveNow(c))), Lo(c) && Mr(), Ig(""), xg.textContent = "", n.quiet || (o !== i && tS(`Imported as ${o}`),
-            od(c).length && t.setTimeout(() => bw(c), 0)), u ? tS(`Blind import kept ${u.kept} mutual ${1 === u.kept ? "match" : "matches"} across the ${u.groupSize}-profile comparison group and permanently discarded ${u.discarded} non-matching incoming ${1 === u.discarded ? "topic" : "topics"} from memory. The shared file is unchanged.`, {
+            }), (e.sampleProfile || e.archetype || sampleProfileFlags[c] ? sxClearProfileDirty(c) : (sxTouchProfile(c), sxMergeSaveNow(c))), sxAdoptDraftRatings(c) && sxRequestMapPaint(), sxSetImportStatus(""), xg.textContent = "", n.quiet || (o !== i && sxShowStatusToast(`Imported as ${o}`),
+            sxMissingDetailKeys(c).length && t.setTimeout(() => sxOpenProfileDetails(c), 0)), u ? sxShowStatusToast(`Blind import kept ${u.kept} mutual ${1 === u.kept ? "match" : "matches"} across the ${u.groupSize}-profile comparison group and permanently discarded ${u.discarded} non-matching incoming ${1 === u.discarded ? "topic" : "topics"} from memory. The shared file is unchanged.`, {
                 persistent: !0
-            }) : !0 === e.blind && tS("This profile was set up for a blind comparison, but no comparison group was selected first, so the full profile was loaded instead. To do a blind comparison: select the profiles you want to compare first, then import this file again.", {
+            }) : !0 === e.blind && sxShowStatusToast("This profile was set up for a blind comparison, but no comparison group was selected first, so the full profile was loaded instead. To do a blind comparison: select the profiles you want to compare first, then import this file again.", {
                 persistent: !0
             }), c;
         }

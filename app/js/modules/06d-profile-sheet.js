@@ -1,5 +1,5 @@
 // 06d-profile-sheet.js - Tab strip coordinator, sample/archetype menus, and active profile selection
-        function ww() {
+        function sxOpenProfileImport() {
             // Capture the Load menu's origin before kw() clears qy:
             // the origin is carried explicitly into this dialog -
             // a pair origin routes this dialog's file imports into
@@ -7,17 +7,17 @@
             // other origin is the converters' target, and no origin
             // (the Add menu's Scan or Import) keeps the ordinary
             // create-a-profile import.
-            sxLoadOriginId = qy && vt[qy] ? qy : null, sxPairLoadInto = qy && ft[qy] && "group" === ft[qy].kind ? qy : null, kw(), xw(), Sw(), Ui(kg), Ig(""), Wi(Sg);
+            sxLoadOriginId = qy && vt[qy] ? qy : null, sxPairLoadInto = qy && ft[qy] && "group" === ft[qy].kind ? qy : null, sxCloseLoadMenu(), sxCloseAddMenu(), sxCloseSampleSubmenus(), sxCloseModalDialog(kg), sxSetImportStatus(""), sxOpenModalDialog(Sg);
         }
-        function kw() {
+        function sxCloseLoadMenu() {
             Oy.hidden = !0, qy = null, tl.querySelectorAll("[data-profile-load],[data-add-profile]").forEach(e => e.setAttribute("aria-expanded", "false"));
         }
-        function xw() {
+        function sxCloseAddMenu() {
             By.hidden = !0;
             const e = tl.querySelector("[data-add-profile]");
             e && (!jy.hidden || jyA && !jyA.hidden) && e.setAttribute("aria-expanded", "false");
         }
-        function Sw() {
+        function sxCloseSampleSubmenus() {
             // Closes BOTH submenus: Samples (jy) and Archetypes (jyA) -
             // plus any roster submenus the skin loader registered on
             // window.__SX_SAMPLE_SUBMENUS (2026-11-22 fix: roster menus
@@ -27,7 +27,7 @@
             const t = tl.querySelector("[data-add-profile]"), n = e.byId("loadSampleProfileChoice"), a = e.byId("loadArchetypeChoice");
             t && t.setAttribute("aria-expanded", String(!By.hidden)), n && n.setAttribute("aria-expanded", "false"), a && a.setAttribute("aria-expanded", "false");
         }
-        function SwI(openMenu, trigger) {
+        function sxCloseSiblingSubmenus(openMenu, trigger) {
             // Iw's closer: like Sw, but never closes the menu being
             // opened nor a menu that contains the trigger. A stack
             // parent row lives INSIDE the Samples/Archetypes submenu,
@@ -45,23 +45,23 @@
             const t = tl.querySelector("[data-add-profile]"), n = e.byId("loadSampleProfileChoice"), a = e.byId("loadArchetypeChoice");
             t && t.setAttribute("aria-expanded", String(!By.hidden)), n && jy.hidden && n.setAttribute("aria-expanded", "false"), a && jyA && jyA.hidden && a.setAttribute("aria-expanded", "false");
         }
-        function $w(e, t) {
+        function sxPlaceMenuAtTrigger(e, t) {
             if (e === Oy && innerWidth <= 620) return e.style.removeProperty("left"), void e.style.removeProperty("top");
             const n = t.getBoundingClientRect(), i = e.getBoundingClientRect();
             e.style.left = Math.max(8, Math.min(innerWidth - i.width - 8, n.right - i.width)) + "px", 
             e.style.top = Math.max(8, Math.min(innerHeight - i.height - 8, n.bottom + 7)) + "px";
         }
-        function Ew() {
+        function sxMarkLoadedSamples() {
             [ jy, jyA ].concat(window.__SX_SAMPLE_SUBMENUS || []).forEach(menu => menu && menu.querySelectorAll("[data-sample-profile]").forEach(e => {
                 const t = e.dataset.sampleProfile, n = e.dataset.sampleName, i = Zy[t];
                 i && !vt[i] && delete Zy[t];
-                const a = Boolean(Zy[t] && vt[Zy[t]] || ek(n) || ek(`${n} (sample)`));
+                const a = Boolean(Zy[t] && vt[Zy[t]] || sxFindProfileByName(n) || sxFindProfileByName(`${n} (sample)`));
                 e.disabled = a, e.setAttribute("aria-disabled", String(a));
                 const r = e.querySelector("small");
                 r && (r.textContent = a ? "Loaded" : `${e.dataset.sampleCount} rated topics`);
             }));
         }
-        function Aw() {
+        function sxLoadBundledSamples() {
             if (!Yy) {
                 const e = window.SEXCAPADES_SAMPLE_PROFILES;
                 Yy = e && "object" == typeof e ? Promise.resolve(e) : Promise.reject(new Error("The bundled samples could not be opened.")), 
@@ -71,16 +71,16 @@
             }
             return Yy;
         }
-        e.byId("dismissProfileIndependentTip")?.addEventListener("click", yw);
+        e.byId("dismissProfileIndependentTip")?.addEventListener("click", sxDismissIndependentTip);
         const Cw = {};
-        function Mw(e) {
+        function sxFetchSamplePhoto(e) {
             if (!Cw[e]) {
                 const t = jy.querySelector(`[data-sample-profile="${CSS.escape(e)}"] img`) || jyA && jyA.querySelector(`[data-sample-profile="${CSS.escape(e)}"] img`) || document.querySelector(`[data-sample-profile="${CSS.escape(e)}"] img`), n = t && (t.currentSrc || t.src);
                 Cw[e] = n ? fetch(n).then(e => {
                     if (!e.ok) throw new Error("The bundled sample photo could not be opened.");
                     return e.blob();
                 }).then(async e => {
-                    const t = await Vu(e), n = await zu(t);
+                    const t = await sxBlobToDataUrl(e), n = await sxLoadImageSrc(t);
                     return {
                         data: t,
                         width: n.naturalWidth,
@@ -95,7 +95,7 @@
             }
             return Cw[e];
         }
-        function Iw(t = {}, menu = jy, trigger = _w) {
+        function sxOpenSampleFlyout(t = {}, menu = jy, trigger = _w) {
             // Capture the trigger's rect BEFORE kw()/SwI() close the
             // sibling submenus: a trigger that lives inside a submenu
             // (a palimpsest stack's parent row inside Samples) is
@@ -104,10 +104,10 @@
             // are unaffected - the closer never hides that menu, so
             // their rect is the same either way.
             const triggerRect = trigger && trigger.getBoundingClientRect ? trigger.getBoundingClientRect() : null;
-            kw(), SwI(menu, trigger);
+            sxCloseLoadMenu(), sxCloseSiblingSubmenus(menu, trigger);
             const n = tl.querySelector("[data-add-profile]"), i = trigger;
             if (!n || By.hidden || !menu) return;
-            Ew(), menu.hidden = !1, menu.classList.add("is-submenu"), n.setAttribute("aria-expanded", "true"), 
+            sxMarkLoadedSamples(), menu.hidden = !1, menu.classList.add("is-submenu"), n.setAttribute("aria-expanded", "true"), 
             i.setAttribute("aria-expanded", "true");
             const a = triggerRect || i.getBoundingClientRect(), r = menu.offsetWidth, o = menu.offsetHeight;
             let s, l;
@@ -123,28 +123,28 @@
                 });
             }
         }
-        function Pw(e) {
-            kw(), jy.hidden && (!jyA || jyA.hidden) && (window.__SX_SAMPLE_SUBMENUS || []).every(m => !m || m.hidden) ? By.hidden ? (By.hidden = !1, e.setAttribute("aria-expanded", "true"), 
-            $w(By, e), By.querySelector("button").focus({
+        function sxToggleAddProfileMenu(e) {
+            sxCloseLoadMenu(), jy.hidden && (!jyA || jyA.hidden) && (window.__SX_SAMPLE_SUBMENUS || []).every(m => !m || m.hidden) ? By.hidden ? (By.hidden = !1, e.setAttribute("aria-expanded", "true"), 
+            sxPlaceMenuAtTrigger(By, e), By.querySelector("button").focus({
                 preventScroll: !0
-            })) : xw() : Sw();
+            })) : sxCloseAddMenu() : sxCloseSampleSubmenus();
         }
-        function Lw() {
-            wf = null, Ui(ym);
+        function sxDismissClosePrompt() {
+            wf = null, sxCloseModalDialog(ym);
         }
         Oy.querySelectorAll("[data-profile-converter]").forEach(e => e.addEventListener("click", () => {
             const sxOrigin = qy && vt[qy] ? qy : null;
-            kw(), Ax(e.dataset.profileConverter, e.dataset.converterMode || "auto", sxOrigin);
-        })), e.byId("importProfileFromTab") && (e.byId("importProfileFromTab").onclick = ww);
+            sxCloseLoadMenu(), sxOpenResultConverter(e.dataset.profileConverter, e.dataset.converterMode || "auto", sxOrigin);
+        })), e.byId("importProfileFromTab") && (e.byId("importProfileFromTab").onclick = sxOpenProfileImport);
         // Loads one entry from either the Samples or the Archetypes
         // submenu (both carry [data-sample-profile] buttons; the
         // loader is the same for archetypes and samples).
         async function sxLoadSampleBtn(menu, sampleBtn) {
             if (!sampleBtn || !menu.contains(sampleBtn) || sampleBtn.disabled) return;
             const n = sampleBtn.dataset.sampleProfile, i = sampleBtn.dataset.sampleName, a = Number(sampleBtn.dataset.sampleCount), r = sampleBtn.querySelector("small");
-            sampleBtn.disabled = !0, r && (r.textContent = "Loading…"), Sw(), xw();
+            sampleBtn.disabled = !0, r && (r.textContent = "Loading…"), sxCloseSampleSubmenus(), sxCloseAddMenu();
             try {
-                const [samplesMap, photo] = await Promise.all([ Aw(), Mw(n) ]), r = samplesMap && samplesMap[n];
+                const [samplesMap, photo] = await Promise.all([ sxLoadBundledSamples(), sxFetchSamplePhoto(n) ]), r = samplesMap && samplesMap[n];
                 if (!r || r.name !== i || r.count !== a || !r.payload || !0 !== r.payload.noFlash) throw new Error("The bundled sample is invalid.");
                 const o = JSON.parse(JSON.stringify(r.payload));
                 o.profileName = i, o.sampleProfile = !0, o.skin = o.skin || r.skin || sampleBtn.dataset.sampleSkin || (typeof window !== "undefined" && window.__SX_ACTIVE_SKIN) || "sexcapades";
@@ -162,13 +162,13 @@
                 } else if (photo) {
                     o.photos = [ photo ];
                 }
-                const s = wx(o, {
+                const s = sxMergeAsProfile(o, {
                     autoSelect: !0
                 });
-                if (s && typeof Vt === "function") { Vt(s); }
-                Zy[n] = s, Ew();
+                if (s && typeof sxClearProfileDirty === "function") { sxClearProfileDirty(s); }
+                Zy[n] = s, sxMarkLoadedSamples();
             } catch (e) {
-                sampleBtn.disabled = !1, r && (r.textContent = `${a} rated topics`), tS(e.message || "Could not load that profile.", {
+                sampleBtn.disabled = !1, r && (r.textContent = `${a} rated topics`), sxShowStatusToast(e.message || "Could not load that profile.", {
                     tone: "error",
                     persistent: !0
                 });
@@ -195,7 +195,7 @@
         };
         const Tw = e.byId("newBlankProfile"), Fw = e.byId("newListProfile"), Nw = e.byId("importProfileChoice"), _w = e.byId("loadSampleProfileChoice"), _wA = e.byId("loadArchetypeChoice");
         e.byId("makeOwnMapButton") && e.byId("makeOwnMapButton").addEventListener("click", () => {
-            Vy = null, bw(null);
+            Vy = null, sxOpenProfileDetails(null);
         });
         // Guide center: the unrated map renders Yolanda Biche as a normal profile
         // center node in the map renderer, and tapping it opens the standard
@@ -214,39 +214,39 @@
             restore?.addEventListener("click", () => setDismissed(false));
         })();
         Tw.addEventListener("click", () => {
-            xw(), Vy = null, bw(null);
+            sxCloseAddMenu(), Vy = null, sxOpenProfileDetails(null);
         }), Fw.addEventListener("click", () => {
-            xw(), Vy = e => Ms(e), bw(null);
-        }), Nw.addEventListener("click", ww);
+            sxCloseAddMenu(), Vy = e => sxOpenHotList(e), sxOpenProfileDetails(null);
+        }), Nw.addEventListener("click", sxOpenProfileImport);
         let Dw = 0;
         const Rw = () => {
             Dw && (t.clear(Dw), Dw = 0);
         }, Ow = () => {
             Rw(), Dw = t.setTimeout(() => {
-                By.matches(":hover") || jy.matches(":hover") || jyA && jyA.matches(":hover") || (window.__SX_SAMPLE_SUBMENUS || []).some(m => m && m.matches(":hover")) || Sw();
+                By.matches(":hover") || jy.matches(":hover") || jyA && jyA.matches(":hover") || (window.__SX_SAMPLE_SUBMENUS || []).some(m => m && m.matches(":hover")) || sxCloseSampleSubmenus();
             }, 180);
         };
         _w.addEventListener("pointerenter", () => {
-            Rw(), Iw();
-        }), _w.addEventListener("focus", () => Iw()), _w.addEventListener("click", e => {
-            e.preventDefault(), Iw({
+            Rw(), sxOpenSampleFlyout();
+        }), _w.addEventListener("focus", () => sxOpenSampleFlyout()), _w.addEventListener("click", e => {
+            e.preventDefault(), sxOpenSampleFlyout({
                 focus: !0
             });
         }), _wA && _wA.addEventListener("pointerenter", () => {
-            Rw(), Iw({}, jyA, _wA);
-        }), _wA && _wA.addEventListener("focus", () => Iw({}, jyA, _wA)), _wA && _wA.addEventListener("click", e => {
-            e.preventDefault(), Iw({
+            Rw(), sxOpenSampleFlyout({}, jyA, _wA);
+        }), _wA && _wA.addEventListener("focus", () => sxOpenSampleFlyout({}, jyA, _wA)), _wA && _wA.addEventListener("click", e => {
+            e.preventDefault(), sxOpenSampleFlyout({
                 focus: !0
             }, jyA, _wA);
         }), By.addEventListener("pointerleave", Ow), By.addEventListener("pointerenter", Rw), 
         jy.addEventListener("pointerleave", Ow), jy.addEventListener("pointerenter", Rw), 
         jyA && jyA.addEventListener("pointerleave", Ow), jyA && jyA.addEventListener("pointerenter", Rw), 
         e.byId("backToProfileAddMenu") && e.byId("backToProfileAddMenu").addEventListener("click", () => {
-            Sw(), _w.focus({
+            sxCloseSampleSubmenus(), _w.focus({
                 preventScroll: !0
             });
         }), e.byId("backToProfileAddMenuFromArchetypes") && e.byId("backToProfileAddMenuFromArchetypes").addEventListener("click", () => {
-            Sw(), _wA && _wA.focus({
+            sxCloseSampleSubmenus(), _wA && _wA.focus({
                 preventScroll: !0
             });
         }), jy.addEventListener("click", e => sxSampleMenuClick(jy, e)), jyA && jyA.addEventListener("click", e => sxSampleMenuClick(jyA, e)),
@@ -260,9 +260,9 @@
         window.__SX_WIRE_SAMPLE_SUBMENU = (entry, menu, back) => {
             if (!entry || !menu) return;
             entry.addEventListener("pointerenter", () => {
-                Rw(), Iw({}, menu, entry);
-            }), entry.addEventListener("focus", () => Iw({}, menu, entry)), entry.addEventListener("click", e => {
-                e.preventDefault(), Iw({
+                Rw(), sxOpenSampleFlyout({}, menu, entry);
+            }), entry.addEventListener("focus", () => sxOpenSampleFlyout({}, menu, entry)), entry.addEventListener("click", e => {
+                e.preventDefault(), sxOpenSampleFlyout({
                     focus: !0
                 }, menu, entry);
             }), menu.addEventListener("pointerleave", Ow), menu.addEventListener("pointerenter", Rw), menu.addEventListener("click", e => sxSampleMenuClick(menu, e)), menu.addEventListener("click", e => {
@@ -271,7 +271,7 @@
                 e.stopPropagation();
                 sxRemoveLocalSample(t.getAttribute("data-remove-local-sample"));
             }), back && back.addEventListener("click", () => {
-                Sw(), entry.focus({
+                sxCloseSampleSubmenus(), entry.focus({
                     preventScroll: !0
                 });
             });
@@ -287,55 +287,55 @@
             sxRemoveLocalSample(t.getAttribute("data-remove-local-sample"));
         }), vm && (vm.onclick = () => {
             const t = wf, n = e.byId("rememberProfileCheckbox2x"), i = window.Sexcapades2xRememberProfiles;
-            t && n && n.checked && i && i.saveNow && i.saveNow() ? (wf = null, Ui(ym), nk(t)) : tS("Could not save this profile on this device. Keep it open and try again.", {
+            t && n && n.checked && i && i.saveNow && i.saveNow() ? (wf = null, sxCloseModalDialog(ym), sxDeleteProfile(t)) : sxShowStatusToast("Could not save this profile on this device. Keep it open and try again.", {
                 tone: "error",
                 persistent: !0
             });
         }), e.byId("discardClosingProfile").onclick = () => {
             const e = wf;
-            wf = null, Ui(ym), e && nk(e);
+            wf = null, sxCloseModalDialog(ym), e && sxDeleteProfile(e);
         }, ym.addEventListener("click", e => {
-            e.target === ym && Lw();
-        }), ym.addEventListener("cancel", Lw), /* Pointer dismissal: a pointerdown inside any OPEN registered submenu
+            e.target === ym && sxDismissClosePrompt();
+        }), ym.addEventListener("cancel", sxDismissClosePrompt), /* Pointer dismissal: a pointerdown inside any OPEN registered submenu
             (roster + palimpsest stack flyouts, window.__SX_SAMPLE_SUBMENUS) counts as INSIDE.
             Those flyouts are siblings of the static menus, not children, so the jy/jyA/By
             containment tests alone read a layer-button press as an outside click and closed
             every menu on pointerdown — before mouseup, so the entry's click never fired and
             stack layers could not be loaded by mouse at all (2026-11-23). */ window.__sxOnPtr( e => {
-            Oy.hidden || Oy.contains(e.target) || __sxClosestAction(e.target, "profileLoad") || kw(), 
-            By.hidden || By.contains(e.target) || (window.__SX_SAMPLE_SUBMENUS || []).some(m => m && !m.hidden && m.contains(e.target)) || __sxClosestAction(e.target, "addProfile") || xw(), 
-            (jy.hidden || jy.contains(e.target)) && (!jyA || jyA.hidden || jyA.contains(e.target)) || (window.__SX_SAMPLE_SUBMENUS || []).some(m => m && !m.hidden && m.contains(e.target)) || __sxClosestAction(e.target, "addProfile") || Sw();
+            Oy.hidden || Oy.contains(e.target) || __sxClosestAction(e.target, "profileLoad") || sxCloseLoadMenu(), 
+            By.hidden || By.contains(e.target) || (window.__SX_SAMPLE_SUBMENUS || []).some(m => m && !m.hidden && m.contains(e.target)) || __sxClosestAction(e.target, "addProfile") || sxCloseAddMenu(), 
+            (jy.hidden || jy.contains(e.target)) && (!jyA || jyA.hidden || jyA.contains(e.target)) || (window.__SX_SAMPLE_SUBMENUS || []).some(m => m && !m.hidden && m.contains(e.target)) || __sxClosestAction(e.target, "addProfile") || sxCloseSampleSubmenus();
         }, !0), window.__sxOnKey( e => {
-            "Escape" === e.key && (Oy.hidden || kw(), By.hidden || xw(), jy.hidden || Sw(), !jyA || jyA.hidden || Sw());
-        }), e.byId("closeTestResultLoader").onclick = () => Ui(kg), kg.addEventListener("click", e => {
-            e.target === kg && performance.now() - 0 > 500 && Ui(kg);
-        }), e.byId("closeProfileDetails").onclick = () => "about" === gw ? Ui(_g) : cw(), 
+            "Escape" === e.key && (Oy.hidden || sxCloseLoadMenu(), By.hidden || sxCloseAddMenu(), jy.hidden || sxCloseSampleSubmenus(), !jyA || jyA.hidden || sxCloseSampleSubmenus());
+        }), e.byId("closeTestResultLoader").onclick = () => sxCloseModalDialog(kg), kg.addEventListener("click", e => {
+            e.target === kg && performance.now() - 0 > 500 && sxCloseModalDialog(kg);
+        }), e.byId("closeProfileDetails").onclick = () => "about" === gw ? sxCloseModalDialog(_g) : sxPromptDiscardEdits(), 
         _g.addEventListener("cancel", e => {
-            e.preventDefault(), "about" === gw ? Ui(_g) : cw();
+            e.preventDefault(), "about" === gw ? sxCloseModalDialog(_g) : sxPromptDiscardEdits();
         }), e.byId("profileDialogEdit").onclick = () => {
-            Hy && (mw("edit"), requestAnimationFrame(() => Hg.focus()));
-        }, e.byId("addLocalSampleBtn") && e.byId("addLocalSampleBtn").addEventListener("click", sxSaveLocalSample), e.byId("profileArchetypeBtn") && e.byId("profileArchetypeBtn").addEventListener("click", sxArchetypeProjection), e.byId("keepEditingProfileDetails").onclick = lw, e.byId("discardProfileDetails").onclick = sw, 
+            Hy && (sxSetProfileDialogMode("edit"), requestAnimationFrame(() => Hg.focus()));
+        }, e.byId("addLocalSampleBtn") && e.byId("addLocalSampleBtn").addEventListener("click", sxSaveLocalSample), e.byId("profileArchetypeBtn") && e.byId("profileArchetypeBtn").addEventListener("click", sxArchetypeProjection), e.byId("keepEditingProfileDetails").onclick = sxResumeProfileEditor, e.byId("discardProfileDetails").onclick = sxDiscardProfileEdits, 
         wm.addEventListener("cancel", e => {
-            e.preventDefault(), lw();
-        }), e.byId("saveProfileDetails").onclick = () => vw(), e.byId("saveActiveProfile").onclick = () => {
+            e.preventDefault(), sxResumeProfileEditor();
+        }), e.byId("saveProfileDetails").onclick = () => sxSaveProfileDetails(), e.byId("saveActiveProfile").onclick = () => {
             const e = Mt;
             if (!e || !vt[e]) return;
             const n = window.Sexcapades2xRememberProfiles;
-            if (!n || "function" != typeof n.saveOne || !n.saveOne(e)) return void tS("Could not save this profile on this device.", {
+            if (!n || "function" != typeof n.saveOne || !n.saveOne(e)) return void sxShowStatusToast("Could not save this profile on this device.", {
                 tone: "error",
                 persistent: !0
             });
-            n.isEnabled && n.isEnabled() && n.saveNow && n.saveNow(), Vt(e), tS(`${wt[e]} saved on this device.`);
+            n.isEnabled && n.isEnabled() && n.saveNow && n.saveNow(), sxClearProfileDirty(e), sxShowStatusToast(`${wt[e]} saved on this device.`);
         };
         const Bw = e.byId("appAboutDialog");
         e.byId("openAppAbout") && e.byId("openAppAbout").addEventListener("click", () => {
-            Wi(Bw), requestAnimationFrame(() => e.byId("closeAppAbout").focus());
-        }), e.byId("closeAppAbout") && e.byId("closeAppAbout").addEventListener("click", () => Ui(Bw)), Bw.addEventListener("click", e => {
-            e.target === Bw && Ui(Bw);
-        }), e.byId("closeCompletionCelebration") && e.byId("closeCompletionCelebration").addEventListener("click", fs), e.byId("dismissCompletionCelebration") && e.byId("dismissCompletionCelebration").addEventListener("click", fs), 
+            sxOpenModalDialog(Bw), requestAnimationFrame(() => e.byId("closeAppAbout").focus());
+        }), e.byId("closeAppAbout") && e.byId("closeAppAbout").addEventListener("click", () => sxCloseModalDialog(Bw)), Bw.addEventListener("click", e => {
+            e.target === Bw && sxCloseModalDialog(Bw);
+        }), e.byId("closeCompletionCelebration") && e.byId("closeCompletionCelebration").addEventListener("click", sxDismissCompletion), e.byId("dismissCompletionCelebration") && e.byId("dismissCompletionCelebration").addEventListener("click", sxDismissCompletion), 
         completionCompare.addEventListener("click", () => openMilestoneDestination("compare")), completionExport.addEventListener("click", () => openMilestoneDestination("export")), 
         Eg.addEventListener("cancel", e => {
-            e.preventDefault(), fs();
+            e.preventDefault(), sxDismissCompletion();
         }), closeMilestone.addEventListener("click", closeMilestoneCelebration), milestoneContinue.addEventListener("click", closeMilestoneCelebration), 
         milestoneCompare.addEventListener("click", () => openMilestoneDestination("compare")), milestoneExport.addEventListener("click", () => openMilestoneDestination("export")), milestoneImport.addEventListener("click", () => openMilestoneDestination("import")), milestoneScribe.addEventListener("click", () => openMilestoneDestination("scribe")), 
         milestoneDialog.addEventListener("cancel", e => {
@@ -344,15 +344,15 @@
             e.target === milestoneDialog && closeMilestoneCelebration();
         });
         const jw = e.byId("outlinePayoffDialog");
-        function qw(e, t = null) {
+        function sxCollectImportAttention(e, t = null) {
             const n = e => !t || t.has(e), i = t ? new Set([ ...t ].map(t => {
-                const n = qn[t] || Xn(t) || (at[e] || {})[t];
-                return n && n.branch || ci(t);
+                const n = sxNodeRegistry[t] || sxNodeById(t) || (at[e] || {})[t];
+                return n && n.branch || sxLookupNodeBranch(t);
             }).filter(Boolean)) : null, a = new Set([ ...cn[e] || [] ]), r = new Set([ ...ln[e] || [] ]);
             return Object.keys(vt[e] || {}).forEach(t => {
-                if (!n(t) || Eo(e, t)) return;
+                if (!n(t) || sxIsManualSource(e, t)) return;
                 a.add(t);
-                const i = qn[t] || Xn(t) || (at[e] || {})[t], o = i && i.branch || ci(t);
+                const i = sxNodeRegistry[t] || sxNodeById(t) || (at[e] || {})[t], o = i && i.branch || sxLookupNodeBranch(t);
                 o && r.add(o);
             }), {
                 branches: [ ...r ].filter(e => !i || i.has(e)),
@@ -360,29 +360,29 @@
                 newest: [ ...dn[e] || [] ].filter(n)
             };
         }
-        function Hw(e) {
-            return new Set([ ...Uc(), ...Object.keys(vt[e] || {}), ...Object.keys(Qe[e] || {}), ...Object.keys(Je[e] || {}), ...Object.keys(et[e] || {}), ...Object.keys(tt[e] || {}), ...Object.keys(at[e] || {}), ...Object.values(at[e] || {}).map(e => e && e.parentId).filter(Boolean) ]);
+        function sxCollectExportTopicIds(e) {
+            return new Set([ ...sxAllTopicIds(), ...Object.keys(vt[e] || {}), ...Object.keys(Qe[e] || {}), ...Object.keys(Je[e] || {}), ...Object.keys(et[e] || {}), ...Object.keys(tt[e] || {}), ...Object.keys(at[e] || {}), ...Object.values(at[e] || {}).map(e => e && e.parentId).filter(Boolean) ]);
         }
-        function Ww(e) {
-            const t = Qu(e, Hw(e));
+        function sxBuildProfileRecord(e) {
+            const t = sxSerializeProfileOut(e, sxCollectExportTopicIds(e));
             return gt[e] && Object.keys(gt[e]).length && (t.loaderState = gt[e]), t;
         }
-        function Uw(e) {
+        function sxIsProfilePayload(e) {
             return e && "sexcapades" === e.app && (16 === e.version || 17 === e.version) && e.ratings && "object" == typeof e.ratings;
         }
         e.byId("outlinePayoffStory") && e.byId("outlinePayoffStory").addEventListener("click", () => {
             const e = as;
-            Ps(), e && vt[e] && Qd([ e ]);
+            sxCloseOutlinePayoff(), e && vt[e] && sxOpenScribeChoice([ e ]);
         }), e.byId("outlinePayoffCard") && e.byId("outlinePayoffCard").addEventListener("click", () => {
             const e = as;
-            Ps(), e && vt[e] && op(e);
-        }), e.byId("outlinePayoffDismiss") && e.byId("outlinePayoffDismiss").addEventListener("click", Ps), jw.addEventListener("cancel", e => {
-            e.preventDefault(), Ps();
-        }), Hg.addEventListener("input", () => rw("profileDetailsNameField", "profileDetailsNameError", !1)), 
-        im.addEventListener("input", dw), rm.addEventListener("input", dw), Wg.addEventListener("change", () => {
-            rw("profileDetailsGenderField", "profileDetailsGenderError", !1), wb().length <= 3 && "Choose no more than three genders." === sm.textContent && (sm.textContent = "");
-        }), Ug.addEventListener("change", () => rw("profileDetailsSexualityField", "profileDetailsSexualityError", !1)), 
-        Kg.addEventListener("input", () => rw("profileDetailsAgeField", "profileDetailsAgeError", !1)), 
+            sxCloseOutlinePayoff(), e && vt[e] && sxExportSyncCardPages(e);
+        }), e.byId("outlinePayoffDismiss") && e.byId("outlinePayoffDismiss").addEventListener("click", sxCloseOutlinePayoff), jw.addEventListener("cancel", e => {
+            e.preventDefault(), sxCloseOutlinePayoff();
+        }), Hg.addEventListener("input", () => sxMarkFieldInvalid("profileDetailsNameField", "profileDetailsNameError", !1)), 
+        im.addEventListener("input", sxRefreshAboutCounts), rm.addEventListener("input", sxRefreshAboutCounts), Wg.addEventListener("change", () => {
+            sxMarkFieldInvalid("profileDetailsGenderField", "profileDetailsGenderError", !1), sxReadGenderSelection().length <= 3 && "Choose no more than three genders." === sm.textContent && (sm.textContent = "");
+        }), Ug.addEventListener("change", () => sxMarkFieldInvalid("profileDetailsSexualityField", "profileDetailsSexualityError", !1)), 
+        Kg.addEventListener("input", () => sxMarkFieldInvalid("profileDetailsAgeField", "profileDetailsAgeError", !1)), 
         e.byId("chooseProfilePhotos").onclick = () => lm.click(), lm.addEventListener("change", async e => {
             await async function(e) {
                 const t = Math.max(0, 8 - Wy.length), n = [ ...e ].slice(0, t);
@@ -390,38 +390,38 @@
                 sm.textContent = `Preparing ${n.length} ${1 === n.length ? "photo" : "photos"}…`;
                 let i = 0, a = 0;
                 for (const t of n) try {
-                    const e = await aw(t);
+                    const e = await sxPrepareUploadedPhoto(t);
                     Wy.push(e), e.focusStatus && "detected" !== e.focusStatus && a++, i++;
                 } catch (e) {
                     sm.textContent = e.message || "A photo could not be prepared.";
                 }
-                ew(), i && (sm.textContent = a ? `${i} ${1 === i ? "photo" : "photos"} ready. Face auto-center was unavailable or found no face, so ${1 === a ? "the crop starts" : "those crops start"} centered.` : `${i} ${1 === i ? "photo" : "photos"} ready to save.`, 
-                Ty(Wy.length - i));
+                sxRenderPhotoThumbs(), i && (sm.textContent = a ? `${i} ${1 === i ? "photo" : "photos"} ready. Face auto-center was unavailable or found no face, so ${1 === a ? "the crop starts" : "those crops start"} centered.` : `${i} ${1 === i ? "photo" : "photos"} ready to save.`, 
+                sxOpenPhotoCropper(Wy.length - i));
             }(e.target.files || []), e.target.value = "";
         }), cm.addEventListener("click", e => {
             const t = __sxClosestAction(e.target, "removePhoto"), n = __sxClosestAction(e.target, "movePhoto"), i = __sxClosestAction(e.target, "adjustPhoto");
-            if (t) return Wy.splice(Number(t.dataset.removePhoto), 1), ew(), void (sm.textContent = "Photo removed. Save changes to keep this update.");
+            if (t) return Wy.splice(Number(t.dataset.removePhoto), 1), sxRenderPhotoThumbs(), void (sm.textContent = "Photo removed. Save changes to keep this update.");
             if (n) {
                 const e = Number(n.dataset.movePhoto), t = e + Number(n.dataset.photoStep);
                 if (e >= 0 && t >= 0 && e < Wy.length && t < Wy.length) {
                     const [n] = Wy.splice(e, 1);
-                    Wy.splice(t, 0, n), ew(), sm.textContent = `Photo moved to position ${t + 1}. The first photo is used in the center node.`;
+                    Wy.splice(t, 0, n), sxRenderPhotoThumbs(), sm.textContent = `Photo moved to position ${t + 1}. The first photo is used in the center node.`;
                 }
                 return;
             }
-            i && Ty(Number(i.dataset.adjustPhoto));
+            i && sxOpenPhotoCropper(Number(i.dataset.adjustPhoto));
         }), e.all("[data-get-ratings-list]").forEach(e => e.addEventListener("click", () => {
             sxOutlineSortMode = "popularity";
         })), e.all("[data-profile-details-converter]").forEach(n => n.addEventListener("click", () => {
             const kind = n.dataset.profileDetailsConverter, mode = n.dataset.converterMode || "auto";
-            jY = ({ outline: "Hot list", kinktest: "KinkTest import", bdsmtest: "BDSMtest import", checklist: "Yes/No/Maybe checklist", fetlife: "FetLife import" })[kind] || "import", Vy = id => "outline" === kind ? Ms(id) : Ax(kind, mode, id), vw();
+            jY = ({ outline: "Hot list", kinktest: "KinkTest import", bdsmtest: "BDSMtest import", checklist: "Yes/No/Maybe checklist", fetlife: "FetLife import" })[kind] || "import", Vy = id => "outline" === kind ? sxOpenHotList(id) : sxOpenResultConverter(kind, mode, id), sxSaveProfileDetails();
         })), Hg.addEventListener("keydown", e => {
-            "Enter" === e.key && (e.preventDefault(), vw());
-        }), e.byId("closeProfileImport") && (e.byId("closeProfileImport").onclick = () => Ui(Sg)), Sg.addEventListener("click", e => {
-            e.target === Sg && Ui(Sg);
+            "Enter" === e.key && (e.preventDefault(), sxSaveProfileDetails());
+        }), e.byId("closeProfileImport") && (e.byId("closeProfileImport").onclick = () => sxCloseModalDialog(Sg)), Sg.addEventListener("click", e => {
+            e.target === Sg && sxCloseModalDialog(Sg);
         }), e.all("[data-import-converter]").forEach(e => e.addEventListener("click", () => {
             const t = e.dataset.importConverter, sxOrigin = sxLoadOriginId && vt[sxLoadOriginId] ? sxLoadOriginId : null;
-            Ui(Sg);
+            sxCloseModalDialog(Sg);
             const n = e.dataset.converterMode || "auto";
             // Caller-tab routing keys ONLY on a recorded origin
             // (sxLoadOriginId, from a tab's Load menu). Mere
@@ -430,7 +430,7 @@
             // is active must still reach the load-into chooser, not
             // land silently in the active profile (2026-10-30 ruling,
             // first-import prompt rule).
-            sxOrigin ? Ax(t, n, sxOrigin) : Mt && vt[Mt] ? Ax(t, n) : (bw(null), Vy = id => Ax(t, n, id));
+            sxOrigin ? sxOpenResultConverter(t, n, sxOrigin) : Mt && vt[Mt] ? sxOpenResultConverter(t, n) : (sxOpenProfileDetails(null), Vy = id => sxOpenResultConverter(t, n, id));
         }));
         // FROZEN LEGACY TABLE (Kw): old topic-slug spellings -> current
         // generated slugs, merged over the auto-generated slug->id map when
@@ -518,7 +518,7 @@
             "topic-sex-acts-vacuum-pumping": "topic-sex-acts-pumping",
             "topic-sex-acts-vaginal-stretching": "topic-sex-acts-stretching",
             "topic-body-focus-appearance-feet-footwear": "topic-body-focus-appearance-feet"
-        }), zw = Object.freeze(Object.fromEntries(h.flatMap(e => e.topics.map(t => [ Kn(e.name, sxName(t)), Wn(t) ])))), Vw = Object.freeze(Object.assign({}, zw, Object.fromEntries(Object.entries(Kw).map(([e, t]) => [ e, zw[t] || t ]))));
+        }), zw = Object.freeze(Object.fromEntries(h.flatMap(e => e.topics.map(t => [ sxBuildTopicSlugId(e.name, sxName(t)), sxResolveTopicId(t) ])))), Vw = Object.freeze(Object.assign({}, zw, Object.fromEntries(Object.entries(Kw).map(([e, t]) => [ e, zw[t] || t ]))));
         // BURIAL REGISTRY (E4b, slug-gap design-away, 2026-10-22): when
         // the owner rules a topic DELETED from the taxonomy (rather than
         // renamed, split, or merged), its canonical id is entered here
@@ -573,7 +573,7 @@
             }
             return null;
         }
-        function Yw(e) {
+        function sxRewriteLegacySlugs(e) {
             if (!e || "object" != typeof e) return e;
             // SUNSET (slug-gap design-away, 2026-10-22): this is the
             // legacy slug-resolution path - incoming keys are rewritten
@@ -603,7 +603,7 @@
                 const n = {};
                 Object.entries(e.importedChildren).forEach(([e, i]) => {
                     if (!i || "object" != typeof i) return;
-                    const a = (resolveIngestKey(i.parentId) || {}).id || t[i.parentId] || i.parentId, r = ni(i.label), o = a && r ? "subtopic-" + Hn(a) + "-" + Hn(r) : e;
+                    const a = (resolveIngestKey(i.parentId) || {}).id || t[i.parentId] || i.parentId, r = sxCleanImportLabelText(i.label), o = a && r ? "subtopic-" + sxSlugifyLabel(a) + "-" + sxSlugifyLabel(r) : e;
                     e !== o && (t[e] = o), i.id && i.id !== o && (t[i.id] = o), n[o] = Object.assign({}, i, {
                         id: o,
                         parentId: a
@@ -658,8 +658,8 @@
             }), e;
         }
         let Xw = null;
-        function Zw(e, t, n) {
-            return `<span class="profile-tab is-editing"><input class="profile-name-input" data-profile-name-input type="text" maxlength="40" autocomplete="off" value="${Hi(t)}" placeholder="Profile name" aria-label="${Hi(n)}"></span>`;
+        function sxRenameInputMarkup(e, t, n) {
+            return `<span class="profile-tab is-editing"><input class="profile-name-input" data-profile-name-input type="text" maxlength="40" autocomplete="off" value="${sxEscapeHtmlText(t)}" placeholder="Profile name" aria-label="${sxEscapeHtmlText(n)}"></span>`;
         }
         function sxNormalizePairName(e) {
             // Pair-name normalization (2026-10-27): group records
@@ -673,7 +673,7 @@
             // the correction for the persist path like any edit.
             const rec = ft[e];
             if (!rec || "group" !== rec.kind || !wt[e] || !String(wt[e]).includes("⊗")) return;
-            wt[e] = String(wt[e]).split("⊗").join(sxPairJoin(sxNormalizePairOp(rec.pairOp)).trim()), zt(e);
+            wt[e] = String(wt[e]).split("⊗").join(sxPairJoin(sxNormalizePairOp(rec.pairOp)).trim()), sxTouchProfile(e);
         }
         // Duplicate tab labels (owner ruling, 2026-10-27): same-name
         // tabs are told apart by a dash-plus-number suffix on the TAB
@@ -689,7 +689,7 @@
             const nm = wt[e];
             return sxTabLabelSeen[nm] = (sxTabLabelSeen[nm] || 0) + 1, sxTabLabelSeen[nm] > 1 ? `${label}-${sxTabLabelSeen[nm]}` : label;
         }
-        function Jw() {
+        function sxRenderProfileTabs() {
             sxTabLabelSeen = {};
             /* Skin tabs (2026-11-17): show only this skin's profiles.
                Untagged = legacy, shows everywhere; unknown skin =
@@ -699,17 +699,17 @@
                remembered one. */
             const sxCurSkin = window.__SX_ACTIVE_SKIN || null;
             const t = Object.keys(vt).filter(e => Boolean(wt[e]) && (!profileSkins[e] || !sxCurSkin || profileSkins[e] === sxCurSkin));
-            Mt && !vt[Mt] && (Mt = null), It && !vt[It] && (It = null), document.documentElement.style.setProperty("--active-profile-color", Mt && vt[Mt] ? la(Mt) : "var(--focus)");
-            const i = Yi(), r = Boolean(Kd()), o = i.length > 1, s = an && o, l = o || r, c = s || r, d = t.map(e => {
+            Mt && !vt[Mt] && (Mt = null), It && !vt[It] && (It = null), document.documentElement.style.setProperty("--active-profile-color", Mt && vt[Mt] ? sxProfileColor(Mt) : "var(--focus)");
+            const i = sxListLiveSelections(), r = Boolean(sxActiveGroupRecord()), o = i.length > 1, s = an && o, l = o || r, c = s || r, d = t.map(e => {
                 sxNormalizePairName(e);
-                if (Xw && Xw.id === e) return sxDupTabLabel(e, wt[e]), Zw(0, wt[e], `Rename ${wt[e]}`);
-                const t = i.includes(e), n = la(e), o = sxDupTabLabel(e, wt[e]), s = Mt === e, l = Boolean(ft[e]), c = av(vpt[e]), d = Boolean(vht[e]), u = zi(2 * (c - 50)), h = yt[e] ? '<sup class="profile-tab-dirty" aria-hidden="true">*</sup>' : "", g = `<button type="button" class="profile-tab-veil${d ? " is-enabled" : ""}" data-profile-veil="${Hi(e)}" aria-controls="veilPopover" aria-expanded="false" aria-pressed="${d}" aria-label="${Hi(wt[e])} Veil ${d ? "on" : "off"}, level ${c}. Open Veil settings." title="Veil ${d ? "on" : "off"} · ${c}" style="--veil-color:${u}"><svg viewBox="0 0 24 16" aria-hidden="true" focusable="false"><path class="veil-icon-cloth" d="M12 2.4C9.1 2.4 6.7 2.9 4.9 3.8C5.4 7 5.2 10.2 3.5 13.6C5.4 12.6 7.2 12.3 9 13.4C10 12.6 11 12 12 11.7C13 12 14 12.6 15 13.4C16.8 12.3 18.6 12.6 20.5 13.6C18.8 10.2 18.6 7 19.1 3.8C17.3 2.9 14.9 2.4 12 2.4Z"/><path class="veil-icon-fold" d="M8.2 3.9C8.5 6.8 8.4 9.7 7.5 12.6M15.8 3.9C15.5 6.8 15.6 9.7 16.5 12.6M12 4.2V11.4"/></svg></button>`, heatBtn = `<button type="button" class="profile-tab-heat" data-profile-heat="${Hi(e)}" data-sx-term="heatMax,heatMin" aria-controls="heatPopover" aria-expanded="false" aria-label="${Hi(wt[e])} ${l ? "Group Heat" : "Heat"} ${Hi(sxHeatZone(sxHeatDisplayFor(e)))}. Open Heat settings." title="${l ? "Group Heat" : "Heat"} · ${Hi(sxHeatZone(sxHeatDisplayFor(e)))}"><svg class="sx-heat-flame" aria-hidden="true" focusable="false" viewBox="0 0 16 16"><path fill="currentColor" d="M8 14c-4-2-4-6-1-9 0 3 2 2 2-3 4 4 5 8-1 12Zm0 0c-2-1-2-3 0-5 2 2 2 4 0 5"/></svg><span class="sx-heat-zone">${Hi(sxHeatZone(sxHeatDisplayFor(e)))}</span><svg class="sx-heat-flame" aria-hidden="true" focusable="false" viewBox="0 0 16 16"><path fill="currentColor" d="M8 14c-4-2-4-6-1-9 0 3 2 2 2-3 4 4 5 8-1 12Zm0 0c-2-1-2-3 0-5 2 2 2 4 0 5"/></svg></button>`, loadBtn = `<button type="button" class="profile-tab-load" data-profile-load="${Hi(e)}" aria-haspopup="menu" aria-expanded="false" aria-label="Load or import data for ${Hi(wt[e])}" title="Load or import data for ${Hi(wt[e])}" data-ui-tooltip="Take a test or import profile data." data-tooltip-tap-first><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 3v10"/><path d="m7 9 5 5 5-5"/><path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2"/></svg></button>`;
-                return `<span class="profile-tab" style="--profile-color:${n}"><button type="button" class="profile-tab-save" data-save-profile="${Hi(e)}" aria-label="Export ${Hi(wt[e])}" data-ui-tooltip="Export this profile map." data-tooltip-tap-first><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M8.5 6.5 10 4h4l1.5 2.5H19a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-9a2 2 0 0 1 2-2h3.5Z"/><circle cx="12" cy="13" r="3.5"/></svg></button>${g}${heatBtn}${loadBtn}<button type="button" role="tab" data-view="${Hi(e)}" class="profile-tab-button has-profile-color ${s ? "is-active " : ""}${t ? "is-selected is-multiselected " : ""}${d ? "has-veil" : ""}" style="--profile-color:${n};--veil-color:${u}" aria-selected="${s}" aria-pressed="${s}" data-ui-tooltip="Switch to this profile. Ctrl+click (Cmd+click on Mac) adds it to the group comparison." data-tooltip-name="${Hi(o)}" aria-label="${Hi(o)} profile, ${Hi(Qv(e))}${yt[e] ? ", unsaved changes" : ""}${t ? ", selected for grouping" : ""}${d ? `, Veil on at ${c}` : ""}"><span data-profile-label data-full-label="${Hi(o)}">${Hi(o)}</span>${h}</button><button type="button" class="profile-tab-close" data-close-profile="${Hi(e)}" aria-label="Close ${Hi(wt[e])} profile">×</button></span>`;
-            }), u = Xw && null === Xw.id ? Zw(0, "", "Name new profile") : "", p = `<span class="profile-add-stack"><button type="button" class="profile-add" data-add-profile aria-label="Add or import a profile" aria-haspopup="menu" aria-expanded="false" title="Add or import a profile">+</button>${sxMatchIconsHtml()}</span>`, h = d.pop() || "", g = e.byId("profileTabs"); const sxMtHtml = sxMatchTabsHtml();
+                if (Xw && Xw.id === e) return sxDupTabLabel(e, wt[e]), sxRenameInputMarkup(0, wt[e], `Rename ${wt[e]}`);
+                const t = i.includes(e), n = sxProfileColor(e), o = sxDupTabLabel(e, wt[e]), s = Mt === e, l = Boolean(ft[e]), c = sxClampVeilLevel(vpt[e]), d = Boolean(vht[e]), u = sxInterestColor(2 * (c - 50)), h = yt[e] ? '<sup class="profile-tab-dirty" aria-hidden="true">*</sup>' : "", g = `<button type="button" class="profile-tab-veil${d ? " is-enabled" : ""}" data-profile-veil="${sxEscapeHtmlText(e)}" aria-controls="veilPopover" aria-expanded="false" aria-pressed="${d}" aria-label="${sxEscapeHtmlText(wt[e])} Veil ${d ? "on" : "off"}, level ${c}. Open Veil settings." title="Veil ${d ? "on" : "off"} · ${c}" style="--veil-color:${u}"><svg viewBox="0 0 24 16" aria-hidden="true" focusable="false"><path class="veil-icon-cloth" d="M12 2.4C9.1 2.4 6.7 2.9 4.9 3.8C5.4 7 5.2 10.2 3.5 13.6C5.4 12.6 7.2 12.3 9 13.4C10 12.6 11 12 12 11.7C13 12 14 12.6 15 13.4C16.8 12.3 18.6 12.6 20.5 13.6C18.8 10.2 18.6 7 19.1 3.8C17.3 2.9 14.9 2.4 12 2.4Z"/><path class="veil-icon-fold" d="M8.2 3.9C8.5 6.8 8.4 9.7 7.5 12.6M15.8 3.9C15.5 6.8 15.6 9.7 16.5 12.6M12 4.2V11.4"/></svg></button>`, heatBtn = `<button type="button" class="profile-tab-heat" data-profile-heat="${sxEscapeHtmlText(e)}" data-sx-term="heatMax,heatMin" aria-controls="heatPopover" aria-expanded="false" aria-label="${sxEscapeHtmlText(wt[e])} ${l ? "Group Heat" : "Heat"} ${sxEscapeHtmlText(sxHeatZone(sxHeatDisplayFor(e)))}. Open Heat settings." title="${l ? "Group Heat" : "Heat"} · ${sxEscapeHtmlText(sxHeatZone(sxHeatDisplayFor(e)))}"><svg class="sx-heat-flame" aria-hidden="true" focusable="false" viewBox="0 0 16 16"><path fill="currentColor" d="M8 14c-4-2-4-6-1-9 0 3 2 2 2-3 4 4 5 8-1 12Zm0 0c-2-1-2-3 0-5 2 2 2 4 0 5"/></svg><span class="sx-heat-zone">${sxEscapeHtmlText(sxHeatZone(sxHeatDisplayFor(e)))}</span><svg class="sx-heat-flame" aria-hidden="true" focusable="false" viewBox="0 0 16 16"><path fill="currentColor" d="M8 14c-4-2-4-6-1-9 0 3 2 2 2-3 4 4 5 8-1 12Zm0 0c-2-1-2-3 0-5 2 2 2 4 0 5"/></svg></button>`, loadBtn = `<button type="button" class="profile-tab-load" data-profile-load="${sxEscapeHtmlText(e)}" aria-haspopup="menu" aria-expanded="false" aria-label="Load or import data for ${sxEscapeHtmlText(wt[e])}" title="Load or import data for ${sxEscapeHtmlText(wt[e])}" data-ui-tooltip="Take a test or import profile data." data-tooltip-tap-first><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 3v10"/><path d="m7 9 5 5 5-5"/><path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2"/></svg></button>`;
+                return `<span class="profile-tab" style="--profile-color:${n}"><button type="button" class="profile-tab-save" data-save-profile="${sxEscapeHtmlText(e)}" aria-label="Export ${sxEscapeHtmlText(wt[e])}" data-ui-tooltip="Export this profile map." data-tooltip-tap-first><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M8.5 6.5 10 4h4l1.5 2.5H19a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-9a2 2 0 0 1 2-2h3.5Z"/><circle cx="12" cy="13" r="3.5"/></svg></button>${g}${heatBtn}${loadBtn}<button type="button" role="tab" data-view="${sxEscapeHtmlText(e)}" class="profile-tab-button has-profile-color ${s ? "is-active " : ""}${t ? "is-selected is-multiselected " : ""}${d ? "has-veil" : ""}" style="--profile-color:${n};--veil-color:${u}" aria-selected="${s}" aria-pressed="${s}" data-ui-tooltip="Switch to this profile. Ctrl+click (Cmd+click on Mac) adds it to the group comparison." data-tooltip-name="${sxEscapeHtmlText(o)}" aria-label="${sxEscapeHtmlText(o)} profile, ${sxEscapeHtmlText(sxIdentityPlacardText(e))}${yt[e] ? ", unsaved changes" : ""}${t ? ", selected for grouping" : ""}${d ? `, Veil on at ${c}` : ""}"><span data-profile-label data-full-label="${sxEscapeHtmlText(o)}">${sxEscapeHtmlText(o)}</span>${h}</button><button type="button" class="profile-tab-close" data-close-profile="${sxEscapeHtmlText(e)}" aria-label="Close ${sxEscapeHtmlText(wt[e])} profile">×</button></span>`;
+            }), u = Xw && null === Xw.id ? sxRenameInputMarkup(0, "", "Name new profile") : "", p = `<span class="profile-add-stack"><button type="button" class="profile-add" data-add-profile aria-label="Add or import a profile" aria-haspopup="menu" aria-expanded="false" title="Add or import a profile">+</button>${sxMatchIconsHtml()}</span>`, h = d.pop() || "", g = e.byId("profileTabs"); const sxMtHtml = sxMatchTabsHtml();
             g.classList.remove("is-empty"), e.one(".toolbar").classList.toggle("has-no-profiles", !t.length);
             const m = e.byId("firstVisitCta"), fvcDismissed = new URLSearchParams(location.search).get("hide-start-cta") === "1", fvcRestore = e.byId("showFirstVisitCta");
             m && (m.hidden = Boolean(t.length) || fvcDismissed), fvcRestore && (fvcRestore.hidden = Boolean(t.length) || !fvcDismissed), t.length ? n(g, d.join("") + (h ? `<span class="profile-tab-tail">${h}${p}</span>` : u + p) + (h ? u : "") + sxMtHtml) : n(g, u + p + sxMtHtml), 
-            !dv.hidden && Qt && (bv = wv(Qt) || sv), Mv(), dv.hidden || Av(!0), gl();
+            !dv.hidden && Qt && (bv = sxFindVeilButton(Qt) || sv), sxRefreshVeilControls(), dv.hidden || sxSetVeilPopoverOpen(!0), sxFitProfileTabLabels();
             const f = e.byId("scribeTab"), activeActions = e.byId("activeProfileActions");
             activeActions && (activeActions.hidden = !Mt || !vt[Mt]), f.hidden = !(t.length || document.querySelector(".profile-tab-button")), f.textContent = "Scribe";
             const y = e.byId("openOpener"), b = e.byId("openNegotiation");
@@ -719,18 +719,18 @@
             k.setAttribute("aria-pressed", String(an));
             const x = e.byId("overlayStatus");
             x.textContent = "", x.parentElement.hidden = !0, e.one(".filters").hidden = !t.length,
-            Da(), e.one(".scribe-separator").hidden = !t.length, e.one(".actions-separator").hidden = !t.length, 
-            Vd(), e.byId("newBlankProfile") && (e.byId("newBlankProfile").hidden = !1), Ew();
+            sxSyncBlindControls(), e.one(".scribe-separator").hidden = !t.length, e.one(".actions-separator").hidden = !t.length, 
+            sxRefreshCompareMatch(), e.byId("newBlankProfile") && (e.byId("newBlankProfile").hidden = !1), sxMarkLoadedSamples();
         }
-        function ek(e) {
+        function sxFindProfileByName(e) {
             return Object.keys(wt).find(t => wt[t].toLocaleLowerCase() === e.toLocaleLowerCase()) || null;
         }
-        function tk() {
+        function sxCommitProfileRename() {
             if (!Xw) return;
             const e = tl.querySelector("[data-profile-name-input]"), t = Xw.id, n = (e ? e.value : "").trim().replace(/\s+/g, " ");
-            if (!n) return Xw = null, void Jw();
-            const i = ek(n);
-            if (i && i !== t) return tS(`${n} already has a profile`, {
+            if (!n) return Xw = null, void sxRenderProfileTabs();
+            const i = sxFindProfileByName(n);
+            if (i && i !== t) return sxShowStatusToast(`${n} already has a profile`, {
                 tone: "error",
                 persistent: !0
             }), void function(e = !1) {
@@ -740,16 +740,16 @@
                 });
             }(!0);
             if (Xw = null, null !== t) {
-                if (!vt[t]) return Jw();
+                if (!vt[t]) return sxRenderProfileTabs();
                 const e = wt[t];
-                return wt[t] = n, e !== n && zt(t), Jw(), Mr(), void (e !== n && tS(`${e} renamed ${n}`));
+                return wt[t] = n, e !== n && sxTouchProfile(t), sxRenderProfileTabs(), sxRequestMapPaint(), void (e !== n && sxShowStatusToast(`${e} renamed ${n}`));
             }
-            bw(null);
+            sxOpenProfileDetails(null);
         }
-        function nk(e) {
-            eS();
+        function sxDeleteProfile(e) {
+            sxClearStatusToast();
             const t = Object.keys(vt);
-            if (!vt[e]) return void Jw();
+            if (!vt[e]) return void sxRenderProfileTabs();
             const n = Mt === e, i = t.indexOf(e);
             Xw && Xw.id === e && (Xw = null), 
             // F1: close deletes EVERY list on the canonical list (this
@@ -758,20 +758,20 @@
             // fields: the import path's dropped-key records, and the
             // attention/save-state lists (ln, pn, hn).
             SX_PROFILE_FIELDS.forEach(t => Reflect.deleteProperty(t, e)), delete droppedKeyRecords[e], 
-            delete ln[e], delete pn[e], delete hn[e], Qt === e && Cv(), sxHeatQt === e && sxCvHeat(), sxSel(e, "remove"), fh === e && (fh = null);
+            delete ln[e], delete pn[e], delete hn[e], Qt === e && sxCloseVeilPopover(), sxHeatQt === e && sxCvHeat(), sxSel(e, "remove"), fh === e && (fh = null);
             const rememberProfiles = window.Sexcapades2xRememberProfiles;
             rememberProfiles && rememberProfiles.isEnabled && rememberProfiles.isEnabled() && rememberProfiles.saveNow();
             const a = Object.keys(wt).filter(e => Boolean(vt[e]));
-            if (n && a.length) return Js(a[Math.min(Math.max(0, i), a.length - 1)]), void Ih();
+            if (n && a.length) return sxLoadProfileMap(a[Math.min(Math.max(0, i), a.length - 1)]), void sxApplyMapFit();
             n ? (Mt = null, It = null, Nt = null, Lt = null, kn = !0, xn = null, Sn = "all", 
             rn.clear(), on.clear(), h.forEach(e => {
                 rn.add(e.name), un.set(catId(e.name), "all"), (e.subcategories || []).forEach(t => {
-                    const s = Un(e.name, t.name);
+                    const s = sxResolveSubcategoryId(e.name, t.name);
                     un.set(s, "all"), on.add(s);
                 }), e.topics.forEach(e => {
-                    un.set(Wn(e), "all"), on.add(Wn(e));
+                    un.set(sxResolveTopicId(e), "all"), on.add(sxResolveTopicId(e));
                 });
-            }), Ct = !1) : It === e && (It = Mt), Jw(), Mr(), Ih();
+            }), Ct = !1) : It === e && (It = Mt), sxRenderProfileTabs(), sxRequestMapPaint(), sxApplyMapFit();
         }
         /* Skin switch: clear the profiles off the viewport, keep them in
            memory (2026-11-17). A skin switch swaps the taxonomy, widgets
@@ -793,19 +793,19 @@
                 Mt = null, It = null, Nt = null, Lt = null, Pt = "all", Tt = "", kn = !0, xn = null, Sn = "all",
                 rn.clear(), on.clear(), h.forEach(e => {
                     rn.add(e.name), un.set(catId(e.name), "all"), (e.subcategories || []).forEach(t => {
-                        const s = Un(e.name, t.name);
+                        const s = sxResolveSubcategoryId(e.name, t.name);
                         un.set(s, "all"), on.add(s);
                     }), e.topics.forEach(e => {
-                        un.set(Wn(e), "all"), on.add(Wn(e));
+                        un.set(sxResolveTopicId(e), "all"), on.add(sxResolveTopicId(e));
                     });
-                }), Ct = !1, Jw(), Mr(), Ih();
+                }), Ct = !1, sxRenderProfileTabs(), sxRequestMapPaint(), sxApplyMapFit();
             } catch (_) {}
         };
         window.__SX_RESTORE_VIEWPORT_PROFILES = function (incomingSkinId) {
             try {
                 const remembered = sxSkinActiveProfile[incomingSkinId];
                 if (remembered && remembered.activeId && vt[remembered.activeId]) {
-                    Js(remembered.activeId);
+                    sxLoadProfileMap(remembered.activeId);
                     if (remembered.comparisonIds && remembered.comparisonIds.length > 1)
                         sxSel(remembered.comparisonIds, "set");
                 }
@@ -815,15 +815,15 @@
                    a restored comparison set it re-shows the match icons
                    — Js's own Jw runs before the set is re-applied, so
                    without this the bowtie/circle-dot buttons stay gone. */
-                Jw();
+                sxRenderProfileTabs();
             } catch (_) {}
         };
-        function ik(e) {
-            const t = "profile-" + (Hn(e) || "untitled");
+        function sxAllocateProfileId(e) {
+            const t = "profile-" + (sxSlugifyLabel(e) || "untitled");
             let n = t, i = 2;
             for (;vt[n]; ) n = t + "-" + i++;
             return n;
         }
-        function ak(e, t = {}) {
-            Xw = null, Js(e, t);
+        function sxActivateProfile(e, t = {}) {
+            Xw = null, sxLoadProfileMap(e, t);
         }

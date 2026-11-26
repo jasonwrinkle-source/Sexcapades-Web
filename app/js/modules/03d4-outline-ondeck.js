@@ -30,7 +30,7 @@
                     subId: null
                 });
                 (n.subcategories || []).forEach(s => {
-                    const sId = Un(n.name, s.name);
+                    const sId = sxResolveSubcategoryId(n.name, s.name);
                     t.set(sId, {
                         id: sId,
                         label: s.name,
@@ -43,20 +43,20 @@
                     });
                 });
                 (n.topics || []).forEach(top => {
-                    const a = Wn(top), r = Vn(n, top);
+                    const a = sxResolveTopicId(top), r = sxFindTopicSubcategory(n, top);
                     t.set(a, {
                         id: a,
                         label: top,
                         branch: n.name,
                         kind: "Topic",
-                        parentId: r ? Un(n.name, r.name) : null,
+                        parentId: r ? sxResolveSubcategoryId(n.name, r.name) : null,
                         catId: i,
-                        subId: r ? Un(n.name, r.name) : null
+                        subId: r ? sxResolveSubcategoryId(n.name, r.name) : null
                     });
                 });
             });
             Array.from(t.values()).filter(e => "Topic" === e.kind).forEach(n => {
-                ai(n.id, e).forEach(i => {
+                sxListImportedChildIds(n.id, e).forEach(i => {
                     const a = (at[e] || {})[i];
                     a && t.set(i, {
                         id: i,
@@ -82,8 +82,8 @@
             if (!e || e !== Et && !vt[e]) return t;
             const n = __sxOnDeckIndex(e), i = new Set(Object.values(gt[e] || {}).flatMap(f => (f && f.categoryHits) || [])), a = Qe[e] || {}, r = Je[e] || {}, o = et[e] || {};
             n.forEach((node, s) => {
-                if ("limit" === a[s] || ja(s, e)) return;
-                const l = ca(s, e), c = Ge(s, e);
+                if ("limit" === a[s] || sxIsLimitOrUninterested(s, e)) return;
+                const l = sxDecodeTopicStance(s, e), c = sxWidgetConfig(s, e);
                 if (!l.giveKnown && !l.receiveKnown) {
                     const ancestors = (typeof sxNodeAncestorIds === "function") ? sxNodeAncestorIds(s, e) : [ node.subId, node.catId ].filter(Boolean);
                     if (i.size && (i.has(s) || ancestors.some(ancId => i.has(ancId)))) return void t.tier1.push(s);
@@ -93,13 +93,13 @@
                 if (!c.single && l.giveKnown !== l.receiveKnown) return void t.direction.push(s);
                 const d = c.single ? l.giveKnown ? [ "give" ] : [] : [ "give", "receive" ].filter(fl => l[fl + "Known"]);
                 if (d.length && d.every(fl => {
-                    const src = Ao(e, s, fl);
+                    const src = sxFlankSource(e, s, fl);
                     if (!src || "manual" === src || !(src in __sxSeedValues)) return !1;
                     const seed = __sxSeedValues[src];
                     return null === seed || seed.includes(Math.round("give" === fl ? l.give : l.receive));
                 })) return void t.tier3.push(s);
                 d.some(fl => {
-                    const src = Ao(e, s, fl);
+                    const src = sxFlankSource(e, s, fl);
                     return src && "manual" !== src && src in __sxSeedValues;
                 }) && t.unreviewed.push(s);
             });
@@ -169,7 +169,7 @@
             if (!a) return;
             const r = Ro.querySelector(`.ondeck-branch[data-ondeck-tier="${t}"]`) || __sxOnDeckMakeSection(t);
             if (!r) return;
-            const o = r.querySelector(".outline-rows"), s = As(a, Go), l = n[t], c = l.indexOf(e);
+            const o = r.querySelector(".outline-rows"), s = sxBuildOutlineRow(a, Go), l = n[t], c = l.indexOf(e);
             let d = null;
             o.querySelectorAll(".outline-row[data-outline-id]").forEach(e => {
                 d || l.indexOf(e.dataset.outlineId) > c && (d = e);
@@ -217,9 +217,9 @@
         function __sxPlaceParked(profileId, rec, topicId) {
             if (!profileId || !vt[profileId] || !rec || !topicLabelById[topicId]) return !1;
             const value = rec.value, clone = v => v && "object" == typeof v ? JSON.parse(JSON.stringify(v)) : v;
-            if ("ratings" === rec.section) vt[profileId][topicId] = clone(value); else if ("alreadyTried" === rec.section) (et[profileId] || (et[profileId] = {}))[topicId] = !0; else if ("annotations" === rec.section) (Qe[profileId] || (Qe[profileId] = {}))[topicId] = value; else if ("fantasyOnly" === rec.section) (Je[profileId] || (Je[profileId] = {}))[topicId] = value; else if ("ratingSources" === rec.section) Object.entries(clone(value) || {}).forEach(([flank, src]) => Co(profileId, topicId, flank, src)); else if ("notes" === rec.section) (tt[profileId] || (tt[profileId] = {}))[topicId] = clone(value); else if ("importAttention" === rec.section) (cn[profileId] || (cn[profileId] = new Set)).add(topicId); else return !1;
+            if ("ratings" === rec.section) vt[profileId][topicId] = clone(value); else if ("alreadyTried" === rec.section) (et[profileId] || (et[profileId] = {}))[topicId] = !0; else if ("annotations" === rec.section) (Qe[profileId] || (Qe[profileId] = {}))[topicId] = value; else if ("fantasyOnly" === rec.section) (Je[profileId] || (Je[profileId] = {}))[topicId] = value; else if ("ratingSources" === rec.section) Object.entries(clone(value) || {}).forEach(([flank, src]) => sxSetFlankSource(profileId, topicId, flank, src)); else if ("notes" === rec.section) (tt[profileId] || (tt[profileId] = {}))[topicId] = clone(value); else if ("importAttention" === rec.section) (cn[profileId] || (cn[profileId] = new Set)).add(topicId); else return !1;
             const store = droppedKeyRecords[profileId] || [];
-            return droppedKeyRecords[profileId] = store.filter(e => e !== rec), zt(profileId), !0;
+            return droppedKeyRecords[profileId] = store.filter(e => e !== rec), sxTouchProfile(profileId), !0;
         }
         function __sxRenderOnDeck(e) {
             const t = __sxOnDeckMembers(e), n = __sxOnDeckIndex(e), i = document.getElementById("outlineShowOnDeck");
@@ -245,7 +245,7 @@
                 const p = document.createElement("div");
                 p.className = "outline-rows", o.forEach(e => {
                     const t = n.get(e);
-                    t && p.append(As(t, Go));
+                    t && p.append(sxBuildOutlineRow(t, Go));
                 }), s.append(p), s.addEventListener("toggle", () => __sxOnDeckPrune(s, e)), Ro.append(s);
             });
             const parkedEntries = (droppedKeyRecords[e] || []).filter(rec => rec && "string" == typeof rec.key && rec.key);
@@ -287,7 +287,7 @@
                         const topicId = picker.value;
                         if (!topicId) return void picker.focus();
                         __sxPlaceParked(e, rec, topicId) && (row.remove(), u.textContent = String((droppedKeyRecords[e] || []).length), 
-                        (droppedKeyRecords[e] || []).length || s.remove(), ws());
+                        (droppedKeyRecords[e] || []).length || s.remove(), sxRefreshHotListStatus());
                     }), row.append(info, picker, apply), p.append(row);
                 }), s.append(p), Ro.append(s);
             }
@@ -298,7 +298,7 @@
             }
         }
         document.getElementById("outlineShowOnDeck")?.addEventListener("change", e => {
-            window.__sxOnDeck = Boolean(e.target.checked), e.target.checked || (__sxOnDeckTouched.clear(), __sxOnDeckCollapsed.clear()), Cs();
+            window.__sxOnDeck = Boolean(e.target.checked), e.target.checked || (__sxOnDeckTouched.clear(), __sxOnDeckCollapsed.clear()), sxRenderHotList();
         });
         Ro.addEventListener("input", e => {
             if (!window.__sxOnDeck || !Go) return;

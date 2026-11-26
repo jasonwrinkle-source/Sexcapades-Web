@@ -5,7 +5,7 @@
             let h = "";
             for (let k = start; k < end; k++) {
                 const e = ix[k];
-                h += `<article class="test-question"><div class="test-question-text"><b>${e.number}.</b> ${Hi(e.question)}</div><div class="test-answer-groups"><div class="test-choice-group" role="group" aria-label="Rating for question ${e.number}">${Sx("1 \u00b7 Never", "1", "answer", k)}${Sx("2 \u00b7 Not my thing", "2", "answer", k)}${Sx("3 \u00b7 Enjoy", "3", "answer", k)}${Sx("4 \u00b7 Really enjoy", "4", "answer", k)}</div></div></article>`;
+                h += `<article class="test-question"><div class="test-question-text"><b>${e.number}.</b> ${sxEscapeHtmlText(e.question)}</div><div class="test-answer-groups"><div class="test-choice-group" role="group" aria-label="Rating for question ${e.number}">${sxChoiceButtonMarkup("1 \u00b7 Never", "1", "answer", k)}${sxChoiceButtonMarkup("2 \u00b7 Not my thing", "2", "answer", k)}${sxChoiceButtonMarkup("3 \u00b7 Enjoy", "3", "answer", k)}${sxChoiceButtonMarkup("4 \u00b7 Really enjoy", "4", "answer", k)}</div></div></article>`;
             }
             h += `<div class="test-pager" role="navigation" aria-label="Test pages"><button type="button" class="action-btn" data-kt-nav="prev"${ktPage === 0 ? " disabled" : ""}>\u2190 Previous</button><span class="test-pager-info"></span>`;
             h += ktPage < pages - 1 ? `<button type="button" class="action-btn primary" data-kt-nav="next" disabled>Next \u2192</button>` : `<span class="test-pager-done">Last page \u2014 use \u201cPreview answers\u201d above when finished.</span>`;
@@ -46,27 +46,27 @@
             } else if ("fill1" === a) {
                 const start = ktPage * per, end = Math.min(start + per, ix.length);
                 for (let k = start; k < end; k++) { Xk[k] || (Xk[k] = {}); Xk[k].answer = "1"; }
-                ktRender(); Ex();
+                ktRender(); sxWriteTestProgress();
             }
         }
         let rS = !1, oS = !1, sS = !1, lS = !1;
-        function cS() {
+        function sxDecodedRouteText() {
             let e = String(window.__SEXCAPADES_START_ROUTE || (window.__SEXCAPADES_LAYOUT_ROUTE ? window.__SEXCAPADES_LAYOUT_ROUTE(location.hash) : location.hash) || "");
             try {
                 e = decodeURIComponent(e);
             } catch (e) { __sxErrLog("hash-decode", e); }
             return e;
         }
-        function dS() {
-            const e = cS();
+        function sxListRouteHash() {
+            const e = sxDecodedRouteText();
             return !e || /^#\/?app\/?$/i.test(e) ? "" : /^#\/?(app\/)?(?:list|listview)\/?$/i.test(e) ? e : "";
         }
-        function uS() {
-            const e = cS();
+        function sxMapRouteHash() {
+            const e = sxDecodedRouteText();
             return /^#\/?app\/(?:map|mapview)\/?$/i.test(e) ? e : "";
         }
-        function pS() {
-            const e = cS();
+        function sxImportRouteHash() {
+            const e = sxDecodedRouteText();
             return /^#\/?(?:app\/)?(?:import(?:\/scan)?|scan)\/?$/i.test(e) ? e : "";
         }
         // Popularity list → hypermap fix (2026-10-28, scopes A+B+C):
@@ -120,37 +120,37 @@
             } catch (e) { __sxErrLog("route-render-arm", e); }
             const render = () => {
                 if (armed) window.__sxRouteChunkPaint = 50;
-                Mr({
+                sxRequestMapPaint({
                     animate: !1
-                }), Ih();
+                }), sxApplyMapFit();
                 if (!armed) pillDone();
             };
             if (armed && window.requestAnimationFrame) requestAnimationFrame(() => requestAnimationFrame(() => setTimeout(render, 0))); else render();
         }
-        function gS() {
-            const e = uS();
-            return window.__SEXCAPADES_START_ROUTE = "", e ? !oS && (oS = !0, Do.open ? Is() : (In && In.children.length > 0 || sxRouteRender(), !0)) : (oS = !1, !1);
+        function sxFollowMapRoute() {
+            const e = sxMapRouteHash();
+            return window.__SEXCAPADES_START_ROUTE = "", e ? !oS && (oS = !0, Do.open ? sxCloseHotList() : (In && In.children.length > 0 || sxRouteRender(), !0)) : (oS = !1, !1);
         }
-        function xS() {
-            return /^#\/?(?:app\/)?compare\/?$/i.test(cS());
+        function sxIsCompareRoute() {
+            return /^#\/?(?:app\/)?compare\/?$/i.test(sxDecodedRouteText());
         }
         // #app/compare is the pair glance on the map. Multi-select wins
         // when two or more profiles are already chosen; otherwise every
         // open profile joins the comparison. The view button reads the
         // hash itself.
         function sxShowCompareRoute() {
-            if (!xS()) {
+            if (!sxIsCompareRoute()) {
                 if ("compare" === document.documentElement.dataset.sxRoute) delete document.documentElement.dataset.sxRoute;
                 return !1;
             }
             document.documentElement.dataset.sxRoute = "compare";
             const all = Object.keys(vt || {}).filter(id => id && id !== Et && vt[id]);
-            const picked = (typeof Yi === "function" ? Yi() : []).filter(id => vt[id]);
+            const picked = (typeof sxListLiveSelections === "function" ? sxListLiveSelections() : []).filter(id => vt[id]);
             const ids = picked.length >= 2 ? picked : all;
             if (ids.length >= 2 && typeof sxSel === "function") {
                 sxSel(ids, "set");
                 try {
-                    vc();
+                    sxRefreshSyncGlance();
                 } catch (err) {
                     __sxErrLog("compare-route", err);
                 }
@@ -158,12 +158,12 @@
             if (typeof window.__sxSyncViewButton === "function") window.__sxSyncViewButton();
             return !0;
         }
-        function mS() {
-            const e = pS(), t = Boolean(function() {
-                const e = cS();
+        function sxFollowImportRoute() {
+            const e = sxImportRouteHash(), t = Boolean(function() {
+                const e = sxDecodedRouteText();
                 return /^#\/?(?:app\/)?(?:scan|import\/scan)\/?$/i.test(e) ? e : "";
             }());
-            return window.__SEXCAPADES_START_ROUTE = "", e ? !sS && (sS = !0, ww(), t && Yx(), 
+            return window.__SEXCAPADES_START_ROUTE = "", e ? !sS && (sS = !0, sxOpenProfileImport(), t && sxOpenQrCamera(), 
             !0) : (sS = !1, !1);
         }
         // Scribe deep-link door REMOVED (owner ruling, 2026-10-27):
@@ -177,18 +177,18 @@
         // the import dialog keeps its own doors (the import route and
         // the add-profile menu), unchanged.
         window.addEventListener("hashchange", () => {
-            if (xS()) return window.__SEXCAPADES_START_ROUTE = "", sxShowCompareRoute(), void Nu();
+            if (sxIsCompareRoute()) return window.__SEXCAPADES_START_ROUTE = "", sxShowCompareRoute(), void sxImportShareHash();
             window.__SEXCAPADES_START_ROUTE = "", function() {
                 let e = String(location.hash || "");
                 try {
                     e = decodeURIComponent(e);
                 } catch (e) { __sxErrLog("hash-decode", e); }
                 const t = /^#\/?(app\/)?(?:list|listview)\/?$/i.test(e);
-                return t ? (rS = !0, Do.open || Ms(Mt && vt[Mt] ? Mt : Et)) : (rS = !1, Do.open && Is(!0, !t && !!uS() && !oS)), 
+                return t ? (rS = !0, Do.open || sxOpenHotList(Mt && vt[Mt] ? Mt : Et)) : (rS = !1, Do.open && sxCloseHotList(!0, !t && !!sxMapRouteHash() && !oS)), 
                 t;
-            }() || gS(), mS(), Nu();
+            }() || sxFollowMapRoute(), sxFollowImportRoute(), sxImportShareHash();
         });
-        const yS = Boolean(dS()), bS = Boolean(uS()), vS = Boolean(pS());
+        const yS = Boolean(sxListRouteHash()), bS = Boolean(sxMapRouteHash()), vS = Boolean(sxImportRouteHash());
         !function() {
             const t = e.byId("legendRatingDemo");
             if (!t) return;
@@ -196,8 +196,8 @@
                 e.classList.remove("is-active"), e.querySelector(".legend-direction-pill").setAttribute("aria-expanded", "false");
             }), a = (e, t = !0) => {
                 const n = e.querySelector("input"), i = Number(n.value) || 0, a = e.querySelector(".legend-direction-pill");
-                n.style.setProperty("--legend-thumb", t ? zi(i) : "var(--curious)"), a.style.background = t ? zi(i) : "#646d66", 
-                a.dataset.tooltipValue = t ? ba(i) : "Unrated", Fs.visibleFor(a) && Fs.show(a, {
+                n.style.setProperty("--legend-thumb", t ? sxInterestColor(i) : "var(--curious)"), a.style.background = t ? sxInterestColor(i) : "#646d66", 
+                a.dataset.tooltipValue = t ? sxSignedNumber(i) : "Unrated", Fs.visibleFor(a) && Fs.show(a, {
                     name: a.dataset.tooltipName,
                     definition: a.dataset.tooltipDefinition,
                     value: a.dataset.tooltipValue
@@ -233,10 +233,10 @@
                 e = migrateLayoutKeys(e);
                 const t = Boolean(e && Object.prototype.hasOwnProperty.call(e, "expandAll"));
                 if (Object.assign(mn, e || {}), t) rn.clear(), on.clear(), h.forEach(e => {
-                    rn.add(e.name), mn.expandAll && ((e.subcategories || []).forEach(t => on.add(Un(e.name, t.name))), e.topics.forEach(e => on.add(Wn(e))));
+                    rn.add(e.name), mn.expandAll && ((e.subcategories || []).forEach(t => on.add(sxResolveSubcategoryId(e.name, t.name))), e.topics.forEach(e => on.add(sxResolveTopicId(e))));
                 });
                 if (window.__SEXCAPADES_LAYOUT) Object.assign(window.__SEXCAPADES_LAYOUT, e || {});
-                return Cn.classList.toggle("is-static", Boolean(mn.staticMap)), Mr({
+                return Cn.classList.toggle("is-static", Boolean(mn.staticMap)), sxRequestMapPaint({
                     animate: !1,
                     forceRepaint: !0
                 }), this.get();
@@ -505,15 +505,15 @@
                 // initiated it - but updates the selection marking in
                 // the existing DOM instead of re-rendering (see below).
                 if (!e) return !1;
-                let id = String(e), t = qn[id] || Xn(id);
+                let id = String(e), t = sxNodeRegistry[id] || sxNodeById(id);
                 if (!t) {
                     const c = (h.find(cat => cat.name === id) || {}).id || "";
-                    if (qn[c]) id = c, t = qn[c]; else {
-                        const s = Object.keys(qn).find(k => {
-                            const o = qn[k];
+                    if (sxNodeRegistry[c]) id = c, t = sxNodeRegistry[c]; else {
+                        const s = Object.keys(sxNodeRegistry).find(k => {
+                            const o = sxNodeRegistry[k];
                             return o && "Subcategory" === o.kind && (o.label === id || o.name === id);
                         });
-                        if (s) id = s, t = qn[s];
+                        if (s) id = s, t = sxNodeRegistry[s];
                     }
                 }
                 if (!t) return !1;
@@ -1016,7 +1016,7 @@
                     return runPromise;
                 }
             }
-        }, window.__SEXCAPADES_LAYOUT_API.anneal=window.__SEXCAPADES_LAYOUT_API.deknotter, Cn.classList.toggle("is-static", Boolean(mn.staticMap)), Jw();
+        }, window.__SEXCAPADES_LAYOUT_API.anneal=window.__SEXCAPADES_LAYOUT_API.deknotter, Cn.classList.toggle("is-static", Boolean(mn.staticMap)), sxRenderProfileTabs();
         window.__sexcapades = {
             ProfileIO: yx,
             profilePayload: function(e) {
@@ -1024,9 +1024,9 @@
                     person: e
                 });
             },
-            importPayload: wx,
-            importSharedPayload: kx,
-            fullProfileDataNodeIds: Hw,
+            importPayload: sxMergeAsProfile,
+            importSharedPayload: sxMergeAsShared,
+            fullProfileDataNodeIds: sxCollectExportTopicIds,
             getActiveProfileId: function() {
                 return Mt;
             }
@@ -1038,11 +1038,11 @@
             return;
         }
 
-        bS ? (gS(), document.documentElement.classList.remove("route-listview-pending"),
-        t.setTimeout(Nu, 0)) : yS ? (function() {
+        bS ? (sxFollowMapRoute(), document.documentElement.classList.remove("route-listview-pending"),
+        t.setTimeout(sxImportShareHash, 0)) : yS ? (function() {
             try {
-                const e = dS();
-                window.__SEXCAPADES_START_ROUTE = "", e ? !rS && (rS = !0, Ms(Mt && vt[Mt] ? Mt : Et)) : rS = !1;
+                const e = sxListRouteHash();
+                window.__SEXCAPADES_START_ROUTE = "", e ? !rS && (rS = !0, sxOpenHotList(Mt && vt[Mt] ? Mt : Et)) : rS = !1;
             } finally {
                 // A throw inside the list open used to skip this and leave
                 // the whole page visibility:hidden, including the list.
@@ -1057,11 +1057,11 @@
                     }, 3000);
                 }
             }
-        }(), t.setTimeout(Nu, 0)) : vS ? (mS(),
-        document.documentElement.classList.remove("route-listview-pending"), t.setTimeout(Nu, 0)) : (async () => {
-            Nu(), sxShowCompareRoute(), document.documentElement.classList.remove("route-listview-pending");
+        }(), t.setTimeout(sxImportShareHash, 0)) : vS ? (sxFollowImportRoute(),
+        document.documentElement.classList.remove("route-listview-pending"), t.setTimeout(sxImportShareHash, 0)) : (async () => {
+            sxImportShareHash(), sxShowCompareRoute(), document.documentElement.classList.remove("route-listview-pending");
             if (Do.open) {
-                Is(), mS();
+                sxCloseHotList(), sxFollowImportRoute();
             } else {
                 let warmRestored = false;
                 try {
@@ -1069,17 +1069,17 @@
                 } catch (_) {}
                 if (warmRestored) {
                     window.__SX_WARM_BOOT_RESTORED = true;
-                    try { Ih(); } catch (_) {}
-                    mS();
+                    try { sxApplyMapFit(); } catch (_) {}
+                    sxFollowImportRoute();
                 } else {
                     // Delegated to bootSkin: bootSkin in skin-loader fetches the active/default
                     // skin JSON (sexcapades.json or the target domain's skin) and executes the
                     // single authoritative initial render with its baked layout.
-                    mS();
+                    sxFollowImportRoute();
                     t.setTimeout(() => {
                         if (!window.__SX_ACTIVE_SKIN && (!In || In.childNodes.length === 0)) {
-                            Mr({ animate: !1 });
-                            Ih();
+                            sxRequestMapPaint({ animate: !1 });
+                            sxApplyMapFit();
                         }
                     }, 2000);
                 }
@@ -1113,8 +1113,8 @@
             activate: function(e) {
                 try {
                     if (!e || !vt[e]) return !1;
-                    if (typeof Js === "function") Js(e);
-                    else if (typeof ak === "function") ak(e);
+                    if (typeof sxLoadProfileMap === "function") sxLoadProfileMap(e);
+                    else if (typeof sxActivateProfile === "function") sxActivateProfile(e);
                     return !0;
                 } catch (err) {
                     __sxErrLog("profile-activate", err);
@@ -1158,10 +1158,10 @@
                                 Object.prototype.hasOwnProperty.call(t, e) && Number.isFinite(Number(t[e])) && (i[e] = Math.max(-100, Math.min(100, Number(t[e]))));
                             }), Object.keys(i).length && (n[e] = i);
                         }
-                    }), vt[e] = n, zt(e), e === Mt && (Mr({
+                    }), vt[e] = n, sxTouchProfile(e), e === Mt && (sxRequestMapPaint({
                         animate: !1,
                         forceRepaint: !0
-                    }), Ih());
+                    }), sxApplyMapFit());
                     return !0;
                 } catch (e) {
                     return !1;
@@ -1178,14 +1178,14 @@
             },
             exportFullProfile: function(e) {
                 try {
-                    return vt[e] ? cloneProfileData(Ww(e)) : null;
+                    return vt[e] ? cloneProfileData(sxBuildProfileRecord(e)) : null;
                 } catch (e) {
                     return null;
                 }
             },
             markSaved: function(e) {
                 try {
-                    return e && vt[e] && (Vt(e), !0);
+                    return e && vt[e] && (sxClearProfileDirty(e), !0);
                 } catch (e) {
                     return !1;
                 }
@@ -1207,7 +1207,7 @@
                     };
                     const rememberedName = String(wt[e] || "").trim();
                     (!n.profileName || /^unknown$/i.test(String(n.profileName).trim())) && (n.profileName = rememberedName && !/^unknown$/i.test(rememberedName) ? rememberedName : "Untitled profile"), n.version = 16, n.app = "sexcapades";
-                    const r = wx(n, {
+                    const r = sxMergeAsProfile(n, {
                         quiet: !0,
                         autoSelect: opts && opts.autoSelect
                     }), o = e || r;
@@ -1223,10 +1223,10 @@
                             Object.prototype.hasOwnProperty.call(e, r) ? e[o] = e[r] : delete e[o], Reflect.deleteProperty(e, r);
                         }), Object.prototype.hasOwnProperty.call(droppedKeyRecords, r) ? (droppedKeyRecords[o] = droppedKeyRecords[r], Reflect.deleteProperty(droppedKeyRecords, r)) : delete droppedKeyRecords[o], (t || (opts && opts.autoSelect)) && (Mt = o), (n || (opts && opts.autoSelect)) && (It = o);
                     }
-                    return Vt(o), Jw(), (Mt === o || (opts && opts.autoSelect)) && (Mt = o, It = o, Mr({
+                    return sxClearProfileDirty(o), sxRenderProfileTabs(), (Mt === o || (opts && opts.autoSelect)) && (Mt = o, It = o, sxRequestMapPaint({
                         animate: !1,
                         forceRepaint: !0
-                    }), Ih()), o;
+                    }), sxApplyMapFit()), o;
                 } catch (e) {
                     // Fix 1, item 1: importData used to swallow its own
                     // failure and return false, so the restore callers'

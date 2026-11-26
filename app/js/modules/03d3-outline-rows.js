@@ -1,12 +1,12 @@
-        function As(e, t) {
-            const n = document.createElement("div"), i = Ge(e.id, t), a = Boolean(e.expandable);
+        function sxBuildOutlineRow(e, t) {
+            const n = document.createElement("div"), i = sxWidgetConfig(e.id, t), a = Boolean(e.expandable);
             n.className = "outline-row" + ("Imported" === e.kind ? " is-imported" : ""), n.dataset.outlineId = e.id, 
             e.parentId && (n.dataset.outlineParent = e.parentId);
             const r = document.createElement("div");
             r.className = "outline-topic-meta";
-            const o = Oe(e.label, e.branch);
-            r.insertAdjacentHTML("beforeend", Kl(o));
-            const s = r.querySelector(":scope>.glance-tooltip-practice-icon"), l = yo(e);
+            const o = sxTopicIcon(e.label, e.branch);
+            r.insertAdjacentHTML("beforeend", sxPracticeIconMarkup(o));
+            const s = r.querySelector(":scope>.glance-tooltip-practice-icon"), l = sxPopularityTooltipText(e);
             s && (s.dataset.popularityTooltip = l, s.tabIndex = 0, s.setAttribute("aria-hidden", "false"), 
             s.setAttribute("role", "img"), s.setAttribute("aria-label", `Popularity details for ${e.label}`));
             const c = document.createElement("div");
@@ -14,7 +14,7 @@
             const d = document.createElement("span");
             if (d.className = "outline-topic-label outline-description-trigger", d.textContent = e.label, 
             d.tabIndex = 0, d.setAttribute("role", "button"), d.setAttribute("aria-label", `${e.label}. ${a ? "Expand or collapse nested topics. " : ""}Press and hold for description.`), 
-            d.dataset.outlineDescription = lo(e), a && (d.dataset.outlineExpandable = "true", 
+            d.dataset.outlineDescription = sxPlacardAboutText(e), a && (d.dataset.outlineExpandable = "true", 
             d.setAttribute("aria-expanded", String(Boolean(e.expanded)))), c.append(d), "Imported" === e.kind) {
                 const e = document.createElement("small");
                 e.className = "outline-imported-note", e.textContent = "added topic", c.append(e);
@@ -104,14 +104,14 @@
                 const stance = sxDualPlacements(e.id);
                 const fl = stance ? ["advocacy", "receptivity"] : ["give", "receive"];
                 const keys = i.keys;
-                const getFlank = (dir) => sxCrossFlankState(ca(e.id, Go), dir, keys);
+                const getFlank = (dir) => sxCrossFlankState(sxDecodeTopicStance(e.id, Go), dir, keys);
                 let pair = null;
                 const renderPair = () => { if (pair) { pair.first.render(); pair.second.render(); } };
                 const writeFlank = (dir, value) => {
                     sxCrossWriteFlank(e.id, dir, value, Go, keys);
                     renderPair();
                 };
-                const finishGesture = () => { Ss(n); };
+                const finishGesture = () => { sxSyncOutlineRow(n); };
                 pair = {
                     first: sxCreateCrossSlider({ dir: fl[0], compact: true, get: () => getFlank(fl[0]), onChange: v => writeFlank(fl[0], v), onRelease: () => finishGesture() }),
                     second: sxCreateCrossSlider({ dir: fl[1], compact: true, get: () => getFlank(fl[1]), onChange: v => writeFlank(fl[1], v), onRelease: () => finishGesture() })
@@ -124,10 +124,10 @@
                 r.className = "outline-rating";
                 const s = document.createElement("span");
                 s.className = "outline-rating-label", s.textContent = o ? n : i.labels[a] || n;
-                const l = o ? function(e, t, n = Vi()) {
-                    const i = Ge(e, n);
+                const l = o ? function(e, t, n = sxActiveProfileId()) {
+                    const i = sxWidgetConfig(e, n);
                     if (i.single || "give" !== i.labels[0] || "receive" !== i.labels[1]) return "";
-                    const a = Zn(e, t), r = Qn(e, n), o = e => String(e || "").trim().toLowerCase().replace(/[^a-z0-9]+/g, " ");
+                    const a = sxGiveReceiveNounText(e, t), r = sxNodeLabelText(e, n), o = e => String(e || "").trim().toLowerCase().replace(/[^a-z0-9]+/g, " ");
                     return a && o(a) !== o(r) ? `${"receive" === t ? "Receive" : "Give"}: ${a}` : "";
                 }(e.id, n, t) : "";
                 // Hovertip for EVERY pole, not just give/receive pairs
@@ -164,5 +164,5 @@
             m.textContent = `Note about ${e.label}`;
             const f = document.createElement("textarea");
             return f.rows = 2, f.maxLength = 800, f.dataset.outlineNoteInput = "", f.placeholder = "Add context, preferences, or anything you want to remember…", 
-            g.append(m, f), n.append(g), Ss(n), n;
+            g.append(m, f), n.append(g), sxSyncOutlineRow(n), n;
         }

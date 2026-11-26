@@ -64,7 +64,7 @@ function dkDeliveredRadii(branchName) {
                 items[dkRadialBaseInfo(w).key] = dkDeliveredItemRadius(w);
             });
             const branchObj = h.find(b => b.name === branchName);
-            return { items: items, branch: branchObj ? yr(branchObj) : NaN };
+            return { items: items, branch: branchObj ? sxBranchSpokeLength(branchObj) : NaN };
         }
 function dkBranchTaxonomy(branchName) {
             const entry = h.find(b => b.name === branchName);
@@ -306,7 +306,7 @@ function dkPaintedGeometry(stage, name, dkPaintedNodeCentreFn, tax, dkPaintedSte
             const branchKey = catId(name), branchPt = nodeCentre(branchKey);
             const subs = {};
             tax.subLabels.forEach(l => {
-                const key = Un(name, l), pt = nodeCentre(key);
+                const key = sxResolveSubcategoryId(name, l), pt = nodeCentre(key);
                 if (!pt || !branchPt) { subs[l] = { branchR: null, seg: null, absR: null, stemSeg: stemSeg(key), source: pt ? pt.source : "missing" }; return; }
                 const r2 = v => Math.round(v * 100) / 100;
                 subs[l] = { branchR: r2(Math.hypot(branchPt.x - centre.x, branchPt.y - centre.y)), seg: r2(Math.hypot(pt.x - branchPt.x, pt.y - branchPt.y)), absR: r2(Math.hypot(pt.x - centre.x, pt.y - centre.y)), stemSeg: stemSeg(key), source: pt.source, x: r2(pt.x), y: r2(pt.y) };
@@ -368,7 +368,7 @@ async function throwBracketFullPaint(stamp, name, dkPaintedNodeCentreFn, tax) {
                     try { blitSess && blitEndSession(); } catch (e) { __sxErrLog("layout-throwbracket-paint-blit-end", e); }
                     scCtx = { targetBranches: new Set, ringBranches: new Set, recomputeBranches: new Set, frozenBranches: allNames, boundaryLog: [], dropped: { optimiser: 0, relief: 0, clamp: 0 }, fallback: null, policy: "contained", opClass: "anneal-closing-paint", reliefPass: 0, r6Abort: !1, capture: cap, centers: centres }, sgHoldBlitStart = !0;
                     let paintRes = null;
-                    try { paintRes = Mr({ animate: !1, forceRepaint: !0, __sxDiagFullPaint: !0 }); } catch (e) { __sxErrLog("layout-throwbracket-paint", e); } finally { scCtx = null, sgHoldBlitStart = !1; }
+                    try { paintRes = sxRequestMapPaint({ animate: !1, forceRepaint: !0, __sxDiagFullPaint: !0 }); } catch (e) { __sxErrLog("layout-throwbracket-paint", e); } finally { scCtx = null, sgHoldBlitStart = !1; }
                     try {
                         if (paintRes && "function" == typeof paintRes.then) await Promise.race([ paintRes, new Promise(r => setTimeout(r, 900)) ]);
                         else if ("undefined" != typeof sxPaintPromise && sxPaintPromise && "function" == typeof sxPaintPromise.then) await Promise.race([ sxPaintPromise, new Promise(r => setTimeout(r, 900)) ]);
@@ -412,7 +412,7 @@ async function diagOnDemandPaint(stamp, paintOrdinal, phaseName, name, dkPainted
                     try { blitSess && blitEndSession(); } catch (e) { __sxErrLog("layout-ondemand-paint-blit-end", e); }
                     scCtx = { targetBranches: new Set, ringBranches: new Set, recomputeBranches: new Set, frozenBranches: allNames, boundaryLog: [], dropped: { optimiser: 0, relief: 0, clamp: 0 }, fallback: null, policy: "contained", opClass: "anneal-closing-paint", reliefPass: 0, r6Abort: !1, capture: cap, centers: centres }, sgHoldBlitStart = !0;
                     let paintRes = null;
-                    try { paintRes = Mr({ animate: !1, forceRepaint: !0, __sxDiagFullPaint: !0 }); } catch (e) { __sxErrLog("layout-ondemand-paint", e); } finally { scCtx = null, sgHoldBlitStart = !1; }
+                    try { paintRes = sxRequestMapPaint({ animate: !1, forceRepaint: !0, __sxDiagFullPaint: !0 }); } catch (e) { __sxErrLog("layout-ondemand-paint", e); } finally { scCtx = null, sgHoldBlitStart = !1; }
                     try {
                         if (paintRes && "function" == typeof paintRes.then) await Promise.race([ paintRes, new Promise(r => setTimeout(r, 900)) ]);
                         else if ("undefined" != typeof sxPaintPromise && sxPaintPromise && "function" == typeof sxPaintPromise.then) await Promise.race([ sxPaintPromise, new Promise(r => setTimeout(r, 900)) ]);
@@ -441,7 +441,7 @@ function diag00Capture(pre, name, tax, report, snapshot) {
             h.forEach(b => {
                 const btax = dkBranchTaxonomy(b.name), pt = (() => { try { return dkPaintedNodeCentre(catId(b.name)); } catch (e) { return null; } })(), pts = [], bsubs = {};
                 if (pt) pts.push(pt);
-                (btax ? btax.subLabels : []).forEach(l => { const sp = (() => { try { return dkPaintedNodeCentre(Un(b.name, l)); } catch (e) { return null; } })(); if (sp) { pts.push(sp); bsubs[l] = { x: r2(sp.x), y: r2(sp.y), absR: r2(Math.hypot(sp.x - pr.centerX, sp.y - pr.centerY)) }; } });
+                (btax ? btax.subLabels : []).forEach(l => { const sp = (() => { try { return dkPaintedNodeCentre(sxResolveSubcategoryId(b.name, l)); } catch (e) { return null; } })(); if (sp) { pts.push(sp); bsubs[l] = { x: r2(sp.x), y: r2(sp.y), absR: r2(Math.hypot(sp.x - pr.centerX, sp.y - pr.centerY)) }; } });
                 let bb = null;
                 if (pts.length) { const xs = pts.map(p => p.x), ys = pts.map(p => p.y); bb = { x: r2(Math.min.apply(null, xs)), y: r2(Math.min.apply(null, ys)), width: r2(Math.max.apply(null, xs) - Math.min.apply(null, xs)), height: r2(Math.max.apply(null, ys) - Math.min.apply(null, ys)) }; }
                 branches.push({ branch: b.name, hubPt: pt ? { x: r2(pt.x), y: r2(pt.y), source: pt.source } : null, hubRadius: pt ? r2(Math.hypot(pt.x - pr.centerX, pt.y - pr.centerY)) : null, nodeCentreBBox: bb, subs: bsubs });
@@ -485,7 +485,7 @@ function throwBracketSnapshot(code, label, stamp, paintInfo, name, tax, report, 
             h.forEach(b => {
                 const btax = dkBranchTaxonomy(b.name), pt = (() => { try { return dkPaintedNodeCentre(catId(b.name)); } catch (e) { return null; } })(), pts = [], bsubs = {};
                 if (pt) pts.push(pt);
-                (btax ? btax.subLabels : []).forEach(l => { const sp = (() => { try { return dkPaintedNodeCentre(Un(b.name, l)); } catch (e) { return null; } })(); if (sp) { pts.push(sp); bsubs[l] = { x: r2(sp.x), y: r2(sp.y), absR: r2(Math.hypot(sp.x - pr.centerX, sp.y - pr.centerY)) }; } });
+                (btax ? btax.subLabels : []).forEach(l => { const sp = (() => { try { return dkPaintedNodeCentre(sxResolveSubcategoryId(b.name, l)); } catch (e) { return null; } })(); if (sp) { pts.push(sp); bsubs[l] = { x: r2(sp.x), y: r2(sp.y), absR: r2(Math.hypot(sp.x - pr.centerX, sp.y - pr.centerY)) }; } });
                 let bb = null;
                 if (pts.length) { const xs = pts.map(p => p.x), ys = pts.map(p => p.y); bb = { x: r2(Math.min.apply(null, xs)), y: r2(Math.min.apply(null, ys)), width: r2(Math.max.apply(null, xs) - Math.min.apply(null, xs)), height: r2(Math.max.apply(null, ys) - Math.min.apply(null, ys)) }; }
                 branches.push({ branch: b.name, hubPt: pt ? { x: r2(pt.x), y: r2(pt.y), source: pt.source } : null, hubRadius: pt ? r2(Math.hypot(pt.x - pr.centerX, pt.y - pr.centerY)) : null, nodeCentreBBox: bb, subs: bsubs });

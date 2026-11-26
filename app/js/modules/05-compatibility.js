@@ -1,28 +1,28 @@
-        function Zd(pairOp) {
+        function sxMintPairGroup(pairOp) {
             // Pair kind (2026-10-27): "straight" mints a ⊙ pair; every
             // other call is the original bowtie mint, unchanged. The
             // kind drives the name join below (⋈ vs ⊙), the pairOp
             // field on the group record, and - through that field -
             // Rd's compute dispatch.
             const sxPairOp = sxNormalizePairOp(pairOp);
-            const t = (qd.length ? qd : Xi()).filter(e => vt[e]);
+            const t = (qd.length ? qd : sxScoringProfileIds()).filter(e => vt[e]);
             if (t.length < 2) return !1;
             const n = t.map(e => ({
                 name: wt[e],
-                ratings: Pd(vt[e]),
-                annotations: Pd(Qe[e]),
-                fantasyOnly: Pd(Je[e]),
-                alreadyTried: Pd(et[e]),
-                importedChildren: Pd(at[e]),
-                genders: bb(rt[e]),
-                orientations: iv(ot[e]),
-                veil: av(vpt[e]),
+                ratings: sxCloneProfileRecord(vt[e]),
+                annotations: sxCloneProfileRecord(Qe[e]),
+                fantasyOnly: sxCloneProfileRecord(Je[e]),
+                alreadyTried: sxCloneProfileRecord(et[e]),
+                importedChildren: sxCloneProfileRecord(at[e]),
+                genders: sxNormalizeGenders(rt[e]),
+                orientations: sxNormalizeOrientations(ot[e]),
+                veil: sxClampVeilLevel(vpt[e]),
                 veilEnabled: Boolean(vht[e]),
-                net: av(vpt[e]),
+                net: sxClampVeilLevel(vpt[e]),
                 netEnabled: Boolean(vht[e])
             }));
             const a = t.map(e => String(wt[e] || "Profile").trim()).join(sxPairJoin(sxPairOp));
-            const o = ik(a);
+            const o = sxAllocateProfileId(a);
             const opName = "straight" === sxPairOp ? "straight" : "minus" === sxPairOp ? "minus" : "cross";
             // Match-tab fix (2026-10-26): saving CLOSES the match view.
             // Every match tab is torn down and the stage deactivated
@@ -61,7 +61,7 @@
                     curiousAbout: [],
                     mismatched: []
                 }
-            }, Rd(o), la(o), Mt = o, It = o, sxSel(null, "clear"), qd = [], Wd = null, sxHoldExpansion(), sxExpandGroupMap(), 
+            }, sxRefreshGroupScore(o), sxProfileColor(o), Mt = o, It = o, sxSel(null, "clear"), qd = [], Wd = null, sxHoldExpansion(), sxExpandGroupMap(), 
             // Save marking (2026-10-26): Rd marks EVERY recompute dirty
             // (zt at its tail) - that recompute-marking, not the save
             // itself, is why a freshly saved group tab still read
@@ -75,13 +75,13 @@
             // persists the group like any other profile; that timer's
             // own Vt then finishes the cleanup. Later edits re-mark
             // through zt as usual.
-            delete yt[o], Gt(), Jw(), Mr(), Ih(), !0;
+            delete yt[o], sxSyncUnsavedFlag(), sxRenderProfileTabs(), sxRequestMapPaint(), sxApplyMapFit(), !0;
         }
-        function Qd(t) {
+        function sxOpenScribeChoice(t) {
             const i = t[0];
             if (!i || !vt[i]) return;
             scribeCastIds = t.slice(), scribeLeadId = i;
-            const castText = t.filter(e => vt[e]).map(e => rd(e)).join(" + ");
+            const castText = t.filter(e => vt[e]).map(e => sxCastNameText(e)).join(" + ");
             if (e.byId("scribeChoiceProfiles")) e.byId("scribeChoiceProfiles").textContent = castText;
             if (e.byId("scribeProfiles")) e.byId("scribeProfiles").textContent = castText;
             scribePartnerId = 2 === t.length ? t[1] : null;
@@ -122,11 +122,11 @@
                 s && (s.textContent = a ? "Multiple profiles selected: Scribe will create a Literotica-style erotic Story featuring all selected partners." : "One profile selected: Scribe will create a Literotica-style erotic Story.");
             }
             c && (c.disabled = !1),
-            l && (l.textContent = "Prompt"), kg.open && Ui(kg),
-            Sg.open && Ui(Sg), Oc.open && Ui(Oc), jc.open && Ui(jc), Wi(Bc);
+            l && (l.textContent = "Prompt"), kg.open && sxCloseModalDialog(kg),
+            Sg.open && sxCloseModalDialog(Sg), Oc.open && sxCloseModalDialog(Oc), jc.open && sxCloseModalDialog(jc), sxOpenModalDialog(Bc);
         }
-        function Jd(e) {
-            const t = Xi(), n = t[0] || Mt;
+        function sxEnterScribeCast(e) {
+            const t = sxScoringProfileIds(), n = t[0] || Mt;
             if (!n || !vt[n]) return;
             const i = 1 === t.length && "group" === ft[n]?.kind ? ft[n] : null, a = i && Array.isArray(i.sourceIds) ? i.sourceIds.filter(e => vt[e]) : [], r = a.length >= 2 ? a : t.length ? t.slice() : [ n ];
             // Scribe fallback, redesigned (owner ruling, 2026-10-27):
@@ -140,15 +140,15 @@
             // now resolves the cast straight from the live multi-select
             // and opens the Scribe choice directly - no recompute, no
             // recursion, no side effect.
-            if (r.length < 2 && Yi().length >= 2) return sxGroupLeniency = 50, sxWriterLeniency = 50, sxCompareIds = Yi().filter(e => vt[e]), void Qd(sxCompareIds);
-            if (r.length < 1) return void tS("Scribe needs at least 1 profile in the multi-select. Select a profile tab — Ctrl+click (Cmd+click on Mac) profile tabs to build a multi-select — then open Scribe again.", {
+            if (r.length < 2 && sxListLiveSelections().length >= 2) return sxGroupLeniency = 50, sxWriterLeniency = 50, sxCompareIds = sxListLiveSelections().filter(e => vt[e]), void sxOpenScribeChoice(sxCompareIds);
+            if (r.length < 1) return void sxShowStatusToast("Scribe needs at least 1 profile in the multi-select. Select a profile tab — Ctrl+click (Cmd+click on Mac) profile tabs to build a multi-select — then open Scribe again.", {
                 tone: "error",
                 persistent: !0
             });
-            if (a.length >= 2) return sxGroupLeniency = Number.isFinite(Number(i.leniency)) ? Number(i.leniency) : 50, sxWriterLeniency = sxGroupLeniency, void Qd(r);
-            sxGroupLeniency = 50, sxWriterLeniency = 50, sxCompareIds = r.slice(), Qd(r);
+            if (a.length >= 2) return sxGroupLeniency = Number.isFinite(Number(i.leniency)) ? Number(i.leniency) : 50, sxWriterLeniency = sxGroupLeniency, void sxOpenScribeChoice(r);
+            sxGroupLeniency = 50, sxWriterLeniency = 50, sxCompareIds = r.slice(), sxOpenScribeChoice(r);
         }
-        function eu(e, t, n, i, a, r, o = 99) {
+        function sxDrawWrappedLines(e, t, n, i, a, r, o = 99) {
             const s = String(t || "").split(/\s+/), l = [];
             let c = "";
             return s.forEach(t => {
@@ -157,19 +157,19 @@
             }), c && l.push(c), l.slice(0, o).forEach((t, a) => e.fillText(t + (a === o - 1 && l.length > o ? "…" : ""), n, i + a * r)), 
             i + Math.min(l.length, o) * r;
         }
-        function tu(e) {
+        function sxRatedNodeSet(e) {
             const t = new Set;
             return h.forEach(n => {
-                if (!Ma(n, e)) return;
+                if (!sxIsBranchVeilShown(n, e)) return;
                 const i = catId(n.name);
                 let a = !1;
                 n.topics.forEach(n => {
-                    const i = Wn(n);
-                    if (ja(i, e)) return;
-                    const r = t => ui(t, e) || Boolean(Qe[e]?.[t]) || Boolean(Je[e]?.[t]) || Boolean(et[e]?.[t]) || Boolean(tt[e]?.[t]?.length), o = ai(i, e).filter(t => r(t) && !ja(t, e));
+                    const i = sxResolveTopicId(n);
+                    if (sxIsLimitOrUninterested(i, e)) return;
+                    const r = t => sxHasKnownRating(t, e) || Boolean(Qe[e]?.[t]) || Boolean(Je[e]?.[t]) || Boolean(et[e]?.[t]) || Boolean(tt[e]?.[t]?.length), o = sxListImportedChildIds(i, e).filter(t => r(t) && !sxIsLimitOrUninterested(t, e));
                     (r(i) || o.length) && (t.add(i), o.forEach(e => t.add(e)), a = !0);
                 }), a && t.add(i);
-            }), !t.size && Bi(e) && h.forEach(e => t.add(catId(e.name))), t;
+            }), !t.size && sxHasNoRatedCategory(e) && h.forEach(e => t.add(catId(e.name))), t;
         }
         // F8 companion note (sharing-sync refactor): nu performs the
         // same solo-switch / collect / restore shape as the export
@@ -181,16 +181,16 @@
         // that pass (Jf's comment records the decision). Any future
         // hardening of this pattern should cover both sites or
         // neither, and say which.
-        async function nu(t, n, i = {}) {
-            const a = Yi(), r = [ ...rn ], o = [ ...on ], s = new Map(un), l = Lt, c = Nt, d = Mt, u = It, p = Pt, g = Tt, m = $n, f = En, y = Boolean(i.profileFill), b = Math.max(.25, Math.min(1, Number(i.outputScale) || 1)), v = Math.max(320, Number(i.outputWidth) || (y ? 3600 : 1800)), w = Math.max(320, Number(i.outputHeight) || (y ? 3600 : 1240)), k = Math.round(v * b), x = Math.round(w * b);
+        async function sxRenderExportMap(t, n, i = {}) {
+            const a = sxListLiveSelections(), r = [ ...rn ], o = [ ...on ], s = new Map(un), l = Lt, c = Nt, d = Mt, u = It, p = Pt, g = Tt, m = $n, f = En, y = Boolean(i.profileFill), b = Math.max(.25, Math.min(1, Number(i.outputScale) || 1)), v = Math.max(320, Number(i.outputWidth) || (y ? 3600 : 1800)), w = Math.max(320, Number(i.outputHeight) || (y ? 3600 : 1240)), k = Math.round(v * b), x = Math.round(w * b);
             n && vt[n] && (Mt = n, It = n), Pt = "all", Tt = "", sxSel(t, "set"), 
             t.length < 2 && sxSel(null, "clear"), rn.clear(), r.forEach(e => rn.add(e)), on.clear(), o.forEach(e => on.add(e)),
             Lt = null, Nt = null, En = !1;
             const S = i.allowedIds instanceof Set ? new Set(i.allowedIds) : new Set(Array.isArray(i.allowedIds) ? i.allowedIds : []);
-            i.allowedIds || t.forEach(e => tu(e).forEach(e => S.add(e))), S.forEach(e => {
-                const t = qn[e] || Xn(e) || (at[n] || {})[e];
+            i.allowedIds || t.forEach(e => sxRatedNodeSet(e).forEach(e => S.add(e))), S.forEach(e => {
+                const t = sxNodeRegistry[e] || sxNodeById(e) || (at[n] || {})[e];
                 t?.parentId && (on.add(t.parentId), un.set(t.parentId, "all"));
-            }), $n = S, Mr({
+            }), $n = S, sxRequestMapPaint({
                 animate: !1
             });
             const $ = function(e, t = !1, n = !1) {
@@ -255,7 +255,7 @@
             D.setAttribute("height", String(_)), "transparent" !== i.background && (D.setAttribute("fill", "white" === i.background ? "#ffffff" : "#151816"), 
             A.insertBefore(D, L || A.firstChild)), i.displayName && function(e, t) {
                 e.querySelectorAll(".center-name-arc-text textPath").forEach(e => {
-                    e.textContent = Ji(t);
+                    e.textContent = sxFirstWordText(t);
                 });
             }(A, i.displayName), i.nativeTooltips && function(t, n, i = {}) {
                 if (!t || !n || !vt[n]) return;
@@ -264,13 +264,13 @@
                     Array.from(e.children || []).filter(e => "title" === e.localName).forEach(e => e.remove());
                     const n = document.createElementNS("http://www.w3.org/2000/svg", "title");
                     n.textContent = String(t).trim(), e.insertBefore(n, e.firstChild);
-                }, r = e => qn[e] || Xn(e) || (at[n] || {})[e] || li().find(t => t.id === e), o = (e, t) => String(t?.querySelector(".category-label,.map-label")?.textContent || r(e)?.label || e || "Topic").trim();
+                }, r = e => sxNodeRegistry[e] || sxNodeById(e) || (at[n] || {})[e] || sxCollectAllImports().find(t => t.id === e), o = (e, t) => String(t?.querySelector(".category-label,.map-label")?.textContent || r(e)?.label || e || "Topic").trim();
                 t.querySelectorAll(".node-group[data-layout-key]").forEach(e => {
                     const t = e.getAttribute("data-layout-key"), i = o(t, e), s = r(t);
                     if (!t || !i) return;
-                    const l = Pa(t, n), c = [ i, `Give: ${l.giveKnown ? Math.round(l.give) : "unrated"} · Receive: ${l.receiveKnown ? Math.round(l.receive) : "unrated"}` ];
-                    s && c.push(lo(s));
-                    const d = [], u = Oa(t, n);
+                    const l = sxFillAncestorFlanks(t, n), c = [ i, `Give: ${l.giveKnown ? Math.round(l.give) : "unrated"} · Receive: ${l.receiveKnown ? Math.round(l.receive) : "unrated"}` ];
+                    s && c.push(sxPlacardAboutText(s));
+                    const d = [], u = sxAnnotationState(t, n);
                     "favorite" === u ? d.push("Favorite") : "limit" === u ? d.push("Hard Limit") : "notinterested" === u && d.push("Not Interested"), 
                     Boolean(Je[n]?.[t]) && d.push("Fantasy-only"), Boolean(et[n]?.[t]) && d.push("Already Tried"), 
                     Boolean(tt[n]?.[t]?.length) && d.push("Has note"), d.length && c.push(d.join(" · ")), 
@@ -278,12 +278,12 @@
                 }), t.querySelectorAll(".direction-control[data-id][data-direction]").forEach(e => {
                     const t = e.getAttribute("data-id"), i = e.getAttribute("data-direction");
                     if (!t || !i || "group" === i) return;
-                    const s = da(t, n), l = Boolean(s[i + "Known"]), c = l ? Math.round(s[i]) : "unrated", d = r(t), u = o(t, e), p = Jn(t, i), h = Zn(t, i), g = l && s[i + "Derived"] ? ` · rolled up from ${s[i + "RatedChildren"]} of ${s.childCount} child topics` : "";
+                    const s = sxRatingRecord(t, n), l = Boolean(s[i + "Known"]), c = l ? Math.round(s[i]) : "unrated", d = r(t), u = o(t, e), p = sxRoleLabelText(t, i), h = sxGiveReceiveNounText(t, i), g = l && s[i + "Derived"] ? ` · rolled up from ${s[i + "RatedChildren"]} of ${s.childCount} child topics` : "";
                     a(e, `${d?.label || u} · ${p}${h ? ` ${h}` : ""}: ${c}${g}`);
                 });
                 const s = t.querySelector(".center-hit"), l = s && s.parentElement;
                 if (l) {
-                    const e = dc(n), r = na([ n ]), o = sxRingValuesForProfile(sxProfileById(n)), s = String(t.querySelector(".center-name-arc-text textPath,.center-label")?.textContent || i.displayName || "Profile").trim(), c = (e.green.length, 
+                    const e = sxGlanceBucketsFor(n), r = sxTallyComparedRatings([ n ]), o = sxRingValuesForProfile(sxProfileById(n)), s = String(t.querySelector(".center-name-arc-text textPath,.center-label")?.textContent || i.displayName || "Profile").trim(), c = (e.green.length, 
                     e.yellow.length, e.red.length, [ s, `${r.percent}% filled · ${r.rated} of over 400 topics rated`, `Want to do: ${e.percentages.green}% (${e.green.length} ${1 === e.green.length ? "topic" : "topics"}) · Curious about: ${e.percentages.yellow}% (${e.yellow.length}) · No: ${e.percentages.red}% (${e.red.length})`, `Charted: ${sxPctText(o?.outer)}` ]);
                     if (i.includeProfileInfo) {
                         const e = String(nt[n] || "").trim(), t = String(it[n] || "").trim();
@@ -305,7 +305,7 @@
             const R = (new XMLSerializer).serializeToString(A);
             Mt = d, It = u, Pt = p, Tt = g, $n = m, En = f, sxSel(a, "set"), 
             rn.clear(), r.forEach(e => rn.add(e)), on.clear(), o.forEach(e => on.add(e)), un.clear(), 
-            s.forEach((e, t) => un.set(t, e)), Lt = l, Nt = c, Mr({
+            s.forEach((e, t) => un.set(t, e)), Lt = l, Nt = c, sxRequestMapPaint({
                 animate: !1
             });
             const O = new Blob([ R ], {
@@ -316,8 +316,8 @@
             }), URL.revokeObjectURL(B), j.sexcapadesNodeIds = Array.from(S).sort(), j.sexcapadesSvgMarkup = R, 
             window.lastExportSvgMarkup = R, j;
         }
-        function iu(e) {
-            iu.table || (iu.table = Array.from({
+        function sxChecksumCrc32(e) {
+            sxChecksumCrc32.table || (sxChecksumCrc32.table = Array.from({
                 length: 256
             }, (e, t) => {
                 let n = t;
@@ -325,12 +325,12 @@
                 return n >>> 0;
             }));
             let t = 4294967295;
-            for (const n of e) t = iu.table[255 & (t ^ n)] ^ t >>> 8;
+            for (const n of e) t = sxChecksumCrc32.table[255 & (t ^ n)] ^ t >>> 8;
             return (4294967295 ^ t) >>> 0;
         }
-        function au(e, t) {
+        function sxPngChunkBytes(e, t) {
             const n = (new TextEncoder).encode(e), i = new Uint8Array(t.length + 12), a = new DataView(i.buffer);
-            return a.setUint32(0, t.length), i.set(n, 4), i.set(t, 8), a.setUint32(t.length + 8, iu(i.slice(4, t.length + 8))), 
+            return a.setUint32(0, t.length), i.set(n, 4), i.set(t, 8), a.setUint32(t.length + 8, sxChecksumCrc32(i.slice(4, t.length + 8))), 
             i;
         }
         // ===== Picture restore guard + save-to-re-read round-trip (Rank 5, 2026-10-30) =====
@@ -352,7 +352,7 @@
             typeAndData.set(bytes.slice(off + 4, off + 8), 0);
             typeAndData.set(bytes.slice(off + 8, off + 8 + len), 4);
             const stored = new DataView(bytes.buffer, bytes.byteOffset + off + 8 + len, 4).getUint32(0);
-            return iu(typeAndData) === stored;
+            return sxChecksumCrc32(typeAndData) === stored;
         }
         // sxVerifyPngRoundTrip: save-side re-read. Walks the finished
         // PNG, verifies every chunk CRC, requires IEND, decompresses
@@ -379,7 +379,7 @@
                     if ("Sexcapades" === keyword || "vCard" === keyword) {
                         if (0 !== data[nul + 1]) throw new Error(sxSaveMsg);
                         let decoded;
-                        try { decoded = (new TextDecoder).decode(await Lx(data.slice(nul + 2))); } catch (err) { throw new Error(sxSaveMsg); }
+                        try { decoded = (new TextDecoder).decode(await sxInflatePngProfile(data.slice(nul + 2))); } catch (err) { throw new Error(sxSaveMsg); }
                         if ("Sexcapades" === keyword) {
                             if (null !== payloadText) throw new Error(sxSaveMsg);
                             payloadText = decoded;
@@ -391,7 +391,7 @@
                         const compressed = 1 === data[nul + 1], langEnd = data.indexOf(0, nul + 3), transEnd = langEnd >= 0 ? data.indexOf(0, langEnd + 1) : -1;
                         if (langEnd < 0 || transEnd < 0 || 0 !== data[nul + 2]) throw new Error(sxSaveMsg);
                         const raw = data.slice(transEnd + 1);
-                        try { vcardText = (new TextDecoder).decode(compressed ? await Lx(raw) : raw); } catch (err) { throw new Error(sxSaveMsg); }
+                        try { vcardText = (new TextDecoder).decode(compressed ? await sxInflatePngProfile(raw) : raw); } catch (err) { throw new Error(sxSaveMsg); }
                     }
                 }
                 if ("IEND" === type) { sawIend = true; break; }
@@ -400,7 +400,7 @@
             if (!sawIend || null === payloadText || payloadText !== expectedText) throw new Error(sxSaveMsg);
             if (expectedVcard && vcardText !== expectedVcard) throw new Error(sxSaveMsg);
         }
-        async function ru(e, t, n = "", i = null) {
+        async function sxEmbedProfilePng(e, t, n = "", i = null) {
             i && await i(76, "Encoding PNG", "Compressing the high-resolution hypermap into a PNG…");
             const a = await new Promise(t => e.toBlob(t, "image/png"));
             if (!a) throw new Error("PNG creation failed");
@@ -433,10 +433,10 @@
                 n;
             }((new TextEncoder).encode(sxWrittenText)), c = new Uint8Array(s.length + 2 + l.length);
             c.set(s), c[s.length] = 0, c[s.length + 1] = 0, c.set(l, s.length + 2);
-            const d = [ au("zTXt", c) ];
+            const d = [ sxPngChunkBytes("zTXt", c) ];
             n && d.push(function(e, t) {
                 const n = (new TextEncoder).encode("vCard"), i = (new TextEncoder).encode(t), a = new Uint8Array(n.length + 5 + i.length);
-                return a.set(n), a.set([ 0, 0, 0, 0, 0 ], n.length), a.set(i, n.length + 5), au("iTXt", a);
+                return a.set(n), a.set([ 0, 0, 0, 0, 0 ], n.length), a.set(i, n.length + 5), sxPngChunkBytes("iTXt", a);
             }(0, n));
             const u = new Blob([ r.slice(0, o), ...d, r.slice(o) ], {
                 type: "image/png"
@@ -450,13 +450,13 @@
             return i && await i(96, "Finalizing export", "Checking the finished file and preparing its preview…"), 
             u;
         }
-        function ou(e, t, n = {}) {
+        function sxSaveExportPng(e, t, n = {}) {
             if (!(e instanceof Blob) || "image/png" !== e.type) throw new Error("Export creation did not produce a PNG.");
             if (void 0 !== window.lastExportSvgMarkup && window.lastExportSvgMarkup && !n.svgMarkup) {
                 var i = window.lastExportSvgMarkup;
                 try {
                     if (n.profileId && vt[n.profileId]) {
-                        var a = n.allowedIds instanceof Set ? n.allowedIds : new Set(n.allowedIds || []), r = bx(n.profileId, a, Boolean(n.includeProfileInfo), "", Boolean(n.blind)), o = JSON.stringify(r), s = btoa(unescape(encodeURIComponent(o)));
+                        var a = n.allowedIds instanceof Set ? n.allowedIds : new Set(n.allowedIds || []), r = sxSerializeExportPayload(n.profileId, a, Boolean(n.includeProfileInfo), "", Boolean(n.blind)), o = JSON.stringify(r), s = btoa(unescape(encodeURIComponent(o)));
                         i = i.replace(/<svg([^>]*)>/, "<svg$1>\x3c!--sexcapades-profile:" + s + "--\x3e");
                     }
                 } catch (e) { __sxErrLog("svg-embed", e); }
@@ -464,7 +464,7 @@
                 n.pdfFilename = String(t || "Sexcapades-export").replace(/\.png$/i, "") + ".pdf", 
                 window.lastExportSvgMarkup = null;
             }
-            Gf(e, /\.png$/i.test(String(t || "")) ? String(t) : String(t || "Sexcapades-export").replace(/\.[^.]+$/, "") + ".png", n);
+            sxPresentExportBlob(e, /\.png$/i.test(String(t || "")) ? String(t) : String(t || "Sexcapades-export").replace(/\.[^.]+$/, "") + ".png", n);
         }
         // The scenePromptText textarea is the single source of truth
         // for the current Scribe prompt (refactor F9): the user can
@@ -495,7 +495,7 @@
             if (!text && !(opts && opts.throughOnEmpty)) return void (statusEl && (statusEl.textContent = failText)), !1;
             const ownTa = !(opts && opts.ta), ta = ownTa ? document.createElement("textarea") : opts.ta;
             ownTa && (ta.value = text, ta.setAttribute("readonly", ""), ta.style.position = "fixed", ta.style.opacity = "0", (hostEl || document.body).appendChild(ta));
-            const ok = await ku(text, ta);
+            const ok = await sxCopyClipboardText(text, ta);
             return ownTa && ta.remove(), statusEl && (statusEl.textContent = ok ? okText : failText), ok;
         }
         e.byId("generateScribePrompt") && e.byId("generateScribePrompt").addEventListener("click", function() {
@@ -569,10 +569,10 @@
                     });
                     e.all("[data-copy-novelai]").forEach(e => e.textContent = "Copy");
                     e.byId("novelAiCopyStatus").textContent = "";
-                    Ui(Bc);
-                    return Wi(jc), void requestAnimationFrame(() => jc.querySelector("[data-copy-novelai]")?.focus());
+                    sxCloseModalDialog(Bc);
+                    return sxOpenModalDialog(jc), void requestAnimationFrame(() => jc.querySelector("[data-copy-novelai]")?.focus());
                 }
-                const castNamesText = (scribeCastIds.length ? scribeCastIds : [ scribeLeadId ]).filter(e => vt[e]).map(e => rd(e)).join(" + ");
+                const castNamesText = (scribeCastIds.length ? scribeCastIds : [ scribeLeadId ]).filter(e => vt[e]).map(e => sxCastNameText(e)).join(" + ");
                 if (e.byId("scribeProfiles")) e.byId("scribeProfiles").textContent = castNamesText;
                 if (e.byId("scribeChoiceProfiles")) e.byId("scribeChoiceProfiles").textContent = castNamesText;
                 const genBtn = e.byId("generateScribePrompt");
@@ -603,9 +603,9 @@
         e.byId("setterSetup") && e.byId("setterSetup").addEventListener("input", ev => {
             const ids = String(e.byId("negotiationDialog")?.dataset.participants || "").split(",").filter(Boolean);
             if (ids.length < 2) return;
-            const st = Cu(ids), tg = ev.target, isNegotiationLength = "setterNegotiationLength" === tg.id || "setterNegotiationLengthUnit" === tg.id;
+            const st = sxSceneCastPrefs(ids), tg = ev.target, isNegotiationLength = "setterNegotiationLength" === tg.id || "setterNegotiationLengthUnit" === tg.id;
             if ("setterLength" === tg.id) st.length = String(tg.value || "5").trim() || "5"; else if ("setterLengthUnit" === tg.id) st.lengthUnit = String(tg.value || "paragraphs"); else if ("setterDetailLevel" === tg.id) st.detail = String(tg.value || "balanced"); else if ("setterNegotiationLength" === tg.id) st.negotiationLength = String(tg.value || "1").trim() || "1"; else if ("setterNegotiationLengthUnit" === tg.id) st.negotiationLengthUnit = String(tg.value || "pages"); else return;
-            Fu(ids), isNegotiationLength ? e.byId("negotiationGuideStatus") && (e.byId("negotiationGuideStatus").textContent = sxSetterIsModeration() ? "Discussion agreement length saved." : "Negotiation guide length saved.") : e.byId("negotiationCopyStatus") && (e.byId("negotiationCopyStatus").textContent = sxSetterIsModeration() ? "Discussion plan settings saved." : "Play guide settings saved.");
+            sxStoreSceneGuide(ids), isNegotiationLength ? e.byId("negotiationGuideStatus") && (e.byId("negotiationGuideStatus").textContent = sxSetterIsModeration() ? "Discussion agreement length saved." : "Negotiation guide length saved.") : e.byId("negotiationCopyStatus") && (e.byId("negotiationCopyStatus").textContent = sxSetterIsModeration() ? "Discussion plan settings saved." : "Play guide settings saved.");
         }), 
         e.byId("copyScenePrompt") && e.byId("copyScenePrompt").addEventListener("click", async function() {
             const n = e.byId("scenePromptText"), i = e.byId("sceneDownloadStatus"), a = e.byId("copyScenePrompt"), r = currentScribePrompt();
@@ -629,26 +629,26 @@
         h.forEach(e => {
             const t = catId(e.name);
             cu.push(t), du.push(t), e.topics.forEach(t => {
-                cu.push(Wn(t)), du.push(Kn(e.name, sxName(t)));
+                cu.push(sxResolveTopicId(t)), du.push(sxBuildTopicSlugId(e.name, sxName(t)));
             });
         });
         const uu = du.filter(e => "topic-sensation-atmosphere-tantra-energy-play" !== e && "topic-service-ritual-spiritual-play" !== e), pu = uu.reduce((e, t) => ("topic-impact-pain-body-modification-whips" === t || e.push("topic-impact-pain-body-modification-riding-crops" === t ? "topic-impact-pain-body-modification-whipping" : t), 
         e), []), hu = new Map(cu.map((e, t) => [ e, t ]));
-        function gu(e) {
+        function sxBase64UrlText(e) {
             let t = "";
             for (let n = 0; n < e.length; n += 32768) t += String.fromCharCode(...e.subarray(n, n + 32768));
             return btoa(t).replace(/\+/g, "-").replace(/\//g, "_").replace(/=+$/, "");
         }
-        function mu(e) {
+        function sxDecodeBase64Url(e) {
             const t = String(e).replace(/-/g, "+").replace(/_/g, "/"), n = atob(t + "=".repeat((4 - t.length % 4) % 4)), i = new Uint8Array(n.length);
             for (let e = 0; e < n.length; e++) i[e] = n.charCodeAt(e);
             return i;
         }
-        const fu = cu.filter(e => Boolean(topicLabelById[e])), yu = iu((new TextEncoder).encode(fu.join(" ")));
-        function bu(e) {
+        const fu = cu.filter(e => Boolean(topicLabelById[e])), yu = sxChecksumCrc32((new TextEncoder).encode(fu.join(" ")));
+        function sxQuantizeRating(e) {
             return Number.isFinite(Number(e)) ? 1 + Math.max(0, Math.min(14, Math.round(14 * (Number(e) + 100) / 200))) : 0;
         }
-        function vu(e) {
+        function sxRatingFromSlot(e) {
             return e ? Math.round(200 * (e - 1) / 14 - 100) : null;
         }
         // wu: the token builder for this format (name, ratings, marks
@@ -659,24 +659,24 @@
         // format lives on the receiving side in Nu, which states the
         // format-derived limit; there is no share-link creation
         // caller in this bundle to warn at send time.
-        function wu(e) {
+        function sxSurveyShareToken(e) {
             const t = function(e, t = {}) {
                 if (!vt[e] && e !== Et) throw new Error("Choose a profile before making a link.");
                 const n = !1 !== t.includeName, i = !1 !== t.includeMarks, a = n ? (new TextEncoder).encode(String(wt[e] || "Shared hypermap").slice(0, 40)) : new Uint8Array(0), r = [];
                 fu.forEach((t, n) => {
-                    const a = ca(t, e), o = bu(a.giveKnown ? a.give : null), s = bu(a.receiveKnown ? a.receive : null), l = i ? ("favorite" === Qe[e]?.[t] ? 1 : "limit" === Qe[e]?.[t] ? 2 : "notinterested" === Qe[e]?.[t] ? 16 : 0) | (Je[e]?.[t] ? 4 : 0) | (et[e]?.[t] ? 8 : 0) : 0;
+                    const a = sxDecodeTopicStance(t, e), o = sxQuantizeRating(a.giveKnown ? a.give : null), s = sxQuantizeRating(a.receiveKnown ? a.receive : null), l = i ? ("favorite" === Qe[e]?.[t] ? 1 : "limit" === Qe[e]?.[t] ? 2 : "notinterested" === Qe[e]?.[t] ? 16 : 0) | (Je[e]?.[t] ? 4 : 0) | (et[e]?.[t] ? 8 : 0) : 0;
                     (o || s || l) && r.push(n, o << 4 | s, l);
                 });
                 const o = new Uint8Array(9 + a.length + r.length), s = new DataView(o.buffer);
                 return o.set([ 83, 88, 1 ], 0), s.setUint32(3, yu), o[7] = a.length, o[8] = r.length / 3, 
-                o.set(a, 9), o.set(r, 9 + a.length), gu(o);
+                o.set(a, 9), o.set(r, 9 + a.length), sxBase64UrlText(o);
             }(e, {
                 includeName: !1,
                 includeMarks: !1
-            }), n = St(mt[e]).outline;
+            }), n = sxNormalizeTimers(mt[e]).outline;
             return n && n.timerRan ? `${t};t=${n.durationSeconds}` : t;
         }
-        async function ku(e, t) {
+        async function sxCopyClipboardText(e, t) {
             let n = !1;
             try {
                 navigator.clipboard && navigator.clipboard.writeText && (await navigator.clipboard.writeText(e), 
@@ -707,7 +707,7 @@
         }
         const Su = [ `Found this comparison tool. Want to compare hypermaps?`, `I mapped my stances on this thing. Dying to see how we overlap — compare hypermaps?`, `Ever wondered where our views line up with someone else’s? Compare hypermaps?`, `I put my whole map together. Compare hypermaps? Let’s see what happens:`, `This site maps stances and compares them with a partner’s. Compare hypermaps?`, `What if you could see exactly where your views overlap with someone? Compare hypermaps?`, `I wonder how compatible we really are… compare hypermaps? Let’s find out:`, `Map your views, compare with mine. Compare hypermaps?` ];
         let $u = -1;
-        function Eu() {
+        function sxFillOpenerMessage() {
             e.byId("openerMessage").value = function() {
                 let e = Math.floor(Math.random() * Su.length);
                 Su.length > 1 && e === $u && (e = (e + 1 + Math.floor(Math.random() * (Su.length - 1))) % Su.length), 

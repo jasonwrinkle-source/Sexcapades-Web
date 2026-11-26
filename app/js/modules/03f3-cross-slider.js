@@ -31,7 +31,7 @@
         function sxCrossLeanToPct(lean) { return (sxCrossClamp(Number(lean) || 0, -100, 100) + 100) / 2; }
         function sxCrossPctToLean(pct) { return sxCrossClamp(Math.round(pct * 2 - 100), -100, 100); }
         function sxCrossColor(app) {
-            if (typeof zi === "function") return zi(app);
+            if (typeof sxInterestColor === "function") return sxInterestColor(app);
             var v = Number(app) || 0, n = Math.min(1, Math.abs(v) / 100);
             var a = [215, 189, 85], b = v > 0 ? [61, 168, 116] : [189, 79, 81];
             return "rgb(" + Math.round(a[0] + (b[0] - a[0]) * n) + "," + Math.round(a[1] + (b[1] - a[1]) * n) + "," + Math.round(a[2] + (b[2] - a[2]) * n) + ")";
@@ -84,14 +84,14 @@
             var isPlacement = !!(keys && keys.length >= 2 && typeof sxDualPlacements === "function" && sxDualPlacements(topicId));
             if (value === null || value === undefined) {
                 if (isPlacement && typeof sxClearAdvocacyReceptivity === "function") { sxClearAdvocacyReceptivity(topicId, dir, profileId || null); return; }
-                if (typeof Fo === "function") { Fo(topicId, dir, !1, profileId || null); Fo(topicId, dir + "Intensity", !1, profileId || null); }
+                if (typeof sxClearTopicRating === "function") { sxClearTopicRating(topicId, dir, !1, profileId || null); sxClearTopicRating(topicId, dir + "Intensity", !1, profileId || null); }
                 return;
             }
             var lean = sxCrossClamp(Math.round(Number(value.lean) || 0), -100, 100);
             var app = sxCrossClamp(Math.round(Number(value.app) || 0), -100, 100);
-            if (isPlacement && typeof sxPersistAdvocacyReceptivity === "function" && typeof ca === "function") {
+            if (isPlacement && typeof sxPersistAdvocacyReceptivity === "function" && typeof sxDecodeTopicStance === "function") {
                 var cur = null;
-                try { cur = ca(topicId, profileId || null); } catch (err) { cur = null; }
+                try { cur = sxDecodeTopicStance(topicId, profileId || null); } catch (err) { cur = null; }
                 var placement = cur && cur[dir] && typeof cur[dir] === "object" ? cur[dir] : null;
                 var c0 = placement ? (Number(placement[keys[0]]) || 0) : 0;
                 var c1 = placement ? (Number(placement[keys[1]]) || 0) : 0;
@@ -102,9 +102,9 @@
                 sxPersistAdvocacyReceptivity(topicId, dir, vals, app, profileId || null);
                 return;
             }
-            if (typeof To !== "function") return;
-            To(topicId, dir, lean, !1, profileId || null);
-            To(topicId, dir + "Intensity", app, !1, profileId || null);
+            if (typeof sxStoreFlankRating !== "function") return;
+            sxStoreFlankRating(topicId, dir, lean, !1, profileId || null);
+            sxStoreFlankRating(topicId, dir + "Intensity", app, !1, profileId || null);
         }
 
         function sxCreateCrossSlider(opts) {

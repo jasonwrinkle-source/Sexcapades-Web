@@ -1,12 +1,12 @@
-        function Id(e) {
+        function sxAllUnorderedPairs(e) {
             const t = [];
             for (let n = 0; n < e.length; n++) for (let i = n + 1; i < e.length; i++) t.push([ e[n], e[i] ]);
             return t;
         }
-        function Pd(e) {
+        function sxCloneProfileRecord(e) {
             return structuredClone(e || {});
         }
-        function Ld(e, t) {
+        function sxNormalizeRating(e, t) {
             const n = (e.ratings || {})[t];
             if ("number" == typeof n) return {
                 give: n,
@@ -122,19 +122,19 @@
                 receptivityKnown: !1
             };
         }
-        function Td(e, t) {
+        function sxAnnotationFor(e, t) {
             return (e.annotations || {})[t] || null;
         }
-        function Fd(e, t) {
+        function sxHasBlockingMark(e, t) {
             const n = val => "limit" === val || "notinterested" === val;
-            if (n(Td(e, t))) return !0;
+            if (n(sxAnnotationFor(e, t))) return !0;
             const ancestors = (typeof sxNodeAncestorIds === "function")
                 ? sxNodeAncestorIds(t, e?.id)
                 : (() => {
-                    const i = qn[t] || Xn(t) || (e.importedChildren || {})[t];
+                    const i = sxNodeRegistry[t] || sxNodeById(t) || (e.importedChildren || {})[t];
                     return [ i?.parentId, i?.branch ? catId(i.branch) : null ].filter(Boolean);
                 })();
-            return ancestors.some(ancId => n(Td(e, ancId)));
+            return ancestors.some(ancId => n(sxAnnotationFor(e, ancId)));
         }
         /* ===== Sync comparison engine v1.1 (ruled algorithm) =====
            The single computation behind every sync percentage in the app:
@@ -159,7 +159,7 @@
             return Math.max(lo, Math.min(hi, v));
         }
         function sxMeta(id, profiles) {
-            let m = qn[id] || Xn(id) || null;
+            let m = sxNodeRegistry[id] || sxNodeById(id) || null;
             if (!m && profiles) for (let k = 0; k < profiles.length; k++) {
                 const c = (profiles[k].importedChildren || {})[id];
                 if (c) { m = c; break; }
@@ -206,7 +206,7 @@
             return null;
         }
         function sxTopicData(profile, id, meta) {
-            const stored = (profile.ratings || {})[id], raw = Ld(profile, id);
+            const stored = (profile.ratings || {})[id], raw = sxNormalizeRating(profile, id);
             let single = "number" == typeof stored, singleValue = single ? Number(stored) : null;
             if (!single && Ue.has(id)) {
                 single = !0, singleValue = raw.giveKnown ? raw.give : raw.receiveKnown ? raw.receive : null;
@@ -307,7 +307,7 @@
             const vals = Object.keys(poles).map(k => Number(poles[k]) || 0);
             if (!vals.length) return null;
             let family = null;
-            if (typeof Ge === "function" && typeof sxFamilyOf === "function") family = sxFamilyOf(Ge(id));
+            if (typeof sxWidgetConfig === "function" && typeof sxFamilyOf === "function") family = sxFamilyOf(sxWidgetConfig(id));
             if (family && typeof sxDerivedFromVals === "function") return sxDerivedFromVals(vals, family);
             if (3 === vals.length && typeof sxTriSignedIntensity === "function") return Math.round(sxTriSignedIntensity(vals));
             if (vals.length >= 4 && typeof sxSignedIntensity === "function") return Math.round(sxSignedIntensity(vals));
@@ -727,8 +727,8 @@
             a.forEach(e => Object.keys(e || {}).forEach(e => {
                 isCatId(e) || r.add(e);
             })), Object.keys(at[e] || {}).forEach(e => r.add(e));
-            const o = new Set([ ...r ].filter(e => !i.some(t => Fd(t, e)) && i.every(t => {
-                const n = Ld(t, e);
+            const o = new Set([ ...r ].filter(e => !i.some(t => sxHasBlockingMark(t, e)) && i.every(t => {
+                const n = sxNormalizeRating(t, e);
                 return n.giveKnown && n.give >= 36 || n.receiveKnown && n.receive >= 36;
             })));
             return a.forEach(e => Object.keys(e || {}).forEach(t => {

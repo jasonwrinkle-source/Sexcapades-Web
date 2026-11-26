@@ -134,7 +134,7 @@
                 ctx.fillStyle = "rgba(255, 255, 255, 0.65)";
                 ctx.fillText("Click or drag to rate", cx, cy - 16);
             } else {
-                const ziColor = typeof zi === "function" ? zi : (v => v > 20 ? "#4ade80" : v < -20 ? "#f87171" : "#d7bd55");
+                const ziColor = typeof sxInterestColor === "function" ? sxInterestColor : (v => v > 20 ? "#4ade80" : v < -20 ? "#f87171" : "#d7bd55");
                 const giveCol = ziColor(g);
                 const recvCol = ziColor(recvVal);
 
@@ -205,10 +205,10 @@
                 sxSwitchboxState.isUnrated = false;
 
                 if (Qr) {
-                    const shape = Ge(Qr);
+                    const shape = sxWidgetConfig(Qr);
                     sxDrawSwitchboxWidget(canvas, shape, sxSwitchboxState);
-                    To(Qr, "give", g, !1);
-                    To(Qr, "receive", recv, !1);
+                    sxStoreFlankRating(Qr, "give", g, !1);
+                    sxStoreFlankRating(Qr, "receive", recv, !1);
                     sxUpdateSwitchboxReadouts(g, recv, false);
                 }
             };
@@ -227,7 +227,7 @@
                     sxSwitchboxState.isDragging = !1;
                     try { canvas.releasePointerCapture(evt.pointerId); } catch (e) {}
                     if (Qr) {
-                        Mr();
+                        sxRequestMapPaint();
                     }
                 }
             };
@@ -237,12 +237,12 @@
             if (clearBtn) {
                 clearBtn.addEventListener("click", () => {
                     if (Qr) {
-                        Fo(Qr, "give", !1);
-                        Fo(Qr, "receive", !0);
+                        sxClearTopicRating(Qr, "give", !1);
+                        sxClearTopicRating(Qr, "receive", !0);
                         sxSwitchboxState.give = 0;
                         sxSwitchboxState.receive = 0;
                         sxSwitchboxState.isUnrated = true;
-                        const shape = Ge(Qr);
+                        const shape = sxWidgetConfig(Qr);
                         sxDrawSwitchboxWidget(canvas, shape, sxSwitchboxState);
                         sxUpdateSwitchboxReadouts(0, 0, true);
                         sxSyncMarkRatings(Qr);

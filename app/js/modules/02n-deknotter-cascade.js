@@ -103,7 +103,7 @@
             // session active, nothing extra is painted.
             if (blitSess) {
                 try {
-                    Mr({
+                    sxRequestMapPaint({
                         animate: !1,
                         forceRepaint: !0
                     });
@@ -847,7 +847,7 @@
                     // so nodes ease into their final spots instead of
                     // snapping. The other cascade paints stay
                     // animate:false (diagnostic / pre-run / tail).
-                    closingPaintResult = Mr({
+                    closingPaintResult = sxRequestMapPaint({
                         animate: !0,
                         forceRepaint: !0
                     });
@@ -1047,7 +1047,7 @@
                 // a failure is logged and never disturbs the
                 // run's return.
                 try {
-                    const tailPaintResult = Mr({ animate: !1, forceRepaint: !0 });
+                    const tailPaintResult = sxRequestMapPaint({ animate: !1, forceRepaint: !0 });
                     try {
                         if (tailPaintResult && "function" == typeof tailPaintResult.then) await Promise.race([ tailPaintResult, new Promise(r => setTimeout(r, 900)) ]);
                         else if ("undefined" != typeof sxPaintPromise && sxPaintPromise && "function" == typeof sxPaintPromise.then) await Promise.race([ sxPaintPromise, new Promise(r => setTimeout(r, 900)) ]);

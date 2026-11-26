@@ -4,10 +4,10 @@
         // =========================================================================
         const SpokeRenderer = {
             renderBranchSpoke(dCat, spokeD, name, nx, ny, o2X, o2Y, cX, cY, catHeat, lineColor, hankyLineClass, giveColor, receiveColor, hankyColor, isNoCode, isRated, filterLen, baseCircle, iconDiameter) {
-                return Ka(dCat, spokeD, 18, name, nx, ny, o2X, o2Y, cX, cY, !1, pr.categoryIcon, catHeat || lineColor, !1, hankyLineClass, giveColor, receiveColor, isNoCode ? Ga.FALLBACK_COLOR : hankyColor, isNoCode, isRated, filterLen, baseCircle, iconDiameter, 1);
+                return sxPaintSpoke(dCat, spokeD, 18, name, nx, ny, o2X, o2Y, cX, cY, !1, pr.categoryIcon, catHeat || lineColor, !1, hankyLineClass, giveColor, receiveColor, isNoCode ? Ga.FALLBACK_COLOR : hankyColor, isNoCode, isRated, filterLen, baseCircle, iconDiameter, 1);
             },
             renderTopicSpoke(id, pathD, label, nx, ny, oX, oY, lX, lY, isStatic, icon, P, isSecondGen, hankyLineClass, giveColor, receiveColor, lineColor, isNoCode, isRated, filterLen, baseCircle, iconDiameter, depth = 2) {
-                return Ka(id, pathD, isStatic ? 18 : 6, label, nx, ny, oX, oY, lX, lY, !0, icon, P, !0, hankyLineClass, giveColor, receiveColor, lineColor, isNoCode, isRated, filterLen, baseCircle, iconDiameter, depth);
+                return sxPaintSpoke(id, pathD, isStatic ? 18 : 6, label, nx, ny, oX, oY, lX, lY, !0, icon, P, !0, hankyLineClass, giveColor, receiveColor, lineColor, isNoCode, isRated, filterLen, baseCircle, iconDiameter, depth);
             }
         };
 
@@ -59,7 +59,7 @@
                 return `<g class="${cls}"${fallbackAttr} data-diameter="${diameter}" ${tapTarget} aria-hidden="true" style="color:${color}" transform="translate(${(cx - r).toFixed(2)} ${(cy - r).toFixed(2)})"><circle class="icon-ring-outline icon-ring-outline-outer" cx="${r}" cy="${r}" r="${r - .5}"/>${discMarkup}<circle class="icon-ring-outline icon-ring-outline-inner" cx="${r}" cy="${r}" r="${r - 3.5}"/>${innerContent}</g>`;
             },
             renderBadges(cx, cy, count, id, ux = 0, uy = 0, offset = 0, isCategory = false) {
-                return yi(cx + ux * offset, cy + uy * offset, count, id, isCategory);
+                return sxHiddenCountMarkup(cx + ux * offset, cy + uy * offset, count, id, isCategory);
             }
         };
 

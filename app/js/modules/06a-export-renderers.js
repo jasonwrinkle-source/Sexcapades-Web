@@ -26,7 +26,7 @@
         function apEmbedMetadata(v, t, a, n, i) {
             try {
                 if (t && void 0 !== vt && vt[t]) {
-                    var w = bx(t, a instanceof Set ? a : new Set(a || []), n, "", i), k = JSON.stringify(w), x = btoa(unescape(encodeURIComponent(k)));
+                    var w = sxSerializeExportPayload(t, a instanceof Set ? a : new Set(a || []), n, "", i), k = JSON.stringify(w), x = btoa(unescape(encodeURIComponent(k)));
                     v.setProperties({
                         title: "Sexcapades hypermap - " + (n ? String(void 0 !== wt && wt[t] || "Profile") : "Shared profile"),
                         subject: "Sexcapades hypermap (vector PDF)",
@@ -142,7 +142,7 @@
             var M = [], overflowPieces = 0, I = null;
             try {
                 if ("undefined" != typeof QRCode && "function" == typeof QRCode.toDataURL) {
-                    I = await Ru(t, a, n, i);
+                    I = await sxEncodeShareToken(t, a, n, i);
                     M = await qrEncode(I, {
                         width: 1200,
                         oversize: "split"
@@ -174,11 +174,11 @@
             } catch (e) { __sxErrLog("profile-name", e); }
             var R = "";
             try {
-                n && (R = Uu(t));
+                n && (R = sxPreferredUserText(t));
             } catch (e) { __sxErrLog("profile-name", e); }
             var O = [ 0, 0, 0 ];
             try {
-                var B = dc(t, a);
+                var B = sxGlanceBucketsFor(t, a);
                 B && B.percentages && (O = [ B.percentages.green || 0, B.percentages.yellow || 0, B.percentages.red || 0 ]);
             } catch (e) { __sxErrLog("profile-stats", e); }
             var j = 4.2;
@@ -222,7 +222,7 @@
                 v.text(ge, 7, j + z + .7);
             }
         }
-        async function ap(e, t, n = !1, i = !1, a = null) {
+        async function sxDrawMapPdfBlob(e, t, n = !1, i = !1, a = null) {
             var _pp = await apLoadAndPrep(e), o = _pp.o, v = _pp.v, f = _pp.f, y = _pp.y, g = _pp.g, b = _pp.b;
             apEmbedMetadata(v, t, a, n, i);
             var S = document.createElement("div");
@@ -284,14 +284,14 @@
             if (qrOverflow > 0) outBlob.sexcapadesQrOverflowPieces = qrOverflow;
             return outBlob;
         }
-        async function rp(n, i = {}) {
-            if (!vt[n] || !Jv(n, "capturing this profile", () => rp(n, i))) return;
-            const a = Boolean(i.lowRes), r = a ? "Low-res visible-map PNG" : "Visible-map PNG", o = Uf(`Capture ${Ji(wt[n])}`, a ? "Building a compact PNG of the topics currently visible on your map…" : "Building a high-resolution PNG of the topics currently visible on your map…", {
+        async function sxExportVisibleMapPng(n, i = {}) {
+            if (!vt[n] || !sxCanRunProfileAction(n, "capturing this profile", () => sxExportVisibleMapPng(n, i))) return;
+            const a = Boolean(i.lowRes), r = a ? "Low-res visible-map PNG" : "Visible-map PNG", o = sxStartExportJob(`Capture ${sxFirstWordText(wt[n])}`, a ? "Building a compact PNG of the topics currently visible on your map…" : "Building a high-resolution PNG of the topics currently visible on your map…", {
                 profileId: n
             });
-            if (await Hf(o, 6, "Preparing hypermap", "Opening a clean export canvas…"), o !== vf) return;
+            if (await sxFlushExportProgress(o, 6, "Preparing hypermap", "Opening a clean export canvas…"), o !== vf) return;
             const s = Boolean(i.includeProfileInfo), l = Boolean(i.blind), c = (s && wt[n], 
-            ip(s ? wt[n] : "Shared profile")), d = a ? [ {
+            sxExportFileNames(s ? wt[n] : "Shared profile")), d = a ? [ {
                 scale: 4 / 9,
                 compact: !0,
                 label: "1600 × 1600"
@@ -325,10 +325,10 @@
                 if (o !== vf) return;
                 const a = d[e];
                 e && (tf.textContent = `The larger render could not finish. Retrying at ${a.label}…`, 
-                await Hf(o, 8, "Retrying at a safer size", `The larger render could not finish. Trying ${a.label} without losing profile data…`));
+                await sxFlushExportProgress(o, 8, "Retrying at a safer size", `The larger render could not finish. Trying ${a.label} without losing profile data…`));
                 try {
                     u = {
-                        blob: await Zu(n, {
+                        blob: await sxExportVisibleMap(n, {
                             lowRes: a.compact,
                             outputScale: a.scale,
                             photoIndices: i.photoIndices,
@@ -336,7 +336,7 @@
                             blind: l,
                             background: i.background || "black",
                             allowedIds: i.allowedIds,
-                            progress: (e, t, n) => Hf(o, e, t, n)
+                            progress: (e, t, n) => sxFlushExportProgress(o, e, t, n)
                         }),
                         attempt: a,
                         index: e
@@ -349,9 +349,9 @@
             if (o === vf) {
                 if (u) {
                     const e = !a && u.index > 0, t = a ? c.zoom : e ? c.map.replace(/-full-map\.png$/, "-memory-safe-visible-map.png") : c.map, d = a ? `Compact export of what's currently visible on your map, with matching re-importable data · ${(u.blob.size / 1048576).toFixed(1)} MB.` : e ? `Your browser switched to a memory-safe ${u.attempt.label} export. It still contains only what's currently visible on your map, with matching re-importable data.` : `${u.attempt.label} high-resolution export of what's currently visible on your map, with matching re-importable data embedded.`;
-                    return void ou(u.blob, t, {
-                        title: `${r} · ${s ? np(wt[n], !0) : "Shared profile"}`,
-                        subtitle: d + (s && Ov(ut[n]) ? " A vCard is included." : ""),
+                    return void sxSaveExportPng(u.blob, t, {
+                        title: `${r} · ${s ? sxShortNameText(wt[n], !0) : "Shared profile"}`,
+                        subtitle: d + (s && sxCountFilledContacts(ut[n]) ? " A vCard is included." : ""),
                         zoomable: !0,
                         ninjaTransfer: !a,
                         preparedJob: o,
@@ -366,9 +366,9 @@
                     var h = "";
                     if (void 0 !== window.lastExportSvgMarkup && window.lastExportSvgMarkup) {
                         var g = window.lastExportSvgMarkup;
-                        window.lastExportSvgMarkup = null, ap(g, n, s, l, i.allowedIds).then(function(e) {
+                        window.lastExportSvgMarkup = null, sxDrawMapPdfBlob(g, n, s, l, i.allowedIds).then(function(e) {
                             var i = URL.createObjectURL(e), a = document.createElement("a");
-                            a.href = i, a.download = ip(s ? wt[n] : "Shared profile").pdf, document.body.appendChild(a), 
+                            a.href = i, a.download = sxExportFileNames(s ? wt[n] : "Shared profile").pdf, document.body.appendChild(a), 
                             a.click(), a.remove(), t.setTimeout(function() {
                                 URL.revokeObjectURL(i);
                             }, 5e3);
@@ -381,19 +381,19 @@
                 }
                 jm.textContent = (a ? "The compact image render could not finish." : "Image renders could not finish.") + (void 0 !== p && p ? " Error: " + String(p.message || p).slice(0, 150) : "") + h, 
                 tf.textContent = a ? "A PDF was downloaded instead to protect your ratings." : "A PDF was downloaded instead to protect your ratings. You can also try the Export low-res PNG.", 
-                Wf(o, "The PNG could not be completed on this device. Your open profile is unchanged."), 
+                sxFailExportProgress(o, "The PNG could not be completed on this device. Your open profile is unchanged."), 
                 e.byId("overlayStatus").textContent = "The image could not be created, but the profile and its JSON export are still available.", 
                 console.error("Profile PNG export failed after memory-safe retries.", p);
             }
         }
-        async function op(e, t = {}) {
-            if (!vt[e] || !Jv(e, "capturing this profile", () => op(e, t))) return;
-            const n = "a4" === t.paperSize ? "a4" : "letter", i = "a4" === n ? "A4" : "US Letter (Avery 5371)", a = "a4" === n ? "A4" : "Letter", r = Uf(`Sync card pages · ${Ji(wt[e])}`, `Building ${i} front and back pages…`, {
+        async function sxExportSyncCardPages(e, t = {}) {
+            if (!vt[e] || !sxCanRunProfileAction(e, "capturing this profile", () => sxExportSyncCardPages(e, t))) return;
+            const n = "a4" === t.paperSize ? "a4" : "letter", i = "a4" === n ? "A4" : "US Letter (Avery 5371)", a = "a4" === n ? "A4" : "Letter", r = sxStartExportJob(`Sync card pages · ${sxFirstWordText(wt[e])}`, `Building ${i} front and back pages…`, {
                 profileId: e
             });
             try {
-                const o = Boolean(t.includeProfileInfo), s = Boolean(t.blind), l = o ? wt[e] || "Profile" : "Shared profile", c = ip(o ? wt[e] : "Shared profile"), d = "a4" === n ? c.cardSheet.replace("-front-sheet.png", "-A4-front-sheet.png") : c.cardSheet, u = "a4" === n ? c.cardBackSheet.replace("-back-sheet.png", "-A4-back-sheet.png") : c.cardBackSheet, p = await async function(e, t = {}) {
-                    const n = await ep(e, {
+                const o = Boolean(t.includeProfileInfo), s = Boolean(t.blind), l = o ? wt[e] || "Profile" : "Shared profile", c = sxExportFileNames(o ? wt[e] : "Shared profile"), d = "a4" === n ? c.cardSheet.replace("-front-sheet.png", "-A4-front-sheet.png") : c.cardSheet, u = "a4" === n ? c.cardBackSheet.replace("-back-sheet.png", "-A4-back-sheet.png") : c.cardBackSheet, p = await async function(e, t = {}) {
+                    const n = await sxRenderSyncCard(e, {
                         ...t,
                         printFont: !0
                     }), i = URL.createObjectURL(n.front), a = URL.createObjectURL(n.back), r = new Image, o = new Image;
@@ -408,20 +408,20 @@
                     } finally {
                         URL.revokeObjectURL(i), URL.revokeObjectURL(a);
                     }
-                    const s = "a4" === t.paperSize ? "a4" : "letter", l = tp(r, !1, s), c = tp(o, !0, s);
+                    const s = "a4" === t.paperSize ? "a4" : "letter", l = sxTileCardSheet(r, !1, s), c = sxTileCardSheet(o, !0, s);
                     return {
-                        front: await ru(l, n.payload, n.vcard),
-                        back: await ru(c, n.payload, n.vcard)
+                        front: await sxEmbedProfilePng(l, n.payload, n.vcard),
+                        back: await sxEmbedProfilePng(c, n.payload, n.vcard)
                     };
                 }(e, {
                     includeProfileInfo: o,
                     blind: s,
                     paperSize: n,
                     background: t.background || "black",
-                    progress: (e, t, n) => Hf(r, Math.min(94, e), t, n)
+                    progress: (e, t, n) => sxFlushExportProgress(r, Math.min(94, e), t, n)
                 });
                 if (r !== vf) return;
-                ou(p.front, d, {
+                sxSaveExportPng(p.front, d, {
                     title: `Sync card front + back pages · ${l}`,
                     subtitle: `Both ${a} 10-up pages are ready. Download the front page below, then download the matching back page with the numbered profile-data QR codes.`,
                     help: `Print both files on ${i} paper at 100% or Actual Size with “Fit to page” turned off. Feed the front sheet back through your printer in the orientation required by your printer before printing the backs.`,
@@ -440,17 +440,17 @@
                 // replaced by the generic failure text.
                 const sxCardOversize = /too large for the reliable/i.test(String(e && e.message || ""));
                 Bm.textContent = sxCardOversize ? "Sync card too large" : "Could not create Sync card pages", jm.textContent = sxCardOversize ? String(e.message) : `This browser could not finish both ${i} pages.`, 
-                tf.textContent = sxCardOversize ? "Close this window, then use Export QR codes for the numbered QR sheet." : "Close this window and try again.", qf(r, 100, Bm.textContent, jm.textContent, !1, "error"), console.error("Sync card page export failed.", e);
+                tf.textContent = sxCardOversize ? "Close this window, then use Export QR codes for the numbered QR sheet." : "Close this window and try again.", sxPaintExportProgress(r, 100, Bm.textContent, jm.textContent, !1, "error"), console.error("Sync card page export failed.", e);
             }
         }
-        async function sp(e, t = {}) {
-            if (!vt[e] || !Jv(e, "creating a printable Sync card sheet", () => sp(e, t))) return;
-            const n = Uf(`Printable Sync cards · ${Ji(wt[e])}`, "Building ten standard-size card fronts on a US Letter sheet…", {
+        async function sxExportCardFrontSheet(e, t = {}) {
+            if (!vt[e] || !sxCanRunProfileAction(e, "creating a printable Sync card sheet", () => sxExportCardFrontSheet(e, t))) return;
+            const n = sxStartExportJob(`Printable Sync cards · ${sxFirstWordText(wt[e])}`, "Building ten standard-size card fronts on a US Letter sheet…", {
                 profileId: e
             });
             try {
-                const i = Boolean(t.includeProfileInfo), a = Boolean(t.blind), r = i ? wt[e] || "Profile" : "Shared profile", o = ip(i ? wt[e] : "Shared profile"), s = await async function(e, t = {}) {
-                    const n = Boolean(t.includeProfileInfo), i = Boolean(t.blind), a = await ep(e, {
+                const i = Boolean(t.includeProfileInfo), a = Boolean(t.blind), r = i ? wt[e] || "Profile" : "Shared profile", o = sxExportFileNames(i ? wt[e] : "Shared profile"), s = await async function(e, t = {}) {
+                    const n = Boolean(t.includeProfileInfo), i = Boolean(t.blind), a = await sxRenderSyncCard(e, {
                         ...t,
                         printFont: !0,
                         frontOnly: !0
@@ -463,19 +463,19 @@
                     } finally {
                         URL.revokeObjectURL(r);
                     }
-                    const s = tp(o, !1, t.paperSize), l = t.allowedIds instanceof Set ? t.allowedIds : new Set(t.allowedIds || []), c = n ? wt[e] || "Profile" : "Shared profile";
-                    return ru(s, yx.serialize("envelope", {
+                    const s = sxTileCardSheet(o, !1, t.paperSize), l = t.allowedIds instanceof Set ? t.allowedIds : new Set(t.allowedIds || []), c = n ? wt[e] || "Profile" : "Shared profile";
+                    return sxEmbedProfilePng(s, yx.serialize("envelope", {
                         bundleKind: "profile",
-                        profiles: [ vx(e, l, c, n, i) ]
-                    }), n && Ov(ut[e]) ? zv(e) : "");
+                        profiles: [ sxSerializeCardPayload(e, l, c, n, i) ]
+                    }), n && sxCountFilledContacts(ut[e]) ? sxBuildProfileVcardText(e) : "");
                 }(e, {
                     includeProfileInfo: i,
                     blind: a,
                     background: t.background || "black",
-                    progress: (e, t, i) => Hf(n, Math.min(88, e), t, i)
+                    progress: (e, t, i) => sxFlushExportProgress(n, Math.min(88, e), t, i)
                 });
                 if (n !== vf) return;
-                ou(s, o.cardSheet, {
+                sxSaveExportPng(s, o.cardSheet, {
                     title: `Printable Sync card fronts · ${r}`,
                     subtitle: "Ten 3.5 × 2 in fronts on a 300 dpi US Letter sheet. Print at 100% or Actual Size, then cut on the trim lines.",
                     help: "Review the full-resolution PNG below, then choose Download. Print it on US Letter paper at 100% or Actual Size with “Fit to page” turned off.",
@@ -490,14 +490,14 @@
                 tf.textContent = "Close this window and try again.", console.error("Sync card-front sheet export failed.", e);
             }
         }
-        async function lp(e, t = {}) {
-            if (!vt[e] || !Jv(e, "creating a printable Sync card-back sheet", () => lp(e, t))) return;
-            const n = Uf(`Printable Sync card backs · ${Ji(wt[e])}`, "Building ten standard-size card backs on a US Letter sheet…", {
+        async function sxExportCardBackSheet(e, t = {}) {
+            if (!vt[e] || !sxCanRunProfileAction(e, "creating a printable Sync card-back sheet", () => sxExportCardBackSheet(e, t))) return;
+            const n = sxStartExportJob(`Printable Sync card backs · ${sxFirstWordText(wt[e])}`, "Building ten standard-size card backs on a US Letter sheet…", {
                 profileId: e
             });
             try {
-                const i = Boolean(t.includeProfileInfo), a = Boolean(t.blind), r = ip(i ? wt[e] : "Shared profile"), o = await async function(e, t = {}) {
-                    const n = Boolean(t.includeProfileInfo), i = Boolean(t.blind), a = await ep(e, {
+                const i = Boolean(t.includeProfileInfo), a = Boolean(t.blind), r = sxExportFileNames(i ? wt[e] : "Shared profile"), o = await async function(e, t = {}) {
+                    const n = Boolean(t.includeProfileInfo), i = Boolean(t.blind), a = await sxRenderSyncCard(e, {
                         ...t,
                         printFont: !0
                     }), r = URL.createObjectURL(a.back), o = new Image;
@@ -509,19 +509,19 @@
                     } finally {
                         URL.revokeObjectURL(r);
                     }
-                    const s = tp(o, !0, t.paperSize), l = t.allowedIds instanceof Set ? t.allowedIds : new Set(t.allowedIds || []), c = n ? wt[e] || "Profile" : "Shared profile";
-                    return ru(s, yx.serialize("envelope", {
+                    const s = sxTileCardSheet(o, !0, t.paperSize), l = t.allowedIds instanceof Set ? t.allowedIds : new Set(t.allowedIds || []), c = n ? wt[e] || "Profile" : "Shared profile";
+                    return sxEmbedProfilePng(s, yx.serialize("envelope", {
                         bundleKind: "profile",
-                        profiles: [ vx(e, l, c, n, i) ]
-                    }), n && Ov(ut[e]) ? zv(e) : "");
+                        profiles: [ sxSerializeCardPayload(e, l, c, n, i) ]
+                    }), n && sxCountFilledContacts(ut[e]) ? sxBuildProfileVcardText(e) : "");
                 }(e, {
                     includeProfileInfo: i,
                     blind: a,
                     background: t.background || "black",
-                    progress: (e, t, i) => Hf(n, Math.min(88, e), t, i)
+                    progress: (e, t, i) => sxFlushExportProgress(n, Math.min(88, e), t, i)
                 });
                 if (n !== vf) return;
-                ou(o, r.cardBackSheet, {
+                sxSaveExportPng(o, r.cardBackSheet, {
                     title: `Printable Sync card backs · ${i ? wt[e] || "Profile" : "Shared profile"}`,
                     subtitle: "Ten matching 3.5 × 2 in backs on a 300 dpi US Letter sheet. Print at 100% or Actual Size, then cut on the trim lines.",
                     help: "Review the full-resolution PNG below, then choose Download. Print it on US Letter paper at 100% or Actual Size with “Fit to page” turned off.",
@@ -537,16 +537,16 @@
                 // replaced by the generic failure text.
                 const sxCardOversize = /too large for the reliable/i.test(String(e && e.message || ""));
                 Bm.textContent = sxCardOversize ? "Sync card too large" : "Could not create card-back sheet", jm.textContent = sxCardOversize ? String(e.message) : "This browser could not finish the printable Sync card-back sheet.", 
-                tf.textContent = sxCardOversize ? "Close this window, then use Export QR codes for the numbered QR sheet." : "Close this window and try again.", qf(n, 100, Bm.textContent, jm.textContent, !1, "error"), console.error("Sync card-back sheet export failed.", e);
+                tf.textContent = sxCardOversize ? "Close this window, then use Export QR codes for the numbered QR sheet." : "Close this window and try again.", sxPaintExportProgress(n, 100, Bm.textContent, jm.textContent, !1, "error"), console.error("Sync card-back sheet export failed.", e);
             }
         }
-        async function cp(t, n = {}) {
-            if (!vt[t] || !Jv(t, "exporting this profile as SVG", () => cp(t, n))) return;
-            const i = Uf(`Export ${Ji(wt[t])}`, "Capturing the live rendered map exactly as it appears…", {
+        async function sxExportLiveMapSvg(t, n = {}) {
+            if (!vt[t] || !sxCanRunProfileAction(t, "exporting this profile as SVG", () => sxExportLiveMapSvg(t, n))) return;
+            const i = sxStartExportJob(`Export ${sxFirstWordText(wt[t])}`, "Capturing the live rendered map exactly as it appears…", {
                 profileId: t
             });
             try {
-                if (await Hf(i, 12, "Capturing live map", "Reading the rendered hypermap from the viewport…"), 
+                if (await sxFlushExportProgress(i, 12, "Capturing live map", "Reading the rendered hypermap from the viewport…"), 
                 i !== vf) return;
                 await new Promise(e => requestAnimationFrame(() => requestAnimationFrame(e)));
                 const a = e.byId("mapSvg");
@@ -566,7 +566,7 @@
                 const c = a.getBoundingClientRect();
                 r.setAttribute("width", String(Math.max(1, Math.round(c.width)))), r.setAttribute("height", String(Math.max(1, Math.round(c.height)))), 
                 r.setAttribute("preserveAspectRatio", a.getAttribute("preserveAspectRatio") || "xMidYMid meet"), 
-                r.removeAttribute("tabindex"), await Hf(i, 48, "Embedding profile images", "Making every image in the standalone SVG self-contained…");
+                r.removeAttribute("tabindex"), await sxFlushExportProgress(i, 48, "Embedding profile images", "Making every image in the standalone SVG self-contained…");
                 const d = [ ...a.querySelectorAll("image") ], u = [ ...r.querySelectorAll("image") ], p = e => new Promise((t, n) => {
                     const i = new FileReader;
                     i.onload = () => t(String(i.result || "")), i.onerror = () => n(new Error("A profile image could not be embedded in the SVG.")), 
@@ -585,7 +585,7 @@
                         n.setAttribute("href", i), n.setAttributeNS("http://www.w3.org/1999/xlink", "xlink:href", i);
                     }
                 }));
-                const allowedIds = n.allowedIds instanceof Set ? n.allowedIds : new Set(n.allowedIds || []), h = bx(t, allowedIds, Boolean(n.includeProfileInfo), "", Boolean(n.blind)), g = document.createElementNS("http://www.w3.org/2000/svg", "metadata"), m = document.createElementNS("http://www.w3.org/2000/svg", "sexcapades-profile");
+                const allowedIds = n.allowedIds instanceof Set ? n.allowedIds : new Set(n.allowedIds || []), h = sxSerializeExportPayload(t, allowedIds, Boolean(n.includeProfileInfo), "", Boolean(n.blind)), g = document.createElementNS("http://www.w3.org/2000/svg", "metadata"), m = document.createElementNS("http://www.w3.org/2000/svg", "sexcapades-profile");
                 g.setAttribute("data-format", "sexcapades-profile"), g.setAttribute("data-exported-at", (new Date).toISOString()), 
                 m.textContent = JSON.stringify(h), g.appendChild(m), r.insertBefore(g, r.firstChild);
                 const f = String(n.background || "black");
@@ -614,15 +614,15 @@
                     // (prevalence / fantasy stats, sources, FetLife counts, per-source
                     // popularity stats, risk note), computed with the same helpers
                     // (po / co / B / uo / popularitySourceStats) the dialog uses.
-                    const node = qn[e.getAttribute("data-layout-key")], about = [];
+                    const node = sxNodeRegistry[e.getAttribute("data-layout-key")], about = [];
                     if (node) try {
-                        const l = po(node), c = l ? null : co(node.label), d = l ? null : B(node.label);
+                        const l = sxChildPrevalenceStats(node), c = l ? null : sxTopPrevalenceRow(node.label), d = l ? null : sxPeakPopularity(node.label);
                         if (l) {
-                            about.push(`${"category" === l.kind ? "Topics in this category" : "Child topics"} range from ${uo(l.min)}% to ${uo(l.max)}% common; average ${uo(l.average)}% across ${l.count} with study data.`);
+                            about.push(`${"category" === l.kind ? "Topics in this category" : "Child topics"} range from ${sxNumberAsText(l.min)}% to ${sxNumberAsText(l.max)}% common; average ${sxNumberAsText(l.average)}% across ${l.count} with study data.`);
                             about.push(`Simple average of available child-topic prevalence estimates${l.missing ? `; ${l.missing} without study data skipped` : ""}.`);
                         } else if (c) {
                             const lbl = /\bfantasiz/i.test(c.label) ? c.label : `Adults fantasize about this: ${c.label}`;
-                            about.push(c.display || `${lbl} (${uo(c.pct)}%)`);
+                            about.push(c.display || `${lbl} (${sxNumberAsText(c.pct)}%)`);
                             about.push(`Source: ${c.source}${Number.isFinite(d) ? ` \u00b7 ${Math.round(d).toLocaleString()} FetLife kinksters` : ""}`);
                         } else if (Number.isFinite(d)) {
                             about.push(`${Math.round(d).toLocaleString()} FetLife kinksters list this interest.`);
@@ -642,7 +642,7 @@
                         innerTitle.textContent = text, t.insertBefore(innerTitle, t.firstChild);
                     }
                 });
-                await Hf(i, 72, "Inlining map styling", "Freezing colors, labels, lines, visibility, tooltips, and profile data into the standalone SVG…");
+                await sxFlushExportProgress(i, 72, "Inlining map styling", "Freezing colors, labels, lines, visibility, tooltips, and profile data into the standalone SVG…");
                 const y = '<?xml version="1.0" encoding="UTF-8"?>\n' + (new XMLSerializer).serializeToString(r), b = (new DOMParser).parseFromString(y, "image/svg+xml");
                 if (b.querySelector("parsererror") || !b.documentElement || "svg" !== b.documentElement.localName || !b.querySelector("#mapLayer") || !b.querySelector("metadata > sexcapades-profile")) throw new Error("The live hypermap could not be serialized.");
                 const hypermapNodes = Array.from(b.querySelectorAll(".node-group[data-layout-key]")), titledHypermapNodes = hypermapNodes.filter(e => {
@@ -666,7 +666,7 @@
                 if (i !== vf) return;
                 if (n.compressed) {
                     if ("function" != typeof CompressionStream) throw new Error("This browser cannot create the compressed sync hypermap. Choose Regular instead.");
-                    await Hf(i, 84, "Compressing hypermap", "Making the standalone sync hypermap much smaller…");
+                    await sxFlushExportProgress(i, 84, "Compressing hypermap", "Making the standalone sync hypermap much smaller…");
                     const e = await new Response(v.stream().pipeThrough(new CompressionStream("gzip"))).arrayBuffer(), n = new Uint8Array(e);
                     if (n.length < 2 || 31 !== n[0] || 139 !== n[1]) throw new Error("The compressed sync hypermap export was incomplete.");
                     if (i !== vf) return;
@@ -674,8 +674,8 @@
                         type: "image/svg+xml"
                     });
                     window.__SEXCAPADES_LAST_HYPERMAP_EXPORT.compressedBlob = a;
-                    return await Hf(i, 96, "Finalizing export", "Preparing the compressed sync hypermap download…"), 
-                    void up(a, ip(wt[t] || "Profile").svgz, {
+                    return await sxFlushExportProgress(i, 96, "Finalizing export", "Preparing the compressed sync hypermap download…"), 
+                    void sxOfferReadyDownload(a, sxExportFileNames(wt[t] || "Profile").svgz, {
                         title: `Sync hypermap · Compressed · ${wt[t] || "Profile"}`,
                         subtitle: "A much smaller standalone sync hypermap with full hover tooltips and embedded profile data. It needs a viewer that supports compressed SVG.",
                         downloadLabel: "Download compressed hypermap",
@@ -685,8 +685,8 @@
                         profileId: t
                     });
                 }
-                await Hf(i, 96, "Finalizing export", "Preparing the regular sync hypermap preview and download…"), 
-                Gf(v, ip(wt[t] || "Profile").svg, {
+                await sxFlushExportProgress(i, 96, "Finalizing export", "Preparing the regular sync hypermap preview and download…"), 
+                sxPresentExportBlob(v, sxExportFileNames(wt[t] || "Profile").svg, {
                     title: `Sync hypermap · Regular · ${wt[t] || "Profile"}`,
                     subtitle: "A standalone sync hypermap that opens everywhere, with full hover tooltips and embedded profile data.",
                     help: "Review the interactive map below, then choose Download. You can import this file later to restore the profile.",
@@ -699,18 +699,18 @@
             } catch (e) {
                 if (i !== vf) return;
                 Bm.textContent = n.compressed ? "Could not create compressed sync hypermap" : "Could not create regular sync hypermap", 
-                tf.textContent = String(e && e.message || e), Wf(i, "The sync hypermap could not be completed. Close this window and try again."), 
+                tf.textContent = String(e && e.message || e), sxFailExportProgress(i, "The sync hypermap could not be completed. Close this window and try again."), 
                 console.error("Sync hypermap export failed.", e);
             }
         }
-        async function dp(e, t = {}) {
-            if (!vt[e] || !Jv(e, "capturing this profile", () => dp(e, t))) return;
-            const n = Uf(`Export ${Ji(wt[e])}`, "Building a vector PDF of what's currently visible on your map…", {
+        async function sxExportVisibleMapPdf(e, t = {}) {
+            if (!vt[e] || !sxCanRunProfileAction(e, "capturing this profile", () => sxExportVisibleMapPdf(e, t))) return;
+            const n = sxStartExportJob(`Export ${sxFirstWordText(wt[e])}`, "Building a vector PDF of what's currently visible on your map…", {
                 profileId: e
-            }), i = Boolean(t.includeProfileInfo), a = Boolean(t.blind), r = ip(i ? wt[e] : "Shared profile");
+            }), i = Boolean(t.includeProfileInfo), a = Boolean(t.blind), r = sxExportFileNames(i ? wt[e] : "Shared profile");
             try {
-                if (await Hf(n, 6, "Preparing hypermap", "Opening a clean export canvas…"), n !== vf) return;
-                if (await Zu(e, {
+                if (await sxFlushExportProgress(n, 6, "Preparing hypermap", "Opening a clean export canvas…"), n !== vf) return;
+                if (await sxExportVisibleMap(e, {
                     lowRes: !0,
                     outputScale: 4 / 9,
                     photoIndices: t.photoIndices,
@@ -718,17 +718,17 @@
                     blind: a,
                     background: t.background || "black",
                     allowedIds: t.allowedIds,
-                    progress: (e, t, i) => Hf(n, Math.min(72, .72 * e), t, i)
+                    progress: (e, t, i) => sxFlushExportProgress(n, Math.min(72, .72 * e), t, i)
                 }), n !== vf) return;
                 const o = window.lastExportSvgMarkup;
                 if (window.lastExportSvgMarkup = null, !o) throw new Error("Could not build the hypermap for PDF export.");
-                await Hf(n, 78, "Building vector PDF", "Drawing the hypermap and labels into a print-ready PDF…");
-                const s = await ap(o, e, i, a, t.allowedIds), l = await s.slice(0, 5).text(), c = await s.slice(Math.max(0, s.size - 1024)).text();
+                await sxFlushExportProgress(n, 78, "Building vector PDF", "Drawing the hypermap and labels into a print-ready PDF…");
+                const s = await sxDrawMapPdfBlob(o, e, i, a, t.allowedIds), l = await s.slice(0, 5).text(), c = await s.slice(Math.max(0, s.size - 1024)).text();
                 if ("application/pdf" !== s.type || s.size < 1e3 || "%PDF-" !== l || !c.includes("%%EOF")) throw new Error("The generated file did not pass PDF validation.");
                 if (n !== vf) return;
                 const qrOverflow = s.sexcapadesQrOverflowPieces || 0;
                 !function(e, t, n = {}) {
-                    up(e, t, Object.assign({
+                    sxOfferReadyDownload(e, t, Object.assign({
                         downloadLabel: "Download PDF",
                         downloadTitle: "Downloads the vector PDF with embedded profile data.",
                         readyDetail: "PDF complete. Choose Download PDF to save it."
@@ -745,33 +745,33 @@
             } catch (e) {
                 if (n !== vf) return;
                 Bm.textContent = "Could not create PDF", tf.textContent = String(e && e.message || e), 
-                Wf(n, "The PDF could not be completed. Close this window and try again.");
+                sxFailExportProgress(n, "The PDF could not be completed. Close this window and try again.");
             }
         }
-        function up(e, t, n = {}) {
+        function sxOfferReadyDownload(e, t, n = {}) {
             if (Number.isInteger(n.preparedJob) && n.preparedJob !== vf) return !1;
-            jf(), hf = URL.createObjectURL(e), gf = t, mf = !0, yf = n.profileId && vt[n.profileId] ? n.profileId : null;
+            sxClearExportPreview(), hf = URL.createObjectURL(e), gf = t, mf = !0, yf = n.profileId && vt[n.profileId] ? n.profileId : null;
             const i = n.downloadLabel || "Download file";
             return Bm.textContent = n.title || "Your export is ready", jm.textContent = n.subtitle || "Your export is ready to download.", 
             qm.hidden = !1, Hm.textContent = t, Gm.dataset.filename = t, Gm.textContent = i, 
             Gm.title = n.downloadTitle || "Downloads the finished export.", Gm.disabled = !1, 
-            tf.textContent = "", qf(vf, 100, "Ready to download", n.readyDetail || `Export complete. Choose ${i} to save it.`, !1), 
+            tf.textContent = "", sxPaintExportProgress(vf, 100, "Ready to download", n.readyDetail || `Export complete. Choose ${i} to save it.`, !1), 
             !0;
         }
-        async function pp(e, t = {}) {
+        async function sxExportProfileQrSheet(e, t = {}) {
             // QR sheet: the unified framework's unbounded fallback.
             // No count cap and no refusal - every SCP4 piece is
             // printed, numbered, and counted in the progress text
             // below, so the document and card paths can point here
             // for the complete version.
             const n = Boolean(t.includeProfileInfo), i = Boolean(t.blind), a = vt[e];
-            if (!a || !Jv(e, "exporting this profile QR", () => pp(e, t))) return;
-            const r = Uf(`Profile QR · ${Ji(wt[e])}`, "Building a large high-correction JPEG for recompressing picture sites…", {
+            if (!a || !sxCanRunProfileAction(e, "exporting this profile QR", () => sxExportProfileQrSheet(e, t))) return;
+            const r = sxStartExportJob(`Profile QR · ${sxFirstWordText(wt[e])}`, "Building a large high-correction JPEG for recompressing picture sites…", {
                 profileId: e
             });
             let sxQrSheetPieces = 0;
             try {
-                if (await Hf(r, 8, "Preparing profile data", "Compressing this profile for high-correction QR codes…"), 
+                if (await sxFlushExportProgress(r, 8, "Preparing profile data", "Compressing this profile for high-correction QR codes…"), 
                 r !== vf) return;
                 const o = n ? String(nt[e] || "").trim() : "", s = document.createElement("canvas").getContext("2d");
                 s.font = "400 34px system-ui, sans-serif";
@@ -781,10 +781,10 @@
                     const t = u ? u + " " + e : e;
                     s.measureText(t).width > c && u ? (d.push(u), u = e) : u = t;
                 }), u && d.push(u);
-                const p = o ? d.slice(0, 3) : [], h = p.length ? 44 * p.length + 16 : 0, g = t.allowedIds instanceof Set ? t.allowedIds : new Set(t.allowedIds || []), m = chunkPayload(await Ru(e, g, n, i), {
+                const p = o ? d.slice(0, 3) : [], h = p.length ? 44 * p.length + 16 : 0, g = t.allowedIds instanceof Set ? t.allowedIds : new Set(t.allowedIds || []), m = chunkPayload(await sxEncodeShareToken(e, g, n, i), {
                     chunkSize: 700
                 });
-                await Hf(r, 28, "Generating QR codes", 1 === m.length ? "Creating one high-correction profile-data QR…" : `Creating ${m.length} numbered high-correction QR codes…`);
+                await sxFlushExportProgress(r, 28, "Generating QR codes", 1 === m.length ? "Creating one high-correction profile-data QR…" : `Creating ${m.length} numbered high-correction QR codes…`);
                 sxQrSheetPieces = m.length;
                 const f = document.createElement("canvas"), y = 2550, b = 120, v = 70, w = 230 + h, k = 270, x = 1 === m.length ? 1 : m.length <= 6 ? 2 : 3, S = Math.ceil(m.length / x), $ = Math.max(3300, 2 * b + w + 760 * S + v * (S - 1) + k), E = (y - 2 * b - v * (x - 1)) / x, A = ($ - 2 * b - w - k - v * (S - 1)) / S, C = Math.floor(Math.min(E, A - 64));
                 f.width = y, f.height = $;
@@ -792,19 +792,19 @@
                     alpha: !1
                 });
                 M.fillStyle = "#fff", M.fillRect(0, 0, y, $);
-                const I = n ? String(wt[e] || "Profile") : "Shared profile", P = n ? Uu(e) : "", L = dc(e), T = [ L.percentages.green, L.percentages.yellow, L.percentages.red ];
+                const I = n ? String(wt[e] || "Profile") : "Shared profile", P = n ? sxPreferredUserText(e) : "", L = sxGlanceBucketsFor(e), T = [ L.percentages.green, L.percentages.yellow, L.percentages.red ];
                 M.textAlign = "left", M.textBaseline = "top", M.fillStyle = "#111", M.font = "700 54px system-ui, sans-serif", 
                 M.fillText(I + (m.length > 1 ? ` · profile data · ${m.length} QR codes` : ""), b, 52);
                 const F = M.measureText(I).width;
                 P && (M.fillStyle = "#5a6360", M.font = "500 36px system-ui, sans-serif", M.fillText("@" + P, b, 118)), 
-                Gu(M, Math.min(b + F + 150, y - 260), 122, [ 62, 50, 38 ], T, [ "#4da87c", "#b8912a", "#c94f4a" ], .18), 
+                sxPaintScoreRings(M, Math.min(b + F + 150, y - 260), 122, [ 62, 50, 38 ], T, [ "#4da87c", "#b8912a", "#c94f4a" ], .18), 
                 p.length && (M.fillStyle = "#5a6360", M.font = "400 34px system-ui, sans-serif", 
                 M.textAlign = "left", M.textBaseline = "top", p.forEach((e, t) => M.fillText(e + (2 === t && d.length > 3 ? "…" : ""), b, 160 + 44 * t))), 
                 m.length > 1 && (M.fillStyle = "#5a6360", M.textAlign = "center", M.font = "500 30px system-ui, sans-serif", 
                 M.fillText("Scan every numbered code in any order.", y / 2, 196 + h));
                 for (let e = 0; e < m.length; e++) {
-                    await Hf(r, 28 + Math.round(42 * (e + 1) / m.length), "Generating QR codes", `Creating profile-data QR ${e + 1} of ${m.length}…`);
-                    const t = e % x, n = Math.floor(e / x), i = b + t * (E + v), a = b + w + n * (A + v), o = await qu(m[e], Math.max(960, C)), s = Math.round(i + (E - C) / 2), l = Math.round(a);
+                    await sxFlushExportProgress(r, 28 + Math.round(42 * (e + 1) / m.length), "Generating QR codes", `Creating profile-data QR ${e + 1} of ${m.length}…`);
+                    const t = e % x, n = Math.floor(e / x), i = b + t * (E + v), a = b + w + n * (A + v), o = await sxRenderSingleQr(m[e], Math.max(960, C)), s = Math.round(i + (E - C) / 2), l = Math.round(a);
                     M.imageSmoothingEnabled = !1, M.drawImage(o, s, l, C, C), m.length > 1 && (M.fillStyle = "#111", 
                     M.font = "700 36px system-ui, sans-serif", M.fillText(`${e + 1}/${m.length}`, i + E / 2, l + C + 18));
                 }
@@ -813,12 +813,12 @@
                 M.beginPath(), M.moveTo(b, N + 2), M.lineTo(y - b, N + 2), M.stroke(), M.fillStyle = "#111", 
                 M.textAlign = "center", M.textBaseline = "top", M.font = "600 44px system-ui, sans-serif", 
                 M.fillText(`App: ${lu}`, y / 2, N + 58), M.fillText(`Guide: ${su}`, y / 2, N + 126), 
-                await Hf(r, 82, "Encoding image", "Compressing the printable QR page…");
-                const _ = await Yu(f, "image/jpeg", .98);
+                await sxFlushExportProgress(r, 82, "Encoding image", "Compressing the printable QR page…");
+                const _ = await sxCanvasToBlob(f, "image/jpeg", .98);
                 if (!_) throw new Error("JPEG creation failed");
                 if (r !== vf || vt[e] !== a) return;
-                await Hf(r, 96, "Finalizing export", "Preparing the QR preview and download…"), 
-                Gf(_, ip(n ? wt[e] : "Shared profile").qr, {
+                await sxFlushExportProgress(r, 96, "Finalizing export", "Preparing the QR preview and download…"), 
+                sxPresentExportBlob(_, sxExportFileNames(n ? wt[e] : "Shared profile").qr, {
                     title: `Profile QR · ${I}`,
                     subtitle: 1 === m.length ? "Standalone high-correction profile-data QR for sites that resize or recompress uploads." : `${m.length} numbered high-correction QRs on one printable page. Scan every code in any order to restore the profile.`,
                     help: "Review the QR image below, then choose Download.",
@@ -831,7 +831,7 @@
                 // numbered codes were needed and that the alternatives
                 // hold the complete profile - never a silent partial.
                 Bm.textContent = "Could not create profile QR", jm.textContent = sxQrSheetPieces ? `This browser could not finish the high-correction QR page for ${sxQrSheetPieces} numbered codes.` : "This browser could not finish the high-correction QR page.", 
-                tf.textContent = "Use the profile JSON or a PNG export instead — both hold the complete profile.", Wf(r, sxQrSheetPieces ? `The profile QR page could not be completed (${sxQrSheetPieces} numbered codes needed). Use the profile JSON or a PNG export instead — both hold the complete profile.` : "The profile QR page could not be completed. Use the profile JSON or a PNG export instead — both hold the complete profile."), 
+                tf.textContent = "Use the profile JSON or a PNG export instead — both hold the complete profile.", sxFailExportProgress(r, sxQrSheetPieces ? `The profile QR page could not be completed (${sxQrSheetPieces} numbered codes needed). Use the profile JSON or a PNG export instead — both hold the complete profile.` : "The profile QR page could not be completed. Use the profile JSON or a PNG export instead — both hold the complete profile."), 
                 console.error("Profile QR JPEG export failed.", t);
             }
         }

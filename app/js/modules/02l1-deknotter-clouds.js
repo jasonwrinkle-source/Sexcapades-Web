@@ -471,7 +471,7 @@
                 if (sgInFlight) {
                     blitEndSession();
                     try {
-                        Mr({
+                        sxRequestMapPaint({
                             animate: !1,
                             forceRepaint: !0
                         });
@@ -513,7 +513,7 @@
             if (sgInFlight) {
                 blitEndSession();
                 try {
-                    Mr({
+                    sxRequestMapPaint({
                         animate: !1,
                         forceRepaint: !0
                     });
@@ -609,8 +609,8 @@
                 const n = sec && sec.entry && sec.entry.branch ? sec.entry.branch.name : null;
                 n && names.add(n);
             });
-            for (const k in qn) {
-                const info = qn[k];
+            for (const k in sxNodeRegistry) {
+                const info = sxNodeRegistry[k];
                 info && info.branch && names.add(info.branch);
             }
             return names;
@@ -732,7 +732,7 @@
                 const centers = new Map;
                 let distrusted = !1;
                 return In.querySelectorAll("[data-layout-key]").forEach(el => {
-                    const key = el.dataset.layoutKey, info = qn[key];
+                    const key = el.dataset.layoutKey, info = sxNodeRegistry[key];
                     if (!info || !info.branch || !frozen.has(info.branch)) return;
                     const dx = Number(el.dataset.layoutX), dy = Number(el.dataset.layoutY), hasData = Number.isFinite(dx) && Number.isFinite(dy);
                     let p = null;
@@ -774,7 +774,7 @@
         function sgSelectiveCenters(preCenters, postCenters, regressedSet) {
             const centers = new Map(postCenters);
             return postCenters.forEach((v, key) => {
-                const info = qn[key];
+                const info = sxNodeRegistry[key];
                 info && info.branch && regressedSet.has(info.branch) && preCenters.has(key) && centers.set(key, preCenters.get(key));
             }), centers;
         }

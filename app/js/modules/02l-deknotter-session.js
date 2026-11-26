@@ -20,7 +20,7 @@
             };
             scCtx = ctx, sgHoldBlitStart = !0;
             try {
-                Mr({
+                sxRequestMapPaint({
                     animate: !1,
                     forceRepaint: !0
                 });
@@ -108,7 +108,7 @@
                     }, blitSess = null, sess.timer && clearTimeout(sess.timer), sess.rasterUrl && URL.revokeObjectURL(sess.rasterUrl), 
                     blitStripArtifacts();
                     try {
-                        Mr({
+                        sxRequestMapPaint({
                             animate: !1,
                             forceRepaint: !0
                         });
@@ -155,7 +155,7 @@
                     if (!aborted && rounds > 0 && sgCloudTotal(final) > sgCloudTotal(post)) {
                         bailed = !0;
                         try {
-                            Mr({
+                            sxRequestMapPaint({
                                 animate: !1,
                                 forceRepaint: !0
                             });
@@ -211,7 +211,7 @@
                 if (!pendingEnd && blitSess === sess) try {
                     blitEndSession();
                     try {
-                        Mr({
+                        sxRequestMapPaint({
                             animate: !1,
                             forceRepaint: !0
                         });
@@ -248,7 +248,7 @@
         function blitSnapshot(sess) {
             const clone = In.cloneNode(!0), live = new Set;
             clone.querySelectorAll(".node-group[data-layout-key]:not(.layout-exit-clone)").forEach(el => {
-                const info = qn[el.dataset.layoutKey];
+                const info = sxNodeRegistry[el.dataset.layoutKey];
                 (info && sess.frozen.has(info.branch)) || live.add(el.dataset.layoutKey);
             }), clone.querySelectorAll(".layout-exit-clone, .sx-blit-vault, .sx-blit-raster").forEach(el => el.remove()), 
             clone.querySelectorAll(".node-group[data-layout-key]").forEach(el => {
@@ -315,7 +315,7 @@
             sess.svgBody = blitSnapshot(sess), sess.scale = blitScaleNow(), sess.svg = blitSvgString(sess, sess.scale), 
             In.querySelectorAll(".node-group[data-layout-key]:not(.layout-exit-clone)").forEach(el => sess.order.push(el.dataset.layoutKey)), 
             sess.order.forEach((k, ix) => sess.orderIx.set(k, ix)), sess.frozenKeys = sess.order.filter(k => {
-                const info = qn[k];
+                const info = sxNodeRegistry[k];
                 return info && sess.frozen.has(info.branch);
             }), blitSess = sess, dkLog.push({
                 type: "blit-session",

@@ -419,7 +419,7 @@
             }
             try {
                 In.querySelectorAll("[data-layout-key]").forEach(el => {
-                    const key = el.dataset.layoutKey, info = qn[key];
+                    const key = el.dataset.layoutKey, info = sxNodeRegistry[key];
                     info && info.branch && frozen.has(info.branch) && centers.set(key, {
                         x: Number(el.dataset.layoutX),
                         y: Number(el.dataset.layoutY)

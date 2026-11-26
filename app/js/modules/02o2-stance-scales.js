@@ -3,20 +3,20 @@
             positive: [ 61, 168, 116 ],
             negative: [ 189, 79, 81 ]
         };
-        function zi(e) {
+        function sxInterestColor(e) {
             e = Number(e) || 0;
             // The --curious value is read once and cached on the function
             // (finding 8): zi is called per spoke per render and
             // getComputedStyle forces style recalculation. No theme
             // switch exists in the app, so nothing invalidates the cache.
-            if (0 === e) return zi._curious ??= getComputedStyle(document.documentElement).getPropertyValue("--curious").trim();
+            if (0 === e) return sxInterestColor._curious ??= getComputedStyle(document.documentElement).getPropertyValue("--curious").trim();
             const n = Math.min(1, Math.abs(e) / 100), i = INTEREST_STOPS.curious, a = e > 0 ? INTEREST_STOPS.positive : INTEREST_STOPS.negative;
             return `rgb(${Math.round(i[0] + (a[0] - i[0]) * n)},${Math.round(i[1] + (a[1] - i[1]) * n)},${Math.round(i[2] + (a[2] - i[2]) * n)})`;
         }
-        function Vi() {
+        function sxActiveProfileId() {
             return Mt || Et;
         }
-        function Yi() {
+        function sxListLiveSelections() {
             return Array.from(en).filter(e => vt[e]);
         }
         // Profiles-data F2: the chosen set changes ONLY through sxSel(),
@@ -32,27 +32,27 @@
         // express it without changing which profiles are chosen.
         function sxSel(e, t = "add") {
             if ("dismiss" === t) return void (an = !1);
-            if ("show" === t) return void (an = Yi().length >= 2);
+            if ("show" === t) return void (an = sxListLiveSelections().length >= 2);
             if ("clear" === t) en.clear();
             else if ("set" === t) en.clear(), (e || []).forEach(e => en.add(e));
             else if ("remove" === t) en.delete(e);
             else if ("toggle" === t) en.has(e) ? en.delete(e) : en.add(e);
             else en.add(e);
-            an = Yi().length >= 2;
+            an = sxListLiveSelections().length >= 2;
         }
-        function Xi() {
-            const e = Yi();
+        function sxScoringProfileIds() {
+            const e = sxListLiveSelections();
             return an && e.length >= 2 ? e : Mt && vt[Mt] ? [ Mt ] : [];
         }
-        function Zi(e) {
-            sxSel(null, "clear"), vt[e] && la(e);
+        function sxClearSelectionColor(e) {
+            sxSel(null, "clear"), vt[e] && sxProfileColor(e);
         }
         function sxAutoSelect(id) {
             if (!vt[id]) return;
             if (!en.size && Mt && vt[Mt] && Mt !== id) {
-                sxSel(Mt), la(Mt);
+                sxSel(Mt), sxProfileColor(Mt);
             }
-            sxSel(id), la(id), Jw();
+            sxSel(id), sxProfileColor(id), sxRenderProfileTabs();
         }
         // Load landing (load-target stage, 2026-10-27): a load ends
         // on the loaded profile's own tab - ACTIVATED and SELECTED -
@@ -66,34 +66,34 @@
         // boot keeps its pinned behavior (F7: no auto-select, no join).
         function sxLoadLanding(id, opts = {}) {
             if (!id || !vt[id] || opts.quiet || "share-link" === opts.source) return;
-            opts.autoSelect || sxSel(id), sxSel(null, "dismiss"), ak(id), Jw();
+            opts.autoSelect || sxSel(id), sxSel(null, "dismiss"), sxActivateProfile(id), sxRenderProfileTabs();
         }
-        function Qi() {
-            return an && Xi().length >= 2;
+        function sxComparisonActive() {
+            return an && sxScoringProfileIds().length >= 2;
         }
-        function Ji(e) {
+        function sxFirstWordText(e) {
             return String(e || "").trim().split(/\s+/)[0] || "";
         }
-        e.byId("stayWithUnsavedChanges") && e.byId("stayWithUnsavedChanges").addEventListener("click", () => Ui(Gi)), e.byId("saveUnsavedToMemory") && e.byId("saveUnsavedToMemory").addEventListener("click", () => {
-            const e = jt(), t = window.SexcapadesRuntime.DOM.byId("rememberProfileCheckbox2x"), n = window.Sexcapades2xRememberProfiles;
-            t && !t.checked && (t.checked = !0, t.dispatchEvent(new Event("change"))), n && "function" == typeof n.saveNow && n.saveNow() ? (e && Vt(e),
-            Ui(Gi), tS("Changes saved to profile memory.")) : tS("Could not save these changes to profile memory.", {
+        e.byId("stayWithUnsavedChanges") && e.byId("stayWithUnsavedChanges").addEventListener("click", () => sxCloseModalDialog(Gi)), e.byId("saveUnsavedToMemory") && e.byId("saveUnsavedToMemory").addEventListener("click", () => {
+            const e = sxDirtyProfileId(), t = window.SexcapadesRuntime.DOM.byId("rememberProfileCheckbox2x"), n = window.Sexcapades2xRememberProfiles;
+            t && !t.checked && (t.checked = !0, t.dispatchEvent(new Event("change"))), n && "function" == typeof n.saveNow && n.saveNow() ? (e && sxClearProfileDirty(e),
+            sxCloseModalDialog(Gi), sxShowStatusToast("Changes saved to profile memory.")) : sxShowStatusToast("Could not save these changes to profile memory.", {
                 tone: "error",
                 persistent: !0
             });
         }), e.byId("exportUnsavedNow") && e.byId("exportUnsavedNow").addEventListener("click", () => {
-            const e = jt();
-            e && (Ui(Gi), Jf(e));
+            const e = sxDirtyProfileId();
+            e && (sxCloseModalDialog(Gi), sxOpenProfileExport(e));
         }), e.byId("reloadWithUnsavedChanges") && e.byId("reloadWithUnsavedChanges").addEventListener("click", () => {
             qt = !0, document.documentElement.classList.remove("has-unsaved-changes"), document.body.classList.remove("has-unsaved-changes"),
             location.reload();
         }), Gi.addEventListener("cancel", e => {
-            e.preventDefault(), Ui(Gi);
+            e.preventDefault(), sxCloseModalDialog(Gi);
         }), window.__sxOnKey( e => {
-            jt() && !Gi.open && ("F5" === e.key || (e.ctrlKey || e.metaKey) && "r" === e.key.toLowerCase()) && (e.preventDefault(),
-            e.stopImmediatePropagation(), Ki());
+            sxDirtyProfileId() && !Gi.open && ("F5" === e.key || (e.ctrlKey || e.metaKey) && "r" === e.key.toLowerCase()) && (e.preventDefault(),
+            e.stopImmediatePropagation(), sxPromptUnsavedReload());
         }, !0), document.addEventListener("touchstart", e => {
-            if (!jt() || 1 !== e.touches.length || document.scrollingElement && document.scrollingElement.scrollTop > 1) return;
+            if (!sxDirtyProfileId() || 1 !== e.touches.length || document.scrollingElement && document.scrollingElement.scrollTop > 1) return;
             if (__sxClosestAction(e.target, "interactiveAncestor")) return;
             const t = e.touches[0];
             t.clientY > 96 || (Ht = {
@@ -107,7 +107,7 @@
             if (!Ht || 1 !== e.touches.length) return;
             const t = e.touches[0], n = t.clientX - Ht.x, i = t.clientY - Ht.y;
             i > 18 && i > 1.35 * Math.abs(n) && e.preventDefault(), i >= 72 && i > 1.35 * Math.abs(n) && (Ht = null,
-            Ki());
+            sxPromptUnsavedReload());
         }, {
             capture: !0,
             passive: !1
@@ -127,8 +127,8 @@
            sxIconDiameter, sxFontMaster, sxFontSize, sxFontFactor, sxFontCoef, sxControlScale,
            sxStrokeWidth, midlineStrokeWidth, refreshCenterRing, gen1SpokeBaseRadius) live in
            02e-font-ladder.js and are hoisted/shared in this scope. */
-        function ta(e) {
-            const t = Uc(), n = t.length, i = t.filter(t => {
+        function sxTallyRatingCoverage(e) {
+            const t = sxAllTopicIds(), n = t.length, i = t.filter(t => {
                 const n = (e || {})[t];
                 return "number" == typeof n || Boolean(n && "object" == typeof n && (Object.prototype.hasOwnProperty.call(n, "give") || Object.prototype.hasOwnProperty.call(n, "receive") || Object.prototype.hasOwnProperty.call(n, "line") || Object.keys(n).some(k => k !== "intensity" && Number.isFinite(Number(n[k])))));
             }).length;
@@ -138,27 +138,27 @@
                 percent: n ? Math.round(i / n * 100) : 0
             };
         }
-        function na(e = Xi()) {
+        function sxTallyComparedRatings(e = sxScoringProfileIds()) {
             const t = Mt && ft[Mt] && "group" === ft[Mt].kind ? ft[Mt] : null, n = t && e.length < 2 ? t.sourceProfiles || [] : e.filter(e => e === Et || vt[e]).map(e => ({
                 ratings: e === Et ? At : vt[e]
             }));
             if (!n.length) return {
                 rated: 0,
-                total: Uc().length,
+                total: sxAllTopicIds().length,
                 percent: 0
             };
-            const i = n.map(e => ta(e.ratings || {})), a = i.reduce((e, t) => e + t.rated, 0), r = i.reduce((e, t) => e + t.total, 0);
+            const i = n.map(e => sxTallyRatingCoverage(e.ratings || {})), a = i.reduce((e, t) => e + t.rated, 0), r = i.reduce((e, t) => e + t.total, 0);
             return {
                 rated: a,
                 total: r,
                 percent: r ? Math.round(a / r * 100) : 0
             };
         }
-        function aa(e, t, n = "") {
-            const i = Math.max(1, Number(e.width) || 1), a = Math.max(1, Number(e.height) || 1), r = Math.max(1, Number(e.cropZoom) || 1), o = Math.max(-180, Math.min(180, Number(e.cropRotation) || 0)), s = Math.max(t.w / i, t.h / a) * r, l = i * s, c = a * s, d = Number(e.cropX), u = Number(e.cropY), p = A(Number.isFinite(d) ? d : .5), h = A(Number.isFinite(u) ? u : .5), g = t.w / 2 - p * l, m = t.h / 2 - h * c;
+        function sxCroppedPhotoMarkup(e, t, n = "") {
+            const i = Math.max(1, Number(e.width) || 1), a = Math.max(1, Number(e.height) || 1), r = Math.max(1, Number(e.cropZoom) || 1), o = Math.max(-180, Math.min(180, Number(e.cropRotation) || 0)), s = Math.max(t.w / i, t.h / a) * r, l = i * s, c = a * s, d = Number(e.cropX), u = Number(e.cropY), p = sxClampUnit(Number.isFinite(d) ? d : .5), h = sxClampUnit(Number.isFinite(u) ? u : .5), g = t.w / 2 - p * l, m = t.h / 2 - h * c;
             return `<svg${n ? ` class="${n}"` : ""} x="${t.x}" y="${t.y}" width="${t.w}" height="${t.h}" viewBox="0 0 ${t.w} ${t.h}" overflow="hidden"><image href="${e.data}" x="${g.toFixed(4)}" y="${m.toFixed(4)}" width="${l.toFixed(4)}" height="${c.toFixed(4)}" preserveAspectRatio="none" transform="rotate(${o.toFixed(2)} ${(t.w / 2).toFixed(2)} ${(t.h / 2).toFixed(2)})"/></svg>`;
         }
-        function ra(e, t) {
+        function sxGlanceArcText(e, t) {
             const n = Math.max(0, Math.min(100, Number(e) || 0)), i = 620 - t;
             if (n <= 0) return "";
             if (n >= 100) return `M 900 ${i} A ${t} ${t} 0 1 1 900 ${620 + t} A ${t} ${t} 0 1 1 900 ${i}`;
@@ -166,7 +166,7 @@
             return `M 900 ${i} A ${t} ${t} 0 ${n > 50 ? 1 : 0} 1 ${r.toFixed(3)} ${o.toFixed(3)}`;
         }
         var pc = [];
-        function oa() {
+        function sxGlanceRingsMarkup() {
             const e = (pc && Array.isArray(pc) && 3 === pc.length) ? pc : [ {
                 label: "Hot topics", // FQ2-BAKEIN: "Want to do" -> "Hot topics"
                 count: 0,
@@ -183,7 +183,7 @@
                 percent: 0,
                 color: "var(--red)"
             } ], t = ea.glanceRadii, n = [ "Green", "Yellow", "Red" ], i = [ "green", "yellow", "red" ];
-            return `<g class="center-glance-rings">${e.map((e, a) => `<g class="center-glance-ring"><circle class="center-glance-ring-track is-${i[a]}" cx="900" cy="620" r="${t[a]}"/><path class="center-glance-ring-value is-${i[a]}" id="centerGlanceRing${n[a]}" data-ring-radius="${t[a]}" d="${ra(e.percent, t[a])}" style="opacity:${e.percent ? 1 : 0}"/><circle class="center-glance-ring-hit" data-center-glance-index="${a}" cx="900" cy="620" r="${t[a]}" tabindex="0" role="button" aria-label="${Hi(e.label)}, ${e.percent} percent, ${e.count} ${1 === e.count ? "topic" : "topics"}. Open rating details."/></g>`).join("")}</g>`;
+            return `<g class="center-glance-rings">${e.map((e, a) => `<g class="center-glance-ring"><circle class="center-glance-ring-track is-${i[a]}" cx="900" cy="620" r="${t[a]}"/><path class="center-glance-ring-value is-${i[a]}" id="centerGlanceRing${n[a]}" data-ring-radius="${t[a]}" d="${sxGlanceArcText(e.percent, t[a])}" style="opacity:${e.percent ? 1 : 0}"/><circle class="center-glance-ring-hit" data-center-glance-index="${a}" cx="900" cy="620" r="${t[a]}" tabindex="0" role="button" aria-label="${sxEscapeHtmlText(e.label)}, ${e.percent} percent, ${e.count} ${1 === e.count ? "topic" : "topics"}. Open rating details."/></g>`).join("")}</g>`;
         }
 
         function syncGlobalVisibilityControl() {
@@ -199,7 +199,7 @@
             Sn = "rated" === t || "unrated" === t ? t : "all", kn = !0, xn = null;
             h.forEach(t => {
                 un.set(catId(t.name), Sn);
-            }), Object.keys(qn).forEach(e => un.set(e, Sn)), syncGlobalVisibilityControl(), Mr({
+            }), Object.keys(sxNodeRegistry).forEach(e => un.set(e, Sn)), syncGlobalVisibilityControl(), sxRequestMapPaint({
                 animate: !1,
                 forceRepaint: !0
             });
@@ -217,21 +217,21 @@
                 });
             }), syncGlobalVisibilityControl();
         }
-        function sa(e) {
+        function sxToggleRatedVisibility(e) {
             if (mn.staticMap) return;
             e.target && e.target.closest && __sxClosestAction(e.target, "centerBranchToggle") && ("keydown" === e.type && "Enter" !== e.key && " " !== e.key || (e.preventDefault(),
             e.stopImmediatePropagation(), setGlobalTopicVisibility("rated" === Sn ? "all" : "rated")));
         }
-        function la(e) {
+        function sxProfileColor(e) {
             if (!tn[e]) {
                 const t = new Set(Object.values(tn));
                 tn[e] = nn.find(e => !t.has(e)) || nn[Object.keys(tn).length % nn.length];
             }
             return tn[e];
         }
-        function sxTopicPoles(topicId, profileId = Vi()) {
-            const shape = typeof Ge === "function" ? Ge(topicId, profileId) : null;
-            const rec = ca(topicId, profileId);
+        function sxTopicPoles(topicId, profileId = sxActiveProfileId()) {
+            const shape = typeof sxWidgetConfig === "function" ? sxWidgetConfig(topicId, profileId) : null;
+            const rec = sxDecodeTopicStance(topicId, profileId);
             const keys = (shape && Array.isArray(shape.keys) && shape.keys.length) ? shape.keys : [ "give", "receive" ];
             const labels = (shape && Array.isArray(shape.labels) && shape.labels.length) ? shape.labels : keys;
             const isMultiPole = Boolean(shape && shape.keys && shape.keys.length > 2);
@@ -283,9 +283,9 @@
             }
             return res;
         }
-        function ca(e, t) {
+        function sxDecodeTopicStance(e, t) {
             const n = (t === Et ? At : vt[t] || {})[e];
-            const shape = typeof Ge === "function" ? Ge(e, t) : null;
+            const shape = typeof sxWidgetConfig === "function" ? sxWidgetConfig(e, t) : null;
             const isSingle = Boolean(shape && shape.single);
             const keys = (shape && Array.isArray(shape.keys) && shape.keys.length) ? shape.keys : [ "give", "receive" ];
 
@@ -479,7 +479,7 @@
                 receptivityKnown: !1
             };
         }
-        function da(e, t) {
+        function sxRatingRecord(e, t) {
             const U = (give, receive, gk, rk, gd, rd, gr, rr, total) => ({
                 give: give,
                 receive: receive,
@@ -494,7 +494,7 @@
             if (isCatId(e)) {
                 const c = h.find(c => catId(c.name) === e);
                 if (!c) return U(0, 0, !1, !1, !1, !1, 0, 0, 0);
-                const d = ca(e, t), g = cuCat(c, t, "give"), r = cuCat(c, t, "receive"), gv = d.giveKnown ? d.give : g.value, rv = d.receiveKnown ? d.receive : r.value;
+                const d = sxDecodeTopicStance(e, t), g = cuCat(c, t, "give"), r = cuCat(c, t, "receive"), gv = d.giveKnown ? d.give : g.value, rv = d.receiveKnown ? d.receive : r.value;
                 const rec = U(null === gv ? 0 : gv, null === rv ? 0 : rv, null !== gv, null !== rv, !d.giveKnown && null !== g.value, !d.receiveKnown && null !== r.value, d.giveKnown ? 0 : g.rated, d.receiveKnown ? 0 : r.rated, g.total);
                 const advRoll = cuCat(c, t, "advocacyIntensity"), recRoll = cuCat(c, t, "receptivityIntensity");
                 const advVal = d.advocacyIntensityKnown ? d.advocacyIntensity : advRoll.value;
@@ -503,9 +503,9 @@
                 if (null !== recVal) { rec.receptivityIntensity = recVal; rec.receptivityIntensityKnown = !0; }
                 return Object.assign(rec, d);
             }
-            const z = zn(e);
+            const z = sxFindSubcategoryNode(e);
             if (z) {
-                const d = ca(e, t), ids = z.topics.map(Wn).concat(ai(e, t)), ch = ids.map(id => da(id, t)), one = dir => {
+                const d = sxDecodeTopicStance(e, t), ids = z.topics.map(sxResolveTopicId).concat(sxListImportedChildIds(e, t)), ch = ids.map(id => sxRatingRecord(id, t)), one = dir => {
                     if (d[dir + "Known"]) return {
                         value: d[dir],
                         rated: 0,
@@ -528,11 +528,11 @@
                 if (null !== recVal) { subRec.receptivityIntensity = recVal; subRec.receptivityIntensityKnown = !0; }
                 return Object.assign(subRec, d);
             }
-            const n = ca(e, t);
-            if (!Xn(e)) return Object.assign(U(n.give, n.receive, n.giveKnown, n.receiveKnown, !1, !1, 0, 0, 0), n);
-            const ids = ai(e, t);
+            const n = sxDecodeTopicStance(e, t);
+            if (!sxNodeById(e)) return Object.assign(U(n.give, n.receive, n.giveKnown, n.receiveKnown, !1, !1, 0, 0, 0), n);
+            const ids = sxListImportedChildIds(e, t);
             if (!ids.length) return Object.assign(U(n.give, n.receive, n.giveKnown, n.receiveKnown, !1, !1, 0, 0, 0), n);
-            const ch = ids.map(id => da(id, t)), one = dir => {
+            const ch = ids.map(id => sxRatingRecord(id, t)), one = dir => {
                 if (n[dir + "Known"]) return {
                     value: n[dir],
                     rated: 0,
@@ -554,15 +554,15 @@
             }, g = one("give"), r = one("receive");
             return Object.assign(U(g.value, r.value, g.known, r.known, g.derived, r.derived, g.rated, r.rated, ids.length), n);
         }
-        function ua(e, t) {
-            const n = ca(e, t), i = [];
+        function sxAverageKnownPoles(e, t) {
+            const n = sxDecodeTopicStance(e, t), i = [];
             const keys = (n.keys && Array.isArray(n.keys)) ? n.keys : [ "give", "receive" ];
             keys.forEach(k => {
                 if (n[k + "Known"]) i.push(n[k]);
             });
             return i.length ? i.reduce((e, t) => e + t, 0) / i.length : null;
         }
-        function pa(e, t, n, w) {
+        function sxClampWeightedAverage(e, t, n, w) {
             let i = 0, a = 0;
             e.forEach((item, idx) => {
                 const r = n(item);
@@ -574,35 +574,35 @@
             });
             return a ? Math.max(-100, Math.min(100, i / a)) : null;
         }
-        function ha(e, t, n) {
-            const i = ca(e, t);
+        function sxReadKnownRatingField(e, t, n) {
+            const i = sxDecodeTopicStance(e, t);
             return i[n + "Known"] ? i[n] : null;
         }
-        function ga(e, t) {
-            return e.topics.map(e => Wn(e)).concat(Object.values(at[t] || {}).filter(t => t.branch === e.name).map(e => e.id));
+        function sxListBranchTopicIds(e, t) {
+            return e.topics.map(e => sxResolveTopicId(e)).concat(Object.values(at[t] || {}).filter(t => t.branch === e.name).map(e => e.id));
         }
-        function ma(e, t) {
-            return pa(ga(e, t), t, e => ua(e, t));
+        function sxAverageBranchTopics(e, t) {
+            return sxClampWeightedAverage(sxListBranchTopicIds(e, t), t, e => sxAverageKnownPoles(e, t));
         }
         function smSub(e, t, n, i) {
             // Interim unification: direct rating per flank wins
             if (i) {
-                const direct = ha(i, t, n);
+                const direct = sxReadKnownRatingField(i, t, n);
                 if (null != direct) return direct;
                 const roll = sxNodeRollup(i, t, n, 2, 3);
                 if (null !== roll.value) return roll.value;
             }
             // Child topics sit at depth 3; depth weight = 1.0
-            const a = (e?.topics || []).map(Wn).concat(i ? ai(i, t) : []);
-            return pa(a, t, e => ha(e, t, n));
+            const a = (e?.topics || []).map(sxResolveTopicId).concat(i ? sxListImportedChildIds(i, t) : []);
+            return sxClampWeightedAverage(a, t, e => sxReadKnownRatingField(e, t, n));
         }
         function sgSub(e) {
-            for (const t of h) for (const n of t.subcategories || []) if (Un(t.name, n.name) === e) return n;
+            for (const t of h) for (const n of t.subcategories || []) if (sxResolveSubcategoryId(t.name, n.name) === e) return n;
             return null;
         }
         function cuCat(e, t, n) {
             // Interim unification: direct rating per flank wins over roll-up
-            const direct = ha(catId(e.name), t, n);
+            const direct = sxReadKnownRatingField(catId(e.name), t, n);
             if (null != direct) {
                 const totalChildren = (e.subcategories || []).length + (e.parentTopics || []).length;
                 return {
@@ -621,24 +621,24 @@
             }
             const s = e.subcategories || [], u = [], weights = [];
             if (!s.length) {
-                ga(e, t).forEach(x => {
-                    u.push(ha(x, t, n));
+                sxListBranchTopicIds(e, t).forEach(x => {
+                    u.push(sxReadKnownRatingField(x, t, n));
                     weights.push(1); // depth 3/leaf topics have weight 1
                 });
             } else {
                 // Parent topics hanging directly off category: depth 2 (weight 2/3)
                 (e.parentTopics || []).forEach(l => {
-                    u.push(ha(Wn(l), t, n));
+                    u.push(sxReadKnownRatingField(sxResolveTopicId(l), t, n));
                     weights.push(2 / 3);
                 });
                 // Subcategories: depth 2 (weight 2/3)
                 s.forEach(g => {
-                    u.push(smSub(g, t, n, Un(e.name, g.name)));
+                    u.push(smSub(g, t, n, sxResolveSubcategoryId(e.name, g.name)));
                     weights.push(2 / 3);
                 });
-                const d = new Set(s.map(g => Un(e.name, g.name)));
+                const d = new Set(s.map(g => sxResolveSubcategoryId(e.name, g.name)));
                 Object.values(at[t] || {}).filter(x => x.branch === e.name && !d.has(x.parentId)).forEach(x => {
-                    u.push(ha(x.id, t, n));
+                    u.push(sxReadKnownRatingField(x.id, t, n));
                     weights.push(1);
                 });
             }
@@ -657,6 +657,6 @@
                 total: u.length
             };
         }
-        function fa(e, t, n) {
+        function sxRollupCategoryFlank(e, t, n) {
             return cuCat(e, t, n).value;
         }

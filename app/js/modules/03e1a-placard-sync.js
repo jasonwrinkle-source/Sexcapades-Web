@@ -151,45 +151,45 @@
         }), Pr = e.byId("markMenu"), Lr = e.byId("markMenuTitle"), Tr = e.byId("markDescription"), Fr = e.byId("markPrevalence"), Nr = e.byId("markPrevalenceText"), _r = e.byId("markPrevalenceSource"), Dr = e.byId("markCommunityRatings"), Rr = e.byId("markCommunityRatingsBody"), Or = e.byId("markPopularitySourcesList"), Br = e.byId("markLearnMore"), jr = e.byId("markFetlifeTrigger"), qr = e.byId("markRedditTrigger"), Hr = e.byId("markDiscordTrigger"), Wr = e.byId("markCommunityFallback"), Ur = e.byId("markCommunityPopover"), Gr = e.byId("markCommunityPopoverHeading"), Kr = e.byId("markCommunityList"), zr = e.byId("markSources"), Vr = e.byId("markSourcesTrigger"), Yr = e.byId("markImportNotes"), Xr = e.byId("markImportNotesList"), Zr = e.byId("markNoteInput");
         let Qr = null, Jr = null, eo = null, to = !1, no = null;
         sxBindMarkRatings();
-        function io() {
+        function sxClearPlacardTimer() {
             Jr && (t.clear(Jr), Jr = null);
         }
-        function ao() {
+        function sxSavePlacardNote() {
             if (!Qr) return;
-            const e = Vi(), t = Zr.value.trim();
-            t ? tt[e][Qr] = [ t ] : delete tt[e][Qr], zt(e);
+            const e = sxActiveProfileId(), t = Zr.value.trim();
+            t ? tt[e][Qr] = [ t ] : delete tt[e][Qr], sxTouchProfile(e);
         }
-        function ro() {
+        function sxHideMarkSources() {
             zr.hidden = !0, Vr.setAttribute("aria-expanded", "false");
         }
-        function oo() {
+        function sxHideCommunityPopover() {
             Ur.hidden = !0, no && no.setAttribute("aria-expanded", "false"), no = null;
         }
-        function so() {
-            Pr.hidden || ao(), oo(), ro(), Pr.hidden = !0, Qr = null;
+        function sxCloseMarkPlacard() {
+            Pr.hidden || sxSavePlacardNote(), sxHideCommunityPopover(), sxHideMarkSources(), Pr.hidden = !0, Qr = null;
         }
-        function lo(e) {
+        function sxPlacardAboutText(e) {
             const t = je[e.branch] || {};
             let n = "";
             if ("Category" === e.kind) n = t.description || "A branch of related topics to rate and discuss."; else if ("Subcategory" === e.kind) n = `A navigation group for ${(e.topics || []).length} related topics in ${e.branch}.`; else if (qe[e.label]) n = qe[e.label]; else if (window.__SX_SKIN_DESCRIPTIONS && window.__SX_SKIN_DESCRIPTIONS[e.label]) n = window.__SX_SKIN_DESCRIPTIONS[e.label]; else if (e.parentId) {
-                const t = qn[e.parentId] || Xn(e.parentId), i = t && qe[t.label];
+                const t = sxNodeRegistry[e.parentId] || sxNodeById(e.parentId), i = t && qe[t.label];
                 n = i ? `${e.label} is an imported variation of this: ${i}` : `${e.label} is an imported, more specific act or scenario grouped under ${t ? t.label.toLowerCase() : "its parent topic"}.`;
             } else n = je[e.branch]?.description || `${e.label} does not yet have authored About text.`;
             const i = function(e) {
                 if ("Category" === e.kind || "Subcategory" === e.kind) return "";
-                const t = Ge(e.id, Vi());
+                const t = sxWidgetConfig(e.id, sxActiveProfileId());
                 if (!t || t.single) return "";
-                const n = Zn(e.id, "give"), i = Zn(e.id, "receive");
+                const n = sxGiveReceiveNounText(e.id, "give"), i = sxGiveReceiveNounText(e.id, "receive");
                 if (!n || !i) return "";
                 const a = s => (s && typeof s === "string") ? (s.charAt(0).toUpperCase() + s.slice(1)) : "";
-                const r = Qn(e.id);
+                const r = sxNodeLabelText(e.id);
                 const l0 = (t.labels && t.labels[0]) || "Give";
                 const l1 = (t.labels && t.labels[1]) || "Receive";
                 return `${a(l0)} ${r} — ${n}. ${a(l1)} ${r} — ${i}.`;
             }(e);
             return i ? `${i} ${n}` : n;
         }
-        function co(e) {
+        function sxTopPrevalenceRow(e) {
             const t = [ e, ...I[e] || [] ].map(e => w[e]).filter(e => e && Number.isFinite(Number(e.pct)) && String(e.label || "").trim() && String(e.source || "").trim()).sort((e, t) => Number(t.pct) - Number(e.pct))[0];
             return t ? {
                 pct: Number(t.pct),
@@ -198,21 +198,21 @@
                 display: String(t.display || "").trim()
             } : null;
         }
-        function uo(e) {
+        function sxNumberAsText(e) {
             return Number.isInteger(e), String(e);
         }
-        function po(e) {
+        function sxChildPrevalenceStats(e) {
             const t = function(e) {
                 return ("Category" === e.kind ? (h.find(t => t.name === e.branch)?.topics || []).flatMap(e => {
-                    const t = Wn(e);
-                    return [ t, ...ai(t, Vi()) ];
+                    const t = sxResolveTopicId(e);
+                    return [ t, ...sxListImportedChildIds(t, sxActiveProfileId()) ];
                 }) : "Subcategory" === e.kind ? (e.topics || []).flatMap(e => {
-                    const t = Wn(e);
-                    return [ t, ...ai(t, Vi()) ];
-                }) : ai(e.id, Vi())).map(e => qn[e] || Xn(e)).filter(Boolean);
+                    const t = sxResolveTopicId(e);
+                    return [ t, ...sxListImportedChildIds(t, sxActiveProfileId()) ];
+                }) : sxListImportedChildIds(e.id, sxActiveProfileId())).map(e => sxNodeRegistry[e] || sxNodeById(e)).filter(Boolean);
             }(e);
             if (!t.length) return null;
-            const n = t.map(e => co(e.label)).filter(Boolean).map(e => e.pct).filter(Number.isFinite);
+            const n = t.map(e => sxTopPrevalenceRow(e.label)).filter(Boolean).map(e => e.pct).filter(Number.isFinite);
             if (!n.length) return null;
             const i = n.reduce((e, t) => e + t, 0) / n.length, a = Math.min(...n), r = Math.max(...n), o = e => Math.round(10 * e) / 10;
             return {
@@ -224,21 +224,21 @@
                 kind: "Category" === e.kind ? "category" : "parent"
             };
         }
-        function ho(e, t) {
+        function sxStudySourceRow(e, t) {
             return [ e, ...I[e] || [] ].map(e => w[e]).find(e => e && Number.isFinite(Number(e.pct)) && (/lehmiller/i.test(e.source || "") ? "lehmiller" : "joyal") === t) || null;
         }
-        function go(e) {
+        function sxPopulationStdev(e) {
             if (e.length < 2) return null;
             const t = e.reduce((e, t) => e + t, 0) / e.length;
             return Math.sqrt(e.reduce((e, n) => e + Math.pow(n - t, 2), 0) / e.length);
         }
-        function mo(e) {
+        function sxSubcategoryTopics(e) {
             if (e.topics && e.topics.length) return e.topics;
             const t = h.find(t => t.name === e.branch), n = t?.subcategories?.find(t => t.name === e.label);
             return n?.topics || [];
         }
         function popularitySourceStats(e, t) {
-            const n = "Category" === e.kind ? h.find(t => t.name === e.branch)?.topics || [] : "Subcategory" === e.kind ? mo(e) : [ e.label ], i = "Category" === e.kind || "Subcategory" === e.kind, a = Math.max(1, n.length), r = [], o = n.map(B).filter(Number.isFinite), s = o.map(E), l = o.length ? o.reduce((e, t) => e + t, 0) / o.length : null, c = go(o);
+            const n = "Category" === e.kind ? h.find(t => t.name === e.branch)?.topics || [] : "Subcategory" === e.kind ? sxSubcategoryTopics(e) : [ e.label ], i = "Category" === e.kind || "Subcategory" === e.kind, a = Math.max(1, n.length), r = [], o = n.map(sxPeakPopularity).filter(Number.isFinite), s = o.map(E), l = o.length ? o.reduce((e, t) => e + t, 0) / o.length : null, c = sxPopulationStdev(o);
             /* Skin popularity (vanilla): a Polis topic carrying a scored
                popularity object contributes Gallup and/or Pew rows,
                weighted by sample size (Gallup 0.235, Pew 0.765) — the
@@ -268,7 +268,7 @@
                     uncertainty: null === c ? "Single matched-topic count; spread unavailable" : `Average ±2σ: ${Math.round(l).toLocaleString()} ± ${Math.round(2 * c).toLocaleString()} kinksters across matched kinks`,
                     weight: s.reduce((e, t) => e + t, 0) / a
                 }), [ "joyal", "lehmiller" ].forEach(e => {
-                    const t = n.map(t => ho(t, e)).filter(Boolean), o = t.map(e => Number(e.pct)), s = S[e], l = o.length ? o.reduce((e, t) => e + t, 0) / o.length : null, c = go(o), d = "joyal" === e ? "Joyal et al. 2015 (n=1,516)" : "Lehmiller 2018 (n=4,175)";
+                    const t = n.map(t => sxStudySourceRow(t, e)).filter(Boolean), o = t.map(e => Number(e.pct)), s = S[e], l = o.length ? o.reduce((e, t) => e + t, 0) / o.length : null, c = sxPopulationStdev(o), d = "joyal" === e ? "Joyal et al. 2015 (n=1,516)" : "Lehmiller 2018 (n=4,175)";
                     r.push({
                         name: d,
                         value: Number.isFinite(l) ? i ? `${l.toFixed(1)}% average across ${o.length} kinks` : `${l.toFixed(1)}% prevalence` : "No matched estimate",
@@ -276,7 +276,7 @@
                         weight: t.length ? t.length * $(s) / a : 0
                     });
                 });
-                const d = n.map(j).filter(Boolean), u = d.map(e => Math.max(0, Number(e.sampleSize) || 0)), p = Number.isFinite(Number(t)) ? Math.max(0, Number(t)) : u.length ? Math.max(...u) : 0, g = d.map(e => Number(e.value)).filter(Number.isFinite), m = go(g), f = g.length ? g.reduce((e, t) => e + t, 0) / g.length : null;
+                const d = n.map(sxSurveySnapshot).filter(Boolean), u = d.map(e => Math.max(0, Number(e.sampleSize) || 0)), p = Number.isFinite(Number(t)) ? Math.max(0, Number(t)) : u.length ? Math.max(...u) : 0, g = d.map(e => Number(e.value)).filter(Number.isFinite), m = sxPopulationStdev(g), f = g.length ? g.reduce((e, t) => e + t, 0) / g.length : null;
                 r.push({
                     name: "Community ratings",
                     value: `${Math.round(p).toLocaleString()} submitted${Number.isFinite(f) ? `; ${f.toFixed(1)} average` : ""}`,
@@ -308,33 +308,33 @@
                 });
             return available;
         }
-        function fo(e, t) {
+        function sxFillPopularitySources(e, t) {
             const i = popularitySourceStats(e, t);
-            n(Or, i.map(e => `<li><b>${Hi(e.name)}</b><span>${Hi(e.value)}</span><small>${Hi(e.uncertainty)}</small></li>`).join(""));
+            n(Or, i.map(e => `<li><b>${sxEscapeHtmlText(e.name)}</b><span>${sxEscapeHtmlText(e.value)}</span><small>${sxEscapeHtmlText(e.uncertainty)}</small></li>`).join(""));
         }
-        function yo(e) {
-            const t = "Category" === e.kind ? z(h.find(t => t.name === e.branch) || {
+        function sxPopularityTooltipText(e) {
+            const t = "Category" === e.kind ? sxBranchMeanScore(h.find(t => t.name === e.branch) || {
                 topics: []
-            }) : "Subcategory" === e.kind ? ds({
-                topics: mo(e)
+            }) : "Subcategory" === e.kind ? sxSubcategoryMean({
+                topics: sxSubcategoryTopics(e)
             }) : sxTopicPopularity(e.id || e.label, e.label), n = "Popularity " + (Number.isFinite(t) ? `${Math.round(100 * t)}/100` : "unavailable"), i = popularitySourceStats(e, 0);
             return [ n, ...i.map(e => `${e.name}: ${e.value}. ${e.uncertainty}`) ].join("\n");
         }
-        function bo(e) {
+        function sxPlaceCommunityPopover(e) {
             const t = e.getBoundingClientRect(), n = Ur.getBoundingClientRect(), i = Math.max(8, Math.min(innerWidth - n.width - 8, t.left)), a = innerHeight - t.bottom - 7 - 8, r = t.top - 7 - 8, o = a >= Math.min(n.height, 220) || a >= r ? Math.min(innerHeight - n.height - 8, t.bottom + 7) : Math.max(8, t.top - n.height - 7);
             Ur.style.left = i + "px", Ur.style.top = Math.max(8, o) + "px";
         }
-        function vo(e) {
+        function sxAppendCommunityHeading(e) {
             const t = document.createElement("li");
             t.className = "mark-community-section-label", t.setAttribute("role", "presentation"),
             t.textContent = e, Kr.append(t);
         }
-        function wo(e, t, n) {
+        function sxAppendCommunityLink(e, t, n) {
             const i = document.createElement("li"), a = document.createElement("a"), r = document.createElement("span"), o = document.createElement("small");
             a.href = n, a.target = "_blank", a.rel = "noopener noreferrer", a.setAttribute("role", "menuitem"),
             r.textContent = e, o.textContent = t, a.append(r, o), i.append(a), Kr.append(i);
         }
-        function ko(e) {
+        function sxToggleCommunityList(e) {
             const t = e.dataset.network, i = e.dataset.topic;
             /* Skin communities (vanilla): when the trigger carries a skin
                topic id, list that topic's communities on this network
@@ -347,13 +347,13 @@
                 a = all.filter(c => String(c.network || "").toLowerCase().replace(/\s+/g, "") === key)
                     .map(c => ({ name: c.name, scope: c.network, url: c.url }));
             } else {
-                a = ce(i, t);
+                a = sxLinksFor(i, t);
             }
             const r = "fetlife" === t ? "FetLife" : "discord" === t ? "Discord" : "stackexchange" === t ? "Stack Exchange" : "Reddit";
-            if (!a.length) return void oo();
-            if (no === e && !Ur.hidden) return void oo();
-            oo(), ro(), no = e, e.setAttribute("aria-expanded", "true"), Gr.textContent = "guide" === t ? `Guide: ${i}` : `${r} communities for ${i}`,
-            n(Kr, ""), a.forEach(e => wo(e.name, e.scope, e.url)), Ur.hidden = !1, bo(e), Kr.querySelector("a")?.focus({
+            if (!a.length) return void sxHideCommunityPopover();
+            if (no === e && !Ur.hidden) return void sxHideCommunityPopover();
+            sxHideCommunityPopover(), sxHideMarkSources(), no = e, e.setAttribute("aria-expanded", "true"), Gr.textContent = "guide" === t ? `Guide: ${i}` : `${r} communities for ${i}`,
+            n(Kr, ""), a.forEach(e => sxAppendCommunityLink(e.name, e.scope, e.url)), Ur.hidden = !1, sxPlaceCommunityPopover(e), Kr.querySelector("a")?.focus({
                 preventScroll: !0
             });
         }
@@ -362,7 +362,7 @@
         // extracted to 03f-polygon-widgets.js
 
         function sxSyncMarkRatings(id) {
-            sxSeedProfileIntensities(Vi());
+            sxSeedProfileIntensities(sxActiveProfileId());
             const give = e.byId("markGive"), recv = e.byId("markReceive"), giveOut = e.byId("markGiveOut"), recvOut = e.byId("markReceiveOut"), giveLabel = e.byId("markGiveLabel"), recvLabel = e.byId("markReceiveLabel"), recvRow = e.byId("markReceiveRow");
             const role3 = e.byId("markRole3"), role3Out = e.byId("markRole3Out"), role3Label = e.byId("markRole3Label"), role3Row = e.byId("markRole3Row");
             const role4 = e.byId("markRole4"), role4Out = e.byId("markRole4Out"), role4Label = e.byId("markRole4Label"), role4Row = e.byId("markRole4Row");
@@ -486,13 +486,13 @@
                 setOnlyWrap(null);
                 return;
             }
-            const rInfo = qn[id];
+            const rInfo = sxNodeRegistry[id];
             if (rInfo && (rInfo.kind === "Category" || rInfo.kind === "Subcategory")) {
                 setOnlyWrap(null);
                 return;
             }
 
-            const shape = Ge(id), rec = ca(id, Vi()), single = Boolean(shape.single);
+            const shape = sxWidgetConfig(id), rec = sxDecodeTopicStance(id, sxActiveProfileId()), single = Boolean(shape.single);
             const widget = shape.widget || (shape.octad ? "octad-radar" : shape.heptad ? "heptad-radar" : shape.hexad ? "hexad-radar" : shape.pentad ? "star-radar" : shape.tetrad ? "diamond" : shape.triangle ? "triangle" : shape.single ? "monopole-slider" : "xy-switchbox");
 
             if (widget === "octad-radar") {
@@ -517,7 +517,7 @@
 
                 const maxR = sxSignedIntensity(ratings);
                 if (maxR !== 0) sxOctadState.shape = ratings.map(v => v / maxR);
-                sxAdoptIntensity(sxOctadState, rec, maxR, octadIntensity, octadIntensityOut, id, Vi());
+                sxAdoptIntensity(sxOctadState, rec, maxR, octadIntensity, octadIntensityOut, id, sxActiveProfileId());
 
                 if (window.sxSyncDualSliders) {
                     window.sxSyncDualSliders({
@@ -566,7 +566,7 @@
 
                 const maxR = sxSignedIntensity(ratings);
                 if (maxR !== 0) sxHeptadState.shape = ratings.map(v => v / maxR);
-                sxAdoptIntensity(sxHeptadState, rec, maxR, heptadIntensity, heptadIntensityOut, id, Vi());
+                sxAdoptIntensity(sxHeptadState, rec, maxR, heptadIntensity, heptadIntensityOut, id, sxActiveProfileId());
 
                 if (window.sxSyncDualSliders) {
                     window.sxSyncDualSliders({
@@ -614,7 +614,7 @@
 
                 const maxR = sxSignedIntensity(ratings);
                 if (maxR !== 0) sxHexadState.shape = ratings.map(v => v / maxR);
-                sxAdoptIntensity(sxHexadState, rec, maxR, hexadIntensity, hexadIntensityOut, id, Vi());
+                sxAdoptIntensity(sxHexadState, rec, maxR, hexadIntensity, hexadIntensityOut, id, sxActiveProfileId());
 
                 if (window.sxSyncDualSliders) {
                     window.sxSyncDualSliders({
@@ -661,7 +661,7 @@
 
                 const maxR = sxSignedIntensity(ratings);
                 if (maxR !== 0) sxPentadState.shape = ratings.map(v => v / maxR);
-                sxAdoptIntensity(sxPentadState, rec, maxR, pentadIntensity, pentadIntensityOut, id, Vi());
+                sxAdoptIntensity(sxPentadState, rec, maxR, pentadIntensity, pentadIntensityOut, id, sxActiveProfileId());
 
                 if (window.sxSyncDualSliders) {
                     window.sxSyncDualSliders({
@@ -720,7 +720,7 @@
                     sxCompassState.recV = 0.5;
                 }
 
-                sxAdoptIntensity(sxCompassState, rec, keepPoint ? 0 : pt.intensity, compassIntensity, compassIntensityOut, id, Vi());
+                sxAdoptIntensity(sxCompassState, rec, keepPoint ? 0 : pt.intensity, compassIntensity, compassIntensityOut, id, sxActiveProfileId());
 
                 if (window.sxSyncDualSliders) {
                     window.sxSyncDualSliders({
@@ -777,7 +777,7 @@
 
                 const maxR = sxSignedIntensity([r0, r1, r2, r3]);
                 if (maxR !== 0) sxTetradState.shape = [r0 / maxR, r1 / maxR, r2 / maxR, r3 / maxR];
-                sxAdoptIntensity(sxTetradState, rec, maxR, tetradIntensity, tetradIntensityOut, id, Vi());
+                sxAdoptIntensity(sxTetradState, rec, maxR, tetradIntensity, tetradIntensityOut, id, sxActiveProfileId());
 
                 if (window.sxSyncDualSliders) {
                     window.sxSyncDualSliders({
@@ -855,7 +855,7 @@
                     sxTriState.recW0 = 1 / 3; sxTriState.recW1 = 1 / 3; sxTriState.recW2 = 1 / 3;
                 }
 
-                intensity = sxAdoptIntensity(sxTriState, rec, intensity, triIntensity, triIntensityOut, id, Vi());
+                intensity = sxAdoptIntensity(sxTriState, rec, intensity, triIntensity, triIntensityOut, id, sxActiveProfileId());
 
                 if (window.sxSyncDualSliders) {
                     window.sxSyncDualSliders({

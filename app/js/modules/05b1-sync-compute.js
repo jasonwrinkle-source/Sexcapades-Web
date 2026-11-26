@@ -1,6 +1,6 @@
         function sxGroupCompute(profiles, opts) {
             opts = opts || {};
-            const n = profiles.length, ids = Uc(), metas = ids.map(id => sxMeta(id, profiles)),
+            const n = profiles.length, ids = sxAllTopicIds(), metas = ids.map(id => sxMeta(id, profiles)),
                 data = profiles.map(p => ids.map((id, ix) => metas[ix] ? sxTopicData(p, id, metas[ix]) : null)),
                 po = (i, j) => ({
                     heatA: (opts.heat || [])[i] ?? 0, heatB: (opts.heat || [])[j] ?? 0,
@@ -367,7 +367,7 @@
         let sxShareCache = null;
         function sxTopicShares() {
             if (sxShareCache) return sxShareCache;
-            const ids = Uc(), metas = ids.map(id => sxMeta(id, null)), byBranch = new Map;
+            const ids = sxAllTopicIds(), metas = ids.map(id => sxMeta(id, null)), byBranch = new Map;
             ids.forEach((id, ix) => { const m = metas[ix]; if (!m) return; if (!byBranch.has(m.branch)) byBranch.set(m.branch, []); byBranch.get(m.branch).push([ id, m ]); });
             const shares = {}, nBranch = Math.max(1, byBranch.size);
             byBranch.forEach(list => {
@@ -421,7 +421,7 @@
         }
         function sxPersonalCharted(profile) {
             if (!profile) return { personal: null, charted: null };
-            const ids = Uc(); let num = 0, ch = 0, den = 0;
+            const ids = sxAllTopicIds(); let num = 0, ch = 0, den = 0;
             /* Epsilon from this person's OWN heat (personal-only). */
             const eps = sxPlayEpsilon([ profile.id ? sxHeatFor(profile.id) : 0 ]);
             ids.forEach(id => {
@@ -435,7 +435,7 @@
         }
         function sxGroupCharted(profiles) {
             if (!profiles || !profiles.length) return null;
-            const ids = Uc(); let ch = 0, den = 0;
+            const ids = sxAllTopicIds(); let ch = 0, den = 0;
             ids.forEach(id => {
                 const meta = sxMeta(id, profiles); if (!meta) return;
                 const w = sxTopicWeight(id, meta); den += w;
@@ -669,7 +669,7 @@
         function sxRingValuesForCast(profiles, pairOp) {
             if (!profiles || profiles.length < 2) return null;
             const heats = profiles.map(p => p && p.id && typeof sxHeatDisplayFor === "function" ? sxHeatDisplayFor(p.id) : p && typeof p.heat === "number" ? p.heat : 0),
-                veils = profiles.map(p => p && p.id && typeof sxVeilFor === "function" ? sxVeilFor(p.id) : p && null != p.veil ? av(p.veil) : 50),
+                veils = profiles.map(p => p && p.id && typeof sxVeilFor === "function" ? sxVeilFor(p.id) : p && null != p.veil ? sxClampVeilLevel(p.veil) : 50),
                 grp = sxGroupCompute(profiles, { heat: heats, veil: veils }), isPair = 2 === profiles.length, pair = isPair ? grp.pairs[0] : null;
             /* No Charted pass here (Rank 10, 2026-10-30): this function
                used to compute sxGroupCharted(profiles) into a `charted`
@@ -727,7 +727,7 @@
                 id: id, name: wt[id] || "Profile",
                 ratings: vt[id] || {}, annotations: Qe[id] || {}, fantasyOnly: Je[id] || {},
                 alreadyTried: et[id] || {}, importedChildren: at[id] || {},
-                genders: bb(rt[id]), orientations: iv(ot[id])
+                genders: sxNormalizeGenders(rt[id]), orientations: sxNormalizeOrientations(ot[id])
             };
         }
         var sxPairCache = new Map();
@@ -754,7 +754,7 @@
             return sxPairCache.get(key);
         }
         function sxRouteRecord(fit, id) {
-            const labels = Ge(id);
+            const labels = sxWidgetConfig(id);
             return {
                 key: "AtoB" === fit.direction ? "firstGive" : "secondGive",
                 score: fit.strength, giver: fit.giver, receiver: fit.receiver,
@@ -794,7 +794,7 @@
             meta.sourceIds.forEach(srcId => sxEnsurePseudoProfileCurrent(srcId, visited));
             const currentFp = sxSourcesFingerprint(meta.sourceIds);
             if (meta.fingerprint !== currentFp) {
-                if (typeof Rd === "function") Rd(id);
+                if (typeof sxRefreshGroupScore === "function") sxRefreshGroupScore(id);
             }
         }
         window.__SEXCAPADES_SYNC_ENGINE = {

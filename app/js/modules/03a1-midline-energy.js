@@ -91,7 +91,7 @@
                     return baked;
                 }
                 try { window.__sxLastBuildMode = "solved"; } catch (e3) {}
-                return fr();
+                return sxSolveSpokeGeometry();
             },
             tidy(geo) {
                 // STEP 4 (SETTLE) COMMENTED OUT (ruled 2026-11-01,
@@ -711,7 +711,7 @@
             const tagW = (id, depth) => {
                 const key = id + "@" + depth;
                 if (tagCache.has(key)) return tagCache.get(key);
-                const g = Ge(id, prof);
+                const g = sxWidgetConfig(id, prof);
                 const w = g.single ? Za.controlTagWidth(g.labels[0], "single") * tagM(depth) : Math.max(...g.labels.map(x => Za.controlTagWidth(x, "pair") * tagM(depth)));
                 return tagCache.set(key, w), w;
             };
@@ -793,7 +793,7 @@
                         spokeIx: -1
                     };
                     if (isSub) {
-                        const subNodeId = rec.id || (typeof Un === "function" ? (function(){ try { return Un(cloud, label); } catch(_){ return label; } })() : label);
+                        const subNodeId = rec.id || (typeof sxResolveSubcategoryId === "function" ? (function(){ try { return sxResolveSubcategoryId(cloud, label); } catch(_){ return label; } })() : label);
                         geo.spokes.push({
                             seg: null,
                             bb: null,

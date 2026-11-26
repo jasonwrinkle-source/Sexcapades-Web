@@ -30,26 +30,26 @@
         // table also record each term's original spelling here (first
         // spelling wins), letting the viewer show real FetLife names.
         const fln = {};
-        function mk(e, t, n = !1) {
+        function sxSeedHtmlAliasMap(e, t, n = !1) {
             t = migrateNodeKey(t);
             e.forEach(e => {
-                gk[ck(e)] = {
+                gk[sxNormalizeTermText(e)] = {
                     id: t,
                     uncertain: n
-                }, fln[ck(e)] = fln[ck(e)] || e;
+                }, fln[sxNormalizeTermText(e)] = fln[sxNormalizeTermText(e)] || e;
             });
         }
-        mk([ "Gentle touch/caress", "Cuddling" ], "t0397", !0), mk([ "Tantra", "Tantric sex", "Tantric play", "Energy play", "Tantra / energy play", "Breathwork" ], "t0412"),
-        mk([ "Sex magic", "Sacred sexuality", "Ritual kink", "Spiritual kink", "Spiritual BDSM", "Spiritual play" ], "t0367"), 
-        mk([ "Tickling" ], "t0100"), mk([ "Canes", "Caning" ], "t0067"), 
-        mk([ "Crop", "Riding crop", "Riding crops" ], "t0068"), mk([ "Whip", "Whips" ], "t0064"), 
-        mk([ "Spanking" ], "t0056"), mk([ "Over the knee OTK Spanking", "Over the knee (OTK) Spanking", "Face slapping" ], "t0056", !0), 
-        mk([ "Vampire gloves" ], "t0354", !0), mk([ "Punching play", "Kicking play" ], "t0097", !0), 
-        mk([ "Rope" ], "t0022"), mk([ "Chains", "Handcuffs", "Quick release velcro", "Quick release (velcro)" ], "t0025", !0), 
-        mk([ "Bondage light", "Bondage (light)" ], "cat-bondage-restriction", !0), mk([ "Bondage heavy", "Bondage (heavy)", "Suspension" ], "t0040", !0), 
-        mk([ "Shibari" ], "t0022"), mk([ "Belt", "Paddle" ], "t0069", !0), 
-        mk([ "Flogger" ], "t0062"), mk([ "Orgasm Control", "Forced orgasms", "Ruined orgasms" ], "t0326", !0), 
-        mk([ "Chastity" ], "t0328"), mk([ "Denial" ], "t0327"), mk([ "Edging" ], "t0329"), 
+        sxSeedHtmlAliasMap([ "Gentle touch/caress", "Cuddling" ], "t0397", !0), sxSeedHtmlAliasMap([ "Tantra", "Tantric sex", "Tantric play", "Energy play", "Tantra / energy play", "Breathwork" ], "t0412"),
+        sxSeedHtmlAliasMap([ "Sex magic", "Sacred sexuality", "Ritual kink", "Spiritual kink", "Spiritual BDSM", "Spiritual play" ], "t0367"), 
+        sxSeedHtmlAliasMap([ "Tickling" ], "t0100"), sxSeedHtmlAliasMap([ "Canes", "Caning" ], "t0067"), 
+        sxSeedHtmlAliasMap([ "Crop", "Riding crop", "Riding crops" ], "t0068"), sxSeedHtmlAliasMap([ "Whip", "Whips" ], "t0064"), 
+        sxSeedHtmlAliasMap([ "Spanking" ], "t0056"), sxSeedHtmlAliasMap([ "Over the knee OTK Spanking", "Over the knee (OTK) Spanking", "Face slapping" ], "t0056", !0), 
+        sxSeedHtmlAliasMap([ "Vampire gloves" ], "t0354", !0), sxSeedHtmlAliasMap([ "Punching play", "Kicking play" ], "t0097", !0), 
+        sxSeedHtmlAliasMap([ "Rope" ], "t0022"), sxSeedHtmlAliasMap([ "Chains", "Handcuffs", "Quick release velcro", "Quick release (velcro)" ], "t0025", !0), 
+        sxSeedHtmlAliasMap([ "Bondage light", "Bondage (light)" ], "cat-bondage-restriction", !0), sxSeedHtmlAliasMap([ "Bondage heavy", "Bondage (heavy)", "Suspension" ], "t0040", !0), 
+        sxSeedHtmlAliasMap([ "Shibari" ], "t0022"), sxSeedHtmlAliasMap([ "Belt", "Paddle" ], "t0069", !0), 
+        sxSeedHtmlAliasMap([ "Flogger" ], "t0062"), sxSeedHtmlAliasMap([ "Orgasm Control", "Forced orgasms", "Ruined orgasms" ], "t0326", !0), 
+        sxSeedHtmlAliasMap([ "Chastity" ], "t0328"), sxSeedHtmlAliasMap([ "Denial" ], "t0327"), sxSeedHtmlAliasMap([ "Edging" ], "t0329"), 
         // Importer rework Part B (decided 2026-11-04): Edge Play lands on
         // the Edge play topic t0334 (which carries the risky-practice
         // asterisk), NEVER on Edging t0329. The next five are the decided
@@ -59,94 +59,94 @@
         // dynamics), and Toy Making, whose decided home is the Clothing,
         // materials & objects CATEGORY - a category-only target, so it is
         // reported as a broad hit and never silently rated.
-        mk([ "Edge Play" ], "t0334"), mk([ "Morning Sex" ], "t0290"), mk([ "Bellydancing" ], "t0277"), 
-        mk([ "Formiphilia", "Formicophilia" ], "t0120"), mk([ "Forniphilia" ], "t0405"), mk([ "Graphoerotica" ], "t0265"), mk([ "Toy Making" ], "cat-clothing-materials-objects"),
+        sxSeedHtmlAliasMap([ "Edge Play" ], "t0334"), sxSeedHtmlAliasMap([ "Morning Sex" ], "t0290"), sxSeedHtmlAliasMap([ "Bellydancing" ], "t0277"), 
+        sxSeedHtmlAliasMap([ "Formiphilia", "Formicophilia" ], "t0120"), sxSeedHtmlAliasMap([ "Forniphilia" ], "t0405"), sxSeedHtmlAliasMap([ "Graphoerotica" ], "t0265"), sxSeedHtmlAliasMap([ "Toy Making" ], "cat-clothing-materials-objects"),
         // Importer fix package (2026-11-05): "Humiliation language" is its
         // own topic (t0240, PS Humiliation subcategory) - it must land
         // there, not fall through to the broad Humiliation subcategory
         // fallback. The broad "Humiliation" mapping (s0034) is unchanged.
-        mk([ "Humiliation language" ], "t0240"), 
-        mk([ "Anal sex" ], "t0297"), mk([ "Pegging" ], "t0301"), mk([ "Rimming" ], "t0294"), 
-        mk([ "Using toys anal", "Using toys" ], "t0306", !0), mk([ "Using fingers anal" ], "t0299"), 
-        mk([ "Butt plugs" ], "t0193", !0), mk([ "Enemas for prep", "Enemas for prep?", "Enemas as part of play", "Enemas as part of play?", "Scat" ], "cat-fluids-messy-play", !0), 
-        mk([ "Gripped at neck", "Choking" ], "t0428", !0), mk([ "Objects in mouth" ], "t0035", !0), 
-        mk([ "Gags" ], "t0035"), mk([ "Nipple stimulation hands", "Nipple stimulation mouth", "Breast bondage" ], "t0220", !0), 
-        mk([ "Oral" ], "t0291", !0), mk([ "Blow jobs/cock worship", "Blow jobs cock worship", "Cunninglingus" ], "t0291"), 
-        mk([ "Nipple Clamps" ], "t0070"), mk([ "Facials" ], "t0314"), mk([ "Breast impact" ], "t0096", !0), 
-        mk([ "Fingers" ], "t0304", !0), mk([ "Toys dildos vibrators others", "Toys (dildos, vibrators, others?)", "Penis Strap on", "Penis /Strap on" ], "t0306", !0), 
-        mk([ "Fisting" ], "t0310", !0), mk([ "Favorite positions", "Favorite positions?" ], "cat-positions", !0), 
-        mk([ "Wax play" ], "t0098"), mk([ "Ice play" ], "t0099"), 
-        mk([ "Abrasion play" ], "t0102", !0), mk([ "Being blindfolded" ], "t0103", !0), 
-        mk([ "Fireplay" ], "t0098", !0), mk([ "Electric play Violet Wand E Stim", "Electric play (Violet Wand, E-Stim)" ], "t0101"), 
-        mk([ "Teasing" ], "t0330"), mk([ "Biting", "Scratching" ], "t0354"), 
-        mk([ "Pursuit chase", "Pursuit /chase" ], "t0352"), mk([ "Growling" ], "t0351", !0), 
-        mk([ "Wrestling", "Being pinned held down", "Being pinned/held down" ], "t0353", !0), 
-        mk([ "Piercings permanent temporary", "Piercings (permanent /temporary)" ], "t0074", !0), 
-        mk([ "Shaving head", "Tattoos" ], "t0236", !0), mk([ "Branding", "Cutting", "Artistic Cutting" ], "t0096", !0), 
-        mk([ "Medical Doctor Nurse", "Medical/Doctor/Nurse" ], "t0129"), 
-        mk([ "Teacher Student", "Teacher/Student" ], "t0128"), 
-        mk([ "Boss Secretary" ], "t0127", !0), mk([ "Ageplay Non sexual", "Ageplay (Non-sexual)", "Age Play Sexual", "Age Play (Sexual)" ], "t0123", !0), 
-        mk([ "ABDL Diaper Play", "ABDL (Diaper Play)" ], "t0185"), mk([ "Pet play", "Pet play pony play" ], "t0136"), 
-        mk([ "Pony play", "Pony Play" ], "t0138"), mk([ "Threesomes" ], "t0278"), 
-        mk([ "Foursomes", "Orgy" ], "t0279", !0), mk([ "Partner Swapping" ], "t0280"), 
-        mk([ "Gang bangs" ], "t0284"), mk([ "Bukkake" ], "t0314", !0), 
-        mk([ "Double penetration", "Triple penetration" ], "t0306", !0), mk([ "Words I enjoy saying hearing slut whore etc", "Words I enjoy saying, hearing (slut, whore etc)" ], "t0240"), 
-        mk([ "Humiliation verbal" ], "t0239"), mk([ "Exhibitionism" ], "t0266"), 
-        mk([ "Voyeurism" ], "t0266"), mk([ "Body Worship" ], "t0237"), 
-        mk([ "Watersports" ], "t0338"), mk([ "Needle play" ], "t0074"), 
-        mk([ "Knife play" ], "t0086", !0), mk([ "Fear play", "Fear Play" ], "t0245");
+        sxSeedHtmlAliasMap([ "Humiliation language" ], "t0240"), 
+        sxSeedHtmlAliasMap([ "Anal sex" ], "t0297"), sxSeedHtmlAliasMap([ "Pegging" ], "t0301"), sxSeedHtmlAliasMap([ "Rimming" ], "t0294"), 
+        sxSeedHtmlAliasMap([ "Using toys anal", "Using toys" ], "t0306", !0), sxSeedHtmlAliasMap([ "Using fingers anal" ], "t0299"), 
+        sxSeedHtmlAliasMap([ "Butt plugs" ], "t0193", !0), sxSeedHtmlAliasMap([ "Enemas for prep", "Enemas for prep?", "Enemas as part of play", "Enemas as part of play?", "Scat" ], "cat-fluids-messy-play", !0), 
+        sxSeedHtmlAliasMap([ "Gripped at neck", "Choking" ], "t0428", !0), sxSeedHtmlAliasMap([ "Objects in mouth" ], "t0035", !0), 
+        sxSeedHtmlAliasMap([ "Gags" ], "t0035"), sxSeedHtmlAliasMap([ "Nipple stimulation hands", "Nipple stimulation mouth", "Breast bondage" ], "t0220", !0), 
+        sxSeedHtmlAliasMap([ "Oral" ], "t0291", !0), sxSeedHtmlAliasMap([ "Blow jobs/cock worship", "Blow jobs cock worship", "Cunninglingus" ], "t0291"), 
+        sxSeedHtmlAliasMap([ "Nipple Clamps" ], "t0070"), sxSeedHtmlAliasMap([ "Facials" ], "t0314"), sxSeedHtmlAliasMap([ "Breast impact" ], "t0096", !0), 
+        sxSeedHtmlAliasMap([ "Fingers" ], "t0304", !0), sxSeedHtmlAliasMap([ "Toys dildos vibrators others", "Toys (dildos, vibrators, others?)", "Penis Strap on", "Penis /Strap on" ], "t0306", !0), 
+        sxSeedHtmlAliasMap([ "Fisting" ], "t0310", !0), sxSeedHtmlAliasMap([ "Favorite positions", "Favorite positions?" ], "cat-positions", !0), 
+        sxSeedHtmlAliasMap([ "Wax play" ], "t0098"), sxSeedHtmlAliasMap([ "Ice play" ], "t0099"), 
+        sxSeedHtmlAliasMap([ "Abrasion play" ], "t0102", !0), sxSeedHtmlAliasMap([ "Being blindfolded" ], "t0103", !0), 
+        sxSeedHtmlAliasMap([ "Fireplay" ], "t0098", !0), sxSeedHtmlAliasMap([ "Electric play Violet Wand E Stim", "Electric play (Violet Wand, E-Stim)" ], "t0101"), 
+        sxSeedHtmlAliasMap([ "Teasing" ], "t0330"), sxSeedHtmlAliasMap([ "Biting", "Scratching" ], "t0354"), 
+        sxSeedHtmlAliasMap([ "Pursuit chase", "Pursuit /chase" ], "t0352"), sxSeedHtmlAliasMap([ "Growling" ], "t0351", !0), 
+        sxSeedHtmlAliasMap([ "Wrestling", "Being pinned held down", "Being pinned/held down" ], "t0353", !0), 
+        sxSeedHtmlAliasMap([ "Piercings permanent temporary", "Piercings (permanent /temporary)" ], "t0074", !0), 
+        sxSeedHtmlAliasMap([ "Shaving head", "Tattoos" ], "t0236", !0), sxSeedHtmlAliasMap([ "Branding", "Cutting", "Artistic Cutting" ], "t0096", !0), 
+        sxSeedHtmlAliasMap([ "Medical Doctor Nurse", "Medical/Doctor/Nurse" ], "t0129"), 
+        sxSeedHtmlAliasMap([ "Teacher Student", "Teacher/Student" ], "t0128"), 
+        sxSeedHtmlAliasMap([ "Boss Secretary" ], "t0127", !0), sxSeedHtmlAliasMap([ "Ageplay Non sexual", "Ageplay (Non-sexual)", "Age Play Sexual", "Age Play (Sexual)" ], "t0123", !0), 
+        sxSeedHtmlAliasMap([ "ABDL Diaper Play", "ABDL (Diaper Play)" ], "t0185"), sxSeedHtmlAliasMap([ "Pet play", "Pet play pony play" ], "t0136"), 
+        sxSeedHtmlAliasMap([ "Pony play", "Pony Play" ], "t0138"), sxSeedHtmlAliasMap([ "Threesomes" ], "t0278"), 
+        sxSeedHtmlAliasMap([ "Foursomes", "Orgy" ], "t0279", !0), sxSeedHtmlAliasMap([ "Partner Swapping" ], "t0280"), 
+        sxSeedHtmlAliasMap([ "Gang bangs" ], "t0284"), sxSeedHtmlAliasMap([ "Bukkake" ], "t0314", !0), 
+        sxSeedHtmlAliasMap([ "Double penetration", "Triple penetration" ], "t0306", !0), sxSeedHtmlAliasMap([ "Words I enjoy saying hearing slut whore etc", "Words I enjoy saying, hearing (slut, whore etc)" ], "t0240"), 
+        sxSeedHtmlAliasMap([ "Humiliation verbal" ], "t0239"), sxSeedHtmlAliasMap([ "Exhibitionism" ], "t0266"), 
+        sxSeedHtmlAliasMap([ "Voyeurism" ], "t0266"), sxSeedHtmlAliasMap([ "Body Worship" ], "t0237"), 
+        sxSeedHtmlAliasMap([ "Watersports" ], "t0338"), sxSeedHtmlAliasMap([ "Needle play" ], "t0074"), 
+        sxSeedHtmlAliasMap([ "Knife play" ], "t0086", !0), sxSeedHtmlAliasMap([ "Fear play", "Fear Play" ], "t0245");
         // fk: the pasted-text import map. Seeded from the topic
         // catalog just below, then gk (Batch #1) is merged in with
         // a guard - existing keys are never overwritten - then the
         // hand-written yk() aliases and the guarded batch table.
         const fk = {};
-        function yk(e, t, n = "both", i = !1, a = !1) {
+        function sxSeedPasteAliasMap(e, t, n = "both", i = !1, a = !1) {
             t = migrateNodeKey(t);
             e.forEach(e => {
-                fk[ck(e)] = {
+                fk[sxNormalizeTermText(e)] = {
                     id: t,
                     direction: n,
                     uncertain: i,
                     specific: a
-                }, fln[ck(e)] = fln[ck(e)] || e;
+                }, fln[sxNormalizeTermText(e)] = fln[sxNormalizeTermText(e)] || e;
             });
         }
         h.forEach(e => {
-            yk([ e.name, "All " + e.name ], catId(e.name)), e.topics.forEach(e => yk([ sxName(e) ], Wn(e)));
+            sxSeedPasteAliasMap([ e.name, "All " + e.name ], catId(e.name)), e.topics.forEach(e => sxSeedPasteAliasMap([ sxName(e) ], sxResolveTopicId(e)));
         }), Object.entries(gk).forEach(([e, t]) => {
             fk[e] || (fk[e] = {
                 id: t.id,
                 direction: "both",
                 uncertain: t.uncertain
             });
-        }), yk([ "BDSM", "D/s", "Power exchange relationship" ], "cat-power-exchange"), 
-        yk([ "Dominance", "Dominant", "Dom", "Topping", "Top" ], "cat-power-exchange", "give"), 
-        yk([ "Submission", "Submissive", "Sub", "Bottoming", "Bottom" ], "cat-power-exchange", "receive"), 
-        yk([ "Switch", "Switching" ], "cat-power-exchange", "both"), yk([ "Sadism", "Sadist" ], "t0051", "give"), 
-        yk([ "Masochism", "Masochist" ], "t0051", "receive"), 
-        yk([ "Breath play" ], "t0428", "both", !0), yk([ "CNC", "Consensual nonconsent", "Consensual non-consent" ], "t0134"), 
-        yk([ "Rope", "Rope play" ], "t0022"), yk([ "Electrostimulation", "E-stim", "Violet wand" ], "t0101"), 
-        yk([ "Wax play" ], "t0098"), yk([ "Tantra", "Tantric", "Tantric play" ], "t0412"),
-        yk([ "Sacred sexuality", "Sex magic", "Sex magick" ], "t0367"), yk([ "Bondage", "Bondage play" ], "cat-bondage-restriction"), 
-        yk([ "Shibari", "Kinbaku" ], "t0022"), yk([ "Impact play" ], "cat-impact-pain-body-modification"), 
-        yk([ "Paddling", "Paddle play" ], "t0069"), yk([ "Caning", "Cane play" ], "t0067"), 
-        yk([ "Flogging" ], "t0062"), yk([ "Whipping", "Whip play", "Single Tail Whips", "Single-tail whips" ], "t0064"), 
-        yk([ "Humiliation play" ], "t0240"), yk([ "Humiliation" ], "subcategory-psychological-dynamics-humiliation"), 
-yk([ "Spitting", "Spit play", "Being spit on", "Spitting on someone" ], "t0341"), 
-        yk([ "Name calling", "Insults", "Verbal degradation" ], "t0239", "both", !0, !0), 
-        yk([ "Praise kink" ], "t0264"), yk([ "Sensory deprivation" ], "t0103"), 
-        yk([ "Temperature play" ], "t0098", "both", !0), yk([ "Exhibitionism", "Exhibitionist" ], "t0266"), 
-        yk([ "Voyeurism", "Voyeur" ], "t0266"), yk([ "Public play" ], "t0269", "both", !0), 
-        yk([ "Anal play" ], "t0297", "both", !0), yk([ "Oral play" ], "t0291", "both", !0), 
-        yk([ "Orgasm play" ], "cat-orgasm-reproductive-play", "both", !0), yk([ "Primal", "Primal kink" ], "t0351"), 
-        yk([ "Predator prey", "Predator/prey" ], "t0352", "both", !0), yk([ "Service submission", "Service submissive" ], "t0359", "receive", !0), 
-        yk([ "Aftercare" ], "cat-connection-aftercare"),
+        }), sxSeedPasteAliasMap([ "BDSM", "D/s", "Power exchange relationship" ], "cat-power-exchange"), 
+        sxSeedPasteAliasMap([ "Dominance", "Dominant", "Dom", "Topping", "Top" ], "cat-power-exchange", "give"), 
+        sxSeedPasteAliasMap([ "Submission", "Submissive", "Sub", "Bottoming", "Bottom" ], "cat-power-exchange", "receive"), 
+        sxSeedPasteAliasMap([ "Switch", "Switching" ], "cat-power-exchange", "both"), sxSeedPasteAliasMap([ "Sadism", "Sadist" ], "t0051", "give"), 
+        sxSeedPasteAliasMap([ "Masochism", "Masochist" ], "t0051", "receive"), 
+        sxSeedPasteAliasMap([ "Breath play" ], "t0428", "both", !0), sxSeedPasteAliasMap([ "CNC", "Consensual nonconsent", "Consensual non-consent" ], "t0134"), 
+        sxSeedPasteAliasMap([ "Rope", "Rope play" ], "t0022"), sxSeedPasteAliasMap([ "Electrostimulation", "E-stim", "Violet wand" ], "t0101"), 
+        sxSeedPasteAliasMap([ "Wax play" ], "t0098"), sxSeedPasteAliasMap([ "Tantra", "Tantric", "Tantric play" ], "t0412"),
+        sxSeedPasteAliasMap([ "Sacred sexuality", "Sex magic", "Sex magick" ], "t0367"), sxSeedPasteAliasMap([ "Bondage", "Bondage play" ], "cat-bondage-restriction"), 
+        sxSeedPasteAliasMap([ "Shibari", "Kinbaku" ], "t0022"), sxSeedPasteAliasMap([ "Impact play" ], "cat-impact-pain-body-modification"), 
+        sxSeedPasteAliasMap([ "Paddling", "Paddle play" ], "t0069"), sxSeedPasteAliasMap([ "Caning", "Cane play" ], "t0067"), 
+        sxSeedPasteAliasMap([ "Flogging" ], "t0062"), sxSeedPasteAliasMap([ "Whipping", "Whip play", "Single Tail Whips", "Single-tail whips" ], "t0064"), 
+        sxSeedPasteAliasMap([ "Humiliation play" ], "t0240"), sxSeedPasteAliasMap([ "Humiliation" ], "subcategory-psychological-dynamics-humiliation"), 
+sxSeedPasteAliasMap([ "Spitting", "Spit play", "Being spit on", "Spitting on someone" ], "t0341"), 
+        sxSeedPasteAliasMap([ "Name calling", "Insults", "Verbal degradation" ], "t0239", "both", !0, !0), 
+        sxSeedPasteAliasMap([ "Praise kink" ], "t0264"), sxSeedPasteAliasMap([ "Sensory deprivation" ], "t0103"), 
+        sxSeedPasteAliasMap([ "Temperature play" ], "t0098", "both", !0), sxSeedPasteAliasMap([ "Exhibitionism", "Exhibitionist" ], "t0266"), 
+        sxSeedPasteAliasMap([ "Voyeurism", "Voyeur" ], "t0266"), sxSeedPasteAliasMap([ "Public play" ], "t0269", "both", !0), 
+        sxSeedPasteAliasMap([ "Anal play" ], "t0297", "both", !0), sxSeedPasteAliasMap([ "Oral play" ], "t0291", "both", !0), 
+        sxSeedPasteAliasMap([ "Orgasm play" ], "cat-orgasm-reproductive-play", "both", !0), sxSeedPasteAliasMap([ "Primal", "Primal kink" ], "t0351"), 
+        sxSeedPasteAliasMap([ "Predator prey", "Predator/prey" ], "t0352", "both", !0), sxSeedPasteAliasMap([ "Service submission", "Service submissive" ], "t0359", "receive", !0), 
+        sxSeedPasteAliasMap([ "Aftercare" ], "cat-connection-aftercare"),
         // ---- Guarded batch table for fk: each [target, [terms]]
         // group is merged with the !fk[n] guard (first definition
         // wins). Groups before the Batch #2 marker are the core
         // table (Batch #1 era, Builds 0107/0114). ----
         [ [ "t0291", [ "Blow Jobs", "Blow Job", "Cocksucking", "Cock Sucking", "Eating Pussy", "Deep Throating" ] ], [ "t0297", [ "Anal", "Ass Play" ] ], [ "t0428", [ "Asphyxiaphilia", "Asphyxiaphilia Play" ] ], [ "t0306", [ "Ben Wa Balls", "Toys", "Strap-ons", "Strap-on", "Strap Ons", "Sybian", "Remote-Control Devices" ] ], [ "t0213", [ "Boot Licking", "Boot Worship", "Shoe Worship", "Foot Licking", "Foot/Feet" ] ], [ "t0397", [ "Caressing", "Caress", "Cuddles", "Snuggling", "Making Out", "Touching", "Aftercare Cuddles" ] ], [ "t0070", [ "Clover Clamps" ] ], [ "t0022", [ "Japanese Bondage" ] ], [ "t0136", [ "Petplay", "Kitten Petplay", "Puppy Play" ] ], [ "t0351", [ "Primal Play" ] ], [ "t0181", [ "Panties" ] ], [ "t0267", [ "Erotic Photography", "Photography", "Making Home Movies" ] ], [ "t0263", [ "Dirty Text Messaging", "Talking Dirty" ] ], [ "t0266", [ "Flashing" ] ], [ "t0383", [ "Furry" ] ], [ "t0284", [ "Gangbangs", "Gangbang" ] ], [ "t0292", [ "Throat Fucking" ] ], [ "t0220", [ "Tit Fucking" ] ], [ "t0025", [ "Shackles" ] ], [ "t0268", [ "Cyber Sex", "Sex Online" ] ], [ "t0133", [ "Abduction Play" ] ], [ "c0001", [ "Affectionate Domination", "Domination", "Sensual Domination", "Total Power Exchange", "male submission" ] ], /* Batch #2 — Build 2026-10-18_0210 (2026-10-18): sourced from the server unmapped_fetishes table; terms already in the map were not duplicated. */ [ "t0315", [ "Anal Creampie", "Creampie" ] ], [ "t0298", [ "Anal Stretching" ] ], [ "t0377", [ "Anonymous Encounters", "Glory Hole", "Sex with Strangers" ] ], [ "t0297", [ "Ass to Mouth" ] ], [ "t0218", [ "Ass worship" ] ], [ "t0229", [ "BBW/BHM" ] ], [ "t0035", [ "Ball Gags" ] ], [ "t0084", [ "Ball Stretching" ] ], [ "t0056", [ "Bare Handed Spanking" ] ], [ "subcategory-sex-acts-fluids", [ "Bareback", "Cum" ] ], [ "t0213", [ "Barefoot" ] ], [ "t0314", [ "Swallowing", "Swallowing Cum" ] ], [ "subcategory-sex-acts-fluids", [ "Being Cummed On" ] ], [ "t0264", [ "Being called a good girl" ] ], [ "t0065", [ "Belt Spanking" ] ], [ "t0149", [ "Bimboification", "Human Doll" ] ], [ "t0103", [ "Blindfolds", "Eye Contact Restrictions" ] ], [ "subcategory-bondage-restriction-restraints", [ "Bondage Equipment" ] ], [ "t0305", [ "Breast/Nipple Play", "Nipples" ] ], [ "t0331", [ "Breeding", "Impregnation Fantasy" ] ], [ "t0269", [ "Butt plugs in public", "Covert Bondage", "Outdoor Bondage", "Outdoor sex", "Sex In Public", "Sex in videostore porn rooms" ] ], [ "t0266", [ "CFNM", "Nudity" ] ], [ "t0098", [ "Candle Wax" ] ], [ "t0152", [ "Catsuits", "Fetish Wear" ] ], [ "t0110", [ "Chakra energy play" ] ], [ "t0354", [ "Claws", "Fingernails", "Neck Biting" ] ], [ "t0168", [ "Vacuum Bed" ] ], [ "subcategory-body-focus-appearance-worship", [ "Cock Worship", "Cunt Worship", "Goddess Worship", "Pussy Worship" ] ], [ "t0003", [ "Collar and Lead/Leash", "Posture Collars", "Slave Bells" ] ], [ "subcategory-roleplay-identity-authority", [ "Control" ] ], [ "subcategory-clothing-materials-objects-uniforms-costumes", [ "Costumes/Dressing-up" ] ], [ "t0068", [ "Crops" ] ], [ "t0281", [ "Cuckolding" ] ], [ "t0397", [ "Cuddling Naked", "Cuddling with benefits", "Erotic Massage", "Hot Oil Massages", "Massage", "Massages", "Neck Kissing/Touching" ] ], [ "t0122", [ "Daddy Daughter roleplay", "Daddy/babygirl", "Daddy/girl" ] ], [ "t0239", [ "Defilement", "Sluts" ] ], [ "subcategory-clothing-materials-objects-objects-toys", [ "Dildos", "Vibrators" ] ], [ "t0319", [ "Doggy Style" ] ], [ "t0005", [ "Enforced Bedtime", "Punishment" ] ], [ "t0267", [ "Webcams" ] ], [ "t0292", [ "Face Fucking", "Gagging/Choked by Cock" ] ], [ "t0100", [ "Feathers" ] ], [ "t0316", [ "Female Ejaculation" ] ], [ "t0386", [ "Feminization", "Sissy", "Sissy Training" ] ], [ "t0398", [ "Food Play" ] ], [ "t0404", [ "Forehead Kisses", "Kissing", "Tongue Sucking" ] ], [ "t0362", [ "Grooming" ] ], [ "t0279", [ "Group Sex" ] ], [ "t0056", [ "Hairbrush Spanking", "Slapping" ] ], [ "t0002", [ "High Protocol", "Protocol", "Rituals", "Yes Sir", "no panties rule" ] ], [ "t0043", [ "Hook Suspension" ] ], [ "t0099", [ "Ice Cubes" ] ], [ "t0131", [ "Internal Enslavement", "Master/Slave", "Old Guard Slavery", "Sexual Slavery", "slavery" ] ], [ "t0325", [ "Kneeling" ] ], [ "t0022", [ "Light Bondage", "Rope Bondage/Suspension" ] ], [ "t0278", [ "MMF Threesomes", "Two-Girl Blowjobs" ] ], [ "t0370", [ "Maid Uniforms" ] ], [ "subcategory-psychological-dynamics-mind-control", [ "Mind Control" ] ], [ "t0009", [ "Mistress/slave" ] ], [ "t0301", [ "Mistresses with Strap-Ons" ] ], [ "t0126", [ "Mommy/Boy Dynamics" ] ], [ "t0237", [ "Necks" ] ], [ "t0374", [ "Nun/Priest Play" ] ], [ "t0016", [ "Obedience Training" ] ], [ "t0271", [ "Online Play", "Phone Sex" ] ], [ "t0282", [ "Polyamory" ] ], [ "t0222", [ "Pregnant" ] ], [ "t0335", [ "Prostate Massage", "Prostate Milking" ] ], [ "subcategory-psychological-dynamics-humiliation", [ "Public Humiliation", "Verbal Humiliation and Degradation" ] ], [ "subcategory-body-focus-appearance-body-type", [ "Red Heads", "Small Tits" ] ], [ "t0007", [ "Role Play" ] ], [ "t0353", [ "Rough Sex" ] ], [ "subcategory-bondage-restriction-sensory", [ "Sensation Play", "Sensual Play", "Sensualism" ] ], [ "t0277", [ "Sensual/slave dances" ] ], [ "t0359", [ "Service" ] ], [ "t0360", [ "Service-oriented submission" ] ], [ "t0212", [ "Shaving" ] ], [ "t0236", [ "Slave Tattoos" ] ], [ "t0322", [ "Sleepy Sex" ] ], [ "t0089", [ "Sounds", "Urethral Sounds" ] ], [ "t0130", [ "Speculums" ] ], [ "t0026", [ "Spreader Bars" ] ], [ "t0109", [ "Sweat" ] ], [ "t0345", [ "Toilet" ] ], [ "t0243", [ "human furniture" ] ], [ "t0358", [ "WolfPlay" ] ], [ "t0290", [ "Waking up to oral sex" ] ], /* Batch #3 — Build 2026-10-18_0302 (2026-10-18): 28 aliases from the server unmapped_fetishes table. */ [ "t0298", [ "Anal Training" ] ], [ "t0084", [ "CBT" ] ], [ "t0070", [ "Clamps and Clips" ] ], [ "t0134", [ "Consensual Nonconsent Play" ] ], [ "t0129", [ "Doctor/Nurse Play" ] ], [ "t0085", [ "Fire Cupping" ] ], [ "t0307", [ "Fucking Machines" ] ], [ "t0051", [ "Sadomasochism" ] ], [ "t0376", [ "Seduction" ] ], [ "t0213", [ "Toes and Feet" ] ], [ "t0312", [ "Urethral Fucking" ] ], [ "t0311", [ "Vacuum pumping", "Clit Pumping", "Pussy Pumping" ] ], [ "t0309", [ "Vaginal Stretching" ] ], [ "t0291", [ "Ass Licking" ] ], [ "t0166", [ "Ballet Boots/Shoes" ] ], [ "t0251", [ "Emotional Masochism" ] ], [ "t0293", [ "Face sitting/smothering" ] ], [ "t0242", [ "Micropenises", "tiny cocks" ] ], [ "t0002", [ "Sir" ] ], [ "t0338", [ "pee inside Me", "piss" ] ], [ "t0331", [ "Threating to forcibly impregnate her" ] ], [ "t0264", [ "being valued" ] ], [ "subcategory-clothing-materials-objects-masks-headwear", [ "Masks" ] ], [ "subcategory-bondage-restriction-restraints", [ "Restraints" ] ], [ "subcategory-clothing-materials-objects-footwear", [ "Shoes" ] ], [ "subcategory-psychological-dynamics-humiliation", [ "human ashtray" ] ], /* Batch #4 — Importer rework (2026-11-04): decided mappings only. Edge Play → the Edge play topic (never Edging); the five formerly unplaced fetishes at their decided homes — Morning Sex, Bellydancing, Formiphilia (plus FetLife's own "Forniphilia" spelling), Graphoerotica as topics, and Toy Making at its decided CATEGORY home (broad hit, never silently rated). Guarded like every batch: existing keys win, so the catalog-seeded entries for the four topics are untouched. */ [ "t0334", [ "Edge Play" ] ], [ "t0290", [ "Morning Sex" ] ], [ "t0277", [ "Bellydancing" ] ], [ "t0120", [ "Formiphilia", "Forniphilia" ] ], [ "t0265", [ "Graphoerotica" ] ], [ "cat-clothing-materials-objects", [ "Toy Making" ] ], /* Batch #5 — Minimal-spanning rulings (2026-11-22): retired-topic labels alias to their survivors (Transvestism, Military, Boot, Exhibition / voyeurism, Breast Spanking), rename old names kept as aliases (Erotic Literature, Standing up, Uniforms, Doctor/nurse), and the two added topics take their FetLife labels (Licking; Erotic asphyxiation). Guarded like every batch: existing keys win. */ [ "t0385", [ "Transvestism" ] ], [ "t0174", [ "Military" ] ], [ "t0166", [ "Boot" ] ], [ "t0266", [ "Exhibition / voyeurism", "Exhibitionism / Voyeurism" ] ], [ "t0061", [ "Breast Spanking" ] ], [ "t0388", [ "Erotic Literature" ] ], [ "t0323", [ "Standing up" ] ], [ "t0176", [ "Uniforms" ] ], [ "t0129", [ "Doctor/nurse", "Doctor/Nurse" ] ], [ "t0429", [ "Licking" ] ], [ "t0428", [ "Erotic asphyxiation" ] ], /* Batch #6 — R9f ruling applied (2026-11-22): Pain renamed Sadomasochism (t0051) and Sadism retired into it; the old name stays as an alias. */ [ "t0051", [ "Pain" ] ] ].forEach(([e, t]) => t.forEach(t => {
-            const n = ck(t), id = migrateNodeKey(e);
+            const n = sxNormalizeTermText(t), id = migrateNodeKey(e);
             n && (fln[n] = fln[n] || t), n && !fk[n] && (fk[n] = {
                 id: id,
                 direction: "both",
@@ -184,14 +184,14 @@ yk([ "Spitting", "Spit play", "Being spit on", "Spitting on someone" ], "t0341")
         } ], vk = e.byId("converterDialog"), wk = e.byId("converterTitle"), kk = e.byId("converterSubtitle"), xk = e.byId("converterInstructions"), Sk = e.byId("converterInputLabel"), $k = e.byId("converterInput"), Ek = e.byId("converterPasteTools"), Ak = e.byId("converterActions"), Ck = e.byId("converterPreview"), Mk = e.byId("converterPreviewSummary"), Ik = e.byId("converterWarnings"), Pk = e.byId("converterStatus"), Lk = e.byId("applyConverter"), Tk = e.byId("chooseConverterFile"), Fk = e.byId("converterFileInput"), Nk = e.byId("converterMode"), _k = e.byId("takeConverterTest"), Dk = e.byId("pasteConverterResults"), Rk = e.byId("interactiveTest"), Ok = e.byId("testQuestions"), Bk = e.byId("testProgress"), jk = e.byId("testHeading"), qk = e.byId("testSourceNote"), Hk = e.byId("submitChecklistRow"), Wk = e.byId("submitChecklistResults"), Uk = e.byId("previewConverter");
         let Gk = null, Kk = null, zk = null, Vk = null, Yk = null, Xk = {}, Zk = 0, Qk = 0, ktPage = 0;
         let sxFlFields = null;
-        function Jk() {
+        function sxElapsedTestSeconds() {
             return Zk ? Math.max(0, Math.floor((Date.now() - Zk) / 1e3)) : 0;
         }
-        function ex() {
+        function sxClearTestTicker() {
             t.clear(Qk), Qk = 0, Zk = 0;
         }
-        function tx() {
-            Zk || (Zk = Date.now(), Ex(), Qk = t.setInterval(Ex, 1e3));
+        function sxArmTestTicker() {
+            Zk || (Zk = Date.now(), sxWriteTestProgress(), Qk = t.setInterval(sxWriteTestProgress, 1e3));
         }
         const nx = {
             kinktest: "Pleasure Control: 48% Dom, 36% sub\nRestraint: 0% Dom, 70% sub\nRoleplay: 19% Dom, 22% sub\nDegradation: 4% Dom, 22% sub\nPain: 8% Dom, 3% sub\nSensation: 0% Dom, 0% sub\nEdge Play: 0% Dom, 0% sub\nPotty Play: 0% Dom, 0% sub",
@@ -204,27 +204,27 @@ yk([ "Spitting", "Spit play", "Being spit on", "Spitting on someone" ], "t0341")
             id: e[1],
             direction: e[2]
         })), ax = [ "Anal sex", "Beating (hands)", "Beating (padded clubs)", "Being bitten", "Being serviced (sexual)", "Blindfolds", "Body paint", "Bondage (heavy/suspension)", "Bondage (intricate/Japanese style)", "Bondage (light)", "Bruises", "Butt plugs", "Cages (locked inside of)", "Caning", "Chains", "Chastity belts", "Clothespins", "Cock rings/straps", "Cock worship", "Corsets", "Cross-dressing", "Cuffs (leather/metal)", "Dildos", "Double penetration", "Erotic dancing", "Exhibitionism", "Eye contact restrictions", "Face slapping", "Fisting", "Flogging", "Following orders", "Food play", "Foot worship", "Gags (cloth/tape)", "Genital sex", "Hair pulling", "Hairbrush spankings", "Hand jobs (giving)", "Hand jobs (receiving)", "Head (giving)", "Head (receiving)", "High heels", "Hot waxing", "Ice cubes", "Kneeling", "Leather clothing", "Leather restraints", "Lingerie (wearing)", "Manacles & Irons", "Manicures (giving)", "Manicures (receiving)", "Marks (giving)", "Marks (receiving)", "Massage (giving)", "Massage (receiving)", "Modeling for erotic photos", "Nipple play", "Oral/anal play (rimming)", "Orgasm denial", "Outdoor sex", "Over-the-knee spanking", "Pain (mild to severe)", "Phone sex", "Pinching", "Play kidnapping", "Punishment scene", "Pussy/cock whipping/spanking", "Riding crops", "Rubber/latex clothing", "Saran wrapping", "Scenes (prison, religious, etc.)", "Scratching (giving)", "Scratching (receiving)", "Serving as a maid/butler", "Shaving", "Shoe/boot worship", "Skinny-dipping", "Slutty clothing", "Spanking", "Spreader bars", "Standing in corner", "Stocks", "Strap-on dildos", "Swallowing semen", "Swapping (with one other couple)", "Swinging (multiple couples)", "Tattooing", "Teasing", "TENS Unit", "Thumbcuffs (metal)", "Tickling", "Triple penetration", "Uniforms", "Vibrator on genitals", "Video (recordings of you)", "Video (watching others)", "Violet wand", "Voyeurism (watching others)", "Wearing symbolic jewelry", "Whips", "Wooden paddles", "Wrestling" ], axCat = { "Anal sex": "Getting started", "Beating (hands)": "Getting started", "Beating (padded clubs)": "Getting started", "Being bitten": "Getting started", "Being serviced (sexual)": "Getting started", "Blindfolds": "Getting started", "Body paint": "Getting started", "Bondage (heavy/suspension)": "Bondage", "Bondage (intricate/Japanese style)": "Bondage", "Bondage (light)": "Bondage", "Bruises": "Bondage", "Butt plugs": "Bondage", "Cages (locked inside of)": "Bondage", "Caning": "Caning", "Chains": "Caning", "Chastity belts": "Caning", "Clothespins": "Caning", "Cock rings/straps": "Caning", "Cock worship": "Cock worship", "Corsets": "Cock worship", "Cross-dressing": "Cock worship", "Cuffs (leather/metal)": "Cock worship", "Dildos": "Cock worship", "Double penetration": "Cock worship", "Erotic dancing": "Cock worship", "Exhibitionism": "Cock worship", "Eye contact restrictions": "Cock worship", "Face slapping": "Face play", "Fisting": "Face play", "Flogging": "Face play", "Following orders": "Face play", "Food play": "Face play", "Foot worship": "Foot worship", "Gags (cloth/tape)": "Foot worship", "Genital sex": "Foot worship", "Hair pulling": "Foot worship", "Hairbrush spankings": "Foot worship", "Hand jobs (giving)": "Foot worship", "Hand jobs (receiving)": "Foot worship", "Head (giving)": "Foot worship", "Head (receiving)": "Foot worship", "High heels": "Foot worship", "Hot waxing": "Hot waxing", "Ice cubes": "Hot waxing", "Kneeling": "Hot waxing", "Leather clothing": "Hot waxing", "Leather restraints": "Hot waxing", "Lingerie (wearing)": "Hot waxing", "Manacles & Irons": "Hot waxing", "Manicures (giving)": "Hot waxing", "Manicures (receiving)": "Hot waxing", "Marks (giving)": "Hot waxing", "Marks (receiving)": "Hot waxing", "Massage (giving)": "Hot waxing", "Massage (receiving)": "Hot waxing", "Modeling for erotic photos": "Hot waxing", "Nipple play": "Nipple play", "Oral/anal play (rimming)": "Nipple play", "Orgasm denial": "Nipple play", "Outdoor sex": "Nipple play", "Over-the-knee spanking": "Nipple play", "Pain (mild to severe)": "Nipple play", "Phone sex": "Nipple play", "Pinching": "Nipple play", "Play kidnapping": "Nipple play", "Punishment scene": "Nipple play", "Pussy/cock whipping/spanking": "Nipple play", "Riding crops": "Nipple play", "Rubber/latex clothing": "Nipple play", "Saran wrapping": "Nipple play", "Scenes (prison, religious, etc.)": "Scenes", "Scratching (giving)": "Scenes", "Scratching (receiving)": "Scenes", "Serving as a maid/butler": "Scenes", "Shaving": "Scenes", "Shoe/boot worship": "Scenes", "Skinny-dipping": "Scenes", "Slutty clothing": "Scenes", "Spanking": "Spanking", "Spreader bars": "Spanking", "Standing in corner": "Spanking", "Stocks": "Spanking", "Strap-on dildos": "Spanking", "Swallowing semen": "Fluids", "Swapping (with one other couple)": "Fluids", "Swinging (multiple couples)": "Group play", "Tattooing": "Tattooing", "Teasing": "Teasing", "TENS Unit": "Teasing", "Thumbcuffs (metal)": "Restraints", "Tickling": "Restraints", "Triple penetration": "Restraints", "Uniforms": "Uniforms", "Vibrator on genitals": "Uniforms", "Video (recordings of you)": "Uniforms", "Video (watching others)": "Watching", "Violet wand": "Watching", "Voyeurism (watching others)": "Voyeurism", "Wearing symbolic jewelry": "Symbols", "Whips": "Whips", "Wooden paddles": "Paddles", "Wrestling": "Wrestling" }, rx = [ [ /^69$/, "t0317" ], [ /age play|treated like a child/, "t0123" ], [ /anal sex/, "t0297" ], [ /analingus|rimming/, "t0294" ], [ /ball stretching|genital torture|pain/, "t0097" ], [ /being filmed|photographed/, "t0267" ], [ /being watched/, "t0266" ], [ /biting|scratching/, "t0354" ], [ /blindfold|sensory deprivation/, "t0103" ], [ /blood play|scat|sploshing|menstruation/, "cat-fluids-messy-play" ], [ /bondage/, "cat-bondage-restriction" ], [ /bootblack|service/, "t0359" ], [ /bratting|punishment/, "t0005" ], [ /breath play/, "t0428" ], [ /butt plug/, "t0193" ], [ /cages|confinement|suspension/, "t0040" ], [ /caning/, "t0067" ], [ /chastity/, "t0328" ], [ /worship/, "t0237" ], [ /cockrings|sex toys|strap-ons/, "t0306" ], [ /collars/, "t0003" ], [ /consensual non-consent/, "t0134" ], [ /costumes|cross dressing|gender play/, "t0178" ], [ /cuckold/, "t0281" ], [ /cuddling|kissing|massage/, "t0397" ], [ /tantra|breathwork|energy play/, "t0110" ], [ /cunnilingus|fellatio/, "t0291" ], [ /degradation/, "t0239" ], [ /dirty talk|moans|sexting/, "t0263" ], [ /double penetration|triple penetration|vaginal penetration|fingering|frottage/, "t0306" ], [ /e-stim/, "t0101" ], [ /edge play/, "t0334" ], [ /edging|teasing/, "t0329" ], [ /ejaculate|swallowing/, "t0315" ], [ /enemas|piss play/, "t0338" ], [ /eye contact/, "t0258" ], [ /face fucking/, "t0292" ], [ /facesitting/, "t0293" ], [ /fisting/, "t0310" ], [ /flogging/, "t0062" ], [ /food play/, "cat-fluids-messy-play" ], [ /foot play/, "t0213" ], [ /furries/, "t0383" ], [ /g-spot/, "t0304" ], [ /gags/, "t0035" ], [ /group sex|sex parties|strip clubs/, "t0279" ], [ /hair pulling/, "t0093" ], [ /hoods/, "t0191" ], [ /humiliation play/, "t0240" ], [ /humiliation/, "subcategory-psychological-dynamics-humiliation" ], [ /incest roleplay|kidnapping|role play/, "cat-roleplay-identity" ], [ /kicking|punching|slapping|temporary marks/, "t0096" ], [ /knife play/, "t0086" ], [ /leather/, "t0153" ], [ /lingerie/, "t0181" ], [ /medical play/, "t0129" ], [ /masturbation/, "t0268" ], [ /nipple clamps/, "t0070" ], [ /nipple/, "t0220" ], [ /objectification/, "t0243" ], [ /orgasm control/, "t0326" ], [ /orgasm denial/, "t0327" ], [ /paddles/, "t0069" ], [ /pegging/, "t0301" ], [ /piercing/, "t0074" ], [ /phone sex|porn/, "t0268" ], [ /prostate/, "t0299" ], [ /race play/, "t0127" ], [ /riding crops?/, "t0068" ], [ /whips?/, "t0064" ], [ /rubber|latex/, "t0152" ], [ /shaving/, "t0362" ], [ /smoking/, "t0119" ], [ /spanking/, "t0056" ], [ /spreader/, "t0026" ], [ /sex in public/, "t0269" ], [ /sex magic|sacred sexuality|ritual kink|spiritual play/, "t0367" ], [ /threesome/, "t0278" ], [ /tickling/, "t0100" ], [ /tit-fucking/, "t0220" ], [ /tribadism/, "t0306" ], [ /watching others/, "t0266" ], [ /wax/, "t0098" ], [ /wrestling/, "t0353" ], [ /beating/, "t0096" ], [ /bitten/, "t0354" ], [ /serviced/, "t0359" ], [ /bruises/, "t0096" ], [ /chains/, "cat-bondage-restriction" ], [ /clothespins/, "t0097" ], [ /corsets/, "t0181" ], [ /cock rings?/, "t0306" ], [ /thumbcuffs/, "cat-bondage-restriction" ], [ /cuffs/, "cat-bondage-restriction" ], [ /dildos/, "t0306" ], [ /erotic dancing/, "t0279" ], [ /exhibitionism/, "t0266" ], [ /hairbrush/, "t0096" ], [ /hand jobs/, "t0268" ], [ /\bhead\b/, "t0291" ], [ /high heels/, "t0213" ], [ /ice cubes|ice play/, "t0098" ], [ /kneeling/, "t0359" ], [ /manacles|irons/, "cat-bondage-restriction" ], [ /manicures|pedicures/, "t0359" ], [ /marks/, "t0096" ], [ /erotic photos|modeling/, "t0267" ], [ /outdoor sex/, "t0269" ], [ /pinching/, "t0097" ], [ /saran|mummification/, "t0040" ], [ /scenes/, "cat-roleplay-identity" ], [ /maid|butler/, "t0359" ], [ /skinny/, "t0266" ], [ /slutty/, "t0181" ], [ /corner/, "t0005" ], [ /stocks/, "cat-bondage-restriction" ], [ /swapping|swinging/, "t0279" ], [ /tattoo/, "t0074" ], [ /tens\b/, "t0101" ], [ /uniforms/, "t0178" ], [ /vibrator/, "t0306" ], [ /recordings/, "t0267" ], [ /violet/, "t0101" ], [ /jewelry/, "t0003" ] ];
-        function ox(e) {
+        function sxMatchHtmlFetish(e) {
             const t = function(e) {
-                const t = ni(e), n = ck(t);
+                const t = sxCleanImportLabelText(e), n = sxNormalizeTermText(t);
                 if (gk[n]) return gk[n];
-                const i = ck(t.replace(/\([^)]*\)/g, " "));
+                const i = sxNormalizeTermText(t.replace(/\([^)]*\)/g, " "));
                 return gk[i] || null;
             }(e);
             if (t) return t;
-            const n = ck(e), i = rx.find(e => e[0].test(n));
+            const n = sxNormalizeTermText(e), i = rx.find(e => e[0].test(n));
             return i ? {
                 id: i[1],
                 uncertain: !0
             } : null;
         }
-        function sx(e, t, n, i) {
+        function sxPushFlankSample(e, t, n, i) {
             (Ke.has(t) || isCatId(t) || isSubId(t)) && (e[t] || (e[t] = {
                 give: [],
                 receive: []
             }), e[t][n].push(Math.max(-100, Math.min(100, i))));
         }
-        function lx(e, t) {
+        function sxMeanFlankRatings(e, t) {
             const n = {};
             return Object.entries(e).forEach(([e, t]) => {
                 const i = {};
@@ -236,10 +236,10 @@ yk([ "Spitting", "Spit play", "Being spit on", "Spitting on someone" ], "t0341")
                 annotations: {}
             }, t);
         }
-        function cx(e) {
-            const t = ni(String(e || "").replace(/^[-*•·\d.)\s]+/, "").replace(/\s+(?:fetish|kink)$/i, "").trim()), n = ck(t);
+        function sxMatchPasteFetish(e) {
+            const t = sxCleanImportLabelText(String(e || "").replace(/^[-*•·\d.)\s]+/, "").replace(/\s+(?:fetish|kink)$/i, "").trim()), n = sxNormalizeTermText(t);
             if (fk[n]) return fk[n];
-            const i = ck(t.replace(/\([^)]*\)/g, " "));
+            const i = sxNormalizeTermText(t.replace(/\([^)]*\)/g, " "));
             if (fk[i]) return fk[i];
             const o = [ i.replace(/\s+/g, ""), i.endsWith("es") ? i.slice(0, -2) : i.endsWith("s") ? i.slice(0, -1) : i + "s" ];
             for (const e of o) if (e && e !== i && fk[e]) return fk[e];
@@ -275,16 +275,16 @@ yk([ "Spitting", "Spit play", "Being spit on", "Spitting on someone" ], "t0341")
                     kind: ""
                 };
                 if (isCatId(id)) {
-                    const l = mx(id);
+                    const l = sxCatalogLabelText(id);
                     return {
                         label: l,
                         path: l,
                         kind: "Category"
                     };
                 }
-                const n = Xn(id);
+                const n = sxNodeById(id);
                 if (!n) {
-                    const l = mx(id);
+                    const l = sxCatalogLabelText(id);
                     return {
                         label: l,
                         path: l,
@@ -298,7 +298,7 @@ yk([ "Spitting", "Spit play", "Being spit on", "Spitting on someone" ], "t0341")
                 };
                 const parts = [ n.branch ];
                 if (n.parentId) {
-                    const p = Xn(n.parentId);
+                    const p = sxNodeById(n.parentId);
                     p && parts.push(p.label);
                 }
                 parts.push(n.label);
@@ -327,14 +327,14 @@ yk([ "Spitting", "Spit play", "Being spit on", "Spitting on someone" ], "t0341")
                 return flm.rowsCache = out, out;
             },
             lookup: function(term) {
-                const M = cx(term);
+                const M = sxMatchPasteFetish(term);
                 if (!M) return null;
                 let key = null;
                 for (const k of Object.keys(fk)) if (fk[k] === M) {
                     key = k;
                     break;
                 }
-                const I = pk(M, term, {});
+                const I = sxResolveAliasTarget(M, term, {});
                 if (!I) {
                     const info = flm.nodeInfo(M.id);
                     return {
@@ -355,7 +355,7 @@ yk([ "Spitting", "Spit play", "Being spit on", "Spitting on someone" ], "t0341")
                     key: key,
                     pattern: !key,
                     id: I.id,
-                    label: I.child ? hk(I) : info.label,
+                    label: I.child ? sxAliasTargetText(I) : info.label,
                     path: info.path,
                     kind: info.kind,
                     child: I.child ? I.child.label : null,
@@ -386,12 +386,12 @@ yk([ "Spitting", "Spit play", "Being spit on", "Spitting on someone" ], "t0341")
                     const storedCatId = catId(cat.name);
                     if (!seen[storedCatId]) { seen[storedCatId] = 1; out.push({ id: storedCatId, label: cat.name, path: cat.name, kind: "Category" }); }
                     (cat.subcategories || []).forEach(sub => {
-                        const sid = Un(cat.name, sub.name);
+                        const sid = sxResolveSubcategoryId(cat.name, sub.name);
                         if (!seen[sid]) { seen[sid] = 1; out.push({ id: sid, label: sub.name, path: cat.name + " › " + sub.name, kind: "Subcategory" }); }
                     });
                     (cat.topics || []).forEach(tn => {
                         let tid = null;
-                        try { tid = Wn(tn); } catch (e) { tid = null; }
+                        try { tid = sxResolveTopicId(tn); } catch (e) { tid = null; }
                         if (!tid || seen[tid]) return;
                         seen[tid] = 1;
                         const info = flm.nodeInfo(tid);
@@ -413,7 +413,7 @@ yk([ "Spitting", "Spit play", "Being spit on", "Spitting on someone" ], "t0341")
             flm.origFln = Object.assign({}, fln);
         };
         flm.setMapping = function(name, id, direction) {
-            const key = ck(String(name || "").trim());
+            const key = sxNormalizeTermText(String(name || "").trim());
             if (!key || !id) return null;
             flm.snap();
             fk[key] = { id: id, direction: direction || "both", uncertain: !1, specific: !0 };
@@ -423,7 +423,7 @@ yk([ "Spitting", "Spit play", "Being spit on", "Spitting on someone" ], "t0341")
             return key;
         };
         flm.removeMapping = function(name) {
-            const key = ck(String(name || "").trim());
+            const key = sxNormalizeTermText(String(name || "").trim());
             if (!key || !fk[key]) return;
             flm.snap();
             delete fk[key];
@@ -461,7 +461,7 @@ yk([ "Spitting", "Spit play", "Being spit on", "Spitting on someone" ], "t0341")
             flm.rowsCache = null;
         };
         window.__fetlifeMap = flm;
-        function dx(e, t) {
+        function sxDecodeTransferText(e, t) {
             if (/base64/i.test(t || "")) try {
                 const t = atob(e.replace(/\s+/g, "")), n = Uint8Array.from(t, e => e.charCodeAt(0));
                 return new TextDecoder("utf-8").decode(n);
@@ -483,7 +483,7 @@ yk([ "Spitting", "Spit play", "Being spit on", "Spitting on someone" ], "t0341")
             }
             return e;
         }
-        function ux(e) {
+        function sxMimeHtmlText(e) {
             if (!/^mime-version:/im.test(e) || !/^content-type:\s*multipart\/related/im.test(e)) return null;
             const t = ((e.match(/^([\s\S]*?)\r?\n\r?\n/) || [])[1] || "").match(/boundary\s*=\s*(?:"([^"]+)"|([^;\r ]+))/i), n = t && (t[1] || t[2] || "").trim();
             if (!n) return null;
@@ -493,14 +493,14 @@ yk([ "Spitting", "Spit play", "Being spit on", "Spitting on someone" ], "t0341")
                 if (!t) return;
                 const n = t[1], a = (n.match(/^content-type:\s*([^;\r ]+)/im) || [])[1] || "", r = (n.match(/^content-transfer-encoding:\s*([^\r ]+)/im) || [])[1] || "", o = (n.match(/^content-location:\s*([^\r ]+)/im) || [])[1] || "";
                 /^text\/html/i.test(a) && i.push({
-                    html: dx(t[2].replace(/\r?\n--$/, ""), r),
+                    html: sxDecodeTransferText(t[2].replace(/\r?\n--$/, ""), r),
                     location: o
                 });
             }), i.length ? (i.find(e => /fetish/i.test(e.location)) || i[0]).html : null;
         }
-        function px(e) {
-            const t = Boolean(ux(e)) || /<(?:html|body|main|section|article|div|li|tr|p|h[1-6])\b/i.test(e), n = function(e) {
-                const t = ux(e) || e;
+        function sxFetishSectionFromPage(e) {
+            const t = Boolean(sxMimeHtmlText(e)) || /<(?:html|body|main|section|article|div|li|tr|p|h[1-6])\b/i.test(e), n = function(e) {
+                const t = sxMimeHtmlText(e) || e;
                 if (!/<(?:html|body|main|section|article|div|li|tr|p|h[1-6])\b/i.test(t)) return t;
                 const n = (new DOMParser).parseFromString(t, "text/html");
                 n.querySelectorAll("script,style,noscript,svg,nav,header,footer,form").forEach(e => e.remove()), 
@@ -509,7 +509,7 @@ yk([ "Spitting", "Spit play", "Being spit on", "Spitting on someone" ], "t0341")
                     t && (e.textContent = /^kink/i.test(t[1]) ? "Kinks" : "Fetishes");
                 }), n.querySelectorAll("a[href]").forEach(e => {
                     const t = (e.getAttribute("href") || "").trim();
-                    "fetishes" === ck(e.textContent || "") && /^(?:https?:\/\/(?:www\.)?fetlife\.com)?\/fetishes\/?(?:[?#].*)?$/i.test(t) && e.remove();
+                    "fetishes" === sxNormalizeTermText(e.textContent || "") && /^(?:https?:\/\/(?:www\.)?fetlife\.com)?\/fetishes\/?(?:[?#].*)?$/i.test(t) && e.remove();
                 });
                 const i = n.body.innerHTML.replace(/<h([1-6])\b[^>]*>/gi, "\nFETLIFE_SECTION_HEADING_$1 ").replace(/<\/h[1-6]>/gi, "\n").replace(/<br\b[^>]*>/gi, "\n").replace(/<a\b[^>]*>/gi, "").replace(/<\/a>/gi, "\n").replace(/<\/(?:td|th)>/gi, "\t").replace(/<\/(?:li|tr|p|div|section|article|ul|ol)>/gi, "\n");
                 return (new DOMParser).parseFromString(i, "text/html").body.textContent || "";
@@ -520,7 +520,7 @@ yk([ "Spitting", "Spit play", "Being spit on", "Spitting on someone" ], "t0341")
                     level: t ? Number(t[1]) : null
                 };
             }).filter(e => e.text), a = new Set([ "edit", "into", "interests", "favorites", "favorite", "curious about", "curious", "neutral", "soft limits", "soft limit", "hard limits", "hard limit", "not into", "not interested", "fantasy only", "already tried", "giving", "as a top", "top", "receiving", "as a bottom", "bottom", "both", "switch", "giving and receiving", "giving receiving", "everything to do with it", "watching", "wearing", "watching others wear", "watching others wearing" ]), r = new Set([ "about", "about me", "activity", "activity feed", "recent activity", "pictures", "photos", "videos", "events", "events attended", "writings", "journal entries", "posts", "relationships", "relationship status", "roles", "identity", "gender", "orientation", "pronouns", "groups", "places", "questions", "friends", "followers", "following", "looking for", "kinksters", "lists", "memberships", "wall", "status" ]), o = e => {
-                const t = ck(e.text).replace(/\s+\d+$/, "");
+                const t = sxNormalizeTermText(e.text).replace(/\s+\d+$/, "");
                 return null !== e.level && !a.has(t) || r.has(t) || /^(?:latest\s+)?(?:pictures?|photos?|videos?|writings?)(?:\s*\(\d+\))?\s*:?$/.test(t);
             }, s = /^(?:my\s+)?(?:fetishes?|kinks?)(?:\s*\([^\r )]*\))?\s*:?$/i, l = [];
             if (i.forEach((e, t) => {
@@ -535,7 +535,7 @@ yk([ "Spitting", "Spit play", "Being spit on", "Spitting on someone" ], "t0341")
             }
             let c = l[0], d = -1;
             l.forEach(e => {
-                const t = i.slice(e + 1, e + 121), n = t.map(e => ck(e.text).replace(/\s+\d+$/, "")), a = n.findIndex(e => [ "into", "interests", "favorites", "favorite", "curious about", "curious", "neutral", "soft limits", "soft limit", "hard limits", "hard limit", "not into", "not interested", "fantasy only", "already tried" ].includes(e)), r = n.slice(0, 4).includes("edit"), o = t.reduce((e, t) => e + (cx(t.text) ? 1 : 0), 0) + (a >= 0 && a < 16 ? 100 - a : 0) + (r ? 20 : 0);
+                const t = i.slice(e + 1, e + 121), n = t.map(e => sxNormalizeTermText(e.text).replace(/\s+\d+$/, "")), a = n.findIndex(e => [ "into", "interests", "favorites", "favorite", "curious about", "curious", "neutral", "soft limits", "soft limit", "hard limits", "hard limit", "not into", "not interested", "fantasy only", "already tried" ].includes(e)), r = n.slice(0, 4).includes("edit"), o = t.reduce((e, t) => e + (sxMatchPasteFetish(t.text) ? 1 : 0), 0) + (a >= 0 && a < 16 ? 100 - a : 0) + (r ? 20 : 0);
                 o > d && (c = e, d = o);
             });
             let u = i.length;
@@ -549,7 +549,7 @@ yk([ "Spitting", "Spit play", "Being spit on", "Spitting on someone" ], "t0341")
                 missingSection: !1
             };
         }
-        function hx(e) {
+        function sxSplitCommaAware(e) {
             const t = [];
             let n = "", i = !1, o = 0;
             for (let a = 0; a < e.length; a++) {
@@ -559,24 +559,24 @@ yk([ "Spitting", "Spit play", "Being spit on", "Spitting on someone" ], "t0341")
             }
             return t.push(n.trim()), t.filter(Boolean);
         }
-        function gx(e) {
+        function sxLinesFromFetishPaste(e) {
             const t = [];
             return e.split(/\r\n|[\r\n]/).forEach(e => {
                 const n = e.trim();
                 if (!n) return;
                 const i = n.match(/^(Into|Curious about|Curious|Soft limits?|Hard limits?|Favorites?|Not into|Not interested|Neutral|Fantasy only|Already tried)\s*:\s*(.+)$/i);
-                if (i) return t.push(i[1]), void hx(i[2]).forEach(e => t.push(e));
-                const a = hx(n);
+                if (i) return t.push(i[1]), void sxSplitCommaAware(i[2]).forEach(e => t.push(e));
+                const a = sxSplitCommaAware(n);
                 if (a.length < 2) return void t.push(n);
-                a.filter(e => cx(e.replace(/^(?:the|a|an)\s+/i, ""))).length >= 2 ? a.forEach(e => t.push(e)) : t.push(n);
+                a.filter(e => sxMatchPasteFetish(e.replace(/^(?:the|a|an)\s+/i, ""))).length >= 2 ? a.forEach(e => t.push(e)) : t.push(n);
             }), t;
         }
-        function mx(e) {
-            const t = qn[e];
+        function sxCatalogLabelText(e) {
+            const t = sxNodeRegistry[e];
             if (t && t.label) return t.label;
             for (const t of h) {
                 if (catId(t.name) === e) return t.name;
-                const n = t.topics.find(t => Wn(t) === e);
+                const n = t.topics.find(t => sxResolveTopicId(t) === e);
                 if (n) return n;
             }
             return e;
@@ -772,7 +772,7 @@ yk([ "Spitting", "Spit play", "Being spit on", "Spitting on someone" ], "t0341")
             // qualifier's own words when it does not.
             const sxStance = (id, F) => {
                 if (!F || null !== F.direction) return F ? F.label : "";
-                const g = Ge(id);
+                const g = sxWidgetConfig(id);
                 if (g.single) return F.label;
                 if ("wearing" === F.label) return g.labels[1] && "receive" !== g.labels[1] ? g.labels[1] : F.label;
                 if ("watching" === F.label || "watching others wear" === F.label) return g.labels[0] && "give" !== g.labels[0] ? g.labels[0] : F.label;
@@ -788,12 +788,12 @@ yk([ "Spitting", "Spit play", "Being spit on", "Spitting on someone" ], "t0341")
                 }, info)), api.DEBUG && console.debug(`[FetLifeImporter] ${stage}`, info);
             }
             function parse(rawHtml) {
-                const extracted = px(rawHtml), lines = gx(extracted.text), items = [], viewAllSections = [];
+                const extracted = sxFetishSectionFromPage(rawHtml), lines = sxLinesFromFetishPaste(extracted.text), items = [], viewAllSections = [];
                 let section = null, sectionName = null, dirDefault = null;
                 lines.forEach((e, t) => {
                     let s = e.replace(/ /g, " ").replace(/^[\s•·*]+|[\s•·*]+$/g, "").trim();
                     if (!s || /^[,;|]+$/.test(s)) return;
-                    const f = ck(s), y = f.replace(/\s+\d+$/, "");
+                    const f = sxNormalizeTermText(s), y = f.replace(/\s+\d+$/, "");
                     if (Object.prototype.hasOwnProperty.call(SECTION_KINDS, y)) return section = SECTION_KINDS[y], sectionName = y, void (dirDefault = null);
                     if (Object.prototype.hasOwnProperty.call(DIRECTION_KINDS, y)) return void (dirDefault = DIRECTION_KINDS[y]);
                     if (PAGE_SECTIONS.includes(y) || /^(?:latest\s+)?(?:pictures?|photos?|videos?|writings?)(?:\s*\(\d+\))?\s*:?$/.test(y)) return sectionName = null, void (dirDefault = null);
@@ -829,7 +829,7 @@ yk([ "Spitting", "Spit play", "Being spit on", "Spitting on someone" ], "t0341")
                     e && (E = [ s.slice(0, e.index), s.slice(e.index).trim() ]);
                 }
                 let A = (E.shift() || "").replace(/^[-*•·\d.)\s]+/, "").replace(/^(?:the|a|an)\s+/i, "").trim();
-                let C = ck(E.join(" "));
+                let C = sxNormalizeTermText(E.join(" "));
                 if (!A) return {
                     baseTerm: "",
                     qualifier: C,
@@ -837,7 +837,7 @@ yk([ "Spitting", "Spit play", "Being spit on", "Spitting on someone" ], "t0341")
                 };
                 const A0 = A, Aq = A.match(/^(.*?)\s*\(([^()]*)\)\s*$/);
                 if (Aq && Aq[1].trim()) {
-                    const q = ck(Aq[2]);
+                    const q = sxNormalizeTermText(Aq[2]);
                     q && /\b(?:giving|receiving|everything to do with it|watching|wearing|both|switch|top|bottom)\b/.test(q) && (A = Aq[1].trim(), 
                     C = (C ? C + " " : "") + q);
                 }
@@ -850,7 +850,7 @@ yk([ "Spitting", "Spit play", "Being spit on", "Spitting on someone" ], "t0341")
                 // warnings, never guessed).
                 const AqLead = A.match(/^\(([^()]*)\)\s*(.+)$/);
                 if (AqLead && AqLead[2].trim()) {
-                    const q = ck(AqLead[1]);
+                    const q = sxNormalizeTermText(AqLead[1]);
                     q && /\b(?:giving|receiving|everything to do with it|watching|wearing|both|switch|top|bottom)\b/.test(q) && (A = AqLead[2].trim(), 
                     C = (C ? C + " " : "") + q);
                 }
@@ -861,13 +861,13 @@ yk([ "Spitting", "Spit play", "Being spit on", "Spitting on someone" ], "t0341")
                 };
             }
             function match(baseTerm, ctx) {
-                const M = cx(baseTerm);
+                const M = sxMatchPasteFetish(baseTerm);
                 if (!M) return {
                     status: "unmapped",
                     match: null,
                     resolved: null
                 };
-                const I = pk(M, baseTerm, ctx.children);
+                const I = sxResolveAliasTarget(M, baseTerm, ctx.children);
                 if (!I) {
                     // Build 2026-10-18_1015: broadTerms is presentation-only
                     // tracking for the post-import summary dialog - the set
@@ -921,7 +921,7 @@ yk([ "Spitting", "Spit play", "Being spit on", "Spitting on someone" ], "t0341")
                 // Curious. On a single-slider topic it sets only that one
                 // slider (stored under the "give" key, per Ge()); on a
                 // dual-slider topic it sets both give and receive.
-                const sxEverything = Boolean(F && F.everything), sxSingle = sxEverything && Ge(P).single;
+                const sxEverything = Boolean(F && F.everything), sxSingle = sxEverything && sxWidgetConfig(P).single;
                 sxEverything && ("into" === L.kind ? _ = 80 : "curious" === L.kind && (_ = 33)), 
                 "into" !== L.kind || "give" !== N && "receive" !== N || F && F.everything || (_ = 85), 
                 "hard" === L.kind && (D = "limit", N = "both"), "soft" === L.kind && v(P, "Soft limit on FetLife"), 
@@ -1051,7 +1051,7 @@ yk([ "Spitting", "Spit play", "Being spit on", "Spitting on someone" ], "t0341")
                     const c = h.find(c => catId(c.name) === id);
                     return (c ? c.name : id) + " (whole category)";
                 }
-                const s = zn(id);
+                const s = sxFindSubcategoryNode(id);
                 return s ? s.branch + " › " + s.label + " (subcategory)" : id;
             }, linesFor = id => (Array.isArray(termLists[id]) ? termLists[id] : []).map(term => ({
                 term: term,
@@ -1064,7 +1064,7 @@ yk([ "Spitting", "Spit play", "Being spit on", "Spitting on someone" ], "t0341")
                     const entry = byCat.get(cat.name) || { name: cat.name, direct: 0, directLines: [], subs: [] };
                     entry.direct += countFor(id), entry.directLines.push(...linesFor(id)), byCat.set(cat.name, entry);
                 } else {
-                    const sub = zn(id);
+                    const sub = sxFindSubcategoryNode(id);
                     if (!sub) return;
                     const entry = byCat.get(sub.branch) || { name: sub.branch, direct: 0, directLines: [], subs: [] };
                     entry.subs.push({ name: sub.label, count: countFor(id), lines: linesFor(id) }), byCat.set(sub.branch, entry);
@@ -1118,11 +1118,11 @@ yk([ "Spitting", "Spit play", "Being spit on", "Spitting on someone" ], "t0341")
                 list.append(li);
             }), tree.append(list), totalEl && (totalEl.textContent = `${total} FetLife term${1 === total ? "" : "s"} matched a broad area instead of a specific kink, so the rating was applied to that category or subcategory itself. Press “Rate the categories your kinks map to” and the list will show just ${1 === total ? "that area" : "those areas"}, most popular first and collapsed — expand one to rate its top topics. Each “N terms” pill lists the exact FetLife terms behind the count — hover it, or select it to expand the list — and shows where each term mapped.`);
             const closeBtn = e.byId("closeFetlifeBroad"), dismissBtn = e.byId("dismissFetlifeBroad");
-            closeBtn && (closeBtn.onclick = () => Ui(dlg)), dismissBtn && (dismissBtn.onclick = () => {
-                Ui(dlg), window.__sxFetLifeReview = new Set(hits), sxOutlineSortMode = "popularity";
+            closeBtn && (closeBtn.onclick = () => sxCloseModalDialog(dlg)), dismissBtn && (dismissBtn.onclick = () => {
+                sxCloseModalDialog(dlg), window.__sxFetLifeReview = new Set(hits), sxOutlineSortMode = "popularity";
                 try {
-                    Do.open ? Cs() : location.hash = "#app/listview";
+                    Do.open ? sxRenderHotList() : location.hash = "#app/listview";
                 } catch (e) { __sxErrLog("listview-open", e); }
-            }), Wi(dlg), 
+            }), sxOpenModalDialog(dlg), 
             dismissBtn && requestAnimationFrame(() => dismissBtn.focus({ preventScroll: !0 }));
         }

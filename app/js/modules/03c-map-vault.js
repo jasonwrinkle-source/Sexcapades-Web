@@ -7,9 +7,9 @@
 
         function sxGetMapVaultKey(id) {
             const profId = id || "__default__";
-            const v = (typeof vht !== "undefined" && Boolean(vht[profId])) ? (typeof av === "function" && typeof vpt !== "undefined" ? av(vpt[profId]) : "on") : "off";
+            const v = (typeof vht !== "undefined" && Boolean(vht[profId])) ? (typeof sxClampVeilLevel === "function" && typeof vpt !== "undefined" ? sxClampVeilLevel(vpt[profId]) : "on") : "off";
             const fp = (typeof ft !== "undefined" && ft[profId] && "group" === ft[profId].kind && typeof sxSourcesFingerprint === "function") ? sxSourcesFingerprint(ft[profId].sourceIds) : "";
-            const mode = (typeof Qi === "function" && Qi()) ? "compare:" + Array.from(Xi()).sort().join(",") : "single:" + profId;
+            const mode = (typeof sxComparisonActive === "function" && sxComparisonActive()) ? "compare:" + Array.from(sxScoringProfileIds()).sort().join(",") : "single:" + profId;
             const search = (typeof $n !== "undefined" && $n && $n.size) ? Array.from($n).sort().join(",") : "none";
             const detail = typeof mapDetailLevel !== "undefined" ? mapDetailLevel : "norm";
             const cat = typeof Pt !== "undefined" ? Pt : "all";
@@ -56,22 +56,22 @@
         // Listener wiring stays between the memory vault and the warm-boot read: the restore rebinds this same tree.
         function sxWireMapListeners() {
             if (!In) return;
-            In.querySelectorAll(".branch-icon,.topic-icon,.category-label,.map-label").forEach(ul);
-            try { wh(); hg(); _a(); } catch (_) {}
+            In.querySelectorAll(".branch-icon,.topic-icon,.category-label,.map-label").forEach(sxBindMapTooltip);
+            try { sxSyncEmptyDirectionHits(); sxUnhideLegendEntries(); sxRenderBlindMatchList(); } catch (_) {}
             In.querySelectorAll(".center-glance-ring-hit").forEach(e => {
-                e.addEventListener("mouseenter", () => Fc(e.dataset.centerGlanceIndex, e));
-                e.addEventListener("mouseleave", _c);
+                e.addEventListener("mouseenter", () => sxShowColorGlance(e.dataset.centerGlanceIndex, e));
+                e.addEventListener("mouseleave", sxDeferGlanceHide);
                 e.addEventListener("keydown", t => {
-                    "Enter" !== t.key && " " !== t.key || (t.preventDefault(), t.stopPropagation(), Fc(e.dataset.centerGlanceIndex, e));
+                    "Enter" !== t.key && " " !== t.key || (t.preventDefault(), t.stopPropagation(), sxShowColorGlance(e.dataset.centerGlanceIndex, e));
                 });
             });
-            In.querySelectorAll(".category-label,.map-label,.branch-icon,.topic-icon").forEach(e => e.addEventListener("click", Qa));
+            In.querySelectorAll(".category-label,.map-label,.branch-icon,.topic-icon").forEach(e => e.addEventListener("click", sxOnSpokeClick));
             In.querySelectorAll(".concept-hit,.topic-stem,.tapered-stem,.hanky-midline,.hanky-midline-outline").forEach(e => e.addEventListener("click", Qsel));
             In.querySelectorAll(".node-note-trigger").forEach(e => {
                 const t = t => {
                     t.preventDefault(), t.stopPropagation();
                     const n = e.getBoundingClientRect();
-                    xo(e.dataset.noteId, n.left + n.width / 2, n.bottom + 4, { focusNote: !0 });
+                    sxOpenMarkPlacard(e.dataset.noteId, n.left + n.width / 2, n.bottom + 4, { focusNote: !0 });
                 };
                 e.addEventListener("click", t);
                 e.addEventListener("mouseenter", t);
@@ -99,8 +99,8 @@
                     const cat = h.find(c => c.name === sid || c.id === sid || catId(c.name) === sid || sxName(c.name) === sxName(sid));
                     const nodeKey = cat ? cat.id : sid;
                     const box = hit.getBoundingClientRect ? hit.getBoundingClientRect() : { left: innerWidth / 2, width: 0, bottom: innerHeight / 2 };
-                    if (typeof xo === "function") {
-                        xo(nodeKey, box.left + box.width / 2, box.bottom + 8);
+                    if (typeof sxOpenMarkPlacard === "function") {
+                        sxOpenMarkPlacard(nodeKey, box.left + box.width / 2, box.bottom + 8);
                     }
                 });
             }
@@ -108,10 +108,10 @@
                 if ("Enter" !== t.key && " " !== t.key) return;
                 t.preventDefault(), t.stopPropagation();
                 const n = e.dataset.id || e.dataset.topicId;
-                t.shiftKey ? xo(n, innerWidth / 2, innerHeight / 2) : e.classList.contains("concept-hit") ? selectSpokeNode(n, !0) : $i(n);
+                t.shiftKey ? sxOpenMarkPlacard(n, innerWidth / 2, innerHeight / 2) : e.classList.contains("concept-hit") ? selectSpokeNode(n, !0) : sxImportPeerOrToggle(n);
             }));
             In.querySelectorAll(".hidden-count-badge").forEach(e => e.addEventListener("keydown", t => {
-                "Enter" !== t.key && " " !== t.key || (t.preventDefault(), t.stopPropagation(), vi(e.dataset.id));
+                "Enter" !== t.key && " " !== t.key || (t.preventDefault(), t.stopPropagation(), sxFlipFilterOrExpand(e.dataset.id));
             }));
             In.querySelectorAll(".direction-hit").forEach(e => e.addEventListener("keydown", t => function(e, t) {
                 const n = "Enter" === t.key || " " === t.key, i = [ "ArrowLeft", "ArrowDown", "ArrowRight", "ArrowUp", "Home", "End" ].includes(t.key);
@@ -123,16 +123,16 @@
                     if (Nt) {
                         if (Nt.id !== a || Nt.direction !== r) return;
                     } else Nt = { id: a, direction: r };
-                    return void Mr();
+                    return void sxRequestMapPaint();
                 }
-                const o = da(a, Vi());
+                const o = sxRatingRecord(a, sxActiveProfileId());
                 let s = o[r + "Known"] ? o[r] : 0;
                 if ("Home" === t.key) s = -100; else if ("End" === t.key) s = 100; else {
                     const e = t.shiftKey ? 10 : 1;
                     s += "ArrowRight" === t.key || "ArrowUp" === t.key ? e : -e;
                 }
-                const l = Vi(), c = cs(l).rated;
-                Nt = null, To(a, r, s), checkMilestoneTransition(l, c);
+                const l = sxActiveProfileId(), c = sxOutlineRatedCounts(l).rated;
+                Nt = null, sxStoreFlankRating(a, r, s), checkMilestoneTransition(l, c);
             }(e, t)));
             In.querySelectorAll(".curve-edit-handle").forEach(e => e.addEventListener("keydown", t => {
                 if (![ "ArrowLeft", "ArrowRight", "ArrowUp", "ArrowDown", "Home" ].includes(t.key)) return;
@@ -140,10 +140,10 @@
                 t.preventDefault(), t.stopPropagation();
                 const n = e.dataset.curveId, i = Number(e.dataset.bend) || 0;
                 "Home" === t.key ? delete bt[n] : bt[n] = Math.max(-260, Math.min(260, i + ("ArrowLeft" === t.key || "ArrowDown" === t.key ? -12 : 12)));
-                Mr({ anchorId: n });
+                sxRequestMapPaint({ anchorId: n });
             }));
             In.querySelectorAll(".rating-clear-hit").forEach(e => e.addEventListener("keydown", t => {
-                "Enter" !== t.key && " " !== t.key || (t.preventDefault(), t.stopPropagation(), Fo(e.dataset.id, e.dataset.direction));
+                "Enter" !== t.key && " " !== t.key || (t.preventDefault(), t.stopPropagation(), sxClearTopicRating(e.dataset.id, e.dataset.direction));
             }));
             const x = In.querySelector(".center-hit");
             let sxCenterTapTime = 0, sxCenterTapX = 0, sxCenterTapY = 0, sxCenterSingleTimer = null;
@@ -152,10 +152,10 @@
                 const fitBtn = document.getElementById("mapFit");
                 if (fitBtn) fitBtn.click();
                 else if (typeof window.sxCenterFitViewport === "function") window.sxCenterFitViewport();
-                else if (typeof Ih === "function") Ih();
+                else if (typeof sxApplyMapFit === "function") sxApplyMapFit();
             }
             x && (x.addEventListener("keydown", e => {
-                "Enter" !== e.key && " " !== e.key || (e.preventDefault(), e.stopPropagation(), sh());
+                "Enter" !== e.key && " " !== e.key || (e.preventDefault(), e.stopPropagation(), sxOpenMapAbout());
             }), x.addEventListener("click", e => {
                 e.preventDefault(), e.stopPropagation();
                 const now = performance.now();
@@ -164,7 +164,7 @@
                 if (isDbl) {
                     if (sxCenterSingleTimer) { clearTimeout(sxCenterSingleTimer); sxCenterSingleTimer = null; }
                     sxCenterTapTime = 0;
-                    sh();
+                    sxOpenMapAbout();
                 } else {
                     sxCenterTapTime = now;
                     sxCenterTapX = e.clientX;
@@ -179,11 +179,11 @@
                 e.preventDefault(), e.stopPropagation();
                 if (sxCenterSingleTimer) { clearTimeout(sxCenterSingleTimer); sxCenterSingleTimer = null; }
                 sxCenterTapTime = 0;
-                sh();
+                sxOpenMapAbout();
             }), x.addEventListener("contextmenu", e => {
                 e.preventDefault();
             }));
-            try { Ja(); } catch (_) {}
+            try { sxRefreshMapChrome(); } catch (_) {}
         }
 
         const SX_WARM_BOOT_VER = "4.0.0-w3";
@@ -392,15 +392,15 @@
                             // painted markup.
                             try {
                                 if (typeof branchOrderRankMap === "function") branchOrderRankMap();
-                                if (typeof yr === "function" && typeof h !== "undefined" && h && h.length) yr(h[0]);
+                                if (typeof sxBranchSpokeLength === "function" && typeof h !== "undefined" && h && h.length) sxBranchSpokeLength(h[0]);
                             } catch (_) {}
                             window.__sxBootChunkPaint = 0;
                             window.__SX_WARM_BOOT_RESTORED = true;
                             if (typeof window.__sxBootProgress === "function") window.__sxBootProgress(100);
                             if (typeof window.__sxBootFinish === "function") window.__sxBootFinish(false);
                             if (typeof window.__sxLoad === "function") window.__sxLoad(100);
-                            try { vc(); } catch (_) {}
-                            try { Ih(); } catch (_) {}
+                            try { sxRefreshSyncGlance(); } catch (_) {}
+                            try { sxApplyMapFit(); } catch (_) {}
                             console.log("[Sexcapades WarmBoot] Restored warm boot cache for [" + currentTargetId + "] skin [" + currentSkin + "] in < 15ms!");
                             return true;
                         }
@@ -423,12 +423,12 @@
         }
 
         function sxTopicKnownInOpenGroup(id) {
-            const g = typeof Kd === "function" ? Kd() : null;
+            const g = typeof sxActiveGroupRecord === "function" ? sxActiveGroupRecord() : null;
             if (!g || Rt) return !1;
-            const own = ca(id, Vi());
+            const own = sxDecodeTopicStance(id, sxActiveProfileId());
             if (own.giveKnown || own.receiveKnown) return !0;
             return (g.sourceIds || []).some(pid => {
-                const c = ca(id, pid);
+                const c = sxDecodeTopicStance(id, pid);
                 return c.giveKnown || c.receiveKnown;
             });
         }

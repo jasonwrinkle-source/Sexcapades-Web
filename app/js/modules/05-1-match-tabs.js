@@ -105,7 +105,7 @@
                 y = [...y, ...r.filter(isGroupTeased)];
                 r = r.filter(rec => !isGroupTeased(rec));
             }
-            const counts = [ g.length, y.length, r.length ], shares = uc(counts), labels = list => list.map(rec => rec.label), base = sxEmptyBuckets();
+            const counts = [ g.length, y.length, r.length ], shares = sxLargestRemainderPercents(counts), labels = list => list.map(rec => rec.label), base = sxEmptyBuckets();
             /* Teasers sections membership follows the PROMOTED bucket
                (PROVISIONAL definition, owner-selected 2026-10-26, flagged
                for later revisit). The g/y/r lists read here are FINAL: the
@@ -167,7 +167,7 @@
         }
         function sxRingsHtml(buckets) {
             const t = ea.glanceRadii, n = [ "Green", "Yellow", "Red" ], i = [ "green", "yellow", "red" ];
-            return `<svg class="sx-match-rings" viewBox="0 0 1800 1240" role="group" aria-label="Match rings"><g class="center-glance-rings">${buckets.map((b, a) => `<g class="center-glance-ring"><circle class="center-glance-ring-track is-${i[a]}" cx="900" cy="620" r="${t[a]}"/><path class="center-glance-ring-value is-${i[a]}" data-sx-ring-path="${a}" data-ring-radius="${t[a]}" d="${ra(b.percent, t[a])}" style="opacity:${b.percent ? 1 : 0}"/><circle class="center-glance-ring-hit sx-ring-hit" data-sx-ring="${a}" cx="900" cy="620" r="${t[a]}" tabindex="0" role="button" aria-label="${Hi(b.label)}, ${b.percent} percent, ${b.count} ${1 === b.count ? "topic" : "topics"}. Open rating details."/></g>`).join("")}</g></svg>`;
+            return `<svg class="sx-match-rings" viewBox="0 0 1800 1240" role="group" aria-label="Match rings"><g class="center-glance-rings">${buckets.map((b, a) => `<g class="center-glance-ring"><circle class="center-glance-ring-track is-${i[a]}" cx="900" cy="620" r="${t[a]}"/><path class="center-glance-ring-value is-${i[a]}" data-sx-ring-path="${a}" data-ring-radius="${t[a]}" d="${sxGlanceArcText(b.percent, t[a])}" style="opacity:${b.percent ? 1 : 0}"/><circle class="center-glance-ring-hit sx-ring-hit" data-sx-ring="${a}" cx="900" cy="620" r="${t[a]}" tabindex="0" role="button" aria-label="${sxEscapeHtmlText(b.label)}, ${b.percent} percent, ${b.count} ${1 === b.count ? "topic" : "topics"}. Open rating details."/></g>`).join("")}</g></svg>`;
         }
         function sxUpdateMatchRings(tab) {
             const host = tab && tab.section ? tab.section.querySelector("[data-sx-rings]") : null;
@@ -176,7 +176,7 @@
             if (!host.querySelector("svg")) return void (host.innerHTML = sxRingsHtml(buckets));
             buckets.forEach((b, a) => {
                 const p = host.querySelector(`[data-sx-ring-path="${a}"]`), hit = host.querySelector(`[data-sx-ring="${a}"]`);
-                p && (p.setAttribute("d", ra(b.percent, Number(p.dataset.ringRadius))), p.style.opacity = b.percent ? "1" : "0"),
+                p && (p.setAttribute("d", sxGlanceArcText(b.percent, Number(p.dataset.ringRadius))), p.style.opacity = b.percent ? "1" : "0"),
                 hit && hit.setAttribute("aria-label", `${b.label}, ${b.percent} percent, ${b.count} ${1 === b.count ? "topic" : "topics"}. Open rating details.`);
             });
         }
@@ -188,8 +188,8 @@
             const names = [ "hot-topics", "curiosity", "not-topics" ], mine = names[idx];
             if (host.dataset.sxRingDisplay === mine) return host.innerHTML = "", void delete host.dataset.sxRingDisplay;
             host.dataset.sxRingDisplay = mine;
-            const teaserSection = (0 === idx || 1 === idx) && b.teased && b.teased.length ? `<div class="sx-ring-teasers"><strong>Teasers</strong><ul>${b.teased.map(t => `<li><strong>${Hi(t)}</strong> — you're heated about this — a conversation point to raise gently, with an easy opt-out.</li>`).join("")}</ul></div>` : "";
-            host.innerHTML = `<div class="sx-ring-listing"><div class="glance-ring-row" style="--ring-color:${b.color}"><span class="glance-ring-swatch" aria-hidden="true"></span><strong>${Hi(b.label)}</strong><span class="glance-ring-count">${b.count} ${1 === b.count ? "topic" : "topics"}</span><span class="glance-ring-percent">${b.percent}%</span></div>${b.topics && b.topics.length ? `<ul class="sx-ring-topics">${b.topics.map(t => `<li>${Hi(t)}</li>`).join("")}</ul>` : `<p class="sx-empty">No topics in this bucket.</p>`}${teaserSection}</div>`;
+            const teaserSection = (0 === idx || 1 === idx) && b.teased && b.teased.length ? `<div class="sx-ring-teasers"><strong>Teasers</strong><ul>${b.teased.map(t => `<li><strong>${sxEscapeHtmlText(t)}</strong> — you're heated about this — a conversation point to raise gently, with an easy opt-out.</li>`).join("")}</ul></div>` : "";
+            host.innerHTML = `<div class="sx-ring-listing"><div class="glance-ring-row" style="--ring-color:${b.color}"><span class="glance-ring-swatch" aria-hidden="true"></span><strong>${sxEscapeHtmlText(b.label)}</strong><span class="glance-ring-count">${b.count} ${1 === b.count ? "topic" : "topics"}</span><span class="glance-ring-percent">${b.percent}%</span></div>${b.topics && b.topics.length ? `<ul class="sx-ring-topics">${b.topics.map(t => `<li>${sxEscapeHtmlText(t)}</li>`).join("")}</ul>` : `<p class="sx-empty">No topics in this bucket.</p>`}${teaserSection}</div>`;
         }
         function sxBuildMatchSection(tab) {
             const stage = e.byId("sxMatchStage");
@@ -232,7 +232,7 @@
             // Ring slots keep the crossed tab's slot order - positive band
             // on the green slot, middle on yellow, negative on red - while
             // the labels, counts, and topic lists are the bands' own.
-            const ringOrder = [ 2, 1, 0 ], counts = ringOrder.map(i => lists[i].length), shares = uc(counts),
+            const ringOrder = [ 2, 1, 0 ], counts = ringOrder.map(i => lists[i].length), shares = sxLargestRemainderPercents(counts),
                 names = [ "Shop talk band", "On-the-fence band", "Debate band" ], base = sxEmptyBuckets();
             return base.map((b, i) => ({
                 ...b,
@@ -262,7 +262,7 @@
             });
             debate.sort((x, y) => sxDebateFeud(y) - sxDebateFeud(x) || x.label.localeCompare(y.label)),
             mixed.sort((x, y) => x.label.localeCompare(y.label)), agree.sort((x, y) => x.label.localeCompare(y.label));
-            const counts = [ agree.length, mixed.length, debate.length ], shares = uc(counts),
+            const counts = [ agree.length, mixed.length, debate.length ], shares = sxLargestRemainderPercents(counts),
                 names = [ "Common ground", "Mixed", "Debate" ], lists = [ agree, mixed, debate ];
             return base.map((b, i) => ({
                 ...b,
@@ -414,12 +414,12 @@
             // Identical group already in-session: select it, never mint
             // a duplicate. Js is the ordinary profile switch, so the
             // landing is the group's own tab and map.
-            if (existing) return sxTeardownMatchTabs(), Js(existing), !0;
+            if (existing) return sxTeardownMatchTabs(), sxLoadProfileMap(existing), !0;
             // Creation IS the save: run the exact Zd save the removed
             // controls used to trigger, with the cast pinned in qd so
             // Zd saves this cast (never a drifted selection) and in
             // Play mode so Rd's save stamp matches a manual ⋈ save.
-            return sxcv.mode = "play", qd = cast.slice(), Zd();
+            return sxcv.mode = "play", qd = cast.slice(), sxMintPairGroup();
         }
         // Straight parity (owner ruling, 2026-10-27): opening ⊙ for a
         // pair auto-creates (or selects) a persistent R ⊙ S group
@@ -443,15 +443,15 @@
             // Identical straight pair already in-session: select it,
             // never mint a duplicate - in Conversation mode, the ⊙
             // register, on both the mint and the re-open landing.
-            if (existing) return sxTeardownMatchTabs(), sxcv.mode = "conversation", Js(existing), !0;
-            return sxcv.mode = "conversation", qd = cast.slice(), Zd("straight");
+            if (existing) return sxTeardownMatchTabs(), sxcv.mode = "conversation", sxLoadProfileMap(existing), !0;
+            return sxcv.mode = "conversation", qd = cast.slice(), sxMintPairGroup("straight");
         }
         function sxAutoCreateMinus(castIds, fresh) {
             const cast = (castIds || []).filter(id => vt[id]);
             if (cast.length < 2) return !1;
             const existing = fresh ? null : sxFindGroupForCast(cast, "minus");
-            if (existing) return sxTeardownMatchTabs(), sxcv.mode = "minus", Js(existing), !0;
-            return sxcv.mode = "minus", qd = cast.slice(), Zd("minus");
+            if (existing) return sxTeardownMatchTabs(), sxcv.mode = "minus", sxLoadProfileMap(existing), !0;
+            return sxcv.mode = "minus", qd = cast.slice(), sxMintPairGroup("minus");
         }
         function sxOpenMatchTab(kind) {
             const ctx = sxCompareContext();
@@ -501,7 +501,7 @@
             // in the owner's session). This mirrors the picker path's
             // repaint (Jw + Mr below), so the pair viewport is on screen
             // immediately when the tab opens.
-            reg.active = key, reg.stageOn = !0, sxSyncMatchStage(), sxRenderMatchTab(tab), Jw(), Mr({
+            reg.active = key, reg.stageOn = !0, sxSyncMatchStage(), sxRenderMatchTab(tab), sxRenderProfileTabs(), sxRequestMapPaint({
                 animate: !1
             });
             if (focus) {
@@ -515,7 +515,7 @@
             const reg = sxTabsReg(), tab = reg.tabs.get(key);
             if (!tab) return;
             tab.section && tab.section.remove(), reg.tabs.delete(key), reg.active === key && (reg.active = null,
-            reg.stageOn = !1), sxSyncMatchStage(), Jw(), Mr({ animate: !1 });
+            reg.stageOn = !1), sxSyncMatchStage(), sxRenderProfileTabs(), sxRequestMapPaint({ animate: !1 });
         }
         function sxDeactivateMatchStage() {
             const reg = sxTabsReg();
@@ -554,7 +554,7 @@
             nonLive.forEach(pr => sxBuzzFired.add(keyOf(pr))), sxBuzzTarget = fresh[0], sxBuzzSound();
             try { navigator.vibrate && navigator.vibrate([ 130, 60, 130 ]); } catch (err) { __sxErrLog("sx-buzz-vibrate", err); }
             const dlg = e.byId("sxBuzzerDialog");
-            dlg && !dlg.open && Wi(dlg);
+            dlg && !dlg.open && sxOpenModalDialog(dlg);
         }
         const sxStageEl = e.byId("sxMatchStage");
         if (sxStageEl) {
@@ -564,7 +564,7 @@
                     const id = pk.dataset.sxPick;
                     if (!vt[id]) return;
                     sxSel(id, "toggle");
-                    qd = [], Wd = null, sxRekeyActiveMatchTab(), Jw(), Mr({
+                    qd = [], Wd = null, sxRekeyActiveMatchTab(), sxRenderProfileTabs(), sxRequestMapPaint({
                         animate: !1
                     }), sxRenderActiveMatchTab();
                     const esc = window.CSS && CSS.escape ? CSS.escape(id) : id, nb = sxStageEl.querySelector(`[data-sx-pick="${esc}"]`);
@@ -573,7 +573,7 @@
                     });
                     return;
                 }
-                if (ev.target.closest("[data-sx-save-group]")) return void Zd();
+                if (ev.target.closest("[data-sx-save-group]")) return void sxMintPairGroup();
                 const ring = ev.target.closest("[data-sx-ring]");
                 if (ring) {
                     const host = ring.closest("[data-sx-match-root]"), tab = host && sxTabsReg().tabs.get(host.dataset.sxMatchRoot);
@@ -590,23 +590,23 @@
         // surface renders a save-as-group control.
         const sxDlgEl = e.byId("sxBuzzerDialog");
         if (sxDlgEl) {
-            e.byId("sxBuzzerProceed").addEventListener("click", () => Ui(sxDlgEl));
+            e.byId("sxBuzzerProceed").addEventListener("click", () => sxCloseModalDialog(sxDlgEl));
             e.byId("sxBuzzerConversation").addEventListener("click", () => {
                 // Mode follows the tab (2026-10-26): the buzzer's escape no
                 // longer sets the mode directly - it routes through tab
                 // activation by opening the ⊙ tab for the current cast,
                 // whose activation sets Conversation. Fallback (no cast
                 // context): set the mode and re-render, as before.
-                Ui(sxDlgEl);
+                sxCloseModalDialog(sxDlgEl);
                 const before = sxTabsReg().active;
                 sxOpenMatchTab("circledot");
                 (sxTabsReg().active === before || !sxTabsReg().stageOn) && (sxcv.mode = "conversation", sxRenderActiveMatchTab());
             });
             e.byId("sxBuzzerEdit").addEventListener("click", () => {
-                Ui(sxDlgEl);
+                sxCloseModalDialog(sxDlgEl);
                 if (!sxCtx || !sxBuzzTarget) return;
                 const id = [ sxCtx.ids[sxBuzzTarget.i], sxCtx.ids[sxBuzzTarget.j] ].find(x => x && vt[x]);
-                id && bw(id);
+                id && sxOpenProfileDetails(id);
             });
         }
         // Leniency removal (owner ruling, 2026-10-27): the leniency
@@ -652,10 +652,10 @@
         function sxExpandGroupMap() {
             kn = !0, xn = null, Lt = null, Nt = null, rn.clear(), on.clear(), h.forEach(e => {
                 rn.add(e.name), un.set(catId(e.name), "all"), (e.subcategories || []).forEach(t => {
-                    const s = Un(e.name, t.name);
+                    const s = sxResolveSubcategoryId(e.name, t.name);
                     un.set(s, "all"), mn.expandAll && on.add(s);
                 }), e.topics.forEach(t => {
-                    const s = Wn(t);
+                    const s = sxResolveTopicId(t);
                     un.set(s, "all"), mn.expandAll && on.add(s);
                 });
             });

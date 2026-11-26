@@ -1,31 +1,31 @@
-        function Ka(e, t, n, i, a, r, o, s, l, c, d, u = 48, p = Ga.FALLBACK_COLOR, g = !0, m = "", f = null, y = null, b = null, v = !1, w = !0, k = h.length, bc = null, sxLeafD = null, sxDepth = null) {
+        function sxPaintSpoke(e, t, n, i, a, r, o, s, l, c, d, u = 48, p = Ga.FALLBACK_COLOR, g = !0, m = "", f = null, y = null, b = null, v = !1, w = !0, k = h.length, bc = null, sxLeafD = null, sxDepth = null) {
             if (sxSexSkin()) v = !0;
-            if (typeof Ra === "function") Ra(e); else if (typeof window !== "undefined" && typeof window.__SX_RA === "function") window.__SX_RA(e);
+            if (typeof sxFilterBucket === "function") sxFilterBucket(e); else if (typeof window !== "undefined" && typeof window.__SX_RA === "function") window.__SX_RA(e);
             const sxIsBlind = () => (typeof Rt !== "undefined" ? Boolean(Rt) : (typeof window !== "undefined" && Boolean(window.__SX_BLIND)));
             const sxD = null != sxDepth ? sxDepth : sxLeafD === sxIconDiameter(1) ? 1 : sxLeafD === sxIconDiameter(3) ? 3 : 2, sxF = sxFontFactor(sxD), sxSW = sxStrokeWidth(sxD);
-            const x = sxIsBlind() || Qi() ? null : Vi(), S = sxIsBlind() ? null : x || function(e) {
-                const t = Vi();
-                return Qi() && t && (at[t] || {})[e] && gn.has(oi(t, e)) ? t : null;
-            }(e), $ = Ge(e, S || Vi()), E = e => `translate(${(a * e).toFixed(2)} ${(r * e).toFixed(2)})`, A = e.replace(/[^a-z0-9-]/g, ""), C = Boolean(topicLabelById[e]), M = S || Vi(), I = qn[e] || Xn(e) || {
+            const x = sxIsBlind() || sxComparisonActive() ? null : sxActiveProfileId(), S = sxIsBlind() ? null : x || function(e) {
+                const t = sxActiveProfileId();
+                return sxComparisonActive() && t && (at[t] || {})[e] && gn.has(sxMakeProfileNodeKey(t, e)) ? t : null;
+            }(e), $ = sxWidgetConfig(e, S || sxActiveProfileId()), E = e => `translate(${(a * e).toFixed(2)} ${(r * e).toFixed(2)})`, A = e.replace(/[^a-z0-9-]/g, ""), C = Boolean(topicLabelById[e]), M = S || sxActiveProfileId(), I = sxNodeRegistry[e] || sxNodeById(e) || {
                 id: e,
                 label: i,
                 branch: i,
                 kind: C ? "Topic" : "Category"
-            }, P = (wa(e, I, M), da(e, M)), L = $a(e, "give", M), T = $a(e, "receive", M), F = Sa(e, I, M);
-            const stemValGive = typeof sxSpokeStemRatingValue === "function" ? sxSpokeStemRatingValue(P, "give") : (P.giveKnown ? ba(P.give) : "Unrated");
-            const stemValReceive = typeof sxSpokeStemRatingValue === "function" ? sxSpokeStemRatingValue(P, "receive") : (P.receiveKnown ? ba(P.receive) : "Unrated");
-            const N = ka(i, L, stemValGive, { tapFirst: !0 }), _ = ka(i, T, stemValReceive, { tapFirst: !0 });
+            }, P = (sxDescribeRatingText(e, I, M), sxRatingRecord(e, M)), L = sxFlankText(e, "give", M), T = sxFlankText(e, "receive", M), F = sxTopicTooltipAttrs(e, I, M);
+            const stemValGive = typeof sxSpokeStemRatingValue === "function" ? sxSpokeStemRatingValue(P, "give") : (P.giveKnown ? sxSignedNumber(P.give) : "Unrated");
+            const stemValReceive = typeof sxSpokeStemRatingValue === "function" ? sxSpokeStemRatingValue(P, "receive") : (P.receiveKnown ? sxSignedNumber(P.receive) : "Unrated");
+            const N = sxTooltipAttrs(i, L, stemValGive, { tapFirst: !0 }), _ = sxTooltipAttrs(i, T, stemValReceive, { tapFirst: !0 });
             let D = "";
             const sxShowMapSliders = Boolean(mn && mn.mapSliders);
             const sxZoomOk = "function" !== typeof window.sxMapZoomAllowsWidgets || window.sxMapZoomAllowsWidgets();
-            const R = g && !sxIsBlind() ? Ua(e) : null, O = Ga.heatWidths(n, sxD);
+            const R = g && !sxIsBlind() ? sxSharedCountColor(e) : null, O = Ga.heatWidths(n, sxD);
             if (SpokeGeometry.taperedPath(t, O.w0, O.w1), R) {
                 const overlayTip = "Overlaid profiles into this topic", a = `${R.count}/${R.total}`;
-                D += `<path class="group-heat${R.count === R.total ? " all-in" : ""}" d="${t}" stroke="${R.color}" stroke-width="${O.w0}" opacity="${(.2 + .48 * R.count / R.total).toFixed(2)}" tabindex="0" role="img" aria-label="${Hi(`${i}: ${a} overlaid profiles into this topic`)}"${ka(i, overlayTip, a, {
+                D += `<path class="group-heat${R.count === R.total ? " all-in" : ""}" d="${t}" stroke="${R.color}" stroke-width="${O.w0}" opacity="${(.2 + .48 * R.count / R.total).toFixed(2)}" tabindex="0" role="img" aria-label="${sxEscapeHtmlText(`${i}: ${a} overlaid profiles into this topic`)}"${sxTooltipAttrs(i, overlayTip, a, {
                     hoverOnly: !1
                 })}/>`;
             }
-            selectionMarkKind(e, Lt, Lt ? qn[Lt] || Xn(Lt) || (at[Vi()] || {})[Lt] : null) && (D += `<path class="selected-spoke" d="${t}" style="stroke-width:${9 * mapFontScale() * sxF / 3}" aria-hidden="true"/>`);
+            selectionMarkKind(e, Lt, Lt ? sxNodeRegistry[Lt] || sxNodeById(Lt) || (at[sxActiveProfileId()] || {})[Lt] : null) && (D += `<path class="selected-spoke" d="${t}" style="stroke-width:${9 * mapFontScale() * sxF / 3}" aria-hidden="true"/>`);
             const B = m ? ` ${m}` : "", j = Math.hypot(o - pr.centerX, s - pr.centerY), q = Ga.railsBaseWidth(e, n, j, k, sxD), H = Ga.tipWidth(n);
             const tipCircle = SpokeGeometry.buildTipCircle(o, s, l, c, null != sxLeafD ? sxLeafD : u * mapFontScale());
             const isTripleTopic = Boolean($.keys && $.keys.length === 3);
@@ -36,7 +36,7 @@
                 middleKnown = Boolean(P && P[midKey + "Known"]);
                 if (middleKnown) middleVal = P[midKey];
             }
-            const midColor = isTripleTopic && middleKnown ? zi(middleVal) : (b || p || Ga.FALLBACK_COLOR);
+            const midColor = isTripleTopic && middleKnown ? sxInterestColor(middleVal) : (b || p || Ga.FALLBACK_COLOR);
             let W = "";
             if (w) if (w && f && y) {
                 const seg = Ga.segment(o, s, l, c), i = sxSW, a = Ga.splitInnerHalf(n, sxD), d = midColor, u = Ga.midlineOutlinePath(t, n, v, sxD);
@@ -45,16 +45,16 @@
                 const r = SpokeGeometry.flankPaths(o, s, seg.dx, seg.dy, seg.nx, seg.ny, q, H, a, a, "innerFirst", bc, tipCircle, nameW);
                 W = `<path class="tapered-stem${B}" d="${r.top}" fill="${f}" stroke="none" style="fill:${f}"${N}/><path class="tapered-stem${B}" d="${r.bottom}" fill="${y}" stroke="none" style="fill:${y}"${_}/>` + (v ? `<path class="hanky-midline hanky-none" d="${t}" fill="none" stroke="${Ga.FALLBACK_COLOR}" stroke-width="${i}" stroke-linecap="butt"${Ga.dashAttr(i)} opacity="0.85"${F}/>` : u + `<path class="hanky-midline" d="${t}" fill="none" stroke="${d}" stroke-width="${i}" stroke-linecap="butt" opacity="0.9"${F}/>`);
             } else {
-                const taperedD = SpokeGeometry.taperedPath(t, q, H, tipCircle, bc), i = sxSW, a = isTripleTopic && middleKnown ? zi(middleVal) : (v ? Ga.FALLBACK_COLOR : b || p || Ga.FALLBACK_COLOR), r = v ? Ga.dashAttr(i) : "";
+                const taperedD = SpokeGeometry.taperedPath(t, q, H, tipCircle, bc), i = sxSW, a = isTripleTopic && middleKnown ? sxInterestColor(middleVal) : (v ? Ga.FALLBACK_COLOR : b || p || Ga.FALLBACK_COLOR), r = v ? Ga.dashAttr(i) : "";
                 W = `<path class="tapered-stem${B}" d="${taperedD}" fill="${p}" stroke="none" style="fill:${p}"/><path class="hanky-midline" d="${t}" fill="none" stroke="${a}" stroke-width="${i}" stroke-linecap="butt"${r} opacity="0.9"${F}/>`;
             } else {
-                const stemW = 1.3 * (n || 8), i = isTripleTopic && middleKnown ? zi(middleVal) : (v ? Ga.NO_CODE_COLOR : b || p || Ga.NO_CODE_COLOR), a = Ga.midlineOutlinePath(t, n, v, sxD), r = v ? Ga.dashAttr(stemW) : "";
+                const stemW = 1.3 * (n || 8), i = isTripleTopic && middleKnown ? sxInterestColor(middleVal) : (v ? Ga.NO_CODE_COLOR : b || p || Ga.NO_CODE_COLOR), a = Ga.midlineOutlinePath(t, n, v, sxD), r = v ? Ga.dashAttr(stemW) : "";
                 W = a + `<path class="hanky-midline" d="${t}" fill="none" stroke="${i}" stroke-width="${sxSW}" stroke-linecap="butt"${r} opacity="0.9"${F}/>`;
             }
             if (D += W, D += `<path class="topic-pulse${B}${v ? " hanky-none" : ""}" d="${t}" stroke="${p}" style="stroke-width:${5 * mapFontScale() * sxF / 3}" aria-hidden="true"/>`, 
-            D += `<path class="concept-hit" data-id="${e}" data-nx="${a.toFixed(5)}" data-ny="${r.toFixed(5)}"${Sa(e, I, M)} d="${t}" tabindex="0" role="button" aria-label="${Hi(i)} concept line"/>`, 
+            D += `<path class="concept-hit" data-id="${e}" data-nx="${a.toFixed(5)}" data-ny="${r.toFixed(5)}"${sxTopicTooltipAttrs(e, I, M)} d="${t}" tabindex="0" role="button" aria-label="${sxEscapeHtmlText(i)} concept line"/>`, 
             g && x && !d && sxShowMapSliders) {
-                const n = da(e, x);
+                const n = sxRatingRecord(e, x);
                 ($.single ? [ {
                     key: "give",
                     offset: 0
@@ -76,14 +76,14 @@
                 } ]).forEach((e, i) => {
                     if (!n[e.key + "Known"]) return;
                     const a = n[e.key], r = $.labels[i] || e.key, o = n[e.key + "Derived"] ? ` · rolled up from ${n[e.key + "RatedChildren"]} of ${n.childCount} child topics` : "";
-                    D += `<path class="visual-rail collapsed-rating-rail" d="${t}" transform="${E(e.offset)}" fill="none" stroke="${zi(a)}" stroke-width="6" stroke-linecap="round" vector-effect="non-scaling-stroke"><title>${r}: ${Math.round(a)}${o}</title></path>`;
+                    D += `<path class="visual-rail collapsed-rating-rail" d="${t}" transform="${E(e.offset)}" fill="none" stroke="${sxInterestColor(a)}" stroke-width="6" stroke-linecap="round" vector-effect="non-scaling-stroke"><title>${r}: ${Math.round(a)}${o}</title></path>`;
                 });
             }
-            if (g && !sxIsBlind() && Qi() && 2 === Xi().length) {
+            if (g && !sxIsBlind() && sxComparisonActive() && 2 === sxScoringProfileIds().length) {
                 const n = function(e) {
-                    const t = Xi();
-                    if (t.some(t => "limit" === Oa(e, t))) return "limit";
-                    if (t.some(t => "favorite" === Oa(e, t))) return "favorite";
+                    const t = sxScoringProfileIds();
+                    if (t.some(t => "limit" === sxAnnotationState(e, t))) return "limit";
+                    if (t.some(t => "favorite" === sxAnnotationState(e, t))) return "favorite";
                     const r = sxPairByIds(t[0], t[1]), rec = r && r.topicsById[e];
                     if (!rec) return "other";
                     return "match" === rec.outcome ? "mutual" : rec.mutualNo ? "disinterest" : "other";
@@ -100,16 +100,16 @@
                 const t = l - o, n = c - s, i = (Math.hypot(t, n), 180 * Math.atan2(n, t) / Math.PI), a = sxControlScale(sxD, u), r = function(e) {
                     if (!e) return "";
                     const t = Array.isArray(e.routes) ? e.routes : [];
-                    return 1 === t.length ? `${Math.round(e.score)}% · ${_d(t[0])}` : `${Math.round(e.score)}% · ${t.length} matched routes`;
-                }(U), d = (U.routes || []).map(e => `${_d(e, !0)}; combined ${Math.round(e.score)}%`).join(" · "), p = Za.controlTagWidth(r, "group") * a, h = 24 * a, g = l, m = c;
-                D += `<g class="direction-control group-match-control" data-id="${e}" data-direction="group" data-base-cx="${g}" data-base-cy="${m}" data-base-angle="${i}" data-index="0" data-tag-width="${p}" data-tag-height="${h}" data-control-scale="${a}" role="img" tabindex="0" aria-label="Combined match ${Math.round(U.score)} percent. ${Hi(d)}"><title>Combined match ${Math.round(U.score)}%. ${Hi(d)}</title><rect class="direction-tag-bg" x="${(g - p / 2).toFixed(2)}" y="${(m - h / 2).toFixed(2)}" width="${p.toFixed(2)}" height="${h.toFixed(2)}" rx="${6 * a}" transform="rotate(${i.toFixed(2)} ${g.toFixed(2)} ${m.toFixed(2)})" fill="${zi(U.score)}"/><text class="direction-tag" x="${g.toFixed(2)}" y="${m.toFixed(2)}" text-anchor="middle" dominant-baseline="middle" transform="rotate(${i.toFixed(2)} ${g.toFixed(2)} ${m.toFixed(2)})" textLength="${Math.max(50, p - 12 * a).toFixed(2)}" lengthAdjust="spacing" style="font-size:${5.5 * a}px">${Hi(r)}</text></g>`;
+                    return 1 === t.length ? `${Math.round(e.score)}% · ${sxDirectedPairText(t[0])}` : `${Math.round(e.score)}% · ${t.length} matched routes`;
+                }(U), d = (U.routes || []).map(e => `${sxDirectedPairText(e, !0)}; combined ${Math.round(e.score)}%`).join(" · "), p = Za.controlTagWidth(r, "group") * a, h = 24 * a, g = l, m = c;
+                D += `<g class="direction-control group-match-control" data-id="${e}" data-direction="group" data-base-cx="${g}" data-base-cy="${m}" data-base-angle="${i}" data-index="0" data-tag-width="${p}" data-tag-height="${h}" data-control-scale="${a}" role="img" tabindex="0" aria-label="Combined match ${Math.round(U.score)} percent. ${sxEscapeHtmlText(d)}"><title>Combined match ${Math.round(U.score)}%. ${sxEscapeHtmlText(d)}</title><rect class="direction-tag-bg" x="${(g - p / 2).toFixed(2)}" y="${(m - h / 2).toFixed(2)}" width="${p.toFixed(2)}" height="${h.toFixed(2)}" rx="${6 * a}" transform="rotate(${i.toFixed(2)} ${g.toFixed(2)} ${m.toFixed(2)})" fill="${sxInterestColor(U.score)}"/><text class="direction-tag" x="${g.toFixed(2)}" y="${m.toFixed(2)}" text-anchor="middle" dominant-baseline="middle" transform="rotate(${i.toFixed(2)} ${g.toFixed(2)} ${m.toFixed(2)})" textLength="${Math.max(50, p - 12 * a).toFixed(2)}" lengthAdjust="spacing" style="font-size:${5.5 * a}px">${sxEscapeHtmlText(r)}</text></g>`;
             } else if (g && S && d && sxShowMapSliders && !sxZoomOk) {
                 // Zoom gate (Jason, 2026-11-22): below the reasonable
                 // zoom the full on-map widget is too small to hit
                 // accurately, so show a readout chip instead - the
                 // rating itself (strongest poles per placement) -
                 // and let a click open the full widget in the popup.
-                const t = da(e, S), n = l - o, i = c - s, dd = Math.hypot(n, i) || 1, p = n / dd, h = i / dd, m = sxControlScale(sxD, u), f = $.keys || [], y = $.labels || [];
+                const t = sxRatingRecord(e, S), n = l - o, i = c - s, dd = Math.hypot(n, i) || 1, p = n / dd, h = i / dd, m = sxControlScale(sxD, u), f = $.keys || [], y = $.labels || [];
                 const strongest = obj => {
                     if (!obj) return null;
                     let best = null;
@@ -129,7 +129,7 @@
                     if (rB) parts.push(`${rName} ${rB.label} ${Math.round(rB.v)}`);
                     chipText = parts.length ? parts.join(" \u00b7 ") : "Unrated";
                     const top = aB && rB ? (Math.abs(aB.v) >= Math.abs(rB.v) ? aB : rB) : aB || rB;
-                    if (top) chipFill = zi(top.v), chipRated = !0;
+                    if (top) chipFill = sxInterestColor(top.v), chipRated = !0;
                 } else if (!$.single && 2 === f.length && "give" === f[0] && "receive" === f[1]) {
                     const parts = [];
                     if (t.giveKnown) parts.push(`Give ${Math.round(t.give)}`);
@@ -145,19 +145,19 @@
                         const gApp = t.giveIntensityKnown ? t.giveIntensity : (t.giveKnown ? t.give : null);
                         const rApp = t.receiveIntensityKnown ? t.receiveIntensity : (t.receiveKnown ? t.receive : null);
                         const topApp = null != gApp && (null == rApp || Math.abs(gApp) >= Math.abs(rApp)) ? gApp : rApp;
-                        chipFill = null != topApp ? zi(topApp) : Ga.NO_CODE_COLOR, chipRated = !0;
+                        chipFill = null != topApp ? sxInterestColor(topApp) : Ga.NO_CODE_COLOR, chipRated = !0;
                     }
                 } else if (f.length >= 2 && !$.single) {
                     const b = strongest(t);
-                    if (b) chipText = `${b.label} ${Math.round(b.v)}`, chipFill = zi(b.v), chipRated = !0;
+                    if (b) chipText = `${b.label} ${Math.round(b.v)}`, chipFill = sxInterestColor(b.v), chipRated = !0;
                     else chipText = "Unrated";
                 } else if ($.single || t.giveKnown) {
-                    chipText = `${Math.round(t.give || 0)}`, chipFill = zi(t.give || 0), chipRated = !0;
+                    chipText = `${Math.round(t.give || 0)}`, chipFill = sxInterestColor(t.give || 0), chipRated = !0;
                 } else chipText = "Unrated";
                 const chipW = Za.controlTagWidth(chipText, "pair") * m, chipH = 24 * m, iconR = (null != sxLeafD ? sxLeafD : u * mapFontScale()) / 2, gx = l + p * (iconR + chipH / 2 + 6 * m), gy = c + h * (iconR + chipH / 2 + 6 * m), rot = (180 * Math.atan2(h, p) / Math.PI).toFixed(2);
-                D += `<g class="direction-control map-readout-chip" data-id="${e}" role="button" tabindex="0" aria-label="${Hi(`${I.label || e}: ${chipText}. Activate to open the full rating widget.`)}"><title>${Hi(chipText)}</title><rect class="direction-tag-bg" x="${(gx - chipW / 2).toFixed(2)}" y="${(gy - chipH / 2).toFixed(2)}" width="${chipW.toFixed(2)}" height="${chipH.toFixed(2)}" rx="${(6 * m).toFixed(2)}" transform="rotate(${rot} ${gx.toFixed(2)} ${gy.toFixed(2)})" fill="${chipFill}"/><text class="direction-tag" x="${gx.toFixed(2)}" y="${gy.toFixed(2)}" text-anchor="middle" dominant-baseline="middle" transform="rotate(${rot} ${gx.toFixed(2)} ${gy.toFixed(2)})" textLength="${Math.max(30, chipW - 12 * m).toFixed(2)}" lengthAdjust="spacing" style="font-size:${(5.5 * m).toFixed(2)}px">${Hi(chipText)}</text></g>`;
+                D += `<g class="direction-control map-readout-chip" data-id="${e}" role="button" tabindex="0" aria-label="${sxEscapeHtmlText(`${I.label || e}: ${chipText}. Activate to open the full rating widget.`)}"><title>${sxEscapeHtmlText(chipText)}</title><rect class="direction-tag-bg" x="${(gx - chipW / 2).toFixed(2)}" y="${(gy - chipH / 2).toFixed(2)}" width="${chipW.toFixed(2)}" height="${chipH.toFixed(2)}" rx="${(6 * m).toFixed(2)}" transform="rotate(${rot} ${gx.toFixed(2)} ${gy.toFixed(2)})" fill="${chipFill}"/><text class="direction-tag" x="${gx.toFixed(2)}" y="${gy.toFixed(2)}" text-anchor="middle" dominant-baseline="middle" transform="rotate(${rot} ${gx.toFixed(2)} ${gy.toFixed(2)})" textLength="${Math.max(30, chipW - 12 * m).toFixed(2)}" lengthAdjust="spacing" style="font-size:${(5.5 * m).toFixed(2)}px">${sxEscapeHtmlText(chipText)}</text></g>`;
             } else if (g && S && d && sxShowMapSliders) {
-                const t = da(e, S), n = l - o, i = c - s, d = Math.hypot(n, i), p = n / d, h = i / d, g = 180 * Math.atan2(i, n) / Math.PI, m = sxControlScale(sxD, u), f = $.keys, y = $.labels, b = !$.single && "give" === y[0] && "receive" === y[1], v = e => Za.controlTagWidth(e, "pair") * m, w = {};
+                const t = sxRatingRecord(e, S), n = l - o, i = c - s, d = Math.hypot(n, i), p = n / d, h = i / d, g = 180 * Math.atan2(i, n) / Math.PI, m = sxControlScale(sxD, u), f = $.keys, y = $.labels, b = !$.single && "give" === y[0] && "receive" === y[1], v = e => Za.controlTagWidth(e, "pair") * m, w = {};
                 // On-map pole tips (Build 2026-11-18): each pole label
                 // carries the exact pole line the placard shows for the
                 // same pole (same helper), so the shared tooltip popup
@@ -165,7 +165,7 @@
                 // Labels are focusable so keyboard focus shows the tip too.
                 const sxPoleTipAttrs = k => {
                     const tip = (typeof sxPoleLine === "function") ? sxPoleLine(e, f[k]) : null;
-                    return (tip ? ` data-ui-tooltip="${Hi(tip)}" data-tooltip-name="${Hi(y[k] || f[k])}" data-tooltip-tap-first` : "") + ` tabindex="0"`;
+                    return (tip ? ` data-ui-tooltip="${sxEscapeHtmlText(tip)}" data-tooltip-name="${sxEscapeHtmlText(y[k] || f[k])}" data-tooltip-tap-first` : "") + ` tabindex="0"`;
                 };
                 if ($.octad) {
                     // 8-Pole Octad Widget on Hypermap:
@@ -188,7 +188,7 @@
                     const isKnown = f.some(k => Boolean(t[k + "Known"]));
                     const maxR = sxSignedIntensity(ratings);
                     const maxAbsR = Math.max(...ratings.map(v => Math.abs(v)));
-                    const fillCol = isKnown ? zi(maxR) : "rgba(103, 232, 249, 0.45)";
+                    const fillCol = isKnown ? sxInterestColor(maxR) : "rgba(103, 232, 249, 0.45)";
 
                     const S = P.map((pt, k) => {
                         const dk = maxAbsR > 0 ? Math.abs(ratings[k]) / maxAbsR : 0;
@@ -246,7 +246,7 @@
                     const isKnown = f.some(k => Boolean(t[k + "Known"]));
                     const maxR = sxSignedIntensity(ratings);
                     const maxAbsR = Math.max(...ratings.map(v => Math.abs(v)));
-                    const fillCol = isKnown ? zi(maxR) : "rgba(103, 232, 249, 0.45)";
+                    const fillCol = isKnown ? sxInterestColor(maxR) : "rgba(103, 232, 249, 0.45)";
 
                     const S = P.map((pt, k) => {
                         const dk = maxAbsR > 0 ? Math.abs(ratings[k]) / maxAbsR : 0;
@@ -304,7 +304,7 @@
                     const isKnown = f.some(k => Boolean(t[k + "Known"]));
                     const maxR = sxSignedIntensity(ratings);
                     const maxAbsR = Math.max(...ratings.map(v => Math.abs(v)));
-                    const fillCol = isKnown ? zi(maxR) : "rgba(103, 232, 249, 0.45)";
+                    const fillCol = isKnown ? sxInterestColor(maxR) : "rgba(103, 232, 249, 0.45)";
 
                     const S = P.map((pt, k) => {
                         const dk = maxAbsR > 0 ? Math.abs(ratings[k]) / maxAbsR : 0;
@@ -362,7 +362,7 @@
                     const isKnown = f.some(k => Boolean(t[k + "Known"]));
                     const maxR = sxSignedIntensity(ratings);
                     const maxAbsR = Math.max(...ratings.map(v => Math.abs(v)));
-                    const fillCol = isKnown ? zi(maxR) : "rgba(103, 232, 249, 0.45)";
+                    const fillCol = isKnown ? sxInterestColor(maxR) : "rgba(103, 232, 249, 0.45)";
 
                     const S = P.map((pt, k) => {
                         const dk = maxAbsR > 0 ? Math.abs(ratings[k]) / maxAbsR : 0;
@@ -393,12 +393,12 @@
                     });
                     // Hit Target first: pole labels paint on top so they stay hoverable for their tips.
                     // Hit polygon
-                    D += `<polygon class="direction-hit map-pentad-hit" data-id="${e}" data-direction="pentad" points="${polyRef}" fill="transparent" pointer-events="all" style="cursor:crosshair" role="slider" aria-label="${Hi(y.join(' / '))}: ${ariaTxt}. Drag a vertex to set that pole." tabindex="0"/>`;
+                    D += `<polygon class="direction-hit map-pentad-hit" data-id="${e}" data-direction="pentad" points="${polyRef}" fill="transparent" pointer-events="all" style="cursor:crosshair" role="slider" aria-label="${sxEscapeHtmlText(y.join(' / '))}: ${ariaTxt}. Drag a vertex to set that pole." tabindex="0"/>`;
                     // Pole labels
                     P.forEach((pt, k) => {
                         const lx = pt.x + Math.cos(pt.phi) * 8 * m;
                         const ly = pt.y + Math.sin(pt.phi) * 8 * m;
-                        D += `<text class="map-pentad-label"${sxPoleTipAttrs(k)} x="${lx.toFixed(1)}" y="${ly.toFixed(1)}" text-anchor="middle" dominant-baseline="middle" font-size="${6.5 * m}px" font-weight="700" fill="${pentColors[k]}">${Hi(y[k] || f[k])}</text>`;
+                        D += `<text class="map-pentad-label"${sxPoleTipAttrs(k)} x="${lx.toFixed(1)}" y="${ly.toFixed(1)}" text-anchor="middle" dominant-baseline="middle" font-size="${6.5 * m}px" font-weight="700" fill="${pentColors[k]}">${sxEscapeHtmlText(y[k] || f[k])}</text>`;
                     });
                     D += `</g>`;
                 } else if ($.tetrad) {
@@ -443,7 +443,7 @@
                     const actCls = isAct ? " active-rating" : "";
                     const ariaTxt = isKnown ? `${y[0]}: ${Math.round(r0)}, ${y[1]}: ${Math.round(r1)}, ${y[2]}: ${Math.round(r2)}, ${y[3]}: ${Math.round(r3)}` : "Unrated";
                     const maxR = sxSignedIntensity([r0, r1, r2, r3]);
-                    const fillCol = isKnown ? zi(maxR) : "rgba(103, 232, 249, 0.45)";
+                    const fillCol = isKnown ? sxInterestColor(maxR) : "rgba(103, 232, 249, 0.45)";
 
                     D += `<g class="direction-control map-tetrad-control${actCls}" data-id="${e}" data-direction="tetrad" data-base-cx="${cx.toFixed(1)}" data-base-cy="${cy.toFixed(1)}" data-control-scale="${m}" data-tag-width="${spanW.toFixed(1)}" data-tag-height="${spanW.toFixed(1)}">`;
                     // Outer Reference Frame (Diamond Outline)
@@ -462,12 +462,12 @@
                     D += `<circle cx="${P3.x.toFixed(1)}" cy="${P3.y.toFixed(1)}" r="${3 * m}" fill="#3b82f6" stroke="#ffffff" stroke-width="${0.8 * m}"/>`;
                     // Hit Target first: pole labels paint on top so they stay hoverable for their tips.
                     // Hit area
-                    D += `<polygon class="direction-hit map-tetrad-hit" data-id="${e}" data-direction="tetrad" points="${P0.x.toFixed(1)},${P0.y.toFixed(1)} ${P1.x.toFixed(1)},${P1.y.toFixed(1)} ${P2.x.toFixed(1)},${P2.y.toFixed(1)} ${P3.x.toFixed(1)},${P3.y.toFixed(1)}" fill="transparent" pointer-events="all" style="cursor:crosshair" role="slider" aria-label="${Hi(y.join(' / '))}: ${ariaTxt}. Drag a corner to set that pole." tabindex="0"/>`;
+                    D += `<polygon class="direction-hit map-tetrad-hit" data-id="${e}" data-direction="tetrad" points="${P0.x.toFixed(1)},${P0.y.toFixed(1)} ${P1.x.toFixed(1)},${P1.y.toFixed(1)} ${P2.x.toFixed(1)},${P2.y.toFixed(1)} ${P3.x.toFixed(1)},${P3.y.toFixed(1)}" fill="transparent" pointer-events="all" style="cursor:crosshair" role="slider" aria-label="${sxEscapeHtmlText(y.join(' / '))}: ${ariaTxt}. Drag a corner to set that pole." tabindex="0"/>`;
                     // Labels
-                    D += `<text class="map-tetrad-label"${sxPoleTipAttrs(0)} x="${(P0.x + p * 8 * m).toFixed(1)}" y="${(P0.y + h * 8 * m).toFixed(1)}" text-anchor="middle" dominant-baseline="middle" font-size="${6.5 * m}px" font-weight="700" fill="#22c55e">${Hi(y[0])}</text>`;
-                    D += `<text class="map-tetrad-label"${sxPoleTipAttrs(1)} x="${(P1.x + nx * 8 * m).toFixed(1)}" y="${(P1.y + ny * 8 * m).toFixed(1)}" text-anchor="middle" dominant-baseline="middle" font-size="${6.5 * m}px" font-weight="700" fill="#eab308">${Hi(y[1])}</text>`;
-                    D += `<text class="map-tetrad-label"${sxPoleTipAttrs(2)} x="${(P2.x - p * 8 * m).toFixed(1)}" y="${(P2.y - h * 8 * m).toFixed(1)}" text-anchor="middle" dominant-baseline="middle" font-size="${6.5 * m}px" font-weight="700" fill="#ef4444">${Hi(y[2])}</text>`;
-                    D += `<text class="map-tetrad-label"${sxPoleTipAttrs(3)} x="${(P3.x - nx * 8 * m).toFixed(1)}" y="${(P3.y - ny * 8 * m).toFixed(1)}" text-anchor="middle" dominant-baseline="middle" font-size="${6.5 * m}px" font-weight="700" fill="#3b82f6">${Hi(y[3])}</text>`;
+                    D += `<text class="map-tetrad-label"${sxPoleTipAttrs(0)} x="${(P0.x + p * 8 * m).toFixed(1)}" y="${(P0.y + h * 8 * m).toFixed(1)}" text-anchor="middle" dominant-baseline="middle" font-size="${6.5 * m}px" font-weight="700" fill="#22c55e">${sxEscapeHtmlText(y[0])}</text>`;
+                    D += `<text class="map-tetrad-label"${sxPoleTipAttrs(1)} x="${(P1.x + nx * 8 * m).toFixed(1)}" y="${(P1.y + ny * 8 * m).toFixed(1)}" text-anchor="middle" dominant-baseline="middle" font-size="${6.5 * m}px" font-weight="700" fill="#eab308">${sxEscapeHtmlText(y[1])}</text>`;
+                    D += `<text class="map-tetrad-label"${sxPoleTipAttrs(2)} x="${(P2.x - p * 8 * m).toFixed(1)}" y="${(P2.y - h * 8 * m).toFixed(1)}" text-anchor="middle" dominant-baseline="middle" font-size="${6.5 * m}px" font-weight="700" fill="#ef4444">${sxEscapeHtmlText(y[2])}</text>`;
+                    D += `<text class="map-tetrad-label"${sxPoleTipAttrs(3)} x="${(P3.x - nx * 8 * m).toFixed(1)}" y="${(P3.y - ny * 8 * m).toFixed(1)}" text-anchor="middle" dominant-baseline="middle" font-size="${6.5 * m}px" font-weight="700" fill="#3b82f6">${sxEscapeHtmlText(y[3])}</text>`;
                     D += `</g>`;
                 } else if ($.triangle) {
                     // 2D Barycentric Triangle on Hypermap for Triad Topics
@@ -500,7 +500,7 @@
                     const px = w0 * V0.x + w1 * V1.x + w2 * V2.x;
                     const py = w0 * V0.y + w1 * V1.y + w2 * V2.y;
                     const maxR = sxSignedIntensity([r0, r1, r2]);
-                    const puckColor = isKnown ? zi(maxR) : Ga.FALLBACK_COLOR;
+                    const puckColor = isKnown ? sxInterestColor(maxR) : Ga.FALLBACK_COLOR;
                     const isAct = Boolean(Nt && Nt.id === e);
                     const actCls = isAct ? " active-rating" : "";
                     const ariaTxt = isKnown ? `${y[0]}: ${Math.round(r0)}, ${y[1]}: ${Math.round(r1)}, ${y[2]}: ${Math.round(r2)}` : "Unrated";
@@ -517,14 +517,14 @@
                     D += `<circle cx="${V1.x.toFixed(1)}" cy="${V1.y.toFixed(1)}" r="${3.5 * m}" fill="#22c55e" stroke="#ffffff" stroke-width="${0.8 * m}"/>`;
                     D += `<circle cx="${V2.x.toFixed(1)}" cy="${V2.y.toFixed(1)}" r="${3.5 * m}" fill="#3b82f6" stroke="#ffffff" stroke-width="${0.8 * m}"/>`;
                     // Hit Target first: pole labels paint on top so they stay hoverable for their tips.
-                    D += `<polygon class="direction-hit map-triangle-hit" data-id="${e}" data-direction="triangle" data-v0x="${V0.x.toFixed(1)}" data-v0y="${V0.y.toFixed(1)}" data-v1x="${V1.x.toFixed(1)}" data-v1y="${V1.y.toFixed(1)}" data-v2x="${V2.x.toFixed(1)}" data-v2y="${V2.y.toFixed(1)}" points="${V0.x.toFixed(1)},${V0.y.toFixed(1)} ${V1.x.toFixed(1)},${V1.y.toFixed(1)} ${V2.x.toFixed(1)},${V2.y.toFixed(1)}" fill="transparent" pointer-events="all" style="cursor:crosshair" role="slider" aria-label="${Hi(y.join(' / '))}: ${ariaTxt}. Drag to adjust triad balance." tabindex="0"/>`;
+                    D += `<polygon class="direction-hit map-triangle-hit" data-id="${e}" data-direction="triangle" data-v0x="${V0.x.toFixed(1)}" data-v0y="${V0.y.toFixed(1)}" data-v1x="${V1.x.toFixed(1)}" data-v1y="${V1.y.toFixed(1)}" data-v2x="${V2.x.toFixed(1)}" data-v2y="${V2.y.toFixed(1)}" points="${V0.x.toFixed(1)},${V0.y.toFixed(1)} ${V1.x.toFixed(1)},${V1.y.toFixed(1)} ${V2.x.toFixed(1)},${V2.y.toFixed(1)}" fill="transparent" pointer-events="all" style="cursor:crosshair" role="slider" aria-label="${sxEscapeHtmlText(y.join(' / '))}: ${ariaTxt}. Drag to adjust triad balance." tabindex="0"/>`;
                     // Labels offset outward from each vertex
                     const l0x = V0.x - nx * 9 * m, l0y = V0.y - ny * 9 * m;
                     const l1x = V1.x + p * 12 * m, l1y = V1.y + h * 12 * m;
                     const l2x = V2.x + nx * 9 * m, l2y = V2.y + ny * 9 * m;
-                    D += `<text class="map-triangle-label"${sxPoleTipAttrs(0)} x="${l0x.toFixed(1)}" y="${l0y.toFixed(1)}" text-anchor="middle" dominant-baseline="middle" font-size="${8 * m}px" font-weight="700" fill="#ef4444">${Hi(y[0])}</text>`;
-                    D += `<text class="map-triangle-label"${sxPoleTipAttrs(1)} x="${l1x.toFixed(1)}" y="${l1y.toFixed(1)}" text-anchor="middle" dominant-baseline="middle" font-size="${8 * m}px" font-weight="700" fill="#22c55e">${Hi(y[1])}</text>`;
-                    D += `<text class="map-triangle-label"${sxPoleTipAttrs(2)} x="${l2x.toFixed(1)}" y="${l2y.toFixed(1)}" text-anchor="middle" dominant-baseline="middle" font-size="${8 * m}px" font-weight="700" fill="#3b82f6">${Hi(y[2])}</text>`;
+                    D += `<text class="map-triangle-label"${sxPoleTipAttrs(0)} x="${l0x.toFixed(1)}" y="${l0y.toFixed(1)}" text-anchor="middle" dominant-baseline="middle" font-size="${8 * m}px" font-weight="700" fill="#ef4444">${sxEscapeHtmlText(y[0])}</text>`;
+                    D += `<text class="map-triangle-label"${sxPoleTipAttrs(1)} x="${l1x.toFixed(1)}" y="${l1y.toFixed(1)}" text-anchor="middle" dominant-baseline="middle" font-size="${8 * m}px" font-weight="700" fill="#22c55e">${sxEscapeHtmlText(y[1])}</text>`;
+                    D += `<text class="map-triangle-label"${sxPoleTipAttrs(2)} x="${l2x.toFixed(1)}" y="${l2y.toFixed(1)}" text-anchor="middle" dominant-baseline="middle" font-size="${8 * m}px" font-weight="700" fill="#3b82f6">${sxEscapeHtmlText(y[2])}</text>`;
                     D += `<circle class="slider-thumb map-triangle-puck${actCls}" data-id="${e}" data-direction="triangle" pointer-events="none" cx="${px.toFixed(1)}" cy="${py.toFixed(1)}" r="${7.5 * m}" fill="${puckColor}" stroke="#ffffff" stroke-width="${1.5 * m}"/>`;
                     D += `</g>`;
                 } else {
@@ -536,15 +536,15 @@
                 // Slider blow-up repair (2026-11-01): E (the rating rail's stroke-width) was 44 * mapFontScale() - unbounded and font-derived, so at the baked fontScale 40 the rail rendered 1760 screen px thick (non-scaling-stroke) and one inadvertently picked slider filled the viewport at high zoom-out. It is now the fixed 44 of the 44px spec at every font scale and zoom, matching the .rating-rail CSS rule. Track length (x = 320 * m, map units, camera-scaled) is unchanged.
                 // Slider size repair #2 (2026-11-01): E now comes from sxRailPx(m) - 14% of the track's delivered screen length at the current camera, capped at the same fixed 44 - so the attribute, the .rating-rail CSS variable, and the hit strokes all agree at every zoom instead of the fixed 44px thickness dwarfing the shrunken track at Full zoom-out.
                 f.forEach((n, i) => {
-                    const o = w[n], s = o + 10 * m, d = C[i], u = l - p * d, f = c - h * d, v = u - a * x / 2, M = f - r * x / 2, I = u + a * x / 2, P = f + r * x / 2, L = `M ${v.toFixed(2)} ${M.toFixed(2)} L ${I.toFixed(2)} ${P.toFixed(2)}`, T = s / 2, F = `M ${(u - p * T).toFixed(2)} ${(f - h * T).toFixed(2)} L ${(u + p * T).toFixed(2)} ${(f + h * T).toFixed(2)}`, N = `grad-${A}-${n}`, _ = t[n + "Known"], R = _ ? t[n] : 0, O = (R + 100) / 200, B = Boolean(t[n + "Derived"]), j = Math.round(R), q = _ ? B ? `${j}, rolled up from ${t[n + "RatedChildren"]} of ${t.childCount} child topics` : String(j) : "Unrated", H = Zn(e, n), W = ei(e, n, S), U = Boolean(Nt && Nt.id === e && Nt.direction === n), G = U ? " active-rating" : "", K = `data-id="${e}" data-direction="${n}" data-x0="${v}" data-y0="${M}" data-x1="${I}" data-y1="${P}" data-nx="${a}" data-ny="${r}" data-offset="0"`, z = v + (I - v) * O, V = M + (P - M) * O, Y = $.single ? 1 : 0 === i ? -1 : 1, X = u + p * Y * (o / 2), Z = f + h * Y * (o / 2), Q = _ ? zi(R) : Ga.FALLBACK_COLOR;
-                    D += `<g class="direction-control${$.single ? " single-label-control" : ""}${G}" data-id="${e}" data-direction="${n}"${W ? ` data-rating-tooltip="${Hi(W)}"` : ""} data-derived="${B}" data-base-cx="${u}" data-base-cy="${f}" data-base-angle="${g}" data-index="${i}" data-tag-width="${o}" data-tag-height="${k}" data-control-scale="${m}" style="--sx-rail-px:${E.toFixed(1)}px;--sx-rail-hit-px:${Math.max(14, Math.min(44, E * 1.6)).toFixed(1)}px">`, 
+                    const o = w[n], s = o + 10 * m, d = C[i], u = l - p * d, f = c - h * d, v = u - a * x / 2, M = f - r * x / 2, I = u + a * x / 2, P = f + r * x / 2, L = `M ${v.toFixed(2)} ${M.toFixed(2)} L ${I.toFixed(2)} ${P.toFixed(2)}`, T = s / 2, F = `M ${(u - p * T).toFixed(2)} ${(f - h * T).toFixed(2)} L ${(u + p * T).toFixed(2)} ${(f + h * T).toFixed(2)}`, N = `grad-${A}-${n}`, _ = t[n + "Known"], R = _ ? t[n] : 0, O = (R + 100) / 200, B = Boolean(t[n + "Derived"]), j = Math.round(R), q = _ ? B ? `${j}, rolled up from ${t[n + "RatedChildren"]} of ${t.childCount} child topics` : String(j) : "Unrated", H = sxGiveReceiveNounText(e, n), W = sxClassicFlankText(e, n, S), U = Boolean(Nt && Nt.id === e && Nt.direction === n), G = U ? " active-rating" : "", K = `data-id="${e}" data-direction="${n}" data-x0="${v}" data-y0="${M}" data-x1="${I}" data-y1="${P}" data-nx="${a}" data-ny="${r}" data-offset="0"`, z = v + (I - v) * O, V = M + (P - M) * O, Y = $.single ? 1 : 0 === i ? -1 : 1, X = u + p * Y * (o / 2), Z = f + h * Y * (o / 2), Q = _ ? sxInterestColor(R) : Ga.FALLBACK_COLOR;
+                    D += `<g class="direction-control${$.single ? " single-label-control" : ""}${G}" data-id="${e}" data-direction="${n}"${W ? ` data-rating-tooltip="${sxEscapeHtmlText(W)}"` : ""} data-derived="${B}" data-base-cx="${u}" data-base-cy="${f}" data-base-angle="${g}" data-index="${i}" data-tag-width="${o}" data-tag-height="${k}" data-control-scale="${m}" style="--sx-rail-px:${E.toFixed(1)}px;--sx-rail-hit-px:${Math.max(14, Math.min(44, E * 1.6)).toFixed(1)}px">`, 
                     D += `<defs><linearGradient id="${N}" gradientUnits="userSpaceOnUse" x1="${v}" y1="${M}" x2="${I}" y2="${P}"><stop offset="0" stop-color="var(--red-deep)"/><stop offset=".5" stop-color="var(--curious)"/><stop offset="1" stop-color="var(--green-deep)"/></linearGradient></defs>`, 
                     D += `<path class="visual-rail rating-rail${G}" data-id="${e}" data-direction="${n}" d="${L}" fill="none" stroke="url(#${N})" stroke-width="${E}" stroke-linecap="round" vector-effect="non-scaling-stroke"/>`, 
-                    (_ || U) && (D += `<circle class="slider-thumb${G}" data-id="${e}" data-direction="${n}" cx="${z.toFixed(2)}" cy="${V.toFixed(2)}" r="${10 * m}" fill="${zi(R)}"/>`), 
+                    (_ || U) && (D += `<circle class="slider-thumb${G}" data-id="${e}" data-direction="${n}" cx="${z.toFixed(2)}" cy="${V.toFixed(2)}" r="${10 * m}" fill="${sxInterestColor(R)}"/>`), 
                     D += `<path class="rating-track-hit${G}" ${K} d="${L}"/>`;
-                    const J = U ? `tabindex="0" role="button" aria-label="Clear ${Hi(`${Jn(e, n)}${H ? ` ${H}` : ""}`)} rating"` : 'tabindex="-1" aria-hidden="true"', ee = g + 90;
+                    const J = U ? `tabindex="0" role="button" aria-label="Clear ${sxEscapeHtmlText(`${sxRoleLabelText(e, n)}${H ? ` ${H}` : ""}`)} rating"` : 'tabindex="-1" aria-hidden="true"', ee = g + 90;
                     D += `<g class="rating-clear${G}" data-id="${e}" data-direction="${n}"><rect class="rating-clear-bg" x="${(X - 23 * (mapFontScale() * sxF / 3)).toFixed(2)}" y="${(Z - 10 * (mapFontScale() * sxF / 3)).toFixed(2)}" width="${46 * (mapFontScale() * sxF / 3)}" height="${20 * (mapFontScale() * sxF / 3)}" rx="5" transform="rotate(${ee.toFixed(2)} ${X.toFixed(2)} ${Z.toFixed(2)})"/><rect class="rating-clear-hit" data-id="${e}" data-direction="${n}" x="${(X - 28).toFixed(2)}" y="${(Z - 15).toFixed(2)}" width="56" height="30" rx="7" transform="rotate(${ee.toFixed(2)} ${X.toFixed(2)} ${Z.toFixed(2)})" ${J}/><text class="rating-clear-text" x="${X.toFixed(2)}" y="${Z.toFixed(2)}" text-anchor="middle" dominant-baseline="middle" transform="rotate(${ee.toFixed(2)} ${X.toFixed(2)} ${Z.toFixed(2)})">Clear</text></g>`, 
-                    D += `<path class="direction-hit" tabindex="0" role="slider" aria-valuemin="-100" aria-valuemax="100" aria-valuenow="${_ ? j : 0}" aria-valuetext="${q}" aria-label="${Hi(`${Jn(e, n)}${H ? `: ${H}` : ""}. ${q}. Tap to open its rating scale; drag, then release to choose.`)}" aria-expanded="${U}" ${K} d="${F}"/>`, 
+                    D += `<path class="direction-hit" tabindex="0" role="slider" aria-valuemin="-100" aria-valuemax="100" aria-valuenow="${_ ? j : 0}" aria-valuetext="${q}" aria-label="${sxEscapeHtmlText(`${sxRoleLabelText(e, n)}${H ? `: ${H}` : ""}. ${q}. Tap to open its rating scale; drag, then release to choose.`)}" aria-expanded="${U}" ${K} d="${F}"/>`, 
                     $.single && (D += `<rect class="direction-tag-occluder" x="${(u - o / 2 - 3 * m).toFixed(2)}" y="${(f - k / 2 - 3 * m).toFixed(2)}" width="${(o + 6 * m).toFixed(2)}" height="${(k + 6 * m).toFixed(2)}" rx="${7 * m}" transform="rotate(${g.toFixed(2)} ${u.toFixed(2)} ${f.toFixed(2)})"/>`), 
                     D += `<rect class="direction-tag-bg" data-id="${e}" data-direction="${n}" x="${(u - o / 2).toFixed(2)}" y="${(f - k / 2).toFixed(2)}" width="${o}" height="${k}" rx="${5 * m}" transform="rotate(${g.toFixed(2)} ${u.toFixed(2)} ${f.toFixed(2)})" fill="${Q}" opacity="${_ ? 1 : .62}"/>`;
                     // TAG FILL (ruled 2026-11-02, Jason): the give/receive
@@ -556,25 +556,25 @@
                     // sideways squeeze and no shrink: the old textLength
                     // cap (spacingAndGlyphs) is gone.
                     const te = $.single ? y[i] : b ? "give" === n ? "G" : "R" : y[i], ne = k;
-                    D += `<text class="direction-tag" data-id="${e}" data-direction="${n}" x="${u.toFixed(2)}" y="${f.toFixed(2)}" text-anchor="middle" dominant-baseline="middle" transform="rotate(${g.toFixed(2)} ${u.toFixed(2)} ${f.toFixed(2)})" style="font-size:${ne}px">${Hi(te)}</text></g>`;
+                    D += `<text class="direction-tag" data-id="${e}" data-direction="${n}" x="${u.toFixed(2)}" y="${f.toFixed(2)}" text-anchor="middle" dominant-baseline="middle" transform="rotate(${g.toFixed(2)} ${u.toFixed(2)} ${f.toFixed(2)})" style="font-size:${ne}px">${sxEscapeHtmlText(te)}</text></g>`;
                 });
                 }
             }
             if (g && !sxIsBlind() && !x) {
-                const i = Xi(), a = $.keys || ($.single ? [ "give" ] : [ "give", "receive" ]), r = i.length * a.length, o = (n > 7 ? Math.min(18, 4 + 1.6 * r) : Math.min(14, 3 + 1.4 * r)) * (mapFontScale() * sxF / 3), s = Math.max(1.35, n / Math.min(r, 6)) * (mapFontScale() * sxF / 3);
+                const i = sxScoringProfileIds(), a = $.keys || ($.single ? [ "give" ] : [ "give", "receive" ]), r = i.length * a.length, o = (n > 7 ? Math.min(18, 4 + 1.6 * r) : Math.min(14, 3 + 1.4 * r)) * (mapFontScale() * sxF / 3), s = Math.max(1.35, n / Math.min(r, 6)) * (mapFontScale() * sxF / 3);
                 i.forEach((n, i) => {
-                    const l = da(e, n);
+                    const l = sxRatingRecord(e, n);
                     a.forEach((c, d) => {
                         const u = i * a.length + d, p = 1 === r ? 0 : -o / 2 + o * u / (r - 1);
                         $.labels[d], D += `<path class="visual-rail" d="${t}" transform="${E(p)}" fill="none" ${function(e, t, n) {
-                            return e[t + "Known"] ? `stroke="${la(n)}" opacity=".96"` : 'stroke="var(--line)" stroke-dasharray="2 6" opacity=".38"';
-                        }(l, c, n)} stroke-width="${s}" stroke-linecap="round" vector-effect="non-scaling-stroke"><title>${Hi(wt[n])} — ${Hi(Jn(e, c))}</title></path>`;
+                            return e[t + "Known"] ? `stroke="${sxProfileColor(n)}" opacity=".96"` : 'stroke="var(--line)" stroke-dasharray="2 6" opacity=".38"';
+                        }(l, c, n)} stroke-width="${s}" stroke-linecap="round" vector-effect="non-scaling-stroke"><title>${sxEscapeHtmlText(wt[n])} — ${sxEscapeHtmlText(sxRoleLabelText(e, c))}</title></path>`;
                     });
                 });
             }
             return D;
         }
-        function za(e, t, n, i, a, r = 0) {
+        function sxSpokeSegment(e, t, n, i, a, r = 0) {
             const o = i - t, s = a - n, l = Math.hypot(o, s), c = o / l, d = s / l, u = i - c * r, p = a - d * r, h = Math.max(80, l - r), g = Za.leafLabelWidth(h), m = u - c * g, f = p - d * g;
             return {
                 d: `M ${t.toFixed(2)} ${n.toFixed(2)} L ${i.toFixed(2)} ${a.toFixed(2)}`,
@@ -588,7 +588,7 @@
                 ny: c
             };
         }
-        function Va(e, t, n, i, a) {
+        function sxPointAtDistance(e, t, n, i, a) {
             return r => {
                 const o = Math.max(0, Math.min(a, r));
                 return {
@@ -597,8 +597,8 @@
                 };
             };
         }
-        function Ya(e, t, n, i, a = (typeof sxIconRadius === "function" ? sxIconRadius(1) : 130)) {
-            const r = Math.max(1, Math.hypot(n - e, i - t)), o = (n - e) / r, s = (i - t) / r, l = -s, c = o, d = `M ${e.toFixed(2)} ${t.toFixed(2)} L ${n.toFixed(2)} ${i.toFixed(2)}`, u = `M ${n.toFixed(2)} ${i.toFixed(2)} L ${e.toFixed(2)} ${t.toFixed(2)}`, p = r, h = Va(e, t, o, s, p), g = a, m = Za.cloudLabel(p, g), f = m.labelOffset;
+        function sxStraightSpoke(e, t, n, i, a = (typeof sxIconRadius === "function" ? sxIconRadius(1) : 130)) {
+            const r = Math.max(1, Math.hypot(n - e, i - t)), o = (n - e) / r, s = (i - t) / r, l = -s, c = o, d = `M ${e.toFixed(2)} ${t.toFixed(2)} L ${n.toFixed(2)} ${i.toFixed(2)}`, u = `M ${n.toFixed(2)} ${i.toFixed(2)} L ${e.toFixed(2)} ${t.toFixed(2)}`, p = r, h = sxPointAtDistance(e, t, o, s, p), g = a, m = Za.cloudLabel(p, g), f = m.labelOffset;
             return {
                 d: d,
                 labelD: d,
@@ -617,7 +617,7 @@
                 pointAtDistance: h
             };
         }
-        function Xa(e, t) {
+        function sxPolarPoint(e, t) {
             return {
                 x: MAP_CENTER_X + Math.cos(e) * t,
                 y: MAP_CENTER_Y + Math.sin(e) * t
@@ -682,7 +682,7 @@
                 };
             },
             adaptivePlacement(e, t, n = 0) {
-                const i = Math.max(.006, Number(e && e.sector) || .006), a = t >= 3, r = a ? 92 : 44, o = a ? n + 700 : n + 72, s = a ? hr(3) + 1280 : n + 420, l = Math.min(s, Math.max(o, r / i)), c = a ? 620 : 72, d = a ? 2560 : 560, u = Math.max(c, Math.min(d, l - n));
+                const i = Math.max(.006, Number(e && e.sector) || .006), a = t >= 3, r = a ? 92 : 44, o = a ? n + 700 : n + 72, s = a ? sxDepthRadius(3) + 1280 : n + 420, l = Math.min(s, Math.max(o, r / i)), c = a ? 620 : 72, d = a ? 2560 : 560, u = Math.max(c, Math.min(d, l - n));
                 return a ? {
                     offset: u,
                     limit: .72

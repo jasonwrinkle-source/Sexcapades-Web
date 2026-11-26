@@ -1,13 +1,13 @@
-        function _d(e, t = !1) {
+        function sxDirectedPairText(e, t = !1) {
             return e ? `${e.giver}: ${e.giverLabel || "give"}${t ? ` ${e.giverRating}` : ""} → ${e.receiver}: ${e.receiverLabel || "receive"}${t ? ` ${e.receiverRating}` : ""}` : "";
         }
-        function Dd(e, t, heat, veil) {
+        function sxScorePlayMatch(e, t, heat, veil) {
             // Adapter over the sync engine v1.1: the second argument (the
             // retired leniency value) is accepted for call-site compatibility
             // and ignored - no score, bar, or tolerance reads it anymore.
             // Two profiles read the pair Play aggregation; three or more
             // read the group Play aggregation (strict-majority rules).
-            const v = Array.isArray(veil) && veil.length ? veil : (e || []).map(p => p && null != p.veil ? av(p.veil) : 50);
+            const v = Array.isArray(veil) && veil.length ? veil : (e || []).map(p => p && null != p.veil ? sxClampVeilLevel(p.veil) : 50);
             const grp = sxGroupCompute(e, { heat: heat || [], veil: v }), isPair = 2 === e.length, pair = isPair ? grp.pairs[0] : null,
                 agg = isPair ? pair.play : grp.play, recs = isPair ? pair.topics : grp.topics,
                 n = {}, i = {}, a = {}, r = {}, o = {}, s = {}, l = [], c = [], d = [];
@@ -98,7 +98,7 @@
             // rollup (deferred rulings in sxGroupCompute), so results
             // stay empty and noScore stays true; marks and flags ride
             // the shared topics exactly as Dd's ride its matches.
-            const v = Array.isArray(veil) && veil.length ? veil : (e || []).map(p => p && null != p.veil ? av(p.veil) : 50);
+            const v = Array.isArray(veil) && veil.length ? veil : (e || []).map(p => p && null != p.veil ? sxClampVeilLevel(p.veil) : 50);
             const grp = sxGroupCompute(e, { heat: heat || [], veil: v }), pair = 2 === e.length ? grp.pairs[0] : null,
                 n = {}, i = {}, a = {}, r = {}, o = {};
             if (pair && pair.straight) pair.straight.topics.forEach(srec => {
@@ -140,7 +140,7 @@
             // Spokes carry split depth weighted by joint relevance:
             // for give/receive flanks, the negative same-flank product weighted by joint care;
             // for pole and line topics, the feud from sxDebateFeud weighted by debateIntensity.
-            const v = Array.isArray(veil) && veil.length ? veil : (e || []).map(p => p && null != p.veil ? av(p.veil) : 50);
+            const v = Array.isArray(veil) && veil.length ? veil : (e || []).map(p => p && null != p.veil ? sxClampVeilLevel(p.veil) : 50);
             const grp = sxGroupCompute(e, { heat: heat || [], veil: v }), pair = 2 === e.length ? grp.pairs[0] : null,
                 n = {}, i = {}, a = {}, r = {}, o = {};
             if (pair && pair.straight) {
@@ -242,7 +242,7 @@
             if (!base) return;
             const same = (x, y) => JSON.stringify(x ?? null) === JSON.stringify(y ?? null), curR = vt[e] || {}, curM = Qe[e] || {}, curF = Je[e] || {}, curT = et[e] || {}, curC = at[e] || {};
             Object.keys(curR).forEach(id => {
-                same(curR[id], (base.ratings || {})[id]) || (a.ratings[id] = Pd(curR[id]));
+                same(curR[id], (base.ratings || {})[id]) || (a.ratings[id] = sxCloneProfileRecord(curR[id]));
             }), Object.keys(a.ratings).forEach(id => {
                 id in curR || void 0 === (base.ratings || {})[id] || same(a.ratings[id], base.ratings[id]) && delete a.ratings[id];
             }), Object.keys(curM).forEach(id => {
@@ -258,37 +258,37 @@
             }), Object.keys(a.triedFlags).forEach(id => {
                 (base.triedFlags || {})[id] && !curT[id] && delete a.triedFlags[id];
             }), Object.keys(curC).forEach(id => {
-                (base.children || {})[id] || id in a.children || (a.children[id] = Pd(curC[id]));
+                (base.children || {})[id] || id in a.children || (a.children[id] = sxCloneProfileRecord(curC[id]));
             });
         }
-        function Rd(e) {
+        function sxRefreshGroupScore(e) {
             const n = ft[e];
             if (!n || "group" !== n.kind || !Array.isArray(n.sourceProfiles) || n.sourceProfiles.length < 2) return !1;
             const liveIds = (n.sourceIds || []).filter(id => vt[id]);
             if (liveIds.length >= 2) n.sourceProfiles = liveIds.map(id => ({
                 id: id,
                 name: wt[id],
-                ratings: Pd(vt[id]),
-                annotations: Pd(Qe[id]),
-                fantasyOnly: Pd(Je[id]),
-                alreadyTried: Pd(et[id]),
-                importedChildren: Pd(at[id]),
-                genders: bb(rt[id]),
-                orientations: iv(ot[id]),
-                veil: av(vpt[id]),
+                ratings: sxCloneProfileRecord(vt[id]),
+                annotations: sxCloneProfileRecord(Qe[id]),
+                fantasyOnly: sxCloneProfileRecord(Je[id]),
+                alreadyTried: sxCloneProfileRecord(et[id]),
+                importedChildren: sxCloneProfileRecord(at[id]),
+                genders: sxNormalizeGenders(rt[id]),
+                orientations: sxNormalizeOrientations(ot[id]),
+                veil: sxClampVeilLevel(vpt[id]),
                 veilEnabled: Boolean(vht[id]),
-                net: av(vpt[id]),
+                net: sxClampVeilLevel(vpt[id]),
                 netEnabled: Boolean(vht[id])
             }));
             const heats = (n.sourceIds || []).map(id => sxHeatDisplayFor(id)),
                 veils = (n.sourceIds || []).map(id => sxVeilFor(id)),
-                a = "straight" === n.pairOp ? DdStraight(n.sourceProfiles, heats, veils) : "minus" === n.pairOp ? DdMinus(n.sourceProfiles, heats, veils) : Dd(n.sourceProfiles, null, heats, veils);
+                a = "straight" === n.pairOp ? DdStraight(n.sourceProfiles, heats, veils) : "minus" === n.pairOp ? DdMinus(n.sourceProfiles, heats, veils) : sxScorePlayMatch(n.sourceProfiles, null, heats, veils);
             const freshBase = {
-                ratings: Pd(a.ratings),
-                marks: Pd(a.marks),
-                fantasyFlags: Pd(a.fantasyFlags),
-                triedFlags: Pd(a.triedFlags),
-                children: Pd(a.children)
+                ratings: sxCloneProfileRecord(a.ratings),
+                marks: sxCloneProfileRecord(a.marks),
+                fantasyFlags: sxCloneProfileRecord(a.fantasyFlags),
+                triedFlags: sxCloneProfileRecord(a.triedFlags),
+                children: sxCloneProfileRecord(a.children)
             };
             sxPairUserApply(e, a), sxPairBase[e] = freshBase;
             return vt[e] = a.ratings, Ze[e] = Object.fromEntries(Object.keys(a.ratings).map(e => [ e, {
@@ -311,7 +311,7 @@
                 } catch (err) {
                     __sxErrLog("sx-stamp", err);
                 }
-            })(), (n.isPseudoProfile ? (delete yt[e], Gt(), Kt(e)) : zt(e)),
+            })(), (n.isPseudoProfile ? (delete yt[e], sxSyncUnsavedFlag(), sxMarkProfileTab(e)) : sxTouchProfile(e)),
             !0;
         }
         // Live-source pair & group refresh (owner ruling, 2026-11-24):
@@ -330,27 +330,27 @@
             if (liveIds.length >= 2) n.sourceProfiles = liveIds.map(id => ({
                 id: id,
                 name: wt[id],
-                ratings: Pd(vt[id]),
-                annotations: Pd(Qe[id]),
-                fantasyOnly: Pd(Je[id]),
-                alreadyTried: Pd(et[id]),
-                importedChildren: Pd(at[id]),
-                genders: bb(rt[id]),
-                orientations: iv(ot[id]),
-                veil: av(vpt[id]),
+                ratings: sxCloneProfileRecord(vt[id]),
+                annotations: sxCloneProfileRecord(Qe[id]),
+                fantasyOnly: sxCloneProfileRecord(Je[id]),
+                alreadyTried: sxCloneProfileRecord(et[id]),
+                importedChildren: sxCloneProfileRecord(at[id]),
+                genders: sxNormalizeGenders(rt[id]),
+                orientations: sxNormalizeOrientations(ot[id]),
+                veil: sxClampVeilLevel(vpt[id]),
                 veilEnabled: Boolean(vht[id]),
-                net: av(vpt[id]),
+                net: sxClampVeilLevel(vpt[id]),
                 netEnabled: Boolean(vht[id])
             }));
             const heats = liveIds.length >= 2 ? liveIds.map(id => sxHeatDisplayFor(id)) : Array.isArray(n.sxHeat) && n.sxHeat.length === n.sourceProfiles.length ? n.sxHeat.slice() : (n.sourceIds || []).map(id => sxHeatDisplayFor(id)),
                 veils = liveIds.length >= 2 ? liveIds.map(id => sxVeilFor(id)) : Array.isArray(n.sxVeil) && n.sxVeil.length === n.sourceProfiles.length ? n.sxVeil.slice() : (n.sourceIds || []).map(id => sxVeilFor(id));
-            const a = "straight" === n.pairOp ? DdStraight(n.sourceProfiles, heats, veils) : "minus" === n.pairOp ? DdMinus(n.sourceProfiles, heats, veils) : Dd(n.sourceProfiles, null, heats, veils);
+            const a = "straight" === n.pairOp ? DdStraight(n.sourceProfiles, heats, veils) : "minus" === n.pairOp ? DdMinus(n.sourceProfiles, heats, veils) : sxScorePlayMatch(n.sourceProfiles, null, heats, veils);
             const freshBase = {
-                ratings: Pd(a.ratings),
-                marks: Pd(a.marks),
-                fantasyFlags: Pd(a.fantasyFlags),
-                triedFlags: Pd(a.triedFlags),
-                children: Pd(a.children)
+                ratings: sxCloneProfileRecord(a.ratings),
+                marks: sxCloneProfileRecord(a.marks),
+                fantasyFlags: sxCloneProfileRecord(a.fantasyFlags),
+                triedFlags: sxCloneProfileRecord(a.triedFlags),
+                children: sxCloneProfileRecord(a.children)
             };
             sxPairUserApply(gId, a), sxPairBase[gId] = freshBase;
             vt[gId] = a.ratings, Ze[gId] = Object.fromEntries(Object.keys(a.ratings).map(k => [ k, {
@@ -395,11 +395,11 @@
             allGroups.forEach(walkInnerFirst);
         }
         let Od = 0, Bd = null, qd = [], Wd = null;
-        function Kd() {
+        function sxActiveGroupRecord() {
             const e = Mt && ft[Mt];
             return e && "group" === e.kind && Array.isArray(e.sourceProfiles) && e.sourceProfiles.length >= 2 ? e : null;
         }
-        function zd(e = sxCompareIds) {
+        function sxScoreInputProfiles(e = sxCompareIds) {
             return e.filter(e => vt[e]).map(e => ({
                 id: e,
                 name: wt[e],
@@ -408,23 +408,23 @@
                 fantasyOnly: Je[e],
                 alreadyTried: et[e],
                 importedChildren: at[e],
-                genders: bb(rt[e]),
-                orientations: iv(ot[e]),
-                veil: av(vpt[e]),
+                genders: sxNormalizeGenders(rt[e]),
+                orientations: sxNormalizeOrientations(ot[e]),
+                veil: sxClampVeilLevel(vpt[e]),
                 veilEnabled: Boolean(vht[e]),
-                net: av(vpt[e]),
+                net: sxClampVeilLevel(vpt[e]),
                 netEnabled: Boolean(vht[e])
             }));
         }
-        function Vd() {
+        function sxRefreshCompareMatch() {
             // Leniency removal (2026-10-27): the compare refresh no
             // longer derives or carries any leniency value - the
             // engine ignored the slot, and the values it fed (Hd, the
             // Wd input) have no live reader. The refresh itself -
             // pinning the current multi-select in qd, recomputing the
             // overlay data, repainting the match tabs - is unchanged.
-            const d = Yi().filter(e => vt[e]), u = d.length >= 2;
-            qd = u ? d.slice() : [], Wd = u ? Dd(zd(d), null, d.map(id => sxHeatDisplayFor(id)), d.map(id => sxVeilFor(id))) : null;
+            const d = sxListLiveSelections().filter(e => vt[e]), u = d.length >= 2;
+            qd = u ? d.slice() : [], Wd = u ? sxScorePlayMatch(sxScoreInputProfiles(d), null, d.map(id => sxHeatDisplayFor(id)), d.map(id => sxVeilFor(id))) : null;
             sxRefreshMatchTabs();
         }
         /* ===== Compare view: presentation layer over the sync engine =====
@@ -497,9 +497,9 @@
         let sxCtx = null, sxAudio = null, sxBuzzTarget = null;
         const sxBuzzFired = new Set;
         function sxCompareContext() {
-            const sel = Yi().filter(id => vt[id]);
-            if (sel.length >= 2) return { ids: sel.slice(), profiles: zd(sel), saved: !1 };
-            const c = Kd();
+            const sel = sxListLiveSelections().filter(id => vt[id]);
+            if (sel.length >= 2) return { ids: sel.slice(), profiles: sxScoreInputProfiles(sel), saved: !1 };
+            const c = sxActiveGroupRecord();
             if (c && Array.isArray(c.sourceProfiles) && c.sourceProfiles.length >= 2) return { ids: (c.sourceIds || []).slice(), profiles: c.sourceProfiles, saved: !0 };
             return null;
         }
@@ -533,25 +533,25 @@
             isPair && tried.length >= 2 ? out.push({ t: "tried: both" }) : tried.forEach(nm => out.push({ t: `tried: ${nm}` }));
             // Badges deprecated in general (2026-10-26): no "Not interested" or "Soft no revisited" badge renders anywhere.
             if (rec.shed) out.push({ t: "below tonight's bar", cls: "is-flag" });
-            return out.map(b => `<span class="sx-badge${b.cls ? " " + b.cls : ""}">${Hi(b.t)}</span>`).join("");
+            return out.map(b => `<span class="sx-badge${b.cls ? " " + b.cls : ""}">${sxEscapeHtmlText(b.t)}</span>`).join("");
         }
         function sxPairRow(rec, res) {
             const fit = sxFitText(rec);
-            return `<div class="sx-row"><div class="sx-row-top"><strong>${Hi(rec.label)}</strong>${sxBadges(rec, !0)}</div><div class="sx-row-ratings"><span><b>${Hi(res.a)}</b> ${Hi(sxRatingText(rec.ratings.a))}</span><span><b>${Hi(res.b)}</b> ${Hi(sxRatingText(rec.ratings.b))}</span></div>${fit ? `<div class="sx-row-fit">${Hi(fit)}</div>` : ""}${rec.mismatchShape ? `<div class="sx-row-shape">${Hi(rec.mismatchShape)}</div>` : ""}</div>`;
+            return `<div class="sx-row"><div class="sx-row-top"><strong>${sxEscapeHtmlText(rec.label)}</strong>${sxBadges(rec, !0)}</div><div class="sx-row-ratings"><span><b>${sxEscapeHtmlText(res.a)}</b> ${sxEscapeHtmlText(sxRatingText(rec.ratings.a))}</span><span><b>${sxEscapeHtmlText(res.b)}</b> ${sxEscapeHtmlText(sxRatingText(rec.ratings.b))}</span></div>${fit ? `<div class="sx-row-fit">${sxEscapeHtmlText(fit)}</div>` : ""}${rec.mismatchShape ? `<div class="sx-row-shape">${sxEscapeHtmlText(rec.mismatchShape)}</div>` : ""}</div>`;
         }
         function sxGroupRow(rec) {
-            return `<div class="sx-row"><div class="sx-row-top"><strong>${Hi(rec.label)}</strong>${sxBadges(rec, !1)}</div>${null != rec.strength ? `<div class="sx-row-fit">strength ${Math.round(rec.strength)}</div>` : ""}</div>`;
+            return `<div class="sx-row"><div class="sx-row-top"><strong>${sxEscapeHtmlText(rec.label)}</strong>${sxBadges(rec, !1)}</div>${null != rec.strength ? `<div class="sx-row-fit">strength ${Math.round(rec.strength)}</div>` : ""}</div>`;
         }
         function sxLimitsHtml(list) {
             if (!list.length) return `<p class="sx-empty">No limits in this comparison.</p>`;
             const blocks = [], groups = new Map;
             list.forEach(rec => {
                 (rec.limiters || []).forEach(lm => {
-                    if ("topic" === lm.scope) return void blocks.push(`<div class="sx-row"><div class="sx-row-top"><strong>${Hi(rec.label)}</strong><span class="sx-badge is-limit">limit, ${Hi(lm.name)}</span></div></div>`);
-                    const meta = (typeof sxNodeRecord === "function") ? sxNodeRecord(rec.id) : (qn[rec.id] || Xn(rec.id) || null);
+                    if ("topic" === lm.scope) return void blocks.push(`<div class="sx-row"><div class="sx-row-top"><strong>${sxEscapeHtmlText(rec.label)}</strong><span class="sx-badge is-limit">limit, ${sxEscapeHtmlText(lm.name)}</span></div></div>`);
+                    const meta = (typeof sxNodeRecord === "function") ? sxNodeRecord(rec.id) : (sxNodeRegistry[rec.id] || sxNodeById(rec.id) || null);
                     let gname = rec.branch;
                     if ("category" !== lm.scope && meta && meta.parentId) {
-                        const parentRec = (typeof sxNodeRecord === "function") ? sxNodeRecord(meta.parentId) : (qn[meta.parentId] || null);
+                        const parentRec = (typeof sxNodeRecord === "function") ? sxNodeRecord(meta.parentId) : (sxNodeRegistry[meta.parentId] || null);
                         if (parentRec && parentRec.label) gname = parentRec.label;
                     }
                     const key = `${lm.scope}|${lm.name}|${gname}`;
@@ -562,16 +562,16 @@
                     groups.get(key).topics.push(rec.label);
                 });
             });
-            return blocks.map(b => "string" == typeof b ? b : `<details class="sx-limit-group"><summary><strong>All of ${Hi(b.gname)}</strong> — limit, ${Hi(b.name)} <span class="sx-count">${b.topics.length} topic${1 === b.topics.length ? "" : "s"}</span></summary><ul>${b.topics.map(t => `<li>${Hi(t)}</li>`).join("")}</ul></details>`).join("");
+            return blocks.map(b => "string" == typeof b ? b : `<details class="sx-limit-group"><summary><strong>All of ${sxEscapeHtmlText(b.gname)}</strong> — limit, ${sxEscapeHtmlText(b.name)} <span class="sx-count">${b.topics.length} topic${1 === b.topics.length ? "" : "s"}</span></summary><ul>${b.topics.map(t => `<li>${sxEscapeHtmlText(t)}</li>`).join("")}</ul></details>`).join("");
         }
         function sxSection(title, sub, rowsHtml, count) {
-            return `<section class="sx-section"><h3>${Hi(title)}${null != count ? ` <span class="sx-count">${count}</span>` : ""}</h3>${sub ? `<p class="sx-section-sub">${Hi(sub)}</p>` : ""}<div class="sx-rows">${rowsHtml}</div></section>`;
+            return `<section class="sx-section"><h3>${sxEscapeHtmlText(title)}${null != count ? ` <span class="sx-count">${count}</span>` : ""}</h3>${sub ? `<p class="sx-section-sub">${sxEscapeHtmlText(sub)}</p>` : ""}<div class="sx-rows">${rowsHtml}</div></section>`;
         }
         function sxPickerHtml() {
             const ids = Object.keys(vt).filter(id => wt[id]);
             if (!ids.length) return `<div class="sx-picker"><div class="sx-picker-label">Who's comparing?</div><p class="sx-picker-help">No profiles are loaded yet. Add or import two or more profiles, then pick them here to compare.</p></div>`;
-            const sel = new Set(Yi());
-            const btns = ids.map(id => `<button aria-pressed="${sel.has(id)}" class="sx-pick" data-sx-pick="${Hi(id)}" type="button">${Hi(wt[id])}</button>`).join("");
+            const sel = new Set(sxListLiveSelections());
+            const btns = ids.map(id => `<button aria-pressed="${sel.has(id)}" class="sx-pick" data-sx-pick="${sxEscapeHtmlText(id)}" type="button">${sxEscapeHtmlText(wt[id])}</button>`).join("");
             return `<div class="sx-picker"><div class="sx-picker-label">Who's comparing?</div><div class="sx-pick-row">${btns}</div><p class="sx-picker-help">Tap to add or remove a profile from the comparison. Pick two or more to compare. (Ctrl+click or Cmd+click on a profile tab works too.)</p></div>`;
         }
         // Match-tab fix (2026-10-26): the bowtie controls slot is GONE with
@@ -593,15 +593,15 @@
             if (isPair) {
                 const agg = "play" === mode ? pair.play : pair.conversation, cov = pair.coverage;
                 headlineLabel = "play" === mode ? sxTerm("playMS") : sxTerm("playKF"), headlineText = agg.headlineText || "No score — no shared topics",
-                coverageHtml = `<p class="sx-coverage">${Hi(pair.a)}: ${cov.aRated} rated · ${cov.aPercent}% of ${cov.catalog} topics · ${Hi(pair.b)}: ${cov.bRated} rated · ${cov.bPercent}% of ${cov.catalog} topics · ${cov.oneSided} one-sided · ${cov.limitBlocked} limit-blocked · ${cov.fantasySetAside} fantasy set aside</p>`;
+                coverageHtml = `<p class="sx-coverage">${sxEscapeHtmlText(pair.a)}: ${cov.aRated} rated · ${cov.aPercent}% of ${cov.catalog} topics · ${sxEscapeHtmlText(pair.b)}: ${cov.bRated} rated · ${cov.bPercent}% of ${cov.catalog} topics · ${cov.oneSided} one-sided · ${cov.limitBlocked} limit-blocked · ${cov.fantasySetAside} fantasy set aside</p>`;
             } else {
                 const agg = "play" === mode ? grp.play : grp.conversation, limitedCount = grp.topics.filter(t => t.groupLimited).length;
                 headlineLabel = agg.label || ("play" === mode ? sxTerm("playMS") : sxTerm("playKF")), headlineText = agg.headlineText || "No score — no shared topics";
                 const per = ctx.profiles.map((p, i) => {
                     const pr = grp.pairs.find(x => x.i === i || x.j === i);
-                    if (!pr) return `${Hi(p.name || `Profile ${i + 1}`)}: —`;
+                    if (!pr) return `${sxEscapeHtmlText(p.name || `Profile ${i + 1}`)}: —`;
                     const mine = pr.i === i ? { rated: pr.coverage.aRated, pct: pr.coverage.aPercent } : { rated: pr.coverage.bRated, pct: pr.coverage.bPercent };
-                    return `${Hi(p.name || `Profile ${i + 1}`)}: ${mine.rated} rated · ${mine.pct}% of ${pr.coverage.catalog} topics`;
+                    return `${sxEscapeHtmlText(p.name || `Profile ${i + 1}`)}: ${mine.rated} rated · ${mine.pct}% of ${pr.coverage.catalog} topics`;
                 });
                 coverageHtml = `<p class="sx-coverage">${per.join(" · ")} · ${limitedCount} topic${1 === limitedCount ? "" : "s"} limited for the group</p>`;
             }
@@ -627,7 +627,7 @@
             let hotHtml = "";
             if ("conversation" === mode) {
                 const hot = grp.hotTopicsTop10 || [];
-                hotHtml = sxSection("Hot Topics", "What the whole room should be talking about right now.", hot.map(h => `<div class="sx-row"><div class="sx-row-top"><strong>${Hi(h.label)}</strong><span class="sx-hot-score">${Math.round(h.score)}</span></div></div>`).join("") || `<p class="sx-empty">No hot topics yet.</p>`, null);
+                hotHtml = sxSection("Hot Topics", "What the whole room should be talking about right now.", hot.map(h => `<div class="sx-row"><div class="sx-row-top"><strong>${sxEscapeHtmlText(h.label)}</strong><span class="sx-hot-score">${Math.round(h.score)}</span></div></div>`).join("") || `<p class="sx-empty">No hot topics yet.</p>`, null);
             }
             /* Deprecated match-tab Teasers rows removed (2026-10-26): the popover Teasers sections are the teaser surface now. Writer teaser lines are a separate later job (A4) and are untouched. */
 
@@ -641,7 +641,7 @@
                render in this seat — the header paint shows the same
                Play MS / Play KF for the active match
                tab through sxRingValuesForCast. */
-            n(root, `<div class="sx-stamp" data-sx-term="playMode,conversationMode,heatMax,heatMin">${Hi(sxStamp(ctx))}</div>${coverageHtml}${explainer}${listsHtml}${hotHtml}`);
+            n(root, `<div class="sx-stamp" data-sx-term="playMode,conversationMode,heatMax,heatMin">${sxEscapeHtmlText(sxStamp(ctx))}</div>${coverageHtml}${explainer}${listsHtml}${hotHtml}`);
             const sxTabNow = sxCurrentTab();
             sxTabNow && "bowtie" === sxTabNow.kind && (sxTabNow.buckets = sxBowtieBuckets(ctx, grp), sxUpdateMatchRings(sxTabNow));
             allowBuzz && sxMaybeBuzz(ctx, grp);
@@ -665,8 +665,8 @@
             });
         }
         function sxMatchIconsVisible() {
-            if (Yi().length >= 2) return !0;
-            const c = Kd();
+            if (sxListLiveSelections().length >= 2) return !0;
+            const c = sxActiveGroupRecord();
             return !!c && Array.isArray(c.sourceIds) && c.sourceIds.length >= 2;
         }
         function sxMatchIconsHtml() {
@@ -680,7 +680,7 @@
             const reg = sxTabsReg();
             return [ ...reg.tabs.values() ].map(tab => {
                 const active = reg.stageOn && reg.active === tab.key, m = sxMatchKindMeta(tab.kind), term = m.term ? ` data-sx-term="${m.term}"` : "";
-                return `<span class="sx-match-tab${active ? " is-active" : ""}" data-sx-match-kind="${tab.kind}"><button type="button" role="tab" class="profile-tab-button sx-match-tab-btn${active ? " is-active" : ""}" data-sx-match-tab-btn="${Hi(tab.key)}" aria-selected="${active}" aria-label="${m.label} match tab"${term}><span aria-hidden="true">${m.glyph}</span> ${m.label}</button><button type="button" class="profile-tab-close" data-sx-match-close="${Hi(tab.key)}" aria-label="Close ${m.label} tab"${term}>×</button></span>`;
+                return `<span class="sx-match-tab${active ? " is-active" : ""}" data-sx-match-kind="${tab.kind}"><button type="button" role="tab" class="profile-tab-button sx-match-tab-btn${active ? " is-active" : ""}" data-sx-match-tab-btn="${sxEscapeHtmlText(tab.key)}" aria-selected="${active}" aria-label="${m.label} match tab"${term}><span aria-hidden="true">${m.glyph}</span> ${m.label}</button><button type="button" class="profile-tab-close" data-sx-match-close="${sxEscapeHtmlText(tab.key)}" aria-label="Close ${m.label} tab"${term}>×</button></span>`;
             }).join("");
         }
         function sxCurrentTab() {

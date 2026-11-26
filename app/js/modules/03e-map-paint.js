@@ -1,4 +1,4 @@
-        function Cr(e, t = "rendering problem") {
+        function sxPauseMapPaint(e, t = "rendering problem") {
             window.__sxLoad && window.__sxLoad(-1);
             jn = !0, On = null, Tn && (Tn.textContent = `The hypermap hit a ${t}. Your open profile is unchanged.`),
             Ln && (Ln.hidden = !1), console.error("Map paused safely.", e);
@@ -51,8 +51,8 @@
             const t = "unrated" === e ? layoutAutoTuned : layoutAutoDefaults;
             Object.assign(mn, t), layoutAutoState = e, layoutAutoValues = t, rn.clear(), on.clear(), 
             h.forEach(e => {
-                rn.add(e.name), mn.expandAll && ((e.subcategories || []).forEach(t => on.add(Un(e.name, t.name))), 
-                e.topics.forEach(e => on.add(Wn(e))));
+                rn.add(e.name), mn.expandAll && ((e.subcategories || []).forEach(t => on.add(sxResolveSubcategoryId(e.name, t.name))), 
+                e.topics.forEach(e => on.add(sxResolveTopicId(e))));
             });
         }
         /* Flexcapades skin switch: the solver's expanded-branch set (rn) and
@@ -88,10 +88,10 @@
                 h.forEach(e => {
                     const n = catId(e.name);
                     Ke.add(n), un.set(n, "all"), rn.add(e.name), (e.subcategories || []).forEach(t => {
-                        const i = Un(e.name, t.name);
+                        const i = sxResolveSubcategoryId(e.name, t.name);
                         Ke.add(i), un.set(i, "all"), on.add(i);
                     }), e.topics.forEach(t => {
-                        const n = Wn(t);
+                        const n = sxResolveTopicId(t);
                         Ke.add(n), un.set(n, "all"), on.add(n);
                     });
                 });
@@ -105,7 +105,7 @@
            inside the Sexcapades fit — and restoring would leave Sexcapades
            cropped. Same call profile select makes (Ih() in 02o). */
         window.__SX_SKIN_REFIT = function () {
-            try { Ih(); } catch (_) {}
+            try { sxApplyMapFit(); } catch (_) {}
         };
         // Ownership note (map-render refactor, finding 15): the
         // center-node global metric total (#metricMapGlobal) is NOT
@@ -402,7 +402,7 @@
             } catch (err) { __sxErrLog("layout-interim-capsule-paint", err); }
         }
 
-        const sxRenderMap = function(opts) { return Mr(opts); };
+        const sxRenderMap = function(opts) { return sxRequestMapPaint(opts); };
         window.SexcapadesEngine = window.SexcapadesEngine || {};
         window.SexcapadesEngine.Map = {
             render: sxRenderMap,
@@ -424,14 +424,14 @@
         // sxInterimPaintGeo always holds the newest solved geometry,
         // so a burst of Mr calls inside one frame draws once, latest.
         let sxInterimPaintPending = !1, sxInterimPaintGeo = null;
-        function Mr(e = {}) {
+        function sxRequestMapPaint(e = {}) {
             sxInvalidatePairs(), layoutAutoSync(), refreshCenterRing(), sxSyncRailPx(), sxSyncMapFontBase();
             if (jn && !e.recovery) return !1;
             if (Rn) return On = {
                 ...e
             }, !1;
             const t = performance.now();
-            if (Bn = Bn.filter(e => t - e < 2e3), Bn.push(t), Bn.length > 250) return Cr(new Error("Excessive render activity"), "repeated rendering problem"),
+            if (Bn = Bn.filter(e => t - e < 2e3), Bn.push(t), Bn.length > 250) return sxPauseMapPaint(new Error("Excessive render activity"), "repeated rendering problem"),
             !1;
             // Chunked paint arms: boot (armed by the shell boot
             // controller), route entry (armed by sxRouteRender
@@ -464,7 +464,7 @@
                     // The solve already inside this call has consumed mn.
                     // Drop the follow-up while the run is open. Outside a
                     // run, replay on the next frame exactly as before.
-                    if (!dkCtx) requestAnimationFrame(() => Mr(q));
+                    if (!dkCtx) requestAnimationFrame(() => sxRequestMapPaint(q));
                 }
             };
             // CAPSULE-ONLY INTERIM PAINT (ruled 2026-10-31, Jason):
@@ -533,7 +533,7 @@
                     }
                     return !0;
                 } catch (err) {
-                    return Cr(err), !1;
+                    return sxPauseMapPaint(err), !1;
                 } finally {
                     release();
                 }
@@ -543,7 +543,7 @@
                 // completion inside this call - the same single
                 // synchronous paint as before the generator split.
                 try {
-                    const gen = Ar(e);
+                    const gen = sxGenerateMapPaint(e);
                     let step;
                     do {
                         step = gen.next();
@@ -553,7 +553,7 @@
                     } catch (_) {}
                     return !0;
                 } catch (e) {
-                    return Cr(e), !1;
+                    return sxPauseMapPaint(e), !1;
                 } finally {
                     release();
                 }
@@ -566,7 +566,7 @@
             // render lock (Rn) is held for the whole stepped paint,
             // so a render requested mid-paint queues exactly as it
             // does during a synchronous paint today.
-            const gen = Ar(e), sxBudgetMs = sxChunkBudget;
+            const gen = sxGenerateMapPaint(e), sxBudgetMs = sxChunkBudget;
             // Boot-race fix (2026-11-16): the skin loader bumps
             // window.__SX_PAINT_GEN on every taxonomy swap. If the
             // generation moved since this paint started, the paint is
@@ -583,7 +583,7 @@
                             s = gen.next();
                         } while (!s.done && s.value !== "paint" && performance.now() - t0 < sxBudgetMs);
                     } catch (err) {
-                        return Cr(err), void resolve(!1);
+                        return sxPauseMapPaint(err), void resolve(!1);
                     }
                     if (s.done) return void resolve(!0);
                     let fired = !1;
@@ -612,23 +612,23 @@
                 // A user camera move sets fitSettleUserHold via
                 // noteFitUserCamera(); when it is set, skip the
                 // pull-back and leave the user's camera alone.
-                if (ok && sxBootArm && !fitSettleUserHold) try { Ih(); } catch (_) {}
+                if (ok && sxBootArm && !fitSettleUserHold) try { sxApplyMapFit(); } catch (_) {}
             });
             return window.sxPaintPromise = sxPaintPromise = p, p.then(ok => (release(), sxPaintPromise === p && (window.sxPaintPromise = sxPaintPromise = null), ok), () => (release(), window.sxPaintPromise = null, !1));
         }
         Fn && Fn.addEventListener("click", () => {
-            Dn = !0, jn = !1, Bn = [], Ln.hidden = !0, Mr({
+            Dn = !0, jn = !1, Bn = [], Ln.hidden = !0, sxRequestMapPaint({
                 animate: !1,
                 forceRepaint: !0,
                 recovery: !0
-            }), Ih();
+            }), sxApplyMapFit();
         }), Nn && Nn.addEventListener("click", () => {
             Dn = !1, jn = !1, Bn = [], Nt = null, Lt = null, Pt = "all", Tt = "", on.clear(), 
             rn.clear(), Ln.hidden = !0, e.all("[data-filter]").forEach(e => e.setAttribute("aria-pressed", String("all" === e.dataset.filter)));
             const t = e.byId("searchInput");
-            t && (t.value = ""), Mr({
+            t && (t.value = ""), sxRequestMapPaint({
                 animate: !1,
                 forceRepaint: !0,
                 recovery: !0
-            }), Ih();
+            }), sxApplyMapFit();
         });

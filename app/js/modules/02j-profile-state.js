@@ -1,5 +1,5 @@
         const Ke = new Set;
-        function ze(e, t) {
+        function sxBlockDeleteProxy(e, t) {
             return new Proxy(t, {
                 deleteProperty: (t, n) => (console.error(`Blocked an unexpected ${e} deletion for ${String(n)}.`), 
                 !0)
@@ -35,16 +35,16 @@
             profileSkins: {},
             droppedKeys: {},
             curveBends: {}
-        }), {profileRecords: Ye, profileNameRecords: Xe, ratingSources: Ze, annotations: Qe, fantasyOnly: Je, alreadyTried: et, profileNotes: tt, profileAbout: nt, profileTerms: it, importedChildren: at, profileGenders: rt, profilePronouns: pz = {}, profileSexualities: ot, profileRoles: st, profileAges: lt, profileLocations: ct, profilePhotos: dt, profileContacts: ut, profileVeils: vpt, profileVeilEnabled: vht, loaderStates: gt, profileCompletionTimes: mt, profileComparisons: ft, profileDirty: yt, profileUuids: profileUuids, profileSampleFlags: sampleProfileFlags, profileSkins: profileSkins, droppedKeys: droppedKeyRecords, curveBends: bt} = Ve, vt = ze("profile", Ye), wt = ze("profile name", Xe), kt = {
+        }), {profileRecords: Ye, profileNameRecords: Xe, ratingSources: Ze, annotations: Qe, fantasyOnly: Je, alreadyTried: et, profileNotes: tt, profileAbout: nt, profileTerms: it, importedChildren: at, profileGenders: rt, profilePronouns: pz = {}, profileSexualities: ot, profileRoles: st, profileAges: lt, profileLocations: ct, profilePhotos: dt, profileContacts: ut, profileVeils: vpt, profileVeilEnabled: vht, loaderStates: gt, profileCompletionTimes: mt, profileComparisons: ft, profileDirty: yt, profileUuids: profileUuids, profileSampleFlags: sampleProfileFlags, profileSkins: profileSkins, droppedKeys: droppedKeyRecords, curveBends: bt} = Ve, vt = sxBlockDeleteProxy("profile", Ye), wt = sxBlockDeleteProxy("profile name", Xe), kt = {
             outline: "List rating",
             kinktest: "KinkTest.co.uk",
             checklist: "Yes / No / Maybe"
         };
-        function xt(e) {
+        function sxClockText(e) {
             const t = Math.max(0, Math.floor(Number(e) || 0)), n = Math.floor(t / 60), i = t % 60;
             return `${String(n).padStart(2, "0")}:${String(i).padStart(2, "0")}`;
         }
-        function St(e) {
+        function sxNormalizeTimers(e) {
             const t = {};
             return e && "object" == typeof e ? (Object.keys(kt).forEach(n => {
                 const i = e[n];
@@ -61,7 +61,7 @@
                 });
             }), t) : t;
         }
-        function $t(e, t, n, i, a, r = {}) {
+        function sxRecordTimer(e, t, n, i, a, r = {}) {
             vt[e] && kt[t] && ((mt[e] || (mt[e] = {}))[t] = {
                 durationSeconds: Math.max(0, Math.floor(Number(n) || 0)),
                 completedAt: (new Date).toISOString(),
@@ -70,7 +70,7 @@
                 ..."outline" === t && r.timerRan ? {
                     timerRan: !0
                 } : {}
-            }, zt(e));
+            }, sxTouchProfile(e));
         }
         const Et = "__empty-profile-preview__", At = {};
         Ze[Et] = {}, Qe[Et] = {}, Je[Et] = {}, et[Et] = {}, tt[Et] = {}, at[Et] = {};
@@ -107,25 +107,25 @@
             getProfile: (id) => (id ? vt[id] : null),
             getAllProfiles: () => vt,
             getProfileName: (id) => (id ? wt[id] : ""),
-            setProfileName: (id, name) => { if (id) { wt[id] = name; zt(id); } },
+            setProfileName: (id, name) => { if (id) { wt[id] = name; sxTouchProfile(id); } },
             getRating: (profileId, topicId) => (profileId && vt[profileId] ? vt[profileId][topicId] : null),
             setRating: (profileId, topicId, valObj) => {
                 if (profileId && vt[profileId] && topicId) {
                     if (!vt[profileId][topicId]) vt[profileId][topicId] = {};
                     Object.assign(vt[profileId][topicId], valObj);
-                    zt(profileId);
+                    sxTouchProfile(profileId);
                 }
             },
             saveProfile: (id, data) => {
                 if (id && data) {
                     vt[id] = data.ratings || data;
                     if (data.name) wt[id] = data.name;
-                    zt(id);
+                    sxTouchProfile(id);
                 }
             },
             isDirty: (id) => Boolean(yt[id]),
-            markDirty: zt,
-            markClean: Vt,
+            markDirty: sxTouchProfile,
+            markClean: sxClearProfileDirty,
             getSelectedTopicId: () => Lt,
             setSelectedTopicId: (id) => { Lt = id; },
             getSearchTerm: () => Tt,
@@ -166,7 +166,7 @@
                 times: mt
             }
         };
-        function jt() {
+        function sxDirtyProfileId() {
             return Mt && yt[Mt] ? Mt : Object.keys(yt).find(e => vt[e] && yt[e]) || null;
         }
         let qt = !1, Ht = null, Wt = !1;
@@ -184,19 +184,19 @@
                 delete draftSaveTimers[e];
                 const n = window.SexcapadesRuntime.DOM.byId("rememberProfileCheckbox2x"), i = window.Sexcapades2xRememberProfiles;
                 const shouldSave = i && (typeof i.isEnabled === "function" ? i.isEnabled() : (n && n.checked));
-                shouldSave && "function" == typeof i.saveNow && i.saveNow() && Vt(e);
+                shouldSave && "function" == typeof i.saveNow && i.saveNow() && sxClearProfileDirty(e);
             }, 500));
         }
-        function Ut(e) {
-            !qt && jt() && (e.preventDefault(), e.returnValue = !0);
+        function sxBlockUnload(e) {
+            !qt && sxDirtyProfileId() && (e.preventDefault(), e.returnValue = !0);
         }
-        function Gt() {
-            const e = Boolean(jt());
+        function sxSyncUnsavedFlag() {
+            const e = Boolean(sxDirtyProfileId());
             document.documentElement.classList.toggle("has-unsaved-changes", e), document.body.classList.toggle("has-unsaved-changes", e), 
-            e && !Wt ? (window.addEventListener("beforeunload", Ut), Wt = !0) : !e && Wt && (window.removeEventListener("beforeunload", Ut), 
+            e && !Wt ? (window.addEventListener("beforeunload", sxBlockUnload), Wt = !0) : !e && Wt && (window.removeEventListener("beforeunload", sxBlockUnload), 
             Wt = !1);
         }
-        function Kt(t) {
+        function sxMarkProfileTab(t) {
             const n = e.byId("profileTabs");
             if (!n) return;
             const i = Array.from(n.querySelectorAll("button[data-view]")).find(e => e.dataset.view === t);
@@ -206,8 +206,8 @@
             a.setAttribute("aria-hidden", "true"), a.textContent = "*", i.appendChild(a)), i.setAttribute("aria-label", `${r}, unsaved changes`)) : (a && a.remove(), 
             i.setAttribute("aria-label", r));
         }
-        function zt(e) {
-            e && vt[e] && (yt[e] = !0, queueDraftAutosave(e), Gt(), Kt(e), sxRefreshGroupOwn(e), "function" == typeof sxRefreshMatchTabs && sxRefreshMatchTabs());
+        function sxTouchProfile(e) {
+            e && vt[e] && (yt[e] = !0, queueDraftAutosave(e), sxSyncUnsavedFlag(), sxMarkProfileTab(e), sxRefreshGroupOwn(e), "function" == typeof sxRefreshMatchTabs && sxRefreshMatchTabs());
             try {
                 if (e && typeof Oo !== "undefined" && Oo && (typeof Go === "undefined" || !Go || Go === e)) {
                     const name = e === Et ? "New profile" : (wt[e] || "Profile");
@@ -216,8 +216,8 @@
             } catch (_) {}
             try { window.SexcapadesEngine?.Map?.invalidateVault(e); } catch (_) {}
         }
-        function Vt(e) {
+        function sxClearProfileDirty(e) {
             e && delete yt[e], e && delete draftRatings[e], e && draftSaveTimers[e] && (t.clear(draftSaveTimers[e]), delete draftSaveTimers[e]), 
-            Gt(), e && Kt(e);
+            sxSyncUnsavedFlag(), e && sxMarkProfileTab(e);
             try { window.SexcapadesEngine?.Map?.invalidateVault(e); } catch (_) {}
         }

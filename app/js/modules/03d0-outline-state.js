@@ -19,24 +19,24 @@
         const rs = new Set, os = new Set, ss = "Show the next three popular";
         const milestoneRungs = Object.freeze([ 54, 108, 162, 216, 270, 324, 378, 403 ]), milestoneShownByProfile = new Map;
         let milestoneProfileId = null, milestoneValue = 0;
-        function ls(e, t) {
-            const n = ca(e, t);
+        function sxIsOutlineRated(e, t) {
+            const n = sxDecodeTopicStance(e, t);
             const keys = (n.keys && Array.isArray(n.keys)) ? n.keys : [ "give", "receive" ];
             return !!keys.some(k => Boolean(n[k + "Known"])) || !!Boolean((Qe[t] || {})[e]) || !!Boolean((Je[t] || {})[e]) || Boolean((et[t] || {})[e]);
         }
-        function cs(e, t = null) {
+        function sxOutlineRatedCounts(e, t = null) {
             const n = function(e) {
                 const t = [];
                 return h.forEach(n => {
                     n.topics.forEach(i => {
-                        const a = Wn(i);
+                        const a = sxResolveTopicId(i);
                         t.push({
                             id: a,
                             label: i,
                             branch: n.name,
                             kind: "Topic",
                             risk: Boolean(((n.topics || []).find(topic => sxName(topic) === sxName(i)) || {}).risk)
-                        }), ai(a, e).forEach(i => {
+                        }), sxListImportedChildIds(a, e).forEach(i => {
                             const a = (at[e] || {})[i];
                             a && t.push({
                                 id: i,
@@ -50,24 +50,24 @@
                 }), t;
             }(e).filter(e => "Topic" === e.kind && (!t || e.branch === t));
             return {
-                rated: n.filter(t => ls(t.id, e)).length,
+                rated: n.filter(t => sxIsOutlineRated(t.id, e)).length,
                 total: n.length
             };
         }
-        function ds(e) {
-            return K(e.topics);
+        function sxSubcategoryMean(e) {
+            return sxMeanScore(e.topics);
         }
         let sxOutlineSortMode = "popularity";
         window.__sxSetOutlineSortMode = function(e) {
             sxOutlineSortMode = "interest" === e ? "interest" : "popularity";
         };
-        function us(e = Go) {
+        function sxSortedOutlineTree(e = Go) {
             const sxScore = "interest" === sxOutlineSortMode && e && e !== Et ? t => {
-                const n = ca(Wn(t), e);
+                const n = sxDecodeTopicStance(sxResolveTopicId(t), e);
                 return n.giveKnown || n.receiveKnown ? n.giveKnown && n.receiveKnown ? (n.give + n.receive) / 2 : n.giveKnown ? n.give : n.receive : null;
             } : e => sxTopicPopularity(topicIdByLabel[sxName(e)] || sxName(e));
-            return U(h, z, e => e.name).map(e => {
-                const t = G(e.subcategories || [], ds), n = [ ...t.flatMap(e => G(e.topics || [], sxScore)), ...G(e.subcategories?.length ? e.parentTopics || e.topics.filter(t => !Vn(e, t)) : e.topics, sxScore) ], i = G(n, sxScore), a = new Map(i.map((e, t) => [ Wn(e), t ]));
+            return sxSortByScore(h, sxBranchMeanScore, e => e.name).map(e => {
+                const t = sxOrderByScore(e.subcategories || [], sxSubcategoryMean), n = [ ...t.flatMap(e => sxOrderByScore(e.topics || [], sxScore)), ...sxOrderByScore(e.subcategories?.length ? e.parentTopics || e.topics.filter(t => !sxFindTopicSubcategory(e, t)) : e.topics, sxScore) ], i = sxOrderByScore(n, sxScore), a = new Map(i.map((e, t) => [ sxResolveTopicId(e), t ]));
                 return Object.assign({}, e, {
                     subcategories: t,
                     topics: n,
@@ -75,14 +75,14 @@
                 });
             });
         }
-        function ps() {
+        function sxOutlineTimerSeconds() {
             return Math.max(0, Math.floor((Yo + (Vo ? Date.now() - Vo : 0)) / 1e3));
         }
-        function hs() {
+        function sxSyncTimerPauseButton() {
             Ho.classList.toggle("is-paused", Zo), Ho.setAttribute("aria-label", Zo ? "Resume elapsed timer" : "Pause elapsed timer"), 
             Ho.title = Zo ? "Resume timer" : "Pause timer";
         }
-        function gs() {
+        function sxEnsureOutlineAudio() {
             if (!es) try {
                 const e = window.AudioContext || window.webkitAudioContext;
                 if (!e) return;
@@ -91,11 +91,11 @@
                 es = null;
             }
         }
-        function ms() {
+        function sxStopConfettiFrame() {
             ts && cancelAnimationFrame(ts), ts = 0;
         }
-        function fs() {
-            t.clear(ns), ns = 0, ms(), Ui(Eg), milestoneProfileId = null, milestoneValue = 0;
+        function sxDismissCompletion() {
+            t.clear(ns), ns = 0, sxStopConfettiFrame(), sxCloseModalDialog(Eg), milestoneProfileId = null, milestoneValue = 0;
         }
         function milestoneWasShown(e, t) {
             return milestoneShownByProfile.get(e)?.has(t) || !1;
@@ -104,51 +104,51 @@
             milestoneShownByProfile.has(e) || milestoneShownByProfile.set(e, new Set), milestoneShownByProfile.get(e).add(t);
         }
         function closeMilestoneCelebration() {
-            Ui(milestoneDialog), milestoneProfileId = null, milestoneValue = 0;
+            sxCloseModalDialog(milestoneDialog), milestoneProfileId = null, milestoneValue = 0;
         }
         function showMilestoneCelebration(t, n) {
             if (!t || milestoneWasShown(t, n)) return;
-            if (403 === n) return void ys(t);
+            if (403 === n) return void sxShowCompletionCelebration(t);
             if (milestoneDialog.open || Eg.open) return;
             markMilestoneShown(t, n), milestoneProfileId = t, milestoneValue = n, milestoneTitle.textContent = `${n} topics rated`, 
             milestoneMessage.textContent = n < 162 ? "Your hypermap has enough detail to be useful now. You can keep building it or put it to work." : n < 324 ? "Your hypermap is getting richer. Keep going, compare it with a partner, or save a copy now." : "You’re close to the full map. Keep rating, compare what you have, or export a copy now.", 
-            Wi(milestoneDialog), requestAnimationFrame(() => milestoneContinue.focus({
+            sxOpenModalDialog(milestoneDialog), requestAnimationFrame(() => milestoneContinue.focus({
                 preventScroll: !0
             }));
         }
         function checkMilestoneTransition(e, t) {
             if (!e || !Number.isFinite(t)) return;
-            const n = cs(e).rated;
+            const n = sxOutlineRatedCounts(e).rated;
             n > t && milestoneRungs.includes(n) && showMilestoneCelebration(e, n);
         }
         function openMilestoneDestination(e) {
             const t = milestoneProfileId;
-            milestoneDialog.open ? closeMilestoneCelebration() : Eg.open && fs(), Do.open && Is(!1);
+            milestoneDialog.open ? closeMilestoneCelebration() : Eg.open && sxDismissCompletion(), Do.open && sxCloseHotList(!1);
             requestAnimationFrame(() => {
                 const n = t => {
                     if (!t || !vt[t]) return;
-                    if ("export" === e) return void Jf(t);
-                    if ("import" === e) return t !== Mt && Js(t), void ww();
-                    if ("scribe" === e) return t !== Mt && Js(t), void (document.getElementById("scribeTab") ? document.getElementById("scribeTab").click() : (yc(), Jd()));
-                    t !== Mt && Js(t);
+                    if ("export" === e) return void sxOpenProfileExport(t);
+                    if ("import" === e) return t !== Mt && sxLoadProfileMap(t), void sxOpenProfileImport();
+                    if ("scribe" === e) return t !== Mt && sxLoadProfileMap(t), void (document.getElementById("scribeTab") ? document.getElementById("scribeTab").click() : (sxClearScribeReady(), sxEnterScribeCast()));
+                    t !== Mt && sxLoadProfileMap(t);
                     const n = Object.keys(vt).filter(e => e !== t), i = tl.querySelector("[data-add-profile]");
-                    if (!n.length) return i && (kw(), xw(), Sw(), Pw(i)), void tS("Add or import your partner’s profile, then hold its tab to compare.");
-                    sxSel(null, "clear"), el(t);
+                    if (!n.length) return i && (sxCloseLoadMenu(), sxCloseAddMenu(), sxCloseSampleSubmenus(), sxToggleAddProfileMenu(i)), void sxShowStatusToast("Add or import your partner’s profile, then hold its tab to compare.");
+                    sxSel(null, "clear"), sxToggleCompareProfile(t);
                     const a = tl.querySelector(`button[data-view]:not([data-view="${CSS.escape(t)}"])`);
                     a && a.focus({
                         preventScroll: !0
-                    }), tS("Choose a partner: hold their profile tab — or Ctrl+click on a computer.");
+                    }), sxShowStatusToast("Choose a partner: hold their profile tab — or Ctrl+click on a computer.");
                 };
-                t === Et || !vt[t] ? (Vy = n, bw(null)) : n(t);
+                t === Et || !vt[t] ? (Vy = n, sxOpenProfileDetails(null)) : n(t);
             });
         }
-        function ys(t = Go || Vi()) {
+        function sxShowCompletionCelebration(t = Go || sxActiveProfileId()) {
             if (!t || milestoneWasShown(t, 403) && !Eg.open) return;
             markMilestoneShown(t, 403), milestoneProfileId = t, milestoneValue = 403;
             if (!Eg.open) {
-                Cg.textContent = "Over 400 topics rated.", Ag.dataset.submitted = "false", Wi(Eg), 
+                Cg.textContent = "Over 400 topics rated.", Ag.dataset.submitted = "false", sxOpenModalDialog(Eg), 
                 function() {
-                    ms();
+                    sxStopConfettiFrame();
                     const e = Mg.getBoundingClientRect();
                     if (!e.width || !e.height) return;
                     const t = Math.min(2, window.devicePixelRatio || 1), n = e.width, i = e.height, a = Mg.getContext("2d");
@@ -180,7 +180,7 @@
                         const t = e - s;
                         a.clearRect(0, 0, n, i), o.forEach(e => {
                             e.x += e.vx, e.y += e.vy, e.vy += e.gravity, e.vx *= .992, e.angle += e.spin, a.save(), 
-                            a.globalAlpha = A((2500 - t) / 450), a.translate(e.x, e.y), a.rotate(e.angle), a.fillStyle = e.color, 
+                            a.globalAlpha = sxClampUnit((2500 - t) / 450), a.translate(e.x, e.y), a.rotate(e.angle), a.fillStyle = e.color, 
                             a.fillRect(-e.w / 2, -e.h / 2, e.w, e.h), a.restore();
                         }), ts = t < 2500 && Eg.open ? requestAnimationFrame(l) : 0;
                     };
@@ -201,26 +201,26 @@
                     preventScroll: !0
                 }));
                 try {
-                    bs();
+                    sxSendSessionStats();
                 } catch (e) { __sxErrLog("audio-blip", e); }
             }
         }
-        function bs() {
+        function sxSendSessionStats() {
             try {
                 var t = Go;
                 if (!t) return;
                 var n = 0;
                 try {
-                    n = cs(t).rated || 0;
+                    n = sxOutlineRatedCounts(t).rated || 0;
                 } catch (e) { __sxErrLog("storage", e); }
                 var i = 0;
                 try {
-                    i = ps();
+                    i = sxOutlineTimerSeconds();
                 } catch (e) { __sxErrLog("storage", e); }
                 if (n <= 0 && i < 10) return;
                 var a = "";
                 try {
-                    a = c();
+                    a = sxAnonUuid();
                 } catch (e) { __sxErrLog("storage", e); }
                 if (!a) return;
                 /* Send gate above unchanged (something rated, or 10+
@@ -239,10 +239,10 @@
                 }, "sexcapades_session_stats");
             } catch (e) { __sxErrLog("analytics-beacon", e); }
         }
-        function vs() {
+        function sxQueueCompletionCheck() {
             t.clear(ns), ns = t.setTimeout(() => {
                 if (ns = 0, !Go || !vt[Go]) return;
-                const e = cs(Go);
-                e.total > 0 && e.rated === e.total && ys();
+                const e = sxOutlineRatedCounts(Go);
+                e.total > 0 && e.rated === e.total && sxShowCompletionCelebration();
             }, 160);
         }

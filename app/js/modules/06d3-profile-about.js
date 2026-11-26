@@ -1,8 +1,8 @@
 // 06d3-profile-about.js - Profile about view, archetype projection, local samples, and details opener/saver
-        function uw(t) {
-            const i = e.byId("profileTimingSummary"), a = e.byId("profileTimingList"), r = St(mt[t]), o = Object.keys(kt).filter(e => r[e]).map(e => {
+        function sxRenderTimingSummary(t) {
+            const i = e.byId("profileTimingSummary"), a = e.byId("profileTimingList"), r = sxNormalizeTimers(mt[t]), o = Object.keys(kt).filter(e => r[e]).map(e => {
                 const t = r[e], n = t.total ? ` · ${t.count}/${t.total}` : "";
-                return `<li><strong>${Hi(kt[e])}</strong> · ${xt(t.durationSeconds)} total${n} · saved ${Hi(function(e) {
+                return `<li><strong>${sxEscapeHtmlText(kt[e])}</strong> · ${sxClockText(t.durationSeconds)} total${n} · saved ${sxEscapeHtmlText(function(e) {
                     const t = new Date(e);
                     return Number.isNaN(t.getTime()) ? "" : new Intl.DateTimeFormat(void 0, {
                         month: "short",
@@ -14,10 +14,10 @@
             });
             n(a, o.join("")), i.hidden = !o.length;
         }
-        function pw(e) {
-            e || fs(), Ag.dataset.submitted = "false";
+        function sxResetCelebrationState(e) {
+            e || sxDismissCompletion(), Ag.dataset.submitted = "false";
         }
-        async function hw(e = "save", t = Go) {
+        async function sxSendConsentedSurvey(e = "save", t = Go) {
             if ("save" !== e) return;
             const consent = window.SexcapadesRuntime.DOM.byId("surveyContributionConsent");
             if (!consent) __sxErrLog("survey-consent", new Error("The list-view survey consent control (surveyContributionConsent) is absent from the page; the survey send decision comes from the shell consent state instead."));
@@ -29,12 +29,12 @@
             }
             const n = t;
             if (!n) return;
-            const i = cs(n);
+            const i = sxOutlineRatedCounts(n);
             if (i.rated) try {
-                await u({
+                await sxPostCollect({
                     action: "survey",
-                    uuid: c(),
-                    ratings: wu(n),
+                    uuid: sxAnonUuid(),
+                    ratings: sxSurveyShareToken(n),
                     app_version: "3.5",
                     app_build: document.querySelector('meta[name="sexcapades-build"]')?.getAttribute("content") || "",
                     topic_count: i.rated
@@ -44,12 +44,12 @@
             }
         }
         let gw = "edit";
-        function mw(t) {
+        function sxSetProfileDialogMode(t) {
             const archEl = e.byId("profileArchetypeResults");
             archEl && (archEl.innerHTML = "");
             gw = "about" === t ? "about" : "edit", Dg.dataset.profileMode = gw, _g.dataset.profileMode = gw,
             Rg.hidden = "about" !== gw, "about" === gw && Hy ? (function(t) {
-                const i = String(nt[t] || "").trim(), a = String(it[t] || "").trim(), r = Yv(dt[t])[0], o = dc(t), s = o.green.length + o.yellow.length + o.red.length, l = Rv(ut[t]), c = Di(l);
+                const i = String(nt[t] || "").trim(), a = String(it[t] || "").trim(), r = sxClonePhotoRecords(dt[t])[0], o = sxGlanceBucketsFor(t), s = o.green.length + o.yellow.length + o.red.length, l = sxNormalizeContactRecord(ut[t]), c = sxListContactLinks(l);
                 l.phone && c.unshift({
                     label: "Phone",
                     user: l.phone,
@@ -58,8 +58,8 @@
                     label: "Email",
                     user: l.email,
                     href: `mailto:${l.email}`
-                }), Og.hidden = !r, n(Og, r ? `<img src="${Hi(r.data)}" alt="${Hi(wt[t] || "Profile")} profile photo"><svg class="profile-glance-rings" viewBox="0 0 120 120" role="img" aria-label="At a glance: ${o.percentages.green}% green, ${o.percentages.yellow}% yellow, ${o.percentages.red}% red"><title>${o.percentages.green}% green · ${o.percentages.yellow}% yellow · ${o.percentages.red}% red</title><circle class="ring-track" cx="60" cy="60" r="56"/><circle class="ring-green" cx="60" cy="60" r="56" pathLength="100" stroke-dasharray="${o.percentages.green} 100"/><circle class="ring-yellow" cx="60" cy="60" r="50" pathLength="100" stroke-dasharray="${o.percentages.yellow} 100"/><circle class="ring-red" cx="60" cy="60" r="44" pathLength="100" stroke-dasharray="${o.percentages.red} 100"/></svg>` : ""),
-                Bg.textContent = Qv(t), n(jg, `<span class="profile-dialog-rating-total">${s} rated topic${1 === s ? "" : "s"}</span>`);
+                }), Og.hidden = !r, n(Og, r ? `<img src="${sxEscapeHtmlText(r.data)}" alt="${sxEscapeHtmlText(wt[t] || "Profile")} profile photo"><svg class="profile-glance-rings" viewBox="0 0 120 120" role="img" aria-label="At a glance: ${o.percentages.green}% green, ${o.percentages.yellow}% yellow, ${o.percentages.red}% red"><title>${o.percentages.green}% green · ${o.percentages.yellow}% yellow · ${o.percentages.red}% red</title><circle class="ring-track" cx="60" cy="60" r="56"/><circle class="ring-green" cx="60" cy="60" r="56" pathLength="100" stroke-dasharray="${o.percentages.green} 100"/><circle class="ring-yellow" cx="60" cy="60" r="50" pathLength="100" stroke-dasharray="${o.percentages.yellow} 100"/><circle class="ring-red" cx="60" cy="60" r="44" pathLength="100" stroke-dasharray="${o.percentages.red} 100"/></svg>` : ""),
+                Bg.textContent = sxIdentityPlacardText(t), n(jg, `<span class="profile-dialog-rating-total">${s} rated topic${1 === s ? "" : "s"}</span>`);
                 const d = e.byId("profileDialogAboutSection"), u = e.byId("profileDialogTermsSection"), p = e.byId("profileDialogContactSection");
                 d.hidden = !i, e.byId("profileDialogAboutText").textContent = i, u.hidden = !a,
                 e.byId("profileDialogTermsText").textContent = a, p.hidden = !c.length, qg.replaceChildren(),
@@ -215,17 +215,17 @@
             scored.sort((a, b) => b.score - a.score || a.name.localeCompare(b.name));
             const top = scored.slice(0, 5);
             const rows = top.map((s, i) => {
-                const drivers = s.drivers.length ? `<p class="profile-archetype-drivers">Closest on: ${s.drivers.map(Hi).join(", ")}</p>` : "";
+                const drivers = s.drivers.length ? `<p class="profile-archetype-drivers">Closest on: ${s.drivers.map(sxEscapeHtmlText).join(", ")}</p>` : "";
                 // The definition is a hover tip on the row (shared
                 // data-ui-tooltip popup), not inline text - it
                 // cluttered the list. data-tooltip-tap-first lets
                 // touch users tap once to read it; tabindex lets
                 // keyboard users focus the row and read it the same way.
-                const tip = s.about ? ` data-ui-tooltip="${Hi(s.about)}" data-tooltip-name="${Hi(s.name)}" data-tooltip-tap-first tabindex="0"` : "";
-                return `<div class="profile-archetype-row"${tip}><div class="profile-archetype-row-top"><span class="profile-archetype-name">${i + 1}. ${Hi(s.name)}</span><span class="profile-archetype-score">${s.score}%</span></div>${drivers}</div>`;
+                const tip = s.about ? ` data-ui-tooltip="${sxEscapeHtmlText(s.about)}" data-tooltip-name="${sxEscapeHtmlText(s.name)}" data-tooltip-tap-first tabindex="0"` : "";
+                return `<div class="profile-archetype-row"${tip}><div class="profile-archetype-row-top"><span class="profile-archetype-name">${i + 1}. ${sxEscapeHtmlText(s.name)}</span><span class="profile-archetype-score">${s.score}%</span></div>${drivers}</div>`;
             }).join("");
             const best = top[0];
-            let html = rows + `<p class="profile-archetype-note">Compared against ${scored.length} archetype${1 === scored.length ? "" : "s"} · your closest archetype is ${Hi(best.name)} at ${best.score}% on ${best.shared} shared topic${1 === best.shared ? "" : "s"} · you rated ${userRated} topic${1 === userRated ? "" : "s"}.</p>`;
+            let html = rows + `<p class="profile-archetype-note">Compared against ${scored.length} archetype${1 === scored.length ? "" : "s"} · your closest archetype is ${sxEscapeHtmlText(best.name)} at ${best.score}% on ${best.shared} shared topic${1 === best.shared ? "" : "s"} · you rated ${userRated} topic${1 === userRated ? "" : "s"}.</p>`;
             // Secondary readout: the best-matching historical layer
             // across every stack in the pool - which era of which
             // identity sits closest, even though only top layers
@@ -233,7 +233,7 @@
             if (histScored.length) {
                 histScored.sort((a, b) => b.score - a.score || a.name.localeCompare(b.name));
                 const hb = histScored[0];
-                html += `<p class="profile-archetype-note">Closest layer across time: ${Hi(hb.name)} at ${hb.score}% on ${hb.shared} shared topic${1 === hb.shared ? "" : "s"}.</p>`;
+                html += `<p class="profile-archetype-note">Closest layer across time: ${sxEscapeHtmlText(hb.name)} at ${hb.score}% on ${hb.shared} shared topic${1 === hb.shared ? "" : "s"}.</p>`;
             }
             resultsEl.innerHTML = html;
         }
@@ -319,11 +319,11 @@
             try {
                 payload = yx.serialize("profile", { person: Hy });
             } catch (err) {
-                tS("Could not read this profile to save it as a sample.", { tone: "error", persistent: true });
+                sxShowStatusToast("Could not read this profile to save it as a sample.", { tone: "error", persistent: true });
                 return;
             }
             if (!payload || !payload.ratings || !Object.keys(payload.ratings).length) {
-                tS("Rate at least one topic first — a sample needs ratings to load back.", { tone: "error", persistent: true });
+                sxShowStatusToast("Rate at least one topic first — a sample needs ratings to load back.", { tone: "error", persistent: true });
                 return;
             }
             payload.photos = [];
@@ -345,18 +345,18 @@
             if (aboutText) entry.about = aboutText;
             var api = window.__SX_LOCAL_SAMPLES;
             if (!api || typeof api.save !== "function") {
-                tS("Local samples are not available right now — reload and try again.", { tone: "error", persistent: true });
+                sxShowStatusToast("Local samples are not available right now — reload and try again.", { tone: "error", persistent: true });
                 return;
             }
             var saved;
             try { saved = api.save(sxLocalSampleSkin(), entry); } catch (err) { saved = null; }
             if (!saved) {
-                tS("This device could not store the sample — browser storage may be full.", { tone: "error", persistent: true });
+                sxShowStatusToast("This device could not store the sample — browser storage may be full.", { tone: "error", persistent: true });
                 return;
             }
-            tS(saved.updated ? "Updated the local sample for " + name + "." : "Saved " + name + " as a local sample — find it in the Samples menu.");
+            sxShowStatusToast(saved.updated ? "Updated the local sample for " + name + "." : "Saved " + name + " as a local sample — find it in the Samples menu.");
             sxSyncLocalSampleBtn();
-            Ew();
+            sxMarkLoadedSamples();
         }
         function sxRemoveLocalSample(key) {
             var api = window.__SX_LOCAL_SAMPLES;
@@ -364,13 +364,13 @@
             var removedName;
             try { removedName = api.remove(sxLocalSampleSkin(), key); } catch (err) { removedName = false; }
             if (removedName) {
-                tS("Removed " + removedName + " from local samples.");
+                sxShowStatusToast("Removed " + removedName + " from local samples.");
                 sxSyncLocalSampleBtn();
-                Ew();
+                sxMarkLoadedSamples();
             }
         }
         let fw = !1;
-        function yw() {
+        function sxDismissIndependentTip() {
             var t = e.byId("profileIndependentTip");
             t && (t.hidden = !0, t.style.display = "none"), fw = !0;
         }
@@ -391,28 +391,28 @@
             r.textContent = `Details for ${wt[t] || "that profile"} open only while its tab is the one on screen — switch to that tab first.`;
             a.dataset.tone = "error", a.setAttribute("role", "alert"), a.classList.add("is-persistent", "show");
         }
-        function bw(t = null, n = {}) {
+        function sxOpenProfileDetails(t = null, n = {}) {
             if (t && vt[t] && t !== ROXY_PROFILE_ID) {
                 const sxTab = sxCurrentTab(), sxAllowed = sxTab ? t === (sxTab.groupId || null) : t === Mt;
                 if (!sxAllowed) return sxDetailsBlocked(t), !1;
             }
-            zy = null, xw(), Sw(), Ui(kg), Hy = t && vt[t] ? t : null;
-            const i = Hy ? bb(rt[Hy]) : [];
-            Hg.value = Hy ? wt[Hy] : "", kb(i), Fb(Hy ? ot[Hy] : []), Vb(Hy ? st[Hy] : []), Pz.value = Hy ? String(pz[Hy] || "") : "",
-            Kg.value = Hy ? Xv(lt[Hy]) : "", zg.value = Hy ? Zv(ct[Hy]) : "", Hv(Hy ? ut[Hy] : null),
+            zy = null, sxCloseAddMenu(), sxCloseSampleSubmenus(), sxCloseModalDialog(kg), Hy = t && vt[t] ? t : null;
+            const i = Hy ? sxNormalizeGenders(rt[Hy]) : [];
+            Hg.value = Hy ? wt[Hy] : "", sxApplyGenderSelection(i), sxApplyOrientationSelection(Hy ? ot[Hy] : []), sxApplyRoleSelection(Hy ? st[Hy] : []), Pz.value = Hy ? String(pz[Hy] || "") : "",
+            Kg.value = Hy ? sxNormalizeAgeText(lt[Hy]) : "", zg.value = Hy ? sxNormalizeLocationText(ct[Hy]) : "", sxFillContactFields(Hy ? ut[Hy] : null),
             im.value = Hy ? String(nt[Hy] || "") : "", rm.value = Hy ? String(it[Hy] || "") : "",
-            dw(), Wy = Hy ? Yv(dt[Hy]) : [], lm.value = "", ew(), uw(Hy), xb(), Eb(), _b(),
-            Ob(), Yb(), Qb(), rw("profileDetailsNameField", "profileDetailsNameError", !1),
-            rw("profileDetailsGenderField", "profileDetailsGenderError", !1), rw("profileDetailsSexualityField", "profileDetailsSexualityError", !1),
-            rw("profileDetailsAgeField", "profileDetailsAgeError", !1), sm.textContent = "",
-            Uy = ow(), Gy = Yv(Wy), e.byId("saveProfileDetails").textContent = Hy ? "Save changes" : "Create profile",
+            sxRefreshAboutCounts(), Wy = Hy ? sxClonePhotoRecords(dt[Hy]) : [], lm.value = "", sxRenderPhotoThumbs(), sxRenderTimingSummary(Hy), sxRefreshGenderPicker(), sxCloseGenderPicker(), sxRefreshOrientationPicker(),
+            sxCloseOrientationPicker(), sxRefreshRolePicker(), sxCloseRolePicker(), sxMarkFieldInvalid("profileDetailsNameField", "profileDetailsNameError", !1),
+            sxMarkFieldInvalid("profileDetailsGenderField", "profileDetailsGenderError", !1), sxMarkFieldInvalid("profileDetailsSexualityField", "profileDetailsSexualityError", !1),
+            sxMarkFieldInvalid("profileDetailsAgeField", "profileDetailsAgeError", !1), sm.textContent = "",
+            Uy = sxEditorStateText(), Gy = sxClonePhotoRecords(Wy), e.byId("saveProfileDetails").textContent = Hy ? "Save changes" : "Create profile",
             e.byId("profileDetailsLoadersLabel").textContent = Hy ? "Tests and imported values" : "Start with a test or import",
-            mw("about" === n.mode && Hy ? "about" : "edit");
+            sxSetProfileDialogMode("about" === n.mode && Hy ? "about" : "edit");
             const a = e.byId("profileIndependentTip"), r = !Hy && Object.keys(vt).filter(e => e !== Et).length >= 1;
             a.hidden = !r || fw, a.hidden || (a.style.display = ""), r && !fw && (fw = !0);
             var o = e.byId("dismissProfileIndependentTip");
-            o && !o.dataset.dpiBound && (o.dataset.dpiBound = "1", o.addEventListener("click", yw)),
-            Wi(_g), requestAnimationFrame(() => {
+            o && !o.dataset.dpiBound && (o.dataset.dpiBound = "1", o.addEventListener("click", sxDismissIndependentTip)),
+            sxOpenModalDialog(_g), requestAnimationFrame(() => {
                 const t = _g.querySelector(".dialog-body");
                 t && (t.scrollTop = 0);
                 const i = "about" === gw ? e.byId("profileDialogEdit") : n.focusPhotos ? e.byId("chooseProfilePhotos") : Hg;
@@ -424,36 +424,36 @@
             });
             return !0;
         }
-        function vw(e = null, t = "auto") {
-            Xi();
-            const typedName = Hg.value.trim().replace(/\s+/g, " "), n = typedName || "Unknown", nameWasBlank = !typedName, i = wb(), a = Tb(), r = zb(), o = Xv(Kg.value), s = Zv(zg.value), l = Hy, c = Yv(Wy), d = l ? av(vpt[l]) : 50, u = readContactBlocks();
-            if (Kg.value.trim() && !o) return rw("profileDetailsAgeField", "profileDetailsAgeError", !0, "Enter an age from 18 to 120."),
+        function sxSaveProfileDetails(e = null, t = "auto") {
+            sxScoringProfileIds();
+            const typedName = Hg.value.trim().replace(/\s+/g, " "), n = typedName || "Unknown", nameWasBlank = !typedName, i = sxReadGenderSelection(), a = sxReadOrientationSelection(), r = sxReadRoleSelection(), o = sxNormalizeAgeText(Kg.value), s = sxNormalizeLocationText(zg.value), l = Hy, c = sxClonePhotoRecords(Wy), d = l ? sxClampVeilLevel(vpt[l]) : 50, u = readContactBlocks();
+            if (Kg.value.trim() && !o) return sxMarkFieldInvalid("profileDetailsAgeField", "profileDetailsAgeError", !0, "Enter an age from 18 to 120."),
             sm.textContent = "Check the age and try again." + (jY ? ` Then your ${jY} opens.` : ""), void (Kg.focus(), jY && sm.scrollIntoView({ block: "nearest" }));
-            rw("profileDetailsNameField", "profileDetailsNameError", !1), rw("profileDetailsGenderField", "profileDetailsGenderError", !1), rw("profileDetailsSexualityField", "profileDetailsSexualityError", !1);
+            sxMarkFieldInvalid("profileDetailsNameField", "profileDetailsNameError", !1), sxMarkFieldInvalid("profileDetailsGenderField", "profileDetailsGenderError", !1), sxMarkFieldInvalid("profileDetailsSexualityField", "profileDetailsSexualityError", !1);
             if (sm.textContent = "", u.error) return sm.textContent = u.error + (jY ? ` Then your ${jY} opens.` : ""), void (u.field.focus(), jY && sm.scrollIntoView({ block: "nearest" }));
-            const p = u.contact, h = im.value.trim().slice(0, 975), g = rm.value.trim().slice(0, 325), m = ek(n), q = Pz.value.trim().slice(0, 60);
+            const p = u.contact, h = im.value.trim().slice(0, 975), g = rm.value.trim().slice(0, 325), m = sxFindProfileByName(n), q = Pz.value.trim().slice(0, 60);
             if (!nameWasBlank && m && m !== l) return sm.textContent = `${n} already has a profile.` + (jY ? ` Then your ${jY} opens.` : ""), Hg.focus(),
             void (Hg.select(), jY && sm.scrollIntoView({ block: "nearest" }));
             const sxEditVy = id => { const b = Vy; Vy = null, jY = null, b && b(id); };
             const f = l && zy && zy.id === l ? zy : null;
-            if (zy = null, Ui(_g), queueMicrotask(() => {
-                (_g.open || _g.hasAttribute("open")) && Ui(_g);
+            if (zy = null, sxCloseModalDialog(_g), queueMicrotask(() => {
+                (_g.open || _g.hasAttribute("open")) && sxCloseModalDialog(_g);
             }), Hy = null, Wy = [], lm.value = "", Uy = "", Gy = [], l) {
                 if (!vt[l]) return;
-                const u = wt[l] !== n || JSON.stringify(bb(rt[l])) !== JSON.stringify(i) || JSON.stringify(iv(ot[l])) !== JSON.stringify(a) || JSON.stringify(Gb(st[l])) !== JSON.stringify(r) || Xv(lt[l]) !== o || Zv(ct[l]) !== s || JSON.stringify(Yv(dt[l])) !== JSON.stringify(c) || JSON.stringify(Rv(ut[l])) !== JSON.stringify(p) || String(nt[l] || "") !== h || String(it[l] || "") !== g || av(vpt[l]) !== d || String(pz[l] || "") !== q;
+                const u = wt[l] !== n || JSON.stringify(sxNormalizeGenders(rt[l])) !== JSON.stringify(i) || JSON.stringify(sxNormalizeOrientations(ot[l])) !== JSON.stringify(a) || JSON.stringify(sxNormalizeRoles(st[l])) !== JSON.stringify(r) || sxNormalizeAgeText(lt[l]) !== o || sxNormalizeLocationText(ct[l]) !== s || JSON.stringify(sxClonePhotoRecords(dt[l])) !== JSON.stringify(c) || JSON.stringify(sxNormalizeContactRecord(ut[l])) !== JSON.stringify(p) || String(nt[l] || "") !== h || String(it[l] || "") !== g || sxClampVeilLevel(vpt[l]) !== d || String(pz[l] || "") !== q;
                 return wt[l] = n, rt[l] = i, ot[l] = a, st[l] = r, pz[l] = q, lt[l] = o, ct[l] = s, dt[l] = c,
-                ut[l] = p, nt[l] = h, it[l] = g, vpt[l] = d, u && zt(l), hw("save", l), void requestAnimationFrame(() => {
-                    Jw(), Mr({
+                ut[l] = p, nt[l] = h, it[l] = g, vpt[l] = d, u && sxTouchProfile(l), sxSendConsentedSurvey("save", l), void requestAnimationFrame(() => {
+                    sxRenderProfileTabs(), sxRequestMapPaint({
                         animate: !1
-                    }), Cn.getBoundingClientRect(), Oc.open && sxPrepScribeDialog(), f ? f.action() : "outline" === e ? Ms(l) : "testchooser" === e ? Qy(l) : e ? Ax(e, t, l) : sxEditVy(l);
+                    }), Cn.getBoundingClientRect(), Oc.open && sxPrepScribeDialog(), f ? f.action() : "outline" === e ? sxOpenHotList(l) : "testchooser" === e ? sxOpenTestChooser(l) : e ? sxOpenResultConverter(e, t, l) : sxEditVy(l);
                 });
             }
-            const y = ik(n);
+            const y = sxAllocateProfileId(n);
             SX_PROFILE_RECORD_LISTS.forEach(e => e[y] = {}), wt[y] = n, rt[y] = i, ot[y] = a, st[y] = r, pz[y] = q, lt[y] = o, ct[y] = s,
-            dt[y] = c, ut[y] = p, nt[y] = h, it[y] = g, vpt[y] = d, vht[y] = !1, profileUuids[y] = makeProfileUuid(), sampleProfileFlags[y] = !1, zt(y), Lo(y),
-            sxAutoSelect(y), ak(y, {
+            dt[y] = c, ut[y] = p, nt[y] = h, it[y] = g, vpt[y] = d, vht[y] = !1, profileUuids[y] = makeProfileUuid(), sampleProfileFlags[y] = !1, sxTouchProfile(y), sxAdoptDraftRatings(y),
+            sxAutoSelect(y), sxActivateProfile(y, {
                 blankStart: !0
-            }), hw("save", y);
+            }), sxSendConsentedSurvey("save", y);
             const b = Vy;
-            Vy = null, jY = null, "outline" === e ? Ms(y) : "testchooser" === e ? Qy(y) : e ? Ax(e, t, y) : b && b(y);
+            Vy = null, jY = null, "outline" === e ? sxOpenHotList(y) : "testchooser" === e ? sxOpenTestChooser(y) : e ? sxOpenResultConverter(e, t, y) : b && b(y);
         }

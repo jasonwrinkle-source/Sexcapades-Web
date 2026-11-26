@@ -1,16 +1,16 @@
-        function Cs(e = {}) {
+        function sxRenderHotList(e = {}) {
             const t = Go;
             if (!t || t !== Et && !vt[t]) return;
             os.clear();
-            if (window.__sxOnDeck) return __sxRenderOnDeck(t), void ws();
+            if (window.__sxOnDeck) return __sxRenderOnDeck(t), void sxRefreshHotListStatus();
             // Build 2026-10-18_1549 — FetLife review mode (armed by the
             // post-import summary's “Rate the categories your kinks map
             // to” button): render only the mapped branches, collapsed.
             const sxReview = window.__sxFetLifeReview instanceof Set && window.__sxFetLifeReview.size ? window.__sxFetLifeReview : null;
             const i = Boolean(e.preserveDisclosure), a = i ? new Set(Array.from(Ro.querySelectorAll(".outline-branch[open]")).map(e => e.dataset.outlineBranch)) : null, r = i ? new Set(Array.from(Ro.querySelectorAll(".outline-branch.is-expanded")).map(e => e.dataset.outlineBranch)) : null, o = i ? new Set(Array.from(Ro.querySelectorAll('.outline-subcategory[data-subcategory-expanded="true"]')).map(e => e.dataset.outlineSubcategory)) : null, s = i ? new Set(Array.from(Ro.querySelectorAll('.outline-topic-label[data-outline-expandable="true"][aria-expanded="true"]')).map(e => __sxClosestAction(e, "outlineRow")?.dataset.outlineId).filter(Boolean)) : null, l = i ? new Map(Array.from(Ro.querySelectorAll(".outline-branch")).map(e => [ e.dataset.outlineBranch, Number(e.dataset.outlineVisible) || 3 ])) : new Map, c = i ? new Map(Array.from(Ro.querySelectorAll(".outline-subcategory")).map(e => [ e.dataset.outlineSubcategory, Number(e.dataset.outlineSubcategoryVisible) ]).filter(([, e]) => Number.isFinite(e) && e > 0)) : new Map;
             Oo.textContent = (t === Et ? "New profile" : wt[t] || "Profile") + (yt[t] ? " *" : ""), Ro.replaceChildren(),
-            us(t).forEach(e => {
-                const d = e.name, sxCatHit = Boolean(sxReview && sxReview.has(catId(d))), sxSubHit = Boolean(sxReview && (e.subcategories || []).some(s => sxReview.has(Un(d, s.name))));
+            sxSortedOutlineTree(t).forEach(e => {
+                const d = e.name, sxCatHit = Boolean(sxReview && sxReview.has(catId(d))), sxSubHit = Boolean(sxReview && (e.subcategories || []).some(s => sxReview.has(sxResolveSubcategoryId(d, s.name))));
                 if (sxReview && !sxCatHit && !sxSubHit) return;
                 const u = Boolean(e.risk), p = document.createElement("details");
                 p.className = "outline-branch", p.dataset.outlineBranch = d, p.open = sxReview && !i ? !1 : !i || a.has(d);
@@ -18,7 +18,7 @@
                 if (g.className = "outline-branch-disclosure", g.textContent = "›", g.tabIndex = 0,
                 g.dataset.tooltipTapFirst = "", g.dataset.outlineDisclosureTooltip = y, g.setAttribute("aria-label", y),
                 g.setAttribute("aria-expanded", "false"), m.className = "outline-branch-title outline-description-trigger", m.setAttribute("role", "heading"), m.setAttribute("aria-level", "2"),
-                m.textContent = d, m.dataset.outlineDescription = lo({
+                m.textContent = d, m.dataset.outlineDescription = sxPlacardAboutText({
                     id: catId(d),
                     label: d,
                     branch: d,
@@ -29,7 +29,7 @@
                     m.append(e);
                 }
                 f.className = "outline-branch-count", h.append(g, m, f), p.append(h);
-                const b = Es(ge[d], {
+                const b = sxMakePopularityIcon(ge[d], {
                     id: catId(d),
                     label: d,
                     branch: d,
@@ -75,10 +75,10 @@
                     subcategoryLimits: c
                 });
                 e.topics.forEach((n, a) => {
-                    const r = Vn(e, sxName(n));
+                    const r = sxFindTopicSubcategory(e, sxName(n));
                     let o = v, l = null;
                     if (r) {
-                        const e = Un(d, r.name);
+                        const e = sxResolveSubcategoryId(d, r.name);
                         if (l = e, !w.has(e)) {
                             const t = document.createElement("div"), n = document.createElement("div"), i = document.createElement("span"), a = document.createElement("span"), o = document.createElement("span"), s = document.createElement("div"), l = "Shows the most popular kinks. Click to expand and show all kinks in this subcategory.";
                             t.className = "outline-subcategory", t.dataset.outlineSubcategory = e, t.dataset.subcategoryExpanded = x.isSubcategoryExpanded(e) ? "true" : "false",
@@ -86,7 +86,7 @@
                             i.textContent = "›", i.tabIndex = 0, i.dataset.tooltipTapFirst = "", i.dataset.outlineDisclosureTooltip = l,
                             i.setAttribute("aria-label", l), i.setAttribute("role", "button"), i.setAttribute("aria-expanded", x.isSubcategoryExpanded(e) ? "true" : "false"),
                             a.className = "outline-subcategory-title outline-description-trigger", a.textContent = r.name,
-                            a.dataset.outlineDescription = lo({
+                            a.dataset.outlineDescription = sxPlacardAboutText({
                                 id: e,
                                 label: r.name,
                                 branch: d,
@@ -102,7 +102,7 @@
                                 count: o,
                                 name: r.name
                             });
-                            const c = Es(Ae(r.name, d), {
+                            const c = sxMakePopularityIcon(sxHubIcon(r.name, d), {
                                 id: e,
                                 label: r.name,
                                 branch: d,
@@ -113,19 +113,19 @@
                         }
                         o = w.get(e).rows;
                     }
-                    const c = Wn(n), p = function(e, t = e => e) {
-                        return U(e, e => sxTopicPopularity(e, t(e)?.label), e => {
+                    const c = sxResolveTopicId(n), p = function(e, t = e => e) {
+                        return sxSortByScore(e, e => sxTopicPopularity(e, t(e)?.label), e => {
                             const n = t(e) || e;
                             return n?.label || e;
                         });
-                    }(ai(c, t).filter(e => (at[t] || {})[e]), e => (at[t] || {})[e]), h = i ? s.has(c) : (sxReview ? !1 : function(e, t) {
+                    }(sxListImportedChildIds(c, t).filter(e => (at[t] || {})[e]), e => (at[t] || {})[e]), h = i ? s.has(c) : (sxReview ? !1 : function(e, t) {
                         if (!e.length) return !1;
                         let n = !1, i = !0;
                         return e.forEach(e => {
-                            const a = ca(e, t), keys = (a.keys && Array.isArray(a.keys)) ? a.keys : [ "give", "receive" ], r = keys.map(k => Boolean(a[k + "Known"]));
+                            const a = sxDecodeTopicStance(e, t), keys = (a.keys && Array.isArray(a.keys)) ? a.keys : [ "give", "receive" ], r = keys.map(k => Boolean(a[k + "Known"]));
                             r.some(Boolean) && (n = !0), r.every(Boolean) || (i = !1);
                         }), n && !i;
-                    }(p, t)), g = As({
+                    }(p, t)), g = sxBuildOutlineRow({
                         id: c,
                         label: n,
                         branch: d,
@@ -140,7 +140,7 @@
                         g.dataset.outlineSubcategoryRank = String(e), k.set(l, e + 1);
                     }
                     o.append(g), p.forEach(e => {
-                        const n = As({
+                        const n = sxBuildOutlineRow({
                             id: e,
                             label: (at[t] || {})[e].label || e,
                             branch: d,
@@ -157,7 +157,7 @@
                 const $ = e => {
                     const n = Array.from(v.querySelectorAll(".outline-row[data-outline-topic-rank]")).sort((e, t) => Number(e.dataset.outlineTopicRank) - Number(t.dataset.outlineTopicRank)), i = Array.from(v.querySelectorAll(".outline-row[data-outline-id]")), a = x.setLimit(e);
                     p.dataset.outlineVisible = String(a);
-                    const r = x.eligibleIds(() => i.filter(e => !ls(e.dataset.outlineId, t) || os.has(e.dataset.outlineId)).map(e => e.dataset.outlineId)), o = n.filter(e => r.has(e.dataset.outlineId)), s = Math.min(o.length, a), l = new Set(o.slice(0, s).map(e => e.dataset.outlineId)), priorRated = Uo.checked ? n.filter(e => ls(e.dataset.outlineId, t) && !os.has(e.dataset.outlineId)) : [], c = new Set(o.slice(0, 3).map(e => e.dataset.outlineId));
+                    const r = x.eligibleIds(() => i.filter(e => !sxIsOutlineRated(e.dataset.outlineId, t) || os.has(e.dataset.outlineId)).map(e => e.dataset.outlineId)), o = n.filter(e => r.has(e.dataset.outlineId)), s = Math.min(o.length, a), l = new Set(o.slice(0, s).map(e => e.dataset.outlineId)), priorRated = Uo.checked ? n.filter(e => sxIsOutlineRated(e.dataset.outlineId, t) && !os.has(e.dataset.outlineId)) : [], c = new Set(o.slice(0, 3).map(e => e.dataset.outlineId));
                     priorRated.forEach(e => l.add(e.dataset.outlineId));
                     w.forEach((e, t) => {
                         const n = Array.from(e.rows.querySelectorAll(":scope > .outline-row[data-outline-topic-rank]")).sort((e, t) => Number(e.dataset.outlineSubcategoryRank) - Number(t.dataset.outlineSubcategoryRank)), i = x.isSubcategoryExpanded(t) ? n : n.filter(e => r.has(e.dataset.outlineId)), a = i.filter(e => c.has(e.dataset.outlineId)).length;
@@ -167,7 +167,7 @@
                         const t = l.has(e.dataset.outlineId), isPriorRating = Uo.checked && priorRated.includes(e);
                         e.hidden = !t, e.style.order = isPriorRating ? "2" : "";
                         const n = e.querySelector('.outline-topic-label[data-outline-expandable="true"]'), i = n && "false" !== n.getAttribute("aria-expanded");
-                        $s(v, e.dataset.outlineId).forEach(e => {
+                        sxOutlineChildRows(v, e.dataset.outlineId).forEach(e => {
                             e.hidden = !t || !i || !r.has(e.dataset.outlineId), e.style.order = isPriorRating ? "2" : "";
                         });
                     });
@@ -259,7 +259,7 @@
                         }
                     });
                 }
-            }), sxApplyOutlineSearch(), ws();
+            }), sxApplyOutlineSearch(), sxRefreshHotListStatus();
         }
         /* Hot List skin rebuild (2026-11-18, gate → Hot List defect):
            the bundle boots the #app/list route (Ms → Cs below) from the
@@ -299,14 +299,14 @@
             if (window.__SX_PENDING_OUTLINE_BOOT) {
                 const pendingArg = window.__SX_PENDING_OUTLINE_BOOT;
                 window.__SX_PENDING_OUTLINE_BOOT = null;
-                Ms(pendingArg, !0);
+                sxOpenHotList(pendingArg, !0);
                 document.documentElement.classList.remove("route-listview-pending");
                 return true;
             }
             Ro.dataset.outlineProfile = "";
             Ro.dataset.outlineSkin = "";
             if (!Do || !Do.open) return false;
-            Cs();
+            sxRenderHotList();
             Ro.dataset.outlineProfile = Go || "";
             Ro.dataset.outlineSkin = String(window.__SX_ACTIVE_SKIN || "sexcapades");
             if (typeof window.__SX_SYNC_OUTLINE_LADDER === "function") window.__SX_SYNC_OUTLINE_LADDER();
@@ -316,28 +316,28 @@
         function sxOutlineScroller() {
             return Do && Do.querySelector(".outline-shell") || Ro;
         }
-        function Ms(n = Vi(), forceFresh = !1) {
-            p("quickstart_started");
+        function sxOpenHotList(n = sxActiveProfileId(), forceFresh = !1) {
+            sxSendEvent("quickstart_started");
             if (sxIsBootSkinPending()) {
-                window.__SX_PENDING_OUTLINE_BOOT = n || Vi();
+                window.__SX_PENDING_OUTLINE_BOOT = n || sxActiveProfileId();
                 return;
             }
             const i = n === Et;
-            if (!i && !vt[n]) return Vy = e => Ms(e, !0), void bw(null);
+            if (!i && !vt[n]) return Vy = e => sxOpenHotList(e, !0), void sxOpenProfileDetails(null);
             const curSkin = String(window.__SX_ACTIVE_SKIN || "sexcapades");
             const hasSpecialMode = Boolean(window.__sxFetLifeReview instanceof Set && window.__sxFetLifeReview.size) || Boolean(window.__sxOutlineHits && window.__sxOutlineHits.size);
             const canResumeView = !forceFresh && !hasSpecialMode && Go === n && Ro && Ro.children.length > 0 && Ro.dataset.outlineProfile === String(n) && Ro.dataset.outlineSkin === curSkin;
             if (canResumeView) {
                 e.byId("doneOutlineButton").textContent = i ? "Create profile from ratings" : "Submit what you’ve got";
-                pw(!i);
+                sxResetCelebrationState(!i);
                 Oo.textContent = (n === Et ? "New profile" : wt[n] || "Profile") + (yt[n] ? " *" : "");
-                sxOutlineRatedAtOpen = cs(n).rated;
-                Wi(Do);
+                sxOutlineRatedAtOpen = sxOutlineRatedCounts(n).rated;
+                sxOpenModalDialog(Do);
                 if (sxOutlinePausedByViewSwitch) {
                     sxOutlinePausedByViewSwitch = !1;
-                    ks(!1);
+                    sxSetOutlineTimerPaused(!1);
                 } else {
-                    hs(), ws();
+                    sxSyncTimerPauseButton(), sxRefreshHotListStatus();
                 }
                 sxOutlineScroller().scrollTop = sxOutlineScrollTop;
                 sxOutlineScroller().scrollLeft = sxOutlineScrollLeft;
@@ -347,59 +347,59 @@
                 });
                 return;
             }
-            const a = i ? null : St(mt[n]).outline, r = cs(n);
+            const a = i ? null : sxNormalizeTimers(mt[n]).outline, r = sxOutlineRatedCounts(n);
             Jo = r.total > 0 && r.rated === r.total, t.clear(Xo), Xo = 0, Go = n, Ko = null,
             Yo = 1e3 * (a?.durationSeconds || 0), Zo = Jo, Qo = Boolean(a?.timerRan) || !Zo,
             Vo = Zo ? 0 : Date.now(), !Jo && Zo && (Zo = !1, Vo = Date.now(), Qo = !0), Uo.checked = !1,
             sxOutlinePausedByViewSwitch = !1, sxOutlineRatedAtOpen = r.rated,
             e.byId("doneOutlineButton").textContent = i ? "Create profile from ratings" : "Submit what you’ve got",
-            pw(!i), Cs(), Ro.dataset.outlineProfile = String(n), Ro.dataset.outlineSkin = curSkin,
-            hs(), sxPaintOutlineLadder(), ws(), Zo || (Xo = t.setInterval(ws, 1e3));
+            sxResetCelebrationState(!i), sxRenderHotList(), Ro.dataset.outlineProfile = String(n), Ro.dataset.outlineSkin = curSkin,
+            sxSyncTimerPauseButton(), sxPaintOutlineLadder(), sxRefreshHotListStatus(), Zo || (Xo = t.setInterval(sxRefreshHotListStatus, 1e3));
             const o = e.byId("outlineQuickstartTip");
-            o && (o.hidden = is), Wi(Do), sxOutlineScrollTop = 0, sxOutlineScrollLeft = 0, sxOutlineScroller().scrollTop = 0, sxOutlineScroller().scrollLeft = 0, requestAnimationFrame(() => (sxOutlineScroller().scrollTop = 0, sxOutlineScroller().scrollLeft = 0, Do.querySelector("summary")?.focus({ preventScroll: true })));
+            o && (o.hidden = is), sxOpenModalDialog(Do), sxOutlineScrollTop = 0, sxOutlineScrollLeft = 0, sxOutlineScroller().scrollTop = 0, sxOutlineScroller().scrollLeft = 0, requestAnimationFrame(() => (sxOutlineScroller().scrollTop = 0, sxOutlineScroller().scrollLeft = 0, Do.querySelector("summary")?.focus({ preventScroll: true })));
         }
-        function Is(n = !0, skipPaint = !1) {
+        function sxCloseHotList(n = !0, skipPaint = !1) {
             if (!Do.open) return;
             sxOutlineScrollTop = sxOutlineScroller().scrollTop;
             sxOutlineScrollLeft = sxOutlineScroller().scrollLeft;
             try {
-                bs();
+                sxSendSessionStats();
             } catch (e) { __sxErrLog("ui-refresh", e); }
-            js(), pw(!1);
+            sxHideOutlineTooltip(), sxResetCelebrationState(!1);
             const i = Go;
             const a = zo;
-            zo = null, Ys(a);
+            zo = null, sxEndOutlineDrag(a);
             if (!n) {
                 // Explicit submit ("Submit what you've got"): finalize session and refit map
                 sxOutlineSortMode = "popularity", window.__sxFetLifeReview = null;
                 window.__sxOnDeckClear && window.__sxOnDeckClear();
-                t.clear(Xo), Xo = 0, Ui(Do), e.byId("doneOutlineButton").textContent = i === Et ? "Create profile from ratings" : "Submit what you’ve got",
+                t.clear(Xo), Xo = 0, sxCloseModalDialog(Do), e.byId("doneOutlineButton").textContent = i === Et ? "Create profile from ratings" : "Submit what you’ve got",
                 Go = null, Ko = null, Vo = 0, Yo = 0, Zo = !0, Qs = !1, Qo = !1, Jo = !1, sxOutlinePausedByViewSwitch = !1;
                 if (Ro) { Ro.dataset.outlineProfile = ""; Ro.replaceChildren(); }
                 const r = i === Et && Object.keys(At).length > 0;
-                i && vt[i] || r ? (ji(i, {
-                    forceRated: !Bi(i)
-                }), Jw(), skipPaint || (Mr({
+                i && vt[i] || r ? (sxSelectExpandedProfile(i, {
+                    forceRated: !sxHasNoRatedCategory(i)
+                }), sxRenderProfileTabs(), skipPaint || (sxRequestMapPaint({
                     animate: !1,
                     forceRepaint: !0
-                }), Ih())) : skipPaint || Mr();
+                }), sxApplyMapFit())) : skipPaint || sxRequestMapPaint();
             } else {
                 // View switch away from Hot List: preserve in-progress DOM, scroll, search, and map camera/selection
                 if (!Zo) {
                     sxOutlinePausedByViewSwitch = !0;
-                    ks(!0);
+                    sxSetOutlineTimerPaused(!0);
                 }
                 if (i && vt[i] && Qo) {
-                    const e = cs(i);
-                    $t(i, "outline", ps(), e.rated, e.total, {
+                    const e = sxOutlineRatedCounts(i);
+                    sxRecordTimer(i, "outline", sxOutlineTimerSeconds(), e.rated, e.total, {
                         timerRan: !0
                     });
                 }
-                Ui(Do);
-                const ratedNow = i ? cs(i).rated : -1;
+                sxCloseModalDialog(Do);
+                const ratedNow = i ? sxOutlineRatedCounts(i).rated : -1;
                 if (!skipPaint && ratedNow !== sxOutlineRatedAtOpen) {
-                    Jw();
-                    Mr({ animate: !1 });
+                    sxRenderProfileTabs();
+                    sxRequestMapPaint({ animate: !1 });
                 }
             }
             let o = String(location.hash || "");
@@ -407,7 +407,7 @@
                 o = decodeURIComponent(o);
             } catch (e) { __sxErrLog("hash-decode", e); }
             /^#\/?(app\/)?(?:list|listview)\/?$/i.test(o) && (history.replaceState(null, "", "#app"),
-            rS = !1), vc();
+            rS = !1), sxRefreshSyncGlance();
         }
         // Non-route list-close chunk + indicate (2026-10-28): the
         // Is() fix (Option 1) made route-bound closes skip Is()'s
@@ -461,16 +461,16 @@
             };
             if (armed && window.requestAnimationFrame) requestAnimationFrame(() => requestAnimationFrame(() => setTimeout(doClose, 0))); else doClose();
         }
-        function Ps() {
-            as = null, Ui(e.byId("outlinePayoffDialog"));
+        function sxCloseOutlinePayoff() {
+            as = null, sxCloseModalDialog(e.byId("outlinePayoffDialog"));
         }
-        function Ls(t, n) {
+        function sxShowOutlinePayoff(t, n) {
             !(t && vt[t] && n) || n.rated < 1 || rs.has(t) || (rs.add(t), as = t, e.byId("outlinePayoffMessage").textContent = `${n.rated} topic${1 === n.rated ? " is" : "s are"} rated. Use them now, even if you want to finish the rest later.`,
-            Wi(e.byId("outlinePayoffDialog")), e.byId("outlinePayoffStory").hidden = Yi().length < 1, requestAnimationFrame(() => (Yi().length < 1 ? e.byId("outlinePayoffCard") : e.byId("outlinePayoffStory")).focus({
+            sxOpenModalDialog(e.byId("outlinePayoffDialog")), e.byId("outlinePayoffStory").hidden = sxListLiveSelections().length < 1, requestAnimationFrame(() => (sxListLiveSelections().length < 1 ? e.byId("outlinePayoffCard") : e.byId("outlinePayoffStory")).focus({
                 preventScroll: !0
             })));
         }
-        function Ts(e) {
+        function sxPointerPoint(e) {
             return e && Number.isFinite(e.clientX) && Number.isFinite(e.clientY) ? {
                 x: e.clientX,
                 y: e.clientY,
@@ -480,12 +480,12 @@
         const Fs = (() => {
             const n = e.byId("uiTooltip"), i = e.byId("uiTooltipName"), a = e.byId("uiTooltipDefinition"), r = e.byId("uiTooltipValue");
             let o = null, s = null, l = 0;
-            function c() {
+            function sxHideUiTooltip() {
                 t.clear(l), l = 0, o?.isConnected && "uiTooltip" === o.getAttribute("aria-describedby") && o.removeAttribute("aria-describedby"),
                 o = null, s = null, n.classList.remove("ui-tooltip--panel"), n.hidden = !0, i.textContent = "", a.textContent = "", r.textContent = "",
                 n.parentNode !== document.body && document.body.appendChild(n);
             }
-            function d(e = s, t = o) {
+            function sxPlaceUiTooltip(e = s, t = o) {
                 s = e, t && t.isConnected && !n.hidden && function(e, t, n) {
                     if (!e || e.hidden) return;
                     const i = e.getBoundingClientRect(), a = 12, r = Math.max(8, innerWidth - i.width - 8), o = Math.max(8, innerHeight - i.height - 8);
@@ -505,7 +505,7 @@
             return {
                 element: n,
                 show: function(e, u = {}) {
-                    if (!e) return void c();
+                    if (!e) return void sxHideUiTooltip();
                     const p = function(e, t = {}) {
                         const n = e?.dataset || {}, i = "string" == typeof t ? {
                             definition: t
@@ -521,18 +521,18 @@
                             value: null == o ? "" : String(o)
                         };
                     }(e, u);
-                    if (!p.name && !p.definition && !p.value) return void c();
+                    if (!p.name && !p.definition && !p.value) return void sxHideUiTooltip();
                     t.clear(l), o && o !== e && o.isConnected && "uiTooltip" === o.getAttribute("aria-describedby") && o.removeAttribute("aria-describedby"),
                     o = e, s = u.point ?? null, n.classList.toggle("ui-tooltip--panel", Boolean(e.closest && e.closest(".layout-editor"))), i.textContent = p.name, a.textContent = p.definition,
                     a.hidden = !p.definition, r.textContent = p.value;
                     const h = (e.closest ? e.closest("dialog") : null) || document.body;
                     n.parentNode !== h && h.appendChild(n), n.hidden = !1, e.setAttribute("aria-describedby", "uiTooltip"),
-                    d(s, e), u.autoHide && (l = t.setTimeout(() => {
-                        o === e && c();
+                    sxPlaceUiTooltip(s, e), u.autoHide && (l = t.setTimeout(() => {
+                        o === e && sxHideUiTooltip();
                     }, Number(u.duration) || 3200));
                 },
-                hide: c,
-                position: d,
+                hide: sxHideUiTooltip,
+                position: sxPlaceUiTooltip,
                 visibleFor: function(e) {
                     return !n.hidden && o === e;
                 },
@@ -578,46 +578,46 @@
         const Bs = window.matchMedia ? window.matchMedia("(hover: hover)") : {
             matches: !0
         };
-        function js() {
+        function sxHideOutlineTooltip() {
             Ns && Fs.visibleFor(Ns) && Fs.hide(), Ns = null, _s = null;
         }
-        function qs(e, t, n = null) {
-            if (!e || !t) return void js();
+        function sxShowOutlineTooltip(e, t, n = null) {
+            if (!e || !t) return void sxHideOutlineTooltip();
             Ns = e, _s = n;
-            const i = getOutlineRow(e), a = i?.dataset.outlineId, r = e.querySelector?.("[data-outline-direction]")?.dataset.outlineDirection, o = a && r ? ca(a, Go) : null, s = o && Boolean(o[r + "Known"]), l = e.dataset.tooltipValue || (r ? s ? ba(o[r]) : "Unrated" : /(?:rating|popularity)\s*([+-]?\d+(?:\.\d+)?(?:\/100|%)?)/i.exec(t)?.[1] || "");
+            const i = getOutlineRow(e), a = i?.dataset.outlineId, r = e.querySelector?.("[data-outline-direction]")?.dataset.outlineDirection, o = a && r ? sxDecodeTopicStance(a, Go) : null, s = o && Boolean(o[r + "Known"]), l = e.dataset.tooltipValue || (r ? s ? sxSignedNumber(o[r]) : "Unrated" : /(?:rating|popularity)\s*([+-]?\d+(?:\.\d+)?(?:\/100|%)?)/i.exec(t)?.[1] || "");
             Fs.show(e, {
-                name: e.dataset.tooltipName || Hs(e),
+                name: e.dataset.tooltipName || sxOutlineTooltipName(e),
                 definition: e.dataset.popularityTooltip ? t.split("\n").slice(1).join("\n") : t,
                 value: l,
                 point: n
             });
         }
-        function Hs(e) {
+        function sxOutlineTooltipName(e) {
             return e.dataset.popularityTooltip ? "Popularity" : e.dataset.ratingTooltip ? (e.textContent?.trim() || e.querySelector?.(".outline-rating-label")?.textContent?.trim() || "Rating") : getOutlineRow(e)?.querySelector?.(".outline-topic-label")?.textContent?.trim() || e.getAttribute("aria-label") || "Topic details";
         }
-        function Ws(e, t) {
-            qs(e, e?.dataset.outlineDescription || "", t);
+        function sxShowOutlineAbout(e, t) {
+            sxShowOutlineTooltip(e, e?.dataset.outlineDescription || "", t);
         }
-        function Us(e) {
+        function sxOutlineTooltipHost(e) {
             return e instanceof Element ? __sxClosestAction(e, "outlineTooltipSource") : null;
         }
-        function Gs(e) {
+        function sxOutlineTooltipText(e) {
             return e?.dataset.outlineDisclosureTooltip || e?.dataset.outlineDescription || e?.dataset.popularityTooltip || e?.dataset.ratingTooltip || "";
         }
-        function Ks() {
+        function sxClearTooltipDelay() {
             Ds?.timer && t.clear(Ds.timer), Ds = null;
         }
-        function zs(e) {
+        function sxRememberTooltipAnchor(e) {
             Rs = e, t.clear(Os), Os = t.setTimeout(() => {
                 Rs = null;
             }, 900);
         }
-        function Vs(e) {
+        function sxToggleOutlineNest(e) {
             if ("true" !== e.dataset.outlineExpandable) return !1;
             const t = getOutlineRow(e), n = t?.dataset.outlineId;
             if (!n) return !1;
             const i = !("false" !== e.getAttribute("aria-expanded"));
-            return e.setAttribute("aria-expanded", String(i)), $s(Ro, n).forEach(e => {
+            return e.setAttribute("aria-expanded", String(i)), sxOutlineChildRows(Ro, n).forEach(e => {
                 e.hidden = !i;
             }), !0;
         }
@@ -628,8 +628,8 @@
         // the defer window cannot flip it.
         function sxOutlineDescClickToggle(n, isClose) {
             if (isClose) { Rs = null; window.clearTimeout(Os); }
-            else if (__sxClosestAction(n, "summaryAncestor")) { js(); }
-            else { Vs(n); }
+            else if (__sxClosestAction(n, "summaryAncestor")) { sxHideOutlineTooltip(); }
+            else { sxToggleOutlineNest(n); }
         }
         function sxOutlineDescClickWillToggle(n) {
             if (Rs === n) return true;
@@ -646,12 +646,12 @@
             const row = __sxClosestAction(e.target, "outlineRow");
             if (!row || !row.dataset.outlineId) return false;
             if (sxOutlineClickTimer) { window.clearTimeout(sxOutlineClickTimer); sxOutlineClickTimer = 0; sxOutlineClickTarget = null; }
-            js();
+            sxHideOutlineTooltip();
             if (Rs && row.contains(Rs)) { Rs = null; window.clearTimeout(Os); }
-            if (typeof xo !== "function") return false;
+            if (typeof sxOpenMarkPlacard !== "function") return false;
             e.preventDefault(), e.stopPropagation();
             const r = row.getBoundingClientRect();
-            xo(row.dataset.outlineId, r.left + r.width / 2, r.bottom + 8);
+            sxOpenMarkPlacard(row.dataset.outlineId, r.left + r.width / 2, r.bottom + 8);
             return true;
         }
         // Appetite arm for the inline row sliders (2026-11-25): the
@@ -733,7 +733,7 @@
             var a = Math.max(-100, Math.min(100, Number(app) || 0));
             var y = 16 + (1 - (a + 100) / 200) * 160;
             handle.style.top = y + "px";
-            handle.style.backgroundColor = zi(a);
+            handle.style.backgroundColor = sxInterestColor(a);
             bubble.style.top = y + "px";
             bubble.textContent = (a > 0 ? "+" : "") + Math.round(a) + " " + (a > 25 ? "appetite" : a < -25 ? "aversion" : a === 0 ? "neutral" : a > 0 ? "appetite" : "aversion");
         }

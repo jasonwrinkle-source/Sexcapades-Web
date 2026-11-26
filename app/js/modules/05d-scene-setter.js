@@ -1,5 +1,5 @@
         const Au = new Map;
-        function Cu(e) {
+        function sxSceneCastPrefs(e) {
             const t = function(e) {
                 return e.slice().sort().join("|");
             }(e);
@@ -17,33 +17,33 @@
                 Object.prototype.hasOwnProperty.call(n.aftercare, e) || (n.aftercare[e] = "");
             }), n;
         }
-        function Mu(e, t) {
-            const n = qn[e] || Xn(e) || t.map(t => (at[t] || {})[e]).find(Boolean);
+        function sxSceneNodeLabel(e, t) {
+            const n = sxNodeRegistry[e] || sxNodeById(e) || t.map(t => (at[t] || {})[e]).find(Boolean);
             return n ? n.label : e;
         }
-        function Iu(e, t = {}) {
+        function sxSceneNegotiationData(e, t = {}) {
             const sxCanon = e => {
                 try {
-                    return Wn(e);
+                    return sxResolveTopicId(e);
                 } catch (t) {
                     return e;
                 }
-            }, sxOwnUniverse = e => [ ...new Set([ ...Uc(), ...Object.keys(vt[e] || {}), ...Object.keys((Ye[e] || {}).ratings || {}) ]) ], sxDeepSets = [ ...new Set((Array.isArray(e) ? e : []).filter(e => vt[e])) ].map(e => {
+            }, sxOwnUniverse = e => [ ...new Set([ ...sxAllTopicIds(), ...Object.keys(vt[e] || {}), ...Object.keys((Ye[e] || {}).ratings || {}) ]) ], sxDeepSets = [ ...new Set((Array.isArray(e) ? e : []).filter(e => vt[e])) ].map(e => {
                 const t = new Set;
                 return sxOwnUniverse(e).forEach(n => {
-                    const i = ca(n, e), a = Ye[e] ? Ld(Ye[e], n) : null;
+                    const i = sxDecodeTopicStance(n, e), a = Ye[e] ? sxNormalizeRating(Ye[e], n) : null;
                     (i.giveKnown && i.give <= -36 || i.receiveKnown && i.receive <= -36 || a && (a.giveKnown && a.give <= -36 || a.receiveKnown && a.receive <= -36)) && t.add(sxCanon(n));
                 }), t;
             });
-            const n = [ ...new Set((Array.isArray(e) ? e : []).filter(e => vt[e])) ], i = n.map(e => rd(e)), a = new Set(Uc().filter(e => n.some(t => ja(e, t)))), r = new Set(t.excludeFantasy ? Uc().filter(e => n.some(t => Ha(e, t))) : []), o = new Set([ ...a, ...r ]), s = n.map(e => sxHardLimitLines([ e ])), l = n.map(e => [ ...new Set([ ...new Set(sxOwnUniverse(e).map(e => sxCanon(e))) ].filter(n => !(t.hideExcludedNames && o.has(n))).filter(t => sxDeepSets[n.indexOf(e)].has(t)).map(e => Mu(e, n)).sort()) ]), c = [];
-            Uc().forEach(e => {
-                a.has(e) || t.excludeFantasy && r.has(e) || Id(n).forEach(([t, a]) => {
-                    const r = n.indexOf(t), o = n.indexOf(a), s = ca(e, t), l = ca(e, a), d = [];
+            const n = [ ...new Set((Array.isArray(e) ? e : []).filter(e => vt[e])) ], i = n.map(e => sxCastNameText(e)), a = new Set(sxAllTopicIds().filter(e => n.some(t => sxIsLimitOrUninterested(e, t)))), r = new Set(t.excludeFantasy ? sxAllTopicIds().filter(e => n.some(t => sxIsFantasyOnly(e, t))) : []), o = new Set([ ...a, ...r ]), s = n.map(e => sxHardLimitLines([ e ])), l = n.map(e => [ ...new Set([ ...new Set(sxOwnUniverse(e).map(e => sxCanon(e))) ].filter(n => !(t.hideExcludedNames && o.has(n))).filter(t => sxDeepSets[n.indexOf(e)].has(t)).map(e => sxSceneNodeLabel(e, n)).sort()) ]), c = [];
+            sxAllTopicIds().forEach(e => {
+                a.has(e) || t.excludeFantasy && r.has(e) || sxAllUnorderedPairs(n).forEach(([t, a]) => {
+                    const r = n.indexOf(t), o = n.indexOf(a), s = sxDecodeTopicStance(e, t), l = sxDecodeTopicStance(e, a), d = [];
                     s.giveKnown && l.receiveKnown && s.give >= 36 && l.receive <= -36 && d.push(`${i[r]} gives / ${i[o]} receives`), 
                     s.receiveKnown && l.giveKnown && s.receive >= 36 && l.give <= -36 && d.push(`${i[r]} receives / ${i[o]} gives`), 
                     l.giveKnown && s.receiveKnown && l.give >= 36 && s.receive <= -36 && d.push(`${i[o]} gives / ${i[r]} receives`), 
                     l.receiveKnown && s.giveKnown && l.receive >= 36 && s.give <= -36 && d.push(`${i[o]} receives / ${i[r]} gives`), 
-                    d.length && c.push(`${Mu(e, n)} — ${d.join("; ")}`);
+                    d.length && c.push(`${sxSceneNodeLabel(e, n)} — ${d.join("; ")}`);
                 });
             });
             const sxSettings = Object.fromEntries(n.map(id => [ id, { heat: sxHeatFor(id), veil: sxVeilFor(id) } ])), d = n.length > 2 ? sxMultiMatchData(n, sxSettings) : sxCastMatchData(n[0], n[1], sxSettings), sxTeasers = function() {
@@ -61,7 +61,7 @@
                 };
                 const take = rec => {
                     if (!rec || !rec.teaserFor || !rec.teaserFor.length || seen.has(rec.id)) return;
-                    if (n.some(t => Ha(rec.id, t))) return;
+                    if (n.some(t => sxIsFantasyOnly(rec.id, t))) return;
                     seen.add(rec.id), out.push(`${rec.label} — ${line(rec)} — a soft no being revisited, never a match. Surface it solely as a flagged conversation point with an easy opt-out.`);
                 };
                 if (2 === n.length) {
@@ -75,18 +75,18 @@
             }(), sxFirstName = Object.fromEntries(n.map((e, t) => [ wt[e] || "", i[t] ])), sxDirOf = e => {
                 const t = e.route ? [ e.route ] : e.routes && e.routes.length ? e.routes : [];
                 return [ ...new Set(t.map(e => `${sxFirstName[e.giver] || e.giver} gives → ${sxFirstName[e.receiver] || e.receiver} receives`)) ].join("; ");
-            }, sxIsFantasy = e => Boolean(e.fantasyOnly) || n.some(t => Ha(e.id, t)), sxRedFor = e => n.map((t, a) => sxDeepSets[a] && sxDeepSets[a].has(sxCanon(e.id)) ? i[a] : "").filter(Boolean), sxLineOf = e => {
+            }, sxIsFantasy = e => Boolean(e.fantasyOnly) || n.some(t => sxIsFantasyOnly(e.id, t)), sxRedFor = e => n.map((t, a) => sxDeepSets[a] && sxDeepSets[a].has(sxCanon(e.id)) ? i[a] : "").filter(Boolean), sxLineOf = e => {
                 const t = sxDirOf(e), a = sxRedFor(e);
                 return `${e.label}${t ? ` — ${t}` : ""}${a.length ? ` — red/no for ${a.join(" and ")}` : ""}`;
-            }, u = e => e.filter(e => !o.has(e.id) && !sxIsFantasy(e)).map(sxLineOf), sxFantasySeen = new Set, sxFantasyOf = e => e.filter(e => !o.has(e.id) && sxIsFantasy(e) && !sxFantasySeen.has(e.id) && sxFantasySeen.add(e.id)).map(e => `☁ ${sxLineOf(e)}`), p = Cu(n), h = n.map(e => function(e, t, n = new Set) {
-                return Uc().filter(t => {
-                    const i = qn[t] || Xn(t);
-                    if (!i || "Connection & aftercare" !== i.branch || ja(t, e) || n.has(t)) return !1;
-                    const a = ca(t, e);
+            }, u = e => e.filter(e => !o.has(e.id) && !sxIsFantasy(e)).map(sxLineOf), sxFantasySeen = new Set, sxFantasyOf = e => e.filter(e => !o.has(e.id) && sxIsFantasy(e) && !sxFantasySeen.has(e.id) && sxFantasySeen.add(e.id)).map(e => `☁ ${sxLineOf(e)}`), p = sxSceneCastPrefs(n), h = n.map(e => function(e, t, n = new Set) {
+                return sxAllTopicIds().filter(t => {
+                    const i = sxNodeRegistry[t] || sxNodeById(t);
+                    if (!i || "Connection & aftercare" !== i.branch || sxIsLimitOrUninterested(t, e) || n.has(t)) return !1;
+                    const a = sxDecodeTopicStance(t, e);
                     return "favorite" === Qe[e]?.[t] || a.giveKnown && a.give > 35 || a.receiveKnown && a.receive > 35;
                 }).map(n => {
-                    const i = ca(n, e);
-                    return `${Mu(n, t)}${ad(i, n) ? ` — ${ad(i, n)}` : ""}`;
+                    const i = sxDecodeTopicStance(n, e);
+                    return `${sxSceneNodeLabel(n, t)}${sxRatingProseText(i, n) ? ` — ${sxRatingProseText(i, n)}` : ""}`;
                 }).sort();
             }(e, n, t.hideExcludedNames ? o : new Set));
             return {
@@ -105,11 +105,11 @@
                 aftercareNeeds: n.map(e => String(p.aftercare[e] || "").trim()),
                 excluded: sxHardLimitLines(n),
                 terms: n.map(e => String(it[e] || "").trim()),
-                mutuals: n.length > 1 ? Uc().filter(e => sxDeepSets.every(t => t.has(e))).map(e => Mu(e, n)).sort() : []
+                mutuals: n.length > 1 ? sxAllTopicIds().filter(e => sxDeepSets.every(t => t.has(e))).map(e => sxSceneNodeLabel(e, n)).sort() : []
             };
         }
-        function Pu(e, t) {
-            return e.length ? e.map(e => `<li>${Hi(e)}</li>`).join("") : `<li>${Hi(t)}</li>`;
+        function sxListItemMarkup(e, t) {
+            return e.length ? e.map(e => `<li>${sxEscapeHtmlText(e)}</li>`).join("") : `<li>${sxEscapeHtmlText(t)}</li>`;
         }
         function sxTermsBlock(e, t, a) {
             const n = e.map((e, n) => {
@@ -135,7 +135,7 @@
             // are adults; the ages below are ageplay framing context for
             // the writers only. This is the only prompt-side reader of lt;
             // age never reaches matching, eligibility, or any boundary.
-            if (!e.some(e => Gb(st[e]).includes("ageplayer"))) return "";
+            if (!e.some(e => sxNormalizeRoles(st[e]).includes("ageplayer"))) return "";
             const n = e.map((e, n) => {
                 const i = String(lt[e] || "").trim();
                 return i ? `${t[n]}: age ${i}` : "";
@@ -144,15 +144,15 @@
         }
         function sxRolesBlock(e, t) {
             const n = e.map((e, n) => {
-                const i = Kb(st[e], ", ");
+                const i = sxRoleLabelsText(st[e], ", ");
                 return i ? `${t[n]}: roles: ${i}` : "";
             }).filter(Boolean);
             return n.length ? [ "CAST — ROLES (identity language):", ...n ].join(" ") : "";
         }
         function sxCastBlock(e, t) {
             const n = e.map((e, n) => {
-                const i = bb(rt[e]), a = iv(ot[e]), r = String(pz[e] || "").trim();
-                return `${t[n]}: gender: ${i.length ? vb(i, " and ") : "unspecified"}; orientation: ${a.length ? Nb(a, " and ") : "unspecified"}. Pronouns for ${t[n]}: ${hp(e)}. Do not infer anatomy from gender labels. Gender, orientation, and roles guide identity and partner-gender choices only.`;
+                const i = sxNormalizeGenders(rt[e]), a = sxNormalizeOrientations(ot[e]), r = String(pz[e] || "").trim();
+                return `${t[n]}: gender: ${i.length ? sxGenderLabelsText(i, " and ") : "unspecified"}; orientation: ${a.length ? sxOrientationLabelsText(a, " and ") : "unspecified"}. Pronouns for ${t[n]}: ${sxPronounText(e)}. Do not infer anatomy from gender labels. Gender, orientation, and roles guide identity and partner-gender choices only.`;
             }).filter(Boolean);
             return n.length ? [ "CAST — GENDER, ORIENTATION & PRONOUNS (identity language):", ...n ].join(" ") : "";
         }
@@ -161,7 +161,7 @@
             // settings - mode, and each cast profile's Heat (zone + signed
             // value) and Veil - read from the same session state the
             // Compare panel reads (sxcv / sxHeatFor / sxVeilFor).
-            const names = ids.map(id => rd(id)), heat = ids.map((id, i) => {
+            const names = ids.map(id => sxCastNameText(id)), heat = ids.map((id, i) => {
                 const v = sxHeatFor(id);
                 return `${names[i]} ${sxHeatZone(v)} ${v > 0 ? "+" + v : v}`;
             }), veil = ids.map((id, i) => `${names[i]} ${sxVeilFor(id)}`);
@@ -214,7 +214,7 @@
         // tier-gated section instead; and the on-screen checklist
         // panel's HTML terms line, which carries no "- " prefix
         // because Pu() wraps it in an <li>.
-        function Lu(e, t = {}) {
+        function sxNegotiationChecklistText(e, t = {}) {
             const n = [ sxWriterStamp(e.ids), `NEGOTIATION CHECKLIST DATA — BINDING — ${e.names.join(" + ")}` ], i = Boolean(t.hideExcluded), sxNoTerms = Boolean(t.hideTerms);
             return e.names.forEach((t, a) => {
                 const r = [ ...(i ? e.limits[a].length ? [ `- ${e.limits[a].length} hard-excluded ${1 === e.limits[a].length ? "topic is" : "topics are"} omitted; names intentionally absent.` ] : [] : e.limits[a].map(e => `- ${e}`)), ...(e.terms && e.terms[a] && !sxNoTerms ? [ sxBindingTermsLine(e.terms[a]) ] : []) ];
@@ -222,7 +222,7 @@
             }), n.push("", "MUTUAL EXCLUSIONS — BOTH PARTNERS RATED DEEP-RED", ...e.mutuals && e.mutuals.length ? e.mutuals.map(e => `- ${e}`) : [ "- None — no topic is rated deep-red by both partners." ]), n.push("", "DISCUSS FIRST — GREEN / RED CLASHES", ...e.discuss.length ? e.discuss.map(e => `- ${e}`) : [ "- No green-versus-red clashes found." ], "", "SAFEWORDS + STOP SIGNALS", `- ${e.safewords || "Not filled out; choose verbal safewords and a nonverbal stop signal before play."}`, "", "OTHER BEFORE-PLAY CHECKS", "- Agree what “pause” means and who may call it.", "- Confirm intensity, pacing, injuries, medication, allergies, and supplies."), 
             n.join(" ");
         }
-        function Tu(e) {
+        function sxPlayGuideSourceText(e) {
             return [ "PLAY GUIDE DATA — SOURCE MATERIAL", "Warm-up", ...e.warmup.length ? e.warmup.map(e => `- ${e}`) : [ "- Agree on a gentle start together." ], "Main play", ...e.main.length ? e.main.map(e => `- ${e}`) : [ "- No shared green/green main-play topic is recorded." ], "Aftercare ideas from rated profiles", ...e.aftercare.length ? e.aftercare.map(e => `- ${e}`) : [ "- No shared aftercare topic is recorded." ], ...(e.fantasy && e.fantasy.length ? [ "Fantasy only — excluded from practical play", ...e.fantasy.map(e => `- ${e}`) ] : []), ...(e.teasers && e.teasers.length ? [ "Teasers — soft no revisited at the current Heat (flagged; teaser-eligible only, never a match)", ...e.teasers.map(e => `- ${e}`) ] : []) ].join(" ");
         }
         function sxNegotiationLengthSpec(t) {
@@ -237,7 +237,7 @@
             };
         }
         function sxStoreNegotiationGuide(g) {
-            const st = Cu(g.ids), sp = sxNegotiationLengthSpec(st), list = (items, empty) => items && items.length ? items.map(x => `- ${x}`) : [ `- ${empty}` ], L = [ "NEGOTIATION GUIDE", g.names.join(" + "), sxWriterStamp(g.ids), `Target length: ${sp.label} · Detail: ${sp.tierLabel}`, "This document records the completed negotiation checklist as the agreement itself. A hypermap match is not consent." ], roles = sxRolesBlock(g.ids, g.names), cast = sxCastBlock(g.ids, g.names), termsBlock = sxTermsBlock(g.ids, g.names), hardExcluded = [ ...new Set((g.excluded || []).concat(g.mutuals || [])) ];
+            const st = sxSceneCastPrefs(g.ids), sp = sxNegotiationLengthSpec(st), list = (items, empty) => items && items.length ? items.map(x => `- ${x}`) : [ `- ${empty}` ], L = [ "NEGOTIATION GUIDE", g.names.join(" + "), sxWriterStamp(g.ids), `Target length: ${sp.label} · Detail: ${sp.tierLabel}`, "This document records the completed negotiation checklist as the agreement itself. A hypermap match is not consent." ], roles = sxRolesBlock(g.ids, g.names), cast = sxCastBlock(g.ids, g.names), termsBlock = sxTermsBlock(g.ids, g.names), hardExcluded = [ ...new Set((g.excluded || []).concat(g.mutuals || [])) ];
             roles && L.push("", roles), cast && L.push("", cast), g.names.forEach((name, idx) => {
                 L.push("", `${name} — HARD LIMITS`, ...list(g.limits[idx], "None marked."));
                 g.terms && g.terms[idx] && L.push(sxBindingTermsLine(g.terms[idx]));
@@ -266,7 +266,7 @@
 
         function setterParticipantIds() {
             const ids = String(e.byId("negotiationDialog")?.dataset.participants || "").split(",").filter(Boolean);
-            return ids.length >= 2 && Fu(ids), ids;
+            return ids.length >= 2 && sxStoreSceneGuide(ids), ids;
         }
         window.__sxSetterParticipantIds = setterParticipantIds;
         // Scene Setter discussion moderation (2026-11-16): on a
@@ -293,7 +293,7 @@
             // single-profile or unrated entry) counts as agreed - it
             // is in the shared pool, not a disagreement.
             return {
-                ids, names: ids.map(id => rd(id)),
+                ids, names: ids.map(id => sxCastNameText(id)),
                 established, curious,
                 agree: established.filter(e => null == e.agreement || e.agreement * 100 >= 50),
                 part: established.filter(e => null != e.agreement && e.agreement * 100 < 50),
@@ -335,7 +335,7 @@
             // has no Depth slider): "detailed" turns the plan into
             // dissertation-defense material, gated on the JSON's rigor
             // text - the same rule Scribe uses for its Depth-5 line.
-            const i = Cu(ids), a = `${i.length || "5"} ${unitWord(i.length || "5", i.lengthUnit)}`,
+            const i = sxSceneCastPrefs(ids), a = `${i.length || "5"} ${unitWord(i.length || "5", i.lengthUnit)}`,
                 detailLine = "concise" === i.detail ? "Concise: use short phase notes and only essential check-ins." : "detailed" === i.detail ? "High detail: include specific phase timing, transitions, turn-taking, check-ins, and closing synthesis." : "Balanced detail: include enough timing, transitions, turn-taking, and check-ins to follow without over-scripting.",
                 rigorLine = "detailed" === i.detail && rigor ? rigor : "";
             // The stance lists, with each topic's pole detail and the
@@ -356,7 +356,7 @@
             // Tier-gated detail mirrors the negotiation guide's tiers,
             // without the aftercare mention - there is no aftercare on
             // a stance map.
-            const st = Cu(ids), sp = sxNegotiationLengthSpec(st),
+            const st = sxSceneCastPrefs(ids), sp = sxNegotiationLengthSpec(st),
                 list = (items, empty) => items && items.length ? items.map(x => `- ${x}`) : [ `- ${empty}` ],
                 L = [ "DISCUSSION AGREEMENT", mod.names.join(" + "), sxWriterStamp(ids), `Target length: ${sp.label} · Detail: ${sp.tierLabel}`, "This document records the completed ground rules as the agreement itself. A hypermap match is not agreement." ];
             L.push("", "CAST", ...mod.names.map(n => `- ${n}`));
@@ -399,20 +399,20 @@
             // attached (06d). Called from the dialog's open handler.
             const spec = window.__SX_SETTER || null,
                 rules = (spec && Array.isArray(spec.groundRules)) ? spec.groundRules : [];
-            return `<p class="sx-stamp">${Hi(sxWriterStamp(i.ids))}</p><section class="guide-block"><h4>Ground rules</h4><p class="guide-source-intro">The ground rules below are the binding layer for the discussion plan. The shared ground and the per-person stances come from the selected profiles' recorded ratings.</p><h5>Where they agree</h5><ul>${Pu(mod.agree.map(e => null == e.agreement ? e.label : `${e.label} — ${Math.round(e.agreement * 100)}% agreement`), "No shared established stance.")}</ul><h5>Where they part</h5><ul>${Pu(mod.part.map(e => `${e.label} — ${Math.round(e.agreement * 100)}% agreement`), "No shared established stance where they part.")}</ul>${mod.perPerson.map((p, pi) => `<strong>${Hi(mod.names[pi])}</strong><ul>${Pu((p.established || []).slice().sort((x, y) => Math.abs(y.score) - Math.abs(x.score)).slice(0, 5).map(e => `${e.label} (${Math.round(e.score)}%)`), "No established stance recorded.")}</ul>`).join("")}<h5>Ground rules</h5><ul>${Pu(rules, "Steelman every position: state each side in its strongest form before comparing.")}</ul></section><section class="guide-block"><h4>Discussion source material</h4><p class="guide-source-intro">This is the profile-derived idea pool the AI may arrange into a plan. It is not an agreement: the ground rules above are the binding layer.</p><div class="guide-source-grid"><div class="guide-source-group"><h5>Opening ideas</h5><ul>${Pu(i.warmup, "Agree on a gentle opening together.")}</ul></div><div class="guide-source-group"><h5>Development ideas</h5><ul>${Pu(i.main, "No shared development topic is recorded.")}</ul></div><div class="guide-source-group"><h5>Closing ideas</h5><ul>${Pu(i.aftercare, "No shared closing topic is recorded.")}</ul></div><div class="guide-source-group"><h5>Hard-excluded</h5><ul>${Pu([ ...new Set(i.excluded.concat(i.mutuals)) ].concat(i.names.map((e, t) => i.terms[t] ? e + " — hard limits named in Terms (binding), quoted above" : "").filter(Boolean)), "None marked.")}</ul></div></div></section>`;
+            return `<p class="sx-stamp">${sxEscapeHtmlText(sxWriterStamp(i.ids))}</p><section class="guide-block"><h4>Ground rules</h4><p class="guide-source-intro">The ground rules below are the binding layer for the discussion plan. The shared ground and the per-person stances come from the selected profiles' recorded ratings.</p><h5>Where they agree</h5><ul>${sxListItemMarkup(mod.agree.map(e => null == e.agreement ? e.label : `${e.label} — ${Math.round(e.agreement * 100)}% agreement`), "No shared established stance.")}</ul><h5>Where they part</h5><ul>${sxListItemMarkup(mod.part.map(e => `${e.label} — ${Math.round(e.agreement * 100)}% agreement`), "No shared established stance where they part.")}</ul>${mod.perPerson.map((p, pi) => `<strong>${sxEscapeHtmlText(mod.names[pi])}</strong><ul>${sxListItemMarkup((p.established || []).slice().sort((x, y) => Math.abs(y.score) - Math.abs(x.score)).slice(0, 5).map(e => `${e.label} (${Math.round(e.score)}%)`), "No established stance recorded.")}</ul>`).join("")}<h5>Ground rules</h5><ul>${sxListItemMarkup(rules, "Steelman every position: state each side in its strongest form before comparing.")}</ul></section><section class="guide-block"><h4>Discussion source material</h4><p class="guide-source-intro">This is the profile-derived idea pool the AI may arrange into a plan. It is not an agreement: the ground rules above are the binding layer.</p><div class="guide-source-grid"><div class="guide-source-group"><h5>Opening ideas</h5><ul>${sxListItemMarkup(i.warmup, "Agree on a gentle opening together.")}</ul></div><div class="guide-source-group"><h5>Development ideas</h5><ul>${sxListItemMarkup(i.main, "No shared development topic is recorded.")}</ul></div><div class="guide-source-group"><h5>Closing ideas</h5><ul>${sxListItemMarkup(i.aftercare, "No shared closing topic is recorded.")}</ul></div><div class="guide-source-group"><h5>Hard-excluded</h5><ul>${sxListItemMarkup([ ...new Set(i.excluded.concat(i.mutuals)) ].concat(i.names.map((e, t) => i.terms[t] ? e + " — hard limits named in Terms (binding), quoted above" : "").filter(Boolean)), "None marked.")}</ul></div></div></section>`;
         }
         // Draft data computed once per open (writers refactor): the
         // open handler hands Fu the Iu() result it already computed
         // for the on-screen panel, instead of Fu recomputing the
         // full match a second time to rebuild the same documents.
         // Other callers pass nothing and Fu computes it, as before.
-        function Fu(t, precomputed, precomputedMod) {
+        function sxStoreSceneGuide(t, precomputed, precomputedMod) {
             // Moderation branch (2026-11-16): on a vanilla skin the
             // stored documents are a discussion-moderation plan + a
             // discussion agreement, built from the pole stances. The
             // Sexcapades play-guide path below is untouched.
             if (sxSetterIsModeration()) {
-                const iuData = precomputed || Iu(t),
+                const iuData = precomputed || sxSceneNegotiationData(t),
                     mod = precomputedMod || sxSetterModerationData(t),
                     copy = sxComposeSetterModeration(t, iuData, mod);
                 e.byId("negotiationPanel").dataset.copy = copy;
@@ -421,6 +421,6 @@
                 return;
             }
             var n;
-            const i = Cu(t), a = `${i.length || "5"} ${unitWord(i.length || "5", i.lengthUnit)}`, r = "concise" === i.detail ? "Concise: use short phase notes and only essential check-ins." : "detailed" === i.detail ? "High detail: include specific phase timing, transitions, role cues, check-ins, stop options, and aftercare steps." : "Balanced detail: include enough timing, transitions, role cues, check-ins, and aftercare to follow without over-scripting.";
-            e.byId("negotiationPanel").dataset.copy = [ "AI PLAY-GUIDE REQUEST", `Create or randomize a practical play guide targeting approximately ${a}. ${r} Use PLAY GUIDE DATA as inspiration while treating NEGOTIATION CHECKLIST DATA as binding. Keep every hard limit completely out. Treat every red topic as a no for that person. Mention each discuss-first clash only as an explicit negotiation point, never as assumed consent or planned action. Work the agreed safewords and stop signals naturally into the guide, and build the aftercare section from every participant’s stated aftercare needs. If a field is not filled out, leave a clear pre-scene decision point instead of inventing an answer.`, "", Tu(n = precomputed || Iu(t)), "", Lu(n), "", sxRolesBlock(n.ids, n.names), "", sxCastBlock(n.ids, n.names), "", sxTermsBlock(n.ids, n.names), "", sxAgeBlock(n.ids, n.names), "", `HARD-EXCLUDED FROM SCENE GENERATION ${n.excluded.length ? n.excluded.map(e => `- ${e}`).join(" ") : n.mutuals.length ? "- no marked limits; mutual deep-red exclusions follow" : n.terms && n.terms.some(Boolean) ? "- no marked limits or mutual deep-red exclusions; limits named in the Terms above still apply" : "- none marked"}${n.mutuals.length ? ` MUTUAL EXCLUSIONS — BOTH PARTNERS RATED DEEP-RED ${n.mutuals.map(e => `- ${e}`).join(" ")}` : ""}` ].join(" "), e.byId("negotiationPanel").dataset.playGuide = e.byId("negotiationPanel").dataset.copy, sxStoreNegotiationGuide(n);
+            const i = sxSceneCastPrefs(t), a = `${i.length || "5"} ${unitWord(i.length || "5", i.lengthUnit)}`, r = "concise" === i.detail ? "Concise: use short phase notes and only essential check-ins." : "detailed" === i.detail ? "High detail: include specific phase timing, transitions, role cues, check-ins, stop options, and aftercare steps." : "Balanced detail: include enough timing, transitions, role cues, check-ins, and aftercare to follow without over-scripting.";
+            e.byId("negotiationPanel").dataset.copy = [ "AI PLAY-GUIDE REQUEST", `Create or randomize a practical play guide targeting approximately ${a}. ${r} Use PLAY GUIDE DATA as inspiration while treating NEGOTIATION CHECKLIST DATA as binding. Keep every hard limit completely out. Treat every red topic as a no for that person. Mention each discuss-first clash only as an explicit negotiation point, never as assumed consent or planned action. Work the agreed safewords and stop signals naturally into the guide, and build the aftercare section from every participant’s stated aftercare needs. If a field is not filled out, leave a clear pre-scene decision point instead of inventing an answer.`, "", sxPlayGuideSourceText(n = precomputed || sxSceneNegotiationData(t)), "", sxNegotiationChecklistText(n), "", sxRolesBlock(n.ids, n.names), "", sxCastBlock(n.ids, n.names), "", sxTermsBlock(n.ids, n.names), "", sxAgeBlock(n.ids, n.names), "", `HARD-EXCLUDED FROM SCENE GENERATION ${n.excluded.length ? n.excluded.map(e => `- ${e}`).join(" ") : n.mutuals.length ? "- no marked limits; mutual deep-red exclusions follow" : n.terms && n.terms.some(Boolean) ? "- no marked limits or mutual deep-red exclusions; limits named in the Terms above still apply" : "- none marked"}${n.mutuals.length ? ` MUTUAL EXCLUSIONS — BOTH PARTNERS RATED DEEP-RED ${n.mutuals.map(e => `- ${e}`).join(" ")}` : ""}` ].join(" "), e.byId("negotiationPanel").dataset.playGuide = e.byId("negotiationPanel").dataset.copy, sxStoreNegotiationGuide(n);
         }

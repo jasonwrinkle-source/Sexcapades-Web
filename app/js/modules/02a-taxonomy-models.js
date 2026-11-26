@@ -241,17 +241,17 @@
             return res;
         }
         let s = "";
-        function l() {
+        function sxRandomUuid() {
             if (globalThis.crypto && "function" == typeof globalThis.crypto.randomUUID) return globalThis.crypto.randomUUID();
             const e = new Uint8Array(16);
             if (globalThis.crypto && "function" == typeof globalThis.crypto.getRandomValues) globalThis.crypto.getRandomValues(e); else for (let t = 0; t < e.length; t++) e[t] = Math.floor(256 * Math.random());
             return e[6] = 15 & e[6] | 64, e[8] = 63 & e[8] | 128, Array.from(e, (e, t) => `${4 === t || 6 === t || 8 === t || 10 === t ? "-" : ""}${e.toString(16).padStart(2, "0")}`).join("");
         }
-        const makeProfileUuid = l;
-        function c() {
+        const makeProfileUuid = sxRandomUuid;
+        function sxAnonUuid() {
             return s || (s = makeProfileUuid()), s;
         }
-        window.__sxAnonUuid = c;
+        window.__sxAnonUuid = sxAnonUuid;
         const d = function() {
             let e = "";
             try {
@@ -267,7 +267,7 @@
            own mirror constant, SX_SHELL_COLLECT_URL, with the same
            value; keep the two in sync. */
         const SX_COLLECT_URL = "/hosted/api/collect.php";
-        async function u(e) {
+        async function sxPostCollect(e) {
             const t = await fetch(SX_COLLECT_URL, {
                 method: "POST",
                 headers: {
@@ -345,17 +345,17 @@
             try {
                 if ("sent" === sessionStorage.getItem(t)) return;
             } catch (e) { __sxErrLog("storage", e); }
-            o.has(t) || (o.add(t), u(e).then(() => {
+            o.has(t) || (o.add(t), sxPostCollect(e).then(() => {
                 try {
                     sessionStorage.setItem(t, "sent");
                 } catch (e) { __sxErrLog("storage", e); }
             }).catch((e) => { __sxErrLog("storage", e); }).finally(() => o.delete(t)));
         }
-        function p(e) {
+        function sxSendEvent(e) {
             var skin = sxAnalyticsSkin();
             sxSendAnalytics({
                 action: "event",
-                uuid: c(),
+                uuid: sxAnonUuid(),
                 event_type: e,
                 utm_source: d,
                 skin: skin
@@ -363,7 +363,7 @@
         }
         window.__sxSendAnalytics = sxSendAnalytics;
         window.__sxAnalyticsSkin = sxAnalyticsSkin;
-        window.__sxSendEvent = p;
+        window.__sxSendEvent = sxSendEvent;
         // GATE-PASSED SIGNAL (marked by the shell-ui stage, 2026-10-27):
         // the app's gate-passed signal fires once, from the single sender
         // in 02h-inner-opener.js (its top-level call, at bundle load).

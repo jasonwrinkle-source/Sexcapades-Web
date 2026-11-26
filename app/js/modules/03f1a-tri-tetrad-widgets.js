@@ -267,7 +267,7 @@
 
         function sxApplyTriRatings(topicId, skipSync) {
             if (!topicId) return;
-            const shape = Ge(topicId);
+            const shape = sxWidgetConfig(topicId);
             if (!shape || !shape.keys || shape.keys.length < 3) return;
             const isClassic = !sxDualPlacements(topicId);
             if (isClassic) {
@@ -276,9 +276,9 @@
                 const v1 = Math.round(w1 * 100);
                 const v2 = Math.round(w2 * 100);
                 sxPersistIntensity(topicId, intensity);
-                To(topicId, shape.keys[0], v0, !1);
-                To(topicId, shape.keys[1], v1, !1);
-                To(topicId, shape.keys[2], v2, !0);
+                sxStoreFlankRating(topicId, shape.keys[0], v0, !1);
+                sxStoreFlankRating(topicId, shape.keys[1], v1, !1);
+                sxStoreFlankRating(topicId, shape.keys[2], v2, !0);
             } else {
                 const mode = sxTriState.mode || "advocacy";
                 if (mode === "receptivity") {
@@ -304,12 +304,12 @@
             if (!topicId) return;
             const isClassic = !sxDualPlacements(topicId);
             if (isClassic) {
-                const shape = Ge(topicId);
+                const shape = sxWidgetConfig(topicId);
                 if (!shape || !shape.keys || shape.keys.length < 3) return;
-                Fo(topicId, "intensity", !1);
-                Fo(topicId, shape.keys[0], !1);
-                Fo(topicId, shape.keys[1], !1);
-                Fo(topicId, shape.keys[2], !0);
+                sxClearTopicRating(topicId, "intensity", !1);
+                sxClearTopicRating(topicId, shape.keys[0], !1);
+                sxClearTopicRating(topicId, shape.keys[1], !1);
+                sxClearTopicRating(topicId, shape.keys[2], !0);
             } else {
                 const mode = sxTriState.mode || "advocacy";
                 sxClearAdvocacyReceptivity(topicId, mode);
@@ -625,16 +625,16 @@
 
         function sxApplyCompassRatings(topicId, skipSync) {
             if (!topicId) return;
-            const shape = Ge(topicId);
+            const shape = sxWidgetConfig(topicId);
             if (!shape || !shape.keys || shape.keys.length < 4) return;
             const isClassic = !sxDualPlacements(topicId);
             if (isClassic) {
                 const vals = sxCompassValuesFromPoint(sxCompassState.u, sxCompassState.v, 100);
                 sxPersistIntensity(topicId, sxCompassState.intensity);
-                To(topicId, shape.keys[0], vals[0], !1);
-                To(topicId, shape.keys[1], vals[1], !1);
-                To(topicId, shape.keys[2], vals[2], !1);
-                To(topicId, shape.keys[3], vals[3], !0);
+                sxStoreFlankRating(topicId, shape.keys[0], vals[0], !1);
+                sxStoreFlankRating(topicId, shape.keys[1], vals[1], !1);
+                sxStoreFlankRating(topicId, shape.keys[2], vals[2], !1);
+                sxStoreFlankRating(topicId, shape.keys[3], vals[3], !0);
             } else {
                 const mode = sxCompassState.mode || "advocacy";
                 if (mode === "receptivity") {
@@ -656,13 +656,13 @@
             if (!topicId) return;
             const isClassic = !sxDualPlacements(topicId);
             if (isClassic) {
-                const shape = Ge(topicId);
+                const shape = sxWidgetConfig(topicId);
                 if (!shape || !shape.keys || shape.keys.length < 4) return;
-                Fo(topicId, "intensity", !1);
-                Fo(topicId, shape.keys[0], !1);
-                Fo(topicId, shape.keys[1], !1);
-                Fo(topicId, shape.keys[2], !1);
-                Fo(topicId, shape.keys[3], !0);
+                sxClearTopicRating(topicId, "intensity", !1);
+                sxClearTopicRating(topicId, shape.keys[0], !1);
+                sxClearTopicRating(topicId, shape.keys[1], !1);
+                sxClearTopicRating(topicId, shape.keys[2], !1);
+                sxClearTopicRating(topicId, shape.keys[3], !0);
             } else {
                 const mode = sxCompassState.mode || "advocacy";
                 sxClearAdvocacyReceptivity(topicId, mode);

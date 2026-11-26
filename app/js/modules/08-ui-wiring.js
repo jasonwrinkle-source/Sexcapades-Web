@@ -421,7 +421,7 @@ __sxInit(function () {
     }
   });
 
-  function esc(s) { return String(s == null ? "" : s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;"); }
+  function sxEscapeHtml(s) { return String(s == null ? "" : s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;"); }
   function norm(s) { return String(s || "").toLowerCase().replace(/[^a-z0-9]/g, ""); }
 
   function renderTable() {
@@ -439,7 +439,7 @@ __sxInit(function () {
       }
       visible++;
       var side = r.direction === "give" ? "give only" : r.direction === "receive" ? "receive only" : "give + receive";
-      rowsHtml.push('<tr data-flkey="' + esc(r.key) + '"><td>' + esc(r.name) + '</td><td>' + esc(r.label) + '<br><small>' + esc(r.path) + '</small></td><td>' + side + '</td><td><button type="button" class="action-btn fetlife-map-edit-btn" data-flkey="' + esc(r.key) + '" data-flname="' + esc(r.name) + '">Edit</button></td></tr>');
+      rowsHtml.push('<tr data-flkey="' + sxEscapeHtml(r.key) + '"><td>' + sxEscapeHtml(r.name) + '</td><td>' + sxEscapeHtml(r.label) + '<br><small>' + sxEscapeHtml(r.path) + '</small></td><td>' + side + '</td><td><button type="button" class="action-btn fetlife-map-edit-btn" data-flkey="' + sxEscapeHtml(r.key) + '" data-flname="' + sxEscapeHtml(r.name) + '">Edit</button></td></tr>');
     }
     tableBody.innerHTML = rowsHtml.join("");
     if (countEl) countEl.textContent = visible + " of " + rows.length + " mappings";

@@ -36,21 +36,21 @@
                 const cb = e.byId("rememberProfileCheckbox2x"), rp = window.Sexcapades2xRememberProfiles;
                 const shouldSave = rp && (typeof rp.isEnabled === "function" ? rp.isEnabled() : (cb && cb.checked));
                 if (shouldSave && "function" == typeof rp.saveNow) {
-                    if (rp.saveNow()) Vt(id);
+                    if (rp.saveNow()) sxClearProfileDirty(id);
                 }
             } catch (err) { __sxErrLog("sx-merge-save", err); }
         }
         const Zy = {};
-        function Qy(t = Mt) {
-            if (!t || !vt[t]) return Vy = e => Qy(e), void bw(null);
+        function sxOpenTestChooser(t = Mt) {
+            if (!t || !vt[t]) return Vy = e => sxOpenTestChooser(e), void sxOpenProfileDetails(null);
             // Activated-from: the chooser's target rides in Xy,
             // explicitly - no viewport switch to make it the active
             // profile first (split-center stage, 2026-10-27).
-            Xy = t, kw(), Ui(kg), Ui(Sg), Wi(e.byId("testChooserDialog")),
+            Xy = t, sxCloseLoadMenu(), sxCloseModalDialog(kg), sxCloseModalDialog(Sg), sxOpenModalDialog(e.byId("testChooserDialog")),
             requestAnimationFrame(() => e.one("[data-test-choice]")?.focus());
         }
-        function Jy() {
-            Xy = null, Ui(e.byId("testChooserDialog"));
+        function sxCloseTestChooser() {
+            Xy = null, sxCloseModalDialog(e.byId("testChooserDialog"));
         }
         // Popularity scores shown in parentheses beside gender/orientation/role options in
         // the profile dialog, keyed by option value slug (values never change). Each scored
@@ -376,7 +376,7 @@
                 description: db[n]
             } ];
         })), pb = e.byId("genderPicker"), hb = e.byId("genderTrigger"), gb = e.byId("genderTriggerLabel"), mb = e.byId("genderMenu"), fb = e.byId("genderTooltip");
-        n(mb, tb.map(e => `<button class="gender-option" type="button" role="option" data-tooltip-tap-first data-gender-value="${Hi(e)}" aria-selected="false">${Hi(ib[e].label + popularitySuffix(e))}</button>`).join(""));
+        n(mb, tb.map(e => `<button class="gender-option" type="button" role="option" data-tooltip-tap-first data-gender-value="${sxEscapeHtmlText(e)}" aria-selected="false">${sxEscapeHtmlText(ib[e].label + popularitySuffix(e))}</button>`).join(""));
         const yb = {
             female: "woman",
             male: "man",
@@ -390,40 +390,40 @@
             private: "not-applicable",
             "non-binary": "nonbinary"
         };
-        function bb(e) {
+        function sxNormalizeGenders(e) {
             const t = Array.isArray(e) ? e : [ e ], n = [];
             return t.forEach(e => {
                 let t = String(e || "").trim().toLowerCase();
                 t = yb[t] || t, Object.prototype.hasOwnProperty.call(ib, t) && !n.includes(t) && n.push(t);
             }), n.slice(0, 3);
         }
-        function vb(e, t = " + ") {
-            return bb(e).map(e => ib[e].label).join(t);
+        function sxGenderLabelsText(e, t = " + ") {
+            return sxNormalizeGenders(e).map(e => ib[e].label).join(t);
         }
-        function wb() {
-            return bb([ ...Wg.selectedOptions ].map(e => e.value));
+        function sxReadGenderSelection() {
+            return sxNormalizeGenders([ ...Wg.selectedOptions ].map(e => e.value));
         }
-        function kb(e) {
-            const t = new Set(bb(e));
+        function sxApplyGenderSelection(e) {
+            const t = new Set(sxNormalizeGenders(e));
             [ ...Wg.options ].forEach(e => {
                 e.selected = t.has(e.value);
             });
         }
-        function xb() {
-            const e = new Set(wb()), t = vb([ ...e ]);
+        function sxRefreshGenderPicker() {
+            const e = new Set(sxReadGenderSelection()), t = sxGenderLabelsText([ ...e ]);
             gb.textContent = t || "Choose up to 3…", hb.title = t || "Choose up to three genders",
             mb.querySelectorAll("[data-gender-value]").forEach(t => {
                 const n = e.has(t.dataset.genderValue);
                 t.setAttribute("aria-selected", String(n)), t.setAttribute("aria-disabled", String(e.size >= 3 && !n));
             });
         }
-        function Sb() {
+        function sxHideGenderTooltip() {
             fb.hidden = !0, mb.querySelectorAll('[aria-describedby="genderTooltip"]').forEach(e => e.removeAttribute("aria-describedby"));
         }
-        function $b(e) {
+        function sxShowGenderTooltip(e) {
             const t = ib[e.dataset.genderValue];
             if (!t) return;
-            Sb(), fb.textContent = t.description || t.label, popularitySourceLine(fb, e.dataset.genderValue), fb.hidden = !1, e.setAttribute("aria-describedby", "genderTooltip");
+            sxHideGenderTooltip(), fb.textContent = t.description || t.label, popularitySourceLine(fb, e.dataset.genderValue), fb.hidden = !1, e.setAttribute("aria-describedby", "genderTooltip");
             const n = e.getBoundingClientRect(), i = fb.getBoundingClientRect();
             let a = n.right + 8;
             a + i.width > innerWidth - 12 && (a = n.left - i.width - 8);
@@ -431,11 +431,11 @@
             innerWidth < 700 && (a = 12, r = innerHeight - i.height - 12), fb.style.left = Math.max(12, Math.min(innerWidth - i.width - 12, a)) + "px",
             fb.style.top = Math.max(12, Math.min(innerHeight - i.height - 12, r)) + "px";
         }
-        function Eb(e = !1) {
-            mb.hidden = !0, hb.setAttribute("aria-expanded", "false"), Sb(), e && hb.focus();
+        function sxCloseGenderPicker(e = !1) {
+            mb.hidden = !0, hb.setAttribute("aria-expanded", "false"), sxHideGenderTooltip(), e && hb.focus();
         }
-        function Ab() {
-            mb.hidden = !1, hb.setAttribute("aria-expanded", "true"), xb();
+        function sxOpenGenderPicker() {
+            mb.hidden = !1, hb.setAttribute("aria-expanded", "true"), sxRefreshGenderPicker();
             const e = mb.querySelector('[aria-selected="true"]') || mb.querySelector(".gender-option");
             e && (e.focus({
                 preventScroll: !0
@@ -443,13 +443,13 @@
                 block: "nearest"
             }));
         }
-        hb.addEventListener("click", () => mb.hidden ? Ab() : Eb(!0)), hb.addEventListener("keydown", e => {
+        hb.addEventListener("click", () => mb.hidden ? sxOpenGenderPicker() : sxCloseGenderPicker(!0)), hb.addEventListener("keydown", e => {
             [ "ArrowDown", "ArrowUp", "Enter", " " ].includes(e.key) && (e.preventDefault(),
-            Ab());
+            sxOpenGenderPicker());
         }), mb.addEventListener("click", e => {
             const t = __sxClosestAction(e.target, "genderValue");
             if (!t) return;
-            const n = new Set(wb()), i = t.dataset.genderValue;
+            const n = new Set(sxReadGenderSelection()), i = t.dataset.genderValue;
             if (n.has(i)) n.delete(i); else {
                 if (!(n.size < 3)) return sm.textContent = "Choose no more than three genders.",
                 void t.focus({
@@ -457,34 +457,34 @@
                 });
                 n.add(i);
             }
-            kb([ ...n ]), Wg.dispatchEvent(new Event("change", {
+            sxApplyGenderSelection([ ...n ]), Wg.dispatchEvent(new Event("change", {
                 bubbles: !0
-            })), xb(), t.focus({
+            })), sxRefreshGenderPicker(), t.focus({
                 preventScroll: !0
-            }), $b(t);
+            }), sxShowGenderTooltip(t);
         }), mb.addEventListener("pointerdown", e => {
             if ("mouse" === e.pointerType) return;
             const t = __sxClosestAction(e.target, "genderValue");
             if (!t) return;
             const n = performance.now();
-            if (mb._tfEl === t && n < mb._tfUntil) return mb._tfEl = null, mb._tfBlock = null, void Sb();
-            mb._tfEl = t, mb._tfUntil = n + 3200, mb._tfBlock = t, $b(t), e.preventDefault(), e.stopImmediatePropagation();
+            if (mb._tfEl === t && n < mb._tfUntil) return mb._tfEl = null, mb._tfBlock = null, void sxHideGenderTooltip();
+            mb._tfEl = t, mb._tfUntil = n + 3200, mb._tfBlock = t, sxShowGenderTooltip(t), e.preventDefault(), e.stopImmediatePropagation();
         }, !0), mb.addEventListener("click", e => {
             const t = __sxClosestAction(e.target, "genderValue");
             t && mb._tfBlock === t && (mb._tfBlock = null, e.preventDefault(), e.stopImmediatePropagation());
         }, !0), mb.addEventListener("mouseover", e => {
             const t = __sxClosestAction(e.target, "genderValue");
-            t && $b(t);
+            t && sxShowGenderTooltip(t);
         }), mb.addEventListener("focusin", e => {
             const t = __sxClosestAction(e.target, "genderValue");
-            t && $b(t);
-        }), pb.addEventListener("mouseleave", Sb), mb.addEventListener("focusout", () => t.setTimeout(() => {
-            (mb.contains(document.activeElement) || fb.contains(document.activeElement)) || Sb();
+            t && sxShowGenderTooltip(t);
+        }), pb.addEventListener("mouseleave", sxHideGenderTooltip), mb.addEventListener("focusout", () => t.setTimeout(() => {
+            (mb.contains(document.activeElement) || fb.contains(document.activeElement)) || sxHideGenderTooltip();
         }, 0)), mb.addEventListener("keydown", e => {
             const t = [ ...mb.querySelectorAll(".gender-option") ], n = t.indexOf(document.activeElement);
             let i = n;
             if ("ArrowDown" === e.key) i = Math.min(t.length - 1, n + 1); else if ("ArrowUp" === e.key) i = Math.max(0, n - 1); else if ("Home" === e.key) i = 0; else {
-                if ("End" !== e.key) return "Escape" === e.key ? (e.preventDefault(), void Eb(!0)) : void 0;
+                if ("End" !== e.key) return "Escape" === e.key ? (e.preventDefault(), void sxCloseGenderPicker(!0)) : void 0;
                 i = t.length - 1;
             }
             e.preventDefault(), t[i].focus(), t[i].scrollIntoView({
@@ -492,33 +492,33 @@
             });
         });
         const Cb = e.byId("sexualityPicker"), Mb = e.byId("sexualityTrigger"), Ib = e.byId("sexualityTriggerLabel"), Pb = e.byId("sexualityMenu"), Lb = e.byId("sexualityTooltip");
-        function Tb() {
-            return iv([ ...Ug.selectedOptions ].map(e => e.value));
+        function sxReadOrientationSelection() {
+            return sxNormalizeOrientations([ ...Ug.selectedOptions ].map(e => e.value));
         }
-        function Fb(e) {
-            const t = new Set(iv(e));
+        function sxApplyOrientationSelection(e) {
+            const t = new Set(sxNormalizeOrientations(e));
             [ ...Ug.options ].forEach(e => {
                 e.selected = t.has(e.value);
             });
         }
-        function Nb(e, t = " + ") {
-            return iv(e).map(e => sb[e].label).join(t);
+        function sxOrientationLabelsText(e, t = " + ") {
+            return sxNormalizeOrientations(e).map(e => sb[e].label).join(t);
         }
-        function _b() {
-            const e = new Set(Tb()), t = Nb([ ...e ]);
+        function sxRefreshOrientationPicker() {
+            const e = new Set(sxReadOrientationSelection()), t = sxOrientationLabelsText([ ...e ]);
             Ib.textContent = t || "Choose up to 5…", Mb.title = t || "Choose up to five orientations",
             Pb.querySelectorAll("[data-sexuality-value]").forEach(t => {
                 const n = e.has(t.dataset.sexualityValue);
                 t.setAttribute("aria-selected", String(n)), t.setAttribute("aria-disabled", String(e.size >= 5 && !n));
             });
         }
-        function Db() {
+        function sxHideOrientationTooltip() {
             Lb.hidden = !0, Pb.querySelectorAll('[aria-describedby="sexualityTooltip"]').forEach(e => e.removeAttribute("aria-describedby"));
         }
-        function Rb(e) {
+        function sxShowOrientationTooltip(e) {
             const t = sb[e.dataset.sexualityValue];
             if (!t) return;
-            Db(), Lb.textContent = t.description || t.label, popularitySourceLine(Lb, e.dataset.sexualityValue), Lb.hidden = !1, e.setAttribute("aria-describedby", "sexualityTooltip");
+            sxHideOrientationTooltip(), Lb.textContent = t.description || t.label, popularitySourceLine(Lb, e.dataset.sexualityValue), Lb.hidden = !1, e.setAttribute("aria-describedby", "sexualityTooltip");
             const n = e.getBoundingClientRect(), i = Lb.getBoundingClientRect();
             let a = n.right + 8;
             a + i.width > innerWidth - 12 && (a = n.left - i.width - 8);
@@ -526,11 +526,11 @@
             innerWidth < 700 && (a = 12, r = innerHeight - i.height - 12), Lb.style.left = Math.max(12, Math.min(innerWidth - i.width - 12, a)) + "px",
             Lb.style.top = Math.max(12, Math.min(innerHeight - i.height - 12, r)) + "px";
         }
-        function Ob(e = !1) {
-            Pb.hidden = !0, Mb.setAttribute("aria-expanded", "false"), Db(), e && Mb.focus();
+        function sxCloseOrientationPicker(e = !1) {
+            Pb.hidden = !0, Mb.setAttribute("aria-expanded", "false"), sxHideOrientationTooltip(), e && Mb.focus();
         }
-        function Bb() {
-            Pb.hidden = !1, Mb.setAttribute("aria-expanded", "true"), _b();
+        function sxOpenOrientationPicker() {
+            Pb.hidden = !1, Mb.setAttribute("aria-expanded", "true"), sxRefreshOrientationPicker();
             const e = Pb.querySelector('[aria-selected="true"]') || Pb.querySelector(".sexuality-option");
             e && (e.focus({
                 preventScroll: !0
@@ -538,17 +538,17 @@
                 block: "nearest"
             }));
         }
-        n(Pb, ab.map(e => `<div class="sexuality-group-label" role="presentation">${Hi(e.label)}</div>${e.options.map(e => {
+        n(Pb, ab.map(e => `<div class="sexuality-group-label" role="presentation">${sxEscapeHtmlText(e.label)}</div>${e.options.map(e => {
                 const t = e.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
-                return `<button class="sexuality-option" type="button" role="option" data-tooltip-tap-first data-sexuality-value="${Hi(t)}" aria-selected="false">${Hi(e + popularitySuffix(t))}</button>`;
+                return `<button class="sexuality-option" type="button" role="option" data-tooltip-tap-first data-sexuality-value="${sxEscapeHtmlText(t)}" aria-selected="false">${sxEscapeHtmlText(e + popularitySuffix(t))}</button>`;
             }).join("")}`).join("")),
-        Mb.addEventListener("click", () => Pb.hidden ? Bb() : Ob(!0)), Mb.addEventListener("keydown", e => {
+        Mb.addEventListener("click", () => Pb.hidden ? sxOpenOrientationPicker() : sxCloseOrientationPicker(!0)), Mb.addEventListener("keydown", e => {
             [ "ArrowDown", "ArrowUp", "Enter", " " ].includes(e.key) && (e.preventDefault(),
-            Bb());
+            sxOpenOrientationPicker());
         }), Pb.addEventListener("click", e => {
             const t = __sxClosestAction(e.target, "sexualityValue");
             if (!t) return;
-            const n = new Set(Tb()), i = t.dataset.sexualityValue;
+            const n = new Set(sxReadOrientationSelection()), i = t.dataset.sexualityValue;
             if (n.has(i)) n.delete(i); else {
                 if (!(n.size < 5)) return sm.textContent = "Choose no more than five orientations.",
                 void t.focus({
@@ -556,34 +556,34 @@
                 });
                 n.add(i);
             }
-            Fb([ ...n ]), Ug.dispatchEvent(new Event("change", {
+            sxApplyOrientationSelection([ ...n ]), Ug.dispatchEvent(new Event("change", {
                 bubbles: !0
-            })), _b(), t.focus({
+            })), sxRefreshOrientationPicker(), t.focus({
                 preventScroll: !0
-            }), Rb(t);
+            }), sxShowOrientationTooltip(t);
         }), Pb.addEventListener("pointerdown", e => {
             if ("mouse" === e.pointerType) return;
             const t = __sxClosestAction(e.target, "sexualityValue");
             if (!t) return;
             const n = performance.now();
-            if (Pb._tfEl === t && n < Pb._tfUntil) return Pb._tfEl = null, Pb._tfBlock = null, void Db();
-            Pb._tfEl = t, Pb._tfUntil = n + 3200, Pb._tfBlock = t, Rb(t), e.preventDefault(), e.stopImmediatePropagation();
+            if (Pb._tfEl === t && n < Pb._tfUntil) return Pb._tfEl = null, Pb._tfBlock = null, void sxHideOrientationTooltip();
+            Pb._tfEl = t, Pb._tfUntil = n + 3200, Pb._tfBlock = t, sxShowOrientationTooltip(t), e.preventDefault(), e.stopImmediatePropagation();
         }, !0), Pb.addEventListener("click", e => {
             const t = __sxClosestAction(e.target, "sexualityValue");
             t && Pb._tfBlock === t && (Pb._tfBlock = null, e.preventDefault(), e.stopImmediatePropagation());
         }, !0), Pb.addEventListener("mouseover", e => {
             const t = __sxClosestAction(e.target, "sexualityValue");
-            t && Rb(t);
+            t && sxShowOrientationTooltip(t);
         }), Pb.addEventListener("focusin", e => {
             const t = __sxClosestAction(e.target, "sexualityValue");
-            t && Rb(t);
-        }), Cb.addEventListener("mouseleave", Db), Pb.addEventListener("focusout", () => t.setTimeout(() => {
-            (Pb.contains(document.activeElement) || Lb.contains(document.activeElement)) || Db();
+            t && sxShowOrientationTooltip(t);
+        }), Cb.addEventListener("mouseleave", sxHideOrientationTooltip), Pb.addEventListener("focusout", () => t.setTimeout(() => {
+            (Pb.contains(document.activeElement) || Lb.contains(document.activeElement)) || sxHideOrientationTooltip();
         }, 0)), Pb.addEventListener("keydown", e => {
             const t = [ ...Pb.querySelectorAll(".sexuality-option") ], n = t.indexOf(document.activeElement);
             let i = n;
             if ("ArrowDown" === e.key) i = Math.min(t.length - 1, n + 1); else if ("ArrowUp" === e.key) i = Math.max(0, n - 1); else if ("Home" === e.key) i = 0; else {
-                if ("End" !== e.key) return "Escape" === e.key ? (e.preventDefault(), void Ob(!0)) : void 0;
+                if ("End" !== e.key) return "Escape" === e.key ? (e.preventDefault(), void sxCloseOrientationPicker(!0)) : void 0;
                 i = t.length - 1;
             }
             e.preventDefault(), t[i].focus(), t[i].scrollIntoView({
@@ -591,40 +591,40 @@
             });
         });
         const jb = e.byId("rolePicker"), qb = e.byId("roleTrigger"), Hb = e.byId("roleTriggerLabel"), Wb = e.byId("roleMenu"), Ub = e.byId("roleTooltip");
-        function Gb(e) {
+        function sxNormalizeRoles(e) {
             const t = Array.isArray(e) ? e : [ e ], n = [];
             return t.forEach(e => {
                 const t = String(e || "").trim().toLowerCase();
                 Object.prototype.hasOwnProperty.call(ub, t) && !n.includes(t) && n.push(t);
             }), n.slice(0, 5);
         }
-        function Kb(e, t = " + ") {
-            return Gb(e).map(e => ub[e].label).join(t);
+        function sxRoleLabelsText(e, t = " + ") {
+            return sxNormalizeRoles(e).map(e => ub[e].label).join(t);
         }
-        function zb() {
-            return Gb([ ...Gg.selectedOptions ].map(e => e.value));
+        function sxReadRoleSelection() {
+            return sxNormalizeRoles([ ...Gg.selectedOptions ].map(e => e.value));
         }
-        function Vb(e) {
-            const t = new Set(Gb(e));
+        function sxApplyRoleSelection(e) {
+            const t = new Set(sxNormalizeRoles(e));
             [ ...Gg.options ].forEach(e => {
                 e.selected = t.has(e.value);
             });
         }
-        function Yb() {
-            const e = new Set(zb()), t = Kb([ ...e ]);
+        function sxRefreshRolePicker() {
+            const e = new Set(sxReadRoleSelection()), t = sxRoleLabelsText([ ...e ]);
             Hb.textContent = t || "Choose up to 5…", qb.title = t || "Choose up to five roles",
             Wb.querySelectorAll("[data-role-value]").forEach(t => {
                 const n = e.has(t.dataset.roleValue);
                 t.setAttribute("aria-selected", String(n)), t.setAttribute("aria-disabled", String(e.size >= 5 && !n));
             });
         }
-        function Xb() {
+        function sxHideRoleTooltip() {
             Ub.hidden = !0, Wb.querySelectorAll('[aria-describedby="roleTooltip"]').forEach(e => e.removeAttribute("aria-describedby"));
         }
-        function Zb(e) {
+        function sxShowRoleTooltip(e) {
             const t = ub[e.dataset.roleValue];
             if (!t) return;
-            Xb(), Ub.textContent = t.description || t.label, popularitySourceLine(Ub, e.dataset.roleValue), Ub.hidden = !1, e.setAttribute("aria-describedby", "roleTooltip");
+            sxHideRoleTooltip(), Ub.textContent = t.description || t.label, popularitySourceLine(Ub, e.dataset.roleValue), Ub.hidden = !1, e.setAttribute("aria-describedby", "roleTooltip");
             const n = e.getBoundingClientRect(), i = Ub.getBoundingClientRect();
             let a = n.right + 8;
             a + i.width > innerWidth - 12 && (a = n.left - i.width - 8);
@@ -632,11 +632,11 @@
             innerWidth < 700 && (a = 12, r = innerHeight - i.height - 12), Ub.style.left = Math.max(12, Math.min(innerWidth - i.width - 12, a)) + "px",
             Ub.style.top = Math.max(12, Math.min(innerHeight - i.height - 12, r)) + "px";
         }
-        function Qb(e = !1) {
-            Wb.hidden = !0, qb.setAttribute("aria-expanded", "false"), Xb(), e && qb.focus();
+        function sxCloseRolePicker(e = !1) {
+            Wb.hidden = !0, qb.setAttribute("aria-expanded", "false"), sxHideRoleTooltip(), e && qb.focus();
         }
-        function Jb() {
-            Wb.hidden = !1, qb.setAttribute("aria-expanded", "true"), Yb();
+        function sxOpenRolePicker() {
+            Wb.hidden = !1, qb.setAttribute("aria-expanded", "true"), sxRefreshRolePicker();
             const e = Wb.querySelector('[aria-selected="true"]') || Wb.querySelector(".sexuality-option");
             e && (e.focus({
                 preventScroll: !0
@@ -644,46 +644,46 @@
                 block: "nearest"
             }));
         }
-        n(Wb, cb.map(e => `<button class="sexuality-option" type="button" role="option" data-tooltip-tap-first data-role-value="${Hi(e)}" aria-selected="false">${Hi(ub[e].label + popularitySuffix(e))}</button>`).join("")),
-        qb.addEventListener("click", () => Wb.hidden ? Jb() : Qb(!0)), qb.addEventListener("keydown", e => {
+        n(Wb, cb.map(e => `<button class="sexuality-option" type="button" role="option" data-tooltip-tap-first data-role-value="${sxEscapeHtmlText(e)}" aria-selected="false">${sxEscapeHtmlText(ub[e].label + popularitySuffix(e))}</button>`).join("")),
+        qb.addEventListener("click", () => Wb.hidden ? sxOpenRolePicker() : sxCloseRolePicker(!0)), qb.addEventListener("keydown", e => {
             [ "ArrowDown", "ArrowUp", "Enter", " " ].includes(e.key) && (e.preventDefault(),
-            Jb());
+            sxOpenRolePicker());
         }), Wb.addEventListener("click", e => {
             const t = __sxClosestAction(e.target, "roleValue");
             if (!t) return;
-            const n = new Set(zb()), i = t.dataset.roleValue;
+            const n = new Set(sxReadRoleSelection()), i = t.dataset.roleValue;
             if (n.has(i)) n.delete(i); else {
                 if (!(n.size < 5)) return sm.textContent = "Choose no more than five roles.", void t.focus({
                     preventScroll: !0
                 });
                 n.add(i);
             }
-            Vb([ ...n ]), Yb(), t.focus({
+            sxApplyRoleSelection([ ...n ]), sxRefreshRolePicker(), t.focus({
                 preventScroll: !0
-            }), Zb(t);
+            }), sxShowRoleTooltip(t);
         }), Wb.addEventListener("pointerdown", e => {
             if ("mouse" === e.pointerType) return;
             const t = __sxClosestAction(e.target, "roleValue");
             if (!t) return;
             const n = performance.now();
-            if (Wb._tfEl === t && n < Wb._tfUntil) return Wb._tfEl = null, Wb._tfBlock = null, void Xb();
-            Wb._tfEl = t, Wb._tfUntil = n + 3200, Wb._tfBlock = t, Zb(t), e.preventDefault(), e.stopImmediatePropagation();
+            if (Wb._tfEl === t && n < Wb._tfUntil) return Wb._tfEl = null, Wb._tfBlock = null, void sxHideRoleTooltip();
+            Wb._tfEl = t, Wb._tfUntil = n + 3200, Wb._tfBlock = t, sxShowRoleTooltip(t), e.preventDefault(), e.stopImmediatePropagation();
         }, !0), Wb.addEventListener("click", e => {
             const t = __sxClosestAction(e.target, "roleValue");
             t && Wb._tfBlock === t && (Wb._tfBlock = null, e.preventDefault(), e.stopImmediatePropagation());
         }, !0), Wb.addEventListener("mouseover", e => {
             const t = __sxClosestAction(e.target, "roleValue");
-            t && Zb(t);
+            t && sxShowRoleTooltip(t);
         }), Wb.addEventListener("focusin", e => {
             const t = __sxClosestAction(e.target, "roleValue");
-            t && Zb(t);
-        }), jb.addEventListener("mouseleave", Xb), Wb.addEventListener("focusout", () => t.setTimeout(() => {
-            (Wb.contains(document.activeElement) || Ub.contains(document.activeElement)) || Xb();
+            t && sxShowRoleTooltip(t);
+        }), jb.addEventListener("mouseleave", sxHideRoleTooltip), Wb.addEventListener("focusout", () => t.setTimeout(() => {
+            (Wb.contains(document.activeElement) || Ub.contains(document.activeElement)) || sxHideRoleTooltip();
         }, 0)), Wb.addEventListener("keydown", e => {
             const t = [ ...Wb.querySelectorAll(".sexuality-option") ], n = t.indexOf(document.activeElement);
             let i = n;
             if ("ArrowDown" === e.key) i = Math.min(t.length - 1, n + 1); else if ("ArrowUp" === e.key) i = Math.max(0, n - 1); else if ("Home" === e.key) i = 0; else {
-                if ("End" !== e.key) return "Escape" === e.key ? (e.preventDefault(), void Qb(!0)) : void 0;
+                if ("End" !== e.key) return "Escape" === e.key ? (e.preventDefault(), void sxCloseRolePicker(!0)) : void 0;
                 i = t.length - 1;
             }
             e.preventDefault(), t[i].focus(), t[i].scrollIntoView({
@@ -691,7 +691,7 @@
             });
         });
         const ev = [ ...e.all("[data-profile-info]") ];
-        function tv(t, n, i = !1) {
+        function sxSetProfileInfoOpen(t, n, i = !1) {
             const a = e.one(`[data-profile-info-popover="${t.dataset.profileInfo}"]`);
             a && (a.hidden = !n, t.setAttribute("aria-expanded", String(n && i)), n ? t.setAttribute("aria-describedby", `${t.dataset.profileInfo}ProfileInfo`) : t.removeAttribute("aria-describedby"));
         }
@@ -700,33 +700,33 @@
             n && (n.id = `${t.dataset.profileInfo}ProfileInfo`), t.addEventListener("click", e => {
                 e.stopPropagation();
                 const n = "true" !== t.getAttribute("aria-expanded");
-                ev.forEach(e => tv(e, !1)), tv(t, n, n);
-            }), t.addEventListener("mouseenter", () => tv(t, !0, "true" === t.getAttribute("aria-expanded"))),
+                ev.forEach(e => sxSetProfileInfoOpen(e, !1)), sxSetProfileInfoOpen(t, n, n);
+            }), t.addEventListener("mouseenter", () => sxSetProfileInfoOpen(t, !0, "true" === t.getAttribute("aria-expanded"))),
             t.addEventListener("mouseleave", () => {
-                "true" !== t.getAttribute("aria-expanded") && tv(t, !1);
-            }), t.addEventListener("focus", () => tv(t, !0, "true" === t.getAttribute("aria-expanded"))),
+                "true" !== t.getAttribute("aria-expanded") && sxSetProfileInfoOpen(t, !1);
+            }), t.addEventListener("focus", () => sxSetProfileInfoOpen(t, !0, "true" === t.getAttribute("aria-expanded"))),
             t.addEventListener("blur", () => {
-                "true" !== t.getAttribute("aria-expanded") && tv(t, !1);
+                "true" !== t.getAttribute("aria-expanded") && sxSetProfileInfoOpen(t, !1);
             });
         }), window.__sxOnPtr( e => {
-            mb.hidden || pb.contains(e.target) || Eb(), Pb.hidden || Cb.contains(e.target) || Ob(),
-            Wb.hidden || jb.contains(e.target) || Qb(), __sxClosestAction(e.target, "profileInfo") || ev.forEach(e => tv(e, !1));
+            mb.hidden || pb.contains(e.target) || sxCloseGenderPicker(), Pb.hidden || Cb.contains(e.target) || sxCloseOrientationPicker(),
+            Wb.hidden || jb.contains(e.target) || sxCloseRolePicker(), __sxClosestAction(e.target, "profileInfo") || ev.forEach(e => sxSetProfileInfoOpen(e, !1));
         }, !0), window.addEventListener("resize", () => {
-            Sb(), Db(), Xb();
+            sxHideGenderTooltip(), sxHideOrientationTooltip(), sxHideRoleTooltip();
         });
         const nv = {
             "bi-curious": "bicurious",
             reciproseuxal: "reciprosexual",
             private: "not-applicable"
         };
-        function iv(e) {
+        function sxNormalizeOrientations(e) {
             const t = Array.isArray(e) ? e : [ e ], n = [];
             return t.forEach(e => {
                 let t = String(e || "").trim().toLowerCase();
                 t = nv[t] || t, Object.prototype.hasOwnProperty.call(sb, t) && !n.includes(t) && n.push(t);
             }), n.slice(0, 5);
         }
-        function av(e) {
+        function sxClampVeilLevel(e) {
             const t = Number(e);
             return Math.round(Math.max(0, Math.min(100, Number.isFinite(t) ? t : 50)));
         }

@@ -1,7 +1,7 @@
         function vcScribeReady(t = []) {
                 const n = e.byId("scribeTab");
                 if (!n) return;
-                const i = t.filter(e => vt[e]), a = i.some(e => Object.values(vt[e] || {}).some(e => "number" == typeof e || Boolean(e && "object" == typeof e && (Object.prototype.hasOwnProperty.call(e, "give") || Object.prototype.hasOwnProperty.call(e, "receive"))))), r = i.length > 1, o = Yi(), s = o.length > 1;
+                const i = t.filter(e => vt[e]), a = i.some(e => Object.values(vt[e] || {}).some(e => "number" == typeof e || Boolean(e && "object" == typeof e && (Object.prototype.hasOwnProperty.call(e, "give") || Object.prototype.hasOwnProperty.call(e, "receive"))))), r = i.length > 1, o = sxListLiveSelections(), s = o.length > 1;
                 hc = a && r ? i.slice().sort().join("|") : "", n.classList.toggle("scribe-ready", Boolean(hc && !mc.has(hc))), 
                 n.dataset.uiTooltip = r ? "Scribe will create a Literotica-style erotic story featuring these multiple profiles. For a binding checklist and play guide, use Scene Setter." : s ? `Scribe will create a Literotica-style erotic story featuring these ${o.length} selected profiles.` : 1 === i.length || 1 === o.length ? "Scribe will create a Literotica-style erotic story from this profile." : "Scribe needs at least 1 profile selected: open a profile tab, or Ctrl+click (Cmd+click on Mac) profile tabs to build a multi-select.";
             }
@@ -19,12 +19,12 @@
             u.mutual.textContent = "";
             u.explore.textContent = "";
             u.rated.textContent = "";
-            sc("mutualCount", 0, "", "", "");
-            sc("exploreCount", 0, "", "", "");
-            sc("ratedCount", 0, "", "", "");
+            sxSetGlanceTooltip("mutualCount", 0, "", "", "");
+            sxSetGlanceTooltip("exploreCount", 0, "", "", "");
+            sxSetGlanceTooltip("ratedCount", 0, "", "", "");
             r && (r.hidden = !1, r.textContent = "Load a profile to see your overview.", 
             r.removeAttribute("title"), r.setAttribute("aria-label", "Load a profile to see your overview."));
-            void bc([ {
+            void sxPaintGlanceRings([ {
                 label: "Hot topics", // FQ2-BAKEIN: "Want to do" -> "Hot topics"
                 count: 0,
                 percent: 0,
@@ -51,15 +51,15 @@
                     mismatched: []
                 }, o = Number(i.percent) || 0, s = o < 33 ? "is-low" : o > 66 ? "is-high" : "is-mid";
                 if (n && i.noScore) {
-                    const g = na(a);
+                    const g = sxTallyComparedRatings(a);
                     return l.classList.add("rating-breakdown"), c.hidden = !1, c.className = "glance-compatibility is-mid",
                     d.textContent = "no score", e.byId("glanceCompatibilityPercent").textContent = "—",
                     c.setAttribute("aria-label", "No score: every shared topic is set aside by a limit or a fantasy-only mark."),
                     u.mutual.textContent = "Hot topics together", u.explore.textContent = "Curiosity?", u.rated.textContent = "Not topics", // FQ2-BAKEIN: header "Want to do" -> "Hot topics together"; "Curious about" -> "Curiosity?"; "apart" KEPT (comparison red); Apart -> Not topics (SURFACES)
-                    sc("mutualCount", 0, "Hot topics together", [], "No shared topics can be scored.", []), // FQ2-BAKEIN: tooltip title "Want to do together" -> "Hot topics together"
-                    sc("exploreCount", 0, "Curiosity? together", [], "No shared topics can be scored.", []), // FQ2-BAKEIN: tooltip title "Curious about together" -> "Curiosity? together"
-                    sc("ratedCount", 0, "Not topics together", [], "No shared topics can be scored.", []), // FQ2-BAKEIN: tooltip title "Topics apart" -> "Not topics together"; Apart -> Not topics (SURFACES)
-                    bc([ {
+                    sxSetGlanceTooltip("mutualCount", 0, "Hot topics together", [], "No shared topics can be scored.", []), // FQ2-BAKEIN: tooltip title "Want to do together" -> "Hot topics together"
+                    sxSetGlanceTooltip("exploreCount", 0, "Curiosity? together", [], "No shared topics can be scored.", []), // FQ2-BAKEIN: tooltip title "Curious about together" -> "Curiosity? together"
+                    sxSetGlanceTooltip("ratedCount", 0, "Not topics together", [], "No shared topics can be scored.", []), // FQ2-BAKEIN: tooltip title "Topics apart" -> "Not topics together"; Apart -> Not topics (SURFACES)
+                    sxPaintGlanceRings([ {
                         label: "Hot topics", // FQ2-BAKEIN: "Want to do" -> "Hot topics"
                         count: 0,
                         percent: 0,
@@ -92,19 +92,19 @@
                             red: 0
                         };
                         return (e || []).filter(e => vt[e]).forEach(e => {
-                            Uc().forEach(i => cc(t, n, i, e, t => `${t} · ${Ji(wt[e])}`));
+                            sxAllTopicIds().forEach(i => sxAddGlanceBucket(t, n, i, e, t => `${t} · ${sxFirstWordText(wt[e])}`));
                         }), Object.values(t).forEach(e => e.sort((e, t) => e.label.localeCompare(t.label))), 
                         Object.assign(t, {
-                            percentages: lc(n)
+                            percentages: sxGlanceBandPercents(n)
                         });
-                    }(a), n = na(a), i = a.map(e => Ji(wt[e])).filter(Boolean).join(" + ");
+                    }(a), n = sxTallyComparedRatings(a), i = a.map(e => sxFirstWordText(wt[e])).filter(Boolean).join(" + ");
                     return d.textContent = "no shared ratings", e.byId("glanceCompatibilityPercent").textContent = "—", 
                     c.setAttribute("aria-label", `No shared rated topics for ${i || "the selected profiles"}. Combined rating mix shown.`), 
                     u.mutual.textContent = "combined Hot topics", u.explore.textContent = "combined Curiosity?", // FQ2-BAKEIN: header "combined Want to do" -> "combined Hot topics"; "combined Curious about" -> "combined Curiosity?"
-                    u.rated.textContent = "combined Not topics", sc("mutualCount", t.percentages.green, "Combined Hot topics", t.green.map(e => e.label), "No Hot topics ratings in the selected profiles.", t.green, "%"), // FQ2-BAKEIN: header "combined No" -> "combined Not topics"; tooltip title "Combined Want to do" -> "Combined Hot topics"; empty text "No Want to do ratings in the selected profiles." -> "No Hot topics ratings in the selected profiles." (leading "No" is the negator, kept)
-                    sc("exploreCount", t.percentages.yellow, "Combined Curiosity?", t.yellow.map(e => e.label), "No Curiosity? ratings in the selected profiles.", t.yellow, "%"), // FQ2-BAKEIN: tooltip title "Combined Curious about" -> "Combined Curiosity?"; empty text "No Curious about ratings in the selected profiles." -> "No Curiosity? ratings in the selected profiles." (leading "No" is the negator, kept)
-                    sc("ratedCount", t.percentages.red, "Combined Not topics", t.red.map(e => e.label), "No topics rated against in the selected profiles.", t.red, "%"), // FQ2-BAKEIN: tooltip title "Combined No" -> "Combined Not topics"
-                    bc([ {
+                    u.rated.textContent = "combined Not topics", sxSetGlanceTooltip("mutualCount", t.percentages.green, "Combined Hot topics", t.green.map(e => e.label), "No Hot topics ratings in the selected profiles.", t.green, "%"), // FQ2-BAKEIN: header "combined No" -> "combined Not topics"; tooltip title "Combined Want to do" -> "Combined Hot topics"; empty text "No Want to do ratings in the selected profiles." -> "No Hot topics ratings in the selected profiles." (leading "No" is the negator, kept)
+                    sxSetGlanceTooltip("exploreCount", t.percentages.yellow, "Combined Curiosity?", t.yellow.map(e => e.label), "No Curiosity? ratings in the selected profiles.", t.yellow, "%"), // FQ2-BAKEIN: tooltip title "Combined Curious about" -> "Combined Curiosity?"; empty text "No Curious about ratings in the selected profiles." -> "No Curiosity? ratings in the selected profiles." (leading "No" is the negator, kept)
+                    sxSetGlanceTooltip("ratedCount", t.percentages.red, "Combined Not topics", t.red.map(e => e.label), "No topics rated against in the selected profiles.", t.red, "%"), // FQ2-BAKEIN: tooltip title "Combined No" -> "Combined Not topics"
+                    sxPaintGlanceRings([ {
                         label: "Combined Hot topics", // FQ2-BAKEIN: "Combined Want to do" -> "Combined Hot topics"
                         count: t.green.length,
                         percent: t.percentages.green,
@@ -126,11 +126,11 @@
                 }
                 d.textContent = `match · ${i.clicks} of ${i.things} shared topics`, e.byId("glanceCompatibilityPercent").textContent = `${o}%`, 
                 c.setAttribute("aria-label", `${o}% — ${i.clicks} of ${i.things} shared topics`), u.mutual.textContent = "Hot topics together", // FQ2-BAKEIN: header "Want to do" -> "Hot topics together"
-                u.explore.textContent = "Curiosity?", u.rated.textContent = "Not topics", sc("mutualCount", r.matches.length, "Hot topics together", r.matches, "No shared Hot topics.", oc(r.matches, "green", a)), // FQ2-BAKEIN: header "Curious about" -> "Curiosity?" ("apart" KEPT); tooltip title "Want to do together" -> "Hot topics together"; empty text "No shared Want to do topics." -> "No shared Hot topics." (redundant trailing "topics" dropped); Apart -> Not topics (SURFACES)
-                sc("exploreCount", r.curiousAbout.length, "Curiosity? together", r.curiousAbout, "No shared Curiosity? topics.", oc(r.curiousAbout, "yellow", a)), // FQ2-BAKEIN: tooltip title "Curious about together" -> "Curiosity? together"; empty text "No shared Curious about topics." -> "No shared Curiosity? topics."
-                sc("ratedCount", r.mismatched.length, "Not topics together", r.mismatched, "No rated topics fall outside the group overlap.", oc(r.mismatched, "red", a)); // FQ2-BAKEIN: tooltip title "Topics apart" -> "Not topics together"; Apart -> Not topics (SURFACES)
-                const h = uc([ r.matches.length, r.curiousAbout.length, r.mismatched.length ]), g = na(a);
-                return bc([ {
+                u.explore.textContent = "Curiosity?", u.rated.textContent = "Not topics", sxSetGlanceTooltip("mutualCount", r.matches.length, "Hot topics together", r.matches, "No shared Hot topics.", sxGlanceRowsFor(r.matches, "green", a)), // FQ2-BAKEIN: header "Curious about" -> "Curiosity?" ("apart" KEPT); tooltip title "Want to do together" -> "Hot topics together"; empty text "No shared Want to do topics." -> "No shared Hot topics." (redundant trailing "topics" dropped); Apart -> Not topics (SURFACES)
+                sxSetGlanceTooltip("exploreCount", r.curiousAbout.length, "Curiosity? together", r.curiousAbout, "No shared Curiosity? topics.", sxGlanceRowsFor(r.curiousAbout, "yellow", a)), // FQ2-BAKEIN: tooltip title "Curious about together" -> "Curiosity? together"; empty text "No shared Curious about topics." -> "No shared Curiosity? topics."
+                sxSetGlanceTooltip("ratedCount", r.mismatched.length, "Not topics together", r.mismatched, "No rated topics fall outside the group overlap.", sxGlanceRowsFor(r.mismatched, "red", a)); // FQ2-BAKEIN: tooltip title "Topics apart" -> "Not topics together"; Apart -> Not topics (SURFACES)
+                const h = sxLargestRemainderPercents([ r.matches.length, r.curiousAbout.length, r.mismatched.length ]), g = sxTallyComparedRatings(a);
+                return sxPaintGlanceRings([ {
                     label: "Hot topics together", // FQ2-BAKEIN: "Want to do" -> "Hot topics together"
                     count: r.matches.length,
                     percent: h[0],
@@ -160,10 +160,10 @@
                 e.byId("glanceCompatibilityPercent").textContent = g.noScore ? "—" : `${n}%`, c.setAttribute("aria-label", g.noScore ? `No group match score for ${wt[Mt]}: every shared topic is set aside.` : `${n}% group match score for ${wt[Mt]} — ${g.clicks} of ${g.things} shared topics`), 
                 u.mutual.textContent = "Hot topics together", u.explore.textContent = "Curiosity?", u.rated.textContent = "Not topics"; // FQ2-BAKEIN: header "Want to do" -> "Hot topics together"; "Curious about" -> "Curiosity?"; "apart" KEPT (group red); Apart -> Not topics (SURFACES)
                 const a = Array.isArray(g.sourceProfiles) ? g.sourceProfiles : [];
-                sc("mutualCount", t.matches.length, "Hot topics together", t.matches, "No shared Hot topics.", function(e, t) { // FQ2-BAKEIN: tooltip title "Want to do together" -> "Hot topics together"; empty text "No shared Want to do topics." -> "No shared Hot topics." (redundant trailing "topics" dropped)
+                sxSetGlanceTooltip("mutualCount", t.matches.length, "Hot topics together", t.matches, "No shared Hot topics.", function(e, t) { // FQ2-BAKEIN: tooltip title "Want to do together" -> "Hot topics together"; empty text "No shared Want to do topics." -> "No shared Hot topics." (redundant trailing "topics" dropped)
                     const n = new Map, i = ft[t], a = i && Array.isArray(i.sourceProfiles) ? i.sourceProfiles : [], details = i && i.matchDetails || {}, ids = i && Array.isArray(i.sourceIds) ? i.sourceIds : [];
-                    Uc().forEach(e => {
-                        const i = qn[e] || Xn(e) || (at[t] || {})[e];
+                    sxAllTopicIds().forEach(e => {
+                        const i = sxNodeRegistry[e] || sxNodeById(e) || (at[t] || {})[e];
                         i && i.label && !n.has(i.label) && n.set(i.label, {
                             id: e,
                             item: i
@@ -177,12 +177,12 @@
                         det && Array.isArray(det.routes) && det.routes.forEach(rt => {
                             rt.giver === firstName ? o += Number(rt.score) || 0 : rt.receiver === firstName && (s += Number(rt.score) || 0);
                         });
-                        const c = o && s ? "both" : o ? "give" : "receive", d = i ? rc(i, ids.length ? ids : a) : {
+                        const c = o && s ? "both" : o ? "give" : "receive", d = i ? sxMeanFlankPair(i, ids.length ? ids : a) : {
                             give: 0,
                             giveKnown: !1,
                             receive: 0,
                             receiveKnown: !1
-                        }, u = r && h.some(e => e.name === r.branch) ? Oe(r.label, r.branch) : null;
+                        }, u = r && h.some(e => e.name === r.branch) ? sxTopicIcon(r.label, r.branch) : null;
                         return {
                             id: i,
                             label: e,
@@ -195,10 +195,10 @@
                             receiveKnown: d.receiveKnown
                         };
                     });
-                }(t.matches, Mt)), sc("exploreCount", t.curiousAbout.length, "Curiosity? together", t.curiousAbout, "No shared Curiosity? topics.", oc(t.curiousAbout, "yellow", a)), // FQ2-BAKEIN: tooltip title "Curious about together" -> "Curiosity? together"; empty text "No shared Curious about topics." -> "No shared Curiosity? topics."
-                sc("ratedCount", t.mismatched.length, "Not topics together", t.mismatched, "No rated topics fall outside the group overlap.", oc(t.mismatched, "red", a)); // FQ2-BAKEIN: tooltip title "Topics apart" -> "Not topics together"; Apart -> Not topics (SURFACES)
-                const r = uc([ t.matches.length, t.curiousAbout.length, t.mismatched.length ]);
-                return bc([ {
+                }(t.matches, Mt)), sxSetGlanceTooltip("exploreCount", t.curiousAbout.length, "Curiosity? together", t.curiousAbout, "No shared Curiosity? topics.", sxGlanceRowsFor(t.curiousAbout, "yellow", a)), // FQ2-BAKEIN: tooltip title "Curious about together" -> "Curiosity? together"; empty text "No shared Curious about topics." -> "No shared Curiosity? topics."
+                sxSetGlanceTooltip("ratedCount", t.mismatched.length, "Not topics together", t.mismatched, "No rated topics fall outside the group overlap.", sxGlanceRowsFor(t.mismatched, "red", a)); // FQ2-BAKEIN: tooltip title "Topics apart" -> "Not topics together"; Apart -> Not topics (SURFACES)
+                const r = sxLargestRemainderPercents([ t.matches.length, t.curiousAbout.length, t.mismatched.length ]);
+                return sxPaintGlanceRings([ {
                     label: "Hot topics together", // FQ2-BAKEIN: "Want to do" -> "Hot topics together"
                     count: t.matches.length,
                     percent: r[0],
@@ -219,12 +219,12 @@
                 } ], s), void p();
                     }
         function vcSingleProfile(o, l, u, s, p) {
-                const e = dc(o[0]);
+                const e = sxGlanceBucketsFor(o[0]);
                 return l.classList.add("rating-breakdown", "weighted-ratings"), u.mutual.textContent = "Hot topics", // FQ2-BAKEIN: header "Want to do" -> "Hot topics"
-                u.explore.textContent = "Curiosity?", u.rated.textContent = "Not topics", sc("mutualCount", e.percentages.green, "Hot topics", e.green.map(e => e.label), "No Hot topics ratings in this profile.", e.green, "%"), // FQ2-BAKEIN: header "Curious about" -> "Curiosity?"; header "No" -> "Not topics"; tooltip title "Want to do" -> "Hot topics"; empty text "No Want to do ratings in this profile." -> "No Hot topics ratings in this profile." (leading "No" is the negator, kept)
-                sc("exploreCount", e.percentages.yellow, "Curiosity?", e.yellow.map(e => e.label), "No Curiosity? ratings in this profile.", e.yellow, "%"), // FQ2-BAKEIN: tooltip title "Curious about" -> "Curiosity?"; empty text "No Curious about ratings in this profile." -> "No Curiosity? ratings in this profile." (leading "No" is the negator, kept)
-                sc("ratedCount", e.percentages.red, "Not topics", e.red.map(e => e.label), "No topics rated against in this profile.", e.red, "%"), // FQ2-BAKEIN: tooltip title "No" -> "Not topics"
-                bc([ {
+                u.explore.textContent = "Curiosity?", u.rated.textContent = "Not topics", sxSetGlanceTooltip("mutualCount", e.percentages.green, "Hot topics", e.green.map(e => e.label), "No Hot topics ratings in this profile.", e.green, "%"), // FQ2-BAKEIN: header "Curious about" -> "Curiosity?"; header "No" -> "Not topics"; tooltip title "Want to do" -> "Hot topics"; empty text "No Want to do ratings in this profile." -> "No Hot topics ratings in this profile." (leading "No" is the negator, kept)
+                sxSetGlanceTooltip("exploreCount", e.percentages.yellow, "Curiosity?", e.yellow.map(e => e.label), "No Curiosity? ratings in this profile.", e.yellow, "%"), // FQ2-BAKEIN: tooltip title "Curious about" -> "Curiosity?"; empty text "No Curious about ratings in this profile." -> "No Curiosity? ratings in this profile." (leading "No" is the negator, kept)
+                sxSetGlanceTooltip("ratedCount", e.percentages.red, "Not topics", e.red.map(e => e.label), "No topics rated against in this profile.", e.red, "%"), // FQ2-BAKEIN: tooltip title "No" -> "Not topics"
+                sxPaintGlanceRings([ {
                     label: "Hot topics", // FQ2-BAKEIN: "Want to do" -> "Hot topics"
                     count: e.green.length,
                     percent: e.percentages.green,
@@ -247,15 +247,15 @@
         function vcFallback(a, l, u, s, p) {
             l.classList.remove("rating-breakdown", "weighted-ratings"), u.mutual.textContent = "Hot topics", // FQ2-BAKEIN: header "Want to do" -> "Hot topics"
             u.explore.textContent = "Curiosity?", u.rated.textContent = "rated"; // FQ2-BAKEIN: header "Curious about" -> "Curiosity?"; "rated" KEPT (fallback red)
-            const m = a.filter(e => "mutual" === Ra(e)), f = a.filter(e => "explore" === Ra(e)), y = a.filter(e => Mt && vt[Mt] && (() => {
-                const t = ca(e, Mt);
+            const m = a.filter(e => "mutual" === sxFilterBucket(e)), f = a.filter(e => "explore" === sxFilterBucket(e)), y = a.filter(e => Mt && vt[Mt] && (() => {
+                const t = sxDecodeTopicStance(e, Mt);
                 return t.giveKnown || t.receiveKnown;
             })());
-            sc("mutualCount", m.length, "Hot topics together", ac(m), "No shared Hot topics in this view."), // FQ2-BAKEIN: tooltip title "Want to do together" -> "Hot topics together"; empty text "No shared Want to do topics in this view." -> "No shared Hot topics in this view." (redundant trailing "topics" dropped)
-            sc("exploreCount", f.length, "Curiosity? together", ac(f), "No shared Curiosity? topics in this view."), // FQ2-BAKEIN: tooltip title "Curious about together" -> "Curiosity? together"; empty text "No shared Curious about topics in this view." -> "No shared Curiosity? topics in this view."
-            sc("ratedCount", y.length, "Rated practices", ac(y), "No practices are rated in this profile.");
-            const b = uc([ m.length, f.length, y.length ]);
-            bc([ {
+            sxSetGlanceTooltip("mutualCount", m.length, "Hot topics together", sxUniqueSortedLabels(m), "No shared Hot topics in this view."), // FQ2-BAKEIN: tooltip title "Want to do together" -> "Hot topics together"; empty text "No shared Want to do topics in this view." -> "No shared Hot topics in this view." (redundant trailing "topics" dropped)
+            sxSetGlanceTooltip("exploreCount", f.length, "Curiosity? together", sxUniqueSortedLabels(f), "No shared Curiosity? topics in this view."), // FQ2-BAKEIN: tooltip title "Curious about together" -> "Curiosity? together"; empty text "No shared Curious about topics in this view." -> "No shared Curiosity? topics in this view."
+            sxSetGlanceTooltip("ratedCount", y.length, "Rated practices", sxUniqueSortedLabels(y), "No practices are rated in this profile.");
+            const b = sxLargestRemainderPercents([ m.length, f.length, y.length ]);
+            sxPaintGlanceRings([ {
                 label: "Hot topics", // FQ2-BAKEIN: "Want to do" -> "Hot topics"
                 count: m.length,
                 percent: b[0],
@@ -276,23 +276,23 @@
             } ], s), p();
                 }
 
-        const sxUpdateGlance = function() { return vc(); };
+        const sxUpdateGlance = function() { return sxRefreshSyncGlance(); };
         window.SexcapadesEngine = window.SexcapadesEngine || {};
         window.SexcapadesEngine.Compatibility = {
             updateGlance: sxUpdateGlance
         };
 
         function sxKeepCompareRoute() {
-            if (typeof xS !== "function" || !xS()) return;
-            const picked = (typeof Yi === "function" ? Yi() : []).filter(id => vt[id]);
+            if (typeof sxIsCompareRoute !== "function" || !sxIsCompareRoute()) return;
+            const picked = (typeof sxListLiveSelections === "function" ? sxListLiveSelections() : []).filter(id => vt[id]);
             if (an && picked.length >= 2) return;
             if (picked.length >= 2) return; // set already populated; flag may be deliberately dismissed - don't re-derive it
             const all = Object.keys(vt || {}).filter(id => id && id !== Et && vt[id]);
             all.length >= 2 && sxSel(all, "set");
         }
-        function vc() {
+        function sxRefreshSyncGlance() {
             sxKeepCompareRoute();
-            const t = Xi().filter(e => vt[e]), n = t.length > 1 ? Dd(zd(t), null, t.map(id => sxHeatDisplayFor(id)), t.map(id => sxVeilFor(id))) : null, i = Object.keys(At).length > 0, a = Uc(), r = e.byId("glanceSummary"), o = Mt && vt[Mt] ? [ Mt ] : i ? [ Et ] : [], s = na(t.length > 1 ? t : o), l = (s.percent,
+            const t = sxScoringProfileIds().filter(e => vt[e]), n = t.length > 1 ? sxScorePlayMatch(sxScoreInputProfiles(t), null, t.map(id => sxHeatDisplayFor(id)), t.map(id => sxVeilFor(id))) : null, i = Object.keys(At).length > 0, a = sxAllTopicIds(), r = e.byId("glanceSummary"), o = Mt && vt[Mt] ? [ Mt ] : i ? [ Et ] : [], s = sxTallyComparedRatings(t.length > 1 ? t : o), l = (s.percent,
             e.byId("glanceData")), c = e.byId("glanceCompatibility"), d = c ? c.querySelector("span") : null, u = {
                 mutual: e.byId("mutualLabel"),
                 explore: e.byId("exploreLabel"),
@@ -317,9 +317,9 @@
             if (i && a.length && t) {
                 var r = e.byId("horizonDialogPersonal"), o = e.byId("horizonCommunityBody");
                 a.forEach(function(e) {
-                    e.addEventListener("click", l, !0);
+                    e.addEventListener("click", sxOpenHorizonDialog, !0);
                 }), i.addEventListener("keydown", function(e) {
-                    "Enter" !== e.key && " " !== e.key || l(e);
+                    "Enter" !== e.key && " " !== e.key || sxOpenHorizonDialog(e);
                 });
                 var s = t.querySelector("[data-close-dialog]");
                 s && s.addEventListener("click", function() {
@@ -328,7 +328,7 @@
                     e.target === t && (t.close ? t.close() : t.removeAttribute("open"));
                 });
             }
-            function l(i) {
+            function sxOpenHorizonDialog(i) {
                 if (i && (i.preventDefault(), i.stopPropagation(), i.stopImmediatePropagation)) try {
                     i.stopImmediatePropagation();
                 } catch (e) { __sxErrLog("event-guard", e); }
@@ -371,7 +371,7 @@
                 } else {
                     if (wrapEl) wrapEl.hidden = false;
                     o && n(o, '<p style="font-size:12px;opacity:0.7;">Loading community stats...</p>');
-                    Wi(t);
+                    sxOpenModalDialog(t);
                     (function(){ try { return fetch("/hosted/api/completion.php", { signal: AbortSignal.timeout ? AbortSignal.timeout(5000) : void 0 }); } catch(e) { return Promise.reject(e); } })().then(function(e) {
                         return e.json();
                     }).then(function(e) {
@@ -395,10 +395,10 @@
         document.body.appendChild(wc);
         let Ec = null, Ac = null;
         const Cc = e.byId("glanceNumbersPopover"), Mc = e.byId("glanceRingSummary"), Ic = e.byId("reviewLink");
-        function Pc() {
-            Cc.hidden = !0, Ic.setAttribute("aria-expanded", "false"), vc();
+        function sxCloseNumbersPopover() {
+            Cc.hidden = !0, Ic.setAttribute("aria-expanded", "false"), sxRefreshSyncGlance();
         }
-        function Lc(e) {
+        function sxPlaceGlanceTooltip(e) {
             if (!e || wc.hidden) return;
             const t = e.getBoundingClientRect(), n = 12, i = Math.min(300, innerWidth - 24), a = innerWidth - t.right - n, r = t.left - n;
             let o, s;
@@ -413,39 +413,39 @@
             }
             wc.style.width = i + "px", wc.style.left = o + "px", wc.style.top = s + "px", wc.style.maxHeight = Math.max(92, Math.min(360, innerHeight - s - n)) + "px";
         }
-        function Tc(e) {
+        function sxShowGlanceTooltip(e) {
             t.clear(Ac);
             const i = e && e._glanceTooltip;
             if (!i) return;
             const a = i.rows && i.rows.length ? `<ul class="glance-tooltip-list">${i.rows.map(e => {
-                const t = e.icon ? `<span class="glance-tooltip-icon-wrap">${Kl(e.icon)}</span>` : "", n = t => {
+                const t = e.icon ? `<span class="glance-tooltip-icon-wrap">${sxPracticeIconMarkup(e.icon)}</span>` : "", n = t => {
                     const n = Boolean(e[t + "Known"]), i = n ? Math.max(-100, Math.min(100, Number(e[t]) || 0)) : 0, a = i < 0, r = Math.abs(i) + "%", o = n ? `${t} ${Math.round(i)}` : `${t} unrated`;
-                    return `<span class="glance-tooltip-practice-meter is-${t}${n ? "" : " is-unknown"}" style="color:${n ? zi(i) : "#646d66"}" title="${Hi(o)}" aria-hidden="true"><span class="glance-tooltip-practice-meter-half is-negative">${a ? `<span class="glance-tooltip-practice-meter-fill" style="--meter-fill:${r}"></span>` : ""}</span><span class="glance-tooltip-practice-meter-half is-positive">${!a && n ? `<span class="glance-tooltip-practice-meter-fill" style="--meter-fill:${r}"></span>` : ""}</span></span>`;
+                    return `<span class="glance-tooltip-practice-meter is-${t}${n ? "" : " is-unknown"}" style="color:${n ? sxInterestColor(i) : "#646d66"}" title="${sxEscapeHtmlText(o)}" aria-hidden="true"><span class="glance-tooltip-practice-meter-half is-negative">${a ? `<span class="glance-tooltip-practice-meter-fill" style="--meter-fill:${r}"></span>` : ""}</span><span class="glance-tooltip-practice-meter-half is-positive">${!a && n ? `<span class="glance-tooltip-practice-meter-fill" style="--meter-fill:${r}"></span>` : ""}</span></span>`;
                 }, i = `<span class="glance-tooltip-practice-meters" aria-hidden="true"><span class="glance-tooltip-practice-direction">G</span>${n("give")}${n("receive")}<span class="glance-tooltip-practice-direction">R</span></span>`, a = "both" === e.direction ? "give and receive" : e.direction, r = e.direction ? ` is-${e.direction}` : "", o = `${e.label}; give ${e.giveKnown ? Math.round(e.give) : "unrated"}; receive ${e.receiveKnown ? Math.round(e.receive) : "unrated"}${a ? `; ${a}` : ""}`;
-                return `<li class="glance-tooltip-practice${r}"${e.id ? ` data-glance-node="${Hi(e.id)}" role="button" tabindex="0"` : ""} aria-label="${Hi(o)}">${i}${t}<span class="glance-tooltip-practice-name">${Hi(e.label)}<span class="glance-tooltip-practice-values">Give ${e.giveKnown ? Math.round(e.give) : "unrated"} \u00b7 Receive ${e.receiveKnown ? Math.round(e.receive) : "unrated"}</span></span></li>`;
+                return `<li class="glance-tooltip-practice${r}"${e.id ? ` data-glance-node="${sxEscapeHtmlText(e.id)}" role="button" tabindex="0"` : ""} aria-label="${sxEscapeHtmlText(o)}">${i}${t}<span class="glance-tooltip-practice-name">${sxEscapeHtmlText(e.label)}<span class="glance-tooltip-practice-values">Give ${e.giveKnown ? Math.round(e.give) : "unrated"} \u00b7 Receive ${e.receiveKnown ? Math.round(e.receive) : "unrated"}</span></span></li>`;
             }).join("")}</ul>` : "", r = i.rows && i.rows.length ? i.rows.map(e => e.label) : i.labels || [];
-            Ec = e, kc.textContent = i.title, n(xc, a || (i.labels && i.labels.length ? `<ul class="glance-tooltip-list">${i.labels.map(e => `<li>${Hi(e)}</li>`).join("")}</ul>` : `<p>${Hi(i.text || "")}</p>`)), 
+            Ec = e, kc.textContent = i.title, n(xc, a || (i.labels && i.labels.length ? `<ul class="glance-tooltip-list">${i.labels.map(e => `<li>${sxEscapeHtmlText(e)}</li>`).join("")}</ul>` : `<p>${sxEscapeHtmlText(i.text || "")}</p>`)), 
             wc.dataset.copy = r.join("\n"), Sc.disabled = !r.length, Sc.textContent = i.copyLabel || "Copy green-branch summary", 
-            $c.textContent = "", wc.hidden = !1, Lc(e);
+            $c.textContent = "", wc.hidden = !1, sxPlaceGlanceTooltip(e);
         }
-        function Fc(t, n) {
+        function sxShowColorGlance(t, n) {
             const i = pc[Number(t)], a = i && e.byId(i.sourceId), r = a && a._glanceTooltip;
             if (!i || !n || !r) return;
-            Pc();
+            sxCloseNumbersPopover();
             const o = "var(--curious)" === i.color ? "yellow" : "var(--red)" === i.color ? "red" : "green";
             n._glanceTooltip = {
                 ...r,
                 title: `${i.label} · ${i.percent}%`,
                 copyLabel: `Copy ${o}-branch summary`
-            }, Tc(n), gc && fc.add(gc), In.querySelector(".center-glance-rings")?.classList.remove("glance-ready");
+            }, sxShowGlanceTooltip(n), gc && fc.add(gc), In.querySelector(".center-glance-rings")?.classList.remove("glance-ready");
         }
-        function Nc() {
-            t.clear(Ac), wc.hidden = !0, Ec = null, wc.dataset.copy = "", $c.textContent = "", Ja();
+        function sxHideGlanceTooltip() {
+            t.clear(Ac), wc.hidden = !0, Ec = null, wc.dataset.copy = "", $c.textContent = "", sxRefreshMapChrome();
         }
-        function _c() {
-            t.clear(Ac), Ac = t.setTimeout(Nc, 320);
+        function sxDeferGlanceHide() {
+            t.clear(Ac), Ac = t.setTimeout(sxHideGlanceTooltip, 320);
         }
-        function Dc(e, t) {
+        function sxBindSwipeDismiss(e, t) {
             let n = null;
             e.addEventListener("pointerdown", e => {
                 "mouse" === e.pointerType || __sxClosestAction(e.target, "linkOrButton") || (n = {
@@ -461,19 +461,19 @@
                 n = null;
             });
         }
-        function Rc(e) {
+        function sxFocusGlanceNode(e) {
             noteFitUserCamera();
-            const n = qn[e] || Xn(e) || li().find(t => t.id === e);
+            const n = sxNodeRegistry[e] || sxNodeById(e) || sxCollectAllImports().find(t => t.id === e);
             n && (t.clear(Ac), wc.hidden = !0, Ec = null, wn = !1, kn = !0, xn = null, Nt = null, 
-            rn.add(n.branch), n.parentId && on.add(n.parentId), Lt = e, Mr({
+            rn.add(n.branch), n.parentId && on.add(n.parentId), Lt = e, sxRequestMapPaint({
                 animate: !1
             }), requestAnimationFrame(() => {
                 const t = In.querySelector(`[data-layout-key="${CSS.escape(e)}"]`);
-                if (!t) return Lh(n.branch);
+                if (!t) return sxFocusCategoryCamera(n.branch);
                 const i = Number(t.dataset.layoutX), a = Number(t.dataset.layoutY);
-                if (!Number.isFinite(i) || !Number.isFinite(a)) return Lh(n.branch);
+                if (!Number.isFinite(i) || !Number.isFinite(a)) return sxFocusCategoryCamera(n.branch);
                 $p = Math.max(1e-9, Math.min(Eh(), $p)), Ep = nh.x + nh.width / 2 - i * $p, Ap = nh.y + nh.height / 2 - a * $p, 
-                $h();
+                sxRestViewportCamera();
             }));
         }
         document.body.appendChild(Cc), Mc.addEventListener("click", t => {
@@ -485,39 +485,39 @@
             Ic._glanceTooltip = {
                 ...i._glanceTooltip,
                 copyLabel: `Copy ${a}-branch summary`
-            }, Pc(), Tc(Ic);
+            }, sxCloseNumbersPopover(), sxShowGlanceTooltip(Ic);
         }), e.byId("closeGlanceNumbers") && e.byId("closeGlanceNumbers").addEventListener("click", e => {
-            e.stopPropagation(), Pc(), Ic.focus({
+            e.stopPropagation(), sxCloseNumbersPopover(), Ic.focus({
                 preventScroll: !0
             });
         }), e.byId("closeGlanceTooltip") && e.byId("closeGlanceTooltip").addEventListener("click", e => {
             e.stopPropagation();
             const t = Ec;
-            Nc(), t && "function" == typeof t.focus && t.focus({
+            sxHideGlanceTooltip(), t && "function" == typeof t.focus && t.focus({
                 preventScroll: !0
             });
         }), Sc.addEventListener("click", async e => {
             e.stopPropagation();
-            const t = wc.dataset.copy || "", n = t && await ku(t);
+            const t = wc.dataset.copy || "", n = t && await sxCopyClipboardText(t);
             $c.textContent = n ? "Topic list copied" : "Copy failed";
         }), window.__sxOnPtr( e => {
-            Cc.hidden || Cc.contains(e.target) || Ic.contains(e.target) || Pc(), wc.hidden || wc.contains(e.target) || __sxClosestAction(e.target, "glanceSourceFull") || Nc();
-        }, !0), Dc(Cc, Pc), Dc(wc, Nc), window.__sxOnKey( e => {
-            "Escape" === e.key && (Pc(), Nc());
+            Cc.hidden || Cc.contains(e.target) || Ic.contains(e.target) || sxCloseNumbersPopover(), wc.hidden || wc.contains(e.target) || __sxClosestAction(e.target, "glanceSourceFull") || sxHideGlanceTooltip();
+        }, !0), sxBindSwipeDismiss(Cc, sxCloseNumbersPopover), sxBindSwipeDismiss(wc, sxHideGlanceTooltip), window.__sxOnKey( e => {
+            "Escape" === e.key && (sxCloseNumbersPopover(), sxHideGlanceTooltip());
         }), e.all(".stat-number").forEach(e => {
-            e.addEventListener("mouseenter", () => Tc(e)), e.addEventListener("mouseleave", _c), 
-            e.addEventListener("focus", () => Tc(e)), e.addEventListener("blur", _c), e.addEventListener("click", t => {
-                t.stopPropagation(), Ec !== e || wc.hidden ? Tc(e) : (wc.hidden = !0, Ec = null);
+            e.addEventListener("mouseenter", () => sxShowGlanceTooltip(e)), e.addEventListener("mouseleave", sxDeferGlanceHide), 
+            e.addEventListener("focus", () => sxShowGlanceTooltip(e)), e.addEventListener("blur", sxDeferGlanceHide), e.addEventListener("click", t => {
+                t.stopPropagation(), Ec !== e || wc.hidden ? sxShowGlanceTooltip(e) : (wc.hidden = !0, Ec = null);
             });
-        }), wc.addEventListener("mouseenter", () => t.clear(Ac)), wc.addEventListener("mouseleave", _c), 
+        }), wc.addEventListener("mouseenter", () => t.clear(Ac)), wc.addEventListener("mouseleave", sxDeferGlanceHide), 
         wc.addEventListener("click", e => {
             const t = __sxClosestAction(e.target, "glanceNode");
-            t && Rc(t.dataset.glanceNode);
+            t && sxFocusGlanceNode(t.dataset.glanceNode);
         }), wc.addEventListener("keydown", e => {
             const t = __sxClosestAction(e.target, "glanceNode");
-            !t || "Enter" !== e.key && " " !== e.key || (e.preventDefault(), Rc(t.dataset.glanceNode));
+            !t || "Enter" !== e.key && " " !== e.key || (e.preventDefault(), sxFocusGlanceNode(t.dataset.glanceNode));
         }), addEventListener("resize", () => {
-            Ec && !wc.hidden && Lc(Ec), Cc.hidden || function(e = Ic) {
+            Ec && !wc.hidden && sxPlaceGlanceTooltip(Ec), Cc.hidden || function(e = Ic) {
                 if (Cc.hidden) return;
                 const t = e.getBoundingClientRect(), n = Math.min(310, innerWidth - 24), i = Cc.offsetHeight;
                 let a = Math.max(12, Math.min(innerWidth - n - 12, t.right - n)), r = t.bottom + 8;
