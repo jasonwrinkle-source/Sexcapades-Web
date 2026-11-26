@@ -532,6 +532,9 @@ __sxInit(function () {
   var menu = document.getElementById("skinMenu");
   var note = document.getElementById("skinNote");
   if (!header || !menu) return;
+  if (typeof window.__SX_RENDER_SKIN_MENU === "function") {
+    window.__SX_RENDER_SKIN_MENU(menu, window.__SX_ACTIVE_SKIN);
+  }
 
   var noteTimer = null;
 

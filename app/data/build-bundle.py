@@ -13,7 +13,6 @@ target_hosted_alt = os.path.join(base_dir, "../../hosted/data/data-bootstrap.js"
 
 parts = [
     "01-dispatcher.js",
-    "02b-taxonomy-data.js",
     "02a-taxonomy-models.js",
     "02g1-alias-tables.js",
     "02g-definitions-ratings.js",
@@ -38,7 +37,6 @@ parts = [
     "02n4-cascade-shrink.js",
     "02n-deknotter-cascade.js",
     "02p-spoke-selection.js",
-    "02-taxonomy-core.js",
     "02c-layout-solver.js",
     "03a0-midline-tree.js",
     "03a1-midline-energy.js",

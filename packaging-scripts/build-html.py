@@ -148,7 +148,7 @@ def build():
     root = root_dir()
     partial_dir = os.path.join(root, "app", "html")
     app_html = read_parts(partial_dir)
-    if b"<html" not in app_html[:400] or not (app_html.rstrip().endswith(b"</html>") or app_html.rstrip().endswith(b"</div>")):
+    if b"<html" not in app_html[:400] or not app_html.rstrip().endswith(b"</html>"):
         sys.exit("build-html: concatenated shell does not look like the app page")
     write_if_changed(os.path.join(root, "app", "sexcapades-5.0.html"), app_html)
     hosted_path = os.path.join(root, "site-tree", "public_html", "hosted", "app.html")

@@ -307,10 +307,8 @@ var __sxInit = window.__sxInit;
     });
 }).then(function() {
 
-/* --- Module: 02b-taxonomy-data.js --- */
-var TAXONOMY_CATEGORIES = [];
-
 /* --- Module: 02a-taxonomy-models.js --- */
+var TAXONOMY_CATEGORIES = [];
     !function() {
         "use strict";
 var {DOM: e, TimerManager: t, setHTML: n} = window.SexcapadesRuntime, i = [ "Hard Limit (×): HARD EXCLUDE the topic. Never mention it—not as action, dialogue, a tease, suggestion, fantasy, setup, backstory, or background detail.", "Not Interested (⊘): HARD EXCLUDE the topic exactly like a Hard Limit. Never mention it—not as action, dialogue, a tease, suggestion, fantasy, setup, backstory, or background detail.", "Favorite (★): PRIORITIZE the topic prominently over unmarked topics while obeying ratings, give/receive roles, shared-ground limits, and consent." ], a = [ "Fantasy-only (☁): INCLUDE only as a clearly imagined fantasy, dream, or internal thought; make clear it is imagined, not real-world play or willingness.", "Already Tried (✓): REFERENCE as past experience (for example, “they’d done this before”) without inventing details or assuming current consent." ], r = [ "Fantasy-only (☁): EXCLUDE entirely from practical play guides; never schedule, suggest, tease, or describe it as real-world play.", "Already Tried (✓): REFERENCE as past experience (for example, “Since you’ve tried X, you might…”) while confirming current consent and avoiding invented details." ], o = new Set;
@@ -14132,12 +14130,6 @@ var witnessTrippingLabel;
             const link = event.target.closest?.(".common-overlap-link.relation-hit");
             link && (event.key === "Enter" || event.key === " ") && focusRelationLink(link, event);
         }, !0);
-
-/* --- Module: 02-taxonomy-core.js --- */
-        // Map layout geometry (er, nr, rr, and the branch-order helpers)
-        // lives in 02c-layout-solver.js. A second copy here is a strict-mode
-        // SyntaxError (Identifier 'nr'/'rr' has already been declared) and
-        // the bootstrap script never runs.
 
 /* --- Module: 02c-layout-solver.js --- */
         // ===== Map layout geometry ==============================================
