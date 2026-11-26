@@ -100,7 +100,7 @@
     "cats": 7,
     "catsWithSub": 6,
     "subcats": 22,
-    "topics": 100
+    "topics": 107
   },
   "chem": {
     "id": "chemcapades",

@@ -1,38 +1,24 @@
 // --------------------------------------------------------------------------
-// Scribe AI Story Generator (Gemini BYOK - Bring Your Own Key)
-// Uses shared helpers from 01b-ai-byok-core.js (__sxAiByokCore).
+// Scribe Story Narration (Gemini TTS Streaming Audio + SpeechSynthesis fallback)
+// Exposes window.__sxScribeNarrate for live/post narration coordination with
+// 02a-scribe-story-gen.js and diagnostic verification.
 // --------------------------------------------------------------------------
-__sxInit(function initScribeGeminiBYOK() {
+__sxInit(function initScribeTtsNarration() {
   var core = window.__sxAiByokCore;
   var keyInput = document.getElementById("scribeGeminiKey");
-  var saveKeyBtn = document.getElementById("scribeSaveKeyBtn");
-  var clearKeyBtn = document.getElementById("scribeClearKeyBtn");
-  var keyStatus = document.getElementById("scribeKeyStatus");
-  var genStoryBtn = document.getElementById("scribeGenerateStoryBtn");
-  var stopStoryBtn = document.getElementById("scribeStopStoryBtn");
-  var modelSelect = document.getElementById("scribeGeminiModel");
-  var storyContainer = document.getElementById("scribeStoryOutputContainer");
   var storyText = document.getElementById("scribeStoryText");
-  var storyStatus = document.getElementById("scribeStoryStatus");
-  var copyStoryBtn = document.getElementById("scribeCopyStoryBtn");
-  var downloadStoryBtn = document.getElementById("scribeDownloadStoryBtn");
-
-  var providerSelect = document.getElementById("scribeAiProvider");
-  var getKeyLink = document.getElementById("scribeGetKeyLink");
-
-  function getActiveProvider() {
-    return core.getActiveProvider(providerSelect);
-  }
+  var narrateEngine = document.getElementById("scribeNarrateEngine");
+  var geminiVoiceGroup = document.getElementById("scribeGeminiVoiceGroup");
+  var geminiVoice = document.getElementById("scribeGeminiVoice");
+  var narrateSpeedSelect = document.getElementById("scribeNarrateSpeed");
+  var startNarrateBtn = document.getElementById("scribeStartNarrateBtn");
+  var pauseNarrateBtn = document.getElementById("scribePauseNarrateBtn");
+  var stopNarrateBtn = document.getElementById("scribeStopNarrateBtn");
+  var narrateStatus = document.getElementById("scribeNarrateStatus");
+  var audioPlayer = document.getElementById("scribeAudioPlayer");
 
   function getStorageKey(provider) {
-    return core.getStorageKey(provider);
-  }
-
-  var activeAbortController = null;
-  var autoNarrateAfterStoryGen = false;
-
-  function queryAvailableModels(apiKey, provider) {
-    return core.queryAvailableModels(apiKey, provider);
+    return core ? core.getStorageKey(provider) : "sx_gemini_byok_api_key";
   }
 
   async function populateTtsModelOptions(apiKey) {
@@ -94,289 +80,6 @@ __sxInit(function initScribeGeminiBYOK() {
     }
   }
 
-  var scribeModelOpts = {
-    preferredSecondGeminiModel: "gemini-3.7-flash",
-    defaultModels: {
-      gemini: ["gemini-flash-latest", "gemini-3.7-flash", "gemini-pro-latest"],
-      grok: ["grok-2", "grok-2-latest", "grok-beta"],
-      openai: ["gpt-4o", "gpt-4o-mini", "gpt-4-turbo"]
-    },
-    onBeforePopulate: function(apiKey, provider) {
-      if (provider === "gemini") populateTtsModelOptions(apiKey);
-    }
-  };
-
-  function populateModelOptions(apiKey, provider) {
-    return core.populateModelOptions(document.getElementById("scribeGeminiModel"), apiKey, provider, scribeModelOpts);
-  }
-
-  function scribeTargetNoun() {
-    return window.__SX_SCRIBE && "discussion" === window.__SX_SCRIBE.genre ? "discussion" : "story";
-  }
-
-  function updateKeyUI(hasKey) {
-    core.updateKeyUI(keyStatus, getActiveProvider(), hasKey, scribeTargetNoun);
-  }
-
-  var keyCtx = {
-    providerSelect: providerSelect,
-    keyInput: keyInput,
-    saveKeyBtn: saveKeyBtn,
-    clearKeyBtn: clearKeyBtn,
-    keyStatus: keyStatus,
-    getKeyLink: getKeyLink,
-    modelSelect: modelSelect,
-    emptyNoun: scribeTargetNoun,
-    modelOpts: scribeModelOpts
-  };
-
-  function loadSavedKey() {
-    core.loadSavedKey(keyCtx);
-  }
-
-  core.bindKeyControls(keyCtx);
-  loadSavedKey();
-
-  if (copyStoryBtn) {
-    copyStoryBtn.addEventListener("click", async function() {
-      var text = (storyText ? storyText.value : "").trim();
-      if (!text) return;
-      try {
-        await navigator.clipboard.writeText(text);
-        copyStoryBtn.textContent = "Copied!";
-        setTimeout(function() { copyStoryBtn.textContent = "Copy story"; }, 1600);
-      } catch (_) {
-        if (storyText) {
-          storyText.select();
-          document.execCommand("copy");
-          copyStoryBtn.textContent = "Copied!";
-          setTimeout(function() { copyStoryBtn.textContent = "Copy story"; }, 1600);
-        }
-      }
-    });
-  }
-
-  if (downloadStoryBtn) {
-    downloadStoryBtn.addEventListener("click", function() {
-      var text = (storyText ? storyText.value : "").trim();
-      if (!text) return;
-      var blob = new Blob([text + "\n"], { type: "text/plain;charset=utf-8" });
-      var url = URL.createObjectURL(blob);
-      var a = document.createElement("a");
-      a.href = url;
-      a.download = "Sexcapades-Story.txt";
-      document.body.appendChild(a);
-      a.click();
-      a.remove();
-      setTimeout(function() { URL.revokeObjectURL(url); }, 0);
-    });
-  }
-
-  if (stopStoryBtn) {
-    stopStoryBtn.addEventListener("click", function() {
-      if (activeAbortController) {
-        activeAbortController.abort();
-        activeAbortController = null;
-        if (storyStatus) storyStatus.textContent = "Generation cancelled.";
-        if (genStoryBtn) genStoryBtn.disabled = false;
-        stopStoryBtn.hidden = true;
-      }
-    });
-  }
-
-  function scribeTokenBudget(promptText) {
-    var wordsPerUnit = { words: 1, paragraphs: 150, pages: 500, chapters: 2500, minutes: 160 };
-    var unit = "paragraphs", val = 5, blank = true;
-    try {
-      var lenEl = document.getElementById("scribePageCount");
-      var unitEl = document.getElementById("scribeLengthUnit");
-      var raw = lenEl ? String(lenEl.value || "").trim() : "";
-      if (unitEl && unitEl.value && wordsPerUnit[unitEl.value]) unit = unitEl.value;
-      if (raw) {
-        blank = false;
-        var nums = raw.match(/\d+(?:\.\d+)?/g) || [];
-        var parsed = nums.map(function(n) { return parseFloat(n); }).filter(function(n) { return isFinite(n) && n > 0; });
-        if (parsed.length) val = Math.max.apply(null, parsed);
-      }
-    } catch (_) {}
-    if (blank) { val = 5; }
-    var words = val * (wordsPerUnit[unit] || 150);
-    var singular = unit.replace(/s$/, "");
-    return {
-      unit: unit,
-      val: val,
-      words: words,
-      text: val + " " + (1 === val ? singular : unit),
-      tokens: Math.min(32768, Math.max(8192, Math.round(words * 4)))
-    };
-  }
-
-  if (genStoryBtn) {
-    genStoryBtn.addEventListener("click", async function() {
-      var promptEl = document.getElementById("scenePromptText");
-      var prompt = (promptEl ? promptEl.value : "").trim();
-      if (!prompt) {
-        alert("Please generate a Scribe prompt first by clicking 'Prompt' above.");
-        return;
-      }
-
-      var prov = getActiveProvider();
-      var apiKey = core.getStoredOrInputKey(keyInput, prov);
-      if (!apiKey) {
-        alert("Please enter and save your " + (prov === "grok" ? "xAI Grok" : prov === "openai" ? "OpenAI" : "Gemini") + " API key to generate " + (window.__SX_SCRIBE && "discussion" === window.__SX_SCRIBE.genre ? "discussions" : "stories") + " directly with AI.");
-        if (keyInput) keyInput.focus();
-        return;
-      }
-
-      var modelSelectEl = document.getElementById("scribeGeminiModel");
-      var modelInput = document.getElementById("scribeGeminiModelInput");
-      var model = (modelSelectEl ? modelSelectEl.value : "") || (modelInput ? modelInput.value.trim() : "") || (prov === "grok" ? "grok-2" : prov === "openai" ? "gpt-4o" : "gemini-flash-latest");
-
-      if (storyContainer) storyContainer.hidden = false;
-      if (storyText) storyText.value = "";
-      if (storyStatus) storyStatus.textContent = "Connecting to " + prov.toUpperCase() + " (" + model + ")…";
-      if (genStoryBtn) genStoryBtn.disabled = true;
-      if (stopStoryBtn) stopStoryBtn.hidden = false;
-
-      try {
-        storyContainer.scrollIntoView({ behavior: "smooth", block: "nearest" });
-      } catch (_) {}
-
-      var stopwatch = core.startStopwatch(storyStatus, "scribeStopwatch", "scribeStopwatchTime");
-      activeAbortController = new AbortController();
-
-      var fetchTimer = setTimeout(function() {
-        if (activeAbortController) {
-          activeAbortController.abort();
-          if (storyStatus) storyStatus.textContent = "Request timed out after 120 seconds.";
-        }
-      }, 120000);
-
-      var isDisc = Boolean(window.__SX_SCRIBE && "discussion" === window.__SX_SCRIBE.genre);
-      var systemPrompt = isDisc
-        ? "You are an expert essayist, philosopher, and analytical discussion moderator specializing in deeply thoughtful, balanced, and intellectually rigorous discourse between differing viewpoints."
-        : "You are an expert creative writer specializing in rich, consensual, descriptive adult fiction and Literotica-style narratives.";
-
-      var scribeBudget = scribeTokenBudget(prompt);
-      var fullPrompt = prompt + (isDisc
-        ? ("\n\nWrite the complete, comprehensive, and intellectually rigorous discussion now as plain text. Return ONLY plain text prose: do NOT generate code, Python scripts, ReportLab commands, or meta commentary." +
-           "\n\nTarget length: approximately " + scribeBudget.text + " (around " + scribeBudget.words + " words total). Each paragraph must be rich, substantive, and fully developed across multiple sentences, thoroughly examining the principles, objections, and implications. Do not output brief or one-sentence paragraphs. Do not stop early: keep writing until the full target length is reached.")
-        : ("\n\nWrite the complete, immersive narrative scene now as plain text, strictly honoring all character roles, boundaries, and pacing detailed above. Return ONLY plain text prose: do NOT generate code, Python scripts, ReportLab commands, or PDF/file outputs." +
-           "\n\nTarget length: " + scribeBudget.text + ". Do not stop early: keep writing until the full target length is reached."));
-
-      try {
-        if (autoNarrateAfterStoryGen) {
-          var narrateEng = (narrateEngine ? narrateEngine.value : "gemini") || "gemini";
-          var gemKey = core.getStoredOrInputKey(keyInput, "gemini");
-          if (narrateEng === "gemini" && gemKey) {
-            resetNarrationState();
-            var chosenV = (geminiVoice ? geminiVoice.value : "Aoede") || "Aoede";
-            var narrModelEl = document.getElementById("scribeNarrateModel");
-            var chosenNarrModel = (narrModelEl && narrModelEl.value) ? narrModelEl.value : "gemini-2.5-pro-preview-tts";
-            audioAbortController = new AbortController();
-            var myToken = ++narrateGenToken;
-            narrateChunksPlayed = 0;
-            liveNarrator = createLiveStoryNarrator(gemKey, chosenV, chosenNarrModel, myToken);
-            if (narrateStatus) {
-              narrateStatus.textContent = "Live narration started (" + chosenNarrModel + ")…";
-              narrateStatus.style.color = "#38bdf8";
-            }
-            if (startNarrateBtn) startNarrateBtn.disabled = true;
-            if (stopNarrateBtn) stopNarrateBtn.hidden = false;
-            if (pauseNarrateBtn) { pauseNarrateBtn.hidden = false; pauseNarrateBtn.textContent = "Pause"; }
-          }
-        }
-
-        var chunkHandler = core.createStreamChunkHandler({
-          textEl: storyText,
-          statusEl: storyStatus,
-          streamingPrefix: function() { return isDisc ? "Streaming discussion (" : "Streaming story ("; },
-          onChunk: function(chunk) {
-            if (liveNarrator) liveNarrator.feed(chunk);
-          }
-        });
-
-        var result = await core.streamTextGeneration({
-          provider: prov,
-          apiKey: apiKey,
-          model: model,
-          systemPrompt: systemPrompt,
-          fullPrompt: fullPrompt,
-          temperature: 0.9,
-          maxTokens: scribeBudget.tokens,
-          useGeminiSystemInstruction: true,
-          signal: activeAbortController.signal,
-          statusEl: storyStatus,
-          logPrefix: "Scribe",
-          writingPrefix: isDisc ? "Writing discussion with " : "Writing story with ",
-          emptyErrorMsg: "Failed to generate story across available models.",
-          onStreamChunk: chunkHandler.onStreamChunk,
-          onClearTimeout: function() { clearTimeout(fetchTimer); }
-        });
-
-        var totalText = chunkHandler.state.totalText || result.totalText || "";
-        var hitTokenLimit = result.hitTokenLimit;
-
-        if (storyText && !storyText.value) {
-          storyText.value = totalText;
-          storyText.scrollTop = storyText.scrollHeight;
-        }
-
-        var finalElapsedSec = stopwatch.stop();
-        var wordCount = (totalText.trim().match(/\S+/g) || []).length;
-        if (storyStatus) {
-          storyStatus.textContent = "Complete! (" + wordCount + " words in " + finalElapsedSec + "s via " + (prov === "grok" ? "xAI Grok" : prov === "openai" ? "OpenAI" : "Gemini") + ")" + (hitTokenLimit ? " — stopped at the token budget; the output was cut short. Raise the target length or regenerate for the full length." : "");
-        }
-
-        if (liveNarrator) {
-          liveNarrator.finish();
-          liveNarrator = null;
-        }
-
-        if (autoNarrateAfterStoryGen) {
-          autoNarrateAfterStoryGen = false;
-          if (!narratePlaybackMode && startNarrateBtn) {
-            setTimeout(function() {
-              startNarrateBtn.click();
-            }, 300);
-          }
-        }
-      } catch (err) {
-        if (liveNarrator) {
-          try { liveNarrator.finish(); } catch (_) {}
-          liveNarrator = null;
-        }
-        autoNarrateAfterStoryGen = false;
-        stopwatch.stop();
-        if (err.name === "AbortError") {
-          if (storyStatus) storyStatus.textContent = "Generation stopped by user.";
-        } else {
-          console.error("[Scribe AI Error]", err);
-          if (storyStatus) storyStatus.textContent = "Error: " + err.message;
-        }
-      } finally {
-        stopwatch.stop();
-        if (genStoryBtn) genStoryBtn.disabled = false;
-        if (stopStoryBtn) stopStoryBtn.hidden = true;
-        activeAbortController = null;
-        scribeSyncGenerateLabel();
-      }
-    });
-  }
-
-  // --------------------------------------------------------------------------
-  // Story Narration (Gemini Audio + Browser SpeechSynthesis fallback)
-  // --------------------------------------------------------------------------
-  var narrateEngine = document.getElementById("scribeNarrateEngine");
-  var geminiVoiceGroup = document.getElementById("scribeGeminiVoiceGroup");
-  var geminiVoice = document.getElementById("scribeGeminiVoice");
-  var narrateSpeedSelect = document.getElementById("scribeNarrateSpeed");
-  var startNarrateBtn = document.getElementById("scribeStartNarrateBtn");
-  var pauseNarrateBtn = document.getElementById("scribePauseNarrateBtn");
-  var stopNarrateBtn = document.getElementById("scribeStopNarrateBtn");
-  var narrateStatus = document.getElementById("scribeNarrateStatus");
-  var audioPlayer = document.getElementById("scribeAudioPlayer");
-
   function getNarrateSpeed() {
     var sp = 1.0;
     if (narrateSpeedSelect) {
@@ -385,7 +88,6 @@ __sxInit(function initScribeGeminiBYOK() {
     return Math.max(0.5, Math.min(2.5, sp));
   }
 
-  // Live speed adjustment for active audio player or future buffer sources
   if (narrateSpeedSelect) {
     try {
       var savedSpeed = localStorage.getItem("sx_scribe_narrate_speed");
@@ -406,11 +108,6 @@ __sxInit(function initScribeGeminiBYOK() {
   var audioAbortController = null;
 
   // --- Streaming Gemini narration (Web Audio queue) ---
-  // Gemini TTS can stream audio as it is synthesized (streamGenerateContent
-  // returns raw 16-bit PCM chunks, 24 kHz mono). Each chunk is scheduled
-  // into a Web Audio queue as it arrives, so playback starts almost
-  // immediately instead of waiting for the whole clip. The unary
-  // generateContent whole-file path is kept as the fallback.
   var narrateAudioCtx = null;
   var narrateNextStart = 0;
   var narrateChunksPlayed = 0;
@@ -449,7 +146,6 @@ __sxInit(function initScribeGeminiBYOK() {
     }
   }
 
-  // Helper to generate proper audio payload based on model type
   function getAudioPayload(modelName, textToRead, voiceName) {
     var isTts = modelName.indexOf("-tts") !== -1;
     var textContent = isTts
@@ -485,9 +181,6 @@ __sxInit(function initScribeGeminiBYOK() {
     };
   }
 
-  // Live sentence-by-sentence streaming narrator:
-  // As story text streams in, buffers complete sentences, sends each to Gemini TTS
-  // sequentially, and feeds audio chunks directly into Web Audio without gap.
   function createLiveStoryNarrator(apiKey, voiceName, modelName, token) {
     var buffer = "";
     var sentenceQueue = [];
@@ -502,7 +195,6 @@ __sxInit(function initScribeGeminiBYOK() {
         var sentence = sentenceQueue.shift();
         if (!sentence || !sentence.trim()) continue;
 
-        // Dynamic voice update: read current live selection from dropdown if changed mid-stream
         var currentVoice = (geminiVoice ? geminiVoice.value : voiceName) || voiceName || "Aoede";
 
         var audioBase = "https://generativelanguage.googleapis.com/v1beta/models/" + encodeURIComponent(modelName);
@@ -525,8 +217,6 @@ __sxInit(function initScribeGeminiBYOK() {
           } catch (uErr) {
             if (token !== narrateGenToken) { isProcessing = false; return; }
             console.warn("[Live Story Narrator] Unary failed:", uErr.message);
-            // Safety-filter block fallback: if safety or content filter blocked TTS audio output,
-            // fall back to browser native SpeechSynthesis for this sentence so playback continues smoothly.
             if (window.speechSynthesis && typeof window.SpeechSynthesisUtterance !== "undefined") {
               try {
                 await new Promise(function(resolve) {
@@ -552,7 +242,6 @@ __sxInit(function initScribeGeminiBYOK() {
       feed: function(chunkText) {
         if (token !== narrateGenToken) return;
         buffer += chunkText;
-        // Split on sentence boundaries: (. ! ? \n\n) followed by whitespace, minimum 60 chars
         var parts = buffer.split(/([.!?]+(?:\s+|\n+)|(?:\r?\n){2,})/);
         if (parts.length > 2) {
           var assembled = "";
@@ -599,11 +288,10 @@ __sxInit(function initScribeGeminiBYOK() {
       }
       if (narrateAudioCtx.state === "suspended") narrateAudioCtx.resume();
 
-      // If the incoming chunk has a 44-byte WAV header, strip it to feed raw PCM
       var offset = 0;
       if (pcmBytes.length > 44 &&
-          pcmBytes[0] === 0x52 && pcmBytes[1] === 0x49 && pcmBytes[2] === 0x46 && pcmBytes[3] === 0x46 && // RIFF
-          pcmBytes[8] === 0x57 && pcmBytes[9] === 0x41 && pcmBytes[10] === 0x56 && pcmBytes[11] === 0x45) { // WAVE
+          pcmBytes[0] === 0x52 && pcmBytes[1] === 0x49 && pcmBytes[2] === 0x46 && pcmBytes[3] === 0x46 &&
+          pcmBytes[8] === 0x57 && pcmBytes[9] === 0x41 && pcmBytes[10] === 0x56 && pcmBytes[11] === 0x45) {
         offset = 44;
       }
       var pcmData = offset > 0 ? pcmBytes.subarray(offset) : pcmBytes;
@@ -634,9 +322,6 @@ __sxInit(function initScribeGeminiBYOK() {
     return bytes;
   }
 
-  // Reads a streamGenerateContent response and plays each audio chunk as it
-  // arrives. Returns the number of chunks queued. Throws if the stream
-  // carries no audio at all (caller falls back to the unary whole-clip path).
   async function narrateStreamGeminiAudio(streamEndpoint, payload, signal, myToken) {
     var resp = await fetch(streamEndpoint, {
       method: "POST",
@@ -690,7 +375,6 @@ __sxInit(function initScribeGeminiBYOK() {
           consumed = dataRe.lastIndex;
         }
       }
-      // Keep the buffer bounded on long narrations: drop already-played text.
       if (consumed > 0 && textBuf.length > 131072) { textBuf = textBuf.slice(consumed); consumed = 0; }
     }
     textBuf += decoder.decode();
@@ -713,8 +397,6 @@ __sxInit(function initScribeGeminiBYOK() {
     return played;
   }
 
-  // Unary whole-clip fallback: one generateContent call, full JSON,
-  // base64 PCM wrapped in WAV or native WAV, played via <audio>.
   async function narratePlayGeminiUnary(audioEndpoint, payload, signal, modelName) {
     var resp = await fetch(audioEndpoint, {
       method: "POST",
@@ -754,8 +436,8 @@ __sxInit(function initScribeGeminiBYOK() {
     var bytes = narrateBase64ToBytes(audioPart.data);
     var mimeType = audioPart.mimeType || "audio/wav";
     var isAlreadyWav = bytes.length >= 12 &&
-      bytes[0] === 0x52 && bytes[1] === 0x49 && bytes[2] === 0x46 && bytes[3] === 0x46 && // "RIFF"
-      bytes[8] === 0x57 && bytes[9] === 0x41 && bytes[10] === 0x56 && bytes[11] === 0x45; // "WAVE"
+      bytes[0] === 0x52 && bytes[1] === 0x49 && bytes[2] === 0x46 && bytes[3] === 0x46 &&
+      bytes[8] === 0x57 && bytes[9] === 0x41 && bytes[10] === 0x56 && bytes[11] === 0x45;
 
     var audioBlob;
     if (isAlreadyWav) {
@@ -777,13 +459,6 @@ __sxInit(function initScribeGeminiBYOK() {
     narratePlaybackMode = "audioel";
     return true;
   }
-
-  // Small read-only handle for live verification / diagnostics.
-  window.__sxScribeNarrate = {
-    chunksPlayed: function() { return narrateChunksPlayed; },
-    mode: function() { return narratePlaybackMode; },
-    audioState: function() { return narrateAudioCtx ? narrateAudioCtx.state : "none"; }
-  };
 
   function updateNarrateEngineUI() {
     var isGemini = !narrateEngine || narrateEngine.value === "gemini";
@@ -866,7 +541,7 @@ __sxInit(function initScribeGeminiBYOK() {
     if (narrateStatus) narrateStatus.textContent = "Idle";
   }
 
-  if (stopNarrateBtn) stopNarrateBtn.addEventListener("click", resetNarrationState);
+  if (stopNarrateBtn) stopNarrateBtn.addEventListener("click", function() { resetNarrationState(false); });
 
   if (pauseNarrateBtn) {
     pauseNarrateBtn.addEventListener("click", function() {
@@ -945,7 +620,6 @@ __sxInit(function initScribeGeminiBYOK() {
         return;
       }
 
-      // Gemini AI Studio Voice Output — streaming first, whole-clip fallback.
       var apiKey = (keyInput ? keyInput.value : "").trim();
       if (!apiKey) {
         try { apiKey = localStorage.getItem(getStorageKey("gemini")) || ""; } catch (_) {}
@@ -971,8 +645,8 @@ __sxInit(function initScribeGeminiBYOK() {
       var myToken = ++narrateGenToken;
       narrateChunksPlayed = 0;
 
-      var narrateModelSelect = document.getElementById("scribeNarrateModel");
-      var preferredModel = (narrateModelSelect && narrateModelSelect.value) ? narrateModelSelect.value : "gemini-2.5-pro-preview-tts";
+      var narrateModelEl = document.getElementById("scribeNarrateModel");
+      var preferredModel = (narrateModelEl && narrateModelEl.value) ? narrateModelEl.value : "gemini-2.5-pro-preview-tts";
       var ttsFallbackModels = [preferredModel, "gemini-2.5-flash-preview-tts", "gemini-2.5-flash-tts", "gemini-3.8-flash-tts"];
       ttsFallbackModels = ttsFallbackModels.filter(function(m, idx) { return ttsFallbackModels.indexOf(m) === idx; });
 
@@ -990,7 +664,6 @@ __sxInit(function initScribeGeminiBYOK() {
         if (narrateStatus) narrateStatus.textContent = "Connecting voice to " + chosenAudioModel + " (" + chosenVoice + ")…";
 
         try {
-          // 1. Try streaming audio first
           await narrateStreamGeminiAudio(streamEndpoint, currentPayload, audioAbortController.signal, myToken);
           if (myToken !== narrateGenToken) return;
           narratePlaybackMode = "webaudio";
@@ -1022,7 +695,6 @@ __sxInit(function initScribeGeminiBYOK() {
           } else {
             console.warn("[Scribe Audio Narration] Streaming failed with " + chosenAudioModel + " (" + streamErr.message + "), trying unary whole clip…");
 
-            // 2. Try unary generateContent with the user's chosen model
             try {
               if (narrateStatus) narrateStatus.textContent = "Generating voice with " + chosenAudioModel + " (" + chosenVoice + ")…";
               await narratePlayGeminiUnary(audioEndpoint, currentPayload, audioAbortController.signal, chosenAudioModel);
@@ -1096,147 +768,18 @@ __sxInit(function initScribeGeminiBYOK() {
     });
   }
 
-  // --------------------------------------------------------------------------
-  // Scribe compact three-button row (Prompt / Generate / Play).
-  // The Prompt button keeps the existing #generateScribePrompt id (new label),
-  // so its wiring in 05-compatibility.js is untouched.
-  // --------------------------------------------------------------------------
-  var scribeGenerateBtn = document.getElementById("scribeGenerateBtn");
-  var scribePlayBtn = document.getElementById("scribePlayBtn");
-  var scribeAiPanel = document.getElementById("scribeAiPanel");
-
-  function scribeAiSetupReady() {
-    var prov = getActiveProvider();
-    var key = "";
-    try { key = (keyInput ? keyInput.value : "").trim() || localStorage.getItem(getStorageKey(prov)) || ""; } catch (_) {}
-    return Boolean(key);
-  }
-
-  function scribeSyncGenerateLabel() {
-    if (!scribeGenerateBtn) return;
-    if (!scribeAiSetupReady()) { scribeGenerateBtn.textContent = "Pick your AI"; return; }
-    // Set up: label stays on the compact button only — it just renames to
-    // Regenerate once a story exists, never grows into a full-width control.
-    var hasStory = storyText && storyText.value && storyText.value.trim().length > 0;
-    scribeGenerateBtn.textContent = hasStory ? "↻ Regenerate" : "✨ Generate";
-  }
-
-  function scribeOpenAiPanel() {
-    if (scribeAiPanel) {
-      try { scribeAiPanel.scrollIntoView({ behavior: "smooth", block: "nearest" }); } catch (_) {}
-    }
-    if (keyInput) keyInput.focus();
-    scribeSyncGenerateLabel();
-  }
-
-  if (scribeGenerateBtn) {
-    scribeGenerateBtn.addEventListener("click", function() {
-      if (!scribeAiSetupReady()) {
-        // Not set up yet: first click opens the AI menu so the user picks
-        // a provider and saves a key. The AI panel lives inside
-        // #sceneBrief, which is hidden until a prompt exists — so generate
-        // the prompt first to reveal the panel, then open it and focus
-        // the key field.
-        var promptEl0 = document.getElementById("scenePromptText");
-        var briefEl0 = document.getElementById("sceneBrief");
-        if ((!promptEl0 || !promptEl0.value.trim()) && briefEl0 && briefEl0.hidden) {
-          var promptBtn0 = document.getElementById("generateScribePrompt");
-          if (promptBtn0) promptBtn0.click();
-        }
-        scribeOpenAiPanel();
-        return;
+  if (geminiVoice) {
+    geminiVoice.addEventListener("change", function() {
+      var newV = geminiVoice.value;
+      console.log("[Scribe Audio Narration] Selected voice switched to:", newV);
+      if (narrateStatus && (narratePlaybackMode === "webaudio" || liveNarrator)) {
+        narrateStatus.textContent = "Voice switched to " + newV + " (active next sentence)…";
+        narrateStatus.style.color = "#38bdf8";
       }
-      // Set up: make sure a prompt exists, then generate through the
-      // existing one-click path.
-      var promptEl = document.getElementById("scenePromptText");
-      if (promptEl && !promptEl.value.trim()) {
-        var promptBtn = document.getElementById("generateScribePrompt");
-        if (promptBtn) promptBtn.click();
-      }
-      if (genStoryBtn) genStoryBtn.click();
-    });
-    // Double-click also generates: when set up, the first click already
-    // starts it and the button disables itself, so the second is a no-op.
-    scribeGenerateBtn.addEventListener("dblclick", function() {
-      if (scribeAiSetupReady() && genStoryBtn && !genStoryBtn.disabled) genStoryBtn.click();
     });
   }
 
-  if (scribePlayBtn) {
-    scribePlayBtn.addEventListener("click", function() {
-      // Ensure audio context is running synchronously on user click
-      narrateEnsureAudioCtxRunning();
-
-      // 1. If currently speaking/narrating, toggle pause/resume
-      var isSpeaking = false;
-      var isPaused = false;
-      if (narratePlaybackMode === "webaudio" && narrateAudioCtx) {
-        if (narrateAudioCtx.state === "running") isSpeaking = true;
-        else if (narrateAudioCtx.state === "suspended") isPaused = true;
-      } else if (audioPlayer && audioPlayer.src && !audioPlayer.hidden) {
-        if (!audioPlayer.paused) isSpeaking = true;
-        else if (audioPlayer.currentTime > 0 && audioPlayer.currentTime < audioPlayer.duration) isPaused = true;
-      } else if (window.speechSynthesis && window.speechSynthesis.speaking) {
-        if (window.speechSynthesis.paused) isPaused = true;
-        else isSpeaking = true;
-      }
-
-      if (isSpeaking || isPaused) {
-        if (pauseNarrateBtn && !pauseNarrateBtn.hidden) {
-          pauseNarrateBtn.click();
-        } else if (isSpeaking && stopNarrateBtn) {
-          stopNarrateBtn.click();
-        }
-        return;
-      }
-
-      // 2. If story generation is already running, mark to narrate when complete
-      if (genStoryBtn && genStoryBtn.disabled) {
-        autoNarrateAfterStoryGen = true;
-        scribePlayBtn.textContent = "⏳ Narrating after generation…";
-        return;
-      }
-
-      // 3. If story already generated and non-empty, start narration immediately
-      var text = (storyText ? storyText.value : "").trim();
-      if (text && text.length > 30) {
-        if (startNarrateBtn) startNarrateBtn.click();
-        return;
-      }
-
-      // 4. One-click flow: Generate prompt -> Generate story -> Narrate story
-      if (!scribeAiSetupReady()) {
-        var promptEl0 = document.getElementById("scenePromptText");
-        var briefEl0 = document.getElementById("sceneBrief");
-        if ((!promptEl0 || !promptEl0.value.trim()) && briefEl0 && briefEl0.hidden) {
-          var promptBtn0 = document.getElementById("generateScribePrompt");
-          if (promptBtn0) promptBtn0.click();
-        }
-        scribeOpenAiPanel();
-        alert("Please enter and save your API key in Scribe to generate and narrate stories.");
-        return;
-      }
-
-      // Make sure prompt exists
-      var promptEl = document.getElementById("scenePromptText");
-      var promptBtn = document.getElementById("generateScribePrompt");
-      if (promptBtn) promptBtn.click();
-
-      // Trigger generation with auto-narration flag
-      autoNarrateAfterStoryGen = true;
-      scribePlayBtn.textContent = "⏳ Generating…";
-      setTimeout(function() {
-        if (genStoryBtn && !genStoryBtn.disabled) genStoryBtn.click();
-      }, 50);
-    });
-  }
-
-  function syncScribePlayBtnState() {
-    if (!scribePlayBtn) return;
-    if (autoNarrateAfterStoryGen) {
-      scribePlayBtn.textContent = "⏳ Generating…";
-      return;
-    }
+  function getPlaybackState() {
     var isSpeaking = false;
     var isPaused = false;
     if (narratePlaybackMode === "webaudio" && narrateAudioCtx) {
@@ -1249,39 +792,58 @@ __sxInit(function initScribeGeminiBYOK() {
       if (window.speechSynthesis.paused) isPaused = true;
       else isSpeaking = true;
     }
+    return { isSpeaking: isSpeaking, isPaused: isPaused };
+  }
 
-    if (isSpeaking) {
-      scribePlayBtn.textContent = "⏸ Pause";
-      scribePlayBtn.style.background = "#eab308";
-    } else if (isPaused) {
-      scribePlayBtn.textContent = "▶ Resume";
-      scribePlayBtn.style.background = "#059669";
-    } else {
-      scribePlayBtn.textContent = "▶ Play";
-      scribePlayBtn.style.background = "";
+  function beginLiveSession(gemKey) {
+    var narrateEng = (narrateEngine ? narrateEngine.value : "gemini") || "gemini";
+    if (narrateEng !== "gemini" || !gemKey) return false;
+    resetNarrationState();
+    var chosenV = (geminiVoice ? geminiVoice.value : "Aoede") || "Aoede";
+    var narrModelEl = document.getElementById("scribeNarrateModel");
+    var chosenNarrModel = (narrModelEl && narrModelEl.value) ? narrModelEl.value : "gemini-2.5-pro-preview-tts";
+    audioAbortController = new AbortController();
+    var myToken = ++narrateGenToken;
+    narrateChunksPlayed = 0;
+    liveNarrator = createLiveStoryNarrator(gemKey, chosenV, chosenNarrModel, myToken);
+    if (narrateStatus) {
+      narrateStatus.textContent = "Live narration started (" + chosenNarrModel + ")…";
+      narrateStatus.style.color = "#38bdf8";
+    }
+    if (startNarrateBtn) startNarrateBtn.disabled = true;
+    if (stopNarrateBtn) stopNarrateBtn.hidden = false;
+    if (pauseNarrateBtn) { pauseNarrateBtn.hidden = false; pauseNarrateBtn.textContent = "Pause"; }
+    return true;
+  }
+
+  function feedLiveChunk(chunk) {
+    if (liveNarrator) liveNarrator.feed(chunk);
+  }
+
+  function finishLiveSession() {
+    if (liveNarrator) {
+      try { liveNarrator.finish(); } catch (_) {}
+      liveNarrator = null;
     }
   }
 
-  setInterval(syncScribePlayBtnState, 500);
-  syncScribePlayBtnState();
+  // Diagnostic + cross-module narration coordination handle
+  window.__sxScribeNarrate = {
+    chunksPlayed: function() { return narrateChunksPlayed; },
+    mode: function() { return narratePlaybackMode; },
+    audioState: function() { return narrateAudioCtx ? narrateAudioCtx.state : "none"; },
+    populateTtsModelOptions: populateTtsModelOptions,
+    ensureAudioCtxRunning: narrateEnsureAudioCtxRunning,
+    getPlaybackState: getPlaybackState,
+    beginLiveSession: beginLiveSession,
+    feedLiveChunk: feedLiveChunk,
+    finishLiveSession: finishLiveSession,
+    resetNarrationState: resetNarrationState
+  };
 
-  // Keep the Generate label in step with the key/provider state.
-  if (keyInput) keyInput.addEventListener("input", scribeSyncGenerateLabel);
-  if (storyText) storyText.addEventListener("input", scribeSyncGenerateLabel);
-  if (saveKeyBtn) saveKeyBtn.addEventListener("click", function() { setTimeout(scribeSyncGenerateLabel, 0); });
-  if (clearKeyBtn) clearKeyBtn.addEventListener("click", function() { setTimeout(scribeSyncGenerateLabel, 0); });
-  if (providerSelect) providerSelect.addEventListener("change", scribeSyncGenerateLabel);
-  if (geminiVoice) {
-    geminiVoice.addEventListener("change", function() {
-      var newV = geminiVoice.value;
-      console.log("[Scribe Audio Narration] Selected voice switched to:", newV);
-      if (narrateStatus && (narratePlaybackMode === "webaudio" || liveNarrator)) {
-        narrateStatus.textContent = "Voice switched to " + newV + " (active next sentence)…";
-        narrateStatus.style.color = "#38bdf8";
-      }
-    });
-  }
-  scribeSyncGenerateLabel();
-
+  // If Gemini key is already saved when TTS module initializes, populate TTS models immediately
+  try {
+    var initGemKey = (keyInput ? keyInput.value : "").trim() || localStorage.getItem(getStorageKey("gemini")) || "";
+    populateTtsModelOptions(initGemKey);
+  } catch (_) {}
 });
-

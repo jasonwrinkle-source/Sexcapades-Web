@@ -472,6 +472,32 @@ var __sxAiByokCore = (function() {
     return { totalText: totalText, hitTokenLimit: hitTokenLimit };
   }
 
+  async function copyTextWithFeedback(text, fallbackInputEl, buttonEl, restoreLabel, copiedLabel, delayMs) {
+    if (!text) return false;
+    var flashLabel = copiedLabel || "Copied!";
+    var restore = restoreLabel || (buttonEl ? buttonEl.textContent : "Copy");
+    var waitMs = delayMs || 1600;
+    var copied = false;
+    try {
+      if (navigator.clipboard && typeof navigator.clipboard.writeText === "function") {
+        await navigator.clipboard.writeText(text);
+        copied = true;
+      }
+    } catch (_) {}
+    if (!copied && fallbackInputEl && typeof fallbackInputEl.select === "function") {
+      try {
+        fallbackInputEl.select();
+        document.execCommand("copy");
+        copied = true;
+      } catch (_) {}
+    }
+    if (copied && buttonEl) {
+      buttonEl.textContent = flashLabel;
+      setTimeout(function() { buttonEl.textContent = restore; }, waitMs);
+    }
+    return copied;
+  }
+
   return {
     PROVIDER_CONFIG: PROVIDER_CONFIG,
     getActiveProvider: getActiveProvider,
@@ -485,7 +511,8 @@ var __sxAiByokCore = (function() {
     bindKeyControls: bindKeyControls,
     startStopwatch: startStopwatch,
     createStreamChunkHandler: createStreamChunkHandler,
-    streamTextGeneration: streamTextGeneration
+    streamTextGeneration: streamTextGeneration,
+    copyTextWithFeedback: copyTextWithFeedback
   };
 })();
 window.__sxAiByokCore = __sxAiByokCore;

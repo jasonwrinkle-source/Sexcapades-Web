@@ -98,18 +98,7 @@ __sxInit(function initSceneSetterAi() {
     copyGuideBtn.addEventListener("click", async function() {
       var text = (guideText ? guideText.value : "").trim();
       if (!text) return;
-      try {
-        await navigator.clipboard.writeText(text);
-        copyGuideBtn.textContent = "Copied!";
-        setTimeout(function() { copyGuideBtn.textContent = "Copy play guide"; }, 1600);
-      } catch (_) {
-        if (guideText) {
-          guideText.select();
-          document.execCommand("copy");
-          copyGuideBtn.textContent = "Copied!";
-          setTimeout(function() { copyGuideBtn.textContent = "Copy play guide"; }, 1600);
-        }
-      }
+      await core.copyTextWithFeedback(text, guideText, copyGuideBtn, "Copy play guide");
     });
   }
 

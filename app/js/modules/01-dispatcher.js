@@ -76,111 +76,54 @@ if (typeof window.__sxErrLog !== "function") {
         }
     };
 }
+/* SexcapadesRuntime is defined by shell-runtime.js in the page shell.
+   Provide a lightweight fallback for standalone headless/module harness tests. */
 if (!window.SexcapadesRuntime) {
     (function() {
         "use strict";
-        var e = new Map, t = new Map, r = new Map,
-            n = document.getElementById.bind(document),
-            i = document.querySelector.bind(document),
-            a = document.querySelectorAll.bind(document),
-            o = /(?:dialog\[open\]|#profileTabs|data-check|data-leniency-trigger|:(?:active|checked|disabled|focus|focus-within|hover|not|open|target))/,
-            c = {
-                byId: function(t) {
-                    var r = String(t), i = e.get(r);
-                    if (i && i.isConnected && i.id === r) return i;
-                    i = n(r);
-                    if (i) {
-                        e.set(r, i);
-                    } else if (window.__SX_ALLOW_DOM_FALLBACK) {
-                        i = document.createElement("div");
-                        i.id = r;
-                        i.setAttribute("data-test-stub", "true");
-                        // Add span child for inner queries like c.querySelector("span")
-                        var innerSpan = document.createElement("span");
-                        i.appendChild(innerSpan);
-                        var container = document.getElementById("sxHarnessMockContainer") || document.body || document.documentElement;
-                        container.appendChild(i);
-                        e.set(r, i);
-                    } else {
-                        e.delete(r);
-                    }
-                    return i;
-                },
-                one: function(eSelector) {
-                    var r = String(eSelector), nSel = !o.test(r), a = nSel ? t.get(r) : null;
-                    if (a && a.isConnected && a.matches(r)) return a;
-                    a = i(r);
-                    if (!a && window.__SX_ALLOW_DOM_FALLBACK) {
-                        if (r.charAt(0) === "#" && !/[ .>+~:[\]]/.test(r.slice(1))) {
-                            a = c.byId(r.slice(1));
-                        } else {
-                            a = document.createElement("div");
-                            a.setAttribute("data-test-stub-query", r);
-                            var innerSpan = document.createElement("span");
-                            a.appendChild(innerSpan);
-                            var container = document.getElementById("sxHarnessMockContainer") || document.body || document.documentElement;
-                            container.appendChild(a);
-                        }
-                    }
-                    if (nSel && a) t.set(r, a);
-                    return a;
-                },
-                all: function(e) {
-                    var t = String(e), n = !o.test(t), i = n ? r.get(t) : null;
-                    return i && i.every(function(e) { return e.isConnected && e.matches(t); }) || (i = Array.from(a(t)), n && r.set(t, i)), i;
-                },
-                invalidate: function() { t.clear(), r.clear(); },
-                clear: function() { e.clear(), t.clear(), r.clear(); }
+        var DOM = {
+            byId: function(id) {
+                var key = String(id), el = document.getElementById(key);
+                if (!el && window.__SX_ALLOW_DOM_FALLBACK) {
+                    el = document.createElement("div");
+                    el.id = key;
+                    el.setAttribute("data-test-stub", "true");
+                    el.appendChild(document.createElement("span"));
+                    (document.getElementById("sxHarnessMockContainer") || document.body || document.documentElement).appendChild(el);
+                }
+                return el;
             },
-            l = {
-                setTimeout: window.setTimeout.bind(window),
-                setInterval: window.setInterval.bind(window),
-                clearTimeout: window.clearTimeout.bind(window),
-                clearInterval: window.clearInterval.bind(window),
-                requestAnimationFrame: window.requestAnimationFrame.bind(window),
-                cancelAnimationFrame: window.cancelAnimationFrame.bind(window)
+            one: function(sel) {
+                var key = String(sel), el = document.querySelector(key);
+                if (!el && window.__SX_ALLOW_DOM_FALLBACK) {
+                    if (key.charAt(0) === "#" && !/[ .>+~:[\]]/.test(key.slice(1))) return DOM.byId(key.slice(1));
+                    el = document.createElement("div");
+                    el.setAttribute("data-test-stub-query", key);
+                    el.appendChild(document.createElement("span"));
+                    (document.getElementById("sxHarnessMockContainer") || document.body || document.documentElement).appendChild(el);
+                }
+                return el;
             },
-            u = new Map,
-            s = {
-                register: function(e, t) { return u.set(e, "interval" === t ? "interval" : "raf" === t ? "raf" : "timeout"), e; },
-                setTimeout: function(e, t) {
-                    var r = Array.prototype.slice.call(arguments, 2), n = l.setTimeout(function() { u.delete(n), e.apply(window, r); }, t);
-                    return s.register(n, "timeout");
-                },
-                setInterval: function(e, t) {
-                    var r = Array.prototype.slice.call(arguments, 2), n = l.setInterval(function() { e.apply(window, r); }, t);
-                    return s.register(n, "interval");
-                },
-                requestAnimationFrame: function(e) {
-                    var n = l.requestAnimationFrame(function(t) { u.delete(n), e(t); });
-                    return s.register(n, "raf");
-                },
-                clear: function(e) {
-                    null != e && ("interval" === u.get(e) ? l.clearInterval(e) : "raf" === u.get(e) ? l.cancelAnimationFrame(e) : l.clearTimeout(e), u.delete(e));
-                },
-                clearAll: function() {
-                    u.forEach(function(e, t) { "interval" === e ? l.clearInterval(t) : "raf" === e ? l.cancelAnimationFrame(t) : l.clearTimeout(t); }), u.clear();
-                },
-                size: function() { return u.size; }
-            };
-        window.addEventListener("pagehide", function() { s.clearAll(), c.clear(); });
+            all: function(sel) { return Array.from(document.querySelectorAll(String(sel))); },
+            invalidate: function() {},
+            clear: function() {}
+        };
+        var TimerManager = {
+            register: function(id) { return id; },
+            setTimeout: window.setTimeout.bind(window),
+            setInterval: window.setInterval.bind(window),
+            requestAnimationFrame: window.requestAnimationFrame.bind(window),
+            clear: function(id) { window.clearTimeout(id); window.clearInterval(id); window.cancelAnimationFrame(id); },
+            clearAll: function() {},
+            size: function() { return 0; }
+        };
         window.SexcapadesRuntime = Object.freeze({
-            DOM: c,
-            TimerManager: s,
-            setHTML: function(e, t) {
-                if (!e) throw new TypeError("setHTML requires a target element.");
-                e.innerHTML = String(null == t ? "" : t);
-                Array.from(e.querySelectorAll('script,iframe,object,embed,base,meta[http-equiv="refresh"]')).forEach(function(e) { e.remove(); });
-                Array.from(e.querySelectorAll("*")).forEach(function(e) {
-                    Array.from(e.attributes || []).forEach(function(t) {
-                        var r = t.name.toLowerCase(), n = t.value;
-                        ("on" === r.slice(0, 2) || "srcdoc" === r || ("href" === r || "src" === r || "xlink:href" === r || "formaction" === r) && function(e) {
-                            return /^\s*(?:javascript|vbscript):/i.test(String(e || ""));
-                        }(n) || "style" === r && /(?:expression\s*\(|url\s*\(\s*['"]?\s*(?:javascript|vbscript):|@import)/i.test(n)) && e.removeAttribute(t.name);
-                    });
-                });
-                c.invalidate();
-                return e;
+            DOM: DOM,
+            TimerManager: TimerManager,
+            setHTML: function(target, html) {
+                if (!target) throw new TypeError("setHTML requires a target element.");
+                target.innerHTML = String(html == null ? "" : html);
+                return target;
             }
         });
     })();
