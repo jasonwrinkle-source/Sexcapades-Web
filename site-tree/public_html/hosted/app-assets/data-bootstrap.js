@@ -19620,8 +19620,55 @@ var SX_POLE_LABEL_OFFSET = 13;
             if (typeof sxWritePlacement === "function") return sxWritePlacement(topicId, side, obj, pid);
             keys.forEach((k, i) => sxStoreFlankRating(topicId, k, obj[k], !1, pid));
         }
+        // One advocacy write for a full set of pole values. A drag that
+        // used to call sxStoreFlankRating once per pole now lands here.
+        // The object keeps the keys already stored on that side, then
+        // replaces every pole. Intensity stays a separate write.
+        function sxStorePolygon(topicId, values, paint, profileId) {
+            const shape = typeof sxWidgetConfig === "function" ? sxWidgetConfig(topicId, profileId) : null;
+            const keys = shape && shape.keys || [];
+            if (!topicId || !keys.length || !values || !values.length || values.length > keys.length) return;
+            const useKeys = keys.slice(0, values.length);
+            const nums = useKeys.map((k, i) => Math.max(-100, Math.min(100, Math.round(Number(values[i]) || 0))));
+            const dual = typeof sxDualPlacements === "function" && sxDualPlacements(topicId) && typeof sxWritePlacement === "function";
+            if (!dual) {
+                useKeys.forEach((k, i) => sxStoreFlankRating(topicId, k, nums[i], !!(paint && i === useKeys.length - 1), profileId || null));
+                return;
+            }
+            let r = profileId && vt[profileId] ? profileId : (Mt && vt[Mt] ? Mt : Et);
+            if (typeof sxIsPseudoProfile === "function" && sxIsPseudoProfile(r)) return;
+            if (r === Et && typeof sxAllocateProfileId === "function" && typeof SX_PROFILE_RECORD_LISTS !== "undefined") {
+                const pid = sxAllocateProfileId("New profile");
+                SX_PROFILE_RECORD_LISTS.forEach(k => k[pid] = {});
+                wt[pid] = "New profile";
+                vt[pid] = {};
+                sxAdoptDraftRatings(pid);
+                Mt = pid;
+                if (typeof Go !== "undefined" && Go === Et) Go = pid;
+                if (typeof sxAutoSelect === "function") sxAutoSelect(pid);
+                r = pid;
+                if (typeof sxRenderProfileTabs === "function") sxRenderProfileTabs();
+            }
+            const rec = sxRatingsForProfile(r)[topicId];
+            const bag = rec && "object" == typeof rec ? rec : {};
+            const classic = !window.__SX_ACTIVE_SKIN || "sexcapades" === window.__SX_ACTIVE_SKIN;
+            const sideKey = classic ? "give" : "advocacy";
+            const prev = bag[sideKey] && "object" == typeof bag[sideKey] ? bag[sideKey] : {};
+            const obj = {};
+            Object.keys(prev).forEach(k => { if ("known" !== k) obj[k] = prev[k]; });
+            useKeys.forEach(k => {
+                if (Object.prototype.hasOwnProperty.call(obj, k)) return;
+                if (Object.prototype.hasOwnProperty.call(bag, k) && "object" != typeof bag[k]) obj[k] = bag[k];
+            });
+            if (Object.prototype.hasOwnProperty.call(bag, "line") && !Object.prototype.hasOwnProperty.call(obj, "line")) obj.line = bag.line;
+            useKeys.forEach((k, i) => { obj[k] = nums[i]; });
+            sxWritePlacement(topicId, "advocacy", obj, r);
+            useKeys.forEach(k => { if (typeof sxSetFlankSource === "function") sxSetFlankSource(r, topicId, k, "manual"); });
+            if (paint) sxRequestMapPaint();
+        }
         window.sxMapTriadSides = sxMapTriadSides;
         window.sxStoreMapTriad = sxStoreMapTriad;
+        window.sxStorePolygon = sxStorePolygon;
         function sxClearAdvocacyReceptivity(topicId, mode, profileId) {
             let r = profileId && vt[profileId] ? profileId : (Mt && vt[Mt] ? Mt : Et);
             if (!r || !vt[r] || !vt[r][topicId]) return;
@@ -20017,9 +20064,9 @@ var sxIntensitySeeded = new Set;
             const isClassic = !sxDualPlacements(topicId);
             if (isClassic) {
                 sxPersistIntensity(topicId, state.intensity);
-                for (let k = 0; k < poleCount; k++) {
-                    sxStoreFlankRating(topicId, shape.keys[k], Math.round(state["p" + k]), k === poleCount - 1);
-                }
+                const vals = [];
+                for (let k = 0; k < poleCount; k++) vals.push(Math.round(state["p" + k]));
+                sxStorePolygon(topicId, vals, !0);
             } else {
                 const mode = state.mode || "advocacy";
                 if (mode === "receptivity") {
@@ -20642,9 +20689,7 @@ var sxIntensitySeeded = new Set;
                 const v1 = Math.round(w1 * 100);
                 const v2 = Math.round(w2 * 100);
                 sxPersistIntensity(topicId, intensity);
-                sxStoreFlankRating(topicId, shape.keys[0], v0, !1);
-                sxStoreFlankRating(topicId, shape.keys[1], v1, !1);
-                sxStoreFlankRating(topicId, shape.keys[2], v2, !0);
+                sxStorePolygon(topicId, [ v0, v1, v2 ], !0);
             } else {
                 const mode = sxTriState.mode || "advocacy";
                 if (mode === "receptivity") {
@@ -20997,10 +21042,7 @@ var SX_COMPASS_COLORS = ["#22c55e", "#eab308", "#ef4444", "#3b82f6"];
             if (isClassic) {
                 const vals = sxCompassValuesFromPoint(sxCompassState.u, sxCompassState.v, 100);
                 sxPersistIntensity(topicId, sxCompassState.intensity);
-                sxStoreFlankRating(topicId, shape.keys[0], vals[0], !1);
-                sxStoreFlankRating(topicId, shape.keys[1], vals[1], !1);
-                sxStoreFlankRating(topicId, shape.keys[2], vals[2], !1);
-                sxStoreFlankRating(topicId, shape.keys[3], vals[3], !0);
+                sxStorePolygon(topicId, vals, !0);
             } else {
                 const mode = sxCompassState.mode || "advocacy";
                 if (mode === "receptivity") {
@@ -21813,9 +21855,7 @@ var SX_OCTAD_COLORS = ["#22c55e", "#10b981", "#06b6d4", "#3b82f6", "#6366f1", "#
                         persistMode(mode, newVals, inten);
                     } else if (isAllZero && val > 0) {
                         const base = Math.max(20, Math.round(val * 0.5));
-                        keys.forEach((k, idx) => {
-                            sxStoreFlankRating(topicId, k, (idx === activeIdx) ? val : base, !1, pId);
-                        });
+                        sxStorePolygon(topicId, keys.map((k, idx) => (idx === activeIdx) ? val : base), !1, pId);
                     } else {
                         sxStoreFlankRating(topicId, keys[activeIdx], val, !1, pId);
                     }
@@ -21830,7 +21870,7 @@ var SX_OCTAD_COLORS = ["#22c55e", "#10b981", "#06b6d4", "#3b82f6", "#6366f1", "#
                         const curC = sxDecodeTopicStance(topicId, pId);
                         const inten = mode === "receptivity" ? (curC.receptivityIntensityKnown ? curC.receptivityIntensity : 70) : (curC.intensityKnown ? curC.intensity : sxDerivedFromVals(vals, "compass"));
                         persistMode(mode, vals, inten);
-                    } else keys.forEach((k, idx) => sxStoreFlankRating(topicId, k, vals[idx], !1, pId));
+                    } else sxStorePolygon(topicId, vals, !1, pId);
                     redraw();
                     paintRow();
                 } else if (isTriad) {
@@ -21843,9 +21883,7 @@ var SX_OCTAD_COLORS = ["#22c55e", "#10b981", "#06b6d4", "#3b82f6", "#6366f1", "#
                         const inten = mode === "receptivity" ? (curT.receptivityIntensityKnown ? curT.receptivityIntensity : 70) : (curT.intensityKnown ? curT.intensity : sxDerivedFromVals(triVals, "triad"));
                         persistMode(mode, triVals, inten);
                     } else {
-                        sxStoreFlankRating(topicId, keys[0], triVals[0], !1, pId);
-                        sxStoreFlankRating(topicId, keys[1], triVals[1], !1, pId);
-                        sxStoreFlankRating(topicId, keys[2], triVals[2], !1, pId);
+                        sxStorePolygon(topicId, triVals, !1, pId);
                     }
                     redraw();
                     paintRow();
@@ -40862,7 +40900,7 @@ var sxLastNodeTapTime = 0, sxLastNodeTapId = null, sxLastNodeTapX = 0, sxLastNod
                 base = Math.max(20, Math.round(val / 2));
                 for (let k = 0; k < values.length; k++) values[k] = (k === active) ? val : base;
                 if (val > base) vertexLocked = true;
-                shape.keys.forEach((k, i) => sxStoreFlankRating(topicId, k, values[i], !1));
+                sxStorePolygon(topicId, values, !1);
             } else {
                 values[active] = val;
                 sxStoreFlankRating(topicId, shape.keys[active], val, !1);
@@ -40912,7 +40950,7 @@ var sxLastNodeTapTime = 0, sxLastNodeTapId = null, sxLastNodeTapX = 0, sxLastNod
                 st.base = base;
                 for (let k = 0; k < st.values.length; k++) st.values[k] = (k === v) ? val : base;
                 if (val > base) st.vertexLocked = true;
-                shape.keys.forEach((k, i) => sxStoreFlankRating(st.id, k, st.values[i], !1));
+                sxStorePolygon(st.id, st.values, !1);
             } else {
                 st.values[v] = val;
                 sxStoreFlankRating(st.id, shape.keys[v], val, !1);
@@ -40983,7 +41021,7 @@ var sxLastNodeTapTime = 0, sxLastNodeTapId = null, sxLastNodeTapX = 0, sxLastNod
                     const v = rec && rec[k + "Known"] ? rec[k] : 0;
                     return Math.max(-100, Math.min(100, Math.round(v * scale)));
                 });
-                shape.keys.forEach((k, i) => sxStoreFlankRating(topicId, k, values[i], !1));
+                sxStorePolygon(topicId, values, !1);
                 const geom = sxMapRadarVertices(In.querySelector(`.map-${direction}-hit[data-id="${CSS.escape(topicId)}"]`) || wHit, direction);
                 if (geom && geom.vertices.length === shape.keys.length) sxMapPatchRadarLive(topicId, direction, geom.cx, geom.cy, geom.vertices, values);
             } else {

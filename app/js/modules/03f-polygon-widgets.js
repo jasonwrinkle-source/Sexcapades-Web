@@ -362,9 +362,7 @@
                         persistMode(mode, newVals, inten);
                     } else if (isAllZero && val > 0) {
                         const base = Math.max(20, Math.round(val * 0.5));
-                        keys.forEach((k, idx) => {
-                            sxStoreFlankRating(topicId, k, (idx === activeIdx) ? val : base, !1, pId);
-                        });
+                        sxStorePolygon(topicId, keys.map((k, idx) => (idx === activeIdx) ? val : base), !1, pId);
                     } else {
                         sxStoreFlankRating(topicId, keys[activeIdx], val, !1, pId);
                     }
@@ -379,7 +377,7 @@
                         const curC = sxDecodeTopicStance(topicId, pId);
                         const inten = mode === "receptivity" ? (curC.receptivityIntensityKnown ? curC.receptivityIntensity : 70) : (curC.intensityKnown ? curC.intensity : sxDerivedFromVals(vals, "compass"));
                         persistMode(mode, vals, inten);
-                    } else keys.forEach((k, idx) => sxStoreFlankRating(topicId, k, vals[idx], !1, pId));
+                    } else sxStorePolygon(topicId, vals, !1, pId);
                     redraw();
                     paintRow();
                 } else if (isTriad) {
@@ -392,9 +390,7 @@
                         const inten = mode === "receptivity" ? (curT.receptivityIntensityKnown ? curT.receptivityIntensity : 70) : (curT.intensityKnown ? curT.intensity : sxDerivedFromVals(triVals, "triad"));
                         persistMode(mode, triVals, inten);
                     } else {
-                        sxStoreFlankRating(topicId, keys[0], triVals[0], !1, pId);
-                        sxStoreFlankRating(topicId, keys[1], triVals[1], !1, pId);
-                        sxStoreFlankRating(topicId, keys[2], triVals[2], !1, pId);
+                        sxStorePolygon(topicId, triVals, !1, pId);
                     }
                     redraw();
                     paintRow();

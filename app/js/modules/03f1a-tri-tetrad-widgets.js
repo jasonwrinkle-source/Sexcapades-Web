@@ -276,9 +276,7 @@
                 const v1 = Math.round(w1 * 100);
                 const v2 = Math.round(w2 * 100);
                 sxPersistIntensity(topicId, intensity);
-                sxStoreFlankRating(topicId, shape.keys[0], v0, !1);
-                sxStoreFlankRating(topicId, shape.keys[1], v1, !1);
-                sxStoreFlankRating(topicId, shape.keys[2], v2, !0);
+                sxStorePolygon(topicId, [ v0, v1, v2 ], !0);
             } else {
                 const mode = sxTriState.mode || "advocacy";
                 if (mode === "receptivity") {
@@ -631,10 +629,7 @@
             if (isClassic) {
                 const vals = sxCompassValuesFromPoint(sxCompassState.u, sxCompassState.v, 100);
                 sxPersistIntensity(topicId, sxCompassState.intensity);
-                sxStoreFlankRating(topicId, shape.keys[0], vals[0], !1);
-                sxStoreFlankRating(topicId, shape.keys[1], vals[1], !1);
-                sxStoreFlankRating(topicId, shape.keys[2], vals[2], !1);
-                sxStoreFlankRating(topicId, shape.keys[3], vals[3], !0);
+                sxStorePolygon(topicId, vals, !0);
             } else {
                 const mode = sxCompassState.mode || "advocacy";
                 if (mode === "receptivity") {

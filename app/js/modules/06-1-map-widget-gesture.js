@@ -439,7 +439,7 @@
                 base = Math.max(20, Math.round(val / 2));
                 for (let k = 0; k < values.length; k++) values[k] = (k === active) ? val : base;
                 if (val > base) vertexLocked = true;
-                shape.keys.forEach((k, i) => sxStoreFlankRating(topicId, k, values[i], !1));
+                sxStorePolygon(topicId, values, !1);
             } else {
                 values[active] = val;
                 sxStoreFlankRating(topicId, shape.keys[active], val, !1);
@@ -489,7 +489,7 @@
                 st.base = base;
                 for (let k = 0; k < st.values.length; k++) st.values[k] = (k === v) ? val : base;
                 if (val > base) st.vertexLocked = true;
-                shape.keys.forEach((k, i) => sxStoreFlankRating(st.id, k, st.values[i], !1));
+                sxStorePolygon(st.id, st.values, !1);
             } else {
                 st.values[v] = val;
                 sxStoreFlankRating(st.id, shape.keys[v], val, !1);
@@ -560,7 +560,7 @@
                     const v = rec && rec[k + "Known"] ? rec[k] : 0;
                     return Math.max(-100, Math.min(100, Math.round(v * scale)));
                 });
-                shape.keys.forEach((k, i) => sxStoreFlankRating(topicId, k, values[i], !1));
+                sxStorePolygon(topicId, values, !1);
                 const geom = sxMapRadarVertices(In.querySelector(`.map-${direction}-hit[data-id="${CSS.escape(topicId)}"]`) || wHit, direction);
                 if (geom && geom.vertices.length === shape.keys.length) sxMapPatchRadarLive(topicId, direction, geom.cx, geom.cy, geom.vertices, values);
             } else {
