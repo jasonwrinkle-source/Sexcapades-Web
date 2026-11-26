@@ -8291,13 +8291,7 @@ var sxNodeById = (e) => typeof window !== "undefined" && typeof window.Xn === "f
                     const r1 = t[f[1] + "Known"] ? t[f[1]] : 0;
                     const r2 = t[f[2] + "Known"] ? t[f[2]] : 0;
                     const isKnown = Boolean(t[f[0] + "Known"] || t[f[1] + "Known"] || t[f[2] + "Known"]);
-                    const m0 = Math.abs(r0), m1 = Math.abs(r1), m2 = Math.abs(r2);
-                    const tot = m0 + m1 + m2;
-                    const w0 = tot > 0 ? m0 / tot : 1/3;
-                    const w1 = tot > 0 ? m1 / tot : 1/3;
-                    const w2 = tot > 0 ? m2 / tot : 1/3;
-                    const px = w0 * V0.x + w1 * V1.x + w2 * V2.x;
-                    const py = w0 * V0.y + w1 * V1.y + w2 * V2.y;
+                    const triad = sxMapTriadModel(V0, V1, V2, [ r0, r1, r2 ]);
                     const maxR = sxSignedIntensity([r0, r1, r2]);
                     const puckColor = isKnown ? sxInterestColor(maxR) : Ga.FALLBACK_COLOR;
                     const isAct = Boolean(Nt && Nt.id === e);
@@ -8316,7 +8310,7 @@ var sxNodeById = (e) => typeof window !== "undefined" && typeof window.Xn === "f
                     D += `<circle cx="${V1.x.toFixed(1)}" cy="${V1.y.toFixed(1)}" r="${3.5 * m}" fill="#22c55e" stroke="#ffffff" stroke-width="${0.8 * m}"/>`;
                     D += `<circle cx="${V2.x.toFixed(1)}" cy="${V2.y.toFixed(1)}" r="${3.5 * m}" fill="#3b82f6" stroke="#ffffff" stroke-width="${0.8 * m}"/>`;
                     // Hit Target first: pole labels paint on top so they stay hoverable for their tips.
-                    D += `<polygon class="direction-hit map-triangle-hit" data-id="${e}" data-direction="triangle" data-v0x="${V0.x.toFixed(1)}" data-v0y="${V0.y.toFixed(1)}" data-v1x="${V1.x.toFixed(1)}" data-v1y="${V1.y.toFixed(1)}" data-v2x="${V2.x.toFixed(1)}" data-v2y="${V2.y.toFixed(1)}" points="${V0.x.toFixed(1)},${V0.y.toFixed(1)} ${V1.x.toFixed(1)},${V1.y.toFixed(1)} ${V2.x.toFixed(1)},${V2.y.toFixed(1)}" fill="transparent" pointer-events="all" style="cursor:crosshair" role="slider" aria-label="${sxEscapeHtmlText(y.join(' / '))}: ${ariaTxt}. Drag to adjust triad balance." tabindex="0"/>`;
+                    D += `<polygon class="${triad.hit.cls}" data-id="${e}" data-direction="triangle" data-v0x="${triad.hit.points[0].x.toFixed(1)}" data-v0y="${triad.hit.points[0].y.toFixed(1)}" data-v1x="${triad.hit.points[1].x.toFixed(1)}" data-v1y="${triad.hit.points[1].y.toFixed(1)}" data-v2x="${triad.hit.points[2].x.toFixed(1)}" data-v2y="${triad.hit.points[2].y.toFixed(1)}" points="${triad.hit.points[0].x.toFixed(1)},${triad.hit.points[0].y.toFixed(1)} ${triad.hit.points[1].x.toFixed(1)},${triad.hit.points[1].y.toFixed(1)} ${triad.hit.points[2].x.toFixed(1)},${triad.hit.points[2].y.toFixed(1)}" fill="transparent" pointer-events="all" style="cursor:crosshair" role="slider" aria-label="${sxEscapeHtmlText(y.join(' / '))}: ${ariaTxt}. Drag to adjust triad balance." tabindex="0"/>`;
                     // Labels offset outward from each vertex
                     const l0x = V0.x - nx * 9 * m, l0y = V0.y - ny * 9 * m;
                     const l1x = V1.x + p * 12 * m, l1y = V1.y + h * 12 * m;
@@ -8324,7 +8318,7 @@ var sxNodeById = (e) => typeof window !== "undefined" && typeof window.Xn === "f
                     D += `<text class="map-triangle-label"${sxPoleTipAttrs(0)} x="${l0x.toFixed(1)}" y="${l0y.toFixed(1)}" text-anchor="middle" dominant-baseline="middle" font-size="${8 * m}px" font-weight="700" fill="#ef4444">${sxEscapeHtmlText(y[0])}</text>`;
                     D += `<text class="map-triangle-label"${sxPoleTipAttrs(1)} x="${l1x.toFixed(1)}" y="${l1y.toFixed(1)}" text-anchor="middle" dominant-baseline="middle" font-size="${8 * m}px" font-weight="700" fill="#22c55e">${sxEscapeHtmlText(y[1])}</text>`;
                     D += `<text class="map-triangle-label"${sxPoleTipAttrs(2)} x="${l2x.toFixed(1)}" y="${l2y.toFixed(1)}" text-anchor="middle" dominant-baseline="middle" font-size="${8 * m}px" font-weight="700" fill="#3b82f6">${sxEscapeHtmlText(y[2])}</text>`;
-                    D += `<circle class="slider-thumb map-triangle-puck${actCls}" data-id="${e}" data-direction="triangle" pointer-events="none" cx="${px.toFixed(1)}" cy="${py.toFixed(1)}" r="${7.5 * m}" fill="${puckColor}" stroke="#ffffff" stroke-width="${1.5 * m}"/>`;
+                    triad.pucks.forEach(puck => { D += `<circle class="${puck.cls}${actCls}" data-id="${e}" data-direction="triangle" data-placement="${puck.side}" pointer-events="none" cx="${puck.x.toFixed(1)}" cy="${puck.y.toFixed(1)}" r="${7.5 * m}" fill="${puckColor}" stroke="#ffffff" stroke-width="${1.5 * m}"/>`; });
                     D += `</g>`;
                 } else {
                     f.forEach((k, idx) => {
@@ -19590,6 +19584,44 @@ var SX_POLE_LABEL_OFFSET = 13;
             return sxWritePlacement(topicId, mode, value, profileId);
         }
         window.sxWritePlacement = sxWritePlacement;
+        // Map triad. One control and one puck. The list is the product
+        // choice: a second entry would be a second puck and a second
+        // stored side. The map paints whatever this returns.
+        function sxMapTriadSides() {
+            return [ "advocacy" ];
+        }
+        function sxMapTriadPuckAt(V0, V1, V2, w0, w1, w2) {
+            return {
+                x: w0 * V0.x + w1 * V1.x + w2 * V2.x,
+                y: w0 * V0.y + w1 * V1.y + w2 * V2.y
+            };
+        }
+        function sxMapTriadModel(V0, V1, V2, values) {
+            const r0 = Number(values && values[0]) || 0, r1 = Number(values && values[1]) || 0, r2 = Number(values && values[2]) || 0;
+            const m0 = Math.abs(r0), m1 = Math.abs(r1), m2 = Math.abs(r2), tot = m0 + m1 + m2;
+            const w0 = tot > 0 ? m0 / tot : 1 / 3, w1 = tot > 0 ? m1 / tot : 1 / 3, w2 = tot > 0 ? m2 / tot : 1 / 3;
+            const at = sxMapTriadPuckAt(V0, V1, V2, w0, w1, w2);
+            return {
+                weights: { w0: w0, w1: w1, w2: w2 },
+                hit: { cls: "direction-hit map-triangle-hit", points: [ V0, V1, V2 ] },
+                pucks: sxMapTriadSides().map(side => ({ side: side, x: at.x, y: at.y, cls: "slider-thumb map-triangle-puck" }))
+            };
+        }
+        function sxStoreMapTriad(topicId, values, profileId) {
+            const shape = typeof sxWidgetConfig === "function" ? sxWidgetConfig(topicId) : null;
+            const keys = shape && shape.keys || [];
+            const pid = profileId || (typeof sxActiveProfileId === "function" ? sxActiveProfileId() : null);
+            const rec = typeof sxDecodeTopicStance === "function" ? sxDecodeTopicStance(topicId, pid) : null;
+            const prev = rec && rec.advocacy && "object" == typeof rec.advocacy ? rec.advocacy : {};
+            const obj = {};
+            Object.keys(prev).forEach(k => { if ("known" !== k) obj[k] = prev[k]; });
+            keys.forEach((k, i) => { obj[k] = Math.max(-100, Math.min(100, Math.round(Number(values[i]) || 0))); });
+            const side = sxMapTriadSides()[0];
+            if (typeof sxWritePlacement === "function") return sxWritePlacement(topicId, side, obj, pid);
+            keys.forEach((k, i) => sxStoreFlankRating(topicId, k, obj[k], !1, pid));
+        }
+        window.sxMapTriadSides = sxMapTriadSides;
+        window.sxStoreMapTriad = sxStoreMapTriad;
         function sxClearAdvocacyReceptivity(topicId, mode, profileId) {
             let r = profileId && vt[profileId] ? profileId : (Mt && vt[Mt] ? Mt : Et);
             if (!r || !vt[r] || !vt[r][topicId]) return;
@@ -40785,10 +40817,9 @@ var sxLastNodeTapTime = 0, sxLastNodeTapId = null, sxLastNodeTapX = 0, sxLastNod
             }
             const puck = ctl.querySelector(".map-triangle-puck");
             if (puck) {
-                const px = bary.w0 * v0.x + bary.w1 * v1.x + bary.w2 * v2.x;
-                const py = bary.w0 * v0.y + bary.w1 * v1.y + bary.w2 * v2.y;
-                puck.setAttribute("cx", px.toFixed(1));
-                puck.setAttribute("cy", py.toFixed(1));
+                const at = sxMapTriadPuckAt(v0, v1, v2, bary.w0, bary.w1, bary.w2);
+                puck.setAttribute("cx", at.x.toFixed(1));
+                puck.setAttribute("cy", at.y.toFixed(1));
                 puck.setAttribute("fill", sxInterestColor(sxSignedIntensity(values)));
             }
             const dots = ctl.querySelectorAll("circle:not(.map-triangle-puck)");
@@ -41029,9 +41060,7 @@ var sxLastNodeTapTime = 0, sxLastNodeTapId = null, sxLastNodeTapX = 0, sxLastNod
                 const v0r = Math.round(w.w0 * intensity);
                 const v1r = Math.round(w.w1 * intensity);
                 const v2r = Math.round(w.w2 * intensity);
-                sxStoreFlankRating(topicId, shape.keys[0], v0r, !1);
-                sxStoreFlankRating(topicId, shape.keys[1], v1r, !1);
-                sxStoreFlankRating(topicId, shape.keys[2], v2r, !1);
+                sxStoreMapTriad(topicId, [ v0r, v1r, v2r ]);
                 sxMapTriRemember(topicId, intensity, w.w0, w.w1, w.w2);
                 const hit = In.querySelector(`.map-triangle-hit[data-id="${CSS.escape(topicId)}"]`);
                 if (hit) {
@@ -41323,9 +41352,7 @@ var sxNoteHold = null, sxNoteTapTime = 0, sxNoteTapId = null, sxNoteTapX = 0, sx
                         const v0r = Math.round(bary.w0 * intensity);
                         const v1r = Math.round(bary.w1 * intensity);
                         const v2r = Math.round(bary.w2 * intensity);
-                        sxStoreFlankRating(topicId, shape.keys[0], v0r, !1);
-                        sxStoreFlankRating(topicId, shape.keys[1], v1r, !1);
-                        sxStoreFlankRating(topicId, shape.keys[2], v2r, !1);
+                        sxStoreMapTriad(topicId, [ v0r, v1r, v2r ]);
                         sxMapPatchTriLive(topicId, v0, v1, v2, bary, [v0r, v1r, v2r], intensity);
                         sxMapTriRemember(topicId, intensity, bary.w0, bary.w1, bary.w2);
                     }
@@ -41533,9 +41560,7 @@ var sxNoteHold = null, sxNoteTapTime = 0, sxNoteTapId = null, sxNoteTapX = 0, sx
                     const v0r = Math.round(bary.w0 * intensity);
                     const v1r = Math.round(bary.w1 * intensity);
                     const v2r = Math.round(bary.w2 * intensity);
-                    sxStoreFlankRating(st.id, shape.keys[0], v0r, !1);
-                    sxStoreFlankRating(st.id, shape.keys[1], v1r, !1);
-                    sxStoreFlankRating(st.id, shape.keys[2], v2r, !1);
+                    sxStoreMapTriad(st.id, [ v0r, v1r, v2r ]);
                     sxMapPatchTriLive(st.id, st.v0, st.v1, st.v2, bary, [v0r, v1r, v2r], intensity);
                     sxMapTriRemember(st.id, intensity, bary.w0, bary.w1, bary.w2);
                 }

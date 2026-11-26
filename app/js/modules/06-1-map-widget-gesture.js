@@ -304,10 +304,9 @@
             }
             const puck = ctl.querySelector(".map-triangle-puck");
             if (puck) {
-                const px = bary.w0 * v0.x + bary.w1 * v1.x + bary.w2 * v2.x;
-                const py = bary.w0 * v0.y + bary.w1 * v1.y + bary.w2 * v2.y;
-                puck.setAttribute("cx", px.toFixed(1));
-                puck.setAttribute("cy", py.toFixed(1));
+                const at = sxMapTriadPuckAt(v0, v1, v2, bary.w0, bary.w1, bary.w2);
+                puck.setAttribute("cx", at.x.toFixed(1));
+                puck.setAttribute("cy", at.y.toFixed(1));
                 puck.setAttribute("fill", sxInterestColor(sxSignedIntensity(values)));
             }
             const dots = ctl.querySelectorAll("circle:not(.map-triangle-puck)");
@@ -548,9 +547,7 @@
                 const v0r = Math.round(w.w0 * intensity);
                 const v1r = Math.round(w.w1 * intensity);
                 const v2r = Math.round(w.w2 * intensity);
-                sxStoreFlankRating(topicId, shape.keys[0], v0r, !1);
-                sxStoreFlankRating(topicId, shape.keys[1], v1r, !1);
-                sxStoreFlankRating(topicId, shape.keys[2], v2r, !1);
+                sxStoreMapTriad(topicId, [ v0r, v1r, v2r ]);
                 sxMapTriRemember(topicId, intensity, w.w0, w.w1, w.w2);
                 const hit = In.querySelector(`.map-triangle-hit[data-id="${CSS.escape(topicId)}"]`);
                 if (hit) {

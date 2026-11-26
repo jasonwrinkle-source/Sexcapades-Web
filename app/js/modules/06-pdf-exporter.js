@@ -119,9 +119,7 @@
                         const v0r = Math.round(bary.w0 * intensity);
                         const v1r = Math.round(bary.w1 * intensity);
                         const v2r = Math.round(bary.w2 * intensity);
-                        sxStoreFlankRating(topicId, shape.keys[0], v0r, !1);
-                        sxStoreFlankRating(topicId, shape.keys[1], v1r, !1);
-                        sxStoreFlankRating(topicId, shape.keys[2], v2r, !1);
+                        sxStoreMapTriad(topicId, [ v0r, v1r, v2r ]);
                         sxMapPatchTriLive(topicId, v0, v1, v2, bary, [v0r, v1r, v2r], intensity);
                         sxMapTriRemember(topicId, intensity, bary.w0, bary.w1, bary.w2);
                     }
@@ -329,9 +327,7 @@
                     const v0r = Math.round(bary.w0 * intensity);
                     const v1r = Math.round(bary.w1 * intensity);
                     const v2r = Math.round(bary.w2 * intensity);
-                    sxStoreFlankRating(st.id, shape.keys[0], v0r, !1);
-                    sxStoreFlankRating(st.id, shape.keys[1], v1r, !1);
-                    sxStoreFlankRating(st.id, shape.keys[2], v2r, !1);
+                    sxStoreMapTriad(st.id, [ v0r, v1r, v2r ]);
                     sxMapPatchTriLive(st.id, st.v0, st.v1, st.v2, bary, [v0r, v1r, v2r], intensity);
                     sxMapTriRemember(st.id, intensity, bary.w0, bary.w1, bary.w2);
                 }

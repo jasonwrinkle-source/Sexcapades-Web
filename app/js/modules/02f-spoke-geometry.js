@@ -492,13 +492,7 @@
                     const r1 = t[f[1] + "Known"] ? t[f[1]] : 0;
                     const r2 = t[f[2] + "Known"] ? t[f[2]] : 0;
                     const isKnown = Boolean(t[f[0] + "Known"] || t[f[1] + "Known"] || t[f[2] + "Known"]);
-                    const m0 = Math.abs(r0), m1 = Math.abs(r1), m2 = Math.abs(r2);
-                    const tot = m0 + m1 + m2;
-                    const w0 = tot > 0 ? m0 / tot : 1/3;
-                    const w1 = tot > 0 ? m1 / tot : 1/3;
-                    const w2 = tot > 0 ? m2 / tot : 1/3;
-                    const px = w0 * V0.x + w1 * V1.x + w2 * V2.x;
-                    const py = w0 * V0.y + w1 * V1.y + w2 * V2.y;
+                    const triad = sxMapTriadModel(V0, V1, V2, [ r0, r1, r2 ]);
                     const maxR = sxSignedIntensity([r0, r1, r2]);
                     const puckColor = isKnown ? sxInterestColor(maxR) : Ga.FALLBACK_COLOR;
                     const isAct = Boolean(Nt && Nt.id === e);
@@ -517,7 +511,7 @@
                     D += `<circle cx="${V1.x.toFixed(1)}" cy="${V1.y.toFixed(1)}" r="${3.5 * m}" fill="#22c55e" stroke="#ffffff" stroke-width="${0.8 * m}"/>`;
                     D += `<circle cx="${V2.x.toFixed(1)}" cy="${V2.y.toFixed(1)}" r="${3.5 * m}" fill="#3b82f6" stroke="#ffffff" stroke-width="${0.8 * m}"/>`;
                     // Hit Target first: pole labels paint on top so they stay hoverable for their tips.
-                    D += `<polygon class="direction-hit map-triangle-hit" data-id="${e}" data-direction="triangle" data-v0x="${V0.x.toFixed(1)}" data-v0y="${V0.y.toFixed(1)}" data-v1x="${V1.x.toFixed(1)}" data-v1y="${V1.y.toFixed(1)}" data-v2x="${V2.x.toFixed(1)}" data-v2y="${V2.y.toFixed(1)}" points="${V0.x.toFixed(1)},${V0.y.toFixed(1)} ${V1.x.toFixed(1)},${V1.y.toFixed(1)} ${V2.x.toFixed(1)},${V2.y.toFixed(1)}" fill="transparent" pointer-events="all" style="cursor:crosshair" role="slider" aria-label="${sxEscapeHtmlText(y.join(' / '))}: ${ariaTxt}. Drag to adjust triad balance." tabindex="0"/>`;
+                    D += `<polygon class="${triad.hit.cls}" data-id="${e}" data-direction="triangle" data-v0x="${triad.hit.points[0].x.toFixed(1)}" data-v0y="${triad.hit.points[0].y.toFixed(1)}" data-v1x="${triad.hit.points[1].x.toFixed(1)}" data-v1y="${triad.hit.points[1].y.toFixed(1)}" data-v2x="${triad.hit.points[2].x.toFixed(1)}" data-v2y="${triad.hit.points[2].y.toFixed(1)}" points="${triad.hit.points[0].x.toFixed(1)},${triad.hit.points[0].y.toFixed(1)} ${triad.hit.points[1].x.toFixed(1)},${triad.hit.points[1].y.toFixed(1)} ${triad.hit.points[2].x.toFixed(1)},${triad.hit.points[2].y.toFixed(1)}" fill="transparent" pointer-events="all" style="cursor:crosshair" role="slider" aria-label="${sxEscapeHtmlText(y.join(' / '))}: ${ariaTxt}. Drag to adjust triad balance." tabindex="0"/>`;
                     // Labels offset outward from each vertex
                     const l0x = V0.x - nx * 9 * m, l0y = V0.y - ny * 9 * m;
                     const l1x = V1.x + p * 12 * m, l1y = V1.y + h * 12 * m;
@@ -525,7 +519,7 @@
                     D += `<text class="map-triangle-label"${sxPoleTipAttrs(0)} x="${l0x.toFixed(1)}" y="${l0y.toFixed(1)}" text-anchor="middle" dominant-baseline="middle" font-size="${8 * m}px" font-weight="700" fill="#ef4444">${sxEscapeHtmlText(y[0])}</text>`;
                     D += `<text class="map-triangle-label"${sxPoleTipAttrs(1)} x="${l1x.toFixed(1)}" y="${l1y.toFixed(1)}" text-anchor="middle" dominant-baseline="middle" font-size="${8 * m}px" font-weight="700" fill="#22c55e">${sxEscapeHtmlText(y[1])}</text>`;
                     D += `<text class="map-triangle-label"${sxPoleTipAttrs(2)} x="${l2x.toFixed(1)}" y="${l2y.toFixed(1)}" text-anchor="middle" dominant-baseline="middle" font-size="${8 * m}px" font-weight="700" fill="#3b82f6">${sxEscapeHtmlText(y[2])}</text>`;
-                    D += `<circle class="slider-thumb map-triangle-puck${actCls}" data-id="${e}" data-direction="triangle" pointer-events="none" cx="${px.toFixed(1)}" cy="${py.toFixed(1)}" r="${7.5 * m}" fill="${puckColor}" stroke="#ffffff" stroke-width="${1.5 * m}"/>`;
+                    triad.pucks.forEach(puck => { D += `<circle class="${puck.cls}${actCls}" data-id="${e}" data-direction="triangle" data-placement="${puck.side}" pointer-events="none" cx="${puck.x.toFixed(1)}" cy="${puck.y.toFixed(1)}" r="${7.5 * m}" fill="${puckColor}" stroke="#ffffff" stroke-width="${1.5 * m}"/>`; });
                     D += `</g>`;
                 } else {
                     f.forEach((k, idx) => {

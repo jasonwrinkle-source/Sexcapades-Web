@@ -578,6 +578,44 @@
             return sxWritePlacement(topicId, mode, value, profileId);
         }
         window.sxWritePlacement = sxWritePlacement;
+        // Map triad. One control and one puck. The list is the product
+        // choice: a second entry would be a second puck and a second
+        // stored side. The map paints whatever this returns.
+        function sxMapTriadSides() {
+            return [ "advocacy" ];
+        }
+        function sxMapTriadPuckAt(V0, V1, V2, w0, w1, w2) {
+            return {
+                x: w0 * V0.x + w1 * V1.x + w2 * V2.x,
+                y: w0 * V0.y + w1 * V1.y + w2 * V2.y
+            };
+        }
+        function sxMapTriadModel(V0, V1, V2, values) {
+            const r0 = Number(values && values[0]) || 0, r1 = Number(values && values[1]) || 0, r2 = Number(values && values[2]) || 0;
+            const m0 = Math.abs(r0), m1 = Math.abs(r1), m2 = Math.abs(r2), tot = m0 + m1 + m2;
+            const w0 = tot > 0 ? m0 / tot : 1 / 3, w1 = tot > 0 ? m1 / tot : 1 / 3, w2 = tot > 0 ? m2 / tot : 1 / 3;
+            const at = sxMapTriadPuckAt(V0, V1, V2, w0, w1, w2);
+            return {
+                weights: { w0: w0, w1: w1, w2: w2 },
+                hit: { cls: "direction-hit map-triangle-hit", points: [ V0, V1, V2 ] },
+                pucks: sxMapTriadSides().map(side => ({ side: side, x: at.x, y: at.y, cls: "slider-thumb map-triangle-puck" }))
+            };
+        }
+        function sxStoreMapTriad(topicId, values, profileId) {
+            const shape = typeof sxWidgetConfig === "function" ? sxWidgetConfig(topicId) : null;
+            const keys = shape && shape.keys || [];
+            const pid = profileId || (typeof sxActiveProfileId === "function" ? sxActiveProfileId() : null);
+            const rec = typeof sxDecodeTopicStance === "function" ? sxDecodeTopicStance(topicId, pid) : null;
+            const prev = rec && rec.advocacy && "object" == typeof rec.advocacy ? rec.advocacy : {};
+            const obj = {};
+            Object.keys(prev).forEach(k => { if ("known" !== k) obj[k] = prev[k]; });
+            keys.forEach((k, i) => { obj[k] = Math.max(-100, Math.min(100, Math.round(Number(values[i]) || 0))); });
+            const side = sxMapTriadSides()[0];
+            if (typeof sxWritePlacement === "function") return sxWritePlacement(topicId, side, obj, pid);
+            keys.forEach((k, i) => sxStoreFlankRating(topicId, k, obj[k], !1, pid));
+        }
+        window.sxMapTriadSides = sxMapTriadSides;
+        window.sxStoreMapTriad = sxStoreMapTriad;
         function sxClearAdvocacyReceptivity(topicId, mode, profileId) {
             let r = profileId && vt[profileId] ? profileId : (Mt && vt[Mt] ? Mt : Et);
             if (!r || !vt[r] || !vt[r][topicId]) return;
