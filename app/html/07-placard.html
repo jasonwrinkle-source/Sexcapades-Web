@@ -1,0 +1,295 @@
+<div aria-labelledby="markMenuTitle" aria-modal="false" class="mark-menu" data-topic-sheet="true" hidden="" id="markMenu" role="dialog">
+<div class="mark-menu-head">
+<div class="mark-menu-heading">
+<div aria-label="Topic marker" class="mark-toggle" role="radiogroup">
+<button aria-checked="false" data-mark="favorite" role="radio" type="button"><b aria-hidden="true">★</b><span>Favorite</span></button>
+<button aria-checked="true" data-mark="neutral" role="radio" type="button"><b aria-hidden="true">●</b><span>Neutral</span></button>
+<button aria-checked="false" data-mark="notinterested" role="radio" title="Not for me, but not a hard boundary" type="button"><b aria-hidden="true">⊘</b><span>Not Interested</span></button>
+<button aria-checked="false" data-mark="limit" role="radio" type="button"><b aria-hidden="true">×</b><span>Hard Limit</span></button>
+</div>
+<div aria-label="Topic experience markers" class="topic-flag-toggles">
+<button aria-label="Fantasy only: I fantasize about this but wouldn't do it in real life" aria-pressed="false" data-topic-flag="fantasy" title="I fantasize about this but wouldn't do it in real life" type="button"><b aria-hidden="true">☁</b><span>Fantasy only</span></button>
+<button aria-label="Already tried: I've already done this" aria-pressed="false" data-topic-flag="tried" title="I've already done this" type="button"><b aria-hidden="true">✓</b><span>Already tried</span></button>
+</div>
+<strong id="markMenuTitle"></strong>
+</div>
+<button aria-label="Close topic details" class="mark-menu-close" id="closeMarkMenu" type="button">×</button>
+</div>
+<div class="mark-hanky" hidden="" id="markHanky"><span aria-hidden="true" class="mark-hanky-swatch" id="markHankySwatch"></span><span id="markHankyText"></span></div>
+<p class="mark-description" id="markDescription"></p>
+<div class="mark-prevalence" hidden="" id="markPrevalence"><strong>How common is this?</strong><span id="markPrevalenceText"></span><small id="markPrevalenceSource"></small></div>
+<div class="mark-community-ratings" hidden="" id="markCommunityRatings"><strong>Community ratings</strong><div id="markCommunityRatingsBody"></div></div>
+<div class="mark-popularity-sources" id="markPopularitySources"><strong>Popularity sources</strong><ul class="mark-popularity-list" id="markPopularitySourcesList"></ul></div>
+<div class="mark-learn-links" id="markLearnLinks">
+<a hidden="" id="markLearnMore" rel="noopener noreferrer" target="_blank">Learn more on Wikipedia</a>
+<span class="mark-community-picker"><button aria-controls="markCommunityPopover" aria-expanded="false" aria-haspopup="menu" class="mark-community-trigger" hidden="" id="markFetlifeTrigger" type="button">Discuss on FetLife</button></span>
+<span class="mark-community-picker"><button aria-controls="markCommunityPopover" aria-expanded="false" aria-haspopup="menu" class="mark-community-trigger" hidden="" id="markRedditTrigger" type="button">Discuss on Reddit</button></span>
+<span class="mark-community-picker"><button aria-controls="markCommunityPopover" aria-expanded="false" aria-haspopup="menu" class="mark-community-trigger" hidden="" id="markDiscordTrigger" type="button">Discuss on Discord</button></span>
+<span class="mark-community-empty" id="markCommunityFallback">Reddit, FetLife, Discord: no dedicated community found</span>
+</div>
+<div aria-label="Related communities" class="mark-community-popover" hidden="" id="markCommunityPopover" role="menu"><p class="mark-community-popover-heading" id="markCommunityPopoverHeading"></p><ul class="mark-community-list" id="markCommunityList"></ul></div>
+<div class="mark-meta">
+<button aria-controls="markSources" aria-expanded="false" class="mark-meta-trigger" id="markSourcesTrigger" type="button">Included from</button>
+<div class="mark-sources" hidden="" id="markSources"></div>
+</div>
+<div class="mark-import-notes" hidden="" id="markImportNotes">
+<span class="mark-meta-label">Imported notes</span>
+<ul id="markImportNotesList"></ul>
+</div>
+<div class="mark-triangle-wrap" hidden="" id="markTriangleWrap">
+<div class="mark-triangle-header">
+<span class="mark-triangle-title">Triad balance &amp; intensity</span>
+<button class="mark-tri-clear-btn" id="markTriangleClear" type="button">Clear</button>
+</div>
+<div class="mark-triangle-stage">
+<div class="mark-triangle-canvas-box">
+<canvas class="mark-triangle-canvas" height="230" id="markTriangleCanvas" width="280"></canvas>
+</div>
+<div class="mark-triangle-slider-box mark-dual-slider-box">
+<div class="mark-slider-col mark-slider-adv is-active" id="markTriAdvCol">
+<span class="mark-tri-slider-label" title="Advocacy">● Adv</span>
+<input aria-label="Triad advocacy intensity" class="mark-tri-intensity mark-thumb-disc" id="markTriangleIntensity" max="100" min="-100" step="1" type="range" value="0"/>
+<output class="mark-tri-intensity-out" id="markTriangleIntensityOut">0</output>
+</div>
+<div class="mark-slider-col mark-slider-rec" id="markTriangleRecCol">
+<span class="mark-tri-slider-label" title="Receptivity">○ Rec</span>
+<input aria-label="Triad receptivity intensity" class="mark-tri-intensity mark-thumb-ring" id="markTriangleRecIntensity" max="100" min="-100" step="1" type="range" value="0"/>
+<output class="mark-tri-intensity-out" id="markTriangleRecIntensityOut">—</output>
+</div>
+</div>
+</div>
+<div class="mark-triangle-readout" id="markTriangleReadout">
+<div class="mark-tri-stat"><span id="markTriPole0">Pole 1</span>: <b id="markTriVal0">0</b></div>
+<div class="mark-tri-stat"><span id="markTriPole1">Pole 2</span>: <b id="markTriVal1">0</b></div>
+<div class="mark-tri-stat"><span id="markTriPole2">Pole 3</span>: <b id="markTriVal2">0</b></div>
+</div>
+</div>
+<div class="mark-tetrad-wrap" hidden="" id="markTetradWrap">
+<div class="mark-triangle-header">
+<span class="mark-triangle-title" id="markTetradTitle">4-Pole dynamic &amp; intensity</span>
+<button class="mark-tri-clear-btn" id="markTetradClear" type="button">Clear</button>
+</div>
+<div class="mark-triangle-stage">
+<div class="mark-triangle-canvas-box">
+<canvas class="mark-tetrad-canvas" height="180" id="markTetradCanvas" width="190"></canvas>
+</div>
+<div class="mark-triangle-slider-box mark-dual-slider-box">
+<div class="mark-slider-col mark-slider-adv is-active" id="markTetradAdvCol">
+<span class="mark-tri-slider-label" title="Advocacy">● Adv</span>
+<input aria-label="Tetrad advocacy intensity" class="mark-tri-intensity mark-thumb-disc" id="markTetradIntensity" max="100" min="-100" step="1" type="range" value="0"/>
+<output class="mark-tri-intensity-out" id="markTetradIntensityOut">0</output>
+</div>
+<div class="mark-slider-col mark-slider-rec" id="markTetradRecCol">
+<span class="mark-tri-slider-label" title="Receptivity">○ Rec</span>
+<input aria-label="Tetrad receptivity intensity" class="mark-tri-intensity mark-thumb-ring" id="markTetradRecIntensity" max="100" min="-100" step="1" type="range" value="0"/>
+<output class="mark-tri-intensity-out" id="markTetradRecIntensityOut">—</output>
+</div>
+</div>
+</div>
+<div class="mark-triangle-readout" id="markTetradReadout">
+<div class="mark-tri-stat"><span id="markTetradPole0">Pole 1</span>: <b id="markTetradVal0">0</b></div>
+<div class="mark-tri-stat"><span id="markTetradPole1">Pole 2</span>: <b id="markTetradVal1">0</b></div>
+<div class="mark-tri-stat"><span id="markTetradPole2">Pole 3</span>: <b id="markTetradVal2">0</b></div>
+<div class="mark-tri-stat"><span id="markTetradPole3">Pole 4</span>: <b id="markTetradVal3">0</b></div>
+</div>
+</div>
+<div class="mark-compass-wrap" hidden="" id="markCompassWrap">
+<div class="mark-triangle-header">
+<span class="mark-triangle-title" id="markCompassTitle">Political compass</span>
+<button class="mark-tri-clear-btn" id="markCompassClear" type="button">Clear</button>
+</div>
+<div class="mark-triangle-stage">
+<div class="mark-triangle-canvas-box">
+<canvas class="mark-compass-canvas" height="210" id="markCompassCanvas" width="240"></canvas>
+</div>
+<div class="mark-triangle-slider-box mark-dual-slider-box">
+<div class="mark-slider-col mark-slider-adv is-active" id="markCompassAdvCol">
+<span class="mark-tri-slider-label" title="Advocacy">● Adv</span>
+<input aria-label="Compass advocacy intensity" class="mark-tri-intensity mark-thumb-disc" id="markCompassIntensity" max="100" min="-100" step="1" type="range" value="0"/>
+<output class="mark-tri-intensity-out" id="markCompassIntensityOut">0</output>
+</div>
+<div class="mark-slider-col mark-slider-rec" id="markCompassRecCol">
+<span class="mark-tri-slider-label" title="Receptivity">○ Rec</span>
+<input aria-label="Compass receptivity intensity" class="mark-tri-intensity mark-thumb-ring" id="markCompassRecIntensity" max="100" min="-100" step="1" type="range" value="0"/>
+<output class="mark-tri-intensity-out" id="markCompassRecIntensityOut">—</output>
+</div>
+</div>
+</div>
+<div class="mark-triangle-readout" id="markCompassReadout">
+<div class="mark-tri-stat"><span id="markCompassPole0">Pole 1</span>: <b id="markCompassVal0">0</b></div>
+<div class="mark-tri-stat"><span id="markCompassPole1">Pole 2</span>: <b id="markCompassVal1">0</b></div>
+<div class="mark-tri-stat"><span id="markCompassPole2">Pole 3</span>: <b id="markCompassVal2">0</b></div>
+<div class="mark-tri-stat"><span id="markCompassPole3">Pole 4</span>: <b id="markCompassVal3">0</b></div>
+</div>
+</div>
+<div class="mark-pentad-wrap" hidden="" id="markPentadWrap">
+<div class="mark-triangle-header">
+<span class="mark-triangle-title" id="markPentadTitle">5-Pole dynamic &amp; intensity</span>
+<button class="mark-tri-clear-btn" id="markPentadClear" type="button">Clear</button>
+</div>
+<div class="mark-triangle-stage">
+<div class="mark-triangle-canvas-box">
+<canvas class="mark-pentad-canvas" height="180" id="markPentadCanvas" width="190"></canvas>
+</div>
+<div class="mark-triangle-slider-box mark-dual-slider-box">
+<div class="mark-slider-col mark-slider-adv is-active" id="markPentadAdvCol">
+<span class="mark-tri-slider-label" title="Advocacy">● Adv</span>
+<input aria-label="Pentad advocacy intensity" class="mark-tri-intensity mark-thumb-disc" id="markPentadIntensity" max="100" min="-100" step="1" type="range" value="0"/>
+<output class="mark-tri-intensity-out" id="markPentadIntensityOut">0</output>
+</div>
+<div class="mark-slider-col mark-slider-rec" id="markPentadRecCol">
+<span class="mark-tri-slider-label" title="Receptivity">○ Rec</span>
+<input aria-label="Pentad receptivity intensity" class="mark-tri-intensity mark-thumb-ring" id="markPentadRecIntensity" max="100" min="-100" step="1" type="range" value="0"/>
+<output class="mark-tri-intensity-out" id="markPentadRecIntensityOut">—</output>
+</div>
+</div>
+</div>
+<div class="mark-triangle-readout" id="markPentadReadout">
+<div class="mark-tri-stat"><span id="markPentadPole0">Pole 1</span>: <b id="markPentadVal0">0</b></div>
+<div class="mark-tri-stat"><span id="markPentadPole1">Pole 2</span>: <b id="markPentadVal1">0</b></div>
+<div class="mark-tri-stat"><span id="markPentadPole2">Pole 3</span>: <b id="markPentadVal2">0</b></div>
+<div class="mark-tri-stat"><span id="markPentadPole3">Pole 4</span>: <b id="markPentadVal3">0</b></div>
+<div class="mark-tri-stat"><span id="markPentadPole4">Pole 5</span>: <b id="markPentadVal4">0</b></div>
+</div>
+</div>
+<div class="mark-hexad-wrap" hidden="" id="markHexadWrap">
+<div class="mark-triangle-header">
+<span class="mark-triangle-title" id="markHexadTitle">6-Pole dynamic &amp; intensity</span>
+<button class="mark-tri-clear-btn" id="markHexadClear" type="button">Clear</button>
+</div>
+<div class="mark-triangle-stage">
+<div class="mark-triangle-canvas-box">
+<canvas class="mark-hexad-canvas" height="190" id="markHexadCanvas" width="200"></canvas>
+</div>
+<div class="mark-triangle-slider-box mark-dual-slider-box">
+<div class="mark-slider-col mark-slider-adv is-active" id="markHexadAdvCol">
+<span class="mark-tri-slider-label" title="Advocacy">● Adv</span>
+<input aria-label="Hexad advocacy intensity" class="mark-tri-intensity mark-thumb-disc" id="markHexadIntensity" max="100" min="-100" step="1" type="range" value="0"/>
+<output class="mark-tri-intensity-out" id="markHexadIntensityOut">0</output>
+</div>
+<div class="mark-slider-col mark-slider-rec" id="markHexadRecCol">
+<span class="mark-tri-slider-label" title="Receptivity">○ Rec</span>
+<input aria-label="Hexad receptivity intensity" class="mark-tri-intensity mark-thumb-ring" id="markHexadRecIntensity" max="100" min="-100" step="1" type="range" value="0"/>
+<output class="mark-tri-intensity-out" id="markHexadRecIntensityOut">—</output>
+</div>
+</div>
+</div>
+<div class="mark-triangle-readout" id="markHexadReadout">
+<div class="mark-tri-stat"><span id="markHexadPole0">Pole 1</span>: <b id="markHexadVal0">0</b></div>
+<div class="mark-tri-stat"><span id="markHexadPole1">Pole 2</span>: <b id="markHexadVal1">0</b></div>
+<div class="mark-tri-stat"><span id="markHexadPole2">Pole 3</span>: <b id="markHexadVal2">0</b></div>
+<div class="mark-tri-stat"><span id="markHexadPole3">Pole 4</span>: <b id="markHexadVal3">0</b></div>
+<div class="mark-tri-stat"><span id="markHexadPole4">Pole 5</span>: <b id="markHexadVal4">0</b></div>
+<div class="mark-tri-stat"><span id="markHexadPole5">Pole 6</span>: <b id="markHexadVal5">0</b></div>
+</div>
+</div>
+<div class="mark-heptad-wrap" hidden="" id="markHeptadWrap">
+<div class="mark-triangle-header">
+<span class="mark-triangle-title" id="markHeptadTitle">7-Pole dynamic &amp; intensity</span>
+<button class="mark-tri-clear-btn" id="markHeptadClear" type="button">Clear</button>
+</div>
+<div class="mark-triangle-stage">
+<div class="mark-triangle-canvas-box">
+<canvas class="mark-hexad-canvas mark-heptad-canvas" height="190" id="markHeptadCanvas" width="200"></canvas>
+</div>
+<div class="mark-triangle-slider-box mark-dual-slider-box">
+<div class="mark-slider-col mark-slider-adv is-active" id="markHeptadAdvCol">
+<span class="mark-tri-slider-label" title="Advocacy">● Adv</span>
+<input aria-label="Heptad advocacy intensity" class="mark-tri-intensity mark-thumb-disc" id="markHeptadIntensity" max="100" min="-100" step="1" type="range" value="0"/>
+<output class="mark-tri-intensity-out" id="markHeptadIntensityOut">0</output>
+</div>
+<div class="mark-slider-col mark-slider-rec" id="markHeptadRecCol">
+<span class="mark-tri-slider-label" title="Receptivity">○ Rec</span>
+<input aria-label="Heptad receptivity intensity" class="mark-tri-intensity mark-thumb-ring" id="markHeptadRecIntensity" max="100" min="-100" step="1" type="range" value="0"/>
+<output class="mark-tri-intensity-out" id="markHeptadRecIntensityOut">—</output>
+</div>
+</div>
+</div>
+<div class="mark-triangle-readout" id="markHeptadReadout">
+<div class="mark-tri-stat"><span id="markHeptadPole0">Pole 1</span>: <b id="markHeptadVal0">0</b></div>
+<div class="mark-tri-stat"><span id="markHeptadPole1">Pole 2</span>: <b id="markHeptadVal1">0</b></div>
+<div class="mark-tri-stat"><span id="markHeptadPole2">Pole 3</span>: <b id="markHeptadVal2">0</b></div>
+<div class="mark-tri-stat"><span id="markHeptadPole3">Pole 4</span>: <b id="markHeptadVal3">0</b></div>
+<div class="mark-tri-stat"><span id="markHeptadPole4">Pole 5</span>: <b id="markHeptadVal4">0</b></div>
+<div class="mark-tri-stat"><span id="markHeptadPole5">Pole 6</span>: <b id="markHeptadVal5">0</b></div>
+<div class="mark-tri-stat"><span id="markHeptadPole6">Pole 7</span>: <b id="markHeptadVal6">0</b></div>
+</div>
+</div>
+<div class="mark-octad-wrap" hidden="" id="markOctadWrap">
+<div class="mark-triangle-header">
+<span class="mark-triangle-title" id="markOctadTitle">8-Pole dynamic &amp; intensity</span>
+<button class="mark-tri-clear-btn" id="markOctadClear" type="button">Clear</button>
+</div>
+<div class="mark-triangle-stage">
+<div class="mark-triangle-canvas-box">
+<canvas class="mark-hexad-canvas mark-octad-canvas" height="190" id="markOctadCanvas" width="200"></canvas>
+</div>
+<div class="mark-triangle-slider-box mark-dual-slider-box">
+<div class="mark-slider-col mark-slider-adv is-active" id="markOctadAdvCol">
+<span class="mark-tri-slider-label" title="Advocacy">● Adv</span>
+<input aria-label="Octad advocacy intensity" class="mark-tri-intensity mark-thumb-disc" id="markOctadIntensity" max="100" min="-100" step="1" type="range" value="0"/>
+<output class="mark-tri-intensity-out" id="markOctadIntensityOut">0</output>
+</div>
+<div class="mark-slider-col mark-slider-rec" id="markOctadRecCol">
+<span class="mark-tri-slider-label" title="Receptivity">○ Rec</span>
+<input aria-label="Octad receptivity intensity" class="mark-tri-intensity mark-thumb-ring" id="markOctadRecIntensity" max="100" min="-100" step="1" type="range" value="0"/>
+<output class="mark-tri-intensity-out" id="markOctadRecIntensityOut">—</output>
+</div>
+</div>
+</div>
+<div class="mark-triangle-readout" id="markOctadReadout">
+<div class="mark-tri-stat"><span id="markOctadPole0">Pole 1</span>: <b id="markOctadVal0">0</b></div>
+<div class="mark-tri-stat"><span id="markOctadPole1">Pole 2</span>: <b id="markOctadVal1">0</b></div>
+<div class="mark-tri-stat"><span id="markOctadPole2">Pole 3</span>: <b id="markOctadVal2">0</b></div>
+<div class="mark-tri-stat"><span id="markOctadPole3">Pole 4</span>: <b id="markOctadVal3">0</b></div>
+<div class="mark-tri-stat"><span id="markOctadPole4">Pole 5</span>: <b id="markOctadVal4">0</b></div>
+<div class="mark-tri-stat"><span id="markOctadPole5">Pole 6</span>: <b id="markOctadVal5">0</b></div>
+<div class="mark-tri-stat"><span id="markOctadPole6">Pole 7</span>: <b id="markOctadVal6">0</b></div>
+<div class="mark-tri-stat"><span id="markOctadPole7">Pole 8</span>: <b id="markOctadVal7">0</b></div>
+</div>
+</div>
+<div class="mark-switchbox-wrap" hidden="" id="markSwitchboxWrap">
+<div class="mark-triangle-header">
+<span class="mark-triangle-title" id="markSwitchboxTitle">Cross Slider</span>
+<div class="mark-switchbox-tools">
+<button class="mark-tri-clear-btn" id="markSwitchboxClear" type="button">Clear</button>
+</div>
+</div>
+<div id="markCrossSliderHost"></div>
+<div class="mark-triangle-slider-box mark-dual-slider-box" id="markSwitchboxIntensityBox" hidden="">
+<div class="mark-slider-col mark-slider-adv is-active" id="markSwitchboxAdvCol">
+<span class="mark-tri-slider-label" title="Advocacy">● Adv</span>
+<input aria-label="Advocacy intensity" class="mark-tri-intensity mark-thumb-disc" id="markSwitchboxIntensity" max="100" min="-100" step="1" type="range" value="0"/>
+<output class="mark-tri-intensity-out" id="markSwitchboxIntensityOut">0</output>
+</div>
+<div class="mark-slider-col mark-slider-rec" id="markSwitchboxRecCol">
+<span class="mark-tri-slider-label" title="Receptivity">○ Rec</span>
+<input aria-label="Receptivity intensity" class="mark-tri-intensity mark-thumb-ring" id="markSwitchboxRecIntensity" max="100" min="-100" step="1" type="range" value="0"/>
+<output class="mark-tri-intensity-out" id="markSwitchboxRecIntensityOut">—</output>
+</div>
+</div>
+</div>
+<div class="mark-ratings" hidden="" id="markRatings">
+<label class="mark-rating"><span id="markGiveLabel">Give</span><input id="markGive" max="100" min="-100" step="1" type="range" value="0" aria-label="Give rating"/><output id="markGiveOut">Unrated</output><button id="markGiveClear" type="button">Clear</button></label>
+<label class="mark-rating" id="markReceiveRow"><span id="markReceiveLabel">Receive</span><input id="markReceive" max="100" min="-100" step="1" type="range" value="0" aria-label="Receive rating"/><output id="markReceiveOut">Unrated</output><button id="markReceiveClear" type="button">Clear</button></label>
+<label class="mark-rating" hidden="" id="markRole3Row"><span id="markRole3Label">Role 3</span><input id="markRole3" max="100" min="-100" step="1" type="range" value="0" aria-label="Role 3 rating"/><output id="markRole3Out">Unrated</output><button id="markRole3Clear" type="button">Clear</button></label>
+<label class="mark-rating" hidden="" id="markRole4Row"><span id="markRole4Label">Role 4</span><input id="markRole4" max="100" min="-100" step="1" type="range" value="0" aria-label="Role 4 rating"/><output id="markRole4Out">Unrated</output><button id="markRole4Clear" type="button">Clear</button></label>
+<label class="mark-rating" hidden="" id="markRole5Row"><span id="markRole5Label">Role 5</span><input id="markRole5" max="100" min="-100" step="1" type="range" value="0" aria-label="Role 5 rating"/><output id="markRole5Out">Unrated</output><button id="markRole5Clear" type="button">Clear</button></label>
+<label class="mark-rating" hidden="" id="markRole6Row"><span id="markRole6Label">Role 6</span><input id="markRole6" max="100" min="-100" step="1" type="range" value="0" aria-label="Role 6 rating"/><output id="markRole6Out">Unrated</output><button id="markRole6Clear" type="button">Clear</button></label>
+<label class="mark-rating" hidden="" id="markRole7Row"><span id="markRole7Label">Role 7</span><input id="markRole7" max="100" min="-100" step="1" type="range" value="0" aria-label="Role 7 rating"/><output id="markRole7Out">Unrated</output><button id="markRole7Clear" type="button">Clear</button></label>
+<label class="mark-rating" hidden="" id="markRole8Row"><span id="markRole8Label">Role 8</span><input id="markRole8" max="100" min="-100" step="1" type="range" value="0" aria-label="Role 8 rating"/><output id="markRole8Out">Unrated</output><button id="markRole8Clear" type="button">Clear</button></label>
+</div>
+<div class="mark-triangle-slider-box mark-dual-slider-box" id="markLinearIntensityBox" hidden="">
+<div class="mark-slider-col mark-slider-adv is-active" id="markLinearAdvCol">
+<span class="mark-tri-slider-label" title="Advocacy">● Adv</span>
+<input aria-label="Advocacy intensity" class="mark-tri-intensity mark-thumb-disc" id="markLinearIntensity" max="100" min="-100" step="1" type="range" value="0"/>
+<output class="mark-tri-intensity-out" id="markLinearIntensityOut">0</output>
+</div>
+<div class="mark-slider-col mark-slider-rec" id="markLinearRecCol">
+<span class="mark-tri-slider-label" title="Receptivity">○ Rec</span>
+<input aria-label="Receptivity intensity" class="mark-tri-intensity mark-thumb-ring" id="markLinearRecIntensity" max="100" min="-100" step="1" type="range" value="0"/>
+<output class="mark-tri-intensity-out" id="markLinearRecIntensityOut">—</output>
+</div>
+</div>
+<label class="mark-note-field"><span>Your note</span><textarea id="markNoteInput" maxlength="800" placeholder="Add a note for this topic…"></textarea></label>
+</div>

@@ -1,0 +1,155 @@
+<section class="workspace">
+<section aria-label="Match readings" class="sx-match-stage" hidden="" id="sxMatchStage"></section>
+<div class="map-column">
+<div aria-label="Interactive Sexcapades hypermap" class="map-card">
+<div class="map-scene" id="mapScene">
+<svg aria-label="A zoomable mind map of consenting adult interests. Tap a node icon or label to select the topic and open its rating sliders, or tap a line to select its branch. Hold a node to read its description. Double-tap or double-click a node to edit its note and Favorite or Hard Limit mark. Tap a direction or everything label to open its tangential scale, then drag to choose a shade." id="mapSvg" role="img" viewbox="-700 -980 3200 3200" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<defs id="mapDefs"></defs>
+<g id="viewport" transform="translate(578 398) scale(0.36)"><g id="mapLayer"><g data-empty-profile-map=""><circle class="empty-center-ring" cx="900" cy="620" r="133"></circle></g></g></g>
+</svg>
+</div>
+<div aria-label="Loading map" aria-live="polite" hidden="" id="mapLoadOverlay" role="status">
+<svg aria-hidden="true" class="map-load-watch" fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="2.6" viewbox="0 0 48 48"><rect fill="currentColor" height="4.6" rx="1.6" stroke="none" width="6" x="21" y="1.6"></rect><line x1="24" x2="24" y1="6.2" y2="10.5"></line><circle cx="24" cy="27" r="16.5"></circle><circle class="map-load-ring" cx="24" cy="27" r="20.5"></circle><line class="map-load-hand" stroke="var(--green)" x1="24" x2="24" y1="27" y2="17.5"></line><circle cx="24" cy="27" fill="var(--green)" r="1.9" stroke="none"></circle></svg>
+<div class="map-load-pct" id="mapLoadPct">0%</div>
+<div aria-hidden="true" class="map-load-bar"><span id="mapLoadBarFill"></span></div>
+<div class="map-load-label">Building your map…</div>
+</div>
+<script src="js/shell-overlay.js"></script>
+<div class="map-compare-empty" hidden="" id="mapCompareEmpty">
+<p class="map-compare-empty-title">Find where your profiles overlap</p>
+<p class="map-compare-empty-hint">Compare two or more profiles to reveal shared interests, mismatches, and blind spots. Hold a profile tab to add it; on a computer, Ctrl+click (Cmd+click on Mac) also works.</p>
+</div>
+<section aria-live="polite" class="blind-mode-summary" hidden="" id="blindModeSummary">
+<div><h2 id="blindModeHeading">You match on 0 topics</h2><p>Only shared green interests are visible. Individual ratings stay hidden.</p></div>
+<ul class="blind-mode-list" id="blindModeList"></ul>
+</section>
+<section class="map-safe-fallback" hidden="" id="mapSafeFallback" role="alert">
+<h2>Hypermap paused safely</h2>
+<p id="mapSafeMessage">The hypermap hit a rendering problem. Your open profile is unchanged.</p>
+<div class="map-safe-actions"><button class="action-btn primary" id="mapSafeOpen" type="button">Open simplified hypermap</button><button class="action-btn" id="mapSafeReset" type="button">Reset hypermap view</button></div>
+</section>
+<div aria-label="Hypermap controls" class="map-controls">
+<button class="map-clear-selection" hidden="" id="mapClearSelection" type="button">× Clear selection</button>
+<button aria-label="Zoom out" class="icon-btn" id="mapZoomOut" type="button">−</button>
+<button aria-label="Fit hypermap" class="icon-btn" id="mapFit" type="button"><svg aria-hidden="true" viewbox="0 0 24 24"><path d="M8 3H3v5M16 3h5v5M8 21H3v-5M16 21h5v-5"></path></svg></button>
+<button aria-label="Zoom in" class="icon-btn" id="mapZoomIn" type="button">+</button>
+<div class="legend-control" id="legendControl">
+<button aria-controls="legendPopup" aria-expanded="false" aria-haspopup="dialog" class="icon-btn legend-button" id="legendButton" type="button"><svg aria-hidden="true" viewbox="0 0 24 24"><path d="M5 5h2M10 5h9M5 12h2M10 12h9M5 19h2M10 19h9"></path></svg><span>Legend</span></button>
+<section aria-labelledby="legendPopupTitle" aria-modal="false" class="legend-popup" hidden="" id="legendPopup" role="dialog">
+<div class="legend-popup-head"><h3 id="legendPopupTitle">Legend</h3><button aria-label="Close legend" class="legend-popup-close" id="legendPopupClose" type="button">×</button></div>
+<div class="legend-list">
+<section class="legend-section" data-legend-group="ratings">
+<div class="legend-section-title">Ratings</div>
+<div data-legend-entry="directions">
+<div aria-label="Interactive give and receive rating examples" class="legend-rating-demo" id="legendRatingDemo">
+<div class="legend-live-stack">
+<div class="legend-live-control" data-legend-direction="give"><button aria-expanded="false" class="legend-direction-pill" data-legend-pill="give" data-tooltip-definition="How much you want to do this to or for someone." data-tooltip-name="Give rating" data-tooltip-value="Unrated" data-ui-tooltip="How much you want to do this to or for someone." type="button">give</button><div class="legend-live-popup"><input aria-label="Example give rating" max="100" min="-100" type="range" value="0"/><button class="legend-live-clear" type="button">Clear</button></div></div>
+<div class="legend-live-control" data-legend-direction="receive"><button aria-expanded="false" class="legend-direction-pill" data-legend-pill="receive" data-tooltip-definition="How much you want this done to or for you." data-tooltip-name="Receive rating" data-tooltip-value="Unrated" data-ui-tooltip="How much you want this done to or for you." type="button">receive</button><div class="legend-live-popup"><input aria-label="Example receive rating" max="100" min="-100" type="range" value="0"/><button class="legend-live-clear" type="button">Clear</button></div></div>
+</div>
+<p class="legend-direction-copy"><b>Give</b> = do (thing)<br/><b>Receive</b> = (thing) done to you</p>
+</div>
+<p class="legend-section-sub">Tap or hover on a topic to open the rainbow slider bar and set its rating.</p>
+<div class="legend-pair-key"><strong>Other pairs:</strong> dom/sub, restrains/restrained, applies/receives, stimulates/experiences, leads/follows</div>
+</div>
+<div class="legend-row" data-legend-entry="heat"><span class="legend-line scale"></span><span><b>red</b> Not topics · <b>yellow</b> Curiosity? · <b>green</b> Hot topics</span></div> <!-- FQ2-BAKEIN: legend heat scale "No" -> "Not topics"; "Curious about" -> "Curiosity?"; "Want to do" -> "Hot topics" -->
+<div class="legend-row" data-legend-entry="visibility-toggle"><span aria-hidden="true" class="legend-count-badge is-branch-toggle">+N</span><span><b>Branch +N box</b> — the black +N box on a category or subcategory counts the topics currently hidden in that branch. Tap it to switch that branch between displaying its rated topics and its unrated topics. It never rates anything.</span></div>
+<div class="legend-row" data-legend-entry="center-toggle"><span aria-hidden="true" class="legend-count-badge is-center-toggle">+N</span><span><b>Center +N box</b> — the slate-blue +N box under your photo at the map's center is different: it expands or switches the <b>whole map at once</b>, flipping every branch between rated and unrated together, instead of just one branch.</span></div>
+</section>
+<section class="legend-section" data-legend-group="branch-heat">
+<div class="legend-section-title">Category &amp; subcategory heat</div>
+<div class="legend-row"><span class="legend-line scale"></span><span>The colors above rate <b>single topics</b>. A category or subcategory instead takes the <b>average of every rating inside it</b>, and its line and icon wear that average as a heat color:</span></div>
+<div class="legend-row"><span aria-hidden="true" class="legend-heat-chip is-green"></span><span><b>Green-leaning</b> — the topics rated inside mostly say Hot topics</span></div> <!-- FQ2-BAKEIN: legend heat row "Want to do" -> "Hot topics" -->
+<div class="legend-row"><span aria-hidden="true" class="legend-heat-chip is-yellow"></span><span><b>Yellow</b> — the inside ratings are mixed, or mostly Curiosity?</span></div> <!-- FQ2-BAKEIN: legend heat row "Curious about" -> "Curiosity?" -->
+<div class="legend-row"><span aria-hidden="true" class="legend-heat-chip is-red"></span><span><b>Red-leaning</b> — the topics rated inside mostly say Not topics</span></div> <!-- FQ2-BAKEIN: legend heat row "No" -> "Not topics" -->
+<p class="legend-section-sub">The stronger the average, the deeper the color. Favorites pull a branch toward green; Hard Limits and Not Interested pull it toward red. A branch with nothing rated inside yet keeps its plain neutral color — no heat until something inside it is rated.</p>
+</section>
+<section class="legend-section" data-legend-entry="marks">
+<div class="legend-section-title">Topic markers</div>
+<div class="legend-row"><span aria-hidden="true" class="legend-mark favorite">★</span><span><b>Favorite</b> — prioritize this topic</span></div>
+<div class="legend-row"><span aria-hidden="true" class="legend-mark notinterested">⊘</span><span><b>Not Interested</b> — not for me, but not a hard boundary</span></div>
+<div class="legend-row"><span aria-hidden="true" class="legend-mark limit">×</span><span><b>Hard Limit</b> — never; a firm boundary</span></div>
+<div class="legend-row"><span aria-hidden="true" class="legend-mark fantasy">☁</span><span><b>Fantasy-only</b> — welcome in fantasy, not real-world play</span></div>
+<div class="legend-row"><span aria-hidden="true" class="legend-mark tried">✓</span><span><b>Already Tried</b> — past experience, not automatic current interest</span></div>
+<div class="legend-row"><span aria-hidden="true" class="legend-mark note">📝</span><span><b>Note</b> — saved context for this topic</span></div>
+</section>
+<section class="legend-section" data-legend-entry="rings">
+<div class="legend-section-title">At-a-Glance rings</div>
+<div class="legend-row"><span aria-hidden="true" class="legend-ring green"></span><span><b>Green · Hot topics</b> — topics rated positively</span></div> <!-- FQ2-BAKEIN: legend rings "Want to do" -> "Hot topics" -->
+<div class="legend-row"><span aria-hidden="true" class="legend-ring yellow"></span><span><b>Yellow · Curiosity?</b> — topics open for exploration, not a yes</span></div> <!-- FQ2-BAKEIN: legend rings "Curious about" -> "Curiosity?" -->
+<div class="legend-row"><span aria-hidden="true" class="legend-ring red"></span><span><b>Red · Not topics</b> — topics rated against or excluded</span></div> <!-- FQ2-BAKEIN: legend rings "No" -> "Not topics" -->
+<p class="legend-section-sub">Tap a ring on the map to open its topic list.</p>
+</section>
+<section class="legend-section" data-legend-entry="lines">
+<div class="legend-section-title">Lines and navigation</div>
+<div class="legend-row"><span aria-hidden="true" class="legend-line"></span><span><b>Solid topic line</b> — tap the line to select its branch; tap the topic's icon or label to select the topic and open its rating sliders</span></div>
+<div class="legend-row"><span aria-hidden="true" class="legend-line overlap"></span><span><b>Fine white dots</b> — related branch overlap</span></div>
+<div class="legend-row"><span aria-hidden="true" class="legend-no-hanky"></span><span><b>Dark-charcoal dashed</b> — the spoke's neutral center seam, on every skin</span></div>
+</section>
+<section class="legend-section" data-legend-entry="gen1-lines">
+<div class="legend-section-title">Kink categories</div>
+<div class="legend-row"><span aria-hidden="true" class="legend-gen1-line"></span><span><b>Neutral seam</b> — the center line of every category spoke, on every skin</span></div>
+<div class="legend-row"><span aria-hidden="true" class="legend-gen1-line mixed"></span><span><b>Hanky code</b> — a topic's code colors its placard when you open the topic; the chart below explains the colors</span></div>
+<div class="legend-row"><span aria-hidden="true" class="legend-gen1-line none"></span><span><b>Dark-charcoal dashed</b> — the category seam when nothing inside is rated</span></div>
+</section>
+<section class="legend-section" data-legend-entry="other">
+<div class="legend-section-title">Other markers</div>
+<div class="legend-row"><span aria-hidden="true" class="legend-risk">*</span><span><b>Orange asterisk</b> — higher-risk topic; negotiate first</span></div>
+</section>
+<section class="legend-section" data-legend-entry="glossary">
+<div class="legend-section-title">Glossary</div>
+<details class="legend-glossary">
+<summary>Show all terms</summary>
+<div class="legend-row"><span><b>Hypermap</b> — Your personal kink mind map showing give/receive ratings across categories.</span></div>
+<div class="legend-row"><span><b>Kink categories</b> — The first-generation lines radiating from the center node (18 top-level categories).</span></div>
+<div class="legend-row"><span><b>Kink lines</b> — The second-generation lines radiating from a category, each a specific kink. Top half = give, bottom half = receive.</span></div>
+<div class="legend-row"><span><b>Quick Start</b> — The 54-topic onboarding path (3 per category, ~18 min).</span></div>
+<div class="legend-row"><span><b>Veil</b> — Filter showing only topics rated by the selected profiles.</span></div>
+<div class="legend-row"><span><b>Scribe</b> — Writes scenes and stories from a profile’s ratings (creative writing).</span></div>
+<div class="legend-row" id="legendSceneSetterRow"><span><b>Scene Setter</b> — Planning and negotiating play with a partner: a shared checklist and practical play guide.</span></div>
+<div class="legend-row"><span><b>Scene Sentinel</b> — The watch companion view (toolbar: Scribe / Scene Setter / Scene Sentinel, shown when two or more profiles are selected): safe signal, check-in timer, emergency contacts, pre- and post-scene check-ins, and the GibberLink watch link. Open it from the toolbar or the view menu.</span></div>
+<div class="legend-row"><span><b>GibberLink</b> — The phone↔watch link: short text payloads carried by ultrasound chirps (GGWave) or Bluetooth. The watch is identified by the profile KEY only — Eve's watch is “eve”, never a long profile slug — and the display name on the watch is the key.</span></div>
+<div class="legend-row"><span><b>Watch setup (CFG)</b> — “Set up watch” sends CFG:&lt;key&gt;:&lt;timer&gt; (e.g. CFG:eve:300) and waits for the watch to answer ACK:&lt;key&gt;:CFG. Until the ACK arrives the setup is not confirmed. The same setup is offered from a profile's Heat popover (“Set up watch for this profile”).</span></div>
+<div class="legend-row"><span><b>Check-ins (CHK)</b> — A targeted check-in sends CHK:&lt;key&gt;:P (pulse) or CHK:&lt;key&gt;:T (timer) to one watch. Broadcast sends CHK:ALL:P / CHK:ALL:T — the explicit ALL signifier — so every watch answers; older unkeyed incoming messages are still treated as broadcast and land on the Broadcast watch card.</span></div>
+<div class="legend-row"><span><b>Heat on sync</b> — Syncing a profile to its watch from the Heat popover also copies the profile's existing Heat to the watch (HEAT:&lt;key&gt;:&lt;value&gt;, −100 to +100) right after the setup, so the watch starts at the heat the profile already has.</span></div>
+<div class="legend-row"><span><b>Bluetooth (BLE)</b> — GibberLink's Bluetooth service is 0000FFF0-0000-1000-8000-00805F9B34FB, plain Just Works GATT, no pairing ceremony. Connect from the Sentinel; where Bluetooth is unavailable the ultrasound chirps carry the same messages automatically.</span></div>
+<div class="legend-row"><span><b>GibberLink log</b> — The Sentinel's OUT / IN log records every payload sent to and heard from a watch, with its transport (Bluetooth or ultrasound). Watch taps and readings arrive as &lt;key&gt;:TAP / DBL / HLD and &lt;key&gt;:E / H / N values.</span></div>
+<div class="legend-row"><span><b>Hot List paths</b> — Every topic in the Hot List and On Deck shows its full path (category code › subcategory › topic, e.g. CLOTHNG›Materials›Latex &amp; rubber) under its name and in its hovertip.</span></div>
+<div class="legend-row"><span><b>Scan or Import</b> — Import a profile from PNG, sync card, or test results.</span></div>
+<div class="legend-row"><span><b>Sync Card</b> — Business-card QR code for sharing your profile.</span></div>
+<div class="legend-row"><span><b>QR Sheet</b> — Printable 10-up sheet of sync cards.</span></div>
+<div class="legend-row"><span><b>Compare hypermaps?</b> — Group compatibility view for multiple profiles.</span></div>
+</details>
+</section>
+<figure class="legend-hanky-preview" data-legend-entry="hanky"><button aria-controls="hankyChartLightbox" aria-haspopup="dialog" aria-label="Open full hanky code chart" class="legend-hanky-preview-trigger" data-open-hanky-chart="" type="button"><img alt="Preview of the hanky code color chart" decoding="async" loading="lazy" src="images/hanky-chart.jpg"/></button><figcaption><span>Tap to view the hanky code chart</span><a aria-label="Learn about the hanky code on Wikipedia (opens in a new tab)" class="legend-hanky-info" href="https://en.wikipedia.org/wiki/Hanky_code" rel="noopener noreferrer" target="_blank" title="About the hanky code">ⓘ</a></figcaption></figure>
+<p class="legend-empty" hidden="" id="legendEmpty">No hypermap symbols in view.</p>
+</div>
+</section>
+</div>
+<div aria-label="Topics shown per branch" class="detail-control" role="group">
+<button aria-pressed="false" class="detail-btn" data-detail-level="compact" data-ui-tooltip="Compact: show the 4 most popular topics in each expanded branch. Topics you have rated always show." type="button">Compact</button>
+<button aria-pressed="false" class="detail-btn" data-detail-level="medium" data-ui-tooltip="Medium: show the 7 most popular topics in each expanded branch. Topics you have rated always show." type="button">Medium</button>
+<button aria-pressed="true" class="detail-btn" data-detail-level="full" data-ui-tooltip="Full: show every topic in each expanded branch." type="button">Full</button>
+</div>
+</div>
+<div aria-labelledby="hankyChartTitle" aria-modal="true" class="hanky-chart-lightbox" hidden="" id="hankyChartLightbox" role="dialog">
+<div class="hanky-chart-panel">
+<div class="hanky-chart-head">
+<h3 id="hankyChartTitle">Hanky code chart</h3>
+<div aria-label="Chart zoom controls" class="hanky-chart-zoom">
+<button aria-label="Zoom out" id="hankyChartZoomOut" type="button">−</button>
+<button class="hanky-chart-fit" id="hankyChartFit" type="button">Fit</button>
+<button aria-label="Zoom in" id="hankyChartZoomIn" type="button">+</button>
+</div>
+<button aria-label="Close hanky code chart" class="hanky-chart-close" id="hankyChartClose" type="button">×</button>
+</div>
+<p class="hanky-chart-hint" id="hankyChartGestureHint">Pinch or use +/− to zoom · drag or scroll to move</p>
+<div aria-describedby="hankyChartGestureHint" aria-label="Zoomed hanky code chart. Drag or scroll to pan; pinch or use the controls to zoom." class="hanky-chart-viewport" id="hankyChartViewport" tabindex="0">
+<div class="hanky-chart-stage" id="hankyChartStage"><img alt="Hanky code color chart showing colors and their meanings for left and right placement" class="hanky-chart-image" decoding="async" id="hankyChartImage" loading="lazy" src="images/hanky-chart.jpg"/></div>
+</div>
+</div>
+</div>
+<div class="map-hint" id="mapHint" role="status"></div>
+</div>
+<div class="ui-tooltip" hidden="" id="uiTooltip" role="tooltip"><strong class="ui-tooltip-name" id="uiTooltipName"></strong><span class="ui-tooltip-definition" id="uiTooltipDefinition"></span><span class="ui-tooltip-value" id="uiTooltipValue"></span></div>
+</div>
+</section>

@@ -237,44 +237,12 @@ for f in shell_js:
             shutil.copyfile(src_f, dst_f)
             print(f"[Bundle] Synced {f} to {dst_dir}/")
 
-# hosted/app.html is the path-rewritten source page. Cache stamps
-# (?v=) already on the served file are kept, so a rebuild does not
-# throw away the browser's cache key.
-def write_hosted_app(src_path, dest_path):
-    if not os.path.exists(src_path) or not os.path.exists(os.path.dirname(dest_path)):
-        return
-    html = open(src_path, encoding="utf-8").read()
-    html = html.replace('href="css/app.css"', 'href="/hosted/app-assets/app.css"')
-    html = html.replace('src="vendor/', 'src="/hosted/app-assets/vendor/')
-    html = html.replace('src="data/', 'src="/hosted/app-assets/')
-    html = html.replace('src="js/', 'src="/hosted/app-assets/')
-    html = html.replace('src="images/', 'src="/hosted/app-assets/images/')
-    if os.path.exists(dest_path):
-        old = open(dest_path, encoding="utf-8").read()
-        stamps = {}
-        for url, ver in re.findall(r'(/hosted/app-assets/[^"\']+?)\?v=([^"\']+)', old):
-            stamps[url] = ver
-        def add(m):
-            url = m.group(0)
-            base = url.split("?")[0]
-            # The served page's ?v= wins. The source page carries its
-            # own older query (data-bootstrap.js?v=4.1.4), and that
-            # must not replace the cache key the browser is using.
-            if base in stamps:
-                return base + "?v=" + stamps[base]
-            return url
-        html = re.sub(r'/hosted/app-assets/[^"\']+', add, html)
-    prev = open(dest_path, encoding="utf-8").read() if os.path.exists(dest_path) else None
-    if prev != html:
-        with open(dest_path, "w", encoding="utf-8") as fh:
-            fh.write(html)
-        print(f"[Bundle] Wrote hosted app shell {dest_path}")
-    else:
-        print(f"[Bundle] Hosted app shell already matches {dest_path}")
-
-write_hosted_app(
-    os.path.join(base_dir, "../sexcapades-5.0.html"),
-    os.path.join(base_dir, "../../site-tree/public_html/hosted/app.html"))
+# app/html is the hand-edited app page. This writes both shells.
+# Hosted paths follow the packager rewrite. Cache keys are stamped
+# on the staging copy at package time, not preserved here.
+html_builder = os.path.join(base_dir, "../../packaging-scripts/build-html.py")
+if os.path.isfile(html_builder):
+    subprocess.run([sys.executable, html_builder], cwd=os.path.join(base_dir, "../.."), check=True)
 
 # Unify app/gate.html, app/guide.html, app/quickstart.html, and app/flyer.html with site-tree/public_html/hosted/
 for page_name, assets_sub in [("gate.html", "gate-assets"), ("guide.html", "guide-assets"), ("quickstart.html", "quickstart-assets"), ("flyer.html", None)]:

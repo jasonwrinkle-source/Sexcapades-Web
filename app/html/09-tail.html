@@ -1,0 +1,167 @@
+<script src="js/shell-runtime.js"></script>
+<script src="data/embedded-communities.js"></script>
+<script defer="" src="vendor/qrcode.min.js"></script>
+<script defer="" src="vendor/ggwave.js"></script>
+<script defer="" src="data/unrated-map-template.js?v=4.3.38"></script>
+<script defer="" src="data/data-bootstrap.js?v=4.1.4"></script>
+<script defer="" src="data/pitch-pitcher-bank.js"></script>
+<script defer="" src="js/pitch-pitcher.js"></script>
+<script defer="" src="js/layout-editor.js"></script>
+<script src="js/shell-post.js"></script>
+<dialog aria-labelledby="overlapShareTitle" id="overlapShareDialog">
+<div class="dialog-head">
+<div><h2 id="overlapShareTitle">Share this overlap</h2></div>
+<button aria-label="Close share dialog" class="close-btn" id="closeOverlapShare" type="button">×</button>
+</div>
+<div class="dialog-body">
+<p class="dialog-lead">This sends a picture of what you have in common — not your full profiles. The next person makes their own hypermap to see how they compare.</p>
+<div class="import-options">
+<button class="action-btn primary" id="overlapSharePerson" type="button">Compare with someone else</button>
+<button class="action-btn" id="overlapShareCouple" type="button">Send to another couple</button>
+</div>
+<p class="dialog-note">Downloads a PNG you can text, message, or post anywhere.</p>
+</div>
+</dialog>
+<script defer="" src="js/patches.js?v=4.0.6"></script>
+<script defer="" src="js/view-nav.js"></script>
+<script defer="" src="js/skin-loader.js"></script>
+<script defer="" src="js/scene-sentinel.js"></script>
+<div aria-label="Switch view" class="view-nav-menu" hidden="" id="viewNavMenu" role="menu">
+<button class="view-nav-item" data-tooltip-name="Scan or Import" data-ui-tooltip="Import a profile from PNG, sync card, or test results." data-view-target="import" role="menuitem" type="button">Scan or Import</button>
+<button aria-checked="false" class="view-nav-item" data-tooltip-name="Hypermap" data-ui-tooltip="The visual hypermap — an interactive map for rating and visualizing your interests, branch by branch." data-view-target="map" role="menuitemradio" type="button">Hypermap</button>
+<button aria-checked="false" class="view-nav-item" data-tooltip-name="Hot List" data-ui-tooltip="Rate topic by topic: all 400+ topics sorted by popularity, with separate give and receive ratings." data-view-target="list" role="menuitemradio" type="button">Hot List</button>
+<button aria-checked="false" class="view-nav-item" id="setterViewNavItem" data-tooltip-name="Scene Setter" data-ui-tooltip="Build a binding negotiation checklist and practical play guide for 2 or more partners." data-view-target="setter" role="menuitemradio" type="button">Scene Setter</button>
+<button aria-checked="false" class="view-nav-item" data-tooltip-name="Scene Sentinel" data-ui-tooltip="For during and after a scene: signal your partner, keep check-ins on schedule, and have help one tap away. Everything here is stored only in this browser." data-view-target="safety" role="menuitemradio" type="button">Scene Sentinel</button>
+<button aria-checked="false" class="view-nav-item" data-tooltip-name="Scribe" data-ui-tooltip="Generate an immersive Literotica-style erotic story based on selected partner profiles." data-view-target="scribe" id="scribeViewNavItem" role="menuitemradio" type="button">Scribe</button>
+</div>
+<!-- SKIN MENU (Flexcapades prototype, 2026-11-15): long-press on the app
+     header opens this menu to choose a skin. Only Sexcapades is live —
+     the other skins' taxonomies exist as briefing documents, not app
+     catalog data, so picking one shows an honest not-loaded note and
+     never switches anything. No visible button or hint for it. -->
+<div aria-label="Choose a skin" class="view-nav-menu skin-menu" hidden="" id="skinMenu" role="menu">
+<div class="skin-menu-section-header" role="presentation">Activity Maps</div>
+<button aria-checked="false" class="view-nav-item skin-item" data-skin="dancecapades" role="menuitemradio" type="button"><span class="skin-label"><span class="skin-name">Dancecapades</span><span class="skin-desc">lead, follow, and move together</span></span></button>
+<button aria-checked="false" class="view-nav-item skin-item" data-skin="questcapades" role="menuitemradio" type="button"><span class="skin-label"><span class="skin-name">Questcapades</span><span class="skin-desc">the tales a table tells</span></span></button>
+<button aria-checked="true" class="view-nav-item skin-item" data-skin="sexcapades" role="menuitemradio" type="button"><span class="skin-label"><span class="skin-name">Sexcapades</span><span class="skin-desc">kink &amp; sexuality (18+)</span></span></button>
+<div class="view-nav-divider skin-menu-divider" aria-hidden="true"></div>
+<div class="skin-menu-section-header" role="presentation">Stance Maps</div>
+<button aria-checked="false" class="view-nav-item skin-item" data-skin="aesthcapades" role="menuitemradio" type="button"><span class="skin-label"><span class="skin-name">Aesthcapades</span><span class="skin-desc">aesthetics &amp; taste</span></span></button>
+<button aria-checked="false" class="view-nav-item skin-item" data-skin="chemcapades" role="menuitemradio" type="button"><span class="skin-label"><span class="skin-name">Chemcapades</span><span class="skin-desc">chemistry</span></span></button>
+<button aria-checked="false" class="view-nav-item skin-item" data-skin="dharmacapades" role="menuitemradio" type="button"><span class="skin-label"><span class="skin-name">Dharmacapades</span><span class="skin-desc">eastern religions</span></span></button>
+<button aria-checked="false" class="view-nav-item skin-item" data-skin="expericapades" role="menuitemradio" type="button"><span class="skin-label"><span class="skin-name">Expericapades</span><span class="skin-desc">experimental physics</span></span></button>
+<button aria-checked="false" class="view-nav-item skin-item" data-skin="forescapades" role="menuitemradio" type="button"><span class="skin-label"><span class="skin-name">Forescapades</span><span class="skin-desc">religion — Abrahamic faiths</span></span></button>
+<button aria-checked="false" class="view-nav-item skin-item" data-skin="mattercapades" role="menuitemradio" type="button"><span class="skin-label"><span class="skin-name">Mattercapades</span><span class="skin-desc">applied physics</span></span></button>
+<button aria-checked="false" class="view-nav-item skin-item" data-skin="nouscapades" role="menuitemradio" type="button"><span class="skin-label"><span class="skin-name">Nouscapades</span><span class="skin-desc">what counts as a mind</span></span></button>
+<button aria-checked="false" class="view-nav-item skin-item" data-skin="biocapades" role="menuitemradio" type="button"><span class="skin-label"><span class="skin-name">Biocapades</span><span class="skin-desc">life itself</span></span></button>
+<button aria-checked="false" class="view-nav-item skin-item" data-skin="linguacapades" role="menuitemradio" type="button"><span class="skin-label"><span class="skin-name">Linguacapades</span><span class="skin-desc">the tongues we think in</span></span></button>
+<button aria-checked="false" class="view-nav-item skin-item" data-skin="fastcapades" role="menuitemradio" type="button"><span class="skin-label"><span class="skin-name">Fastcapades</span><span class="skin-desc">the discipline of not eating</span></span></button>
+<button aria-checked="false" class="view-nav-item skin-item" data-skin="flexcapades" role="menuitemradio" type="button"><span class="skin-label"><span class="skin-name">Flexcapades</span><span class="skin-desc">how you use Flexcapades, and how you want it to grow</span></span></button>
+<button aria-checked="false" class="view-nav-item skin-item" data-skin="philoscapades" role="menuitemradio" type="button"><span class="skin-label"><span class="skin-name">Philoscapades</span><span class="skin-desc">philosophy</span></span></button>
+<button aria-checked="false" class="view-nav-item skin-item" data-skin="poliscapades" role="menuitemradio" type="button"><span class="skin-label"><span class="skin-name">Poliscapades</span><span class="skin-desc">politics</span></span></button>
+<button aria-checked="false" class="view-nav-item skin-item" data-skin="praxicapades" role="menuitemradio" type="button"><span class="skin-label"><span class="skin-name">Praxicapades</span><span class="skin-desc">applied mathematics</span></span></button>
+<button aria-checked="false" class="view-nav-item skin-item" data-skin="quantacapades" role="menuitemradio" type="button"><span class="skin-label"><span class="skin-name">Quantacapades</span><span class="skin-desc">theoretical physics</span></span></button>
+<button aria-checked="false" class="view-nav-item skin-item" data-skin="simulcapades" role="menuitemradio" type="button"><span class="skin-label"><span class="skin-name">Simulcapades</span><span class="skin-desc">computational physics</span></span></button>
+<button aria-checked="false" class="view-nav-item skin-item" data-skin="techcapades" role="menuitemradio" type="button"><span class="skin-label"><span class="skin-name">Techcapades</span><span class="skin-desc">technology</span></span></button>
+<button aria-checked="false" class="view-nav-item skin-item" data-skin="theoricapades" role="menuitemradio" type="button"><span class="skin-label"><span class="skin-name">Theoricapades</span><span class="skin-desc">pure mathematics</span></span></button>
+<button aria-checked="false" class="view-nav-item skin-item" data-skin="vocapades" role="menuitemradio" type="button"><span class="skin-label"><span class="skin-name">Vocapades</span><span class="skin-desc">vocation &amp; work</span></span></button>
+</div>
+<div aria-live="polite" class="skin-note" hidden="" id="skinNote" role="status"></div>
+<div aria-label="Documentation and guides" class="view-nav-menu docs-dropdown-menu" hidden="" id="appDocsMenu" role="menu">
+  <a class="view-nav-item" href="/hosted/how-it-works.html" role="menuitem"><span class="view-nav-text"><strong>How it works</strong><small>The 5-step loop from first rating to deep insight.</small></span></a>
+  <a class="view-nav-item" href="/hosted/quickstart.html" role="menuitem"><span class="view-nav-text"><strong>Quick Start</strong><small>Rate 3 topics per category in under 20 minutes.</small></span></a>
+  <a class="view-nav-item" href="/hosted/guide.html" role="menuitem"><span class="view-nav-text"><strong>Guide</strong><small>Detailed manual for hypermap features and views.</small></span></a>
+  <a class="view-nav-item" href="/hosted/compare.html" id="appCompareLinkItem" role="menuitem"><span class="view-nav-text"><strong>Compare</strong><small>Compare profiles, platforms, and compatibility.</small></span></a>
+  <button class="view-nav-item docs-submenu-trigger" type="button" id="appDocsGlossaryTrigger" aria-haspopup="true" aria-expanded="false" aria-controls="appDocsGlossaryFlyout" role="menuitem">
+    <span class="view-nav-text"><strong>Glossary</strong><small>Terms, metrics, and definitions.</small></span>
+    <span class="docs-flyout-arrow">▸</span>
+  </button>
+  <button class="view-nav-item docs-submenu-trigger" type="button" id="appDocsFaqTrigger" aria-haspopup="true" aria-expanded="false" aria-controls="appDocsFaqFlyout" role="menuitem">
+    <span class="view-nav-text"><strong>FAQ</strong><small>Frequently asked questions and troubleshooting.</small></span>
+    <span class="docs-flyout-arrow">▸</span>
+  </button>
+  <a class="view-nav-item" href="/hosted/flyer.html" role="menuitem"><span class="view-nav-text"><strong>Flyer</strong><small>Overview sheet and quick reference.</small></span></a>
+  <div class="view-nav-divider" aria-hidden="true"></div>
+  <a class="view-nav-item" href="/hosted/privacy.html" role="menuitem"><span class="view-nav-text"><strong>Privacy Policy</strong><small>Zero-knowledge storage and data guarantees.</small></span></a>
+  <a class="view-nav-item" href="/hosted/methodology.html" role="menuitem"><span class="view-nav-text"><strong>Methodology</strong><small>The science and scoring algorithms.</small></span></a>
+  <a class="view-nav-item" href="/sitemap.html" role="menuitem"><span class="view-nav-text"><strong>Sitemap</strong><small>Index of all public pages and tools.</small></span></a>
+  <a class="view-nav-item" href="/engine.html" role="menuitem"><span class="view-nav-text"><strong>TaxoPolemics</strong><small>The underlying taxonomy engine architecture.</small></span></a>
+</div>
+<div class="view-nav-menu docs-flyout" id="appDocsGlossaryFlyout" hidden role="menu" aria-label="Glossary links">
+  <a class="view-nav-item docs-main-link" href="/hosted/glossary.html" role="menuitem"><strong>All Glossary Terms</strong></a>
+  <a class="view-nav-item" href="/hosted/glossary.html#sync-map" role="menuitem">Hypermap</a>
+  <a class="view-nav-item" href="/hosted/glossary.html#quick-start" role="menuitem">Quick Start</a>
+  <a class="view-nav-item" href="/hosted/glossary.html#net" role="menuitem">Net</a>
+  <a class="view-nav-item" href="/hosted/glossary.html#group-profile" role="menuitem">Group profile</a>
+  <a class="view-nav-item" href="/hosted/glossary.html#scribe" role="menuitem">Scribe</a>
+  <a class="view-nav-item" href="/hosted/glossary.html#scene-setter" role="menuitem">Scene Setter</a>
+  <a class="view-nav-item" href="/hosted/glossary.html#scan-or-import" role="menuitem">Scan or Import</a>
+  <a class="view-nav-item" href="/hosted/glossary.html#sync-card" role="menuitem">Sync Card</a>
+  <a class="view-nav-item" href="/hosted/glossary.html#qr-sheet" role="menuitem">QR Sheet</a>
+  <a class="view-nav-item" href="/hosted/glossary.html#compare-sync-maps" role="menuitem">Compare hypermaps?</a>
+  <a class="view-nav-item" href="/hosted/glossary.html#kink-categories" role="menuitem">Categories</a>
+  <a class="view-nav-item" href="/hosted/glossary.html#kink-lines" role="menuitem">Topic lines</a>
+</div>
+<div class="view-nav-menu docs-flyout" id="appDocsFaqFlyout" hidden role="menu" aria-label="FAQ links">
+  <a class="view-nav-item docs-main-link" href="/hosted/faq.html" role="menuitem"><strong>All FAQ Questions</strong></a>
+  <a class="view-nav-item" href="/hosted/faq.html#loading" role="menuitem">The site won’t load, or I see an old version</a>
+  <a class="view-nav-item" href="/hosted/faq.html#profile" role="menuitem">My profile disappeared after refresh</a>
+  <a class="view-nav-item" href="/hosted/faq.html#compare" role="menuitem">How do I compare with a partner?</a>
+  <a class="view-nav-item" href="/hosted/faq.html#privacy" role="menuitem">Is my data private?</a>
+  <a class="view-nav-item" href="/hosted/faq.html#import" role="menuitem">Import isn’t working</a>
+  <a class="view-nav-item" href="/hosted/faq.html#views" role="menuitem">What’s the difference between list view and map view?</a>
+  <a class="view-nav-item" href="/hosted/faq.html#sharing" role="menuitem">How do I share my profile?</a>
+  <a class="view-nav-item" href="/hosted/faq.html#colors" role="menuitem">What do the colors mean?</a>
+</div>
+<dialog aria-labelledby="sxBuzzerTitle" id="sxBuzzerDialog">
+<div class="sx-buzzer-body">
+<h2 id="sxBuzzerTitle">Wrong orientation labels?</h2>
+<p>These two orientations don't make a live pairing. Either switch to Conversation, or go fix the labels if the joke's on the form.</p>
+<div class="sx-buzzer-actions">
+<button class="action-btn primary" id="sxBuzzerProceed" type="button">Proceed anyway</button>
+<button class="action-btn" id="sxBuzzerConversation" type="button">Switch to Conversation</button>
+<button class="action-btn" id="sxBuzzerEdit" type="button">Edit orientations</button>
+</div>
+</div>
+</dialog>
+<script async="" src="js/sx-songbook.js"></script>
+<script defer="" src="js/avatar-music.js"></script>
+<!-- Firebase AI Logic / Vertex Gemini Initialization -->
+<script src="js/firebase-ai-init.js" type="module"></script>
+<dialog aria-label="Interactive Topic Rating Widget" class="hot-list-widget-dialog" id="hotListWidgetDialog">
+<div class="sx-titlebar">
+<div class="sx-titlebar-title"><span id="hotListWidgetTitle">Interactive Topic Widget</span> <small class="sx-badge" id="hotListWidgetBadge"></small></div>
+<button aria-label="Close widget" class="close-btn action-btn" id="closeHotListWidgetBtn" type="button">×</button>
+</div>
+<div class="hot-list-widget-body">
+<p class="hot-list-widget-desc" id="hotListWidgetDesc"></p>
+<div class="hot-list-widget-stage" id="hotListWidgetStage">
+<!-- Dynamic interactive widget will be rendered here -->
+<canvas height="240" id="hotListWidgetCanvas" width="240"></canvas>
+<div id="hotListCrossSliderHost" hidden=""></div>
+<div class="mark-triangle-slider-box hot-list-intensity-row" style="margin-top:8px;">
+<span class="mark-tri-slider-label" id="hotListWidgetAdvLabel">Intensity</span>
+<input aria-label="Advocacy intensity" class="mark-tri-intensity mark-thumb-disc" id="hotListWidgetIntensity" max="100" min="-100" step="1" style="width:160px;height:24px;writing-mode:horizontal-tb;" type="range" value="0"/>
+<output class="mark-tri-intensity-out" id="hotListWidgetIntensityOut">0</output>
+</div>
+<div class="mark-triangle-slider-box hot-list-rec-box" id="hotListWidgetRecBox" hidden="">
+<span class="mark-tri-slider-label">○ Rec</span>
+<input aria-label="Receptivity intensity" class="mark-tri-intensity mark-thumb-ring" id="hotListWidgetRecIntensity" max="100" min="-100" step="1" style="width:160px;height:24px;writing-mode:horizontal-tb;" type="range" value="0"/>
+<output class="mark-tri-intensity-out" id="hotListWidgetRecIntensityOut">—</output>
+</div>
+<div class="mark-triangle-readout" id="hotListWidgetReadout" style="display:none !important;" hidden=""></div>
+</div>
+</div>
+<div class="hot-list-widget-footer">
+<button class="mark-tri-clear-btn" id="hotListWidgetClear" style="margin-right:auto;" type="button">Clear</button>
+<button class="action-btn primary" id="doneHotListWidgetBtn" type="button">Done</button>
+</div>
+</dialog>
+<div aria-label="Working" hidden="" id="sxPill" role="status">
+<svg aria-hidden="true" class="sx-pill-art" height="28" viewbox="0 0 96 28" width="96"><g class="sx-pill-wave"><path class="sx-pill-wavepath" d="M0 17 C8 6,16 6,24 17 C32 28,40 28,48 17 C56 6,64 6,72 17 C80 28,88 28,96 17 C104 6,112 6,120 17 C128 28,136 28,144 17 C152 6,160 6,168 17 C176 28,184 28,192 17"></path></g><g class="sx-pill-brush"><g transform="rotate(28 78 14)"><rect class="sx-pill-handle" height="11" rx="2.4" width="5" x="75.5" y="0"></rect><rect class="sx-pill-ferrule" height="3" width="5" x="75.5" y="10.5"></rect><path class="sx-pill-bristle" d="M75.5 13.5 h5 l-1.1 5.2 c-.3 1.4-2.5 1.4-2.8 0 z"></path><circle class="sx-pill-tip" cx="78" cy="19.6" r="1.3"></circle></g></g></svg>
+<span class="sx-pill-label">Working…</span>
+<span class="sx-pill-elapsed" hidden="" id="sxPillElapsed"></span>
+</div>
+</body>
+</html>
+<div hidden="" id="sourceTip" role="tooltip"><strong class="source-tip-name" id="sourceTipName"></strong><span class="source-tip-note" id="sourceTipNote"></span><a class="source-tip-link" hidden="" id="sourceTipLink" rel="noopener noreferrer" target="_blank"></a></div>

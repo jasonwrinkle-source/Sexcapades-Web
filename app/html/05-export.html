@@ -1,0 +1,57 @@
+<dialog aria-labelledby="profileExportTitle" id="profileExportDialog">
+<div class="dialog-head">
+<div><h2 id="profileExportTitle">Capture profile</h2><p id="profileExportSubtitle">Choose an image layout.</p><p class="export-data-note" id="profileExportDataNote">Exports what's currently visible on your map.</p></div>
+<button aria-label="Close export choices" class="close-btn" id="closeProfileExport" type="button">×</button>
+</div>
+<div class="dialog-body">
+<label class="contact-export-optin"><input id="includeContactInfo" type="checkbox"/><span>Include profile info (name, contact)<small id="includeContactInfoHelp">Off by default. Shared exports contain ratings and markers without your name or contact details.</small></span></label>
+<p class="export-sharing-note"><strong>Export data:</strong> Re-importable files include an anonymous profile identifier so updates to the same profile can be matched. It is not your name or contact information.</p>
+<section aria-labelledby="exportPhotoHeading" class="export-photo-picker" id="exportPhotoPicker">
+<div class="export-photo-picker-head"><div><strong id="exportPhotoHeading">Pictures</strong><small>The avatar is always included. Choose any additional pictures to attach when profile info is included.</small></div><div><button class="action-btn compact" id="selectAllExportPhotos" type="button">All</button><button class="action-btn compact" id="clearExportPhotos" type="button">Avatar only</button></div></div>
+<div class="lowres-photo-grid" id="exportPhotoGrid"></div>
+<p aria-live="polite" class="lowres-photo-summary" id="exportPhotoSummary"></p>
+</section>
+<label class="contact-export-optin"><input checked="" id="blindProfileExport" type="checkbox"/><span>Blind comparison (recommended)<small>Marks this file for blind comparison. When the receiver imports it, they should select a comparison group first — only topics that everyone in the group has rated will load. Everything else stays in the file; they can re-import it later without selecting a group to see your full profile.</small></span></label>
+<label class="about-export-edit"><span>About Me <small>Optional — saved to the profile and printed on the export.</small></span><textarea id="exportAboutMe" maxlength="975" placeholder="A few lines about you for people who receive this export." rows="4"></textarea><small class="char-count" id="exportAboutMeCount"></small></label>
+<div aria-label="Export background" class="export-backgrounds" role="radiogroup"><span>Background</span><label><input checked="" name="exportBackground" type="radio" value="black"/> Black</label><label><input name="exportBackground" type="radio" value="white"/> White</label><label><input name="exportBackground" type="radio" value="transparent"/> Transparent</label></div>
+<div class="export-groups">
+<fieldset aria-labelledby="mapImageExportHeading" class="export-group">
+<legend id="mapImageExportHeading">Hypermap images and profile data</legend>
+<div class="export-choice-grid">
+<button class="action-btn export-choice" data-profile-export="svg" type="button"><svg aria-hidden="true" viewbox="0 0 24 24"><path d="M6 2.8h9.5L20 7.3V21H6z"></path><path d="M15.5 2.8v4.5H20"></path><path d="m8.5 16 2.2-5 2.2 5M15 11h2.5l-2.5 5h2.5"></path></svg><strong>Sync hypermap · Regular</strong><span>Bigger file that opens everywhere, with full hover tooltips and embedded profile data.</span></button>
+<button class="action-btn export-choice" data-profile-export="svgz" type="button"><svg aria-hidden="true" viewbox="0 0 24 24"><path d="M6 2.8h9.5L20 7.3V21H6z"></path><path d="M15.5 2.8v4.5H20"></path><path d="m8.5 16 2.2-5 2.2 5M15 11h2.5l-2.5 5h2.5"></path></svg><strong>Sync hypermap · Compressed</strong><span>Much smaller file with full hover tooltips; needs a viewer that supports compressed SVG.</span></button>
+<button class="action-btn export-choice" data-profile-export="full" type="button"><svg aria-hidden="true" viewbox="0 0 24 24"><path d="M4 7V4h3M17 4h3v3M20 17v3h-3M7 20H4v-3"></path><rect height="10" rx="1.5" width="11" x="6.5" y="7"></rect><path d="m8.5 14 2.4-2.5 2 2 1.3-1.2 1.8 1.8"></path><circle cx="14.8" cy="9.8" r=".8"></circle></svg><strong>Export PNG</strong><span>Exports what's currently visible on your map. High-resolution 2880 px; retries smaller automatically if memory is tight.</span></button>
+<button class="action-btn export-choice" data-profile-export="zoom" type="button"><svg aria-hidden="true" viewbox="0 0 24 24"><rect height="14" rx="2" width="18" x="3" y="5"></rect><path d="M7 15.5 10.5 12l2.8 2.6 1.8-1.7 2.9 2.6"></path><circle cx="16.5" cy="9" r="1"></circle></svg><strong>Export low-res PNG</strong><span>Exports what's currently visible on your map. Compact PNG targeting a file under 2 MB.</span></button>
+<button class="action-btn export-choice" data-profile-export="pdf" type="button"><svg aria-hidden="true" viewbox="0 0 24 24"><path d="M6 2.8h9.5L20 7.3V21H6z"></path><path d="M15.5 2.8v4.5H20M8.7 12h6.6M8.7 15.5h6.6M8.7 19h4"></path></svg><strong>Export PDF</strong><span>Exports what's currently visible on your map. Vector map with embedded profile data.</span></button>
+<a class="action-btn export-choice" href="https://fetlife.com/pictures/new?source=Plus+Menu" rel="noopener" target="_blank"><svg aria-hidden="true" viewbox="0 0 24 24"><path d="M12 16V4M7.5 8.5 12 4l4.5 4.5"></path><path d="M5 13v6.5h14V13"></path></svg><strong>Upload to FetLife</strong><span>Opens FetLife’s photo uploader in a new tab. Export your hypermap first, then choose the saved image there.</span></a>
+</div>
+</fieldset>
+<fieldset aria-labelledby="syncCardExportHeading" class="export-group">
+<legend id="syncCardExportHeading">Sync card</legend>
+<label class="sheet-paper-picker" for="syncCardPaperSize"><span>Sheet paper size <small>Used only for front + back pages</small></span><select id="syncCardPaperSize"><option value="letter">US Letter (Avery 5371)</option><option value="a4">A4</option></select></label>
+<div class="export-choice-grid">
+<button class="action-btn export-choice" data-profile-export="card" type="button"><svg aria-hidden="true" viewbox="0 0 24 24"><rect height="7" rx="1.5" width="19" x="2.5" y="4"></rect><rect height="7" rx="1.5" width="19" x="2.5" y="13"></rect><path d="M5 6.5h4M5 8.5h6M5 15.5h4M5 17.5h6"></path></svg><strong>Export front + back pages</strong><span>Exports what's currently visible on your map. Two matching 10-up PNG pages in the selected paper size. Save the QR codes as images (JPEG/PNG) to scan them back in later.</span></button>
+</div>
+</fieldset>
+<fieldset aria-labelledby="profileDataExportHeading" class="export-group">
+<legend id="profileDataExportHeading">Profile data only</legend>
+<div class="export-choice-grid"><button class="action-btn export-choice" data-profile-export="qr" type="button"><svg aria-hidden="true" viewbox="0 0 24 24"><path d="M4 4h6v6H4zM14 4h6v6h-6zM4 14h6v6H4zM15 14h2v2h-2zM18 14h2v3h-2zM14 18h3v2h-3zM19 19h1v1h-1z"></path></svg><strong>Export QR codes</strong><span>Exports what's currently visible on your map. Save the QR codes as images (JPEG/PNG) to scan them back in later. High-correction codes split into numbered parts when needed.</span></button></div>
+</fieldset>
+</div>
+<p class="export-sharing-note"><strong>Share safely:</strong> Use direct file transfer (AirDrop, USB, or email attachment), Signal sent as a file (not a photo), or Google Drive set to “Restricted” for specific people only. <strong>Avoid:</strong> WhatsApp, Facebook Messenger, iMessage photos, and Instagram—they compress images and strip the embedded profile data. Screenshots contain no profile data.</p>
+</div>
+</dialog>
+<dialog aria-labelledby="lowResPhotoTitle" id="lowResPhotoDialog">
+<div class="dialog-head">
+<div><h2 id="lowResPhotoTitle">Choose photos</h2><p>Selected photos are reduced to a maximum 400 px on the long edge. Deselect any you want to leave out; fewer photos make a smaller file.</p></div>
+<button aria-label="Close photo choices" class="close-btn" id="closeLowResPhoto" type="button">×</button>
+</div>
+<div class="dialog-body">
+<div class="lowres-photo-toolbar">
+<p class="lowres-photo-summary" id="lowResPhotoSummary"></p>
+<div class="action-row"><button class="action-btn" id="selectAllLowResPhotos" type="button">Select all</button><button class="action-btn" id="clearLowResPhotos" type="button">Select none</button></div>
+</div>
+<div aria-label="Photos included in compact export" class="lowres-photo-grid" id="lowResPhotoGrid"></div>
+<div class="action-row"><button class="action-btn primary" id="createLowResExport" type="button">Create low-res PNG</button></div>
+</div>
+</dialog>

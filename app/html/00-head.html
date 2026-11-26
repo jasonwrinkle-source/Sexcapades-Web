@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1, viewport-fit=cover" name="viewport"/>
+<meta content="The Sexcapades hypermap: rate 400+ kinks across 18 categories on the visual map or in the Hot list, compare profiles with a partner, and generate stories and play guides." name="description"/>
+<meta content="dark" name="color-scheme"/>
+<meta content="2026-11-26_0319" name="sexcapades-build"/>
+<meta content="release-5.0-1126-0319" name="sexcapades-build-tag"/>
+<!-- BUILD-MANIFEST {"build": "2026-11-26_0319", "version": "5.0", "channel": "release"} -->
+<link href="/hosted/favicon.ico" rel="icon"/>
+<title>Sex.Capades.IO</title>
+<script src="js/skin-catalog.js"></script>
+<script src="js/shell-head.js"></script>
+<link href="/manifest.json" rel="manifest"/>
+<meta content="#0b1014" name="theme-color"/>
+<link href="/icons/apple-touch-icon.png" rel="apple-touch-icon"/>
+<meta content="yes" name="apple-mobile-web-app-capable"/>
+<meta content="yes" name="mobile-web-app-capable"/>
+<link href="css/app.css" rel="stylesheet"/>
+</head>
+<body>
+<div aria-label="Loading Sexcapades" aria-live="polite" id="sxBootDialog" role="status">
+<svg aria-hidden="true" class="sx-boot-watch" fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="2.6" viewbox="0 0 48 48"><rect fill="currentColor" height="4.6" rx="1.6" stroke="none" width="6" x="21" y="1.6"></rect><line x1="24" x2="24" y1="6.2" y2="10.5"></line><circle cx="24" cy="27" r="16.5"></circle><circle class="sx-boot-ring" cx="24" cy="27" r="20.5"></circle><line class="sx-boot-hand" stroke="#63c796" x1="24" x2="24" y1="27" y2="17.5"></line><circle cx="24" cy="27" fill="#63c796" r="1.9" stroke="none"></circle></svg>
+<div class="sx-boot-pct" id="sxBootPct">0%</div>
+<div aria-hidden="true" class="sx-boot-bar"><span id="sxBootBarFill"></span></div>
+<div class="sx-boot-label" id="sxBootLabel">Downloading the page</div>
+</div>
+<script src="js/shell-boot.js"></script>
+<a class="skip-link" href="#profileTabs">Skip to profiles</a>
+<a class="skip-link" href="#mapContainer">Skip to map</a>
+<a class="skip-link" href="#listViewDialog">Skip to Hot list</a>
+<main aria-busy="true" class="shell">
+<header class="intro">
+<h1><button aria-controls="appAboutDialog" aria-haspopup="dialog" class="app-title-button sx-brand" id="openAppAbout" type="button"><span class="sx-brand-full">Sex.Capades.IO</span><span class="sx-brand-compact">Sex*</span></button></h1>
+<button aria-expanded="false" aria-haspopup="menu" class="action-btn map-view-switch view-nav-btn" data-ui-tooltip="Switch views: Hypermap for the visual hypermap, Hot List for rating topic by topic, Scene Setter for agreements and play guides, Scene Sentinel for safe signals, check-in timers, and emergency contacts, or Scribe for Literotica-style stories." id="mapListViewButton" type="button">Hypermap ▾</button>
+<div class="header-center">
+<div class="header-search-row">
+<label class="search"><input aria-controls="searchDropdown" aria-expanded="false" aria-label="Find a topic" autocomplete="off" id="searchInput" placeholder="Find a topic" role="combobox"/><span>⌕</span><div class="topic-dropdown search-dropdown" hidden="" id="searchDropdown" role="listbox"></div></label>
+<div class="topic-picker">
+<select aria-label="Choose a topic" autocomplete="off" id="topicPicker"><option value="">Choose a topic…</option></select>
+<button aria-controls="topicPickerMenu" aria-expanded="false" aria-haspopup="listbox" aria-label="Choose a topic" id="topicPickerButton" role="combobox" type="button"><span class="topic-picker-label">Choose a topic…</span></button>
+<div aria-label="Choose a topic" class="topic-dropdown topic-picker-menu" hidden="" id="topicPickerMenu" role="tree"></div>
+</div>
+</div>
+</div>
+<div class="guide-cluster" id="guideCluster">
+<!-- AVATAR-MUSIC: avatar is the music button; Horizon ring keeps its overlay seat; the guide text is its own door -->
+<span class="guide-avatar-wrap">
+<button aria-label="Play the verse for this display" aria-pressed="false" class="avatar-music-btn" id="sxAvatarMusicBtn" type="button">
+<img alt='Yolanda "Yo" Biche — close-up of her smiling face, one paw raised in a wave' decoding="async" src="images/img-0.webp"/>
+</button>
+<svg aria-label="Open Charted details" class="horizon-ring horizon-ring-interactive" id="headerHorizonRing" role="button" tabindex="0" viewbox="0 0 108 108">
+<g transform="rotate(-90 54 54)"><circle class="horizon-ring-track" cx="54" cy="54" pathlength="100" r="46"></circle><circle class="horizon-ring-value" cx="54" cy="54" id="headerHorizonValue" pathlength="100" r="46"></circle><circle class="horizon-ring-track" cx="54" cy="54" pathlength="100" r="29"></circle><circle class="horizon-ring-value horizon-ring-value-inner" cx="54" cy="54" id="headerPersonalValue" pathlength="100" r="29"></circle></g>
+<circle aria-label="Outer ring: Charted" class="horizon-ring-hit" cx="54" cy="54" id="headerHorizonControl" r="46" role="button" tabindex="0"></circle><circle aria-label="Inner ring: Personal Depth Factor" class="horizon-ring-hit" cx="54" cy="54" id="headerPersonalControl" r="29" role="button" tabindex="0"></circle>
+</svg>
+<span aria-hidden="true" class="header-ring-numbers" id="headerRingCaption"></span>
+</span>
+<!-- CENTER-AVATAR: the map center's own archived guide portrait (assets/guide-avatar.jpg), restored from the archived builds. The center consumers read this element first; the header music button's image is never borrowed. -->
+<img alt="" aria-hidden="true" class="center-avatar-source" height="512" hidden="" id="sxCenterAvatarSource" src="images/img-1.webp" width="512"/>
+<button aria-controls="appDocsMenu" aria-expanded="false" aria-haspopup="menu" aria-label="Open documentation and guides" class="action-btn review-callout" data-ui-tooltip="Open documentation, guides, glossary, and FAQ." id="reviewLink" type="button">
+<strong aria-hidden="true" class="guide-qmark">?</strong>
+</button>
+<dialog aria-label="Charted details" id="horizonDialog">
+<div class="dialog-head">
+<strong>Charted</strong>
+<button aria-label="Close" data-close-dialog="" type="button">×</button>
+</div>
+<div class="dialog-body">
+<p class="horizon-intro" data-sx-term="kinkFactor">The two rings around the avatar carry the headline numbers. The <strong>outer ring is Charted</strong>: the share of the whole map you have attended to — rated on either side, or marked with a favorite, tried, or fantasy mark (a Not Interested mark on its own counts too; a Limit counts nothing). The <strong>inner ring is your Personal Kink Factor</strong>: how far into the map your strongest direction reaches, with favorites, tried, and fantasy marks adding on top. Both are weighted so rarer topics count for more, and neither is capped at 100%.</p>
+<p class="horizon-personal" id="horizonDialogPersonal"></p>
+<div id="horizonCommunityWrap">
+<strong style="font-size:13px;">Community completion</strong>
+<ol aria-label="Onboarding ladder" class="horizon-onboarding-ladder">
+<li><span aria-hidden="true" class="horizon-ladder-rung"></span><strong>Quick start</strong><span>54 topics · ~18 min</span></li>
+<li><span aria-hidden="true" class="horizon-ladder-rung"></span><strong>Next pass</strong><span>108 topics · ~36 min</span></li>
+<li><span aria-hidden="true" class="horizon-ladder-rung"></span><strong>Explore</strong><span>162 topics · ~54 min</span></li>
+<li><span aria-hidden="true" class="horizon-ladder-rung"></span><strong>Go deeper</strong><span>216 topics · ~72 min</span></li>
+<li><span aria-hidden="true" class="horizon-ladder-rung"></span><strong>270 topics</strong><span>~90 min</span></li>
+<li><span aria-hidden="true" class="horizon-ladder-rung"></span><strong>324 topics</strong><span>~108 min</span></li>
+<li><span aria-hidden="true" class="horizon-ladder-rung"></span><strong>378 topics</strong><span>~126 min</span></li>
+<li><span aria-hidden="true" class="horizon-ladder-rung"></span><strong>Full map</strong><span>400+ topics · ~134 min</span></li>
+</ol>
+<div id="horizonCommunityBody"></div>
+</div>
+</div>
+</dialog>
+</div>
+<div hidden="" id="glanceData">
+<span id="glanceCompatibility"><span></span><strong id="glanceCompatibilityPercent">0%</strong></span>
+<button id="mutualCount" type="button">0</button><span id="mutualLabel"></span>
+<button id="exploreCount" type="button">0</button><span id="exploreLabel"></span>
+<button id="ratedCount" type="button">0</button><span id="ratedLabel"></span>
+<p hidden="" id="glanceSummary"></p>
+</div>
+<div aria-label="At a glance rating totals and guide" class="glance-numbers-popover" hidden="" id="glanceNumbersPopover" role="dialog">
+<div class="glance-popover-head"><strong>At a glance</strong><button aria-label="Close at a glance" class="glance-popover-close" id="closeGlanceNumbers" type="button">×</button></div>
+<div class="glance-ring-summary" id="glanceRingSummary"></div>
+<p class="glance-ring-note" id="glanceRingNote">Touch a number for the full topic list.</p>
+<a class="glance-guide-link" href="/hosted/guide.html" rel="noopener" target="_blank">Open the Syncing Sexcapades Guide</a>
+</div>
+<div aria-label="Rating details" class="glance-tooltip" hidden="" id="glanceTooltip" role="dialog"><div class="glance-popover-head"><strong id="glanceTooltipTitle"></strong><button aria-label="Close rating details" class="glance-popover-close" id="closeGlanceTooltip" type="button">×</button></div><div class="glance-tooltip-text" id="glanceTooltipText"></div><div class="glance-tooltip-copy"><button class="action-btn" id="copyGlanceTopics" type="button">Copy green-branch summary</button><span aria-live="polite" class="copy-status" id="glanceCopyStatus" role="status"></span></div></div>
+</header>
+<section aria-label="Profile and overlay controls" class="toolbar">
+<div class="toolbar-note" hidden=""><span class="overlay-status" id="overlayStatus"></span></div>
+<div class="toolbar-main">
+<div class="scribe-zone" hidden=""><button class="filter-chip partner-view" data-ui-tooltip="Write a Literotica-style erotic story from one profile, or a practical play guide from a multi-select." hidden="" id="scribeTab" type="button">Scribe</button><button class="filter-chip partner-view" data-ui-tooltip="Build a shared negotiation document and an AI-ready play guide from two or more selected profiles." hidden="" id="openNegotiation" type="button">Scene Setter</button><button class="filter-chip partner-view" data-ui-tooltip="For during and after a scene: signal your partner, keep check-ins on schedule, and have help one tap away." hidden="" id="openSentinel" type="button">Scene Sentinel</button><div aria-label="Interest filters" class="filters" hidden="" role="group"><button aria-pressed="true" class="filter-chip" data-filter="all" data-ui-tooltip="Show every visible topic." type="button">All</button><!-- FQ2-BAKEIN: filter chip "Want to do" -> "Hot topics"; filter chip "Curious about" -> "Curiosity?"; Blind Mode tooltip "shared Want to do topics" -> "shared Hot topics" (redundant trailing "topics" dropped: the new name already ends in "topics") --><button aria-pressed="false" class="filter-chip" data-filter="mutual" data-ui-tooltip="Show topics the selected profiles can enjoy together: one person wants to give what another wants to receive." type="button">Hot topics</button><button aria-pressed="false" class="filter-chip" data-filter="explore" data-ui-tooltip="Show promising topics where at least one selected profile is interested and another is open or moderately interested." type="button">Curiosity?</button><button aria-pressed="false" class="filter-chip" data-filter="mismatch" data-ui-tooltip="Show topics where the selected profiles’ directions conflict or a hard limit is present—use these for discussion, not assumptions." type="button">Mismatched</button><button aria-pressed="false" class="filter-chip blind-mode-toggle" data-ui-tooltip="Hide individual ratings and reveal only shared Hot topics for the selected profiles." id="blindModeToggle" type="button">Blind Mode</button></div></div>
+<span aria-hidden="true" class="toolbar-separator scribe-separator" hidden=""></span>
+<span aria-hidden="true" class="toolbar-separator actions-separator"></span>
+<div class="profile-actions">
+<button aria-pressed="false" class="filter-chip partner-view" hidden="" id="overlayTab" type="button">Hide group overlay</button>
+</div>
+<div class="viewpoint-tabs-row">
+<div class="viewpoint-row">
+<div class="audience-view" hidden="" id="audienceView">
+<div class="veil-control" id="veilControl">
+<label class="veil-toggle"><input aria-label="Enable Intimacy Veil view" id="veilEnabled" type="checkbox"/><span class="veil-toggle-text">Intimacy Veil</span></label>
+<button aria-controls="veilPopover" aria-describedby="veilTooltip" aria-expanded="false" class="veil-shader" disabled="" id="veilTrigger" type="button"><span>Intimacy Veil</span><output class="sr-only" for="audienceVeilSlider" id="audienceVeilValue">50</output></button>
+</div>
+</div>
+<div aria-label="Intimacy Veil level" class="veil-popover" hidden="" id="veilPopover" role="group">
+<strong class="sr-only" id="audienceVeilProfile">Active profile</strong>
+<label class="veil-popover-toggle"><input aria-label="Enable Intimacy Veil for this profile" id="tabVeilEnabled" type="checkbox"/><span>On</span></label>
+<span class="veil-scale"><span>Revealed</span><span class="veil-track-wrap"><input aria-describedby="audienceVeilHelp" aria-label="Intimacy Veil for the active profile, from concealed to revealed" id="audienceVeilSlider" max="100" min="0" step="1" type="range" value="50"/></span><span>Concealed</span></span>
+<output class="sx-veil-out" for="audienceVeilSlider" id="audienceVeilZone">Parted · 50</output>
+<small id="audienceVeilHelp">Drag past either end to clear.</small>
+</div>
+<div class="veil-tooltip" hidden="" id="veilTooltip" role="tooltip">Intimacy Veil hides topics below this profile’s interest threshold. Move toward Concealed for fewer, stronger interests; toward Revealed to include more.</div>
+<div aria-label="Heat level" class="veil-popover sx-heat-popover" hidden="" id="heatPopover" role="group">
+<strong class="sr-only" id="heatProfileName">Profile</strong>
+<span class="veil-scale"><span data-sx-term="heatMax">Horndog</span><span class="veil-track-wrap"><input aria-label="Heat for the profile" id="heatSlider" max="100" min="-100" step="1" type="range" value="0"/></span><span data-sx-term="heatMin">Turned off</span></span>
+<output class="sx-heat-out" data-sx-term="heatMax,heatMin" for="heatSlider" id="heatValue">Neutral · 0</output>
+<div class="sx-heat-watch" hidden="" id="heatWatchOffer">
+<button class="action-btn compact" id="heatWatchSetupBtn" type="button">Sync to watch</button>
+<span class="sx-heat-watch-status" id="heatWatchStatus" role="status"></span>
+</div>
+</div>
+</div>
+<div class="profile-tools">
+<div aria-label="Profiles" class="segmented" id="profileTabs" role="tablist"><span class="profile-add-stack"><button aria-expanded="false" aria-haspopup="menu" aria-label="Add or import a profile" class="profile-add" data-add-profile="" title="Add or import a profile" type="button">+</button></span></div>
+<div aria-label="Active profile actions" class="active-profile-actions" hidden="" id="activeProfileActions">
+<button aria-label="Save" class="action-btn compact primary save-disc-btn" data-tooltip-tap-first="" data-ui-tooltip="Save" id="saveActiveProfile" type="button"><svg aria-hidden="true" focusable="false" viewbox="0 0 24 24"><path d="M5 3h11.2L21 7.8V19a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2Z"></path><path d="M8 3v5h7V3"></path><path d="M7 21v-7h10v7"></path></svg></button>
+</div>
+</div>
+</div>
+</div>
+<button aria-hidden="true" hidden="" id="makeOwnMapButton" tabindex="-1" type="button"></button>
+</section>

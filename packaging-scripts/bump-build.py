@@ -2,6 +2,7 @@
 import sys
 import os
 import re
+import subprocess
 from datetime import datetime
 
 # Product version, stamped into About spans, build tags, and the build manifest.
@@ -13,6 +14,20 @@ from datetime import datetime
 # the guide's version bumps on a substantial addition/edit; the BUILD part
 # tracks the deploy that carries it, exactly like the app About span.
 VERSION = "5.0"
+
+def app_partials(root):
+    """Hand-edited app page. Empty when the split has not been built."""
+    partial_dir = os.path.join(root, "app", "html")
+    if not os.path.isdir(partial_dir):
+        return []
+    names = sorted(n for n in os.listdir(partial_dir) if n.endswith(".html"))
+    return [os.path.join(partial_dir, n) for n in names]
+
+def regenerate_app_shells(root):
+    """Write both app shells from the partials just stamped."""
+    script = os.path.join(os.path.dirname(__file__), "build-html.py")
+    if os.path.isfile(script) and app_partials(root):
+        subprocess.run([sys.executable, script], cwd=root, check=True)
 
 def bump(build_num=None, channel="release", files=None):
     root = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
@@ -34,15 +49,28 @@ def bump(build_num=None, channel="release", files=None):
     else:
         build_tag = f"{channel}-{VERSION}-{build_num}"
 
+    # Default list stamps the hand sources. The two app shells are
+    # generated afterwards, so a stamp written only into a shell is
+    # not wiped by the next concatenation. An explicit file list
+    # (the QA packager passes its staged app.html) is stamped as
+    # given and does not rebuild the repo shells.
+    regenerate = False
     if files is None:
-        files = [
-            os.path.join(root, "app", "sexcapades-5.0.html"),
-            os.path.join(root, "site-tree", "public_html", "hosted", "app.html"),
+        partials = app_partials(root)
+        hand = [
             os.path.join(root, "app", "guide.html"),
             os.path.join(root, "site-tree", "public_html", "hosted", "guide.html"),
             os.path.join(root, "app", "gate.html"),
-            os.path.join(root, "site-tree", "public_html", "hosted", "gate.html")
+            os.path.join(root, "site-tree", "public_html", "hosted", "gate.html"),
         ]
+        if partials:
+            files = partials + hand
+            regenerate = True
+        else:
+            files = [
+                os.path.join(root, "app", "sexcapades-5.0.html"),
+                os.path.join(root, "site-tree", "public_html", "hosted", "app.html"),
+            ] + hand
 
     for fpath in files:
         if not os.path.isfile(fpath):
@@ -82,6 +110,9 @@ def bump(build_num=None, channel="release", files=None):
 
         with open(fpath, "w", encoding="utf-8") as fh:
             fh.write(content)
+
+    if regenerate:
+        regenerate_app_shells(root)
 
     print(f"Bumped build to: {build_num} ({build_tag})")
     return build_num, build_tag

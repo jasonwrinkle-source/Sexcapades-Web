@@ -1,0 +1,224 @@
+<dialog aria-labelledby="fileDialogTitle" id="fileDialog">
+<div class="dialog-head">
+<div><h2 id="fileDialogTitle">Preparing image</h2><p id="fileDialogSubtitle">Building your shareable PNG…</p></div>
+<button aria-label="Close image dialog" class="close-btn" id="closeFileDialog" type="button">×</button>
+</div>
+<div class="dialog-body">
+<div aria-live="polite" class="export-progress is-working" id="fileProgress" role="status">
+<div class="export-progress-main">
+<div aria-label="Export progress" aria-valuemax="100" aria-valuemin="0" aria-valuenow="0" class="export-progress-track" id="fileProgressTrack" role="progressbar" style="--progress:0"><div aria-hidden="true" class="export-progress-portrait" id="fileProgressPortrait"><span id="fileProgressInitials">S</span></div><output class="export-progress-value" id="fileProgressValue">0%</output><span aria-hidden="true" class="export-progress-bar" id="fileProgressBar"></span></div>
+<div class="export-progress-copy">
+<div class="export-progress-head"><span class="export-progress-label"><span id="fileProgressStage">Starting export</span><span aria-hidden="true" class="export-working-dots"><i>•</i><i>•</i><i>•</i></span></span></div>
+<p class="export-progress-detail" id="fileProgressDetail">Preparing the export screen…</p>
+<p class="export-progress-mobile-note">This may take a while on mobile.</p>
+</div>
+</div>
+</div>
+<div class="file-ready" hidden="" id="fileReady">
+<strong id="fileName"></strong>
+<p class="file-save-instructions" id="fileHelp">Review the image below, then choose Download.</p>
+<p class="prepared-image-label">Image preview</p>
+<div class="prepared-image-toolbar" hidden="" id="preparedImageToolbar">
+<span>Inspect the full-resolution hypermap</span>
+<div aria-label="Preview zoom controls" class="prepared-zoom-controls">
+<button aria-label="Zoom preview out" class="action-btn" id="preparedZoomOut" type="button">−</button>
+<output class="prepared-zoom-value" id="preparedZoomValue">100%</output>
+<button aria-label="Zoom preview in" class="action-btn" id="preparedZoomIn" type="button">+</button>
+<button class="action-btn" id="preparedZoomFit" type="button">Fit</button>
+</div>
+</div>
+<div class="prepared-image-viewport" id="preparedImageViewport">
+<div class="prepared-image-stage" id="preparedImageStage"><img alt="" class="prepared-image" draggable="false" id="preparedImage"/></div>
+</div>
+<div class="prepared-image-actions"><button class="action-btn primary" disabled="" id="preparedImageLink" type="button">Download</button><button class="action-btn" disabled="" hidden="" id="ninjaTransferLink" type="button">Ninja Transfers</button></div>
+<p class="ninja-transfer-hint" hidden="" id="ninjaTransferHint">Make a shirt: download the PNG, then upload it on the Ninja Transfers page.</p>
+<div class="secondary-file" hidden="" id="secondaryFile"><p class="prepared-image-label">Back preview</p><img alt="" class="secondary-file-preview" draggable="false" id="secondaryImage"/><strong id="secondaryFileName"></strong><button class="action-btn" disabled="" id="secondaryFileLink" type="button">Download back PNG</button></div>
+</div>
+<div class="status" id="fileStatus" role="status">Building…</div>
+</div>
+</dialog>
+<dialog aria-labelledby="openerTitle" id="openerDialog">
+<div class="dialog-head">
+<div><h2 id="openerTitle">Compare hypermaps?</h2><p>A direct, paste-ready opener built from this profile.</p></div>
+<button aria-label="Close Compare hypermaps writer" class="close-btn" id="closeOpener" type="button">×</button>
+</div>
+<div class="dialog-body">
+<label for="openerMessage">Message</label>
+<textarea class="message-preview" id="openerMessage" readonly=""></textarea>
+<div class="share-copy-row"><button class="action-btn primary" id="copyOpenerMessage" type="button">Copy message</button><button class="action-btn" id="nextOpenerMessage" type="button">Another version</button><span class="copy-status" id="openerCopyStatus" role="status"></span></div>
+</div>
+</dialog>
+<dialog aria-labelledby="ppTitle" id="pitchPitcherDialog">
+<div class="dialog-head">
+<div><h2 id="ppTitle">Pitch Pitcher</h2><p>A ready-to-post pitch or a one-to-one opener, built from this profile's own map.</p></div>
+<button aria-label="Close Pitch Pitcher" class="close-btn" id="closePitchPitcher" type="button">×</button>
+</div>
+<div class="dialog-body">
+<div class="pp-controls">
+<label class="pp-field" for="ppKind"><span>Use it as</span><select id="ppKind"><option value="broadcast">Broadcast pitch — a post for a community</option><option value="opener">Directed opener — one-to-one, for a specific person</option></select></label>
+<label class="pp-field" for="ppType"><span>Pitch type</span><select id="ppType"><option value="Magnetic">Magnetic — names top kinks outright</option><option selected="" value="Gestured">Gestured — hints without naming</option><option value="SFW">SFW — the communication tool only</option></select></label>
+<label class="pp-field" for="ppTone"><span>Tone</span><select id="ppTone"><option value="playful">Playful</option><option selected="" value="sincere">Sincere</option><option value="bold">Bold</option></select></label>
+<label class="pp-field" for="ppLookingFor"><span>Looking for <small>Optional</small></span><input autocomplete="off" id="ppLookingFor" maxlength="60" placeholder="e.g. a partner, conversation, play partners" type="text"/></label>
+<label class="pp-field" for="ppWords"><span>Your own one-liner <small>Optional</small></span><input autocomplete="off" id="ppWords" maxlength="120" placeholder="A line in your own words, appended where the pitch leaves room" type="text"/></label>
+<label class="pp-field" for="ppName" hidden="" id="ppNameRow"><span>Their name <small>For a directed opener</small></span><input autocomplete="off" id="ppName" maxlength="40" placeholder="Who is this opener for?" type="text"/></label>
+</div>
+<label for="ppMessage">Pitch</label>
+<textarea class="message-preview" id="ppMessage" readonly="" rows="6"></textarea>
+<p class="pp-note" id="ppNote" role="status"></p>
+<div class="share-copy-row"><button class="action-btn primary" id="ppCopy" type="button">Copy pitch</button><button class="action-btn" id="ppGenerate" type="button">Regenerate</button><button class="action-btn" id="ppNext" type="button">Another version</button><button class="action-btn" id="ppPacket" type="button">AI prompt packet</button><span class="copy-status" id="ppStatus" role="status"></span></div>
+</div>
+</dialog>
+<dialog aria-labelledby="novelAiTitle" id="novelAiDialog">
+<div class="dialog-head">
+<div><h2 id="novelAiTitle">NovelAI story fields</h2><p>Copy one field at a time into Create Novel.</p></div>
+<button aria-label="Close NovelAI story fields" class="close-btn" id="closeNovelAi" type="button">×</button>
+</div>
+<div class="dialog-body novel-ai-body">
+<p class="novel-ai-instructions"><strong>In NovelAI:</strong> paste each copied value into its matching field, then move to the next section. The Prompt includes the scene, target length, and PDF instructions.</p>
+<p class="scribe-projection" id="novelAiPageProjection">Projected: ~5 paragraphs</p>
+<div class="novel-ai-fields">
+<fieldset class="novel-ai-field"><legend>Genre</legend><button class="action-btn" data-copy-novelai="genre" type="button">Copy</button><textarea id="novelAiGenre" readonly="" rows="1"></textarea></fieldset>
+<fieldset class="novel-ai-field"><legend>Title</legend><button class="action-btn" data-copy-novelai="title" type="button">Copy</button><textarea id="novelAiTitleField" readonly="" rows="1"></textarea></fieldset>
+<fieldset class="novel-ai-field"><legend>Character Name</legend><button class="action-btn" data-copy-novelai="characterName" type="button">Copy</button><textarea id="novelAiCharacterName" readonly="" rows="1"></textarea></fieldset>
+<fieldset class="novel-ai-field"><legend>Personality</legend><button class="action-btn" data-copy-novelai="personality" type="button">Copy</button><textarea id="novelAiPersonality" readonly="" rows="2"></textarea></fieldset>
+<fieldset class="novel-ai-field"><legend>World</legend><button class="action-btn" data-copy-novelai="world" type="button">Copy</button><textarea id="novelAiWorld" readonly="" rows="2"></textarea></fieldset>
+<fieldset class="novel-ai-field is-prompt"><legend>Prompt</legend><button class="action-btn" data-copy-novelai="prompt" type="button">Copy</button><textarea id="novelAiPrompt" readonly="" rows="12"></textarea></fieldset>
+</div>
+<p aria-live="polite" class="novel-ai-copy-status" id="novelAiCopyStatus" role="status"></p>
+</div>
+</dialog>
+<dialog aria-labelledby="testChooserTitle" id="testChooserDialog">
+<div class="dialog-head">
+<div><h2 id="testChooserTitle">Take a test</h2><p>Choose a question set or rate directly in the Hot list.</p></div>
+<button aria-label="Close test chooser" class="close-btn" id="closeTestChooser" type="button">×</button>
+</div>
+<div class="dialog-body">
+<div class="test-choice-list">
+<button class="action-btn" data-test-choice="kinktest" type="button"><strong>KinkTest.co.uk</strong><span>71 activities · four-point preference scale</span></button>
+<button class="action-btn" data-test-choice="checklist" type="button"><strong>Yes / No / Maybe</strong><span>Full activity checklist · answers apply to give and receive</span></button>
+<button class="action-btn" id="rateInListViewChoice" type="button"><strong>Rate in Hot list</strong><span>All topics · separate give and receive scales</span><span class="list-rate-estimate-headline" data-list-rate-estimate-headline="">Most people finish in less than an hour. Pause anytime — partial profiles still make a functional hypermap.</span><span class="list-rate-estimate-detail" data-list-rate-estimate-detail="" hidden=""></span></button>
+</div>
+</div>
+</dialog>
+<dialog aria-labelledby="localCommunitiesTitle" id="localCommunitiesDialog">
+<div class="dialog-head">
+<div><h2 id="localCommunitiesTitle">Local communities</h2><p>Opt-in discovery for groups and events near you.</p></div>
+<button aria-label="Close local communities" class="close-btn" id="closeLocalCommunities" type="button">×</button>
+</div>
+<div class="dialog-body">
+<p class="local-community-copy">Find kink communities near you. Your location is used only for this search and is never stored or added to profiles, exports, or files.</p>
+<p class="local-community-privacy">To identify your area, the search sends your coordinates once to OpenStreetMap’s Nominatim service. FetLife or Reddit receives only a search term if you choose one of the links below. Location stays in memory for this session only.</p>
+<div class="action-row" id="localCommunityConsentRow"><button class="action-btn primary" id="findLocalCommunities" type="button">Use my location</button></div>
+<p aria-live="polite" class="local-community-status" id="localCommunityStatus" role="status"></p>
+<div class="local-community-results" hidden="" id="localCommunityResults">
+<p class="local-community-place" id="localCommunityPlace"></p>
+<section aria-labelledby="localFetlifeTitle" class="local-community-section"><h3 id="localFetlifeTitle">FetLife</h3><div class="local-community-links" id="localFetlifeLinks"></div></section>
+<section aria-labelledby="localRedditTitle" class="local-community-section"><h3 id="localRedditTitle">Reddit</h3><div class="local-community-links" id="localRedditLinks"></div></section>
+<section aria-labelledby="nationalGroupsTitle" class="local-community-section"><h3 id="nationalGroupsTitle">National groups for your top kinks</h3><ul class="national-community-list" id="nationalCommunityList"></ul></section>
+</div>
+</div>
+</dialog>
+<dialog aria-labelledby="converterTitle" id="converterDialog">
+<div class="dialog-head">
+<div><h2 id="converterTitle">Load results</h2><p id="converterSubtitle"></p></div>
+<button aria-label="Close result loader" class="close-btn" id="closeConverter" type="button">×</button>
+</div>
+<div class="dialog-body">
+<details class="fetlife-how-details" hidden="" id="fetlifeHowDetails">
+<summary>How FetLife import works</summary>
+<ol>
+<li>Save your FetLife profile page with your browser’s “Save Page As” (HTML). <strong>Before saving, click every “View all” link in your Fetishes section</strong> — there are usually 2 (Into and Curious), sometimes 3 or more if you’ve entered hard limits or other categories. Saving without opening them truncates the lists and the import will miss fetishes.</li>
+<li>Upload the saved file — or paste the HTML — into the importer.</li>
+<li>The importer extracts the Fetishes section: the “Into” and “Curious about” lists.</li>
+<li>Each fetish is looked up in the importer’s mapping table.</li>
+<li>“Into” fetishes are mapped to topics with “interested” ratings (green).</li>
+<li>“Curious about” fetishes are mapped with “curious / neutral” ratings (yellow).</li>
+<li>Fetishes with no mapping go to an “unmapped” list shown with a warning — not silently dropped.</li>
+<li>If a “View all” link remains inside the Fetishes section, a truncation warning appears (the list may be incomplete). “View all” links elsewhere on the page are ignored.</li>
+<li>Giving and receiving contexts set the matching side of a rating. “Everything to do with it” rates 80% (4/5) in Into and about a third (deep yellow) in Curious about — on a one-slider topic it sets that single slider; on a two-slider topic it sets both give and receive. Watching and wearing contexts become topic annotations, worded with the topic’s own role labels where it has them, instead of being forced into give/receive.</li>
+<li>Favorites map to <strong>Favorite</strong>; Not into and soft limits map to <strong>Not Interested</strong> (soft limits also keep a note); hard limits map to <strong>Hard Limit</strong>. These discrete labels are never converted into slider positions.</li>
+<li>Comma-separated names and rows such as <strong>Fetish, Into, Giving</strong> are supported. A manual slider rating changes only when an import moves the topic to a different camp — for, curious, or against; differences within the same camp leave it untouched.</li>
+<li><strong>Limitations:</strong> the mapping tables were built quickly and are low-confidence; some fetishes won’t map to existing topics and the table may not reflect the latest FetLife categories. Always review the results.</li>
+</ol>
+<p class="references-note">Full source list: <a data-open-references="" href="#references">External References</a> · <a href="https://fetlife.com" rel="noopener noreferrer" target="_blank">FetLife</a></p>
+</details>
+<div class="action-row" hidden="" id="fetlifeMapRow"><button class="action-btn" id="openFetlifeMap" type="button">Open FetLife mapping editor</button><span class="fetlife-map-hint">or press Ctrl+Shift+M</span></div>
+<label class="survey-consent import-survey-consent"><input checked="" data-survey-consent="" type="checkbox"/><span>Share anonymous ratings with community statistics<small>On by default — uncheck to opt out. Only ratings and an anonymous profile identifier are sent.</small></span></label>
+<div aria-label="How to load results" class="converter-mode" id="converterMode" role="group">
+<button aria-pressed="false" class="action-btn primary" id="takeConverterTest" type="button">Take test</button>
+<button aria-pressed="false" class="action-btn" id="pasteConverterResults" type="button">Paste results</button>
+</div>
+<section class="fetlife-guide" hidden="" id="fetlifeGuide">
+<div aria-label="FetLife import flow: FetLife profile, then Save Page As (HTML), then upload or paste, then Into and Curious extraction, then topic mapping, then ratings applied" class="fetlife-flow" role="img">
+<span class="fetlife-flow-step">FetLife profile</span><span aria-hidden="true" class="fetlife-flow-arrow">→</span>
+<span class="fetlife-flow-step">Save Page As (HTML)</span><span aria-hidden="true" class="fetlife-flow-arrow">→</span>
+<span class="fetlife-flow-step">Upload or paste</span><span aria-hidden="true" class="fetlife-flow-arrow">→</span>
+<span class="fetlife-flow-step">Into / Curious extraction</span><span aria-hidden="true" class="fetlife-flow-arrow">→</span>
+<span class="fetlife-flow-step">Topic mapping</span><span aria-hidden="true" class="fetlife-flow-arrow">→</span>
+<span class="fetlife-flow-step">Ratings applied</span>
+</div>
+</section>
+<div class="preview-box" hidden="" id="converterPreview">
+<div class="preview-summary" id="converterPreviewSummary"></div>
+<ul class="preview-warnings" id="converterWarnings"></ul>
+<label class="survey-consent import-survey-consent" hidden="" id="unmappedShareRow" title="Sharing unmatched fetish names helps us improve the importer so it can handle more people's fetish lists."><input checked="" id="shareUnmappedFetishes" type="checkbox"/><span>Help improve imports by sharing unmatched fetish names anonymously</span></label>
+<div class="action-row"><button class="action-btn primary" disabled="" id="applyConverter" type="button">Load into active profile</button></div>
+</div>
+<section aria-live="polite" class="interactive-test" hidden="" id="interactiveTest">
+<div class="test-toolbar"><div><strong id="testHeading">Take test</strong><div class="test-progress" id="testProgress">0 answered</div></div><button class="action-btn primary" id="previewTestAnswers" type="button">Preview answers</button></div>
+<div class="test-questions" id="testQuestions"></div>
+<p class="test-source-note" id="testSourceNote"></p>
+<div class="action-row" hidden="" id="submitChecklistRow"><button class="action-btn primary" id="submitChecklistResults" type="button">Submit results</button></div>
+</section>
+<label class="share-section" for="converterInput" id="converterPasteTools"><span id="converterInputLabel">Paste results</span><textarea id="converterInput" spellcheck="false"></textarea></label>
+<div class="action-row" id="converterActions">
+<button class="action-btn" id="loadConverterExample" type="button">Load example</button>
+<button class="action-btn" hidden="" id="chooseConverterFile" type="button">Choose FetLife page file</button>
+<input accept="message/rfc822,multipart/related,text/html,text/plain,.mhtml,.mht,.html,.htm,.txt" hidden="" id="converterFileInput" type="file"/>
+<button class="action-btn primary" id="previewConverter" type="button">Preview matches</button>
+</div>
+<p class="converter-note" id="converterInstructions"></p>
+<div class="status" id="converterStatus"></div>
+</div>
+</dialog>
+<dialog aria-labelledby="fetlifeMapTitle" id="fetlifeMapDialog">
+<div class="dialog-head">
+<div><h2 id="fetlifeMapTitle" title="Every FetLife fetish name the importer knows, and the Sexcapades category, subcategory, or topic it becomes. Search the table, look a fetish up to see where it lands, or change a mapping — edits apply to FetLife imports you run in this session. Reloading the app restores the shipped table; download your edits to keep a copy.">FetLife mapping editor</h2><p>Look up where a fetish lands, or change its mapping. Edits last for this session only.</p></div>
+<button aria-label="Close mapping editor" class="close-btn" id="closeFetlifeMap" type="button">×</button>
+</div>
+<div class="dialog-body fetlife-map-body">
+<div class="fetlife-map-topbar">
+<div class="fetlife-map-searchrow">
+<label class="fetlife-map-field" for="fetlifeMapChoose"><span>Find a FetLife fetish</span><input autocomplete="off" id="fetlifeMapChoose" placeholder="Type a FetLife fetish name — e.g. Boot licking" spellcheck="false" type="text"/></label>
+<label class="fetlife-map-field" for="fetlifeMapSearch"><span>Search the table</span><input autocomplete="off" id="fetlifeMapSearch" placeholder="Filter by FetLife name or Sexcapades topic…" spellcheck="false" type="text"/></label>
+<div class="fetlife-map-topbar-actions">
+<button class="action-btn" disabled="" id="fetlifeMapDownload" type="button">Download edits</button>
+<button class="action-btn" disabled="" id="fetlifeMapReset" type="button">Reset all edits</button>
+</div>
+</div>
+<div class="fetlife-map-editbar">
+<p class="fetlife-map-count" id="fetlifeMapCount"></p>
+<p class="fetlife-map-edited" hidden="" id="fetlifeMapEdited"></p>
+</div>
+</div>
+<div class="fetlife-map-scroll">
+<p aria-live="polite" class="fetlife-map-result" hidden="" id="fetlifeMapResult"></p>
+<div class="fetlife-map-addrow" hidden="" id="fetlifeMapAddRow"><span id="fetlifeMapAddText"></span><button class="action-btn" id="fetlifeMapAddBtn" type="button">Add a mapping for it</button></div>
+<section aria-label="Edit mapping" class="fetlife-map-edit" hidden="" id="fetlifeMapEdit">
+<h3 id="fetlifeMapEditTitle">Edit mapping</h3>
+<label class="share-section" for="fetlifeMapEditName"><span>FetLife fetish name</span><input autocomplete="off" id="fetlifeMapEditName" spellcheck="false" type="text"/></label>
+<label class="share-section" for="fetlifeMapEditTargetSearch"><span>Maps to — search categories, subcategories, and topics</span><input autocomplete="off" id="fetlifeMapEditTargetSearch" placeholder="Filter targets — e.g. Fluids, Oral, Service…" spellcheck="false" type="text"/></label>
+<label class="share-section" for="fetlifeMapEditTarget"><span>Target</span><select id="fetlifeMapEditTarget" size="8"></select></label>
+<p class="fetlife-map-target-path" id="fetlifeMapEditTargetPath"></p>
+<label class="share-section" for="fetlifeMapEditSide"><span>Rates</span><select id="fetlifeMapEditSide"><option value="both">give + receive</option><option value="give">give only</option><option value="receive">receive only</option></select></label>
+<p aria-live="polite" class="fetlife-map-edit-msg" hidden="" id="fetlifeMapEditMsg"></p>
+<div class="action-row fetlife-map-edit-actions">
+<button class="action-btn primary" id="fetlifeMapEditSave" type="button">Save mapping</button>
+<button class="action-btn" id="fetlifeMapEditCancel" type="button">Cancel</button>
+<button class="action-btn fetlife-map-remove" hidden="" id="fetlifeMapEditRemove" type="button">Remove mapping</button>
+</div>
+</section>
+<table class="fetlife-map-table"><thead><tr><th scope="col">FetLife name</th><th scope="col">Maps to</th><th scope="col">Side</th><th scope="col"><span class="sr-only">Edit</span></th></tr></thead><tbody id="fetlifeMapRows"></tbody></table>
+</div>
+</div>
+</dialog>

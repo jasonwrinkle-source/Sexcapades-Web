@@ -1,0 +1,694 @@
+<section aria-labelledby="safetyTitle" class="sx-app-view" hidden="" id="safetyDialog">
+<div class="safety-shell">
+<h2 class="sr-only" id="safetyTitle">Scene Sentinel</h2>
+<div class="safety-sections">
+<section aria-labelledby="gwTitle" class="safety-card">
+<h3 id="gwTitle">GibberWear listener — live scene</h3>
+<div class="safety-row">
+<button class="action-btn primary" id="gwListenToggle" type="button">Start listening</button>
+<span class="safety-status" id="gwListenStatus" role="status">Listener is off.</span>
+</div>
+<p class="safety-hint" id="gwDecodeStatus">Decoder: ggwave-wasm (p=4, ultrasound fast).</p>
+<div class="safety-row">
+<button class="action-btn" id="gwBleToggle" type="button">Connect watch over Bluetooth</button>
+<span class="safety-status" id="gwBleStatus" role="status">Watch link: not connected — GGWave chirps active.</span>
+</div>
+<p class="safety-hint" id="gwBleSpec">GibberLink BLE service: <code>0000FFF0-0000-1000-8000-00805F9B34FB</code></p>
+<div aria-labelledby="gwSetupTitle" class="gw-setup">
+<strong id="gwSetupTitle">Watch setup &amp; check-in — GibberLink</strong>
+<div class="safety-row">
+<label class="safety-field"><span>Profile key</span><input aria-label="Profile key for the watch" autocomplete="off" id="gwCfgKey" placeholder="e.g. adam" spellcheck="false" type="text"/></label>
+<label class="safety-field"><span>Reminder interval</span><select id="gwCfgTimer"><option value="0">0 — none (reactive only)</option><option value="60">60s — 1 minute</option><option selected="" value="300">300s — 5 minutes</option><option value="600">600s — 10 minutes</option><option value="900">900s — 15 minutes</option></select></label>
+<button class="action-btn primary" id="gwCfgSend" type="button">Send setup to watch</button>
+</div>
+<p class="safety-status" id="gwCfgStatus" role="status">Setup not sent yet. Key = profile's short key (e.g. adam, eve).</p>
+<div class="safety-row">
+<label class="safety-field"><span>Check-in target</span><select id="gwChkTarget"><option selected="" value="">Broadcast — ALL</option></select></label>
+<label class="safety-field"><span>Type</span><select id="gwChkType"><option selected="" value="P">P — pulse (one buzz, heart)</option><option value="T">T — timer (two buzzes, timer)</option></select></label>
+<button class="action-btn" id="gwChkSend" type="button">Send check-in</button>
+</div>
+<p class="safety-status" id="gwChkStatus" role="status">No check-in sent yet.</p>
+<div class="gw-linklog-head"><h4>GibberLink log</h4><span class="safety-hint">OUT = phone → watch · IN = watch → phone · Build sentinel-density-1108-1545</span></div>
+<ul class="gw-link-log" id="gwLinkLog"></ul>
+<p class="safety-empty" id="gwLinkLogEmpty">No GibberLink messages yet this session.</p>
+</div>
+<div aria-label="Live two-way view" class="gw-live">
+<div class="gw-live-side">
+<span class="gw-live-label">Sub — latest tap</span>
+<strong class="gw-live-value" id="gwLiveSub">No taps yet</strong>
+<span class="gw-live-time" id="gwLiveSubTime"></span>
+</div>
+<div class="gw-live-side">
+<span class="gw-live-label">Dom — latest rating</span>
+<strong class="gw-live-value" id="gwLiveDom">Not rated yet</strong>
+<span class="gw-live-time" id="gwLiveDomTime"></span>
+</div>
+</div>
+<div aria-label="Sub latest metric values" class="gw-live gw-live-metrics">
+<div class="gw-live-side">
+<span class="gw-live-label">Enjoyment (E)</span>
+<strong class="gw-live-value" id="gwMetricE">—</strong>
+<span class="gw-live-time" id="gwMetricETime">No reading yet</span>
+</div>
+<div class="gw-live-side">
+<span class="gw-live-label">Heat (H)</span>
+<strong class="gw-live-value" id="gwMetricH">—</strong>
+<span class="gw-live-time" id="gwMetricHTime">No reading yet</span>
+</div>
+<div class="gw-live-side">
+<span class="gw-live-label">Endurance (N)</span>
+<strong class="gw-live-value" id="gwMetricN">—</strong>
+<span class="gw-live-time" id="gwMetricNTime">No reading yet</span>
+</div>
+</div>
+<div aria-label="Broadcast watch signals" class="gw-live gw-broadcast">
+<div class="gw-live-side">
+<span class="gw-live-label">Broadcast watch — no key</span>
+<strong class="gw-live-value" id="gwBroadcastLatest">No broadcast signals yet</strong>
+<span class="gw-live-time" id="gwBroadcastTime">Unkeyed signals from any watch in the room land here.</span>
+</div>
+</div>
+<div class="gw-mismatch" hidden="" id="gwMismatchBanner" role="alert"><strong>Mismatch — pause and check in.</strong> <span id="gwMismatchText">The sub is only kind of enjoying this and the Dom is not enjoying it. This activity should stop.</span></div>
+<div class="gw-prompt" hidden="" id="gwDomPrompt">
+<strong id="gwDomPromptTitle">Dom — what activity is this?</strong>
+<p class="safety-hint">Type the activity and tap Attach — that is the default and nothing leaves this device. Speaking it instead is opt-in: only if you tick the box below does the Web Speech API send your voice to <strong>Google</strong> for transcription. The audio itself is never stored here.</p>
+<label class="safety-pre-item" style="grid-template-columns:26px 1fr"><input id="gwSpeechOptIn" type="checkbox"/><span class="safety-pre-label">Send my voice to Google for transcription (Web Speech API)</span></label>
+<div class="safety-row">
+<button class="action-btn primary" id="gwSpeakBtn" type="button">Speak the activity</button>
+<input aria-label="Activity name" id="gwActivityInput" placeholder="e.g. Flogging" type="text"/>
+<button class="action-btn" id="gwActivitySave" type="button">Attach</button>
+</div>
+<p class="safety-status" id="gwSpeechStatus" role="status"></p>
+</div>
+<div class="gw-domrate" hidden="" id="gwDomRateBox">
+<strong>Dom — how are you enjoying this one?</strong>
+<div aria-label="Dom enjoyment rating" class="gw-rate-row" role="group">
+<button class="action-btn gw-rate-btn" data-dom-rate="3" type="button">Loving it</button>
+<button class="action-btn gw-rate-btn" data-dom-rate="2" type="button">Enjoying</button>
+<button class="action-btn gw-rate-btn" data-dom-rate="1" type="button">Mixed</button>
+<button class="action-btn gw-rate-btn" data-dom-rate="0" type="button">Not enjoying</button>
+</div>
+</div>
+</section>
+<section aria-labelledby="gwDomPanelTitle" class="safety-card gw-dom-panel" hidden="" id="gwDomPanel">
+<h3 id="gwDomPanelTitle">Dom — play-by-play</h3>
+<div class="gw-dom-grid">
+<div class="gw-dom-now">
+<span class="gw-live-label">Now</span>
+<strong class="gw-dom-activity" id="gwNowActivity">Nothing playing</strong>
+<span class="gw-dom-note" id="gwNowNote"></span>
+<span class="gw-dom-count" id="gwNowCount"></span>
+<div class="gw-dom-progress"><span id="gwNowProgress"></span></div>
+<span class="gw-live-label">Next</span>
+<strong class="gw-dom-next" id="gwNextActivity">—</strong>
+<span class="gw-dom-note" id="gwNextNote"></span>
+</div>
+<div class="gw-dom-side">
+<span class="gw-live-label">Scene clock</span>
+<strong class="gw-dom-activity" id="gwSceneClock">0:00</strong>
+<span class="gw-dom-note" id="gwPulseStatus">Check-in pulse: not armed.</span>
+<div class="safety-row">
+<button class="action-btn primary" id="gwPlayBtn" type="button">Start playback</button>
+<button class="action-btn" disabled="" id="gwPauseBtn" type="button">Pause</button>
+<button class="action-btn" disabled="" id="gwStopBtn" type="button">Stop</button>
+</div>
+<span class="gw-live-label">Coming up</span>
+<ol class="gw-dom-list" id="gwDomList"></ol>
+</div>
+</div>
+</section>
+<section aria-labelledby="gwGuideTitle" class="safety-card gw-guide-card">
+<h3 id="gwGuideTitle">Play guide — paste back (Way B)</h3>
+<label class="gw-guide-label" for="gwGuideInput">Play guide text</label>
+<textarea id="gwGuideInput" placeholder="[00:00-05:00] Warm-up — …
+[05:00-20:00] Impact play — …
+[20:00-30:00] Aftercare — …" rows="2"></textarea>
+<div class="safety-row">
+<label class="safety-field"><span>Check-in pulse every</span>
+<select id="gwGuidePulseMin">
+<option value="1">1 minute</option>
+<option value="2">2 minutes</option>
+<option selected="" value="5">5 minutes</option>
+<option value="10">10 minutes</option>
+<option value="15">15 minutes</option>
+</select></label>
+<button class="action-btn primary" id="gwGuideQueueBtn" type="button">Queue play guide</button>
+<button class="action-btn" id="gwGuideClearBtn" type="button">Clear guide</button>
+</div>
+<p class="safety-status" id="gwGuideStatus" role="status">No play guide queued.</p>
+<div class="gw-guide-steps" hidden="" id="gwGuideSteps"></div>
+</section>
+<section aria-labelledby="safetySignalTitle" class="safety-card">
+<h3 id="safetySignalTitle">Safe signal</h3>
+<p class="safety-hint">One button, three signals. <strong>Tap</strong> = check in, all good. <strong>Hold</strong> = slow down. <strong>Double-tap</strong> = stop, now.</p>
+<button class="safety-signal-btn" data-state="idle" id="safetySignalButton" type="button">
+<span class="safety-signal-main" id="safetySignalMain">Safe signal</span>
+<span class="safety-signal-sub" id="safetySignalSub">Tap · hold · double-tap</span>
+</button>
+<div class="safety-log-head"><h4>Signal log</h4><button class="action-btn safety-mini-btn" id="safetySignalClear" type="button">Clear log</button></div>
+<ul class="safety-log" id="safetySignalLog"></ul>
+<p class="safety-empty" id="safetySignalEmpty">No signals yet this scene.</p>
+</section>
+<section aria-labelledby="safetyCheckinTitle" class="safety-card">
+<h3 id="safetyCheckinTitle">Check-in timer</h3>
+<p class="safety-hint">Your phone buzzes at each interval. Confirm you're OK; a missed check-in escalates to your emergency contacts below.</p>
+<p class="safety-hint" id="safetyNotifHint">Enable notifications so check-in alerts reach you even with the phone locked. <button class="action-btn" id="safetyNotifEnable" type="button">Enable alerts</button></p>
+<div class="safety-row">
+<label class="safety-field"><span>Every</span>
+<select id="safetyCheckinInterval">
+<option value="5">5 minutes</option>
+<option value="10">10 minutes</option>
+<option selected="" value="15">15 minutes</option>
+<option value="20">20 minutes</option>
+<option value="30">30 minutes</option>
+<option value="45">45 minutes</option>
+<option value="60">60 minutes</option>
+</select></label>
+<button class="action-btn primary" id="safetyCheckinToggle" type="button">Start check-ins</button>
+</div>
+<p class="safety-status" id="safetyCheckinStatus">Check-ins are off.</p>
+<div class="safety-due" hidden="" id="safetyCheckinDue">
+<strong>Check-in time — are you OK?</strong>
+<button class="action-btn primary" id="safetyCheckinOk" type="button">I'm OK</button>
+</div>
+<div class="safety-missed" hidden="" id="safetyCheckinMissed">
+<strong>Check-in missed.</strong> <span id="safetyCheckinMissedText">Alert your emergency contact:</span>
+<div class="safety-alert-actions" id="safetyAlertActions"></div>
+<button class="action-btn" id="safetyCheckinAck" type="button">I'm OK — resume check-ins</button>
+</div>
+</section>
+<section aria-labelledby="safetyContactsTitle" class="safety-card">
+<h3 id="safetyContactsTitle">Emergency contacts</h3>
+<p class="safety-hint" id="safetyContactsHint">One tap to call or text. The first contact is the escalation target for a missed check-in.</p>
+<ul class="safety-contacts" id="safetyContactList"></ul>
+<p class="safety-empty" id="safetyContactEmpty">No emergency contacts yet.</p>
+<div class="safety-row safety-contact-form">
+<input aria-label="Contact name" autocomplete="name" id="safetyContactName" placeholder="Name — e.g. Alex" type="text"/>
+<input aria-label="Contact phone" autocomplete="tel" id="safetyContactPhone" inputmode="tel" placeholder="Phone — e.g. 555-010-2233" type="tel"/>
+<button aria-label="Add contact" class="action-btn safety-contact-add" id="safetyContactAdd" type="button">+</button>
+</div>
+</section>
+<section aria-labelledby="safetyPreTitle" class="safety-card">
+<h3 id="safetyPreTitle">Pre-scene checklist</h3>
+<p class="safety-hint">Confirm all three before the scene starts.</p>
+<div class="safety-pre-list">
+<label class="safety-pre-item"><input id="safetyPreLimitsCheck" type="checkbox"/><span class="safety-pre-label">Hard limits reviewed</span><input class="safety-pre-text" id="safetyPreLimitsText" placeholder="Limits to state out loud" type="text"/></label>
+<label class="safety-pre-item"><input id="safetyPreWordsCheck" type="checkbox"/><span class="safety-pre-label">Safe words agreed</span><input class="safety-pre-text" id="safetyPreWordsText" placeholder="e.g. Yellow = slow down, Red = stop" type="text"/></label>
+<label class="safety-pre-item"><input id="safetyPreCareCheck" type="checkbox"/><span class="safety-pre-label">Aftercare plan set</span><input class="safety-pre-text" id="safetyPreCareText" placeholder="e.g. Water, blanket, quiet time" type="text"/></label>
+</div>
+<p class="safety-ready" data-ready="false" id="safetyPreReady">Not ready yet — confirm all three before the scene starts.</p>
+</section>
+<section aria-labelledby="safetyPostTitle" class="safety-card">
+<h3 id="safetyPostTitle">Post-scene check-in</h3>
+<p class="safety-hint">Schedule a follow-up for after the scene, then record how you're feeling when it comes due — or check in right now.</p>
+<div class="safety-row">
+<label class="safety-field"><span>Follow up in</span>
+<select id="safetyPostDelay">
+<option value="30">30 minutes</option>
+<option selected="" value="120">2 hours</option>
+<option value="1440">24 hours</option>
+</select></label>
+<button class="action-btn" id="safetyPostSchedule" type="button">Schedule follow-up</button>
+<button class="action-btn" id="safetyPostNow" type="button">Check in now</button>
+</div>
+<p class="safety-status" id="safetyPostStatus">No follow-up scheduled.</p>
+<div class="safety-moods" hidden="" id="safetyPostMoods">
+<strong id="safetyPostMoodPrompt">How are you feeling?</strong>
+<div class="safety-mood-row">
+<button class="action-btn safety-mood-btn" data-mood="Great" type="button">Great</button>
+<button class="action-btn safety-mood-btn" data-mood="Good" type="button">Good</button>
+<button class="action-btn safety-mood-btn" data-mood="Okay" type="button">Okay</button>
+<button class="action-btn safety-mood-btn" data-mood="Tender" type="button">Tender</button>
+<button class="action-btn safety-mood-btn" data-mood="Rough" type="button">Rough</button>
+</div>
+</div>
+<h4 class="safety-log-title">Past check-ins</h4>
+<ul class="safety-log" id="safetyPostLog"></ul>
+<p class="safety-empty" id="safetyPostEmpty">No post-scene check-ins recorded yet.</p>
+</section>
+<section aria-labelledby="gwJournalTitle" class="safety-card">
+<h3 id="gwJournalTitle">Scene journal &amp; aftercare</h3>
+<div class="safety-row">
+<button class="action-btn" id="gwExportBtn" type="button">Download journal (.txt)</button>
+<button class="action-btn" id="gwClearBtn" type="button">Clear journal</button>
+</div>
+<div class="gw-aftercare" id="gwAftercareList"></div>
+<p class="safety-empty" id="gwJournalEmpty">No check-ins yet this scene. Start the listener above and signals from the watch will appear here.</p>
+</section>
+</div>
+</div>
+</section>
+<section aria-labelledby="negotiationTitle" class="sx-app-view" hidden="" id="negotiationDialog">
+<div class="dialog-head">
+<div><div class="head-title-row"><h2 id="negotiationTitle">Scene Setter</h2></div><p class="dialog-profile-list" id="negotiationProfiles"></p><p id="negotiationSubtitle">Build the agreement first, then take it as a standalone negotiation guide, an AI-ready play guide, or both. A hypermap match is not consent.</p></div>
+</div>
+<div class="dialog-body">
+<div class="scribe-choice-grid" id="setterSetup">
+<label class="scribe-details-field" for="setterDetails"><span id="setterDetailsLabel">Scene details <small>Optional</small></span><textarea aria-describedby="setterDetailsHelp" id="setterDetails" maxlength="2000" placeholder="The map provides your kinks and preferences. Describe the setting, scenario, mood, pacing, or specific situations to emphasize or avoid — e.g. “a slow build at home, focus on teasing and denial, ending with quiet cuddling.”" rows="3"></textarea><small id="setterDetailsHelp">Don’t re-enter your kinks here. Scene Setter already uses the selected hypermap data, and the binding checklist below still controls the plan.</small></label>
+<fieldset class="scribe-length-field"><legend id="setterPlayGuideLegend">Play guide length</legend><div class="scribe-length-controls"><label><span class="sr-only">Play guide length amount</span><input aria-describedby="setterLengthHelp" autocomplete="off" id="setterLength" inputmode="decimal" maxlength="9" placeholder="5" type="text"/></label><label><span class="sr-only">Play guide length unit</span><select aria-label="Play guide length unit" id="setterLengthUnit"><option value="words">word count</option><option selected="" value="paragraphs">paragraphs</option><option value="pages">pages</option><option value="chapters">chapters</option></select></label><label><span class="sr-only">Play guide detail level</span><select aria-label="Play guide detail level" id="setterDetailLevel"><option value="concise">concise</option><option selected="" value="balanced">balanced detail</option><option value="detailed">high detail</option></select></label></div><small id="setterLengthHelp">Length for the AI play-guide prompt only: a word count, paragraphs, pages, or chapters. Enter one number or a range; blank defaults to 5 paragraphs.</small></fieldset>
+<fieldset class="scribe-length-field"><legend id="setterNegotiationLegend">Negotiation guide length</legend><div class="scribe-length-controls setter-negotiation-length-controls"><label><span class="sr-only">Negotiation guide length amount</span><input aria-describedby="setterNegotiationLengthHelp" autocomplete="off" id="setterNegotiationLength" inputmode="decimal" maxlength="9" placeholder="1" type="text"/></label><label><span class="sr-only">Negotiation guide length unit</span><select aria-label="Negotiation guide length unit" id="setterNegotiationLengthUnit"><option value="words">word count</option><option value="paragraphs">paragraphs</option><option selected="" value="pages">pages</option><option value="chapters">chapters</option></select></label></div><small id="setterNegotiationLengthHelp">Length for the standalone negotiation guide only. One page (or 500 words) is compact; larger targets add the rated-aftercare detail, then a full per-topic appendix. It never changes the play guide.</small></fieldset>
+<fieldset class="scribe-length-field scribe-phases-field"><legend id="setterPhasesLegend">Scene phases</legend><div class="scribe-phase-row"><label class="scribe-phase-toggle" for="setterPhaseWarmupOn"><input checked="" id="setterPhaseWarmupOn" type="checkbox"/><span id="setterPhaseWarmupLabel">Warm-up</span></label><label><span class="sr-only">Warm-up intensity</span><select aria-label="Warm-up intensity" id="setterPhaseWarmupIntensity"><option value="gentle">gentle</option><option selected="" value="moderate">moderate</option><option value="intense">intense</option></select></label><label><span class="sr-only">Warm-up duration</span><select aria-label="Warm-up duration" id="setterPhaseWarmupDuration"><option value="brief">brief · short portion</option><option selected="" value="standard">standard · medium portion</option><option value="extended">extended · long portion</option></select></label></div><div class="scribe-phase-row"><label class="scribe-phase-toggle" for="setterPhaseMainOn"><input checked="" id="setterPhaseMainOn" type="checkbox"/><span id="setterPhaseMainLabel">Main phase</span></label><label><span class="sr-only">Main phase intensity</span><select aria-label="Main phase intensity" id="setterPhaseMainIntensity"><option value="gentle">gentle</option><option selected="" value="moderate">moderate</option><option value="intense">intense</option></select></label><label><span class="sr-only">Main phase duration</span><select aria-label="Main phase duration" id="setterPhaseMainDuration"><option value="brief">brief · short portion</option><option selected="" value="standard">standard · medium portion</option><option value="extended">extended · long portion</option><option value="marathon">marathon · largest portion</option></select></label></div><div class="scribe-phase-row"><label class="scribe-phase-toggle" for="setterPhaseCooldownOn"><input checked="" id="setterPhaseCooldownOn" type="checkbox"/><span id="setterPhaseCooldownLabel">Cool-down / aftercare</span></label><label><span class="sr-only">Cool-down / aftercare style</span><select aria-label="Cool-down / aftercare style" id="setterPhaseCooldownStyle"><option selected="" value="tender aftercare">tender aftercare</option><option value="quiet rest">quiet rest</option><option value="playful wind-down">playful wind-down</option></select></label><label><span class="sr-only">Cool-down / aftercare duration</span><select aria-label="Cool-down / aftercare duration" id="setterPhaseCooldownDuration"><option value="brief">brief · short portion</option><option selected="" value="standard">standard · medium portion</option><option value="extended">extended · long portion</option></select></label></div><small id="setterPhasesHelp">Enabled phases are added to the generated play-guide prompt as a Scene structure section, in warm-up, main, cool-down order. Turn a phase off to leave it out.</small></fieldset>
+</div>
+<section aria-labelledby="setterOutputsTitle" class="setter-outputs">
+<div class="setter-outputs-head"><h3 id="setterOutputsTitle">Documents</h3><p id="setterOutputsIntro">Two separate outputs. Take either one on its own; each carries the compare-settings stamp and the same binding checklist content.</p></div>
+<div class="setter-output-grid">
+<section aria-labelledby="negotiationGuideOutputTitle" class="setter-output-card">
+<h4 id="negotiationGuideOutputTitle">Negotiation guide</h4>
+<p id="negotiationGuideOutputDesc">The completed checklist as a finished, standalone agreement document — not an AI prompt.</p>
+<div class="setter-output-actions"><button class="action-btn primary" id="copyNegotiationGuide" type="button">Copy negotiation guide</button><button class="action-btn" id="downloadNegotiationGuide" type="button">Download negotiation guide (.txt)</button></div>
+<span class="copy-status" id="negotiationGuideStatus" role="status"></span>
+</section>
+<section aria-labelledby="playGuideOutputTitle" class="setter-output-card">
+<h4 id="playGuideOutputTitle">Play guide</h4>
+<p id="playGuideOutputDesc">The AI play-guide prompt, with the negotiation checklist embedded as its binding layer. It also carries the standard structured format — elapsed time codes like <strong>[00:00-05:00]</strong> and a fixed activity set — so whichever AI writes the guide, Scene Sentinel can read it back, run its timers, and match check-ins to the scheduled step.</p>
+<div class="setter-output-actions">
+<button class="action-btn primary" id="copyNegotiation" type="button">Copy play guide prompt</button>
+<button class="action-btn" id="downloadPlayGuide" type="button">Download play guide prompt (.txt)</button>
+<button class="action-btn primary" id="setterGenerateBtn" type="button">Pick your AI</button>
+<button class="action-btn" id="setterPlayBtn" type="button">▶ Play</button>
+</div>
+<span class="copy-status" id="negotiationCopyStatus" role="status"></span>
+
+<div class="scribe-ai-panel setter-ai-panel" id="setterAiPanel" style="margin-top: 16px; padding: 16px; background: rgba(15, 23, 42, 0.7); border: 1px solid #334155; border-radius: 8px;">
+<div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; flex-wrap: wrap; gap: 8px;">
+<h4 style="margin: 0; color: #67e8f9; font-size: 15px; font-weight: 700; display: flex; align-items: center; gap: 8px;">
+<span>Direct AI Play Guide Generation</span>
+<span style="font-size: 10px; text-transform: uppercase; padding: 2px 6px; background: rgba(103, 232, 249, 0.15); border: 1px solid rgba(103, 232, 249, 0.4); border-radius: 4px; color: #67e8f9; font-family: monospace;">BYOK</span>
+</h4>
+<a id="setterGetKeyLink" href="https://aistudio.google.com/app/apikey" target="_blank" rel="noopener noreferrer" style="font-size: 12px; color: #38bdf8; text-decoration: underline;">Get free Google AI Studio key ↗</a>
+</div>
+<p style="font-size: 12px; color: #94a3b8; margin: 0 0 12px 0;">Use your personal API key (Google Gemini, xAI Grok, or OpenAI) to generate a structured play guide directly with AI. Keys are saved only in your browser’s local storage and shared with Scribe.</p>
+
+<div style="display: flex; gap: 10px; align-items: center; flex-wrap: wrap; margin-bottom: 12px;">
+<label style="font-size: 12px; color: #cbd5e1; display: flex; align-items: center; gap: 6px;">
+<span>Provider:</span>
+<select id="setterAiProvider" style="padding: 6px 10px; background: #0f172a; border: 1px solid #334155; border-radius: 6px; color: #f8fafc; font-size: 12px;">
+<option value="gemini" selected>Google Gemini (Free tier)</option>
+<option value="grok">xAI Grok (Erotica / Unfiltered)</option>
+<option value="openai">OpenAI (ChatGPT)</option>
+</select>
+</label>
+</div>
+
+<div style="display: flex; gap: 8px; align-items: center; flex-wrap: wrap; margin-bottom: 12px;">
+<input type="password" id="setterGeminiKey" placeholder="Paste Gemini API key (AIzaSy...)" autocomplete="off" style="flex: 1 1 240px; min-width: 200px; padding: 8px 12px; background: #0f172a; border: 1px solid #334155; border-radius: 6px; color: #f8fafc; font-family: monospace; font-size: 13px;" />
+<button type="button" class="action-btn" id="setterSaveKeyBtn" style="padding: 8px 14px; font-size: 13px;">Save Key</button>
+<button type="button" class="action-btn" id="setterClearKeyBtn" style="padding: 8px 12px; font-size: 13px; opacity: 0.8;">Clear</button>
+</div>
+<p id="setterKeyStatus" style="font-size: 11px; margin: -6px 0 12px 0; color: #94a3b8;"></p>
+
+<div style="display: flex; gap: 10px; align-items: center; flex-wrap: wrap;">
+<label style="font-size: 12px; color: #cbd5e1; display: flex; align-items: center; gap: 6px;">
+<span>Model:</span>
+<select id="setterGeminiModel" style="padding: 6px 10px; background: #0f172a; border: 1px solid #334155; border-radius: 6px; color: #f8fafc; font-size: 12px; min-width: 180px;">
+<option value="gemini-flash-latest" selected>gemini-flash-latest (Recommended)</option>
+<option value="gemini-3.7-flash">gemini-3.7-flash</option>
+<option value="gemini-pro-latest">gemini-pro-latest</option>
+</select>
+</label>
+<button type="button" class="action-btn primary" id="setterGeneratePlayGuideBtn" style="padding: 8px 16px; font-size: 13px; font-weight: 700; background: #0284c7;">✨ Generate Play Guide with AI</button>
+<button type="button" class="action-btn" id="setterStopPlayGuideBtn" hidden style="padding: 8px 14px; font-size: 13px; color: #f87171; border-color: #f87171;">Stop</button>
+</div>
+
+<div id="setterPlayGuideOutputContainer" hidden style="margin-top: 16px; padding-top: 16px; border-top: 1px solid rgba(148, 163, 184, 0.15);">
+<div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; flex-wrap: wrap; gap: 8px;">
+<span id="setterPlayGuideStatus" style="font-size: 12px; font-weight: 600; color: #38bdf8;">Ready</span>
+<div style="display: flex; gap: 8px; flex-wrap: wrap;">
+<button type="button" class="action-btn primary" id="setterPlayGuidePlayBtn" style="padding: 6px 12px; font-size: 12px; background: #059669; font-weight: 600;">▶ Play in Scene Sentinel</button>
+<button type="button" class="action-btn" id="setterCopyPlayGuideBtn" style="padding: 6px 12px; font-size: 12px;">Copy play guide</button>
+<button type="button" class="action-btn" id="setterDownloadPlayGuideBtn" style="padding: 6px 12px; font-size: 12px;">Download .txt</button>
+</div>
+</div>
+<textarea id="setterPlayGuideText" rows="12" placeholder="Your generated play guide will stream here in real time…" style="width: 100%; box-sizing: border-box; padding: 14px; background: #0b1120; border: 1px solid #1e293b; border-radius: 6px; color: #e2e8f0; font-family: monospace, monospace; font-size: 13px; line-height: 1.5; resize: vertical;"></textarea>
+<p style="font-size: 11px; color: #94a3b8; margin: 6px 0 0 0;">You can edit the play guide here before copying or downloading — structured time codes like [00:00-05:00] will be read by Scene Sentinel.</p>
+
+<div id="setterPlaybackBar" style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px; margin-top: 10px; padding: 10px 14px; background: rgba(15, 23, 42, 0.85); border: 1px solid rgba(16, 185, 129, 0.4); border-radius: 6px;">
+<div style="display: flex; align-items: center; gap: 8px;">
+<span id="setterPlayDot" style="display: inline-block; width: 8px; height: 8px; border-radius: 50%; background: #64748b;"></span>
+<span id="setterLivePlayStatus" style="font-size: 12px; font-weight: 600; color: #cbd5e1;">Scene Sentinel: Ready to play</span>
+</div>
+<div style="display: flex; gap: 6px; align-items: center;">
+<button type="button" class="action-btn" id="setterOpenSentinelBtn" style="padding: 5px 12px; font-size: 12px;">Open Sentinel ↗</button>
+</div>
+</div>
+</div>
+</div>
+</section>
+</div>
+</section>
+<div class="guide-panel" id="negotiationPanel"></div>
+<p class="negotiation-ai-note" id="setterAiNote"><strong>How this differs from Scribe:</strong> this workspace puts limits, stop signals, and aftercare into a binding negotiation checklist first. Its play-guide source is inspiration only; the checklist always controls the generated plan.</p>
+</div>
+</section>
+<section aria-labelledby="scribeChoiceTitle" class="sx-app-view" hidden="" id="scribeChoiceDialog">
+<div class="dialog-head">
+<div><h2 id="scribeChoiceTitle">Scribe</h2><p class="dialog-profile-list" id="scribeChoiceProfiles"></p><p class="dialog-profile-list" id="scribeProfiles" hidden=""></p><p id="scribeChoiceIntro">Choose the format for the selected profile data.</p><p id="scribeModeSummary" hidden="">Fictional storytelling for enjoyment and fantasy — not a real-world plan.</p><span id="scribeTitle" hidden=""></span></div>
+</div>
+<div class="dialog-body">
+<div class="scribe-choice-grid">
+<p class="scribe-mode-explanation" id="scribeModeDescription">Scribe turns your selected profile(s) into a Literotica-style erotic story for fantasy and enjoyment. For a practical play checklist and negotiation guide, use Scene Setter.</p>
+<fieldset class="scribe-length-field scribe-operation-field" id="scribeOperationField" hidden="">
+<legend id="scribeOperationLegend">Operation</legend>
+<div class="scribe-operation-controls" style="display:flex;gap:12px;flex-wrap:wrap;align-items:center;padding:4px 0;">
+  <label class="scribe-op-option" style="display:flex;align-items:center;gap:6px;cursor:pointer;font-size:13px;color:#e2e8f0;">
+    <input type="radio" name="scribeOperation" value="cross" id="scribeOpCross" />
+    <span id="scribeOpCrossLabel">Communion (⋈)</span>
+  </label>
+  <label class="scribe-op-option" style="display:flex;align-items:center;gap:6px;cursor:pointer;font-size:13px;color:#e2e8f0;">
+    <input type="radio" name="scribeOperation" value="straight" id="scribeOpStraight" />
+    <span id="scribeOpStraightLabel">Common ground (⊙)</span>
+  </label>
+  <label class="scribe-op-option" style="display:flex;align-items:center;gap:6px;cursor:pointer;font-size:13px;color:#e2e8f0;">
+    <input type="radio" name="scribeOperation" value="minus" id="scribeOpMinus" />
+    <span id="scribeOpMinusLabel">Dialectic (⊖)</span>
+  </label>
+  <label class="scribe-op-option" style="display:flex;align-items:center;gap:6px;cursor:pointer;font-size:13px;color:#e2e8f0;">
+    <input type="radio" name="scribeOperation" value="full_arc" id="scribeOpFullArc" />
+    <span id="scribeOpFullArcLabel">Full arc (⋈⊙⊖)</span>
+  </label>
+</div>
+<small id="scribeOperationHelp" style="color:#94a3b8;font-size:11px;">Relational operation or full arc across the selected profiles.</small>
+</fieldset>
+<label class="scribe-details-field" for="scribeDetails"><span id="scribeDetailsLabel">Story details <small>Optional</small></span><textarea aria-describedby="scribeDetailsHelp" id="scribeDetails" maxlength="2000" placeholder="The map provides your kinks and preferences. Describe the setting, scenario, mood, characters, pacing, or specific situations to emphasize or avoid — e.g. “a rainy weekend cabin trip, slow build, focus on teasing and denial.”" rows="4"></textarea><small id="scribeDetailsHelp">Don’t re-enter your kinks here. Scribe already uses the selected hypermap data.</small></label>
+<fieldset class="scribe-length-field"><legend>Target length</legend><div class="scribe-length-controls"><label><span class="sr-only">Length amount</span><input aria-describedby="scribePageCountHelp" autocomplete="off" id="scribePageCount" inputmode="decimal" maxlength="9" placeholder="5" type="text"/></label><label><span class="sr-only">Length unit</span><select aria-label="Length unit" id="scribeLengthUnit"><option value="words">word count</option><option selected="" value="paragraphs">paragraphs</option><option value="pages">pages</option><option value="minutes">minutes</option><option value="chapters">chapters</option></select></label><label><span class="sr-only">Detail level</span><select aria-label="Detail level" id="scribeDetailLevel"><option value="concise">concise</option><option selected="" value="balanced">balanced detail</option><option value="detailed">high detail</option></select></label></div><small id="scribePageCountHelp">Stories and play guides can target a word count, paragraphs, pages, chapters, or minutes. Enter one number or a range; blank defaults to 5 paragraphs.</small></fieldset>
+<fieldset class="scribe-length-field scribe-phases-field"><legend id="scribePhasesLegend">Scene phases</legend><div class="scribe-phase-row"><label class="scribe-phase-toggle" for="scribePhaseWarmupOn"><input checked="" id="scribePhaseWarmupOn" type="checkbox"/><span id="scribePhaseWarmupLabel">Warm-up</span></label><label><span class="sr-only">Warm-up intensity</span><select aria-label="Warm-up intensity" id="scribePhaseWarmupIntensity"><option value="gentle">gentle</option><option selected="" value="moderate">moderate</option><option value="intense">intense</option></select></label><label><span class="sr-only">Warm-up duration</span><select aria-label="Warm-up duration" id="scribePhaseWarmupDuration"><option value="brief">brief · short portion</option><option selected="" value="standard">standard · medium portion</option><option value="extended">extended · long portion</option></select></label></div><div class="scribe-phase-row"><label class="scribe-phase-toggle" for="scribePhaseMainOn"><input checked="" id="scribePhaseMainOn" type="checkbox"/><span id="scribePhaseMainLabel">Main phase</span></label><label><span class="sr-only">Main phase intensity</span><select aria-label="Main phase intensity" id="scribePhaseMainIntensity"><option value="gentle">gentle</option><option selected="" value="moderate">moderate</option><option value="intense">intense</option></select></label><label><span class="sr-only">Main phase duration</span><select aria-label="Main phase duration" id="scribePhaseMainDuration"><option value="brief">brief · short portion</option><option selected="" value="standard">standard · medium portion</option><option value="extended">extended · long portion</option><option value="marathon">marathon · largest portion</option></select></label></div><div class="scribe-phase-row"><label class="scribe-phase-toggle" for="scribePhaseCooldownOn"><input checked="" id="scribePhaseCooldownOn" type="checkbox"/><span id="scribePhaseCooldownLabel">Cool-down / aftercare</span></label><label><span class="sr-only">Cool-down / aftercare style</span><select aria-label="Cool-down / aftercare style" id="scribePhaseCooldownStyle"><option selected="" value="tender aftercare">tender aftercare</option><option value="quiet rest">quiet rest</option><option value="playful wind-down">playful wind-down</option></select></label><label><span class="sr-only">Cool-down / aftercare duration</span><select aria-label="Cool-down / aftercare duration" id="scribePhaseCooldownDuration"><option value="brief">brief · short portion</option><option selected="" value="standard">standard · medium portion</option><option value="extended">extended · long portion</option></select></label></div><small id="scribePhasesHelp">Enabled phases are added to the generated prompt as a Scene structure section, in warm-up, main, cool-down order. Turn a phase off to leave it out.</small></fieldset>
+<fieldset class="scribe-explicitness"><legend id="scribeExplicitnessLegend">Explicitness</legend><div class="scribe-explicitness-controls"><div class="scribe-explicitness-slider-col"><input aria-label="Explicitness level" id="scribeExplicitness" max="5" min="1" step="1" type="range" value="4"/><div class="scribe-explicitness-levels" id="scribeExplicitnessLevels"><span>1 · Tame</span><span>2 · Suggestive</span><span>3 · Explicit</span><span>4 · Uninhibited</span><span>5 · Extreme</span></div></div><output id="scribeExplicitnessLabel">4 · Uninhibited</output></div><small id="scribeExplicitnessHelp">Level 1 (Tame) is for strict AIs such as Gemini or ChatGPT. Limits are always hard-excluded.</small></fieldset>
+<div class="action-row scribe-compact-row"><button class="action-btn primary" id="generateScribePrompt" type="button">Prompt</button><button class="action-btn primary" id="scribeGenerateBtn" type="button">Pick your AI</button><button class="action-btn" id="scribePlayBtn" type="button">▶ Play</button></div>
+</div>
+<section aria-labelledby="sceneBriefTitle" class="scribe-section scene-generator" id="sceneGeneratorSection" style="margin-top: 16px;">
+<div class="scene-generator-head">
+<div>
+<h3 id="sceneBriefTitle">Downloadable prompt</h3>
+<p class="scribe-section-intro" id="sceneBriefIntro">Generated from the selected profile data with marked limits excluded completely.</p>
+</div>
+</div>
+<p aria-live="polite" class="scene-availability" id="sceneAvailability"></p>
+<article aria-live="polite" class="scene-brief" hidden="" id="sceneBrief">
+<div class="scene-prompt">
+<p class="scribe-section-intro" id="scenePromptHelp">Copy the prompt below or download it as a text file, then give it to your chosen AI.</p>
+<p class="scribe-projection" id="scenePageProjection">Projected: ~5 paragraphs</p>
+<div class="scene-prompt-copy"><textarea aria-label="Generated Scribe prompt" id="scenePromptText" readonly="" rows="8"></textarea></div>
+<div class="action-row"><button class="action-btn primary" id="copyScenePrompt" type="button">Copy prompt</button><button class="action-btn" id="downloadScenePrompt" type="button">Download prompt .txt</button><span aria-live="polite" class="copy-status" id="sceneDownloadStatus" role="status"></span></div>
+</div>
+
+<div class="scribe-ai-panel" id="scribeAiPanel" style="margin-top: 20px; padding: 16px; background: rgba(15, 23, 42, 0.65); border: 1px solid rgba(103, 232, 249, 0.25); border-radius: 8px;">
+<div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; flex-wrap: wrap; gap: 8px;">
+  <h4 style="margin: 0; color: #67e8f9; font-size: 15px; font-weight: 700; display: flex; align-items: center; gap: 6px;">
+    <span>Direct AI Story Generation</span>
+    <span style="font-size: 10px; text-transform: uppercase; padding: 2px 6px; background: rgba(103, 232, 249, 0.15); border-radius: 4px; color: #a5f3fc;" id="scribeProviderBadge">BYOK · Multi-Provider</span>
+  </h4>
+  <a id="scribeGetKeyLink" href="https://aistudio.google.com/app/apikey" target="_blank" rel="noopener noreferrer" style="font-size: 12px; color: #38bdf8; text-decoration: underline;">Get free Google AI Studio key ↗</a>
+</div>
+<p style="font-size: 12px; color: #94a3b8; margin: 0 0 12px 0;">Use your personal API key (Google Gemini, xAI Grok, or OpenAI) to generate stories directly in Scribe. Keys are saved exclusively in your browser's local storage and never sent to our servers.</p>
+
+<div style="display: flex; gap: 10px; align-items: center; flex-wrap: wrap; margin-bottom: 12px;">
+  <label style="font-size: 12px; color: #cbd5e1; display: flex; align-items: center; gap: 6px;">
+    <span>Provider:</span>
+    <select id="scribeAiProvider" style="padding: 6px 10px; background: #0f172a; border: 1px solid #334155; border-radius: 6px; color: #f8fafc; font-size: 12px;">
+      <option value="gemini" selected>Google Gemini (Free tier)</option>
+      <option value="grok">xAI Grok (Erotica / Unfiltered)</option>
+      <option value="openai">OpenAI (ChatGPT)</option>
+    </select>
+  </label>
+</div>
+
+<div style="display: flex; gap: 8px; align-items: center; flex-wrap: wrap; margin-bottom: 12px;">
+  <input type="password" id="scribeGeminiKey" placeholder="Paste Gemini API key (AIzaSy...)" autocomplete="off" style="flex: 1 1 240px; min-width: 200px; padding: 8px 12px; background: #0f172a; border: 1px solid #334155; border-radius: 6px; color: #f8fafc; font-family: monospace; font-size: 13px;" />
+  <button type="button" class="action-btn" id="scribeSaveKeyBtn" style="padding: 8px 14px; font-size: 13px;">Save Key</button>
+  <button type="button" class="action-btn" id="scribeClearKeyBtn" style="padding: 8px 12px; font-size: 13px; opacity: 0.8;">Clear</button>
+</div>
+<p id="scribeKeyStatus" style="font-size: 11px; margin: -6px 0 12px 0; color: #94a3b8;"></p>
+
+<div style="display: flex; gap: 10px; align-items: center; flex-wrap: wrap;">
+  <label style="font-size: 12px; color: #cbd5e1; display: flex; align-items: center; gap: 6px;">
+    <span>Model:</span>
+    <select id="scribeGeminiModel" style="padding: 6px 10px; background: #0f172a; border: 1px solid #334155; border-radius: 6px; color: #f8fafc; font-size: 12px; min-width: 180px;">
+      <option value="gemini-flash-latest" selected>gemini-flash-latest (Recommended)</option>
+      <option value="gemini-3.7-flash">gemini-3.7-flash</option>
+      <option value="gemini-pro-latest">gemini-pro-latest</option>
+    </select>
+  </label>
+  <button type="button" class="action-btn primary" id="scribeGenerateStoryBtn" style="padding: 8px 16px; font-size: 13px; font-weight: 700; background: #0284c7;">✨ Generate Story with AI</button>
+  <button type="button" class="action-btn" id="scribeStopStoryBtn" hidden style="padding: 8px 14px; font-size: 13px; color: #f87171; border-color: #f87171;">Stop</button>
+</div>
+
+<div id="scribeStoryOutputContainer" hidden style="margin-top: 16px; padding-top: 16px; border-top: 1px solid rgba(148, 163, 184, 0.15);">
+  <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+    <span id="scribeStoryStatus" style="font-size: 12px; font-weight: 600; color: #38bdf8;">Ready</span>
+    <div style="display: flex; gap: 8px;">
+      <button type="button" class="action-btn" id="scribeCopyStoryBtn" style="padding: 6px 12px; font-size: 12px;">Copy story</button>
+      <button type="button" class="action-btn" id="scribeDownloadStoryBtn" style="padding: 6px 12px; font-size: 12px;">Download .txt</button>
+    </div>
+  </div>
+  <textarea id="scribeStoryText" rows="14" placeholder="Your generated story will stream here in real time…" style="width: 100%; box-sizing: border-box; padding: 14px; background: #0b1120; border: 1px solid #1e293b; border-radius: 6px; color: #e2e8f0; font-family: Georgia, Cambria, serif; font-size: 14px; line-height: 1.6; resize: vertical;"></textarea>
+  <p style="font-size: 11px; color: #94a3b8; margin: 6px 0 0 0;">You can edit the story here before narrating, copying, or downloading — handy if a passage trips the narration safety filter.</p>
+
+  <!-- Narration Player & Voice Controls -->
+  <div class="scribe-narration-bar" style="margin-top: 12px; padding: 12px; background: rgba(30, 41, 59, 0.7); border: 1px solid #334155; border-radius: 6px; display: flex; flex-direction: column; gap: 10px;">
+    <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px;">
+      <div style="display: flex; align-items: center; gap: 8px;">
+        <span style="font-size: 13px; font-weight: 700; color: #a5f3fc; display: flex; align-items: center; gap: 5px;">
+          <span>🔊</span> Narrate Story
+        </span>
+        <span id="scribeNarrateStatus" style="font-size: 11px; color: #94a3b8;">Idle</span>
+      </div>
+      <div style="display: flex; gap: 6px; align-items: center; flex-wrap: wrap;">
+        <label style="font-size: 11px; color: #cbd5e1; display: flex; align-items: center; gap: 4px;">
+          <span>Engine:</span>
+          <select id="scribeNarrateEngine" style="padding: 4px 8px; background: #0f172a; border: 1px solid #475569; border-radius: 4px; color: #f8fafc; font-size: 11px;">
+            <option value="gemini" selected>Gemini Voice (AI Studio)</option>
+            <option value="browser">Device Speech (Free / Offline)</option>
+          </select>
+        </label>
+        <label id="scribeNarrateModelGroup" style="font-size: 11px; color: #cbd5e1; display: flex; align-items: center; gap: 4px;">
+          <span>Model:</span>
+          <select id="scribeNarrateModel" style="padding: 4px 8px; background: #0f172a; border: 1px solid #475569; border-radius: 4px; color: #f8fafc; font-size: 11px;">
+            <option value="gemini-2.5-pro-preview-tts" selected>Gemini 2.5 Pro TTS (Studio Quality)</option>
+            <option value="gemini-2.5-flash-preview-tts">Gemini 2.5 Flash TTS (Latest / Clean)</option>
+            <option value="gemini-3.8-flash-tts">Gemini 3.8 Flash TTS</option>
+            <option value="gemini-3.8-flash-lite-tts">Gemini 3.8 Flash Lite TTS (Fast / Crackles)</option>
+            <option value="gemini-2.5-flash-tts">Gemini 2.5 Flash TTS</option>
+          </select>
+        </label>
+        <label id="scribeGeminiVoiceGroup" style="font-size: 11px; color: #cbd5e1; display: flex; align-items: center; gap: 4px;">
+          <span>Voice:</span>
+          <select id="scribeGeminiVoice" style="padding: 4px 8px; background: #0f172a; border: 1px solid #475569; border-radius: 4px; color: #f8fafc; font-size: 11px;">
+            <option value="Aoede" selected>Aoede (Warm / Sensual)</option>
+            <option value="Kore">Kore (Calm / Gentle)</option>
+            <option value="Fenrir">Fenrir (Deep / Resonant)</option>
+            <option value="Puck">Puck (Playful)</option>
+            <option value="Charon">Charon (Authoritative)</option>
+          </select>
+        </label>
+        <label id="scribeNarrateSpeedGroup" style="font-size: 11px; color: #cbd5e1; display: flex; align-items: center; gap: 4px;">
+          <span>Speed:</span>
+          <select id="scribeNarrateSpeed" style="padding: 4px 8px; background: #0f172a; border: 1px solid #475569; border-radius: 4px; color: #f8fafc; font-size: 11px;">
+            <option value="0.75">0.75×</option>
+            <option value="0.85">0.85×</option>
+            <option value="1.0" selected>1.0×</option>
+            <option value="1.15">1.15×</option>
+            <option value="1.25">1.25×</option>
+            <option value="1.5">1.5×</option>
+          </select>
+        </label>
+      </div>
+    </div>
+
+    <div style="display: flex; gap: 8px; align-items: center; flex-wrap: wrap;">
+      <button type="button" class="action-btn primary" id="scribeStartNarrateBtn" style="padding: 6px 14px; font-size: 12px; font-weight: 600; background: #059669;">▶ Play Narration</button>
+      <button type="button" class="action-btn" id="scribePauseNarrateBtn" hidden style="padding: 6px 12px; font-size: 12px;">Pause</button>
+      <button type="button" class="action-btn" id="scribeStopNarrateBtn" hidden style="padding: 6px 12px; font-size: 12px; color: #f87171; border-color: #f87171;">Stop</button>
+      <audio id="scribeAudioPlayer" controls hidden style="height: 32px; flex: 1 1 200px; min-width: 180px;"></audio>
+    </div>
+  </div>
+</div>
+</div>
+<div class="scene-brief-meta" id="sceneBriefMeta"></div>
+<details class="scene-phase"><summary><h4 id="sceneNegotiationTitle">Story ingredients</h4></summary><ul id="sceneNegotiation"></ul></details>
+<details class="scene-phase"><summary><h4>Warm-up</h4></summary><ul id="sceneWarmup"></ul></details>
+<details class="scene-phase"><summary><h4>Escalation</h4></summary><ul id="sceneEscalation"></ul></details>
+<details class="scene-phase"><summary><h4>Peak</h4></summary><ul id="scenePeak"></ul></details>
+<details class="scene-phase"><summary><h4>Closing</h4></summary><ul id="sceneAftercare"></ul></details>
+</article>
+</section>
+</div>
+</section>
+<section aria-labelledby="scribeTitle" class="sx-app-view" hidden="" id="scribeDialog" style="display:none;"></section>
+</main>
+<dialog aria-labelledby="loaderDialogTitle" id="testResultLoaderDialog">
+<div class="dialog-head">
+<div><h2 id="loaderDialogTitle">Load test results into profile</h2></div>
+<button aria-label="Close test-result loader" class="close-btn" id="closeTestResultLoader" type="button">×</button>
+</div>
+<div class="dialog-body">
+<div class="share-section">
+<label>Choose a test or result source</label>
+<div class="import-options">
+<button class="action-btn" data-converter="kinktest" data-converter-mode="paste" data-source-name="Take KinkTest" data-source-note="A guided questionnaire based on KinkTest — you answer right here in Sexcapades; nothing is sent to the site." data-source-url="https://kinktest.co.uk" data-tooltip-tap-first="" type="button">Take KinkTest…</button>
+<button class="action-btn" data-converter="checklist" data-converter-mode="paste" data-source-name="Take Yes/No/Maybe" data-source-note="Based on thatotherpaper.com/austin/yes_no_maybe — the classic Yes / No / Maybe checklist, answered right here in Sexcapades." data-tooltip-tap-first="" type="button">Take Yes/No/Maybe…</button>
+<button class="action-btn" data-converter="fetlife" data-source-name="Import FetLife fetishes" data-source-note="A real import: load a saved FetLife profile page and the fetishes on it become ratings here. Nothing is sent to FetLife." data-source-url="https://fetlife.com" data-tooltip-tap-first="" type="button">Import FetLife fetishes…</button>
+<button class="action-btn" data-converter="bdsmtest" data-source-name="Import BDSM test" data-source-note="A real import: paste your BDSMtest.org role scores (e.g. 100% Dominant) and they become ratings here. Nothing is sent to BDSMtest.org." data-source-url="https://bdsmtest.org" data-tooltip-tap-first="" type="button">Import BDSM test…</button>
+</div>
+</div>
+<p class="profile-tab-hint">Profiles live in this tab only — browsers may discard background tabs, so export as PNG to keep them.</p>
+<div class="status" id="testResultLoaderStatus"></div>
+</div>
+</dialog>
+<dialog aria-describedby="appAboutDescription" aria-labelledby="appAboutTitle" id="appAboutDialog">
+<div class="dialog-head app-about-head">
+<h2 id="appAboutTitle">About Sex.Capades.IO</h2>
+<div class="app-about-header-meta">
+<div class="app-about-version-cluster">
+<span class="app-about-version">Version 5.0 · Build 2026-11-26_0319</span>
+<span class="app-about-version app-about-buildtag">release-5.0-1126-0319</span>
+<label class="remember-profile-label"><input id="rememberProfileCheckbox2x" type="checkbox"/><span>Remember this tab's profiles on this device</span></label>
+<button class="flush-profiles-btn" id="flushProfilesBtn2x" title="Clear all saved profiles from this device" type="button">Flush profiles</button>
+</div>
+<a class="app-about-support" href="https://patreon.com/FlexCapadesIO" rel="noopener" target="_blank">Support Flexcapades on Patreon</a>
+</div>
+<button aria-label="Close About Sex.Capades.IO" class="close-btn" id="closeAppAbout" type="button">×</button>
+</div>
+<div class="dialog-body">
+<p class="app-about-copy" id="appAboutDescription"><span class="sx-brand">Sex.Capades.IO</span> is an interactive hypermap for rating and visualizing adult interests. Build a personal profile, compare where partners align, use Scribe to write stories and scenes, and Scene Setter to plan and negotiate play — all in the same shared vocabulary.</p>
+<div class="app-about-credit app-about-copy">
+<span>Built with Muse, Gemini, AntiGravity, and Grok — <span class="sx-tally-brand">Sex.Capades.IO</span> Version 5.0 was vibe coded over 52 days, about 775 hours and 3.7 billion tokens (as of November 18th, 2026). At Muse's $10 per 500 million that's roughly $74 of compute. <a href="https://muse.ai/join" rel="noopener" target="_blank">Join Muse for free</a> and redeem invite code <strong>GV7QUD</strong> in the About box within 48 hours; you and the inviter each get a billion tokens — $20 worth to the inviter, flagged for vibe coding.</span>
+<span>Built by YoBiche (Yolanda Biche), with Gemini, AntiGravity, and Grok — four AI collaborators, one principal investigator, Jason Mark Wrinkle.</span>
+</div>
+<p class="app-about-copy">Suno is better with friends: the songs on this site are made with Suno. Sign up with <a href="https://suno.com/invite/@jason_wrinkle_personal" rel="noopener" target="_blank">my invite link</a> and create 10 songs, and we both receive 250 free credits (limit 2,500 credits per person).</p>
+<div class="app-about-links app-about-copy"><a href="/hosted/methodology.html" rel="noopener" target="_blank">How we compute community stats</a><a data-open-references="" href="#references">External References</a><a href="/hosted/privacy.html" rel="noopener" target="_blank">Privacy Policy</a><span>Questions? <a href="mailto:help@sexcapades.io">help@sexcapades.io</a></span><span class="app-about-copyright">© 2026 Jason Mark Wrinkle. All rights reserved.</span></div>
+</div>
+</dialog>
+<dialog aria-describedby="referencesIntro" aria-labelledby="referencesTitle" id="referencesDialog">
+<div class="dialog-head">
+<h2 id="referencesTitle">External References</h2>
+<button aria-label="Close External References" class="close-btn" id="closeReferences" type="button">×</button>
+</div>
+<div class="dialog-body">
+<p class="references-intro" id="referencesIntro">These are the external sources behind the statistics, popularity scores, and test / import features in Sexcapades. Every source name links to the original — links open in a new tab so you can check the numbers yourself.</p>
+<section aria-labelledby="referencesPopulationTitle" class="references-section">
+<h3 id="referencesPopulationTitle">Population &amp; Identity Statistics</h3>
+<ul class="references-list">
+<li><a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC3081103/" rel="noopener noreferrer" target="_blank">NZ National Survey on sexual orientation</a> — national survey, N=12,885. Source for the general-population orientation figures used in the profile pickers: straight 94.7% (±0.26), bisexual 0.8% (±0.11), gay / lesbian 0.6% (±0.09).</li>
+<li><a href="https://acecommunitysurvey.org/" rel="noopener noreferrer" target="_blank">Ace Community Survey</a> — annual community survey of ace-spectrum identities and experiences, run by the Ace Community Survey Team.</li>
+<li><a href="https://www.gendercensus.com/results/2025-worldwide/" rel="noopener noreferrer" target="_blank">Gender Census 2025</a> — worldwide survey of the nonbinary community. Source for identity shares among nonbinary-community respondents, including nonbinary 61.7% and transgender 41.1%.</li>
+<li><a href="https://www.thetrevorproject.org/research-briefs/asexual-and-ace-spectrum-youth/" rel="noopener noreferrer" target="_blank">The Trevor Project: Asexual &amp; Ace Spectrum Youth</a> — research brief on asexual and ace-spectrum young people.</li>
+<li><a href="https://doi.org/10.1080/00224490409552235" rel="noopener noreferrer" target="_blank">Bogaert (2004)</a> — "Asexuality: prevalence and associated factors in a national probability sample," Journal of Sex Research. Asexuality prevalence research based on a UK national probability sample (N≈18,000), which found roughly 1% of respondents reported no sexual attraction; the basis for the asexual ~1–2% figure.</li>
+<li><a href="https://psycnet.apa.org/record/2023-68523-001" rel="noopener noreferrer" target="_blank">Pitcher et al. (2024)</a> — Journal of LGBT Youth, N=17,112. Source for the demisexual prevalence figure (~0.6%).</li>
+</ul>
+</section>
+<section aria-labelledby="referencesRolesTitle" class="references-section">
+<h3 id="referencesRolesTitle">BDSM Role Prevalence</h3>
+<ul class="references-list">
+<li>Role prevalence used to sort the Role list (Submissive 39.5%, Switch 31.1%, Dominant 28.8%) is corroborated by: <a href="https://doi.org/10.1111/jsm.12144" rel="noopener noreferrer" target="_blank">Wismeijer &amp; van Assen (2013)</a> and <a href="https://doi.org/10.1080/00224499.2016.1255870" rel="noopener noreferrer" target="_blank">Joyal &amp; Carpentier (2017)</a>.</li>
+</ul>
+</section>
+<section aria-labelledby="referencesTestsTitle" class="references-section">
+<h3 id="referencesTestsTitle">Test / Import Sources</h3>
+<ul class="references-list">
+<li><a href="https://kinktest.co.uk" rel="noopener noreferrer" target="_blank">KinkTest</a> — the in-app guided questionnaire is based on the KinkTest format at kinktest.co.uk. You answer inside Sexcapades; nothing is sent to KinkTest.</li>
+<li><a href="https://bdsmtest.org" rel="noopener noreferrer" target="_blank">BDSMtest.org</a> — the in-app guided questionnaire is based on BDSMtest.org. You answer inside Sexcapades; nothing is sent to BDSMtest.org.</li>
+<li><strong>Yes / No / Maybe list</strong> — an in-app checklist in the classic Yes / No / Maybe format. There is no external site behind this one; it runs entirely inside Sexcapades.</li>
+<li><a href="https://fetlife.com" rel="noopener noreferrer" target="_blank">FetLife</a> — the fetish import parses a saved FetLife profile page (HTML) that you supply. See how it works below.</li>
+</ul>
+</section>
+<section aria-labelledby="referencesFetlifeTitle" class="references-section">
+<h3 id="referencesFetlifeTitle">FetLife Import — How It Works</h3>
+<ol class="references-steps">
+<li>Save your FetLife profile page with your browser’s “Save Page As” (HTML).</li>
+<li>Upload the saved file — or paste the HTML — into the FetLife importer.</li>
+<li>The importer extracts the Fetishes section: the “Into” and “Curious about” lists.</li>
+<li>Each fetish is looked up in the importer’s mapping table.</li>
+<li>“Into” fetishes are mapped to topics with “interested” ratings (green).</li>
+<li>“Curious about” fetishes are mapped with “curious / neutral” ratings (yellow).</li>
+<li>Fetishes with no mapping go to an “unmapped” list shown with a warning — they are not silently dropped.</li>
+<li><strong>Anonymous importer feedback (opt-out):</strong> with your permission, the importer sends just those unmatched fetish names — and whether each appeared in your “Into” or “Curious about” list — so the mapping tables can be improved and more fetishes map correctly in the future. The only identifier sent is the app's anonymous analytics UUID — a random ID that isn't linked to your name, account, or profile. No profile data, no ratings, and no personally identifying information is sent — only the unmatched names and that anonymous UUID. This follows the same opt-out pattern as the anonymous ratings contribution: the “Help improve imports by sharing unmatched fetish names anonymously” box in the FetLife import dialog is checked by default, and if you uncheck it, nothing is sent.</li>
+<li>If a “View all” link remains inside the Fetishes section (under Into, Curious About, or another fetish list), a truncation warning appears: the saved list may be incomplete. “View all” links elsewhere on the page are ignored.</li>
+<li><strong>Limitations — please read:</strong> the mapping tables were built quickly and are low-confidence. Some fetishes will not map to existing topics, some mappings may be wrong, and the table may not reflect the latest FetLife categories. Always review the imported results before trusting them.</li>
+</ol>
+</section>
+</div>
+</dialog>
+<dialog aria-describedby="completionCelebrationMessage" aria-labelledby="completionCelebrationTitle" id="completionCelebrationDialog">
+<div class="completion-celebration-shell completion-celebration" id="completionCelebration">
+<canvas aria-hidden="true" class="completion-confetti" id="completionConfetti"></canvas>
+<button aria-label="Close congratulations" class="close-btn completion-celebration-close" id="closeCompletionCelebration" type="button">×</button>
+<div aria-hidden="true" class="completion-celebration-mark">
+<svg viewbox="0 0 48 48"><path d="M12 25.5 20.2 34 37 15"></path><path d="M24 4.5v5M7.5 11.5l3.6 3.6M40.5 11.5l-3.6 3.6M4 28h5M39 28h5"></path></svg>
+</div>
+<h2 id="completionCelebrationTitle">You rated the whole hypermap!</h2>
+<p class="completion-count" id="completionCelebrationCount">Over 400 topics rated.</p>
+<p class="completion-thanks" id="completionCelebrationMessage">Thank you for seeing it through.</p>
+<p class="completion-privacy"><a href="/hosted/privacy.html" rel="noopener" target="_blank">Privacy Policy</a></p>
+<h3 class="milestone-question">What next?</h3>
+<div class="completion-contribution-actions milestone-actions">
+<button class="action-btn primary" id="dismissCompletionCelebration" type="button">Continue rating</button>
+<button class="action-btn" id="completionCompare" type="button">Compare with a partner</button>
+<button class="action-btn" id="completionExport" type="button">Export</button>
+</div>
+</div>
+</dialog>
+<dialog aria-describedby="milestoneCelebrationMessage" aria-labelledby="milestoneCelebrationTitle" id="milestoneCelebrationDialog">
+<div class="milestone-celebration-shell">
+<button aria-label="Close milestone celebration" class="close-btn milestone-celebration-close" id="closeMilestoneCelebration" type="button">×</button>
+<div aria-hidden="true" class="milestone-celebration-mark">
+<svg viewbox="0 0 48 48"><path d="M12 25.5 20.2 34 37 15"></path><path d="M24 4.5v5M7.5 11.5l3.6 3.6M40.5 11.5l-3.6 3.6"></path></svg>
+</div>
+<p class="milestone-kicker">Milestone reached</p>
+<h2 id="milestoneCelebrationTitle">54 topics rated</h2>
+<p id="milestoneCelebrationMessage">Your hypermap has enough detail to be useful now. You can keep building it or put it to work.</p>
+<h3 class="milestone-question">What next?</h3>
+<div class="milestone-actions">
+<button class="action-btn primary" id="milestoneContinue" type="button">Continue rating</button>
+<button class="action-btn" id="milestoneCompare" type="button">Compare with a partner</button>
+<button class="action-btn" id="milestoneImport" type="button">Import a profile</button>
+<button class="action-btn" id="milestoneScribe" type="button">Scribe</button>
+<button class="action-btn" id="milestoneExport" type="button">Export</button>
+</div>
+</div>
+</dialog>
+<dialog aria-describedby="outlinePayoffMessage" aria-labelledby="outlinePayoffTitle" id="outlinePayoffDialog">
+<div class="outline-payoff-shell">
+<h2 id="outlinePayoffTitle">Your first pass is in.</h2>
+<p id="outlinePayoffMessage">Your ratings are ready to turn into something you can use now.</p>
+<div class="outline-payoff-actions">
+<button class="action-btn primary" id="outlinePayoffStory" type="button">Write a story</button>
+<button class="action-btn" id="outlinePayoffCard" type="button">Share sync card</button>
+</div>
+<button class="outline-payoff-dismiss" id="outlinePayoffDismiss" type="button">Keep exploring</button>
+</div>
+</dialog>
+<dialog aria-describedby="fetlifeBroadTotal" aria-labelledby="fetlifeBroadTitle" id="fetlifeBroadDialog">
+<div class="dialog-head">
+<div><h2 id="fetlifeBroadTitle">Some FetLife terms need more detail</h2><p id="fetlifeBroadTotal">These terms matched a broad area instead of a specific kink.</p></div>
+<button aria-label="Close import summary" class="close-btn" id="closeFetlifeBroad" type="button">×</button>
+</div>
+<div class="dialog-body">
+<div id="fetlifeBroadTree"></div>
+<div class="fetlife-broad-actions"><button class="action-btn primary" id="dismissFetlifeBroad" type="button">Rate the categories your kinks map to</button></div>
+</div>
+</dialog>
+<dialog aria-describedby="importResultSummary" aria-labelledby="importResultTitle" id="importResultDialog">
+<div class="dialog-head">
+<div><h2 id="importResultTitle">Profile imported</h2><p id="importResultSummary"></p></div>
+<button aria-label="Close import result" class="close-btn" id="closeImportResult" type="button">×</button>
+</div>
+<div class="dialog-body">
+<div hidden="" id="importResultDropped">
+<h3 id="importResultDroppedHeading"></h3>
+<ul class="import-result-dropped-list" id="importResultDroppedList"></ul>
+</div>
+<div hidden="" id="importResultRetired">
+<h3 id="importResultRetiredHeading"></h3>
+<ul class="import-result-dropped-list" id="importResultRetiredList"></ul>
+</div>
+<div hidden="" id="importResultUnmatched">
+<h3 id="importResultUnmatchedHeading"></h3>
+<ul class="import-result-dropped-list" id="importResultUnmatchedList"></ul>
+</div>
+<div hidden="" id="importResultNotApplied">
+<h3 id="importResultNotAppliedHeading"></h3>
+<ul class="import-result-dropped-list" id="importResultNotAppliedList"></ul>
+</div>
+<div class="fetlife-broad-actions"><button class="action-btn primary" id="dismissImportResult" type="button">OK</button></div>
+</div>
+</dialog>
