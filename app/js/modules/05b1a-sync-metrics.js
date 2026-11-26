@@ -57,10 +57,17 @@
                     }
                     const advInt = (advObj && Number.isFinite(Number(advObj.intensity))) ? Number(advObj.intensity) : null;
                     const recInt = (recObj && Number.isFinite(Number(recObj.intensity))) ? Number(recObj.intensity) : null;
-                    r.poles = advPoles || recPoles;
-                    r.polesKnown = Boolean((advPoles && Object.keys(advPoles).length) || (recPoles && Object.keys(recPoles).length));
-                    r.intensity = advInt != null ? advInt : recInt;
-                    r.intensityKnown = advInt != null || recInt != null;
+                    r.poles = advPoles && Object.keys(advPoles).length ? advPoles : null;
+                    r.polesKnown = Boolean(r.poles);
+                    r.intensity = advInt;
+                    r.intensityKnown = advInt != null;
+                    if (hasAdv && Object.prototype.hasOwnProperty.call(n.advocacy, "line") && Number.isFinite(Number(n.advocacy.line))) {
+                        r.line = Number(n.advocacy.line);
+                        r.lineKnown = !0;
+                    } else if (!hasAdv && Object.prototype.hasOwnProperty.call(n, "line") && Number.isFinite(Number(n.line))) {
+                        r.line = Number(n.line);
+                        r.lineKnown = !0;
+                    }
                     r.advocacy = advObj ? { poles: advPoles, intensity: advInt, intensityKnown: advInt != null } : null;
                     r.advocacyKnown = hasAdv;
                     r.receptivity = recObj ? { poles: recPoles, intensity: recInt, intensityKnown: recInt != null } : null;

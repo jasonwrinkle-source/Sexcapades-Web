@@ -86,7 +86,7 @@
                 const placement = (raw[mode] && typeof raw[mode] === "object") ? raw[mode] : {};
                 const values = {};
                 Object.keys(placement).forEach(k => { if (k !== "intensity") values[k] = placement[k]; });
-                if (typeof sxPersistAdvocacyReceptivity === "function") sxPersistAdvocacyReceptivity(Qr, mode, values, v, sxActiveProfileId());
+                if (typeof sxWritePlacement === "function") sxWritePlacement(Qr, mode, Object.assign(values, { intensity: v }), sxActiveProfileId());
                 else if (typeof sxPersistIntensity === "function") sxPersistIntensity(Qr, v, sxActiveProfileId());
             } catch (err) {}
         }
@@ -574,16 +574,12 @@
             const o = sxRatingsForProfile(r), s = "intensity" === t ? Math.max(-400, Math.min(400, Math.round(Number(n) || 0))) : Math.max(-100, Math.min(100, Number(n)));
             if (sxWidgetConfig(e, r).single) {
                 if (typeof sxIsStanceSkin === "function" && sxIsStanceSkin() && o[e] && "object" == typeof o[e] && (o[e].advocacy || o[e].receptivity)) {
-                    const cur = Object.assign({}, o[e]);
-                    const adv = Object.assign({}, cur.advocacy || {});
+                    const adv = Object.assign({}, o[e].advocacy || {});
                     adv.give = s;
                     (sxWidgetConfig(e, r).poleKeys || []).forEach(pk => { adv[pk] = s; });
                     adv.intensity = s;
-                    cur.advocacy = adv;
-                    o[e] = cur;
+                    if (typeof sxWritePlacement === "function") sxWritePlacement(e, "advocacy", adv, r);
                     sxSetFlankSource(r, e, "advocacy", "manual");
-                    sxTouchProfile(r);
-                    sxDropAttentionNode(e, r);
                     i && sxRequestMapPaint();
                     return s;
                 }
@@ -592,8 +588,28 @@
                 sxDropAttentionNode(e, r), i && sxRequestMapPaint(), s;
             }
             const l = o[e], c = l && "object" == typeof l ? Object.assign({}, l) : {}, d = !Object.prototype.hasOwnProperty.call(c, t) || Number(c[t]) !== s;
-            return c[t] = s, o[e] = c, sxSetFlankSource(r, e, t, "manual"), d && sxTouchProfile(r), sxDropAttentionNode(e, r),
-            i && sxRequestMapPaint(), c[t];
+            c[t] = s, o[e] = c;
+            // A flat pole or line write on a dual topic is the advocacy
+            // side. The same value goes through the one placement write
+            // so the object and the flat field stay equal. Receptivity
+            // is never written from this path.
+            if (typeof sxWritePlacement === "function" && typeof sxDualPlacements === "function" && sxDualPlacements(e) && "intensity" !== t && !/Intensity$/.test(String(t))) {
+                const classic = !window.__SX_ACTIVE_SKIN || "sexcapades" === window.__SX_ACTIVE_SKIN;
+                const sideKey = classic ? "give" : "advocacy";
+                const prev = c[sideKey] && "object" == typeof c[sideKey] ? c[sideKey] : {};
+                const shape = sxWidgetConfig(e, r);
+                const poleKeys = shape && shape.keys ? shape.keys.slice() : [];
+                if ("line" !== t && Object.prototype.hasOwnProperty.call(c, "line") && poleKeys.indexOf("line") < 0) poleKeys.push("line");
+                const merged = Object.assign({}, prev);
+                poleKeys.forEach(k => {
+                    if (k === t || Object.prototype.hasOwnProperty.call(merged, k)) return;
+                    if (Object.prototype.hasOwnProperty.call(c, k) && "object" != typeof c[k]) merged[k] = c[k];
+                });
+                merged[t] = s;
+                sxWritePlacement(e, "advocacy", merged, r);
+            }
+            return sxSetFlankSource(r, e, t, "manual"), d && sxTouchProfile(r), sxDropAttentionNode(e, r),
+            i && sxRequestMapPaint(), s;
         }
         // Same Et guard as To() above: a stale empty-template id must not
         // mint a profile per call.
@@ -672,7 +688,7 @@
             const intKey = place === "receptivity" ? "receptivityIntensity" : "advocacyIntensity";
             let intensity = rec && rec[knownKey] ? rec[intKey] : null;
             if (intensity == null) intensity = Math.max(40, Math.abs(Math.round(Number(value))));
-            if (typeof sxPersistAdvocacyReceptivity === "function") sxPersistAdvocacyReceptivity(id, place, { line: Math.round(Number(value)) }, intensity, pid);
+            if (typeof sxWritePlacement === "function") sxWritePlacement(id, place, { line: Math.round(Number(value)), intensity: intensity }, pid);
             if (paint) sxRequestMapPaint();
             return true;
         }

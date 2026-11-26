@@ -5272,7 +5272,7 @@ var ti = {
         }
         function sxHasKnownRating(e, t = sxActiveProfileId()) {
             const n = sxRatingRecord(e, t);
-            return Boolean(n.giveKnown || n.receiveKnown || n.lineKnown || n.polesKnown);
+            return Boolean(n.giveKnown || n.receiveKnown || n.lineKnown || n.polesKnown || n.advocacyKnown || n.receptivityKnown || n.givePlacementKnown || n.receivePlacementKnown);
         }
         function sxHasSelfOrChildRating(e, t = sxActiveProfileId()) {
             if (sxHasKnownRating(e, t)) return !0;
@@ -5935,28 +5935,47 @@ var INTEREST_STOPS = {
                     receivePlacementIntensityKnown: !1
                 };
                 if (hasAdv || hasRec) {
-                    const primary = hasAdv ? n.advocacy : n.receptivity;
+                    // The line and the poles are the advocacy side, or
+                    // the flat fields when that side has not been
+                    // written. Receptivity stays on res.receptivity
+                    // and is not promoted into the line.
+                    const primary = hasAdv ? n.advocacy : null;
                     const p = {};
-                    keys.forEach(k => {
-                        let hasKey = Object.prototype.hasOwnProperty.call(primary, k);
-                        let rawVal = primary[k];
-                        if (!hasKey && isSingle) {
-                            const pk = ((shape && shape.poleKeys) || []).concat(Object.keys(primary).filter(x => "intensity" !== x && "known" !== x));
-                            const foundKey = pk.find(x => Object.prototype.hasOwnProperty.call(primary, x) && Number.isFinite(Number(primary[x])));
-                            if (foundKey !== void 0) { hasKey = !0; rawVal = primary[foundKey]; }
-                            else if (Number.isFinite(Number(primary.intensity))) { hasKey = !0; rawVal = primary.intensity; }
+                    if (primary) {
+                        keys.forEach(k => {
+                            let hasKey = Object.prototype.hasOwnProperty.call(primary, k);
+                            let rawVal = primary[k];
+                            if (!hasKey && isSingle) {
+                                const pk = ((shape && shape.poleKeys) || []).concat(Object.keys(primary).filter(x => "intensity" !== x && "known" !== x));
+                                const foundKey = pk.find(x => Object.prototype.hasOwnProperty.call(primary, x) && Number.isFinite(Number(primary[x])));
+                                if (foundKey !== void 0) { hasKey = !0; rawVal = primary[foundKey]; }
+                                else if (Number.isFinite(Number(primary.intensity))) { hasKey = !0; rawVal = primary.intensity; }
+                            }
+                            const val = Number.isFinite(Number(rawVal)) ? Number(rawVal) : 0;
+                            res[k] = val;
+                            res[k + "Known"] = hasKey;
+                            p[k] = val;
+                        });
+                        if (Number.isFinite(Number(primary.intensity))) {
+                            res.intensity = Number(primary.intensity);
+                            res.intensityKnown = !0;
                         }
-                        const val = Number.isFinite(Number(rawVal)) ? Number(rawVal) : 0;
-                        res[k] = val;
-                        res[k + "Known"] = hasKey;
-                        p[k] = val;
-                    });
+                    } else {
+                        keys.forEach(k => {
+                            const rawVal = n[k];
+                            const hasKey = Object.prototype.hasOwnProperty.call(n, k) && "object" != typeof rawVal && Number.isFinite(Number(rawVal));
+                            const val = hasKey ? Number(rawVal) : 0;
+                            res[k] = val;
+                            res[k + "Known"] = hasKey;
+                            p[k] = val;
+                        });
+                        if ("object" != typeof n.intensity && Number.isFinite(Number(n.intensity))) {
+                            res.intensity = Number(n.intensity);
+                            res.intensityKnown = !0;
+                        }
+                    }
                     res.poles = p;
                     res.polesKnown = keys.some(k => res[k + "Known"]);
-                    if (Number.isFinite(Number(primary.intensity))) {
-                        res.intensity = Number(primary.intensity);
-                        res.intensityKnown = !0;
-                    }
                     return sxPlacementMirrors(res);
                 }
                 // Classic placements (2026-11-22): an n-pole rating on the
@@ -5968,20 +5987,38 @@ var INTEREST_STOPS = {
                 // branch above does from its primary.
                 const hasGivePl = Boolean(n.give && "object" == typeof n.give), hasRecPl = Boolean(n.receive && "object" == typeof n.receive);
                 if ((hasGivePl || hasRecPl) && res.isMultiPole) {
-                    const primary = hasGivePl ? n.give : n.receive;
+                    // Give is the primary placement. A receive-only
+                    // record keeps the flat poles and does not wear
+                    // the receive values as the line.
+                    const primary = hasGivePl ? n.give : null;
                     const p = {};
-                    keys.forEach(k => {
-                        const val = Number.isFinite(Number(primary[k])) ? Number(primary[k]) : 0;
-                        res[k] = val;
-                        res[k + "Known"] = Object.prototype.hasOwnProperty.call(primary, k);
-                        p[k] = val;
-                    });
+                    if (primary) {
+                        keys.forEach(k => {
+                            const val = Number.isFinite(Number(primary[k])) ? Number(primary[k]) : 0;
+                            res[k] = val;
+                            res[k + "Known"] = Object.prototype.hasOwnProperty.call(primary, k);
+                            p[k] = val;
+                        });
+                        if (Number.isFinite(Number(primary.intensity))) {
+                            res.intensity = Number(primary.intensity);
+                            res.intensityKnown = !0;
+                        }
+                    } else {
+                        keys.forEach(k => {
+                            const rawVal = n[k];
+                            const hasKey = Object.prototype.hasOwnProperty.call(n, k) && "object" != typeof rawVal && Number.isFinite(Number(rawVal));
+                            const val = hasKey ? Number(rawVal) : 0;
+                            res[k] = val;
+                            res[k + "Known"] = hasKey;
+                            p[k] = val;
+                        });
+                        if ("object" != typeof n.intensity && Number.isFinite(Number(n.intensity))) {
+                            res.intensity = Number(n.intensity);
+                            res.intensityKnown = !0;
+                        }
+                    }
                     res.poles = p;
                     res.polesKnown = keys.some(k => res[k + "Known"]);
-                    if (Number.isFinite(Number(primary.intensity))) {
-                        res.intensity = Number(primary.intensity);
-                        res.intensityKnown = !0;
-                    }
                     res.give = 0;
                     res.giveKnown = !1;
                     res.receive = 0;
@@ -19458,7 +19495,17 @@ var SX_POLE_LABEL_OFFSET = 13;
             const shape = typeof sxWidgetConfig === "function" ? sxWidgetConfig(topicId) : null;
             return Boolean(shape && shape.keys && shape.keys.length >= 3);
         }
-        function sxPersistAdvocacyReceptivity(topicId, mode, values, intensity, profileId) {
+        // One placement write. `side` is "advocacy" or "receptivity"
+        // (give / receive on the classic skin). `value` is the line
+        // number, or the placement fields. Advocacy is mirrored onto
+        // the flat record so the two cannot disagree. Receptivity is
+        // stored on its own object and is not copied onto the line.
+        // Callers that pass a partial object must copy the keys they
+        // want kept; this replaces that side's object.
+        function sxWritePlacement(topicId, side, value, profileId) {
+            if ("number" == typeof value) value = { line: Math.max(-100, Math.min(100, Math.round(value))) };
+            if (!value || "object" != typeof value) return;
+            const mode = "receptivity" === side ? "receptivity" : "advocacy";
             let r = profileId && vt[profileId] ? profileId : (Mt && vt[Mt] ? Mt : Et);
             if (typeof sxIsPseudoProfile === "function" && sxIsPseudoProfile(r)) return;
             if (r === Et && typeof sxAllocateProfileId === "function" && typeof SX_PROFILE_RECORD_LISTS !== "undefined") {
@@ -19485,8 +19532,7 @@ var SX_POLE_LABEL_OFFSET = 13;
                 // the give placement mirrors flat, as advocacy does.
                 const shape = typeof sxWidgetConfig === "function" ? sxWidgetConfig(topicId, r) : null;
                 if (shape && shape.keys && shape.keys.length > 2) {
-                    const placement = Object.assign({}, values);
-                    if (intensity != null) placement.intensity = intensity;
+                    const placement = Object.assign({}, value);
                     if (mode === "receptivity") {
                         existing.receive = placement;
                         if (!existing.give) {
@@ -19509,15 +19555,13 @@ var SX_POLE_LABEL_OFFSET = 13;
                     sxDropAttentionNode(topicId, r);
                     return;
                 }
-                Object.keys(values).forEach(k => { existing[k] = values[k]; });
-                if (intensity != null) existing.intensity = intensity;
+                Object.keys(value).forEach(k => { existing[k] = value[k]; });
                 o[topicId] = existing;
                 sxTouchProfile(r);
                 sxDropAttentionNode(topicId, r);
                 return;
             }
-            const placement = Object.assign({}, values);
-            if (intensity != null) placement.intensity = intensity;
+            const placement = Object.assign({}, value);
             if (mode === "receptivity") {
                 existing.receptivity = placement;
                 if (!existing.advocacy) {
@@ -19538,7 +19582,14 @@ var SX_POLE_LABEL_OFFSET = 13;
             o[topicId] = existing;
             sxTouchProfile(r);
             sxDropAttentionNode(topicId, r);
+            return existing;
         }
+        function sxPersistAdvocacyReceptivity(topicId, mode, values, intensity, profileId) {
+            const value = Object.assign({}, values || {});
+            if (null != intensity) value.intensity = intensity;
+            return sxWritePlacement(topicId, mode, value, profileId);
+        }
+        window.sxWritePlacement = sxWritePlacement;
         function sxClearAdvocacyReceptivity(topicId, mode, profileId) {
             let r = profileId && vt[profileId] ? profileId : (Mt && vt[Mt] ? Mt : Et);
             if (!r || !vt[r] || !vt[r][topicId]) return;
@@ -26169,7 +26220,7 @@ var Qr = null, Jr = null, eo = null, to = !1, no = null;
                 const placement = (raw[mode] && typeof raw[mode] === "object") ? raw[mode] : {};
                 const values = {};
                 Object.keys(placement).forEach(k => { if (k !== "intensity") values[k] = placement[k]; });
-                if (typeof sxPersistAdvocacyReceptivity === "function") sxPersistAdvocacyReceptivity(Qr, mode, values, v, sxActiveProfileId());
+                if (typeof sxWritePlacement === "function") sxWritePlacement(Qr, mode, Object.assign(values, { intensity: v }), sxActiveProfileId());
                 else if (typeof sxPersistIntensity === "function") sxPersistIntensity(Qr, v, sxActiveProfileId());
             } catch (err) {}
         }
@@ -26657,16 +26708,12 @@ var Qr = null, Jr = null, eo = null, to = !1, no = null;
             const o = sxRatingsForProfile(r), s = "intensity" === t ? Math.max(-400, Math.min(400, Math.round(Number(n) || 0))) : Math.max(-100, Math.min(100, Number(n)));
             if (sxWidgetConfig(e, r).single) {
                 if (typeof sxIsStanceSkin === "function" && sxIsStanceSkin() && o[e] && "object" == typeof o[e] && (o[e].advocacy || o[e].receptivity)) {
-                    const cur = Object.assign({}, o[e]);
-                    const adv = Object.assign({}, cur.advocacy || {});
+                    const adv = Object.assign({}, o[e].advocacy || {});
                     adv.give = s;
                     (sxWidgetConfig(e, r).poleKeys || []).forEach(pk => { adv[pk] = s; });
                     adv.intensity = s;
-                    cur.advocacy = adv;
-                    o[e] = cur;
+                    if (typeof sxWritePlacement === "function") sxWritePlacement(e, "advocacy", adv, r);
                     sxSetFlankSource(r, e, "advocacy", "manual");
-                    sxTouchProfile(r);
-                    sxDropAttentionNode(e, r);
                     i && sxRequestMapPaint();
                     return s;
                 }
@@ -26675,8 +26722,28 @@ var Qr = null, Jr = null, eo = null, to = !1, no = null;
                 sxDropAttentionNode(e, r), i && sxRequestMapPaint(), s;
             }
             const l = o[e], c = l && "object" == typeof l ? Object.assign({}, l) : {}, d = !Object.prototype.hasOwnProperty.call(c, t) || Number(c[t]) !== s;
-            return c[t] = s, o[e] = c, sxSetFlankSource(r, e, t, "manual"), d && sxTouchProfile(r), sxDropAttentionNode(e, r),
-            i && sxRequestMapPaint(), c[t];
+            c[t] = s, o[e] = c;
+            // A flat pole or line write on a dual topic is the advocacy
+            // side. The same value goes through the one placement write
+            // so the object and the flat field stay equal. Receptivity
+            // is never written from this path.
+            if (typeof sxWritePlacement === "function" && typeof sxDualPlacements === "function" && sxDualPlacements(e) && "intensity" !== t && !/Intensity$/.test(String(t))) {
+                const classic = !window.__SX_ACTIVE_SKIN || "sexcapades" === window.__SX_ACTIVE_SKIN;
+                const sideKey = classic ? "give" : "advocacy";
+                const prev = c[sideKey] && "object" == typeof c[sideKey] ? c[sideKey] : {};
+                const shape = sxWidgetConfig(e, r);
+                const poleKeys = shape && shape.keys ? shape.keys.slice() : [];
+                if ("line" !== t && Object.prototype.hasOwnProperty.call(c, "line") && poleKeys.indexOf("line") < 0) poleKeys.push("line");
+                const merged = Object.assign({}, prev);
+                poleKeys.forEach(k => {
+                    if (k === t || Object.prototype.hasOwnProperty.call(merged, k)) return;
+                    if (Object.prototype.hasOwnProperty.call(c, k) && "object" != typeof c[k]) merged[k] = c[k];
+                });
+                merged[t] = s;
+                sxWritePlacement(e, "advocacy", merged, r);
+            }
+            return sxSetFlankSource(r, e, t, "manual"), d && sxTouchProfile(r), sxDropAttentionNode(e, r),
+            i && sxRequestMapPaint(), s;
         }
         // Same Et guard as To() above: a stale empty-template id must not
         // mint a profile per call.
@@ -26755,7 +26822,7 @@ var __sxCtmEl = null, __sxCtmVal = null, __sxCtmKey = "";
             const intKey = place === "receptivity" ? "receptivityIntensity" : "advocacyIntensity";
             let intensity = rec && rec[knownKey] ? rec[intKey] : null;
             if (intensity == null) intensity = Math.max(40, Math.abs(Math.round(Number(value))));
-            if (typeof sxPersistAdvocacyReceptivity === "function") sxPersistAdvocacyReceptivity(id, place, { line: Math.round(Number(value)) }, intensity, pid);
+            if (typeof sxWritePlacement === "function") sxWritePlacement(id, place, { line: Math.round(Number(value)), intensity: intensity }, pid);
             if (paint) sxRequestMapPaint();
             return true;
         }
@@ -30696,10 +30763,17 @@ var Cc = e.byId("glanceNumbersPopover"), Mc = e.byId("glanceRingSummary"), Ic = 
                     }
                     const advInt = (advObj && Number.isFinite(Number(advObj.intensity))) ? Number(advObj.intensity) : null;
                     const recInt = (recObj && Number.isFinite(Number(recObj.intensity))) ? Number(recObj.intensity) : null;
-                    r.poles = advPoles || recPoles;
-                    r.polesKnown = Boolean((advPoles && Object.keys(advPoles).length) || (recPoles && Object.keys(recPoles).length));
-                    r.intensity = advInt != null ? advInt : recInt;
-                    r.intensityKnown = advInt != null || recInt != null;
+                    r.poles = advPoles && Object.keys(advPoles).length ? advPoles : null;
+                    r.polesKnown = Boolean(r.poles);
+                    r.intensity = advInt;
+                    r.intensityKnown = advInt != null;
+                    if (hasAdv && Object.prototype.hasOwnProperty.call(n.advocacy, "line") && Number.isFinite(Number(n.advocacy.line))) {
+                        r.line = Number(n.advocacy.line);
+                        r.lineKnown = !0;
+                    } else if (!hasAdv && Object.prototype.hasOwnProperty.call(n, "line") && Number.isFinite(Number(n.line))) {
+                        r.line = Number(n.line);
+                        r.lineKnown = !0;
+                    }
                     r.advocacy = advObj ? { poles: advPoles, intensity: advInt, intensityKnown: advInt != null } : null;
                     r.advocacyKnown = hasAdv;
                     r.receptivity = recObj ? { poles: recPoles, intensity: recInt, intensityKnown: recInt != null } : null;

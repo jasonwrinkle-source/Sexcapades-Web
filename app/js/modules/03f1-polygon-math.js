@@ -483,7 +483,17 @@
             const shape = typeof sxWidgetConfig === "function" ? sxWidgetConfig(topicId) : null;
             return Boolean(shape && shape.keys && shape.keys.length >= 3);
         }
-        function sxPersistAdvocacyReceptivity(topicId, mode, values, intensity, profileId) {
+        // One placement write. `side` is "advocacy" or "receptivity"
+        // (give / receive on the classic skin). `value` is the line
+        // number, or the placement fields. Advocacy is mirrored onto
+        // the flat record so the two cannot disagree. Receptivity is
+        // stored on its own object and is not copied onto the line.
+        // Callers that pass a partial object must copy the keys they
+        // want kept; this replaces that side's object.
+        function sxWritePlacement(topicId, side, value, profileId) {
+            if ("number" == typeof value) value = { line: Math.max(-100, Math.min(100, Math.round(value))) };
+            if (!value || "object" != typeof value) return;
+            const mode = "receptivity" === side ? "receptivity" : "advocacy";
             let r = profileId && vt[profileId] ? profileId : (Mt && vt[Mt] ? Mt : Et);
             if (typeof sxIsPseudoProfile === "function" && sxIsPseudoProfile(r)) return;
             if (r === Et && typeof sxAllocateProfileId === "function" && typeof SX_PROFILE_RECORD_LISTS !== "undefined") {
@@ -510,8 +520,7 @@
                 // the give placement mirrors flat, as advocacy does.
                 const shape = typeof sxWidgetConfig === "function" ? sxWidgetConfig(topicId, r) : null;
                 if (shape && shape.keys && shape.keys.length > 2) {
-                    const placement = Object.assign({}, values);
-                    if (intensity != null) placement.intensity = intensity;
+                    const placement = Object.assign({}, value);
                     if (mode === "receptivity") {
                         existing.receive = placement;
                         if (!existing.give) {
@@ -534,15 +543,13 @@
                     sxDropAttentionNode(topicId, r);
                     return;
                 }
-                Object.keys(values).forEach(k => { existing[k] = values[k]; });
-                if (intensity != null) existing.intensity = intensity;
+                Object.keys(value).forEach(k => { existing[k] = value[k]; });
                 o[topicId] = existing;
                 sxTouchProfile(r);
                 sxDropAttentionNode(topicId, r);
                 return;
             }
-            const placement = Object.assign({}, values);
-            if (intensity != null) placement.intensity = intensity;
+            const placement = Object.assign({}, value);
             if (mode === "receptivity") {
                 existing.receptivity = placement;
                 if (!existing.advocacy) {
@@ -563,7 +570,14 @@
             o[topicId] = existing;
             sxTouchProfile(r);
             sxDropAttentionNode(topicId, r);
+            return existing;
         }
+        function sxPersistAdvocacyReceptivity(topicId, mode, values, intensity, profileId) {
+            const value = Object.assign({}, values || {});
+            if (null != intensity) value.intensity = intensity;
+            return sxWritePlacement(topicId, mode, value, profileId);
+        }
+        window.sxWritePlacement = sxWritePlacement;
         function sxClearAdvocacyReceptivity(topicId, mode, profileId) {
             let r = profileId && vt[profileId] ? profileId : (Mt && vt[Mt] ? Mt : Et);
             if (!r || !vt[r] || !vt[r][topicId]) return;

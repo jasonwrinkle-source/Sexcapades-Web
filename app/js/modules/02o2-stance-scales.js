@@ -348,28 +348,47 @@
                     receivePlacementIntensityKnown: !1
                 };
                 if (hasAdv || hasRec) {
-                    const primary = hasAdv ? n.advocacy : n.receptivity;
+                    // The line and the poles are the advocacy side, or
+                    // the flat fields when that side has not been
+                    // written. Receptivity stays on res.receptivity
+                    // and is not promoted into the line.
+                    const primary = hasAdv ? n.advocacy : null;
                     const p = {};
-                    keys.forEach(k => {
-                        let hasKey = Object.prototype.hasOwnProperty.call(primary, k);
-                        let rawVal = primary[k];
-                        if (!hasKey && isSingle) {
-                            const pk = ((shape && shape.poleKeys) || []).concat(Object.keys(primary).filter(x => "intensity" !== x && "known" !== x));
-                            const foundKey = pk.find(x => Object.prototype.hasOwnProperty.call(primary, x) && Number.isFinite(Number(primary[x])));
-                            if (foundKey !== void 0) { hasKey = !0; rawVal = primary[foundKey]; }
-                            else if (Number.isFinite(Number(primary.intensity))) { hasKey = !0; rawVal = primary.intensity; }
+                    if (primary) {
+                        keys.forEach(k => {
+                            let hasKey = Object.prototype.hasOwnProperty.call(primary, k);
+                            let rawVal = primary[k];
+                            if (!hasKey && isSingle) {
+                                const pk = ((shape && shape.poleKeys) || []).concat(Object.keys(primary).filter(x => "intensity" !== x && "known" !== x));
+                                const foundKey = pk.find(x => Object.prototype.hasOwnProperty.call(primary, x) && Number.isFinite(Number(primary[x])));
+                                if (foundKey !== void 0) { hasKey = !0; rawVal = primary[foundKey]; }
+                                else if (Number.isFinite(Number(primary.intensity))) { hasKey = !0; rawVal = primary.intensity; }
+                            }
+                            const val = Number.isFinite(Number(rawVal)) ? Number(rawVal) : 0;
+                            res[k] = val;
+                            res[k + "Known"] = hasKey;
+                            p[k] = val;
+                        });
+                        if (Number.isFinite(Number(primary.intensity))) {
+                            res.intensity = Number(primary.intensity);
+                            res.intensityKnown = !0;
                         }
-                        const val = Number.isFinite(Number(rawVal)) ? Number(rawVal) : 0;
-                        res[k] = val;
-                        res[k + "Known"] = hasKey;
-                        p[k] = val;
-                    });
+                    } else {
+                        keys.forEach(k => {
+                            const rawVal = n[k];
+                            const hasKey = Object.prototype.hasOwnProperty.call(n, k) && "object" != typeof rawVal && Number.isFinite(Number(rawVal));
+                            const val = hasKey ? Number(rawVal) : 0;
+                            res[k] = val;
+                            res[k + "Known"] = hasKey;
+                            p[k] = val;
+                        });
+                        if ("object" != typeof n.intensity && Number.isFinite(Number(n.intensity))) {
+                            res.intensity = Number(n.intensity);
+                            res.intensityKnown = !0;
+                        }
+                    }
                     res.poles = p;
                     res.polesKnown = keys.some(k => res[k + "Known"]);
-                    if (Number.isFinite(Number(primary.intensity))) {
-                        res.intensity = Number(primary.intensity);
-                        res.intensityKnown = !0;
-                    }
                     return sxPlacementMirrors(res);
                 }
                 // Classic placements (2026-11-22): an n-pole rating on the
@@ -381,20 +400,38 @@
                 // branch above does from its primary.
                 const hasGivePl = Boolean(n.give && "object" == typeof n.give), hasRecPl = Boolean(n.receive && "object" == typeof n.receive);
                 if ((hasGivePl || hasRecPl) && res.isMultiPole) {
-                    const primary = hasGivePl ? n.give : n.receive;
+                    // Give is the primary placement. A receive-only
+                    // record keeps the flat poles and does not wear
+                    // the receive values as the line.
+                    const primary = hasGivePl ? n.give : null;
                     const p = {};
-                    keys.forEach(k => {
-                        const val = Number.isFinite(Number(primary[k])) ? Number(primary[k]) : 0;
-                        res[k] = val;
-                        res[k + "Known"] = Object.prototype.hasOwnProperty.call(primary, k);
-                        p[k] = val;
-                    });
+                    if (primary) {
+                        keys.forEach(k => {
+                            const val = Number.isFinite(Number(primary[k])) ? Number(primary[k]) : 0;
+                            res[k] = val;
+                            res[k + "Known"] = Object.prototype.hasOwnProperty.call(primary, k);
+                            p[k] = val;
+                        });
+                        if (Number.isFinite(Number(primary.intensity))) {
+                            res.intensity = Number(primary.intensity);
+                            res.intensityKnown = !0;
+                        }
+                    } else {
+                        keys.forEach(k => {
+                            const rawVal = n[k];
+                            const hasKey = Object.prototype.hasOwnProperty.call(n, k) && "object" != typeof rawVal && Number.isFinite(Number(rawVal));
+                            const val = hasKey ? Number(rawVal) : 0;
+                            res[k] = val;
+                            res[k + "Known"] = hasKey;
+                            p[k] = val;
+                        });
+                        if ("object" != typeof n.intensity && Number.isFinite(Number(n.intensity))) {
+                            res.intensity = Number(n.intensity);
+                            res.intensityKnown = !0;
+                        }
+                    }
                     res.poles = p;
                     res.polesKnown = keys.some(k => res[k + "Known"]);
-                    if (Number.isFinite(Number(primary.intensity))) {
-                        res.intensity = Number(primary.intensity);
-                        res.intensityKnown = !0;
-                    }
                     res.give = 0;
                     res.giveKnown = !1;
                     res.receive = 0;

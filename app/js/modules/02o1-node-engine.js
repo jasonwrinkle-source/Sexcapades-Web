@@ -521,7 +521,7 @@
         }
         function sxHasKnownRating(e, t = sxActiveProfileId()) {
             const n = sxRatingRecord(e, t);
-            return Boolean(n.giveKnown || n.receiveKnown || n.lineKnown || n.polesKnown);
+            return Boolean(n.giveKnown || n.receiveKnown || n.lineKnown || n.polesKnown || n.advocacyKnown || n.receptivityKnown || n.givePlacementKnown || n.receivePlacementKnown);
         }
         function sxHasSelfOrChildRating(e, t = sxActiveProfileId()) {
             if (sxHasKnownRating(e, t)) return !0;
