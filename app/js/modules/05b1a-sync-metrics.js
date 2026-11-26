@@ -316,6 +316,7 @@
             let family = null;
             if (typeof sxWidgetConfig === "function" && typeof sxFamilyOf === "function") family = sxFamilyOf(sxWidgetConfig(id));
             if (family && typeof sxDerivedFromVals === "function") return sxDerivedFromVals(vals, family);
+            if (2 === vals.length && typeof sxSignedIntensity === "function") return Math.round(sxSignedIntensity(vals));
             if (3 === vals.length && typeof sxTriSignedIntensity === "function") return Math.round(sxTriSignedIntensity(vals));
             if (vals.length >= 4 && typeof sxSignedIntensity === "function") return Math.round(sxSignedIntensity(vals));
             return null;
