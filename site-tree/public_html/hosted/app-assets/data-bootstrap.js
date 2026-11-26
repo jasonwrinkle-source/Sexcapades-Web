@@ -20086,7 +20086,9 @@ var sxIntensitySeeded = new Set;
 
                 evt.preventDefault();
                 evt.stopPropagation();
-                const step = (evt.shiftKey ? 5 : 1) * (evt.deltaY < 0 ? 1 : -1);
+                // Wheel tracks 10x (owner order, 2026-11-25): one notch
+                // moves the value ten times as far as before.
+                const step = (evt.shiftKey ? 50 : 10) * (evt.deltaY < 0 ? 1 : -1);
 
                 if (target === "receptivity") {
                     if (!state.recRated) {
@@ -21005,7 +21007,9 @@ var SX_COMPASS_COLORS = ["#22c55e", "#eab308", "#ef4444", "#3b82f6"];
 
                 evt.preventDefault();
                 evt.stopPropagation();
-                const step = (evt.shiftKey ? 5 : 1) * (evt.deltaY < 0 ? 1 : -1);
+                // Wheel tracks 10x (owner order, 2026-11-25): one notch
+                // moves the value ten times as far as before.
+                const step = (evt.shiftKey ? 50 : 10) * (evt.deltaY < 0 ? 1 : -1);
 
                 if (target === "receptivity") {
                     if (!sxCompassState.recRated) {
@@ -21688,7 +21692,9 @@ var SX_OCTAD_COLORS = ["#22c55e", "#10b981", "#06b6d4", "#3b82f6", "#6366f1", "#
                 evt.preventDefault();
                 evt.stopPropagation();
                 if (isSwitch) return;
-                const step = (evt.shiftKey ? 5 : 1) * (evt.deltaY < 0 ? 1 : -1);
+                // Wheel tracks 10x (owner order, 2026-11-25): one notch
+                // moves the value ten times as far as before.
+                const step = (evt.shiftKey ? 50 : 10) * (evt.deltaY < 0 ? 1 : -1);
                 const curRec = ca(topicId, pId);
                 const vals = keys.map(k => (curRec[k + "Known"] ? curRec[k] : 0));
                 const family = isCompass ? "compass" : isTriad ? "triad" : "radar";
@@ -21908,7 +21914,9 @@ var SX_OCTAD_COLORS = ["#22c55e", "#10b981", "#06b6d4", "#3b82f6", "#6366f1", "#
 
                 evt.preventDefault();
                 evt.stopPropagation();
-                const step = (evt.shiftKey ? 5 : 1) * (evt.deltaY < 0 ? 1 : -1);
+                // Wheel tracks 10x (owner order, 2026-11-25): one notch
+                // moves the value ten times as far as before.
+                const step = (evt.shiftKey ? 50 : 10) * (evt.deltaY < 0 ? 1 : -1);
 
                 if (target === "receptivity") {
                     if (!sxTriState.recRated) {
@@ -26969,6 +26977,11 @@ var xs = 0;
         }
         function Ss(e) {
             const t = e.dataset.outlineId, n = Go, i = ca(t, n), a = (Qe[n] || {})[t] || "", r = e.querySelector(".outline-topic-label");
+            // A row carrying the placard's cross slider (pair topic,
+            // owner ruling 2026-11-25) re-renders it here, in place
+            // of the range-input loop below (which finds no inputs
+            // on such a row).
+            if (e.__sxCrossPair) { e.__sxCrossPair.first.render(); e.__sxCrossPair.second.render(); }
             e.querySelectorAll("[data-outline-direction]").forEach(e => {
                 const t = e.dataset.outlineDirection;
                 !function(e, t, n, app) {
@@ -27089,6 +27102,41 @@ var xs = 0;
                 const d = document.createElement("output");
                 sliderRow.append(c, d);
                 r.append(poleBar, sliderRow), h.append(r);
+            } else if (!i.single && i.keys && i.keys.length === 2) {
+                // Pair topic: the placard's cross slider, in the row
+                // (owner ruling, 2026-11-25 — one widget in three
+                // places: placard, hypermap, hotlist). The two fader
+                // range inputs go away; the row mounts the same cross
+                // slider component the placard mounts (compact), so
+                // the receptivity ring and the appetite arm are here
+                // in the row — the ring can finally be set from the
+                // Hot List / outline row, not only from the popup.
+                // The row's fader drag (03d) gates on
+                // [data-outline-direction], which the cross slider
+                // has none of, and the row's click/dblclick guards
+                // ignore .outline-rating-group, so the slider's own
+                // gestures are undisturbed.
+                const host = document.createElement("div");
+                host.className = "outline-cross-host";
+                h.append(host);
+                const stance = sxDualPlacements(e.id);
+                const fl = stance ? ["advocacy", "receptivity"] : ["give", "receive"];
+                const keys = i.keys;
+                const getFlank = (dir) => sxCrossFlankState(ca(e.id, Go), dir, keys);
+                let pair = null;
+                const renderPair = () => { if (pair) { pair.first.render(); pair.second.render(); } };
+                const writeFlank = (dir, value) => {
+                    sxCrossWriteFlank(e.id, dir, value, Go, keys);
+                    renderPair();
+                };
+                const finishGesture = () => { Ss(n); };
+                pair = {
+                    first: sxCreateCrossSlider({ dir: fl[0], compact: true, get: () => getFlank(fl[0]), onChange: v => writeFlank(fl[0], v), onRelease: () => finishGesture() }),
+                    second: sxCreateCrossSlider({ dir: fl[1], compact: true, get: () => getFlank(fl[1]), onChange: v => writeFlank(fl[1], v), onRelease: () => finishGesture() })
+                };
+                host.appendChild(pair.first.root);
+                host.appendChild(pair.second.root);
+                n.__sxCrossPair = pair;
             } else (i.single ? [ "give" ] : i.keys).forEach((n, a) => {
                 const r = document.createElement("label"), o = !i.single && "give" === i.labels[0] && "receive" === i.labels[1];
                 r.className = "outline-rating";
