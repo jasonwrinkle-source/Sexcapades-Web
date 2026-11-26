@@ -200,7 +200,11 @@ if os.path.isdir(sentinel_dir):
 
 # Sync auxiliary JS to hosted/app-assets (and docs-skin.js to hosted/js for docs pages).
 js_src_dir = os.path.join(base_dir, "../js")
-shell_js = ["view-nav.js", "layout-editor.js", "scene-sentinel.js", "pitch-pitcher.js", "pitch-pitcher-bank.js", "patches.js", "avatar-music.js", "sx-songbook.js", "skin-loader.js", "skin-catalog.js", "docs-skin.js"]
+shell_js = [
+    "shell-head.js", "shell-boot.js", "shell-overlay.js", "shell-runtime.js", "shell-post.js", "firebase-ai-init.js",
+    "view-nav.js", "layout-editor.js", "scene-sentinel.js", "pitch-pitcher.js", "pitch-pitcher-bank.js",
+    "patches.js", "avatar-music.js", "sx-songbook.js", "skin-loader.js", "skin-catalog.js", "docs-skin.js"
+]
 for f in shell_js:
     src_f = os.path.join(js_src_dir, f)
     dst_dirs = [
@@ -255,27 +259,30 @@ write_hosted_app(
     os.path.join(base_dir, "../sexcapades-5.0.html"),
     os.path.join(base_dir, "../../site-tree/public_html/hosted/app.html"))
 
-# Unify app/gate.html, app/guide.html, and app/quickstart.html with site-tree/public_html/hosted/
-for page_name, assets_sub in [("gate.html", "gate-assets"), ("guide.html", "guide-assets"), ("quickstart.html", "quickstart-assets")]:
+# Unify app/gate.html, app/guide.html, app/quickstart.html, and app/flyer.html with site-tree/public_html/hosted/
+for page_name, assets_sub in [("gate.html", "gate-assets"), ("guide.html", "guide-assets"), ("quickstart.html", "quickstart-assets"), ("flyer.html", None)]:
     hosted_html = os.path.join(base_dir, "../../site-tree/public_html/hosted", page_name)
     app_html = os.path.join(base_dir, "..", page_name)
-    hosted_assets = os.path.join(base_dir, "../../site-tree/public_html/hosted", assets_sub)
-    app_assets = os.path.join(base_dir, "..", assets_sub)
-    if os.path.exists(hosted_assets):
-        os.makedirs(app_assets, exist_ok=True)
-        for gf in os.listdir(hosted_assets):
-            if not gf.endswith((".css", ".js", ".json")):
-                continue
-            src_gf = os.path.join(hosted_assets, gf)
-            dst_gf = os.path.join(app_assets, gf)
-            if os.path.isfile(src_gf):
-                shutil.copyfile(src_gf, dst_gf)
-        print(f"[Bundle] Synced {assets_sub}/ (.css/.js) to app/{assets_sub}/")
+    if assets_sub:
+        hosted_assets = os.path.join(base_dir, "../../site-tree/public_html/hosted", assets_sub)
+        app_assets = os.path.join(base_dir, "..", assets_sub)
+        if os.path.exists(hosted_assets):
+            os.makedirs(app_assets, exist_ok=True)
+            for gf in os.listdir(hosted_assets):
+                if not gf.endswith((".css", ".js", ".json")):
+                    continue
+                src_gf = os.path.join(hosted_assets, gf)
+                dst_gf = os.path.join(app_assets, gf)
+                if os.path.isfile(src_gf):
+                    shutil.copyfile(src_gf, dst_gf)
+            print(f"[Bundle] Synced {assets_sub}/ (.css/.js) to app/{assets_sub}/")
     if os.path.exists(hosted_html):
         phtml = open(hosted_html, encoding="utf-8").read()
         phtml_app = re.sub(r'(\.(?:css|js))\?v=[^"\']+', r'\1', phtml)
         phtml_app = phtml_app.replace('src="/hosted/app-assets/skin-catalog.js"', 'src="js/skin-catalog.js"')
         phtml_app = phtml_app.replace('src="/hosted/js/docs-skin.js"', 'src="js/docs-skin.js"')
+        phtml_app = phtml_app.replace('url("/hosted/images/', 'url("images/')
+        phtml_app = phtml_app.replace('src="/hosted/images/', 'src="images/')
         prev_ap = open(app_html, encoding="utf-8").read() if os.path.exists(app_html) else None
         if prev_ap != phtml_app:
             with open(app_html, "w", encoding="utf-8") as fh:
