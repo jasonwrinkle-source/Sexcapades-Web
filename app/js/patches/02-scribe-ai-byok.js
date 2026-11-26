@@ -1,7 +1,9 @@
 // --------------------------------------------------------------------------
 // Scribe AI Story Generator (Gemini BYOK - Bring Your Own Key)
+// Uses shared helpers from 01b-ai-byok-core.js (__sxAiByokCore).
 // --------------------------------------------------------------------------
 __sxInit(function initScribeGeminiBYOK() {
+  var core = window.__sxAiByokCore;
   var keyInput = document.getElementById("scribeGeminiKey");
   var saveKeyBtn = document.getElementById("scribeSaveKeyBtn");
   var clearKeyBtn = document.getElementById("scribeClearKeyBtn");
@@ -19,56 +21,18 @@ __sxInit(function initScribeGeminiBYOK() {
   var getKeyLink = document.getElementById("scribeGetKeyLink");
 
   function getActiveProvider() {
-    return (providerSelect ? providerSelect.value : "gemini") || "gemini";
+    return core.getActiveProvider(providerSelect);
   }
 
   function getStorageKey(provider) {
-    if (provider === "grok") return "sx_grok_byok_api_key";
-    if (provider === "openai") return "sx_openai_byok_api_key";
-    return "sx_gemini_byok_api_key";
+    return core.getStorageKey(provider);
   }
 
   var activeAbortController = null;
   var autoNarrateAfterStoryGen = false;
 
-  var PROVIDER_CONFIG = {
-    gemini: {
-      placeholder: "Paste Gemini API key (AIzaSy...)",
-      link: "https://aistudio.google.com/app/apikey",
-      linkText: "Get free Google AI Studio key ↗",
-      defaultModels: ["gemini-flash-latest", "gemini-3.7-flash", "gemini-pro-latest"]
-    },
-    grok: {
-      placeholder: "Paste xAI Grok API key (xai-...)",
-      link: "https://console.x.ai",
-      linkText: "Get xAI Grok API key ↗",
-      defaultModels: ["grok-2", "grok-2-latest", "grok-beta"]
-    },
-    openai: {
-      placeholder: "Paste OpenAI API key (sk-...)",
-      link: "https://platform.openai.com/api-keys",
-      linkText: "Get OpenAI API key ↗",
-      defaultModels: ["gpt-4o", "gpt-4o-mini", "gpt-4-turbo"]
-    }
-  };
-
-  async function queryAvailableModels(apiKey, provider) {
-    if (!apiKey) return [];
-    if (provider === "gemini") {
-      try {
-        var res = await fetch("https://generativelanguage.googleapis.com/v1beta/models?key=" + encodeURIComponent(apiKey));
-        if (!res.ok) return [];
-        var data = await res.json();
-        if (data && data.models) {
-          return data.models.filter(function(m) {
-            return m.supportedGenerationMethods && m.supportedGenerationMethods.includes("generateContent");
-          }).map(function(m) {
-            return m.name.replace(/^models\//, "");
-          });
-        }
-      } catch (_) {}
-    }
-    return PROVIDER_CONFIG[provider]?.defaultModels || [];
+  function queryAvailableModels(apiKey, provider) {
+    return core.queryAvailableModels(apiKey, provider);
   }
 
   async function populateTtsModelOptions(apiKey) {
@@ -130,103 +94,47 @@ __sxInit(function initScribeGeminiBYOK() {
     }
   }
 
-  async function populateModelOptions(apiKey, provider) {
-    var select = document.getElementById("scribeGeminiModel");
-    if (!select) return;
-    if (provider === "gemini") {
-      populateTtsModelOptions(apiKey);
+  var scribeModelOpts = {
+    preferredSecondGeminiModel: "gemini-3.7-flash",
+    defaultModels: {
+      gemini: ["gemini-flash-latest", "gemini-3.7-flash", "gemini-pro-latest"],
+      grok: ["grok-2", "grok-2-latest", "grok-beta"],
+      openai: ["gpt-4o", "gpt-4o-mini", "gpt-4-turbo"]
+    },
+    onBeforePopulate: function(apiKey, provider) {
+      if (provider === "gemini") populateTtsModelOptions(apiKey);
     }
-    var models = await queryAvailableModels(apiKey, provider);
-    if (!models || models.length === 0) {
-      models = PROVIDER_CONFIG[provider]?.defaultModels || [];
-    } else if (provider === "gemini") {
-      models.sort(function(a, b) {
-        if (a === "gemini-flash-latest") return -1;
-        if (b === "gemini-flash-latest") return 1;
-        if (a === "gemini-3.7-flash") return -1;
-        if (b === "gemini-3.7-flash") return 1;
-        return 0;
-      });
-    }
-    select.innerHTML = "";
-    models.forEach(function(m, idx) {
-      var opt = document.createElement("option");
-      opt.value = m;
-      opt.textContent = m + (idx === 0 ? " (Recommended)" : "");
-      select.appendChild(opt);
-    });
+  };
+
+  function populateModelOptions(apiKey, provider) {
+    return core.populateModelOptions(document.getElementById("scribeGeminiModel"), apiKey, provider, scribeModelOpts);
   }
 
-  function loadSavedKey() {
-    var prov = getActiveProvider();
-    var cfg = PROVIDER_CONFIG[prov] || PROVIDER_CONFIG.gemini;
-    if (keyInput) keyInput.placeholder = cfg.placeholder;
-    if (getKeyLink) {
-      getKeyLink.href = cfg.link;
-      getKeyLink.textContent = cfg.linkText;
-    }
-    try {
-      var saved = localStorage.getItem(getStorageKey(prov)) || "";
-      if (keyInput) keyInput.value = saved;
-      updateKeyUI(Boolean(saved));
-      populateModelOptions(saved, prov);
-    } catch (_) {}
+  function scribeTargetNoun() {
+    return window.__SX_SCRIBE && "discussion" === window.__SX_SCRIBE.genre ? "discussion" : "story";
   }
 
   function updateKeyUI(hasKey) {
-    var prov = getActiveProvider();
-    var provName = prov === "grok" ? "xAI Grok" : prov === "openai" ? "OpenAI" : "Google Gemini";
-    if (keyStatus) {
-      if (hasKey) {
-        keyStatus.textContent = provName + " API key saved locally on your device.";
-        keyStatus.style.color = "#4ade80";
-      } else {
-        keyStatus.textContent = "Enter your " + provName + " API key to enable direct " + (window.__SX_SCRIBE && "discussion" === window.__SX_SCRIBE.genre ? "discussion" : "story") + " generation.";
-        keyStatus.style.color = "#94a3b8";
-      }
-    }
+    core.updateKeyUI(keyStatus, getActiveProvider(), hasKey, scribeTargetNoun);
   }
 
-  if (providerSelect) {
-    providerSelect.addEventListener("change", function() {
-      loadSavedKey();
-    });
+  var keyCtx = {
+    providerSelect: providerSelect,
+    keyInput: keyInput,
+    saveKeyBtn: saveKeyBtn,
+    clearKeyBtn: clearKeyBtn,
+    keyStatus: keyStatus,
+    getKeyLink: getKeyLink,
+    modelSelect: modelSelect,
+    emptyNoun: scribeTargetNoun,
+    modelOpts: scribeModelOpts
+  };
+
+  function loadSavedKey() {
+    core.loadSavedKey(keyCtx);
   }
 
-  if (saveKeyBtn) {
-    saveKeyBtn.addEventListener("click", function() {
-      var prov = getActiveProvider();
-      var val = (keyInput ? keyInput.value : "").trim();
-      if (!val) {
-        if (keyStatus) { keyStatus.textContent = "Please enter an API key first."; keyStatus.style.color = "#f87171"; }
-        return;
-      }
-      try {
-        localStorage.setItem(getStorageKey(prov), val);
-        updateKeyUI(true);
-        if (keyStatus) { keyStatus.textContent = "API key saved! Loading models…"; keyStatus.style.color = "#4ade80"; }
-        populateModelOptions(val, prov).then(function() {
-          if (keyStatus) { keyStatus.textContent = "API key verified & ready!"; keyStatus.style.color = "#4ade80"; }
-        });
-      } catch (err) {
-        if (keyStatus) { keyStatus.textContent = "Failed to save key to browser storage."; keyStatus.style.color = "#f87171"; }
-      }
-    });
-  }
-
-  if (clearKeyBtn) {
-    clearKeyBtn.addEventListener("click", function() {
-      var prov = getActiveProvider();
-      try {
-        localStorage.removeItem(getStorageKey(prov));
-      } catch (_) {}
-      if (keyInput) keyInput.value = "";
-      updateKeyUI(false);
-      populateModelOptions("", prov);
-      if (keyStatus) { keyStatus.textContent = "API key removed from this device."; keyStatus.style.color = "#94a3b8"; }
-    });
-  }
-
+  core.bindKeyControls(keyCtx);
   loadSavedKey();
 
   if (copyStoryBtn) {
@@ -276,17 +184,6 @@ __sxInit(function initScribeGeminiBYOK() {
     });
   }
 
-  // Token budget from the Scribe target length (2026-11-17): the model
-  // needs enough output tokens to actually reach the target, or it
-  // stops early at its own default. The target is read from the
-  // dialog inputs (the bundle's module state is not reachable from
-  // this file). A blank length on a YoBitch play-guide prompt means
-  // Token budget from the Scribe target length: the model needs generous
-  // output tokens to actually develop rich paragraphs and reach the full target,
-  // without being cut short mid-sentence by an artificially tight token ceiling.
-  // The target is read from dialog inputs. Blank length defaults to 5 paragraphs.
-  // Words convert at ~1.35 tokens per word; floored at 8192 tokens so the model
-  // never gets starved of completion headroom, capped at 32768.
   function scribeTokenBudget(promptText) {
     var wordsPerUnit = { words: 1, paragraphs: 150, pages: 500, chapters: 2500, minutes: 160 };
     var unit = "paragraphs", val = 5, blank = true;
@@ -324,19 +221,16 @@ __sxInit(function initScribeGeminiBYOK() {
       }
 
       var prov = getActiveProvider();
-      var apiKey = (keyInput ? keyInput.value : "").trim();
-      if (!apiKey) {
-        try { apiKey = localStorage.getItem(getStorageKey(prov)) || ""; } catch (_) {}
-      }
+      var apiKey = core.getStoredOrInputKey(keyInput, prov);
       if (!apiKey) {
         alert("Please enter and save your " + (prov === "grok" ? "xAI Grok" : prov === "openai" ? "OpenAI" : "Gemini") + " API key to generate " + (window.__SX_SCRIBE && "discussion" === window.__SX_SCRIBE.genre ? "discussions" : "stories") + " directly with AI.");
         if (keyInput) keyInput.focus();
         return;
       }
 
-      var modelSelect = document.getElementById("scribeGeminiModel");
+      var modelSelectEl = document.getElementById("scribeGeminiModel");
       var modelInput = document.getElementById("scribeGeminiModelInput");
-      var model = (modelSelect ? modelSelect.value : "") || (modelInput ? modelInput.value.trim() : "") || (prov === "grok" ? "grok-2" : prov === "openai" ? "gpt-4o" : "gemini-flash-latest");
+      var model = (modelSelectEl ? modelSelectEl.value : "") || (modelInput ? modelInput.value.trim() : "") || (prov === "grok" ? "grok-2" : prov === "openai" ? "gpt-4o" : "gemini-flash-latest");
 
       if (storyContainer) storyContainer.hidden = false;
       if (storyText) storyText.value = "";
@@ -348,30 +242,9 @@ __sxInit(function initScribeGeminiBYOK() {
         storyContainer.scrollIntoView({ behavior: "smooth", block: "nearest" });
       } catch (_) {}
 
-      // Stopwatch Busy Indicator
-      var stopwatchStart = Date.now();
-      var stopwatchTimer = null;
-      var swEl = document.getElementById("scribeStopwatch");
-      var swTime = document.getElementById("scribeStopwatchTime");
-      if (!swEl && storyStatus && storyStatus.parentNode) {
-        swEl = document.createElement("span");
-        swEl.id = "scribeStopwatch";
-        swEl.style.cssText = "display:inline-flex;align-items:center;gap:4px;font-family:monospace;font-size:12px;font-weight:700;color:#facc15;background:rgba(15,23,42,0.85);padding:2px 8px;border-radius:4px;border:1px solid rgba(250,204,21,0.4);margin-left:8px;";
-        swEl.innerHTML = '⏱️ <span id="scribeStopwatchTime">00:00</span>';
-        storyStatus.parentNode.insertBefore(swEl, storyStatus.nextSibling);
-        swTime = document.getElementById("scribeStopwatchTime");
-      }
-      if (swEl) swEl.style.display = "inline-flex";
-      stopwatchTimer = setInterval(function() {
-        var elapsedSec = Math.floor((Date.now() - stopwatchStart) / 1000);
-        var mm = String(Math.floor(elapsedSec / 60)).padStart(2, "0");
-        var ss = String(elapsedSec % 60).padStart(2, "0");
-        if (swTime) swTime.textContent = mm + ":" + ss;
-      }, 200);
-
+      var stopwatch = core.startStopwatch(storyStatus, "scribeStopwatch", "scribeStopwatchTime");
       activeAbortController = new AbortController();
 
-      // Ensure request has a realistic completion timeout (120 seconds for long creative writing)
       var fetchTimer = setTimeout(function() {
         if (activeAbortController) {
           activeAbortController.abort();
@@ -385,7 +258,6 @@ __sxInit(function initScribeGeminiBYOK() {
         : "You are an expert creative writer specializing in rich, consensual, descriptive adult fiction and Literotica-style narratives.";
 
       var scribeBudget = scribeTokenBudget(prompt);
-      var hitTokenLimit = false;
       var fullPrompt = prompt + (isDisc
         ? ("\n\nWrite the complete, comprehensive, and intellectually rigorous discussion now as plain text. Return ONLY plain text prose: do NOT generate code, Python scripts, ReportLab commands, or meta commentary." +
            "\n\nTarget length: approximately " + scribeBudget.text + " (around " + scribeBudget.words + " words total). Each paragraph must be rich, substantive, and fully developed across multiple sentences, thoroughly examining the principles, objections, and implications. Do not output brief or one-sentence paragraphs. Do not stop early: keep writing until the full target length is reached.")
@@ -393,15 +265,9 @@ __sxInit(function initScribeGeminiBYOK() {
            "\n\nTarget length: " + scribeBudget.text + ". Do not stop early: keep writing until the full target length is reached."));
 
       try {
-        var totalText = "";
-
-        // If auto-narrate is engaged on "▶ Play" and Gemini audio is selected, spin up live streaming narration
         if (autoNarrateAfterStoryGen) {
           var narrateEng = (narrateEngine ? narrateEngine.value : "gemini") || "gemini";
-          var gemKey = (keyInput ? keyInput.value : "").trim();
-          if (!gemKey) {
-            try { gemKey = localStorage.getItem(getStorageKey("gemini")) || ""; } catch (_) {}
-          }
+          var gemKey = core.getStoredOrInputKey(keyInput, "gemini");
           if (narrateEng === "gemini" && gemKey) {
             resetNarrationState();
             var chosenV = (geminiVoice ? geminiVoice.value : "Aoede") || "Aoede";
@@ -421,233 +287,42 @@ __sxInit(function initScribeGeminiBYOK() {
           }
         }
 
-        function onStreamChunk(chunk) {
-          if (!chunk) return;
-          totalText += chunk;
-          if (storyText) {
-            storyText.value = totalText;
-            storyText.scrollTop = storyText.scrollHeight;
+        var chunkHandler = core.createStreamChunkHandler({
+          textEl: storyText,
+          statusEl: storyStatus,
+          streamingPrefix: function() { return isDisc ? "Streaming discussion (" : "Streaming story ("; },
+          onChunk: function(chunk) {
+            if (liveNarrator) liveNarrator.feed(chunk);
           }
-          var wc = (totalText.trim().match(/\S+/g) || []).length;
-          if (storyStatus) {
-            storyStatus.textContent = (isDisc ? "Streaming discussion (" : "Streaming story (") + wc + " words)…";
-          }
-          if (liveNarrator) {
-            liveNarrator.feed(chunk);
-          }
-        }
+        });
 
-        if (prov === "grok" || prov === "openai") {
-          // Standard OpenAI-compatible Chat Completions API with streaming
-          var chatEndpoint = prov === "grok" ? "https://api.x.ai/v1/chat/completions" : "https://api.openai.com/v1/chat/completions";
-          console.log("[Scribe " + prov.toUpperCase() + "] Sending streaming request to:", chatEndpoint);
+        var result = await core.streamTextGeneration({
+          provider: prov,
+          apiKey: apiKey,
+          model: model,
+          systemPrompt: systemPrompt,
+          fullPrompt: fullPrompt,
+          temperature: 0.9,
+          maxTokens: scribeBudget.tokens,
+          useGeminiSystemInstruction: true,
+          signal: activeAbortController.signal,
+          statusEl: storyStatus,
+          logPrefix: "Scribe",
+          writingPrefix: isDisc ? "Writing discussion with " : "Writing story with ",
+          emptyErrorMsg: "Failed to generate story across available models.",
+          onStreamChunk: chunkHandler.onStreamChunk,
+          onClearTimeout: function() { clearTimeout(fetchTimer); }
+        });
 
-          if (storyStatus) storyStatus.textContent = (isDisc ? "Writing discussion with " : "Writing story with ") + prov.toUpperCase() + " (" + model + ")…";
-
-          var response = await fetch(chatEndpoint, {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-              "Authorization": "Bearer " + apiKey
-            },
-            body: JSON.stringify({
-              model: model,
-              messages: [
-                { role: "system", content: systemPrompt },
-                { role: "user", content: fullPrompt }
-              ],
-              temperature: 0.9,
-              max_tokens: Math.min(16384, scribeBudget.tokens),
-              stream: true
-            }),
-            signal: activeAbortController.signal
-          });
-
-          clearTimeout(fetchTimer);
-
-          if (!response.ok) {
-            var errJson = null;
-            try { errJson = await response.json(); } catch (_) {}
-            var errMsg = errJson && errJson.error && errJson.error.message ? errJson.error.message : ("HTTP " + response.status);
-            throw new Error(errMsg);
-          }
-
-          if (response.body && response.body.getReader) {
-            var reader = response.body.getReader();
-            var decoder = new TextDecoder();
-            var sseBuf = "";
-            for (;;) {
-              var step = await reader.read();
-              if (step.done) break;
-              sseBuf += decoder.decode(step.value, { stream: true });
-              var lines = sseBuf.split("\n");
-              sseBuf = lines.pop();
-              for (var i = 0; i < lines.length; i++) {
-                var l = lines[i].trim();
-                if (l.indexOf("data: ") === 0) {
-                  var dataStr = l.slice(6).trim();
-                  if (dataStr === "[DONE]") break;
-                  try {
-                    var parsed = JSON.parse(dataStr);
-                    var delta = parsed && parsed.choices && parsed.choices[0] && parsed.choices[0].delta && parsed.choices[0].delta.content;
-                    if (delta) onStreamChunk(delta);
-                    var grokFr = parsed && parsed.choices && parsed.choices[0] && parsed.choices[0].finish_reason;
-                    if (grokFr === "length") {
-                      hitTokenLimit = true;
-                      if (storyStatus) storyStatus.textContent = "Stopped at the token budget — the output was cut short at the length limit.";
-                    }
-                  } catch (_) {}
-                }
-              }
-            }
-          } else {
-            var fallbackJson = await response.json();
-            if (fallbackJson.choices && fallbackJson.choices[0] && fallbackJson.choices[0].message) {
-              totalText = fallbackJson.choices[0].message.content || "";
-            }
-            if (fallbackJson.choices && fallbackJson.choices[0] && fallbackJson.choices[0].finish_reason === "length") hitTokenLimit = true;
-          }
-        } else {
-          // Google Gemini API with SSE streaming & fallback cascade
-          var payload = {
-            systemInstruction: {
-              parts: [{ text: systemPrompt }]
-            },
-            contents: [
-              {
-                role: "user",
-                parts: [{ text: fullPrompt }]
-              }
-            ],
-            safetySettings: [
-              { category: "HARM_CATEGORY_SEXUALLY_EXPLICIT", threshold: "BLOCK_NONE" },
-              { category: "HARM_CATEGORY_HARASSMENT", threshold: "BLOCK_NONE" },
-              { category: "HARM_CATEGORY_HATE_SPEECH", threshold: "BLOCK_NONE" },
-              { category: "HARM_CATEGORY_DANGEROUS_CONTENT", threshold: "BLOCK_NONE" }
-            ],
-            generationConfig: {
-              temperature: 0.9,
-              topP: 0.95,
-              maxOutputTokens: Math.min(8192, scribeBudget.tokens)
-            }
-          };
-
-          var effectiveModel = model;
-          if (!effectiveModel || effectiveModel === "gemini-2.0-flash" || effectiveModel === "gemini-flash-latest") {
-            effectiveModel = "gemini-3.8-flash";
-          }
-          var fallbackModels = [effectiveModel, "gemini-3.8-flash", "gemini-2.5-flash", "gemini-pro-latest", "gemini-flash-latest"];
-          fallbackModels = fallbackModels.filter(function(item, pos) { return fallbackModels.indexOf(item) === pos; });
-
-          var streamedSuccessfully = false;
-          var lastErrorMsg = "";
-
-          for (var mIdx = 0; mIdx < fallbackModels.length; mIdx++) {
-            var currentAttemptModel = fallbackModels[mIdx];
-            var streamEndpoint = "https://generativelanguage.googleapis.com/v1beta/models/" + encodeURIComponent(currentAttemptModel) + ":streamGenerateContent?alt=sse&key=" + encodeURIComponent(apiKey);
-            console.log("[Scribe Gemini BYOK] Attempting (" + (mIdx + 1) + "/" + fallbackModels.length + ") streaming with model:", currentAttemptModel);
-
-            if (storyStatus) {
-              storyStatus.textContent = "Connecting stream to " + currentAttemptModel + "…";
-            }
-
-            try {
-              var response = await fetch(streamEndpoint, {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(payload),
-                signal: activeAbortController.signal
-              });
-
-              console.log("[Scribe Gemini BYOK] Response status for " + currentAttemptModel + ":", response.status);
-
-              if (!response.ok) {
-                var responseText = await response.text();
-                var parsed = null;
-                try { parsed = JSON.parse(responseText); } catch (_) {}
-                var errMsg = parsed && parsed.error && parsed.error.message ? parsed.error.message : ("HTTP " + response.status);
-                lastErrorMsg = errMsg;
-
-                if ((response.status === 503 || response.status === 404) && mIdx < fallbackModels.length - 1) {
-                  console.warn("[Scribe Gemini BYOK] Model " + currentAttemptModel + " unavailable (" + response.status + "). Retrying with " + fallbackModels[mIdx + 1] + "…");
-                  continue;
-                }
-                throw new Error(errMsg);
-              }
-
-              clearTimeout(fetchTimer);
-
-              if (response.body && response.body.getReader) {
-                var reader = response.body.getReader();
-                var decoder = new TextDecoder();
-                var sseBuf = "";
-                for (;;) {
-                  var step = await reader.read();
-                  if (step.done) break;
-                  sseBuf += decoder.decode(step.value, { stream: true });
-                  var lines = sseBuf.split("\n");
-                  sseBuf = lines.pop();
-                  for (var i = 0; i < lines.length; i++) {
-                    var l = lines[i].trim();
-                    if (l.indexOf("data: ") === 0) {
-                      var dataStr = l.slice(6).trim();
-                      if (dataStr === "[DONE]") break;
-                      try {
-                        var chunkJson = JSON.parse(dataStr);
-                        if (chunkJson.candidates && chunkJson.candidates[0] && chunkJson.candidates[0].content && chunkJson.candidates[0].content.parts) {
-                          var partText = chunkJson.candidates[0].content.parts.map(function(p) { return p.text || ""; }).join("");
-                          if (partText) onStreamChunk(partText);
-                        }
-                        if (chunkJson.candidates && chunkJson.candidates[0] && chunkJson.candidates[0].finishReason === "SAFETY") {
-                          if (storyStatus) storyStatus.textContent = "Generation halted: triggered safety filter.";
-                        }
-                        if (chunkJson.candidates && chunkJson.candidates[0] && chunkJson.candidates[0].finishReason === "MAX_TOKENS") {
-                          hitTokenLimit = true;
-                          if (storyStatus) storyStatus.textContent = "Stopped at the token budget — the output was cut short at the length limit.";
-                        }
-                      } catch (_) {}
-                    }
-                  }
-                }
-                streamedSuccessfully = true;
-                break;
-              } else {
-                var resText = await response.text();
-                var fullJson = JSON.parse(resText);
-                if (fullJson.candidates && fullJson.candidates[0] && fullJson.candidates[0].content && fullJson.candidates[0].content.parts) {
-                  totalText = fullJson.candidates[0].content.parts.map(function(p) { return p.text || ""; }).join("");
-                }
-                if (fullJson.candidates && fullJson.candidates[0] && fullJson.candidates[0].finishReason === "MAX_TOKENS") hitTokenLimit = true;
-                streamedSuccessfully = true;
-                break;
-              }
-            } catch (attemptErr) {
-              if (attemptErr.name === "AbortError") throw attemptErr;
-              if (mIdx < fallbackModels.length - 1) {
-                console.warn("[Scribe Gemini BYOK] Attempt failed: " + attemptErr.message + ". Trying fallback model…");
-                continue;
-              }
-              throw attemptErr;
-            }
-          }
-
-          clearTimeout(fetchTimer);
-          if (!streamedSuccessfully && !totalText) {
-            throw new Error(lastErrorMsg || "Failed to generate story across available models.");
-          }
-        }
+        var totalText = chunkHandler.state.totalText || result.totalText || "";
+        var hitTokenLimit = result.hitTokenLimit;
 
         if (storyText && !storyText.value) {
           storyText.value = totalText;
           storyText.scrollTop = storyText.scrollHeight;
         }
 
-        if (stopwatchTimer) { clearInterval(stopwatchTimer); stopwatchTimer = null; }
-        var finalElapsedSec = Math.floor((Date.now() - stopwatchStart) / 1000);
-        var fMm = String(Math.floor(finalElapsedSec / 60)).padStart(2, "0");
-        var fSs = String(finalElapsedSec % 60).padStart(2, "0");
-        if (swTime) swTime.textContent = fMm + ":" + fSs;
-
+        var finalElapsedSec = stopwatch.stop();
         var wordCount = (totalText.trim().match(/\S+/g) || []).length;
         if (storyStatus) {
           storyStatus.textContent = "Complete! (" + wordCount + " words in " + finalElapsedSec + "s via " + (prov === "grok" ? "xAI Grok" : prov === "openai" ? "OpenAI" : "Gemini") + ")" + (hitTokenLimit ? " — stopped at the token budget; the output was cut short. Raise the target length or regenerate for the full length." : "");
@@ -660,7 +335,6 @@ __sxInit(function initScribeGeminiBYOK() {
 
         if (autoNarrateAfterStoryGen) {
           autoNarrateAfterStoryGen = false;
-          // If live narration was already started, let it finish naturally; otherwise trigger startNarrateBtn
           if (!narratePlaybackMode && startNarrateBtn) {
             setTimeout(function() {
               startNarrateBtn.click();
@@ -673,7 +347,7 @@ __sxInit(function initScribeGeminiBYOK() {
           liveNarrator = null;
         }
         autoNarrateAfterStoryGen = false;
-        if (stopwatchTimer) { clearInterval(stopwatchTimer); stopwatchTimer = null; }
+        stopwatch.stop();
         if (err.name === "AbortError") {
           if (storyStatus) storyStatus.textContent = "Generation stopped by user.";
         } else {
@@ -681,7 +355,7 @@ __sxInit(function initScribeGeminiBYOK() {
           if (storyStatus) storyStatus.textContent = "Error: " + err.message;
         }
       } finally {
-        if (stopwatchTimer) { clearInterval(stopwatchTimer); stopwatchTimer = null; }
+        stopwatch.stop();
         if (genStoryBtn) genStoryBtn.disabled = false;
         if (stopStoryBtn) stopStoryBtn.hidden = true;
         activeAbortController = null;
