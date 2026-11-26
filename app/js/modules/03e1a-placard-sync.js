@@ -955,12 +955,13 @@
                 give.value = rec.giveKnown ? rec.give : 0;
                 giveOut && (giveOut.textContent = rec.giveKnown ? String(Math.round(rec.give)) : "Unrated");
             } else if (widget === "trilinear-line") {
-                // 3-Pole LINE Triad: one scalar on a single track; the middle pole
-                // sits at 0. Stored under the single key "line" (bind writes via
-                // shape.keys[0]); derived weights: middle = 1 - |V|/100.
+                // 3-Pole LINE: the middle pole sits at 0. On a dual skin
+                // the give track is the advocacy position and the receive
+                // track is the receptivity position. A classic line keeps
+                // the one scalar under "line".
                 setOnlyWrap(linearRatings);
                 linearRatings && linearRatings.classList.add("is-trilinear");
-                recvRow && (recvRow.hidden = !0);
+                const dualLine = typeof sxDualPlacements === "function" && sxDualPlacements(id);
                 role3Row && (role3Row.hidden = !0);
                 role4Row && (role4Row.hidden = !0);
                 role5Row && (role5Row.hidden = !0);
@@ -982,8 +983,22 @@
                     });
                     giveLabel.appendChild(poleBox);
                 }
-                give.value = rec.lineKnown ? rec.line : 0;
-                giveOut && (giveOut.textContent = rec.lineKnown ? String(Math.round(rec.line)) : "Unrated");
+                if (dualLine) {
+                    const advKnown = Boolean(rec.advocacy && Number.isFinite(Number(rec.advocacy.line)));
+                    const recKnown = Boolean(rec.receptivity && Number.isFinite(Number(rec.receptivity.line)));
+                    const advVal = advKnown ? Number(rec.advocacy.line) : 0;
+                    const recVal = recKnown ? Number(rec.receptivity.line) : 0;
+                    recvRow && (recvRow.hidden = !1);
+                    recvLabel && (recvLabel.textContent = "Receptivity");
+                    give.value = advVal;
+                    if (recv) recv.value = recVal;
+                    giveOut && (giveOut.textContent = advKnown ? String(Math.round(advVal)) : "Unrated");
+                    recvOut && (recvOut.textContent = recKnown ? String(Math.round(recVal)) : "Unrated");
+                } else {
+                    recvRow && (recvRow.hidden = !0);
+                    give.value = rec.lineKnown ? rec.line : 0;
+                    giveOut && (giveOut.textContent = rec.lineKnown ? String(Math.round(rec.line)) : "Unrated");
+                }
             } else {
                 // 2-Pole Interactive Topic: Directly render designated rating widget (2D Switchbox vs Linear Sliders)
                 if (shape.widget === "linear-sliders") {

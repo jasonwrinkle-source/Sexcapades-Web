@@ -48,13 +48,30 @@
             // on such a row).
             if (e.__sxCrossPair) { e.__sxCrossPair.first.render(); e.__sxCrossPair.second.render(); }
             e.querySelectorAll("[data-outline-direction]").forEach(e => {
-                const t = e.dataset.outlineDirection;
+                const t = e.dataset.outlineDirection, place = e.dataset.placement;
+                let known, val, app;
+                if (place === "receptivity") {
+                    const bag = i.receptivity;
+                    known = Boolean(bag && Number.isFinite(Number(bag[t])));
+                    val = known ? Number(bag[t]) : 0;
+                    app = i.receptivityIntensityKnown ? i.receptivityIntensity : val;
+                } else if (place === "advocacy") {
+                    const bag = i.advocacy;
+                    known = Boolean(bag && Number.isFinite(Number(bag[t])));
+                    val = known ? Number(bag[t]) : (i[t + "Known"] ? Number(i[t]) : 0);
+                    if (!known && i[t + "Known"]) known = !0;
+                    app = i.advocacyIntensityKnown ? i.advocacyIntensity : sxOutlineDirAppetite(i, t, val);
+                } else {
+                    known = Boolean(i[t + "Known"]);
+                    val = i[t];
+                    app = sxOutlineDirAppetite(i, t, val);
+                }
                 !function(e, t, n, app) {
-                    const i = Math.max(-100, Math.min(100, Number(n) || 0)), a = __sxClosestAction(e, "outlineRating").querySelector("output");
+                    const i = Math.max(-100, Math.min(100, Number(n) || 0)), host = e.parentElement, a = (host && host.querySelector(":scope > output")) || __sxClosestAction(e, "outlineRating").querySelector("output");
                     e.value = String(Math.round(i)), e.classList.toggle("is-unrated", !t), e.style.setProperty("--outline-thumb", t ? sxInterestColor(app) : "#646d66"), 
-                    e.setAttribute("aria-valuetext", t ? `${Math.round(i)}` : "Unrated"), a.textContent = t ? String(Math.round(i)) : "—", 
-                    a.classList.toggle("is-unrated", !t);
-                }(e, Boolean(i[t + "Known"]), i[t], sxOutlineDirAppetite(i, t, i[t]));
+                    e.setAttribute("aria-valuetext", t ? `${Math.round(i)}` : "Unrated");
+                    if (a) a.textContent = t ? String(Math.round(i)) : "—", a.classList.toggle("is-unrated", !t);
+                }(e, known, val, app);
             }), e.querySelectorAll("[data-outline-mark]").forEach(e => e.setAttribute("aria-pressed", String(e.dataset.outlineMark === a))), 
             e.querySelector('[data-outline-flag="fantasy"]')?.setAttribute("aria-pressed", String(Boolean(Je[n]?.[t]))), 
             e.querySelector('[data-outline-flag="tried"]')?.setAttribute("aria-pressed", String(Boolean(et[n]?.[t])));

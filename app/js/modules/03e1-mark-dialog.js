@@ -109,7 +109,7 @@
             try { dual = typeof sxDualPlacements === "function" && sxDualPlacements(id); } catch (err) { dual = false; }
             // Flat-line records (scalar "line", no placements) keep today's
             // behavior; the box serves dual-placement records only.
-            if (w === "trilinear-line" && !(rec && (rec.advocacy || rec.receptivity))) dual = false;
+
             if (linBox) linBox.hidden = !(inLinear && dual);
             if (swBox) swBox.hidden = !(inSwitch && dual);
             if ((!inLinear && !inSwitch) || !dual) return;
@@ -171,15 +171,15 @@
             give.addEventListener("input", () => show(give, giveOut, !0));
             give.addEventListener("change", () => {
                 if (Qr) {
-                    const k = getKey(0, "give");
-                    sxStoreFlankRating(Qr, k, Number(give.value), !0);
+                    if (sxIsTrilinearDual(Qr)) sxCommitLinePlacement(Qr, "advocacy", Number(give.value), sxActiveProfileId(), !0);
+                    else sxStoreFlankRating(Qr, getKey(0, "give"), Number(give.value), !0);
                     sxSyncMarkRatings(Qr);
                 }
             });
             e.byId("markGiveClear") && e.byId("markGiveClear").addEventListener("click", () => {
                 if (Qr) {
-                    const k = getKey(0, "give");
-                    sxClearTopicRating(Qr, k, !0);
+                    if (sxIsTrilinearDual(Qr)) sxCommitLinePlacement(Qr, "advocacy", NaN, sxActiveProfileId(), !0);
+                    else sxClearTopicRating(Qr, getKey(0, "give"), !0);
                     sxSyncMarkRatings(Qr);
                 }
             });
@@ -187,15 +187,15 @@
                 recv.addEventListener("input", () => show(recv, recvOut, !0));
                 recv.addEventListener("change", () => {
                     if (Qr) {
-                        const k = getKey(1, "receive");
-                        sxStoreFlankRating(Qr, k, Number(recv.value), !0);
+                        if (sxIsTrilinearDual(Qr)) sxCommitLinePlacement(Qr, "receptivity", Number(recv.value), sxActiveProfileId(), !0);
+                        else sxStoreFlankRating(Qr, getKey(1, "receive"), Number(recv.value), !0);
                         sxSyncMarkRatings(Qr);
                     }
                 });
                 e.byId("markReceiveClear") && e.byId("markReceiveClear").addEventListener("click", () => {
                     if (Qr) {
-                        const k = getKey(1, "receive");
-                        sxClearTopicRating(Qr, k, !0);
+                        if (sxIsTrilinearDual(Qr)) sxCommitLinePlacement(Qr, "receptivity", NaN, sxActiveProfileId(), !0);
+                        else sxClearTopicRating(Qr, getKey(1, "receive"), !0);
                         sxSyncMarkRatings(Qr);
                     }
                 });
@@ -650,8 +650,40 @@
             const m = sxClampUnit(g);
             return 200 * (m <= .16 ? 0 : m >= .84 ? 1 : (m - .16) / .68) - 100;
         }
+        function sxIsTrilinearDual(id) {
+            if (!id || typeof sxDualPlacements !== "function" || !sxDualPlacements(id)) return false;
+            const shape = typeof sxWidgetConfig === "function" ? sxWidgetConfig(id) : null;
+            return Boolean(shape && shape.widget === "trilinear-line");
+        }
+        // One rail, two positions. NaN clears that placement. A number
+        // writes {line} on advocacy or receptivity and keeps the
+        // placement's intensity (seeded from the line the first time).
+        function sxCommitLinePlacement(id, place, value, profileId, paint) {
+            if (place !== "advocacy" && place !== "receptivity") return false;
+            const pid = profileId || (typeof sxActiveProfileId === "function" ? sxActiveProfileId() : null);
+            if (Number.isNaN(value)) {
+                if (typeof sxClearAdvocacyReceptivity === "function") sxClearAdvocacyReceptivity(id, place, pid);
+                if (paint) sxRequestMapPaint();
+                return true;
+            }
+            if (value === null || !Number.isFinite(Number(value))) return true;
+            const rec = typeof sxDecodeTopicStance === "function" ? sxDecodeTopicStance(id, pid) : null;
+            const knownKey = place === "receptivity" ? "receptivityIntensityKnown" : "advocacyIntensityKnown";
+            const intKey = place === "receptivity" ? "receptivityIntensity" : "advocacyIntensity";
+            let intensity = rec && rec[knownKey] ? rec[intKey] : null;
+            if (intensity == null) intensity = Math.max(40, Math.abs(Math.round(Number(value))));
+            if (typeof sxPersistAdvocacyReceptivity === "function") sxPersistAdvocacyReceptivity(id, place, { line: Math.round(Number(value)) }, intensity, pid);
+            if (paint) sxRequestMapPaint();
+            return true;
+        }
+        function sxCommitRailValue(el, id, direction, value) {
+            const place = el && el.dataset.placement;
+            if (place === "advocacy" || place === "receptivity") return void sxCommitLinePlacement(id, place, value, null, !1);
+            if (Number.isNaN(value)) sxClearTopicRating(id, direction, !1);
+            else if (value !== null) sxStoreFlankRating(id, direction, value, !1);
+        }
         function sxPreviewSpokeThumb(e, t) {
-            const n = e.dataset.id, i = e.dataset.direction, a = __sxClosestAction(e, "nodeGroup"), r = Number.isNaN(t);
+            const n = e.dataset.id, i = e.dataset.direction, place = e.dataset.placement || "", a = __sxClosestAction(e, "nodeGroup"), r = Number.isNaN(t);
             if (a) {
                 const t = __sxClosestAction(e, "directionControl");
                 t && (t.classList.add("active-rating"), t.classList.toggle("is-clear-preview", r), 
@@ -659,19 +691,31 @@
             }
             const o = a && a.querySelector(`.visual-rail[data-id="${n}"][data-direction="${i}"]`);
             if (o && o.classList.add("active-rating"), null === t || r) {
-                const e = sxRatingRecord(n, sxActiveProfileId());
-                t = e[i + "Known"] ? e[i] : 0;
+                const rec = sxRatingRecord(n, sxActiveProfileId());
+                const bag = place === "receptivity" ? rec.receptivity : place === "advocacy" ? rec.advocacy : null;
+                if (bag && Number.isFinite(Number(bag[i]))) t = Number(bag[i]);
+                else t = rec[i + "Known"] ? rec[i] : 0;
             }
             const s = Math.max(-100, Math.min(100, Number(t))), l = (s + 100) / 200, c = Number(e.dataset.x0), d = Number(e.dataset.y0), u = Number(e.dataset.x1), p = Number(e.dataset.y1), h = Number(e.dataset.nx), g = Number(e.dataset.ny), m = Number(e.dataset.offset);
-            let f = a && a.querySelector(`.slider-thumb[data-id="${n}"][data-direction="${i}"]`);
+            const thumbSel = place ? `.slider-thumb[data-id="${n}"][data-direction="${i}"][data-placement="${place}"]` : `.slider-thumb[data-id="${n}"][data-direction="${i}"]`;
+            let f = a && a.querySelector(thumbSel);
             if (!f && a) {
-                f = document.createElementNS("http://www.w3.org/2000/svg", "circle"), f.setAttribute("class", "slider-thumb"), 
-                f.dataset.id = n, f.dataset.direction = i, f.setAttribute("r", "7");
+                f = document.createElementNS("http://www.w3.org/2000/svg", "circle"), f.setAttribute("class", place === "receptivity" ? "slider-thumb map-line-ring" : "slider-thumb"),
+                f.dataset.id = n, f.dataset.direction = i, place && (f.dataset.placement = place), f.setAttribute("r", place === "receptivity" ? "13" : "7");
+                if (place === "receptivity") f.setAttribute("fill", "none");
                 const t = __sxClosestAction(e, "directionControl");
                 (t || a).insertBefore(f, t ? e : null);
             }
-            f && (f.classList.add("active-rating"), f.setAttribute("cx", (c + (u - c) * l + h * m).toFixed(2)), 
-            f.setAttribute("cy", (d + (p - d) * l + g * m).toFixed(2)), f.setAttribute("fill", sxInterestColor(s)));
+            if (f) {
+                f.classList.add("active-rating");
+                f.setAttribute("cx", (c + (u - c) * l + h * m).toFixed(2));
+                f.setAttribute("cy", (d + (p - d) * l + g * m).toFixed(2));
+                if (place === "receptivity" || f.classList.contains("map-line-ring")) {
+                    f.setAttribute("fill", "none");
+                    f.setAttribute("stroke", sxInterestColor(s));
+                    r ? f.setAttribute("stroke-dasharray", "3 2.5") : f.removeAttribute("stroke-dasharray");
+                } else f.setAttribute("fill", sxInterestColor(s));
+            }
             const y = a && a.querySelector(`.direction-tag-bg[data-id="${n}"][data-direction="${i}"]`);
             return y && (y.setAttribute("fill", sxInterestColor(s)), y.setAttribute("opacity", "1")), e.setAttribute("aria-valuenow", String(s)), 
             e.setAttribute("aria-valuetext", r ? "Release to clear" : String(Math.round(s))), 

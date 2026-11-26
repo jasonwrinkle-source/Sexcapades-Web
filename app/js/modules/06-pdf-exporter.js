@@ -212,7 +212,7 @@
                     }, sxPreviewSpokeThumb(Ip.el, null));
                 }, 420));
             }
-            if (s && 1 === eh.size) {
+            if (s && !l && 1 === eh.size) {
                 const n = s.dataset.id || s.dataset.topicId || s.dataset.spokeFor || s.closest?.(".node-group")?.dataset.layoutKey || __sxClosestAction(s, "nodeGroup")?.dataset.layoutKey;
                 e.preventDefault(), e.stopPropagation(), sxCaptureSvgPointer(e.pointerId);
                 const i = Cn.createSVGPoint();

@@ -110,18 +110,17 @@
                 }
                 return { offset, anchor, textLengthAttr, effectiveW };
             },
-            // CENTRED LABEL (2026-11-25): the branch (category) name is a
-            // plain <text>, not a textPath, so its centre is shifted
-            // instead. Its anchor point sits at (spokeLen - labelWidth +
-            // offsetE) from the spoke start; the text runs outward from
-            // the anchor on the right (text-anchor "start") and inward
-            // from it on the left (text-anchor "end"), so the centre is
-            // at that point +/- textW / 2. Returns the shift (along the
-            // spoke, positive outward) that puts the centre at the
-            // midpoint. The font size and underline length still come
-            // from offsetE unchanged — only the position moves.
+            // The category name is a plain <text>. On both halves the
+            // anchor is the hub-side end of the glyphs: the right half
+            // uses text-anchor start (flow outward), the left half adds
+            // 180° and text-anchor end so the glyphs still run outward
+            // from the anchor. The centre is therefore always
+            // anchor + textW/2 along the spoke. isReverse is unused;
+            // callers keep passing it. The settle pass reseats the
+            // name on the settled spoke midline and is the position
+            // the map actually shows.
             computeCategoryCentreShift(spokeLen, labelWidth, offsetE, textW, isReverse) {
-                const centreNow = (spokeLen - labelWidth + offsetE) + (isReverse ? -textW / 2 : textW / 2);
+                const centreNow = (spokeLen - labelWidth + offsetE) + textW / 2;
                 return spokeLen / 2 - centreNow;
             }
         };

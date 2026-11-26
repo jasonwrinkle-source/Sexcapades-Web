@@ -242,7 +242,7 @@
                 const availSpoke = s - ea.lineStartRadius - (sxIconRadius(1) || 48);
                 const maxE = Math.max(20, availSpoke - catTextW - catGap);
                 if (E > maxE) E = maxE;
-                const catUnderlineW = Math.min(Za.categoryUnderlineLength(i.name, A), Math.max(20, availSpoke - catGap - E));
+                const catUnderlineW = catTextW;
                 const C = sxActiveProfileId(), M = Rt ? null : Qe[C]?.[dCat], I = Rt ? null : null !== sxRollupCategoryFlank(i, C, "give") || null !== sxRollupCategoryFlank(i, C, "receive") || null !== sxRollupCategoryFlank(i, C, "advocacyIntensity") || null !== sxRollupCategoryFlank(i, C, "receptivityIntensity") || null !== sxRollupCategoryFlank(i, C, "givePlacementIntensity") || null !== sxRollupCategoryFlank(i, C, "receivePlacementIntensity") || null !== sxRollupCategoryFlank(i, C, "intensity") ? 1 : null, P = Ne.get(i.name) || sxBranchHanky(i), L = (O = I,
                 B = P, Rt ? "var(--green)" : "noCode" === B.key ? Ga.NO_CODE_COLOR : sxReadableHex(B.lineColor || B.color) || Ga.FALLBACK_COLOR), T = Rt ? null : sxRollupCategoryFlank(i, C, "give"), F = Rt ? null : sxRollupCategoryFlank(i, C, "receive"), N = Rt ? "var(--green)" : null === T ? "noCode" === P.key ? Ga.NO_CODE_COLOR : sxReadableHex(P.lineColor || P.color) : sxInterestColor(T), _ = Rt ? "var(--green)" : null === F ? "noCode" === P.key ? Ga.NO_CODE_COLOR : sxReadableHex(P.lineColor || P.color) : sxInterestColor(F), D = Rt || null !== I ? "" : "noCode" === P.key ? "gen1-hanky-line gen1-no-hanky-line no-hanky-code-line" : "gen1-hanky-line" + (P.mixed ? " mixed-hanky-code-line" : ""), R = Rt || null !== I || "noCode" !== P.key && !P.mixed ? "none" : "noCode" === P.key ? "5 7" : "18 12";
                 var O, B;
@@ -258,19 +258,15 @@
                 // leaning aggregate. Unstored falls through to the
                 // leaning aggregate, which is the appetite derivation.
                 const sxCatGI = Rt ? null : sxRollupCategoryFlank(i, C, "giveIntensity"), sxCatRI = Rt ? null : sxRollupCategoryFlank(i, C, "receiveIntensity");
-                // CENTRED LABEL (2026-11-25): shift the category name so
-                // its centre sits at the spoke's midpoint (half the
-                // spoke's length from the branch node to the category
-                // icon). The anchor point today is at (spokeLen -
-                // labelWidth + E), its centre at that point +/- the
-                // text half-width (plus on the right, minus on the left,
-                // where the text ends at the anchor). The shift moves
-                // the text, its risk mark and its underline together;
-                // the font size and underline length still come from E
-                // unchanged. (Math.cos(a) is the same test as the W
-                // below: the spoke runs at the branch angle a.)
-                const catSpokeLen = s - ea.lineStartRadius, catCentreShift = LabelRenderer.computeCategoryCentreShift(catSpokeLen, g.labelWidth, E, catTextW, Math.cos(a) < 0);
-                const j = g.labelStartX + g.ux * E + g.ux * catCentreShift, q = g.labelStartY + g.uy * E + g.uy * catCentreShift, H = Math.atan2(l.y - o.y, l.x - o.x), W = Math.cos(H) < 0, U = W ? -g.ux : g.ux, G = j + 0 * (W ? -g.uy : g.uy), K = q - 0 * U, z = 180 * (H + (W ? Math.PI : 0)) / Math.PI, V = W ? ' text-anchor="end"' : "", Y = sxIconDiameter(1), X = Y / 2, Z = Y / 24, Q = ge[i.name], J = sxPolarPoint(a, sxBranchSpokeLength(i)), ee = Q ? HubRenderer.renderIcon(dCat, Y, Q, sxTopicTooltipAttrs(dCat, sxNodeRegistry[dCat], C, { tapFirst: !0 }), sxCatDisc ? sxCatDisc.ring : sxCatHeat || Q.color, J.x, J.y, true, false, null, sxCatDisc) : "", te = k(dCat, M, !Rt && sxHasActiveProfileFlag(dCat, Je), !Rt && sxHasActiveProfileFlag(dCat, et), !Rt && Boolean(tt[C]?.[dCat]?.length), J, g.ux, g.uy), ne = j - 11 * g.ux, ie = q - 11 * g.uy, ae = i.risk ? `<text class="risk-mark" x="${ne.toFixed(2)}" y="${ie.toFixed(2)}" dy="-8" text-anchor="middle" transform="rotate(${z.toFixed(2)} ${ne.toFixed(2)} ${ie.toFixed(2)})" aria-hidden="true">*</text>` : "", re = r ? h.hidden : n.topics.length, oe = X + 20, se = HubRenderer.renderBadges(J.x, J.y, re, dCat, -g.ux, -g.uy, oe, true), le = r ? function(e, t, n, i, a, r) {
+                // Category name sits on the spoke midline: the glyph
+                // centre is halfway from the ring (where the taper
+                // starts) to the icon's inner edge, on the ray through
+                // the icon. The anchor is the hub-side end of the
+                // glyphs on both halves, so it lies half a text-width
+                // inward of that centre. Settle reseats this after the
+                // icon moves.
+                const iconR1 = sxIconRadius(1) || 48, spokeInner = ea.spokeStartRadius, spokeOuter = Math.max(spokeInner + 48, s - iconR1), spokeMid = (spokeInner + spokeOuter) / 2, halfText = catTextW / 2, anchorR = Math.max(spokeInner, Math.min(spokeOuter - Math.min(catTextW, Math.max(8, spokeOuter - spokeInner)), spokeMid - halfText));
+                const j = pr.centerX + Math.cos(a) * anchorR, q = pr.centerY + Math.sin(a) * anchorR, H = Math.atan2(l.y - o.y, l.x - o.x), W = Math.cos(H) < 0, U = W ? -g.ux : g.ux, G = j, K = q, z = 180 * (H + (W ? Math.PI : 0)) / Math.PI, V = W ? ' text-anchor="end"' : "", Y = sxIconDiameter(1), X = Y / 2, Z = Y / 24, Q = ge[i.name], J = sxPolarPoint(a, sxBranchSpokeLength(i)), ee = Q ? HubRenderer.renderIcon(dCat, Y, Q, sxTopicTooltipAttrs(dCat, sxNodeRegistry[dCat], C, { tapFirst: !0 }), sxCatDisc ? sxCatDisc.ring : sxCatHeat || Q.color, J.x, J.y, true, false, null, sxCatDisc) : "", te = k(dCat, M, !Rt && sxHasActiveProfileFlag(dCat, Je), !Rt && sxHasActiveProfileFlag(dCat, et), !Rt && Boolean(tt[C]?.[dCat]?.length), J, g.ux, g.uy), ne = j - 11 * g.ux, ie = q - 11 * g.uy, ae = i.risk ? `<text class="risk-mark" x="${ne.toFixed(2)}" y="${ie.toFixed(2)}" dy="-8" text-anchor="middle" transform="rotate(${z.toFixed(2)} ${ne.toFixed(2)} ${ie.toFixed(2)})" aria-hidden="true">*</text>` : "", re = r ? h.hidden : n.topics.length, oe = X + 20, se = HubRenderer.renderBadges(J.x, J.y, re, dCat, -g.ux, -g.uy, oe, true), le = r ? function(e, t, n, i, a, r) {
                     if (!n) return "";
                     const o = `+${n} more`, s = Math.max(58, 7 * o.length + 16), l = i + s / 2 * Math.abs(a) + 12 * Math.abs(r), c = t + r * l;
                     return `<g class="hidden-count-badge density-count-badge" data-width="${s}" transform="translate(${(e + a * l - s / 2).toFixed(2)} ${(c - 12).toFixed(2)})" role="note" aria-label="${n} more ${1 === n ? "topic" : "topics"} hidden by hypermap density"><rect width="${s}" height="24" rx="7"/><text x="${(s / 2).toFixed(2)}" y="12" text-anchor="middle" dominant-baseline="middle">${o}</text></g>`;

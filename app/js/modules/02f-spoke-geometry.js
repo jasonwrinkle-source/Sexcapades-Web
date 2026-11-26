@@ -536,15 +536,50 @@
                 // Slider blow-up repair (2026-11-01): E (the rating rail's stroke-width) was 44 * mapFontScale() - unbounded and font-derived, so at the baked fontScale 40 the rail rendered 1760 screen px thick (non-scaling-stroke) and one inadvertently picked slider filled the viewport at high zoom-out. It is now the fixed 44 of the 44px spec at every font scale and zoom, matching the .rating-rail CSS rule. Track length (x = 320 * m, map units, camera-scaled) is unchanged.
                 // Slider size repair #2 (2026-11-01): E now comes from sxRailPx(m) - 14% of the track's delivered screen length at the current camera, capped at the same fixed 44 - so the attribute, the .rating-rail CSS variable, and the hit strokes all agree at every zoom instead of the fixed 44px thickness dwarfing the shrunken track at Full zoom-out.
                 f.forEach((n, i) => {
+                    let sxRingHit = "", sxDiscHit = "";
                     const o = w[n], s = o + 10 * m, d = C[i], u = l - p * d, f = c - h * d, v = u - a * x / 2, M = f - r * x / 2, I = u + a * x / 2, P = f + r * x / 2, L = `M ${v.toFixed(2)} ${M.toFixed(2)} L ${I.toFixed(2)} ${P.toFixed(2)}`, T = s / 2, F = `M ${(u - p * T).toFixed(2)} ${(f - h * T).toFixed(2)} L ${(u + p * T).toFixed(2)} ${(f + h * T).toFixed(2)}`, N = `grad-${A}-${n}`, _ = t[n + "Known"], R = _ ? t[n] : 0, O = (R + 100) / 200, B = Boolean(t[n + "Derived"]), j = Math.round(R), q = _ ? B ? `${j}, rolled up from ${t[n + "RatedChildren"]} of ${t.childCount} child topics` : String(j) : "Unrated", H = sxGiveReceiveNounText(e, n), W = sxClassicFlankText(e, n, S), U = Boolean(Nt && Nt.id === e && Nt.direction === n), G = U ? " active-rating" : "", K = `data-id="${e}" data-direction="${n}" data-x0="${v}" data-y0="${M}" data-x1="${I}" data-y1="${P}" data-nx="${a}" data-ny="${r}" data-offset="0"`, z = v + (I - v) * O, V = M + (P - M) * O, Y = $.single ? 1 : 0 === i ? -1 : 1, X = u + p * Y * (o / 2), Z = f + h * Y * (o / 2), Q = _ ? sxInterestColor(R) : Ga.FALLBACK_COLOR;
                     D += `<g class="direction-control${$.single ? " single-label-control" : ""}${G}" data-id="${e}" data-direction="${n}"${W ? ` data-rating-tooltip="${sxEscapeHtmlText(W)}"` : ""} data-derived="${B}" data-base-cx="${u}" data-base-cy="${f}" data-base-angle="${g}" data-index="${i}" data-tag-width="${o}" data-tag-height="${k}" data-control-scale="${m}" style="--sx-rail-px:${E.toFixed(1)}px;--sx-rail-hit-px:${Math.max(14, Math.min(44, E * 1.6)).toFixed(1)}px">`, 
                     D += `<defs><linearGradient id="${N}" gradientUnits="userSpaceOnUse" x1="${v}" y1="${M}" x2="${I}" y2="${P}"><stop offset="0" stop-color="var(--red-deep)"/><stop offset=".5" stop-color="var(--curious)"/><stop offset="1" stop-color="var(--green-deep)"/></linearGradient></defs>`, 
                     D += `<path class="visual-rail rating-rail${G}" data-id="${e}" data-direction="${n}" d="${L}" fill="none" stroke="url(#${N})" stroke-width="${E}" stroke-linecap="round" vector-effect="non-scaling-stroke"/>`, 
-                    (_ || U) && (D += `<circle class="slider-thumb${G}" data-id="${e}" data-direction="${n}" cx="${z.toFixed(2)}" cy="${V.toFixed(2)}" r="${10 * m}" fill="${sxInterestColor(R)}"/>`), 
-                    D += `<path class="rating-track-hit${G}" ${K} d="${L}"/>`;
+                    // Trilinear line: one rail, two pucks. The filled disc
+                    // is the advocacy position, the ring is receptivity.
+                    // A single-placement line keeps the one thumb.
+                    (n === "line" && typeof sxDualPlacements === "function" && sxDualPlacements(e)) ? (function() {
+                        const advObj = t.advocacy, recObj = t.receptivity;
+                        const advKnown = Boolean(advObj && (advObj.known || t.advocacyKnown) && Number.isFinite(Number(advObj.line)));
+                        const recKnown = Boolean(recObj && (recObj.known || t.receptivityKnown) && Number.isFinite(Number(recObj.line)));
+                        const advV = advKnown ? Number(advObj.line) : (_ ? R : 0);
+                        const recV = recKnown ? Number(recObj.line) : 0;
+                        const aT = (Math.max(-100, Math.min(100, advV)) + 100) / 200, rT = (Math.max(-100, Math.min(100, recV)) + 100) / 200;
+                        const ax = v + (I - v) * aT, ay = M + (P - M) * aT, rx = v + (I - v) * rT, ry = M + (P - M) * rT;
+                        const advCol = (advKnown || _) ? sxInterestColor(advV) : "rgba(255,255,255,0.55)";
+                        const recCol = recKnown ? sxInterestColor(recV) : "rgba(56,189,248,0.9)";
+                        D += `<circle class="slider-thumb map-line-disc${G}" data-id="${e}" data-direction="${n}" data-placement="advocacy" pointer-events="none" cx="${ax.toFixed(2)}" cy="${ay.toFixed(2)}" r="${8 * m}" fill="${advCol}" stroke="#0f172a" stroke-width="${1.4 * m}"/>`;
+                        D += `<circle class="slider-thumb map-line-ring${recKnown ? "" : " is-unrated"}${G}" data-id="${e}" data-direction="${n}" data-placement="receptivity" pointer-events="none" cx="${rx.toFixed(2)}" cy="${ry.toFixed(2)}" r="${13 * m}" fill="none" stroke="${recCol}" stroke-width="${3.2 * m}"${recKnown ? "" : ` stroke-dasharray="${3 * m} ${2.5 * m}"`}/>`;
+                        // Screen-sized grabs. A non-scaling stroke on these
+                        // circles does not hit-test where it is drawn, and
+                        // the tag's wide stroke sits on the spoke centre.
+                        // The disc is a filled 12px circle. The ring is a
+                        // filled band from 16px to 28px, so the two stay
+                        // grabbable when they share a position.
+                        let sxHitPer = 0.01;
+                        try {
+                            const sxCtm = In.getScreenCTM();
+                            if (sxCtm) sxHitPer = Math.hypot(sxCtm.a, sxCtm.b) || sxHitPer;
+                        } catch (sxHitErr) {}
+                        const sxPxToMap = px => px / (sxHitPer > 1e-6 ? sxHitPer : 0.01);
+                        const sxDiscR = sxPxToMap(12), sxRingIn = sxPxToMap(16), sxRingOut = sxPxToMap(28);
+                        const sxDonut = (cx0, cy0, outer, inner) => {
+                            const lap = rad => `M ${(cx0 - rad).toFixed(2)} ${cy0.toFixed(2)} a ${rad.toFixed(2)} ${rad.toFixed(2)} 0 1 0 ${(2 * rad).toFixed(2)} 0 a ${rad.toFixed(2)} ${rad.toFixed(2)} 0 1 0 ${(-2 * rad).toFixed(2)} 0`;
+                            return lap(outer) + lap(inner);
+                        };
+                        sxRingHit = `<path class="rating-track-hit map-line-ring-hit" data-id="${e}" data-direction="${n}" data-placement="receptivity" data-x0="${v}" data-y0="${M}" data-x1="${I}" data-y1="${P}" data-nx="${a}" data-ny="${r}" data-offset="0" fill="transparent" fill-rule="evenodd" stroke="none" d="${sxDonut(rx, ry, sxRingOut, sxRingIn)}"/>`;
+                        sxDiscHit = `<circle class="rating-track-hit map-line-disc-hit" data-id="${e}" data-direction="${n}" data-placement="advocacy" data-x0="${v}" data-y0="${M}" data-x1="${I}" data-y1="${P}" data-nx="${a}" data-ny="${r}" data-offset="0" cx="${ax.toFixed(2)}" cy="${ay.toFixed(2)}" r="${sxDiscR.toFixed(2)}" fill="transparent" stroke="none"/>`;
+                    })() : ((_ || U) && (D += `<circle class="slider-thumb${G}" data-id="${e}" data-direction="${n}" cx="${z.toFixed(2)}" cy="${V.toFixed(2)}" r="${10 * m}" fill="${sxInterestColor(R)}"/>`)),
+                    D += `<path class="rating-track-hit${G}" ${K}${sxRingHit ? ` data-placement="advocacy"` : ""} d="${L}"/>`;
                     const J = U ? `tabindex="0" role="button" aria-label="Clear ${sxEscapeHtmlText(`${sxRoleLabelText(e, n)}${H ? ` ${H}` : ""}`)} rating"` : 'tabindex="-1" aria-hidden="true"', ee = g + 90;
                     D += `<g class="rating-clear${G}" data-id="${e}" data-direction="${n}"><rect class="rating-clear-bg" x="${(X - 23 * (mapFontScale() * sxF / 3)).toFixed(2)}" y="${(Z - 10 * (mapFontScale() * sxF / 3)).toFixed(2)}" width="${46 * (mapFontScale() * sxF / 3)}" height="${20 * (mapFontScale() * sxF / 3)}" rx="5" transform="rotate(${ee.toFixed(2)} ${X.toFixed(2)} ${Z.toFixed(2)})"/><rect class="rating-clear-hit" data-id="${e}" data-direction="${n}" x="${(X - 28).toFixed(2)}" y="${(Z - 15).toFixed(2)}" width="56" height="30" rx="7" transform="rotate(${ee.toFixed(2)} ${X.toFixed(2)} ${Z.toFixed(2)})" ${J}/><text class="rating-clear-text" x="${X.toFixed(2)}" y="${Z.toFixed(2)}" text-anchor="middle" dominant-baseline="middle" transform="rotate(${ee.toFixed(2)} ${X.toFixed(2)} ${Z.toFixed(2)})">Clear</text></g>`, 
-                    D += `<path class="direction-hit" tabindex="0" role="slider" aria-valuemin="-100" aria-valuemax="100" aria-valuenow="${_ ? j : 0}" aria-valuetext="${q}" aria-label="${sxEscapeHtmlText(`${sxRoleLabelText(e, n)}${H ? `: ${H}` : ""}. ${q}. Tap to open its rating scale; drag, then release to choose.`)}" aria-expanded="${U}" ${K} d="${F}"/>`, 
+                    D += `<path class="direction-hit" tabindex="0" role="slider" aria-valuemin="-100" aria-valuemax="100" aria-valuenow="${_ ? j : 0}" aria-valuetext="${q}" aria-label="${sxEscapeHtmlText(`${sxRoleLabelText(e, n)}${H ? `: ${H}` : ""}. ${q}. Tap to open its rating scale; drag, then release to choose.`)}" aria-expanded="${U}" ${K}${sxRingHit ? ` data-placement="advocacy"` : ""} d="${F}"/>`,
                     $.single && (D += `<rect class="direction-tag-occluder" x="${(u - o / 2 - 3 * m).toFixed(2)}" y="${(f - k / 2 - 3 * m).toFixed(2)}" width="${(o + 6 * m).toFixed(2)}" height="${(k + 6 * m).toFixed(2)}" rx="${7 * m}" transform="rotate(${g.toFixed(2)} ${u.toFixed(2)} ${f.toFixed(2)})"/>`), 
                     D += `<rect class="direction-tag-bg" data-id="${e}" data-direction="${n}" x="${(u - o / 2).toFixed(2)}" y="${(f - k / 2).toFixed(2)}" width="${o}" height="${k}" rx="${5 * m}" transform="rotate(${g.toFixed(2)} ${u.toFixed(2)} ${f.toFixed(2)})" fill="${Q}" opacity="${_ ? 1 : .62}"/>`;
                     // TAG FILL (ruled 2026-11-02, Jason): the give/receive
@@ -556,7 +591,7 @@
                     // sideways squeeze and no shrink: the old textLength
                     // cap (spacingAndGlyphs) is gone.
                     const te = $.single ? y[i] : b ? "give" === n ? "G" : "R" : y[i], ne = k;
-                    D += `<text class="direction-tag" data-id="${e}" data-direction="${n}" x="${u.toFixed(2)}" y="${f.toFixed(2)}" text-anchor="middle" dominant-baseline="middle" transform="rotate(${g.toFixed(2)} ${u.toFixed(2)} ${f.toFixed(2)})" style="font-size:${ne}px">${sxEscapeHtmlText(te)}</text></g>`;
+                    D += `<text class="direction-tag" data-id="${e}" data-direction="${n}" x="${u.toFixed(2)}" y="${f.toFixed(2)}" text-anchor="middle" dominant-baseline="middle" transform="rotate(${g.toFixed(2)} ${u.toFixed(2)} ${f.toFixed(2)})" style="font-size:${ne}px">${sxEscapeHtmlText(te)}</text>${sxRingHit}${sxDiscHit}</g>`;
                 });
                 }
             }

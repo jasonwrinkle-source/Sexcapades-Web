@@ -22,7 +22,7 @@
             // appetite is written.
             if (!i && t.startY !== undefined && t.startApp !== undefined) {
                 var dy = e.clientY - t.startY;
-                if (!t.armShown && Math.abs(dy) > 10 && sxOutlineArmWritable(t.topicId, t.dir, Go)) {
+                if (!t.armShown && Math.abs(dy) > 10 && !t.input.dataset.placement && sxOutlineArmWritable(t.topicId, t.dir, Go)) {
                     t.armShown = true;
                     t.input.classList.add("is-arm-open");
                     sxOutlineArmShow(t);
@@ -50,8 +50,13 @@
             const t = zo, {input: n, clear: i} = t;
             if (zo = null, sxEndOutlineDrag(t), !Go) return;
             const previousRatedCount = Number(n.dataset.milestoneStartRated), a = getOutlineRow(n);
-            delete n.dataset.milestoneStartRated, i ? (sxOutlineClearDir(a.dataset.outlineId, n.dataset.outlineDirection, Go) || sxClearTopicRating(a.dataset.outlineId, n.dataset.outlineDirection, !1, Go)) : (sxOutlineWriteDir(a.dataset.outlineId, n.dataset.outlineDirection, Number(n.value), Go) || sxStoreFlankRating(a.dataset.outlineId, n.dataset.outlineDirection, Number(n.value), !0, Go)), 
-            t.armShown && !i && sxOutlineWriteAppetite(t.topicId, t.dir, t.app, Go),
+            delete n.dataset.milestoneStartRated;
+            const place = n.dataset.placement;
+            if (place === "advocacy" || place === "receptivity") sxCommitLinePlacement(a.dataset.outlineId, place, i ? NaN : Number(n.value), Go, !0);
+            else {
+                i ? (sxOutlineClearDir(a.dataset.outlineId, n.dataset.outlineDirection, Go) || sxClearTopicRating(a.dataset.outlineId, n.dataset.outlineDirection, !1, Go)) : (sxOutlineWriteDir(a.dataset.outlineId, n.dataset.outlineDirection, Number(n.value), Go) || sxStoreFlankRating(a.dataset.outlineId, n.dataset.outlineDirection, Number(n.value), !0, Go));
+                t.armShown && !i && sxOutlineWriteAppetite(t.topicId, t.dir, t.app, Go);
+            }
             sxSyncOutlineRow(a), sxRefreshHotListStatus(), sxIsOutlineRated(a.dataset.outlineId, Go) ? os.add(a.dataset.outlineId) : os.delete(a.dataset.outlineId), 
             checkMilestoneTransition(Go, previousRatedCount);
         }
@@ -292,8 +297,11 @@
             const n = __sxClosestAction(e.target, "outlineDirection");
             if (!n || !Go) return;
             const i = getOutlineRow(n).dataset.outlineId;
-            "milestoneStartRated" in n.dataset || (n.dataset.milestoneStartRated = String(sxOutlineRatedCounts(Go).rated)), 
-            sxOutlineWriteDir(i, n.dataset.outlineDirection, Number(n.value), Go) || sxStoreFlankRating(i, n.dataset.outlineDirection, Number(n.value), !1, Go), os.add(i), sxSyncOutlineRow(getOutlineRow(n)), 
+            "milestoneStartRated" in n.dataset || (n.dataset.milestoneStartRated = String(sxOutlineRatedCounts(Go).rated));
+            const place = n.dataset.placement;
+            if (place === "advocacy" || place === "receptivity") sxCommitLinePlacement(i, place, Number(n.value), Go, !1);
+            else sxOutlineWriteDir(i, n.dataset.outlineDirection, Number(n.value), Go) || sxStoreFlankRating(i, n.dataset.outlineDirection, Number(n.value), !1, Go);
+            os.add(i), sxSyncOutlineRow(getOutlineRow(n)),
             sxRefreshHotListStatus();
         }), Ro.addEventListener("change", e => {
             const t = __sxClosestAction(e.target, "outlineDirection");
@@ -325,7 +333,10 @@
             if (sxEnsureOutlineAudio(), "Delete" !== e.key && "Backspace" !== e.key) return;
             e.preventDefault();
             const n = getOutlineRow(t);
-            sxOutlineClearDir(n.dataset.outlineId, t.dataset.outlineDirection, Go) || sxClearTopicRating(n.dataset.outlineId, t.dataset.outlineDirection, !1, Go), sxIsOutlineRated(n.dataset.outlineId, Go) ? os.add(n.dataset.outlineId) : os.delete(n.dataset.outlineId), 
+            const place = t.dataset.placement;
+            if (place === "advocacy" || place === "receptivity") sxCommitLinePlacement(n.dataset.outlineId, place, NaN, Go, !0);
+            else sxOutlineClearDir(n.dataset.outlineId, t.dataset.outlineDirection, Go) || sxClearTopicRating(n.dataset.outlineId, t.dataset.outlineDirection, !1, Go);
+            sxIsOutlineRated(n.dataset.outlineId, Go) ? os.add(n.dataset.outlineId) : os.delete(n.dataset.outlineId),
             sxSyncOutlineRow(n), sxRefreshHotListStatus();
         }), Ro.addEventListener("pointerdown", e => {
             const t = __sxClosestAction(e.target, "outlineDirection");

@@ -41,7 +41,7 @@
             if (i.octad || i.heptad || i.hexad || i.pentad || i.tetrad || i.triangle || i.triple) {
                 const inline = document.createElement("div");
                 inline.className = "outline-inline-widget";
-                inline.innerHTML = '<canvas class="outline-inline-canvas" width="148" height="148" aria-label="Topic widget"></canvas><label class="outline-inline-intensity"><span>Intensity</span><input class="outline-inline-slider" type="range" min="-100" max="100" step="1" value="0" aria-label="Intensity"><output class="outline-inline-out">0</output></label><button class="outline-inline-clear" type="button">Clear</button><div class="outline-inline-readout mark-triangle-readout"></div>';
+                inline.innerHTML = '<canvas class="outline-inline-canvas" width="148" height="148" aria-label="Topic widget"></canvas><label class="outline-inline-intensity"><span>Intensity</span><input class="outline-inline-slider mark-thumb-disc" type="range" min="-100" max="100" step="1" value="0" aria-label="Advocacy intensity"><output class="outline-inline-out">0</output></label><label class="outline-inline-intensity outline-inline-rec" hidden=""><span>○ Rec</span><input class="outline-inline-slider outline-inline-rec-slider mark-thumb-ring" type="range" min="-100" max="100" step="1" value="0" aria-label="Receptivity intensity"><output class="outline-inline-rec-out">—</output></label><button class="outline-inline-clear" type="button">Clear</button><div class="outline-inline-readout mark-triangle-readout"></div>';
                 h.append(inline);
                 typeof window.sxOpenHotListWidgetPopup === "function" && window.sxOpenHotListWidgetPopup(e.id, t, inline);
             } else if (i.widget === "trilinear-line") {
@@ -82,8 +82,37 @@
                 c.type = "range", c.min = "-100", c.max = "100", c.step = "1", c.value = "0", c.dataset.outlineDirection = "line",
                 c.setAttribute("aria-label", sliderAria);
                 const d = document.createElement("output");
-                sliderRow.append(c, d);
-                r.append(poleBar, sliderRow), h.append(r);
+                const dualLine = typeof sxDualPlacements === "function" && sxDualPlacements(e.id);
+                if (dualLine) {
+                    c.dataset.placement = "advocacy";
+                    c.setAttribute("aria-label", `${e.label} advocacy: -100 ${triParts[0]}, 0 ${triParts[1]}, +100 ${triParts[2]}`);
+                    const advLab = document.createElement("span");
+                    advLab.className = "outline-trilinear-side";
+                    advLab.textContent = "Adv";
+                    sliderRow.append(advLab, c, d);
+                    const recRow = document.createElement("div");
+                    recRow.className = "outline-trilinear-slider-row";
+                    const recLab = document.createElement("span");
+                    recLab.className = "outline-trilinear-side";
+                    recLab.textContent = "Rec";
+                    const recIn = document.createElement("input");
+                    recIn.type = "range";
+                    recIn.min = "-100";
+                    recIn.max = "100";
+                    recIn.step = "1";
+                    recIn.value = "0";
+                    recIn.className = "is-rec-line";
+                    recIn.dataset.outlineDirection = "line";
+                    recIn.dataset.placement = "receptivity";
+                    recIn.setAttribute("aria-label", `${e.label} receptivity: -100 ${triParts[0]}, 0 ${triParts[1]}, +100 ${triParts[2]}`);
+                    const recOut = document.createElement("output");
+                    recRow.append(recLab, recIn, recOut);
+                    r.append(poleBar, sliderRow, recRow);
+                } else {
+                    sliderRow.append(c, d);
+                    r.append(poleBar, sliderRow);
+                }
+                h.append(r);
             } else if (!i.single && i.keys && i.keys.length === 2) {
                 // Pair topic: the placard's cross slider, in the row
                 // (owner ruling, 2026-11-25 — one widget in three

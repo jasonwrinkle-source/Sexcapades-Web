@@ -172,10 +172,10 @@
                 const t = Ip;
                 if (Ip = null, "pointerup" === e.type && t.dragged) {
                     const profileId = sxActiveProfileId(), previousRatedCount = sxOutlineRatedCounts(profileId).rated, n = sxPreviewSpokeThumb(t.el, sxRatingAlongRail(t.el, e.clientX, e.clientY, !0));
-                    Number.isNaN(n) ? (sxClearTopicRating(t.id, t.direction, !1), Nt = null, sxRequestMapPaint()) : null === n ? (Nt = {
+                    Number.isNaN(n) ? (sxCommitRailValue(t.el, t.id, t.direction, n), Nt = null, sxRequestMapPaint()) : null === n ? (Nt = {
                         id: t.id,
                         direction: t.direction
-                    }, sxRequestMapPaint()) : (sxStoreFlankRating(t.id, t.direction, n, !1), Nt = null, sxRequestMapPaint()), checkMilestoneTransition(profileId, previousRatedCount);
+                    }, sxRequestMapPaint()) : (sxCommitRailValue(t.el, t.id, t.direction, n), Nt = null, sxRequestMapPaint()), checkMilestoneTransition(profileId, previousRatedCount);
                 } else "pointerup" === e.type && t.longPressed, Nt = {
                     id: t.id,
                     direction: t.direction
@@ -189,9 +189,18 @@
             }
             if (Mp && Mp.pointerId === e.pointerId) {
                 const t = Mp;
-                if (Mp = null, "pointerup" === e.type) {
-                    const profileId = sxActiveProfileId(), previousRatedCount = sxOutlineRatedCounts(profileId).rated, n = sxPreviewSpokeThumb(t.el, sxRatingAlongRail(t.el, e.clientX, e.clientY));
-                    Number.isNaN(n) ? sxClearTopicRating(t.id, t.direction, !1) : null !== n && sxStoreFlankRating(t.id, t.direction, n, !1),
+                // A map drag longer than 10px is swallowed in the document
+                // capture phase (02o1) before this svg's pointerup listener
+                // runs. Pointer capture then ends, and lostpointercapture is
+                // the release that still reaches here. Commit on that too.
+                // A click still commits on pointerup and clears Mp first, so
+                // the capture-loss that follows does not write a second time.
+                if (Mp = null, "pointerup" === e.type || "lostpointercapture" === e.type) {
+                    const profileId = sxActiveProfileId(), previousRatedCount = sxOutlineRatedCounts(profileId).rated;
+                    let n;
+                    if ("lostpointercapture" === e.type && !e.clientX && !e.clientY && Number.isFinite(Number(t.value))) n = Number(t.value);
+                    else n = sxPreviewSpokeThumb(t.el, sxRatingAlongRail(t.el, e.clientX, e.clientY));
+                    Number.isNaN(n) ? sxCommitRailValue(t.el, t.id, t.direction, n) : null !== n && sxCommitRailValue(t.el, t.id, t.direction, n),
                     Nt = null, sxRequestMapPaint(), checkMilestoneTransition(profileId, previousRatedCount);
                 } else Nt = null, sxRequestMapPaint();
             }

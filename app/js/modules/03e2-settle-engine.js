@@ -447,8 +447,40 @@ function* sxRunNodeSettle(scCtx, blitSess) {
         // after this loop (see the re-anchoring helpers
         // above) - never shifted by a delta.
         if ($ && E) {
-            const anchorEnd = B - A - N, endAnchored = !d && "end" === c.getAttribute("text-anchor"), anchorS = anchorEnd - C;
-            if (!d && Math.abs(anchorS - S) > .5) {
+            const anchorEnd = B - A - N, anchorS = anchorEnd - C;
+            // First-generation names have no textPath. Seat the glyph
+            // centre on the settled spoke's midline: halfway from the
+            // ring, where the taper starts, to the icon's inner edge,
+            // on the ray from the map centre through the icon. The
+            // anchor is the hub-side end of the glyphs, so it lies
+            // half a text-width inward of that centre. This replaces
+            // the icon-edge seat, which parked the name on the icon.
+            if (k && !d) {
+                const ix = j.x, iy = j.y, sdx = ix - pr.centerX, sdy = iy - pr.centerY, sdist = Math.hypot(sdx, sdy) || 1, sux = sdx / sdist, suy = sdy / sdist;
+                const spokeInner = ea.spokeStartRadius || 0, spokeOuter = Math.max(spokeInner + 48, sdist - A), spokeMid = (spokeInner + spokeOuter) / 2, halfW = Math.min(C / 2, Math.max(4, (spokeOuter - spokeInner) / 2));
+                const midR = Math.max(spokeInner + halfW, Math.min(spokeOuter - halfW, spokeMid));
+                const ax = pr.centerX + sux * (midR - halfW), ay = pr.centerY + suy * (midR - halfW);
+                const cx0 = Number(c.getAttribute("x")), cy0 = Number(c.getAttribute("y"));
+                if (Number.isFinite(cx0) && Number.isFinite(cy0) && Math.hypot(ax - cx0, ay - cy0) > .5) {
+                    const dx = ax - cx0, dy = ay - cy0;
+                    c.setAttribute("x", ax.toFixed(2)), c.setAttribute("y", ay.toFixed(2));
+                    const trm = /rotate\((-?[\d.]+)[ ,]+(-?[\d.]+)[ ,]+(-?[\d.]+)\)/.exec(c.getAttribute("transform") || "");
+                    trm && c.setAttribute("transform", (c.getAttribute("transform") || "").replace(trm[0], `rotate(${trm[1]} ${ax.toFixed(2)} ${ay.toFixed(2)})`));
+                    if (M) {
+                        const mx1 = Number(M.getAttribute("x1")), my1 = Number(M.getAttribute("y1")), mx2 = Number(M.getAttribute("x2")), my2 = Number(M.getAttribute("y2"));
+                        Number.isFinite(mx1) && M.setAttribute("x1", (mx1 + dx).toFixed(2)), Number.isFinite(my1) && M.setAttribute("y1", (my1 + dy).toFixed(2)),
+                        Number.isFinite(mx2) && M.setAttribute("x2", (mx2 + dx).toFixed(2)), Number.isFinite(my2) && M.setAttribute("y2", (my2 + dy).toFixed(2));
+                    }
+                    const risk = l.querySelector(":scope > .risk-mark");
+                    if (risk) {
+                        const rx = Number(risk.getAttribute("x")), ry = Number(risk.getAttribute("y"));
+                        Number.isFinite(rx) && risk.setAttribute("x", (rx + dx).toFixed(2)), Number.isFinite(ry) && risk.setAttribute("y", (ry + dy).toFixed(2));
+                        const rtr = /rotate\((-?[\d.]+)[ ,]+(-?[\d.]+)[ ,]+(-?[\d.]+)\)/.exec(risk.getAttribute("transform") || "");
+                        rtr && risk.setAttribute("transform", (risk.getAttribute("transform") || "").replace(rtr[0], `rotate(${rtr[1]} ${(rx + dx).toFixed(2)} ${(ry + dy).toFixed(2)})`));
+                    }
+                }
+                P = { x: pr.centerX + sux * midR, y: pr.centerY + suy * midR }, l.dataset.labelX = P.x.toFixed(2), l.dataset.labelY = P.y.toFixed(2);
+            } else if (!d && Math.abs(anchorS - S) > .5) {
                 const oldPt = m(S).point, newPt = m(anchorS).point, dx = newPt.x - oldPt.x, dy = newPt.y - oldPt.y, cx0 = Number(c.getAttribute("x")), cy0 = Number(c.getAttribute("y"));
                 if (Number.isFinite(cx0) && Number.isFinite(cy0)) {
                     c.setAttribute("x", (cx0 + dx).toFixed(2)), c.setAttribute("y", (cy0 + dy).toFixed(2));

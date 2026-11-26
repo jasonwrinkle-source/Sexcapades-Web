@@ -2071,10 +2071,15 @@
 <!-- Dynamic interactive widget will be rendered here -->
 <canvas height="240" id="hotListWidgetCanvas" width="240"></canvas>
 <div id="hotListCrossSliderHost" hidden=""></div>
-<div class="mark-triangle-slider-box" style="margin-top:8px;">
-<span class="mark-tri-slider-label">Intensity</span>
-<input aria-label="Widget intensity" class="mark-tri-intensity" id="hotListWidgetIntensity" max="100" min="-100" step="1" style="width:160px;height:24px;writing-mode:horizontal-tb;" type="range" value="0"/>
+<div class="mark-triangle-slider-box hot-list-intensity-row" style="margin-top:8px;">
+<span class="mark-tri-slider-label" id="hotListWidgetAdvLabel">Intensity</span>
+<input aria-label="Advocacy intensity" class="mark-tri-intensity mark-thumb-disc" id="hotListWidgetIntensity" max="100" min="-100" step="1" style="width:160px;height:24px;writing-mode:horizontal-tb;" type="range" value="0"/>
 <output class="mark-tri-intensity-out" id="hotListWidgetIntensityOut">0</output>
+</div>
+<div class="mark-triangle-slider-box hot-list-rec-box" id="hotListWidgetRecBox" hidden="">
+<span class="mark-tri-slider-label">○ Rec</span>
+<input aria-label="Receptivity intensity" class="mark-tri-intensity mark-thumb-ring" id="hotListWidgetRecIntensity" max="100" min="-100" step="1" style="width:160px;height:24px;writing-mode:horizontal-tb;" type="range" value="0"/>
+<output class="mark-tri-intensity-out" id="hotListWidgetRecIntensityOut">—</output>
 </div>
 <div class="mark-triangle-readout" id="hotListWidgetReadout" style="display:none !important;" hidden=""></div>
 </div>

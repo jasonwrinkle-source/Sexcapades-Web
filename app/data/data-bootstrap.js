@@ -8302,15 +8302,50 @@ var sxNodeById = (e) => typeof window !== "undefined" && typeof window.Xn === "f
                 // Slider blow-up repair (2026-11-01): E (the rating rail's stroke-width) was 44 * mapFontScale() - unbounded and font-derived, so at the baked fontScale 40 the rail rendered 1760 screen px thick (non-scaling-stroke) and one inadvertently picked slider filled the viewport at high zoom-out. It is now the fixed 44 of the 44px spec at every font scale and zoom, matching the .rating-rail CSS rule. Track length (x = 320 * m, map units, camera-scaled) is unchanged.
                 // Slider size repair #2 (2026-11-01): E now comes from sxRailPx(m) - 14% of the track's delivered screen length at the current camera, capped at the same fixed 44 - so the attribute, the .rating-rail CSS variable, and the hit strokes all agree at every zoom instead of the fixed 44px thickness dwarfing the shrunken track at Full zoom-out.
                 f.forEach((n, i) => {
+                    let sxRingHit = "", sxDiscHit = "";
                     const o = w[n], s = o + 10 * m, d = C[i], u = l - p * d, f = c - h * d, v = u - a * x / 2, M = f - r * x / 2, I = u + a * x / 2, P = f + r * x / 2, L = `M ${v.toFixed(2)} ${M.toFixed(2)} L ${I.toFixed(2)} ${P.toFixed(2)}`, T = s / 2, F = `M ${(u - p * T).toFixed(2)} ${(f - h * T).toFixed(2)} L ${(u + p * T).toFixed(2)} ${(f + h * T).toFixed(2)}`, N = `grad-${A}-${n}`, _ = t[n + "Known"], R = _ ? t[n] : 0, O = (R + 100) / 200, B = Boolean(t[n + "Derived"]), j = Math.round(R), q = _ ? B ? `${j}, rolled up from ${t[n + "RatedChildren"]} of ${t.childCount} child topics` : String(j) : "Unrated", H = sxGiveReceiveNounText(e, n), W = sxClassicFlankText(e, n, S), U = Boolean(Nt && Nt.id === e && Nt.direction === n), G = U ? " active-rating" : "", K = `data-id="${e}" data-direction="${n}" data-x0="${v}" data-y0="${M}" data-x1="${I}" data-y1="${P}" data-nx="${a}" data-ny="${r}" data-offset="0"`, z = v + (I - v) * O, V = M + (P - M) * O, Y = $.single ? 1 : 0 === i ? -1 : 1, X = u + p * Y * (o / 2), Z = f + h * Y * (o / 2), Q = _ ? sxInterestColor(R) : Ga.FALLBACK_COLOR;
                     D += `<g class="direction-control${$.single ? " single-label-control" : ""}${G}" data-id="${e}" data-direction="${n}"${W ? ` data-rating-tooltip="${sxEscapeHtmlText(W)}"` : ""} data-derived="${B}" data-base-cx="${u}" data-base-cy="${f}" data-base-angle="${g}" data-index="${i}" data-tag-width="${o}" data-tag-height="${k}" data-control-scale="${m}" style="--sx-rail-px:${E.toFixed(1)}px;--sx-rail-hit-px:${Math.max(14, Math.min(44, E * 1.6)).toFixed(1)}px">`, 
                     D += `<defs><linearGradient id="${N}" gradientUnits="userSpaceOnUse" x1="${v}" y1="${M}" x2="${I}" y2="${P}"><stop offset="0" stop-color="var(--red-deep)"/><stop offset=".5" stop-color="var(--curious)"/><stop offset="1" stop-color="var(--green-deep)"/></linearGradient></defs>`, 
                     D += `<path class="visual-rail rating-rail${G}" data-id="${e}" data-direction="${n}" d="${L}" fill="none" stroke="url(#${N})" stroke-width="${E}" stroke-linecap="round" vector-effect="non-scaling-stroke"/>`, 
-                    (_ || U) && (D += `<circle class="slider-thumb${G}" data-id="${e}" data-direction="${n}" cx="${z.toFixed(2)}" cy="${V.toFixed(2)}" r="${10 * m}" fill="${sxInterestColor(R)}"/>`), 
-                    D += `<path class="rating-track-hit${G}" ${K} d="${L}"/>`;
+                    // Trilinear line: one rail, two pucks. The filled disc
+                    // is the advocacy position, the ring is receptivity.
+                    // A single-placement line keeps the one thumb.
+                    (n === "line" && typeof sxDualPlacements === "function" && sxDualPlacements(e)) ? (function() {
+                        const advObj = t.advocacy, recObj = t.receptivity;
+                        const advKnown = Boolean(advObj && (advObj.known || t.advocacyKnown) && Number.isFinite(Number(advObj.line)));
+                        const recKnown = Boolean(recObj && (recObj.known || t.receptivityKnown) && Number.isFinite(Number(recObj.line)));
+                        const advV = advKnown ? Number(advObj.line) : (_ ? R : 0);
+                        const recV = recKnown ? Number(recObj.line) : 0;
+                        const aT = (Math.max(-100, Math.min(100, advV)) + 100) / 200, rT = (Math.max(-100, Math.min(100, recV)) + 100) / 200;
+                        const ax = v + (I - v) * aT, ay = M + (P - M) * aT, rx = v + (I - v) * rT, ry = M + (P - M) * rT;
+                        const advCol = (advKnown || _) ? sxInterestColor(advV) : "rgba(255,255,255,0.55)";
+                        const recCol = recKnown ? sxInterestColor(recV) : "rgba(56,189,248,0.9)";
+                        D += `<circle class="slider-thumb map-line-disc${G}" data-id="${e}" data-direction="${n}" data-placement="advocacy" pointer-events="none" cx="${ax.toFixed(2)}" cy="${ay.toFixed(2)}" r="${8 * m}" fill="${advCol}" stroke="#0f172a" stroke-width="${1.4 * m}"/>`;
+                        D += `<circle class="slider-thumb map-line-ring${recKnown ? "" : " is-unrated"}${G}" data-id="${e}" data-direction="${n}" data-placement="receptivity" pointer-events="none" cx="${rx.toFixed(2)}" cy="${ry.toFixed(2)}" r="${13 * m}" fill="none" stroke="${recCol}" stroke-width="${3.2 * m}"${recKnown ? "" : ` stroke-dasharray="${3 * m} ${2.5 * m}"`}/>`;
+                        // Screen-sized grabs. A non-scaling stroke on these
+                        // circles does not hit-test where it is drawn, and
+                        // the tag's wide stroke sits on the spoke centre.
+                        // The disc is a filled 12px circle. The ring is a
+                        // filled band from 16px to 28px, so the two stay
+                        // grabbable when they share a position.
+                        let sxHitPer = 0.01;
+                        try {
+                            const sxCtm = In.getScreenCTM();
+                            if (sxCtm) sxHitPer = Math.hypot(sxCtm.a, sxCtm.b) || sxHitPer;
+                        } catch (sxHitErr) {}
+                        const sxPxToMap = px => px / (sxHitPer > 1e-6 ? sxHitPer : 0.01);
+                        const sxDiscR = sxPxToMap(12), sxRingIn = sxPxToMap(16), sxRingOut = sxPxToMap(28);
+                        const sxDonut = (cx0, cy0, outer, inner) => {
+                            const lap = rad => `M ${(cx0 - rad).toFixed(2)} ${cy0.toFixed(2)} a ${rad.toFixed(2)} ${rad.toFixed(2)} 0 1 0 ${(2 * rad).toFixed(2)} 0 a ${rad.toFixed(2)} ${rad.toFixed(2)} 0 1 0 ${(-2 * rad).toFixed(2)} 0`;
+                            return lap(outer) + lap(inner);
+                        };
+                        sxRingHit = `<path class="rating-track-hit map-line-ring-hit" data-id="${e}" data-direction="${n}" data-placement="receptivity" data-x0="${v}" data-y0="${M}" data-x1="${I}" data-y1="${P}" data-nx="${a}" data-ny="${r}" data-offset="0" fill="transparent" fill-rule="evenodd" stroke="none" d="${sxDonut(rx, ry, sxRingOut, sxRingIn)}"/>`;
+                        sxDiscHit = `<circle class="rating-track-hit map-line-disc-hit" data-id="${e}" data-direction="${n}" data-placement="advocacy" data-x0="${v}" data-y0="${M}" data-x1="${I}" data-y1="${P}" data-nx="${a}" data-ny="${r}" data-offset="0" cx="${ax.toFixed(2)}" cy="${ay.toFixed(2)}" r="${sxDiscR.toFixed(2)}" fill="transparent" stroke="none"/>`;
+                    })() : ((_ || U) && (D += `<circle class="slider-thumb${G}" data-id="${e}" data-direction="${n}" cx="${z.toFixed(2)}" cy="${V.toFixed(2)}" r="${10 * m}" fill="${sxInterestColor(R)}"/>`)),
+                    D += `<path class="rating-track-hit${G}" ${K}${sxRingHit ? ` data-placement="advocacy"` : ""} d="${L}"/>`;
                     const J = U ? `tabindex="0" role="button" aria-label="Clear ${sxEscapeHtmlText(`${sxRoleLabelText(e, n)}${H ? ` ${H}` : ""}`)} rating"` : 'tabindex="-1" aria-hidden="true"', ee = g + 90;
                     D += `<g class="rating-clear${G}" data-id="${e}" data-direction="${n}"><rect class="rating-clear-bg" x="${(X - 23 * (mapFontScale() * sxF / 3)).toFixed(2)}" y="${(Z - 10 * (mapFontScale() * sxF / 3)).toFixed(2)}" width="${46 * (mapFontScale() * sxF / 3)}" height="${20 * (mapFontScale() * sxF / 3)}" rx="5" transform="rotate(${ee.toFixed(2)} ${X.toFixed(2)} ${Z.toFixed(2)})"/><rect class="rating-clear-hit" data-id="${e}" data-direction="${n}" x="${(X - 28).toFixed(2)}" y="${(Z - 15).toFixed(2)}" width="56" height="30" rx="7" transform="rotate(${ee.toFixed(2)} ${X.toFixed(2)} ${Z.toFixed(2)})" ${J}/><text class="rating-clear-text" x="${X.toFixed(2)}" y="${Z.toFixed(2)}" text-anchor="middle" dominant-baseline="middle" transform="rotate(${ee.toFixed(2)} ${X.toFixed(2)} ${Z.toFixed(2)})">Clear</text></g>`, 
-                    D += `<path class="direction-hit" tabindex="0" role="slider" aria-valuemin="-100" aria-valuemax="100" aria-valuenow="${_ ? j : 0}" aria-valuetext="${q}" aria-label="${sxEscapeHtmlText(`${sxRoleLabelText(e, n)}${H ? `: ${H}` : ""}. ${q}. Tap to open its rating scale; drag, then release to choose.`)}" aria-expanded="${U}" ${K} d="${F}"/>`, 
+                    D += `<path class="direction-hit" tabindex="0" role="slider" aria-valuemin="-100" aria-valuemax="100" aria-valuenow="${_ ? j : 0}" aria-valuetext="${q}" aria-label="${sxEscapeHtmlText(`${sxRoleLabelText(e, n)}${H ? `: ${H}` : ""}. ${q}. Tap to open its rating scale; drag, then release to choose.`)}" aria-expanded="${U}" ${K}${sxRingHit ? ` data-placement="advocacy"` : ""} d="${F}"/>`,
                     $.single && (D += `<rect class="direction-tag-occluder" x="${(u - o / 2 - 3 * m).toFixed(2)}" y="${(f - k / 2 - 3 * m).toFixed(2)}" width="${(o + 6 * m).toFixed(2)}" height="${(k + 6 * m).toFixed(2)}" rx="${7 * m}" transform="rotate(${g.toFixed(2)} ${u.toFixed(2)} ${f.toFixed(2)})"/>`), 
                     D += `<rect class="direction-tag-bg" data-id="${e}" data-direction="${n}" x="${(u - o / 2).toFixed(2)}" y="${(f - k / 2).toFixed(2)}" width="${o}" height="${k}" rx="${5 * m}" transform="rotate(${g.toFixed(2)} ${u.toFixed(2)} ${f.toFixed(2)})" fill="${Q}" opacity="${_ ? 1 : .62}"/>`;
                     // TAG FILL (ruled 2026-11-02, Jason): the give/receive
@@ -8322,7 +8357,7 @@ var sxNodeById = (e) => typeof window !== "undefined" && typeof window.Xn === "f
                     // sideways squeeze and no shrink: the old textLength
                     // cap (spacingAndGlyphs) is gone.
                     const te = $.single ? y[i] : b ? "give" === n ? "G" : "R" : y[i], ne = k;
-                    D += `<text class="direction-tag" data-id="${e}" data-direction="${n}" x="${u.toFixed(2)}" y="${f.toFixed(2)}" text-anchor="middle" dominant-baseline="middle" transform="rotate(${g.toFixed(2)} ${u.toFixed(2)} ${f.toFixed(2)})" style="font-size:${ne}px">${sxEscapeHtmlText(te)}</text></g>`;
+                    D += `<text class="direction-tag" data-id="${e}" data-direction="${n}" x="${u.toFixed(2)}" y="${f.toFixed(2)}" text-anchor="middle" dominant-baseline="middle" transform="rotate(${g.toFixed(2)} ${u.toFixed(2)} ${f.toFixed(2)})" style="font-size:${ne}px">${sxEscapeHtmlText(te)}</text>${sxRingHit}${sxDiscHit}</g>`;
                 });
                 }
             }
@@ -18857,8 +18892,40 @@ var B = O.iconDistance, j = O.iconCenter, q = (O.controlsStart, O.controlsStatio
         // after this loop (see the re-anchoring helpers
         // above) - never shifted by a delta.
         if ($ && E) {
-            const anchorEnd = B - A - N, endAnchored = !d && "end" === c.getAttribute("text-anchor"), anchorS = anchorEnd - C;
-            if (!d && Math.abs(anchorS - S) > .5) {
+            const anchorEnd = B - A - N, anchorS = anchorEnd - C;
+            // First-generation names have no textPath. Seat the glyph
+            // centre on the settled spoke's midline: halfway from the
+            // ring, where the taper starts, to the icon's inner edge,
+            // on the ray from the map centre through the icon. The
+            // anchor is the hub-side end of the glyphs, so it lies
+            // half a text-width inward of that centre. This replaces
+            // the icon-edge seat, which parked the name on the icon.
+            if (k && !d) {
+                const ix = j.x, iy = j.y, sdx = ix - pr.centerX, sdy = iy - pr.centerY, sdist = Math.hypot(sdx, sdy) || 1, sux = sdx / sdist, suy = sdy / sdist;
+                const spokeInner = ea.spokeStartRadius || 0, spokeOuter = Math.max(spokeInner + 48, sdist - A), spokeMid = (spokeInner + spokeOuter) / 2, halfW = Math.min(C / 2, Math.max(4, (spokeOuter - spokeInner) / 2));
+                const midR = Math.max(spokeInner + halfW, Math.min(spokeOuter - halfW, spokeMid));
+                const ax = pr.centerX + sux * (midR - halfW), ay = pr.centerY + suy * (midR - halfW);
+                const cx0 = Number(c.getAttribute("x")), cy0 = Number(c.getAttribute("y"));
+                if (Number.isFinite(cx0) && Number.isFinite(cy0) && Math.hypot(ax - cx0, ay - cy0) > .5) {
+                    const dx = ax - cx0, dy = ay - cy0;
+                    c.setAttribute("x", ax.toFixed(2)), c.setAttribute("y", ay.toFixed(2));
+                    const trm = /rotate\((-?[\d.]+)[ ,]+(-?[\d.]+)[ ,]+(-?[\d.]+)\)/.exec(c.getAttribute("transform") || "");
+                    trm && c.setAttribute("transform", (c.getAttribute("transform") || "").replace(trm[0], `rotate(${trm[1]} ${ax.toFixed(2)} ${ay.toFixed(2)})`));
+                    if (M) {
+                        const mx1 = Number(M.getAttribute("x1")), my1 = Number(M.getAttribute("y1")), mx2 = Number(M.getAttribute("x2")), my2 = Number(M.getAttribute("y2"));
+                        Number.isFinite(mx1) && M.setAttribute("x1", (mx1 + dx).toFixed(2)), Number.isFinite(my1) && M.setAttribute("y1", (my1 + dy).toFixed(2)),
+                        Number.isFinite(mx2) && M.setAttribute("x2", (mx2 + dx).toFixed(2)), Number.isFinite(my2) && M.setAttribute("y2", (my2 + dy).toFixed(2));
+                    }
+                    const risk = l.querySelector(":scope > .risk-mark");
+                    if (risk) {
+                        const rx = Number(risk.getAttribute("x")), ry = Number(risk.getAttribute("y"));
+                        Number.isFinite(rx) && risk.setAttribute("x", (rx + dx).toFixed(2)), Number.isFinite(ry) && risk.setAttribute("y", (ry + dy).toFixed(2));
+                        const rtr = /rotate\((-?[\d.]+)[ ,]+(-?[\d.]+)[ ,]+(-?[\d.]+)\)/.exec(risk.getAttribute("transform") || "");
+                        rtr && risk.setAttribute("transform", (risk.getAttribute("transform") || "").replace(rtr[0], `rotate(${rtr[1]} ${(rx + dx).toFixed(2)} ${(ry + dy).toFixed(2)})`));
+                    }
+                }
+                P = { x: pr.centerX + sux * midR, y: pr.centerY + suy * midR }, l.dataset.labelX = P.x.toFixed(2), l.dataset.labelY = P.y.toFixed(2);
+            } else if (!d && Math.abs(anchorS - S) > .5) {
                 const oldPt = m(S).point, newPt = m(anchorS).point, dx = newPt.x - oldPt.x, dy = newPt.y - oldPt.y, cx0 = Number(c.getAttribute("x")), cy0 = Number(c.getAttribute("y"));
                 if (Number.isFinite(cx0) && Number.isFinite(cy0)) {
                     c.setAttribute("x", (cx0 + dx).toFixed(2)), c.setAttribute("y", (cy0 + dy).toFixed(2));
@@ -21344,6 +21411,8 @@ var SX_OCTAD_COLORS = ["#22c55e", "#10b981", "#06b6d4", "#3b82f6", "#6366f1", "#
             const canvas = pick("hotListWidgetCanvas", ".outline-inline-canvas");
             const slider = pick("hotListWidgetIntensity", ".outline-inline-slider");
             const sliderOut = pick("hotListWidgetIntensityOut", ".outline-inline-out");
+            const recSlider = pick("hotListWidgetRecIntensity", ".outline-inline-rec-slider");
+            const recOut = pick("hotListWidgetRecIntensityOut", ".outline-inline-rec-out");
             const readoutEl = pick("hotListWidgetReadout", ".outline-inline-readout");
             const clearBtn = pick("hotListWidgetClear", ".outline-inline-clear");
             const closeBtn = pick("closeHotListWidgetBtn", ".outline-inline-close");
@@ -21418,6 +21487,21 @@ var SX_OCTAD_COLORS = ["#22c55e", "#10b981", "#06b6d4", "#3b82f6", "#6366f1", "#
                 keys.forEach((k, idx) => { obj[k] = Math.round(valsArr[idx]); });
                 sxPersistAdvocacyReceptivity(topicId, "advocacy", obj, intensity, freshPid());
             };
+            let widgetMode = (root && root.__sxWidgetMode) || "advocacy";
+            const setWidgetMode = (mode) => {
+                widgetMode = mode === "receptivity" ? "receptivity" : "advocacy";
+                if (root) root.__sxWidgetMode = widgetMode;
+                const advWrap = slider && slider.closest(".outline-inline-intensity, .hot-list-intensity-row");
+                const recWrap = recSlider && recSlider.closest(".outline-inline-rec, .hot-list-rec-box");
+                const recHidden = !recWrap || recWrap.hidden;
+                if (advWrap) advWrap.classList.toggle("is-active", recHidden || widgetMode === "advocacy");
+                if (recWrap) recWrap.classList.toggle("is-active", !recHidden && widgetMode === "receptivity");
+            };
+            const persistMode = (mode, valsArr, intensity) => {
+                const obj = {};
+                keys.forEach((k, idx) => { obj[k] = Math.round(valsArr[idx]); });
+                sxPersistAdvocacyReceptivity(topicId, mode, obj, intensity, freshPid());
+            };
             // Cross slider for pair topics (2026-11-24): two compact
             // lines, one puck per flank, appetite on the arm. Created
             // once per popup open (the dialog host is cleared first so
@@ -21487,6 +21571,24 @@ var SX_OCTAD_COLORS = ["#22c55e", "#10b981", "#06b6d4", "#3b82f6", "#6366f1", "#
                     }
                     sliderOut && (sliderOut.textContent = String(Math.round(sliderVal)));
                 }
+                const showRec = typeof sxDualPlacements === "function" && sxDualPlacements(topicId) && !isSwitch;
+                const recWrap = recSlider && recSlider.closest(".outline-inline-rec, .hot-list-rec-box");
+                if (recWrap) recWrap.hidden = !showRec;
+                if (recSlider) recSlider.disabled = !showRec;
+                if (slider && slider.parentElement) {
+                    const lab = slider.parentElement.querySelector(":scope > span");
+                    if (lab) lab.textContent = showRec ? "● Adv" : "Intensity";
+                }
+                if (showRec && recSlider) {
+                    const recInt = curRec.receptivityIntensityKnown ? Math.round(Number(curRec.receptivityIntensity) || 0) : 0;
+                    const limR = Math.max(100, Math.abs(recInt));
+                    recSlider.min = String(-limR);
+                    recSlider.max = String(limR);
+                    recSlider.value = String(recInt);
+                    if (typeof sxIntensityRGB === "function") recSlider.style.setProperty("--rec-color", sxIntensityRGB(56, 189, 248, recInt));
+                    if (recOut) recOut.textContent = (curRec.receptivityKnown || curRec.receptivityIntensityKnown) ? String(recInt) : "—";
+                }
+                setWidgetMode(widgetMode);
                 syncReadouts();
 
                 // Pair topics show the cross slider (compact), not the
@@ -21519,23 +21621,23 @@ var SX_OCTAD_COLORS = ["#22c55e", "#10b981", "#06b6d4", "#3b82f6", "#6366f1", "#
                     }
                     sxDrawCompassWidget(canvas, shape, pt);
                 } else if (isOctad) {
-                    const radarState = { p0: vals[0], p1: vals[1], p2: vals[2], p3: vals[3], p4: vals[4], p5: vals[5], p6: vals[6], p7: vals[7], intensity: sliderVal, topicId: topicId, mode: "advocacy", recRated: Boolean(curRec.receptivityKnown), recIntensity: curRec.receptivityIntensityKnown ? curRec.receptivityIntensity : 0 };
+                    const radarState = { p0: vals[0], p1: vals[1], p2: vals[2], p3: vals[3], p4: vals[4], p5: vals[5], p6: vals[6], p7: vals[7], intensity: sliderVal, topicId: topicId, mode: widgetMode, recRated: Boolean(curRec.receptivityKnown), recIntensity: curRec.receptivityIntensityKnown ? curRec.receptivityIntensity : 0 };
                     keys.forEach((k, idx) => { radarState["recP" + idx] = (curRec.receptivity && null != curRec.receptivity[k]) ? Number(curRec.receptivity[k]) : 0; });
                     sxDrawOctadWidget(canvas, shape, radarState);
                 } else if (isHeptad) {
-                    const radarState = { p0: vals[0], p1: vals[1], p2: vals[2], p3: vals[3], p4: vals[4], p5: vals[5], p6: vals[6], intensity: sliderVal, topicId: topicId, mode: "advocacy", recRated: Boolean(curRec.receptivityKnown), recIntensity: curRec.receptivityIntensityKnown ? curRec.receptivityIntensity : 0 };
+                    const radarState = { p0: vals[0], p1: vals[1], p2: vals[2], p3: vals[3], p4: vals[4], p5: vals[5], p6: vals[6], intensity: sliderVal, topicId: topicId, mode: widgetMode, recRated: Boolean(curRec.receptivityKnown), recIntensity: curRec.receptivityIntensityKnown ? curRec.receptivityIntensity : 0 };
                     keys.forEach((k, idx) => { radarState["recP" + idx] = (curRec.receptivity && null != curRec.receptivity[k]) ? Number(curRec.receptivity[k]) : 0; });
                     sxDrawHeptadWidget(canvas, shape, radarState);
                 } else if (isHexad) {
-                    const radarState = { p0: vals[0], p1: vals[1], p2: vals[2], p3: vals[3], p4: vals[4], p5: vals[5], intensity: sliderVal, topicId: topicId, mode: "advocacy", recRated: Boolean(curRec.receptivityKnown), recIntensity: curRec.receptivityIntensityKnown ? curRec.receptivityIntensity : 0 };
+                    const radarState = { p0: vals[0], p1: vals[1], p2: vals[2], p3: vals[3], p4: vals[4], p5: vals[5], intensity: sliderVal, topicId: topicId, mode: widgetMode, recRated: Boolean(curRec.receptivityKnown), recIntensity: curRec.receptivityIntensityKnown ? curRec.receptivityIntensity : 0 };
                     keys.forEach((k, idx) => { radarState["recP" + idx] = (curRec.receptivity && null != curRec.receptivity[k]) ? Number(curRec.receptivity[k]) : 0; });
                     sxDrawHexadWidget(canvas, shape, radarState);
                 } else if (isPentad) {
-                    const radarState = { p0: vals[0], p1: vals[1], p2: vals[2], p3: vals[3], p4: vals[4], intensity: sliderVal, topicId: topicId, mode: "advocacy", recRated: Boolean(curRec.receptivityKnown), recIntensity: curRec.receptivityIntensityKnown ? curRec.receptivityIntensity : 0 };
+                    const radarState = { p0: vals[0], p1: vals[1], p2: vals[2], p3: vals[3], p4: vals[4], intensity: sliderVal, topicId: topicId, mode: widgetMode, recRated: Boolean(curRec.receptivityKnown), recIntensity: curRec.receptivityIntensityKnown ? curRec.receptivityIntensity : 0 };
                     keys.forEach((k, idx) => { radarState["recP" + idx] = (curRec.receptivity && null != curRec.receptivity[k]) ? Number(curRec.receptivity[k]) : 0; });
                     sxDrawPentadWidget(canvas, shape, radarState);
                 } else if (isTetrad) {
-                    const radarState = { p0: vals[0], p1: vals[1], p2: vals[2], p3: vals[3], intensity: sliderVal, topicId: topicId, mode: "advocacy", recRated: Boolean(curRec.receptivityKnown), recIntensity: curRec.receptivityIntensityKnown ? curRec.receptivityIntensity : 0 };
+                    const radarState = { p0: vals[0], p1: vals[1], p2: vals[2], p3: vals[3], intensity: sliderVal, topicId: topicId, mode: widgetMode, recRated: Boolean(curRec.receptivityKnown), recIntensity: curRec.receptivityIntensityKnown ? curRec.receptivityIntensity : 0 };
                     keys.forEach((k, idx) => { radarState["recP" + idx] = (curRec.receptivity && null != curRec.receptivity[k]) ? Number(curRec.receptivity[k]) : 0; });
                     sxDrawTetradWidget(canvas, shape, radarState);
                 } else if (isTriad) {
@@ -21553,7 +21655,7 @@ var SX_OCTAD_COLORS = ["#22c55e", "#10b981", "#06b6d4", "#3b82f6", "#6366f1", "#
                     const rnw = recSum > 0 ? [Math.abs(recVals[0]) / recSum, Math.abs(recVals[1]) / recSum, Math.abs(recVals[2]) / recSum] : [1 / 3, 1 / 3, 1 / 3];
                     sxDrawTriangleWidget(canvas, shape, {
                         x: 0, y: 0, w0: nw[0], w1: nw[1], w2: nw[2], intensity: sliderVal,
-                        topicId: topicId, mode: "advocacy",
+                        topicId: topicId, mode: widgetMode,
                         recW0: rnw[0], recW1: rnw[1], recW2: rnw[2],
                         recRated: Boolean(curRec.receptivityKnown),
                         recIntensity: curRec.receptivityIntensityKnown ? curRec.receptivityIntensity : 0
@@ -21619,14 +21721,17 @@ var SX_OCTAD_COLORS = ["#22c55e", "#10b981", "#06b6d4", "#3b82f6", "#6366f1", "#
                     const dot = (px - cx) * Math.cos(angle) + (py - cy) * Math.sin(angle);
                     const val = Math.max(0, Math.min(100, Math.round((dot / r) * 100)));
 
-                    const dRec = dualRec();
-                    if (dRec) {
-                        const newVals = curVals.slice();
-                        if (isAllZero && val > 0) {
+                    if (sxDualPlacements(topicId)) {
+                        const mode = widgetMode === "receptivity" ? "receptivity" : "advocacy";
+                        const src = mode === "receptivity" ? keys.map(k => (curRec.receptivity && null != curRec.receptivity[k]) ? Number(curRec.receptivity[k]) : 0) : curVals;
+                        const newVals = src.slice();
+                        const blank = src.every(v => !v);
+                        if (blank && val > 0) {
                             const base = Math.max(20, Math.round(val * 0.5));
                             keys.forEach((k, idx) => { newVals[idx] = (idx === activeIdx) ? val : base; });
                         } else newVals[activeIdx] = val;
-                        persistPrimary(newVals, dRec.intensityKnown ? dRec.intensity : sxDerivedFromVals(newVals, "radar"));
+                        const inten = mode === "receptivity" ? (curRec.receptivityIntensityKnown ? curRec.receptivityIntensity : 70) : (curRec.intensityKnown ? curRec.intensity : sxDerivedFromVals(newVals, "radar"));
+                        persistMode(mode, newVals, inten);
                     } else if (isAllZero && val > 0) {
                         const base = Math.max(20, Math.round(val * 0.5));
                         keys.forEach((k, idx) => {
@@ -21641,20 +21746,27 @@ var SX_OCTAD_COLORS = ["#22c55e", "#10b981", "#06b6d4", "#3b82f6", "#6366f1", "#
                     const sq = sxGetCompassSquare(canvas.width, canvas.height);
                     const { u, v } = sxCompassPointToUV(px, py, sq);
                     const vals = sxCompassValuesFromPoint(u, v, 100);
-                    const dRec = dualRec();
-                    if (dRec) persistPrimary(vals, dRec.intensityKnown ? dRec.intensity : sxDerivedFromVals(vals, "compass"));
-                    else keys.forEach((k, idx) => sxStoreFlankRating(topicId, k, vals[idx], !1, pId));
+                    if (sxDualPlacements(topicId)) {
+                        const mode = widgetMode === "receptivity" ? "receptivity" : "advocacy";
+                        const curC = sxDecodeTopicStance(topicId, pId);
+                        const inten = mode === "receptivity" ? (curC.receptivityIntensityKnown ? curC.receptivityIntensity : 70) : (curC.intensityKnown ? curC.intensity : sxDerivedFromVals(vals, "compass"));
+                        persistMode(mode, vals, inten);
+                    } else keys.forEach((k, idx) => sxStoreFlankRating(topicId, k, vals[idx], !1, pId));
                     redraw();
                     paintRow();
                 } else if (isTriad) {
                     const { V0, V1, V2 } = sxGetTriVertices(canvas.width, canvas.height);
                     const { w0, w1, w2 } = sxPointToBarycentric(px, py, V0, V1, V2);
-                    const dRec = dualRec();
-                    if (dRec) persistPrimary([Math.round(w0 * 100), Math.round(w1 * 100), Math.round(w2 * 100)], dRec.intensityKnown ? dRec.intensity : sxDerivedFromVals([Math.round(w0 * 100), Math.round(w1 * 100), Math.round(w2 * 100)], "triad"));
-                    else {
-                        sxStoreFlankRating(topicId, keys[0], Math.round(w0 * 100), !1, pId);
-                        sxStoreFlankRating(topicId, keys[1], Math.round(w1 * 100), !1, pId);
-                        sxStoreFlankRating(topicId, keys[2], Math.round(w2 * 100), !1, pId);
+                    const triVals = [Math.round(w0 * 100), Math.round(w1 * 100), Math.round(w2 * 100)];
+                    if (sxDualPlacements(topicId)) {
+                        const mode = widgetMode === "receptivity" ? "receptivity" : "advocacy";
+                        const curT = sxDecodeTopicStance(topicId, pId);
+                        const inten = mode === "receptivity" ? (curT.receptivityIntensityKnown ? curT.receptivityIntensity : 70) : (curT.intensityKnown ? curT.intensity : sxDerivedFromVals(triVals, "triad"));
+                        persistMode(mode, triVals, inten);
+                    } else {
+                        sxStoreFlankRating(topicId, keys[0], triVals[0], !1, pId);
+                        sxStoreFlankRating(topicId, keys[1], triVals[1], !1, pId);
+                        sxStoreFlankRating(topicId, keys[2], triVals[2], !1, pId);
                     }
                     redraw();
                     paintRow();
@@ -21669,6 +21781,18 @@ var SX_OCTAD_COLORS = ["#22c55e", "#10b981", "#06b6d4", "#3b82f6", "#6366f1", "#
                         window.__SX_TIP_SHOW(canvas, hit.name || hit.text, line, evt.clientX, evt.clientY);
                         return;
                     }
+                }
+                if (isTriad && sxDualPlacements(topicId) && canvas.__sxPucks) {
+                    const rect = canvas.getBoundingClientRect();
+                    const clientX = evt.clientX !== undefined ? evt.clientX : 0;
+                    const clientY = evt.clientY !== undefined ? evt.clientY : 0;
+                    const px = (clientX - rect.left) * (canvas.width / rect.width);
+                    const py = (clientY - rect.top) * (canvas.height / rect.height);
+                    const pucks = canvas.__sxPucks;
+                    const dAdv = pucks.adv ? Math.hypot(px - pucks.adv.x, py - pucks.adv.y) : Infinity;
+                    const dRec = pucks.rec ? Math.hypot(px - pucks.rec.x, py - pucks.rec.y) : Infinity;
+                    if ((dAdv <= 22 || dRec <= 22) && dRec < dAdv) setWidgetMode("receptivity");
+                    else if (dAdv <= 22) setWidgetMode("advocacy");
                 }
                 isDragging = true;
                 activeIdx = null;
@@ -21700,6 +21824,8 @@ var SX_OCTAD_COLORS = ["#22c55e", "#10b981", "#06b6d4", "#3b82f6", "#6366f1", "#
                 evt.preventDefault();
                 evt.stopPropagation();
                 if (isSwitch) return;
+                if (recSlider && (evt.target === recSlider || recSlider.contains(evt.target))) setWidgetMode("receptivity");
+                else if (slider && (evt.target === slider || slider.contains(evt.target))) setWidgetMode("advocacy");
                 // Wheel tracks 10x (owner order, 2026-11-25): one notch
                 // moves the value ten times as far as before.
                 const step = (evt.shiftKey ? 50 : 10) * (evt.deltaY < 0 ? 1 : -1);
@@ -21707,8 +21833,12 @@ var SX_OCTAD_COLORS = ["#22c55e", "#10b981", "#06b6d4", "#3b82f6", "#6366f1", "#
                 const vals = keys.map(k => (curRec[k + "Known"] ? curRec[k] : 0));
                 const family = isCompass ? "compass" : isTriad ? "triad" : "radar";
                 const cur = curRec.intensityKnown ? Number(curRec.intensity) || 0 : sxDerivedFromVals(vals, family);
-                if (dualRec()) persistPrimary(vals, cur + step);
-                else sxPersistIntensity(topicId, cur + step, pId);
+                if (sxDualPlacements(topicId)) {
+                    const mode = widgetMode === "receptivity" ? "receptivity" : "advocacy";
+                    const src = mode === "receptivity" ? keys.map(k => (curRec.receptivity && null != curRec.receptivity[k]) ? Number(curRec.receptivity[k]) : 0) : vals;
+                    const base = mode === "receptivity" ? (curRec.receptivityIntensityKnown ? Number(curRec.receptivityIntensity) || 0 : 0) : cur;
+                    persistMode(mode, src, base + step);
+                } else sxPersistIntensity(topicId, cur + step, pId);
                 redraw();
                 if (root) {
                     clearTimeout(root.__sxWheelWs);
@@ -21726,10 +21856,10 @@ var SX_OCTAD_COLORS = ["#22c55e", "#10b981", "#06b6d4", "#3b82f6", "#6366f1", "#
                     pId = freshPid();
                     if (isSwitch) return;
                     // The slider edits only the stored +1. Pole numbers stay.
-                    const dRecS = dualRec();
-                    if (dRecS) {
+                    setWidgetMode("advocacy");
+                    if (sxDualPlacements(topicId)) {
                         const curRecS = sxDecodeTopicStance(topicId, pId);
-                        persistPrimary(keys.map(k => (curRecS[k + "Known"] ? curRecS[k] : 0)), Number(slider.value));
+                        persistMode("advocacy", keys.map(k => (curRecS[k + "Known"] ? curRecS[k] : 0)), Number(slider.value));
                     } else sxPersistIntensity(topicId, Number(slider.value), pId);
                     redraw();
                     paintRow();
@@ -21739,9 +21869,23 @@ var SX_OCTAD_COLORS = ["#22c55e", "#10b981", "#06b6d4", "#3b82f6", "#6366f1", "#
                 };
             }
 
+            if (recSlider) {
+                recSlider.oninput = () => {
+                    pId = freshPid();
+                    if (isSwitch || !sxDualPlacements(topicId)) return;
+                    setWidgetMode("receptivity");
+                    const curRecR = sxDecodeTopicStance(topicId, pId);
+                    const vals = keys.map(k => (curRecR.receptivity && null != curRecR.receptivity[k]) ? Number(curRecR.receptivity[k]) : 0);
+                    persistMode("receptivity", vals, Number(recSlider.value));
+                    redraw();
+                    paintRow();
+                };
+                recSlider.onchange = () => { finishGesture(); };
+            }
+
             if (clearBtn) {
                 clearBtn.onclick = () => {
-                    if (dualRec()) {
+                    if (sxDualPlacements(topicId) && !isSwitch) {
                         sxClearAdvocacyReceptivity(topicId, "advocacy", pId);
                         sxClearAdvocacyReceptivity(topicId, "receptivity", pId);
                         redraw();
@@ -22759,18 +22903,17 @@ var LabelRenderer = {
                 }
                 return { offset, anchor, textLengthAttr, effectiveW };
             },
-            // CENTRED LABEL (2026-11-25): the branch (category) name is a
-            // plain <text>, not a textPath, so its centre is shifted
-            // instead. Its anchor point sits at (spokeLen - labelWidth +
-            // offsetE) from the spoke start; the text runs outward from
-            // the anchor on the right (text-anchor "start") and inward
-            // from it on the left (text-anchor "end"), so the centre is
-            // at that point +/- textW / 2. Returns the shift (along the
-            // spoke, positive outward) that puts the centre at the
-            // midpoint. The font size and underline length still come
-            // from offsetE unchanged — only the position moves.
+            // The category name is a plain <text>. On both halves the
+            // anchor is the hub-side end of the glyphs: the right half
+            // uses text-anchor start (flow outward), the left half adds
+            // 180° and text-anchor end so the glyphs still run outward
+            // from the anchor. The centre is therefore always
+            // anchor + textW/2 along the spoke. isReverse is unused;
+            // callers keep passing it. The settle pass reseats the
+            // name on the settled spoke midline and is the position
+            // the map actually shows.
             computeCategoryCentreShift(spokeLen, labelWidth, offsetE, textW, isReverse) {
-                const centreNow = (spokeLen - labelWidth + offsetE) + (isReverse ? -textW / 2 : textW / 2);
+                const centreNow = (spokeLen - labelWidth + offsetE) + textW / 2;
                 return spokeLen / 2 - centreNow;
             }
         };
@@ -23583,7 +23726,7 @@ var LabelRenderer = {
                 const availSpoke = s - ea.lineStartRadius - (sxIconRadius(1) || 48);
                 const maxE = Math.max(20, availSpoke - catTextW - catGap);
                 if (E > maxE) E = maxE;
-                const catUnderlineW = Math.min(Za.categoryUnderlineLength(i.name, A), Math.max(20, availSpoke - catGap - E));
+                const catUnderlineW = catTextW;
                 const C = sxActiveProfileId(), M = Rt ? null : Qe[C]?.[dCat], I = Rt ? null : null !== sxRollupCategoryFlank(i, C, "give") || null !== sxRollupCategoryFlank(i, C, "receive") || null !== sxRollupCategoryFlank(i, C, "advocacyIntensity") || null !== sxRollupCategoryFlank(i, C, "receptivityIntensity") || null !== sxRollupCategoryFlank(i, C, "givePlacementIntensity") || null !== sxRollupCategoryFlank(i, C, "receivePlacementIntensity") || null !== sxRollupCategoryFlank(i, C, "intensity") ? 1 : null, P = Ne.get(i.name) || sxBranchHanky(i), L = (O = I,
                 B = P, Rt ? "var(--green)" : "noCode" === B.key ? Ga.NO_CODE_COLOR : sxReadableHex(B.lineColor || B.color) || Ga.FALLBACK_COLOR), T = Rt ? null : sxRollupCategoryFlank(i, C, "give"), F = Rt ? null : sxRollupCategoryFlank(i, C, "receive"), N = Rt ? "var(--green)" : null === T ? "noCode" === P.key ? Ga.NO_CODE_COLOR : sxReadableHex(P.lineColor || P.color) : sxInterestColor(T), _ = Rt ? "var(--green)" : null === F ? "noCode" === P.key ? Ga.NO_CODE_COLOR : sxReadableHex(P.lineColor || P.color) : sxInterestColor(F), D = Rt || null !== I ? "" : "noCode" === P.key ? "gen1-hanky-line gen1-no-hanky-line no-hanky-code-line" : "gen1-hanky-line" + (P.mixed ? " mixed-hanky-code-line" : ""), R = Rt || null !== I || "noCode" !== P.key && !P.mixed ? "none" : "noCode" === P.key ? "5 7" : "18 12";
                 var O, B;
@@ -23599,19 +23742,15 @@ var LabelRenderer = {
                 // leaning aggregate. Unstored falls through to the
                 // leaning aggregate, which is the appetite derivation.
                 const sxCatGI = Rt ? null : sxRollupCategoryFlank(i, C, "giveIntensity"), sxCatRI = Rt ? null : sxRollupCategoryFlank(i, C, "receiveIntensity");
-                // CENTRED LABEL (2026-11-25): shift the category name so
-                // its centre sits at the spoke's midpoint (half the
-                // spoke's length from the branch node to the category
-                // icon). The anchor point today is at (spokeLen -
-                // labelWidth + E), its centre at that point +/- the
-                // text half-width (plus on the right, minus on the left,
-                // where the text ends at the anchor). The shift moves
-                // the text, its risk mark and its underline together;
-                // the font size and underline length still come from E
-                // unchanged. (Math.cos(a) is the same test as the W
-                // below: the spoke runs at the branch angle a.)
-                const catSpokeLen = s - ea.lineStartRadius, catCentreShift = LabelRenderer.computeCategoryCentreShift(catSpokeLen, g.labelWidth, E, catTextW, Math.cos(a) < 0);
-                const j = g.labelStartX + g.ux * E + g.ux * catCentreShift, q = g.labelStartY + g.uy * E + g.uy * catCentreShift, H = Math.atan2(l.y - o.y, l.x - o.x), W = Math.cos(H) < 0, U = W ? -g.ux : g.ux, G = j + 0 * (W ? -g.uy : g.uy), K = q - 0 * U, z = 180 * (H + (W ? Math.PI : 0)) / Math.PI, V = W ? ' text-anchor="end"' : "", Y = sxIconDiameter(1), X = Y / 2, Z = Y / 24, Q = ge[i.name], J = sxPolarPoint(a, sxBranchSpokeLength(i)), ee = Q ? HubRenderer.renderIcon(dCat, Y, Q, sxTopicTooltipAttrs(dCat, sxNodeRegistry[dCat], C, { tapFirst: !0 }), sxCatDisc ? sxCatDisc.ring : sxCatHeat || Q.color, J.x, J.y, true, false, null, sxCatDisc) : "", te = k(dCat, M, !Rt && sxHasActiveProfileFlag(dCat, Je), !Rt && sxHasActiveProfileFlag(dCat, et), !Rt && Boolean(tt[C]?.[dCat]?.length), J, g.ux, g.uy), ne = j - 11 * g.ux, ie = q - 11 * g.uy, ae = i.risk ? `<text class="risk-mark" x="${ne.toFixed(2)}" y="${ie.toFixed(2)}" dy="-8" text-anchor="middle" transform="rotate(${z.toFixed(2)} ${ne.toFixed(2)} ${ie.toFixed(2)})" aria-hidden="true">*</text>` : "", re = r ? h.hidden : n.topics.length, oe = X + 20, se = HubRenderer.renderBadges(J.x, J.y, re, dCat, -g.ux, -g.uy, oe, true), le = r ? function(e, t, n, i, a, r) {
+                // Category name sits on the spoke midline: the glyph
+                // centre is halfway from the ring (where the taper
+                // starts) to the icon's inner edge, on the ray through
+                // the icon. The anchor is the hub-side end of the
+                // glyphs on both halves, so it lies half a text-width
+                // inward of that centre. Settle reseats this after the
+                // icon moves.
+                const iconR1 = sxIconRadius(1) || 48, spokeInner = ea.spokeStartRadius, spokeOuter = Math.max(spokeInner + 48, s - iconR1), spokeMid = (spokeInner + spokeOuter) / 2, halfText = catTextW / 2, anchorR = Math.max(spokeInner, Math.min(spokeOuter - Math.min(catTextW, Math.max(8, spokeOuter - spokeInner)), spokeMid - halfText));
+                const j = pr.centerX + Math.cos(a) * anchorR, q = pr.centerY + Math.sin(a) * anchorR, H = Math.atan2(l.y - o.y, l.x - o.x), W = Math.cos(H) < 0, U = W ? -g.ux : g.ux, G = j, K = q, z = 180 * (H + (W ? Math.PI : 0)) / Math.PI, V = W ? ' text-anchor="end"' : "", Y = sxIconDiameter(1), X = Y / 2, Z = Y / 24, Q = ge[i.name], J = sxPolarPoint(a, sxBranchSpokeLength(i)), ee = Q ? HubRenderer.renderIcon(dCat, Y, Q, sxTopicTooltipAttrs(dCat, sxNodeRegistry[dCat], C, { tapFirst: !0 }), sxCatDisc ? sxCatDisc.ring : sxCatHeat || Q.color, J.x, J.y, true, false, null, sxCatDisc) : "", te = k(dCat, M, !Rt && sxHasActiveProfileFlag(dCat, Je), !Rt && sxHasActiveProfileFlag(dCat, et), !Rt && Boolean(tt[C]?.[dCat]?.length), J, g.ux, g.uy), ne = j - 11 * g.ux, ie = q - 11 * g.uy, ae = i.risk ? `<text class="risk-mark" x="${ne.toFixed(2)}" y="${ie.toFixed(2)}" dy="-8" text-anchor="middle" transform="rotate(${z.toFixed(2)} ${ne.toFixed(2)} ${ie.toFixed(2)})" aria-hidden="true">*</text>` : "", re = r ? h.hidden : n.topics.length, oe = X + 20, se = HubRenderer.renderBadges(J.x, J.y, re, dCat, -g.ux, -g.uy, oe, true), le = r ? function(e, t, n, i, a, r) {
                     if (!n) return "";
                     const o = `+${n} more`, s = Math.max(58, 7 * o.length + 16), l = i + s / 2 * Math.abs(a) + 12 * Math.abs(r), c = t + r * l;
                     return `<g class="hidden-count-badge density-count-badge" data-width="${s}" transform="translate(${(e + a * l - s / 2).toFixed(2)} ${(c - 12).toFixed(2)})" role="note" aria-label="${n} more ${1 === n ? "topic" : "topics"} hidden by hypermap density"><rect width="${s}" height="24" rx="7"/><text x="${(s / 2).toFixed(2)}" y="12" text-anchor="middle" dominant-baseline="middle">${o}</text></g>`;
@@ -25862,12 +26001,13 @@ var Qr = null, Jr = null, eo = null, to = !1, no = null;
                 give.value = rec.giveKnown ? rec.give : 0;
                 giveOut && (giveOut.textContent = rec.giveKnown ? String(Math.round(rec.give)) : "Unrated");
             } else if (widget === "trilinear-line") {
-                // 3-Pole LINE Triad: one scalar on a single track; the middle pole
-                // sits at 0. Stored under the single key "line" (bind writes via
-                // shape.keys[0]); derived weights: middle = 1 - |V|/100.
+                // 3-Pole LINE: the middle pole sits at 0. On a dual skin
+                // the give track is the advocacy position and the receive
+                // track is the receptivity position. A classic line keeps
+                // the one scalar under "line".
                 setOnlyWrap(linearRatings);
                 linearRatings && linearRatings.classList.add("is-trilinear");
-                recvRow && (recvRow.hidden = !0);
+                const dualLine = typeof sxDualPlacements === "function" && sxDualPlacements(id);
                 role3Row && (role3Row.hidden = !0);
                 role4Row && (role4Row.hidden = !0);
                 role5Row && (role5Row.hidden = !0);
@@ -25889,8 +26029,22 @@ var Qr = null, Jr = null, eo = null, to = !1, no = null;
                     });
                     giveLabel.appendChild(poleBox);
                 }
-                give.value = rec.lineKnown ? rec.line : 0;
-                giveOut && (giveOut.textContent = rec.lineKnown ? String(Math.round(rec.line)) : "Unrated");
+                if (dualLine) {
+                    const advKnown = Boolean(rec.advocacy && Number.isFinite(Number(rec.advocacy.line)));
+                    const recKnown = Boolean(rec.receptivity && Number.isFinite(Number(rec.receptivity.line)));
+                    const advVal = advKnown ? Number(rec.advocacy.line) : 0;
+                    const recVal = recKnown ? Number(rec.receptivity.line) : 0;
+                    recvRow && (recvRow.hidden = !1);
+                    recvLabel && (recvLabel.textContent = "Receptivity");
+                    give.value = advVal;
+                    if (recv) recv.value = recVal;
+                    giveOut && (giveOut.textContent = advKnown ? String(Math.round(advVal)) : "Unrated");
+                    recvOut && (recvOut.textContent = recKnown ? String(Math.round(recVal)) : "Unrated");
+                } else {
+                    recvRow && (recvRow.hidden = !0);
+                    give.value = rec.lineKnown ? rec.line : 0;
+                    giveOut && (giveOut.textContent = rec.lineKnown ? String(Math.round(rec.line)) : "Unrated");
+                }
             } else {
                 // 2-Pole Interactive Topic: Directly render designated rating widget (2D Switchbox vs Linear Sliders)
                 if (shape.widget === "linear-sliders") {
@@ -26042,7 +26196,7 @@ var Qr = null, Jr = null, eo = null, to = !1, no = null;
             try { dual = typeof sxDualPlacements === "function" && sxDualPlacements(id); } catch (err) { dual = false; }
             // Flat-line records (scalar "line", no placements) keep today's
             // behavior; the box serves dual-placement records only.
-            if (w === "trilinear-line" && !(rec && (rec.advocacy || rec.receptivity))) dual = false;
+
             if (linBox) linBox.hidden = !(inLinear && dual);
             if (swBox) swBox.hidden = !(inSwitch && dual);
             if ((!inLinear && !inSwitch) || !dual) return;
@@ -26104,15 +26258,15 @@ var Qr = null, Jr = null, eo = null, to = !1, no = null;
             give.addEventListener("input", () => show(give, giveOut, !0));
             give.addEventListener("change", () => {
                 if (Qr) {
-                    const k = getKey(0, "give");
-                    sxStoreFlankRating(Qr, k, Number(give.value), !0);
+                    if (sxIsTrilinearDual(Qr)) sxCommitLinePlacement(Qr, "advocacy", Number(give.value), sxActiveProfileId(), !0);
+                    else sxStoreFlankRating(Qr, getKey(0, "give"), Number(give.value), !0);
                     sxSyncMarkRatings(Qr);
                 }
             });
             e.byId("markGiveClear") && e.byId("markGiveClear").addEventListener("click", () => {
                 if (Qr) {
-                    const k = getKey(0, "give");
-                    sxClearTopicRating(Qr, k, !0);
+                    if (sxIsTrilinearDual(Qr)) sxCommitLinePlacement(Qr, "advocacy", NaN, sxActiveProfileId(), !0);
+                    else sxClearTopicRating(Qr, getKey(0, "give"), !0);
                     sxSyncMarkRatings(Qr);
                 }
             });
@@ -26120,15 +26274,15 @@ var Qr = null, Jr = null, eo = null, to = !1, no = null;
                 recv.addEventListener("input", () => show(recv, recvOut, !0));
                 recv.addEventListener("change", () => {
                     if (Qr) {
-                        const k = getKey(1, "receive");
-                        sxStoreFlankRating(Qr, k, Number(recv.value), !0);
+                        if (sxIsTrilinearDual(Qr)) sxCommitLinePlacement(Qr, "receptivity", Number(recv.value), sxActiveProfileId(), !0);
+                        else sxStoreFlankRating(Qr, getKey(1, "receive"), Number(recv.value), !0);
                         sxSyncMarkRatings(Qr);
                     }
                 });
                 e.byId("markReceiveClear") && e.byId("markReceiveClear").addEventListener("click", () => {
                     if (Qr) {
-                        const k = getKey(1, "receive");
-                        sxClearTopicRating(Qr, k, !0);
+                        if (sxIsTrilinearDual(Qr)) sxCommitLinePlacement(Qr, "receptivity", NaN, sxActiveProfileId(), !0);
+                        else sxClearTopicRating(Qr, getKey(1, "receive"), !0);
                         sxSyncMarkRatings(Qr);
                     }
                 });
@@ -26583,8 +26737,40 @@ var __sxCtmEl = null, __sxCtmVal = null, __sxCtmKey = "";
             const m = sxClampUnit(g);
             return 200 * (m <= .16 ? 0 : m >= .84 ? 1 : (m - .16) / .68) - 100;
         }
+        function sxIsTrilinearDual(id) {
+            if (!id || typeof sxDualPlacements !== "function" || !sxDualPlacements(id)) return false;
+            const shape = typeof sxWidgetConfig === "function" ? sxWidgetConfig(id) : null;
+            return Boolean(shape && shape.widget === "trilinear-line");
+        }
+        // One rail, two positions. NaN clears that placement. A number
+        // writes {line} on advocacy or receptivity and keeps the
+        // placement's intensity (seeded from the line the first time).
+        function sxCommitLinePlacement(id, place, value, profileId, paint) {
+            if (place !== "advocacy" && place !== "receptivity") return false;
+            const pid = profileId || (typeof sxActiveProfileId === "function" ? sxActiveProfileId() : null);
+            if (Number.isNaN(value)) {
+                if (typeof sxClearAdvocacyReceptivity === "function") sxClearAdvocacyReceptivity(id, place, pid);
+                if (paint) sxRequestMapPaint();
+                return true;
+            }
+            if (value === null || !Number.isFinite(Number(value))) return true;
+            const rec = typeof sxDecodeTopicStance === "function" ? sxDecodeTopicStance(id, pid) : null;
+            const knownKey = place === "receptivity" ? "receptivityIntensityKnown" : "advocacyIntensityKnown";
+            const intKey = place === "receptivity" ? "receptivityIntensity" : "advocacyIntensity";
+            let intensity = rec && rec[knownKey] ? rec[intKey] : null;
+            if (intensity == null) intensity = Math.max(40, Math.abs(Math.round(Number(value))));
+            if (typeof sxPersistAdvocacyReceptivity === "function") sxPersistAdvocacyReceptivity(id, place, { line: Math.round(Number(value)) }, intensity, pid);
+            if (paint) sxRequestMapPaint();
+            return true;
+        }
+        function sxCommitRailValue(el, id, direction, value) {
+            const place = el && el.dataset.placement;
+            if (place === "advocacy" || place === "receptivity") return void sxCommitLinePlacement(id, place, value, null, !1);
+            if (Number.isNaN(value)) sxClearTopicRating(id, direction, !1);
+            else if (value !== null) sxStoreFlankRating(id, direction, value, !1);
+        }
         function sxPreviewSpokeThumb(e, t) {
-            const n = e.dataset.id, i = e.dataset.direction, a = __sxClosestAction(e, "nodeGroup"), r = Number.isNaN(t);
+            const n = e.dataset.id, i = e.dataset.direction, place = e.dataset.placement || "", a = __sxClosestAction(e, "nodeGroup"), r = Number.isNaN(t);
             if (a) {
                 const t = __sxClosestAction(e, "directionControl");
                 t && (t.classList.add("active-rating"), t.classList.toggle("is-clear-preview", r), 
@@ -26592,19 +26778,31 @@ var __sxCtmEl = null, __sxCtmVal = null, __sxCtmKey = "";
             }
             const o = a && a.querySelector(`.visual-rail[data-id="${n}"][data-direction="${i}"]`);
             if (o && o.classList.add("active-rating"), null === t || r) {
-                const e = sxRatingRecord(n, sxActiveProfileId());
-                t = e[i + "Known"] ? e[i] : 0;
+                const rec = sxRatingRecord(n, sxActiveProfileId());
+                const bag = place === "receptivity" ? rec.receptivity : place === "advocacy" ? rec.advocacy : null;
+                if (bag && Number.isFinite(Number(bag[i]))) t = Number(bag[i]);
+                else t = rec[i + "Known"] ? rec[i] : 0;
             }
             const s = Math.max(-100, Math.min(100, Number(t))), l = (s + 100) / 200, c = Number(e.dataset.x0), d = Number(e.dataset.y0), u = Number(e.dataset.x1), p = Number(e.dataset.y1), h = Number(e.dataset.nx), g = Number(e.dataset.ny), m = Number(e.dataset.offset);
-            let f = a && a.querySelector(`.slider-thumb[data-id="${n}"][data-direction="${i}"]`);
+            const thumbSel = place ? `.slider-thumb[data-id="${n}"][data-direction="${i}"][data-placement="${place}"]` : `.slider-thumb[data-id="${n}"][data-direction="${i}"]`;
+            let f = a && a.querySelector(thumbSel);
             if (!f && a) {
-                f = document.createElementNS("http://www.w3.org/2000/svg", "circle"), f.setAttribute("class", "slider-thumb"), 
-                f.dataset.id = n, f.dataset.direction = i, f.setAttribute("r", "7");
+                f = document.createElementNS("http://www.w3.org/2000/svg", "circle"), f.setAttribute("class", place === "receptivity" ? "slider-thumb map-line-ring" : "slider-thumb"),
+                f.dataset.id = n, f.dataset.direction = i, place && (f.dataset.placement = place), f.setAttribute("r", place === "receptivity" ? "13" : "7");
+                if (place === "receptivity") f.setAttribute("fill", "none");
                 const t = __sxClosestAction(e, "directionControl");
                 (t || a).insertBefore(f, t ? e : null);
             }
-            f && (f.classList.add("active-rating"), f.setAttribute("cx", (c + (u - c) * l + h * m).toFixed(2)), 
-            f.setAttribute("cy", (d + (p - d) * l + g * m).toFixed(2)), f.setAttribute("fill", sxInterestColor(s)));
+            if (f) {
+                f.classList.add("active-rating");
+                f.setAttribute("cx", (c + (u - c) * l + h * m).toFixed(2));
+                f.setAttribute("cy", (d + (p - d) * l + g * m).toFixed(2));
+                if (place === "receptivity" || f.classList.contains("map-line-ring")) {
+                    f.setAttribute("fill", "none");
+                    f.setAttribute("stroke", sxInterestColor(s));
+                    r ? f.setAttribute("stroke-dasharray", "3 2.5") : f.removeAttribute("stroke-dasharray");
+                } else f.setAttribute("fill", sxInterestColor(s));
+            }
             const y = a && a.querySelector(`.direction-tag-bg[data-id="${n}"][data-direction="${i}"]`);
             return y && (y.setAttribute("fill", sxInterestColor(s)), y.setAttribute("opacity", "1")), e.setAttribute("aria-valuenow", String(s)), 
             e.setAttribute("aria-valuetext", r ? "Release to clear" : String(Math.round(s))), 
@@ -26994,13 +27192,30 @@ var xs = 0;
             // on such a row).
             if (e.__sxCrossPair) { e.__sxCrossPair.first.render(); e.__sxCrossPair.second.render(); }
             e.querySelectorAll("[data-outline-direction]").forEach(e => {
-                const t = e.dataset.outlineDirection;
+                const t = e.dataset.outlineDirection, place = e.dataset.placement;
+                let known, val, app;
+                if (place === "receptivity") {
+                    const bag = i.receptivity;
+                    known = Boolean(bag && Number.isFinite(Number(bag[t])));
+                    val = known ? Number(bag[t]) : 0;
+                    app = i.receptivityIntensityKnown ? i.receptivityIntensity : val;
+                } else if (place === "advocacy") {
+                    const bag = i.advocacy;
+                    known = Boolean(bag && Number.isFinite(Number(bag[t])));
+                    val = known ? Number(bag[t]) : (i[t + "Known"] ? Number(i[t]) : 0);
+                    if (!known && i[t + "Known"]) known = !0;
+                    app = i.advocacyIntensityKnown ? i.advocacyIntensity : sxOutlineDirAppetite(i, t, val);
+                } else {
+                    known = Boolean(i[t + "Known"]);
+                    val = i[t];
+                    app = sxOutlineDirAppetite(i, t, val);
+                }
                 !function(e, t, n, app) {
-                    const i = Math.max(-100, Math.min(100, Number(n) || 0)), a = __sxClosestAction(e, "outlineRating").querySelector("output");
+                    const i = Math.max(-100, Math.min(100, Number(n) || 0)), host = e.parentElement, a = (host && host.querySelector(":scope > output")) || __sxClosestAction(e, "outlineRating").querySelector("output");
                     e.value = String(Math.round(i)), e.classList.toggle("is-unrated", !t), e.style.setProperty("--outline-thumb", t ? sxInterestColor(app) : "#646d66"), 
-                    e.setAttribute("aria-valuetext", t ? `${Math.round(i)}` : "Unrated"), a.textContent = t ? String(Math.round(i)) : "—", 
-                    a.classList.toggle("is-unrated", !t);
-                }(e, Boolean(i[t + "Known"]), i[t], sxOutlineDirAppetite(i, t, i[t]));
+                    e.setAttribute("aria-valuetext", t ? `${Math.round(i)}` : "Unrated");
+                    if (a) a.textContent = t ? String(Math.round(i)) : "—", a.classList.toggle("is-unrated", !t);
+                }(e, known, val, app);
             }), e.querySelectorAll("[data-outline-mark]").forEach(e => e.setAttribute("aria-pressed", String(e.dataset.outlineMark === a))), 
             e.querySelector('[data-outline-flag="fantasy"]')?.setAttribute("aria-pressed", String(Boolean(Je[n]?.[t]))), 
             e.querySelector('[data-outline-flag="tried"]')?.setAttribute("aria-pressed", String(Boolean(et[n]?.[t])));
@@ -27070,7 +27285,7 @@ var xs = 0;
             if (i.octad || i.heptad || i.hexad || i.pentad || i.tetrad || i.triangle || i.triple) {
                 const inline = document.createElement("div");
                 inline.className = "outline-inline-widget";
-                inline.innerHTML = '<canvas class="outline-inline-canvas" width="148" height="148" aria-label="Topic widget"></canvas><label class="outline-inline-intensity"><span>Intensity</span><input class="outline-inline-slider" type="range" min="-100" max="100" step="1" value="0" aria-label="Intensity"><output class="outline-inline-out">0</output></label><button class="outline-inline-clear" type="button">Clear</button><div class="outline-inline-readout mark-triangle-readout"></div>';
+                inline.innerHTML = '<canvas class="outline-inline-canvas" width="148" height="148" aria-label="Topic widget"></canvas><label class="outline-inline-intensity"><span>Intensity</span><input class="outline-inline-slider mark-thumb-disc" type="range" min="-100" max="100" step="1" value="0" aria-label="Advocacy intensity"><output class="outline-inline-out">0</output></label><label class="outline-inline-intensity outline-inline-rec" hidden=""><span>○ Rec</span><input class="outline-inline-slider outline-inline-rec-slider mark-thumb-ring" type="range" min="-100" max="100" step="1" value="0" aria-label="Receptivity intensity"><output class="outline-inline-rec-out">—</output></label><button class="outline-inline-clear" type="button">Clear</button><div class="outline-inline-readout mark-triangle-readout"></div>';
                 h.append(inline);
                 typeof window.sxOpenHotListWidgetPopup === "function" && window.sxOpenHotListWidgetPopup(e.id, t, inline);
             } else if (i.widget === "trilinear-line") {
@@ -27111,8 +27326,37 @@ var xs = 0;
                 c.type = "range", c.min = "-100", c.max = "100", c.step = "1", c.value = "0", c.dataset.outlineDirection = "line",
                 c.setAttribute("aria-label", sliderAria);
                 const d = document.createElement("output");
-                sliderRow.append(c, d);
-                r.append(poleBar, sliderRow), h.append(r);
+                const dualLine = typeof sxDualPlacements === "function" && sxDualPlacements(e.id);
+                if (dualLine) {
+                    c.dataset.placement = "advocacy";
+                    c.setAttribute("aria-label", `${e.label} advocacy: -100 ${triParts[0]}, 0 ${triParts[1]}, +100 ${triParts[2]}`);
+                    const advLab = document.createElement("span");
+                    advLab.className = "outline-trilinear-side";
+                    advLab.textContent = "Adv";
+                    sliderRow.append(advLab, c, d);
+                    const recRow = document.createElement("div");
+                    recRow.className = "outline-trilinear-slider-row";
+                    const recLab = document.createElement("span");
+                    recLab.className = "outline-trilinear-side";
+                    recLab.textContent = "Rec";
+                    const recIn = document.createElement("input");
+                    recIn.type = "range";
+                    recIn.min = "-100";
+                    recIn.max = "100";
+                    recIn.step = "1";
+                    recIn.value = "0";
+                    recIn.className = "is-rec-line";
+                    recIn.dataset.outlineDirection = "line";
+                    recIn.dataset.placement = "receptivity";
+                    recIn.setAttribute("aria-label", `${e.label} receptivity: -100 ${triParts[0]}, 0 ${triParts[1]}, +100 ${triParts[2]}`);
+                    const recOut = document.createElement("output");
+                    recRow.append(recLab, recIn, recOut);
+                    r.append(poleBar, sliderRow, recRow);
+                } else {
+                    sliderRow.append(c, d);
+                    r.append(poleBar, sliderRow);
+                }
+                h.append(r);
             } else if (!i.single && i.keys && i.keys.length === 2) {
                 // Pair topic: the placard's cross slider, in the row
                 // (owner ruling, 2026-11-25 — one widget in three
@@ -28301,7 +28545,7 @@ var Bs = window.matchMedia ? window.matchMedia("(hover: hover)") : {
             // appetite is written.
             if (!i && t.startY !== undefined && t.startApp !== undefined) {
                 var dy = e.clientY - t.startY;
-                if (!t.armShown && Math.abs(dy) > 10 && sxOutlineArmWritable(t.topicId, t.dir, Go)) {
+                if (!t.armShown && Math.abs(dy) > 10 && !t.input.dataset.placement && sxOutlineArmWritable(t.topicId, t.dir, Go)) {
                     t.armShown = true;
                     t.input.classList.add("is-arm-open");
                     sxOutlineArmShow(t);
@@ -28329,8 +28573,13 @@ var Bs = window.matchMedia ? window.matchMedia("(hover: hover)") : {
             const t = zo, {input: n, clear: i} = t;
             if (zo = null, sxEndOutlineDrag(t), !Go) return;
             const previousRatedCount = Number(n.dataset.milestoneStartRated), a = getOutlineRow(n);
-            delete n.dataset.milestoneStartRated, i ? (sxOutlineClearDir(a.dataset.outlineId, n.dataset.outlineDirection, Go) || sxClearTopicRating(a.dataset.outlineId, n.dataset.outlineDirection, !1, Go)) : (sxOutlineWriteDir(a.dataset.outlineId, n.dataset.outlineDirection, Number(n.value), Go) || sxStoreFlankRating(a.dataset.outlineId, n.dataset.outlineDirection, Number(n.value), !0, Go)), 
-            t.armShown && !i && sxOutlineWriteAppetite(t.topicId, t.dir, t.app, Go),
+            delete n.dataset.milestoneStartRated;
+            const place = n.dataset.placement;
+            if (place === "advocacy" || place === "receptivity") sxCommitLinePlacement(a.dataset.outlineId, place, i ? NaN : Number(n.value), Go, !0);
+            else {
+                i ? (sxOutlineClearDir(a.dataset.outlineId, n.dataset.outlineDirection, Go) || sxClearTopicRating(a.dataset.outlineId, n.dataset.outlineDirection, !1, Go)) : (sxOutlineWriteDir(a.dataset.outlineId, n.dataset.outlineDirection, Number(n.value), Go) || sxStoreFlankRating(a.dataset.outlineId, n.dataset.outlineDirection, Number(n.value), !0, Go));
+                t.armShown && !i && sxOutlineWriteAppetite(t.topicId, t.dir, t.app, Go);
+            }
             sxSyncOutlineRow(a), sxRefreshHotListStatus(), sxIsOutlineRated(a.dataset.outlineId, Go) ? os.add(a.dataset.outlineId) : os.delete(a.dataset.outlineId), 
             checkMilestoneTransition(Go, previousRatedCount);
         }
@@ -28571,8 +28820,11 @@ var Bs = window.matchMedia ? window.matchMedia("(hover: hover)") : {
             const n = __sxClosestAction(e.target, "outlineDirection");
             if (!n || !Go) return;
             const i = getOutlineRow(n).dataset.outlineId;
-            "milestoneStartRated" in n.dataset || (n.dataset.milestoneStartRated = String(sxOutlineRatedCounts(Go).rated)), 
-            sxOutlineWriteDir(i, n.dataset.outlineDirection, Number(n.value), Go) || sxStoreFlankRating(i, n.dataset.outlineDirection, Number(n.value), !1, Go), os.add(i), sxSyncOutlineRow(getOutlineRow(n)), 
+            "milestoneStartRated" in n.dataset || (n.dataset.milestoneStartRated = String(sxOutlineRatedCounts(Go).rated));
+            const place = n.dataset.placement;
+            if (place === "advocacy" || place === "receptivity") sxCommitLinePlacement(i, place, Number(n.value), Go, !1);
+            else sxOutlineWriteDir(i, n.dataset.outlineDirection, Number(n.value), Go) || sxStoreFlankRating(i, n.dataset.outlineDirection, Number(n.value), !1, Go);
+            os.add(i), sxSyncOutlineRow(getOutlineRow(n)),
             sxRefreshHotListStatus();
         }), Ro.addEventListener("change", e => {
             const t = __sxClosestAction(e.target, "outlineDirection");
@@ -28604,7 +28856,10 @@ var Bs = window.matchMedia ? window.matchMedia("(hover: hover)") : {
             if (sxEnsureOutlineAudio(), "Delete" !== e.key && "Backspace" !== e.key) return;
             e.preventDefault();
             const n = getOutlineRow(t);
-            sxOutlineClearDir(n.dataset.outlineId, t.dataset.outlineDirection, Go) || sxClearTopicRating(n.dataset.outlineId, t.dataset.outlineDirection, !1, Go), sxIsOutlineRated(n.dataset.outlineId, Go) ? os.add(n.dataset.outlineId) : os.delete(n.dataset.outlineId), 
+            const place = t.dataset.placement;
+            if (place === "advocacy" || place === "receptivity") sxCommitLinePlacement(n.dataset.outlineId, place, NaN, Go, !0);
+            else sxOutlineClearDir(n.dataset.outlineId, t.dataset.outlineDirection, Go) || sxClearTopicRating(n.dataset.outlineId, t.dataset.outlineDirection, !1, Go);
+            sxIsOutlineRated(n.dataset.outlineId, Go) ? os.add(n.dataset.outlineId) : os.delete(n.dataset.outlineId),
             sxSyncOutlineRow(n), sxRefreshHotListStatus();
         }), Ro.addEventListener("pointerdown", e => {
             const t = __sxClosestAction(e.target, "outlineDirection");
@@ -40328,10 +40583,10 @@ var sxLastNodeTapTime = 0, sxLastNodeTapId = null, sxLastNodeTapX = 0, sxLastNod
                 const t = Ip;
                 if (Ip = null, "pointerup" === e.type && t.dragged) {
                     const profileId = sxActiveProfileId(), previousRatedCount = sxOutlineRatedCounts(profileId).rated, n = sxPreviewSpokeThumb(t.el, sxRatingAlongRail(t.el, e.clientX, e.clientY, !0));
-                    Number.isNaN(n) ? (sxClearTopicRating(t.id, t.direction, !1), Nt = null, sxRequestMapPaint()) : null === n ? (Nt = {
+                    Number.isNaN(n) ? (sxCommitRailValue(t.el, t.id, t.direction, n), Nt = null, sxRequestMapPaint()) : null === n ? (Nt = {
                         id: t.id,
                         direction: t.direction
-                    }, sxRequestMapPaint()) : (sxStoreFlankRating(t.id, t.direction, n, !1), Nt = null, sxRequestMapPaint()), checkMilestoneTransition(profileId, previousRatedCount);
+                    }, sxRequestMapPaint()) : (sxCommitRailValue(t.el, t.id, t.direction, n), Nt = null, sxRequestMapPaint()), checkMilestoneTransition(profileId, previousRatedCount);
                 } else "pointerup" === e.type && t.longPressed, Nt = {
                     id: t.id,
                     direction: t.direction
@@ -40345,9 +40600,18 @@ var sxLastNodeTapTime = 0, sxLastNodeTapId = null, sxLastNodeTapX = 0, sxLastNod
             }
             if (Mp && Mp.pointerId === e.pointerId) {
                 const t = Mp;
-                if (Mp = null, "pointerup" === e.type) {
-                    const profileId = sxActiveProfileId(), previousRatedCount = sxOutlineRatedCounts(profileId).rated, n = sxPreviewSpokeThumb(t.el, sxRatingAlongRail(t.el, e.clientX, e.clientY));
-                    Number.isNaN(n) ? sxClearTopicRating(t.id, t.direction, !1) : null !== n && sxStoreFlankRating(t.id, t.direction, n, !1),
+                // A map drag longer than 10px is swallowed in the document
+                // capture phase (02o1) before this svg's pointerup listener
+                // runs. Pointer capture then ends, and lostpointercapture is
+                // the release that still reaches here. Commit on that too.
+                // A click still commits on pointerup and clears Mp first, so
+                // the capture-loss that follows does not write a second time.
+                if (Mp = null, "pointerup" === e.type || "lostpointercapture" === e.type) {
+                    const profileId = sxActiveProfileId(), previousRatedCount = sxOutlineRatedCounts(profileId).rated;
+                    let n;
+                    if ("lostpointercapture" === e.type && !e.clientX && !e.clientY && Number.isFinite(Number(t.value))) n = Number(t.value);
+                    else n = sxPreviewSpokeThumb(t.el, sxRatingAlongRail(t.el, e.clientX, e.clientY));
+                    Number.isNaN(n) ? sxCommitRailValue(t.el, t.id, t.direction, n) : null !== n && sxCommitRailValue(t.el, t.id, t.direction, n),
                     Nt = null, sxRequestMapPaint(), checkMilestoneTransition(profileId, previousRatedCount);
                 } else Nt = null, sxRequestMapPaint();
             }
@@ -41084,7 +41348,7 @@ var sxNoteHold = null, sxNoteTapTime = 0, sxNoteTapId = null, sxNoteTapX = 0, sx
                     }, sxPreviewSpokeThumb(Ip.el, null));
                 }, 420));
             }
-            if (s && 1 === eh.size) {
+            if (s && !l && 1 === eh.size) {
                 const n = s.dataset.id || s.dataset.topicId || s.dataset.spokeFor || s.closest?.(".node-group")?.dataset.layoutKey || __sxClosestAction(s, "nodeGroup")?.dataset.layoutKey;
                 e.preventDefault(), e.stopPropagation(), sxCaptureSvgPointer(e.pointerId);
                 const i = Cn.createSVGPoint();
