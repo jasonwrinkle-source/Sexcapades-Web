@@ -1964,11 +1964,12 @@ path.rating-track-hit:not(.map-line-ring-hit).active-rating{pointer-events:strok
 }
 
 
-/* Appetite arm for the inline row sliders (2026-11-25): the map-inline
-   fader is a true cross slider, so a vertical drag opens this arm over
-   the row. Same look as the 03f3 cross-slider arm: panel, rail with the
-   green/yellow/red gradient, ticks, Appetite/Aversion labels, the
-   rectangular tab riding the rail, and a numeric bubble. */
+/* Appetite arm for the inline row sliders (2026-11-25): a vertical
+   drag opens this arm over the row. Same look as the 03f3
+   cross-slider arm: panel, rail with the green/yellow/red gradient,
+   ticks, Appetite/Aversion labels, the circular disc handle riding
+   the rail, and a numeric bubble. (The equalizer/fader form is gone,
+   2026-11-26: the thumb stays a circular disc on the track.) */
 .outline-arm{position:fixed;z-index:10001;width:78px;height:192px;background:var(--panel);border:1px solid var(--line);border-radius:12px;box-shadow:0 14px 34px rgba(0,0,0,.32),0 2px 8px rgba(0,0,0,.18);pointer-events:none;}
 .outline-arm[hidden]{display:none;}
 .outline-arm-rail{position:absolute;left:50%;margin-left:-3px;top:16px;bottom:16px;width:6px;background:linear-gradient(180deg,var(--green-deep),var(--curious),var(--red-deep));border-radius:3px;}

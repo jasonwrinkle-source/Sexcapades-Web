@@ -10,8 +10,15 @@
             const t = zo;
             if (!t || t.pointerId !== e.pointerId) return;
             const n = t.rect, i = e.clientX < n.left - 18 || e.clientX > n.right + 18;
-            t.clear = i, t.input.classList.toggle("is-clear-preview", i), t.thumb.style.left = `${e.clientX}px`, 
-            t.thumb.style.top = `${e.clientY}px`, t.thumb.style.background = i ? "var(--red-deep)" : sxInterestColor(Number(t.input.value));
+            // The drag thumb is PROJECTED onto the track (2026-11-26):
+            // its X is the cursor clamped to the track's X range and
+            // its Y is locked to the track's vertical centre, so it
+            // marks the lean position ON the track and never follows
+            // the cursor's raw 2D position. The appetite arm (below)
+            // is a separate overlay and still sets appetite.
+            var px = Math.min(Math.max(e.clientX, n.left), n.right), py = n.top + n.height / 2;
+            t.clear = i, t.input.classList.toggle("is-clear-preview", i), t.thumb.style.left = px + "px",
+            t.thumb.style.top = py + "px", t.thumb.style.background = i ? "var(--red-deep)" : sxInterestColor(Number(t.input.value));
             // Appetite arm: a vertical drag while holding opens the
             // arm (after 10px, so a purely horizontal drag never
             // shows it); the arm then tracks the appetite live and
