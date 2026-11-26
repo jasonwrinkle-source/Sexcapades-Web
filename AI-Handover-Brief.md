@@ -76,19 +76,38 @@ without his daylight say-so and his own cold-open acceptance. Address him as
 4. **Picker + pair view (2026-11-24):** "?" opens the Docs pull-down, About is double-click on the skin name; the 600ms long-press and shift-click picker triggers are removed. Pair view goes fully live: veils + heat in the fingerprint, group heat = the LOWER member heat, independent group veil, nested groups treated as units.
 5. **Flexcapades rename + live deploy (2026-11-25):** Metacapades renamed Flexcapades (the skin is flex.capades.io, the flex default; picker opens by default there). Deploy build 2026-11-25_0442 is live; deploy-all 1928 is DEAD (do not host). Flyer QR fixed for flex; bio/lingua/fast QRs appeared as untracked files 2026-11-25 (contents unverified).
 6. **Songbook v5.2 (2026-11-25):** the best of AntiGravity's v5.1.3 edition folded into YoBiche's book (U1 mirror + negotiation verses; house byline on every sheet); AntiGravity's editions versioned separately in `songbook/antigravity-edition/`.
-7. **Flexcapades guide links (2026-11-25, committed locally `f1a538d`, NOT pushed):** each of the 22 usage topics carries a Guide entry in its community block ("Read the guide" in the About panel); 21 `flex-<slug>` anchors + `guide.js` `anchorToPage` registrations; 6 guide sections being written (cross slider, heat, hot list, shared appetite, analytics, pair Minus).
+7. **Flexcapades guide links (2026-11-25, committed & pushed `ed7e9cc`):** each of the 22 usage topics carries a Guide entry in its community block ("Read the guide" in the About panel); 21 `flex-<slug>` anchors + `guide.js` `anchorToPage` registrations; 6 guide sections written (cross slider, heat, hot list, shared appetite, analytics, pair Minus).
+8. **Modularization & Build Unification (2026-11-25 – 2026-11-26):**
+   - **HTML & CSS Partials:** `app/sexcapades-5.0.html` and `site-tree/public_html/hosted/app.html` are built from `app/html/00-head.html`..`09-tail.html` via `packaging-scripts/build-html.py` (which also syncs companion pages `gate.html`, `guide.html`, `quickstart.html`, `flyer.html`, and `*-assets/`). `app/css/app.css` is built from `app/css/components/01..07.css` via `packaging-scripts/build-css.py`.
+   - **Single-Step Build:** `python3 app/data/build-bundle.py` builds `data-bootstrap.js` (from 71 named engine modules in `app/js/modules/`), `patches.js` (from `app/js/patches/`), `layout-editor.js`, `skin-loader.js`, `view-nav.js`, `scene-sentinel.js`, `docs-skin.js`, `app.css`, and both HTML shells in one command.
+   - **Unified Skin Catalog & Dynamic `#skinMenu`:** `app/js/skin-catalog.js` is the single source of truth for all 22 skins (`window.__SX_SKIN_LIST`, `window.__SX_SKIN_HOST_MAP`, `window.__SX_TARGET_SKIN`, `window.__SX_RESOLVE_SKIN`, `window.__SX_RENDER_SKIN_MENU`). `#skinMenu` in `09-tail.html` is populated dynamically at boot from `skin-catalog.js` rather than hardcoded HTML buttons.
+   - **Scribe BYOK vs. TTS Split:** `app/js/patches/` separates shared BYOK streaming/clipboard helpers (`01b-ai-byok-core.js`), Scribe story generation (`02a-scribe-story-gen.js`), Scribe Gemini TTS audio narration (`02b-scribe-tts-narration.js`), and Scene Setter play-guide generation (`03-setter-ai-byok.js`).
 
 ### Repo Layout
 
-- **Source app:** `app/` — `app/sexcapades-5.0.html`; `app/js/modules/`
-  (modular engine components concatenated via `build-bundle.py`); `app/js/` top-level
-  entrypoints (`skin-loader.js`, `view-nav.js`, etc.); `app/css/app.css`;
-  `app/data/` (the bundler, `data-bootstrap.js`, and `app/data/skins/*.json`).
+- **Source app:** `app/` — `app/html/00-head.html`..`09-tail.html` (source partials for `app/sexcapades-5.0.html` and `hosted/app.html`); `app/js/modules/` (71 modular engine components concatenated via `build-bundle.py`); `app/js/` modular subdirectories (`layout-editor/`, `patches/`, `scene-sentinel/`, `skin-loader/`, `view-nav/`) and top-level scripts (`skin-catalog.js`, `shell-head.js`, `shell-runtime.js`, etc.); `app/css/components/` (source partials for `app/css/app.css`); `app/data/` (the bundler `build-bundle.py`, `data-bootstrap.js`, and `app/data/skins/*.json`).
 - **Hosted tree:** `site-tree/public_html/` — `hosted/` (`app.html`, `gate.html`,
-  `guide.html`, `quickstart.html`, `picker.html`, `data/`, `js/`, `assets/`).
+  `guide.html`, `quickstart.html`, `picker.html`, `data/`, `js/`, `app-assets/`, `assets/`).
 - **Packagers:** `packaging-scripts/` — `package-deploy-all-5.0.sh`,
-  `package-deploy-app-5.0.sh`, `package-deploy-qa.sh`, `quick-host.sh`, `bump-build.py`.
+  `package-deploy-app-5.0.sh`, `package-deploy-qa.sh`, `quick-host.sh`, `bump-build.py`, `build-html.py`, `build-css.py`.
 - **Fleet:** `sexcapades-playwright-fleet/` — Playwright tests plus `serve-local.py`.
+
+### Opportunistic Refactoring Policy (Boy-Scout Rule vs. Churn Freeze)
+
+Because every edit in `app/js/modules/` regenerates two 50,400-line bundle files (`app/data/data-bootstrap.js` and `site-tree/public_html/hosted/app-assets/data-bootstrap.js`), **broad horizontal refactors across the engine are FROZEN** to prevent code churn and cross-lane merge conflicts. Agents must follow this two-tier discipline:
+
+1. **Opportunistic ("Boy-Scout") Refactors — Do ONLY in files you are already editing for an approved feature or bug fix:**
+   - **Migrate `const` 2-letter state map references to their semantic aliases** (defined in [`02j-profile-state.js`](file:///home/jason/Sexcapades-Web/app/js/modules/02j-profile-state.js#L80-L103) and [`02i-canvas-dom-refs.js`](file:///home/jason/Sexcapades-Web/app/js/modules/02i-canvas-dom-refs.js)) within the lines/functions you touch:
+     - `vt` → `sxProfileRatings`
+     - `wt` → `sxProfileNames`
+     - `ft` → `sxProfileComparisons`
+     - `yt` → `sxProfileDirty`
+     - `Qe` → `sxMapCanvas`, `Ze` → `sxMapContext`
+   - **Extract targeted CSS rules from [`01-fonts-variables-base.css`](file:///home/jason/Sexcapades-Web/app/css/components/01-fonts-variables-base.css)** (~1,988 lines) into a dedicated component file under `app/css/components/` only when actively reworking that specific UI component's styles.
+2. **Explicitly Frozen (Do NOT Refactor Without Direct Owner Order):**
+   - **Do NOT mass-rename mutable scalar `let` globals** (`Mt`, `Lt`, `Pt`, `Rt`, `bt`, `nt`, `tt`) across modules — they are reassigned directly (`Mt = ...`) across 50+ files, and missing a single write site silently breaks profile/view state.
+   - **Do NOT move `app/js/layout-editor/` flat globals into a namespace** — cross-window live sync and shell scripts reach into those flat globals by name (explicitly marked `PARTIAL by design` in `01-config-overrides.js`).
+   - **Do NOT further split the 71 engine modules in `app/js/modules/`** — they share a single flat bundle scope and are already at optimal granularity.
 
 ---
 
