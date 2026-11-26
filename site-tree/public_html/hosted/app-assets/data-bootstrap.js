@@ -22544,7 +22544,14 @@ var SX_OCTAD_COLORS = ["#22c55e", "#10b981", "#06b6d4", "#3b82f6", "#6366f1", "#
                     puck.style.opacity = "";
                 }
                 var dragging = root.classList.contains("dragging") && !root.classList.contains("off-end");
-                var dy = dragging ? -app * (inner / 200) : 0;
+                // The puck stays ON the line during a lean drag
+                // (2026-11-26): --puck-dy is 0 unless the appetite
+                // arm is deliberately engaged. A pointer drag with
+                // the arm closed keeps dy 0; wheel/keydown nudges
+                // (no pointer drag object) keep the old displaced
+                // look so their appetite feedback still reads.
+                var dy = 0;
+                if (dragging) dy = drag ? (drag.armEngaged ? -app * (inner / 200) : 0) : -app * (inner / 200);
                 puck.style.setProperty("--puck-dy", dy + "px");
                 bubble.innerHTML = (app > 0 ? "+" : "") + Math.round(app) +
                     " <small>" + (app > 25 ? "appetite" : app < -25 ? "aversion" : app === 0 ? "neutral" : app > 0 ? "appetite" : "aversion") + "</small>";
@@ -22571,6 +22578,7 @@ var SX_OCTAD_COLORS = ["#22c55e", "#10b981", "#06b6d4", "#3b82f6", "#6366f1", "#
                     startApp: cur ? cur.app : 0,
                     wasUnrated: !cur,
                     offEnd: false,
+                    armEngaged: false,
                     rect: rect
                 };
                 root.classList.add("dragging");
@@ -22592,7 +22600,15 @@ var SX_OCTAD_COLORS = ["#22c55e", "#10b981", "#06b6d4", "#3b82f6", "#6366f1", "#
                 if (!drag || e.pointerId !== drag.id) return;
                 var rect = drag.rect;
                 var rawPct = ((e.clientX - rect.left) / rect.width) * 100;
-                var app = sxCrossClamp(drag.startApp + (drag.startY - e.clientY) * (200 / armInner()), -100, 100);
+                // The appetite arm engages only on a DELIBERATE
+                // vertical drag (2026-11-26): 10px of vertical travel,
+                // the same threshold the outline slider's arm uses.
+                // Until it engages, the appetite stays at the drag's
+                // start value, so incidental vertical movement during
+                // a lean drag neither writes appetite nor lifts the
+                // puck off the line.
+                if (!drag.armEngaged && Math.abs(e.clientY - drag.startY) > 10) drag.armEngaged = true;
+                var app = drag.armEngaged ? sxCrossClamp(drag.startApp + (drag.startY - e.clientY) * (200 / armInner()), -100, 100) : drag.startApp;
                 var rp = overPct(rect);
                 if (drag.wasUnrated) {
                     // The unrated puck rests ON the line at its centre, so
@@ -22625,7 +22641,7 @@ var SX_OCTAD_COLORS = ["#22c55e", "#10b981", "#06b6d4", "#3b82f6", "#6366f1", "#
                     puck.style.left = sxCrossClamp(rawPct, -rp, 100 + rp) + "%";
                     puck.style.filter = "grayscale(" + t + ")";
                     puck.style.opacity = String(1 - 0.55 * t);
-                    puck.style.setProperty("--puck-dy", (-app * (armInner() / 200)) + "px");
+                    puck.style.setProperty("--puck-dy", (drag.armEngaged ? (-app * (armInner() / 200)) : 0) + "px");
                     arm.style.left = (inset + (sxCrossClamp(rawPct, -rp, 100 + rp) / 100) * rect.width) + "px";
                     vals.textContent = "Release to unrate";
                     return;
@@ -28441,8 +28457,15 @@ var Bs = window.matchMedia ? window.matchMedia("(hover: hover)") : {
             const t = zo;
             if (!t || t.pointerId !== e.pointerId) return;
             const n = t.rect, i = e.clientX < n.left - 18 || e.clientX > n.right + 18;
-            t.clear = i, t.input.classList.toggle("is-clear-preview", i), t.thumb.style.left = `${e.clientX}px`, 
-            t.thumb.style.top = `${e.clientY}px`, t.thumb.style.background = i ? "var(--red-deep)" : sxInterestColor(Number(t.input.value));
+            // The drag thumb is PROJECTED onto the track (2026-11-26):
+            // its X is the cursor clamped to the track's X range and
+            // its Y is locked to the track's vertical centre, so it
+            // marks the lean position ON the track and never follows
+            // the cursor's raw 2D position. The appetite arm (below)
+            // is a separate overlay and still sets appetite.
+            var px = Math.min(Math.max(e.clientX, n.left), n.right), py = n.top + n.height / 2;
+            t.clear = i, t.input.classList.toggle("is-clear-preview", i), t.thumb.style.left = px + "px",
+            t.thumb.style.top = py + "px", t.thumb.style.background = i ? "var(--red-deep)" : sxInterestColor(Number(t.input.value));
             // Appetite arm: a vertical drag while holding opens the
             // arm (after 10px, so a purely horizontal drag never
             // shows it); the arm then tracks the appetite live and
