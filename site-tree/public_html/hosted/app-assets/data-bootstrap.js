@@ -26320,12 +26320,6 @@ var Qr = null, Jr = null, eo = null, to = !1, no = null;
             sxBindOctadWidget();
             sxBindCrossSliderPlacard();
             const give = e.byId("markGive"), recv = e.byId("markReceive"), giveOut = e.byId("markGiveOut"), recvOut = e.byId("markReceiveOut");
-            const role3 = e.byId("markRole3"), role3Out = e.byId("markRole3Out");
-            const role4 = e.byId("markRole4"), role4Out = e.byId("markRole4Out");
-            const role5 = e.byId("markRole5"), role5Out = e.byId("markRole5Out");
-            const role6 = e.byId("markRole6"), role6Out = e.byId("markRole6Out");
-            const role7 = e.byId("markRole7"), role7Out = e.byId("markRole7Out");
-            const role8 = e.byId("markRole8"), role8Out = e.byId("markRole8Out");
             if (!give || give.dataset.bound) return;
             give.dataset.bound = "1";
             const show = (input, out, known) => { out && (out.textContent = known ? String(Math.round(Number(input.value))) : "Unrated"); };
@@ -26366,108 +26360,24 @@ var Qr = null, Jr = null, eo = null, to = !1, no = null;
                     }
                 });
             }
-            if (role3) {
-                role3.addEventListener("input", () => show(role3, role3Out, !0));
-                role3.addEventListener("change", () => {
-                    if (Qr) {
-                        const k = getKey(2, "role3");
-                        sxStoreFlankRating(Qr, k, Number(role3.value), !0);
-                        sxSyncMarkRatings(Qr);
-                    }
+            [3, 4, 5, 6, 7, 8].forEach(idx => {
+                const input = e.byId("markRole" + idx);
+                const out = e.byId("markRole" + idx + "Out");
+                const clear = e.byId("markRole" + idx + "Clear");
+                if (!input) return;
+                const fallback = "role" + idx;
+                input.addEventListener("input", () => show(input, out, !0));
+                input.addEventListener("change", () => {
+                    if (!Qr) return;
+                    sxStoreFlankRating(Qr, getKey(idx - 1, fallback), Number(input.value), !0);
+                    sxSyncMarkRatings(Qr);
                 });
-                e.byId("markRole3Clear") && e.byId("markRole3Clear").addEventListener("click", () => {
-                    if (Qr) {
-                        const k = getKey(2, "role3");
-                        sxClearTopicRating(Qr, k, !0);
-                        sxSyncMarkRatings(Qr);
-                    }
+                clear && clear.addEventListener("click", () => {
+                    if (!Qr) return;
+                    sxClearTopicRating(Qr, getKey(idx - 1, fallback), !0);
+                    sxSyncMarkRatings(Qr);
                 });
-            }
-            if (role4) {
-                role4.addEventListener("input", () => show(role4, role4Out, !0));
-                role4.addEventListener("change", () => {
-                    if (Qr) {
-                        const k = getKey(3, "role4");
-                        sxStoreFlankRating(Qr, k, Number(role4.value), !0);
-                        sxSyncMarkRatings(Qr);
-                    }
-                });
-                e.byId("markRole4Clear") && e.byId("markRole4Clear").addEventListener("click", () => {
-                    if (Qr) {
-                        const k = getKey(3, "role4");
-                        sxClearTopicRating(Qr, k, !0);
-                        sxSyncMarkRatings(Qr);
-                    }
-                });
-            }
-            if (role5) {
-                role5.addEventListener("input", () => show(role5, role5Out, !0));
-                role5.addEventListener("change", () => {
-                    if (Qr) {
-                        const k = getKey(4, "role5");
-                        sxStoreFlankRating(Qr, k, Number(role5.value), !0);
-                        sxSyncMarkRatings(Qr);
-                    }
-                });
-                e.byId("markRole5Clear") && e.byId("markRole5Clear").addEventListener("click", () => {
-                    if (Qr) {
-                        const k = getKey(4, "role5");
-                        sxClearTopicRating(Qr, k, !0);
-                        sxSyncMarkRatings(Qr);
-                    }
-                });
-            }
-            if (role6) {
-                role6.addEventListener("input", () => show(role6, role6Out, !0));
-                role6.addEventListener("change", () => {
-                    if (Qr) {
-                        const k = getKey(5, "role6");
-                        sxStoreFlankRating(Qr, k, Number(role6.value), !0);
-                        sxSyncMarkRatings(Qr);
-                    }
-                });
-                e.byId("markRole6Clear") && e.byId("markRole6Clear").addEventListener("click", () => {
-                    if (Qr) {
-                        const k = getKey(5, "role6");
-                        sxClearTopicRating(Qr, k, !0);
-                        sxSyncMarkRatings(Qr);
-                    }
-                });
-            }
-            if (role7) {
-                role7.addEventListener("input", () => show(role7, role7Out, !0));
-                role7.addEventListener("change", () => {
-                    if (Qr) {
-                        const k = getKey(6, "role7");
-                        sxStoreFlankRating(Qr, k, Number(role7.value), !0);
-                        sxSyncMarkRatings(Qr);
-                    }
-                });
-                e.byId("markRole7Clear") && e.byId("markRole7Clear").addEventListener("click", () => {
-                    if (Qr) {
-                        const k = getKey(6, "role7");
-                        sxClearTopicRating(Qr, k, !0);
-                        sxSyncMarkRatings(Qr);
-                    }
-                });
-            }
-            if (role8) {
-                role8.addEventListener("input", () => show(role8, role8Out, !0));
-                role8.addEventListener("change", () => {
-                    if (Qr) {
-                        const k = getKey(7, "role8");
-                        sxStoreFlankRating(Qr, k, Number(role8.value), !0);
-                        sxSyncMarkRatings(Qr);
-                    }
-                });
-                e.byId("markRole8Clear") && e.byId("markRole8Clear").addEventListener("click", () => {
-                    if (Qr) {
-                        const k = getKey(7, "role8");
-                        sxClearTopicRating(Qr, k, !0);
-                        sxSyncMarkRatings(Qr);
-                    }
-                });
-            }
+            });
         }
         function sxOpenMarkPlacard(e, t, i, a = {}) {
             if (Rt || !sxNodeRegistry[e]) return;
