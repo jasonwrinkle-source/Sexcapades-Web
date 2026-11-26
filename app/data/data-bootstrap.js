@@ -7997,7 +7997,10 @@ var sxNodeById = (e) => typeof window !== "undefined" && typeof window.Xn === "f
                 // Labels are focusable so keyboard focus shows the tip too.
                 const sxPoleTipAttrs = k => {
                     const tip = (typeof sxPoleLine === "function") ? sxPoleLine(e, f[k]) : null;
-                    return (tip ? ` data-ui-tooltip="${sxEscapeHtmlText(tip)}" data-tooltip-name="${sxEscapeHtmlText(y[k] || f[k])}" data-tooltip-tap-first` : "") + ` tabindex="0"`;
+                    // Pole-name color: the shared tooltip paints its name
+                    // in the pole's color; a pole with no color stays plain.
+                    const col = tip && (typeof sxPoleColor === "function") ? sxPoleColor(e, f[k]) : null;
+                    return (tip ? ` data-ui-tooltip="${sxEscapeHtmlText(tip)}" data-tooltip-name="${sxEscapeHtmlText(y[k] || f[k])}"${col ? ` data-tooltip-name-color="${col}"` : ""} data-tooltip-tap-first` : "") + ` tabindex="0"`;
                 };
                 if ($.octad) {
                     // 8-Pole Octad Widget on Hypermap:
@@ -19002,6 +19005,40 @@ var SX_POLE_LABEL_OFFSET = 13;
             set(".mark-quad-bl", names.bl);
             set(".mark-quad-br", names.br);
         }
+        // One pole's color, by shape and pole index — the single source
+        // of truth for pole colors (the widget readout rows' pCol logic,
+        // moved here so the tooltips can share it). Shape flags and
+        // index order match 03f-polygon-widgets.js exactly: octad 8,
+        // heptad 7, hexad 6, pentad 5, compass/tetrad 4, triad 3,
+        // 2-pole (give/receive) 2. Returns null when the topic has no
+        // widget config or the key is not one of its poles. The optional
+        // profileId keeps the widget readout's explicit profile (pId);
+        // other callers omit it and take the active profile.
+        function sxPoleColor(topicId, key, profileId) {
+            if (!topicId || !key) return null;
+            if (typeof sxWidgetConfig !== "function") return null;
+            const shape = profileId ? sxWidgetConfig(topicId, profileId) : sxWidgetConfig(topicId);
+            if (!shape || !shape.keys || !shape.keys.length) return null;
+            let idx = shape.keys.indexOf(key);
+            if (-1 === idx && shape.poleKeys) idx = shape.poleKeys.indexOf(key);
+            if (-1 === idx) return null;
+            const n = shape.keys.length;
+            const isOctad = Boolean(shape.octad || 8 === n);
+            const isHeptad = Boolean(shape.heptad || 7 === n);
+            const isHexad = Boolean(shape.hexad || 6 === n);
+            const isPentad = Boolean(shape.pentad || 5 === n);
+            const isCompass = "quad-compass" === shape.widget;
+            const isTetrad = !isCompass && Boolean(shape.tetrad || 4 === n);
+            const isTriad = Boolean(shape.triangle || 3 === n);
+            if (isOctad) return (SX_OCTAD_COLORS[idx] || null);
+            if (isHeptad) return (SX_HEPTAD_COLORS[idx] || null);
+            if (isHexad) return (SX_HEXAD_COLORS[idx] || null);
+            if (isPentad) return (SX_PENTAD_COLORS[idx] || null);
+            if (isCompass) return (SX_COMPASS_COLORS[idx] || null);
+            if (isTetrad) return (["#22c55e", "#eab308", "#ef4444", "#3b82f6"][idx] || null);
+            if (isTriad) return (["#ef4444", "#22c55e", "#3b82f6"][idx] || null);
+            return (["#22c55e", "#3b82f6"][idx] || null);
+        }
         function sxPoleLine(topicId, key) {
             // One pole's "Label - text" line. Skin-registered topics come
             // first (loader); Sexcapades give/receive uses the custom
@@ -19050,12 +19087,18 @@ var SX_POLE_LABEL_OFFSET = 13;
                 el.setAttribute("data-tooltip-name", name);
                 el.setAttribute("data-tooltip-definition", def);
                 el.setAttribute("data-tooltip-tap-first", "");
+                // Pole-name color: the shared tooltip paints its name in
+                // the pole's color; a pole with no color leaves it plain.
+                const col = (typeof sxPoleColor === "function") ? sxPoleColor(topicId, key) : null;
+                if (col) el.setAttribute("data-tooltip-name-color", col);
+                else el.removeAttribute("data-tooltip-name-color");
                 el.dataset.ratingTooltip = line;
             } else {
                 el.removeAttribute("data-ui-tooltip");
                 el.removeAttribute("data-tooltip-name");
                 el.removeAttribute("data-tooltip-definition");
                 el.removeAttribute("data-tooltip-tap-first");
+                el.removeAttribute("data-tooltip-name-color");
                 delete el.dataset.ratingTooltip;
             }
         }
@@ -19117,7 +19160,7 @@ var SX_POLE_LABEL_OFFSET = 13;
                 // on every open); placard canvases never set it and keep
                 // resolving via Qr, the placard's current topic.
                 const line = sxPoleLine(canvas.__sxHoverTopicId || Qr, hit.key);
-                if (line) window.__SX_TIP_SHOW(canvas, hit.name || hit.text, line, evt.clientX, evt.clientY);
+                if (line) window.__SX_TIP_SHOW(canvas, hit.name || hit.text, line, evt.clientX, evt.clientY, (typeof sxPoleColor === "function") ? sxPoleColor(canvas.__sxHoverTopicId || Qr, hit.key) : null);
                 else if (typeof window.__SX_TIP_HIDE === "function") window.__SX_TIP_HIDE();
             });
             canvas.addEventListener("pointerleave", () => {
@@ -21402,7 +21445,10 @@ var SX_OCTAD_COLORS = ["#22c55e", "#10b981", "#06b6d4", "#3b82f6", "#6366f1", "#
                 const statBox = document.createElement("div");
                 statBox.className = "mark-tri-stat";
                 const pName = shape.labels[idx] || k;
-                const pCol = isOctad ? SX_OCTAD_COLORS[idx] : isHeptad ? SX_HEPTAD_COLORS[idx] : isHexad ? SX_HEXAD_COLORS[idx] : isPentad ? SX_PENTAD_COLORS[idx] : isCompass ? SX_COMPASS_COLORS[idx] : isTetrad ? ["#22c55e", "#eab308", "#ef4444", "#3b82f6"][idx] : isTriad ? ["#ef4444", "#22c55e", "#3b82f6"][idx] : ["#22c55e", "#3b82f6"][idx];
+                // Pole color: single source of truth is sxPoleColor
+                // (03f1-polygon-math.js); the pId keeps the readout's
+                // explicit profile so the color matches this widget.
+                const pCol = sxPoleColor(topicId, k, pId);
                 statBox.innerHTML = `<span style="color:${pCol}">${pName}</span>: <b style="color:${pCol}">0</b>`;
                 // Seam A: the pole name span carries the pole's hovertip line.
                 sxSetPoleTip(statBox.querySelector("span"), topicId, k);
@@ -21723,7 +21769,7 @@ var SX_OCTAD_COLORS = ["#22c55e", "#10b981", "#06b6d4", "#3b82f6", "#6366f1", "#
                 if (hit && evt.pointerType !== "mouse") {
                     const line = sxPoleLine(canvas.__sxHoverTopicId || Qr, hit.key);
                     if (line) {
-                        window.__SX_TIP_SHOW(canvas, hit.name || hit.text, line, evt.clientX, evt.clientY);
+                        window.__SX_TIP_SHOW(canvas, hit.name || hit.text, line, evt.clientX, evt.clientY, (typeof sxPoleColor === "function") ? sxPoleColor(canvas.__sxHoverTopicId || Qr, hit.key) : null);
                         return;
                     }
                 }
@@ -27345,6 +27391,11 @@ var xs = 0;
                         r.setAttribute("data-tooltip-name", s.textContent);
                         r.setAttribute("data-tooltip-definition", tip);
                     }
+                    // Pole-name color: the shared tooltip paints its name
+                    // in the pole's color; a pole with no color stays plain.
+                    const col = (typeof sxPoleColor === "function") ? sxPoleColor(e.id, n) : null;
+                    if (col) r.setAttribute("data-tooltip-name-color", col);
+                    else r.removeAttribute("data-tooltip-name-color");
                 }
                 const c = document.createElement("input");
                 c.type = "range", c.min = "-100", c.max = "100", c.step = "1", c.value = "0", c.dataset.outlineDirection = n, 
@@ -28185,7 +28236,7 @@ var Fs = (() => {
             let o = null, s = null, l = 0;
             function sxHideUiTooltip() {
                 t.clear(l), l = 0, o?.isConnected && "uiTooltip" === o.getAttribute("aria-describedby") && o.removeAttribute("aria-describedby"),
-                o = null, s = null, n.classList.remove("ui-tooltip--panel"), n.hidden = !0, i.textContent = "", a.textContent = "", r.textContent = "",
+                o = null, s = null, n.classList.remove("ui-tooltip--panel"), n.hidden = !0, i.textContent = "", i.style.color = "", a.textContent = "", r.textContent = "",
                 n.parentNode !== document.body && document.body.appendChild(n);
             }
             function sxPlaceUiTooltip(e = s, t = o) {
@@ -28221,12 +28272,13 @@ var Fs = (() => {
                         return {
                             name: String(a || "Details"),
                             definition: String(r || ""),
-                            value: null == o ? "" : String(o)
+                            value: null == o ? "" : String(o),
+                            nameColor: String(i.nameColor ?? n.tooltipNameColor ?? "")
                         };
                     }(e, u);
                     if (!p.name && !p.definition && !p.value) return void sxHideUiTooltip();
                     t.clear(l), o && o !== e && o.isConnected && "uiTooltip" === o.getAttribute("aria-describedby") && o.removeAttribute("aria-describedby"),
-                    o = e, s = u.point ?? null, n.classList.toggle("ui-tooltip--panel", Boolean(e.closest && e.closest(".layout-editor"))), i.textContent = p.name, a.textContent = p.definition,
+                    o = e, s = u.point ?? null, n.classList.toggle("ui-tooltip--panel", Boolean(e.closest && e.closest(".layout-editor"))), i.textContent = p.name, i.style.color = p.nameColor || "", a.textContent = p.definition,
                     a.hidden = !p.definition, r.textContent = p.value;
                     const h = (e.closest ? e.closest("dialog") : null) || document.body;
                     n.parentNode !== h && h.appendChild(n), n.hidden = !1, e.setAttribute("aria-describedby", "uiTooltip"),
@@ -28257,7 +28309,7 @@ var sxOutlineClickTimer = 0, sxOutlineClickTarget = null;
            has no DOM node per pole, so the paint module calls this with
            the canvas as anchor, the pole's full label as name, and its
            "Label — text" line as the definition. */
-        window.__SX_TIP_SHOW = function (anchorEl, name, text, clientX, clientY) {
+        window.__SX_TIP_SHOW = function (anchorEl, name, text, clientX, clientY, nameColor) {
             if (!anchorEl) return;
             let tipName = name || "Details";
             let tipDef = text || "";
@@ -28274,6 +28326,7 @@ var sxOutlineClickTimer = 0, sxOutlineClickTarget = null;
                 name: tipName,
                 definition: tipDef,
                 value: "",
+                nameColor: nameColor || "",
                 point: (Number.isFinite(clientX) && Number.isFinite(clientY)) ? { x: clientX, y: clientY, pointerType: "mouse" } : null
             });
         };
@@ -28982,6 +29035,7 @@ var nl = null, il = null, al = null, rl = 0, ol = null, tfHide = 0;
                 name: e.dataset.tooltipName,
                 definition: e.dataset.tooltipDefinition || i,
                 value: e.dataset.tooltipValue,
+                nameColor: e.dataset.tooltipNameColor,
                 point: n,
                 autoHide: t
             }));
