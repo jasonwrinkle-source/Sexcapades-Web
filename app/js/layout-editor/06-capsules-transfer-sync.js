@@ -358,7 +358,7 @@
     var leNumKeys=["spokeLen","subLen","pad","repulsion","fontScale","centerRingScale","leafOvergrowth","autoShrinkFactor","subcatCloudShrinkFactor"];
     var leMapKeys=["branchOverrides","subcatOverrides","kinkOverrides","nodeOverrides","subcatAngleOffsets","kinkAngleOffsets","branchSpokeAutoShrink","subcatSpokeAutoShrink"];
     function lePlainObject(v){return !!v&&typeof v==="object"&&!Array.isArray(v)}
-    function leValidateMap(map){if(!lePlainObject(map))return false;var keys=Object.keys(map);for(var i=0;i<keys.length;i++){var entry=map[keys[i]];if(typeof entry==="boolean")continue;if(typeof entry==="number"){if(!Number.isFinite(entry))return false;continue}if(!lePlainObject(entry))return false;var sub=Object.keys(entry);for(var j=0;j<sub.length;j++){var val=entry[sub[j]];if(typeof val==="boolean")continue;if(typeof val==="number"&&Number.isFinite(val))continue;return false}}return true}
+    function leValidateMap(map){if(!lePlainObject(map))return false;var keys=Object.keys(map);for(var i=0;i<keys.length;i++){var entry=map[keys[i]];if(typeof entry==="boolean")continue;if(typeof entry==="number"){if(!Number.isFinite(entry))return false;continue}if(!lePlainObject(entry))return false;var sub=Object.keys(entry);for(var j=0;j<sub.length;j++){var val=entry[sub[j]];if(typeof val==="boolean")continue;if(typeof val==="number"&&Number.isFinite(val))continue;if(sub[j]==="kind"&&(val==="branch"||val==="subcat"||val==="kink"))continue;if(sub[j]==="nodeId"&&typeof val==="string")continue;return false}}return true}
     function leBuildImportedSettings(raw){
       var settings=raw;
       if(lePlainObject(raw)&&lePlainObject(raw.settings)){

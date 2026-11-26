@@ -15696,8 +15696,33 @@ var SX_SOLVER_FACADE = {
         // solver change) would slip through the gate undetected. v2 = the
         // minimum primary-spoke floor (SX_MIN_BRANCH_THROW, 03-map-geometry).
 var SX_SOLVER_VERSION = 2;
+        function sxNormalizeFingerprintObj(obj) {
+            if (!obj || typeof obj !== "object") return null;
+            var out = {};
+            Object.keys(obj).forEach(function (k) {
+                if (k === "nodeOverrides") return;
+                var v = obj[k];
+                if ((k === "branchOverrides" || k === "subcatOverrides" || k === "kinkOverrides") && v && typeof v === "object") {
+                    var nv = {};
+                    Object.keys(v).forEach(function (ek) {
+                        var ev = v[ek];
+                        if (ev && typeof ev === "object") {
+                            var clean = {};
+                            Object.keys(ev).forEach(function (sk) {
+                                if (sk !== "kind" && sk !== "depth" && sk !== "nodeId") clean[sk] = ev[sk];
+                            });
+                            nv[ek] = clean;
+                        } else nv[ek] = ev;
+                    });
+                    out[k] = nv;
+                } else {
+                    out[k] = v;
+                }
+            });
+            return out;
+        }
         function sxBakedFingerprint() {
-            try { return dkStableStringify(mn); } catch (e) { return null; }
+            try { return dkStableStringify(sxNormalizeFingerprintObj(mn)); } catch (e) { return null; }
         }
         // The signature is a MEMBERSHIP signature, deliberately
         // order-insensitive: branches sorted by catId, topics and
@@ -15890,7 +15915,11 @@ var SX_SOLVER_VERSION = 2;
             if (dkCtx) return null;
             var fp = null;
             try { fp = sxBakedFingerprint(); } catch (e) { return null; }
-            if (!fp || fp !== pos.fingerprint) return null;
+            var posFp = pos.fingerprint;
+            if (fp && posFp && fp !== posFp) {
+                try { posFp = dkStableStringify(sxNormalizeFingerprintObj(JSON.parse(posFp))); } catch (e) {}
+            }
+            if (!fp || fp !== posFp) return null;
             return sxBuildBaked(pos);
         }
         window.__sxCaptureBakedGeometry = sxSerializeBaked;
