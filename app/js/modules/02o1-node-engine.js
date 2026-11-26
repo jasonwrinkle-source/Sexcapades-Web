@@ -795,17 +795,13 @@
             let sxTapX = 0, sxTapY = 0, sxTapDown = !1, sxTapOnMap = !1;
             window.__sxOnPtr( e => {
                 sxTapX = e.clientX, sxTapY = e.clientY, sxTapDown = !0,
-                // Hot List popup fix (2026-11-16): this guard used to
-                // swallow the pointerup of ANY >10px drag anywhere in
-                // the app - including the widget canvases, whose
-                // drag-end handlers live on the canvas and never fired,
-                // leaving isDragging stuck true and killing canvas hover
-                // tips after any drag (popup AND placard). Only swallow
-                // pointerups for gestures that started on the map, which
-                // is what the guard protects (map pan/tap
-                // disambiguation); the click itself stays suppressed
-                // app-wide by the 03b guard and the one-shot listener
-                // below, unchanged.
+                // Remember whether the press started on the map. The
+                // pointerup below must not stop the event: the map
+                // release (sxReleaseMapGesture) listens on the svg and
+                // commits a rail drag or ends a pan. Stopping it is why
+                // a drag longer than 10px never saved. The click that
+                // follows a drag is still swallowed, here and by the
+                // 03b guard, so a pan does not open the placard.
                 sxTapOnMap = !!(e.target && e.target.closest && e.target.closest("#mapSvg"));
             }, !0);
             document.addEventListener("pointerup", e => {
@@ -815,7 +811,7 @@
                 sxTapOnMap = !1;
                 const dx = e.clientX - sxTapX, dy = e.clientY - sxTapY;
                 if (dx * dx + dy * dy > 100) {
-                    if (onMap) e.preventDefault(), e.stopPropagation();
+                    if (onMap) e.preventDefault();
                     const t = e.target;
                     t && t.addEventListener("click", function h(ev) {
                         ev.preventDefault(), ev.stopPropagation(), t.removeEventListener("click", h, !0);

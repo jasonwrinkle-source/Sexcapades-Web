@@ -189,12 +189,10 @@
             }
             if (Mp && Mp.pointerId === e.pointerId) {
                 const t = Mp;
-                // A map drag longer than 10px is swallowed in the document
-                // capture phase (02o1) before this svg's pointerup listener
-                // runs. Pointer capture then ends, and lostpointercapture is
-                // the release that still reaches here. Commit on that too.
-                // A click still commits on pointerup and clears Mp first, so
-                // the capture-loss that follows does not write a second time.
+                // pointerup is the commit. lostpointercapture is the
+                // fallback when capture ends without a pointerup (the
+                // hit node was replaced mid-drag). pointerup runs first
+                // and clears Mp, so the fallback does not write again.
                 if (Mp = null, "pointerup" === e.type || "lostpointercapture" === e.type) {
                     const profileId = sxActiveProfileId(), previousRatedCount = sxOutlineRatedCounts(profileId).rated;
                     let n;

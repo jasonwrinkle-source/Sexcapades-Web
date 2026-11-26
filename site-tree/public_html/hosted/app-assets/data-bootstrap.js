@@ -5546,17 +5546,13 @@ var Mi = e.byId("centerProfileCard"), Ii = (e.byId("centerProfileCardTitle"),
             let sxTapX = 0, sxTapY = 0, sxTapDown = !1, sxTapOnMap = !1;
             window.__sxOnPtr( e => {
                 sxTapX = e.clientX, sxTapY = e.clientY, sxTapDown = !0,
-                // Hot List popup fix (2026-11-16): this guard used to
-                // swallow the pointerup of ANY >10px drag anywhere in
-                // the app - including the widget canvases, whose
-                // drag-end handlers live on the canvas and never fired,
-                // leaving isDragging stuck true and killing canvas hover
-                // tips after any drag (popup AND placard). Only swallow
-                // pointerups for gestures that started on the map, which
-                // is what the guard protects (map pan/tap
-                // disambiguation); the click itself stays suppressed
-                // app-wide by the 03b guard and the one-shot listener
-                // below, unchanged.
+                // Remember whether the press started on the map. The
+                // pointerup below must not stop the event: the map
+                // release (sxReleaseMapGesture) listens on the svg and
+                // commits a rail drag or ends a pan. Stopping it is why
+                // a drag longer than 10px never saved. The click that
+                // follows a drag is still swallowed, here and by the
+                // 03b guard, so a pan does not open the placard.
                 sxTapOnMap = !!(e.target && e.target.closest && e.target.closest("#mapSvg"));
             }, !0);
             document.addEventListener("pointerup", e => {
@@ -5566,7 +5562,7 @@ var Mi = e.byId("centerProfileCard"), Ii = (e.byId("centerProfileCardTitle"),
                 sxTapOnMap = !1;
                 const dx = e.clientX - sxTapX, dy = e.clientY - sxTapY;
                 if (dx * dx + dy * dy > 100) {
-                    if (onMap) e.preventDefault(), e.stopPropagation();
+                    if (onMap) e.preventDefault();
                     const t = e.target;
                     t && t.addEventListener("click", function h(ev) {
                         ev.preventDefault(), ev.stopPropagation(), t.removeEventListener("click", h, !0);
@@ -40600,12 +40596,10 @@ var sxLastNodeTapTime = 0, sxLastNodeTapId = null, sxLastNodeTapX = 0, sxLastNod
             }
             if (Mp && Mp.pointerId === e.pointerId) {
                 const t = Mp;
-                // A map drag longer than 10px is swallowed in the document
-                // capture phase (02o1) before this svg's pointerup listener
-                // runs. Pointer capture then ends, and lostpointercapture is
-                // the release that still reaches here. Commit on that too.
-                // A click still commits on pointerup and clears Mp first, so
-                // the capture-loss that follows does not write a second time.
+                // pointerup is the commit. lostpointercapture is the
+                // fallback when capture ends without a pointerup (the
+                // hit node was replaced mid-drag). pointerup runs first
+                // and clears Mp, so the fallback does not write again.
                 if (Mp = null, "pointerup" === e.type || "lostpointercapture" === e.type) {
                     const profileId = sxActiveProfileId(), previousRatedCount = sxOutlineRatedCounts(profileId).rated;
                     let n;
