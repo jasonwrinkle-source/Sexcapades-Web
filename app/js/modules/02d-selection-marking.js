@@ -1,14 +1,3 @@
-        function sxOnSpokeClick(e) {
-            if (mn.staticMap) return;
-            if (e.preventDefault(), e.stopPropagation(), to) return void (to = !1);
-            const t = e.currentTarget, n = t.dataset.id || t.dataset.topicId || __sxClosestAction(t, "nodeGroup")?.dataset.layoutKey;
-            if (!n) return;
-            selectSpokeNode(n, !0);
-            const rec = sxNodeRegistry[n] || sxNodeById(n);
-            const branch = rec ? rec.branch : (typeof sxLookupNodeBranch === "function" ? sxLookupNodeBranch(n) : "") || "";
-            if (typeof sxFrameNodeInCamera === "function") sxFrameNodeInCamera(n, branch);
-            else if (typeof window.__sxFocusNode === "function") window.__sxFocusNode(n, branch);
-        }
         function clearSelectionMarking() {
             if (Cn) Cn.querySelectorAll(".selected-spoke").forEach(el => el.remove());
         }
@@ -124,43 +113,6 @@
             const branch = rec ? rec.branch : (typeof sxLookupNodeBranch === "function" ? sxLookupNodeBranch(n) : "") || "";
             if (typeof sxFrameNodeInCamera === "function") sxFrameNodeInCamera(n, branch);
             else if (typeof window.__sxFocusNode === "function") window.__sxFocusNode(n, branch);
-        }
-        function sxRefreshMapChrome() {
-            In.querySelectorAll(".map-label").forEach(e => {
-                const t = sxNodeRegistry[e.dataset.topicId];
-                if (!t) return;
-                const n = Tt && t.label.toLowerCase().includes(Tt);
-                e.classList.toggle("revealed", Boolean(n || rn.has(t.branch)));
-            }), function() {
-                if ("number" != typeof $p || "number" != typeof Ep || "number" != typeof Ap || void 0 === nh) return;
-                const vb = (Cn && Cn.viewBox && Cn.viewBox.baseVal && Cn.viewBox.baseVal.width > 0) ? Cn.viewBox.baseVal : nh;
-                const pad = 160 * Math.max(1, $p);
-                In.querySelectorAll(".node-group[data-layout-key]").forEach(t => {
-                    const lx = Number(t.dataset.layoutX), ly = Number(t.dataset.layoutY);
-                    if (!Number.isFinite(lx) || !Number.isFinite(ly)) return;
-                    const n = Ep + lx * $p, i = Ap + ly * $p;
-                    const a = n < vb.x - pad || n > vb.x + vb.width + pad || i < vb.y - pad || i > vb.y + vb.height + pad;
-                    if (a !== Boolean(t.dataset.cameraOffscreen)) {
-                        t.dataset.cameraOffscreen = a ? "true" : "";
-                        t.querySelectorAll("[role],[tabindex]").forEach(e => {
-                            if (a) {
-                                e.hasAttribute("role") && (e.dataset.cameraRole = e.getAttribute("role"));
-                                e.hasAttribute("tabindex") && (e.dataset.cameraTabindex = e.getAttribute("tabindex"));
-                                e.removeAttribute("role");
-                                e.setAttribute("tabindex", "-1");
-                                e.setAttribute("aria-hidden", "true");
-                            } else {
-                                void 0 !== e.dataset.cameraRole && (e.setAttribute("role", e.dataset.cameraRole), delete e.dataset.cameraRole);
-                                void 0 !== e.dataset.cameraTabindex ? (e.setAttribute("tabindex", e.dataset.cameraTabindex), delete e.dataset.cameraTabindex) : e.removeAttribute("tabindex");
-                                e.removeAttribute("aria-hidden");
-                            }
-                            e.style.removeProperty("pointer-events");
-                        });
-                    } else {
-                        t.querySelectorAll("[role],[tabindex]").forEach(e => e.style.removeProperty("pointer-events"));
-                    }
-                });
-            }();
         }
         function focusRelationLink(link, event) {
             event?.preventDefault(), event?.stopPropagation();
