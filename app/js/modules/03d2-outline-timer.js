@@ -42,6 +42,11 @@
         }
         function Ss(e) {
             const t = e.dataset.outlineId, n = Go, i = ca(t, n), a = (Qe[n] || {})[t] || "", r = e.querySelector(".outline-topic-label");
+            // A row carrying the placard's cross slider (pair topic,
+            // owner ruling 2026-11-25) re-renders it here, in place
+            // of the range-input loop below (which finds no inputs
+            // on such a row).
+            if (e.__sxCrossPair) { e.__sxCrossPair.first.render(); e.__sxCrossPair.second.render(); }
             e.querySelectorAll("[data-outline-direction]").forEach(e => {
                 const t = e.dataset.outlineDirection;
                 !function(e, t, n, app) {

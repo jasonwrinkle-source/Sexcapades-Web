@@ -84,6 +84,41 @@
                 const d = document.createElement("output");
                 sliderRow.append(c, d);
                 r.append(poleBar, sliderRow), h.append(r);
+            } else if (!i.single && i.keys && i.keys.length === 2) {
+                // Pair topic: the placard's cross slider, in the row
+                // (owner ruling, 2026-11-25 — one widget in three
+                // places: placard, hypermap, hotlist). The two fader
+                // range inputs go away; the row mounts the same cross
+                // slider component the placard mounts (compact), so
+                // the receptivity ring and the appetite arm are here
+                // in the row — the ring can finally be set from the
+                // Hot List / outline row, not only from the popup.
+                // The row's fader drag (03d) gates on
+                // [data-outline-direction], which the cross slider
+                // has none of, and the row's click/dblclick guards
+                // ignore .outline-rating-group, so the slider's own
+                // gestures are undisturbed.
+                const host = document.createElement("div");
+                host.className = "outline-cross-host";
+                h.append(host);
+                const stance = sxDualPlacements(e.id);
+                const fl = stance ? ["advocacy", "receptivity"] : ["give", "receive"];
+                const keys = i.keys;
+                const getFlank = (dir) => sxCrossFlankState(ca(e.id, Go), dir, keys);
+                let pair = null;
+                const renderPair = () => { if (pair) { pair.first.render(); pair.second.render(); } };
+                const writeFlank = (dir, value) => {
+                    sxCrossWriteFlank(e.id, dir, value, Go, keys);
+                    renderPair();
+                };
+                const finishGesture = () => { Ss(n); };
+                pair = {
+                    first: sxCreateCrossSlider({ dir: fl[0], compact: true, get: () => getFlank(fl[0]), onChange: v => writeFlank(fl[0], v), onRelease: () => finishGesture() }),
+                    second: sxCreateCrossSlider({ dir: fl[1], compact: true, get: () => getFlank(fl[1]), onChange: v => writeFlank(fl[1], v), onRelease: () => finishGesture() })
+                };
+                host.appendChild(pair.first.root);
+                host.appendChild(pair.second.root);
+                n.__sxCrossPair = pair;
             } else (i.single ? [ "give" ] : i.keys).forEach((n, a) => {
                 const r = document.createElement("label"), o = !i.single && "give" === i.labels[0] && "receive" === i.labels[1];
                 r.className = "outline-rating";

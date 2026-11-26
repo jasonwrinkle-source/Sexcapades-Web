@@ -1180,7 +1180,9 @@
 
                 evt.preventDefault();
                 evt.stopPropagation();
-                const step = (evt.shiftKey ? 5 : 1) * (evt.deltaY < 0 ? 1 : -1);
+                // Wheel tracks 10x (owner order, 2026-11-25): one notch
+                // moves the value ten times as far as before.
+                const step = (evt.shiftKey ? 50 : 10) * (evt.deltaY < 0 ? 1 : -1);
 
                 if (target === "receptivity") {
                     if (!state.recRated) {
