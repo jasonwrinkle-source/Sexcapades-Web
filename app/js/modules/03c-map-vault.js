@@ -194,18 +194,11 @@
         // to "sexcapades" - consistently on save AND restore, or the
         // Sexcapades cache would never match.
         function sxWarmBootSkin() {
-            var s = (typeof window !== "undefined" && window.__SX_ACTIVE_SKIN);
-            if (s) return String(s);
+            if (typeof window !== "undefined" && typeof window.__SX_RESOLVE_SKIN === "function") {
+                var resolved = window.__SX_RESOLVE_SKIN(location.hostname);
+                if (resolved) return String(resolved);
+            }
             if (typeof sxAnalyticsSkin === "function") return sxAnalyticsSkin();
-            try {
-                if (typeof window.__SX_SKIN_FROM_URL === "function") {
-                    var u = window.__SX_SKIN_FROM_URL();
-                    if (u) return u;
-                }
-                if (typeof window.__SX_SKIN_FOR_HOSTNAME === "function") {
-                    return window.__SX_SKIN_FOR_HOSTNAME(location.hostname);
-                }
-            } catch (_) {}
             return "sexcapades";
         }
         function sxWarmBootStorageKey(skin) {

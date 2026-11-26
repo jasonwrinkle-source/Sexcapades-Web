@@ -43,16 +43,13 @@ __sxInit(function () {
 
   function resolveCurrentSkin() {
     try {
+      if (typeof window.__SX_RESOLVE_SKIN === 'function') {
+        var r = window.__SX_RESOLVE_SKIN(location.hostname);
+        if (r) return String(r).toLowerCase();
+      }
       if (typeof window.__sxAnalyticsSkin === 'function') {
         var s = window.__sxAnalyticsSkin();
         if (s) return String(s).toLowerCase();
-      }
-      if (window.__SX_ACTIVE_SKIN) return String(window.__SX_ACTIVE_SKIN).toLowerCase();
-      if (typeof window.__SX_SKIN_FROM_URL === 'function' && window.__SX_SKIN_FROM_URL()) {
-        return String(window.__SX_SKIN_FROM_URL()).toLowerCase();
-      }
-      if (typeof window.__SX_SKIN_FOR_HOSTNAME === 'function') {
-        return String(window.__SX_SKIN_FOR_HOSTNAME(location.hostname)).toLowerCase();
       }
     } catch (e) {}
     return 'sexcapades';

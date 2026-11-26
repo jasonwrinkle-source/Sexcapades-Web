@@ -78,8 +78,12 @@
     return null;
   }
 
-  function activeOrDefaultSkin() {
-    return (typeof window !== "undefined" && window.__SX_ACTIVE_SKIN) || skinFromUrl() || skinForHostname();
+  function targetBootSkin(hostname) {
+    return skinFromUrl() || skinForHostname(hostname);
+  }
+
+  function activeOrDefaultSkin(hostname) {
+    return (typeof window !== "undefined" && window.__SX_ACTIVE_SKIN) || targetBootSkin(hostname);
   }
 
   // Dynamic DOM renderer for .skin-menu (Activity vs Stance, alphabetical)
@@ -113,7 +117,7 @@
   function setInitialTabTitle() {
     try {
       if (typeof document === "undefined") return;
-      var sid = skinFromUrl() || skinForHostname();
+      var sid = targetBootSkin();
       var s = SKINS[sid];
       if (!s) return;
       var p = s.prefix;
@@ -153,6 +157,8 @@
     window.__SX_SKIN_FOR_HOSTNAME = skinForHostname;
     window.__SX_SKIN_PREFIX_FOR = skinPrefixFor;
     window.__SX_SKIN_FROM_URL = skinFromUrl;
+    window.__SX_TARGET_SKIN = targetBootSkin;
+    window.__SX_RESOLVE_SKIN = activeOrDefaultSkin;
     window.__SX_RENDER_SKIN_MENU = renderSkinMenu;
     window.__SX_SET_INITIAL_TITLE = setInitialTabTitle;
     window.__SX_INJECT_PRELOAD = injectPreloadLink;

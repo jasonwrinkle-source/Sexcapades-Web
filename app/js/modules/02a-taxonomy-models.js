@@ -320,10 +320,12 @@
            anywhere returns the default instead of losing the event. */
         function sxAnalyticsSkin() {
             try {
+                if (typeof window.__SX_RESOLVE_SKIN === "function") {
+                    var resolved = window.__SX_RESOLVE_SKIN(location.hostname);
+                    if (resolved) return String(resolved);
+                }
                 var s = window.__SX_ACTIVE_SKIN;
                 if (s) return String(s);
-            } catch (e) { /* fall through to hostname */ }
-            try {
                 if (typeof window.__SX_SKIN_FROM_URL === "function") {
                     var u = window.__SX_SKIN_FROM_URL();
                     if (u) return u;

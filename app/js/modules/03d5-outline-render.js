@@ -282,7 +282,9 @@
             try {
                 const active = window.__SX_ACTIVE_SKIN || null;
                 let target = "sexcapades";
-                if (typeof window.__SX_SKIN_FROM_URL === "function") {
+                if (typeof window.__SX_TARGET_SKIN === "function") {
+                    target = window.__SX_TARGET_SKIN(location.hostname) || "sexcapades";
+                } else if (typeof window.__SX_SKIN_FROM_URL === "function") {
                     const u = window.__SX_SKIN_FROM_URL();
                     if (u) target = u;
                     else if (typeof window.__SX_SKIN_FOR_HOSTNAME === "function") {

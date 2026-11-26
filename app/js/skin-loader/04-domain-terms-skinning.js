@@ -413,7 +413,7 @@
      hostname without DNS. */
   if (!window.__SX_SKIN_FOR_HOSTNAME || window.__SX_SKIN_FOR_HOSTNAME === skinForHostname) window.__SX_SKIN_FOR_HOSTNAME = skinForHostname;
   window.__SX_BOOT_SHOULD_OPEN_MENU = bootShouldOpenMenu;
-  window.__SX_SKIN_FROM_URL = skinFromUrl;
+  if (!window.__SX_SKIN_FROM_URL) window.__SX_SKIN_FROM_URL = skinFromUrl;
   window.__SX_HAS_GATE_PASS = hasGatePass;
   handleVerifiedParam();
   /* Boot skin: ?skin= (a gate round-trip) wins over the hostname, and
@@ -427,10 +427,12 @@
      manifest from the start; applySkin / restoreSexcapades re-assert
      it on every switch, and the failure paths below correct it if the
      boot skin fails to load. */
-  setManifestForSkin(skinFromUrl() || skinForHostname(window.location.hostname));
+  var bootSkinTarget = (typeof window.__SX_TARGET_SKIN === "function")
+    ? window.__SX_TARGET_SKIN(window.location.hostname)
+    : (skinFromUrl() || skinForHostname(window.location.hostname));
+  setManifestForSkin(bootSkinTarget);
   (function bootSkin() {
-    var fromUrl = skinFromUrl();
-    var boot = fromUrl || skinForHostname(window.location.hostname);
+    var boot = bootSkinTarget;
 
     /* Immediately fetch skin JSON across network in parallel with data-bootstrap stream loading. */
     var url = SKIN_DIR + boot + ".json";

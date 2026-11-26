@@ -786,15 +786,13 @@ __sxInit(function () {
     var openFlyoutTrigger = null;
 
     function detectActiveSkin() {
-      if (window.__SX_ACTIVE_SKIN) return window.__SX_ACTIVE_SKIN;
-      if (typeof window.__SX_SKIN_FROM_URL === "function") {
-        var u = window.__SX_SKIN_FROM_URL();
-        if (u) return u;
+      if (typeof window.__SX_RESOLVE_SKIN === "function") {
+        return window.__SX_RESOLVE_SKIN(window.location.hostname);
       }
-      if (typeof window.__SX_SKIN_FOR_HOSTNAME === "function") {
-        return window.__SX_SKIN_FOR_HOSTNAME(window.location.hostname);
+      if (typeof window.__sxAnalyticsSkin === "function") {
+        return window.__sxAnalyticsSkin();
       }
-      return "sexcapades";
+      return window.__SX_ACTIVE_SKIN || "sexcapades";
     }
 
     function updateSkinLinks(skinId) {

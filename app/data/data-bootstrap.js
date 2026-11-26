@@ -631,10 +631,12 @@ var SX_COLLECT_URL = "/hosted/api/collect.php";
            anywhere returns the default instead of losing the event. */
         function sxAnalyticsSkin() {
             try {
+                if (typeof window.__SX_RESOLVE_SKIN === "function") {
+                    var resolved = window.__SX_RESOLVE_SKIN(location.hostname);
+                    if (resolved) return String(resolved);
+                }
                 var s = window.__SX_ACTIVE_SKIN;
                 if (s) return String(s);
-            } catch (e) { /* fall through to hostname */ }
-            try {
                 if (typeof window.__SX_SKIN_FROM_URL === "function") {
                     var u = window.__SX_SKIN_FROM_URL();
                     if (u) return u;
@@ -18013,18 +18015,11 @@ var SX_WARM_BOOT_STORAGE_KEY = "sx_hypermap_warm_boot_v3";
         // to "sexcapades" - consistently on save AND restore, or the
         // Sexcapades cache would never match.
         function sxWarmBootSkin() {
-            var s = (typeof window !== "undefined" && window.__SX_ACTIVE_SKIN);
-            if (s) return String(s);
+            if (typeof window !== "undefined" && typeof window.__SX_RESOLVE_SKIN === "function") {
+                var resolved = window.__SX_RESOLVE_SKIN(location.hostname);
+                if (resolved) return String(resolved);
+            }
             if (typeof sxAnalyticsSkin === "function") return sxAnalyticsSkin();
-            try {
-                if (typeof window.__SX_SKIN_FROM_URL === "function") {
-                    var u = window.__SX_SKIN_FROM_URL();
-                    if (u) return u;
-                }
-                if (typeof window.__SX_SKIN_FOR_HOSTNAME === "function") {
-                    return window.__SX_SKIN_FOR_HOSTNAME(location.hostname);
-                }
-            } catch (_) {}
             return "sexcapades";
         }
         function sxWarmBootStorageKey(skin) {
@@ -27908,7 +27903,9 @@ var __sxParkedSectionNames = {
             try {
                 const active = window.__SX_ACTIVE_SKIN || null;
                 let target = "sexcapades";
-                if (typeof window.__SX_SKIN_FROM_URL === "function") {
+                if (typeof window.__SX_TARGET_SKIN === "function") {
+                    target = window.__SX_TARGET_SKIN(location.hostname) || "sexcapades";
+                } else if (typeof window.__SX_SKIN_FROM_URL === "function") {
                     const u = window.__SX_SKIN_FROM_URL();
                     if (u) target = u;
                     else if (typeof window.__SX_SKIN_FOR_HOSTNAME === "function") {
@@ -49195,16 +49192,13 @@ __sxInit(function () {
 
   function resolveCurrentSkin() {
     try {
+      if (typeof window.__SX_RESOLVE_SKIN === 'function') {
+        var r = window.__SX_RESOLVE_SKIN(location.hostname);
+        if (r) return String(r).toLowerCase();
+      }
       if (typeof window.__sxAnalyticsSkin === 'function') {
         var s = window.__sxAnalyticsSkin();
         if (s) return String(s).toLowerCase();
-      }
-      if (window.__SX_ACTIVE_SKIN) return String(window.__SX_ACTIVE_SKIN).toLowerCase();
-      if (typeof window.__SX_SKIN_FROM_URL === 'function' && window.__SX_SKIN_FROM_URL()) {
-        return String(window.__SX_SKIN_FROM_URL()).toLowerCase();
-      }
-      if (typeof window.__SX_SKIN_FOR_HOSTNAME === 'function') {
-        return String(window.__SX_SKIN_FOR_HOSTNAME(location.hostname)).toLowerCase();
       }
     } catch (e) {}
     return 'sexcapades';

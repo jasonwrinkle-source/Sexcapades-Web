@@ -428,14 +428,6 @@
     if (prefix && HOSTNAME_SKINS[prefix]) return HOSTNAME_SKINS[prefix];
     return "sexcapades";
   }
-  /* Inverse of HOSTNAME_SKINS: the subdomain prefix for a skin id
-     ("quantacapades" -> "quanta", "philoscapades" -> "philo",
-     "vocapades" -> "voca"). A lookup, NOT a string-strip — stripping
-     "capades" off the coined name gives the wrong prefix for
-     Philoscapades ("philos") and Vocapades ("vo"). Exposed on window
-     alongside __SX_ACTIVE_SKIN so the pitch-pitcher can name the
-     specific skin's dotted domain. Unknown ids fall back to "sex",
-     mirroring skinForHostname's unknown-host default. */
   function skinPrefixFor(skinId) {
     if (typeof window !== "undefined" && typeof window.__SX_SKIN_PREFIX_FOR === "function" && window.__SX_SKIN_PREFIX_FOR !== skinPrefixFor) {
       return window.__SX_SKIN_PREFIX_FOR(skinId);
@@ -446,18 +438,6 @@
     }
     return "sex";
   }
-  /* Per-skin PWA manifest (2026-11-18, rainbow build): each skin
-     installs under its own name with its own icon. The manifest files
-     live at /manifests/<prefix>.json (new filenames, so no stale-cache
-     serving — the shared /icons/icon-*.png URLs are cached per-origin
-     for 7 days and precached cache-first by the service worker). The
-     app's static <link> points at the shared Flex manifest; this swaps
-     it to the active skin's manifest on boot and on every skin switch,
-     and swaps the apple-touch-icon the same way. A missing link or an
-     unknown skin falls back to the shared manifest (Flex). The icon
-     URLs in the manifests carry ?v=<build> (stamped at packaging);
-     the apple-touch-icon swap is unstamped (new filename, first fetch
-     is fresh — a future icon change needs a stamp; follow-up). */
   function setManifestForSkin(skinId) {
     var prefix = skinPrefixFor(skinId);
     try {
@@ -474,6 +454,9 @@
     return host === "flex.capades.io" || host === "capades.io";
   }
   function skinFromUrl() {
+    if (typeof window !== "undefined" && typeof window.__SX_SKIN_FROM_URL === "function" && window.__SX_SKIN_FROM_URL !== skinFromUrl) {
+      return window.__SX_SKIN_FROM_URL();
+    }
     try {
       var q = new URLSearchParams(window.location.search || "");
       var s = q.get("skin");
@@ -2153,7 +2136,7 @@
      hostname without DNS. */
   if (!window.__SX_SKIN_FOR_HOSTNAME || window.__SX_SKIN_FOR_HOSTNAME === skinForHostname) window.__SX_SKIN_FOR_HOSTNAME = skinForHostname;
   window.__SX_BOOT_SHOULD_OPEN_MENU = bootShouldOpenMenu;
-  window.__SX_SKIN_FROM_URL = skinFromUrl;
+  if (!window.__SX_SKIN_FROM_URL) window.__SX_SKIN_FROM_URL = skinFromUrl;
   window.__SX_HAS_GATE_PASS = hasGatePass;
   handleVerifiedParam();
   /* Boot skin: ?skin= (a gate round-trip) wins over the hostname, and
@@ -2167,10 +2150,12 @@
      manifest from the start; applySkin / restoreSexcapades re-assert
      it on every switch, and the failure paths below correct it if the
      boot skin fails to load. */
-  setManifestForSkin(skinFromUrl() || skinForHostname(window.location.hostname));
+  var bootSkinTarget = (typeof window.__SX_TARGET_SKIN === "function")
+    ? window.__SX_TARGET_SKIN(window.location.hostname)
+    : (skinFromUrl() || skinForHostname(window.location.hostname));
+  setManifestForSkin(bootSkinTarget);
   (function bootSkin() {
-    var fromUrl = skinFromUrl();
-    var boot = fromUrl || skinForHostname(window.location.hostname);
+    var boot = bootSkinTarget;
 
     /* Immediately fetch skin JSON across network in parallel with data-bootstrap stream loading. */
     var url = SKIN_DIR + boot + ".json";
