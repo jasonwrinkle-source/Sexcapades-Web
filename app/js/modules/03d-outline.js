@@ -535,6 +535,7 @@
                 name: e.dataset.tooltipName,
                 definition: e.dataset.tooltipDefinition || i,
                 value: e.dataset.tooltipValue,
+                nameColor: e.dataset.tooltipNameColor,
                 point: n,
                 autoHide: t
             }));

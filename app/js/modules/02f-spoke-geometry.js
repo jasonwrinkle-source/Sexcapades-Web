@@ -165,7 +165,10 @@
                 // Labels are focusable so keyboard focus shows the tip too.
                 const sxPoleTipAttrs = k => {
                     const tip = (typeof sxPoleLine === "function") ? sxPoleLine(e, f[k]) : null;
-                    return (tip ? ` data-ui-tooltip="${sxEscapeHtmlText(tip)}" data-tooltip-name="${sxEscapeHtmlText(y[k] || f[k])}" data-tooltip-tap-first` : "") + ` tabindex="0"`;
+                    // Pole-name color: the shared tooltip paints its name
+                    // in the pole's color; a pole with no color stays plain.
+                    const col = tip && (typeof sxPoleColor === "function") ? sxPoleColor(e, f[k]) : null;
+                    return (tip ? ` data-ui-tooltip="${sxEscapeHtmlText(tip)}" data-tooltip-name="${sxEscapeHtmlText(y[k] || f[k])}"${col ? ` data-tooltip-name-color="${col}"` : ""} data-tooltip-tap-first` : "") + ` tabindex="0"`;
                 };
                 if ($.octad) {
                     // 8-Pole Octad Widget on Hypermap:

@@ -484,7 +484,7 @@
             let o = null, s = null, l = 0;
             function sxHideUiTooltip() {
                 t.clear(l), l = 0, o?.isConnected && "uiTooltip" === o.getAttribute("aria-describedby") && o.removeAttribute("aria-describedby"),
-                o = null, s = null, n.classList.remove("ui-tooltip--panel"), n.hidden = !0, i.textContent = "", a.textContent = "", r.textContent = "",
+                o = null, s = null, n.classList.remove("ui-tooltip--panel"), n.hidden = !0, i.textContent = "", i.style.color = "", a.textContent = "", r.textContent = "",
                 n.parentNode !== document.body && document.body.appendChild(n);
             }
             function sxPlaceUiTooltip(e = s, t = o) {
@@ -520,12 +520,13 @@
                         return {
                             name: String(a || "Details"),
                             definition: String(r || ""),
-                            value: null == o ? "" : String(o)
+                            value: null == o ? "" : String(o),
+                            nameColor: String(i.nameColor ?? n.tooltipNameColor ?? "")
                         };
                     }(e, u);
                     if (!p.name && !p.definition && !p.value) return void sxHideUiTooltip();
                     t.clear(l), o && o !== e && o.isConnected && "uiTooltip" === o.getAttribute("aria-describedby") && o.removeAttribute("aria-describedby"),
-                    o = e, s = u.point ?? null, n.classList.toggle("ui-tooltip--panel", Boolean(e.closest && e.closest(".layout-editor"))), i.textContent = p.name, a.textContent = p.definition,
+                    o = e, s = u.point ?? null, n.classList.toggle("ui-tooltip--panel", Boolean(e.closest && e.closest(".layout-editor"))), i.textContent = p.name, i.style.color = p.nameColor || "", a.textContent = p.definition,
                     a.hidden = !p.definition, r.textContent = p.value;
                     const h = (e.closest ? e.closest("dialog") : null) || document.body;
                     n.parentNode !== h && h.appendChild(n), n.hidden = !1, e.setAttribute("aria-describedby", "uiTooltip"),
@@ -556,7 +557,7 @@
            has no DOM node per pole, so the paint module calls this with
            the canvas as anchor, the pole's full label as name, and its
            "Label — text" line as the definition. */
-        window.__SX_TIP_SHOW = function (anchorEl, name, text, clientX, clientY) {
+        window.__SX_TIP_SHOW = function (anchorEl, name, text, clientX, clientY, nameColor) {
             if (!anchorEl) return;
             let tipName = name || "Details";
             let tipDef = text || "";
@@ -573,6 +574,7 @@
                 name: tipName,
                 definition: tipDef,
                 value: "",
+                nameColor: nameColor || "",
                 point: (Number.isFinite(clientX) && Number.isFinite(clientY)) ? { x: clientX, y: clientY, pointerType: "mouse" } : null
             });
         };

@@ -183,6 +183,11 @@
                         r.setAttribute("data-tooltip-name", s.textContent);
                         r.setAttribute("data-tooltip-definition", tip);
                     }
+                    // Pole-name color: the shared tooltip paints its name
+                    // in the pole's color; a pole with no color stays plain.
+                    const col = (typeof sxPoleColor === "function") ? sxPoleColor(e.id, n) : null;
+                    if (col) r.setAttribute("data-tooltip-name-color", col);
+                    else r.removeAttribute("data-tooltip-name-color");
                 }
                 const c = document.createElement("input");
                 c.type = "range", c.min = "-100", c.max = "100", c.step = "1", c.value = "0", c.dataset.outlineDirection = n, 

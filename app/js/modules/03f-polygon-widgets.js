@@ -81,7 +81,10 @@
                 const statBox = document.createElement("div");
                 statBox.className = "mark-tri-stat";
                 const pName = shape.labels[idx] || k;
-                const pCol = isOctad ? SX_OCTAD_COLORS[idx] : isHeptad ? SX_HEPTAD_COLORS[idx] : isHexad ? SX_HEXAD_COLORS[idx] : isPentad ? SX_PENTAD_COLORS[idx] : isCompass ? SX_COMPASS_COLORS[idx] : isTetrad ? ["#22c55e", "#eab308", "#ef4444", "#3b82f6"][idx] : isTriad ? ["#ef4444", "#22c55e", "#3b82f6"][idx] : ["#22c55e", "#3b82f6"][idx];
+                // Pole color: single source of truth is sxPoleColor
+                // (03f1-polygon-math.js); the pId keeps the readout's
+                // explicit profile so the color matches this widget.
+                const pCol = sxPoleColor(topicId, k, pId);
                 statBox.innerHTML = `<span style="color:${pCol}">${pName}</span>: <b style="color:${pCol}">0</b>`;
                 // Seam A: the pole name span carries the pole's hovertip line.
                 sxSetPoleTip(statBox.querySelector("span"), topicId, k);
@@ -402,7 +405,7 @@
                 if (hit && evt.pointerType !== "mouse") {
                     const line = sxPoleLine(canvas.__sxHoverTopicId || Qr, hit.key);
                     if (line) {
-                        window.__SX_TIP_SHOW(canvas, hit.name || hit.text, line, evt.clientX, evt.clientY);
+                        window.__SX_TIP_SHOW(canvas, hit.name || hit.text, line, evt.clientX, evt.clientY, (typeof sxPoleColor === "function") ? sxPoleColor(canvas.__sxHoverTopicId || Qr, hit.key) : null);
                         return;
                     }
                 }

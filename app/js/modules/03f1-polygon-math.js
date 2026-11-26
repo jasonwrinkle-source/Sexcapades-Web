@@ -170,6 +170,40 @@
             set(".mark-quad-bl", names.bl);
             set(".mark-quad-br", names.br);
         }
+        // One pole's color, by shape and pole index — the single source
+        // of truth for pole colors (the widget readout rows' pCol logic,
+        // moved here so the tooltips can share it). Shape flags and
+        // index order match 03f-polygon-widgets.js exactly: octad 8,
+        // heptad 7, hexad 6, pentad 5, compass/tetrad 4, triad 3,
+        // 2-pole (give/receive) 2. Returns null when the topic has no
+        // widget config or the key is not one of its poles. The optional
+        // profileId keeps the widget readout's explicit profile (pId);
+        // other callers omit it and take the active profile.
+        function sxPoleColor(topicId, key, profileId) {
+            if (!topicId || !key) return null;
+            if (typeof sxWidgetConfig !== "function") return null;
+            const shape = profileId ? sxWidgetConfig(topicId, profileId) : sxWidgetConfig(topicId);
+            if (!shape || !shape.keys || !shape.keys.length) return null;
+            let idx = shape.keys.indexOf(key);
+            if (-1 === idx && shape.poleKeys) idx = shape.poleKeys.indexOf(key);
+            if (-1 === idx) return null;
+            const n = shape.keys.length;
+            const isOctad = Boolean(shape.octad || 8 === n);
+            const isHeptad = Boolean(shape.heptad || 7 === n);
+            const isHexad = Boolean(shape.hexad || 6 === n);
+            const isPentad = Boolean(shape.pentad || 5 === n);
+            const isCompass = "quad-compass" === shape.widget;
+            const isTetrad = !isCompass && Boolean(shape.tetrad || 4 === n);
+            const isTriad = Boolean(shape.triangle || 3 === n);
+            if (isOctad) return (SX_OCTAD_COLORS[idx] || null);
+            if (isHeptad) return (SX_HEPTAD_COLORS[idx] || null);
+            if (isHexad) return (SX_HEXAD_COLORS[idx] || null);
+            if (isPentad) return (SX_PENTAD_COLORS[idx] || null);
+            if (isCompass) return (SX_COMPASS_COLORS[idx] || null);
+            if (isTetrad) return (["#22c55e", "#eab308", "#ef4444", "#3b82f6"][idx] || null);
+            if (isTriad) return (["#ef4444", "#22c55e", "#3b82f6"][idx] || null);
+            return (["#22c55e", "#3b82f6"][idx] || null);
+        }
         function sxPoleLine(topicId, key) {
             // One pole's "Label - text" line. Skin-registered topics come
             // first (loader); Sexcapades give/receive uses the custom
@@ -218,12 +252,18 @@
                 el.setAttribute("data-tooltip-name", name);
                 el.setAttribute("data-tooltip-definition", def);
                 el.setAttribute("data-tooltip-tap-first", "");
+                // Pole-name color: the shared tooltip paints its name in
+                // the pole's color; a pole with no color leaves it plain.
+                const col = (typeof sxPoleColor === "function") ? sxPoleColor(topicId, key) : null;
+                if (col) el.setAttribute("data-tooltip-name-color", col);
+                else el.removeAttribute("data-tooltip-name-color");
                 el.dataset.ratingTooltip = line;
             } else {
                 el.removeAttribute("data-ui-tooltip");
                 el.removeAttribute("data-tooltip-name");
                 el.removeAttribute("data-tooltip-definition");
                 el.removeAttribute("data-tooltip-tap-first");
+                el.removeAttribute("data-tooltip-name-color");
                 delete el.dataset.ratingTooltip;
             }
         }
@@ -285,7 +325,7 @@
                 // on every open); placard canvases never set it and keep
                 // resolving via Qr, the placard's current topic.
                 const line = sxPoleLine(canvas.__sxHoverTopicId || Qr, hit.key);
-                if (line) window.__SX_TIP_SHOW(canvas, hit.name || hit.text, line, evt.clientX, evt.clientY);
+                if (line) window.__SX_TIP_SHOW(canvas, hit.name || hit.text, line, evt.clientX, evt.clientY, (typeof sxPoleColor === "function") ? sxPoleColor(canvas.__sxHoverTopicId || Qr, hit.key) : null);
                 else if (typeof window.__SX_TIP_HIDE === "function") window.__SX_TIP_HIDE();
             });
             canvas.addEventListener("pointerleave", () => {
