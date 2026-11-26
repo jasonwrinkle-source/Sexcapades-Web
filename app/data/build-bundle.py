@@ -199,6 +199,19 @@ for ch in [
         shutil.copyfile(css_src, ch)
         print(f"[Bundle] Synced app.css to {ch}")
 
+# Sync skin data files (app/data/skins/*.json) to hosted/data/skins/ and qa/data/skins/
+# BEFORE running build_docs_skin.py so docs-skin.js reads the latest skin JSONs.
+skins_src_dir = os.path.join(base_dir, "skins")
+for skins_dst in [os.path.join(base_dir, "../../site-tree/public_html/hosted/data/skins"),
+                  os.path.join(base_dir, "../../site-tree/public_html/qa/data/skins")]:
+    if os.path.exists(skins_src_dir) and os.path.exists(os.path.dirname(skins_dst)):
+        os.makedirs(skins_dst, exist_ok=True)
+        for sf in os.listdir(skins_src_dir):
+            if not sf.endswith(".json"):
+                continue
+            shutil.copyfile(os.path.join(skins_src_dir, sf), os.path.join(skins_dst, sf))
+            print(f"[Bundle] Synced skins/{sf} to {skins_dst}/")
+
 # Rebuild docs-skin.js from current skin data
 docs_skin_builder = os.path.join(base_dir, "../../packaging-scripts/build_docs_skin.py")
 if os.path.isfile(docs_skin_builder):
@@ -245,18 +258,5 @@ for f in shell_js:
 html_builder = os.path.join(base_dir, "../../packaging-scripts/build-html.py")
 if os.path.isfile(html_builder):
     subprocess.run([sys.executable, html_builder], cwd=os.path.join(base_dir, "../.."), check=True)
-
-# Sync skin data files (app/data/skins/*.json) to hosted/data/skins/ and qa/data/skins/
-# so a runtime-fetched skin loads in the hosted and QA trees, not just source.
-skins_src_dir = os.path.join(base_dir, "skins")
-for skins_dst in [os.path.join(base_dir, "../../site-tree/public_html/hosted/data/skins"),
-                  os.path.join(base_dir, "../../site-tree/public_html/qa/data/skins")]:
-    if os.path.exists(skins_src_dir) and os.path.exists(os.path.dirname(skins_dst)):
-        os.makedirs(skins_dst, exist_ok=True)
-        for sf in os.listdir(skins_src_dir):
-            if not sf.endswith(".json"):
-                continue
-            shutil.copyfile(os.path.join(skins_src_dir, sf), os.path.join(skins_dst, sf))
-            print(f"[Bundle] Synced skins/{sf} to {skins_dst}/")
 
 print(f"[Bundle] Complete! Generated {round(os.path.getsize(target_app)/1024, 1)} KB ES-bundled bundle.")

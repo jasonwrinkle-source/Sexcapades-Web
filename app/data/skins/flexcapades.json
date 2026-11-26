@@ -42,7 +42,7 @@
               },
               {
                 "label": "The hot list",
-                "text": "Rate from the shortlist \u2014 the topics that matter tonight, in one place, without wandering the map."
+                "text": "Rate from the hot list \u2014 the popularity-ordered checklist with an elapsed timer and search, so you can rate the most common topics first without wandering the map."
               }
             ]
           },
@@ -120,11 +120,11 @@
           "widget": "xy-switchbox",
           "archetype": null,
           "hovertip": {
-            "issue": "A pair topic has two sides \u2014 give and receive \u2014 each with its own leaning and appetite. Should each side get its own line and puck, or is one number enough?",
+            "issue": "Every two-flank topic has two sides \u2014 Give and Receive on play maps, or Advocacy (filled disc, what you argue for) and Receptivity (open ring, what you're open to hearing) on stance maps \u2014 each with its own leaning and appetite. Should each side get its own line and puck, or is one number enough?",
             "poles": [
               {
                 "label": "Two lines, one puck each",
-                "text": "Give and receive are different acts with different leanings. Each deserves its own line, its own puck, its own appetite."
+                "text": "Giving and receiving \u2014 or advocating a stance and being open to hearing it \u2014 are different acts with different leanings. Each deserves its own line, its own puck, its own appetite."
               },
               {
                 "label": "One number is enough",
@@ -188,6 +188,53 @@
           ],
           "glyph": "M4 18h2v-3H4z M8 18h2v-6H8z M12 18h2v-9h-2z M16 18h2V6h-2z M20 18h2V3h-2z M2 20h20",
           "glyphLabel": "stepped intensity bars"
+        },
+        {
+          "id": "xfl0030",
+          "name": "Branch ratings and limits",
+          "risk": false,
+          "poles": [
+            {
+              "key": "branch-first",
+              "label": "Rate the branch first"
+            },
+            {
+              "key": "leaf-by-leaf",
+              "label": "Leaf by leaf"
+            },
+            {
+              "key": "branch-limits-gate",
+              "label": "Branch limits gate the rest"
+            }
+          ],
+          "widget": "trilinear-line",
+          "archetype": "line",
+          "hovertip": {
+            "issue": "You don't have to rate every leaf one by one \u2014 you can rate a whole branch hub (which rolls down to unrated topics beneath it) or mark a branch as a Limit (which gates every topic under it: a branch Limit beats a topic Favorite). How do you rate the tree?",
+            "poles": [
+              {
+                "label": "Rate the branch first",
+                "text": "Set the branch hub first to paint the broad strokes, then override only the leaves that differ."
+              },
+              {
+                "label": "Leaf by leaf",
+                "text": "Rate the individual topics. A branch is a folder, not a single answer."
+              },
+              {
+                "label": "Branch limits gate the rest",
+                "text": "Use branch Limits to rule out whole territories in one tap \u2014 if the branch is a Limit, nothing under it gets through."
+              }
+            ]
+          },
+          "communities": [
+            {
+              "network": "Guide",
+              "name": "Read the guide: Branch ratings and limits",
+              "url": "/hosted/guide.html#flex-branch-ratings"
+            }
+          ],
+          "glyph": "M12 3v5 M12 8L6 13v5 M12 8l6 5v5 M12 3a2 2 0 1 0 0 .01 M6 19a2 2 0 1 0 0 .01 M18 19a2 2 0 1 0 0 .01 M15 11l4 4 M19 11l-4 4",
+          "glyphLabel": "branch hierarchy and limit gate"
         }
       ]
     },
@@ -402,19 +449,19 @@
           "widget": "trilinear-line",
           "archetype": "line",
           "hovertip": {
-            "issue": "The hot list is the shortlist \u2014 the topics at the top of your shared appetite, the night at a glance. How often do you use it?",
+            "issue": "The hot list orders every topic by how commonly people rate it (synthesized popularity), with a 3-per-category first pass and an elapsed timer \u2014 while the center node's At-a-Glance rings list your shared-appetite matches. How often do you use the hot list?",
             "poles": [
               {
                 "label": "Every time",
-                "text": "Every night starts at the hot list. The shortlist is the plan."
+                "text": "Every pass starts at the hot list. Rating the most common topics first gets a map ready to compare in minutes."
               },
               {
                 "label": "Special nights",
-                "text": "The hot list is for special nights \u2014 the ones worth planning. Ordinary nights don't need it."
+                "text": "The hot list is for a quick pass or a new partner \u2014 once the map is built, I live on the map."
               },
               {
                 "label": "I don't use it",
-                "text": "I don't use the hot list. The map is the plan."
+                "text": "I don't use the hot list. I browse and rate directly on the map."
               }
             ]
           },
@@ -449,15 +496,15 @@
           "widget": "trilinear-line",
           "archetype": "line",
           "hovertip": {
-            "issue": "Scene Setter turns the shortlist into the night \u2014 an order, a flow, a plan. How much planning do you want?",
+            "issue": "Scene Setter turns your profile overlap into two documents: a standalone negotiation checklist (or discussion agreement) and a timed AI play-guide prompt you can generate right in the browser with your own API key (BYOK) or load into Scene Sentinel. How much planning do you want?",
             "poles": [
               {
                 "label": "The whole night",
-                "text": "Plan the whole night in Scene Setter \u2014 order, flow, everything. A planned night is a good night."
+                "text": "Build the full agreement and timed guide in Scene Setter \u2014 warm-up, main flow, check-ins, and aftercare."
               },
               {
                 "label": "A loose order",
-                "text": "A loose order is enough \u2014 a beginning and a direction, then let the night happen."
+                "text": "A checklist and a loose order are enough \u2014 clear the limits, pick a starting direction, then let the night happen."
               },
               {
                 "label": "Just go and see",
@@ -496,7 +543,7 @@
           "widget": "trilinear-line",
           "archetype": "line",
           "hovertip": {
-            "issue": "Heat is the flame \u2014 the night's temperature, from turned off to horndog, and the pair runs at the lower of the two. Does yours move as the night moves?",
+            "issue": "Heat is the flame on every profile tab \u2014 the night's temperature, from withdrawn (\u2212100) to burning (+100), and a pair runs at the lower of the two. Does yours move as the night moves?",
             "poles": [
               {
                 "label": "Follows the night",
@@ -543,19 +590,19 @@
           "widget": "trilinear-line",
           "archetype": "line",
           "hovertip": {
-            "issue": "Scribe writes it up \u2014 the night, the negotiation, the scene \u2014 in words. When do you write?",
+            "issue": "Scribe turns one profile or a group overlap into an AI prompt \u2014 for an erotic story on Sexcapades or an informed discussion between stances \u2014 and can stream the text and live voice narration right in the browser with your own API key (BYOK). When do you use it?",
             "poles": [
               {
                 "label": "After",
-                "text": "Write it up after \u2014 the record of what happened, while it's still warm."
+                "text": "Use it after \u2014 turn the ratings we matched on into a story or synthesis while the night is still warm."
               },
               {
                 "label": "Before",
-                "text": "Write it up before \u2014 the plan in words, so everyone knows what the night is."
+                "text": "Use it before \u2014 generate a solo story, a preview of the chemistry, or a steelman discussion before meeting up."
               },
               {
                 "label": "I don't write it up",
-                "text": "I don't write it up. The night lives in memory, not in text."
+                "text": "I don't use Scribe. The map itself says everything I need."
               }
             ]
           },
@@ -568,6 +615,53 @@
           ],
           "glyph": "M20 4L10 14l-2 5 5-2L23 7a2.1 2.1 0 0 0-3-3z M4 6h4 M4 11h4 M4 16h8 M4 21h12",
           "glyphLabel": "scribe quill and paper"
+        },
+        {
+          "id": "xfl0031",
+          "name": "Scene Sentinel",
+          "risk": false,
+          "poles": [
+            {
+              "key": "live-timer-and-guide",
+              "label": "Run the timed guide & check-ins"
+            },
+            {
+              "key": "signals-only",
+              "label": "Traffic-light signals only"
+            },
+            {
+              "key": "off-screen",
+              "label": "Keep the screen dark"
+            }
+          ],
+          "widget": "trilinear-line",
+          "archetype": "line",
+          "hovertip": {
+            "issue": "Scene Sentinel is the live scene monitor in the View menu \u2014 it loads a timed Scene Setter play guide, runs the clock and scheduled check-in prompts, and receives green/yellow/red traffic-light signals (including from a GibberWear watch over sound or Bluetooth). Do you bring it into a live session?",
+            "poles": [
+              {
+                "label": "Run the timed guide & check-ins",
+                "text": "Load the play guide into Sentinel and let it pace the segments and remind us to check in."
+              },
+              {
+                "label": "Traffic-light signals only",
+                "text": "Keep Sentinel open for quiet watch or tap check-ins, without running a timed script."
+              },
+              {
+                "label": "Keep the screen dark",
+                "text": "Once the scene starts, screens go away. Check-ins happen out loud or by hand."
+              }
+            ]
+          },
+          "communities": [
+            {
+              "network": "Guide",
+              "name": "Read the guide: Scene Sentinel",
+              "url": "/hosted/guide.html#flex-scene-sentinel"
+            }
+          ],
+          "glyph": "M12 2L4 5v6c0 5.5 3.4 10.7 8 12 4.6-1.3 8-6.5 8-12V5l-8-3z M12 8v4l2.5 1.5 M12 7a5 5 0 1 0 0 10 5 5 0 0 0 0-10z",
+          "glyphLabel": "sentinel shield and clock"
         }
       ]
     },
@@ -1056,6 +1150,53 @@
           ],
           "glyph": "M12 19c-3-1.5-6-1.5-9 0V5c3-1.5 6-1.5 9 0 M12 19c3-1.5 6-1.5 9 0V5c-3-1.5-6-1.5-9 0 M12 5v14 M5 9h4 M15 9h4",
           "glyphLabel": "open reference codex"
+        },
+        {
+          "id": "xfl0032",
+          "name": "Sample archetypes",
+          "risk": false,
+          "poles": [
+            {
+              "key": "compare-right-away",
+              "label": "Compare with archetypes first"
+            },
+            {
+              "key": "browse-to-learn",
+              "label": "Browse them to see how a map looks"
+            },
+            {
+              "key": "only-real-people",
+              "label": "I only compare real people"
+            }
+          ],
+          "widget": "trilinear-line",
+          "archetype": "line",
+          "hovertip": {
+            "issue": "Every skin ships with built-in sample archetypes in the + menu \u2014 ready-made profiles and historical or philosophical stacks \u2014 so a solo newcomer can test-drive Cross, Straight, and Circle Minus comparisons immediately without waiting for a partner. How do you use them?",
+            "poles": [
+              {
+                "label": "Compare with archetypes first",
+                "text": "Load an archetype or stack and compare my profile against it right away to see where I align and where I clash."
+              },
+              {
+                "label": "Browse them to see how a map looks",
+                "text": "Open a sample archetype first to see a finished map in color, then close it and build my own."
+              },
+              {
+                "label": "I only compare real people",
+                "text": "I skip the built-in archetypes. A comparison only means something when another real person is on the other tab."
+              }
+            ]
+          },
+          "communities": [
+            {
+              "network": "Guide",
+              "name": "Read the guide: Sample archetypes",
+              "url": "/hosted/guide.html#flex-sample-archetypes"
+            }
+          ],
+          "glyph": "M8 10a3 3 0 1 0 0-6 3 3 0 0 0 0 6z M16 10a3 3 0 1 0 0-6 3 3 0 0 0 0 6z M3 18c0-2.5 2.2-4 5-4s5 1.5 5 4 M13 18c0-2.2 1.8-3.6 4.2-3.9 M18 14v6 M15 17h6",
+          "glyphLabel": "sample archetype roster"
         }
       ]
     },
@@ -1324,7 +1465,7 @@
           "widget": "trilinear-line",
           "archetype": "line",
           "hovertip": {
-            "issue": "Twenty-one skins and counting. What should the next one be \u2014 another map of positions, another map of play, or is it time to stop adding skins?",
+            "issue": "Twenty-two skins and counting. What should the next one be \u2014 another map of positions, another map of play, or is it time to stop adding skins?",
             "poles": [
               {
                 "label": "Another stance map",
@@ -1336,7 +1477,7 @@
               },
               {
                 "label": "Enough skins",
-                "text": "Enough skins. Twenty-one is plenty \u2014 deepen what exists instead."
+                "text": "Enough skins. Twenty-two is plenty \u2014 deepen what exists instead."
               }
             ]
           },
@@ -1349,7 +1490,7 @@
   "samples": {
     "the-lawgiver": {
       "name": "The Lawgiver",
-      "count": 29,
+      "count": 32,
       "about": "The project's lawgiver \u2014 he ruled every line on this map, rates everything, and keeps one profile current. The map is his, and he knows where every number came from.",
       "links": [],
       "payload": {
@@ -1761,6 +1902,48 @@
               "enough-skins": -20,
               "intensity": 35
             }
+          },
+          "xfl0030": {
+            "advocacy": {
+              "branch-first": 70,
+              "leaf-by-leaf": 85,
+              "branch-limits-gate": 95,
+              "intensity": 95
+            },
+            "receptivity": {
+              "branch-first": 35,
+              "leaf-by-leaf": 42,
+              "branch-limits-gate": 48,
+              "intensity": 48
+            }
+          },
+          "xfl0031": {
+            "advocacy": {
+              "live-timer-and-guide": 85,
+              "signals-only": 60,
+              "off-screen": -50,
+              "intensity": 85
+            },
+            "receptivity": {
+              "live-timer-and-guide": 42,
+              "signals-only": 30,
+              "off-screen": -25,
+              "intensity": 42
+            }
+          },
+          "xfl0032": {
+            "advocacy": {
+              "compare-right-away": 90,
+              "browse-to-learn": 75,
+              "only-real-people": -70,
+              "intensity": 90
+            },
+            "receptivity": {
+              "compare-right-away": 45,
+              "browse-to-learn": 38,
+              "only-real-people": -35,
+              "intensity": 45
+            }
           }
         },
         "skin": "flexcapades"
@@ -1771,7 +1954,7 @@
     },
     "the-witness": {
       "name": "The Witness",
-      "count": 29,
+      "count": 32,
       "about": "The only other person who has seen the maps \u2014 the partner at the center of the project. She rates for the night, veils by topic, and keeps her map private by default.",
       "links": [],
       "payload": {
@@ -2183,6 +2366,48 @@
               "enough-skins": 0,
               "intensity": 42
             }
+          },
+          "xfl0030": {
+            "advocacy": {
+              "branch-first": 60,
+              "leaf-by-leaf": 50,
+              "branch-limits-gate": 85,
+              "intensity": 85
+            },
+            "receptivity": {
+              "branch-first": 36,
+              "leaf-by-leaf": 30,
+              "branch-limits-gate": 51,
+              "intensity": 51
+            }
+          },
+          "xfl0031": {
+            "advocacy": {
+              "live-timer-and-guide": 70,
+              "signals-only": 75,
+              "off-screen": 10,
+              "intensity": 75
+            },
+            "receptivity": {
+              "live-timer-and-guide": 42,
+              "signals-only": 45,
+              "off-screen": 6,
+              "intensity": 45
+            }
+          },
+          "xfl0032": {
+            "advocacy": {
+              "compare-right-away": 50,
+              "browse-to-learn": 70,
+              "only-real-people": 20,
+              "intensity": 70
+            },
+            "receptivity": {
+              "compare-right-away": 30,
+              "browse-to-learn": 42,
+              "only-real-people": 12,
+              "intensity": 42
+            }
           }
         },
         "skin": "flexcapades"
@@ -2193,7 +2418,7 @@
     },
     "the-builder": {
       "name": "The Builder",
-      "count": 29,
+      "count": 32,
       "about": "The collaborator who builds the maps \u2014 an AI in the workshop. Deep on the craft, strong on every open question, and the first to read the guide cover to cover.",
       "links": [],
       "payload": {
@@ -2605,6 +2830,48 @@
               "enough-skins": -20,
               "intensity": 32
             }
+          },
+          "xfl0030": {
+            "advocacy": {
+              "branch-first": 75,
+              "leaf-by-leaf": 80,
+              "branch-limits-gate": 90,
+              "intensity": 90
+            },
+            "receptivity": {
+              "branch-first": 30,
+              "leaf-by-leaf": 32,
+              "branch-limits-gate": 36,
+              "intensity": 36
+            }
+          },
+          "xfl0031": {
+            "advocacy": {
+              "live-timer-and-guide": 80,
+              "signals-only": 60,
+              "off-screen": -40,
+              "intensity": 80
+            },
+            "receptivity": {
+              "live-timer-and-guide": 32,
+              "signals-only": 24,
+              "off-screen": -16,
+              "intensity": 32
+            }
+          },
+          "xfl0032": {
+            "advocacy": {
+              "compare-right-away": 85,
+              "browse-to-learn": 80,
+              "only-real-people": -60,
+              "intensity": 85
+            },
+            "receptivity": {
+              "compare-right-away": 34,
+              "browse-to-learn": 32,
+              "only-real-people": -24,
+              "intensity": 34
+            }
           }
         },
         "skin": "flexcapades"
@@ -2615,7 +2882,7 @@
     },
     "the-tester": {
       "name": "The Tester",
-      "count": 29,
+      "count": 32,
       "about": "The beta tester \u2014 tries everything once, figures it out by tapping around, and tells you what broke. The quickstart is their way in.",
       "links": [],
       "payload": {
@@ -3027,6 +3294,48 @@
               "enough-skins": 7,
               "intensity": 42
             }
+          },
+          "xfl0030": {
+            "advocacy": {
+              "branch-first": 70,
+              "leaf-by-leaf": 30,
+              "branch-limits-gate": 60,
+              "intensity": 70
+            },
+            "receptivity": {
+              "branch-first": 49,
+              "leaf-by-leaf": 21,
+              "branch-limits-gate": 42,
+              "intensity": 49
+            }
+          },
+          "xfl0031": {
+            "advocacy": {
+              "live-timer-and-guide": 60,
+              "signals-only": 50,
+              "off-screen": 20,
+              "intensity": 60
+            },
+            "receptivity": {
+              "live-timer-and-guide": 42,
+              "signals-only": 35,
+              "off-screen": 14,
+              "intensity": 42
+            }
+          },
+          "xfl0032": {
+            "advocacy": {
+              "compare-right-away": 80,
+              "browse-to-learn": 70,
+              "only-real-people": -30,
+              "intensity": 80
+            },
+            "receptivity": {
+              "compare-right-away": 56,
+              "browse-to-learn": 49,
+              "only-real-people": -21,
+              "intensity": 56
+            }
           }
         },
         "skin": "flexcapades"
@@ -3037,7 +3346,7 @@
     },
     "the-munch-regular": {
       "name": "The Munch Regular",
-      "count": 29,
+      "count": 32,
       "about": "The community member \u2014 the room at the munch, the cards at the door. Loads the whole room, plans the night loose, and wants the DJ view built.",
       "links": [],
       "payload": {
@@ -3449,6 +3758,48 @@
               "enough-skins": -12,
               "intensity": 51
             }
+          },
+          "xfl0030": {
+            "advocacy": {
+              "branch-first": 75,
+              "leaf-by-leaf": 40,
+              "branch-limits-gate": 80,
+              "intensity": 80
+            },
+            "receptivity": {
+              "branch-first": 45,
+              "leaf-by-leaf": 24,
+              "branch-limits-gate": 48,
+              "intensity": 48
+            }
+          },
+          "xfl0031": {
+            "advocacy": {
+              "live-timer-and-guide": 60,
+              "signals-only": 80,
+              "off-screen": 20,
+              "intensity": 80
+            },
+            "receptivity": {
+              "live-timer-and-guide": 36,
+              "signals-only": 48,
+              "off-screen": 12,
+              "intensity": 48
+            }
+          },
+          "xfl0032": {
+            "advocacy": {
+              "compare-right-away": 60,
+              "browse-to-learn": 70,
+              "only-real-people": 30,
+              "intensity": 70
+            },
+            "receptivity": {
+              "compare-right-away": 36,
+              "browse-to-learn": 42,
+              "only-real-people": 18,
+              "intensity": 42
+            }
           }
         },
         "skin": "flexcapades"
@@ -3459,7 +3810,7 @@
     },
     "the-lurker": {
       "name": "The Lurker",
-      "count": 29,
+      "count": 32,
       "about": "The reader \u2014 watches, rarely rates, keeps their map private. They are the silent majority, and the map should work for them too.",
       "links": [],
       "payload": {
@@ -3870,6 +4221,48 @@
               "another-play": 6,
               "enough-skins": 18,
               "intensity": 18
+            }
+          },
+          "xfl0030": {
+            "advocacy": {
+              "branch-first": 40,
+              "leaf-by-leaf": -20,
+              "branch-limits-gate": 50,
+              "intensity": 50
+            },
+            "receptivity": {
+              "branch-first": 12,
+              "leaf-by-leaf": -6,
+              "branch-limits-gate": 15,
+              "intensity": 15
+            }
+          },
+          "xfl0031": {
+            "advocacy": {
+              "live-timer-and-guide": -30,
+              "signals-only": 10,
+              "off-screen": 70,
+              "intensity": 70
+            },
+            "receptivity": {
+              "live-timer-and-guide": -9,
+              "signals-only": 3,
+              "off-screen": 21,
+              "intensity": 21
+            }
+          },
+          "xfl0032": {
+            "advocacy": {
+              "compare-right-away": 30,
+              "browse-to-learn": 80,
+              "only-real-people": -20,
+              "intensity": 80
+            },
+            "receptivity": {
+              "compare-right-away": 9,
+              "browse-to-learn": 24,
+              "only-real-people": -6,
+              "intensity": 24
             }
           }
         },
