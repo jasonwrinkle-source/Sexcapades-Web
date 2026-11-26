@@ -32,9 +32,9 @@
     "topicTerm": "kink",
     "topicsTerm": "kinks",
     "cats": 18,
-    "catsWithSub": 7,
-    "subcats": 44,
-    "topics": 365
+    "catsWithSub": 16,
+    "subcats": 72,
+    "topics": 364
   },
   "flex": {
     "id": "flexcapades",
@@ -98,8 +98,8 @@
     "topicTerm": "question",
     "topicsTerm": "convictions & beliefs",
     "cats": 7,
-    "catsWithSub": 3,
-    "subcats": 13,
+    "catsWithSub": 6,
+    "subcats": 22,
     "topics": 100
   },
   "chem": {
@@ -142,8 +142,8 @@
     "topicTerm": "topic",
     "topicsTerm": "topics",
     "cats": 7,
-    "catsWithSub": 0,
-    "subcats": 0,
+    "catsWithSub": 1,
+    "subcats": 3,
     "topics": 44
   },
   "experi": {
@@ -472,8 +472,8 @@
     "topicTerm": "dance",
     "topicsTerm": "partner dances",
     "cats": 9,
-    "catsWithSub": 3,
-    "subcats": 6,
+    "catsWithSub": 6,
+    "subcats": 15,
     "topics": 82
   },
   "quest": {
@@ -494,9 +494,9 @@
     "topicTerm": "game",
     "topicsTerm": "tabletop RPG systems & styles",
     "cats": 8,
-    "catsWithSub": 0,
-    "subcats": 0,
-    "topics": 79
+    "catsWithSub": 4,
+    "subcats": 12,
+    "topics": 78
   }
 };
 

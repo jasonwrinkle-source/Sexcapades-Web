@@ -260,6 +260,10 @@
                     id = "t0061"; // Breast Spanking removed 2026-11-22, remapped to Tit Slapping (survivor per Jason's ruling)
                 } else if (id === "t0252" || id === "topic-sadism") {
                     id = "t0051"; // Sadism retired 2026-11-22 (Jason's 2026-11-05 R9f ruling applied), remapped to Sadomasochism (the renamed Pain)
+                } else if (id === "t0110" || id === "topic-tantra-energy-play") {
+                    id = "t0412"; // Tantra / energy play merged 2026-11-25 into Tantric / frantic / trance triad
+                } else if (id === "xqu0047") {
+                    id = "xqu0046"; // Theater-of-the-Mind Combat merged 2026-11-25 with Tactical Grid Combat into Grid vs. Theater of the Mind switchbox
                 }
                 if (!Ke.has(id) && !isCatId(id) && !isSubId(id) && !(at[c] && at[c][id]) && !(window.__SEXCAPADES_TOPIC_CATALOG && window.__SEXCAPADES_TOPIC_CATALOG.labelForId(id))) {
                     if (typeof window.__SX_SKIN_LAYOUT_SYNC === "function") {
@@ -456,6 +460,11 @@
                             else if (origId === "t0012") incoming.brat = maxVal;
                             else if (origId === "t0014") incoming.switch = maxVal;
                             else if (origId === "t0015") incoming.sovereign = maxVal;
+                        } else if (id === "t0412" && (origId === "t0110" || origId === "topic-tantra-energy-play")) {
+                            incoming.tantric = maxVal;
+                        } else if (id === "xqu0046" && (origId === "xqu0046" || origId === "xqu0047")) {
+                            if (origId === "xqu0047") incoming["theater-of-the-mind"] = maxVal;
+                            else incoming["tactical-grid"] = maxVal;
                         }
                         // Preserve already populated poles if merging into existing multi-pole rating
                         const curRating = vt[c][id];

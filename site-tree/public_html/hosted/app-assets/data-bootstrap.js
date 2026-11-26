@@ -2544,7 +2544,35 @@ var Ee = Object.freeze({
             "Mind control": "pendulum",
             Emotional: "heart",
             Vulnerability: "keyhole",
-            Verbal: "speech"
+            Verbal: "speech",
+            "Protocols & structure": "compass",
+            "Discipline & training": "scale",
+            "Control & hierarchy": "medal",
+            "Touch & temperature": "feather",
+            "Electrical & edge senses": "bolt",
+            "Atmosphere & cadence": "moon",
+            "Voyeurism & exposure": "watch",
+            "Media & performance": "spotlight",
+            "Group & swinging": "crowd",
+            "Cuckold & open dynamics": "stag",
+            "Relational frames": "knot3",
+            "Control & chastity": "lock",
+            "Edging & teasing": "edge",
+            "Breeding & edge play": "seed",
+            "Watersports & enema": "water",
+            "Bodily fluids": "drops",
+            "Food & messy": "bowl",
+            "Domestic & maid service": "house",
+            "Grooming & physical service": "tray",
+            "Etiquette & ceremony": "candle",
+            "Scenarios & fiction": "book",
+            "Supernatural & body shift": "ufo",
+            "Gender & expression": "swapBody",
+            "Aftercare & recovery": "hug",
+            "Reflection & rhythm": "calendar",
+            "Heavy impact & marking": "shards",
+            "Costumed & mythic": "fangs",
+            "Fabrics & textures": "hide"
         });
 
 var Ce = {
@@ -4846,7 +4874,10 @@ var LEGACY_NODE_IDS = Object.freeze({
     "topic-cuckold-hotwife": "t0281",
     "topic-bull-hotwife-cuckold": "t0281",
     "topic-cuckqueen-stag-vixen": "t0406",
-    "topic-cuckquean-stag-vixen": "t0406"
+    "topic-cuckquean-stag-vixen": "t0406",
+    "t0110": "t0412",
+    "topic-tantra-energy-play": "t0412",
+    "xqu0047": "xqu0046"
 });
         function migrateNodeKey(id) {
             const s = String(id == null ? "" : id);
@@ -14002,11 +14033,24 @@ var witnessTrippingLabel;
            (Refactor Step 3, Build 2026-10-18: extracted selection & interaction
            methods; SpokeGeometry, Za, and Ka live in 02f-spoke-geometry.js).
            ================================================================ */
+        // Ctrl/Cmd without Shift or Alt toggles the node's branch in
+        // the Anneal checklist. The pointerup path in 06-pdf-exporter
+        // is the live tap (it sets `to` and swallows the click that
+        // follows). This click path runs only when that tap did not.
+        function sxMapAnnealChord(e) {
+            return !!(e && (e.ctrlKey || e.metaKey) && !e.shiftKey && !e.altKey);
+        }
+        function sxToggleAnnealFromMap(id) {
+            if (!id || !window.__SEXCAPADES_LAYOUT_UI || "function" != typeof window.__SEXCAPADES_LAYOUT_UI.toggleAnnealFromNode) return;
+            try { window.__SEXCAPADES_LAYOUT_UI.toggleAnnealFromNode(id); }
+            catch (err) { __sxErrLog("layout-anneal-ctrl", err); }
+        }
         function Qa(e) {
             if (mn.staticMap) return;
             if (e.preventDefault(), e.stopPropagation(), to) return void (to = !1);
             const t = e.currentTarget, n = t.dataset.id || t.dataset.topicId || __sxClosestAction(t, "nodeGroup")?.dataset.layoutKey;
             if (!n) return;
+            if (sxMapAnnealChord(e)) return void sxToggleAnnealFromMap(n);
             selectSpokeNode(n, !0);
             const rec = qn[n] || Xn(n);
             const branch = rec ? rec.branch : (typeof ci === "function" ? ci(n) : "") || "";
@@ -14137,6 +14181,7 @@ var witnessTrippingLabel;
             if (e.preventDefault(), e.stopPropagation(), to) return void (to = !1);
             const t = e.currentTarget, n = t.dataset.id || t.dataset.topicId || __sxClosestAction(t, "nodeGroup")?.dataset.layoutKey;
             if (!n) return;
+            if (sxMapAnnealChord(e)) return void sxToggleAnnealFromMap(n);
             selectSpokeNode(n, !0);
             const rec = qn[n] || Xn(n);
             const branch = rec ? rec.branch : (typeof ci === "function" ? ci(n) : "") || "";
@@ -38047,7 +38092,7 @@ var fln = {};
                 }, fln[ck(e)] = fln[ck(e)] || e;
             });
         }
-        mk([ "Gentle touch/caress", "Cuddling" ], "t0397", !0), mk([ "Tantra", "Tantric sex", "Tantric play", "Energy play", "Tantra / energy play", "Breathwork" ], "t0110"), 
+        mk([ "Gentle touch/caress", "Cuddling" ], "t0397", !0), mk([ "Tantra", "Tantric sex", "Tantric play", "Energy play", "Tantra / energy play", "Breathwork" ], "t0412"),
         mk([ "Sex magic", "Sacred sexuality", "Ritual kink", "Spiritual kink", "Spiritual BDSM", "Spiritual play" ], "t0367"), 
         mk([ "Tickling" ], "t0100"), mk([ "Canes", "Caning" ], "t0067"), 
         mk([ "Crop", "Riding crop", "Riding crops" ], "t0068"), mk([ "Whip", "Whips" ], "t0064"), 
@@ -38134,7 +38179,7 @@ var fk = {};
         yk([ "Masochism", "Masochist" ], "t0051", "receive"), 
         yk([ "Breath play" ], "t0428", "both", !0), yk([ "CNC", "Consensual nonconsent", "Consensual non-consent" ], "t0134"), 
         yk([ "Rope", "Rope play" ], "t0022"), yk([ "Electrostimulation", "E-stim", "Violet wand" ], "t0101"), 
-        yk([ "Wax play" ], "t0098"), yk([ "Tantra", "Tantric", "Tantric play" ], "t0110"), 
+        yk([ "Wax play" ], "t0098"), yk([ "Tantra", "Tantric", "Tantric play" ], "t0412"),
         yk([ "Sacred sexuality", "Sex magic", "Sex magick" ], "t0367"), yk([ "Bondage", "Bondage play" ], "cat-bondage-restriction"), 
         yk([ "Shibari", "Kinbaku" ], "t0022"), yk([ "Impact play" ], "cat-impact-pain-body-modification"), 
         yk([ "Paddling", "Paddle play" ], "t0069"), yk([ "Caning", "Cane play" ], "t0067"), 
@@ -40006,6 +40051,20 @@ var sxLastNodeTapTime = 0, sxLastNodeTapId = null, sxLastNodeTapX = 0, sxLastNod
                 if ("pointercancel" === e.type) {
                     const held = n.startTime ? performance.now() - n.startTime : 0, moved = Math.hypot((e.clientX || n.startX) - n.startX, (e.clientY || n.startY) - n.startY);
                     if (held >= 400 && moved < 28) sxShowTopicTip(n.id, n.startX, n.startY, e.pointerType, n.tipEl);
+                    return;
+                }
+                // Ctrl/Cmd-click (no Shift, no Alt) toggles this node's
+                // branch in the Anneal checklist. It does not select,
+                // focus, or open the sheet. `to` is already set above,
+                // so the click that follows this pointerup is swallowed.
+                if (sxMapAnnealChord(e)) {
+                    if (sxPendingNodeTapTimer) {
+                        try { window.clearTimeout(sxPendingNodeTapTimer); } catch (_) {}
+                        sxPendingNodeTapTimer = null;
+                    }
+                    sxLastNodeTapTime = 0;
+                    sxLastNodeTapId = null;
+                    sxToggleAnnealFromMap(n.id);
                     return;
                 }
 
@@ -44881,6 +44940,10 @@ var importTopicNames = null;
                     id = "t0061"; // Breast Spanking removed 2026-11-22, remapped to Tit Slapping (survivor per Jason's ruling)
                 } else if (id === "t0252" || id === "topic-sadism") {
                     id = "t0051"; // Sadism retired 2026-11-22 (Jason's 2026-11-05 R9f ruling applied), remapped to Sadomasochism (the renamed Pain)
+                } else if (id === "t0110" || id === "topic-tantra-energy-play") {
+                    id = "t0412"; // Tantra / energy play merged 2026-11-25 into Tantric / frantic / trance triad
+                } else if (id === "xqu0047") {
+                    id = "xqu0046"; // Theater-of-the-Mind Combat merged 2026-11-25 with Tactical Grid Combat into Grid vs. Theater of the Mind switchbox
                 }
                 if (!Ke.has(id) && !isCatId(id) && !isSubId(id) && !(at[c] && at[c][id]) && !(window.__SEXCAPADES_TOPIC_CATALOG && window.__SEXCAPADES_TOPIC_CATALOG.labelForId(id))) {
                     if (typeof window.__SX_SKIN_LAYOUT_SYNC === "function") {
@@ -45077,6 +45140,11 @@ var importTopicNames = null;
                             else if (origId === "t0012") incoming.brat = maxVal;
                             else if (origId === "t0014") incoming.switch = maxVal;
                             else if (origId === "t0015") incoming.sovereign = maxVal;
+                        } else if (id === "t0412" && (origId === "t0110" || origId === "topic-tantra-energy-play")) {
+                            incoming.tantric = maxVal;
+                        } else if (id === "xqu0046" && (origId === "xqu0046" || origId === "xqu0047")) {
+                            if (origId === "xqu0047") incoming["theater-of-the-mind"] = maxVal;
+                            else incoming["tactical-grid"] = maxVal;
                         }
                         // Preserve already populated poles if merging into existing multi-pole rating
                         const curRating = vt[c][id];

@@ -123,7 +123,10 @@
     "topic-cuckold-hotwife": "t0281",
     "topic-bull-hotwife-cuckold": "t0281",
     "topic-cuckqueen-stag-vixen": "t0406",
-    "topic-cuckquean-stag-vixen": "t0406"
+    "topic-cuckquean-stag-vixen": "t0406",
+    "t0110": "t0412",
+    "topic-tantra-energy-play": "t0412",
+    "xqu0047": "xqu0046"
 });
         function migrateNodeKey(id) {
             const s = String(id == null ? "" : id);
