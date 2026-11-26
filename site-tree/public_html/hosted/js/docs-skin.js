@@ -78,7 +78,7 @@
     "cats": 8,
     "catsWithSub": 7,
     "subcats": 21,
-    "topics": 97
+    "topics": 106
   },
   "fores": {
     "id": "forescapades",

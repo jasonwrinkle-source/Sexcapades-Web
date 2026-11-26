@@ -249,9 +249,11 @@
                     var t = function() {
                         if (!e.markers) return "";
                         var t = [];
-                        return [ [ "favorite", "favorite ★" ], [ "limit", "hard limit ×" ], [ "notinterested", "not interested ⊘" ], [ "fantasyonly", "fantasy only" ], [ "alreadytried", "already tried ✓" ] ].forEach(function(n) {
-                            var i = e.markers[n[0]];
-                            i && i.n > 0 && t.push(Math.round(i.pct) + "% ±" + Math.round(i.ci) + "% " + n[1]);
+                        return [ "favorite", "limit", "notinterested", "fantasyonly", "alreadytried" ].forEach(function(key) {
+                            var m = sxMarkLabel(key);
+                            if (!m) return;
+                            var i = e.markers[key];
+                            i && i.n > 0 && t.push(Math.round(i.pct) + "% ±" + Math.round(i.ci) + "% " + m.label.toLowerCase() + " " + m.symbol);
                         }), t.length ? '<p style="font-size:11px;opacity:0.7;margin:6px 0 0;">' + t.join(" · ") + "</p>" : "";
                     }();
                     if (e.enough_data) {
@@ -343,6 +345,7 @@
             Pr.querySelectorAll("[data-mark]").forEach(e => e.setAttribute("aria-checked", String(e.dataset.mark === (s || "neutral"))));
             Pr.querySelector('[data-topic-flag="fantasy"]').setAttribute("aria-pressed", String(Boolean(Je[sxActiveProfileId()]?.[e])));
             Pr.querySelector('[data-topic-flag="tried"]').setAttribute("aria-pressed", String(Boolean(et[sxActiveProfileId()]?.[e])));
+            sxRelabelMarkButtons(Pr);
             Pr.dataset.openedAt = String(performance.now());
             // Hanky code lives on the placard now (Jason, 2026-11-22):
             // on the Sexcapades skin a coded topic's sheet wears its
@@ -646,6 +649,34 @@
             return y && (y.setAttribute("fill", sxInterestColor(s)), y.setAttribute("opacity", "1")), e.setAttribute("aria-valuenow", String(s)), 
             e.setAttribute("aria-valuetext", r ? "Release to clear" : String(Math.round(s))), 
             r ? Number.NaN : s;
+        }
+        // Mark-picker buttons (07-placard.html) are static HTML in the kink
+        // wording. Relabel them from the mark-label table on every dialog
+        // open so a vanilla skin shows its own terms and symbols. "neutral"
+        // is "no mark", not a label, and is left alone.
+        function sxRelabelMarkButtons(root) {
+            if (!root || typeof sxMarkLabel !== "function") return;
+            root.querySelectorAll("[data-mark]").forEach(btn => {
+                const key = btn.dataset.mark;
+                if (!key || "neutral" === key) return;
+                const m = sxMarkLabel(key);
+                if (!m) return;
+                const sym = btn.querySelector("b"), lab = btn.querySelector("span");
+                if (sym) sym.textContent = m.symbol;
+                if (lab) lab.textContent = m.label;
+                btn.title = m.tooltip;
+            });
+            root.querySelectorAll("[data-topic-flag]").forEach(btn => {
+                const key = btn.dataset.topicFlag;
+                if (!key) return;
+                const m = sxMarkLabel(key);
+                if (!m) return;
+                const sym = btn.querySelector("b"), lab = btn.querySelector("span");
+                if (sym) sym.textContent = m.symbol;
+                if (lab) lab.textContent = m.label;
+                btn.title = m.tooltip;
+                btn.setAttribute("aria-label", m.tooltip);
+            });
         }
         Pr && Pr.querySelectorAll("[data-mark]").forEach(e => e.addEventListener("click", () => {
             if (!Qr || performance.now() - Number(Pr.dataset.openedAt || 0) < 400) return;

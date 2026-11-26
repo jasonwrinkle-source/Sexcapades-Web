@@ -270,9 +270,9 @@
                     if (!t || !i) return;
                     const l = sxFillAncestorFlanks(t, n), c = [ i, `Give: ${l.giveKnown ? Math.round(l.give) : "unrated"} · Receive: ${l.receiveKnown ? Math.round(l.receive) : "unrated"}` ];
                     s && c.push(sxPlacardAboutText(s));
-                    const d = [], u = sxAnnotationState(t, n);
-                    "favorite" === u ? d.push("Favorite") : "limit" === u ? d.push("Hard Limit") : "notinterested" === u && d.push("Not Interested"), 
-                    Boolean(Je[n]?.[t]) && d.push("Fantasy-only"), Boolean(et[n]?.[t]) && d.push("Already Tried"), 
+                    const d = [], u = sxAnnotationState(t, n), _fm = sxMarkLabel(u);
+                    _fm && d.push(_fm.label),
+                    Boolean(Je[n]?.[t]) && d.push(sxMarkLabel("fantasyonly").label), Boolean(et[n]?.[t]) && d.push(sxMarkLabel("alreadytried").label), 
                     Boolean(tt[n]?.[t]?.length) && d.push("Has note"), d.length && c.push(d.join(" · ")), 
                     a(e, c.join("\n"));
                 }), t.querySelectorAll(".direction-control[data-id][data-direction]").forEach(e => {

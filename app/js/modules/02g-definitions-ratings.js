@@ -515,7 +515,7 @@
             t && t.glyphFallback && r.push("The star symbol is shown because no symbol is assigned here.");
             return "Category" === e.kind ? r.push("noCode" === i.key ? "Dark-charcoal icon: no children have a hanky code." : `${o} icon: predominant hanky color among coded child topics${i.mixed ? "; dashed spoke means the coded children vary widely" : ""}.`) : r.push("noCode" === i.key ? "Dark-charcoal icon: this topic has no hanky code." : `${o} icon: this topic’s hanky-code color.`), 
             r.push(null === n ? "The spoke's center line is a neutral seam; the rating colors live on the spoke's flanks." : "Green-to-yellow-to-red spoke: current rating colors."), 
-            "favorite" === a ? r.push("★ marks a Favorite.") : "notinterested" === a ? r.push("⊘ marks Not Interested: not for this person, but not a hard boundary.") : "limit" === a && r.push("× marks a hard Limit."), 
+            ("favorite" === a || "notinterested" === a || "limit" === a) && r.push(sxMarkHoverText(a)), 
             e.risk && r.push("* marks a higher-risk practice needing specialized knowledge and explicit negotiation."), 
             r.join(" ");
         }

@@ -15,6 +15,7 @@ parts = [
     "01-dispatcher.js",
     "02a-taxonomy-models.js",
     "02g1-alias-tables.js",
+    "02q-mark-labels.js",
     "02g-definitions-ratings.js",
     "02h-inner-opener.js",
     "02i-taxonomy-catalog.js",

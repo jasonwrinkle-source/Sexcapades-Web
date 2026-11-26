@@ -21,15 +21,19 @@
             }
             r.append(c);
             const u = document.createElement("span");
-            u.className = "outline-marks", [ [ "favorite", "★", "Favorite" ], [ "notinterested", "⊘", "Not interested — not for me, but not a hard boundary" ], [ "limit", "×", "Hard limit" ] ].forEach(([t, n, i]) => {
+            u.className = "outline-marks", [ "favorite", "notinterested", "limit" ].forEach(t => {
+                const m = sxMarkLabel(t);
+                if (!m) return;
                 const a = document.createElement("button");
-                a.type = "button", a.className = "outline-mark", a.dataset.outlineMark = t, a.textContent = n, 
-                a.title = i, a.setAttribute("aria-label", `${i}: ${e.label}`), a.setAttribute("aria-pressed", "false"), 
+                a.type = "button", a.className = "outline-mark", a.dataset.outlineMark = t, a.textContent = m.symbol,
+                a.title = m.tooltip, a.setAttribute("aria-label", `${m.tooltip}: ${e.label}`), a.setAttribute("aria-pressed", "false"),
                 u.append(a);
-            }), [ [ "fantasy", "☁", "Fantasy only — I fantasize about this but would not do it in real life" ], [ "tried", "✓", "Already tried — I have already done this" ] ].forEach(([t, n, i]) => {
+            }), [ "fantasy", "tried" ].forEach(t => {
+                const m = sxMarkLabel(t);
+                if (!m) return;
                 const a = document.createElement("button");
-                a.type = "button", a.className = "outline-mark", a.dataset.outlineFlag = t, a.textContent = n, 
-                a.title = i, a.setAttribute("aria-label", `${i}: ${e.label}`), a.setAttribute("aria-pressed", "false"), 
+                a.type = "button", a.className = "outline-mark", a.dataset.outlineFlag = t, a.textContent = m.symbol,
+                a.title = m.tooltip, a.setAttribute("aria-label", `${m.tooltip}: ${e.label}`), a.setAttribute("aria-pressed", "false"),
                 u.append(a);
             });
             const p = document.createElement("button");
