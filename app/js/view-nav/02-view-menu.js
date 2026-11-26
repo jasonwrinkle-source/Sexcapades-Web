@@ -1,0 +1,393 @@
+/* ---- module: view-nav ---- */
+__sxInit(function () {
+/* View navigation dropdown: the view selector is the app's main
+   navigation — a pull-down menu (not a modal) listing only Sync Map,
+   Popularity List, and Scene Sentinel. Every view carries the
+   same button naming the current view; clicking it opens the menu under the
+   button, arrow keys move through the options, and Enter or a tap selects.
+   The bundle's direct-to-list handler on the header button is intercepted
+   in the capture phase so the menu always wins. Scribe and Scene Setter
+   are NOT menu entries (owner ruling, 2026-10-27; sweep completed by the
+   shell-ui stage): they are reached only by clicking their toolbar
+   buttons, so they keep the bundle's own gating and open paths; this
+   menu only ever leaves them (map / list / safety entries), as do Escape
+   and backdrop clicks. Opening Scene Sentinel opens its dialog through the shared
+   dialog helpers (window.__sxDialog) and lets the scene-sentinel module
+   render it (window.__sxSentinelRenderAll); this module also publishes
+   window.__sxOpenSentinel for the notification deep-link. Everything in
+   this module runs inside boot(), gated on DOMContentLoaded through the
+   shared __sxInit queue: every element lookup and listener attachment
+   waits until the DOM exists, so a build pipeline that splits or reorders
+   script execution can never make the shared byId helper capture a null
+   and crash on addEventListener. Every listener attachment is additionally
+   null-guarded. */
+(function () {
+  function boot() {
+  var openDialog = window.__sxDialog.open;
+  var closeDialog = window.__sxDialog.close;
+  function syncBtn() { if (typeof window.__sxSyncViewButton === "function") window.__sxSyncViewButton(); }
+
+  var menu = SexcapadesRuntime.DOM.byId("viewNavMenu");
+  var listDlg = window.__sxDialog.get("outlineDialog");
+  var safetyDlg = window.__sxDialog.get("safetyDialog");
+  var scribeDlg = window.__sxDialog.get("scribeDialog");
+  var scribeChoiceDlg = window.__sxDialog.get("scribeChoiceDialog");
+  var setterDlg = window.__sxDialog.get("negotiationDialog");
+  var menuBtn = null;
+
+  function currentView() {
+    if (setterDlg && setterDlg.open) return "setter";
+    if ((scribeDlg && scribeDlg.open) || (scribeChoiceDlg && scribeChoiceDlg.open)) return "scribe";
+    if (safetyDlg && safetyDlg.open) return "safety";
+    if (listDlg && listDlg.open) return "list";
+    return "map";
+  }
+  function closeListViaRoute() {
+    if (!listDlg || !listDlg.open) return;
+    if (String(location.hash || "") !== "#app/map") location.hash = "#app/map";
+    else listDlg.dispatchEvent(new Event("cancel"));
+  }
+  function clickClose(id) { var b = SexcapadesRuntime.DOM.byId(id); if (b) b.click(); }
+  function closeScribe() {
+    if (scribeDlg && scribeDlg.open) closeDialog(scribeDlg);
+    if (scribeChoiceDlg && scribeChoiceDlg.open) closeDialog(scribeChoiceDlg);
+  }
+  function closeSetter() {
+    if (setterDlg && setterDlg.open) closeDialog(setterDlg);
+  }
+  function goMap() {
+    closeMenu();
+    if (safetyDlg && safetyDlg.open) closeDialog(safetyDlg);
+    closeScribe();
+    closeSetter();
+    closeListViaRoute();
+    syncBtn();
+  }
+  function goList() {
+    closeMenu();
+    if (safetyDlg && safetyDlg.open) closeDialog(safetyDlg);
+    closeScribe();
+    closeSetter();
+    if (listDlg && listDlg.open) { syncBtn(); return; }
+    var h = String(location.hash || "");
+    if (h === "#app/list" || h === "#app/listview") {
+      location.hash = "#app/map";
+      SexcapadesRuntime.TimerManager.setTimeout(function () { location.hash = "#app/list"; }, 80);
+    } else {
+      location.hash = "#app/list";
+    }
+    syncBtn();
+  }
+  function goSafety() {
+    closeMenu();
+    closeScribe();
+    closeSetter();
+    closeListViaRoute();
+    if (safetyDlg && safetyDlg.open) { syncBtn(); return; }
+    openDialog(safetyDlg);
+    if (window.__sxSentinelNotifInit) window.__sxSentinelNotifInit();
+    if (window.__sxSentinelRenderAll) window.__sxSentinelRenderAll();
+    syncBtn();
+  }
+  window.__sxOpenSentinel = goSafety;
+
+  function goSetter() {
+    closeMenu();
+    if (safetyDlg && safetyDlg.open) closeDialog(safetyDlg);
+    closeScribe();
+    closeListViaRoute();
+    if (setterDlg && setterDlg.open) { syncBtn(); return; }
+    var btn = SexcapadesRuntime.DOM.byId("openNegotiation");
+    if (btn) btn.click();
+    else if (setterDlg) openDialog(setterDlg);
+    syncBtn();
+  }
+
+  function goScribe() {
+    closeMenu();
+    if (safetyDlg && safetyDlg.open) closeDialog(safetyDlg);
+    closeSetter();
+    closeListViaRoute();
+    if ((scribeDlg && scribeDlg.open) || (scribeChoiceDlg && scribeChoiceDlg.open)) { syncBtn(); return; }
+    var btn = SexcapadesRuntime.DOM.byId("scribeTab");
+    if (btn) btn.click();
+    else if (scribeChoiceDlg) openDialog(scribeChoiceDlg);
+    syncBtn();
+  }
+
+  /* Scan or Import is an ACTION, not a view: it opens the import flow
+     through the same entry point the Add menu's Scan or Import button
+     uses (#importProfileChoice → ww() in 06d-profile-sheet.js), so the
+     origin handling (ordinary create-a-profile import, no pair origin)
+     is identical. It must never become the "current view": currentView()
+     never returns "import", so no checkmark lands on it and
+     currentLabel() never renames the button to it. */
+  function goImport() {
+    closeMenu();
+    if (safetyDlg && safetyDlg.open) closeDialog(safetyDlg);
+    closeScribe();
+    closeSetter();
+    closeListViaRoute();
+    var btn = SexcapadesRuntime.DOM.byId("importProfileChoice");
+    if (btn) btn.click();
+    syncBtn();
+  }
+
+  function getMultiSelectCount() {
+    try {
+      if (window.SexcapadesEngine && window.SexcapadesEngine.State) {
+        if (typeof window.SexcapadesEngine.State.getMultiSelectCount === "function") {
+          return window.SexcapadesEngine.State.getMultiSelectCount();
+        }
+        if (typeof window.SexcapadesEngine.State.getMultiSelectIds === "function") {
+          var ids = window.SexcapadesEngine.State.getMultiSelectIds();
+          if (Array.isArray(ids)) return ids.length;
+        }
+      }
+    } catch (e) {}
+    var selected = document.querySelectorAll("#profileTabs .profile-tab-button.is-selected, #profileTabs .profile-tab-button.is-multiselected");
+    if (selected.length > 0) return selected.length;
+    var allTabs = document.querySelectorAll("#profileTabs .profile-tab-button");
+    if (allTabs.length === 1) return 1;
+    return 0;
+  }
+
+  /* -------- View navigation dropdown (pull-down menu, not a modal) -------- */
+  function menuItems() {
+    return menu ? Array.prototype.slice.call(menu.querySelectorAll("[data-view-target]")) : [];
+  }
+  function itemEnabled(it) { return !it.classList.contains("is-disabled"); }
+  function refreshMenu() {
+    var cur = currentView();
+    var count = getMultiSelectCount();
+    menuItems().forEach(function (it) {
+      var v = it.getAttribute("data-view-target");
+      /* "import" is an action, not a view: it never carries a checkmark
+         (the ✓ comes from aria-checked="true"), and aria-checked is
+         invalid on role="menuitem", so leave the attribute off it. */
+      if (v !== "import") it.setAttribute("aria-checked", v === cur ? "true" : "false");
+      var disabled = false;
+      var reason = "";
+      if (v === "setter" || v === "safety") {
+        if (count < 2) {
+          disabled = true;
+          reason = "Requires 2 or more profiles in multi-select";
+        }
+      } else if (v === "scribe") {
+        if (count < 1) {
+          disabled = true;
+          reason = "Requires at least 1 profile in multi-select";
+        }
+      }
+      if (disabled) {
+        it.classList.add("is-disabled");
+        it.setAttribute("aria-disabled", "true");
+        it.setAttribute("title", reason);
+      } else {
+        it.classList.remove("is-disabled");
+        it.removeAttribute("aria-disabled");
+        it.removeAttribute("title");
+      }
+    });
+  }
+  function positionMenu(btn) {
+    var r = btn.getBoundingClientRect();
+    menu.style.visibility = "hidden";
+    menu.hidden = false;
+    var mw = menu.offsetWidth, mh = menu.offsetHeight;
+    var left = Math.max(8, Math.min(r.left, window.innerWidth - mw - 8));
+    var top = r.bottom + 4;
+    if (top + mh > window.innerHeight - 8) top = Math.max(8, r.top - mh - 4);
+    menu.style.left = left + "px";
+    menu.style.top = top + "px";
+    menu.style.visibility = "";
+  }
+  function focusItem(it) {
+    menuItems().forEach(function (x) {
+      x.classList.toggle("is-active", x === it);
+      x.tabIndex = x === it ? 0 : -1;
+    });
+    if (it) { try { it.focus({ preventScroll: true }); } catch (e) { it.focus(); } }
+  }
+  function openMenu(btn) {
+    if (!menu || !btn) return;
+    if (menu.parentNode !== document.body) document.body.appendChild(menu);
+    menuBtn = btn;
+    refreshMenu();
+    positionMenu(btn);
+    btn.setAttribute("aria-expanded", "true");
+    var cur = menu.querySelector('[data-view-target="' + currentView() + '"]');
+    var enabled = menuItems().filter(itemEnabled);
+    focusItem(cur && itemEnabled(cur) ? cur : enabled[0]);
+  }
+  function closeMenu(refocus) {
+    if (!menu) { menuBtn = null; return; }
+    var btn = menuBtn;
+    menu.hidden = true;
+    menuBtn = null;
+    if (btn) {
+      btn.setAttribute("aria-expanded", "false");
+      if (refocus) { try { btn.focus({ preventScroll: true }); } catch (e) { btn.focus(); } }
+    }
+  }
+  function choose(it) {
+    if (!it || !itemEnabled(it)) return;
+    var btn = menuBtn;
+    var v = it.getAttribute("data-view-target");
+    if (v === "map") goMap();
+    else if (v === "list") goList();
+    else if (v === "setter") goSetter();
+    else if (v === "safety") goSafety();
+    else if (v === "scribe") goScribe();
+    else if (v === "import") goImport();
+    if (btn && document.contains(btn)) {
+      try { btn.focus({ preventScroll: true }); } catch (e) { __sxErrLog("focus", e); }
+    }
+  }
+  if (menu) menu.addEventListener("click", function (ev) {
+    var it = ev.target && ev.target.closest ? ev.target.closest("[data-view-target]") : null;
+    if (it && menu.contains(it)) choose(it);
+  });
+  document.addEventListener("click", function (ev) {
+    var t = ev.target;
+    if (!t || !t.closest) return;
+    var btn = t.closest(".view-nav-btn");
+    if (btn) {
+      ev.preventDefault();
+      ev.stopPropagation();
+      if (menu && !menu.hidden && menuBtn === btn) closeMenu();
+      else openMenu(btn);
+      return;
+    }
+    if (menu && !menu.hidden && !t.closest("#viewNavMenu")) closeMenu();
+  }, true);
+  document.addEventListener("keydown", function (ev) {
+    if (menu && !menu.hidden) {
+      if (ev.key === "Escape") { ev.preventDefault(); closeMenu(true); return; }
+      if (ev.key === "Tab") { closeMenu(); return; }
+      if (ev.key === "ArrowDown" || ev.key === "ArrowUp" || ev.key === "Home" || ev.key === "End") {
+        ev.preventDefault();
+        var en = menuItems().filter(itemEnabled);
+        if (!en.length) return;
+        var active = document.activeElement;
+        var idx = active ? en.indexOf(active) : -1;
+        var nxt;
+        if (ev.key === "Home") nxt = en[0];
+        else if (ev.key === "End") nxt = en[en.length - 1];
+        else if (idx === -1) nxt = ev.key === "ArrowDown" ? en[0] : en[en.length - 1];
+        else nxt = ev.key === "ArrowDown" ? en[(idx + 1) % en.length] : en[(idx - 1 + en.length) % en.length];
+        focusItem(nxt);
+        return;
+      }
+      if ((ev.key === "Enter" || ev.key === " ") && document.activeElement && menu.contains(document.activeElement)) {
+        ev.preventDefault();
+        choose(document.activeElement);
+        return;
+      }
+    } else {
+      var b = ev.target && ev.target.closest ? ev.target.closest(".view-nav-btn") : null;
+      if (b && (ev.key === "ArrowDown" || ev.key === "ArrowUp")) {
+        ev.preventDefault();
+        openMenu(b);
+      }
+    }
+  }, true);
+  window.addEventListener("resize", function () { closeMenu(); });
+  window.addEventListener("scroll", function () { if (menu && !menu.hidden) closeMenu(); }, true);
+  }
+  boot();
+})();
+});
+
+
+/* ---- module: view-nav-labels & list-ondeck (folded from patches) ---- */
+__sxInit(function () {
+(function () {
+  function boot() {
+  var listDlg = SexcapadesRuntime.DOM.byId("outlineDialog");
+  var safetyDlg = SexcapadesRuntime.DOM.byId("safetyDialog");
+  var scribeDlg = SexcapadesRuntime.DOM.byId("scribeDialog");
+  var scribeChoiceDlg = SexcapadesRuntime.DOM.byId("scribeChoiceDialog");
+  var setterDlg = SexcapadesRuntime.DOM.byId("negotiationDialog");
+  function listLabel() {
+    try {
+      if (typeof window.__sxOnDeckTotal === "function") {
+        var tab = document.querySelector('#profileTabs .profile-tab-button[aria-selected="true"][data-view]');
+        var pid = tab ? tab.getAttribute("data-view") : "__empty-profile-preview__";
+        if (pid && window.__sxOnDeckTotal(pid) > 0) return "On Deck";
+      }
+    } catch (e) { if (window.__sxErrLog) __sxErrLog("list-label", e); }
+    return "Hot List";
+  }
+  function currentLabel() {
+    if (setterDlg && setterDlg.open) return "Scene Setter";
+    if ((scribeDlg && scribeDlg.open) || (scribeChoiceDlg && scribeChoiceDlg.open)) return "Scribe";
+    if (safetyDlg && safetyDlg.open) return "Scene Sentinel";
+    if (listDlg && listDlg.open) return listLabel();
+    if (/^#\/?(?:app\/)?compare\/?$/i.test(String(location.hash || ""))) return "Compare";
+    return "Hypermap";
+  }
+  function sync() {
+    var label = currentLabel() + " ▾";
+    var btns = document.querySelectorAll(".view-nav-btn");
+    for (var i = 0; i < btns.length; i++) {
+      btns[i].textContent = label;
+      btns[i].setAttribute("aria-haspopup", "menu");
+      btns[i].removeAttribute("aria-pressed");
+    }
+  }
+  window.__sxSyncViewButton = sync;
+  window.__sxCurrentViewLabel = currentLabel;
+  window.__sxListLabel = listLabel;
+  try {
+    if (String(location.hash || '') === '#sentinel') {
+      try { history.replaceState(null, '', '#app/map'); } catch (e) { __sxErrLog("sentinel-route", e); }
+      setTimeout(function () { if (window.__sxOpenSentinel) window.__sxOpenSentinel(); }, 400);
+    }
+  } catch (e) { __sxErrLog("sentinel-open", e); }
+  window.addEventListener('message', function (ev) {
+    try {
+      if (ev && ev.data && ev.data.type === 'sexcapades-open-sentinel' && window.__sxOpenSentinel) window.__sxOpenSentinel();
+    } catch (e) { __sxErrLog("sentinel-message", e); }
+  });
+  if (window.MutationObserver) {
+    var dlgs = [listDlg, safetyDlg, scribeDlg, scribeChoiceDlg, setterDlg];
+    for (var j = 0; j < dlgs.length; j++) {
+      if (dlgs[j]) new MutationObserver(sync).observe(dlgs[j], { attributes: true, attributeFilter: ["open"] });
+    }
+  }
+  window.addEventListener("hashchange", sync);
+  sync();
+
+  // On Deck list item label following
+  var item = document.querySelector('#viewNavMenu [data-view-target="list"]');
+  if (item) {
+    var queued = false;
+    function refreshListLabel() {
+      var label = (typeof window.__sxListLabel === "function") ? window.__sxListLabel() : "Hot List";
+      if (item.textContent !== label) item.textContent = label;
+      if (item.getAttribute("data-tooltip-name") !== label) item.setAttribute("data-tooltip-name", label);
+    }
+    function refreshSoon() {
+      if (queued) return;
+      queued = true;
+      var tm = window.SexcapadesRuntime && SexcapadesRuntime.TimerManager;
+      var raf = (tm && typeof tm.requestAnimationFrame === "function") ? function (cb) { return tm.requestAnimationFrame(cb); } : function (cb) { return window.requestAnimationFrame(cb); };
+      raf(function () { queued = false; refreshListLabel(); });
+    }
+    refreshListLabel();
+    var tabs = SexcapadesRuntime.DOM.byId("profileTabs");
+    if (tabs && window.MutationObserver) new MutationObserver(refreshSoon).observe(tabs, { childList: true, subtree: true, attributes: true });
+    var count = SexcapadesRuntime.DOM.byId("outlineHeaderCount");
+    if (count && window.MutationObserver) new MutationObserver(function () {
+      refreshSoon();
+      if (typeof window.__sxSyncViewButton === "function") window.__sxSyncViewButton();
+    }).observe(count, { childList: true, characterData: true, subtree: true });
+    document.addEventListener("click", function (ev) {
+      if (ev.target && ev.target.closest && ev.target.closest(".view-nav-btn")) refreshListLabel();
+    }, true);
+  }
+  }
+  boot();
+})();
+});

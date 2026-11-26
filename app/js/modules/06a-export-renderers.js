@@ -1,286 +1,346 @@
-        async function apLoadAndPrep(e) {
+        async function apLoadAndPrep(svgMarkup) {
             if (void 0 !== window.jspdf && window.jspdf.jsPDF || !window.__loadPdfLibs || await window.__loadPdfLibs(), 
             void 0 === window.jspdf || !window.jspdf.jsPDF) throw new Error("PDF library did not load.");
-            var r = window.jspdf.jsPDF, o = (new DOMParser).parseFromString(e, "image/svg+xml").documentElement;
-            if (!o || "svg" !== o.tagName.toLowerCase()) throw new Error("Invalid vector data for PDF.");
-            var s = (o.getAttribute("viewBox") || "").trim().split(/[\s,]+/).map(Number), l = parseFloat(o.getAttribute("width")) || (4 === s.length ? s[2] : 2880), c = parseFloat(o.getAttribute("height")) || (4 === s.length ? s[3] : 2880);
-            l > 0 && c > 0 || (l = 2880, c = 2880);
-            var d = 4 === s.length ? s[0] : 0, u = 4 === s.length ? s[1] : 0, p = 4 === s.length ? s[2] : l, h = 4 === s.length ? s[3] : c, g = p, m = h, f = d + (p - g) / 2, y = u + (h - m) / 2;
-            o.setAttribute("viewBox", f + " " + y + " " + g + " " + m);
-            var b = 210, v = new r({
+            var JsPDF = window.jspdf.jsPDF, svgEl = (new DOMParser).parseFromString(svgMarkup, "image/svg+xml").documentElement;
+            if (!svgEl || "svg" !== svgEl.tagName.toLowerCase()) throw new Error("Invalid vector data for PDF.");
+            var vbParts = (svgEl.getAttribute("viewBox") || "").trim().split(/[\s,]+/).map(Number),
+                widthAttr = parseFloat(svgEl.getAttribute("width")) || (4 === vbParts.length ? vbParts[2] : 2880),
+                heightAttr = parseFloat(svgEl.getAttribute("height")) || (4 === vbParts.length ? vbParts[3] : 2880);
+            widthAttr > 0 && heightAttr > 0 || (widthAttr = 2880, heightAttr = 2880);
+            var vbX = 4 === vbParts.length ? vbParts[0] : 0,
+                vbY = 4 === vbParts.length ? vbParts[1] : 0,
+                vbW = 4 === vbParts.length ? vbParts[2] : widthAttr,
+                vbH = 4 === vbParts.length ? vbParts[3] : heightAttr;
+            svgEl.setAttribute("viewBox", vbX + " " + vbY + " " + vbW + " " + vbH);
+            var pageSizeMm = 210, pdfDoc = new JsPDF({
                 unit: "mm",
-                format: [ b, b ],
+                format: [ pageSizeMm, pageSizeMm ],
                 orientation: "portrait",
                 compress: !0
             });
-            if ("function" != typeof v.svg) throw new Error("The PDF renderer did not load.");
+            if ("function" != typeof pdfDoc.svg) throw new Error("The PDF renderer did not load.");
             return {
-                o: o,
-                v: v,
-                f: f,
-                y: y,
-                g: g,
-                b: b
+                svgEl: svgEl,
+                pdfDoc: pdfDoc,
+                vbX: vbX,
+                vbY: vbY,
+                vbW: vbW,
+                pageSizeMm: pageSizeMm
             };
         }
-        function apEmbedMetadata(v, t, a, n, i) {
+        function apEmbedMetadata(pdfDoc, profileId, allowedIds, isSingle, includeNotes) {
             try {
-                if (t && void 0 !== vt && vt[t]) {
-                    var w = sxSerializeExportPayload(t, a instanceof Set ? a : new Set(a || []), n, "", i), k = JSON.stringify(w), x = btoa(unescape(encodeURIComponent(k)));
-                    v.setProperties({
-                        title: "Sexcapades hypermap - " + (n ? String(void 0 !== wt && wt[t] || "Profile") : "Shared profile"),
+                if (profileId && void 0 !== vt && vt[profileId]) {
+                    var payload = sxSerializeExportPayload(profileId, allowedIds instanceof Set ? allowedIds : new Set(allowedIds || []), isSingle, "", includeNotes),
+                        jsonStr = JSON.stringify(payload),
+                        b64Payload = btoa(unescape(encodeURIComponent(jsonStr)));
+                    pdfDoc.setProperties({
+                        title: "Sexcapades hypermap - " + (isSingle ? String(void 0 !== wt && wt[profileId] || "Profile") : "Shared profile"),
                         subject: "Sexcapades hypermap (vector PDF)",
-                        keywords: "sexcapades-profile:" + x,
+                        keywords: "sexcapades-profile:" + b64Payload,
                         creator: "Sexcapades"
                     });
                 }
-            } catch (e) {
-                console.warn("PDF metadata embed failed", e);
-            }        }
-        function apInlineStyles(A) {
-            var $, E;
-            try {
-                A.querySelectorAll(".topic-stem,.topic-pulse,.branch-stem,.concept-path,.spoke-line").forEach(function(e) {
-                    try {
-                        var t = window.getComputedStyle(e);
-                        if (t) {
-                            var n = t.getPropertyValue("stroke") || t.stroke, i = t.getPropertyValue("stroke-width") || t.strokeWidth;
-                            if (t.getPropertyValue("opacity"), t.getPropertyValue("fill"), n && "none" !== n && n.indexOf("var(") < 0) e.setAttribute("stroke", n); else if (n && n.indexOf("var(") >= 0) {
-                                var a = t.stroke;
-                                a && a.indexOf("var(") < 0 && e.setAttribute("stroke", a);
-                            }
-                            i && "" !== i && e.setAttribute("stroke-width", i), e.setAttribute("stroke-linecap", "round"), 
-                            e.setAttribute("stroke-linejoin", "round");
-                        }
-                    } catch (e) { __sxErrLog("export-style", e); }
-                }), A.querySelectorAll("path").forEach(function(e) {
-                    e.getAttribute("stroke-linecap") || e.setAttribute("stroke-linecap", "round");
-                });
-            } catch (e) {
-                console.warn("PDF CSS var resolution failed", e);
+            } catch (err) {
+                console.warn("PDF metadata embed failed", err);
             }
-            E = [ "display", "visibility", "opacity", "fill", "fill-opacity", "fill-rule", "stroke", "stroke-opacity", "stroke-width", "stroke-linecap", "stroke-linejoin", "stroke-miterlimit", "stroke-dasharray", "stroke-dashoffset", "paint-order", "vector-effect", "font-family", "font-size", "font-style", "font-weight", "letter-spacing", "text-anchor", "dominant-baseline", "clip-path", "mask", "filter", "marker-start", "marker-mid", "marker-end", "stop-color", "stop-opacity" ], 
-            ($ = A).querySelectorAll("*").forEach(function(e) {
-                if ("style" !== e.localName && "script" !== e.localName) try {
-                    var t = window.getComputedStyle(e);
-                    E.forEach(function(n) {
-                        var i = t.getPropertyValue(n);
-                        i && "initial" !== i && ("normal" !== i || "letter-spacing" !== n && "paint-order" !== n) && e.style.setProperty(n, i);
+        }
+        function apInlineStyles(svgClone) {
+            try {
+                svgClone.querySelectorAll(".topic-stem,.topic-pulse,.branch-stem,.concept-path,.spoke-line").forEach(function(el) {
+                    try {
+                        var cs = window.getComputedStyle(el);
+                        if (cs) {
+                            var strokeVal = cs.getPropertyValue("stroke") || cs.stroke,
+                                strokeWidthVal = cs.getPropertyValue("stroke-width") || cs.strokeWidth;
+                            if (strokeVal && "none" !== strokeVal && strokeVal.indexOf("var(") < 0) {
+                                el.setAttribute("stroke", strokeVal);
+                            } else if (strokeVal && strokeVal.indexOf("var(") >= 0) {
+                                var resolvedStroke = cs.stroke;
+                                resolvedStroke && resolvedStroke.indexOf("var(") < 0 && el.setAttribute("stroke", resolvedStroke);
+                            }
+                            strokeWidthVal && "" !== strokeWidthVal && el.setAttribute("stroke-width", strokeWidthVal);
+                            el.setAttribute("stroke-linecap", "round");
+                            el.setAttribute("stroke-linejoin", "round");
+                        }
+                    } catch (err) { __sxErrLog("export-style", err); }
+                });
+                svgClone.querySelectorAll("path").forEach(function(el) {
+                    el.getAttribute("stroke-linecap") || el.setAttribute("stroke-linecap", "round");
+                });
+            } catch (err) {
+                console.warn("PDF CSS var resolution failed", err);
+            }
+            var styleProps = [ "display", "visibility", "opacity", "fill", "fill-opacity", "fill-rule", "stroke", "stroke-opacity", "stroke-width", "stroke-linecap", "stroke-linejoin", "stroke-miterlimit", "stroke-dasharray", "stroke-dashoffset", "paint-order", "vector-effect", "font-family", "font-size", "font-style", "font-weight", "letter-spacing", "text-anchor", "dominant-baseline", "clip-path", "mask", "filter", "marker-start", "marker-mid", "marker-end", "stop-color", "stop-opacity" ];
+            svgClone.querySelectorAll("*").forEach(function(el) {
+                if ("style" !== el.localName && "script" !== el.localName) try {
+                    var cs = window.getComputedStyle(el);
+                    styleProps.forEach(function(prop) {
+                        var val = cs.getPropertyValue(prop);
+                        val && "initial" !== val && ("normal" !== val || "letter-spacing" !== prop && "paint-order" !== prop) && el.style.setProperty(prop, val);
                     });
-                } catch (e) { __sxErrLog("style-apply", e); }
-            }), $.querySelectorAll("style,script").forEach(function(e) {
-                e.remove();
+                } catch (err) { __sxErrLog("style-apply", err); }
+            });
+            svgClone.querySelectorAll("style,script").forEach(function(el) {
+                el.remove();
             });
         }
-        function apDrawLabels(e, t, n, i, a) {
+        function apDrawLabels(pdfDoc, svgClone, vbX, vbY, vbW) {
+            try {
+                var labels = svgClone.querySelectorAll("text.map-label");
+                if (!labels || !labels.length) return;
+                var mmPerSvgUnit = 210 / vbW;
+                labels.forEach(function(labelEl) {
                     try {
-                        var r = t.querySelectorAll("text.map-label");
-                        if (!r || !r.length) return;
-                        var o = 210 / a;
-                        r.forEach(function(a) {
-                            try {
-                                var r = a.querySelector("textPath");
-                                if (!r) return;
-                                var s = (r.getAttribute("href") || r.getAttribute("xlink:href") || "").replace(/^#/, "");
-                                if (!s) return;
-                                var l = t.querySelector("#" + CSS.escape(s));
-                                if (!l || "function" != typeof l.getTotalLength) return;
-                                var c = l.getTotalLength();
-                                if (!(c > 0)) return;
-                                var d, u = r.getAttribute("startOffset") || "50%";
-                                d = String(u).indexOf("%") >= 0 ? c * parseFloat(u) / 100 : parseFloat(u), isNaN(d) && (d = c / 2), 
-                                d = Math.max(0, Math.min(c, d));
-                                var p = l.getPointAtLength(d), h = l.getPointAtLength(Math.max(0, d - 2)), g = l.getPointAtLength(Math.min(c, d + 2)), m = 180 * Math.atan2(g.y - h.y, g.x - h.x) / Math.PI;
-                                m > 90 && (m -= 180), m < -90 && (m += 180);
-                                var f = parseFloat(a.getAttribute("dy") || "0");
-                                isNaN(f) && (f = 0);
-                                var y = m * Math.PI / 180, b = p.x - Math.sin(y) * f, v = p.y + Math.cos(y) * f, w = (r.textContent || "").trim();
-                                if (!w) return;
-                                var k = 12, x = a.style && a.style.fontSize;
-                                if (x) {
-                                    var S = String(x).match(/([\d.]+)/);
-                                    S && (k = parseFloat(S[1]));
-                                }
-                                var $ = k * o * 2.83465, E = "#ffffff";
-                                try {
-                                    var A = window.getComputedStyle(a);
-                                    A && A.fill && "none" !== A.fill && (E = A.fill);
-                                } catch (e) { __sxErrLog("number-parse", e); }
-                                var C = 255, M = 255, I = 255, P = String(E).match(/#([0-9a-fA-F]{6})/);
-                                if (P) C = parseInt(P[1].substr(0, 2), 16), M = parseInt(P[1].substr(2, 2), 16), 
-                                I = parseInt(P[1].substr(4, 2), 16); else {
-                                    var L = String(E).match(/rgba?\(\s*(\d+)\s*,\s*(\d+)\s*,\s*(\d+)/);
-                                    L && (C = parseInt(L[1]), M = parseInt(L[2]), I = parseInt(L[3]));
-                                }
-                                e.setTextColor(C, M, I), e.setFontSize(Math.max(4, Math.min(48, $)));
-                                var T = "middle", F = r.getAttribute("text-anchor") || a.getAttribute("text-anchor");
-                                "start" === F ? T = "left" : "end" === F && (T = "right"), e.text(w, (b - n) * o, (v - i) * o, {
-                                    angle: m,
-                                    align: T,
-                                    baseline: "alphabetic"
-                                });
-                            } catch (e) { __sxErrLog("app", e); }
+                        var textPathEl = labelEl.querySelector("textPath");
+                        if (!textPathEl) return;
+                        var pathId = (textPathEl.getAttribute("href") || textPathEl.getAttribute("xlink:href") || "").replace(/^#/, "");
+                        if (!pathId) return;
+                        var pathEl = svgClone.querySelector("#" + CSS.escape(pathId));
+                        if (!pathEl || "function" != typeof pathEl.getTotalLength) return;
+                        var pathLen = pathEl.getTotalLength();
+                        if (!(pathLen > 0)) return;
+                        var startOffsetAttr = textPathEl.getAttribute("startOffset") || "50%";
+                        var offsetDist = String(startOffsetAttr).indexOf("%") >= 0 ? pathLen * parseFloat(startOffsetAttr) / 100 : parseFloat(startOffsetAttr);
+                        isNaN(offsetDist) && (offsetDist = pathLen / 2);
+                        offsetDist = Math.max(0, Math.min(pathLen, offsetDist));
+                        var pt = pathEl.getPointAtLength(offsetDist),
+                            ptBefore = pathEl.getPointAtLength(Math.max(0, offsetDist - 2)),
+                            ptAfter = pathEl.getPointAtLength(Math.min(pathLen, offsetDist + 2)),
+                            angleDeg = 180 * Math.atan2(ptAfter.y - ptBefore.y, ptAfter.x - ptBefore.x) / Math.PI;
+                        angleDeg > 90 && (angleDeg -= 180);
+                        angleDeg < -90 && (angleDeg += 180);
+                        var dyOffset = parseFloat(labelEl.getAttribute("dy") || "0");
+                        isNaN(dyOffset) && (dyOffset = 0);
+                        var angleRad = angleDeg * Math.PI / 180,
+                            drawX = pt.x - Math.sin(angleRad) * dyOffset,
+                            drawY = pt.y + Math.cos(angleRad) * dyOffset,
+                            textStr = (textPathEl.textContent || "").trim();
+                        if (!textStr) return;
+                        var fontPx = 12, rawFontSize = labelEl.style && labelEl.style.fontSize;
+                        if (rawFontSize) {
+                            var sizeMatch = String(rawFontSize).match(/([\d.]+)/);
+                            sizeMatch && (fontPx = parseFloat(sizeMatch[1]));
+                        }
+                        var fontPt = fontPx * mmPerSvgUnit * 2.83465, fillColor = "#ffffff";
+                        try {
+                            var cs = window.getComputedStyle(labelEl);
+                            cs && cs.fill && "none" !== cs.fill && (fillColor = cs.fill);
+                        } catch (err) { __sxErrLog("number-parse", err); }
+                        var rCol = 255, gCol = 255, bCol = 255, hexMatch = String(fillColor).match(/#([0-9a-fA-F]{6})/);
+                        if (hexMatch) {
+                            rCol = parseInt(hexMatch[1].substr(0, 2), 16);
+                            gCol = parseInt(hexMatch[1].substr(2, 2), 16);
+                            bCol = parseInt(hexMatch[1].substr(4, 2), 16);
+                        } else {
+                            var rgbMatch = String(fillColor).match(/rgba?\(\s*(\d+)\s*,\s*(\d+)\s*,\s*(\d+)/);
+                            rgbMatch && (rCol = parseInt(rgbMatch[1]), gCol = parseInt(rgbMatch[2]), bCol = parseInt(rgbMatch[3]));
+                        }
+                        pdfDoc.setTextColor(rCol, gCol, bCol);
+                        pdfDoc.setFontSize(Math.max(4, Math.min(48, fontPt)));
+                        var pdfAlign = "middle", anchorAttr = textPathEl.getAttribute("text-anchor") || labelEl.getAttribute("text-anchor");
+                        "start" === anchorAttr ? pdfAlign = "left" : "end" === anchorAttr && (pdfAlign = "right");
+                        pdfDoc.text(textStr, (drawX - vbX) * mmPerSvgUnit, (drawY - vbY) * mmPerSvgUnit, {
+                            angle: angleDeg,
+                            align: pdfAlign,
+                            baseline: "alphabetic"
                         });
-                    } catch (e) {
-                        console.warn("PDF label drawing failed", e);
-                    }
-                }
-        async function apQrImages(t, a, n, i) {
-            // Document path of the QR service (refactor F1): fixed
-            // width 1200, oversize "split" - on failure it splits
-            // and warns here instead of throwing like the card path.
-            // Unified framework adaptation: split-to-count, then
-            // warn-and-refuse over the 2 the page holds.
-            // Scan-code fix (refactor ranking item 1): the document
-            // page layout holds at most TWO codes. When the split
-            // yields more than two pieces, NO codes are returned -
-            // a partial set could never be reassembled on scan-in -
-            // and overflowPieces reports how many the profile needs,
-            // so ap can print a plain warning on the document and dp
-            // can warn in the export dialog and point at the
-            // numbered QR sheet instead. Never silently drop pieces.
-            var M = [], overflowPieces = 0, I = null;
+                    } catch (err) { __sxErrLog("app", err); }
+                });
+            } catch (err) {
+                console.warn("PDF label drawing failed", err);
+            }
+        }
+        async function apQrImages(profileId, allowedIds, isSingle, includeNotes) {
+            var qrImages = [], overflowPieces = 0, shareToken = null;
             try {
                 if ("undefined" != typeof QRCode && "function" == typeof QRCode.toDataURL) {
-                    I = await sxEncodeShareToken(t, a, n, i);
-                    M = await qrEncode(I, {
+                    shareToken = await sxEncodeShareToken(profileId, allowedIds, isSingle, includeNotes);
+                    qrImages = await qrEncode(shareToken, {
                         width: 1200,
                         oversize: "split"
                     });
-                    if (M.length > 2) overflowPieces = M.length; else if (0 === M.length && I) overflowPieces = Math.max(2, chunkPayload(I, {
+                    if (qrImages.length > 2) overflowPieces = qrImages.length;
+                    else if (0 === qrImages.length && shareToken) overflowPieces = Math.max(2, chunkPayload(shareToken, {
                         chunkSize: 700
                     }).length);
                 }
-            } catch (e) {
-                console.warn("PDF QR generation failed", e);
-                if (I && !M.length) try {
-                    overflowPieces = Math.max(2, chunkPayload(I, {
+            } catch (err) {
+                console.warn("PDF QR generation failed", err);
+                if (shareToken && !qrImages.length) try {
+                    overflowPieces = Math.max(2, chunkPayload(shareToken, {
                         chunkSize: 700
                     }).length);
-                } catch (e2) {
+                } catch (err2) {
                     overflowPieces = 2;
                 }
             }
-            if (overflowPieces) M = [];
+            if (overflowPieces) qrImages = [];
             return {
-                images: M,
+                images: qrImages,
                 overflowPieces: overflowPieces
             };
         }
-        function apHeaderCard(v, t, a, n, C) {
-            var D = n ? "Profile" : "Shared profile";
+        function apHeaderCard(pdfDoc, profileId, allowedIds, isSingle, mmScale) {
+            var displayTitle = isSingle ? "Profile" : "Shared profile";
             try {
-                n && (D = String(wt[t] || "Profile").replace(/\s+/g, " ").trim() || "Profile");
-            } catch (e) { __sxErrLog("profile-name", e); }
-            var R = "";
+                isSingle && (displayTitle = String(wt[profileId] || "Profile").replace(/\s+/g, " ").trim() || "Profile");
+            } catch (err) { __sxErrLog("profile-name", err); }
+            var handleText = "";
             try {
-                n && (R = sxPreferredUserText(t));
-            } catch (e) { __sxErrLog("profile-name", e); }
-            var O = [ 0, 0, 0 ];
+                isSingle && (handleText = sxPreferredUserText(profileId));
+            } catch (err) { __sxErrLog("profile-name", err); }
+            var ringPcts = [ 0, 0, 0 ];
             try {
-                var B = sxGlanceBucketsFor(t, a);
-                B && B.percentages && (O = [ B.percentages.green || 0, B.percentages.yellow || 0, B.percentages.red || 0 ]);
-            } catch (e) { __sxErrLog("profile-stats", e); }
-            var j = 4.2;
-            v.setFont("helvetica", "bold"), v.setFontSize(8);
-            var q = v.getTextWidth("SEXCAPADES PROFILE");
-            v.setFontSize(16);
-            var H = v.getTextWidth(D);
-            v.setFontSize(11);
-            var W = R ? v.getTextWidth("@" + R) : 0, U = Math.max(q, H, W), G = Math.min(2e3, Math.max(900, U / C + 430 + 96)), K = G * C, z = (R ? 400 : 360) * C;
-            v.setFillColor(13, 17, 15), v.setDrawColor(99, 112, 104), v.setLineWidth(.4), "function" == typeof v.roundedRect ? v.roundedRect(4.2, j, K, z, 1.5, 1.5, "FD") : v.rect(4.2, j, K, z, "FD"), 
-            v.setFontSize(8), v.setTextColor(215, 189, 85), v.text("SEXCAPADES PROFILE", 7, j + 34 * C + .175), 
-            v.setFontSize(16), v.setTextColor(237, 242, 238), v.text(D, 7, j + 92 * C + 8 * C, {
-                maxWidth: (G - 430 - 96) * C
-            }), R && (v.setFontSize(11), v.setTextColor(215, 189, 85), v.text("@" + R, 7, j + 296 * C + 5 * C));
-            for (var V = 4.2 + K - 215 * C, Y = j + z / 2, X = [ 128 * C, 106 * C, 4.9 ], Z = [ [ 99, 199, 150 ], [ 215, 189, 85 ], [ 224, 111, 106 ] ], Q = 0; Q < 3; Q++) {
-                var J = X[Q], ee = Math.max(0, Math.min(100, Number(O[Q]) || 0));
-                if (v.setDrawColor(70, 78, 73), v.setLineWidth(1), v.circle(V, Y, J, "D"), ee > 0) {
-                    v.setDrawColor(Z[Q][0], Z[Q][1], Z[Q][2]), v.setLineWidth(1);
-                    for (var te = Math.max(8, Math.ceil(ee / 100 * 72)), ne = null, ie = null, ae = 0; ae <= te; ae++) {
-                        var re = -Math.PI / 2 + 2 * Math.PI * (ee / 100) * (ae / te), oe = V + J * Math.cos(re), se = Y + J * Math.sin(re);
-                        null !== ne && v.line(ne, ie, oe, se), ne = oe, ie = se;
+                var glance = sxGlanceBucketsFor(profileId, allowedIds);
+                glance && glance.percentages && (ringPcts = [ glance.percentages.green || 0, glance.percentages.yellow || 0, glance.percentages.red || 0 ]);
+            } catch (err) { __sxErrLog("profile-stats", err); }
+            var cardTopMm = 4.2;
+            pdfDoc.setFont("helvetica", "bold");
+            pdfDoc.setFontSize(8);
+            var headerLabelW = pdfDoc.getTextWidth("SEXCAPADES PROFILE");
+            pdfDoc.setFontSize(16);
+            var titleW = pdfDoc.getTextWidth(displayTitle);
+            pdfDoc.setFontSize(11);
+            var handleW = handleText ? pdfDoc.getTextWidth("@" + handleText) : 0,
+                maxTextW = Math.max(headerLabelW, titleW, handleW),
+                cardUnitsW = Math.min(2e3, Math.max(900, maxTextW / mmScale + 430 + 96)),
+                cardMmW = cardUnitsW * mmScale,
+                cardMmH = (handleText ? 400 : 360) * mmScale;
+            pdfDoc.setFillColor(13, 17, 15);
+            pdfDoc.setDrawColor(99, 112, 104);
+            pdfDoc.setLineWidth(.4);
+            "function" == typeof pdfDoc.roundedRect ? pdfDoc.roundedRect(4.2, cardTopMm, cardMmW, cardMmH, 1.5, 1.5, "FD") : pdfDoc.rect(4.2, cardTopMm, cardMmW, cardMmH, "FD");
+            pdfDoc.setFontSize(8);
+            pdfDoc.setTextColor(215, 189, 85);
+            pdfDoc.text("SEXCAPADES PROFILE", 7, cardTopMm + 34 * mmScale + .175);
+            pdfDoc.setFontSize(16);
+            pdfDoc.setTextColor(237, 242, 238);
+            pdfDoc.text(displayTitle, 7, cardTopMm + 92 * mmScale + 8 * mmScale, {
+                maxWidth: (cardUnitsW - 430 - 96) * mmScale
+            });
+            handleText && (pdfDoc.setFontSize(11), pdfDoc.setTextColor(215, 189, 85), pdfDoc.text("@" + handleText, 7, cardTopMm + 296 * mmScale + 5 * mmScale));
+            var ringCenterX = 4.2 + cardMmW - 215 * mmScale,
+                ringCenterY = cardTopMm + cardMmH / 2,
+                ringRadii = [ 128 * mmScale, 106 * mmScale, 4.9 ],
+                ringColors = [ [ 99, 199, 150 ], [ 215, 189, 85 ], [ 224, 111, 106 ] ];
+            for (var rIdx = 0; rIdx < 3; rIdx++) {
+                var radius = ringRadii[rIdx], pct = Math.max(0, Math.min(100, Number(ringPcts[rIdx]) || 0));
+                if (pdfDoc.setDrawColor(70, 78, 73), pdfDoc.setLineWidth(1), pdfDoc.circle(ringCenterX, ringCenterY, radius, "D"), pct > 0) {
+                    pdfDoc.setDrawColor(ringColors[rIdx][0], ringColors[rIdx][1], ringColors[rIdx][2]);
+                    pdfDoc.setLineWidth(1);
+                    for (var segs = Math.max(8, Math.ceil(pct / 100 * 72)), prevX = null, prevY = null, step = 0; step <= segs; step++) {
+                        var theta = -Math.PI / 2 + 2 * Math.PI * (pct / 100) * (step / segs),
+                            curX = ringCenterX + radius * Math.cos(theta),
+                            curY = ringCenterY + radius * Math.sin(theta);
+                        null !== prevX && pdfDoc.line(prevX, prevY, curX, curY);
+                        prevX = curX;
+                        prevY = curY;
                     }
                 }
             }
-            var le = [ -Math.PI / 2, Math.PI / 6, 5 * Math.PI / 6 ];
-            v.setFont("helvetica", "bold"), v.setFontSize(8);
-            for (var ce = 0; ce < 3; ce++) {
-                var de = X[ce] + 2.1, ue = le[ce], pe = Math.round(Math.max(0, Math.min(100, Number(O[ce]) || 0)));
-                v.setTextColor(Z[ce][0], Z[ce][1], Z[ce][2]), v.text(pe + "%", V + de * Math.cos(ue), Y + de * Math.sin(ue), {
+            var labelAngles = [ -Math.PI / 2, Math.PI / 6, 5 * Math.PI / 6 ];
+            pdfDoc.setFont("helvetica", "bold");
+            pdfDoc.setFontSize(8);
+            for (var cIdx = 0; cIdx < 3; cIdx++) {
+                var labelRad = ringRadii[cIdx] + 2.1,
+                    labelAngle = labelAngles[cIdx],
+                    roundedPct = Math.round(Math.max(0, Math.min(100, Number(ringPcts[cIdx]) || 0)));
+                pdfDoc.setTextColor(ringColors[cIdx][0], ringColors[cIdx][1], ringColors[cIdx][2]);
+                pdfDoc.text(roundedPct + "%", ringCenterX + labelRad * Math.cos(labelAngle), ringCenterY + labelRad * Math.sin(labelAngle), {
                     align: "center",
                     baseline: "middle"
                 });
             }
-            var he = "";
+            var profileNote = "";
             try {
-                n && void 0 !== nt && nt && (he = String(nt[t] || "").trim());
-            } catch (e) { __sxErrLog("app", e); }
-            if (he) {
-                v.setFont("helvetica", "normal"), v.setFontSize(10), v.setTextColor(150, 160, 155);
-                var ge = v.splitTextToSize(he, (G - 96) * C).slice(0, 4);
-                v.text(ge, 7, j + z + .7);
+                isSingle && void 0 !== nt && nt && (profileNote = String(nt[profileId] || "").trim());
+            } catch (err) { __sxErrLog("app", err); }
+            if (profileNote) {
+                pdfDoc.setFont("helvetica", "normal");
+                pdfDoc.setFontSize(10);
+                pdfDoc.setTextColor(150, 160, 155);
+                var wrappedNote = pdfDoc.splitTextToSize(profileNote, (cardUnitsW - 96) * mmScale).slice(0, 4);
+                pdfDoc.text(wrappedNote, 7, cardTopMm + cardMmH + .7);
             }
         }
-        async function sxDrawMapPdfBlob(e, t, n = !1, i = !1, a = null) {
-            var _pp = await apLoadAndPrep(e), o = _pp.o, v = _pp.v, f = _pp.f, y = _pp.y, g = _pp.g, b = _pp.b;
-            apEmbedMetadata(v, t, a, n, i);
-            var S = document.createElement("div");
-            S.style.cssText = "position:fixed;left:-99999px;top:0;";
-            var $, E, A = document.importNode(o, !0);
-            S.appendChild(A), document.body.appendChild(S);
-            apInlineStyles(A);
+        async function sxDrawMapPdfBlob(svgMarkup, profileId, isSingle = !1, includeNotes = !1, allowedIds = null) {
+            var prep = await apLoadAndPrep(svgMarkup),
+                svgEl = prep.svgEl,
+                pdfDoc = prep.pdfDoc,
+                vbX = prep.vbX,
+                vbY = prep.vbY,
+                vbW = prep.vbW,
+                pageSizeMm = prep.pageSizeMm;
+            apEmbedMetadata(pdfDoc, profileId, allowedIds, isSingle, includeNotes);
+            var offscreenHost = document.createElement("div");
+            offscreenHost.style.cssText = "position:fixed;left:-99999px;top:0;";
+            var svgClone = document.importNode(svgEl, !0);
+            offscreenHost.appendChild(svgClone);
+            document.body.appendChild(offscreenHost);
+            apInlineStyles(svgClone);
 
             try {
-                await v.svg(A, {
+                await pdfDoc.svg(svgClone, {
                     x: 0,
                     y: 0,
-                    width: b,
-                    height: b
-                }), apDrawLabels(v, A, f, y, g);
+                    width: pageSizeMm,
+                    height: pageSizeMm
+                });
+                apDrawLabels(pdfDoc, svgClone, vbX, vbY, vbW);
             } finally {
-                document.body.removeChild(S);
+                document.body.removeChild(offscreenHost);
             }
-            var C = b / 3600;
-            a = a instanceof Set ? a : new Set(a || []);
-            var qrRes = await apQrImages(t, a, n, i), M = qrRes.images, qrOverflow = qrRes.overflowPieces || 0;
-            var T = 42, F = 148.75, N = 2780 * C, _ = 100 * C;
-            if (1 === M.length) {
-                v.setFillColor(255, 255, 255), v.rect(N - 1.4, 147.35, 44.8, 44.8, "F");
+            var mmScale = pageSizeMm / 3600;
+            allowedIds = allowedIds instanceof Set ? allowedIds : new Set(allowedIds || []);
+            var qrRes = await apQrImages(profileId, allowedIds, isSingle, includeNotes),
+                qrImages = qrRes.images,
+                qrOverflow = qrRes.overflowPieces || 0;
+            var qrSizeMm = 42, qrTopMm = 148.75, rightQrX = 2780 * mmScale, leftQrX = 100 * mmScale;
+            if (1 === qrImages.length) {
+                pdfDoc.setFillColor(255, 255, 255);
+                pdfDoc.rect(rightQrX - 1.4, 147.35, 44.8, 44.8, "F");
                 try {
-                    v.addImage(M[0], "PNG", N, F, T, T);
-                } catch (e) { __sxErrLog("pdf-image", e); }
-            } else if (M.length >= 2) {
-                v.setFillColor(255, 255, 255), v.rect(N - 1.4, 147.35, 44.8, 44.8, "F");
+                    pdfDoc.addImage(qrImages[0], "PNG", rightQrX, qrTopMm, qrSizeMm, qrSizeMm);
+                } catch (err) { __sxErrLog("pdf-image", err); }
+            } else if (qrImages.length >= 2) {
+                pdfDoc.setFillColor(255, 255, 255);
+                pdfDoc.rect(rightQrX - 1.4, 147.35, 44.8, 44.8, "F");
                 try {
-                    v.addImage(M[0], "PNG", N, F, T, T);
-                } catch (e) { __sxErrLog("pdf-image", e); }
-                v.setFillColor(255, 255, 255), v.rect(_ - 1.4, 147.35, 44.8, 44.8, "F");
+                    pdfDoc.addImage(qrImages[0], "PNG", rightQrX, qrTopMm, qrSizeMm, qrSizeMm);
+                } catch (err) { __sxErrLog("pdf-image", err); }
+                pdfDoc.setFillColor(255, 255, 255);
+                pdfDoc.rect(leftQrX - 1.4, 147.35, 44.8, 44.8, "F");
                 try {
-                    v.addImage(M[1], "PNG", _, F, T, T);
-                } catch (e) { __sxErrLog("pdf-image", e); }
+                    pdfDoc.addImage(qrImages[1], "PNG", leftQrX, qrTopMm, qrSizeMm, qrSizeMm);
+                } catch (err) { __sxErrLog("pdf-image", err); }
             }
             if (qrOverflow > 0) {
-                // No scan codes are printed (a partial set could
-                // never be scanned back in), so say so ON the
-                // document itself, where a future reader will see
-                // it, and name the alternative that holds every
-                // piece: the numbered QR sheet from Export QR codes.
                 try {
-                    v.setFont("helvetica", "normal"), v.setFontSize(8);
-                    var noteLines = v.splitTextToSize(sxOversizeDocumentNote(qrOverflow), 196).slice(0, 2), noteH = 5.4 + 4.4 * (1 + noteLines.length), noteY = 210 - noteH - 1.5;
-                    v.setFillColor(255, 255, 255), v.rect(3, noteY, 204, noteH, "F"), v.setTextColor(17, 17, 17), 
-                    v.setFont("helvetica", "bold"), v.setFontSize(9.5), v.text("Too large for document scan codes — none printed", 105, noteY + 5.2, {
+                    pdfDoc.setFont("helvetica", "normal");
+                    pdfDoc.setFontSize(8);
+                    var noteLines = pdfDoc.splitTextToSize(sxOversizeDocumentNote(qrOverflow), 196).slice(0, 2),
+                        noteH = 5.4 + 4.4 * (1 + noteLines.length),
+                        noteY = 210 - noteH - 1.5;
+                    pdfDoc.setFillColor(255, 255, 255);
+                    pdfDoc.rect(3, noteY, 204, noteH, "F");
+                    pdfDoc.setTextColor(17, 17, 17);
+                    pdfDoc.setFont("helvetica", "bold");
+                    pdfDoc.setFontSize(9.5);
+                    pdfDoc.text("Too large for document scan codes — none printed", 105, noteY + 5.2, {
                         align: "center"
-                    }), v.setFont("helvetica", "normal"), v.setFontSize(8), noteLines.forEach(function(line, li) {
-                        v.text(line, 105, noteY + 9.6 + 4.4 * li, {
+                    });
+                    pdfDoc.setFont("helvetica", "normal");
+                    pdfDoc.setFontSize(8);
+                    noteLines.forEach(function(line, li) {
+                        pdfDoc.text(line, 105, noteY + 9.6 + 4.4 * li, {
                             align: "center"
                         });
                     });
-                } catch (e) { __sxErrLog("pdf-qr-note", e); }
+                } catch (err) { __sxErrLog("pdf-qr-note", err); }
             }
-            apHeaderCard(v, t, a, n, C);
-            var outBlob = v.output("blob");
+            apHeaderCard(pdfDoc, profileId, allowedIds, isSingle, mmScale);
+            var outBlob = pdfDoc.output("blob");
             if (qrOverflow > 0) outBlob.sexcapadesQrOverflowPieces = qrOverflow;
             return outBlob;
         }

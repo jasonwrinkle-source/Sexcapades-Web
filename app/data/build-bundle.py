@@ -162,7 +162,7 @@ if os.path.isdir(patches_dir):
             out_p.write("\n\n".join(patch_chunks) + "\n")
         print(f"[Bundle] Built patches.js from {len(patch_files)} modules in app/js/patches/")
 
-for mod_name in ["layout-editor", "skin-loader"]:
+for mod_name in ["layout-editor", "skin-loader", "view-nav"]:
     mod_dir = os.path.join(base_dir, f"../js/{mod_name}")
     mod_target = os.path.join(base_dir, f"../js/{mod_name}.js")
     if os.path.isdir(mod_dir):

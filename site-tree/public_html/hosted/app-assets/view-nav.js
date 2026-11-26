@@ -1,4 +1,3 @@
-
 /* ---- shell shared constants ---- */
 /* Small-screen boundary, single source for shell JS: the 620px width
    below which shell layout switches to its narrow form. It is the JS
@@ -112,8 +111,6 @@ window.__sxDialog = (function () {
   function closeDialogById(id) { closeDialog(getDialog(id)); }
   return { open: openDialog, close: closeDialog, get: getDialog, ids: dialogIds, openById: openDialogById, closeById: closeDialogById, isView: isViewEl, syncView: syncActiveViewAttr };
 })();
-
-
 /* ---- module: view-nav ---- */
 __sxInit(function () {
 /* View navigation dropdown: the view selector is the app's main
@@ -507,8 +504,6 @@ __sxInit(function () {
   boot();
 })();
 });
-
-
 /* ---- module: skin-menu (Flexcapades prototype) ---- */
 /* The skin picker opens from the brand title: a single click on the
    *capades name drops the menu down (double click opens About instead),
@@ -768,7 +763,6 @@ __sxInit(function () {
   boot();
 })();
 });
-
 /* ---- module: app-docs-dropdown ----
    App banner "?" review callout toggles a skin-aware documentation menu.
    Includes submenu flyouts for Glossary and FAQ, skin-aware link routing,
