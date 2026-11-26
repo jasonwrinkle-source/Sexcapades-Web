@@ -56,7 +56,7 @@ EXPECTED_MANIFEST_FILES = [
 SKIN_PREFIXES = [
     "sex", "flex", "polis", "fores", "chem", "aesth", "experi", "dharma",
     "matter", "philo", "praxi", "quanta", "simul", "tech", "theori", "voca", "nous",
-    "dance", "quest", "meta"
+    "dance", "quest"
 ]
 
 
@@ -237,8 +237,8 @@ def package_all(build_num, out_tar_path, src_app_html):
         manifest_files = [manifest_shared] + [
             os.path.join(manifests_dir, f) for f in os.listdir(manifests_dir) if f.endswith(".json")
         ]
-        if len(manifest_files) - 1 != 20:
-            raise ValueError(f"Expected 20 per-skin manifests, found {len(manifest_files) - 1}")
+        if len(manifest_files) - 1 != 19:
+            raise ValueError(f"Expected 19 per-skin manifests, found {len(manifest_files) - 1}")
 
         for m_path in manifest_files:
             with open(m_path, "r", encoding="utf-8") as f:
@@ -458,8 +458,8 @@ def verify_all_tarball(tar_path, build_num):
 
         # Check manifests count and stamping
         skin_manifests = [n for n in names if re.match(r"^capades\.io/public_html/manifests/.*\.json$", n)]
-        if len(skin_manifests) != 20:
-            raise AssertionError(f"Per-skin manifest count {len(skin_manifests)} != 20")
+        if len(skin_manifests) != 19:
+            raise AssertionError(f"Per-skin manifest count {len(skin_manifests)} != 19")
         for sm in skin_manifests:
             sm_txt = tar.extractfile(sm).read().decode("utf-8")
             if "__SX_CACHE__" in sm_txt:
