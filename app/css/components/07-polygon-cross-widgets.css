@@ -171,13 +171,9 @@ input[type=range].outline-inline-slider.mark-thumb-ring::-moz-range-thumb{backgr
 .outline-trilinear-slider-row input.is-rec-line::-webkit-slider-thumb{border-radius:50%;background:transparent;border:3px solid var(--outline-thumb,#38bdf8);width:22px;height:22px;margin-top:-8px;}
 .outline-trilinear-slider-row input.is-rec-line::-moz-range-thumb{border-radius:50%;background:transparent;border:3px solid var(--outline-thumb,#38bdf8);width:16px;height:16px;}
 .outline-trilinear-slider-row input.is-rec-line.is-unrated::-webkit-slider-thumb,.outline-trilinear-slider-row input.is-rec-line.is-unrated::-moz-range-thumb{border-style:dashed;opacity:.55;}
-/* Dual line pucks stay grabbable. The shared .rating-track-hit rule
-   turns pointer events off and forces a 44px non-scaling stroke, which
-   both hid the receptivity ring and made the disc stroke swallow it.
-   These grabs are filled shapes (disc circle, ring annulus), so the
-   hit is the fill and the fat stroke stays off. */
-.rating-track-hit.map-line-ring-hit{pointer-events:fill!important;fill:transparent!important;stroke:none!important;}
-.rating-track-hit.map-line-disc-hit{pointer-events:fill!important;fill:transparent!important;stroke:none!important;}
+/* Disc and ring grabs are filled shapes. Pointer events and stroke live
+   here, not on .rating-track-hit. fill:transparent is hittable. */
+.map-line-disc-hit,.map-line-ring-hit{pointer-events:fill;fill:transparent;stroke:none;}
 #markRatings.is-trilinear .mark-rating{display:grid!important;grid-template-areas:"poles poles poles" "slider output clear";grid-template-columns:1fr auto auto!important;align-items:center;gap:8px 12px;width:100%!important;max-width:100%!important;padding:8px 12px;border:1px solid var(--line);border-radius:8px;background:var(--paper-2);box-sizing:border-box;}
 #markRatings.is-trilinear .mark-rating[hidden]{display:none!important;}
 #markRatings.is-trilinear #markGiveLabel{grid-area:poles;width:100%;overflow:visible!important;white-space:normal!important;min-width:0;}
