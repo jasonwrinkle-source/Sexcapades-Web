@@ -48,6 +48,7 @@ parts = [
     "03c-map-vault.js",
     "03e2-settle-engine.js",
     "03f1-polygon-math.js",
+    "03f1-placement-write.js",
     "03f1a-tri-tetrad-widgets.js",
     "03f1b-compass-pentad-widgets.js",
     "03f-polygon-widgets.js",
