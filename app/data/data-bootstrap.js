@@ -4748,7 +4748,7 @@ var SX_PROFILE_RECORD_LISTS = [ Ye, Ze, Qe, Je, et, tt, at, gt, mt ];
         }
 var rn = new Set, on = new Set, sn = new Map, ln = {}, cn = {}, dn = {}, un = new Map, pn = {}, hn = {}, gn = new Set, mn = window.__SEXCAPADES_LAYOUT || sxGeneratedFallbackDials();
 
-/* --- Module: 02o-ratings-scales.js --- */
+/* --- Module: 02o1-node-engine.js --- */
         h.forEach(e => {
             rn.add(e.name), un.set(catId(e.name), "all"), (e.subcategories || []).forEach(t => {
                 const n = Un(e.name, t.name);
@@ -4802,7 +4802,7 @@ var sxStemFinaliseHook = null;
         function Hn(e) {
             return String(e == null ? "" : e).toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
         }
-        
+
         function sxName(e) {
             return e && "object" == typeof e ? String(e.name || "") : String(e || "");
         }
@@ -5184,7 +5184,7 @@ var LEGACY_NODE_IDS = Object.freeze({
             return i.single || "give" !== i.labels[0] || "receive" !== i.labels[1] ? "" : Jn(e, t, n);
         }
         h.forEach(e => {
-            Ke.add(catId(e.name)), (e.subcategories || []).forEach(t => Ke.add(Un(e.name, t.name))), 
+            Ke.add(catId(e.name)), (e.subcategories || []).forEach(t => Ke.add(Un(e.name, t.name))),
             e.topics.forEach(e => Ke.add(Wn(e)));
         });
 var ti = {
@@ -5209,9 +5209,9 @@ var ti = {
         function ni(e) {
             let t = String(e || "").replace(/\u00a0/g, " ").replace(/\s+/g, " ").trim();
             const n = "(?:everything|anything|all)(?:\\s+there\\s+is)?\\s+(?:to\\s+do\\s+)?(?:with|about)\\s+(?:it|this|that)|everything\\s+to\\s+do\\s+with\\s+it|giving(?:\\s*(?:and|&)\\s*receiving)?|receiving|both|switch|as\\s+a\\s+top|as\\s+a\\s+bottom|top|bottom|watching(?:\\s+others\\s+wear(?:ing)?)?|wearing";
-            return t = t.replace(new RegExp(`\\s*(?:[—–|,:;]+\\s*)?[\\(\\[\\{]\\s*(?:${n})\\s*[\\)\\]\\}]\\s*$`, "i"), ""), 
-            t = t.replace(new RegExp(`\\s*(?:[—–|,:;]+|\\betc\\.?\\s*)\\s*(?:${n})(?:\\s*(?:etc\\.?|and\\s+so\\s+on))?\\s*$`, "i"), ""), 
-            t = t.replace(new RegExp(`\\s+(?:${n})\\s*$`, "i"), ""), t = t.replace(/(?:[,;/]\s*)?\betc\.?\s*$/i, "").replace(/\s*[—–|,:;]+\s*$/, "").replace(/\s+/g, " ").trim(), 
+            return t = t.replace(new RegExp(`\\s*(?:[—–|,:;]+\\s*)?[\\(\\[\\{]\\s*(?:${n})\\s*[\\)\\]\\}]\\s*$`, "i"), ""),
+            t = t.replace(new RegExp(`\\s*(?:[—–|,:;]+|\\betc\\.?\\s*)\\s*(?:${n})(?:\\s*(?:etc\\.?|and\\s+so\\s+on))?\\s*$`, "i"), ""),
+            t = t.replace(new RegExp(`\\s+(?:${n})\\s*$`, "i"), ""), t = t.replace(/(?:[,;/]\s*)?\betc\.?\s*$/i, "").replace(/\s*[—–|,:;]+\s*$/, "").replace(/\s+/g, " ").trim(),
             (ti[ck(t)] || t).slice(0, 60);
         }
         function ii(e, t, n) {
@@ -5236,7 +5236,7 @@ var ti = {
             const e = Qi() ? Xi() : [ Vi() ], t = {};
             let n = 0;
             return e.forEach(e => {
-                n >= 560 || Object.values(at[e] || {}).some(e => n >= 560 || (t[e.id] || (t[e.id] = e, 
+                n >= 560 || Object.values(at[e] || {}).some(e => n >= 560 || (t[e.id] || (t[e.id] = e,
                 n++), !1));
             }), Object.values(t);
         }
@@ -5251,7 +5251,7 @@ var ti = {
         function li() {
             const e = {};
             let t = 0;
-            return Object.values(at).some(n => Object.values(n || {}).some(n => t >= 560 || (e[n.id] || (e[n.id] = n, 
+            return Object.values(at).some(n => Object.values(n || {}).some(n => t >= 560 || (e[n.id] || (e[n.id] = n,
             t++), !1))), Object.values(e);
         }
         function ci(e) {
@@ -5300,7 +5300,7 @@ var ti = {
         function yi(e, t, n, i, a = !1) {
             if (!n && !a) return "";
             const r = `+${n}`, o = Math.max(36, 8 * r.length + 16), s = `${n} hidden ${1 === n ? "child" : "children"}`;
-            return e = Math.max(nh.x + o / 2 + 54, Math.min(nh.x + nh.width - o / 2 - 54, e)), 
+            return e = Math.max(nh.x + o / 2 + 54, Math.min(nh.x + nh.width - o / 2 - 54, e)),
             t = Math.max(nh.y + 14 + 54, Math.min(nh.y + nh.height - 14 - 54, t)), `<g class="hidden-count-badge" data-id="${Hi(i)}" data-width="${o}" data-height="28" transform="translate(${(e - o / 2).toFixed(2)} ${(t - 14).toFixed(2)})" tabindex="0" role="button" aria-label="${(typeof mx==='function'&&mx(i))||i}: ${s}. Switch between rated and unrated children."><rect width="${o}" height="28" rx="8"/><text x="${(o / 2).toFixed(2)}" y="14" text-anchor="middle" dominant-baseline="middle">${r}</text></g>`;
         }
         function bi(e) {
@@ -5309,7 +5309,7 @@ var ti = {
         }
         function vi(e) {
             const t = qn[e];
-            t && bi(t).length && (("Category" === t.kind ? rn.has(t.branch) : on.has(e)) ? (un.set(e, "rated" === un.get(e) ? "unrated" : "rated"), 
+            t && bi(t).length && (("Category" === t.kind ? rn.has(t.branch) : on.has(e)) ? (un.set(e, "rated" === un.get(e) ? "unrated" : "rated"),
             rn.add(t.branch), "Topic" === t.kind && on.add(e), wn = !1, Lt = e, vn = e, Mr()) : Si(e));
         }
         function wi(e) {
@@ -5361,14 +5361,14 @@ var ki = 0;
                 if (!n) return !1;
                 at[t] || (at[t] = {});
                 const i = ii(at[t], n.label, n.parentId);
-                return !!i && (Ke.add(i.id), gn.add(oi(t, i.id)), zt(t), rn.add(i.branch), on.add(i.parentId), 
+                return !!i && (Ke.add(i.id), gn.add(oi(t, i.id)), zt(t), rn.add(i.branch), on.add(i.parentId),
                 Lt = i.id, Nt = null, Mr({
                     anchorId: i.id
                 }), !0);
             })(e) || Si(e);
         }
         function Ei() {
-            xn && (rn.clear(), xn.branches.forEach(e => rn.add(e)), on.clear(), xn.topics.forEach(e => on.add(e))), 
+            xn && (rn.clear(), xn.branches.forEach(e => rn.add(e)), on.clear(), xn.topics.forEach(e => on.add(e))),
             xn = null, kn = !0;
         }
         function Ai() {
@@ -5402,7 +5402,7 @@ var ki = 0;
             };
             e ? xi(t) : Mr(t);
         }
-var Mi = e.byId("centerProfileCard"), Ii = (e.byId("centerProfileCardTitle"), 
+var Mi = e.byId("centerProfileCard"), Ii = (e.byId("centerProfileCardTitle"),
         e.byId("centerProfileAbout")), Pi = (e.byId("centerContactList"), e.byId("profileAboutDialog")), Li = e.byId("profileAboutSubtitle"), Ti = e.byId("profileAboutText"), Fi = e.byId("profileAboutResource"), Ni = [ [ "telegram", "Telegram" ], [ "linktree", "linktr.ee" ], [ "fetlife", "FetLife" ], [ "chaturbate", "Chaturbate" ], [ "stripchat", "Stripchat" ], [ "myfreecams", "MyFreeCams" ], [ "pornhub", "PornHub" ], [ "xvideos", "XVideos" ], [ "xhamster", "xHamster" ], [ "onlyfans", "OnlyFans" ], [ "reddit", "Reddit" ], [ "x", "X" ] ];
         function _i(e, t) {
             const n = encodeURIComponent(t);
@@ -5444,7 +5444,7 @@ var Mi = e.byId("centerProfileCard"), Ii = (e.byId("centerProfileCardTitle"),
         }
         function ji(t, n = {}) {
             It = t, Mt = t, hn[t] = "saved";
-            wn = !1, kn = !0, xn = null, Sn = "all", rn.clear(), on.clear(), Lt = null, 
+            wn = !1, kn = !0, xn = null, Sn = "all", rn.clear(), on.clear(), Lt = null,
             Nt = null, Tt = "";
             const a = e.byId("searchInput");
             a && (a.value = "");
@@ -5479,7 +5479,7 @@ var Mi = e.byId("centerProfileCard"), Ii = (e.byId("centerProfileCardTitle"),
                     const t = [], n = new Set, i = e => {
                         e && !n.has(e) && (n.add(e), t.push(e));
                     };
-                    return [ "ratings", "annotations", "notes" ].forEach(t => Object.keys(e[t] || {}).forEach(i)), 
+                    return [ "ratings", "annotations", "notes" ].forEach(t => Object.keys(e[t] || {}).forEach(i)),
                     Object.values(e.children || {}).forEach(e => i(e && e.id)), {
                         changed: t
                     };
@@ -5488,7 +5488,7 @@ var Mi = e.byId("centerProfileCard"), Ii = (e.byId("centerProfileCardTitle"),
                     const n = ln[e] || new Set, i = cn[e] || new Set, a = dn[e] || new Set;
                     t.forEach(t => {
                         const r = qn[t] || Xn(t) || (at[e] || {})[t], o = r && r.branch || ci(t);
-                        o && n.add(o), r && "Topic" === r.kind ? i.add(t) : r && r.parentId && (i.add(r.parentId), 
+                        o && n.add(o), r && "Topic" === r.kind ? i.add(t) : r && r.parentId && (i.add(r.parentId),
                         a.add(t));
                     }), ln[e] = n, cn[e] = i, dn[e] = a;
                 }(e, n.noFlash ? [] : i.changed);
@@ -5511,7 +5511,7 @@ var Mi = e.byId("centerProfileCard"), Ii = (e.byId("centerProfileCardTitle"),
             var h = window.__sxDialog;
             if (h && h.open) return void h.open(e);
             if (e && !e.open) try {
-                "function" == typeof e.showModal ? e.showModal() : (e.setAttribute("open", ""), 
+                "function" == typeof e.showModal ? e.showModal() : (e.setAttribute("open", ""),
                 e.classList.add("fallback-open"));
             } catch (t) {
                 e.setAttribute("open", ""), e.classList.add("fallback-open");
@@ -5577,7 +5577,7 @@ var Mi = e.byId("centerProfileCard"), Ii = (e.byId("centerProfileCardTitle"),
 var Gi = e.byId("unsavedChangesDialog");
         function Ki() {
             const t = jt();
-            t && !Gi.open && (e.byId("unsavedChangesQuestion").textContent = `${wt[t] || "This profile"} has changes that are not safely stored yet. Choose what to do before reloading.`, 
+            t && !Gi.open && (e.byId("unsavedChangesQuestion").textContent = `${wt[t] || "This profile"} has changes that are not safely stored yet. Choose what to do before reloading.`,
             Wi(Gi), requestAnimationFrame(() => e.byId("saveUnsavedToMemory").focus()));
         }
         // Interest-color stops - the one source both interest encodings
@@ -5587,6 +5587,8 @@ var Gi = e.byId("unsavedChangesDialog");
         // properties (shell :root: #bd4f51 / #d7bd55 / #3da874 - the
         // same values in hex). Change a stop here and in the shell
         // :root together.
+
+/* --- Module: 02o2-stance-scales.js --- */
 var INTEREST_STOPS = {
             curious: [ 215, 189, 85 ],
             positive: [ 61, 168, 116 ],
@@ -5665,7 +5667,7 @@ var INTEREST_STOPS = {
         }
         e.byId("stayWithUnsavedChanges") && e.byId("stayWithUnsavedChanges").addEventListener("click", () => Ui(Gi)), e.byId("saveUnsavedToMemory") && e.byId("saveUnsavedToMemory").addEventListener("click", () => {
             const e = jt(), t = window.SexcapadesRuntime.DOM.byId("rememberProfileCheckbox2x"), n = window.Sexcapades2xRememberProfiles;
-            t && !t.checked && (t.checked = !0, t.dispatchEvent(new Event("change"))), n && "function" == typeof n.saveNow && n.saveNow() ? (e && Vt(e), 
+            t && !t.checked && (t.checked = !0, t.dispatchEvent(new Event("change"))), n && "function" == typeof n.saveNow && n.saveNow() ? (e && Vt(e),
             Ui(Gi), tS("Changes saved to profile memory.")) : tS("Could not save these changes to profile memory.", {
                 tone: "error",
                 persistent: !0
@@ -5674,12 +5676,12 @@ var INTEREST_STOPS = {
             const e = jt();
             e && (Ui(Gi), Jf(e));
         }), e.byId("reloadWithUnsavedChanges") && e.byId("reloadWithUnsavedChanges").addEventListener("click", () => {
-            qt = !0, document.documentElement.classList.remove("has-unsaved-changes"), document.body.classList.remove("has-unsaved-changes"), 
+            qt = !0, document.documentElement.classList.remove("has-unsaved-changes"), document.body.classList.remove("has-unsaved-changes"),
             location.reload();
         }), Gi.addEventListener("cancel", e => {
             e.preventDefault(), Ui(Gi);
         }), window.__sxOnKey( e => {
-            jt() && !Gi.open && ("F5" === e.key || (e.ctrlKey || e.metaKey) && "r" === e.key.toLowerCase()) && (e.preventDefault(), 
+            jt() && !Gi.open && ("F5" === e.key || (e.ctrlKey || e.metaKey) && "r" === e.key.toLowerCase()) && (e.preventDefault(),
             e.stopImmediatePropagation(), Ki());
         }, !0), document.addEventListener("touchstart", e => {
             if (!jt() || 1 !== e.touches.length || document.scrollingElement && document.scrollingElement.scrollTop > 1) return;
@@ -5695,7 +5697,7 @@ var INTEREST_STOPS = {
         }), document.addEventListener("touchmove", e => {
             if (!Ht || 1 !== e.touches.length) return;
             const t = e.touches[0], n = t.clientX - Ht.x, i = t.clientY - Ht.y;
-            i > 18 && i > 1.35 * Math.abs(n) && e.preventDefault(), i >= 72 && i > 1.35 * Math.abs(n) && (Ht = null, 
+            i > 18 && i > 1.35 * Math.abs(n) && e.preventDefault(), i >= 72 && i > 1.35 * Math.abs(n) && (Ht = null,
             Ki());
         }, {
             capture: !0,
@@ -6249,6 +6251,8 @@ var INTEREST_STOPS = {
         function fa(e, t, n) {
             return cuCat(e, t, n).value;
         }
+
+/* --- Module: 02o-ratings-scales.js --- */
         function sxBranchByName(name) {
             return h.find(c => c.name === name) || null;
         }
@@ -7132,7 +7136,7 @@ var sxGetActiveOrComparisonProfiles = Xi;
             return ea.spokeStartRadius;
         }
 
-/* --- Module: 02f-spoke-geometry.js --- */
+/* --- Module: 02f1-spoke-math.js --- */
         /* ================= SpokeGeometry module — BEGIN ================= */
         /* ================================================================
            SpokeGeometry — spoke path geometry for the map renderer.
@@ -7760,6 +7764,7 @@ var zi = (e) => typeof window !== "undefined" && typeof window.zi === "function"
 var qn = typeof window !== "undefined" && window.qn ? window.qn : {};
 var Xn = (e) => typeof window !== "undefined" && typeof window.Xn === "function" ? window.Xn(e) : null;
 
+/* --- Module: 02f-spoke-geometry.js --- */
         function Ka(e, t, n, i, a, r, o, s, l, c, d, u = 48, p = Ga.FALLBACK_COLOR, g = !0, m = "", f = null, y = null, b = null, v = !1, w = !0, k = h.length, bc = null, sxLeafD = null, sxDepth = null) {
             if (sxSexSkin()) v = !0;
             if (typeof Ra === "function") Ra(e); else if (typeof window !== "undefined" && typeof window.__SX_RA === "function") window.__SX_RA(e);
@@ -8809,7 +8814,7 @@ var Za = Object.freeze({
             link && (event.key === "Enter" || event.key === " ") && focusRelationLink(link, event);
         }, !0);
 
-/* --- Module: 02l-deknotter-session.js --- */
+/* --- Module: 02l1-deknotter-clouds.js --- */
         // DeKnotter run context (E1): module-scoped state behind the
         // dedicated driver API at __SEXCAPADES_LAYOUT_API.deknotter. While
         // a context is active, deknotter.applyPhase validates every
@@ -9351,7 +9356,7 @@ var BLIT_NS = "http://www.w3.org/2000/svg", BLIT_XLINK = "http://www.w3.org/1999
         function blitEndSession() {
             const sess = blitSess;
             if (!sess) return;
-            blitSess = null, sess.timer && clearTimeout(sess.timer), sess.exitTimer && clearTimeout(sess.exitTimer), sess.exitTimer = null, sess.rasterUrl && URL.revokeObjectURL(sess.rasterUrl), 
+            blitSess = null, sess.timer && clearTimeout(sess.timer), sess.exitTimer && clearTimeout(sess.exitTimer), sess.exitTimer = null, sess.rasterUrl && URL.revokeObjectURL(sess.rasterUrl),
             blitStripArtifacts(), dkLog.push({
                 type: "blit-session",
                 event: "end",
@@ -9561,7 +9566,7 @@ var sgInFlight = !1, sgHoldBlitStart = !1, sgCaptureSource = "rendered";
                             y: bb.y + bb.height / 2
                         }, ctm = icon.getCTM();
                         if (!ctm) throw new Error("settle guard: rendered capture found no icon CTM");
-                        p = new DOMPoint(lc.x, lc.y).matrixTransform(ctm).matrixTransform(inv), 
+                        p = new DOMPoint(lc.x, lc.y).matrixTransform(ctm).matrixTransform(inv),
                         p && Number.isFinite(p.x) && Number.isFinite(p.y) || (p = null);
                     } catch (e) {
                         p = null;
@@ -9628,6 +9633,8 @@ var sgInFlight = !1, sgHoldBlitStart = !1, sgCaptureSource = "rendered";
         // and any session that nevertheless stands afterwards is
         // torn down synchronously, its "start" entry removed, so
         // the log never gains a session that outlives the guard run.
+
+/* --- Module: 02l-deknotter-session.js --- */
         function sgRestorePaint(centers, allNames, capture) {
             const frozen = new Set(allNames), ctx = {
                 targetBranches: new Set,
@@ -20211,7 +20218,7 @@ var sxIntensitySeeded = new Set;
         };
 
 
-/* --- Module: 03f-polygon-widgets.js --- */
+/* --- Module: 03f1a-tri-tetrad-widgets.js --- */
         var sxTriState = {
             topicId: null,
             mode: "advocacy",
@@ -20884,6 +20891,7 @@ var SX_COMPASS_COLORS = ["#22c55e", "#eab308", "#ef4444", "#3b82f6"];
             sxSyncMarkRatings(topicId);
         }
 
+/* --- Module: 03f1b-compass-pentad-widgets.js --- */
         function sxBindCompassWidget() {
             const canvas = e.byId("markCompassCanvas");
             const advSlider = e.byId("markCompassIntensity");
@@ -21295,6 +21303,7 @@ var SX_OCTAD_COLORS = ["#22c55e", "#10b981", "#06b6d4", "#3b82f6", "#6366f1", "#
             sxClearPolygonRatings(topicId, 8);
         }
 
+/* --- Module: 03f-polygon-widgets.js --- */
         function sxBindOctadWidget() {
             sxBindPolygonRadarWidget({
                 canvasId: "markOctadCanvas",
@@ -21991,7 +22000,6 @@ var SX_OCTAD_COLORS = ["#22c55e", "#10b981", "#06b6d4", "#3b82f6", "#6366f1", "#
                 });
             }
         }
-
 
 /* --- Module: 03f2-switchbox-widget.js --- */
         // --- 2D XY Role Switch-Box State & Widget ---
@@ -22769,7 +22777,7 @@ var LabelRenderer = {
         };
 
 
-/* --- Module: 03e4-paint-generator.js --- */
+/* --- Module: 03e4a-paint-preamble.js --- */
         function* Ar(i = {}) {
             // JOB B GLIDE FIX - previous-positions capture: read the live
             // node positions BEFORE sxVaultCaptureCurrent() runs. The vault
@@ -22940,7 +22948,7 @@ var LabelRenderer = {
             // and is not re-appended on that path.
             const sxCapsuleKeep = (() => { try { return In.querySelector(":scope > .sx-interim-capsules"); } catch (_) { return null; } })();
             const c = !Object.keys(wt).length;
-            if (n(Pn, `<linearGradient id="curiousGradient" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" stop-color="var(--red-deep)"/><stop offset="50%" stop-color="var(--curious)"/><stop offset="100%" stop-color="var(--green-deep)"/></linearGradient><clipPath id="centerPhotoClip"><circle cx="900" cy="620" r="${ea.photoRadius}"/></clipPath>`), 
+            if (n(Pn, `<linearGradient id="curiousGradient" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" stop-color="var(--red-deep)"/><stop offset="50%" stop-color="var(--curious)"/><stop offset="100%" stop-color="var(--green-deep)"/></linearGradient><clipPath id="centerPhotoClip"><circle cx="900" cy="620" r="${ea.photoRadius}"/></clipPath>`),
             n(In, ""), Object.keys(qn).forEach(e => delete qn[e]), h.forEach(e => {
                 const t = catId(e.name);
                 qn[t] = {
@@ -22976,7 +22984,7 @@ var LabelRenderer = {
             }), window.__sxLoad && window.__sxLoad(12 /* F5 checkpoint contract (at __sxProgressWidget in index.html): displayed band value — topic index */), (!(c || Mt && vt[Mt]) && !sxBootPaint && !window.__SX_FORCE_UNRATED_TREE)) return n(In, `<g>${oa()}${function(e) {
                 const t = 1.75 * ea.photoRadius, n = Za.fitWithin(e, 22 * mapFontScale(), 15, t, "center"), i = Za.fitAttr(e, n, "center", t);
                 return `<text x="900" y="600" text-anchor="middle" class="center-label" pointer-events="none" style="font-size:${n.toFixed(2)}px"${i}>${Hi(e)}</text>`;
-            }("Select a profile")}<text x="900" y="640" text-anchor="middle" class="center-sub" pointer-events="none">tap a profile tab to begin</text></g>`), 
+            }("Select a profile")}<text x="900" y="640" text-anchor="middle" class="center-sub" pointer-events="none">tap a profile tab to begin</text></g>`),
             window.__sxLoad && window.__sxLoad(100), void vc();
             // Fix 2 (see sxCapsuleKeep above): re-append the
             // preserved interim capsule layer over the cleared map
@@ -23133,7 +23141,7 @@ var LabelRenderer = {
                         let a = !1, r = !1;
                         return i.forEach(e => n.forEach(t => {
                             const n = ca(t, e), i = Qe[e]?.[t];
-                            a = a || n.giveKnown && n.give > 0 || n.receiveKnown && n.receive > 0 || "favorite" === i, 
+                            a = a || n.giveKnown && n.give > 0 || n.receiveKnown && n.receive > 0 || "favorite" === i,
                             r = r || n.giveKnown && n.give < 0 || n.receiveKnown && n.receive < 0 || "limit" === i;
                         })), {
                             positive: a,
@@ -23175,7 +23183,7 @@ var LabelRenderer = {
                         let t = !1, n = !1;
                         return l.forEach(i => {
                             const a = ca(e, i), r = Qe[i]?.[e];
-                            t = t || a.giveKnown && a.give > 0 || a.receiveKnown && a.receive > 0 || "favorite" === r, 
+                            t = t || a.giveKnown && a.give > 0 || a.receiveKnown && a.receive > 0 || "favorite" === r,
                             n = n || a.giveKnown && a.give < 0 || a.receiveKnown && a.receive < 0 || "limit" === r;
                         }), {
                             positive: t,
@@ -23330,6 +23338,8 @@ var LabelRenderer = {
                 const p = -19 * (l.length - 1) / 2, h = l.map((t, n) => t.interactive ? `<text class="node-note-trigger node-marker node-marker-note" data-note-id="${e}" x="${p + 19 * n}" y="0" role="button" tabindex="0" aria-label="Open note for ${Hi(qn[e]?.label || "topic")}">${t.glyph}</text>` : "favorite" !== t.kind || isCatId(e) ? `<text class="node-marker node-marker-${t.kind}" x="${p + 19 * n}" y="0" aria-hidden="true">${t.glyph}</text>` : `<text class="node-marker node-marker-favorite" data-ui-tooltip="${Hi(lo(qn[e]))}" data-tooltip-tap-first x="${p + 19 * n}" y="0" aria-hidden="true">${t.glyph}</text>`).join("");
                 return `<g class="node-marker-cluster" transform="translate(${u.x.toFixed(2)} ${u.y.toFixed(2)})">${h}</g>`;
             };
+
+/* --- Module: 03e4-paint-generator.js --- */
             // SX-PAIR-TAPER-PAINT (2026-11-24, Jason's ruling): on any
             // two-profile match tab -- Cross ⋈, Straight ⊙, Circle Minus ⊖
             // -- a topic's line wears the pair's SHARED APPETITE per flank:
@@ -24895,7 +24905,7 @@ var sxInterimPaintPending = !1, sxInterimPaintGeo = null;
             }), Ih();
         });
 
-/* --- Module: 03e1-mark-dialog.js --- */
+/* --- Module: 03e1a-placard-sync.js --- */
 var Ir = Object.freeze({
             "Rope bondage": "https://en.wikipedia.org/wiki/Rope_bondage",
             "Japanese bondage": "https://en.wikipedia.org/wiki/Japanese_bondage",
@@ -25224,12 +25234,12 @@ var Qr = null, Jr = null, eo = null, to = !1, no = null;
         }
         function vo(e) {
             const t = document.createElement("li");
-            t.className = "mark-community-section-label", t.setAttribute("role", "presentation"), 
+            t.className = "mark-community-section-label", t.setAttribute("role", "presentation"),
             t.textContent = e, Kr.append(t);
         }
         function wo(e, t, n) {
             const i = document.createElement("li"), a = document.createElement("a"), r = document.createElement("span"), o = document.createElement("small");
-            a.href = n, a.target = "_blank", a.rel = "noopener noreferrer", a.setAttribute("role", "menuitem"), 
+            a.href = n, a.target = "_blank", a.rel = "noopener noreferrer", a.setAttribute("role", "menuitem"),
             r.textContent = e, o.textContent = t, a.append(r, o), i.append(a), Kr.append(i);
         }
         function ko(e) {
@@ -25920,6 +25930,8 @@ var Qr = null, Jr = null, eo = null, to = !1, no = null;
            read the live record, so a re-render after any write shows
            the stored values. The fine-tune block below it is the same
            four numbers written out longhand, in sync both ways. */
+
+/* --- Module: 03e1-mark-dialog.js --- */
         var sxCrossPlacard = null;
         // The current topic's pole keys (shape.keys): the placement
         // flank read/write needs them to find the spectrum position
@@ -27521,7 +27533,7 @@ var __sxParkedSectionNames = {
             }
         });
 
-/* --- Module: 03d-outline.js --- */
+/* --- Module: 03d5-outline-render.js --- */
         function Cs(e = {}) {
             const t = Go;
             if (!t || t !== Et && !vt[t]) return;
@@ -27539,9 +27551,9 @@ var __sxParkedSectionNames = {
                 const u = Boolean(e.risk), p = document.createElement("details");
                 p.className = "outline-branch", p.dataset.outlineBranch = d, p.open = sxReview && !i ? !1 : !i || a.has(d);
                 const h = document.createElement("summary"), g = document.createElement("span"), m = document.createElement("span"), f = document.createElement("span"), y = "Collapse or expand this branch. The topic total stays fixed for this list session.";
-                if (g.className = "outline-branch-disclosure", g.textContent = "›", g.tabIndex = 0, 
-                g.dataset.tooltipTapFirst = "", g.dataset.outlineDisclosureTooltip = y, g.setAttribute("aria-label", y), 
-                g.setAttribute("aria-expanded", "false"), m.className = "outline-branch-title outline-description-trigger", m.setAttribute("role", "heading"), m.setAttribute("aria-level", "2"), 
+                if (g.className = "outline-branch-disclosure", g.textContent = "›", g.tabIndex = 0,
+                g.dataset.tooltipTapFirst = "", g.dataset.outlineDisclosureTooltip = y, g.setAttribute("aria-label", y),
+                g.setAttribute("aria-expanded", "false"), m.className = "outline-branch-title outline-description-trigger", m.setAttribute("role", "heading"), m.setAttribute("aria-level", "2"),
                 m.textContent = d, m.dataset.outlineDescription = lo({
                     id: catId(d),
                     label: d,
@@ -27549,7 +27561,7 @@ var __sxParkedSectionNames = {
                     kind: "Category"
                 }), u) {
                     const e = document.createElement("span");
-                    e.className = "outline-risk", e.textContent = "*", e.setAttribute("aria-label", "Higher-risk practice requiring specialized knowledge and explicit negotiation"), 
+                    e.className = "outline-risk", e.textContent = "*", e.setAttribute("aria-label", "Higher-risk practice requiring specialized knowledge and explicit negotiation"),
                     m.append(e);
                 }
                 f.className = "outline-branch-count", h.append(g, m, f), p.append(h);
@@ -27588,8 +27600,8 @@ var __sxParkedSectionNames = {
                         },
                         subcategoryLimit: e => t.subcategoryLimits.get(e) || 0,
                         setSubcategoryLimit: (e, n) => (t.subcategoryLimits.set(e, Math.max(0, Number(n) || 0)), t.subcategoryLimits.get(e) || 0),
-                        toggleSubcategory: (e, n) => t.expandedSubcategories.has(e) ? (t.expandedSubcategories.delete(e), 
-                        t.subcategoryLimits.set(e, t.subcategoryOverviewLimits.get(e) ?? 0), !1) : (t.expandedSubcategories.add(e), 
+                        toggleSubcategory: (e, n) => t.expandedSubcategories.has(e) ? (t.expandedSubcategories.delete(e),
+                        t.subcategoryLimits.set(e, t.subcategoryOverviewLimits.get(e) ?? 0), !1) : (t.expandedSubcategories.add(e),
                         t.subcategoryLimits.set(e, n), !0)
                     };
                 }({
@@ -27605,20 +27617,20 @@ var __sxParkedSectionNames = {
                         const e = Un(d, r.name);
                         if (l = e, !w.has(e)) {
                             const t = document.createElement("div"), n = document.createElement("div"), i = document.createElement("span"), a = document.createElement("span"), o = document.createElement("span"), s = document.createElement("div"), l = "Shows the most popular kinks. Click to expand and show all kinks in this subcategory.";
-                            t.className = "outline-subcategory", t.dataset.outlineSubcategory = e, t.dataset.subcategoryExpanded = x.isSubcategoryExpanded(e) ? "true" : "false", 
-                            x.isSubcategoryExpanded(e) && t.classList.add("is-expanded"), i.className = "outline-branch-disclosure outline-subcategory-disclosure", 
-                            i.textContent = "›", i.tabIndex = 0, i.dataset.tooltipTapFirst = "", i.dataset.outlineDisclosureTooltip = l, 
-                            i.setAttribute("aria-label", l), i.setAttribute("role", "button"), i.setAttribute("aria-expanded", x.isSubcategoryExpanded(e) ? "true" : "false"), 
-                            a.className = "outline-subcategory-title outline-description-trigger", a.textContent = r.name, 
+                            t.className = "outline-subcategory", t.dataset.outlineSubcategory = e, t.dataset.subcategoryExpanded = x.isSubcategoryExpanded(e) ? "true" : "false",
+                            x.isSubcategoryExpanded(e) && t.classList.add("is-expanded"), i.className = "outline-branch-disclosure outline-subcategory-disclosure",
+                            i.textContent = "›", i.tabIndex = 0, i.dataset.tooltipTapFirst = "", i.dataset.outlineDisclosureTooltip = l,
+                            i.setAttribute("aria-label", l), i.setAttribute("role", "button"), i.setAttribute("aria-expanded", x.isSubcategoryExpanded(e) ? "true" : "false"),
+                            a.className = "outline-subcategory-title outline-description-trigger", a.textContent = r.name,
                             a.dataset.outlineDescription = lo({
                                 id: e,
                                 label: r.name,
                                 branch: d,
                                 kind: "Subcategory"
-                            }), o.className = "outline-subcategory-count", o.textContent = `0 of ${r.topics.length} shown`, 
-                            n.className = "outline-subcategory-summary", n.setAttribute("role", "button"), n.tabIndex = 0, 
-                            n.setAttribute("aria-expanded", x.isSubcategoryExpanded(e) ? "true" : "false"), 
-                            s.className = "outline-subcategory-rows", n.append(i, a, o), t.append(n, s), v.append(t), 
+                            }), o.className = "outline-subcategory-count", o.textContent = `0 of ${r.topics.length} shown`,
+                            n.className = "outline-subcategory-summary", n.setAttribute("role", "button"), n.tabIndex = 0,
+                            n.setAttribute("aria-expanded", x.isSubcategoryExpanded(e) ? "true" : "false"),
+                            s.className = "outline-subcategory-rows", n.append(i, a, o), t.append(n, s), v.append(t),
                             w.set(e, {
                                 group: t,
                                 summary: n,
@@ -27658,7 +27670,7 @@ var __sxParkedSectionNames = {
                         expandable: p.length > 0,
                         expanded: h
                     }, t);
-                    if (g.dataset.outlineBranch = d, g.dataset.outlineTopicRank = String(e.outlineTopicRanks?.get(c) ?? a), 
+                    if (g.dataset.outlineBranch = d, g.dataset.outlineTopicRank = String(e.outlineTopicRanks?.get(c) ?? a),
                     l) {
                         const e = k.get(l) || 0;
                         g.dataset.outlineSubcategoryRank = String(e), k.set(l, e + 1);
@@ -27676,7 +27688,7 @@ var __sxParkedSectionNames = {
                     });
                 });
                 const S = document.createElement("button");
-                S.type = "button", S.className = "outline-more", n(S, '<span class="outline-more-label"></span>'), 
+                S.type = "button", S.className = "outline-more", n(S, '<span class="outline-more-label"></span>'),
                 v.append(S), p.append(v), Ro.append(p);
                 const $ = e => {
                     const n = Array.from(v.querySelectorAll(".outline-row[data-outline-topic-rank]")).sort((e, t) => Number(e.dataset.outlineTopicRank) - Number(t.dataset.outlineTopicRank)), i = Array.from(v.querySelectorAll(".outline-row[data-outline-id]")), a = x.setLimit(e);
@@ -27685,7 +27697,7 @@ var __sxParkedSectionNames = {
                     priorRated.forEach(e => l.add(e.dataset.outlineId));
                     w.forEach((e, t) => {
                         const n = Array.from(e.rows.querySelectorAll(":scope > .outline-row[data-outline-topic-rank]")).sort((e, t) => Number(e.dataset.outlineSubcategoryRank) - Number(t.dataset.outlineSubcategoryRank)), i = x.isSubcategoryExpanded(t) ? n : n.filter(e => r.has(e.dataset.outlineId)), a = i.filter(e => c.has(e.dataset.outlineId)).length;
-                        x.refreshSubcategoryOverview(t, a), i.slice(0, Math.min(i.length, x.subcategoryLimit(t))).forEach(e => l.add(e.dataset.outlineId)), 
+                        x.refreshSubcategoryOverview(t, a), i.slice(0, Math.min(i.length, x.subcategoryLimit(t))).forEach(e => l.add(e.dataset.outlineId)),
                         e.localRows = n, e.localEligible = i;
                     }), n.forEach(e => {
                         const t = l.has(e.dataset.outlineId), isPriorRating = Uo.checked && priorRated.includes(e);
@@ -27698,36 +27710,36 @@ var __sxParkedSectionNames = {
                     const u = n.filter(e => !e.hidden), h = o.filter(e => !l.has(e.dataset.outlineId)).length;
                     f.textContent = `${u.length} of ${n.length} shown`;
                     const m = x.isCategoryExpanded();
-                    p.classList.toggle("is-expanded", m), g.setAttribute("aria-expanded", String(m)), 
+                    p.classList.toggle("is-expanded", m), g.setAttribute("aria-expanded", String(m)),
                     w.forEach((e, t) => {
                         const n = e.localRows.filter(e => !e.hidden).length;
-                        e.localEligible.filter(e => !l.has(e.dataset.outlineId)).length, e.count.textContent = `${n} of ${e.localRows.length} shown`, 
+                        e.localEligible.filter(e => !l.has(e.dataset.outlineId)).length, e.count.textContent = `${n} of ${e.localRows.length} shown`,
                         e.group.dataset.outlineSubcategoryVisible = String(x.subcategoryLimit(t));
                         const i = x.isSubcategoryExpanded(t);
-                        e.group.dataset.subcategoryExpanded = i ? "true" : "false", e.group.classList.toggle("is-expanded", i), 
-                        e.summary.setAttribute("aria-expanded", String(i)), e.summary.querySelector(".outline-subcategory-disclosure")?.setAttribute("aria-expanded", String(i)), 
+                        e.group.dataset.subcategoryExpanded = i ? "true" : "false", e.group.classList.toggle("is-expanded", i),
+                        e.summary.setAttribute("aria-expanded", String(i)), e.summary.querySelector(".outline-subcategory-disclosure")?.setAttribute("aria-expanded", String(i)),
                         e.group.hidden = !i && 0 === n;
-                    }), S.hidden = h <= 0, S.dataset.outlineVisible = String(a), S.setAttribute("aria-label", h > 0 ? `${ss} topics in ${d}` : `All available topics shown in ${d}`), 
+                    }), S.hidden = h <= 0, S.dataset.outlineVisible = String(a), S.setAttribute("aria-label", h > 0 ? `${ss} topics in ${d}` : `All available topics shown in ${d}`),
                     S.querySelector(".outline-more-label").textContent = h > 0 ? ss : "";
                 };
                 w.forEach((e, t) => {
                     const n = () => {
                         const n = e.rows.querySelectorAll(":scope > .outline-row[data-outline-topic-rank]").length;
-                        x.isSubcategoryExpanded(t) || getOutlineRows(e.rows).forEach(e => os.delete(e.dataset.outlineId)), 
+                        x.isSubcategoryExpanded(t) || getOutlineRows(e.rows).forEach(e => os.delete(e.dataset.outlineId)),
                         x.toggleSubcategory(t, window.__sxFetLifeReview ? Math.min(3, n) : n), $(x.limit);
                     };
                     e.summary.addEventListener("click", e => {
                         e.preventDefault(), n();
                     }), e.summary.addEventListener("keydown", e => {
-                        "Enter" !== e.key && " " !== e.key || __sxClosestAction(e.target, "outlineSubcategoryDisclosure") || (e.preventDefault(), 
+                        "Enter" !== e.key && " " !== e.key || __sxClosestAction(e.target, "outlineSubcategoryDisclosure") || (e.preventDefault(),
                         n());
                     });
                 }), p._syncOutlineVisibility = $, p.addEventListener("toggle", () => {
-                    p.open ? (getOutlineRows(p).forEach(e => os.delete(e.dataset.outlineId)), 
+                    p.open ? (getOutlineRows(p).forEach(e => os.delete(e.dataset.outlineId)),
                     $(x.limit)) : (p.classList.remove("is-expanded"), g.setAttribute("aria-expanded", "false"));
                 });
                 const E = () => {
-                    if (p.open || (p.open = !0), x.isCategoryExpanded()) x.setCategoryExpanded(!1), 
+                    if (p.open || (p.open = !0), x.isCategoryExpanded()) x.setCategoryExpanded(!1),
                     w.forEach((e, t) => {
                         x.isSubcategoryExpanded(t) && x.toggleSubcategory(t, 0);
                     }), $(3); else {
@@ -27872,9 +27884,9 @@ var sxOutlineScrollTop = 0, sxOutlineScrollLeft = 0, sxOutlinePausedByViewSwitch
                 return;
             }
             const a = i ? null : St(mt[n]).outline, r = cs(n);
-            Jo = r.total > 0 && r.rated === r.total, t.clear(Xo), Xo = 0, Go = n, Ko = null, 
-            Yo = 1e3 * (a?.durationSeconds || 0), Zo = Jo, Qo = Boolean(a?.timerRan) || !Zo, 
-            Vo = Zo ? 0 : Date.now(), !Jo && Zo && (Zo = !1, Vo = Date.now(), Qo = !0), Uo.checked = !1, 
+            Jo = r.total > 0 && r.rated === r.total, t.clear(Xo), Xo = 0, Go = n, Ko = null,
+            Yo = 1e3 * (a?.durationSeconds || 0), Zo = Jo, Qo = Boolean(a?.timerRan) || !Zo,
+            Vo = Zo ? 0 : Date.now(), !Jo && Zo && (Zo = !1, Vo = Date.now(), Qo = !0), Uo.checked = !1,
             sxOutlinePausedByViewSwitch = !1, sxOutlineRatedAtOpen = r.rated,
             e.byId("doneOutlineButton").textContent = i ? "Create profile from ratings" : "Submit what you’ve got",
             pw(!i), Cs(), Ro.dataset.outlineProfile = String(n), Ro.dataset.outlineSkin = curSkin,
@@ -27930,7 +27942,7 @@ var sxOutlineScrollTop = 0, sxOutlineScrollLeft = 0, sxOutlinePausedByViewSwitch
             try {
                 o = decodeURIComponent(o);
             } catch (e) { __sxErrLog("hash-decode", e); }
-            /^#\/?(app\/)?(?:list|listview)\/?$/i.test(o) && (history.replaceState(null, "", "#app"), 
+            /^#\/?(app\/)?(?:list|listview)\/?$/i.test(o) && (history.replaceState(null, "", "#app"),
             rS = !1), vc();
         }
         // Non-route list-close chunk + indicate (2026-10-28): the
@@ -27989,7 +28001,7 @@ var sxOutlineScrollTop = 0, sxOutlineScrollLeft = 0, sxOutlinePausedByViewSwitch
             as = null, Ui(e.byId("outlinePayoffDialog"));
         }
         function Ls(t, n) {
-            !(t && vt[t] && n) || n.rated < 1 || rs.has(t) || (rs.add(t), as = t, e.byId("outlinePayoffMessage").textContent = `${n.rated} topic${1 === n.rated ? " is" : "s are"} rated. Use them now, even if you want to finish the rest later.`, 
+            !(t && vt[t] && n) || n.rated < 1 || rs.has(t) || (rs.add(t), as = t, e.byId("outlinePayoffMessage").textContent = `${n.rated} topic${1 === n.rated ? " is" : "s are"} rated. Use them now, even if you want to finish the rest later.`,
             Wi(e.byId("outlinePayoffDialog")), e.byId("outlinePayoffStory").hidden = Yi().length < 1, requestAnimationFrame(() => (Yi().length < 1 ? e.byId("outlinePayoffCard") : e.byId("outlinePayoffStory")).focus({
                 preventScroll: !0
             })));
@@ -28005,8 +28017,8 @@ var Fs = (() => {
             const n = e.byId("uiTooltip"), i = e.byId("uiTooltipName"), a = e.byId("uiTooltipDefinition"), r = e.byId("uiTooltipValue");
             let o = null, s = null, l = 0;
             function c() {
-                t.clear(l), l = 0, o?.isConnected && "uiTooltip" === o.getAttribute("aria-describedby") && o.removeAttribute("aria-describedby"), 
-                o = null, s = null, n.classList.remove("ui-tooltip--panel"), n.hidden = !0, i.textContent = "", a.textContent = "", r.textContent = "", 
+                t.clear(l), l = 0, o?.isConnected && "uiTooltip" === o.getAttribute("aria-describedby") && o.removeAttribute("aria-describedby"),
+                o = null, s = null, n.classList.remove("ui-tooltip--panel"), n.hidden = !0, i.textContent = "", a.textContent = "", r.textContent = "",
                 n.parentNode !== document.body && document.body.appendChild(n);
             }
             function d(e = s, t = o) {
@@ -28014,8 +28026,8 @@ var Fs = (() => {
                     if (!e || e.hidden) return;
                     const i = e.getBoundingClientRect(), a = 12, r = Math.max(8, innerWidth - i.width - 8), o = Math.max(8, innerHeight - i.height - 8);
                     let s, l;
-                    if (t && Number.isFinite(t.x) && Number.isFinite(t.y)) "touch" === t.pointerType ? (s = t.x - i.width / 2, 
-                    l = t.y - i.height - a - 10, l < 8 && (l = t.y + a + 10)) : (s = t.x + a, l = t.y + a, 
+                    if (t && Number.isFinite(t.x) && Number.isFinite(t.y)) "touch" === t.pointerType ? (s = t.x - i.width / 2,
+                    l = t.y - i.height - a - 10, l < 8 && (l = t.y + a + 10)) : (s = t.x + a, l = t.y + a,
                     s + i.width > innerWidth - 8 && (s = t.x - i.width - a), l + i.height > innerHeight - 8 && (l = t.y - i.height - a)); else {
                         if (!n || !n.isConnected) return;
                         {
@@ -28046,11 +28058,11 @@ var Fs = (() => {
                         };
                     }(e, u);
                     if (!p.name && !p.definition && !p.value) return void c();
-                    t.clear(l), o && o !== e && o.isConnected && "uiTooltip" === o.getAttribute("aria-describedby") && o.removeAttribute("aria-describedby"), 
-                    o = e, s = u.point ?? null, n.classList.toggle("ui-tooltip--panel", Boolean(e.closest && e.closest(".layout-editor"))), i.textContent = p.name, a.textContent = p.definition, 
+                    t.clear(l), o && o !== e && o.isConnected && "uiTooltip" === o.getAttribute("aria-describedby") && o.removeAttribute("aria-describedby"),
+                    o = e, s = u.point ?? null, n.classList.toggle("ui-tooltip--panel", Boolean(e.closest && e.closest(".layout-editor"))), i.textContent = p.name, a.textContent = p.definition,
                     a.hidden = !p.definition, r.textContent = p.value;
                     const h = (e.closest ? e.closest("dialog") : null) || document.body;
-                    n.parentNode !== h && h.appendChild(n), n.hidden = !1, e.setAttribute("aria-describedby", "uiTooltip"), 
+                    n.parentNode !== h && h.appendChild(n), n.hidden = !1, e.setAttribute("aria-describedby", "uiTooltip"),
                     d(s, e), u.autoHide && (l = t.setTimeout(() => {
                         o === e && c();
                     }, Number(u.duration) || 3200));
@@ -28264,6 +28276,8 @@ var Bs = window.matchMedia ? window.matchMedia("(hover: hover)") : {
         function sxOutlineArmHide() {
             if (sxOutlineArmNode) sxOutlineArmNode.hidden = true;
         }
+
+/* --- Module: 03d-outline.js --- */
         function Ys(e = zo) {
             if (e) {
                 e.input.classList.remove("is-dragging", "is-clear-preview", "is-arm-open"), e.thumb?.remove(), sxOutlineArmHide();
@@ -30372,7 +30386,7 @@ var Cc = e.byId("glanceNumbersPopover"), Mc = e.byId("glanceRingSummary"), Ic = 
         }
         window.sxTerm = sxTerm;
 
-/* --- Module: 05b1-sync-compute.js --- */
+/* --- Module: 05b1a-sync-metrics.js --- */
         function Id(e) {
             const t = [];
             for (let n = 0; n < e.length; n++) for (let i = n + 1; i < e.length; i++) t.push([ e[n], e[i] ]);
@@ -31116,6 +31130,8 @@ var sxIsTeased = rec => (rec.teaserFor || []).length && "soft-no" === rec.countC
                 groupSize: n.length
             };
         }
+
+/* --- Module: 05b1b-pair-compute.js --- */
         function sxPairFromData(A, B, ids, metas, dataA, dataB, opts) {
             opts = opts || {};
             const heatA = sxClamp(Number(opts.heatA) || 0, -100, 100), heatB = sxClamp(Number(opts.heatB) || 0, -100, 100),
@@ -31580,6 +31596,8 @@ var sxCatalogCache = null;
             if (attB && attB !== classA) return !1;
             return !0;
         }
+
+/* --- Module: 05b1-sync-compute.js --- */
         function sxGroupCompute(profiles, opts) {
             opts = opts || {};
             const n = profiles.length, ids = Uc(), metas = ids.map(id => sxMeta(id, profiles)),
@@ -33986,7 +34004,7 @@ var sxScribeTargets = {
             return [ sxWriterStamp(o), "", promptText ].join("\n");
         }
 
-/* --- Module: 05-compatibility.js --- */
+/* --- Module: 05-0-pair-engine.js --- */
         function _d(e, t = !1) {
             return e ? `${e.giver}: ${e.giverLabel || "give"}${t ? ` ${e.giverRating}` : ""} → ${e.receiver}: ${e.receiverLabel || "receive"}${t ? ` ${e.receiverRating}` : ""}` : "";
         }
@@ -34284,8 +34302,8 @@ var sxScribeTargets = {
                 give: "group",
                 receive: "group"
             } ])), Qe[e] = a.marks, Je[e] = a.fantasyFlags, et[e] = a.triedFlags, at[e] = a.children,
-            n.percent = a.percent, n.things = a.things, n.clicks = a.clicks, 
-            n.noScore = a.noScore, n.sxEngine = a.sx, 
+            n.percent = a.percent, n.things = a.things, n.clicks = a.clicks,
+            n.noScore = a.noScore, n.sxEngine = a.sx,
             n.limits = a.limits, n.results = a.results, n.matchDetails = a.matchDetails,
             n.isPseudoProfile = !0,
             n.operation = "straight" === n.pairOp ? "straight" : "minus" === n.pairOp ? "minus" : "cross",
@@ -34346,7 +34364,7 @@ var sxScribeTargets = {
                 give: "group",
                 receive: "group"
             } ])), Qe[gId] = a.marks, Je[gId] = a.fantasyFlags, et[gId] = a.triedFlags, at[gId] = a.children,
-            n.percent = a.percent, n.things = a.things, n.clicks = a.clicks, n.noScore = a.noScore, n.sxEngine = a.sx, 
+            n.percent = a.percent, n.things = a.things, n.clicks = a.clicks, n.noScore = a.noScore, n.sxEngine = a.sx,
             n.limits = a.limits, n.results = a.results, n.matchDetails = a.matchDetails,
             n.fingerprint = typeof sxSourcesFingerprint === "function" ? sxSourcesFingerprint(n.sourceIds) : "";
             try {
@@ -34619,7 +34637,7 @@ var sxBuzzFired = new Set;
                 hotHtml = sxSection("Hot Topics", "What the whole room should be talking about right now.", hot.map(h => `<div class="sx-row"><div class="sx-row-top"><strong>${Hi(h.label)}</strong><span class="sx-hot-score">${Math.round(h.score)}</span></div></div>`).join("") || `<p class="sx-empty">No hot topics yet.</p>`, null);
             }
             /* Deprecated match-tab Teasers rows removed (2026-10-26): the popover Teasers sections are the teaser surface now. Writer teaser lines are a separate later job (A4) and are untouched. */
-            
+
             // Match-view viewport (2026-10-26): both headline numbers stay
             // readable beside the rings - the pair/group Kink Factor
             // (Conversation register) and the Match Score (Play register),
@@ -34680,6 +34698,8 @@ var sxBuzzFired = new Set;
             const tab = sxCurrentTab();
             return tab && tab.section ? tab.section.querySelector(".sx-match-results") : null;
         }
+
+/* --- Module: 05-1-match-tabs.js --- */
         function sxTabContext(tab) {
             if (tab.saved) {
                 const c = ft[tab.groupId];
@@ -34858,7 +34878,7 @@ var sxBuzzFired = new Set;
             if (!host.querySelector("svg")) return void (host.innerHTML = sxRingsHtml(buckets));
             buckets.forEach((b, a) => {
                 const p = host.querySelector(`[data-sx-ring-path="${a}"]`), hit = host.querySelector(`[data-sx-ring="${a}"]`);
-                p && (p.setAttribute("d", ra(b.percent, Number(p.dataset.ringRadius))), p.style.opacity = b.percent ? "1" : "0"), 
+                p && (p.setAttribute("d", ra(b.percent, Number(p.dataset.ringRadius))), p.style.opacity = b.percent ? "1" : "0"),
                 hit && hit.setAttribute("aria-label", `${b.label}, ${b.percent} percent, ${b.count} ${1 === b.count ? "topic" : "topics"}. Open rating details.`);
             });
         }
@@ -35013,7 +35033,7 @@ var sxBuzzFired = new Set;
             // casts of four or more; 2- and 3-profile casts get the pure
             // viewport (rings + map), so the legacy host stays hidden.
             rs && (rs.hidden = !(ctx && ctx.profiles.length >= 4));
-            if (!ctx) return rs && (rs.innerHTML = `<p class="sx-empty">Select two or more profiles to compare them here.</p>`), 
+            if (!ctx) return rs && (rs.innerHTML = `<p class="sx-empty">Select two or more profiles to compare them here.</p>`),
             void (tab.section.querySelector("[data-sx-ring-listing]") && (tab.section.querySelector("[data-sx-ring-listing]").innerHTML = `<p class="sx-empty">Select two or more profiles to compare them here.</p>`), tab.buckets = sxEmptyBuckets(), sxUpdateMatchRings(tab));
             sxRenderResults(!0);
         }
@@ -35196,7 +35216,7 @@ var sxBuzzFired = new Set;
         function sxCloseMatchTab(key) {
             const reg = sxTabsReg(), tab = reg.tabs.get(key);
             if (!tab) return;
-            tab.section && tab.section.remove(), reg.tabs.delete(key), reg.active === key && (reg.active = null, 
+            tab.section && tab.section.remove(), reg.tabs.delete(key), reg.active === key && (reg.active = null,
             reg.stageOn = !1), sxSyncMatchStage(), Jw(), Mr({ animate: !1 });
         }
         function sxDeactivateMatchStage() {
@@ -35210,7 +35230,7 @@ var sxBuzzFired = new Set;
             if (!ctx || ctx.saved) return;
             const nk = tab.kind + "|" + ctx.ids.join(",");
             tab.ids = ctx.ids.slice();
-            nk !== tab.key && (reg.tabs.delete(tab.key), tab.key = nk, tab.section && (tab.section.dataset.sxMatchRoot = nk), 
+            nk !== tab.key && (reg.tabs.delete(tab.key), tab.key = nk, tab.section && (tab.section.dataset.sxMatchRoot = nk),
             reg.tabs.set(nk, tab), reg.active = nk);
         }
         function sxBuzzSound() {
@@ -35342,6 +35362,8 @@ var sxExpandHold = null;
                 });
             });
         }
+
+/* --- Module: 05-compatibility.js --- */
         function Zd(pairOp) {
             // Pair kind (2026-10-27): "straight" mints a ⊙ pair; every
             // other call is the original bowtie mint, unchanged. The
@@ -39337,7 +39359,7 @@ var FetLifeImporter = (() => {
             dismissBtn && requestAnimationFrame(() => dismissBtn.focus({ preventScroll: !0 }));
         }
 
-/* --- Module: 06-pdf-exporter.js --- */
+/* --- Module: 06-0-viewport-camera.js --- */
         e.byId("scribeTab") && e.byId("scribeTab").addEventListener("pointerenter", yc), e.byId("scribeTab") && e.byId("scribeTab").addEventListener("click", e => {
             yc(), Jd();
         }), e.byId("closeScribeChoice") && e.byId("closeScribeChoice").addEventListener("click", () => Ui(Bc)), e.byId("closeNovelAi") && e.byId("closeNovelAi").addEventListener("click", () => Ui(jc)), jc && jc.addEventListener("click", e => {
@@ -39363,8 +39385,8 @@ var Jp = e.byId("viewport"), eh = new Map, th = {
         }, ih = 3;
         function ah() {
             const e = "gpu" === Kp;
-            if (Mn.dataset.cameraMode = Kp, Mn.classList.toggle("camera-gpu", e), Cn.classList.toggle("camera-gpu", e), 
-            Cn.classList.toggle("camera-lite", !e), Cn.classList.toggle("rich-map-motion", Boolean(Bt && e)), 
+            if (Mn.dataset.cameraMode = Kp, Mn.classList.toggle("camera-gpu", e), Cn.classList.toggle("camera-gpu", e),
+            Cn.classList.toggle("camera-lite", !e), Cn.classList.toggle("rich-map-motion", Boolean(Bt && e)),
             e) {
                 const e = nh.width * ih, t = nh.height * ih, n = nh.x - (e - nh.width) / 2, i = nh.y - (t - nh.height) / 2;
                 Cn.setAttribute("viewBox", `${n} ${i} ${e} ${t}`);
@@ -39417,8 +39439,8 @@ var roxyAboutBound = !1;
             }), roxyAboutBound || (roxyAboutBound = !0, _g.addEventListener("close", roxyProfileRemove));
         }
         function sh() {
-            if (Dp = performance.now(), !Mt || !vt[Mt]) return void (!Object.keys(wt).length ? roxyAbout() : (e.byId("profileAboutTitle").textContent = "About Sexcapades", 
-            Li.textContent = "Build your hypermap, then compare where you connect.", Ti.textContent = "Open a topic and rate what you would give or receive. Your first rating stays on the hypermap while you create or import a profile. Use the + tab whenever you want to add another profile.", 
+            if (Dp = performance.now(), !Mt || !vt[Mt]) return void (!Object.keys(wt).length ? roxyAbout() : (e.byId("profileAboutTitle").textContent = "About Sexcapades",
+            Li.textContent = "Build your hypermap, then compare where you connect.", Ti.textContent = "Open a topic and rate what you would give or receive. Your first rating stays on the hypermap while you create or import a profile. Use the + tab whenever you want to add another profile.",
             Fi.hidden = !1, Ri(), void Wi(Pi)));
             bw(Mt, {
                 mode: "about"
@@ -39467,8 +39489,8 @@ var sxFitScaleCache = 0, sxZoomGateSide = null;
         function dh() {
             if (!Yp) return;
             const e = Yp;
-            Yp = null, e.animation.onfinish = null, e.animation.oncancel = null, e.animation.cancel(), 
-            Ep = e.tx, Ap = e.ty, $p = e.scale, Jp.setAttribute("transform", `translate(${Ep} ${Ap}) scale(${$p})`), 
+            Yp = null, e.animation.onfinish = null, e.animation.oncancel = null, e.animation.cancel(),
+            Ep = e.tx, Ap = e.ty, $p = e.scale, Jp.setAttribute("transform", `translate(${Ep} ${Ap}) scale(${$p})`),
             wh(), th.scale = $p, th.tx = Ep, th.ty = Ap, Mn.style.transform = "none";
             sxZoomGateCheck();
         }
@@ -39480,13 +39502,13 @@ var sxFitScaleCache = 0, sxZoomGateSide = null;
             const t = Vp.intervals;
             if (t.length < 4) return !1;
             const n = t.filter(e => e > 24).length, i = t.reduce((e, t) => e + t, 0) / t.length;
-            return n >= Math.max(3, Math.ceil(.5 * t.length)) || i > 28 ? (Kp = "lite", zp = !0, 
-            Vp = null, Jp.setAttribute("transform", `translate(${Ep} ${Ap}) scale(${$p})`), 
-            th.scale = $p, th.tx = Ep, th.ty = Ap, Mn.style.transform = "none", ah(), !0) : (zp = !0, 
+            return n >= Math.max(3, Math.ceil(.5 * t.length)) || i > 28 ? (Kp = "lite", zp = !0,
+            Vp = null, Jp.setAttribute("transform", `translate(${Ep} ${Ap}) scale(${$p})`),
+            th.scale = $p, th.tx = Ep, th.ty = Ap, Mn.style.transform = "none", ah(), !0) : (zp = !0,
             Vp = null, !1);
         }
         function hh() {
-            Jp.setAttribute("transform", `translate(${Ep} ${Ap}) scale(${$p})`), th.scale = $p, 
+            Jp.setAttribute("transform", `translate(${Ep} ${Ap}) scale(${$p})`), th.scale = $p,
             th.tx = Ep, th.ty = Ap, Mn.style.transform = "none";
             const e = Cn.getAttribute("viewBox");
             Cn.removeAttribute("viewBox"), Cn.setAttribute("viewBox", e);
@@ -39496,10 +39518,10 @@ var sxFitScaleCache = 0, sxZoomGateSide = null;
             return e.ratio > 1.9 || e.ratio < .7 || Math.abs(e.dx) > n || Math.abs(e.dy) > n;
         }
         function mh(e) {
-            if (Hp = 0, "lite" === Kp) Jp.setAttribute("transform", `translate(${Ep} ${Ap}) scale(${$p})`), 
+            if (Hp = 0, "lite" === Kp) Jp.setAttribute("transform", `translate(${Ep} ${Ap}) scale(${$p})`),
             th.scale = $p, th.tx = Ep, th.ty = Ap, Mn.style.transform = "none"; else {
                 let t = ch();
-                gh(t) && (hh(), t = ch()), Mn.style.transform = `matrix(${t.ratio},0,0,${t.ratio},${t.dx},${t.dy})`, 
+                gh(t) && (hh(), t = ch()), Mn.style.transform = `matrix(${t.ratio},0,0,${t.ratio},${t.dx},${t.dy})`,
                 function(e) {
                     if (Vp) {
                         if (null !== Vp.last) {
@@ -39533,14 +39555,14 @@ var vh = null;
             e && e.hasAttribute("transform") && e.removeAttribute("transform");
             const n = t && kn && $p < 1;
             vh = n, In.querySelectorAll(".direction-hit").forEach(e => {
-                n ? (e.setAttribute("tabindex", "-1"), e.setAttribute("aria-hidden", "true"), e.removeAttribute("role")) : (e.setAttribute("tabindex", "0"), 
+                n ? (e.setAttribute("tabindex", "-1"), e.setAttribute("aria-hidden", "true"), e.removeAttribute("role")) : (e.setAttribute("tabindex", "0"),
                 e.setAttribute("role", "slider"), e.removeAttribute("aria-hidden"));
             });
         }
         function kh() {
-            yh(), uh(), dh(), t.clear(Up), Up = 0, Hp && (cancelAnimationFrame(Hp), Hp = 0), 
-            "gpu" === Kp && Vp && ph(!0), Jp.setAttribute("transform", `translate(${Ep} ${Ap}) scale(${$p})`), 
-            wh(), th.scale = $p, th.tx = Ep, th.ty = Ap, Mn.style.transform = "none", Cn.classList.remove("is-camera-moving"), 
+            yh(), uh(), dh(), t.clear(Up), Up = 0, Hp && (cancelAnimationFrame(Hp), Hp = 0),
+            "gpu" === Kp && Vp && ph(!0), Jp.setAttribute("transform", `translate(${Ep} ${Ap}) scale(${$p})`),
+            wh(), th.scale = $p, th.tx = Ep, th.ty = Ap, Mn.style.transform = "none", Cn.classList.remove("is-camera-moving"),
             Cn.classList.toggle("is-zoomed", $p > 1.3), wr(), Ja(), fh = null, sxSyncRailPx();
             // Blit session (P3) camera hook: the viewBox (after any
             // mode downgrade) and the transform are committed above;
@@ -39586,7 +39608,7 @@ var Eh = () => 1e6;
         function Ah(e, t = 900, n = 620, i = !1) {
             noteFitUserCamera();
             const a = $p;
-            $p = Math.max(1e-9, Math.min(Eh(), e)), Ep = t - $p / a * (t - Ep), Ap = n - $p / a * (n - Ap), 
+            $p = Math.max(1e-9, Math.min(Eh(), e)), Ep = t - $p / a * (t - Ep), Ap = n - $p / a * (n - Ap),
             i ? (bh(), Sh()) : $h(), sxZoomGateCheck();
         }
         function Ch() {
@@ -40131,6 +40153,8 @@ var sxWheelProb = { dir: 0, acc: 0, n: 0, t: 0 };
             const t = __sxClosestAction(e, "ratingHitAny");
             return t && __sxClosestAction(t, "directionControl");
         }
+
+/* --- Module: 06-1-map-widget-gesture.js --- */
 var sxLastNodeTapTime = 0, sxLastNodeTapId = null, sxLastNodeTapX = 0, sxLastNodeTapY = 0, sxPendingNodeTapTimer = null, sxSingleTapTimeout = 0, sxLastDoubleTime = 0;
         function Kh(e) {
             sxNoteHoldRelease(e);
@@ -40189,7 +40213,7 @@ var sxLastNodeTapTime = 0, sxLastNodeTapId = null, sxLastNodeTapX = 0, sxLastNod
                 }
                 return;
             }
-            if (yn && yn.pointerId === e.pointerId) return "pointerup" === e.type && kr(yn, Sr(yn, e.clientX, e.clientY)), 
+            if (yn && yn.pointerId === e.pointerId) return "pointerup" === e.type && kr(yn, Sr(yn, e.clientX, e.clientY)),
             void xr(!0);
             if (eo && eo.pointerId === e.pointerId) {
                 const n = eo;
@@ -40324,7 +40348,7 @@ var sxLastNodeTapTime = 0, sxLastNodeTapId = null, sxLastNodeTapX = 0, sxLastNod
                 const t = Mp;
                 if (Mp = null, "pointerup" === e.type) {
                     const profileId = Vi(), previousRatedCount = cs(profileId).rated, n = _o(t.el, No(t.el, e.clientX, e.clientY));
-                    Number.isNaN(n) ? Fo(t.id, t.direction, !1) : null !== n && To(t.id, t.direction, n, !1), 
+                    Number.isNaN(n) ? Fo(t.id, t.direction, !1) : null !== n && To(t.id, t.direction, n, !1),
                     Nt = null, Mr(), checkMilestoneTransition(profileId, previousRatedCount);
                 } else Nt = null, Mr();
             }
@@ -40334,7 +40358,7 @@ var sxLastNodeTapTime = 0, sxLastNodeTapId = null, sxLastNodeTapX = 0, sxLastNod
             const t = Gh(e.target);
             t && Uh(t, !1, Ts(e));
         }), Cn.addEventListener("pointermove", e => {
-            Bh && Fs.visibleFor(Bh) && (Gh(e.target) === Bh || "mouse" !== e.pointerType && (Ip || Mp)) && (jh = Ts(e), 
+            Bh && Fs.visibleFor(Bh) && (Gh(e.target) === Bh || "mouse" !== e.pointerType && (Ip || Mp)) && (jh = Ts(e),
             Wh());
         }), Cn.addEventListener("pointerout", e => {
             if ("mouse" !== e.pointerType) return;
@@ -40718,7 +40742,7 @@ var sxLastNodeTapTime = 0, sxLastNodeTapId = null, sxLastNodeTapX = 0, sxLastNod
             s && (Fh = r, _h = 0, Rh = 0, Oh = !1);
             const l = r !== Fh && (n > 105 || o > Math.max(14, 1.35 * Dh));
             if (r !== Fh && !l) return Nh = t, void (Dh = o);
-            if (l && (Fh = r, _h = 0, Rh = 0, Oh = !1), !s && r === Fh && o < .82 * Dh && n < 38 ? Rh++ : Rh = 0, 
+            if (l && (Fh = r, _h = 0, Rh = 0, Oh = !1), !s && r === Fh && o < .82 * Dh && n < 38 ? Rh++ : Rh = 0,
             Nh = t, Dh = o, Rh >= 4 && (Oh = !0), _h === r || Oh) return;
             const c = Eh(), d = Math.max(-48, Math.min(48, a)), u = $p * Math.exp(.0035 * -d);
             if (u < $p && $p <= 1e-9) return void (_h = r);
@@ -40731,7 +40755,7 @@ var sxLastNodeTapTime = 0, sxLastNodeTapId = null, sxLastNodeTapX = 0, sxLastNod
                 const e = yh();
                 e && Cn.style.setProperty("--camera-steady-stroke", la(e));
                 let t = ch();
-                gh(t) && (hh(), t = ch()), Mn.style.transform = `matrix(${t.ratio},0,0,${t.ratio},${t.dx},${t.dy})`, 
+                gh(t) && (hh(), t = ch()), Mn.style.transform = `matrix(${t.ratio},0,0,${t.ratio},${t.dx},${t.dy})`,
                 Sh();
             }();
             sxZoomGateCheck();
@@ -40845,6 +40869,8 @@ var sxNoteHold = null, sxNoteTapTime = 0, sxNoteTapId = null, sxNoteTapX = 0, sx
             if ("pointercancel" === e.type && !a && r >= 400) return sxNoteTapTime = 0, sxNoteTapId = null, void sxShowTopicTip(n.id, n.x, n.y, e.pointerType, n.el);
             a || "pointerup" !== e.type || (sxNoteTapTime = performance.now(), sxNoteTapId = n.id, sxNoteTapX = e.clientX, sxNoteTapY = e.clientY);
         }
+
+/* --- Module: 06-pdf-exporter.js --- */
         Cn.addEventListener("pointerdown", e => {
             if (mn.staticMap) return;
             if (Xp) { cancelAnimationFrame(Xp); Xp = 0; }
@@ -42130,7 +42156,7 @@ var Ry = e => {
         };
         my.addEventListener("pointerup", Ry), my.addEventListener("pointercancel", Ry);
 
-/* --- Module: 06d2-profile-editor.js --- */
+/* --- Module: 06d2a-identity-pickers.js --- */
 // 06d2-profile-editor.js - Profile editor form controls, demographics, contact blocks, and veil/heat sliders
 var Oy = e.byId("profileLoadMenu"), By = e.byId("profileAddMenu"), jy = e.byId("profileSampleMenu"), jyA = e.byId("profileArchetypeMenu");
 var qy = null, Hy = null, Wy = [], Uy = "", Gy = [], Ky = 0, zy = null, Vy = null, jY = null, Yy = null, Xy = null;
@@ -42866,6 +42892,8 @@ var nv = {
         function veilZoneText(t) {
             return `${t <= 0 ? "Revealed" : t <= 33 ? "Unveiling" : t <= 66 ? "Parted" : t < 100 ? "Veiled" : "Concealed"} · ${t}`;
         }
+
+/* --- Module: 06d2-profile-editor.js --- */
 var rv = e.byId("audienceView"), ov = e.byId("veilControl"), sv = e.byId("veilTrigger"), lv = e.byId("veilEnabled"), cv = e.byId("tabVeilEnabled"), dv = e.byId("veilPopover"), uv = e.byId("veilTooltip"), pv = e.byId("audienceVeilSlider"), hv = e.byId("audienceVeilValue"), qzv = e.byId("audienceVeilZone"), gv = e.byId("audienceVeilProfile"), mv = e.byId("audienceVeilHelp"), fv = mv.textContent;
 var yv = 0, bv = sv;
         function vv() {
@@ -46017,7 +46045,7 @@ var fx = {
             }
         };
 
-/* --- Module: 06c-converter-pipeline.js --- */
+/* --- Module: 06c0-sync-card.js --- */
 var yx = Object.freeze({
             importData(data, opts) {
                 return wx(data, Object.assign({ quiet: true }, opts));
@@ -46838,6 +46866,8 @@ var yx = Object.freeze({
             Fg.href = Tf, Fg.download = `${String(a.name || wt[i] || "contact").replace(/[\\/:*?"<>|\u0000-\u001f]+/g, " ").trim() || "contact"}.vcf`, 
             Ng.textContent = "", Wi(Lg);
         }
+
+/* --- Module: 06c-converter-pipeline.js --- */
         function sxScrapeFetLifeProfile(raw) {
             try {
                 const html = ux(String(raw || "")) || String(raw || "");
