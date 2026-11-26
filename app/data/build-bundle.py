@@ -29,7 +29,6 @@ parts = [
     "02e-font-ladder.js",
     "02f1-spoke-math.js",
     "02f-spoke-geometry.js",
-    "02d-selection-marking.js",
     "02l1-deknotter-clouds.js",
     "02l-deknotter-session.js",
     "02m-fit-targets.js",
