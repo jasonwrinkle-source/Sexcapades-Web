@@ -14102,7 +14102,7 @@ var witnessTrippingLabel;
            methods; SpokeGeometry, Za, and Ka live in 02f-spoke-geometry.js).
            ================================================================ */
         // Ctrl/Cmd without Shift or Alt toggles the node's branch in
-        // the Anneal checklist. The pointerup path in 06-pdf-exporter
+        // the Anneal checklist. The pointerup path in 06-1-map-widget-gesture
         // is the live tap (it sets `to` and swallows the click that
         // follows). This click path runs only when that tap did not.
         function sxMapAnnealChord(e) {
@@ -41230,7 +41230,7 @@ var sxNoteHold = null, sxNoteTapTime = 0, sxNoteTapId = null, sxNoteTapX = 0, sx
             a || "pointerup" !== e.type || (sxNoteTapTime = performance.now(), sxNoteTapId = n.id, sxNoteTapX = e.clientX, sxNoteTapY = e.clientY);
         }
 
-/* --- Module: 06-pdf-exporter.js --- */
+/* --- Module: 06-2-map-pointer.js --- */
         Cn.addEventListener("pointerdown", e => {
             if (mn.staticMap) return;
             if (Xp) { cancelAnimationFrame(Xp); Xp = 0; }
@@ -49203,7 +49203,7 @@ __sxInit(function () {
 })();
 });
 
-/* ---- category / subcategory double tap/click zoom focus handled in 06-pdf-exporter.js Kh ---- */
+/* ---- category / subcategory double tap/click zoom focus handled in 06-1-map-widget-gesture.js ---- */
 
 
 

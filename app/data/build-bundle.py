@@ -83,7 +83,7 @@ parts = [
     "06b-fetlife-importer.js",
     "06-0-viewport-camera.js",
     "06-1-map-widget-gesture.js",
-    "06-pdf-exporter.js",
+    "06-2-map-pointer.js",
     "06d1-export-dialog.js",
     "06d2a-identity-pickers.js",
     "06d2-profile-editor.js",

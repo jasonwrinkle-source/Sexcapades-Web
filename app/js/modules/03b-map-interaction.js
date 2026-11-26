@@ -19,7 +19,7 @@ __sxInit(function () {
 })();
 });
 
-/* ---- category / subcategory double tap/click zoom focus handled in 06-pdf-exporter.js Kh ---- */
+/* ---- category / subcategory double tap/click zoom focus handled in 06-1-map-widget-gesture.js ---- */
 
 
 

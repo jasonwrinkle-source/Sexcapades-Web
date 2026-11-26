@@ -5,7 +5,7 @@
            methods; SpokeGeometry, Za, and Ka live in 02f-spoke-geometry.js).
            ================================================================ */
         // Ctrl/Cmd without Shift or Alt toggles the node's branch in
-        // the Anneal checklist. The pointerup path in 06-pdf-exporter
+        // the Anneal checklist. The pointerup path in 06-1-map-widget-gesture
         // is the live tap (it sets `to` and swallows the click that
         // follows). This click path runs only when that tap did not.
         function sxMapAnnealChord(e) {
