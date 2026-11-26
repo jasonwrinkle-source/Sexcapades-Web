@@ -4802,10 +4802,6 @@ var sxStemFinaliseHook = null;
         function sxSlugifyLabel(e) {
             return String(e == null ? "" : e).toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
         }
-
-        function sxName(e) {
-            return e && "object" == typeof e ? String(e.name || "") : String(e || "");
-        }
 var LEGACY_NODE_IDS = Object.freeze({
     "cat-power-exchange": "c0001",
     "cat-bondage-restriction": "c0002",
