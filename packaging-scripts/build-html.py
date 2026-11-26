@@ -29,7 +29,12 @@ Parts, in document order:
                        stays after those scripts. Do not reorder 09-tail
                        ahead of them.
 
-Gate and guide are separate hand files. This script does not touch them.
+Gate and guide are separate hand files, app/gate.html and
+app/guide.html. This script writes the hosted copies. Each hosted
+copy is the hand file with one script path rewritten:
+
+    gate:  src="js/skin-catalog.js" -> src="/hosted/app-assets/skin-catalog.js"
+    guide: src="js/docs-skin.js"    -> src="/hosted/js/docs-skin.js"
 """
 import os
 import sys
@@ -95,6 +100,17 @@ def hosted_html(app_html):
     return out
 
 
+def rewrite_one(root, src_rel, dst_rel, old, new, label):
+    src = os.path.join(root, src_rel)
+    if not os.path.isfile(src):
+        sys.exit(f"build-html: missing {src}")
+    with open(src, "rb") as fh:
+        data = fh.read()
+    if old not in data:
+        sys.exit(f"build-html: {label} is missing {old.decode()}")
+    write_if_changed(os.path.join(root, dst_rel), data.replace(old, new, 1))
+
+
 def build():
     root = root_dir()
     partial_dir = os.path.join(root, "app", "html")
@@ -104,6 +120,22 @@ def build():
     write_if_changed(os.path.join(root, "app", "sexcapades-5.0.html"), app_html)
     hosted_path = os.path.join(root, "site-tree", "public_html", "hosted", "app.html")
     write_if_changed(hosted_path, hosted_html(app_html))
+    rewrite_one(
+        root,
+        os.path.join("app", "gate.html"),
+        os.path.join("site-tree", "public_html", "hosted", "gate.html"),
+        b'src="js/skin-catalog.js"',
+        b'src="/hosted/app-assets/skin-catalog.js"',
+        "gate",
+    )
+    rewrite_one(
+        root,
+        os.path.join("app", "guide.html"),
+        os.path.join("site-tree", "public_html", "hosted", "guide.html"),
+        b'src="js/docs-skin.js"',
+        b'src="/hosted/js/docs-skin.js"',
+        "guide",
+    )
     return 0
 
 

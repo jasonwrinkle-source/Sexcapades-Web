@@ -10,7 +10,8 @@ from datetime import datetime
 # future bump only changes this line (the 5.0 bump missed the regex, which
 # still matched only "Version 4.0" and silently left the static span stale).
 # The guide's <p class="about-version"> shares this VERSION and is stamped by
-# the same run (both guide copies). Guide version-bump rule (Jason, 2026-11-16):
+# the same run. build-html.py copies that stamp into the hosted guide.
+# Guide version-bump rule (Jason, 2026-11-16):
 # the guide's version bumps on a substantial addition/edit; the BUILD part
 # tracks the deploy that carries it, exactly like the app About span.
 VERSION = "5.0"
@@ -24,7 +25,7 @@ def app_partials(root):
     return [os.path.join(partial_dir, n) for n in names]
 
 def regenerate_app_shells(root):
-    """Write both app shells from the partials just stamped."""
+    """Write both app shells, and the hosted gate and guide, from the hand files just stamped."""
     script = os.path.join(os.path.dirname(__file__), "build-html.py")
     if os.path.isfile(script) and app_partials(root):
         subprocess.run([sys.executable, script], cwd=root, check=True)
@@ -57,11 +58,12 @@ def bump(build_num=None, channel="release", files=None):
     regenerate = False
     if files is None:
         partials = app_partials(root)
+        # Hosted gate and guide are written by build-html.py from these
+        # two files. Stamping the hosted copies here would be overwritten
+        # by that rewrite, so they are not in the list.
         hand = [
             os.path.join(root, "app", "guide.html"),
-            os.path.join(root, "site-tree", "public_html", "hosted", "guide.html"),
             os.path.join(root, "app", "gate.html"),
-            os.path.join(root, "site-tree", "public_html", "hosted", "gate.html"),
         ]
         if partials:
             files = partials + hand
@@ -88,21 +90,20 @@ def bump(build_num=None, channel="release", files=None):
                          f'<span class="app-about-version">Version {VERSION} · {label} {build_num}</span>', content, count=1)
         content = re.sub(r'<span class="app-about-version app-about-buildtag">[^<]*</span>',
                          f'<span class="app-about-version app-about-buildtag">{build_tag}</span>', content)
-        # Guide About stamp (both guide copies): same version + build as the
-        # app About span. No-ops on the app files (they carry a <span>, not
-        # this <p>); the app patterns above no-op on the guide files.
+        # Guide About stamp. The hand file is app/guide.html. build-html.py
+        # writes the hosted copy from it. No-ops on the app files (they
+        # carry a <span>, not this <p>); the app patterns above no-op on
+        # the guide.
         content = re.sub(r'<p class="about-version">Version [0-9]+\.[0-9]+ · (?:QA )?Build [^<]*</p>',
                          f'<p class="about-version">Version {VERSION} · {label} {build_num}</p>', content, count=1)
-        # Gate About stamp (both gate copies): the gate's version lines
-        # are <p class="app-about-version">, not the app's <span> and not
+        # Gate About stamp. The hand file is app/gate.html. build-html.py
+        # writes the hosted copy from it. The gate's version lines are
+        # <p class="app-about-version">, not the app's <span> and not
         # the guide's <p class="about-version">. Version and build-tag
         # lines share the class, so they need separate patterns — the
         # version regex must not eat the tag line (and vice versa). The
-        # gate was never stamped before (frozen at 2026-11-13_0528);
-        # adding it to the default list covers the deploy-app and
-        # deploy-all packagers, which invoke this script with its
-        # default file list. The QA script passes an explicit list of
-        # only app.html, so the gate is not in the QA channel.
+        # QA script passes an explicit list of only app.html, so the
+        # gate is not in the QA channel.
         content = re.sub(r'<p class="app-about-version">Version [0-9]+\.[0-9]+ · (?:QA )?Build [^<]*</p>',
                          f'<p class="app-about-version">Version {VERSION} · {label} {build_num}</p>', content, count=1)
         content = re.sub(r'<p class="app-about-version">(?:release|qa)-[^<]*</p>',
