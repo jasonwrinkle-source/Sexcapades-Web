@@ -22220,11 +22220,13 @@ var SX_OCTAD_COLORS = ["#22c55e", "#10b981", "#06b6d4", "#3b82f6", "#6366f1", "#
         // Puck position along the line is the leaning; drag up/down and
         // the same puck rides a vertical appetite arm that overlays the
         // other line and reserves no layout space. Puck colour is the
-        // appetite on the app's own interest scale (zi). Slide a puck
-        // off either end into the faded run-off and release to unrate
-        // that flank; the unrated puck ghosts charcoal at the centre
-        // of its own line, never at an end. Vertical travel never
-        // unrates, not even into aversion.
+        // appetite on the app's own interest scale (zi). Drag a puck
+        // off either end of the line and release to unrate that flank
+        // — the unrate is implied by the action, not spelled out: there
+        // are no "off" labels and no faded run-off extensions at the
+        // ends (2026-11-25). The unrated puck ghosts charcoal at the
+        // centre of its own line, never at an end. Vertical travel
+        // never unrates, not even into aversion.
         //
         // Scale note: the app stores leanings signed (-100..+100) and
         // the line shows them as 0..100 (lean = (appLean + 100) / 2),
@@ -22327,7 +22329,7 @@ var SX_OCTAD_COLORS = ["#22c55e", "#10b981", "#06b6d4", "#3b82f6", "#6366f1", "#
             var onRelease = opts.onRelease || function () {};
             var label = opts.label || (dir.charAt(0).toUpperCase() + dir.slice(1));
             var inset = compact ? 34 : 38;
-            var runoffW = compact ? 24 : 28;
+            var overW = compact ? 24 : 28; // overshoot allowance past the track end (px) — no visible run-off is drawn; the drag past the end is what unrates.
             var root = document.createElement("div");
             root.className = "xs" + (compact ? " compact" : "");
             root.dataset.dir = dir;
@@ -22337,16 +22339,12 @@ var SX_OCTAD_COLORS = ["#22c55e", "#10b981", "#06b6d4", "#3b82f6", "#6366f1", "#
                     '<span class="xs-vals"></span>' +
                 '</div>' +
                 '<div class="xs-stage">' +
-                    '<div class="xs-runoff left" aria-hidden="true"></div>' +
-                    '<div class="xs-runoff right" aria-hidden="true"></div>' +
                     '<div class="xs-arm"><div class="rail"></div></div>' +
                     '<div class="xs-track"><div class="xs-fill"></div><div class="xs-mid"></div>' +
                         '<div class="xs-puck" tabindex="0" role="slider"></div>' +
                     '</div>' +
                     '<div class="xs-bubble"></div>' +
                     '<div class="xs-scale"><span>Lean out</span><span>Lean in</span></div>' +
-                    '<span class="xs-off-label left" aria-hidden="true">off</span>' +
-                    '<span class="xs-off-label right" aria-hidden="true">off</span>' +
                 '</div>';
             var stage = root.querySelector(".xs-stage");
             var track = root.querySelector(".xs-track");
@@ -22425,7 +22423,7 @@ var SX_OCTAD_COLORS = ["#22c55e", "#10b981", "#06b6d4", "#3b82f6", "#6366f1", "#
             }
 
             var drag = null;
-            function runPct(rect) { return (runoffW / rect.width) * 100; }
+            function overPct(rect) { return (overW / rect.width) * 100; }
             function armInner() {
                 var h = arm.clientHeight || 192;
                 return Math.max(40, h - 32);
@@ -22462,12 +22460,12 @@ var SX_OCTAD_COLORS = ["#22c55e", "#10b981", "#06b6d4", "#3b82f6", "#6366f1", "#
                 var rect = drag.rect;
                 var rawPct = ((e.clientX - rect.left) / rect.width) * 100;
                 var app = sxCrossClamp(drag.startApp + (drag.startY - e.clientY) * (200 / armInner()), -100, 100);
-                var rp = runPct(rect);
+                var rp = overPct(rect);
                 if (drag.wasUnrated) {
                     // The unrated puck rests ON the line at its centre, so
                     // a mere grab must not rate it: nothing happens until
                     // the finger has actually moved a few px. Then dragging
-                    // it anywhere along the line rates it; in the run-off
+                    // it anywhere along the line rates it; past the end
                     // it stays unrated, following the finger so the drag
                     // can be felt the whole way.
                     if (Math.abs(e.clientX - drag.startX) < 4 && Math.abs(e.clientY - drag.startY) < 4) return;
@@ -22482,11 +22480,12 @@ var SX_OCTAD_COLORS = ["#22c55e", "#10b981", "#06b6d4", "#3b82f6", "#6366f1", "#
                     return;
                 }
                 if (rawPct < 0 || rawPct > 100) {
-                    // In the run-off: preview only -- nothing is committed
+                    // Past the end: preview only -- nothing is committed
                     // until release, and dragging back on cancels it. The
-                    // puck VISIBLY travels the faded extension from the
-                    // moment it crosses the end cap, greying out
-                    // progressively the further into the run-off it goes.
+                    // puck travels past the end cap from the moment it
+                    // crosses it, greying out progressively the further
+                    // past the end it goes. No run-off is drawn; the
+                    // unrate is implied by the drag itself (2026-11-25).
                     if (!drag.offEnd) { drag.offEnd = true; root.classList.add("off-end"); }
                     var over = rawPct < 0 ? -rawPct : rawPct - 100;
                     var t = sxCrossClamp(over / rp, 0, 1);
@@ -22670,7 +22669,20 @@ var HubRenderer = {
         };
 
 var LabelRenderer = {
-            computeAnchoredOffset(routedLength, renderedW, hubR, iconR, gap, isReverse) {
+            // CENTRED LABEL (2026-11-25): the label's centre sits at the
+            // spoke's midpoint (routedLength / 2) — its position along the
+            // spoke, not its orientation, is what changed. This replaces the
+            // 2026-11-18 icon-anchored placement, which put the label's
+            // icon-side end a gap inside the icon at the far end of the
+            // spoke. The text runs hub -> icon on the forward path
+            // (text-anchor "start": the text starts at offset, so its
+            // centre is at offset + effectiveW / 2) and icon -> hub on the
+            // reverse path (text-anchor "end": the text ends at offset, so
+            // its centre is at routedLength - offset + effectiveW / 2 from
+            // the hub). The clamp bounds are unchanged: a label too wide
+            // for its spoke is held on the spoke (hub/icon clearances) and
+            // lands as close to the midpoint as it can.
+            computeCenteredOffset(routedLength, renderedW, hubR, iconR, isReverse) {
                 let offset, anchor;
                 const hubMargin = 16;
                 const leafMargin = 12;
@@ -22681,7 +22693,7 @@ var LabelRenderer = {
                     textLengthAttr = ` textLength="${availSpan.toFixed(1)}" lengthAdjust="spacingAndGlyphs"`;
                 }
                 if (isReverse) {
-                    const idealOffset = iconR + gap + effectiveW;
+                    const idealOffset = routedLength / 2 + effectiveW / 2;
                     const minOff = iconR + leafMargin + effectiveW;
                     const maxOff = routedLength - hubR - hubMargin;
                     if (minOff <= maxOff) {
@@ -22691,7 +22703,7 @@ var LabelRenderer = {
                     }
                     anchor = ' text-anchor="end"';
                 } else {
-                    const idealOffset = routedLength - iconR - gap - effectiveW;
+                    const idealOffset = routedLength / 2 - effectiveW / 2;
                     const minOff = hubR + hubMargin;
                     const maxOff = routedLength - iconR - leafMargin - effectiveW;
                     if (minOff <= maxOff) {
@@ -22702,6 +22714,20 @@ var LabelRenderer = {
                     anchor = "";
                 }
                 return { offset, anchor, textLengthAttr, effectiveW };
+            },
+            // CENTRED LABEL (2026-11-25): the branch (category) name is a
+            // plain <text>, not a textPath, so its centre is shifted
+            // instead. Its anchor point sits at (spokeLen - labelWidth +
+            // offsetE) from the spoke start; the text runs outward from
+            // the anchor on the right (text-anchor "start") and inward
+            // from it on the left (text-anchor "end"), so the centre is
+            // at that point +/- textW / 2. Returns the shift (along the
+            // spoke, positive outward) that puts the centre at the
+            // midpoint. The font size and underline length still come
+            // from offsetE unchanged — only the position moves.
+            computeCategoryCentreShift(spokeLen, labelWidth, offsetE, textW, isReverse) {
+                const centreNow = (spokeLen - labelWidth + offsetE) + (isReverse ? -textW / 2 : textW / 2);
+                return spokeLen / 2 - centreNow;
             }
         };
 
@@ -23527,7 +23553,19 @@ var LabelRenderer = {
                 // leaning aggregate. Unstored falls through to the
                 // leaning aggregate, which is the appetite derivation.
                 const sxCatGI = Rt ? null : fa(i, C, "giveIntensity"), sxCatRI = Rt ? null : fa(i, C, "receiveIntensity");
-                const j = g.labelStartX + g.ux * E, q = g.labelStartY + g.uy * E, H = Math.atan2(l.y - o.y, l.x - o.x), W = Math.cos(H) < 0, U = W ? -g.ux : g.ux, G = j + 0 * (W ? -g.uy : g.uy), K = q - 0 * U, z = 180 * (H + (W ? Math.PI : 0)) / Math.PI, V = W ? ' text-anchor="end"' : "", Y = sxIconDiameter(1), X = Y / 2, Z = Y / 24, Q = ge[i.name], J = Xa(a, yr(i)), ee = Q ? HubRenderer.renderIcon(dCat, Y, Q, Sa(dCat, qn[dCat], C, { tapFirst: !0 }), sxCatDisc ? sxCatDisc.ring : sxCatHeat || Q.color, J.x, J.y, true, false, null, sxCatDisc) : "", te = k(dCat, M, !Rt && qa(dCat, Je), !Rt && qa(dCat, et), !Rt && Boolean(tt[C]?.[dCat]?.length), J, g.ux, g.uy), ne = j - 11 * g.ux, ie = q - 11 * g.uy, ae = i.risk ? `<text class="risk-mark" x="${ne.toFixed(2)}" y="${ie.toFixed(2)}" dy="-8" text-anchor="middle" transform="rotate(${z.toFixed(2)} ${ne.toFixed(2)} ${ie.toFixed(2)})" aria-hidden="true">*</text>` : "", re = r ? h.hidden : n.topics.length, oe = X + 20, se = HubRenderer.renderBadges(J.x, J.y, re, dCat, -g.ux, -g.uy, oe, true), le = r ? function(e, t, n, i, a, r) {
+                // CENTRED LABEL (2026-11-25): shift the category name so
+                // its centre sits at the spoke's midpoint (half the
+                // spoke's length from the branch node to the category
+                // icon). The anchor point today is at (spokeLen -
+                // labelWidth + E), its centre at that point +/- the
+                // text half-width (plus on the right, minus on the left,
+                // where the text ends at the anchor). The shift moves
+                // the text, its risk mark and its underline together;
+                // the font size and underline length still come from E
+                // unchanged. (Math.cos(a) is the same test as the W
+                // below: the spoke runs at the branch angle a.)
+                const catSpokeLen = s - ea.lineStartRadius, catCentreShift = LabelRenderer.computeCategoryCentreShift(catSpokeLen, g.labelWidth, E, catTextW, Math.cos(a) < 0);
+                const j = g.labelStartX + g.ux * E + g.ux * catCentreShift, q = g.labelStartY + g.uy * E + g.uy * catCentreShift, H = Math.atan2(l.y - o.y, l.x - o.x), W = Math.cos(H) < 0, U = W ? -g.ux : g.ux, G = j + 0 * (W ? -g.uy : g.uy), K = q - 0 * U, z = 180 * (H + (W ? Math.PI : 0)) / Math.PI, V = W ? ' text-anchor="end"' : "", Y = sxIconDiameter(1), X = Y / 2, Z = Y / 24, Q = ge[i.name], J = Xa(a, yr(i)), ee = Q ? HubRenderer.renderIcon(dCat, Y, Q, Sa(dCat, qn[dCat], C, { tapFirst: !0 }), sxCatDisc ? sxCatDisc.ring : sxCatHeat || Q.color, J.x, J.y, true, false, null, sxCatDisc) : "", te = k(dCat, M, !Rt && qa(dCat, Je), !Rt && qa(dCat, et), !Rt && Boolean(tt[C]?.[dCat]?.length), J, g.ux, g.uy), ne = j - 11 * g.ux, ie = q - 11 * g.uy, ae = i.risk ? `<text class="risk-mark" x="${ne.toFixed(2)}" y="${ie.toFixed(2)}" dy="-8" text-anchor="middle" transform="rotate(${z.toFixed(2)} ${ne.toFixed(2)} ${ie.toFixed(2)})" aria-hidden="true">*</text>` : "", re = r ? h.hidden : n.topics.length, oe = X + 20, se = HubRenderer.renderBadges(J.x, J.y, re, dCat, -g.ux, -g.uy, oe, true), le = r ? function(e, t, n, i, a, r) {
                     if (!n) return "";
                     const o = `+${n} more`, s = Math.max(58, 7 * o.length + 16), l = i + s / 2 * Math.abs(a) + 12 * Math.abs(r), c = t + r * l;
                     return `<g class="hidden-count-badge density-count-badge" data-width="${s}" transform="translate(${(e + a * l - s / 2).toFixed(2)} ${(c - 12).toFixed(2)})" role="note" aria-label="${n} more ${1 === n ? "topic" : "topics"} hidden by hypermap density"><rect width="${s}" height="24" rx="7"/><text x="${(s / 2).toFixed(2)}" y="12" text-anchor="middle" dominant-baseline="middle">${o}</text></g>`;
@@ -23597,19 +23635,17 @@ var LabelRenderer = {
                         textW2 = Za.measure(a, fs2, "topic");
                         renderedW2 = textW2 - 6 * Math.max(0, a.length - 1);
                     }
-                    const gap2 = Math.max(18, 6 * Za.measure(" ", fs2, "topic"));
                     let F, N;
-                    // ICON-ANCHORED LABEL (2026-11-18): the label sits
-                    // at the far end of the spoke, its icon-side end a
-                    // six-space gap inside the icon; the hub side
-                    // absorbs the slack, so labels no longer look
-                    // centred on their spokes. Rendered width =
-                    // measured width minus the halo (6 per character
-                    // gap) the render does not draw, so the gap is
-                    // measured to the glyphs actually drawn.
-                    const anchored2 = LabelRenderer.computeAnchoredOffset(y.routedLength, renderedW2, hubR2, iconR2, gap2, L);
-                    F = anchored2.offset;
-                    N = anchored2.anchor;
+                    // CENTRED LABEL (2026-11-25): the label's centre
+                    // sits at the spoke's midpoint (half the routed
+                    // length from the hub to the icon) — its position
+                    // along the spoke, not its orientation, is what
+                    // changed. Rendered width = measured width minus
+                    // the halo (6 per character gap) the render does
+                    // not draw.
+                    const centred2 = LabelRenderer.computeCenteredOffset(y.routedLength, renderedW2, hubR2, iconR2, L);
+                    F = centred2.offset;
+                    N = centred2.anchor;
                     const sxRevPath = L ? `<path id="pr-${r}" class="concept-path" d="${y.reverseD}" fill="none" stroke="transparent"/>` : "", O = o || Rt ? null : Qe[D]?.[r], B = o ? Ae(a, i.name) : Oe(a, i.name), j = o || Rt ? null : ca(r, D), q = o && !Rt ? ya(n.group, D, "give", r) : null, H = o && !Rt ? ya(n.group, D, "receive", r) : null;
                     const shape2 = Ge(r, D);
                     const isTriple2 = Boolean(shape2 && shape2.keys && shape2.keys.length === 3);
@@ -23630,7 +23666,7 @@ var LabelRenderer = {
                     const V = y.icon.x, Y = y.icon.y, X = n.allImported, Z = n.topicFilter, J = on.has(r), ee = o ? Sa(r, qn[r], D, { tapFirst: !0 }) : ka(a, $e(qn[r], B, R, {
                         key: B.hankyKey
                     }, O), xa(r, D), { tapFirst: !0 }), te = sxIconDiameter(2), ne = te / 2, ie = te / 6, ae = te / 24, re = HubRenderer.renderIcon(r, te, B, ee, sxIconInterest ? sxIconInterest.ring : B.color, V, Y, false, o, getPartyHoldings(r), sxIconInterest), oe = o ? "" : k(r, O, !Rt && qa(r, Je), !Rt && qa(r, et), !Rt && Boolean(tt[D]?.[r]?.length), y.icon, y.ux, y.uy), se = J ? Z.hidden : X.length || (o ? n.group.topics.length : 0), /* HUB-BACKBONE badge: a wholly-unrated collapsed hub wears +N with N = its TOTAL topic count (owner ruling 2026-10-23); expanded and partially-rated hubs keep today's counts; plain topics unchanged */ le = HubRenderer.renderBadges(y.icon.x, y.icon.y, se, r, y.ux, y.uy, ne + 20), ce = X.length ? ` aria-expanded="${J}"` : "", de = X.length ? `${J ? "Topics shown" : "Topics hidden"}; press Enter to ${J ? "collapse" : "expand"}. ` : "", sxFl = isPseudo ? sxGetPseudoSpokeColors(r, B ? B.lineColor : null) : (sxPairTapers ? sxPairTapers(r) : null), sxPlC2 = sxFl ? null : sxPlacementFlankColors(j), sxPlS2 = sxFl ? null : sxSubPlacementFlankColors(o ? n.group : null, D, r), peTr = Ga.trimToIcons(l.x, l.y, V, Y, sxIconRadius(1), sxIconRadius(2)), peT = `M ${peTr.sx0.toFixed(2)} ${peTr.sy0.toFixed(2)} L ${peTr.sx1.toFixed(2)} ${peTr.sy1.toFixed(2)}`, ue = o ? renderKinkLine(l.x, l.y, V, Y, B.hankyKey, Rt ? "var(--green)" : null != R ? zi(R) : Te(B.lineColor), sxFl ? sxFl.give : sxPlS2 ? sxPlS2.give : Rt || null !== q ? K : null, sxFl ? sxFl.receive : sxPlS2 ? sxPlS2.receive : Rt || null !== H ? z : null, sxFl ? !0 : null !== R, t.cloudCount, r, a, D, pr.categoryIcon, pr.subcategoryIcon, sxIconDiameter(1), sxIconDiameter(2), 2) : renderKinkLine(l.x, l.y, V, Y, B.hankyKey, Rt ? "var(--green)" : (sxFl && sxFl.mid ? sxFl.mid : midColor2), sxFl ? sxFl.give : sxPlC2 ? sxPlC2.give : Rt || (isTriple2 ? j && j[shape2.keys[0] + "Known"] : j && j.giveKnown) ? K : null, sxFl ? sxFl.receive : sxPlC2 ? sxPlC2.receive : Rt || (isTriple2 ? j && j[shape2.keys[2] + "Known"] : j && j.receiveKnown) ? z : null, sxFl ? !0 : null !== R, t.cloudCount, r, a, D, pr.categoryIcon, 48, sxIconDiameter(1), sxIconDiameter(2), 2), pe = o ? "" : `<g class="second-gen-rating-controls-only">${SpokeRenderer.renderTopicSpoke(r, peT, a, y.nx, y.ny, l.x, l.y, V, Y, true, pr.topicIcon, G, true, "", null, null, null, false, true, h.length, null, sxIconDiameter(2), 2)}</g>`, he = o ? "map-label concept-path-label subcategory-label" : "map-label concept-path-label hanky-topic-label", ge = o ? `${Hi(a)} subcategory. ${de}` : `${Hi(a)}. ${de}Press Shift Enter for description and markers.`;
-                    v += `<g class="${E.join(" ")}" data-layout-key="${r}" data-layout-x="${V.toFixed(2)}" data-layout-y="${Y.toFixed(2)}" data-has-visible-children="${t.children.length ? "true" : "false"}" data-hanky-color="${B.hankyKey}" data-rated="${null === R && !(o && !Rt && (null !== ya(n.group, D, "advocacyIntensity", r) || null !== ya(n.group, D, "receptivityIntensity", r) || null !== ya(n.group, D, "givePlacementIntensity", r) || null !== ya(n.group, D, "receivePlacementIntensity", r) || null !== ya(n.group, D, "intensity", r))) ? "false" : "true"}" style="--profile-color:${f};--family-color:${o ? Q.color : B.color};--hanky-color:${B.labelColor};--hanky-label-stroke:${B.labelStroke}">${ue}${pe}${re}${oe}${le}<path id="p-${r}" class="concept-path" d="${w}" fill="none" stroke="transparent"/>${sxRevPath}<text class="${he}" data-topic-id="${r}" data-id="${r}" data-path-id="p-${r}" data-label-offset="${F.toFixed(2)}" ${Sa(r, qn[r], D)} tabindex="0" role="button"${ce} aria-label="${ge}" style="font-size:${fs2.toFixed(2)}px" dominant-baseline="middle" xml:space="preserve"><textPath href="#${T}" xlink:href="#${T}" startOffset="${F.toFixed(2)}"${N}${anchored2.textLengthAttr}>${Hi(a)}</textPath></text></g>`,
+                    v += `<g class="${E.join(" ")}" data-layout-key="${r}" data-layout-x="${V.toFixed(2)}" data-layout-y="${Y.toFixed(2)}" data-has-visible-children="${t.children.length ? "true" : "false"}" data-hanky-color="${B.hankyKey}" data-rated="${null === R && !(o && !Rt && (null !== ya(n.group, D, "advocacyIntensity", r) || null !== ya(n.group, D, "receptivityIntensity", r) || null !== ya(n.group, D, "givePlacementIntensity", r) || null !== ya(n.group, D, "receivePlacementIntensity", r) || null !== ya(n.group, D, "intensity", r))) ? "false" : "true"}" style="--profile-color:${f};--family-color:${o ? Q.color : B.color};--hanky-color:${B.labelColor};--hanky-label-stroke:${B.labelStroke}">${ue}${pe}${re}${oe}${le}<path id="p-${r}" class="concept-path" d="${w}" fill="none" stroke="transparent"/>${sxRevPath}<text class="${he}" data-topic-id="${r}" data-id="${r}" data-path-id="p-${r}" data-label-offset="${F.toFixed(2)}" ${Sa(r, qn[r], D)} tabindex="0" role="button"${ce} aria-label="${ge}" style="font-size:${fs2.toFixed(2)}px" dominant-baseline="middle" xml:space="preserve"><textPath href="#${T}" xlink:href="#${T}" startOffset="${F.toFixed(2)}"${N}${centred2.textLengthAttr}>${Hi(a)}</textPath></text></g>`,
                     t.children.forEach(e => {
                         window.__sxNodeTick && window.__sxNodeTick();
                         // Per-kink length override for subcategory
@@ -23694,14 +23730,13 @@ var LabelRenderer = {
                             textW3 = Za.measure(n.label, fs3, "topic");
                             renderedW3 = textW3 - 6 * Math.max(0, n.label.length - 1);
                         }
-                        const gap3 = Math.max(16, 6 * Za.measure(" ", fs3, "topic"));
                         let m, y;
-                        // ICON-ANCHORED LABEL (2026-11-18): same as the
-                        // cloud-topics loop above - far end of the spoke,
-                        // six-space gap inside the icon, rendered width.
-                        const anchored3 = LabelRenderer.computeAnchoredOffset(p.routedLength, renderedW3, hubR3, iconR3, gap3, h);
-                        m = anchored3.offset;
-                        y = anchored3.anchor;
+                        // CENTRED LABEL (2026-11-25): same as the
+                        // cloud-topics loop above — the label's centre
+                        // sits at the spoke's midpoint.
+                        const centred3 = LabelRenderer.computeCenteredOffset(p.routedLength, renderedW3, hubR3, iconR3, h);
+                        m = centred3.offset;
+                        y = centred3.anchor;
                         const b = h ? `<path id="pr-${n.id}" class="concept-path" d="${p.reverseD}" fill="none" stroke="transparent"/>` : "", w = Rt ? null : ua(n.id, D), x = Rt ? null : Qe[D]?.[n.id], S = Rt ? null : ca(n.id, D), $ = Le(n.label, i.name);
                         const shape3 = Ge(n.id, D);
                         const isTriple3 = Boolean(shape3 && shape3.keys && shape3.keys.length === 3);
@@ -23728,7 +23763,7 @@ var LabelRenderer = {
                         const sxIconInterest3 = !Rt && !isPseudo && !sxPairTapers && !getPartyHoldings(n.id) ? sxDiscFor(S, shape3) : null;
                         const q = HubRenderer.renderIcon(n.id, T, L, ka(n.label, $e(n, L, w, $, x), xa(n.id, D), { tapFirst: !0 }), sxIconInterest3 ? sxIconInterest3.ring : L.color, N, _, false, false, getPartyHoldings(n.id), sxIconInterest3);
                         const H = k(n.id, x, !Rt && qa(n.id, Je), !Rt && qa(n.id, et), !Rt && Boolean(tt[D]?.[n.id]?.length), p.icon, p.ux, p.uy), sxFl = isPseudo ? sxGetPseudoSpokeColors(n.id, $.lineColor) : (sxPairTapers ? sxPairTapers(n.id) : null), sxPlC3 = sxFl ? null : sxPlacementFlankColors(S), pTr = Ga.trimToIcons(V, Y, o ? N : l.x, o ? _ : l.y, sxIconRadius(2), sxIconRadius(3)), pT = `M ${pTr.sx0.toFixed(2)} ${pTr.sy0.toFixed(2)} L ${pTr.sx1.toFixed(2)} ${pTr.sy1.toFixed(2)}`, W = o ? renderKinkLine(V, Y, N, _, $.key, sxFl && sxFl.mid ? sxFl.mid : midColor3, sxFl ? sxFl.give : sxPlC3 ? sxPlC3.give : Rt || (isTriple3 ? S && S[shape3.keys[0] + "Known"] : S && S.giveKnown) ? M : null, sxFl ? sxFl.receive : sxPlC3 ? sxPlC3.receive : Rt || (isTriple3 ? S && S[shape3.keys[2] + "Known"] : S && S.receiveKnown) ? I : null, sxFl ? !0 : null !== w, e.cloudCount, n.id, n.label, D, pr.subcategoryIcon, 48, sxIconDiameter(2), sxIconDiameter(3), 3) : "", U = o ? `<g class="second-gen-rating-controls-only">${SpokeRenderer.renderTopicSpoke(n.id, pT, n.label, p.nx, p.ny, V, Y, N, _, true, pr.topicIcon, P, true, "", null, null, null, false, true, h.length, null, sxIconDiameter(3), 3)}</g>` : SpokeRenderer.renderTopicSpoke(n.id, pT, n.label, p.nx, p.ny, V, Y, l.x, l.y, false, pr.importedIcon, P, true, null === w && "noCode" === $.key ? "no-hanky-code-line" : "", null, null, $.lineColor, "noCode" === $.key, null !== w, h.length, SpokeGeometry.buildBaseCircle(V, Y, sxIconRadius(2)), sxIconDiameter(3), 3), G = o ? `${Hi(n.label)} in ${Hi(a)}. Press Shift Enter for description and markers.` : `${Hi(n.label)}, imported under ${Hi(a)}.${Hi(j)} Press Shift Enter for description and markers.`;
-                        v += `<g class="${O.join(" ")}" data-layout-key="${n.id}" data-layout-x="${N.toFixed(2)}" data-layout-y="${_.toFixed(2)}" data-rated="${null === w && !(S && (S.advocacyIntensityKnown || S.receptivityIntensityKnown || S.givePlacementIntensityKnown || S.receivePlacementIntensityKnown || S.intensityKnown || S.polesKnown || S.lineKnown)) ? "false" : "true"}" style="--profile-color:${f};--family-color:${Q.color}">${W}${U}${q}${H}<path id="p-${n.id}" class="concept-path" d="${p.labelD}" fill="none" stroke="transparent"/>${b}<text class="map-label concept-path-label${o ? " hanky-topic-label" : ""}" data-topic-id="${n.id}" data-id="${n.id}" data-path-id="p-${n.id}" data-label-offset="${m.toFixed(2)}" ${Sa(n.id, n, D)} tabindex="0" role="button" aria-label="${G}" style="font-size:${fs3.toFixed(2)}px" dominant-baseline="middle" xml:space="preserve"><textPath href="#${g}" xlink:href="#${g}" startOffset="${m.toFixed(2)}"${y}${anchored3.textLengthAttr}>${Hi(n.label)}</textPath></text></g>`;
+                        v += `<g class="${O.join(" ")}" data-layout-key="${n.id}" data-layout-x="${N.toFixed(2)}" data-layout-y="${_.toFixed(2)}" data-rated="${null === w && !(S && (S.advocacyIntensityKnown || S.receptivityIntensityKnown || S.givePlacementIntensityKnown || S.receivePlacementIntensityKnown || S.intensityKnown || S.polesKnown || S.lineKnown)) ? "false" : "true"}" style="--profile-color:${f};--family-color:${Q.color}">${W}${U}${q}${H}<path id="p-${n.id}" class="concept-path" d="${p.labelD}" fill="none" stroke="transparent"/>${b}<text class="map-label concept-path-label${o ? " hanky-topic-label" : ""}" data-topic-id="${n.id}" data-id="${n.id}" data-path-id="p-${n.id}" data-label-offset="${m.toFixed(2)}" ${Sa(n.id, n, D)} tabindex="0" role="button" aria-label="${G}" style="font-size:${fs3.toFixed(2)}px" dominant-baseline="middle" xml:space="preserve"><textPath href="#${g}" xlink:href="#${g}" startOffset="${m.toFixed(2)}"${y}${centred3.textLengthAttr}>${Hi(n.label)}</textPath></text></g>`;
                     });
                 }
             }
@@ -27957,6 +27992,11 @@ var Fs = (() => {
             };
         })();
 var Ns = null, _s = null, Ds = null, Rs = null, Os = 0, sxOutlineLastEl = null, sxOutlineLastTime = 0, sxOutlineLastX = 0, sxOutlineLastY = 0;
+        // Double-click opens the placard (2026-11-25): the single-click
+        // toggle below is deferred briefly so a double-click can claim
+        // the gesture for the placard instead of flickering the
+        // expand/collapse first.
+var sxOutlineClickTimer = 0, sxOutlineClickTarget = null;
         /* Canvas pole-label hover hook (widget approachability): a canvas
            has no DOM node per pole, so the paint module calls this with
            the canvas as anchor, the pole's full label as name, and its
@@ -28027,6 +28067,39 @@ var Bs = window.matchMedia ? window.matchMedia("(hover: hover)") : {
             return e.setAttribute("aria-expanded", String(i)), $s(Ro, n).forEach(e => {
                 e.hidden = !i;
             }), !0;
+        }
+        // Single-click on a topic label (2026-11-25): the toggle the row
+        // click handler used to do at once — close the open description,
+        // or expand/collapse a parent topic. The branch (close vs.
+        // expand) is captured at click time, so a state change inside
+        // the defer window cannot flip it.
+        function sxOutlineDescClickToggle(n, isClose) {
+            if (isClose) { Rs = null; window.clearTimeout(Os); }
+            else if (__sxClosestAction(n, "summaryAncestor")) { js(); }
+            else { Vs(n); }
+        }
+        function sxOutlineDescClickWillToggle(n) {
+            if (Rs === n) return true;
+            if (__sxClosestAction(n, "summaryAncestor")) return false;
+            return "true" === n.dataset.outlineExpandable && !!getOutlineRow(n)?.dataset.outlineId;
+        }
+        // Double-click on a Hot List row opens the topic placard
+        // (2026-11-25). Interactive controls keep their own gestures
+        // (fader drag, mark and note buttons), so a double-click there
+        // does not open the placard.
+        function sxOutlineRowDblclick(e) {
+            if (!(e.target instanceof Element)) return false;
+            if (e.target.closest(".outline-rating-group, input, button, textarea, select")) return false;
+            const row = __sxClosestAction(e.target, "outlineRow");
+            if (!row || !row.dataset.outlineId) return false;
+            if (sxOutlineClickTimer) { window.clearTimeout(sxOutlineClickTimer); sxOutlineClickTimer = 0; sxOutlineClickTarget = null; }
+            js();
+            if (Rs && row.contains(Rs)) { Rs = null; window.clearTimeout(Os); }
+            if (typeof xo !== "function") return false;
+            e.preventDefault(), e.stopPropagation();
+            const r = row.getBoundingClientRect();
+            xo(row.dataset.outlineId, r.left + r.width / 2, r.bottom + 8);
+            return true;
         }
         // Appetite arm for the inline row sliders (2026-11-25): the
         // map-inline fader is a true cross slider in fader dress, so
@@ -28253,8 +28326,15 @@ var Bs = window.matchMedia ? window.matchMedia("(hover: hover)") : {
             t && Rs === t && (e.preventDefault(), e.stopPropagation());
         }, !0), Ro.addEventListener("click", e => {
             const n = __sxClosestAction(e.target, "outlineDescTriggerRich");
-            if (n) return Rs === n ? (Rs = null, t.clear(Os), e.preventDefault(), void e.stopPropagation()) : void (__sxClosestAction(n, "summaryAncestor") ? js() : Vs(n) && (e.preventDefault(), 
-            e.stopPropagation()));
+            if (!n) return;
+            if (!sxOutlineDescClickWillToggle(n)) { sxOutlineDescClickToggle(n, false); return; }
+            e.preventDefault(), e.stopPropagation();
+            const isClose = (Rs === n);
+            window.clearTimeout(sxOutlineClickTimer), sxOutlineClickTarget = n, sxOutlineClickTimer = window.setTimeout(() => {
+                sxOutlineClickTimer = 0, sxOutlineClickTarget = null, sxOutlineDescClickToggle(n, isClose);
+            }, 280);
+        }), Ro.addEventListener("dblclick", e => {
+            sxOutlineRowDblclick(e);
         }), Ro.addEventListener("keydown", e => {
             const t = __sxClosestAction(e.target, "outlineBranchDisclosure");
             if (t && ("Enter" === e.key || " " === e.key)) {
