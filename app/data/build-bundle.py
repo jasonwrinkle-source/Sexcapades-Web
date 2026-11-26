@@ -185,7 +185,11 @@ for ph in [patches_hosted_alt, patches_qa]:
         shutil.copyfile(patches_src, ph)
         print(f"[Bundle] Synced patches.js to {ph}")
 
-# Sync app.css to the served copy in hosted/app-assets/app.css.
+# Build app.css from app/css/components/*.css and sync to served copies.
+css_builder = os.path.join(base_dir, "../../packaging-scripts/build-css.py")
+if os.path.isfile(css_builder):
+    subprocess.run([sys.executable, css_builder], cwd=os.path.join(base_dir, "../.."), check=True)
+
 css_src = os.path.join(base_dir, "../css/app.css")
 for ch in [
     os.path.join(base_dir, "../../site-tree/public_html/hosted/app-assets/app.css"),
@@ -237,42 +241,11 @@ for f in shell_js:
             shutil.copyfile(src_f, dst_f)
             print(f"[Bundle] Synced {f} to {dst_dir}/")
 
-# app/html is the hand-edited app page. This writes both shells.
-# Hosted paths follow the packager rewrite. Cache keys are stamped
-# on the staging copy at package time, not preserved here.
+# app/html is the hand-edited app page. build-html.py writes both shells
+# and syncs companion pages/assets (gate, guide, quickstart, flyer).
 html_builder = os.path.join(base_dir, "../../packaging-scripts/build-html.py")
 if os.path.isfile(html_builder):
     subprocess.run([sys.executable, html_builder], cwd=os.path.join(base_dir, "../.."), check=True)
-
-# Unify app/gate.html, app/guide.html, app/quickstart.html, and app/flyer.html with site-tree/public_html/hosted/
-for page_name, assets_sub in [("gate.html", "gate-assets"), ("guide.html", "guide-assets"), ("quickstart.html", "quickstart-assets"), ("flyer.html", None)]:
-    hosted_html = os.path.join(base_dir, "../../site-tree/public_html/hosted", page_name)
-    app_html = os.path.join(base_dir, "..", page_name)
-    if assets_sub:
-        hosted_assets = os.path.join(base_dir, "../../site-tree/public_html/hosted", assets_sub)
-        app_assets = os.path.join(base_dir, "..", assets_sub)
-        if os.path.exists(hosted_assets):
-            os.makedirs(app_assets, exist_ok=True)
-            for gf in os.listdir(hosted_assets):
-                if not gf.endswith((".css", ".js", ".json")):
-                    continue
-                src_gf = os.path.join(hosted_assets, gf)
-                dst_gf = os.path.join(app_assets, gf)
-                if os.path.isfile(src_gf):
-                    shutil.copyfile(src_gf, dst_gf)
-            print(f"[Bundle] Synced {assets_sub}/ (.css/.js) to app/{assets_sub}/")
-    if os.path.exists(hosted_html):
-        phtml = open(hosted_html, encoding="utf-8").read()
-        phtml_app = re.sub(r'(\.(?:css|js))\?v=[^"\']+', r'\1', phtml)
-        phtml_app = phtml_app.replace('src="/hosted/app-assets/skin-catalog.js"', 'src="js/skin-catalog.js"')
-        phtml_app = phtml_app.replace('src="/hosted/js/docs-skin.js"', 'src="js/docs-skin.js"')
-        phtml_app = phtml_app.replace('url("/hosted/images/', 'url("images/')
-        phtml_app = phtml_app.replace('src="/hosted/images/', 'src="images/')
-        prev_ap = open(app_html, encoding="utf-8").read() if os.path.exists(app_html) else None
-        if prev_ap != phtml_app:
-            with open(app_html, "w", encoding="utf-8") as fh:
-                fh.write(phtml_app)
-            print(f"[Bundle] Unified app/{page_name} with site-tree/public_html/hosted/{page_name}")
 
 # Sync skin data files (app/data/skins/*.json) to hosted/data/skins/ and qa/data/skins/
 # so a runtime-fetched skin loads in the hosted and QA trees, not just source.

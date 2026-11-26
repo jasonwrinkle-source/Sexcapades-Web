@@ -29,14 +29,13 @@ Parts, in document order:
                        stays after those scripts. Do not reorder 09-tail
                        ahead of them.
 
-Gate and guide are separate hand files, app/gate.html and
-app/guide.html. This script writes the hosted copies. Each hosted
-copy is the hand file with one script path rewritten:
-
-    gate:  src="js/skin-catalog.js" -> src="/hosted/app-assets/skin-catalog.js"
-    guide: src="js/docs-skin.js"    -> src="/hosted/js/docs-skin.js"
+Gate, guide, quickstart, and flyer are also mirrored between app/ and
+site-tree/public_html/hosted/, along with their asset folders
+(gate-assets, guide-assets, quickstart-assets).
 """
 import os
+import re
+import shutil
 import sys
 
 PARTS = [
@@ -111,11 +110,45 @@ def rewrite_one(root, src_rel, dst_rel, old, new, label):
     write_if_changed(os.path.join(root, dst_rel), data.replace(old, new, 1))
 
 
+def sync_companion_pages(root):
+    pages = [
+        ("gate.html", "gate-assets"),
+        ("guide.html", "guide-assets"),
+        ("quickstart.html", "quickstart-assets"),
+        ("flyer.html", None),
+    ]
+    for page_name, assets_sub in pages:
+        hosted_page = os.path.join(root, "site-tree", "public_html", "hosted", page_name)
+        app_page = os.path.join(root, "app", page_name)
+        if assets_sub:
+            hosted_assets = os.path.join(root, "site-tree", "public_html", "hosted", assets_sub)
+            app_assets = os.path.join(root, "app", assets_sub)
+            if os.path.exists(hosted_assets):
+                os.makedirs(app_assets, exist_ok=True)
+                for gf in os.listdir(hosted_assets):
+                    if not gf.endswith((".css", ".js", ".json")):
+                        continue
+                    src_gf = os.path.join(hosted_assets, gf)
+                    dst_gf = os.path.join(app_assets, gf)
+                    if os.path.isfile(src_gf):
+                        shutil.copyfile(src_gf, dst_gf)
+                print(f"[html] synced {assets_sub}/ (.css/.js) to app/{assets_sub}/")
+        if page_name in ("quickstart.html", "flyer.html") and os.path.exists(hosted_page):
+            with open(hosted_page, encoding="utf-8") as fh:
+                phtml = fh.read()
+            phtml_app = re.sub(r'(\.(?:css|js))\?v=[^"\']+', r'\1', phtml)
+            phtml_app = phtml_app.replace('src="/hosted/app-assets/skin-catalog.js"', 'src="js/skin-catalog.js"')
+            phtml_app = phtml_app.replace('src="/hosted/js/docs-skin.js"', 'src="js/docs-skin.js"')
+            phtml_app = phtml_app.replace('url("/hosted/images/', 'url("images/')
+            phtml_app = phtml_app.replace('src="/hosted/images/', 'src="images/')
+            write_if_changed(app_page, phtml_app.encode("utf-8"))
+
+
 def build():
     root = root_dir()
     partial_dir = os.path.join(root, "app", "html")
     app_html = read_parts(partial_dir)
-    if b"<html" not in app_html[:400] or not app_html.rstrip().endswith(b"</div>"):
+    if b"<html" not in app_html[:400] or not (app_html.rstrip().endswith(b"</html>") or app_html.rstrip().endswith(b"</div>")):
         sys.exit("build-html: concatenated shell does not look like the app page")
     write_if_changed(os.path.join(root, "app", "sexcapades-5.0.html"), app_html)
     hosted_path = os.path.join(root, "site-tree", "public_html", "hosted", "app.html")
@@ -136,6 +169,7 @@ def build():
         b'src="/hosted/js/docs-skin.js"',
         "guide",
     )
+    sync_companion_pages(root)
     return 0
 
 
