@@ -8,10 +8,11 @@
 ## Structure
 The songbook follows a two-tier fallback chain for the Flexcapades (flex.capades.io) family. When a skin needs a song:
 1. **Skin-specific track:** Try the `per-skin/` directory for its signature song (e.g. `Poliscapades.md`).
-2. **Universal Set fallback:** Use a song from `universal-set/` (U1–U8) which applies to all maps.
+2. **Universal Set fallback:** Use a song from `universal-set/` (U0–U8) which applies to all maps.
 3. **Engine-level fallback:** The TaxoPolemics album (from v5.0).
 
 ## Universal Set (`universal-set/`)
+* U0 — Ten Questions In (The Introduction / The Entry Door)
 * U1 — What It's For (The Flagship)
 * U2 — One Engine, Many Hypermaps
 * U3 — Rate What You Hold

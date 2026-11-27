@@ -2,4 +2,4 @@
 
 For each song generation, copy the **Style Prompt** into Suno's "Style of Music" box and the **Lyrics** (including the bracketed tags) into the "Lyrics" box. Do not paste the Byline header — it is a credit line, not a lyric.
 
-If using a Universal Set song (U2-U5), use the **E1 Treatment (Extended)**. For U1, use the **U1 Anthemic Alternate**.
+If using a Universal Set song (U0, U2-U5), use the **E1 Treatment (Extended)**. For U1, use the **U1 Anthemic Alternate**.

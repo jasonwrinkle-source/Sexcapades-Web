@@ -92,7 +92,7 @@ lyrics (the count law). Re-run the parser before citing them.
 
 ---
 
-## 3. Suno ~3-Minute Cut Word-Count Audit (All 29 Active Lyric Tracks)
+## 3. Suno ~3-Minute Cut Word-Count Audit (All 30 Active Lyric Tracks)
 
 Every track sits inside the ~3-minute Suno cut window (320–450
 words of pure lyric, same method as §1), with zero markdown
@@ -100,6 +100,7 @@ formatting inside the lyrics:
 
 | Track File | Pure Lyric Word Count | Clean Lyrics (No `**` or `` ` ``)? |
 | :--- | :-: | :---: |
+| `universal-set/U0-Ten-Questions-In.md` | 401 | Yes |
 | `universal-set/U1-What-Its-For.md` | 450 | Yes |
 | `universal-set/U2-One-Engine-Many-Maps.md` | 441 | Yes |
 | `universal-set/U3-Rate-What-You-Hold.md` | 415 | Yes |

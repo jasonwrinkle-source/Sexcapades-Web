@@ -114,6 +114,29 @@ treatment in the set's `STYLE.md` (bright, plainspoken, built to be
 understood on first hearing) and give the flagship a second, anthemic
 treatment as an alternate.
 
+### U0 — "Ten Questions In" (the introduction; the entry door)
+
+**Subject: the entry door itself — what a new person does first.**
+Not a tour of the rooms and not a list of features: one person's
+story, one arc, plain words, no terms. Open on the biggest questions
+across maps — Fores (God), Polis (what you stand for, who holds the
+power), Philo (how you know), and desire (what you want) — the ones
+the broadest audience already has a stake in. Be honest about the door: a handful of
+answers, about ten ratings, before the map starts to speak — one
+rating is a dot, ten is a shape. Then carry the uses as beats in that
+one story, in order: the map speaking (a lean you can see); the shape
+you resemble — the "what am I" moment, the map pointing to an
+archetype; wandering the archetypes to find your people; the record
+written down (Scribe); the meeting laid out, hour and place (Scene
+Setter); the fault lines watched so the talk lands where it matters
+(Scene Sentinel); and a year later, answering again, the old map
+still underneath the new — the drift (palimpsest). The chorus is the
+door itself: *ten questions in, the map starts to speak.* Do not
+name the tools as products and do not use the terms (archetype,
+palimpsest, hypermap) — render them in plain words ("shape," "the
+old map's still there, underneath the new"). The song must feel like
+a story, not a catalogue wearing a chorus.
+
 ### U1 — "What It's For" (the flagship; working title)
 
 **Subject: the use cases of TaxoPolemics and flex.capades.io.** Not
@@ -322,7 +345,7 @@ format. The skins:
 
 For the Universal Set: a folder `universal-set/` with `STYLE.md` (the
 shared treatment + the flagship's alternate), one `.md` per track
-(U1–U8) holding lyrics only, each headed by title, **house byline**
+(U0–U8) holding lyrics only, each headed by title, **house byline**
 (Jason Mark Wrinkle & Yolanda Biche et al.), treatment name, and a
 one-line brief. For the skins: `per-skin/` with one `.md` per skin,
 same shape (byline on every sheet); a shared per-skin `STYLE.md` may
