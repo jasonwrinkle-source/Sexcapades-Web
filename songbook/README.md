@@ -29,7 +29,9 @@ songwriter and it produces the whole book.
 Two tiers, matching the thing itself (one engine, many maps):
 
 - **`universal-set/`** — songs true of the engine and the application
-  as a whole, sung the same way on every skin. U1 is the flagship,
+  as a whole, sung the same way on every skin. U0 "Ten Questions In"
+  is the introduction — the entry door, the smallest loop, ten
+  questions before the map speaks. U1 is the flagship,
   **"What It's For"** — the use cases of TaxoPolemics and
   flex.capades.io, one use case per verse. U2 "One Engine, Many Maps",
   U3 "Rate What You Hold", U4 "Three Operations", U5 "Bring Your Map",
