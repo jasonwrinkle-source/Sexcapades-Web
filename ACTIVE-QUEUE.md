@@ -196,7 +196,7 @@ Each item waits for Jason's kickoff; nothing here dispatches itself.
    - Sx2 Compersion (new) · Sx3 24/7 dynamic vs scene-only (new) · Sx4 Financial domination / findom (new) · Sx5 MMF threesomes (new) · Sx6 Top/bottom/side missing Versatile pole (missing pole) · Sx7 Kink motivations missing Pure pleasure pole (missing pole — possibly Play/fun too) · Sx8 Male humiliation (new — LOW confidence, the weakest gap in the skin; if it reads as a sub-case of the existing humiliation topics rather than a distinct fault line, flag it and leave it out).
    - Sx1 (BDSM archetypes missing poles: Masochist, Primal (Prey), Brat-tamer) was built in Phase 1 (it resolved misstatement M1) — do NOT rebuild it.
    - *Dependency:* build AFTER item 21 (Sex canonical archetypes) lands — the new archetypes must rate these new topics/poles — AND after Phase 1 (Sx1 poles + hovertip) lands. Do NOT fold this into item 21 and do NOT edit item 21 — Grok is already on it; this is a separate entry.
-   - *Constraint:* do NOT add a race-play topic (misstatement M2 — that needs Jason's ruling).
+   - *Constraint:* ~~do NOT add a race-play topic (misstatement M2 — that needs Jason's ruling).~~ **Jason ruled (2026-11-27) that race play is its own topic.** Added as `t0437` in Humiliation, give and receive (commit `b966b80`, 01:13 CST). Interracial Sex stays race-neutral. Its numbers were not moved, including the Cuckold's 65. The Cuckold's race-play rating is receive 35, not a copy of that 65. No deploy.
    - *Standing laws:* as item 22.
 
 ---
