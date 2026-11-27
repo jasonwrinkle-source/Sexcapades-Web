@@ -178,7 +178,7 @@ Each item waits for Jason's kickoff; nothing here dispatches itself.
    - Praxi (1): Pr1 Significance testing / p < 0.05 (new).
    - *Dependency:* build AFTER Phase 1 + Phase 2 land. *Standing laws:* as item 22.
 
-26. **Taxonomy gaps — Dance + Quest (8 gaps; Grok — queued 2026-11-26, waits for Jason's kickoff):**
+26. **~~Taxonomy gaps — Dance + Quest (8 gaps; Grok — queued 2026-11-26, waits for Jason's kickoff):~~** **DONE (2026-11-26 22:16 CST, commit `fbd0d7a`). Dance Da1, Da2, and Da4, and Quest Qe1–Qe4, as line topics: one number, first pole negative, middle zero, last pole positive. These are not stance skins, so the openness formula was not used. Da3 was not added: Eye Contact already stores one line number, and a fourth pole would change what those numbers mean. Combat share is ordered mostly / balanced / little so the line is a spectrum. Flex was not touched. Old ratings were not moved. No deploy.**
    - The job: build the 8 taxonomy gaps in these two skins. Full spec in `ARCHETYPE-GAP-ANALYSIS-2026-11-26.md` (repo root). Method: missing poles first, then new topics; rate ALL archetypes on every new topic/pole; glyphs for new topics; both JSON copies byte-identical.
    - Dance (4): Da1 Floorcraft form: ronda vs jam circle (missing dimension — the topic asks etiquette, never the form) · Da2 Costume & dress code (new) · Da3 Outward presentation gaze (missing pole) · Da4 Practice & drilling (new).
    - Quest (4): Qe1 Loot & treasure (new — the map has a Loot Goblin and never asks about loot) · Qe2 Advancement & XP (new) · Qe3 Build optimisation (new) · Qe4 Combat share of the session (new).
