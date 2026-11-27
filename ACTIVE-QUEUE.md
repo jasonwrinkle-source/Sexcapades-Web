@@ -321,6 +321,14 @@ Each item waits for Jason's kickoff; nothing here dispatches itself.
    - Scope: the Hot List sort logic in the app. Compute the fault-line scores at runtime from the loaded skin's own samples — do NOT store them in the skin JSONs (no skin data changes). No deploy (deploy is a separate step, on Jason's word).
    - *Standing laws:* as item 22. Analytics NEVER disabled.
 
+37. **Gap-analysis re-run — Quanta, Simul, Matter, Praxi (the remaining seven-skins; Jason, 2026-11-27 — queued; read-only analysis, YoBiche/coordinator):**
+   - The job: re-run the archetype gap analysis on Quanta, Simul, Matter, and Praxi AFTER items 32–35 land — the same re-run already underway for Chem/Exper/Theo (see the coordinator job dispatched 2026-11-27, report `ARCHETYPE-GAP-ANALYSIS-CHEM-EXPER-THEO-2026-11-27.md`).
+   - The question (Jason's framing): this re-run is a DIFFERENT nature from "did the old gaps close." Its primary question is: **did the Gemini research topics and archetypes OPEN new gaps?** Fault lines where the (now enriched) archetypes split that NO topic covers, and missing poles on the new topics. Secondarily, confirm whether the original gaps for these four skins (from the 2026-11-26 report) are now covered.
+   - Method: same as the first analysis (2026-11-26, coordinator 80eac781) — read archetype/sample positions from their ACTUAL ratings in the built JSONs, refer to topics by English name, receptivity by exact Fraction arithmetic, negative intensities are the convention. Gemini's research shuttle is citation source only. Read-only: no JSON writes, no pushes.
+   - Deliverable: a report saved to `~/workspace/scratch/` and to the repo root (same shape as the Chem/Exper/Theo report), stating per skin which original gaps are covered and every NEW gap the research opened (with the fault line, the archetypes on each side, and the primary citation).
+   - *Dependency:* run AFTER items 32–35 ALL land. Do NOT run it per-skin as each lands — one pass across all four, consistent with the Chem/Exper/Theo pass.
+   - *Standing laws:* as item 22. Analytics NEVER disabled.
+
 ---
 
 ## 2. Open Carry-Overs & Backlog
