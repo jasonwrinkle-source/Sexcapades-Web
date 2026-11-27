@@ -141,16 +141,22 @@ def stage_app_assets(staged_hosted_dir, src_app_html, build_num):
 
     for item in os.listdir(os.path.join(ROOT_DIR, "app", "images")):
         s = os.path.join(ROOT_DIR, "app", "images", item)
+        d = os.path.join(app_assets, "images", item)
         if os.path.isfile(s):
-            shutil.copy(s, os.path.join(app_assets, "images", item))
+            shutil.copy(s, d)
+        elif os.path.isdir(s):
+            shutil.copytree(s, d, dirs_exist_ok=True)
 
     # Also sync hosted/images/
     hosted_images = os.path.join(staged_hosted_dir, "images")
     os.makedirs(hosted_images, exist_ok=True)
     for item in os.listdir(os.path.join(ROOT_DIR, "app", "images")):
         s = os.path.join(ROOT_DIR, "app", "images", item)
+        d = os.path.join(hosted_images, item)
         if os.path.isfile(s):
-            shutil.copy(s, os.path.join(hosted_images, item))
+            shutil.copy(s, d)
+        elif os.path.isdir(s):
+            shutil.copytree(s, d, dirs_exist_ok=True)
 
     # Bundle app.js
     bundle_parts = ["view-nav.js", "layout-editor.js", "patches.js", "scene-sentinel.js"]
