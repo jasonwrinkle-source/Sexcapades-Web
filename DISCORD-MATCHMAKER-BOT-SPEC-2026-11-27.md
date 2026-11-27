@@ -34,11 +34,13 @@ This is the part the whole design hangs on. The earlier "no storage" idea is sup
 
 - **`/wave`** (slash command). You attach or paste your profile — the export the app produces, or the sync-card link — and name the skin. The bot checks it parses as a real profile for that skin, then stores it. If you wave again, it replaces your old one for that skin. One stored profile per person per skin.
 - **`#wave-your-profile` channel.** The bot watches it. When someone posts a profile link or file there, the bot offers to store it (or stores it and confirms). Posting in that channel is waving.
-- **Format to confirm before building:** the exact profile payload the app exports (the JSON the sync card carries). The bot must read that format. If the app's export changes, the bot's reader changes with it.
+- **Wave format: SVGZ (the app's compressed SVG export).** The person waves the `.svgz` file the app exports — it carries the profile data inside `<metadata><sexcapades-profile>`, gzipped. Discord treats an SVGZ as a file attachment, not an image, so it stores it byte-for-byte: no re-encoding, no metadata stripping, no resize. The bot downloads the attachment, gunzips it, parses the SVG, and reads the profile from the `<sexcapades-profile>` element. The app already exports and re-imports this format (it detects SVGZ by the `.svgz` extension or the gzip magic bytes `0x1F 0x8B`), so no new export work is needed.
+- **PNG is best-effort, not reliable.** The app's PNG export embeds the profile in a `zTXt`/`iTXt` text chunk (keyword `Sexcapades`). Discord inspects, converts, and resizes images it renders inline, and a re-encode drops ancillary chunks like `zTXt`/`iTXt` — so a PNG waved into Discord may arrive with its data stripped. The behaviour is undocumented and varies by client and upload route, so the bot can't rely on it. If a waved PNG has no readable data chunk, the bot says so and asks the person to re-wave as SVGZ. The failure mode to avoid is silent: a person who thinks they waved their profile, but the bot couldn't read it.
+- **Sync-card QR as a fallback.** The QR sync card carries the profile payload too; the bot reads it if that's what's waved.
 
 ## 4. Commands
 
-- **`/wave`** — store or update your profile for a skin. (See §3.)
+- **`/wave`** — store or update your profile for a skin. Attach the app's `.svgz` export (preferred — see §3). PNG and sync-card links accepted as fallbacks. (See §3.)
 - **`/unwave`** — delete your stored profile. Immediate, complete, confirmed back to you.
 - **`/matches`** — open to all, tiered by output. The bot computes your matches against the whole pool either way. **Paid tier (Capade Compadre and up):** your top matches with topics — who, and what you most share (Cross) or most disagree on (Circle Minus). **Free tier:** just the NUMBER of matches — "you have N matches" — with an upgrade nudge to see who they are. A teaser, not the matches themselves. Delivered as a DM (or an ephemeral reply only you see).
 - **`/matchnotifications`** (name TBD) — toggles your match notifications on/off. **Default ON.** When someone's match list includes you, you get a shoulder tap ("someone matched with you") unless you've turned it off. Turn it off if you start getting a lot. The default is provisional — if the idea takes off and notifications get frequent, the default may change (likely to off / opt-in).
@@ -79,11 +81,11 @@ This is the part the whole design hangs on. The earlier "no storage" idea is sup
 - **Tier model (Jason, 2026-11-27 ~08:23):** free to wave, matches for Compadres and up. `/matches` is open to all but tiered by output — paid gets matches + topics, free gets the count. `/matchnotifications` defaults ON for free users, toggleable off, default provisional (may change if the idea takes off).
 - **Sequencing (Jason, 2026-11-27 ~08:23):** the bot is NOT built until there's a critical mass of people waving profiles by hand in #wave-your-profile. Manual sharing validates the demand and seeds the pool. No threshold set for "a good number."
 - **Indaba is about the typical member (Jason, 2026-11-27 ~08:18):** the group / Circle Minus score reflects the typical member (the median), not the full range or the most passionate voice. See §5.
+- **Wave format — SVGZ (Jason, 2026-11-27 ~08:38).** The bot reads the app's `.svgz` export (profile data in `<metadata><sexcapades-profile>`). Discord stores SVGZ as a file attachment byte-for-byte, while it may strip a PNG's `zTXt`/`iTXt` data chunk when re-encoding an inline image. PNG is best-effort only; the sync-card QR is a fallback. See §3.
 
 ## 9. Open decisions for Jason
 
 1. **Which skins first?** All 22 at once, or start with a few (Fores and Polis were named as the strongest entry maps; Sexcapades is the one with the 18+ handling)?
 2. **Match results by DM or in a channel?** `/matches` as a DM is private; in a channel it's social. (Default in this spec: DM.)
-3. **The exact profile export format.** The bot must read what the app exports. Confirm the format before building — if the app's export is a QR sync card, the bot needs the payload behind it.
-4. **Repo location for the bot code.** A small separate repo, or a folder in Sexcapades-Web?
-5. **Who builds it?** Grok/Cursor lane (they hold the edit saddle), or YoBiche on your direct order?
+3. **Repo location for the bot code.** A small separate repo, or a folder in Sexcapades-Web?
+4. **Who builds it?** Grok/Cursor lane (they hold the edit saddle), or YoBiche on your direct order?
