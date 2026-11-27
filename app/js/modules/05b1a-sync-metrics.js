@@ -7,7 +7,8 @@
             return structuredClone(e || {});
         }
         function sxNormalizeRating(e, t) {
-            const n = (e.ratings || {})[t];
+            const topicId = t;
+            const n = (e.ratings || {})[topicId];
             if ("number" == typeof n) return {
                 give: n,
                 receive: n,
@@ -40,44 +41,84 @@
                     receptivity: null,
                     receptivityKnown: !1
                 };
+                const shape = typeof sxWidgetConfig === "function" ? sxWidgetConfig(topicId) : null;
+                const isLineWidget = Boolean(shape && shape.widget === "trilinear-line");
+                const isSingleWidget = Boolean(shape && shape.single);
                 if (hasAdv || hasRec) {
                     const advObj = hasAdv ? n.advocacy : null;
                     const recObj = hasRec ? n.receptivity : null;
                     const advPoles = advObj ? {} : null;
                     if (advObj) {
                         Object.keys(advObj).forEach(k => {
-                            if (k !== "intensity" && Number.isFinite(Number(advObj[k]))) advPoles[k] = Number(advObj[k]);
+                            if (k !== "intensity" && k !== "line" && k !== "known" && Number.isFinite(Number(advObj[k]))) advPoles[k] = Number(advObj[k]);
                         });
                     }
                     const recPoles = recObj ? {} : null;
                     if (recObj) {
                         Object.keys(recObj).forEach(k => {
-                            if (k !== "intensity" && Number.isFinite(Number(recObj[k]))) recPoles[k] = Number(recObj[k]);
+                            if (k !== "intensity" && k !== "line" && k !== "known" && Number.isFinite(Number(recObj[k]))) recPoles[k] = Number(recObj[k]);
                         });
                     }
                     const advInt = (advObj && Number.isFinite(Number(advObj.intensity))) ? Number(advObj.intensity) : null;
                     const recInt = (recObj && Number.isFinite(Number(recObj.intensity))) ? Number(recObj.intensity) : null;
-                    r.poles = advPoles && Object.keys(advPoles).length ? advPoles : null;
-                    r.polesKnown = Boolean(r.poles);
+                    const advLine = advObj
+                        ? (typeof sxDeriveTrilinearLine === "function"
+                            ? sxDeriveTrilinearLine(topicId, advObj, shape)
+                            : (Object.prototype.hasOwnProperty.call(advObj, "line") && Number.isFinite(Number(advObj.line)) ? Number(advObj.line) : null))
+                        : null;
+                    const recLine = recObj
+                        ? (typeof sxDeriveTrilinearLine === "function"
+                            ? sxDeriveTrilinearLine(topicId, recObj, shape)
+                            : (Object.prototype.hasOwnProperty.call(recObj, "line") && Number.isFinite(Number(recObj.line)) ? Number(recObj.line) : null))
+                        : null;
+                    const flatLine = !hasAdv && Object.prototype.hasOwnProperty.call(n, "line") && Number.isFinite(Number(n.line)) ? Number(n.line) : null;
                     r.intensity = advInt;
                     r.intensityKnown = advInt != null;
-                    if (hasAdv && Object.prototype.hasOwnProperty.call(n.advocacy, "line") && Number.isFinite(Number(n.advocacy.line))) {
-                        r.line = Number(n.advocacy.line);
-                        r.lineKnown = !0;
-                    } else if (!hasAdv && Object.prototype.hasOwnProperty.call(n, "line") && Number.isFinite(Number(n.line))) {
-                        r.line = Number(n.line);
-                        r.lineKnown = !0;
+                    if (advLine != null || flatLine != null || isLineWidget) {
+                        const effLine = advLine != null ? advLine : flatLine;
+                        if (effLine != null) {
+                            r.line = effLine;
+                            r.lineKnown = !0;
+                        }
+                        r.poles = null;
+                        r.polesKnown = !1;
+                    } else if (isSingleWidget) {
+                        let sv = null;
+                        if (advObj) {
+                            if (Object.prototype.hasOwnProperty.call(advObj, "give") && Number.isFinite(Number(advObj.give))) sv = Number(advObj.give);
+                            else {
+                                const pks = ((shape && shape.poleKeys) || []).concat(Object.keys(advPoles || {}));
+                                const fk = pks.find(k => advPoles && Object.prototype.hasOwnProperty.call(advPoles, k));
+                                if (fk !== void 0) sv = advPoles[fk];
+                                else if (advInt != null) sv = advInt;
+                            }
+                        }
+                        if (sv != null) {
+                            r.give = sv;
+                            r.receive = sv;
+                            r.giveKnown = !0;
+                            r.receiveKnown = !0;
+                        }
+                        r.poles = null;
+                        r.polesKnown = !1;
+                    } else {
+                        r.poles = advPoles && Object.keys(advPoles).length ? advPoles : null;
+                        r.polesKnown = Boolean(r.poles);
                     }
-                    r.advocacy = advObj ? { poles: advPoles, intensity: advInt, intensityKnown: advInt != null } : null;
+                    r.advocacy = advObj ? { poles: advPoles, line: advLine, lineKnown: advLine != null, intensity: advInt, intensityKnown: advInt != null } : null;
                     r.advocacyKnown = hasAdv;
-                    r.receptivity = recObj ? { poles: recPoles, intensity: recInt, intensityKnown: recInt != null } : null;
+                    r.receptivity = recObj ? { poles: recPoles, line: recLine, lineKnown: recLine != null, intensity: recInt, intensityKnown: recInt != null } : null;
                     r.receptivityKnown = hasRec;
                     return r;
                 }
-                // Line topic (trilinear-line): one scalar under "line".
-                // The converter derives it at load, so the store holds it.
-                if (Object.prototype.hasOwnProperty.call(n, "line") && Number.isFinite(Number(n.line))) {
-                    r.line = Number(n.line);
+                // Line topic (trilinear-line): one scalar under "line", or
+                // derived from 3-pole affinities when a skin payload holds
+                // raw pole scores without a pre-computed line scalar.
+                const flatDerivedLine = Object.prototype.hasOwnProperty.call(n, "line") && Number.isFinite(Number(n.line))
+                    ? Number(n.line)
+                    : (isLineWidget && typeof sxDeriveTrilinearLine === "function" ? sxDeriveTrilinearLine(topicId, n, shape) : null);
+                if (flatDerivedLine != null) {
+                    r.line = flatDerivedLine;
                     r.lineKnown = !0;
                     // A line topic's stored (n+1) intensity rides
                     // alongside the scalar and counts like any other
@@ -95,7 +136,7 @@
                 // counts.)
                 if (!e && !t) {
                     // `intensity` is the (n+1) relevance, not a pole.
-                    const k = Object.keys(n).filter(j => "intensity" !== j && "advocacy" !== j && "receptivity" !== j && Number.isFinite(Number(n[j])));
+                    const k = Object.keys(n).filter(j => "intensity" !== j && "advocacy" !== j && "receptivity" !== j && "line" !== j && "known" !== j && Number.isFinite(Number(n[j])));
                     if (k.length) {
                         const p = {};
                         k.forEach(j => { p[j] = Number(n[j]); });

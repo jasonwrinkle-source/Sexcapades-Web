@@ -316,6 +316,10 @@
                             if (fk !== void 0) out.give = clamp(pl[fk]);
                             else if (Number.isFinite(Number(out.intensity))) out.give = clamp(out.intensity);
                         }
+                        if (1 === flanks.length && "line" === flanks[0] && out.line === void 0 && typeof sxDeriveTrilinearLine === "function") {
+                            const derived = sxDeriveTrilinearLine(id, pl, shape);
+                            if (null != derived) out.line = derived;
+                        }
                         return out;
                     };
                     const placed = {};

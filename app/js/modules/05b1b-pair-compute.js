@@ -21,8 +21,8 @@
                     outcome: "invisible", playOutcome: "invisible", strength: null, bestFit: null,
                     fits: [], directions: [], bothWays: !1, clashes: [], shed: !1, mutualNo: !1,
                     ratings: {
-                        a: { give: a.raw.give, giveKnown: a.raw.giveKnown, receive: a.raw.receive, receiveKnown: a.raw.receiveKnown, single: a.single, singleValue: a.singleValue, polesKnown: a.polesKnown, lineKnown: a.lineKnown },
-                        b: { give: b.raw.give, giveKnown: b.raw.giveKnown, receive: b.raw.receive, receiveKnown: b.raw.receiveKnown, single: b.single, singleValue: b.singleValue, polesKnown: b.polesKnown, lineKnown: b.lineKnown }
+                        a: { give: a.raw.give, giveKnown: a.raw.giveKnown, receive: a.raw.receive, receiveKnown: a.raw.receiveKnown, single: a.single, singleValue: a.singleValue, polesKnown: a.polesKnown, lineKnown: a.lineKnown, advocacyKnown: a.advocacyKnown, receptivityKnown: a.receptivityKnown },
+                        b: { give: b.raw.give, giveKnown: b.raw.giveKnown, receive: b.raw.receive, receiveKnown: b.raw.receiveKnown, single: b.single, singleValue: b.singleValue, polesKnown: b.polesKnown, lineKnown: b.lineKnown, advocacyKnown: b.advocacyKnown, receptivityKnown: b.receptivityKnown }
                     },
                     flags: {
                         notInterested: [ a.notInterested && nameA, b.notInterested && nameB ].filter(Boolean),
@@ -144,6 +144,7 @@
                     rec.straightReceptivity = open;
                 }
                 const agreement = sxPoleAgreement(a, b);
+                rec.poleAgreement = agreement;
                 const role = a.polesKnown && b.polesKnown ? sxPoleMatch(meta, a.poles, b.poles) : null;
                 if (role) {
                     // Play reads the complementary role. The talk reads

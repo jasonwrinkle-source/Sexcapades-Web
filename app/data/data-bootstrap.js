@@ -5903,6 +5903,29 @@ var INTEREST_STOPS = {
             }
             return res;
         }
+        // Derive a trilinear-line scalar in [-100, 100] from either an
+        // explicit numeric `.line` or a 3-pole affinity object (the format
+        // skin JSON archetypes carry inside advocacy/receptivity). Uses the
+        // line's inverse semantics (06c1): middle weight = 1 - |V|/100 =>
+        // |V| = (100 - aM)/2, signed toward the more-liked end pole.
+        function sxDeriveTrilinearLine(topicId, obj, shape) {
+            if (!obj || "object" != typeof obj) return null;
+            const clamp100 = v => Math.max(-100, Math.min(100, Number(v)));
+            if (Object.prototype.hasOwnProperty.call(obj, "line") && Number.isFinite(Number(obj.line))) {
+                return Math.round(clamp100(obj.line));
+            }
+            const s = shape || (typeof sxWidgetConfig === "function" ? sxWidgetConfig(topicId) : null);
+            if (!s || s.widget !== "trilinear-line") return null;
+            const pk = s.poleKeys && 3 === s.poleKeys.length
+                ? s.poleKeys
+                : Object.keys(obj).filter(k => "intensity" !== k && "line" !== k && "known" !== k && Number.isFinite(Number(obj[k])));
+            if (pk.length < 3) return null;
+            const midIdx = "xpo0029" === topicId || "xex0009" === topicId || "xex0025" === topicId ? 2 : 1;
+            const aL = Number(obj[pk[0]]), aM = Number(obj[pk[midIdx]]), aR = Number(obj[pk[1 === midIdx ? 2 : 1]]);
+            if (!Number.isFinite(aL) || !Number.isFinite(aM) || !Number.isFinite(aR)) return null;
+            const mag = (100 - clamp100(aM)) / 2;
+            return Math.round(clamp100((aL > aR ? -1 : aR > aL ? 1 : 0) * mag));
+        }
         function sxDecodeTopicStance(e, t) {
             const n = (t === Et ? At : vt[t] || {})[e];
             const shape = typeof sxWidgetConfig === "function" ? sxWidgetConfig(e, t) : null;
@@ -5968,11 +5991,25 @@ var INTEREST_STOPS = {
                     receivePlacementIntensityKnown: !1
                 };
                 if (hasAdv || hasRec) {
+                    if (shape && shape.widget === "trilinear-line") {
+                        if (res.advocacy && !Number.isFinite(Number(res.advocacy.line))) {
+                            const dl = sxDeriveTrilinearLine(e, n.advocacy, shape);
+                            if (null != dl) res.advocacy.line = dl;
+                        }
+                        if (res.receptivity && !Number.isFinite(Number(res.receptivity.line))) {
+                            const rl = sxDeriveTrilinearLine(e, n.receptivity, shape);
+                            if (null != rl) res.receptivity.line = rl;
+                        }
+                        if (!res.lineKnown && res.advocacy && Number.isFinite(Number(res.advocacy.line))) {
+                            res.line = Number(res.advocacy.line);
+                            res.lineKnown = !0;
+                        }
+                    }
                     // The line and the poles are the advocacy side, or
                     // the flat fields when that side has not been
                     // written. Receptivity stays on res.receptivity
                     // and is not promoted into the line.
-                    const primary = hasAdv ? n.advocacy : null;
+                    const primary = hasAdv ? res.advocacy : null;
                     const p = {};
                     if (primary) {
                         keys.forEach(k => {
@@ -31028,7 +31065,8 @@ var Cc = e.byId("glanceNumbersPopover"), Mc = e.byId("glanceRingSummary"), Ic = 
             return structuredClone(e || {});
         }
         function sxNormalizeRating(e, t) {
-            const n = (e.ratings || {})[t];
+            const topicId = t;
+            const n = (e.ratings || {})[topicId];
             if ("number" == typeof n) return {
                 give: n,
                 receive: n,
@@ -31061,44 +31099,84 @@ var Cc = e.byId("glanceNumbersPopover"), Mc = e.byId("glanceRingSummary"), Ic = 
                     receptivity: null,
                     receptivityKnown: !1
                 };
+                const shape = typeof sxWidgetConfig === "function" ? sxWidgetConfig(topicId) : null;
+                const isLineWidget = Boolean(shape && shape.widget === "trilinear-line");
+                const isSingleWidget = Boolean(shape && shape.single);
                 if (hasAdv || hasRec) {
                     const advObj = hasAdv ? n.advocacy : null;
                     const recObj = hasRec ? n.receptivity : null;
                     const advPoles = advObj ? {} : null;
                     if (advObj) {
                         Object.keys(advObj).forEach(k => {
-                            if (k !== "intensity" && Number.isFinite(Number(advObj[k]))) advPoles[k] = Number(advObj[k]);
+                            if (k !== "intensity" && k !== "line" && k !== "known" && Number.isFinite(Number(advObj[k]))) advPoles[k] = Number(advObj[k]);
                         });
                     }
                     const recPoles = recObj ? {} : null;
                     if (recObj) {
                         Object.keys(recObj).forEach(k => {
-                            if (k !== "intensity" && Number.isFinite(Number(recObj[k]))) recPoles[k] = Number(recObj[k]);
+                            if (k !== "intensity" && k !== "line" && k !== "known" && Number.isFinite(Number(recObj[k]))) recPoles[k] = Number(recObj[k]);
                         });
                     }
                     const advInt = (advObj && Number.isFinite(Number(advObj.intensity))) ? Number(advObj.intensity) : null;
                     const recInt = (recObj && Number.isFinite(Number(recObj.intensity))) ? Number(recObj.intensity) : null;
-                    r.poles = advPoles && Object.keys(advPoles).length ? advPoles : null;
-                    r.polesKnown = Boolean(r.poles);
+                    const advLine = advObj
+                        ? (typeof sxDeriveTrilinearLine === "function"
+                            ? sxDeriveTrilinearLine(topicId, advObj, shape)
+                            : (Object.prototype.hasOwnProperty.call(advObj, "line") && Number.isFinite(Number(advObj.line)) ? Number(advObj.line) : null))
+                        : null;
+                    const recLine = recObj
+                        ? (typeof sxDeriveTrilinearLine === "function"
+                            ? sxDeriveTrilinearLine(topicId, recObj, shape)
+                            : (Object.prototype.hasOwnProperty.call(recObj, "line") && Number.isFinite(Number(recObj.line)) ? Number(recObj.line) : null))
+                        : null;
+                    const flatLine = !hasAdv && Object.prototype.hasOwnProperty.call(n, "line") && Number.isFinite(Number(n.line)) ? Number(n.line) : null;
                     r.intensity = advInt;
                     r.intensityKnown = advInt != null;
-                    if (hasAdv && Object.prototype.hasOwnProperty.call(n.advocacy, "line") && Number.isFinite(Number(n.advocacy.line))) {
-                        r.line = Number(n.advocacy.line);
-                        r.lineKnown = !0;
-                    } else if (!hasAdv && Object.prototype.hasOwnProperty.call(n, "line") && Number.isFinite(Number(n.line))) {
-                        r.line = Number(n.line);
-                        r.lineKnown = !0;
+                    if (advLine != null || flatLine != null || isLineWidget) {
+                        const effLine = advLine != null ? advLine : flatLine;
+                        if (effLine != null) {
+                            r.line = effLine;
+                            r.lineKnown = !0;
+                        }
+                        r.poles = null;
+                        r.polesKnown = !1;
+                    } else if (isSingleWidget) {
+                        let sv = null;
+                        if (advObj) {
+                            if (Object.prototype.hasOwnProperty.call(advObj, "give") && Number.isFinite(Number(advObj.give))) sv = Number(advObj.give);
+                            else {
+                                const pks = ((shape && shape.poleKeys) || []).concat(Object.keys(advPoles || {}));
+                                const fk = pks.find(k => advPoles && Object.prototype.hasOwnProperty.call(advPoles, k));
+                                if (fk !== void 0) sv = advPoles[fk];
+                                else if (advInt != null) sv = advInt;
+                            }
+                        }
+                        if (sv != null) {
+                            r.give = sv;
+                            r.receive = sv;
+                            r.giveKnown = !0;
+                            r.receiveKnown = !0;
+                        }
+                        r.poles = null;
+                        r.polesKnown = !1;
+                    } else {
+                        r.poles = advPoles && Object.keys(advPoles).length ? advPoles : null;
+                        r.polesKnown = Boolean(r.poles);
                     }
-                    r.advocacy = advObj ? { poles: advPoles, intensity: advInt, intensityKnown: advInt != null } : null;
+                    r.advocacy = advObj ? { poles: advPoles, line: advLine, lineKnown: advLine != null, intensity: advInt, intensityKnown: advInt != null } : null;
                     r.advocacyKnown = hasAdv;
-                    r.receptivity = recObj ? { poles: recPoles, intensity: recInt, intensityKnown: recInt != null } : null;
+                    r.receptivity = recObj ? { poles: recPoles, line: recLine, lineKnown: recLine != null, intensity: recInt, intensityKnown: recInt != null } : null;
                     r.receptivityKnown = hasRec;
                     return r;
                 }
-                // Line topic (trilinear-line): one scalar under "line".
-                // The converter derives it at load, so the store holds it.
-                if (Object.prototype.hasOwnProperty.call(n, "line") && Number.isFinite(Number(n.line))) {
-                    r.line = Number(n.line);
+                // Line topic (trilinear-line): one scalar under "line", or
+                // derived from 3-pole affinities when a skin payload holds
+                // raw pole scores without a pre-computed line scalar.
+                const flatDerivedLine = Object.prototype.hasOwnProperty.call(n, "line") && Number.isFinite(Number(n.line))
+                    ? Number(n.line)
+                    : (isLineWidget && typeof sxDeriveTrilinearLine === "function" ? sxDeriveTrilinearLine(topicId, n, shape) : null);
+                if (flatDerivedLine != null) {
+                    r.line = flatDerivedLine;
                     r.lineKnown = !0;
                     // A line topic's stored (n+1) intensity rides
                     // alongside the scalar and counts like any other
@@ -31116,7 +31194,7 @@ var Cc = e.byId("glanceNumbersPopover"), Mc = e.byId("glanceRingSummary"), Ic = 
                 // counts.)
                 if (!e && !t) {
                     // `intensity` is the (n+1) relevance, not a pole.
-                    const k = Object.keys(n).filter(j => "intensity" !== j && "advocacy" !== j && "receptivity" !== j && Number.isFinite(Number(n[j])));
+                    const k = Object.keys(n).filter(j => "intensity" !== j && "advocacy" !== j && "receptivity" !== j && "line" !== j && "known" !== j && Number.isFinite(Number(n[j])));
                     if (k.length) {
                         const p = {};
                         k.forEach(j => { p[j] = Number(n[j]); });
@@ -31795,8 +31873,8 @@ var sxIsTeased = rec => (rec.teaserFor || []).length && "soft-no" === rec.countC
                     outcome: "invisible", playOutcome: "invisible", strength: null, bestFit: null,
                     fits: [], directions: [], bothWays: !1, clashes: [], shed: !1, mutualNo: !1,
                     ratings: {
-                        a: { give: a.raw.give, giveKnown: a.raw.giveKnown, receive: a.raw.receive, receiveKnown: a.raw.receiveKnown, single: a.single, singleValue: a.singleValue, polesKnown: a.polesKnown, lineKnown: a.lineKnown },
-                        b: { give: b.raw.give, giveKnown: b.raw.giveKnown, receive: b.raw.receive, receiveKnown: b.raw.receiveKnown, single: b.single, singleValue: b.singleValue, polesKnown: b.polesKnown, lineKnown: b.lineKnown }
+                        a: { give: a.raw.give, giveKnown: a.raw.giveKnown, receive: a.raw.receive, receiveKnown: a.raw.receiveKnown, single: a.single, singleValue: a.singleValue, polesKnown: a.polesKnown, lineKnown: a.lineKnown, advocacyKnown: a.advocacyKnown, receptivityKnown: a.receptivityKnown },
+                        b: { give: b.raw.give, giveKnown: b.raw.giveKnown, receive: b.raw.receive, receiveKnown: b.raw.receiveKnown, single: b.single, singleValue: b.singleValue, polesKnown: b.polesKnown, lineKnown: b.lineKnown, advocacyKnown: b.advocacyKnown, receptivityKnown: b.receptivityKnown }
                     },
                     flags: {
                         notInterested: [ a.notInterested && nameA, b.notInterested && nameB ].filter(Boolean),
@@ -31918,6 +31996,7 @@ var sxIsTeased = rec => (rec.teaserFor || []).length && "soft-no" === rec.countC
                     rec.straightReceptivity = open;
                 }
                 const agreement = sxPoleAgreement(a, b);
+                rec.poleAgreement = agreement;
                 const role = a.polesKnown && b.polesKnown ? sxPoleMatch(meta, a.poles, b.poles) : null;
                 if (role) {
                     // Play reads the complementary role. The talk reads
@@ -44517,24 +44596,52 @@ var gw = "edit";
                 // give, receive with receive), skipping a flank
                 // either side left unrated.
                 const identityAgreements = [];
+                const topicSims = [];
+                const pushSim = (rec, sim) => {
+                    identityAgreements.push(sim);
+                    if (rec && rec.label) topicSims.push({ label: rec.label, sim: sim });
+                };
+                const placementSim = (pa, pb) => {
+                    if (!pa || !pb) return null;
+                    if (pa.lineKnown && pb.lineKnown) return 1 - Math.abs(pa.line - pb.line) / 200;
+                    if (pa.poles && pb.poles) {
+                        const pKeys = [...new Set([...Object.keys(pa.poles), ...Object.keys(pb.poles)])];
+                        if (!pKeys.length) return null;
+                        let sum = 0;
+                        pKeys.forEach(k => {
+                            const va = k in pa.poles ? pa.poles[k] : 0;
+                            const vb = k in pb.poles ? pb.poles[k] : 0;
+                            sum += Math.abs(va - vb);
+                        });
+                        return 1 - (sum / pKeys.length) / 200;
+                    }
+                    return null;
+                };
                 (pair.topics || []).forEach(rec => {
                     if (!rec || !rec.ratings || !rec.ratings.a || !rec.ratings.b) return;
                     if ((rec.limiters || []).length) return;
                     if (((rec.flags || {}).fantasyBy || []).length) return;
                     const ra = rec.ratings.a, rb = rec.ratings.b;
-                    if (!(ra.giveKnown || ra.receiveKnown || ra.polesKnown || ra.lineKnown) || !(rb.giveKnown || rb.receiveKnown || rb.polesKnown || rb.lineKnown)) return;
-                    if (null != rec.agreement) { identityAgreements.push(rec.agreement); return; }
+                    const aAny = ra.giveKnown || ra.receiveKnown || ra.polesKnown || ra.lineKnown || ra.advocacyKnown || ra.receptivityKnown;
+                    const bAny = rb.giveKnown || rb.receiveKnown || rb.polesKnown || rb.lineKnown || rb.advocacyKnown || rb.receptivityKnown;
+                    if (!aAny || !bAny) return;
+                    if (null != rec.poleAgreement) { pushSim(rec, rec.poleAgreement); return; }
+                    if (null != rec.agreement) { pushSim(rec, rec.agreement); return; }
                     const diffs = [];
                     if (ra.giveKnown && rb.giveKnown) diffs.push(Math.abs(ra.give - rb.give));
                     if (ra.receiveKnown && rb.receiveKnown) diffs.push(Math.abs(ra.receive - rb.receive));
-                    if (!diffs.length) return;
-                    identityAgreements.push(1 - diffs.reduce((s, v) => s + v, 0) / (200 * diffs.length));
+                    if (diffs.length) {
+                        pushSim(rec, 1 - diffs.reduce((s, v) => s + v, 0) / (200 * diffs.length));
+                        return;
+                    }
+                    const recSim = placementSim(rec.receptivityA, rec.receptivityB);
+                    if (null != recSim) pushSim(rec, recSim);
                 });
                 if (!identityAgreements.length) return null;
                 const identityScore = Math.round(100 * identityAgreements.reduce((s, v) => s + v, 0) / identityAgreements.length);
-                const matchDrivers = (pair.play.lists && pair.play.lists.matches ? pair.play.lists.matches : []).map(r => r.label).filter(Boolean);
-                const curiousDrivers = (pair.play.lists && pair.play.lists.curiousAbout ? pair.play.lists.curiousAbout : []).map(r => r.label).filter(Boolean);
-                const drivers = matchDrivers.concat(curiousDrivers.filter(l => !matchDrivers.includes(l))).slice(0, 3);
+                topicSims.sort((a, b) => b.sim - a.sim || a.label.localeCompare(b.label));
+                const strongSims = topicSims.filter(x => x.sim >= 0.5);
+                const drivers = (strongSims.length ? strongSims : topicSims).slice(0, 3).map(x => x.label);
                 return { key: key, name: entry.name || key, about: entry.about || "", score: identityScore, shared: shared, drivers: drivers };
             };
             // Palimpsest scoping (2026-11-22, Jason's ruling): entries
@@ -45985,6 +46092,10 @@ var importTopicNames = null;
                             const fk = pks.find(k => Number.isFinite(Number(pl[k])));
                             if (fk !== void 0) out.give = clamp(pl[fk]);
                             else if (Number.isFinite(Number(out.intensity))) out.give = clamp(out.intensity);
+                        }
+                        if (1 === flanks.length && "line" === flanks[0] && out.line === void 0 && typeof sxDeriveTrilinearLine === "function") {
+                            const derived = sxDeriveTrilinearLine(id, pl, shape);
+                            if (null != derived) out.line = derived;
                         }
                         return out;
                     };
