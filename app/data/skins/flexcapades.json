@@ -3,7 +3,7 @@
   "name": "Flexcapades",
   "domain": "flex.capades.io",
   "meter": "stake",
-  "about": "How you use Flexcapades, and how you want it to grow: the features and flows of the app itself, rated by the stake you have in each \u2014 plus the open questions the project is still deciding, where the room gets its say.",
+  "about": "How you use Flexcapades, and how you want it to grow: the features and flows of the app itself, rated by the stake you have in each — plus the open questions the project is still deciding, where the room gets its say.",
   "categories": [
     {
       "id": "xflc01",
@@ -30,11 +30,11 @@
           "widget": "trilinear-line",
           "archetype": "line",
           "hovertip": {
-            "issue": "Where do you do your rating \u2014 on the sheet that opens when you tap a topic, on the map itself, or from the shortlist?",
+            "issue": "Where do you do your rating — on the sheet that opens when you tap a topic, on the map itself, or from the shortlist?",
             "poles": [
               {
                 "label": "The placard",
-                "text": "Tap a topic and the placard opens \u2014 sliders, the cross slider, everything in one place. This is where rating belongs."
+                "text": "Tap a topic and the placard opens — sliders, the cross slider, everything in one place. This is where rating belongs."
               },
               {
                 "label": "The map",
@@ -42,7 +42,7 @@
               },
               {
                 "label": "The hot list",
-                "text": "Rate from the hot list \u2014 the popularity-ordered checklist with an elapsed timer and search, so you can rate the most common topics first without wandering the map."
+                "text": "Rate from the hot list — the popularity-ordered checklist with an elapsed timer and search, so you can rate the most common topics first without wandering the map."
               }
             ]
           },
@@ -81,7 +81,7 @@
             "poles": [
               {
                 "label": "Leaning is the rating",
-                "text": "Where I stand is the rating. How strongly I want it is a footnote \u2014 I rarely set it."
+                "text": "Where I stand is the rating. How strongly I want it is a footnote — I rarely set it."
               },
               {
                 "label": "Appetite is the rating",
@@ -89,7 +89,7 @@
               },
               {
                 "label": "Both, every time",
-                "text": "Leaning and appetite are two different facts and I set both, every time \u2014 a position without a strength is half a rating."
+                "text": "Leaning and appetite are two different facts and I set both, every time — a position without a strength is half a rating."
               }
             ]
           },
@@ -120,11 +120,11 @@
           "widget": "xy-switchbox",
           "archetype": null,
           "hovertip": {
-            "issue": "Every two-flank topic has two sides \u2014 Give and Receive on play maps, or Advocacy (filled disc, what you argue for) and Receptivity (open ring, what you're open to hearing) on stance maps \u2014 each with its own leaning and appetite. Should each side get its own line and puck, or is one number enough?",
+            "issue": "Every two-flank topic has two sides — Give and Receive on play maps, or Advocacy (filled disc, what you argue for) and Receptivity (open ring, what you're open to hearing) on stance maps — each with its own leaning and appetite. Should each side get its own line and puck, or is one number enough?",
             "poles": [
               {
                 "label": "Two lines, one puck each",
-                "text": "Giving and receiving \u2014 or advocating a stance and being open to hearing it \u2014 are different acts with different leanings. Each deserves its own line, its own puck, its own appetite."
+                "text": "Giving and receiving — or advocating a stance and being open to hearing it — are different acts with different leanings. Each deserves its own line, its own puck, its own appetite."
               },
               {
                 "label": "One number is enough",
@@ -163,7 +163,7 @@
           "widget": "trilinear-line",
           "archetype": "line",
           "hovertip": {
-            "issue": "Intensity is the third number on a rating \u2014 how strongly you hold the position, from a whisper to a shout. How often do you set it?",
+            "issue": "Intensity is the third number on a rating — how strongly you hold the position, from a whisper to a shout. How often do you set it?",
             "poles": [
               {
                 "label": "Every time",
@@ -171,7 +171,7 @@
               },
               {
                 "label": "When it matters",
-                "text": "I set intensity only where the strength changes the meaning \u2014 the topics I care about most."
+                "text": "I set intensity only where the strength changes the meaning — the topics I care about most."
               },
               {
                 "label": "Never",
@@ -210,7 +210,7 @@
           "widget": "trilinear-line",
           "archetype": "line",
           "hovertip": {
-            "issue": "You don't have to rate every leaf one by one \u2014 you can rate a whole branch hub (which rolls down to unrated topics beneath it) or mark a branch as a Limit (which gates every topic under it: a branch Limit beats a topic Favorite). How do you rate the tree?",
+            "issue": "You don't have to rate every leaf one by one — you can rate a whole branch hub (which rolls down to unrated topics beneath it) or mark a branch as a Limit (which gates every topic under it: a branch Limit beats a topic Favorite). How do you rate the tree?",
             "poles": [
               {
                 "label": "Rate the branch first",
@@ -222,7 +222,7 @@
               },
               {
                 "label": "Branch limits gate the rest",
-                "text": "Use branch Limits to rule out whole territories in one tap \u2014 if the branch is a Limit, nothing under it gets through."
+                "text": "Use branch Limits to rule out whole territories in one tap — if the branch is a Limit, nothing under it gets through."
               }
             ]
           },
@@ -249,15 +249,15 @@
           "poles": [
             {
               "key": "cross-play",
-              "label": "Cross \u2014 play"
+              "label": "Cross — play"
             },
             {
               "key": "straight-talk",
-              "label": "Straight \u2014 talk"
+              "label": "Straight — talk"
             },
             {
               "key": "circle-minus-indaba",
-              "label": "Circle Minus \u2014 indaba"
+              "label": "Circle Minus — indaba"
             }
           ],
           "widget": "trilinear-line",
@@ -266,15 +266,15 @@
             "issue": "Open two profiles together and three views answer three questions: what do we share for play, what do we share for talk, and what needs talking through? Which do you reach for first?",
             "poles": [
               {
-                "label": "Cross \u2014 play",
+                "label": "Cross — play",
                 "text": "Cross is the first stop: what do we both want, for play. The night starts here."
               },
               {
-                "label": "Straight \u2014 talk",
+                "label": "Straight — talk",
                 "text": "Straight is the first stop: what do we both want to talk about. The conversation starts here."
               },
               {
-                "label": "Circle Minus \u2014 indaba",
+                "label": "Circle Minus — indaba",
                 "text": "Minus is the first stop: what needs talking through before anything else. The meeting starts here."
               }
             ]
@@ -310,7 +310,7 @@
           "widget": "trilinear-line",
           "archetype": "line",
           "hovertip": {
-            "issue": "Three or more profiles can be scored together as one group \u2014 a room, a polycule, a party. Do you use that, or stick to pairs?",
+            "issue": "Three or more profiles can be scored together as one group — a room, a polycule, a party. Do you use that, or stick to pairs?",
             "poles": [
               {
                 "label": "The whole room",
@@ -353,15 +353,15 @@
           "widget": "xy-switchbox",
           "archetype": null,
           "hovertip": {
-            "issue": "When two people want something differently, the pair's line shows the lower appetite \u2014 the bottleneck, the careful value. Do you stand by that?",
+            "issue": "When two people want something differently, the pair's line shows the lower appetite — the bottleneck, the careful value. Do you stand by that?",
             "poles": [
               {
                 "label": "The lower wins",
-                "text": "The pair runs at the cooler member's appetite. Never hotter than the careful one \u2014 that is the point of a pair."
+                "text": "The pair runs at the cooler member's appetite. Never hotter than the careful one — that is the point of a pair."
               },
               {
                 "label": "The higher wins",
-                "text": "The pair should show the hotter appetite \u2014 what either of us wants is what the pair wants. The lower value hides the wanting."
+                "text": "The pair should show the hotter appetite — what either of us wants is what the pair wants. The lower value hides the wanting."
               }
             ]
           },
@@ -396,7 +396,7 @@
           "widget": "trilinear-line",
           "archetype": "line",
           "hovertip": {
-            "issue": "Circle Minus scores the feud between two profiles \u2014 where they pull apart. Is it for finding the fight, or finding what to talk through?",
+            "issue": "Circle Minus scores the feud between two profiles — where they pull apart. Is it for finding the fight, or finding what to talk through?",
             "poles": [
               {
                 "label": "Finding the fight",
@@ -404,7 +404,7 @@
               },
               {
                 "label": "Finding the talking points",
-                "text": "Minus is for indaba \u2014 a meeting to talk and reach consensus. The feud marks what needs talking through first."
+                "text": "Minus is for indaba — a meeting to talk and reach consensus. The feud marks what needs talking through first."
               },
               {
                 "label": "I don't open Minus",
@@ -449,7 +449,7 @@
           "widget": "trilinear-line",
           "archetype": "line",
           "hovertip": {
-            "issue": "The hot list orders every topic by how commonly people rate it (synthesized popularity), with a 3-per-category first pass and an elapsed timer \u2014 while the center node's At-a-Glance rings list your shared-appetite matches. How often do you use the hot list?",
+            "issue": "The hot list orders every topic by how commonly people rate it (synthesized popularity), with a 3-per-category first pass and an elapsed timer — while the center node's At-a-Glance rings list your shared-appetite matches. How often do you use the hot list?",
             "poles": [
               {
                 "label": "Every time",
@@ -457,7 +457,7 @@
               },
               {
                 "label": "Special nights",
-                "text": "The hot list is for a quick pass or a new partner \u2014 once the map is built, I live on the map."
+                "text": "The hot list is for a quick pass or a new partner — once the map is built, I live on the map."
               },
               {
                 "label": "I don't use it",
@@ -500,11 +500,11 @@
             "poles": [
               {
                 "label": "The whole night",
-                "text": "Build the full agreement and timed guide in Scene Setter \u2014 warm-up, main flow, check-ins, and aftercare."
+                "text": "Build the full agreement and timed guide in Scene Setter — warm-up, main flow, check-ins, and aftercare."
               },
               {
                 "label": "A loose order",
-                "text": "A checklist and a loose order are enough \u2014 clear the limits, pick a starting direction, then let the night happen."
+                "text": "A checklist and a loose order are enough — clear the limits, pick a starting direction, then let the night happen."
               },
               {
                 "label": "Just go and see",
@@ -543,11 +543,11 @@
           "widget": "trilinear-line",
           "archetype": "line",
           "hovertip": {
-            "issue": "Heat is the flame on every profile tab \u2014 the night's temperature, from withdrawn (\u2212100) to burning (+100), and a pair runs at the lower of the two. Does yours move as the night moves?",
+            "issue": "Heat is the flame on every profile tab — the night's temperature, from withdrawn (−100) to burning (+100), and a pair runs at the lower of the two. Does yours move as the night moves?",
             "poles": [
               {
                 "label": "Follows the night",
-                "text": "Heat moves as the night moves \u2014 up as it warms, down as it cools. The flame is a live thing."
+                "text": "Heat moves as the night moves — up as it warms, down as it cools. The flame is a live thing."
               },
               {
                 "label": "Set once",
@@ -590,15 +590,15 @@
           "widget": "trilinear-line",
           "archetype": "line",
           "hovertip": {
-            "issue": "Scribe turns one profile or a group overlap into an AI prompt \u2014 for an erotic story on Sexcapades or an informed discussion between stances \u2014 and can stream the text and live voice narration right in the browser with your own API key (BYOK). When do you use it?",
+            "issue": "Scribe turns one profile or a group overlap into an AI prompt — for an erotic story on Sexcapades or an informed discussion between stances — and can stream the text and live voice narration right in the browser with your own API key (BYOK). When do you use it?",
             "poles": [
               {
                 "label": "After",
-                "text": "Use it after \u2014 turn the ratings we matched on into a story or synthesis while the night is still warm."
+                "text": "Use it after — turn the ratings we matched on into a story or synthesis while the night is still warm."
               },
               {
                 "label": "Before",
-                "text": "Use it before \u2014 generate a solo story, a preview of the chemistry, or a steelman discussion before meeting up."
+                "text": "Use it before — generate a solo story, a preview of the chemistry, or a steelman discussion before meeting up."
               },
               {
                 "label": "I don't write it up",
@@ -637,7 +637,7 @@
           "widget": "trilinear-line",
           "archetype": "line",
           "hovertip": {
-            "issue": "Scene Sentinel is the live scene monitor in the View menu \u2014 it loads a timed Scene Setter play guide, runs the clock and scheduled check-in prompts, and receives green/yellow/red traffic-light signals (including from a GibberWear watch over sound or Bluetooth). Do you bring it into a live session?",
+            "issue": "Scene Sentinel is the live scene monitor in the View menu — it loads a timed Scene Setter play guide, runs the clock and scheduled check-in prompts, and receives green/yellow/red traffic-light signals (including from a GibberWear watch over sound or Bluetooth). Do you bring it into a live session?",
             "poles": [
               {
                 "label": "Run the timed guide & check-ins",
@@ -690,7 +690,7 @@
           "widget": "trilinear-line",
           "archetype": "line",
           "hovertip": {
-            "issue": "A profile is your map of yourself \u2014 your ratings, your layers. Do you keep one and keep it current, or many for many rooms?",
+            "issue": "A profile is your map of yourself — your ratings, your layers. Do you keep one and keep it current, or many for many rooms?",
             "poles": [
               {
                 "label": "One, kept current",
@@ -698,7 +698,7 @@
               },
               {
                 "label": "Many, for many rooms",
-                "text": "Many profiles \u2014 one for each room, each partner, each mood. No single map holds all of me."
+                "text": "Many profiles — one for each room, each partner, each mood. No single map holds all of me."
               },
               {
                 "label": "I don't keep one",
@@ -737,7 +737,7 @@
           "widget": "trilinear-line",
           "archetype": "line",
           "hovertip": {
-            "issue": "A palimpsest is a profile in dated layers \u2014 the same person at different times, stacked so you can see how they changed. Do you keep your layers?",
+            "issue": "A palimpsest is a profile in dated layers — the same person at different times, stacked so you can see how they changed. Do you keep your layers?",
             "poles": [
               {
                 "label": "Layers over time",
@@ -784,7 +784,7 @@
           "widget": "trilinear-line",
           "archetype": "line",
           "hovertip": {
-            "issue": "A roster pack loads a whole group at once \u2014 the room, the party, the regulars \u2014 from one file. Do you load the room, or add people one by one?",
+            "issue": "A roster pack loads a whole group at once — the room, the party, the regulars — from one file. Do you load the room, or add people one by one?",
             "poles": [
               {
                 "label": "The whole room",
@@ -831,7 +831,7 @@
           "widget": "trilinear-line",
           "archetype": "line",
           "hovertip": {
-            "issue": "A sync card shares a profile \u2014 a QR code scanned at the door, or a file sent later. How do your profiles travel?",
+            "issue": "A sync card shares a profile — a QR code scanned at the door, or a file sent later. How do your profiles travel?",
             "poles": [
               {
                 "label": "QR at the door",
@@ -884,7 +884,7 @@
           "widget": "trilinear-line",
           "archetype": "line",
           "hovertip": {
-            "issue": "The veil hides what you don't want shown \u2014 a topic, a person, a whole layer. How do you veil?",
+            "issue": "The veil hides what you don't want shown — a topic, a person, a whole layer. How do you veil?",
             "poles": [
               {
                 "label": "By topic",
@@ -896,7 +896,7 @@
               },
               {
                 "label": "All open",
-                "text": "No veil \u2014 all open. What I rate is what I am, and I don't hide it."
+                "text": "No veil — all open. What I rate is what I am, and I don't hide it."
               }
             ]
           },
@@ -943,7 +943,7 @@
               },
               {
                 "label": "Public by choice",
-                "text": "Public by choice. A map gains by being seen \u2014 put it out there."
+                "text": "Public by choice. A map gains by being seen — put it out there."
               }
             ]
           },
@@ -978,7 +978,7 @@
           "widget": "trilinear-line",
           "archetype": "line",
           "hovertip": {
-            "issue": "The gate counts visits \u2014 anonymous, no names \u2014 so the project knows how many people come through. Should it count every visit, or nothing at all?",
+            "issue": "The gate counts visits — anonymous, no names — so the project knows how many people come through. Should it count every visit, or nothing at all?",
             "poles": [
               {
                 "label": "Count every visit",
@@ -1031,11 +1031,11 @@
           "widget": "trilinear-line",
           "archetype": "line",
           "hovertip": {
-            "issue": "The gate is the front door \u2014 a few lines about what this is, then in. Do you go through the gate, or straight to the map?",
+            "issue": "The gate is the front door — a few lines about what this is, then in. Do you go through the gate, or straight to the map?",
             "poles": [
               {
                 "label": "The gate first",
-                "text": "Through the gate first. The front door earns its keep \u2014 it says what this is."
+                "text": "Through the gate first. The front door earns its keep — it says what this is."
               },
               {
                 "label": "Straight to the map",
@@ -1078,11 +1078,11 @@
           "widget": "trilinear-line",
           "archetype": "line",
           "hovertip": {
-            "issue": "The quickstart is three steps and you're in \u2014 rate a few topics, see your map, done. Is that how you begin?",
+            "issue": "The quickstart is three steps and you're in — rate a few topics, see your map, done. Is that how you begin?",
             "poles": [
               {
                 "label": "Three steps and in",
-                "text": "Three steps and in. The quickstart is the way in \u2014 do it and you're started."
+                "text": "Three steps and in. The quickstart is the way in — do it and you're started."
               },
               {
                 "label": "The guide first",
@@ -1125,11 +1125,11 @@
           "widget": "trilinear-line",
           "archetype": "line",
           "hovertip": {
-            "issue": "The guide is the manual \u2014 the whole app, written down. Do you read it, look things up in it, or never open it?",
+            "issue": "The guide is the manual — the whole app, written down. Do you read it, look things up in it, or never open it?",
             "poles": [
               {
                 "label": "Cover to cover",
-                "text": "Cover to cover. The manual is the map of the map \u2014 read it all."
+                "text": "Cover to cover. The manual is the map of the map — read it all."
               },
               {
                 "label": "Look it up",
@@ -1172,7 +1172,7 @@
           "widget": "trilinear-line",
           "archetype": "line",
           "hovertip": {
-            "issue": "Every skin ships with built-in sample archetypes in the + menu \u2014 ready-made profiles and historical or philosophical stacks \u2014 so a solo newcomer can test-drive Cross, Straight, and Circle Minus comparisons immediately without waiting for a partner. How do you use them?",
+            "issue": "Every skin ships with built-in sample archetypes in the + menu — ready-made profiles and historical or philosophical stacks — so a solo newcomer can test-drive Cross, Straight, and Circle Minus comparisons immediately without waiting for a partner. How do you use them?",
             "poles": [
               {
                 "label": "Compare with archetypes first",
@@ -1225,11 +1225,11 @@
           "widget": "trilinear-line",
           "archetype": "line",
           "hovertip": {
-            "issue": "Roster packs need a home \u2014 a place they live where the app can find them. Should they live here, in the open, or on your own server?",
+            "issue": "Roster packs need a home — a place they live where the app can find them. Should they live here, in the open, or on your own server?",
             "poles": [
               {
                 "label": "Hosted here, in the open",
-                "text": "Host them here, in the open. Rosters are the community's \u2014 they should live where the community is."
+                "text": "Host them here, in the open. Rosters are the community's — they should live where the community is."
               },
               {
                 "label": "On your own server",
@@ -1265,15 +1265,15 @@
           "widget": "trilinear-line",
           "archetype": "line",
           "hovertip": {
-            "issue": "The guide is at a fork \u2014 stay at 5.0, steady, or step to 5.1, the new shape? Or do version numbers not matter at all?",
+            "issue": "The guide is at a fork — stay at 5.0, steady, or step to 5.1, the new shape? Or do version numbers not matter at all?",
             "poles": [
               {
                 "label": "5.0, steady",
-                "text": "Stay at 5.0. Steady beats new \u2014 the guide works as it is."
+                "text": "Stay at 5.0. Steady beats new — the guide works as it is."
               },
               {
                 "label": "5.1, the new shape",
-                "text": "Step to 5.1. The new shape is the honest one \u2014 take it."
+                "text": "Step to 5.1. The new shape is the honest one — take it."
               },
               {
                 "label": "Version numbers don't matter",
@@ -1305,7 +1305,7 @@
           "widget": "trilinear-line",
           "archetype": "line",
           "hovertip": {
-            "issue": "A DJ at the door could scan the room's cards and see what the whole room likes \u2014 a room view for the night's set. Should it be built?",
+            "issue": "A DJ at the door could scan the room's cards and see what the whole room likes — a room view for the night's set. Should it be built?",
             "poles": [
               {
                 "label": "Build the room view",
@@ -1313,7 +1313,7 @@
               },
               {
                 "label": "The straight match is enough",
-                "text": "The straight match is enough \u2014 the room's shared liking is already there. No new view needed."
+                "text": "The straight match is enough — the room's shared liking is already there. No new view needed."
               },
               {
                 "label": "Not for me",
@@ -1345,7 +1345,7 @@
           "widget": "trilinear-line",
           "archetype": "line",
           "hovertip": {
-            "issue": "Forescapades holds the Abrahamic traditions and no Eastern ones \u2014 no Hindu, Buddhist, or Taoist stacks. Should they be added?",
+            "issue": "Forescapades holds the Abrahamic traditions and no Eastern ones — no Hindu, Buddhist, or Taoist stacks. Should they be added?",
             "poles": [
               {
                 "label": "Add the Eastern traditions",
@@ -1385,7 +1385,7 @@
           "widget": "trilinear-line",
           "archetype": "line",
           "hovertip": {
-            "issue": "An eight-pole topic on the world's civilizations \u2014 Western, Sinic, Islamic, Hindu, Orthodox, Latin American, African, Buddhist \u2014 was drafted for Polis and set aside. Should it be homed, or left out?",
+            "issue": "An eight-pole topic on the world's civilizations — Western, Sinic, Islamic, Hindu, Orthodox, Latin American, African, Buddhist — was drafted for Polis and set aside. Should it be homed, or left out?",
             "poles": [
               {
                 "label": "Home it in Polis",
@@ -1393,7 +1393,7 @@
               },
               {
                 "label": "Leave it out",
-                "text": "Leave it out. A topic that big can't be rated honestly \u2014 it flattens whole worlds."
+                "text": "Leave it out. A topic that big can't be rated honestly — it flattens whole worlds."
               },
               {
                 "label": "I haven't followed it",
@@ -1425,7 +1425,7 @@
           "widget": "trilinear-line",
           "archetype": "line",
           "hovertip": {
-            "issue": "The veil decides who sees what \u2014 but should there be more control over it, is it right as it is, or should the maps be more open by default?",
+            "issue": "The veil decides who sees what — but should there be more control over it, is it right as it is, or should the maps be more open by default?",
             "poles": [
               {
                 "label": "More control",
@@ -1433,7 +1433,7 @@
               },
               {
                 "label": "As it is",
-                "text": "As it is. The veil does the job \u2014 leave it alone."
+                "text": "As it is. The veil does the job — leave it alone."
               },
               {
                 "label": "More open by default",
@@ -1465,19 +1465,19 @@
           "widget": "trilinear-line",
           "archetype": "line",
           "hovertip": {
-            "issue": "Twenty-two skins and counting. What should the next one be \u2014 another map of positions, another map of play, or is it time to stop adding skins?",
+            "issue": "Twenty-two skins and counting. What should the next one be — another map of positions, another map of play, or is it time to stop adding skins?",
             "poles": [
               {
                 "label": "Another stance map",
-                "text": "Another stance map. Positions are the deep end \u2014 keep mapping them."
+                "text": "Another stance map. Positions are the deep end — keep mapping them."
               },
               {
                 "label": "Another play map",
-                "text": "Another play map. Dance and Quest showed the way \u2014 more play, more joy."
+                "text": "Another play map. Dance and Quest showed the way — more play, more joy."
               },
               {
                 "label": "Enough skins",
-                "text": "Enough skins. Twenty-two is plenty \u2014 deepen what exists instead."
+                "text": "Enough skins. Twenty-two is plenty — deepen what exists instead."
               }
             ]
           },
@@ -1491,7 +1491,7 @@
     "the-lawgiver": {
       "name": "The Lawgiver",
       "count": 32,
-      "about": "The project's lawgiver \u2014 he ruled every line on this map, rates everything, and keeps one profile current. The map is his, and he knows where every number came from.",
+      "about": "The project's lawgiver — he ruled every line on this map, rates everything, and keeps one profile current. The map is his, and he knows where every number came from.",
       "links": [],
       "payload": {
         "app": "sexcapades",
@@ -1955,7 +1955,7 @@
     "the-witness": {
       "name": "The Witness",
       "count": 32,
-      "about": "The only other person who has seen the maps \u2014 the partner at the center of the project. She rates for the night, veils by topic, and keeps her map private by default.",
+      "about": "The only other person who has seen the maps — the partner at the center of the project. She rates for the night, veils by topic, and keeps her map private by default.",
       "links": [],
       "payload": {
         "app": "sexcapades",
@@ -2419,7 +2419,7 @@
     "the-builder": {
       "name": "The Builder",
       "count": 32,
-      "about": "The collaborator who builds the maps \u2014 an AI in the workshop. Deep on the craft, strong on every open question, and the first to read the guide cover to cover.",
+      "about": "The collaborator who builds the maps — an AI in the workshop. Deep on the craft, strong on every open question, and the first to read the guide cover to cover.",
       "links": [],
       "payload": {
         "app": "sexcapades",
@@ -2883,7 +2883,7 @@
     "the-tester": {
       "name": "The Tester",
       "count": 32,
-      "about": "The beta tester \u2014 tries everything once, figures it out by tapping around, and tells you what broke. The quickstart is their way in.",
+      "about": "The beta tester — tries everything once, figures it out by tapping around, and tells you what broke. The quickstart is their way in.",
       "links": [],
       "payload": {
         "app": "sexcapades",
@@ -3347,7 +3347,7 @@
     "the-munch-regular": {
       "name": "The Munch Regular",
       "count": 32,
-      "about": "The community member \u2014 the room at the munch, the cards at the door. Loads the whole room, plans the night loose, and wants the DJ view built.",
+      "about": "The community member — the room at the munch, the cards at the door. Loads the whole room, plans the night loose, and wants the DJ view built.",
       "links": [],
       "payload": {
         "app": "sexcapades",
@@ -3811,7 +3811,7 @@
     "the-lurker": {
       "name": "The Lurker",
       "count": 32,
-      "about": "The reader \u2014 watches, rarely rates, keeps their map private. They are the silent majority, and the map should work for them too.",
+      "about": "The reader — watches, rarely rates, keeps their map private. They are the silent majority, and the map should work for them too.",
       "links": [],
       "payload": {
         "app": "sexcapades",
@@ -4271,6 +4271,470 @@
       "skin": "flexcapades",
       "kind": "archetype",
       "emblem": "images/emblems/flexcapades-the-lurker.svg"
+    },
+    "the-open-book": {
+      "name": "The Open Book",
+      "about": "The radical openness maximalist: drops the veil, skips the gate, publishes a public profile link, scans QR sync cards at the door, and loads the whole room into a live DJ roster right away. Believes radical transparency lowers friction, makes real compatibility jump off the map, and turns every gathering into an immediate conversation.",
+      "kind": "archetype",
+      "skin": "flexcapades",
+      "count": 32,
+      "emblem": "images/emblems/flexcapades-the-open-book.svg",
+      "links": [],
+      "payload": {
+        "app": "Sexcapades",
+        "version": 1,
+        "skin": "flexcapades",
+        "profileName": "The Open Book",
+        "aboutMe": "No veil, no gate, public by choice — scan my QR at the door, load the whole room, and let's see where the map lights up.",
+        "noFlash": true,
+        "archetype": "the-open-book",
+        "ratings": {
+          "xfl0001": {
+            "advocacy": {
+              "placard-first": 45,
+              "map-first": 75,
+              "hot-list-first": 88,
+              "intensity": 88
+            },
+            "receptivity": {
+              "placard-first": 34,
+              "map-first": 56,
+              "hot-list-first": 66,
+              "intensity": 66
+            }
+          },
+          "xfl0002": {
+            "advocacy": {
+              "leaning-is-the-rating": 30,
+              "appetite-is-the-rating": 55,
+              "both-every-time": 85,
+              "intensity": 85
+            },
+            "receptivity": {
+              "leaning-is-the-rating": 22,
+              "appetite-is-the-rating": 41,
+              "both-every-time": 64,
+              "intensity": 64
+            }
+          },
+          "xfl0003": {
+            "advocacy": {
+              "two-lines-one-puck-each": 78,
+              "one-number-is-enough": 40,
+              "intensity": 78
+            },
+            "receptivity": {
+              "two-lines-one-puck-each": 58,
+              "one-number-is-enough": 30,
+              "intensity": 58
+            }
+          },
+          "xfl0004": {
+            "advocacy": {
+              "every-time": 75,
+              "when-it-matters": 65,
+              "never": -40,
+              "intensity": 75
+            },
+            "receptivity": {
+              "every-time": 56,
+              "when-it-matters": 49,
+              "never": -30,
+              "intensity": 56
+            }
+          },
+          "xfl0005": {
+            "advocacy": {
+              "cross-play": 82,
+              "straight-talk": 78,
+              "circle-minus-indaba": 90,
+              "intensity": 90
+            },
+            "receptivity": {
+              "cross-play": 62,
+              "straight-talk": 58,
+              "circle-minus-indaba": 68,
+              "intensity": 68
+            }
+          },
+          "xfl0006": {
+            "advocacy": {
+              "whole-room": 94,
+              "pairs-only": 25,
+              "dont-compare": -75,
+              "intensity": 94
+            },
+            "receptivity": {
+              "whole-room": 70,
+              "pairs-only": 19,
+              "dont-compare": -56,
+              "intensity": 70
+            }
+          },
+          "xfl0007": {
+            "advocacy": {
+              "lower-wins": 45,
+              "higher-wins": 78,
+              "intensity": 78
+            },
+            "receptivity": {
+              "lower-wins": 34,
+              "higher-wins": 58,
+              "intensity": 58
+            }
+          },
+          "xfl0008": {
+            "advocacy": {
+              "finding-the-fight": 55,
+              "finding-the-talking-points": 90,
+              "dont-open-minus": -65,
+              "intensity": 90
+            },
+            "receptivity": {
+              "finding-the-fight": 41,
+              "finding-the-talking-points": 68,
+              "dont-open-minus": -49,
+              "intensity": 68
+            }
+          },
+          "xfl0009": {
+            "advocacy": {
+              "every-time": 85,
+              "special-nights": 55,
+              "dont-use": -55,
+              "intensity": 85
+            },
+            "receptivity": {
+              "every-time": 64,
+              "special-nights": 41,
+              "dont-use": -41,
+              "intensity": 64
+            }
+          },
+          "xfl0010": {
+            "advocacy": {
+              "whole-night": 55,
+              "loose-order": 85,
+              "just-go": 65,
+              "intensity": 85
+            },
+            "receptivity": {
+              "whole-night": 41,
+              "loose-order": 64,
+              "just-go": 49,
+              "intensity": 64
+            }
+          },
+          "xfl0011": {
+            "advocacy": {
+              "follows-the-night": 88,
+              "set-once": 30,
+              "dont-touch": -45,
+              "intensity": 88
+            },
+            "receptivity": {
+              "follows-the-night": 66,
+              "set-once": 22,
+              "dont-touch": -34,
+              "intensity": 66
+            }
+          },
+          "xfl0012": {
+            "advocacy": {
+              "after": 80,
+              "before": 65,
+              "dont-write": -35,
+              "intensity": 80
+            },
+            "receptivity": {
+              "after": 60,
+              "before": 49,
+              "dont-write": -26,
+              "intensity": 60
+            }
+          },
+          "xfl0013": {
+            "advocacy": {
+              "one-current": 55,
+              "many-rooms": 92,
+              "dont-keep": -70,
+              "intensity": 92
+            },
+            "receptivity": {
+              "one-current": 41,
+              "many-rooms": 69,
+              "dont-keep": -52,
+              "intensity": 69
+            }
+          },
+          "xfl0014": {
+            "advocacy": {
+              "layers-over-time": 82,
+              "current-only": 45,
+              "dont-look-back": -40,
+              "intensity": 82
+            },
+            "receptivity": {
+              "layers-over-time": 62,
+              "current-only": 34,
+              "dont-look-back": -30,
+              "intensity": 62
+            }
+          },
+          "xfl0015": {
+            "advocacy": {
+              "whole-room": 94,
+              "one-by-one": 35,
+              "dont-load": -80,
+              "intensity": 94
+            },
+            "receptivity": {
+              "whole-room": 70,
+              "one-by-one": 26,
+              "dont-load": -60,
+              "intensity": 70
+            }
+          },
+          "xfl0016": {
+            "advocacy": {
+              "qr-at-door": 95,
+              "file-later": 45,
+              "dont-sync": -85,
+              "intensity": 95
+            },
+            "receptivity": {
+              "qr-at-door": 71,
+              "file-later": 34,
+              "dont-sync": -64,
+              "intensity": 71
+            }
+          },
+          "xfl0017": {
+            "advocacy": {
+              "by-topic": -45,
+              "by-person": 20,
+              "all-open": 96,
+              "intensity": 96
+            },
+            "receptivity": {
+              "by-topic": -34,
+              "by-person": 15,
+              "all-open": 72,
+              "intensity": 72
+            }
+          },
+          "xfl0018": {
+            "advocacy": {
+              "private-by-default": -60,
+              "shared-with-room": 78,
+              "public-by-choice": 96,
+              "intensity": 96
+            },
+            "receptivity": {
+              "private-by-default": -45,
+              "shared-with-room": 58,
+              "public-by-choice": 72,
+              "intensity": 72
+            }
+          },
+          "xfl0019": {
+            "advocacy": {
+              "count-every-visit": 45,
+              "count-nothing": 35,
+              "no-opinion": 75,
+              "intensity": 75
+            },
+            "receptivity": {
+              "count-every-visit": 34,
+              "count-nothing": 26,
+              "no-opinion": 56,
+              "intensity": 56
+            }
+          },
+          "xfl0020": {
+            "advocacy": {
+              "gate-first": -55,
+              "straight-to-map": 82,
+              "skip-gate": 94,
+              "intensity": 94
+            },
+            "receptivity": {
+              "gate-first": -41,
+              "straight-to-map": 62,
+              "skip-gate": 70,
+              "intensity": 70
+            }
+          },
+          "xfl0021": {
+            "advocacy": {
+              "three-steps": 65,
+              "guide-first": 20,
+              "figure-it-out": 86,
+              "intensity": 86
+            },
+            "receptivity": {
+              "three-steps": 49,
+              "guide-first": 15,
+              "figure-it-out": 64,
+              "intensity": 64
+            }
+          },
+          "xfl0022": {
+            "advocacy": {
+              "cover-to-cover": 25,
+              "look-it-up": 80,
+              "never-open": 35,
+              "intensity": 80
+            },
+            "receptivity": {
+              "cover-to-cover": 19,
+              "look-it-up": 60,
+              "never-open": 26,
+              "intensity": 60
+            }
+          },
+          "xfl0023": {
+            "advocacy": {
+              "hosted-here": 90,
+              "own-server": 35,
+              "dont-care": 40,
+              "intensity": 90
+            },
+            "receptivity": {
+              "hosted-here": 68,
+              "own-server": 26,
+              "dont-care": 30,
+              "intensity": 68
+            }
+          },
+          "xfl0024": {
+            "advocacy": {
+              "five-oh": 15,
+              "five-one": 82,
+              "versions-dont-matter": 55,
+              "intensity": 82
+            },
+            "receptivity": {
+              "five-oh": 11,
+              "five-one": 62,
+              "versions-dont-matter": 41,
+              "intensity": 62
+            }
+          },
+          "xfl0025": {
+            "advocacy": {
+              "build-room-view": 92,
+              "straight-is-enough": 40,
+              "not-for-me": -65,
+              "intensity": 92
+            },
+            "receptivity": {
+              "build-room-view": 69,
+              "straight-is-enough": 30,
+              "not-for-me": -49,
+              "intensity": 69
+            }
+          },
+          "xfl0026": {
+            "advocacy": {
+              "add-eastern": 85,
+              "keep-abrahamic": 15,
+              "not-my-question": 25,
+              "intensity": 85
+            },
+            "receptivity": {
+              "add-eastern": 64,
+              "keep-abrahamic": 11,
+              "not-my-question": 19,
+              "intensity": 64
+            }
+          },
+          "xfl0027": {
+            "advocacy": {
+              "home-it": 75,
+              "leave-it-out": 15,
+              "havent-followed": 35,
+              "intensity": 75
+            },
+            "receptivity": {
+              "home-it": 56,
+              "leave-it-out": 11,
+              "havent-followed": 26,
+              "intensity": 56
+            }
+          },
+          "xfl0028": {
+            "advocacy": {
+              "more-control": -55,
+              "as-it-is": 35,
+              "more-open": 96,
+              "intensity": 96
+            },
+            "receptivity": {
+              "more-control": -41,
+              "as-it-is": 26,
+              "more-open": 72,
+              "intensity": 72
+            }
+          },
+          "xfl0029": {
+            "advocacy": {
+              "another-stance": 78,
+              "another-play": 85,
+              "enough-skins": -60,
+              "intensity": 85
+            },
+            "receptivity": {
+              "another-stance": 58,
+              "another-play": 64,
+              "enough-skins": -45,
+              "intensity": 64
+            }
+          },
+          "xfl0030": {
+            "advocacy": {
+              "branch-first": 80,
+              "leaf-by-leaf": 55,
+              "branch-limits-gate": 45,
+              "intensity": 80
+            },
+            "receptivity": {
+              "branch-first": 60,
+              "leaf-by-leaf": 41,
+              "branch-limits-gate": 34,
+              "intensity": 60
+            }
+          },
+          "xfl0031": {
+            "advocacy": {
+              "live-timer-and-guide": 75,
+              "signals-only": 65,
+              "off-screen": 20,
+              "intensity": 75
+            },
+            "receptivity": {
+              "live-timer-and-guide": 56,
+              "signals-only": 49,
+              "off-screen": 15,
+              "intensity": 56
+            }
+          },
+          "xfl0032": {
+            "advocacy": {
+              "compare-right-away": 92,
+              "browse-to-learn": 70,
+              "only-real-people": -40,
+              "intensity": 92
+            },
+            "receptivity": {
+              "compare-right-away": 69,
+              "browse-to-learn": 52,
+              "only-real-people": -30,
+              "intensity": 69
+            }
+          }
+        }
+      }
     }
   },
   "scribe": {
@@ -4288,22 +4752,22 @@
       "help": "Depth 1 (Overview) is a light survey of the recorded stances. Depth 5 (Dissertation defense) is full scholarly rigor: steelman each stance, raise the strongest objections, and answer them."
     },
     "panel": {
-      "modeSingle": "One profile creates an informed discussion between the stances recorded on this map \u2014 the positions held, where they agree, and where they part. For a moderated discussion plan, use Scene Setter.",
-      "modeMulti": "Scribe turns your selected profiles into an informed discussion between the stances recorded on this map \u2014 where the profiles agree, where they part, and what follows from each position. For a moderated discussion plan, use Scene Setter.",
+      "modeSingle": "One profile creates an informed discussion between the stances recorded on this map — the positions held, where they agree, and where they part. For a moderated discussion plan, use Scene Setter.",
+      "modeMulti": "Scribe turns your selected profiles into an informed discussion between the stances recorded on this map — where the profiles agree, where they part, and what follows from each position. For a moderated discussion plan, use Scene Setter.",
       "introSingle": "One profile selected: Scribe will create an informed discussion between the stances.",
       "introMulti": "Multiple profiles selected: Scribe will create an informed discussion between the stances.",
-      "detailsPlaceholder": "The map provides your stances and positions. Describe the angle, framing, or specific questions to emphasize or avoid \u2014 e.g. \u201ca point-by-point comparison of the two leading positions, with objections answered.\u201d",
+      "detailsPlaceholder": "The map provides your stances and positions. Describe the angle, framing, or specific questions to emphasize or avoid — e.g. “a point-by-point comparison of the two leading positions, with objections answered.”",
       "detailsHelp": "Don't re-enter your stances here. Scribe already uses the selected hypermap data.",
       "lengthHelp": "Discussions can target a word count, paragraphs, pages, or chapters. Enter one number or a range; blank defaults to 1 page.",
       "downloadIntro": "Generated from the selected profile data.",
-      "summary": "An informed discussion between the recorded stances \u2014 the positions speak for themselves, not a story."
+      "summary": "An informed discussion between the recorded stances — the positions speak for themselves, not a story."
     },
     "prompt": {
       "opening": "Write an informed discussion between the stances recorded on this map.",
       "rules": [
-        "Present each recorded stance fairly and in its strongest form \u2014 steelman, don't strawman.",
+        "Present each recorded stance fairly and in its strongest form — steelman, don't strawman.",
         "Show where the stances agree, where they part, and what follows from each position.",
-        "Use the recorded ratings as emphasis: 80\u2013100 central, 56\u201379 strong support, 36\u201355 lighter, and 0\u201335 optional curiosity.",
+        "Use the recorded ratings as emphasis: 80–100 central, 56–79 strong support, 36–55 lighter, and 0–35 optional curiosity.",
         "Use only the named topics below. Do not add, imply, or reference any unlisted stance.",
         "Do not invent positions, sources, or facts beyond the supplied data."
       ],
@@ -4328,8 +4792,8 @@
     "panel": {
       "subtitleSuffix": "the ground rules stay in every discussion plan.",
       "detailsLabel": "Discussion details <small>Optional</small>",
-      "detailsPlaceholder": "The map provides your stances and positions. Describe the setting, framing, or specific questions to emphasize or avoid \u2014 e.g. \u201ca point-by-point comparison of the two leading positions, with objections answered.\u201d",
-      "detailsHelp": "Don\u2019t re-enter your stances here. Scene Setter already uses the selected hypermap data, and the ground rules below still control the plan.",
+      "detailsPlaceholder": "The map provides your stances and positions. Describe the setting, framing, or specific questions to emphasize or avoid — e.g. “a point-by-point comparison of the two leading positions, with objections answered.”",
+      "detailsHelp": "Don’t re-enter your stances here. Scene Setter already uses the selected hypermap data, and the ground rules below still control the plan.",
       "playGuideLegend": "Discussion plan length",
       "playGuideHelp": "Length for the AI discussion-plan prompt only: a word count, paragraphs, pages, or chapters. Enter one number or a range; blank defaults to 5 paragraphs.",
       "negotiationLegend": "Discussion agreement length",
@@ -4339,33 +4803,33 @@
       "outputsTitle": "Documents",
       "outputsIntro": "Two separate outputs. Take either one on its own; each carries the compare-settings stamp and the same ground-rules content.",
       "negotiationTitle": "Discussion agreement",
-      "negotiationDesc": "The completed ground rules as a finished, standalone agreement document \u2014 not an AI prompt.",
+      "negotiationDesc": "The completed ground rules as a finished, standalone agreement document — not an AI prompt.",
       "playGuideTitle": "Discussion plan",
-      "playGuideDesc": "The AI discussion-plan prompt, with the ground rules embedded as its binding layer. It also carries the standard structured format \u2014 elapsed time codes like <strong>[00:00-05:00]</strong> and a fixed activity set \u2014 so whichever AI writes the plan, Scene Sentinel can read it back, run its timers, and match check-ins to the scheduled step.",
+      "playGuideDesc": "The AI discussion-plan prompt, with the ground rules embedded as its binding layer. It also carries the standard structured format — elapsed time codes like <strong>[00:00-05:00]</strong> and a fixed activity set — so whichever AI writes the plan, Scene Sentinel can read it back, run its timers, and match check-ins to the scheduled step.",
       "copyNegotiationGuide": "Copy discussion agreement",
       "downloadNegotiationGuide": "Download discussion agreement (.txt)",
       "copyPlayGuide": "Copy discussion plan prompt",
       "downloadPlayGuide": "Download discussion plan prompt (.txt)",
       "aiNote": "<strong>How this differs from Scribe:</strong> this workspace puts the ground rules and shared positions into a discussion agreement first. Its moderation-plan source is inspiration only; the agreement always controls the generated plan.",
-      "playGuideTextPlaceholder": "Your generated discussion plan will stream here in real time\u2026",
+      "playGuideTextPlaceholder": "Your generated discussion plan will stream here in real time…",
       "openNegotiationTip": "Build a shared discussion agreement and an AI-ready moderation plan from two or more selected profiles.",
       "viewNavTip": "Build a moderated discussion plan for 2 or more profiles, with ground rules and timed segments.",
-      "legendRow": "<b>Scene Setter</b> \u2014 Moderating a discussion between the stances: a ground-rules agreement and a moderated discussion plan."
+      "legendRow": "<b>Scene Setter</b> — Moderating a discussion between the stances: a ground-rules agreement and a moderated discussion plan."
     },
     "groundRules": [
-      "Present each recorded stance fairly and in its strongest form \u2014 steelman, don't strawman.",
+      "Present each recorded stance fairly and in its strongest form — steelman, don't strawman.",
       "Speak from your own recorded stance; don't speak for the other side.",
       "Take turns: one position at a time, each side heard fully before replies.",
       "Objections go to the position, not the person holding it.",
       "Anyone may call a pause; the discussion resumes only when everyone is ready.",
-      "What the profiles agree on is common ground \u2014 start there, and return to it when the discussion stalls."
+      "What the profiles agree on is common ground — start there, and return to it when the discussion stalls."
     ],
     "prompt": {
       "opening": "Write a moderated discussion plan for the stances recorded on this map.",
       "rules": [
-        "Present each recorded stance fairly and in its strongest form \u2014 steelman, don't strawman.",
+        "Present each recorded stance fairly and in its strongest form — steelman, don't strawman.",
         "Show where the stances agree, where they part, and what follows from each position.",
-        "Use the recorded ratings as emphasis: 80\u2013100 central, 56\u201379 strong support, 36\u201355 lighter, and 0\u201335 optional curiosity.",
+        "Use the recorded ratings as emphasis: 80–100 central, 56–79 strong support, 36–55 lighter, and 0–35 optional curiosity.",
         "Structure the plan in Opening, Development, and Closing, with timed segments and a check-in between segments.",
         "Give each side its strongest form before comparing them; never let one side speak for the other.",
         "Use only the named topics below. Do not add, imply, or reference any unlisted stance.",
@@ -4387,589 +4851,589 @@
     }
   },
   "defaultLayout": {
-  "app": "sexcapades",
-  "kind": "layout-settings",
-  "version": 3,
-  "build": "2026-11-25_1336",
-  "exportedAt": "2026-11-25T20:07:24.566Z",
-  "settings": {
-    "spacing": "airy",
-    "branchOrder": "landscape-antipodal",
-    "propFan": true,
-    "subcatOrder": true,
-    "staggerDensity": false,
-    "stagger": true,
-    "expandAll": true,
-    "collision": "grow",
-    "crossmin": false,
-    "nudge": false,
-    "showRelations": false,
-    "spokeLen": 2.6,
-    "subLen": 1.2,
-    "pad": 1.4,
-    "repulsion": 0,
-    "repulsionEnabled": false,
-    "staticMap": false,
-    "fontScale": 30,
-    "centerRingScale": 10,
-    "leafOvergrowth": 100,
-    "branchOverrides": {
-      "Shaping it": {
-        "length": 0.4141117850042227
+    "app": "sexcapades",
+    "kind": "layout-settings",
+    "version": 3,
+    "build": "2026-11-25_1336",
+    "exportedAt": "2026-11-25T20:07:24.566Z",
+    "settings": {
+      "spacing": "airy",
+      "branchOrder": "landscape-antipodal",
+      "propFan": true,
+      "subcatOrder": true,
+      "staggerDensity": false,
+      "stagger": true,
+      "expandAll": true,
+      "collision": "grow",
+      "crossmin": false,
+      "nudge": false,
+      "showRelations": false,
+      "spokeLen": 2.6,
+      "subLen": 1.2,
+      "pad": 1.4,
+      "repulsion": 0,
+      "repulsionEnabled": false,
+      "staticMap": false,
+      "fontScale": 30,
+      "centerRingScale": 10,
+      "leafOvergrowth": 100,
+      "branchOverrides": {
+        "Shaping it": {
+          "length": 0.4141117850042227
+        },
+        "Planning the night": {
+          "length": 0.16843866666666668
+        },
+        "Keeping it": {
+          "length": 0.1696386666666667
+        },
+        "Rating": {
+          "length": 0.2437386666666667
+        },
+        "Comparing": {
+          "length": 0.26833866666666667
+        },
+        "Guarding it": {
+          "length": 0.1390386666666667
+        },
+        "Learning it": {
+          "length": 0.18553866666666669
+        }
       },
-      "Planning the night": {
-        "length": 0.16843866666666668
+      "subcatOverrides": {},
+      "kinkOverrides": {
+        "xfl0026": {
+          "length": 1
+        },
+        "xfl0023": {
+          "length": 1
+        },
+        "xfl0027": {
+          "length": 1
+        },
+        "xfl0025": {
+          "length": 1
+        },
+        "xfl0024": {
+          "length": 1
+        },
+        "xfl0029": {
+          "length": 1
+        },
+        "xfl0028": {
+          "length": 1
+        },
+        "xfl0011": {
+          "length": 1
+        },
+        "xfl0010": {
+          "length": 1
+        },
+        "xfl0012": {
+          "length": 1
+        },
+        "xfl0009": {
+          "length": 1
+        },
+        "xfl0014": {
+          "length": 1
+        },
+        "xfl0013": {
+          "length": 1
+        },
+        "xfl0015": {
+          "length": 1
+        },
+        "xfl0016": {
+          "length": 1
+        },
+        "xfl0004": {
+          "length": 1
+        },
+        "xfl0002": {
+          "length": 1
+        },
+        "xfl0003": {
+          "length": 1
+        },
+        "xfl0001": {
+          "length": 1
+        },
+        "xfl0006": {
+          "length": 1
+        },
+        "xfl0007": {
+          "length": 1
+        },
+        "xfl0005": {
+          "length": 1
+        },
+        "xfl0008": {
+          "length": 1
+        },
+        "xfl0019": {
+          "length": 1
+        },
+        "xfl0018": {
+          "length": 1
+        },
+        "xfl0017": {
+          "length": 1
+        },
+        "xfl0020": {
+          "length": 1
+        },
+        "xfl0022": {
+          "length": 1
+        },
+        "xfl0021": {
+          "length": 1
+        }
       },
-      "Keeping it": {
-        "length": 0.1696386666666667
-      },
-      "Rating": {
-        "length": 0.2437386666666667
-      },
-      "Comparing": {
-        "length": 0.26833866666666667
-      },
-      "Guarding it": {
-        "length": 0.1390386666666667
-      },
-      "Learning it": {
-        "length": 0.18553866666666669
-      }
+      "subcatAngleOffsets": {},
+      "kinkAngleOffsets": {},
+      "branchSpokeAutoShrink": {},
+      "subcatSpokeAutoShrink": {},
+      "solverMidline": "repulsion",
+      "mapSliders": false,
+      "animations": false
     },
-    "subcatOverrides": {},
-    "kinkOverrides": {
-      "xfl0026": {
-        "length": 1
-      },
-      "xfl0023": {
-        "length": 1
-      },
-      "xfl0027": {
-        "length": 1
-      },
-      "xfl0025": {
-        "length": 1
-      },
-      "xfl0024": {
-        "length": 1
-      },
-      "xfl0029": {
-        "length": 1
-      },
-      "xfl0028": {
-        "length": 1
-      },
-      "xfl0011": {
-        "length": 1
-      },
-      "xfl0010": {
-        "length": 1
-      },
-      "xfl0012": {
-        "length": 1
-      },
-      "xfl0009": {
-        "length": 1
-      },
-      "xfl0014": {
-        "length": 1
-      },
-      "xfl0013": {
-        "length": 1
-      },
-      "xfl0015": {
-        "length": 1
-      },
-      "xfl0016": {
-        "length": 1
-      },
-      "xfl0004": {
-        "length": 1
-      },
-      "xfl0002": {
-        "length": 1
-      },
-      "xfl0003": {
-        "length": 1
-      },
-      "xfl0001": {
-        "length": 1
-      },
-      "xfl0006": {
-        "length": 1
-      },
-      "xfl0007": {
-        "length": 1
-      },
-      "xfl0005": {
-        "length": 1
-      },
-      "xfl0008": {
-        "length": 1
-      },
-      "xfl0019": {
-        "length": 1
-      },
-      "xfl0018": {
-        "length": 1
-      },
-      "xfl0017": {
-        "length": 1
-      },
-      "xfl0020": {
-        "length": 1
-      },
-      "xfl0022": {
-        "length": 1
-      },
-      "xfl0021": {
-        "length": 1
-      }
-    },
-    "subcatAngleOffsets": {},
-    "kinkAngleOffsets": {},
-    "branchSpokeAutoShrink": {},
-    "subcatSpokeAutoShrink": {},
-    "solverMidline": "repulsion",
-    "mapSliders": false,
-    "animations": false
-  },
-  "hash": "#layout-spacing=airy&layout-branchOrder=landscape-antipodal&layout-propFan=1&layout-subcatOrder=1&layout-staggerDensity=0&layout-stagger=1&layout-expandAll=1&layout-collision=grow&layout-crossmin=0&layout-nudge=0&layout-showRelations=0&layout-spokeLen=2.60&layout-subLen=1.20&layout-pad=1.40&layout-repulsion=0.00&layout-repulsionEnabled=0&layout-staticMap=0&layout-animations=0&layout-mapSliders=0&layout-fontScale=30.00&layout-centerRingScale=10.00&layout-leafOvergrowth=100&layout-autoShrinkFactor=0.76&layout-subcatCloudShrinkFactor=0.76&layout-branches=eyJTaGFwaW5nIGl0Ijp7Imxlbmd0aCI6MC40MTQxMTE3ODUwMDQyMjI3fSwiUGxhbm5pbmcgdGhlIG5pZ2h0Ijp7Imxlbmd0aCI6MC4xNjg0Mzg2NjY2NjY2NjY2OH0sIktlZXBpbmcgaXQiOnsibGVuZ3RoIjowLjE2OTYzODY2NjY2NjY2Njd9LCJSYXRpbmciOnsibGVuZ3RoIjowLjI0MzczODY2NjY2NjY2Njd9LCJDb21wYXJpbmciOnsibGVuZ3RoIjowLjI2ODMzODY2NjY2NjY2NjY3fSwiR3VhcmRpbmcgaXQiOnsibGVuZ3RoIjowLjEzOTAzODY2NjY2NjY2Njd9LCJMZWFybmluZyBpdCI6eyJsZW5ndGgiOjAuMTg1NTM4NjY2NjY2NjY2Njl9fQ&layout-kinkOverrides=eyJ4ZmwwMDI2Ijp7Imxlbmd0aCI6MX0sInhmbDAwMjMiOnsibGVuZ3RoIjoxfSwieGZsMDAyNyI6eyJsZW5ndGgiOjF9LCJ4ZmwwMDI1Ijp7Imxlbmd0aCI6MX0sInhmbDAwMjQiOnsibGVuZ3RoIjoxfSwieGZsMDAyOSI6eyJsZW5ndGgiOjF9LCJ4ZmwwMDI4Ijp7Imxlbmd0aCI6MX0sInhmbDAwMTEiOnsibGVuZ3RoIjoxfSwieGZsMDAxMCI6eyJsZW5ndGgiOjF9LCJ4ZmwwMDEyIjp7Imxlbmd0aCI6MX0sInhmbDAwMDkiOnsibGVuZ3RoIjoxfSwieGZsMDAxNCI6eyJsZW5ndGgiOjF9LCJ4ZmwwMDEzIjp7Imxlbmd0aCI6MX0sInhmbDAwMTUiOnsibGVuZ3RoIjoxfSwieGZsMDAxNiI6eyJsZW5ndGgiOjF9LCJ4ZmwwMDA0Ijp7Imxlbmd0aCI6MX0sInhmbDAwMDIiOnsibGVuZ3RoIjoxfSwieGZsMDAwMyI6eyJsZW5ndGgiOjF9LCJ4ZmwwMDAxIjp7Imxlbmd0aCI6MX0sInhmbDAwMDYiOnsibGVuZ3RoIjoxfSwieGZsMDAwNyI6eyJsZW5ndGgiOjF9LCJ4ZmwwMDA1Ijp7Imxlbmd0aCI6MX0sInhmbDAwMDgiOnsibGVuZ3RoIjoxfSwieGZsMDAxOSI6eyJsZW5ndGgiOjF9LCJ4ZmwwMDE4Ijp7Imxlbmd0aCI6MX0sInhmbDAwMTciOnsibGVuZ3RoIjoxfSwieGZsMDAyMCI6eyJsZW5ndGgiOjF9LCJ4ZmwwMDIyIjp7Imxlbmd0aCI6MX0sInhmbDAwMjEiOnsibGVuZ3RoIjoxfX0&layout-nodeOverrides=eyJTaGFwaW5nIGl0Ijp7Imxlbmd0aCI6MC40MTQxMTE3ODUwMDQyMjI3LCJkZXB0aCI6MSwia2luZCI6ImJyYW5jaCJ9LCJQbGFubmluZyB0aGUgbmlnaHQiOnsibGVuZ3RoIjowLjE2ODQzODY2NjY2NjY2NjY4LCJkZXB0aCI6MSwia2luZCI6ImJyYW5jaCJ9LCJLZWVwaW5nIGl0Ijp7Imxlbmd0aCI6MC4xNjk2Mzg2NjY2NjY2NjY3LCJkZXB0aCI6MSwia2luZCI6ImJyYW5jaCJ9LCJSYXRpbmciOnsibGVuZ3RoIjowLjI0MzczODY2NjY2NjY2NjcsImRlcHRoIjoxLCJraW5kIjoiYnJhbmNoIn0sIkNvbXBhcmluZyI6eyJsZW5ndGgiOjAuMjY4MzM4NjY2NjY2NjY2NjcsImRlcHRoIjoxLCJraW5kIjoiYnJhbmNoIn0sIkd1YXJkaW5nIGl0Ijp7Imxlbmd0aCI6MC4xMzkwMzg2NjY2NjY2NjY3LCJkZXB0aCI6MSwia2luZCI6ImJyYW5jaCJ9LCJMZWFybmluZyBpdCI6eyJsZW5ndGgiOjAuMTg1NTM4NjY2NjY2NjY2NjksImRlcHRoIjoxLCJraW5kIjoiYnJhbmNoIn0sInhmbDAwMjYiOnsibGVuZ3RoIjoxLCJkZXB0aCI6Mywia2luZCI6ImtpbmsifSwieGZsMDAyMyI6eyJsZW5ndGgiOjEsImRlcHRoIjozLCJraW5kIjoia2luayJ9LCJ4ZmwwMDI3Ijp7Imxlbmd0aCI6MSwiZGVwdGgiOjMsImtpbmQiOiJraW5rIn0sInhmbDAwMjUiOnsibGVuZ3RoIjoxLCJkZXB0aCI6Mywia2luZCI6ImtpbmsifSwieGZsMDAyNCI6eyJsZW5ndGgiOjEsImRlcHRoIjozLCJraW5kIjoia2luayJ9LCJ4ZmwwMDI5Ijp7Imxlbmd0aCI6MSwiZGVwdGgiOjMsImtpbmQiOiJraW5rIn0sInhmbDAwMjgiOnsibGVuZ3RoIjoxLCJkZXB0aCI6Mywia2luZCI6ImtpbmsifSwieGZsMDAxMSI6eyJsZW5ndGgiOjEsImRlcHRoIjozLCJraW5kIjoia2luayJ9LCJ4ZmwwMDEwIjp7Imxlbmd0aCI6MSwiZGVwdGgiOjMsImtpbmQiOiJraW5rIn0sInhmbDAwMTIiOnsibGVuZ3RoIjoxLCJkZXB0aCI6Mywia2luZCI6ImtpbmsifSwieGZsMDAwOSI6eyJsZW5ndGgiOjEsImRlcHRoIjozLCJraW5kIjoia2luayJ9LCJ4ZmwwMDE0Ijp7Imxlbmd0aCI6MSwiZGVwdGgiOjMsImtpbmQiOiJraW5rIn0sInhmbDAwMTMiOnsibGVuZ3RoIjoxLCJkZXB0aCI6Mywia2luZCI6ImtpbmsifSwieGZsMDAxNSI6eyJsZW5ndGgiOjEsImRlcHRoIjozLCJraW5kIjoia2luayJ9LCJ4ZmwwMDE2Ijp7Imxlbmd0aCI6MSwiZGVwdGgiOjMsImtpbmQiOiJraW5rIn0sInhmbDAwMDQiOnsibGVuZ3RoIjoxLCJkZXB0aCI6Mywia2luZCI6ImtpbmsifSwieGZsMDAwMiI6eyJsZW5ndGgiOjEsImRlcHRoIjozLCJraW5kIjoia2luayJ9LCJ4ZmwwMDAzIjp7Imxlbmd0aCI6MSwiZGVwdGgiOjMsImtpbmQiOiJraW5rIn0sInhmbDAwMDEiOnsibGVuZ3RoIjoxLCJkZXB0aCI6Mywia2luZCI6ImtpbmsifSwieGZsMDAwNiI6eyJsZW5ndGgiOjEsImRlcHRoIjozLCJraW5kIjoia2luayJ9LCJ4ZmwwMDA3Ijp7Imxlbmd0aCI6MSwiZGVwdGgiOjMsImtpbmQiOiJraW5rIn0sInhmbDAwMDUiOnsibGVuZ3RoIjoxLCJkZXB0aCI6Mywia2luZCI6ImtpbmsifSwieGZsMDAwOCI6eyJsZW5ndGgiOjEsImRlcHRoIjozLCJraW5kIjoia2luayJ9LCJ4ZmwwMDE5Ijp7Imxlbmd0aCI6MSwiZGVwdGgiOjMsImtpbmQiOiJraW5rIn0sInhmbDAwMTgiOnsibGVuZ3RoIjoxLCJkZXB0aCI6Mywia2luZCI6ImtpbmsifSwieGZsMDAxNyI6eyJsZW5ndGgiOjEsImRlcHRoIjozLCJraW5kIjoia2luayJ9LCJ4ZmwwMDIwIjp7Imxlbmd0aCI6MSwiZGVwdGgiOjMsImtpbmQiOiJraW5rIn0sInhmbDAwMjIiOnsibGVuZ3RoIjoxLCJkZXB0aCI6Mywia2luZCI6ImtpbmsifSwieGZsMDAyMSI6eyJsZW5ndGgiOjEsImRlcHRoIjozLCJraW5kIjoia2luayJ9fQ",
-  "positions": {
-    "skin": "flexcapades",
-    "solverVersion": 2,
-    "capturedAt": "2026-11-25T20:07:24.564Z",
-    "settingsHash": "#layout-spacing=airy&layout-branchOrder=landscape-antipodal&layout-propFan=1&layout-subcatOrder=1&layout-staggerDensity=0&layout-stagger=1&layout-expandAll=1&layout-collision=grow&layout-crossmin=0&layout-nudge=0&layout-showRelations=0&layout-spokeLen=2.60&layout-subLen=1.20&layout-pad=1.40&layout-repulsion=0.00&layout-repulsionEnabled=0&layout-staticMap=0&layout-animations=0&layout-mapSliders=0&layout-fontScale=30.00&layout-centerRingScale=10.00&layout-leafOvergrowth=100&layout-autoShrinkFactor=0.76&layout-subcatCloudShrinkFactor=0.76&layout-branches=eyJTaGFwaW5nIGl0Ijp7Imxlbmd0aCI6MC40MTQxMTE3ODUwMDQyMjI3fSwiUGxhbm5pbmcgdGhlIG5pZ2h0Ijp7Imxlbmd0aCI6MC4xNjg0Mzg2NjY2NjY2NjY2OH0sIktlZXBpbmcgaXQiOnsibGVuZ3RoIjowLjE2OTYzODY2NjY2NjY2Njd9LCJSYXRpbmciOnsibGVuZ3RoIjowLjI0MzczODY2NjY2NjY2Njd9LCJDb21wYXJpbmciOnsibGVuZ3RoIjowLjI2ODMzODY2NjY2NjY2NjY3fSwiR3VhcmRpbmcgaXQiOnsibGVuZ3RoIjowLjEzOTAzODY2NjY2NjY2Njd9LCJMZWFybmluZyBpdCI6eyJsZW5ndGgiOjAuMTg1NTM4NjY2NjY2NjY2Njl9fQ&layout-kinkOverrides=eyJ4ZmwwMDI2Ijp7Imxlbmd0aCI6MX0sInhmbDAwMjMiOnsibGVuZ3RoIjoxfSwieGZsMDAyNyI6eyJsZW5ndGgiOjF9LCJ4ZmwwMDI1Ijp7Imxlbmd0aCI6MX0sInhmbDAwMjQiOnsibGVuZ3RoIjoxfSwieGZsMDAyOSI6eyJsZW5ndGgiOjF9LCJ4ZmwwMDI4Ijp7Imxlbmd0aCI6MX0sInhmbDAwMTEiOnsibGVuZ3RoIjoxfSwieGZsMDAxMCI6eyJsZW5ndGgiOjF9LCJ4ZmwwMDEyIjp7Imxlbmd0aCI6MX0sInhmbDAwMDkiOnsibGVuZ3RoIjoxfSwieGZsMDAxNCI6eyJsZW5ndGgiOjF9LCJ4ZmwwMDEzIjp7Imxlbmd0aCI6MX0sInhmbDAwMTUiOnsibGVuZ3RoIjoxfSwieGZsMDAxNiI6eyJsZW5ndGgiOjF9LCJ4ZmwwMDA0Ijp7Imxlbmd0aCI6MX0sInhmbDAwMDIiOnsibGVuZ3RoIjoxfSwieGZsMDAwMyI6eyJsZW5ndGgiOjF9LCJ4ZmwwMDAxIjp7Imxlbmd0aCI6MX0sInhmbDAwMDYiOnsibGVuZ3RoIjoxfSwieGZsMDAwNyI6eyJsZW5ndGgiOjF9LCJ4ZmwwMDA1Ijp7Imxlbmd0aCI6MX0sInhmbDAwMDgiOnsibGVuZ3RoIjoxfSwieGZsMDAxOSI6eyJsZW5ndGgiOjF9LCJ4ZmwwMDE4Ijp7Imxlbmd0aCI6MX0sInhmbDAwMTciOnsibGVuZ3RoIjoxfSwieGZsMDAyMCI6eyJsZW5ndGgiOjF9LCJ4ZmwwMDIyIjp7Imxlbmd0aCI6MX0sInhmbDAwMjEiOnsibGVuZ3RoIjoxfX0&layout-nodeOverrides=eyJTaGFwaW5nIGl0Ijp7Imxlbmd0aCI6MC40MTQxMTE3ODUwMDQyMjI3LCJkZXB0aCI6MSwia2luZCI6ImJyYW5jaCJ9LCJQbGFubmluZyB0aGUgbmlnaHQiOnsibGVuZ3RoIjowLjE2ODQzODY2NjY2NjY2NjY4LCJkZXB0aCI6MSwia2luZCI6ImJyYW5jaCJ9LCJLZWVwaW5nIGl0Ijp7Imxlbmd0aCI6MC4xNjk2Mzg2NjY2NjY2NjY3LCJkZXB0aCI6MSwia2luZCI6ImJyYW5jaCJ9LCJSYXRpbmciOnsibGVuZ3RoIjowLjI0MzczODY2NjY2NjY2NjcsImRlcHRoIjoxLCJraW5kIjoiYnJhbmNoIn0sIkNvbXBhcmluZyI6eyJsZW5ndGgiOjAuMjY4MzM4NjY2NjY2NjY2NjcsImRlcHRoIjoxLCJraW5kIjoiYnJhbmNoIn0sIkd1YXJkaW5nIGl0Ijp7Imxlbmd0aCI6MC4xMzkwMzg2NjY2NjY2NjY3LCJkZXB0aCI6MSwia2luZCI6ImJyYW5jaCJ9LCJMZWFybmluZyBpdCI6eyJsZW5ndGgiOjAuMTg1NTM4NjY2NjY2NjY2NjksImRlcHRoIjoxLCJraW5kIjoiYnJhbmNoIn0sInhmbDAwMjYiOnsibGVuZ3RoIjoxLCJkZXB0aCI6Mywia2luZCI6ImtpbmsifSwieGZsMDAyMyI6eyJsZW5ndGgiOjEsImRlcHRoIjozLCJraW5kIjoia2luayJ9LCJ4ZmwwMDI3Ijp7Imxlbmd0aCI6MSwiZGVwdGgiOjMsImtpbmQiOiJraW5rIn0sInhmbDAwMjUiOnsibGVuZ3RoIjoxLCJkZXB0aCI6Mywia2luZCI6ImtpbmsifSwieGZsMDAyNCI6eyJsZW5ndGgiOjEsImRlcHRoIjozLCJraW5kIjoia2luayJ9LCJ4ZmwwMDI5Ijp7Imxlbmd0aCI6MSwiZGVwdGgiOjMsImtpbmQiOiJraW5rIn0sInhmbDAwMjgiOnsibGVuZ3RoIjoxLCJkZXB0aCI6Mywia2luZCI6ImtpbmsifSwieGZsMDAxMSI6eyJsZW5ndGgiOjEsImRlcHRoIjozLCJraW5kIjoia2luayJ9LCJ4ZmwwMDEwIjp7Imxlbmd0aCI6MSwiZGVwdGgiOjMsImtpbmQiOiJraW5rIn0sInhmbDAwMTIiOnsibGVuZ3RoIjoxLCJkZXB0aCI6Mywia2luZCI6ImtpbmsifSwieGZsMDAwOSI6eyJsZW5ndGgiOjEsImRlcHRoIjozLCJraW5kIjoia2luayJ9LCJ4ZmwwMDE0Ijp7Imxlbmd0aCI6MSwiZGVwdGgiOjMsImtpbmQiOiJraW5rIn0sInhmbDAwMTMiOnsibGVuZ3RoIjoxLCJkZXB0aCI6Mywia2luZCI6ImtpbmsifSwieGZsMDAxNSI6eyJsZW5ndGgiOjEsImRlcHRoIjozLCJraW5kIjoia2luayJ9LCJ4ZmwwMDE2Ijp7Imxlbmd0aCI6MSwiZGVwdGgiOjMsImtpbmQiOiJraW5rIn0sInhmbDAwMDQiOnsibGVuZ3RoIjoxLCJkZXB0aCI6Mywia2luZCI6ImtpbmsifSwieGZsMDAwMiI6eyJsZW5ndGgiOjEsImRlcHRoIjozLCJraW5kIjoia2luayJ9LCJ4ZmwwMDAzIjp7Imxlbmd0aCI6MSwiZGVwdGgiOjMsImtpbmQiOiJraW5rIn0sInhmbDAwMDEiOnsibGVuZ3RoIjoxLCJkZXB0aCI6Mywia2luZCI6ImtpbmsifSwieGZsMDAwNiI6eyJsZW5ndGgiOjEsImRlcHRoIjozLCJraW5kIjoia2luayJ9LCJ4ZmwwMDA3Ijp7Imxlbmd0aCI6MSwiZGVwdGgiOjMsImtpbmQiOiJraW5rIn0sInhmbDAwMDUiOnsibGVuZ3RoIjoxLCJkZXB0aCI6Mywia2luZCI6ImtpbmsifSwieGZsMDAwOCI6eyJsZW5ndGgiOjEsImRlcHRoIjozLCJraW5kIjoia2luayJ9LCJ4ZmwwMDE5Ijp7Imxlbmd0aCI6MSwiZGVwdGgiOjMsImtpbmQiOiJraW5rIn0sInhmbDAwMTgiOnsibGVuZ3RoIjoxLCJkZXB0aCI6Mywia2luZCI6ImtpbmsifSwieGZsMDAxNyI6eyJsZW5ndGgiOjEsImRlcHRoIjozLCJraW5kIjoia2luayJ9LCJ4ZmwwMDIwIjp7Imxlbmd0aCI6MSwiZGVwdGgiOjMsImtpbmQiOiJraW5rIn0sInhmbDAwMjIiOnsibGVuZ3RoIjoxLCJkZXB0aCI6Mywia2luZCI6ImtpbmsifSwieGZsMDAyMSI6eyJsZW5ndGgiOjEsImRlcHRoIjozLCJraW5kIjoia2luayJ9fQ",
-    "fingerprint": "{\"animations\":false,\"autoShrinkFactor\":0.76,\"branchOrder\":\"landscape-antipodal\",\"branchOverrides\":{\"Comparing\":{\"length\":0.26833866666666667},\"Guarding it\":{\"length\":0.1390386666666667},\"Keeping it\":{\"length\":0.1696386666666667},\"Learning it\":{\"length\":0.18553866666666669},\"Planning the night\":{\"length\":0.16843866666666668},\"Rating\":{\"length\":0.2437386666666667},\"Shaping it\":{\"length\":0.4141117850042227}},\"branchSpokeAutoShrink\":{},\"centerRingScale\":10,\"collision\":\"grow\",\"crossmin\":false,\"expandAll\":true,\"fontScale\":30,\"kinkAngleOffsets\":{},\"kinkOverrides\":{\"xfl0001\":{\"length\":1},\"xfl0002\":{\"length\":1},\"xfl0003\":{\"length\":1},\"xfl0004\":{\"length\":1},\"xfl0005\":{\"length\":1},\"xfl0006\":{\"length\":1},\"xfl0007\":{\"length\":1},\"xfl0008\":{\"length\":1},\"xfl0009\":{\"length\":1},\"xfl0010\":{\"length\":1},\"xfl0011\":{\"length\":1},\"xfl0012\":{\"length\":1},\"xfl0013\":{\"length\":1},\"xfl0014\":{\"length\":1},\"xfl0015\":{\"length\":1},\"xfl0016\":{\"length\":1},\"xfl0017\":{\"length\":1},\"xfl0018\":{\"length\":1},\"xfl0019\":{\"length\":1},\"xfl0020\":{\"length\":1},\"xfl0021\":{\"length\":1},\"xfl0022\":{\"length\":1},\"xfl0023\":{\"length\":1},\"xfl0024\":{\"length\":1},\"xfl0025\":{\"length\":1},\"xfl0026\":{\"length\":1},\"xfl0027\":{\"length\":1},\"xfl0028\":{\"length\":1},\"xfl0029\":{\"length\":1}},\"leafOvergrowth\":100,\"mapSliders\":false,\"nodeOverrides\":{},\"nudge\":false,\"pad\":1.4,\"propFan\":true,\"repulsion\":0,\"repulsionEnabled\":false,\"showRelations\":false,\"solverMidline\":\"repulsion\",\"spacing\":\"airy\",\"spokeLen\":2.6,\"stagger\":true,\"staggerDensity\":false,\"staticMap\":false,\"subLen\":1.2,\"subcatAngleOffsets\":{},\"subcatCloudShrinkFactor\":0.76,\"subcatOrder\":true,\"subcatOverrides\":{},\"subcatSpokeAutoShrink\":{}}",
-    "treeSignature": "xflc01:xfl0001[],xfl0002[],xfl0003[],xfl0004[]|xflc02:xfl0005[],xfl0006[],xfl0007[],xfl0008[]|xflc03:xfl0009[],xfl0010[],xfl0011[],xfl0012[]|xflc04:xfl0013[],xfl0014[],xfl0015[],xfl0016[]|xflc05:xfl0017[],xfl0018[],xfl0019[]|xflc06:xfl0020[],xfl0021[],xfl0022[]|xflc07:xfl0023[],xfl0024[],xfl0025[],xfl0026[],xfl0027[],xfl0028[],xfl0029[]",
-    "crossings": 56.02505206380282,
-    "branches": [
-      {
-        "name": "Learning it",
-        "catId": "xflc06",
-        "angle": -1.2458039833200905,
-        "sector": 0.6499846869496123,
-        "topicCloudRadius": 210.8,
-        "topicCloudRadiusBase": 210.8,
-        "spokeAdjust20": 0,
-        "topics": [
-          {
-            "id": "xfl0020",
-            "angle": -1.451632467520801,
-            "sector": 0.2058284842007106,
-            "cloudAngle": 0.6740581938736722,
-            "cloudRadius": 210.8,
-            "cloudCount": 3,
-            "cloudIndex": 0,
-            "curve": false,
-            "radialFit20": null,
-            "children": []
-          },
-          {
-            "id": "xfl0022",
-            "angle": -1.2458039833200905,
-            "sector": 0.2058284842007106,
-            "cloudAngle": -1.2458039833200902,
-            "cloudRadius": 218.45277227278902,
-            "cloudCount": 3,
-            "cloudIndex": 1,
-            "curve": false,
-            "radialFit20": null,
-            "children": []
-          },
-          {
-            "id": "xfl0021",
-            "angle": -1.03997549911938,
-            "sector": 0.2058284842007106,
-            "cloudAngle": 3.117519146665734,
-            "cloudRadius": 210.8,
-            "cloudCount": 3,
-            "cloudIndex": 2,
-            "curve": false,
-            "radialFit20": null,
-            "children": []
-          }
-        ]
-      },
-      {
-        "name": "Planning the night",
-        "catId": "xflc03",
-        "angle": -0.48748851521220926,
-        "sector": 0.86664624926615,
-        "topicCloudRadius": 210.8,
-        "topicCloudRadiusBase": 210.8,
-        "spokeAdjust20": 0,
-        "topics": [
-          {
-            "id": "xfl0011",
-            "angle": -0.799390889297058,
-            "sector": 0.20793491605656583,
-            "cloudAngle": 1.6723564341307733,
-            "cloudRadius": 210.8,
-            "cloudCount": 4,
-            "cloudIndex": 0,
-            "curve": false,
-            "radialFit20": null,
-            "children": []
-          },
-          {
-            "id": "xfl0010",
-            "angle": -0.5914559732404921,
-            "sector": 0.20793491605656583,
-            "cloudAngle": 0.23245980123545174,
-            "cloudRadius": 210.8,
-            "cloudCount": 4,
-            "cloudIndex": 1,
-            "curve": false,
-            "radialFit20": null,
-            "children": []
-          },
-          {
-            "id": "xfl0012",
-            "angle": -0.38352105718392626,
-            "sector": 0.20793491605656583,
-            "cloudAngle": -1.2074368316598703,
-            "cloudRadius": 210.8,
-            "cloudCount": 4,
-            "cloudIndex": 2,
-            "curve": false,
-            "radialFit20": null,
-            "children": []
-          },
-          {
-            "id": "xfl0009",
-            "angle": -0.17558614112736046,
-            "sector": 0.20793491605656583,
-            "cloudAngle": -2.6473334645551923,
-            "cloudRadius": 210.8,
-            "cloudCount": 4,
-            "cloudIndex": 3,
-            "curve": false,
-            "radialFit20": null,
-            "children": []
-          }
-        ]
-      },
-      {
-        "name": "Shaping it",
-        "catId": "xflc07",
-        "angle": 0.7041500775287468,
-        "sector": 1.5166309362157622,
-        "topicCloudRadius": 275.6803581893318,
-        "topicCloudRadiusBase": 275.6803581893318,
-        "spokeAdjust20": 0,
-        "topics": [
-          {
-            "id": "xfl0026",
-            "angle": 0.06912535559622868,
-            "sector": 0.21167490731083932,
-            "cloudAngle": -3.110641001830288,
-            "cloudRadius": 555.9835770679813,
-            "cloudCount": 7,
-            "cloudIndex": 0,
-            "curve": false,
-            "radialFit20": null,
-            "children": []
-          },
-          {
-            "id": "xfl0023",
-            "angle": 0.280800262907068,
-            "sector": 0.21167490731083932,
-            "cloudAngle": 2.3497462294091145,
-            "cloudRadius": 614.3992956172034,
-            "cloudCount": 7,
-            "cloudIndex": 1,
-            "curve": false,
-            "radialFit20": null,
-            "children": []
-          },
-          {
-            "id": "xfl0027",
-            "angle": 0.4924751702179073,
-            "sector": 0.21167490731083932,
-            "cloudAngle": 1.5269481534689304,
-            "cloudRadius": 569.6295731523475,
-            "cloudCount": 7,
-            "cloudIndex": 2,
-            "curve": false,
-            "radialFit20": null,
-            "children": []
-          },
-          {
-            "id": "xfl0025",
-            "angle": 0.7041500775287466,
-            "sector": 0.21167490731083932,
-            "cloudAngle": 0.7041500775287468,
-            "cloudRadius": 569.6295731523473,
-            "cloudCount": 7,
-            "cloudIndex": 3,
-            "curve": false,
-            "radialFit20": null,
-            "children": []
-          },
-          {
-            "id": "xfl0024",
-            "angle": 0.9158249848395859,
-            "sector": 0.21167490731083932,
-            "cloudAngle": -0.11864799841143725,
-            "cloudRadius": 594.9352745622623,
-            "cloudCount": 7,
-            "cloudIndex": 4,
-            "curve": false,
-            "radialFit20": null,
-            "children": []
-          },
-          {
-            "id": "xfl0029",
-            "angle": 1.1274998921504251,
-            "sector": 0.21167490731083932,
-            "cloudAngle": -0.9414460743516209,
-            "cloudRadius": 539.3337040261246,
-            "cloudCount": 7,
-            "cloudIndex": 5,
-            "curve": false,
-            "radialFit20": null,
-            "children": []
-          },
-          {
-            "id": "xfl0028",
-            "angle": 1.3391747994612644,
-            "sector": 0.21167490731083932,
-            "cloudAngle": -1.7642441502918054,
-            "cloudRadius": 275.6803581893318,
-            "cloudCount": 7,
-            "cloudIndex": 6,
-            "curve": false,
-            "radialFit20": null,
-            "children": []
-          }
-        ]
-      },
-      {
-        "name": "Guarding it",
-        "catId": "xflc05",
-        "angle": 1.7874578891114339,
-        "sector": 0.6499846869496123,
-        "topicCloudRadius": 210.8,
-        "topicCloudRadiusBase": 210.8,
-        "spokeAdjust20": 0,
-        "topics": [
-          {
-            "id": "xfl0019",
-            "angle": 1.5816294049107233,
-            "sector": 0.2058284842007106,
-            "cloudAngle": -2.5758652408743896,
-            "cloudRadius": 210.8,
-            "cloudCount": 3,
-            "cloudIndex": 0,
-            "curve": false,
-            "radialFit20": null,
-            "children": []
-          },
-          {
-            "id": "xfl0018",
-            "angle": 1.7874578891114339,
-            "sector": 0.2058284842007106,
-            "cloudAngle": 1.7874578891114346,
-            "cloudRadius": 210.8,
-            "cloudCount": 3,
-            "cloudIndex": 1,
-            "curve": false,
-            "radialFit20": null,
-            "children": []
-          },
-          {
-            "id": "xfl0017",
-            "angle": 1.9932863733121444,
-            "sector": 0.2058284842007106,
-            "cloudAngle": -0.13240428808232796,
-            "cloudRadius": 210.8,
-            "cloudCount": 3,
-            "cloudIndex": 2,
-            "curve": false,
-            "radialFit20": null,
-            "children": []
-          }
-        ]
-      },
-      {
-        "name": "Rating",
-        "catId": "xflc01",
-        "angle": 2.545773357219315,
-        "sector": 0.86664624926615,
-        "topicCloudRadius": 210.8,
-        "topicCloudRadiusBase": 210.8,
-        "spokeAdjust20": 0,
-        "topics": [
-          {
-            "id": "xfl0004",
-            "angle": 2.233870983134466,
-            "sector": 0.20793491605656583,
-            "cloudAngle": -1.577567000617288,
-            "cloudRadius": 358.1951320039357,
-            "cloudCount": 4,
-            "cloudIndex": 0,
-            "curve": false,
-            "radialFit20": null,
-            "children": []
-          },
-          {
-            "id": "xfl0002",
-            "angle": 2.441805899191032,
-            "sector": 0.20793491605656583,
-            "cloudAngle": -3.01746363351261,
-            "cloudRadius": 471.60250415312316,
-            "cloudCount": 4,
-            "cloudIndex": 1,
-            "curve": false,
-            "radialFit20": null,
-            "children": []
-          },
-          {
-            "id": "xfl0003",
-            "angle": 2.649740815247598,
-            "sector": 0.20793491605656583,
-            "cloudAngle": 1.8258250407716545,
-            "cloudRadius": 422.3831319138768,
-            "cloudCount": 4,
-            "cloudIndex": 2,
-            "curve": false,
-            "radialFit20": null,
-            "children": []
-          },
-          {
-            "id": "xfl0001",
-            "angle": 2.857675731304164,
-            "sector": 0.20793491605656583,
-            "cloudAngle": 0.38592840787633254,
-            "cloudRadius": 210.8,
-            "cloudCount": 4,
-            "cloudIndex": 3,
-            "curve": false,
-            "radialFit20": null,
-            "children": []
-          }
-        ]
-      },
-      {
-        "name": "Comparing",
-        "catId": "xflc02",
-        "angle": 3.4124196064854653,
-        "sector": 0.86664624926615,
-        "topicCloudRadius": 210.8,
-        "topicCloudRadiusBase": 210.8,
-        "spokeAdjust20": 0,
-        "topics": [
-          {
-            "id": "xfl0006",
-            "angle": 3.100517232400616,
-            "sector": 0.20793491605656583,
-            "cloudAngle": -0.7109207513511377,
-            "cloudRadius": 473.81372943817775,
-            "cloudCount": 4,
-            "cloudIndex": 0,
-            "curve": false,
-            "radialFit20": null,
-            "children": []
-          },
-          {
-            "id": "xfl0007",
-            "angle": 3.308452148457182,
-            "sector": 0.20793491605656583,
-            "cloudAngle": -2.15081738424646,
-            "cloudRadius": 417.2786133996414,
-            "cloudCount": 4,
-            "cloudIndex": 1,
-            "curve": false,
-            "radialFit20": null,
-            "children": []
-          },
-          {
-            "id": "xfl0005",
-            "angle": 3.516387064513748,
-            "sector": 0.20793491605656583,
-            "cloudAngle": 2.6924712900378047,
-            "cloudRadius": 438.1730068820433,
-            "cloudCount": 4,
-            "cloudIndex": 2,
-            "curve": false,
-            "radialFit20": null,
-            "children": []
-          },
-          {
-            "id": "xfl0008",
-            "angle": 3.724321980570314,
-            "sector": 0.20793491605656583,
-            "cloudAngle": 1.2525746571424827,
-            "cloudRadius": 210.8,
-            "cloudCount": 4,
-            "cloudIndex": 3,
-            "curve": false,
-            "radialFit20": null,
-            "children": []
-          }
-        ]
-      },
-      {
-        "name": "Keeping it",
-        "catId": "xflc04",
-        "angle": 4.2790658557516155,
-        "sector": 0.86664624926615,
-        "topicCloudRadius": 210.8,
-        "topicCloudRadiusBase": 210.8,
-        "spokeAdjust20": 0,
-        "topics": [
-          {
-            "id": "xfl0014",
-            "angle": 3.9671634816667662,
-            "sector": 0.20793491605656583,
-            "cloudAngle": 0.15572549791501242,
-            "cloudRadius": 210.8,
-            "cloudCount": 4,
-            "cloudIndex": 0,
-            "curve": false,
-            "radialFit20": null,
-            "children": []
-          },
-          {
-            "id": "xfl0013",
-            "angle": 4.175098397723332,
-            "sector": 0.20793491605656583,
-            "cloudAngle": -1.2841711349803095,
-            "cloudRadius": 237.71057664267866,
-            "cloudCount": 4,
-            "cloudIndex": 1,
-            "curve": false,
-            "radialFit20": null,
-            "children": []
-          },
-          {
-            "id": "xfl0015",
-            "angle": 4.383033313779897,
-            "sector": 0.20793491605656583,
-            "cloudAngle": -2.7240677678756313,
-            "cloudRadius": 291.96621374440036,
-            "cloudCount": 4,
-            "cloudIndex": 2,
-            "curve": false,
-            "radialFit20": null,
-            "children": []
-          },
-          {
-            "id": "xfl0016",
-            "angle": 4.590968229836463,
-            "sector": 0.20793491605656583,
-            "cloudAngle": 2.119220906408633,
-            "cloudRadius": 210.8,
-            "cloudCount": 4,
-            "cloudIndex": 3,
-            "curve": false,
-            "radialFit20": null,
-            "children": []
-          }
-        ]
-      }
-    ]
+    "hash": "#layout-spacing=airy&layout-branchOrder=landscape-antipodal&layout-propFan=1&layout-subcatOrder=1&layout-staggerDensity=0&layout-stagger=1&layout-expandAll=1&layout-collision=grow&layout-crossmin=0&layout-nudge=0&layout-showRelations=0&layout-spokeLen=2.60&layout-subLen=1.20&layout-pad=1.40&layout-repulsion=0.00&layout-repulsionEnabled=0&layout-staticMap=0&layout-animations=0&layout-mapSliders=0&layout-fontScale=30.00&layout-centerRingScale=10.00&layout-leafOvergrowth=100&layout-autoShrinkFactor=0.76&layout-subcatCloudShrinkFactor=0.76&layout-branches=eyJTaGFwaW5nIGl0Ijp7Imxlbmd0aCI6MC40MTQxMTE3ODUwMDQyMjI3fSwiUGxhbm5pbmcgdGhlIG5pZ2h0Ijp7Imxlbmd0aCI6MC4xNjg0Mzg2NjY2NjY2NjY2OH0sIktlZXBpbmcgaXQiOnsibGVuZ3RoIjowLjE2OTYzODY2NjY2NjY2Njd9LCJSYXRpbmciOnsibGVuZ3RoIjowLjI0MzczODY2NjY2NjY2Njd9LCJDb21wYXJpbmciOnsibGVuZ3RoIjowLjI2ODMzODY2NjY2NjY2NjY3fSwiR3VhcmRpbmcgaXQiOnsibGVuZ3RoIjowLjEzOTAzODY2NjY2NjY2Njd9LCJMZWFybmluZyBpdCI6eyJsZW5ndGgiOjAuMTg1NTM4NjY2NjY2NjY2Njl9fQ&layout-kinkOverrides=eyJ4ZmwwMDI2Ijp7Imxlbmd0aCI6MX0sInhmbDAwMjMiOnsibGVuZ3RoIjoxfSwieGZsMDAyNyI6eyJsZW5ndGgiOjF9LCJ4ZmwwMDI1Ijp7Imxlbmd0aCI6MX0sInhmbDAwMjQiOnsibGVuZ3RoIjoxfSwieGZsMDAyOSI6eyJsZW5ndGgiOjF9LCJ4ZmwwMDI4Ijp7Imxlbmd0aCI6MX0sInhmbDAwMTEiOnsibGVuZ3RoIjoxfSwieGZsMDAxMCI6eyJsZW5ndGgiOjF9LCJ4ZmwwMDEyIjp7Imxlbmd0aCI6MX0sInhmbDAwMDkiOnsibGVuZ3RoIjoxfSwieGZsMDAxNCI6eyJsZW5ndGgiOjF9LCJ4ZmwwMDEzIjp7Imxlbmd0aCI6MX0sInhmbDAwMTUiOnsibGVuZ3RoIjoxfSwieGZsMDAxNiI6eyJsZW5ndGgiOjF9LCJ4ZmwwMDA0Ijp7Imxlbmd0aCI6MX0sInhmbDAwMDIiOnsibGVuZ3RoIjoxfSwieGZsMDAwMyI6eyJsZW5ndGgiOjF9LCJ4ZmwwMDAxIjp7Imxlbmd0aCI6MX0sInhmbDAwMDYiOnsibGVuZ3RoIjoxfSwieGZsMDAwNyI6eyJsZW5ndGgiOjF9LCJ4ZmwwMDA1Ijp7Imxlbmd0aCI6MX0sInhmbDAwMDgiOnsibGVuZ3RoIjoxfSwieGZsMDAxOSI6eyJsZW5ndGgiOjF9LCJ4ZmwwMDE4Ijp7Imxlbmd0aCI6MX0sInhmbDAwMTciOnsibGVuZ3RoIjoxfSwieGZsMDAyMCI6eyJsZW5ndGgiOjF9LCJ4ZmwwMDIyIjp7Imxlbmd0aCI6MX0sInhmbDAwMjEiOnsibGVuZ3RoIjoxfX0&layout-nodeOverrides=eyJTaGFwaW5nIGl0Ijp7Imxlbmd0aCI6MC40MTQxMTE3ODUwMDQyMjI3LCJkZXB0aCI6MSwia2luZCI6ImJyYW5jaCJ9LCJQbGFubmluZyB0aGUgbmlnaHQiOnsibGVuZ3RoIjowLjE2ODQzODY2NjY2NjY2NjY4LCJkZXB0aCI6MSwia2luZCI6ImJyYW5jaCJ9LCJLZWVwaW5nIGl0Ijp7Imxlbmd0aCI6MC4xNjk2Mzg2NjY2NjY2NjY3LCJkZXB0aCI6MSwia2luZCI6ImJyYW5jaCJ9LCJSYXRpbmciOnsibGVuZ3RoIjowLjI0MzczODY2NjY2NjY2NjcsImRlcHRoIjoxLCJraW5kIjoiYnJhbmNoIn0sIkNvbXBhcmluZyI6eyJsZW5ndGgiOjAuMjY4MzM4NjY2NjY2NjY2NjcsImRlcHRoIjoxLCJraW5kIjoiYnJhbmNoIn0sIkd1YXJkaW5nIGl0Ijp7Imxlbmd0aCI6MC4xMzkwMzg2NjY2NjY2NjY3LCJkZXB0aCI6MSwia2luZCI6ImJyYW5jaCJ9LCJMZWFybmluZyBpdCI6eyJsZW5ndGgiOjAuMTg1NTM4NjY2NjY2NjY2NjksImRlcHRoIjoxLCJraW5kIjoiYnJhbmNoIn0sInhmbDAwMjYiOnsibGVuZ3RoIjoxLCJkZXB0aCI6Mywia2luZCI6ImtpbmsifSwieGZsMDAyMyI6eyJsZW5ndGgiOjEsImRlcHRoIjozLCJraW5kIjoia2luayJ9LCJ4ZmwwMDI3Ijp7Imxlbmd0aCI6MSwiZGVwdGgiOjMsImtpbmQiOiJraW5rIn0sInhmbDAwMjUiOnsibGVuZ3RoIjoxLCJkZXB0aCI6Mywia2luZCI6ImtpbmsifSwieGZsMDAyNCI6eyJsZW5ndGgiOjEsImRlcHRoIjozLCJraW5kIjoia2luayJ9LCJ4ZmwwMDI5Ijp7Imxlbmd0aCI6MSwiZGVwdGgiOjMsImtpbmQiOiJraW5rIn0sInhmbDAwMjgiOnsibGVuZ3RoIjoxLCJkZXB0aCI6Mywia2luZCI6ImtpbmsifSwieGZsMDAxMSI6eyJsZW5ndGgiOjEsImRlcHRoIjozLCJraW5kIjoia2luayJ9LCJ4ZmwwMDEwIjp7Imxlbmd0aCI6MSwiZGVwdGgiOjMsImtpbmQiOiJraW5rIn0sInhmbDAwMTIiOnsibGVuZ3RoIjoxLCJkZXB0aCI6Mywia2luZCI6ImtpbmsifSwieGZsMDAwOSI6eyJsZW5ndGgiOjEsImRlcHRoIjozLCJraW5kIjoia2luayJ9LCJ4ZmwwMDE0Ijp7Imxlbmd0aCI6MSwiZGVwdGgiOjMsImtpbmQiOiJraW5rIn0sInhmbDAwMTMiOnsibGVuZ3RoIjoxLCJkZXB0aCI6Mywia2luZCI6ImtpbmsifSwieGZsMDAxNSI6eyJsZW5ndGgiOjEsImRlcHRoIjozLCJraW5kIjoia2luayJ9LCJ4ZmwwMDE2Ijp7Imxlbmd0aCI6MSwiZGVwdGgiOjMsImtpbmQiOiJraW5rIn0sInhmbDAwMDQiOnsibGVuZ3RoIjoxLCJkZXB0aCI6Mywia2luZCI6ImtpbmsifSwieGZsMDAwMiI6eyJsZW5ndGgiOjEsImRlcHRoIjozLCJraW5kIjoia2luayJ9LCJ4ZmwwMDAzIjp7Imxlbmd0aCI6MSwiZGVwdGgiOjMsImtpbmQiOiJraW5rIn0sInhmbDAwMDEiOnsibGVuZ3RoIjoxLCJkZXB0aCI6Mywia2luZCI6ImtpbmsifSwieGZsMDAwNiI6eyJsZW5ndGgiOjEsImRlcHRoIjozLCJraW5kIjoia2luayJ9LCJ4ZmwwMDA3Ijp7Imxlbmd0aCI6MSwiZGVwdGgiOjMsImtpbmQiOiJraW5rIn0sInhmbDAwMDUiOnsibGVuZ3RoIjoxLCJkZXB0aCI6Mywia2luZCI6ImtpbmsifSwieGZsMDAwOCI6eyJsZW5ndGgiOjEsImRlcHRoIjozLCJraW5kIjoia2luayJ9LCJ4ZmwwMDE5Ijp7Imxlbmd0aCI6MSwiZGVwdGgiOjMsImtpbmQiOiJraW5rIn0sInhmbDAwMTgiOnsibGVuZ3RoIjoxLCJkZXB0aCI6Mywia2luZCI6ImtpbmsifSwieGZsMDAxNyI6eyJsZW5ndGgiOjEsImRlcHRoIjozLCJraW5kIjoia2luayJ9LCJ4ZmwwMDIwIjp7Imxlbmd0aCI6MSwiZGVwdGgiOjMsImtpbmQiOiJraW5rIn0sInhmbDAwMjIiOnsibGVuZ3RoIjoxLCJkZXB0aCI6Mywia2luZCI6ImtpbmsifSwieGZsMDAyMSI6eyJsZW5ndGgiOjEsImRlcHRoIjozLCJraW5kIjoia2luayJ9fQ",
+    "positions": {
+      "skin": "flexcapades",
+      "solverVersion": 2,
+      "capturedAt": "2026-11-25T20:07:24.564Z",
+      "settingsHash": "#layout-spacing=airy&layout-branchOrder=landscape-antipodal&layout-propFan=1&layout-subcatOrder=1&layout-staggerDensity=0&layout-stagger=1&layout-expandAll=1&layout-collision=grow&layout-crossmin=0&layout-nudge=0&layout-showRelations=0&layout-spokeLen=2.60&layout-subLen=1.20&layout-pad=1.40&layout-repulsion=0.00&layout-repulsionEnabled=0&layout-staticMap=0&layout-animations=0&layout-mapSliders=0&layout-fontScale=30.00&layout-centerRingScale=10.00&layout-leafOvergrowth=100&layout-autoShrinkFactor=0.76&layout-subcatCloudShrinkFactor=0.76&layout-branches=eyJTaGFwaW5nIGl0Ijp7Imxlbmd0aCI6MC40MTQxMTE3ODUwMDQyMjI3fSwiUGxhbm5pbmcgdGhlIG5pZ2h0Ijp7Imxlbmd0aCI6MC4xNjg0Mzg2NjY2NjY2NjY2OH0sIktlZXBpbmcgaXQiOnsibGVuZ3RoIjowLjE2OTYzODY2NjY2NjY2Njd9LCJSYXRpbmciOnsibGVuZ3RoIjowLjI0MzczODY2NjY2NjY2Njd9LCJDb21wYXJpbmciOnsibGVuZ3RoIjowLjI2ODMzODY2NjY2NjY2NjY3fSwiR3VhcmRpbmcgaXQiOnsibGVuZ3RoIjowLjEzOTAzODY2NjY2NjY2Njd9LCJMZWFybmluZyBpdCI6eyJsZW5ndGgiOjAuMTg1NTM4NjY2NjY2NjY2Njl9fQ&layout-kinkOverrides=eyJ4ZmwwMDI2Ijp7Imxlbmd0aCI6MX0sInhmbDAwMjMiOnsibGVuZ3RoIjoxfSwieGZsMDAyNyI6eyJsZW5ndGgiOjF9LCJ4ZmwwMDI1Ijp7Imxlbmd0aCI6MX0sInhmbDAwMjQiOnsibGVuZ3RoIjoxfSwieGZsMDAyOSI6eyJsZW5ndGgiOjF9LCJ4ZmwwMDI4Ijp7Imxlbmd0aCI6MX0sInhmbDAwMTEiOnsibGVuZ3RoIjoxfSwieGZsMDAxMCI6eyJsZW5ndGgiOjF9LCJ4ZmwwMDEyIjp7Imxlbmd0aCI6MX0sInhmbDAwMDkiOnsibGVuZ3RoIjoxfSwieGZsMDAxNCI6eyJsZW5ndGgiOjF9LCJ4ZmwwMDEzIjp7Imxlbmd0aCI6MX0sInhmbDAwMTUiOnsibGVuZ3RoIjoxfSwieGZsMDAxNiI6eyJsZW5ndGgiOjF9LCJ4ZmwwMDA0Ijp7Imxlbmd0aCI6MX0sInhmbDAwMDIiOnsibGVuZ3RoIjoxfSwieGZsMDAwMyI6eyJsZW5ndGgiOjF9LCJ4ZmwwMDAxIjp7Imxlbmd0aCI6MX0sInhmbDAwMDYiOnsibGVuZ3RoIjoxfSwieGZsMDAwNyI6eyJsZW5ndGgiOjF9LCJ4ZmwwMDA1Ijp7Imxlbmd0aCI6MX0sInhmbDAwMDgiOnsibGVuZ3RoIjoxfSwieGZsMDAxOSI6eyJsZW5ndGgiOjF9LCJ4ZmwwMDE4Ijp7Imxlbmd0aCI6MX0sInhmbDAwMTciOnsibGVuZ3RoIjoxfSwieGZsMDAyMCI6eyJsZW5ndGgiOjF9LCJ4ZmwwMDIyIjp7Imxlbmd0aCI6MX0sInhmbDAwMjEiOnsibGVuZ3RoIjoxfX0&layout-nodeOverrides=eyJTaGFwaW5nIGl0Ijp7Imxlbmd0aCI6MC40MTQxMTE3ODUwMDQyMjI3LCJkZXB0aCI6MSwia2luZCI6ImJyYW5jaCJ9LCJQbGFubmluZyB0aGUgbmlnaHQiOnsibGVuZ3RoIjowLjE2ODQzODY2NjY2NjY2NjY4LCJkZXB0aCI6MSwia2luZCI6ImJyYW5jaCJ9LCJLZWVwaW5nIGl0Ijp7Imxlbmd0aCI6MC4xNjk2Mzg2NjY2NjY2NjY3LCJkZXB0aCI6MSwia2luZCI6ImJyYW5jaCJ9LCJSYXRpbmciOnsibGVuZ3RoIjowLjI0MzczODY2NjY2NjY2NjcsImRlcHRoIjoxLCJraW5kIjoiYnJhbmNoIn0sIkNvbXBhcmluZyI6eyJsZW5ndGgiOjAuMjY4MzM4NjY2NjY2NjY2NjcsImRlcHRoIjoxLCJraW5kIjoiYnJhbmNoIn0sIkd1YXJkaW5nIGl0Ijp7Imxlbmd0aCI6MC4xMzkwMzg2NjY2NjY2NjY3LCJkZXB0aCI6MSwia2luZCI6ImJyYW5jaCJ9LCJMZWFybmluZyBpdCI6eyJsZW5ndGgiOjAuMTg1NTM4NjY2NjY2NjY2NjksImRlcHRoIjoxLCJraW5kIjoiYnJhbmNoIn0sInhmbDAwMjYiOnsibGVuZ3RoIjoxLCJkZXB0aCI6Mywia2luZCI6ImtpbmsifSwieGZsMDAyMyI6eyJsZW5ndGgiOjEsImRlcHRoIjozLCJraW5kIjoia2luayJ9LCJ4ZmwwMDI3Ijp7Imxlbmd0aCI6MSwiZGVwdGgiOjMsImtpbmQiOiJraW5rIn0sInhmbDAwMjUiOnsibGVuZ3RoIjoxLCJkZXB0aCI6Mywia2luZCI6ImtpbmsifSwieGZsMDAyNCI6eyJsZW5ndGgiOjEsImRlcHRoIjozLCJraW5kIjoia2luayJ9LCJ4ZmwwMDI5Ijp7Imxlbmd0aCI6MSwiZGVwdGgiOjMsImtpbmQiOiJraW5rIn0sInhmbDAwMjgiOnsibGVuZ3RoIjoxLCJkZXB0aCI6Mywia2luZCI6ImtpbmsifSwieGZsMDAxMSI6eyJsZW5ndGgiOjEsImRlcHRoIjozLCJraW5kIjoia2luayJ9LCJ4ZmwwMDEwIjp7Imxlbmd0aCI6MSwiZGVwdGgiOjMsImtpbmQiOiJraW5rIn0sInhmbDAwMTIiOnsibGVuZ3RoIjoxLCJkZXB0aCI6Mywia2luZCI6ImtpbmsifSwieGZsMDAwOSI6eyJsZW5ndGgiOjEsImRlcHRoIjozLCJraW5kIjoia2luayJ9LCJ4ZmwwMDE0Ijp7Imxlbmd0aCI6MSwiZGVwdGgiOjMsImtpbmQiOiJraW5rIn0sInhmbDAwMTMiOnsibGVuZ3RoIjoxLCJkZXB0aCI6Mywia2luZCI6ImtpbmsifSwieGZsMDAxNSI6eyJsZW5ndGgiOjEsImRlcHRoIjozLCJraW5kIjoia2luayJ9LCJ4ZmwwMDE2Ijp7Imxlbmd0aCI6MSwiZGVwdGgiOjMsImtpbmQiOiJraW5rIn0sInhmbDAwMDQiOnsibGVuZ3RoIjoxLCJkZXB0aCI6Mywia2luZCI6ImtpbmsifSwieGZsMDAwMiI6eyJsZW5ndGgiOjEsImRlcHRoIjozLCJraW5kIjoia2luayJ9LCJ4ZmwwMDAzIjp7Imxlbmd0aCI6MSwiZGVwdGgiOjMsImtpbmQiOiJraW5rIn0sInhmbDAwMDEiOnsibGVuZ3RoIjoxLCJkZXB0aCI6Mywia2luZCI6ImtpbmsifSwieGZsMDAwNiI6eyJsZW5ndGgiOjEsImRlcHRoIjozLCJraW5kIjoia2luayJ9LCJ4ZmwwMDA3Ijp7Imxlbmd0aCI6MSwiZGVwdGgiOjMsImtpbmQiOiJraW5rIn0sInhmbDAwMDUiOnsibGVuZ3RoIjoxLCJkZXB0aCI6Mywia2luZCI6ImtpbmsifSwieGZsMDAwOCI6eyJsZW5ndGgiOjEsImRlcHRoIjozLCJraW5kIjoia2luayJ9LCJ4ZmwwMDE5Ijp7Imxlbmd0aCI6MSwiZGVwdGgiOjMsImtpbmQiOiJraW5rIn0sInhmbDAwMTgiOnsibGVuZ3RoIjoxLCJkZXB0aCI6Mywia2luZCI6ImtpbmsifSwieGZsMDAxNyI6eyJsZW5ndGgiOjEsImRlcHRoIjozLCJraW5kIjoia2luayJ9LCJ4ZmwwMDIwIjp7Imxlbmd0aCI6MSwiZGVwdGgiOjMsImtpbmQiOiJraW5rIn0sInhmbDAwMjIiOnsibGVuZ3RoIjoxLCJkZXB0aCI6Mywia2luZCI6ImtpbmsifSwieGZsMDAyMSI6eyJsZW5ndGgiOjEsImRlcHRoIjozLCJraW5kIjoia2luayJ9fQ",
+      "fingerprint": "{\"animations\":false,\"autoShrinkFactor\":0.76,\"branchOrder\":\"landscape-antipodal\",\"branchOverrides\":{\"Comparing\":{\"length\":0.26833866666666667},\"Guarding it\":{\"length\":0.1390386666666667},\"Keeping it\":{\"length\":0.1696386666666667},\"Learning it\":{\"length\":0.18553866666666669},\"Planning the night\":{\"length\":0.16843866666666668},\"Rating\":{\"length\":0.2437386666666667},\"Shaping it\":{\"length\":0.4141117850042227}},\"branchSpokeAutoShrink\":{},\"centerRingScale\":10,\"collision\":\"grow\",\"crossmin\":false,\"expandAll\":true,\"fontScale\":30,\"kinkAngleOffsets\":{},\"kinkOverrides\":{\"xfl0001\":{\"length\":1},\"xfl0002\":{\"length\":1},\"xfl0003\":{\"length\":1},\"xfl0004\":{\"length\":1},\"xfl0005\":{\"length\":1},\"xfl0006\":{\"length\":1},\"xfl0007\":{\"length\":1},\"xfl0008\":{\"length\":1},\"xfl0009\":{\"length\":1},\"xfl0010\":{\"length\":1},\"xfl0011\":{\"length\":1},\"xfl0012\":{\"length\":1},\"xfl0013\":{\"length\":1},\"xfl0014\":{\"length\":1},\"xfl0015\":{\"length\":1},\"xfl0016\":{\"length\":1},\"xfl0017\":{\"length\":1},\"xfl0018\":{\"length\":1},\"xfl0019\":{\"length\":1},\"xfl0020\":{\"length\":1},\"xfl0021\":{\"length\":1},\"xfl0022\":{\"length\":1},\"xfl0023\":{\"length\":1},\"xfl0024\":{\"length\":1},\"xfl0025\":{\"length\":1},\"xfl0026\":{\"length\":1},\"xfl0027\":{\"length\":1},\"xfl0028\":{\"length\":1},\"xfl0029\":{\"length\":1}},\"leafOvergrowth\":100,\"mapSliders\":false,\"nodeOverrides\":{},\"nudge\":false,\"pad\":1.4,\"propFan\":true,\"repulsion\":0,\"repulsionEnabled\":false,\"showRelations\":false,\"solverMidline\":\"repulsion\",\"spacing\":\"airy\",\"spokeLen\":2.6,\"stagger\":true,\"staggerDensity\":false,\"staticMap\":false,\"subLen\":1.2,\"subcatAngleOffsets\":{},\"subcatCloudShrinkFactor\":0.76,\"subcatOrder\":true,\"subcatOverrides\":{},\"subcatSpokeAutoShrink\":{}}",
+      "treeSignature": "xflc01:xfl0001[],xfl0002[],xfl0003[],xfl0004[]|xflc02:xfl0005[],xfl0006[],xfl0007[],xfl0008[]|xflc03:xfl0009[],xfl0010[],xfl0011[],xfl0012[]|xflc04:xfl0013[],xfl0014[],xfl0015[],xfl0016[]|xflc05:xfl0017[],xfl0018[],xfl0019[]|xflc06:xfl0020[],xfl0021[],xfl0022[]|xflc07:xfl0023[],xfl0024[],xfl0025[],xfl0026[],xfl0027[],xfl0028[],xfl0029[]",
+      "crossings": 56.02505206380282,
+      "branches": [
+        {
+          "name": "Learning it",
+          "catId": "xflc06",
+          "angle": -1.2458039833200905,
+          "sector": 0.6499846869496123,
+          "topicCloudRadius": 210.8,
+          "topicCloudRadiusBase": 210.8,
+          "spokeAdjust20": 0,
+          "topics": [
+            {
+              "id": "xfl0020",
+              "angle": -1.451632467520801,
+              "sector": 0.2058284842007106,
+              "cloudAngle": 0.6740581938736722,
+              "cloudRadius": 210.8,
+              "cloudCount": 3,
+              "cloudIndex": 0,
+              "curve": false,
+              "radialFit20": null,
+              "children": []
+            },
+            {
+              "id": "xfl0022",
+              "angle": -1.2458039833200905,
+              "sector": 0.2058284842007106,
+              "cloudAngle": -1.2458039833200902,
+              "cloudRadius": 218.45277227278902,
+              "cloudCount": 3,
+              "cloudIndex": 1,
+              "curve": false,
+              "radialFit20": null,
+              "children": []
+            },
+            {
+              "id": "xfl0021",
+              "angle": -1.03997549911938,
+              "sector": 0.2058284842007106,
+              "cloudAngle": 3.117519146665734,
+              "cloudRadius": 210.8,
+              "cloudCount": 3,
+              "cloudIndex": 2,
+              "curve": false,
+              "radialFit20": null,
+              "children": []
+            }
+          ]
+        },
+        {
+          "name": "Planning the night",
+          "catId": "xflc03",
+          "angle": -0.48748851521220926,
+          "sector": 0.86664624926615,
+          "topicCloudRadius": 210.8,
+          "topicCloudRadiusBase": 210.8,
+          "spokeAdjust20": 0,
+          "topics": [
+            {
+              "id": "xfl0011",
+              "angle": -0.799390889297058,
+              "sector": 0.20793491605656583,
+              "cloudAngle": 1.6723564341307733,
+              "cloudRadius": 210.8,
+              "cloudCount": 4,
+              "cloudIndex": 0,
+              "curve": false,
+              "radialFit20": null,
+              "children": []
+            },
+            {
+              "id": "xfl0010",
+              "angle": -0.5914559732404921,
+              "sector": 0.20793491605656583,
+              "cloudAngle": 0.23245980123545174,
+              "cloudRadius": 210.8,
+              "cloudCount": 4,
+              "cloudIndex": 1,
+              "curve": false,
+              "radialFit20": null,
+              "children": []
+            },
+            {
+              "id": "xfl0012",
+              "angle": -0.38352105718392626,
+              "sector": 0.20793491605656583,
+              "cloudAngle": -1.2074368316598703,
+              "cloudRadius": 210.8,
+              "cloudCount": 4,
+              "cloudIndex": 2,
+              "curve": false,
+              "radialFit20": null,
+              "children": []
+            },
+            {
+              "id": "xfl0009",
+              "angle": -0.17558614112736046,
+              "sector": 0.20793491605656583,
+              "cloudAngle": -2.6473334645551923,
+              "cloudRadius": 210.8,
+              "cloudCount": 4,
+              "cloudIndex": 3,
+              "curve": false,
+              "radialFit20": null,
+              "children": []
+            }
+          ]
+        },
+        {
+          "name": "Shaping it",
+          "catId": "xflc07",
+          "angle": 0.7041500775287468,
+          "sector": 1.5166309362157622,
+          "topicCloudRadius": 275.6803581893318,
+          "topicCloudRadiusBase": 275.6803581893318,
+          "spokeAdjust20": 0,
+          "topics": [
+            {
+              "id": "xfl0026",
+              "angle": 0.06912535559622868,
+              "sector": 0.21167490731083932,
+              "cloudAngle": -3.110641001830288,
+              "cloudRadius": 555.9835770679813,
+              "cloudCount": 7,
+              "cloudIndex": 0,
+              "curve": false,
+              "radialFit20": null,
+              "children": []
+            },
+            {
+              "id": "xfl0023",
+              "angle": 0.280800262907068,
+              "sector": 0.21167490731083932,
+              "cloudAngle": 2.3497462294091145,
+              "cloudRadius": 614.3992956172034,
+              "cloudCount": 7,
+              "cloudIndex": 1,
+              "curve": false,
+              "radialFit20": null,
+              "children": []
+            },
+            {
+              "id": "xfl0027",
+              "angle": 0.4924751702179073,
+              "sector": 0.21167490731083932,
+              "cloudAngle": 1.5269481534689304,
+              "cloudRadius": 569.6295731523475,
+              "cloudCount": 7,
+              "cloudIndex": 2,
+              "curve": false,
+              "radialFit20": null,
+              "children": []
+            },
+            {
+              "id": "xfl0025",
+              "angle": 0.7041500775287466,
+              "sector": 0.21167490731083932,
+              "cloudAngle": 0.7041500775287468,
+              "cloudRadius": 569.6295731523473,
+              "cloudCount": 7,
+              "cloudIndex": 3,
+              "curve": false,
+              "radialFit20": null,
+              "children": []
+            },
+            {
+              "id": "xfl0024",
+              "angle": 0.9158249848395859,
+              "sector": 0.21167490731083932,
+              "cloudAngle": -0.11864799841143725,
+              "cloudRadius": 594.9352745622623,
+              "cloudCount": 7,
+              "cloudIndex": 4,
+              "curve": false,
+              "radialFit20": null,
+              "children": []
+            },
+            {
+              "id": "xfl0029",
+              "angle": 1.1274998921504251,
+              "sector": 0.21167490731083932,
+              "cloudAngle": -0.9414460743516209,
+              "cloudRadius": 539.3337040261246,
+              "cloudCount": 7,
+              "cloudIndex": 5,
+              "curve": false,
+              "radialFit20": null,
+              "children": []
+            },
+            {
+              "id": "xfl0028",
+              "angle": 1.3391747994612644,
+              "sector": 0.21167490731083932,
+              "cloudAngle": -1.7642441502918054,
+              "cloudRadius": 275.6803581893318,
+              "cloudCount": 7,
+              "cloudIndex": 6,
+              "curve": false,
+              "radialFit20": null,
+              "children": []
+            }
+          ]
+        },
+        {
+          "name": "Guarding it",
+          "catId": "xflc05",
+          "angle": 1.7874578891114339,
+          "sector": 0.6499846869496123,
+          "topicCloudRadius": 210.8,
+          "topicCloudRadiusBase": 210.8,
+          "spokeAdjust20": 0,
+          "topics": [
+            {
+              "id": "xfl0019",
+              "angle": 1.5816294049107233,
+              "sector": 0.2058284842007106,
+              "cloudAngle": -2.5758652408743896,
+              "cloudRadius": 210.8,
+              "cloudCount": 3,
+              "cloudIndex": 0,
+              "curve": false,
+              "radialFit20": null,
+              "children": []
+            },
+            {
+              "id": "xfl0018",
+              "angle": 1.7874578891114339,
+              "sector": 0.2058284842007106,
+              "cloudAngle": 1.7874578891114346,
+              "cloudRadius": 210.8,
+              "cloudCount": 3,
+              "cloudIndex": 1,
+              "curve": false,
+              "radialFit20": null,
+              "children": []
+            },
+            {
+              "id": "xfl0017",
+              "angle": 1.9932863733121444,
+              "sector": 0.2058284842007106,
+              "cloudAngle": -0.13240428808232796,
+              "cloudRadius": 210.8,
+              "cloudCount": 3,
+              "cloudIndex": 2,
+              "curve": false,
+              "radialFit20": null,
+              "children": []
+            }
+          ]
+        },
+        {
+          "name": "Rating",
+          "catId": "xflc01",
+          "angle": 2.545773357219315,
+          "sector": 0.86664624926615,
+          "topicCloudRadius": 210.8,
+          "topicCloudRadiusBase": 210.8,
+          "spokeAdjust20": 0,
+          "topics": [
+            {
+              "id": "xfl0004",
+              "angle": 2.233870983134466,
+              "sector": 0.20793491605656583,
+              "cloudAngle": -1.577567000617288,
+              "cloudRadius": 358.1951320039357,
+              "cloudCount": 4,
+              "cloudIndex": 0,
+              "curve": false,
+              "radialFit20": null,
+              "children": []
+            },
+            {
+              "id": "xfl0002",
+              "angle": 2.441805899191032,
+              "sector": 0.20793491605656583,
+              "cloudAngle": -3.01746363351261,
+              "cloudRadius": 471.60250415312316,
+              "cloudCount": 4,
+              "cloudIndex": 1,
+              "curve": false,
+              "radialFit20": null,
+              "children": []
+            },
+            {
+              "id": "xfl0003",
+              "angle": 2.649740815247598,
+              "sector": 0.20793491605656583,
+              "cloudAngle": 1.8258250407716545,
+              "cloudRadius": 422.3831319138768,
+              "cloudCount": 4,
+              "cloudIndex": 2,
+              "curve": false,
+              "radialFit20": null,
+              "children": []
+            },
+            {
+              "id": "xfl0001",
+              "angle": 2.857675731304164,
+              "sector": 0.20793491605656583,
+              "cloudAngle": 0.38592840787633254,
+              "cloudRadius": 210.8,
+              "cloudCount": 4,
+              "cloudIndex": 3,
+              "curve": false,
+              "radialFit20": null,
+              "children": []
+            }
+          ]
+        },
+        {
+          "name": "Comparing",
+          "catId": "xflc02",
+          "angle": 3.4124196064854653,
+          "sector": 0.86664624926615,
+          "topicCloudRadius": 210.8,
+          "topicCloudRadiusBase": 210.8,
+          "spokeAdjust20": 0,
+          "topics": [
+            {
+              "id": "xfl0006",
+              "angle": 3.100517232400616,
+              "sector": 0.20793491605656583,
+              "cloudAngle": -0.7109207513511377,
+              "cloudRadius": 473.81372943817775,
+              "cloudCount": 4,
+              "cloudIndex": 0,
+              "curve": false,
+              "radialFit20": null,
+              "children": []
+            },
+            {
+              "id": "xfl0007",
+              "angle": 3.308452148457182,
+              "sector": 0.20793491605656583,
+              "cloudAngle": -2.15081738424646,
+              "cloudRadius": 417.2786133996414,
+              "cloudCount": 4,
+              "cloudIndex": 1,
+              "curve": false,
+              "radialFit20": null,
+              "children": []
+            },
+            {
+              "id": "xfl0005",
+              "angle": 3.516387064513748,
+              "sector": 0.20793491605656583,
+              "cloudAngle": 2.6924712900378047,
+              "cloudRadius": 438.1730068820433,
+              "cloudCount": 4,
+              "cloudIndex": 2,
+              "curve": false,
+              "radialFit20": null,
+              "children": []
+            },
+            {
+              "id": "xfl0008",
+              "angle": 3.724321980570314,
+              "sector": 0.20793491605656583,
+              "cloudAngle": 1.2525746571424827,
+              "cloudRadius": 210.8,
+              "cloudCount": 4,
+              "cloudIndex": 3,
+              "curve": false,
+              "radialFit20": null,
+              "children": []
+            }
+          ]
+        },
+        {
+          "name": "Keeping it",
+          "catId": "xflc04",
+          "angle": 4.2790658557516155,
+          "sector": 0.86664624926615,
+          "topicCloudRadius": 210.8,
+          "topicCloudRadiusBase": 210.8,
+          "spokeAdjust20": 0,
+          "topics": [
+            {
+              "id": "xfl0014",
+              "angle": 3.9671634816667662,
+              "sector": 0.20793491605656583,
+              "cloudAngle": 0.15572549791501242,
+              "cloudRadius": 210.8,
+              "cloudCount": 4,
+              "cloudIndex": 0,
+              "curve": false,
+              "radialFit20": null,
+              "children": []
+            },
+            {
+              "id": "xfl0013",
+              "angle": 4.175098397723332,
+              "sector": 0.20793491605656583,
+              "cloudAngle": -1.2841711349803095,
+              "cloudRadius": 237.71057664267866,
+              "cloudCount": 4,
+              "cloudIndex": 1,
+              "curve": false,
+              "radialFit20": null,
+              "children": []
+            },
+            {
+              "id": "xfl0015",
+              "angle": 4.383033313779897,
+              "sector": 0.20793491605656583,
+              "cloudAngle": -2.7240677678756313,
+              "cloudRadius": 291.96621374440036,
+              "cloudCount": 4,
+              "cloudIndex": 2,
+              "curve": false,
+              "radialFit20": null,
+              "children": []
+            },
+            {
+              "id": "xfl0016",
+              "angle": 4.590968229836463,
+              "sector": 0.20793491605656583,
+              "cloudAngle": 2.119220906408633,
+              "cloudRadius": 210.8,
+              "cloudCount": 4,
+              "cloudIndex": 3,
+              "curve": false,
+              "radialFit20": null,
+              "children": []
+            }
+          ]
+        }
+      ]
+    }
   }
-}
 }
