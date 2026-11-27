@@ -381,6 +381,196 @@
             sxSyncLocalSampleBtn();
             sxMarkLoadedSamples();
         }
+        /* Create a roster from ALL loaded profiles (2026-11-27, Jason):
+           one action instead of the per-profile flow (load a sample,
+           open About, add sample, close About, repeat). It lists every
+           profile currently loaded on this skin, lets Jason type a
+           one-liner per profile, saves them all as local samples tagged
+           with one roster, and downloads the roster pack. The one-liner
+           rides in entry.about, which the Samples menu (and each roster
+           submenu) already shows as a hover tip (data-ui-tooltip) —
+           never inline, so the menu stays uncluttered. Only real
+           individual profiles are listed: group and pair
+           pseudo-profiles are computed, not members, so they are
+           excluded. The cap is enforced per new member through the
+           freemium gate — which also closes the gap where a personal
+           sample joining a roster would otherwise skip the gate in
+           api.save (that gate only fires for a brand-new name). */
+        function sxCreateRosterFromLoaded() {
+            var skin = sxLocalSampleSkin();
+            var api = window.__SX_LOCAL_SAMPLES;
+            if (!api || typeof api.list !== "function" || typeof api.save !== "function") {
+                sxShowStatusToast("Local samples are not available right now — reload and try again.", { tone: "error", persistent: true });
+                return;
+            }
+            var engine = window.__SEXCAPADES_SYNC_ENGINE;
+            var loaded = Object.keys(vt).filter(function (id) {
+                var ratings = vt[id];
+                if (!ratings || !Object.keys(ratings).length) return false;
+                if (!String(wt[id] || "").trim()) return false;
+                var pskin = profileSkins[id];
+                if (pskin && pskin !== skin) return false;
+                if (engine && typeof engine.isPseudoProfile === "function" && engine.isPseudoProfile(id)) return false;
+                return true;
+            }).map(function (id) {
+                return { id: id, name: String(wt[id]).trim() };
+            }).sort(function (a, b) { return a.name.localeCompare(b.name); });
+            if (!loaded.length) {
+                sxShowStatusToast("No profiles loaded on this map yet — load a profile first, then create a roster from it.", { tone: "error", persistent: true });
+                return;
+            }
+            /* Prefill each one-liner from the existing local sample of
+               the same name, and the roster name from the one roster
+               these profiles already share (if any). */
+            var existing = {};
+            try {
+                var list = api.list(skin) || {};
+                Object.keys(list).forEach(function (k) {
+                    var e = list[k] || {};
+                    var nm = String(e.name || "").trim().toLowerCase();
+                    if (nm && !(nm in existing)) existing[nm] = e;
+                });
+            } catch (err) { existing = {}; }
+            var sharedRoster = null;
+            loaded.forEach(function (p) {
+                var e = existing[p.name.toLowerCase()];
+                if (e && e.roster) {
+                    if (sharedRoster === null) sharedRoster = String(e.roster);
+                    else if (sharedRoster !== String(e.roster)) sharedRoster = "";
+                }
+            });
+            sxRosterFromLoadedDialog(loaded, existing, sharedRoster || "", function (rosterName, oneLiners) {
+                sxFinishRosterFromLoaded(skin, api, loaded, rosterName, oneLiners);
+            });
+        }
+        function sxRosterFromLoadedDialog(loaded, existing, defaultRosterName, onDone) {
+            var dlg = e.byId("sxRosterFromLoadedDlg");
+            if (!dlg) {
+                dlg = document.createElement("dialog");
+                dlg.id = "sxRosterFromLoadedDlg";
+                dlg.style.cssText = "border:none;background:transparent;padding:0;max-width:92vw;";
+                var st = document.createElement("style");
+                st.textContent = "#sxRosterFromLoadedDlg::backdrop{background:rgba(8,10,12,.55);}";
+                document.head.appendChild(st);
+                document.body.appendChild(dlg);
+                dlg.addEventListener("click", function (ev) { if (ev.target === dlg) dlg.close(); });
+            }
+            function escAttr(s) { return String(s || "").replace(/&/g, "&amp;").replace(/"/g, "&quot;").replace(/</g, "&lt;"); }
+            function escText(s) { return String(s || "").replace(/&/g, "&amp;").replace(/</g, "&lt;"); }
+            var rowsHtml = loaded.map(function (p, ix) {
+                var about = "";
+                var ex = existing[p.name.toLowerCase()];
+                if (ex && ex.about) about = String(ex.about);
+                return '<div style="display:flex;gap:8px;align-items:center;margin-bottom:8px;">'
+                    + '<div style="min-width:110px;max-width:150px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-weight:600;" title="' + escAttr(p.name) + '">' + escText(p.name) + '</div>'
+                    + '<input type="text" data-roster-oneliner="' + ix + '" maxlength="300" placeholder="One-liner — the hover tip in the Samples menu" value="' + escAttr(about) + '" style="flex:1;min-width:0;background:#0f1214;color:#f2f4f6;border:1px solid #3a4550;border-radius:8px;padding:7px 8px;font:inherit;">'
+                    + '</div>';
+            }).join("");
+            dlg.innerHTML = '<div style="background:#171b1f;color:#f2f4f6;border:1px solid #3a4550;border-radius:12px;padding:18px;width:520px;max-width:92vw;box-sizing:border-box;box-shadow:0 12px 40px rgba(0,0,0,.5);font:14px/1.45 system-ui,sans-serif;">'
+                + '<div style="font-weight:600;font-size:16px;margin-bottom:8px;">Create roster from loaded profiles</div>'
+                + '<div style="opacity:.75;margin-bottom:12px;">' + loaded.length + ' profile' + (loaded.length === 1 ? "" : "s") + ' loaded on this map. Each one-liner is the hover tip in the Samples menu — it never shows inline, so the menu stays uncluttered.</div>'
+                + '<label for="sxRflName" style="display:block;margin-bottom:6px;">Roster name</label>'
+                + '<input type="text" id="sxRflName" maxlength="80" placeholder="Roster name — e.g. Friday Knights" value="' + escAttr(defaultRosterName) + '" style="width:100%;box-sizing:border-box;background:#0f1214;color:#f2f4f6;border:1px solid #3a4550;border-radius:8px;padding:8px;font:inherit;margin-bottom:12px;">'
+                + '<div style="max-height:280px;overflow-y:auto;margin-bottom:4px;">' + rowsHtml + '</div>'
+                + '<div style="display:flex;gap:8px;justify-content:flex-end;margin-top:12px;">'
+                + '<button type="button" id="sxRflCancel" style="padding:8px 14px;border-radius:8px;border:1px solid #3a4550;background:transparent;color:inherit;font:inherit;cursor:pointer;">Cancel</button>'
+                + '<button type="button" id="sxRflSave" style="padding:8px 14px;border-radius:8px;border:1px solid #3a4550;background:#2b6cb0;color:#fff;font:inherit;cursor:pointer;">Create roster &amp; download pack</button>'
+                + '</div></div>';
+            if (!dlg.open) dlg.showModal();
+            e.byId("sxRflSave").onclick = function () {
+                var rosterName = String(e.byId("sxRflName").value || "").trim();
+                if (!rosterName) {
+                    sxShowStatusToast("Give the roster a name first.", { tone: "error" });
+                    e.byId("sxRflName").focus();
+                    return;
+                }
+                var oneLiners = {};
+                loaded.forEach(function (p, ix) {
+                    var inp = dlg.querySelector('[data-roster-oneliner="' + ix + '"]');
+                    if (inp) oneLiners[p.id] = String(inp.value || "").trim();
+                });
+                dlg.close();
+                onDone(rosterName, oneLiners);
+            };
+            e.byId("sxRflCancel").onclick = function () { dlg.close(); };
+            e.byId("sxRflName").focus();
+        }
+        function sxFinishRosterFromLoaded(skin, api, loaded, rosterName, oneLiners) {
+            var rosterKey = String(rosterName).toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "") || "roster";
+            var fr = window.__SX_ROSTER_FREEMIUM;
+            var currentCount = 0;
+            try { currentCount = (fr && typeof fr.count === "function") ? (fr.count(skin, rosterKey) || 0) : 0; } catch (err) { currentCount = 0; }
+            var rosterNames = {};
+            try {
+                var list0 = api.list(skin) || {};
+                Object.keys(list0).forEach(function (k) {
+                    var e = list0[k] || {};
+                    if (e.rosterKey === rosterKey) rosterNames[String(e.name || "").trim().toLowerCase()] = true;
+                });
+            } catch (err) { /* roster membership read failed: treat all as new */ }
+            var savedN = 0, updatedN = 0, blocked = [], failed = [], skipped = [];
+            var lastGate = null;
+            loaded.forEach(function (p) {
+                var payload;
+                try { payload = yx.serialize("profile", { person: p.id }); } catch (err) { payload = null; }
+                if (!payload || !payload.ratings || !Object.keys(payload.ratings).length) { skipped.push(p.name); return; }
+                payload.photos = [];
+                payload.noFlash = true;
+                var entry = { kind: "sample", name: p.name, count: Object.keys(payload.ratings).length, payload: payload, roster: rosterName, rosterKey: rosterKey };
+                var about = oneLiners[p.id] || "";
+                if (about) entry.about = about;
+                var isMember = Boolean(rosterNames[p.name.toLowerCase()]);
+                if (!isMember && fr && typeof fr.ensureGate === "function") {
+                    var g;
+                    try { g = fr.ensureGate(skin, rosterKey, currentCount + 1); } catch (err) { g = null; }
+                    if (g && !g.allowed) { lastGate = g; blocked.push(p.name); return; }
+                }
+                var saved = null;
+                try { saved = api.save(skin, entry); } catch (err) { saved = null; }
+                if (!saved) { failed.push(p.name); return; }
+                if (!isMember) currentCount += 1;
+                if (saved.updated) updatedN += 1; else savedN += 1;
+            });
+            /* The pack is the FULL roster (every local sample carrying
+               this rosterKey), not just the profiles saved just now. */
+            var members = [];
+            try {
+                var list1 = api.list(skin) || {};
+                Object.keys(list1).forEach(function (k) {
+                    var e = list1[k] || {};
+                    if (e.rosterKey !== rosterKey) return;
+                    var copy = JSON.parse(JSON.stringify(e));
+                    delete copy.local;
+                    members.push(copy);
+                });
+            } catch (err) { members = []; }
+            if (members.length) {
+                try {
+                    var pack = { format: "flexcapades-roster", version: 1, skin: skin, name: rosterName, exportedAt: new Date().toISOString(), samples: members };
+                    var blob = new Blob([JSON.stringify(pack, null, 2) + "\n"], { type: "application/json" });
+                    var a = document.createElement("a");
+                    a.href = URL.createObjectURL(blob);
+                    a.download = skin + "-" + rosterKey + ".json";
+                    document.body.appendChild(a);
+                    a.click();
+                    setTimeout(function () { URL.revokeObjectURL(a.href); a.remove(); }, 400);
+                } catch (err) { /* the roster is saved even if the download fails */ }
+            }
+            var parts = [];
+            if (savedN) parts.push(savedN + " added");
+            if (updatedN) parts.push(updatedN + " updated");
+            var msg = "Roster '" + rosterName + "' — " + (parts.length ? parts.join(", ") : "no members") + " (" + members.length + " total)" + (members.length ? ", pack downloaded." : ".");
+            if (blocked.length) {
+                msg += " " + blocked.length + " profile" + (blocked.length === 1 ? "" : "s") + " could not be added" + (lastGate && lastGate.reason ? " — " + lastGate.reason : " — the roster is at the free cap.");
+            }
+            if (failed.length) msg += " " + failed.length + " could not be saved — browser storage may be full.";
+            if (skipped.length) msg += " " + skipped.length + " skipped (no ratings).";
+            sxShowStatusToast(msg, (blocked.length || failed.length || skipped.length) ? { tone: "error" } : {});
+            try { if (typeof api.refresh === "function") api.refresh(); } catch (err) { /* menu rebuild is best-effort */ }
+            sxSyncLocalSampleBtn();
+            sxMarkLoadedSamples();
+        }
+        window.sxCreateRosterFromLoaded = sxCreateRosterFromLoaded;
         function sxRemoveLocalSample(key) {
             var api = window.__SX_LOCAL_SAMPLES;
             if (!api || typeof api.remove !== "function") return;
