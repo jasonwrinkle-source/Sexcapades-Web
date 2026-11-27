@@ -230,9 +230,15 @@
                     if (canvas) canvas.style.display = "none";
                     if (pair) {
                         if (crossHost) crossHost.hidden = false;
-                        var stance = sxDualPlacements(topicId);
-                        pair.first.setLabel((shape.labels && shape.labels[0]) || (stance ? "Advocacy" : "Give"));
-                        pair.second.setLabel((shape.labels && shape.labels[1]) || (stance ? "Receptivity" : "Receive"));
+                        var cfg = sxCrossSliderConfigFor(topicId, shape);
+                        pair.first.setLabel(cfg.firstLabel);
+                        pair.second.setLabel(cfg.secondLabel);
+                        pair.first.setScale(cfg.leftLabel, cfg.rightLabel, { isPoles: cfg.isPoles, topicId: topicId, keys: cfg.keys });
+                        pair.second.setScale(cfg.leftLabel, cfg.rightLabel, { isPoles: cfg.isPoles, topicId: topicId, keys: cfg.keys });
+                        if (typeof sxSetPoleTip === "function") {
+                            sxSetPoleTip(pair.first.labelEl, topicId, cfg.firstTipKey);
+                            sxSetPoleTip(pair.second.labelEl, topicId, cfg.secondTipKey);
+                        }
                         pair.first.render();
                         pair.second.render();
                     }
