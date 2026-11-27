@@ -130,6 +130,21 @@ Each item waits for Jason's kickoff; nothing here dispatches itself.
    - Dance (2): `the-swing-rhythm-trickster.svg`, `the-tango-close-embrace-purist.svg` (merged into Savoy-Tradition Lindy Hopper & Swing Improviser, Milonguero / Argentine Tango Close-Embrace Traditionalist).
    - Pre-delete check, 2026-11-26: all 45 files were present on origin and none was referenced by any sample in the then-current skin JSONs. Deleted only these 45 — the 8 merged pictograms that were UPDATED (not removed) stayed.
 
+21. **Sex canonical archetypes build (Grok — queued 2026-11-26, waits for Jason's kickoff):**
+   - The job: build the canonical kink-role archetypes Grok's item-19 research found missing from Sexcapades' eighteen, as new archetype samples — each rated on all 376 Sex topics, with an emblem. Source: `sexcapades-archetypes-research.md` on `capades-skins` (commit `41359af`); the research is the authority on which roles are canonical, which are renames, and which are not archetypes. Adam and Eve are sample profiles, not archetypes — note them, don't rebuild them.
+   - Add as archetype samples (from the research §3, the roles the eighteen omit):
+     - The five core, older and better sourced than several of the eighteen: **submissive, top, bottom, Master/Mistress, slave**. The missing submissive is "the largest gap in the eighteen" — the list has service-submissive and masochist, but not submissive itself.
+     - **Owner, Pet, Daddy/Mommy, Little, Experimentalist, Non-monogamist.**
+     - The rest of the cuckold triad: **hotwife/cuckoldress, cuckquean, bull** — plus **stag (and vixen)** as a separate compersion variant. Do NOT fold stag into cuckold.
+   - Renames (from the research §4 — the canonical name, not the brief's label):
+     - **Rope bunny → rope bottom** (keep rope bunny as the community alias). There is no established archetype in which "rope bunny" means "submissive who likes rope" — that collapse is the error.
+     - **Primal → Primal (Hunter)** and **Prey → Primal (Prey)**. Bare "primal" and bare "prey" are mis-named.
+     - **Brat → Brat (SAM)** — the smart-assed masochist.
+     - **Caregiver → Daddy/Mommy.** The canonical name is Daddy/Mommy; Caregiver is not a role name in the literature. (The BDSM-archetypes topic's Caregiver pole is the mis-named one; the misstatement build is correcting the hovertip, not renaming the pole — this item does the rename.)
+   - Do NOT add: **sensation-seeker** (no established archetype — sensation play is an activity; sensualist is the nearest identity word), **edge-player** (no established archetype — edge play is a risk class; edging is a third, unrelated practice), **ageplayer** (contested, out of scope), **Gorean** (contested literary subculture — flag it, do not add it).
+   - *Dependency:* build AFTER the misstatement fixes (Sex M1/M2 + the Sx1 poles: Masochist, Brat-tamer, Primal (Hunter)/Primal (Prey)) land — both jobs edit `sexcapades.json`, so sequence them, don't race them.
+   - *Standing laws:* archetypes AND samples ALWAYS get ratings on new/merged topics; always make emblems for new samples/archetypes as part of the build; receptivity = exact Fraction round-half-even(openness × advocacy), never float `round()`; intensity = signed largest-`|value|` pole; count = `len(ratings)`; surgical updates preserving every existing pole value exactly (no ±1 drift); both JSON copies byte-identical; commit locally first; push via push-files + read-back verify; analytics NEVER disabled; build timestamps America/Chicago; timing table in the dispatch brief.
+
 ---
 
 ## 2. Open Carry-Overs & Backlog
