@@ -171,6 +171,15 @@
             scaleSpans.length >= 2 && (scaleSpans[0].textContent = sxTerm("heatMax"), scaleSpans[scaleSpans.length - 1].textContent = sxTerm("heatMin"));
             sl && (sl.value = String(v)), out && (out.textContent = `${sxHeatZone(v)} · ${v > 0 ? "+" + v : v}`),
             nm && (nm.textContent = wt[t] || "Profile"), sl && sl.setAttribute("aria-label", `${grp ? "Group heat" : "Heat"} for ${wt[t] || (grp ? "the group" : "the profile")}`);
+            /* (c) A couple's heat is derived from its two members, so
+               its slider is read-only — dragging it would set a value
+               that never sticks. The slider shows the derived value. */
+            const isCouple = typeof sxIsCouple === "function" && sxIsCouple(t);
+            sl && (sl.disabled = isCouple);
+            if (isCouple) {
+                sl && sl.setAttribute("aria-label", "Couple heat — derived from the two members. Change a partner's own heat to move it.");
+                out && (out.textContent = `${sxHeatZone(v)} · ${v > 0 ? "+" + v : v} (from the two members)`);
+            }
         }
         function sxPosHeat() {
             const pop = e.byId("heatPopover");
@@ -206,7 +215,12 @@
             const t = sxHeatQt;
             if (!t) return;
             const v = Math.max(-100, Math.min(100, Math.round(Number(sxHeatSliderEl.value) || 0)));
-            sxIsGroup(t) ? sxcv.groupHeat[t] = v : sxcv.heat[t] = v, sxcvSave(),
+            /* (c) A couple has no heat of its own — its shown heat is
+               derived from its two members. Do not store a group
+               override for a couple (sxGroupHeatFor ignores one), or
+               the slider would appear to set a heat that never sticks.
+               Change a partner's own heat to move the couple's. */
+            (typeof sxIsCouple === "function" && sxIsCouple(t)) ? null : (sxIsGroup(t) ? sxcv.groupHeat[t] = v : sxcv.heat[t] = v, sxcvSave()),
             sxRefreshGroupOwn(t), sxMvHeat(), sxKvHeat(t), Object.keys(ft).forEach(gId => {
                 ft[gId] && "group" === ft[gId].kind && vt[gId] && sxKvHeat(gId);
             }), sxRefreshMatchTabs(), sxRefreshSyncGlance();

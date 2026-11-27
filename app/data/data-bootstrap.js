@@ -35014,6 +35014,20 @@ var sxcv = { mode: "conversation", heat: {}, groupHeat: {} };
         function sxIsGroup(e) {
             return !!(e && ft[e] && "group" === ft[e].kind);
         }
+        function sxIsCouple(e) {
+            /* (c) A couple is a group of exactly two INDIVIDUALS (not
+               groups). It is an array of its two members, and its shown
+               value is a computed product of them — it has no heat of
+               its own. The group's ratings are already the computed
+               product (sxRefreshGroupScore runs Cross / Straight /
+               Circle Minus on the pair); the heat below is the same
+               idea for the displayed heat. */
+            const n = e && ft[e];
+            if (!n || "group" !== n.kind) return false;
+            const ids = (n.sourceIds || []).filter(id => vt[id]);
+            if (2 !== ids.length) return false;
+            return ids.every(id => !(ft[id] && "group" === ft[id].kind));
+        }
         function sxGroupHeatDefault(e, seen) {
             const n = ft[e];
             if (!n || "group" !== n.kind) return 0;
@@ -35031,6 +35045,15 @@ var sxcv = { mode: "conversation", heat: {}, groupHeat: {} };
             return Math.max(-100, Math.min(100, Math.round(Math.min(...vals))));
         }
         function sxGroupHeatFor(e, seen) {
+            /* (c) A couple's shown heat is always the computed product
+               (the lower of the two members' heats, via
+               sxGroupHeatDefault) — never a stored override. A stored
+               groupHeat would freeze the couple's heat and stop
+               individual heat movements from propagating, which is
+               exactly what the couple-as-array ruling forbids. Larger
+               groups keep the stored override (a group heat the user
+               set by hand). */
+            if (sxIsCouple(e)) return sxGroupHeatDefault(e, seen);
             const v = Number(sxcv.groupHeat[e]);
             return Number.isFinite(v) ? Math.max(-100, Math.min(100, Math.round(v))) : sxGroupHeatDefault(e, seen);
         }
@@ -43772,6 +43795,15 @@ var sxHeatQt = null, sxHeatBv = null, sxHeatRaf = 0;
             scaleSpans.length >= 2 && (scaleSpans[0].textContent = sxTerm("heatMax"), scaleSpans[scaleSpans.length - 1].textContent = sxTerm("heatMin"));
             sl && (sl.value = String(v)), out && (out.textContent = `${sxHeatZone(v)} · ${v > 0 ? "+" + v : v}`),
             nm && (nm.textContent = wt[t] || "Profile"), sl && sl.setAttribute("aria-label", `${grp ? "Group heat" : "Heat"} for ${wt[t] || (grp ? "the group" : "the profile")}`);
+            /* (c) A couple's heat is derived from its two members, so
+               its slider is read-only — dragging it would set a value
+               that never sticks. The slider shows the derived value. */
+            const isCouple = typeof sxIsCouple === "function" && sxIsCouple(t);
+            sl && (sl.disabled = isCouple);
+            if (isCouple) {
+                sl && sl.setAttribute("aria-label", "Couple heat — derived from the two members. Change a partner's own heat to move it.");
+                out && (out.textContent = `${sxHeatZone(v)} · ${v > 0 ? "+" + v : v} (from the two members)`);
+            }
         }
         function sxPosHeat() {
             const pop = e.byId("heatPopover");
@@ -43807,7 +43839,12 @@ var sxHeatPopEl = e.byId("heatPopover"), sxHeatSliderEl = e.byId("heatSlider");
             const t = sxHeatQt;
             if (!t) return;
             const v = Math.max(-100, Math.min(100, Math.round(Number(sxHeatSliderEl.value) || 0)));
-            sxIsGroup(t) ? sxcv.groupHeat[t] = v : sxcv.heat[t] = v, sxcvSave(),
+            /* (c) A couple has no heat of its own — its shown heat is
+               derived from its two members. Do not store a group
+               override for a couple (sxGroupHeatFor ignores one), or
+               the slider would appear to set a heat that never sticks.
+               Change a partner's own heat to move the couple's. */
+            (typeof sxIsCouple === "function" && sxIsCouple(t)) ? null : (sxIsGroup(t) ? sxcv.groupHeat[t] = v : sxcv.heat[t] = v, sxcvSave()),
             sxRefreshGroupOwn(t), sxMvHeat(), sxKvHeat(t), Object.keys(ft).forEach(gId => {
                 ft[gId] && "group" === ft[gId].kind && vt[gId] && sxKvHeat(gId);
             }), sxRefreshMatchTabs(), sxRefreshSyncGlance();
@@ -44639,6 +44676,23 @@ var gw = "edit";
         function sxRemoveLocalSample(key) {
             var api = window.__SX_LOCAL_SAMPLES;
             if (!api || typeof api.remove !== "function") return;
+            /* (a) Removing a roster member is a membership change: if
+               the roster is large / grandfathered, it needs an active
+               registration window. Removing from a free roster is free. */
+            var frRem = window.__SX_ROSTER_FREEMIUM;
+            if (frRem && typeof frRem.gateRemove === "function" && typeof frRem.individualsOf === "function") {
+                try {
+                    var listR = (api.list && typeof api.list === "function") ? (api.list(sxLocalSampleSkin()) || {}) : {};
+                    var entryR = listR[key];
+                    if (entryR && entryR.rosterKey) {
+                        var gRem = frRem.gateRemove(sxLocalSampleSkin(), String(entryR.rosterKey), frRem.individualsOf(entryR));
+                        if (!gRem.allowed) {
+                            if (typeof frRem.blockedToast === "function") frRem.blockedToast(gRem);
+                            return;
+                        }
+                    }
+                } catch (err) { /* a gate failure must not block a remove */ }
+            }
             var removedName;
             try { removedName = api.remove(sxLocalSampleSkin(), key); } catch (err) { removedName = false; }
             if (removedName) {

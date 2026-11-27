@@ -81,6 +81,31 @@
       var updated = Boolean(existingKey);
       var saved = JSON.parse(JSON.stringify(entry));
       saved.local = true;
+      /* (d) A member updating their own roster profile stays in the
+         roster: preserve the existing entry's roster tags on update,
+         so the update is a content change, not a membership change.
+         Updating a member's own profile is never gated. */
+      if (existingKey && per[existingKey]) {
+        if (!saved.rosterKey && per[existingKey].rosterKey) saved.rosterKey = per[existingKey].rosterKey;
+        if (!saved.roster && per[existingKey].roster) saved.roster = per[existingKey].roster;
+      }
+      /* (a) Adding a NEW member to a roster is a membership change:
+         gate it on the free cap / an active registration window.
+         Updating an existing member (same name) is a content change
+         and is never gated. Personal samples (no rosterKey) are never
+         gated — the cap is on roster membership, not on saving a
+         profile. */
+      if (!existingKey && saved.rosterKey) {
+        var frSave = window.__SX_ROSTER_FREEMIUM;
+        if (frSave && typeof frSave.ensureGate === "function" && typeof frSave.individualsOf === "function" && typeof frSave.count === "function") {
+          var addN = frSave.individualsOf(saved);
+          var gSave = frSave.ensureGate(skin, String(saved.rosterKey), frSave.count(skin, String(saved.rosterKey)) + addN);
+          if (!gSave.allowed) {
+            if (typeof frSave.blockedToast === "function") frSave.blockedToast(gSave);
+            return null;
+          }
+        }
+      }
       per[key] = saved;
       if (!writeLocalSamplesStore(store)) return null;
       if (skin === currentSkinId()) refreshSampleMenuWithLocals();
@@ -170,6 +195,24 @@
        several rosters (several groups) side by side. */
     var rosterName = String(pack.name || slug || "Roster");
     var rosterKey = String(slug || rosterName).toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "") || "roster";
+    /* (a) Importing a pack REPLACES the roster's membership, so the
+       gate is on the resulting size (the pack's total individuals).
+       A pack over the free cap needs an active registration window
+       for this roster; a large / grandfathered roster needs a window
+       for any membership change. */
+    var frImp = window.__SX_ROSTER_FREEMIUM;
+    if (frImp && typeof frImp.ensureGate === "function" && typeof frImp.individualsOf === "function") {
+      var packN = 0;
+      pack.samples.forEach(function (raw) {
+        var e0 = cleanRosterEntry(raw);
+        if (e0) packN += frImp.individualsOf(e0);
+      });
+      var gImp = frImp.ensureGate(skin, rosterKey, packN);
+      if (!gImp.allowed) {
+        if (typeof frImp.blockedToast === "function") frImp.blockedToast(gImp);
+        return null;
+      }
+    }
     var swept = 0;
     var before = api.list(skin) || {};
     Object.keys(before).forEach(function (k) {

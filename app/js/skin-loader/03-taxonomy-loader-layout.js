@@ -1257,6 +1257,9 @@
      entry is hidden, and they never need a submenu. Created once. */
   function ensureRosterAddActions() {
     var addMenu = document.getElementById("profileAddMenu");
+    /* Registration window (item 44): the buy/status button lives in
+       the freemium module; ensure it here so it survives menu rebuilds. */
+    if (typeof window.__SX_ROSTER_FREEMIUM === "object" && typeof window.__SX_ROSTER_FREEMIUM.ensureBuyButton === "function") window.__SX_ROSTER_FREEMIUM.ensureBuyButton();
     if (!addMenu || document.getElementById("exportRosterChoice")) return;
     [["exportRosterChoice", "Export roster pack", exportRosterPack], ["importRosterChoice", "Import roster pack", pickRosterFile]].forEach(function (spec) {
       var btn = document.createElement("button");

@@ -361,6 +361,23 @@
         function sxRemoveLocalSample(key) {
             var api = window.__SX_LOCAL_SAMPLES;
             if (!api || typeof api.remove !== "function") return;
+            /* (a) Removing a roster member is a membership change: if
+               the roster is large / grandfathered, it needs an active
+               registration window. Removing from a free roster is free. */
+            var frRem = window.__SX_ROSTER_FREEMIUM;
+            if (frRem && typeof frRem.gateRemove === "function" && typeof frRem.individualsOf === "function") {
+                try {
+                    var listR = (api.list && typeof api.list === "function") ? (api.list(sxLocalSampleSkin()) || {}) : {};
+                    var entryR = listR[key];
+                    if (entryR && entryR.rosterKey) {
+                        var gRem = frRem.gateRemove(sxLocalSampleSkin(), String(entryR.rosterKey), frRem.individualsOf(entryR));
+                        if (!gRem.allowed) {
+                            if (typeof frRem.blockedToast === "function") frRem.blockedToast(gRem);
+                            return;
+                        }
+                    }
+                } catch (err) { /* a gate failure must not block a remove */ }
+            }
             var removedName;
             try { removedName = api.remove(sxLocalSampleSkin(), key); } catch (err) { removedName = false; }
             if (removedName) {
