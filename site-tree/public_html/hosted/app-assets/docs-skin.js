@@ -122,7 +122,7 @@
     "cats": 8,
     "catsWithSub": 0,
     "subcats": 0,
-    "topics": 41
+    "topics": 74
   },
   "aesth": {
     "id": "aesthcapades",
@@ -166,7 +166,7 @@
     "cats": 6,
     "catsWithSub": 0,
     "subcats": 0,
-    "topics": 32
+    "topics": 72
   },
   "dharma": {
     "id": "dharmacapades",
@@ -342,7 +342,7 @@
     "cats": 6,
     "catsWithSub": 0,
     "subcats": 0,
-    "topics": 34
+    "topics": 70
   },
   "voca": {
     "id": "vocapades",
