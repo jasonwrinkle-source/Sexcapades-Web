@@ -115,6 +115,12 @@ Each item waits for Jason's kickoff; nothing here dispatches itself.
    - *Constraint:* the same clean-room rules as the 13 blocks (real positions, cited sources, no invented content). If a skin's literature is thin, say so rather than padding.
    - Order: item 17 first; this is second.
 
+19. **Canonical archetypes research for Sexcapades (Gemini — Jason's correction 2026-11-26: "I didn't mean to NOT do sex... stick it back in the active queue for her to do"):**
+   - The correction: item 17's instructions excluded Sex ("Adam / Eve are samples, not archetypes — note, don't rebuild") and the delivered research left the 18 kink roles untouched ("mirror the established BDSMTest.org / community role vocabulary"). Jason did NOT mean to exclude Sex from the archetype research — put it back in the queue for her.
+   - The job: research the canonical / established archetypes for Sexcapades — the 18 kink roles (sadist, masochist, rope-bunny, rigger, brat, brat-tamer, dominant, service-submissive, exhibitionist, voyeur, degradee, degrader, primal, prey, switch, cuckold, sensation-seeker, edge-player) — grounding each in the literature (the BDSM community role vocabulary, BDSMTest.org, published kink-community sources). Adam and Eve are sample profiles, not archetypes — note them, don't rebuild them. For each role: name, the source / document that establishes it (a real citation), and a one-line stance summary. Flag which roles are well-established vs thin / contested, and say plainly where there is NO established archetype in the literature — do not invent.
+   - Deliverable: a `.md` research file (e.g. `sexcapades-archetypes-research.md`), committed to the capades-skins repo TEMPORARILY as a shuttle — YoBiche reads it and it is removed after. (Do not put it in Sexcapades-Web; do not make it a permanent doc.) The `.md` IS the deliverable; no JSON blocks and no ratings in this job — ratings come after, built by YoBiche from the `.md`.
+   - Order: waits for Jason's kickoff, after her current turn (she is on her Flex turn now; item 18 is second).
+
 ---
 
 ## 2. Open Carry-Overs & Backlog
