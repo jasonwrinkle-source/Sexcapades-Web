@@ -103,10 +103,8 @@
                     return src && "manual" !== src && src in __sxSeedValues;
                 }) && t.unreviewed.push(s);
             });
-            const s = (e, t) => {
-                const i = sxTopicPopularity(e, n.get(e)?.label), a = sxTopicPopularity(t, n.get(t)?.label), r = (null === i ? Number.NEGATIVE_INFINITY : i) - (null === a ? Number.NEGATIVE_INFINITY : a);
-                return r ? -r : String(n.get(e)?.label || "").localeCompare(String(n.get(t)?.label || ""));
-            };
+            const faultMap = "function" == typeof sxComputeFaultLineScores ? sxComputeFaultLineScores() : null;
+            const s = (e, t) => sxCompareHotListIds(e, n.get(e)?.label, t, n.get(t)?.label, faultMap);
             return t.tier1.sort(s), t.tier2.sort(s), t.direction.sort(s), t.tier3.sort(s), t.unreviewed.sort(s), t;
         }
         window.__sxOnDeckMembers = __sxOnDeckMembers;

@@ -57,18 +57,151 @@
         function sxSubcategoryMean(e) {
             return sxMeanScore(e.topics);
         }
+        // Hot List fault-line scoring (Item 36, 2026-11-27):
+        // Computed at runtime from the loaded skin's built-in samples (never
+        // stored in skin JSONs). Per topic, take each pole's range (max - min)
+        // across samples rated on that pole, then average those ranges across
+        // the topic's poles. Sort order: (1) fault-line avg descending (ties
+        // break by max pole range desc, then topic name); (2) poll/popularity
+        // data desc; (3) the rest alphabetically.
+        function sxComputeFaultLineScores() {
+            const out = new Map();
+            const samples = typeof window !== "undefined" ? window.SEXCAPADES_SAMPLE_PROFILES : null;
+            if (!samples || "object" != typeof samples) return out;
+            const byTopic = new Map();
+            const keys = Object.keys(samples);
+            for (let i = 0; i < keys.length; i++) {
+                const s = samples[keys[i]];
+                if (!s || "object" != typeof s || s.local) continue;
+                const ratings = s.payload && s.payload.ratings;
+                if (!ratings || "object" != typeof ratings) continue;
+                const tids = Object.keys(ratings);
+                for (let j = 0; j < tids.length; j++) {
+                    const tid = tids[j], val = ratings[tid];
+                    if (null == val) continue;
+                    let poles = null;
+                    if ("number" == typeof val) {
+                        if (Number.isFinite(val)) poles = { _scalar: val };
+                    } else if ("object" == typeof val) {
+                        if (Object.prototype.hasOwnProperty.call(val, "advocacy")) {
+                            const adv = val.advocacy;
+                            if ("number" == typeof adv) {
+                                if (Number.isFinite(adv)) poles = { _scalar: adv };
+                            } else if (adv && "object" == typeof adv) {
+                                poles = {};
+                                const pks = Object.keys(adv);
+                                for (let k = 0; k < pks.length; k++) {
+                                    const pk = pks[k];
+                                    if ("intensity" === pk || "known" === pk || "mode" === pk) continue;
+                                    const pv = adv[pk];
+                                    if ("number" == typeof pv && Number.isFinite(pv)) poles[pk] = pv;
+                                }
+                            }
+                        } else {
+                            poles = {};
+                            const pks = Object.keys(val);
+                            for (let k = 0; k < pks.length; k++) {
+                                const pk = pks[k];
+                                if ("intensity" === pk || "receptivity" === pk || "known" === pk || "mode" === pk) continue;
+                                const pv = val[pk];
+                                if ("number" == typeof pv && Number.isFinite(pv)) poles[pk] = pv;
+                            }
+                        }
+                    }
+                    if (!poles) continue;
+                    const pks = Object.keys(poles);
+                    if (!pks.length) continue;
+                    let tMap = byTopic.get(tid);
+                    if (!tMap) { tMap = new Map(); byTopic.set(tid, tMap); }
+                    for (let k = 0; k < pks.length; k++) {
+                        const pk = pks[k], pv = poles[pk];
+                        const st = tMap.get(pk);
+                        if (!st) tMap.set(pk, { min: pv, max: pv, n: 1 });
+                        else {
+                            if (pv < st.min) st.min = pv;
+                            if (pv > st.max) st.max = pv;
+                            st.n += 1;
+                        }
+                    }
+                }
+            }
+            byTopic.forEach((tMap, tid) => {
+                let sum = 0, cnt = 0, mx = -1;
+                tMap.forEach(st => {
+                    if (st.n >= 2) {
+                        const r = st.max - st.min;
+                        sum += r;
+                        cnt += 1;
+                        if (r > mx) mx = r;
+                    }
+                });
+                if (cnt > 0) out.set(tid, { avg: sum / cnt, maxRange: mx, poles: cnt });
+            });
+            return out;
+        }
+        window.__SX_FAULT_LINE_SCORES = sxComputeFaultLineScores;
+        function sxCompareHotListIds(idA, labelA, idB, labelB, faultMap) {
+            const fa = faultMap ? faultMap.get(idA) : null;
+            const fb = faultMap ? faultMap.get(idB) : null;
+            if (Boolean(fa) !== Boolean(fb)) return fa ? -1 : 1;
+            if (fa && fb) {
+                if (Math.abs(fb.avg - fa.avg) > 1e-9) return fb.avg - fa.avg;
+                if (Math.abs(fb.maxRange - fa.maxRange) > 1e-9) return fb.maxRange - fa.maxRange;
+                return String(labelA || "").localeCompare(String(labelB || ""));
+            }
+            const pa = sxTopicPopularity(idA, labelA), pb = sxTopicPopularity(idB, labelB);
+            const ha = Number.isFinite(pa), hb = Number.isFinite(pb);
+            if (ha !== hb) return ha ? -1 : 1;
+            if (ha && hb && pa !== pb) return pb - pa;
+            return String(labelA || "").localeCompare(String(labelB || ""));
+        }
+        function sxFaultLineMeanForTopics(topics, faultMap) {
+            if (!faultMap || !faultMap.size || !topics || !topics.length) return null;
+            let sum = 0, cnt = 0;
+            for (let i = 0; i < topics.length; i++) {
+                const fl = faultMap.get(sxResolveTopicId(topics[i]));
+                if (fl && Number.isFinite(fl.avg)) { sum += fl.avg; cnt += 1; }
+            }
+            return cnt ? sum / cnt : null;
+        }
         let sxOutlineSortMode = "popularity";
         window.__sxSetOutlineSortMode = function(e) {
             sxOutlineSortMode = "interest" === e ? "interest" : "popularity";
         };
         function sxSortedOutlineTree(e = Go) {
-            const sxScore = "interest" === sxOutlineSortMode && e && e !== Et ? t => {
-                const n = sxDecodeTopicStance(sxResolveTopicId(t), e);
-                return n.giveKnown || n.receiveKnown ? n.giveKnown && n.receiveKnown ? (n.give + n.receive) / 2 : n.giveKnown ? n.give : n.receive : null;
-            } : e => sxTopicPopularity(topicIdByLabel[sxName(e)] || sxName(e));
-            return sxSortByScore(h, sxBranchMeanScore, e => e.name).map(e => {
-                const t = sxOrderByScore(e.subcategories || [], sxSubcategoryMean), n = [ ...t.flatMap(e => sxOrderByScore(e.topics || [], sxScore)), ...sxOrderByScore(e.subcategories?.length ? e.parentTopics || e.topics.filter(t => !sxFindTopicSubcategory(e, t)) : e.topics, sxScore) ], i = sxOrderByScore(n, sxScore), a = new Map(i.map((e, t) => [ sxResolveTopicId(e), t ]));
-                return Object.assign({}, e, {
+            if ("interest" === sxOutlineSortMode && e && e !== Et) {
+                const sxScore = t => {
+                    const n = sxDecodeTopicStance(sxResolveTopicId(t), e);
+                    return n.giveKnown || n.receiveKnown ? n.giveKnown && n.receiveKnown ? (n.give + n.receive) / 2 : n.giveKnown ? n.give : n.receive : null;
+                };
+                return sxSortByScore(h, sxBranchMeanScore, e => e.name).map(e => {
+                    const t = sxOrderByScore(e.subcategories || [], sxSubcategoryMean), n = [ ...t.flatMap(e => sxOrderByScore(e.topics || [], sxScore)), ...sxOrderByScore(e.subcategories?.length ? e.parentTopics || e.topics.filter(t => !sxFindTopicSubcategory(e, t)) : e.topics, sxScore) ], i = sxOrderByScore(n, sxScore), a = new Map(i.map((e, t) => [ sxResolveTopicId(e), t ]));
+                    return Object.assign({}, e, {
+                        subcategories: t,
+                        topics: n,
+                        outlineTopicRanks: a
+                    });
+                });
+            }
+            const faultMap = sxComputeFaultLineScores();
+            const sortTopics = list => (list || []).slice().sort((a, b) => sxCompareHotListIds(sxResolveTopicId(a), sxName(a), sxResolveTopicId(b), sxName(b), faultMap));
+            const sortGroups = (list, topicsOf, popMeanOf) => (list || []).slice().sort((a, b) => {
+                const fa = sxFaultLineMeanForTopics(topicsOf(a), faultMap), fb = sxFaultLineMeanForTopics(topicsOf(b), faultMap);
+                const hfa = Number.isFinite(fa), hfb = Number.isFinite(fb);
+                if (hfa !== hfb) return hfa ? -1 : 1;
+                if (hfa && hfb && Math.abs(fb - fa) > 1e-9) return fb - fa;
+                const pa = popMeanOf(a), pb = popMeanOf(b);
+                const hpa = Number.isFinite(pa), hpb = Number.isFinite(pb);
+                if (hpa !== hpb) return hpa ? -1 : 1;
+                if (hpa && hpb && pa !== pb) return pb - pa;
+                return String(a.name || "").localeCompare(String(b.name || ""));
+            });
+            return sortGroups(h, b => b.topics, sxBranchMeanScore).map(b => {
+                const t = sortGroups(b.subcategories || [], s => s.topics, sxSubcategoryMean),
+                      n = [ ...t.flatMap(s => sortTopics(s.topics || [])), ...sortTopics(b.subcategories?.length ? b.parentTopics || b.topics.filter(x => !sxFindTopicSubcategory(b, x)) : b.topics) ],
+                      i = sortTopics(n),
+                      a = new Map(i.map((x, idx) => [ sxResolveTopicId(x), idx ]));
+                return Object.assign({}, b, {
                     subcategories: t,
                     topics: n,
                     outlineTopicRanks: a
