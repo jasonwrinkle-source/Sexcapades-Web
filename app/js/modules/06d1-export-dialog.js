@@ -12,7 +12,7 @@
         }
         function sxShowImportFailure(e, t, n = "read") {
             let i = yx.errorMessage(e, "The file could not be read.");
-            "json" === n && /Unexpected token|JSON|position \d+/i.test(i) ? i = "The selected JSON file is malformed." : /does not contain (?:complete )?Sexcapades profile data/i.test(i) ? i = `No embedded Sexcapades profile data or readable profile QR was found in ${t.name}.` : /does not contain a readable Sexcapades profile-data QR code/i.test(i) && (i = `No readable Sexcapades profile QR was found in ${t.name}.`),
+            "json" === n && /Unexpected token|JSON|position \d+/i.test(i) ? i = "The selected profile file (.hypermap / JSON) is malformed." : /does not contain (?:complete )?Sexcapades profile data/i.test(i) ? i = `No embedded Sexcapades profile data or readable profile QR was found in ${t.name}.` : /does not contain a readable Sexcapades profile-data QR code/i.test(i) && (i = `No readable Sexcapades profile QR was found in ${t.name}.`),
             sxSetImportStatus(`Import failed: ${i}`, "error", !0);
         }
         const Lg = e.byId("importedContactDialog"), Tg = e.byId("importedContactDetails"), Fg = e.byId("addImportedContact"), Ng = e.byId("importedContactStatus"), _g = e.byId("profileDetailsDialog"), Dg = e.byId("profileDetailsBody"), Rg = e.byId("profileDialogAbout"), Og = e.byId("profileDialogPhoto"), Bg = e.byId("profileDialogIdentity"), jg = e.byId("profileDialogRatings"), qg = e.byId("profileDialogSiteLinks"), Hg = e.byId("profileDetailsName"), Wg = e.byId("profileDetailsGender"), Ug = e.byId("profileDetailsSexuality"), Gg = e.byId("profileDetailsRole"), Kg = e.byId("profileDetailsAge"), Pz = e.byId("profileDetailsPronouns"), zg = e.byId("profileDetailsLocation"), Vg = e.byId("profileDetailsFetLife"), Yg = e.byId("profileDetailsPhone"), Xg = e.byId("profileDetailsTelegram"), Zg = e.byId("profileDetailsEmail"), Qg = e.byId("profileDetailsLinktree"), Jg = e.byId("profileDetailsChaturbate"), em = e.byId("profileDetailsX"), tm = e.byId("profileDetailsXhamster"), nm = e.byId("profileDetailsXvideos"), im = e.byId("profileDetailsAbout"), am = e.byId("profileDetailsAboutCount"), rm = e.byId("profileDetailsTerms"), om = e.byId("profileDetailsTermsCount"), sm = e.byId("profileDetailsStatus"), lm = e.byId("profilePhotoInput"), cm = e.byId("profilePhotoList"), dm = e.byId("profilePhotoCount"), um = e.byId("profilePhotoDialog"), pm = e.byId("profilePhotoFull"), hm = e.byId("profilePhotoViewer"), gm = e.byId("profilePhotoStage"), mm = e.byId("profilePhotoPosition"), fm = e.byId("profilePhotoZoomValue"), ym = e.byId("closeProfileDialog"), bm = e.byId("closeProfileTitle"), vm = e.byId("saveClosingProfile"), wm = e.byId("discardProfileDetailsDialog"), km = e.byId("profileExportDialog"), xm = e.byId("profileExportTitle"), Sm = e.byId("profileExportSubtitle"), $m = e.byId("profileExportDataNote"), Em = e.byId("includeContactInfo"), Am = e.byId("includeContactInfoHelp"), Cm = e.byId("blindProfileExport"), Mm = e.byId("exportAboutMe"), Im = e.byId("exportAboutMeCount"), Pm = e.byId("lowResPhotoDialog"), Lm = e.byId("lowResPhotoTitle"), Tm = e.byId("lowResPhotoGrid"), Fm = e.byId("lowResPhotoSummary"), exportPhotoGrid = e.byId("exportPhotoGrid"), exportPhotoSummary = e.byId("exportPhotoSummary"), Nm = e.byId("secondaryFile"), _m = e.byId("secondaryImage"), Dm = e.byId("secondaryFileName"), Rm = e.byId("secondaryFileLink"), Om = e.byId("fileDialog"), Bm = e.byId("fileDialogTitle"), jm = e.byId("fileDialogSubtitle"), qm = e.byId("fileReady"), Hm = e.byId("fileName"), Wm = e.byId("fileHelp"), Um = e.byId("preparedImage"), Gm = e.byId("preparedImageLink"), Km = e.byId("ninjaTransferLink"), zm = e.byId("ninjaTransferHint"), Vm = e.byId("preparedImageToolbar"), Ym = e.byId("preparedImageViewport"), Xm = e.byId("preparedImageStage"), Zm = e.byId("preparedZoomValue"), Qm = e.byId("preparedZoomIn"), Jm = e.byId("preparedZoomOut"), ef = e.byId("preparedZoomFit"), tf = e.byId("fileStatus"), nf = e.byId("fileProgress"), af = e.byId("fileProgressStage"), rf = e.byId("fileProgressValue"), of = e.byId("fileProgressTrack"), sf = e.byId("fileProgressBar"), lf = e.byId("fileProgressPortrait"), cf = e.byId("fileProgressInitials"), df = e.byId("fileProgressDetail");
@@ -188,6 +188,12 @@
         }
         const exportFormatSelect = e.byId("profileExportFormat"), exportFormatDesc = e.byId("profileExportFormatDesc"), exportBackgroundRow = e.byId("exportBackgroundRow"), syncCardPaperSizeRow = e.byId("syncCardPaperSizeRow"), runProfileExportBtn = e.byId("runProfileExport"), exportFetlifeLink = e.byId("exportFetlifeLink");
         const SX_EXPORT_FORMATS = {
+            hypermap: {
+                buttonLabel: "Download .hypermap",
+                description: "Preferred format for sharing, waving, and backups. Compact JSON profile data — pure data with no scripts, safe to open anywhere, and ready to re-import.",
+                usesBackground: !1,
+                usesPaperSize: !1
+            },
             svg: {
                 buttonLabel: "Export SVG",
                 description: "Bigger file that opens everywhere, with full hover tooltips and embedded profile data.",
@@ -232,7 +238,7 @@
             }
         };
         function sxSyncExportFormatUi() {
-            const key = exportFormatSelect && SX_EXPORT_FORMATS[exportFormatSelect.value] ? exportFormatSelect.value : "svg", meta = SX_EXPORT_FORMATS[key];
+            const key = exportFormatSelect && SX_EXPORT_FORMATS[exportFormatSelect.value] ? exportFormatSelect.value : "hypermap", meta = SX_EXPORT_FORMATS[key];
             exportFormatDesc && (exportFormatDesc.textContent = meta.description),
             runProfileExportBtn && (runProfileExportBtn.textContent = meta.buttonLabel),
             exportBackgroundRow && (exportBackgroundRow.hidden = !meta.usesBackground),
@@ -276,7 +282,7 @@
                 }
                 return r;
             }(e), Em.checked = !1, Cm.checked = !0, $f = !0, xm.textContent = `Export ${sxProfileNames[e]}`,
-            Sm.textContent = "Choose a file type to export. On mobile, exports may take a minute or two.";
+            Sm.textContent = "Choose a file type to export. On mobile, image exports may take a minute or two.";
             const t = (dt[e] || []).length;
             exportPhotoSelection = new Set(Array.from({ length: t }, (e, t) => t));
             $m.textContent = `Exports what's currently visible on your map. Every format limits embedded profile data to those same visible topics${t ? ` and can include ${t} attached ${1 === t ? "photo" : "photos"} when profile info is included` : ""}.`,
@@ -285,7 +291,11 @@
         function sxRunSelectedProfileExport(a) {
             const n = kf, i = new Set(xf), r = Boolean(Sf), o = Boolean($f), s = (km.querySelector("input[name=exportBackground]:checked") || {}).value || "black", l = "a4" === (e.byId("syncCardPaperSize") || {}).value ? "a4" : "letter", c = selectedExportPhotos();
             sxCloseExportChooser(), n && sxProfileRatings[n] && (r && (nt[n] = String(Mm.value || "").trim().slice(0, 975)),
-            "qr" === a ? sxExportProfileQrSheet(n, {
+            "hypermap" === a ? sxExportProfileHypermap(n, {
+                includeProfileInfo: r,
+                blind: o,
+                allowedIds: i
+            }) : "qr" === a ? sxExportProfileQrSheet(n, {
                 includeProfileInfo: r,
                 blind: o,
                 allowedIds: i
@@ -324,7 +334,7 @@
         }), Mm.addEventListener("input", sxRefreshExportAboutCount),
         exportFormatSelect && exportFormatSelect.addEventListener("change", sxSyncExportFormatUi),
         runProfileExportBtn && runProfileExportBtn.addEventListener("click", () => {
-            const fmt = exportFormatSelect && SX_EXPORT_FORMATS[exportFormatSelect.value] ? exportFormatSelect.value : "svg";
+            const fmt = exportFormatSelect && SX_EXPORT_FORMATS[exportFormatSelect.value] ? exportFormatSelect.value : "hypermap";
             sxRunSelectedProfileExport(fmt);
         });
         const ey = e.byId("openerDialog"), ty = e.byId("negotiationDialog");

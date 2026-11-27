@@ -1038,6 +1038,8 @@
             return;
         }
 
+        "function" == typeof sxInstallHypermapLaunchConsumer && sxInstallHypermapLaunchConsumer();
+
         bS ? (sxFollowMapRoute(), document.documentElement.classList.remove("route-listview-pending"),
         t.setTimeout(sxImportShareHash, 0)) : yS ? (function() {
             try {

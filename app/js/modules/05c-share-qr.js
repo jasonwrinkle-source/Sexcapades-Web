@@ -851,8 +851,9 @@
             return t ? n : n.split(" ")[0] || "Profile";
         }
         function sxExportFileNames(e) {
-            const t = String(e || "Profile").replace(/[\\/:*?"<>|\u0000-\u001f]+/g, " ").replace(/\s+/g, "-").replace(/^-+|-+$/g, "") || "Profile", n = t.toLowerCase();
+            const t = String(e || "Profile").replace(/[\\/:*?"<>|\u0000-\u001f]+/g, " ").replace(/\s+/g, "-").replace(/^-+|-+$/g, "") || "Profile", n = t.toLowerCase(), prefix = "function" == typeof sxSkinDownloadPrefix ? sxSkinDownloadPrefix() : "Sexcapades";
             return {
+                hypermap: `${prefix}-${t}.hypermap`,
                 map: `Sexcapades-${t}-visible-map.png`,
                 zoom: `Sexcapades-${t}-low-res-visible-map.png`,
                 card: `Sexcapades-${t}-sync-card-front.png`,

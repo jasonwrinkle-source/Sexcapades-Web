@@ -810,13 +810,45 @@
         }
         function sxOfferReadyDownload(e, t, n = {}) {
             if (Number.isInteger(n.preparedJob) && n.preparedJob !== vf) return !1;
-            sxClearExportPreview(), hf = URL.createObjectURL(e), gf = t, mf = !0, yf = n.profileId && vt[n.profileId] ? n.profileId : null;
+            sxClearExportPreview(), hf = URL.createObjectURL(e), gf = t, mf = !0, yf = n.profileId && sxProfileRatings[n.profileId] ? n.profileId : null;
             const i = n.downloadLabel || "Download file";
             return Bm.textContent = n.title || "Your export is ready", jm.textContent = n.subtitle || "Your export is ready to download.", 
             qm.hidden = !1, Hm.textContent = t, Gm.dataset.filename = t, Gm.textContent = i, 
             Gm.title = n.downloadTitle || "Downloads the finished export.", Gm.disabled = !1, 
             tf.textContent = "", sxPaintExportProgress(vf, 100, "Ready to download", n.readyDetail || `Export complete. Choose ${i} to save it.`, !1), 
             !0;
+        }
+        async function sxExportProfileHypermap(e, t = {}) {
+            if (!sxProfileRatings[e] || !sxCanRunProfileAction(e, "exporting this profile", () => sxExportProfileHypermap(e, t))) return;
+            const includeInfo = Boolean(t.includeProfileInfo), blind = Boolean(t.blind), allowedIds = t.allowedIds instanceof Set ? t.allowedIds : new Set(t.allowedIds || []);
+            const label = includeInfo ? (sxProfileNames[e] || "Profile") : "Shared profile";
+            const job = sxStartExportJob(`Hypermap profile · ${sxFirstWordText(label)}`, "Packaging your .hypermap profile file…", {
+                profileId: e
+            });
+            try {
+                if (await sxFlushExportProgress(job, 25, "Serializing profile", "Writing visible ratings and profile data to JSON…"), job !== vf) return;
+                const payload = sxSerializeExportPayload(e, allowedIds, includeInfo, "", blind);
+                const blob = new Blob([ JSON.stringify(payload, null, 2) + "\n" ], {
+                    type: "application/json;charset=utf-8"
+                });
+                const filename = sxExportFileNames(label).hypermap;
+                if (job !== vf) return;
+                sxOfferReadyDownload(blob, filename, {
+                    title: `Hypermap profile · ${label}`,
+                    subtitle: "Compact JSON profile file (.hypermap). Pure data with no scripts — safe to share, wave, or back up, and ready to re-import.",
+                    downloadLabel: "Download .hypermap",
+                    downloadTitle: "Downloads the .hypermap profile file.",
+                    readyDetail: "Profile file ready. Choose Download .hypermap to save it.",
+                    preparedJob: job,
+                    profileId: e
+                });
+            } catch (err) {
+                if (job !== vf) return;
+                Bm.textContent = "Could not create .hypermap file",
+                tf.textContent = String(err && err.message || err),
+                sxFailExportProgress(job, "The .hypermap file could not be completed. Close this window and try again."),
+                console.error("Hypermap profile export failed.", err);
+            }
         }
         async function sxExportProfileQrSheet(e, t = {}) {
             // QR sheet: the unified framework's unbounded fallback.

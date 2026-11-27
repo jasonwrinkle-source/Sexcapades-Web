@@ -38,27 +38,60 @@
         return window.localStorage.getItem('sexcapades_age_verified') === 'true';
       } catch (e) { return false; }
     }
-    var SEX_HOSTS = { "sexcapades.io": 1, "www.sexcapades.io": 1, "sex.capades.io": 1, "www.sex.capades.io": 1 };
-    if (SEX_HOSTS[host]) {
-      if (hasGatePass()) { go("/hosted/app.html"); return; }
-      go("/hosted/gate.html");
-      return;
-    }
-    if (host === "flex.capades.io") { go("/picker.html"); return; }
-    if (host === "capades.io") { go("/engine.html"); return; }
-    var SKINS = window.__SX_HOSTNAME_SKINS || { sex: 1, polis: 1, fores: 1, philo: 1, aesth: 1, voca: 1, tech: 1, dharma: 1, theori: 1, praxi: 1, quanta: 1, experi: 1, simul: 1, matter: 1, chem: 1, nous: 1, dance: 1, quest: 1 };
-    var prefix = /\.capades\.io$/.test(host) ? host.split(".")[0] : "";
-    if (prefix && SKINS[prefix]) {
-      if (prefix === "sex") {
+    function routeNow(hasLaunchedFiles) {
+      var SEX_HOSTS = { "sexcapades.io": 1, "www.sexcapades.io": 1, "sex.capades.io": 1, "www.sex.capades.io": 1 };
+      if (SEX_HOSTS[host]) {
         if (hasGatePass()) { go("/hosted/app.html"); return; }
         go("/hosted/gate.html");
         return;
       }
-      go("/hosted/app.html");
-      return;
+      if (hasLaunchedFiles) { go("/hosted/app.html"); return; }
+      if (host === "flex.capades.io") { go("/picker.html"); return; }
+      if (host === "capades.io") { go("/engine.html"); return; }
+      var SKINS = window.__SX_HOSTNAME_SKINS || { sex: 1, polis: 1, fores: 1, philo: 1, aesth: 1, voca: 1, tech: 1, dharma: 1, theori: 1, praxi: 1, quanta: 1, experi: 1, simul: 1, matter: 1, chem: 1, nous: 1, dance: 1, quest: 1 };
+      var prefix = /\.capades\.io$/.test(host) ? host.split(".")[0] : "";
+      if (prefix && SKINS[prefix]) {
+        if (prefix === "sex") {
+          if (hasGatePass()) { go("/hosted/app.html"); return; }
+          go("/hosted/gate.html");
+          return;
+        }
+        go("/hosted/app.html");
+        return;
+      }
+      // Default to flex.capades.io (picker) when no valid host/skin specified
+      go("/picker.html");
     }
-    // Default to flex.capades.io (picker) when no valid host/skin specified
-    go("/picker.html");
+    if ("launchQueue" in window && window.launchQueue && typeof window.launchQueue.setConsumer === "function") {
+      var routed = false;
+      var finish = function (hasFiles) {
+        if (routed) return;
+        routed = true;
+        routeNow(hasFiles);
+      };
+      var fallbackTimer = setTimeout(function () { finish(false); }, 120);
+      window.launchQueue.setConsumer(async function (launchParams) {
+        clearTimeout(fallbackTimer);
+        var files = launchParams && Array.isArray(launchParams.files) ? launchParams.files : [];
+        if (files.length) {
+          var collected = [];
+          for (var i = 0; i < files.length; i++) {
+            try {
+              var f = await files[i].getFile();
+              if (f) collected.push({ name: f.name || "profile.hypermap", text: await f.text() });
+            } catch (e) {}
+          }
+          if (collected.length) {
+            try { window.sessionStorage.setItem("sx_launch_hypermap_files", JSON.stringify(collected)); } catch (e) {}
+            finish(true);
+            return;
+          }
+        }
+        finish(false);
+      });
+    } else {
+      routeNow(false);
+    }
   })();
 </script>
 <link rel="manifest" href="/manifest.json" />
