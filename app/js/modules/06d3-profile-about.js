@@ -138,6 +138,20 @@
                 // topics compare each flank with itself (give with
                 // give, receive with receive), skipping a flank
                 // either side left unrated.
+                // ROLE TOPICS (2026-11-27): rec.agreement on a role
+                // topic is the coverage straight (the diagonal of the
+                // joint engagement, sum of squared holdings / 10000),
+                // NOT a same-position agreement - a spread vector
+                // scores < 1 against itself (a 55/50/45 blend scores
+                // 0.755; a single pole at 85 scores 0.7225), so an
+                // archetype projected onto itself read ~70% in Fores
+                // (and 56% in Sex). For role topics, compute the true
+                // same-position agreement from the pole vectors
+                // instead (the sxPoleAgreement formula: 1 minus the
+                // mean |diff| over the union of pole keys, divided
+                // by 200), which is 1 for identical vectors. Line
+                // topics and non-role pole topics keep rec.agreement,
+                // which already is that same-position fraction.
                 const identityAgreements = [];
                 (pair.topics || []).forEach(rec => {
                     if (!rec || !rec.ratings || !rec.ratings.a || !rec.ratings.b) return;
@@ -145,6 +159,15 @@
                     if (((rec.flags || {}).fantasyBy || []).length) return;
                     const ra = rec.ratings.a, rb = rec.ratings.b;
                     if (!(ra.giveKnown || ra.receiveKnown || ra.polesKnown || ra.lineKnown) || !(rb.giveKnown || rb.receiveKnown || rb.polesKnown || rb.lineKnown)) return;
+                    if (rec.poleRole && rec.polesA && rec.polesB) {
+                        const pKeys = [...new Set([...Object.keys(rec.polesA), ...Object.keys(rec.polesB)])];
+                        if (pKeys.length) {
+                            let pSum = 0;
+                            pKeys.forEach(k => { pSum += Math.abs((Number(rec.polesA[k]) || 0) - (Number(rec.polesB[k]) || 0)); });
+                            identityAgreements.push(1 - (pSum / pKeys.length) / 200);
+                            return;
+                        }
+                    }
                     if (null != rec.agreement) { identityAgreements.push(rec.agreement); return; }
                     const diffs = [];
                     if (ra.giveKnown && rb.giveKnown) diffs.push(Math.abs(ra.give - rb.give));
