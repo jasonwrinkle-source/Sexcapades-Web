@@ -283,6 +283,29 @@
             }
             return res;
         }
+        // Derive a trilinear-line scalar in [-100, 100] from either an
+        // explicit numeric `.line` or a 3-pole affinity object (the format
+        // skin JSON archetypes carry inside advocacy/receptivity). Uses the
+        // line's inverse semantics (06c1): middle weight = 1 - |V|/100 =>
+        // |V| = (100 - aM)/2, signed toward the more-liked end pole.
+        function sxDeriveTrilinearLine(topicId, obj, shape) {
+            if (!obj || "object" != typeof obj) return null;
+            const clamp100 = v => Math.max(-100, Math.min(100, Number(v)));
+            if (Object.prototype.hasOwnProperty.call(obj, "line") && Number.isFinite(Number(obj.line))) {
+                return Math.round(clamp100(obj.line));
+            }
+            const s = shape || (typeof sxWidgetConfig === "function" ? sxWidgetConfig(topicId) : null);
+            if (!s || s.widget !== "trilinear-line") return null;
+            const pk = s.poleKeys && 3 === s.poleKeys.length
+                ? s.poleKeys
+                : Object.keys(obj).filter(k => "intensity" !== k && "line" !== k && "known" !== k && Number.isFinite(Number(obj[k])));
+            if (pk.length < 3) return null;
+            const midIdx = "xpo0029" === topicId || "xex0009" === topicId || "xex0025" === topicId ? 2 : 1;
+            const aL = Number(obj[pk[0]]), aM = Number(obj[pk[midIdx]]), aR = Number(obj[pk[1 === midIdx ? 2 : 1]]);
+            if (!Number.isFinite(aL) || !Number.isFinite(aM) || !Number.isFinite(aR)) return null;
+            const mag = (100 - clamp100(aM)) / 2;
+            return Math.round(clamp100((aL > aR ? -1 : aR > aL ? 1 : 0) * mag));
+        }
         function sxDecodeTopicStance(e, t) {
             const n = (t === Et ? At : vt[t] || {})[e];
             const shape = typeof sxWidgetConfig === "function" ? sxWidgetConfig(e, t) : null;
@@ -348,11 +371,25 @@
                     receivePlacementIntensityKnown: !1
                 };
                 if (hasAdv || hasRec) {
+                    if (shape && shape.widget === "trilinear-line") {
+                        if (res.advocacy && !Number.isFinite(Number(res.advocacy.line))) {
+                            const dl = sxDeriveTrilinearLine(e, n.advocacy, shape);
+                            if (null != dl) res.advocacy.line = dl;
+                        }
+                        if (res.receptivity && !Number.isFinite(Number(res.receptivity.line))) {
+                            const rl = sxDeriveTrilinearLine(e, n.receptivity, shape);
+                            if (null != rl) res.receptivity.line = rl;
+                        }
+                        if (!res.lineKnown && res.advocacy && Number.isFinite(Number(res.advocacy.line))) {
+                            res.line = Number(res.advocacy.line);
+                            res.lineKnown = !0;
+                        }
+                    }
                     // The line and the poles are the advocacy side, or
                     // the flat fields when that side has not been
                     // written. Receptivity stays on res.receptivity
                     // and is not promoted into the line.
-                    const primary = hasAdv ? n.advocacy : null;
+                    const primary = hasAdv ? res.advocacy : null;
                     const p = {};
                     if (primary) {
                         keys.forEach(k => {
