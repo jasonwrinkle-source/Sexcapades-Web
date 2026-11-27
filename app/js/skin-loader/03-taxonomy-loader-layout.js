@@ -1257,8 +1257,19 @@
      entry is hidden, and they never need a submenu. Created once. */
   function ensureRosterAddActions() {
     var addMenu = document.getElementById("profileAddMenu");
+    /* Registration window (item 44): the buy/status button lives in
+       the freemium module; ensure it here so it survives menu rebuilds. */
+    if (typeof window.__SX_ROSTER_FREEMIUM === "object" && typeof window.__SX_ROSTER_FREEMIUM.ensureBuyButton === "function") window.__SX_ROSTER_FREEMIUM.ensureBuyButton();
     if (!addMenu || document.getElementById("exportRosterChoice")) return;
-    [["exportRosterChoice", "Export roster pack", exportRosterPack], ["importRosterChoice", "Import roster pack", pickRosterFile]].forEach(function (spec) {
+    /* Create a roster from all loaded profiles (2026-11-27, Jason):
+       one action instead of the per-profile About flow. The builder
+       lives in 06d (it needs the loaded-profile tables), exposed as
+       window.sxCreateRosterFromLoaded; the guard covers an older
+       bundle where it does not exist yet. */
+    [["exportRosterChoice", "Export roster pack", exportRosterPack], ["importRosterChoice", "Import roster pack", pickRosterFile], ["createRosterFromLoadedChoice", "Create roster from loaded profiles", function () {
+      if (typeof window.sxCreateRosterFromLoaded === "function") window.sxCreateRosterFromLoaded();
+      else rosterToast("Creating a roster from loaded profiles is not available right now — reload and try again.");
+    }]].forEach(function (spec) {
       var btn = document.createElement("button");
       btn.type = "button";
       btn.id = spec[0];

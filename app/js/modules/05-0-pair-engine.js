@@ -464,6 +464,20 @@
         function sxIsGroup(e) {
             return !!(e && ft[e] && "group" === ft[e].kind);
         }
+        function sxIsCouple(e) {
+            /* (c) A couple is a group of exactly two INDIVIDUALS (not
+               groups). It is an array of its two members, and its shown
+               value is a computed product of them — it has no heat of
+               its own. The group's ratings are already the computed
+               product (sxRefreshGroupScore runs Cross / Straight /
+               Circle Minus on the pair); the heat below is the same
+               idea for the displayed heat. */
+            const n = e && ft[e];
+            if (!n || "group" !== n.kind) return false;
+            const ids = (n.sourceIds || []).filter(id => vt[id]);
+            if (2 !== ids.length) return false;
+            return ids.every(id => !(ft[id] && "group" === ft[id].kind));
+        }
         function sxGroupHeatDefault(e, seen) {
             const n = ft[e];
             if (!n || "group" !== n.kind) return 0;
@@ -481,6 +495,15 @@
             return Math.max(-100, Math.min(100, Math.round(Math.min(...vals))));
         }
         function sxGroupHeatFor(e, seen) {
+            /* (c) A couple's shown heat is always the computed product
+               (the lower of the two members' heats, via
+               sxGroupHeatDefault) — never a stored override. A stored
+               groupHeat would freeze the couple's heat and stop
+               individual heat movements from propagating, which is
+               exactly what the couple-as-array ruling forbids. Larger
+               groups keep the stored override (a group heat the user
+               set by hand). */
+            if (sxIsCouple(e)) return sxGroupHeatDefault(e, seen);
             const v = Number(sxcv.groupHeat[e]);
             return Number.isFinite(v) ? Math.max(-100, Math.min(100, Math.round(v))) : sxGroupHeatDefault(e, seen);
         }
