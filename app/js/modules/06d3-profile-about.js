@@ -138,48 +138,93 @@
                 // topics compare each flank with itself (give with
                 // give, receive with receive), skipping a flank
                 // either side left unrated.
-                // ROLE TOPICS (2026-11-27): rec.agreement on a role
-                // topic is the coverage straight (the diagonal of the
-                // joint engagement, sum of squared holdings / 10000),
-                // NOT a same-position agreement - a spread vector
-                // scores < 1 against itself (a 55/50/45 blend scores
-                // 0.755; a single pole at 85 scores 0.7225), so an
-                // archetype projected onto itself read ~70% in Fores
-                // (and 56% in Sex). For role topics, compute the true
+                // Per-topic similarity preference (2026-11-27, merged
+                // c89f700 + 63d5926): rec.poleAgreement first — the
+                // pair engine's positional same-position agreement
+                // (sxPoleAgreement: 1 - mean|diff|/200 over the union
+                // of pole keys, or the line fraction), which is 1 for
+                // identical vectors and keeps stance projections from
+                // scoring 0%. If the pair engine did not set it (older
+                // bundle), a role topic's rec.agreement is the coverage
+                // straight (diagonal of the joint engagement, sum of
+                // squared holdings / 10000), NOT a same-position
+                // agreement — a spread vector scores < 1 against
+                // itself (a 55/50/45 blend scores 0.755; a single pole
+                // at 85 scores 0.7225), so an archetype projected onto
+                // itself read ~70% in Fores (56% in Sex). For those
+                // role topics the branch below computes the true
                 // same-position agreement from the pole vectors
-                // instead (the sxPoleAgreement formula: 1 minus the
-                // mean |diff| over the union of pole keys, divided
-                // by 200), which is 1 for identical vectors. Line
-                // topics and non-role pole topics keep rec.agreement,
-                // which already is that same-position fraction.
+                // instead (the same sxPoleAgreement formula), which
+                // is 1 for identical vectors. Then rec.agreement,
+                // then give/receive diffs, then the receptivity
+                // placement similarity.
                 const identityAgreements = [];
+                const topicSims = [];
+                const pushSim = (rec, sim) => {
+                    identityAgreements.push(sim);
+                    if (rec && rec.label) topicSims.push({ label: rec.label, sim: sim });
+                };
+                const placementSim = (pa, pb) => {
+                    if (!pa || !pb) return null;
+                    if (pa.lineKnown && pb.lineKnown) return 1 - Math.abs(pa.line - pb.line) / 200;
+                    if (pa.poles && pb.poles) {
+                        const pKeys = [...new Set([...Object.keys(pa.poles), ...Object.keys(pb.poles)])];
+                        if (!pKeys.length) return null;
+                        let sum = 0;
+                        pKeys.forEach(k => {
+                            const va = k in pa.poles ? pa.poles[k] : 0;
+                            const vb = k in pb.poles ? pb.poles[k] : 0;
+                            sum += Math.abs(va - vb);
+                        });
+                        return 1 - (sum / pKeys.length) / 200;
+                    }
+                    return null;
+                };
                 (pair.topics || []).forEach(rec => {
                     if (!rec || !rec.ratings || !rec.ratings.a || !rec.ratings.b) return;
                     if ((rec.limiters || []).length) return;
                     if (((rec.flags || {}).fantasyBy || []).length) return;
                     const ra = rec.ratings.a, rb = rec.ratings.b;
-                    if (!(ra.giveKnown || ra.receiveKnown || ra.polesKnown || ra.lineKnown) || !(rb.giveKnown || rb.receiveKnown || rb.polesKnown || rb.lineKnown)) return;
+                    const aAny = ra.giveKnown || ra.receiveKnown || ra.polesKnown || ra.lineKnown || ra.advocacyKnown || ra.receptivityKnown;
+                    const bAny = rb.giveKnown || rb.receiveKnown || rb.polesKnown || rb.lineKnown || rb.advocacyKnown || rb.receptivityKnown;
+                    if (!aAny || !bAny) return;
+                    if (null != rec.poleAgreement) { pushSim(rec, rec.poleAgreement); return; }
+                    // ROLE TOPICS (2026-11-27, 63d5926, fallback): when
+                    // the pair engine did not set poleAgreement (older
+                    // bundle), a role topic's rec.agreement is the
+                    // coverage straight, NOT a same-position agreement,
+                    // so compute it from the pole vectors (the
+                    // sxPoleAgreement formula: 1 - mean|diff|/200 over
+                    // the union of pole keys), which is 1 for identical
+                    // vectors. This is the same value poleAgreement
+                    // carries when the new pair engine set it
+                    // (rec.polesA/rec.polesB ARE a.poles/b.poles), so
+                    // it only fires when poleAgreement is absent.
                     if (rec.poleRole && rec.polesA && rec.polesB) {
                         const pKeys = [...new Set([...Object.keys(rec.polesA), ...Object.keys(rec.polesB)])];
                         if (pKeys.length) {
                             let pSum = 0;
                             pKeys.forEach(k => { pSum += Math.abs((Number(rec.polesA[k]) || 0) - (Number(rec.polesB[k]) || 0)); });
-                            identityAgreements.push(1 - (pSum / pKeys.length) / 200);
+                            pushSim(rec, 1 - (pSum / pKeys.length) / 200);
                             return;
                         }
                     }
-                    if (null != rec.agreement) { identityAgreements.push(rec.agreement); return; }
+                    if (null != rec.agreement) { pushSim(rec, rec.agreement); return; }
                     const diffs = [];
                     if (ra.giveKnown && rb.giveKnown) diffs.push(Math.abs(ra.give - rb.give));
                     if (ra.receiveKnown && rb.receiveKnown) diffs.push(Math.abs(ra.receive - rb.receive));
-                    if (!diffs.length) return;
-                    identityAgreements.push(1 - diffs.reduce((s, v) => s + v, 0) / (200 * diffs.length));
+                    if (diffs.length) {
+                        pushSim(rec, 1 - diffs.reduce((s, v) => s + v, 0) / (200 * diffs.length));
+                        return;
+                    }
+                    const recSim = placementSim(rec.receptivityA, rec.receptivityB);
+                    if (null != recSim) pushSim(rec, recSim);
                 });
                 if (!identityAgreements.length) return null;
                 const identityScore = Math.round(100 * identityAgreements.reduce((s, v) => s + v, 0) / identityAgreements.length);
-                const matchDrivers = (pair.play.lists && pair.play.lists.matches ? pair.play.lists.matches : []).map(r => r.label).filter(Boolean);
-                const curiousDrivers = (pair.play.lists && pair.play.lists.curiousAbout ? pair.play.lists.curiousAbout : []).map(r => r.label).filter(Boolean);
-                const drivers = matchDrivers.concat(curiousDrivers.filter(l => !matchDrivers.includes(l))).slice(0, 3);
+                topicSims.sort((a, b) => b.sim - a.sim || a.label.localeCompare(b.label));
+                const strongSims = topicSims.filter(x => x.sim >= 0.5);
+                const drivers = (strongSims.length ? strongSims : topicSims).slice(0, 3).map(x => x.label);
                 return { key: key, name: entry.name || key, about: entry.about || "", score: identityScore, shared: shared, drivers: drivers };
             };
             // Palimpsest scoping (2026-11-22, Jason's ruling): entries
