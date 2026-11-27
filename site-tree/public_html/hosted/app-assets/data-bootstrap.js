@@ -42112,10 +42112,63 @@ var Df = new Map;
                 allowedIds: c
             });
         }
+var exportFormatSelect = e.byId("profileExportFormat"), exportFormatDesc = e.byId("profileExportFormatDesc"), exportBackgroundRow = e.byId("exportBackgroundRow"), syncCardPaperSizeRow = e.byId("syncCardPaperSizeRow"), runProfileExportBtn = e.byId("runProfileExport"), exportFetlifeLink = e.byId("exportFetlifeLink");
+var SX_EXPORT_FORMATS = {
+            svg: {
+                buttonLabel: "Export SVG",
+                description: "Bigger file that opens everywhere, with full hover tooltips and embedded profile data.",
+                usesBackground: !0,
+                usesPaperSize: !1
+            },
+            svgz: {
+                buttonLabel: "Export SVGZ",
+                description: "Much smaller file with full hover tooltips; needs a viewer that supports compressed SVG.",
+                usesBackground: !0,
+                usesPaperSize: !1
+            },
+            full: {
+                buttonLabel: "Export PNG",
+                description: "Exports what's currently visible on your map. High-resolution 2880 px; retries smaller automatically if memory is tight.",
+                usesBackground: !0,
+                usesPaperSize: !1
+            },
+            zoom: {
+                buttonLabel: "Export low-res PNG",
+                description: "Exports what's currently visible on your map. Compact PNG targeting a file under 2 MB.",
+                usesBackground: !0,
+                usesPaperSize: !1
+            },
+            pdf: {
+                buttonLabel: "Export PDF",
+                description: "Exports what's currently visible on your map. Vector map with embedded profile data.",
+                usesBackground: !0,
+                usesPaperSize: !1
+            },
+            card: {
+                buttonLabel: "Export sync card pages",
+                description: "Exports what's currently visible on your map. Two matching 10-up PNG pages in the selected paper size. Save the QR codes as images (JPEG/PNG) to scan them back in later.",
+                usesBackground: !0,
+                usesPaperSize: !0
+            },
+            qr: {
+                buttonLabel: "Export QR codes",
+                description: "Exports what's currently visible on your map. Save the QR codes as images (JPEG/PNG) to scan them back in later. High-correction codes split into numbered parts when needed.",
+                usesBackground: !1,
+                usesPaperSize: !1
+            }
+        };
+        function sxSyncExportFormatUi() {
+            const key = exportFormatSelect && SX_EXPORT_FORMATS[exportFormatSelect.value] ? exportFormatSelect.value : "svg", meta = SX_EXPORT_FORMATS[key];
+            exportFormatDesc && (exportFormatDesc.textContent = meta.description),
+            runProfileExportBtn && (runProfileExportBtn.textContent = meta.buttonLabel),
+            exportBackgroundRow && (exportBackgroundRow.hidden = !meta.usesBackground),
+            syncCardPaperSizeRow && (syncCardPaperSizeRow.hidden = !meta.usesPaperSize),
+            exportFetlifeLink && (exportFetlifeLink.hidden = "function" == typeof sxIsVanillaSkin && sxIsVanillaSkin());
+        }
         function sxOpenProfileExport(e) {
-            if (!vt[e] || !sxCanRunProfileAction(e, "capturing this profile", () => sxOpenProfileExport(e))) return;
-            const exportProfileName = String(wt[e] || "").trim();
-            (!exportProfileName || /^unknown$/i.test(exportProfileName)) && (wt[e] = "Untitled profile", sxRenderProfileTabs());
+            if (!sxProfileRatings[e] || !sxCanRunProfileAction(e, "capturing this profile", () => sxOpenProfileExport(e))) return;
+            const exportProfileName = String(sxProfileNames[e] || "").trim();
+            (!exportProfileName || /^unknown$/i.test(exportProfileName)) && (sxProfileNames[e] = "Untitled profile", sxRenderProfileTabs());
             kf = e, xf = function(e) {
                 // F8 (sharing-sync refactor): the solo switch /
                 // collect / restore below is wrapped in try/finally.
@@ -42148,22 +42201,16 @@ var Df = new Map;
                     }));
                 }
                 return r;
-            }(e), Em.checked = !1, Cm.checked = !0, $f = !0, xm.textContent = `Export ${wt[e]}`,
-            Sm.textContent = "Choose an export format. On mobile, exports may take a minute or two.";
+            }(e), Em.checked = !1, Cm.checked = !0, $f = !0, xm.textContent = `Export ${sxProfileNames[e]}`,
+            Sm.textContent = "Choose a file type to export. On mobile, exports may take a minute or two.";
             const t = (dt[e] || []).length;
             exportPhotoSelection = new Set(Array.from({ length: t }, (e, t) => t));
             $m.textContent = `Exports what's currently visible on your map. Every format limits embedded profile data to those same visible topics${t ? ` and can include ${t} attached ${1 === t ? "photo" : "photos"} when profile info is included` : ""}.`,
-            sxSyncProfileInfoToggle(), Mm.value = String(nt[e] || ""), sxRefreshExportAboutCount(), sxOpenModalDialog(km);
+            sxSyncProfileInfoToggle(), Mm.value = String(nt[e] || ""), sxRefreshExportAboutCount(), sxSyncExportFormatUi(), sxOpenModalDialog(km);
         }
-        e.byId("closeProfileExport") && (e.byId("closeProfileExport").onclick = sxCloseExportChooser), km.addEventListener("click", e => {
-            e.target === km && sxCloseExportChooser();
-        }), km.addEventListener("cancel", e => {
-            e.preventDefault(), sxCloseExportChooser();
-        }), Em.addEventListener("change", sxSyncProfileInfoToggle), Cm.addEventListener("change", () => {
-            $f = Boolean(Cm.checked);
-        }), Mm.addEventListener("input", sxRefreshExportAboutCount), km.querySelectorAll("[data-profile-export]").forEach(t => t.addEventListener("click", () => {
-            const n = kf, i = new Set(xf), a = t.dataset.profileExport, r = Boolean(Sf), o = Boolean($f), s = (km.querySelector("input[name=exportBackground]:checked") || {}).value || "black", l = "a4" === (e.byId("syncCardPaperSize") || {}).value ? "a4" : "letter", c = selectedExportPhotos();
-            sxCloseExportChooser(), n && vt[n] && (r && (nt[n] = String(Mm.value || "").trim().slice(0, 975)),
+        function sxRunSelectedProfileExport(a) {
+            const n = kf, i = new Set(xf), r = Boolean(Sf), o = Boolean($f), s = (km.querySelector("input[name=exportBackground]:checked") || {}).value || "black", l = "a4" === (e.byId("syncCardPaperSize") || {}).value ? "a4" : "letter", c = selectedExportPhotos();
+            sxCloseExportChooser(), n && sxProfileRatings[n] && (r && (nt[n] = String(Mm.value || "").trim().slice(0, 975)),
             "qr" === a ? sxExportProfileQrSheet(n, {
                 includeProfileInfo: r,
                 blind: o,
@@ -42193,7 +42240,19 @@ var Df = new Map;
                 allowedIds: i,
                 photoIndices: c
             }));
-        }));
+        }
+        e.byId("closeProfileExport") && (e.byId("closeProfileExport").onclick = sxCloseExportChooser), km.addEventListener("click", e => {
+            e.target === km && sxCloseExportChooser();
+        }), km.addEventListener("cancel", e => {
+            e.preventDefault(), sxCloseExportChooser();
+        }), Em.addEventListener("change", sxSyncProfileInfoToggle), Cm.addEventListener("change", () => {
+            $f = Boolean(Cm.checked);
+        }), Mm.addEventListener("input", sxRefreshExportAboutCount),
+        exportFormatSelect && exportFormatSelect.addEventListener("change", sxSyncExportFormatUi),
+        runProfileExportBtn && runProfileExportBtn.addEventListener("click", () => {
+            const fmt = exportFormatSelect && SX_EXPORT_FORMATS[exportFormatSelect.value] ? exportFormatSelect.value : "svg";
+            sxRunSelectedProfileExport(fmt);
+        });
 var ey = e.byId("openerDialog"), ty = e.byId("negotiationDialog");
         function sxClickDownloadLink(e, t) {
             if (!e) return;
