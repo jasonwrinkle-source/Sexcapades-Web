@@ -28,11 +28,13 @@
      check the one-off $5 product purchase. All client-side, no server
      login. The app learns the user's Patreon identity (with consent) —
      the privacy policy must disclose this (not written here).
-   - DEPENDENCY: the Patreon OAuth app (client ID) and the $5 one-off
-     product (product ID) do NOT exist yet. They are placeholders in
-     the config below. Jason must create a Patreon OAuth app and a $5
-     one-off digital product, then put the real IDs here. Do NOT ship a
-     real client secret in the app — PKCE needs no secret.
+   - Patreon IDs (LIVE 2026-11-27): OAuth app "Capades Roster"
+     (client ID in the config below; manage at
+     patreon.com/portal/registration/register-clients) and the $5
+     one-off product "Roster Registration Window (30 days)" (product
+     ID 176571871; live in the Shop at
+     patreon.com/c/flexcapadesio/shop). Do NOT ship a real client
+     secret in the app — PKCE needs no secret.
    Storage: windows live in localStorage key "sexcapades_roster_windows"
    (per device). A window is { id, rosterKey (null until bound),
    createdAt, startsAt (null until first use), expiresAt, patreonUserId,
@@ -47,15 +49,16 @@
     /* Registration window. */
     windowDays: 30,
     priceUSD: 5,
-    /* Patreon OAuth (PKCE). PLACEHOLDERS — replace with the real IDs
-       once Jason creates the OAuth app and the $5 one-off product.
-       - OAuth app: https://www.patreon.com/portal/registration/register-clients
-         (create an app, set the redirect URI to the app page URL below).
-       - One-off product: a $5 digital product on the FlexCapadesIO
-         Patreon page (the "registration window"). Put its product ID here.
+    /* Patreon OAuth (PKCE). Real IDs (live 2026-11-27).
+       - OAuth app "Capades Roster": https://www.patreon.com/portal/registration/register-clients
+         Redirect URIs registered: https://flex.capades.io/ , https://sex.capades.io/ , https://capades.io/
+         (the app page URL below must match one of them).
+       - One-off product "Roster Registration Window (30 days)", $5:
+         https://www.patreon.com/posts/roster-window-30-176571871
+         (live in the Shop; product ID 176571871).
        Do NOT put a client secret anywhere in this file. */
-    patreonClientId: "REPLACE_WITH_PATREON_OAUTH_CLIENT_ID",
-    patreonProductId: "REPLACE_WITH_PATREON_ONETIME_PRODUCT_ID",
+    patreonClientId: "MYH16SFh3pcPlxr9wx7y9R7e_XlUDUx7JNs0Q8SAmDe9XeDRGJ9f5kCxMS0AqFVm",
+    patreonProductId: "176571871",
     /* Redirect URI: the app page itself. This exact value must be
        registered in the Patreon OAuth app, or Patreon refuses the login. */
     patreonRedirectUri: "",
