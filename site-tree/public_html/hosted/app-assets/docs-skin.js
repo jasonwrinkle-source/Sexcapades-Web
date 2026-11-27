@@ -210,7 +210,7 @@
     "cats": 6,
     "catsWithSub": 0,
     "subcats": 0,
-    "topics": 31
+    "topics": 70
   },
   "philo": {
     "id": "philoscapades",
@@ -254,7 +254,7 @@
     "cats": 6,
     "catsWithSub": 0,
     "subcats": 0,
-    "topics": 27
+    "topics": 72
   },
   "quanta": {
     "id": "quantacapades",
@@ -276,7 +276,7 @@
     "cats": 6,
     "catsWithSub": 0,
     "subcats": 0,
-    "topics": 33
+    "topics": 67
   },
   "simul": {
     "id": "simulcapades",
@@ -298,7 +298,7 @@
     "cats": 6,
     "catsWithSub": 0,
     "subcats": 0,
-    "topics": 35
+    "topics": 77
   },
   "tech": {
     "id": "techcapades",
