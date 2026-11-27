@@ -311,15 +311,7 @@ Each item waits for Jason's kickoff; nothing here dispatches itself.
    - *Dependency:* build AFTER item 34 lands — ONE SKIN AT A TIME, in order 29→35 (Chem, Exper, Theo, Quanta, Simul, Matter, Praxi). Each skin gets its OWN commit before the next starts. No deploy (deploy is a separate step, on Jason's word).
    - *Standing laws:* as item 22.
 
-36. **Hot List sort — fault-line questions first (Jason, 2026-11-27 — the word given; Grok/Cursor):**
-   - The job: change the Hot List ordering so fault-line questions come first, then poll data, then the rest.
-   - The fault-line score: per topic, the AVERAGE gap across all poles — for each pole, the range (max − min) of archetype/sample advocacy values across the samples rated on that topic; average those ranges across the topic's poles. (Jason's ruling, 2026-11-27: "use the average gap across all the poles".)
-   - Why: the Hot List is currently sorted by polling data, which is scarce even on the few maps that have it. The archetype gap is computable from ratings that already exist in the skin JSONs — no new data collection.
-   - Verified by YoBiche 2026-11-27 (read-only, before queueing): Fores top by average gap — Baptism for the dead 188.3, One God or many gods 184.0, The Messiah 183.3, Additional scripture 183.3, The number of sacraments 183.3 (median 161.7). Polis top — Health insurance system 182.5, The income tax 180.0, Universal basic income 179.7, Welfare 178.3, Medicare 176.7 (median 78.8). The average breaks the max-range ties (Fores top ten were all tied at 190) and ranks the hot-button questions first.
-   - Sort order: (1) fault-line score descending (average pole gap); (2) poll/popularity data where it exists; (3) the rest. Ties in the fault-line score break by max pole range, then by topic name.
-   - Trade-off to honor: the average rewards a broad split (archetypes disagree on every pole) over a single sharp split (one pole at 190, the rest quiet). That is the intended behavior for the Hot List (most diagnostic first).
-   - Scope: the Hot List sort logic in the app. Compute the fault-line scores at runtime from the loaded skin's own samples — do NOT store them in the skin JSONs (no skin data changes). No deploy (deploy is a separate step, on Jason's word).
-   - *Standing laws:* as item 22. Analytics NEVER disabled.
+36. ~~**Hot List sort — fault-line questions first (Jason, 2026-11-27 — the word given; Grok/Cursor):**~~ **DONE (2026-11-27):** Runtime fault-line scoring (`sxComputeFaultLineScores`, `sxCompareHotListIds`, `sxFaultLineMeanForTopics`) added in `app/js/modules/03d0-outline-state.js` and wired into `sxSortedOutlineTree` (topics, subcategories, and branches) and `app/js/modules/03d4-outline-ondeck.js` (`__sxOnDeckMembers`). Computes average pole range (`max − min`) across the loaded skin's built-in samples at runtime (skipping `intensity`/`known`/`mode` metadata and user-saved `local` samples; zero skin JSON changes); sorts by (1) fault-line average gap desc (ties break by max pole range desc, then topic name), (2) poll/popularity data desc, (3) alphabetical. Rebuilt bundles via `app/data/build-bundle.py`. No deploy.
 
 ---
 
