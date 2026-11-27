@@ -590,15 +590,14 @@
             }
             throw t;
         }
-        function sxImportSelectedFile(e) {
-            const t = e.target.files[0];
+        function sxImportProfileFile(t, onDone) {
             if (!t) return;
             const n = ++Zx;
             sxSetImportStatus(`Reading ${t.name}…`, "busy");
             const i = new FileReader;
             i.onload = async () => {
                 if (n !== Zx) return;
-                const a = new Uint8Array(i.result), r = 137 === a[0] && 80 === a[1] && 78 === a[2] && 71 === a[3], o = "application/pdf" === t.type || /\.pdf$/i.test(t.name) || 37 === a[0] && 80 === a[1] && 68 === a[2] && 70 === a[3], s = "application/json" === t.type || /\.json$/i.test(t.name), l = "image/svg+xml" === t.type || /\.svg$/i.test(t.name), c = /\.svgz$/i.test(t.name) || 31 === a[0] && 139 === a[1], d = String(t.type || "").startsWith("image/") || r;
+                const a = new Uint8Array(i.result), r = 137 === a[0] && 80 === a[1] && 78 === a[2] && 71 === a[3], o = "application/pdf" === t.type || /\.pdf$/i.test(t.name) || 37 === a[0] && 80 === a[1] && 68 === a[2] && 70 === a[3], s = "application/json" === t.type || /\.(?:json|hypermap)$/i.test(t.name), l = "image/svg+xml" === t.type || /\.svg$/i.test(t.name), c = /\.svgz$/i.test(t.name) || 31 === a[0] && 139 === a[1], d = String(t.type || "").startsWith("image/") || r;
                 let u = "read";
                 try {
                     if (await sxYieldToNextFrame(), n !== Zx) return;
@@ -626,7 +625,7 @@
                             u = "qr", await sxImportEmbeddedQr(t, new Error("This SVG does not contain embedded Sexcapades profile data."), n);
                         }
                     } else {
-                        if (!d) throw new Error("Choose a current Sexcapades SVG, SVGZ, PNG, PDF, sync card or profile-QR image, or profile JSON file.");
+                        if (!d) throw new Error("Choose a .hypermap file, or a current Sexcapades SVG, SVGZ, PNG, PDF, sync card or profile-QR image, or profile JSON file.");
                         if (r) {
                             let e = null;
                             try {
@@ -644,10 +643,81 @@
                 } catch (e) {
                     n === Zx && sxShowImportFailure(e, t, u);
                 }
-                e.target.value = "";
+                "function" == typeof onDone && onDone();
             }, i.onerror = () => {
-                n === Zx && sxShowImportFailure(new Error("The file could not be read."), t, "read"), e.target.value = "";
+                n === Zx && sxShowImportFailure(new Error("The file could not be read."), t, "read"), "function" == typeof onDone && onDone();
             }, i.readAsArrayBuffer(t);
+        }
+        function sxImportSelectedFile(e) {
+            const t = e.target.files[0];
+            t && sxImportProfileFile(t, () => {
+                e.target.value = "";
+            });
+        }
+        let sxLaunchQueueInstalled = !1;
+        function sxWaitForActiveSkinReady(maxWaitMs = 4000) {
+            return new Promise(resolve => {
+                if (window.__SX_ACTIVE_SKIN) return void resolve();
+                const started = Date.now(), timer = setInterval(() => {
+                    if (window.__SX_ACTIVE_SKIN || Date.now() - started >= maxWaitMs) {
+                        clearInterval(timer), resolve();
+                    }
+                }, 60);
+            });
+        }
+        async function sxImportHypermapText(name, text) {
+            await sxWaitForActiveSkinReady();
+            try {
+                const parsed = yx.parse("json", String(text || ""));
+                const importedId = sxMergeAsShared(parsed);
+                const label = importedId && sxProfileNames[importedId] ? sxProfileNames[importedId] : (name || "profile");
+                sxShowStatusToast(`Imported ${label} from ${name || ".hypermap"}`);
+            } catch (err) {
+                const msg = yx.errorMessage(err, "The .hypermap file could not be imported.");
+                sxShowStatusToast(`Import failed (${name || ".hypermap"}): ${msg}`, {
+                    tone: "error",
+                    persistent: !0
+                });
+            }
+        }
+        function sxInstallHypermapLaunchConsumer() {
+            if (sxLaunchQueueInstalled) return;
+            sxLaunchQueueInstalled = !0;
+            try {
+                const stashed = window.sessionStorage && window.sessionStorage.getItem("sx_launch_hypermap_files");
+                if (stashed) {
+                    window.sessionStorage.removeItem("sx_launch_hypermap_files");
+                    const items = JSON.parse(stashed);
+                    Array.isArray(items) && items.forEach(item => {
+                        item && "string" == typeof item.text && sxImportHypermapText(item.name || "profile.hypermap", item.text);
+                    });
+                }
+            } catch (err) {
+                __sxErrLog("launch-queue-stash", err);
+            }
+            if ("launchQueue" in window && window.launchQueue && "function" == typeof window.launchQueue.setConsumer) {
+                window.launchQueue.setConsumer(async launchParams => {
+                    if (!launchParams || !Array.isArray(launchParams.files) || !launchParams.files.length) return;
+                    for (const handle of launchParams.files) {
+                        try {
+                            const file = await handle.getFile();
+                            if (!file) continue;
+                            if (/\.(?:hypermap|json)$/i.test(file.name) || "application/json" === file.type) {
+                                const text = await file.text();
+                                await sxImportHypermapText(file.name, text);
+                            } else {
+                                sxImportProfileFile(file);
+                            }
+                        } catch (err) {
+                            __sxErrLog("launch-queue-file", err);
+                            sxShowStatusToast(`Could not open ${handle && handle.name ? handle.name : ".hypermap file"}.`, {
+                                tone: "error",
+                                persistent: !0
+                            });
+                        }
+                    }
+                });
+            }
         }
         function sxClearStatusToast() {
             const n = e.byId("toast"), i = e.byId("toastMessage");

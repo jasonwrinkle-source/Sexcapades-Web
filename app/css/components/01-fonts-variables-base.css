@@ -455,7 +455,7 @@ a.action-btn{display:inline-flex;align-items:center;justify-content:center;text-
 #profileDetailsDialog .dialog-head p{margin-top:2px;font-size:12px}
 #profileDetailsDialog .dialog-body{padding:12px 14px 14px;gap:11px}
 }
-#profileExportDialog{width:min(850px,calc(100vw - 24px))}
+#profileExportDialog{width:min(740px,calc(100vw - 24px))}
 .export-sharing-note{margin:0;padding:10px 12px;border:1px solid var(--line);border-radius:8px;background:var(--paper-2);color:var(--muted);font-size:12.5px;line-height:1.45}
 .export-sharing-note strong{color:var(--amber)}
 #lowResPhotoDialog{width:min(620px,calc(100vw - 24px))}
@@ -533,6 +533,16 @@ a.action-btn{display:inline-flex;align-items:center;justify-content:center;text-
 .export-groups{display:grid;gap:16px}
 .export-group{display:grid;min-inline-size:0;margin:0;padding:10px 12px 12px;border:1px solid var(--line-strong);border-radius:10px;gap:8px}
 .export-group legend{max-width:calc(100% - 16px);padding:0 7px;color:var(--muted);font:750 14px/1.2 "Source Sans 3",sans-serif}
+.export-picker{gap:11px;padding:12px 14px 14px}
+.export-format-field{display:grid;gap:6px}
+.export-format-field>span{color:var(--ink);font-size:14px;font-weight:800}
+.export-format-field select{width:100%;min-width:0;height:42px;border:1px solid var(--line-strong);border-radius:8px;background:var(--paper-2);color:var(--ink);font:600 15px/1.25 "Source Sans 3",sans-serif;padding:0 32px 0 12px;outline:none}
+.export-format-field select:focus-visible{outline:2px solid var(--focus);outline-offset:2px}
+.export-format-desc{margin:0;padding:9px 11px;border:1px solid var(--line);border-radius:8px;background:var(--paper);color:var(--muted);font-size:13px;line-height:1.4}
+.export-picker-actions{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;padding-top:2px}
+.export-picker-actions .action-btn.primary{min-width:170px;min-height:42px;padding:9px 18px;font-size:15px}
+.export-external-link{text-decoration:none}
+.export-external-link[hidden],.export-backgrounds[hidden],.sheet-paper-picker[hidden]{display:none}
 .export-choice-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}
 .export-choice-grid.is-single{grid-template-columns:minmax(0,1fr)}
 .export-choice,a.export-choice{display:grid;grid-template-columns:28px minmax(0,1fr);grid-template-areas:"icon name" "icon copy";align-content:start;align-items:start;justify-content:stretch;column-gap:10px;row-gap:5px;min-height:106px;padding:14px;color:inherit;text-align:left;text-decoration:none}

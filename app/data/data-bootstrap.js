@@ -37746,8 +37746,9 @@ var _u = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ $%*+-./:";
             return t ? n : n.split(" ")[0] || "Profile";
         }
         function sxExportFileNames(e) {
-            const t = String(e || "Profile").replace(/[\\/:*?"<>|\u0000-\u001f]+/g, " ").replace(/\s+/g, "-").replace(/^-+|-+$/g, "") || "Profile", n = t.toLowerCase();
+            const t = String(e || "Profile").replace(/[\\/:*?"<>|\u0000-\u001f]+/g, " ").replace(/\s+/g, "-").replace(/^-+|-+$/g, "") || "Profile", n = t.toLowerCase(), prefix = "function" == typeof sxSkinDownloadPrefix ? sxSkinDownloadPrefix() : "Sexcapades";
             return {
+                hypermap: `${prefix}-${t}.hypermap`,
                 map: `Sexcapades-${t}-visible-map.png`,
                 zoom: `Sexcapades-${t}-low-res-visible-map.png`,
                 card: `Sexcapades-${t}-sync-card-front.png`,
@@ -38584,13 +38585,45 @@ var _u = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ $%*+-./:";
         }
         function sxOfferReadyDownload(e, t, n = {}) {
             if (Number.isInteger(n.preparedJob) && n.preparedJob !== vf) return !1;
-            sxClearExportPreview(), hf = URL.createObjectURL(e), gf = t, mf = !0, yf = n.profileId && vt[n.profileId] ? n.profileId : null;
+            sxClearExportPreview(), hf = URL.createObjectURL(e), gf = t, mf = !0, yf = n.profileId && sxProfileRatings[n.profileId] ? n.profileId : null;
             const i = n.downloadLabel || "Download file";
             return Bm.textContent = n.title || "Your export is ready", jm.textContent = n.subtitle || "Your export is ready to download.", 
             qm.hidden = !1, Hm.textContent = t, Gm.dataset.filename = t, Gm.textContent = i, 
             Gm.title = n.downloadTitle || "Downloads the finished export.", Gm.disabled = !1, 
             tf.textContent = "", sxPaintExportProgress(vf, 100, "Ready to download", n.readyDetail || `Export complete. Choose ${i} to save it.`, !1), 
             !0;
+        }
+        async function sxExportProfileHypermap(e, t = {}) {
+            if (!sxProfileRatings[e] || !sxCanRunProfileAction(e, "exporting this profile", () => sxExportProfileHypermap(e, t))) return;
+            const includeInfo = Boolean(t.includeProfileInfo), blind = Boolean(t.blind), allowedIds = t.allowedIds instanceof Set ? t.allowedIds : new Set(t.allowedIds || []);
+            const label = includeInfo ? (sxProfileNames[e] || "Profile") : "Shared profile";
+            const job = sxStartExportJob(`Hypermap profile · ${sxFirstWordText(label)}`, "Packaging your .hypermap profile file…", {
+                profileId: e
+            });
+            try {
+                if (await sxFlushExportProgress(job, 25, "Serializing profile", "Writing visible ratings and profile data to JSON…"), job !== vf) return;
+                const payload = sxSerializeExportPayload(e, allowedIds, includeInfo, "", blind);
+                const blob = new Blob([ JSON.stringify(payload, null, 2) + "\n" ], {
+                    type: "application/json;charset=utf-8"
+                });
+                const filename = sxExportFileNames(label).hypermap;
+                if (job !== vf) return;
+                sxOfferReadyDownload(blob, filename, {
+                    title: `Hypermap profile · ${label}`,
+                    subtitle: "Compact JSON profile file (.hypermap). Pure data with no scripts — safe to share, wave, or back up, and ready to re-import.",
+                    downloadLabel: "Download .hypermap",
+                    downloadTitle: "Downloads the .hypermap profile file.",
+                    readyDetail: "Profile file ready. Choose Download .hypermap to save it.",
+                    preparedJob: job,
+                    profileId: e
+                });
+            } catch (err) {
+                if (job !== vf) return;
+                Bm.textContent = "Could not create .hypermap file",
+                tf.textContent = String(err && err.message || err),
+                sxFailExportProgress(job, "The .hypermap file could not be completed. Close this window and try again."),
+                console.error("Hypermap profile export failed.", err);
+            }
         }
         async function sxExportProfileQrSheet(e, t = {}) {
             // QR sheet: the unified framework's unbounded fallback.
@@ -41938,7 +41971,7 @@ var kg = e.byId("testResultLoaderDialog"), xg = e.byId("testResultLoaderStatus")
         }
         function sxShowImportFailure(e, t, n = "read") {
             let i = yx.errorMessage(e, "The file could not be read.");
-            "json" === n && /Unexpected token|JSON|position \d+/i.test(i) ? i = "The selected JSON file is malformed." : /does not contain (?:complete )?Sexcapades profile data/i.test(i) ? i = `No embedded Sexcapades profile data or readable profile QR was found in ${t.name}.` : /does not contain a readable Sexcapades profile-data QR code/i.test(i) && (i = `No readable Sexcapades profile QR was found in ${t.name}.`),
+            "json" === n && /Unexpected token|JSON|position \d+/i.test(i) ? i = "The selected profile file (.hypermap / JSON) is malformed." : /does not contain (?:complete )?Sexcapades profile data/i.test(i) ? i = `No embedded Sexcapades profile data or readable profile QR was found in ${t.name}.` : /does not contain a readable Sexcapades profile-data QR code/i.test(i) && (i = `No readable Sexcapades profile QR was found in ${t.name}.`),
             sxSetImportStatus(`Import failed: ${i}`, "error", !0);
         }
 var Lg = e.byId("importedContactDialog"), Tg = e.byId("importedContactDetails"), Fg = e.byId("addImportedContact"), Ng = e.byId("importedContactStatus"), _g = e.byId("profileDetailsDialog"), Dg = e.byId("profileDetailsBody"), Rg = e.byId("profileDialogAbout"), Og = e.byId("profileDialogPhoto"), Bg = e.byId("profileDialogIdentity"), jg = e.byId("profileDialogRatings"), qg = e.byId("profileDialogSiteLinks"), Hg = e.byId("profileDetailsName"), Wg = e.byId("profileDetailsGender"), Ug = e.byId("profileDetailsSexuality"), Gg = e.byId("profileDetailsRole"), Kg = e.byId("profileDetailsAge"), Pz = e.byId("profileDetailsPronouns"), zg = e.byId("profileDetailsLocation"), Vg = e.byId("profileDetailsFetLife"), Yg = e.byId("profileDetailsPhone"), Xg = e.byId("profileDetailsTelegram"), Zg = e.byId("profileDetailsEmail"), Qg = e.byId("profileDetailsLinktree"), Jg = e.byId("profileDetailsChaturbate"), em = e.byId("profileDetailsX"), tm = e.byId("profileDetailsXhamster"), nm = e.byId("profileDetailsXvideos"), im = e.byId("profileDetailsAbout"), am = e.byId("profileDetailsAboutCount"), rm = e.byId("profileDetailsTerms"), om = e.byId("profileDetailsTermsCount"), sm = e.byId("profileDetailsStatus"), lm = e.byId("profilePhotoInput"), cm = e.byId("profilePhotoList"), dm = e.byId("profilePhotoCount"), um = e.byId("profilePhotoDialog"), pm = e.byId("profilePhotoFull"), hm = e.byId("profilePhotoViewer"), gm = e.byId("profilePhotoStage"), mm = e.byId("profilePhotoPosition"), fm = e.byId("profilePhotoZoomValue"), ym = e.byId("closeProfileDialog"), bm = e.byId("closeProfileTitle"), vm = e.byId("saveClosingProfile"), wm = e.byId("discardProfileDetailsDialog"), km = e.byId("profileExportDialog"), xm = e.byId("profileExportTitle"), Sm = e.byId("profileExportSubtitle"), $m = e.byId("profileExportDataNote"), Em = e.byId("includeContactInfo"), Am = e.byId("includeContactInfoHelp"), Cm = e.byId("blindProfileExport"), Mm = e.byId("exportAboutMe"), Im = e.byId("exportAboutMeCount"), Pm = e.byId("lowResPhotoDialog"), Lm = e.byId("lowResPhotoTitle"), Tm = e.byId("lowResPhotoGrid"), Fm = e.byId("lowResPhotoSummary"), exportPhotoGrid = e.byId("exportPhotoGrid"), exportPhotoSummary = e.byId("exportPhotoSummary"), Nm = e.byId("secondaryFile"), _m = e.byId("secondaryImage"), Dm = e.byId("secondaryFileName"), Rm = e.byId("secondaryFileLink"), Om = e.byId("fileDialog"), Bm = e.byId("fileDialogTitle"), jm = e.byId("fileDialogSubtitle"), qm = e.byId("fileReady"), Hm = e.byId("fileName"), Wm = e.byId("fileHelp"), Um = e.byId("preparedImage"), Gm = e.byId("preparedImageLink"), Km = e.byId("ninjaTransferLink"), zm = e.byId("ninjaTransferHint"), Vm = e.byId("preparedImageToolbar"), Ym = e.byId("preparedImageViewport"), Xm = e.byId("preparedImageStage"), Zm = e.byId("preparedZoomValue"), Qm = e.byId("preparedZoomIn"), Jm = e.byId("preparedZoomOut"), ef = e.byId("preparedZoomFit"), tf = e.byId("fileStatus"), nf = e.byId("fileProgress"), af = e.byId("fileProgressStage"), rf = e.byId("fileProgressValue"), of = e.byId("fileProgressTrack"), sf = e.byId("fileProgressBar"), lf = e.byId("fileProgressPortrait"), cf = e.byId("fileProgressInitials"), df = e.byId("fileProgressDetail");
@@ -42112,10 +42145,69 @@ var Df = new Map;
                 allowedIds: c
             });
         }
+var exportFormatSelect = e.byId("profileExportFormat"), exportFormatDesc = e.byId("profileExportFormatDesc"), exportBackgroundRow = e.byId("exportBackgroundRow"), syncCardPaperSizeRow = e.byId("syncCardPaperSizeRow"), runProfileExportBtn = e.byId("runProfileExport"), exportFetlifeLink = e.byId("exportFetlifeLink");
+var SX_EXPORT_FORMATS = {
+            hypermap: {
+                buttonLabel: "Download .hypermap",
+                description: "Preferred format for sharing, waving, and backups. Compact JSON profile data — pure data with no scripts, safe to open anywhere, and ready to re-import.",
+                usesBackground: !1,
+                usesPaperSize: !1
+            },
+            svg: {
+                buttonLabel: "Export SVG",
+                description: "Bigger file that opens everywhere, with full hover tooltips and embedded profile data.",
+                usesBackground: !0,
+                usesPaperSize: !1
+            },
+            svgz: {
+                buttonLabel: "Export SVGZ",
+                description: "Much smaller file with full hover tooltips; needs a viewer that supports compressed SVG.",
+                usesBackground: !0,
+                usesPaperSize: !1
+            },
+            full: {
+                buttonLabel: "Export PNG",
+                description: "Exports what's currently visible on your map. High-resolution 2880 px; retries smaller automatically if memory is tight.",
+                usesBackground: !0,
+                usesPaperSize: !1
+            },
+            zoom: {
+                buttonLabel: "Export low-res PNG",
+                description: "Exports what's currently visible on your map. Compact PNG targeting a file under 2 MB.",
+                usesBackground: !0,
+                usesPaperSize: !1
+            },
+            pdf: {
+                buttonLabel: "Export PDF",
+                description: "Exports what's currently visible on your map. Vector map with embedded profile data.",
+                usesBackground: !0,
+                usesPaperSize: !1
+            },
+            card: {
+                buttonLabel: "Export sync card pages",
+                description: "Exports what's currently visible on your map. Two matching 10-up PNG pages in the selected paper size. Save the QR codes as images (JPEG/PNG) to scan them back in later.",
+                usesBackground: !0,
+                usesPaperSize: !0
+            },
+            qr: {
+                buttonLabel: "Export QR codes",
+                description: "Exports what's currently visible on your map. Save the QR codes as images (JPEG/PNG) to scan them back in later. High-correction codes split into numbered parts when needed.",
+                usesBackground: !1,
+                usesPaperSize: !1
+            }
+        };
+        function sxSyncExportFormatUi() {
+            const key = exportFormatSelect && SX_EXPORT_FORMATS[exportFormatSelect.value] ? exportFormatSelect.value : "hypermap", meta = SX_EXPORT_FORMATS[key];
+            exportFormatDesc && (exportFormatDesc.textContent = meta.description),
+            runProfileExportBtn && (runProfileExportBtn.textContent = meta.buttonLabel),
+            exportBackgroundRow && (exportBackgroundRow.hidden = !meta.usesBackground),
+            syncCardPaperSizeRow && (syncCardPaperSizeRow.hidden = !meta.usesPaperSize),
+            exportFetlifeLink && (exportFetlifeLink.hidden = "function" == typeof sxIsVanillaSkin && sxIsVanillaSkin());
+        }
         function sxOpenProfileExport(e) {
-            if (!vt[e] || !sxCanRunProfileAction(e, "capturing this profile", () => sxOpenProfileExport(e))) return;
-            const exportProfileName = String(wt[e] || "").trim();
-            (!exportProfileName || /^unknown$/i.test(exportProfileName)) && (wt[e] = "Untitled profile", sxRenderProfileTabs());
+            if (!sxProfileRatings[e] || !sxCanRunProfileAction(e, "capturing this profile", () => sxOpenProfileExport(e))) return;
+            const exportProfileName = String(sxProfileNames[e] || "").trim();
+            (!exportProfileName || /^unknown$/i.test(exportProfileName)) && (sxProfileNames[e] = "Untitled profile", sxRenderProfileTabs());
             kf = e, xf = function(e) {
                 // F8 (sharing-sync refactor): the solo switch /
                 // collect / restore below is wrapped in try/finally.
@@ -42148,23 +42240,21 @@ var Df = new Map;
                     }));
                 }
                 return r;
-            }(e), Em.checked = !1, Cm.checked = !0, $f = !0, xm.textContent = `Export ${wt[e]}`,
-            Sm.textContent = "Choose an export format. On mobile, exports may take a minute or two.";
+            }(e), Em.checked = !1, Cm.checked = !0, $f = !0, xm.textContent = `Export ${sxProfileNames[e]}`,
+            Sm.textContent = "Choose a file type to export. On mobile, image exports may take a minute or two.";
             const t = (dt[e] || []).length;
             exportPhotoSelection = new Set(Array.from({ length: t }, (e, t) => t));
             $m.textContent = `Exports what's currently visible on your map. Every format limits embedded profile data to those same visible topics${t ? ` and can include ${t} attached ${1 === t ? "photo" : "photos"} when profile info is included` : ""}.`,
-            sxSyncProfileInfoToggle(), Mm.value = String(nt[e] || ""), sxRefreshExportAboutCount(), sxOpenModalDialog(km);
+            sxSyncProfileInfoToggle(), Mm.value = String(nt[e] || ""), sxRefreshExportAboutCount(), sxSyncExportFormatUi(), sxOpenModalDialog(km);
         }
-        e.byId("closeProfileExport") && (e.byId("closeProfileExport").onclick = sxCloseExportChooser), km.addEventListener("click", e => {
-            e.target === km && sxCloseExportChooser();
-        }), km.addEventListener("cancel", e => {
-            e.preventDefault(), sxCloseExportChooser();
-        }), Em.addEventListener("change", sxSyncProfileInfoToggle), Cm.addEventListener("change", () => {
-            $f = Boolean(Cm.checked);
-        }), Mm.addEventListener("input", sxRefreshExportAboutCount), km.querySelectorAll("[data-profile-export]").forEach(t => t.addEventListener("click", () => {
-            const n = kf, i = new Set(xf), a = t.dataset.profileExport, r = Boolean(Sf), o = Boolean($f), s = (km.querySelector("input[name=exportBackground]:checked") || {}).value || "black", l = "a4" === (e.byId("syncCardPaperSize") || {}).value ? "a4" : "letter", c = selectedExportPhotos();
-            sxCloseExportChooser(), n && vt[n] && (r && (nt[n] = String(Mm.value || "").trim().slice(0, 975)),
-            "qr" === a ? sxExportProfileQrSheet(n, {
+        function sxRunSelectedProfileExport(a) {
+            const n = kf, i = new Set(xf), r = Boolean(Sf), o = Boolean($f), s = (km.querySelector("input[name=exportBackground]:checked") || {}).value || "black", l = "a4" === (e.byId("syncCardPaperSize") || {}).value ? "a4" : "letter", c = selectedExportPhotos();
+            sxCloseExportChooser(), n && sxProfileRatings[n] && (r && (nt[n] = String(Mm.value || "").trim().slice(0, 975)),
+            "hypermap" === a ? sxExportProfileHypermap(n, {
+                includeProfileInfo: r,
+                blind: o,
+                allowedIds: i
+            }) : "qr" === a ? sxExportProfileQrSheet(n, {
                 includeProfileInfo: r,
                 blind: o,
                 allowedIds: i
@@ -42193,7 +42283,19 @@ var Df = new Map;
                 allowedIds: i,
                 photoIndices: c
             }));
-        }));
+        }
+        e.byId("closeProfileExport") && (e.byId("closeProfileExport").onclick = sxCloseExportChooser), km.addEventListener("click", e => {
+            e.target === km && sxCloseExportChooser();
+        }), km.addEventListener("cancel", e => {
+            e.preventDefault(), sxCloseExportChooser();
+        }), Em.addEventListener("change", sxSyncProfileInfoToggle), Cm.addEventListener("change", () => {
+            $f = Boolean(Cm.checked);
+        }), Mm.addEventListener("input", sxRefreshExportAboutCount),
+        exportFormatSelect && exportFormatSelect.addEventListener("change", sxSyncExportFormatUi),
+        runProfileExportBtn && runProfileExportBtn.addEventListener("click", () => {
+            const fmt = exportFormatSelect && SX_EXPORT_FORMATS[exportFormatSelect.value] ? exportFormatSelect.value : "hypermap";
+            sxRunSelectedProfileExport(fmt);
+        });
 var ey = e.byId("openerDialog"), ty = e.byId("negotiationDialog");
         function sxClickDownloadLink(e, t) {
             if (!e) return;
@@ -47901,15 +48003,14 @@ var Xx, Zx = 0;
             }
             throw t;
         }
-        function sxImportSelectedFile(e) {
-            const t = e.target.files[0];
+        function sxImportProfileFile(t, onDone) {
             if (!t) return;
             const n = ++Zx;
             sxSetImportStatus(`Reading ${t.name}…`, "busy");
             const i = new FileReader;
             i.onload = async () => {
                 if (n !== Zx) return;
-                const a = new Uint8Array(i.result), r = 137 === a[0] && 80 === a[1] && 78 === a[2] && 71 === a[3], o = "application/pdf" === t.type || /\.pdf$/i.test(t.name) || 37 === a[0] && 80 === a[1] && 68 === a[2] && 70 === a[3], s = "application/json" === t.type || /\.json$/i.test(t.name), l = "image/svg+xml" === t.type || /\.svg$/i.test(t.name), c = /\.svgz$/i.test(t.name) || 31 === a[0] && 139 === a[1], d = String(t.type || "").startsWith("image/") || r;
+                const a = new Uint8Array(i.result), r = 137 === a[0] && 80 === a[1] && 78 === a[2] && 71 === a[3], o = "application/pdf" === t.type || /\.pdf$/i.test(t.name) || 37 === a[0] && 80 === a[1] && 68 === a[2] && 70 === a[3], s = "application/json" === t.type || /\.(?:json|hypermap)$/i.test(t.name), l = "image/svg+xml" === t.type || /\.svg$/i.test(t.name), c = /\.svgz$/i.test(t.name) || 31 === a[0] && 139 === a[1], d = String(t.type || "").startsWith("image/") || r;
                 let u = "read";
                 try {
                     if (await sxYieldToNextFrame(), n !== Zx) return;
@@ -47937,7 +48038,7 @@ var Xx, Zx = 0;
                             u = "qr", await sxImportEmbeddedQr(t, new Error("This SVG does not contain embedded Sexcapades profile data."), n);
                         }
                     } else {
-                        if (!d) throw new Error("Choose a current Sexcapades SVG, SVGZ, PNG, PDF, sync card or profile-QR image, or profile JSON file.");
+                        if (!d) throw new Error("Choose a .hypermap file, or a current Sexcapades SVG, SVGZ, PNG, PDF, sync card or profile-QR image, or profile JSON file.");
                         if (r) {
                             let e = null;
                             try {
@@ -47955,10 +48056,81 @@ var Xx, Zx = 0;
                 } catch (e) {
                     n === Zx && sxShowImportFailure(e, t, u);
                 }
-                e.target.value = "";
+                "function" == typeof onDone && onDone();
             }, i.onerror = () => {
-                n === Zx && sxShowImportFailure(new Error("The file could not be read."), t, "read"), e.target.value = "";
+                n === Zx && sxShowImportFailure(new Error("The file could not be read."), t, "read"), "function" == typeof onDone && onDone();
             }, i.readAsArrayBuffer(t);
+        }
+        function sxImportSelectedFile(e) {
+            const t = e.target.files[0];
+            t && sxImportProfileFile(t, () => {
+                e.target.value = "";
+            });
+        }
+var sxLaunchQueueInstalled = !1;
+        function sxWaitForActiveSkinReady(maxWaitMs = 4000) {
+            return new Promise(resolve => {
+                if (window.__SX_ACTIVE_SKIN) return void resolve();
+                const started = Date.now(), timer = setInterval(() => {
+                    if (window.__SX_ACTIVE_SKIN || Date.now() - started >= maxWaitMs) {
+                        clearInterval(timer), resolve();
+                    }
+                }, 60);
+            });
+        }
+        async function sxImportHypermapText(name, text) {
+            await sxWaitForActiveSkinReady();
+            try {
+                const parsed = yx.parse("json", String(text || ""));
+                const importedId = sxMergeAsShared(parsed);
+                const label = importedId && sxProfileNames[importedId] ? sxProfileNames[importedId] : (name || "profile");
+                sxShowStatusToast(`Imported ${label} from ${name || ".hypermap"}`);
+            } catch (err) {
+                const msg = yx.errorMessage(err, "The .hypermap file could not be imported.");
+                sxShowStatusToast(`Import failed (${name || ".hypermap"}): ${msg}`, {
+                    tone: "error",
+                    persistent: !0
+                });
+            }
+        }
+        function sxInstallHypermapLaunchConsumer() {
+            if (sxLaunchQueueInstalled) return;
+            sxLaunchQueueInstalled = !0;
+            try {
+                const stashed = window.sessionStorage && window.sessionStorage.getItem("sx_launch_hypermap_files");
+                if (stashed) {
+                    window.sessionStorage.removeItem("sx_launch_hypermap_files");
+                    const items = JSON.parse(stashed);
+                    Array.isArray(items) && items.forEach(item => {
+                        item && "string" == typeof item.text && sxImportHypermapText(item.name || "profile.hypermap", item.text);
+                    });
+                }
+            } catch (err) {
+                __sxErrLog("launch-queue-stash", err);
+            }
+            if ("launchQueue" in window && window.launchQueue && "function" == typeof window.launchQueue.setConsumer) {
+                window.launchQueue.setConsumer(async launchParams => {
+                    if (!launchParams || !Array.isArray(launchParams.files) || !launchParams.files.length) return;
+                    for (const handle of launchParams.files) {
+                        try {
+                            const file = await handle.getFile();
+                            if (!file) continue;
+                            if (/\.(?:hypermap|json)$/i.test(file.name) || "application/json" === file.type) {
+                                const text = await file.text();
+                                await sxImportHypermapText(file.name, text);
+                            } else {
+                                sxImportProfileFile(file);
+                            }
+                        } catch (err) {
+                            __sxErrLog("launch-queue-file", err);
+                            sxShowStatusToast(`Could not open ${handle && handle.name ? handle.name : ".hypermap file"}.`, {
+                                tone: "error",
+                                persistent: !0
+                            });
+                        }
+                    }
+                });
+            }
         }
         function sxClearStatusToast() {
             const n = e.byId("toast"), i = e.byId("toastMessage");
@@ -49015,6 +49187,8 @@ var yS = Boolean(sxListRouteHash()), bS = Boolean(sxMapRouteHash()), vS = Boolea
             console.log("[Sexcapades] Headless test mode active — skipping interactive map boot.");
             return;
         }
+
+        "function" == typeof sxInstallHypermapLaunchConsumer && sxInstallHypermapLaunchConsumer();
 
         bS ? (sxFollowMapRoute(), document.documentElement.classList.remove("route-listview-pending"),
         t.setTimeout(sxImportShareHash, 0)) : yS ? (function() {

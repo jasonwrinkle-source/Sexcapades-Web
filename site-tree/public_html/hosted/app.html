@@ -1164,11 +1164,11 @@
 <input accept=".jpg,.jpeg,.png,image/jpeg,image/png" hidden="" id="qrImageInput" type="file"/>
 </div>
 <div class="qr-camera" hidden="" id="qrCameraPanel"><video id="qrCameraVideo" muted="" playsinline=""></video><div class="action-row"><button class="action-btn" id="stopQrCamera" type="button">Stop camera</button></div></div>
-<label>Upload an exported file (SVG/SVGZ, PNG, PDF, sync card)</label>
+<label>Upload an exported file (.hypermap, SVG/SVGZ, PNG, PDF, sync card)</label>
 <small>These exported files all contain the profile data needed to import.</small>
 <div class="action-row">
 <button class="action-btn" id="chooseFile" type="button">Upload exported file</button>
-<input accept=".svg,.svgz,.jpg,.jpeg,.png,.pdf,.json,image/svg+xml,image/jpeg,image/png,application/pdf,application/json" hidden="" id="fileInput" type="file"/>
+<input accept=".hypermap,.svg,.svgz,.jpg,.jpeg,.png,.pdf,.json,image/svg+xml,image/jpeg,image/png,application/pdf,application/json" hidden="" id="fileInput" type="file"/>
 </div>
 <small><strong>Blind comparison files:</strong> First select at least two profile tabs for the comparison group, then import the file. Only green / Want to do topics shared by the incoming profile and everyone already selected are kept in the imported copy; its other ratings, markers, notes, and imported subtopics are permanently discarded from memory. The original file keeps its full data. Without a group selected before import, the full profile is loaded.</small>
 </div>
@@ -1220,31 +1220,35 @@
 </section>
 <label class="contact-export-optin"><input checked="" id="blindProfileExport" type="checkbox"/><span>Blind comparison (recommended)<small>Marks this file for blind comparison. When the receiver imports it, they should select a comparison group first — only topics that everyone in the group has rated will load. Everything else stays in the file; they can re-import it later without selecting a group to see your full profile.</small></span></label>
 <label class="about-export-edit"><span>About Me <small>Optional — saved to the profile and printed on the export.</small></span><textarea id="exportAboutMe" maxlength="975" placeholder="A few lines about you for people who receive this export." rows="4"></textarea><small class="char-count" id="exportAboutMeCount"></small></label>
-<div aria-label="Export background" class="export-backgrounds" role="radiogroup"><span>Background</span><label><input checked="" name="exportBackground" type="radio" value="black"/> Black</label><label><input name="exportBackground" type="radio" value="white"/> White</label><label><input name="exportBackground" type="radio" value="transparent"/> Transparent</label></div>
-<div class="export-groups">
-<fieldset aria-labelledby="mapImageExportHeading" class="export-group">
-<legend id="mapImageExportHeading">Hypermap images and profile data</legend>
-<div class="export-choice-grid">
-<button class="action-btn export-choice" data-profile-export="svg" type="button"><svg aria-hidden="true" viewbox="0 0 24 24"><path d="M6 2.8h9.5L20 7.3V21H6z"></path><path d="M15.5 2.8v4.5H20"></path><path d="m8.5 16 2.2-5 2.2 5M15 11h2.5l-2.5 5h2.5"></path></svg><strong>Sync hypermap · Regular</strong><span>Bigger file that opens everywhere, with full hover tooltips and embedded profile data.</span></button>
-<button class="action-btn export-choice" data-profile-export="svgz" type="button"><svg aria-hidden="true" viewbox="0 0 24 24"><path d="M6 2.8h9.5L20 7.3V21H6z"></path><path d="M15.5 2.8v4.5H20"></path><path d="m8.5 16 2.2-5 2.2 5M15 11h2.5l-2.5 5h2.5"></path></svg><strong>Sync hypermap · Compressed</strong><span>Much smaller file with full hover tooltips; needs a viewer that supports compressed SVG.</span></button>
-<button class="action-btn export-choice" data-profile-export="full" type="button"><svg aria-hidden="true" viewbox="0 0 24 24"><path d="M4 7V4h3M17 4h3v3M20 17v3h-3M7 20H4v-3"></path><rect height="10" rx="1.5" width="11" x="6.5" y="7"></rect><path d="m8.5 14 2.4-2.5 2 2 1.3-1.2 1.8 1.8"></path><circle cx="14.8" cy="9.8" r=".8"></circle></svg><strong>Export PNG</strong><span>Exports what's currently visible on your map. High-resolution 2880 px; retries smaller automatically if memory is tight.</span></button>
-<button class="action-btn export-choice" data-profile-export="zoom" type="button"><svg aria-hidden="true" viewbox="0 0 24 24"><rect height="14" rx="2" width="18" x="3" y="5"></rect><path d="M7 15.5 10.5 12l2.8 2.6 1.8-1.7 2.9 2.6"></path><circle cx="16.5" cy="9" r="1"></circle></svg><strong>Export low-res PNG</strong><span>Exports what's currently visible on your map. Compact PNG targeting a file under 2 MB.</span></button>
-<button class="action-btn export-choice" data-profile-export="pdf" type="button"><svg aria-hidden="true" viewbox="0 0 24 24"><path d="M6 2.8h9.5L20 7.3V21H6z"></path><path d="M15.5 2.8v4.5H20M8.7 12h6.6M8.7 15.5h6.6M8.7 19h4"></path></svg><strong>Export PDF</strong><span>Exports what's currently visible on your map. Vector map with embedded profile data.</span></button>
-<a class="action-btn export-choice" href="https://fetlife.com/pictures/new?source=Plus+Menu" rel="noopener" target="_blank"><svg aria-hidden="true" viewbox="0 0 24 24"><path d="M12 16V4M7.5 8.5 12 4l4.5 4.5"></path><path d="M5 13v6.5h14V13"></path></svg><strong>Upload to FetLife</strong><span>Opens FetLife’s photo uploader in a new tab. Export your hypermap first, then choose the saved image there.</span></a>
+<fieldset aria-labelledby="exportFormatHeading" class="export-group export-picker">
+<legend id="exportFormatHeading">Save as</legend>
+<label class="export-format-field" for="profileExportFormat">
+<span>File type</span>
+<select id="profileExportFormat">
+<optgroup label="Profile file (recommended)">
+<option selected="" value="hypermap">Hypermap profile file (.hypermap — recommended)</option>
+</optgroup>
+<optgroup label="Hypermap images &amp; profile data">
+<option value="svg">Sync hypermap · Regular (.svg)</option>
+<option value="svgz">Sync hypermap · Compressed (.svgz)</option>
+<option value="full">High-resolution PNG (.png · 2880 px)</option>
+<option value="zoom">Low-res PNG (.png · under 2 MB)</option>
+<option value="pdf">Vector PDF (.pdf)</option>
+</optgroup>
+<optgroup label="Printable &amp; QR">
+<option value="card">Sync card · front + back pages (10-up .png)</option>
+<option value="qr">Profile QR codes (.jpg · data only)</option>
+</optgroup>
+</select>
+</label>
+<p aria-live="polite" class="export-format-desc" id="profileExportFormatDesc">Preferred format for sharing, waving, and backups. Compact JSON profile data — pure data with no scripts, safe to open anywhere, and ready to re-import.</p>
+<div aria-label="Export background" class="export-backgrounds" hidden="" id="exportBackgroundRow" role="radiogroup"><span>Background</span><label><input checked="" name="exportBackground" type="radio" value="black"/> Black</label><label><input name="exportBackground" type="radio" value="white"/> White</label><label><input name="exportBackground" type="radio" value="transparent"/> Transparent</label></div>
+<label class="sheet-paper-picker" for="syncCardPaperSize" hidden="" id="syncCardPaperSizeRow"><span>Sheet paper size <small>Used for front + back pages</small></span><select id="syncCardPaperSize"><option value="letter">US Letter (Avery 5371)</option><option value="a4">A4</option></select></label>
+<div class="export-picker-actions">
+<button class="action-btn primary" id="runProfileExport" type="button">Download .hypermap</button>
+<a class="action-btn export-external-link" href="https://fetlife.com/pictures/new?source=Plus+Menu" id="exportFetlifeLink" rel="noopener" target="_blank">Upload to FetLife ↗</a>
 </div>
 </fieldset>
-<fieldset aria-labelledby="syncCardExportHeading" class="export-group">
-<legend id="syncCardExportHeading">Sync card</legend>
-<label class="sheet-paper-picker" for="syncCardPaperSize"><span>Sheet paper size <small>Used only for front + back pages</small></span><select id="syncCardPaperSize"><option value="letter">US Letter (Avery 5371)</option><option value="a4">A4</option></select></label>
-<div class="export-choice-grid">
-<button class="action-btn export-choice" data-profile-export="card" type="button"><svg aria-hidden="true" viewbox="0 0 24 24"><rect height="7" rx="1.5" width="19" x="2.5" y="4"></rect><rect height="7" rx="1.5" width="19" x="2.5" y="13"></rect><path d="M5 6.5h4M5 8.5h6M5 15.5h4M5 17.5h6"></path></svg><strong>Export front + back pages</strong><span>Exports what's currently visible on your map. Two matching 10-up PNG pages in the selected paper size. Save the QR codes as images (JPEG/PNG) to scan them back in later.</span></button>
-</div>
-</fieldset>
-<fieldset aria-labelledby="profileDataExportHeading" class="export-group">
-<legend id="profileDataExportHeading">Profile data only</legend>
-<div class="export-choice-grid"><button class="action-btn export-choice" data-profile-export="qr" type="button"><svg aria-hidden="true" viewbox="0 0 24 24"><path d="M4 4h6v6H4zM14 4h6v6h-6zM4 14h6v6H4zM15 14h2v2h-2zM18 14h2v3h-2zM14 18h3v2h-3zM19 19h1v1h-1z"></path></svg><strong>Export QR codes</strong><span>Exports what's currently visible on your map. Save the QR codes as images (JPEG/PNG) to scan them back in later. High-correction codes split into numbered parts when needed.</span></button></div>
-</fieldset>
-</div>
 <p class="export-sharing-note"><strong>Share safely:</strong> Use direct file transfer (AirDrop, USB, or email attachment), Signal sent as a file (not a photo), or Google Drive set to “Restricted” for specific people only. <strong>Avoid:</strong> WhatsApp, Facebook Messenger, iMessage photos, and Instagram—they compress images and strip the embedded profile data. Screenshots contain no profile data.</p>
 </div>
 </dialog>
