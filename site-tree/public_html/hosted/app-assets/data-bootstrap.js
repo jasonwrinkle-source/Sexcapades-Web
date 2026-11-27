@@ -26872,19 +26872,58 @@ var milestoneProfileId = null, milestoneValue = 0;
         function sxSubcategoryMean(e) {
             return sxMeanScore(e.topics);
         }
-        // Hot List fault-line scoring (Item 36, 2026-11-27):
-        // Computed at runtime from the loaded skin's built-in samples (never
-        // stored in skin JSONs). Per topic, take each pole's range (max - min)
-        // across samples rated on that pole, then average those ranges across
-        // the topic's poles. Sort order: (1) fault-line avg descending (ties
-        // break by max pole range desc, then topic name); (2) poll/popularity
-        // data desc; (3) the rest alphabetically.
-        function sxComputeFaultLineScores() {
-            const out = new Map();
+        // Hot List 4-tier cascade (2026-11-27):
+        //   1. First Ladder (Greedy Orthogonal max-min SNR over headline
+        //      archetypes; soft floor 6 topics, cap 24, SNR >= 75)
+        //   2. Fault-line score descending (Item 36: per-topic mean pole
+        //      range across samples, tie-break by max pole range desc)
+        //   3. Poll / popularity score descending
+        //   4. Alphabetical by topic label
+        // Computed at runtime from window.SEXCAPADES_SAMPLE_PROFILES and
+        // memoized per skin/sample-set so renders stay O(1) and rows never
+        // jump under the user's cursor while rating.
+        function sxExtractHotListPoles(val) {
+            if (null == val) return null;
+            if ("number" == typeof val) return Number.isFinite(val) ? { _scalar: val } : null;
+            if ("object" != typeof val) return null;
+            if (Object.prototype.hasOwnProperty.call(val, "advocacy")) {
+                const adv = val.advocacy;
+                if ("number" == typeof adv) return Number.isFinite(adv) ? { _scalar: adv } : null;
+                if (adv && "object" == typeof adv) {
+                    const poles = {}, pks = Object.keys(adv);
+                    let any = !1;
+                    for (let k = 0; k < pks.length; k++) {
+                        const pk = pks[k];
+                        if ("intensity" === pk || "known" === pk || "mode" === pk) continue;
+                        const pv = adv[pk];
+                        if ("number" == typeof pv && Number.isFinite(pv)) { poles[pk] = pv; any = !0; }
+                    }
+                    return any ? poles : null;
+                }
+                return null;
+            }
+            const poles = {}, pks = Object.keys(val);
+            let any = !1;
+            for (let k = 0; k < pks.length; k++) {
+                const pk = pks[k];
+                if ("intensity" === pk || "receptivity" === pk || "known" === pk || "mode" === pk) continue;
+                const pv = val[pk];
+                if ("number" == typeof pv && Number.isFinite(pv)) { poles[pk] = pv; any = !0; }
+            }
+            return any ? poles : null;
+        }
+var __sxHotListCacheRef = null, __sxHotListCacheSig = "", __sxHotListCacheVal = null;
+        function sxGetHotListCache() {
             const samples = typeof window !== "undefined" ? window.SEXCAPADES_SAMPLE_PROFILES : null;
-            if (!samples || "object" != typeof samples) return out;
-            const byTopic = new Map();
+            if (!samples || "object" != typeof samples) {
+                return { faultMap: new Map(), ladder: { ids: [], rankMap: new Map(), count: 0, estMinutes: 0 } };
+            }
             const keys = Object.keys(samples);
+            const sig = String(window.__SX_ACTIVE_SKIN || "") + "|" + keys.length + "|" + (keys[0] || "") + "|" + (keys[keys.length - 1] || "");
+            if (__sxHotListCacheVal && __sxHotListCacheRef === samples && __sxHotListCacheSig === sig) return __sxHotListCacheVal;
+
+            // Tier 2: Fault-line map across all non-local built-in samples
+            const byTopic = new Map();
             for (let i = 0; i < keys.length; i++) {
                 const s = samples[keys[i]];
                 if (!s || "object" != typeof s || s.local) continue;
@@ -26892,45 +26931,13 @@ var milestoneProfileId = null, milestoneValue = 0;
                 if (!ratings || "object" != typeof ratings) continue;
                 const tids = Object.keys(ratings);
                 for (let j = 0; j < tids.length; j++) {
-                    const tid = tids[j], val = ratings[tid];
-                    if (null == val) continue;
-                    let poles = null;
-                    if ("number" == typeof val) {
-                        if (Number.isFinite(val)) poles = { _scalar: val };
-                    } else if ("object" == typeof val) {
-                        if (Object.prototype.hasOwnProperty.call(val, "advocacy")) {
-                            const adv = val.advocacy;
-                            if ("number" == typeof adv) {
-                                if (Number.isFinite(adv)) poles = { _scalar: adv };
-                            } else if (adv && "object" == typeof adv) {
-                                poles = {};
-                                const pks = Object.keys(adv);
-                                for (let k = 0; k < pks.length; k++) {
-                                    const pk = pks[k];
-                                    if ("intensity" === pk || "known" === pk || "mode" === pk) continue;
-                                    const pv = adv[pk];
-                                    if ("number" == typeof pv && Number.isFinite(pv)) poles[pk] = pv;
-                                }
-                            }
-                        } else {
-                            poles = {};
-                            const pks = Object.keys(val);
-                            for (let k = 0; k < pks.length; k++) {
-                                const pk = pks[k];
-                                if ("intensity" === pk || "receptivity" === pk || "known" === pk || "mode" === pk) continue;
-                                const pv = val[pk];
-                                if ("number" == typeof pv && Number.isFinite(pv)) poles[pk] = pv;
-                            }
-                        }
-                    }
+                    const tid = tids[j], poles = sxExtractHotListPoles(ratings[tid]);
                     if (!poles) continue;
                     const pks = Object.keys(poles);
-                    if (!pks.length) continue;
                     let tMap = byTopic.get(tid);
                     if (!tMap) { tMap = new Map(); byTopic.set(tid, tMap); }
                     for (let k = 0; k < pks.length; k++) {
-                        const pk = pks[k], pv = poles[pk];
-                        const st = tMap.get(pk);
+                        const pk = pks[k], pv = poles[pk], st = tMap.get(pk);
                         if (!st) tMap.set(pk, { min: pv, max: pv, n: 1 });
                         else {
                             if (pv < st.min) st.min = pv;
@@ -26940,35 +26947,170 @@ var milestoneProfileId = null, milestoneValue = 0;
                     }
                 }
             }
+            const faultMap = new Map();
             byTopic.forEach((tMap, tid) => {
                 let sum = 0, cnt = 0, mx = -1;
                 tMap.forEach(st => {
                     if (st.n >= 2) {
                         const r = st.max - st.min;
-                        sum += r;
-                        cnt += 1;
+                        sum += r; cnt += 1;
                         if (r > mx) mx = r;
                     }
                 });
-                if (cnt > 0) out.set(tid, { avg: sum / cnt, maxRange: mx, poles: cnt });
+                if (cnt > 0) faultMap.set(tid, { avg: sum / cnt, maxRange: mx, poles: cnt });
             });
-            return out;
+
+            // Tier 1: Greedy Orthogonal First Ladder over headline archetypes
+            // (exact palimpsest + kind !== "sample" scoping from 06d3-profile-about.js)
+            const stackGroups = {}, stackOrder = [], headlineKeys = [];
+            for (let i = 0; i < keys.length; i++) {
+                const k = keys[i], entry = samples[k];
+                if (!entry || "object" != typeof entry || entry.local) continue;
+                if (!entry.payload || !entry.payload.ratings || "object" != typeof entry.payload.ratings) continue;
+                const sk = entry.stackKey || entry.stack;
+                if (sk) {
+                    if (!stackGroups[sk]) { stackGroups[sk] = []; stackOrder.push(sk); }
+                    stackGroups[sk].push(k);
+                } else if (entry.kind !== "sample") headlineKeys.push(k);
+            }
+            const layerVal = entry => {
+                const d = entry && entry.date != null ? String(entry.date).trim() : "";
+                if ("present" === d.toLowerCase()) return Infinity;
+                const n = parseFloat(d);
+                return Number.isNaN(n) ? -Infinity : n;
+            };
+            for (let i = 0; i < stackOrder.length; i++) {
+                const grp = stackGroups[stackOrder[i]];
+                let topKey = grp[0];
+                for (let j = 1; j < grp.length; j++) if (layerVal(samples[grp[j]]) > layerVal(samples[topKey])) topKey = grp[j];
+                headlineKeys.push(topKey);
+            }
+
+            const ladderIds = [], ladderRank = new Map();
+            let estSec = 0;
+            const nArch = headlineKeys.length;
+            if (nArch >= 2) {
+                const archRatings = headlineKeys.map(k => samples[k].payload.ratings);
+                // Candidate topics sorted by fault-line desc for deterministic tie-breaks
+                const candTids = Array.from(faultMap.keys()).sort((a, b) => {
+                    const fa = faultMap.get(a), fb = faultMap.get(b);
+                    if (Math.abs(fb.avg - fa.avg) > 1e-9) return fb.avg - fa.avg;
+                    if (Math.abs(fb.maxRange - fa.maxRange) > 1e-9) return fb.maxRange - fa.maxRange;
+                    return a < b ? -1 : a > b ? 1 : 0;
+                });
+                const pairsA = [], pairsB = [];
+                for (let i = 0; i < nArch; i++) for (let j = i + 1; j < nArch; j++) { pairsA.push(i); pairsB.push(j); }
+                const P = pairsA.length;
+                const activeTids = [], dMat = [], kLens = [], isMulti = [];
+                for (let t = 0; t < candTids.length; t++) {
+                    const tid = candTids[t], raws = new Array(nArch), pkSet = new Set();
+                    let ratedCnt = 0;
+                    for (let a = 0; a < nArch; a++) {
+                        const p = sxExtractHotListPoles(archRatings[a][tid]);
+                        raws[a] = p;
+                        if (p) {
+                            ratedCnt++;
+                            const pks = Object.keys(p);
+                            for (let c = 0; c < pks.length; c++) pkSet.add(pks[c]);
+                        }
+                    }
+                    if (ratedCnt < 2 || !pkSet.size) continue;
+                    const pks = Array.from(pkSet), klen = pks.length;
+                    const row = new Float32Array(P);
+                    for (let p = 0; p < P; p++) {
+                        const va = raws[pairsA[p]], vb = raws[pairsB[p]];
+                        if (!va || !vb) { row[p] = -1; continue; }
+                        let s = 0;
+                        for (let c = 0; c < klen; c++) {
+                            const pk = pks[c];
+                            s += Math.abs((pk in va ? va[pk] : 0) - (pk in vb ? vb[pk] : 0));
+                        }
+                        row[p] = s;
+                    }
+                    activeTids.push(tid);
+                    dMat.push(row);
+                    kLens.push(klen);
+                    isMulti.push(!(klen <= 1 || (klen === 2 && pkSet.has("give") && pkSet.has("receive"))));
+                }
+                const T = activeTids.length;
+                const MIN_FLOOR = Math.min(T, 6), MAX_CAP = Math.min(T, 24), THRESH_SNR = 75.0;
+                const used = new Uint8Array(T), cumSum = new Float64Array(P), cumPoles = new Int32Array(P);
+                for (let step = 0; step < MAX_CAP; step++) {
+                    let bestT = -1, bestObj = -1e18;
+                    for (let t = 0; t < T; t++) {
+                        if (used[t]) continue;
+                        const row = dMat[t], kl = kLens[t];
+                        let mn = 1e9, soft = 0;
+                        for (let p = 0; p < P; p++) {
+                            const d = row[p];
+                            let s = cumSum[p], c = cumPoles[p];
+                            if (d >= 0) { s += d; c += kl; }
+                            const snr = c > 0 ? s / Math.sqrt(c) : 0;
+                            if (snr < mn) mn = snr;
+                            soft -= Math.exp(-snr / 25.0);
+                        }
+                        const obj = mn * 100.0 + soft;
+                        if (obj > bestObj) { bestObj = obj; bestT = t; }
+                    }
+                    if (bestT < 0) break;
+                    used[bestT] = 1;
+                    ladderRank.set(activeTids[bestT], ladderIds.length);
+                    ladderIds.push(activeTids[bestT]);
+                    estSec += isMulti[bestT] ? 25 : 15;
+                    const row = dMat[bestT], kl = kLens[bestT];
+                    let minSnr = 1e9;
+                    for (let p = 0; p < P; p++) {
+                        if (row[p] >= 0) { cumSum[p] += row[p]; cumPoles[p] += kl; }
+                        const snr = cumPoles[p] > 0 ? cumSum[p] / Math.sqrt(cumPoles[p]) : 0;
+                        if (snr < minSnr) minSnr = snr;
+                    }
+                    if (ladderIds.length >= MIN_FLOOR && minSnr >= THRESH_SNR) break;
+                }
+            }
+            const estMinutes = ladderIds.length ? Math.max(1, Math.round(estSec / 60)) : 0;
+            __sxHotListCacheRef = samples;
+            __sxHotListCacheSig = sig;
+            __sxHotListCacheVal = {
+                faultMap: faultMap,
+                ladder: { ids: ladderIds, rankMap: ladderRank, count: ladderIds.length, estMinutes: estMinutes }
+            };
+            return __sxHotListCacheVal;
+        }
+        function sxComputeFaultLineScores() {
+            return sxGetHotListCache().faultMap;
+        }
+        function sxComputeFirstLadder() {
+            return sxGetHotListCache().ladder;
         }
         window.__SX_FAULT_LINE_SCORES = sxComputeFaultLineScores;
-        function sxCompareHotListIds(idA, labelA, idB, labelB, faultMap) {
+        window.__SX_FIRST_LADDER = sxComputeFirstLadder;
+        function sxCompareHotListIds(idA, labelA, idB, labelB, faultMap, ladderMap) {
+            const lm = ladderMap || (sxGetHotListCache().ladder.rankMap);
+            const la = lm && lm.has(idA) ? lm.get(idA) : -1;
+            const lb = lm && lm.has(idB) ? lm.get(idB) : -1;
+            if ((la >= 0) !== (lb >= 0)) return la >= 0 ? -1 : 1;
+            if (la >= 0 && lb >= 0 && la !== lb) return la - lb;
             const fa = faultMap ? faultMap.get(idA) : null;
             const fb = faultMap ? faultMap.get(idB) : null;
             if (Boolean(fa) !== Boolean(fb)) return fa ? -1 : 1;
             if (fa && fb) {
                 if (Math.abs(fb.avg - fa.avg) > 1e-9) return fb.avg - fa.avg;
                 if (Math.abs(fb.maxRange - fa.maxRange) > 1e-9) return fb.maxRange - fa.maxRange;
-                return String(labelA || "").localeCompare(String(labelB || ""));
             }
             const pa = sxTopicPopularity(idA, labelA), pb = sxTopicPopularity(idB, labelB);
             const ha = Number.isFinite(pa), hb = Number.isFinite(pb);
             if (ha !== hb) return ha ? -1 : 1;
             if (ha && hb && pa !== pb) return pb - pa;
             return String(labelA || "").localeCompare(String(labelB || ""));
+        }
+        function sxFirstLadderMinRankForTopics(topics, ladderMap) {
+            if (!ladderMap || !ladderMap.size || !topics || !topics.length) return Infinity;
+            let best = Infinity;
+            for (let i = 0; i < topics.length; i++) {
+                const r = ladderMap.get(sxResolveTopicId(topics[i]));
+                if (null != r && r < best) best = r;
+            }
+            return best;
         }
         function sxFaultLineMeanForTopics(topics, faultMap) {
             if (!faultMap || !faultMap.size || !topics || !topics.length) return null;
@@ -26998,9 +27140,13 @@ var sxOutlineSortMode = "popularity";
                     });
                 });
             }
-            const faultMap = sxComputeFaultLineScores();
-            const sortTopics = list => (list || []).slice().sort((a, b) => sxCompareHotListIds(sxResolveTopicId(a), sxName(a), sxResolveTopicId(b), sxName(b), faultMap));
+            const cache = sxGetHotListCache(), faultMap = cache.faultMap, ladderMap = cache.ladder.rankMap;
+            const sortTopics = list => (list || []).slice().sort((a, b) => sxCompareHotListIds(sxResolveTopicId(a), sxName(a), sxResolveTopicId(b), sxName(b), faultMap, ladderMap));
             const sortGroups = (list, topicsOf, popMeanOf) => (list || []).slice().sort((a, b) => {
+                const ra = sxFirstLadderMinRankForTopics(topicsOf(a), ladderMap), rb = sxFirstLadderMinRankForTopics(topicsOf(b), ladderMap);
+                const hra = Number.isFinite(ra), hrb = Number.isFinite(rb);
+                if (hra !== hrb) return hra ? -1 : 1;
+                if (hra && hrb && ra !== rb) return ra - rb;
                 const fa = sxFaultLineMeanForTopics(topicsOf(a), faultMap), fb = sxFaultLineMeanForTopics(topicsOf(b), faultMap);
                 const hfa = Number.isFinite(fa), hfb = Number.isFinite(fb);
                 if (hfa !== hfb) return hfa ? -1 : 1;
@@ -27196,28 +27342,41 @@ var sxOutlineSortMode = "popularity";
         }
 
 /* --- Module: 03d1-outline-ladder.js --- */
-        /* Hot List ladder (Jason, 2026-11-19): the tick marks are one
-           pass of the list — the top 3 topics in every category — and
-           the time is that many topics at the same 20 seconds each
-           (54 topics, 18 categories, ~18 min on Sexcapades). Each skin
-           uses its own category count and its own topic total, so
-           Poliscapades does not keep the Sexcapades "400+ · ~134m" mark.
-           Sexcapades itself keeps the "400+" full-map label. */
+        /* Hot List ladder (2026-11-27):
+           The first tick mark is the skin's Greedy Orthogonal First Ladder
+           (spend ~N min rating top M topics to separate the archetypes, with
+           a 6-topic soft floor). Subsequent ticks mark category passes
+           (3 per category across all categories), followed by the full-list
+           end cap. */
 var sxLadderKey = "";
         function sxPaintOutlineLadder() {
             const track = qo && qo.parentElement;
             if (!track) return;
             const total = window.__SX_SKIN_TOPIC_COUNT || 403;
             const cats = Math.max(1, (h && h.length) || 18);
-            const key = total + ":" + cats;
+            const fl = "function" == typeof window.__SX_FIRST_LADDER ? window.__SX_FIRST_LADDER() : null;
+            const firstN = fl && fl.count > 0 && fl.count < total ? fl.count : 0;
+            const firstM = fl && fl.estMinutes > 0 ? fl.estMinutes : Math.max(1, Math.round(firstN / 3));
+            const key = total + ":" + cats + ":" + firstN + ":" + firstM;
             if (key === sxLadderKey) return;
             sxLadderKey = key;
             track.querySelectorAll(".outline-ladder-mark").forEach(el => el.remove());
-            const step = cats * 3, mins = n => Math.round(n / 3);
+            const step = cats * 3, mins = n => Math.max(1, Math.round(n / 3));
             const marks = [];
+            if (firstN > 0) {
+                marks.push({
+                    label: `${firstN} · ~${firstM}m`,
+                    title: `First ladder · rate top ${firstN} topics (~${firstM} min) to find your archetype`,
+                    left: (100 * firstN / total).toFixed(3) + "%",
+                    first: true
+                });
+            }
+            const firstPct = firstN > 0 ? (100 * firstN / total) : -99;
             for (let n = step; n < total; n += step) {
+                const pct = 100 * n / total;
+                if (firstN > 0 && Math.abs(pct - firstPct) < 6) continue;
                 const m = mins(n);
-                marks.push({ label: `${n} · ~${m}m`, title: `${n} topics · ~${m} min`, left: (100 * n / total).toFixed(3) + "%" });
+                marks.push({ label: `${n} · ~${m}m`, title: `${n} topics · ~${m} min`, left: pct.toFixed(3) + "%" });
             }
             const fm = mins(total);
             marks.push(total === 403
@@ -27226,7 +27385,8 @@ var sxLadderKey = "";
             marks.forEach((m, i) => {
                 const s = document.createElement("span");
                 s.setAttribute("aria-hidden", "true");
-                s.className = "outline-ladder-mark" + (m.full ? " outline-ladder-full" : i === 0 ? " outline-ladder-first" : "");
+                const isFirst = Boolean(m.first) || (!firstN && i === 0 && !m.full);
+                s.className = "outline-ladder-mark" + (m.full ? " outline-ladder-full" : isFirst ? " outline-ladder-first" : "");
                 s.dataset.label = m.label;
                 s.title = m.title;
                 if (!m.full) s.style.left = m.left;
@@ -27250,10 +27410,12 @@ var sxLadderKey = "";
             const T = window.__SX_SKIN_TOPIC_COUNT || 403, a = Math.min(100, e.rated / T * 100), r = sxClockText(sxOutlineTimerSeconds()), o = Zo ? `${r} paused${ZoAuto ? " \u2014 tab hidden" : ""}` : `${r} elapsed`;
             sxPaintOutlineLadder();
             const sxCats = Math.max(1, (h && h.length) || 18), sxStep = sxCats * 3;
+            const sxFL = "function" == typeof window.__SX_FIRST_LADDER ? window.__SX_FIRST_LADDER() : null;
+            const sxFirstTxt = sxFL && sxFL.count > 0 && sxFL.count < T ? `first ladder at ${sxFL.count} topics (~${sxFL.estMinutes} min), ` : "";
             Bo.textContent = window.__sxOnDeck ? `${window.__sxOnDeckTotal(Go)} topics on deck` : `${e.rated} of ${T} topics rated`, jo.textContent = o, qo.style.width = a + "%",
             qo.parentElement.setAttribute("aria-valuemin", "0"), qo.parentElement.setAttribute("aria-valuemax", String(T)),
             qo.parentElement.setAttribute("aria-valuenow", String(Math.min(T, e.rated))),
-            qo.parentElement.setAttribute("aria-label", `${e.rated} of ${T} topics rated; tick marks every ${sxStep} topics (3 per category across ${sxCats} categories), up to ${T}`);
+            qo.parentElement.setAttribute("aria-label", `${e.rated} of ${T} topics rated; ${sxFirstTxt}tick marks every ${sxStep} topics (3 per category across ${sxCats} categories), up to ${T}`);
             n && sxQueueCompletionCheck();
         }
         function sxSetOutlineTimerPaused(e) {

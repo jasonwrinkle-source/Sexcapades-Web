@@ -9,10 +9,12 @@
             const T = window.__SX_SKIN_TOPIC_COUNT || 403, a = Math.min(100, e.rated / T * 100), r = sxClockText(sxOutlineTimerSeconds()), o = Zo ? `${r} paused${ZoAuto ? " \u2014 tab hidden" : ""}` : `${r} elapsed`;
             sxPaintOutlineLadder();
             const sxCats = Math.max(1, (h && h.length) || 18), sxStep = sxCats * 3;
+            const sxFL = "function" == typeof window.__SX_FIRST_LADDER ? window.__SX_FIRST_LADDER() : null;
+            const sxFirstTxt = sxFL && sxFL.count > 0 && sxFL.count < T ? `first ladder at ${sxFL.count} topics (~${sxFL.estMinutes} min), ` : "";
             Bo.textContent = window.__sxOnDeck ? `${window.__sxOnDeckTotal(Go)} topics on deck` : `${e.rated} of ${T} topics rated`, jo.textContent = o, qo.style.width = a + "%",
             qo.parentElement.setAttribute("aria-valuemin", "0"), qo.parentElement.setAttribute("aria-valuemax", String(T)),
             qo.parentElement.setAttribute("aria-valuenow", String(Math.min(T, e.rated))),
-            qo.parentElement.setAttribute("aria-label", `${e.rated} of ${T} topics rated; tick marks every ${sxStep} topics (3 per category across ${sxCats} categories), up to ${T}`);
+            qo.parentElement.setAttribute("aria-label", `${e.rated} of ${T} topics rated; ${sxFirstTxt}tick marks every ${sxStep} topics (3 per category across ${sxCats} categories), up to ${T}`);
             n && sxQueueCompletionCheck();
         }
         function sxSetOutlineTimerPaused(e) {
