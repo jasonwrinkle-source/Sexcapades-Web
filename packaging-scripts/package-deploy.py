@@ -251,6 +251,19 @@ def package_all(build_num, out_tar_path, src_app_html):
             with open(m_path, "w", encoding="utf-8") as f:
                 f.write(content)
 
+        print("2c. Stamping picker.html...")
+        picker_staged = os.path.join(capades_dir, "picker.html")
+        if os.path.isfile(picker_staged):
+            with open(picker_staged, "r", encoding="utf-8") as f:
+                picker_content = f.read()
+            picker_content = picker_content.replace("__SX_CACHE__", build_num)
+            if "__SX_CACHE__" in picker_content:
+                raise ValueError(f"picker.html stamp failed in {picker_staged}")
+            if f"v={build_num}" not in picker_content:
+                raise ValueError(f"picker.html lacks build-stamped asset URL: {picker_staged}")
+            with open(picker_staged, "w", encoding="utf-8") as f:
+                f.write(picker_content)
+
         print("3. Staging and Bundling App...")
         hosted_dir = os.path.join(capades_dir, "hosted")
         app_html_dest = os.path.join(hosted_dir, "app.html")
@@ -497,7 +510,16 @@ def verify_all_tarball(tar_path, build_num):
         if "sexcapades_age_verified" not in guide_html:
             raise AssertionError("guide.html lost sexcapades_age_verified check")
 
-    print("All 14 verification gates passed for deploy-all package.")
+        # Check picker.html stamping
+        if "capades.io/public_html/picker.html" not in names:
+            raise AssertionError("Missing required entry: capades.io/public_html/picker.html")
+        picker_html = tar.extractfile("capades.io/public_html/picker.html").read().decode("utf-8")
+        if "__SX_CACHE__" in picker_html:
+            raise AssertionError("picker.html carries literal __SX_CACHE__")
+        if f"v={build_num}" not in picker_html:
+            raise AssertionError("picker.html lacks build-stamped asset URL")
+
+    print("All 15 verification gates passed for deploy-all package.")
 
 
 def deploy_to_hostinger(tar_path):
