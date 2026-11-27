@@ -34,7 +34,7 @@
     "cats": 18,
     "catsWithSub": 16,
     "subcats": 72,
-    "topics": 364
+    "topics": 370
   },
   "flex": {
     "id": "flexcapades",
@@ -78,7 +78,7 @@
     "cats": 8,
     "catsWithSub": 7,
     "subcats": 21,
-    "topics": 106
+    "topics": 110
   },
   "fores": {
     "id": "forescapades",
@@ -100,7 +100,7 @@
     "cats": 7,
     "catsWithSub": 6,
     "subcats": 22,
-    "topics": 107
+    "topics": 118
   },
   "chem": {
     "id": "chemcapades",
@@ -122,7 +122,7 @@
     "cats": 8,
     "catsWithSub": 0,
     "subcats": 0,
-    "topics": 40
+    "topics": 41
   },
   "aesth": {
     "id": "aesthcapades",
@@ -144,7 +144,7 @@
     "cats": 7,
     "catsWithSub": 1,
     "subcats": 3,
-    "topics": 44
+    "topics": 50
   },
   "experi": {
     "id": "expericapades",
@@ -166,7 +166,7 @@
     "cats": 6,
     "catsWithSub": 0,
     "subcats": 0,
-    "topics": 31
+    "topics": 32
   },
   "dharma": {
     "id": "dharmacapades",
@@ -188,7 +188,7 @@
     "cats": 6,
     "catsWithSub": 0,
     "subcats": 0,
-    "topics": 34
+    "topics": 43
   },
   "matter": {
     "id": "mattercapades",
@@ -210,7 +210,7 @@
     "cats": 6,
     "catsWithSub": 0,
     "subcats": 0,
-    "topics": 29
+    "topics": 31
   },
   "philo": {
     "id": "philoscapades",
@@ -232,7 +232,7 @@
     "cats": 6,
     "catsWithSub": 0,
     "subcats": 0,
-    "topics": 23
+    "topics": 29
   },
   "praxi": {
     "id": "praxicapades",
@@ -254,7 +254,7 @@
     "cats": 6,
     "catsWithSub": 0,
     "subcats": 0,
-    "topics": 26
+    "topics": 27
   },
   "quanta": {
     "id": "quantacapades",
@@ -276,7 +276,7 @@
     "cats": 6,
     "catsWithSub": 0,
     "subcats": 0,
-    "topics": 30
+    "topics": 33
   },
   "simul": {
     "id": "simulcapades",
@@ -298,7 +298,7 @@
     "cats": 6,
     "catsWithSub": 0,
     "subcats": 0,
-    "topics": 29
+    "topics": 35
   },
   "tech": {
     "id": "techcapades",
@@ -320,7 +320,7 @@
     "cats": 6,
     "catsWithSub": 0,
     "subcats": 0,
-    "topics": 33
+    "topics": 40
   },
   "theori": {
     "id": "theoricapades",
@@ -342,7 +342,7 @@
     "cats": 6,
     "catsWithSub": 0,
     "subcats": 0,
-    "topics": 31
+    "topics": 34
   },
   "voca": {
     "id": "vocapades",
@@ -364,7 +364,7 @@
     "cats": 6,
     "catsWithSub": 0,
     "subcats": 0,
-    "topics": 28
+    "topics": 34
   },
   "nous": {
     "id": "nouscapades",
@@ -386,7 +386,7 @@
     "cats": 8,
     "catsWithSub": 0,
     "subcats": 0,
-    "topics": 51
+    "topics": 55
   },
   "bio": {
     "id": "biocapades",
@@ -408,7 +408,7 @@
     "cats": 8,
     "catsWithSub": 0,
     "subcats": 0,
-    "topics": 41
+    "topics": 46
   },
   "lingua": {
     "id": "linguacapades",
@@ -430,7 +430,7 @@
     "cats": 7,
     "catsWithSub": 0,
     "subcats": 0,
-    "topics": 34
+    "topics": 40
   },
   "fast": {
     "id": "fastcapades",
@@ -452,7 +452,7 @@
     "cats": 7,
     "catsWithSub": 0,
     "subcats": 0,
-    "topics": 27
+    "topics": 33
   },
   "dance": {
     "id": "dancecapades",
@@ -474,7 +474,7 @@
     "cats": 9,
     "catsWithSub": 6,
     "subcats": 15,
-    "topics": 82
+    "topics": 85
   },
   "quest": {
     "id": "questcapades",
@@ -496,7 +496,7 @@
     "cats": 8,
     "catsWithSub": 4,
     "subcats": 12,
-    "topics": 78
+    "topics": 82
   }
 };
 
