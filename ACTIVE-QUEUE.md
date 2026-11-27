@@ -197,6 +197,7 @@ Each item waits for Jason's kickoff; nothing here dispatches itself.
    - Sx1 (BDSM archetypes missing poles: Masochist, Primal (Prey), Brat-tamer) was built in Phase 1 (it resolved misstatement M1) — do NOT rebuild it.
    - *Dependency:* build AFTER item 21 (Sex canonical archetypes) lands — the new archetypes must rate these new topics/poles — AND after Phase 1 (Sx1 poles + hovertip) lands. Do NOT fold this into item 21 and do NOT edit item 21 — Grok is already on it; this is a separate entry.
    - *Constraint:* ~~do NOT add a race-play topic (misstatement M2 — that needs Jason's ruling).~~ **Jason ruled (2026-11-27) that race play is its own topic.** Added as `t0437` in Humiliation, give and receive (commit `b966b80`, 01:13 CST). Interracial Sex stays race-neutral. Its numbers were not moved, including the Cuckold's 65. The Cuckold's race-play rating is receive 35, not a copy of that 65. No deploy.
+   - *Ruling (Jason, 2026-11-27):* male humiliation is its own topic, same shape as Female humiliation. Added as `t0438` in Humiliation, directly after Female humiliation (commit `d82e44d`, 01:31 CST). SPH and Cuckold Humiliation were not changed. No deploy. Misstatements are to be corrected. A missing pole that the spec warrants is added. A line topic stores one number, so a fourth pole on Eye Contact is not a midpoint shift. That one still needs a ruling on what the old number becomes.
    - *Standing laws:* as item 22.
 
 ---
