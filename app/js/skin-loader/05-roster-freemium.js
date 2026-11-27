@@ -1,11 +1,13 @@
 /* ---- Roster freemium — registration-period model (2026-11-27, Jason) ----
    RULED model (item 44):
-   - Free roster creation up to FREE_CAP individuals (intro 10, then 5
-     once the app "takes off" — Jason sees it shine at 5+ groups in
-     person several times, a qualitative trigger, NOT a metric). The cap
-     counts INDIVIDUALS, not profiles: a couple = 2, a single = 1.
-     Change FREE_CAP in the config below when the cap drops; rosters
-     over the cap when it drops are grandfathered (they stay, can't grow).
+   - Free roster creation up to 5 individuals (RULED 2026-11-27 — free
+     is 5 from the start; supersedes "intro 10, then 5 once it takes
+     off"). 5 is the size of a real conversation (around a table, five
+     people can actually talk; more than 5 is a different challenge).
+     The cap counts INDIVIDUALS, not profiles: a couple = 2, a single
+     = 1. A 10-way dynamic is free only via two 5-person rosters (the
+     friction of managing two rosters is the deterrent); the $5 window
+     buys a single roster over 5.
    - Registration period: 30 days / $5 SETTLED. A one-off ~$5 purchase
      buys a 30-day window to ADD/REMOVE members on ONE roster. A new
      window can EITHER re-open ADD/REMOVE on an existing roster OR
@@ -43,9 +45,13 @@
 
   /* ---- Config: ONE location. Change the cap and the Patreon IDs here. ---- */
   var SX_ROSTER_FREEMIUM_CONFIG = {
-    /* Free roster size cap, in INDIVIDUALS. Intro 10; drops to 5 when
-       the app takes off (Jason's eye, in person, several times). */
-    freeCapIndividuals: 10,
+    /* Free roster size cap, in INDIVIDUALS. 5 from the start (RULED
+       2026-11-27): 5 is the size of a real conversation — around a
+       table, five people can actually talk; more than 5 is a different
+       kind of challenge. A 10-way dynamic is free only via two 5-person
+       rosters (the friction of managing two rosters is the deterrent);
+       the $5 window buys a single roster over 5 (one roster, any size). */
+    freeCapIndividuals: 5,
     /* Registration window. */
     windowDays: 30,
     priceUSD: 5,
