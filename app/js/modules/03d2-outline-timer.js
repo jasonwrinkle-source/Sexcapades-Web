@@ -1,20 +1,52 @@
         function sxRefreshHotListStatus() {
             if (!Go || Go !== Et && !vt[Go]) return;
             const e = sxOutlineRatedCounts(Go), t = e.total > 0 && e.rated === e.total, n = t && !Jo;
-            var i;
-            if (e.rated && sxSortedOutlineTree(i = Go).every(e => e.topics.filter(t => (e.outlineTopicRanks?.get(sxResolveTopicId(t)) ?? Number.POSITIVE_INFINITY) < 3).every(e => sxIsOutlineRated(sxResolveTopicId(e), i))) && sxSendEvent("quickstart_completed"), 
-            Jo = t, n && !Zo) return sxSetOutlineTimerPaused(!0), void sxQueueCompletionCheck();
-            /* Flexcapades: topic total follows the active skin (403 = Sexcapades
-               copy, unchanged; a loaded skin sets window.__SX_SKIN_TOPIC_COUNT). */
-            const T = window.__SX_SKIN_TOPIC_COUNT || 403, a = Math.min(100, e.rated / T * 100), r = sxClockText(sxOutlineTimerSeconds()), o = Zo ? `${r} paused${ZoAuto ? " \u2014 tab hidden" : ""}` : `${r} elapsed`;
-            sxPaintOutlineLadder();
-            const sxCats = Math.max(1, (h && h.length) || 18), sxStep = sxCats * 3;
-            const sxFL = "function" == typeof window.__SX_FIRST_LADDER ? window.__SX_FIRST_LADDER() : null;
-            const sxFirstTxt = sxFL && sxFL.count > 0 && sxFL.count < T ? `first ladder at ${sxFL.count} topics (~${sxFL.estMinutes} min), ` : "";
-            Bo.textContent = window.__sxOnDeck ? `${window.__sxOnDeckTotal(Go)} topics on deck` : `${e.rated} of ${T} topics rated`, jo.textContent = o, qo.style.width = a + "%",
-            qo.parentElement.setAttribute("aria-valuemin", "0"), qo.parentElement.setAttribute("aria-valuemax", String(T)),
-            qo.parentElement.setAttribute("aria-valuenow", String(Math.min(T, e.rated))),
-            qo.parentElement.setAttribute("aria-label", `${e.rated} of ${T} topics rated; ${sxFirstTxt}tick marks every ${sxStep} topics (3 per category across ${sxCats} categories), up to ${T}`);
+            const prog = "function" == typeof sxComputePhaseProgress ? sxComputePhaseProgress(Go) : null;
+            const corePhase = prog && prog.phases.find(p => p.key === "core");
+            if (corePhase && corePhase.complete) sxSendEvent("quickstart_completed");
+            Jo = t;
+            if (n && !Zo) return sxSetOutlineTimerPaused(!0), void sxQueueCompletionCheck();
+            const T = (prog && prog.totalTopics) || window.__SX_SKIN_TOPIC_COUNT || 382;
+            const honestPct = prog ? prog.honestPct : Math.min(100, e.rated / T * 100);
+            const rawPct = prog ? prog.rawPct : honestPct;
+            const r = sxClockText(sxOutlineTimerSeconds()), o = Zo ? `${r} paused${ZoAuto ? " \u2014 tab hidden" : ""}` : `${r} elapsed`;
+            sxPaintOutlineLadder(prog);
+            let headerTxt = `${e.rated} of ${T} topics rated`;
+            if (window.__sxOnDeck) {
+                headerTxt = `${window.__sxOnDeckTotal(Go)} topics on deck`;
+            } else if (prog) {
+                if (prog.allComplete) {
+                    headerTxt = `Complete · ${prog.totalRated} of ${T} rated`;
+                } else if (prog.currentPhase) {
+                    const cp = prog.currentPhase;
+                    const extra = prog.totalRated > prog.honestCount ? ` · ${prog.totalRated} total` : "";
+                    headerTxt = cp.key === "full"
+                        ? `Full Map: ${prog.totalRated} of ${T} rated`
+                        : `Phase ${cp.index}: ${cp.done}/${cp.total} ${cp.shortLabel}${extra}`;
+                }
+            }
+            Bo.textContent = headerTxt, jo.textContent = o;
+            qo.style.width = honestPct.toFixed(2) + "%";
+            if (qoRaw) qoRaw.style.width = rawPct.toFixed(2) + "%";
+            qo.parentElement.setAttribute("aria-valuemin", "0");
+            qo.parentElement.setAttribute("aria-valuemax", String(T));
+            qo.parentElement.setAttribute("aria-valuenow", String(Math.min(T, prog ? prog.honestCount : e.rated)));
+            const phaseSummary = prog && prog.phases.length
+                ? prog.phases.map(p => `Phase ${p.index} ${p.shortLabel}: ${p.done}/${p.total}`).join("; ")
+                : `${e.rated} of ${T} topics rated`;
+            qo.parentElement.setAttribute("aria-label", `${headerTxt}. ${phaseSummary}`);
+            if (prog && Ro) {
+                const byKey = new Map(prog.phases.map(p => [p.key, p]));
+                Ro.querySelectorAll(".outline-phase-branch[data-outline-phase-key]").forEach(el => {
+                    const st = byKey.get(el.dataset.outlinePhaseKey);
+                    if (!st) return;
+                    const cnt = el.querySelector(":scope > summary .outline-branch-count");
+                    if (cnt) cnt.textContent = st.complete ? `✓ ${st.total}/${st.total}` : `${st.done}/${st.total} rated`;
+                    el.classList.toggle("is-phase-complete", st.complete);
+                    const banner = el.querySelector(":scope > .outline-rows > .outline-phase-banner");
+                    if (banner) banner.hidden = !st.complete;
+                });
+            }
             n && sxQueueCompletionCheck();
         }
         function sxSetOutlineTimerPaused(e) {

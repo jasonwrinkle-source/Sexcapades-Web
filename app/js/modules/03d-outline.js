@@ -506,7 +506,8 @@
                 let anyVisible = false;
                 branch.querySelectorAll(".outline-row").forEach(row => {
                     const label = row.querySelector(".outline-topic-label")?.textContent?.toLowerCase() || "";
-                    const matches = !query || label.includes(query);
+                    const crumb = row.querySelector(".outline-topic-crumb")?.textContent?.toLowerCase() || "";
+                    const matches = !query || label.includes(query) || crumb.includes(query);
                     row.hidden = !matches;
                     if (matches) anyVisible = true;
                 });
@@ -515,12 +516,23 @@
                     if (anyVisible) branch.open = true;
                 } else {
                     branch.hidden = false;
-                    branch._syncOutlineVisibility?.(Number(branch.dataset.outlineVisible || 3));
+                    branch._syncOutlineVisibility?.(Number(branch.dataset.outlineVisible || 0));
                 }
             });
         }
         const outlineSearchEl = e.byId("outlineSearch");
         outlineSearchEl && outlineSearchEl.addEventListener("input", sxApplyOutlineSearch);
+        [ e.byId("outlineModeLadder"), e.byId("outlineModeCategory") ].forEach(btn => {
+            if (!btn) return;
+            btn.addEventListener("click", () => {
+                const mode = btn.dataset.outlineMode === "category" ? "category" : "ladder";
+                if (window.__sxOutlineViewMode === mode && !window.__sxOnDeck) return;
+                window.__sxOutlineViewMode = mode;
+                if (window.__sxOnDeck && typeof window.__sxOnDeckClear === "function") window.__sxOnDeckClear();
+                if (typeof window.__sxSyncOutlineModeButtons === "function") window.__sxSyncOutlineModeButtons();
+                sxRenderHotList();
+            });
+        });
         const tl = e.byId("profileTabs");
         let nl = null, il = null, al = null, rl = 0, ol = null, tfHide = 0;
         function sxHideMapTooltip() {

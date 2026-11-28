@@ -389,6 +389,132 @@
     .quick-tips ul { margin: 0; padding-left: 1.15rem; color: var(--muted); }
     .quick-tips li + li { margin-top: 5px; }
 
+    .phases-section {
+      padding: clamp(42px, 6vw, 66px) 0 0;
+    }
+
+    .phases-lede {
+      max-width: 740px;
+      margin: 0 0 22px;
+      color: var(--muted);
+      font-size: .98rem;
+    }
+
+    .phases-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .phases-grid.is-four {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .phase-card {
+      display: flex;
+      flex-direction: column;
+      padding: 22px 24px;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      background: var(--surface);
+    }
+
+    .phase-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: 12px;
+    }
+
+    .phase-num {
+      color: var(--cyan);
+      font-family: "IBM Plex Mono", monospace;
+      font-size: .76rem;
+      font-weight: 600;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+
+    .phase-tag {
+      padding: 3px 9px;
+      border-radius: 999px;
+      background: var(--step);
+      color: var(--text);
+      font-family: "IBM Plex Mono", monospace;
+      font-size: .72rem;
+      font-weight: 600;
+      white-space: nowrap;
+    }
+
+    .phase-card h3 {
+      margin: 0 0 6px;
+      font-size: 1.08rem;
+      line-height: 1.25;
+    }
+
+    .phase-metric {
+      margin: 0 0 10px;
+      color: var(--green);
+      font-family: "IBM Plex Mono", monospace;
+      font-size: .82rem;
+      font-weight: 600;
+    }
+
+    .phase-body {
+      margin: 0;
+      color: var(--muted);
+      font-size: .93rem;
+      line-height: 1.5;
+    }
+
+    .cascade-box {
+      margin-top: 14px;
+      padding: 20px 24px;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      background: var(--surface);
+    }
+
+    .cascade-box .mini-label { margin: 0 0 14px; }
+
+    .cascade-steps {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px 22px;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .cascade-step {
+      display: flex;
+      align-items: flex-start;
+      gap: 11px;
+    }
+
+    .cascade-rank {
+      display: inline-grid;
+      flex: 0 0 auto;
+      width: 28px;
+      height: 28px;
+      place-items: center;
+      border-radius: 50%;
+      background: var(--step);
+      color: var(--cyan);
+      font-family: "IBM Plex Mono", monospace;
+      font-size: .74rem;
+      font-weight: 600;
+    }
+
+    .cascade-copy {
+      color: var(--muted);
+      font-size: .9rem;
+      line-height: 1.45;
+    }
+
+    .cascade-copy strong { color: var(--text); }
+
     .payoff {
       padding: clamp(42px, 6vw, 68px) 0;
       border-bottom: 1px solid var(--line);
@@ -529,6 +655,10 @@
       .step-number { margin-bottom: 14px; }
       .completion-cta { grid-template-columns: 1fr; }
       .normalization-tip, .quick-tips { grid-template-columns: 1fr; gap: 6px; padding: 18px; }
+      .phases-grid, .phases-grid.is-four { grid-template-columns: 1fr; }
+      .phase-card { padding: 18px 20px; }
+      .cascade-box { padding: 18px 20px; }
+      .cascade-steps { grid-template-columns: 1fr; gap: 10px; }
       .payoff-intro { grid-template-columns: 1fr; gap: 10px; align-items: start; }
       .output-examples { grid-template-columns: 1fr; }
       .output-example { padding: 22px 4px 24px; }

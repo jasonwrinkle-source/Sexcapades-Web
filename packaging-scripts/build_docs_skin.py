@@ -1,4 +1,4 @@
-import json, os
+import json, math, os
 
 ROOT_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 skins_dir = os.path.join(ROOT_DIR, "site-tree", "public_html", "hosted", "data", "skins")
@@ -11,6 +11,262 @@ prefixes = [
     ("nouscapades", "nous"), ("biocapades", "bio"), ("linguacapades", "lingua"), ("fastcapades", "fast"),
     ("dancecapades", "dance"), ("questcapades", "quest")
 ]
+
+
+def _extract_hot_list_poles(val):
+    if val is None:
+        return None
+    if isinstance(val, (int, float)) and not isinstance(val, bool) and math.isfinite(val):
+        return {"_scalar": float(val)}
+    if not isinstance(val, dict):
+        return None
+    if "advocacy" in val:
+        adv = val["advocacy"]
+        if isinstance(adv, (int, float)) and not isinstance(adv, bool) and math.isfinite(adv):
+            return {"_scalar": float(adv)}
+        if isinstance(adv, dict):
+            poles = {
+                k: float(v)
+                for k, v in adv.items()
+                if k not in ("intensity", "known", "mode")
+                and isinstance(v, (int, float))
+                and not isinstance(v, bool)
+                and math.isfinite(v)
+            }
+            return poles if poles else None
+        return None
+    poles = {
+        k: float(v)
+        for k, v in val.items()
+        if k not in ("intensity", "receptivity", "known", "mode")
+        and isinstance(v, (int, float))
+        and not isinstance(v, bool)
+        and math.isfinite(v)
+    }
+    return poles if poles else None
+
+
+def _layer_val(entry):
+    d = str(entry.get("date") or "").strip()
+    if d.lower() == "present":
+        return float("inf")
+    try:
+        return float(d)
+    except ValueError:
+        return float("-inf")
+
+
+def _compute_first_ladder(samples):
+    """Exact Python mirror of sxGetHotListCache() in 03d0-outline-state.js.
+    Returns (headline_archetype_count, first_ladder_count, first_ladder_est_mins)."""
+    if not isinstance(samples, dict):
+        return (0, 0, 0)
+    by_topic = {}
+    for _, s in samples.items():
+        if not isinstance(s, dict) or s.get("local"):
+            continue
+        ratings = (s.get("payload") or {}).get("ratings")
+        if not isinstance(ratings, dict):
+            continue
+        for tid, rv in ratings.items():
+            poles = _extract_hot_list_poles(rv)
+            if not poles:
+                continue
+            tm = by_topic.setdefault(tid, {})
+            for pk, pv in poles.items():
+                st = tm.get(pk)
+                if st is None:
+                    tm[pk] = [pv, pv, 1]
+                else:
+                    if pv < st[0]:
+                        st[0] = pv
+                    if pv > st[1]:
+                        st[1] = pv
+                    st[2] += 1
+
+    fault_map = {}
+    for tid, tm in by_topic.items():
+        sm = 0.0
+        cnt = 0
+        mx = -1.0
+        for st in tm.values():
+            if st[2] >= 2:
+                r = st[1] - st[0]
+                sm += r
+                cnt += 1
+                if r > mx:
+                    mx = r
+        if cnt > 0:
+            fault_map[tid] = (sm / cnt, mx, cnt)
+
+    stack_groups = {}
+    stack_order = []
+    headline_keys = []
+    for k, entry in samples.items():
+        if not isinstance(entry, dict) or entry.get("local"):
+            continue
+        ratings = (entry.get("payload") or {}).get("ratings")
+        if not isinstance(ratings, dict):
+            continue
+        sk = entry.get("stackKey") or entry.get("stack")
+        if sk:
+            if sk not in stack_groups:
+                stack_groups[sk] = []
+                stack_order.append(sk)
+            stack_groups[sk].append(k)
+        elif entry.get("kind") != "sample":
+            headline_keys.append(k)
+    for sk in stack_order:
+        grp = stack_groups[sk]
+        top_key = grp[0]
+        for gk in grp[1:]:
+            if _layer_val(samples[gk]) > _layer_val(samples[top_key]):
+                top_key = gk
+        headline_keys.append(top_key)
+
+    n_arch = len(headline_keys)
+    if n_arch < 2:
+        return (n_arch, 0, 0)
+
+    arch_ratings = [samples[k]["payload"]["ratings"] for k in headline_keys]
+    cand_tids = sorted(fault_map.keys(), key=lambda tid: (-fault_map[tid][0], -fault_map[tid][1], tid))
+    pairs = [(i, j) for i in range(n_arch) for j in range(i + 1, n_arch)]
+    pair_count = len(pairs)
+
+    active = []
+    for tid in cand_tids:
+        raws = []
+        pk_set = set()
+        rated_cnt = 0
+        for a in range(n_arch):
+            p = _extract_hot_list_poles(arch_ratings[a].get(tid))
+            raws.append(p)
+            if p:
+                rated_cnt += 1
+                pk_set.update(p.keys())
+        if rated_cnt < 2 or not pk_set:
+            continue
+        pks = list(pk_set)
+        klen = len(pks)
+        row = []
+        for ia, ib in pairs:
+            va, vb = raws[ia], raws[ib]
+            if not va or not vb:
+                row.append(-1.0)
+            else:
+                row.append(sum(abs(va.get(pk, 0.0) - vb.get(pk, 0.0)) for pk in pks))
+        is_multi = not (klen <= 1 or (klen == 2 and "give" in pk_set and "receive" in pk_set))
+        active.append((tid, row, klen, is_multi))
+
+    t_count = len(active)
+    min_floor = min(t_count, 6)
+    max_cap = min(t_count, 24)
+    used = [False] * t_count
+    cum_sum = [0.0] * pair_count
+    cum_poles = [0] * pair_count
+    ladder_count = 0
+    est_sec = 0
+
+    ladder_ids = []
+    for _ in range(max_cap):
+        best_t = -1
+        best_obj = -1e18
+        for t in range(t_count):
+            if used[t]:
+                continue
+            _, row, kl, _ = active[t]
+            mn = 1e9
+            soft = 0.0
+            for p in range(pair_count):
+                d = row[p]
+                s = cum_sum[p]
+                c = cum_poles[p]
+                if d >= 0:
+                    s += d
+                    c += kl
+                snr = (s / math.sqrt(c)) if c > 0 else 0.0
+                if snr < mn:
+                    mn = snr
+                soft -= math.exp(-snr / 25.0)
+            obj = mn * 100.0 + soft
+            if obj > best_obj:
+                best_obj = obj
+                best_t = t
+        if best_t < 0:
+            break
+        used[best_t] = True
+        ladder_count += 1
+        tid, row, kl, is_multi = active[best_t]
+        ladder_ids.append(tid)
+        est_sec += 25 if is_multi else 15
+        min_snr = 1e9
+        for p in range(pair_count):
+            if row[p] >= 0:
+                cum_sum[p] += row[p]
+                cum_poles[p] += kl
+            snr = (cum_sum[p] / math.sqrt(cum_poles[p])) if cum_poles[p] > 0 else 0.0
+            if snr < min_snr:
+                min_snr = snr
+        if ladder_count >= min_floor and min_snr >= 75.0:
+            break
+
+    est_min = max(1, round(est_sec / 60.0)) if ladder_count else 0
+    return (n_arch, ladder_count, est_min, ladder_ids)
+
+
+def _compute_brr_totals(cats, ladder_ids, total_topics):
+    """Exact mirror of Phase 2 (BRR to 3/cat) and Phase 3 (BRR to 6/cat) cumulative totals."""
+    used = set()
+    topic_branch = {}
+    branch_counts = {}
+    branch_totals = {}
+    for c in cats:
+        bname = c.get("name") or ""
+        branch_counts[bname] = 0
+        tids = []
+        for t in (c.get("topics") or []) + (c.get("parentTopics") or []):
+            tid = t.get("id") if isinstance(t, dict) else None
+            if tid and tid not in topic_branch:
+                topic_branch[tid] = bname
+                tids.append(tid)
+        for s in (c.get("subcategories") or []):
+            for t in (s.get("topics") or []) + (s.get("parentTopics") or []):
+                tid = t.get("id") if isinstance(t, dict) else None
+                if tid and tid not in topic_branch:
+                    topic_branch[tid] = bname
+                    tids.append(tid)
+        branch_totals[bname] = len(tids)
+
+    p1 = 0
+    for tid in ladder_ids:
+        if tid in topic_branch and tid not in used:
+            used.add(tid)
+            branch_counts[topic_branch[tid]] += 1
+            p1 += 1
+
+    # Phase 2: BRR to 3 per category
+    p2_added = 0
+    for bname, tot in branch_totals.items():
+        need = max(0, min(3, tot) - branch_counts[bname])
+        branch_counts[bname] += need
+        p2_added += need
+    core_cum = p1 + p2_added
+
+    # Phase 3: BRR to 6 per category on non-compact maps
+    n_cats = len(cats)
+    allow_p3 = n_cats > 0 and (6 * n_cats <= int(total_topics * 0.8)) and (core_cum < int(total_topics * 0.8))
+    deeper_cum = 0
+    if allow_p3:
+        p3_added = 0
+        for bname, tot in branch_totals.items():
+            need = max(0, min(6, tot) - branch_counts[bname])
+            branch_counts[bname] += need
+            p3_added += need
+        if p3_added > 0:
+            deeper_cum = core_cum + p3_added
+
+    return (core_cum, deeper_cum)
+
 
 catalog = {}
 
@@ -29,14 +285,16 @@ for sid, pfx in prefixes:
     topic_count = 0
     cats_with_sub = 0
     for c in cats:
+        topic_count += len(c.get("topics", [])) + len(c.get("parentTopics", []))
         subs = c.get("subcategories", [])
         if subs:
             cats_with_sub += 1
             subcat_count += len(subs)
             for s in subs:
-                topic_count += len(s.get("topics", []))
-        else:
-            topic_count += len(c.get("topics", []))
+                topic_count += len(s.get("topics", [])) + len(s.get("parentTopics", []))
+
+    arch_count, first_ladder_count, first_ladder_mins, ladder_ids = _compute_first_ladder(d.get("samples", {}))
+    core_total, deeper_total = _compute_brr_totals(cats, ladder_ids, topic_count)
 
     if sid == "sexcapades":
         poles = ["give", "receive"]
@@ -194,7 +452,12 @@ for sid, pfx in prefixes:
         "cats": cat_count,
         "catsWithSub": cats_with_sub,
         "subcats": subcat_count,
-        "topics": topic_count
+        "topics": topic_count,
+        "archetypes": arch_count,
+        "firstLadder": first_ladder_count,
+        "firstLadderMins": first_ladder_mins,
+        "coreTotal": core_total,
+        "deeperTotal": deeper_total
     }
 
 catalog_json_str = json.dumps(catalog, indent=2)
@@ -254,6 +517,11 @@ js_content = """/* docs-skin.js — skin-aware rendering for gate-linked docs, q
     catsWithSub: rawSkin.catsWithSub,
     subcats: rawSkin.subcats,
     topics: rawSkin.topics,
+    archetypes: rawSkin.archetypes || 0,
+    firstLadder: rawSkin.firstLadder || 0,
+    firstLadderMins: rawSkin.firstLadderMins || 0,
+    coreTotal: rawSkin.coreTotal || 0,
+    deeperTotal: rawSkin.deeperTotal || 0,
     host: prefix + ".capades.io",
     isSex: prefix === "sex",
     hasCompare: !!COMPARE_SKINS[prefix]
@@ -321,32 +589,138 @@ js_content = """/* docs-skin.js — skin-aware rendering for gate-linked docs, q
     for (var i = 0; i < node.childNodes.length; i++) walk(node.childNodes[i]);
   }
 
+  function formatEstMins(mins) {
+    var m = Math.max(1, Math.round(mins));
+    if (m < 60) return "~" + m + " min";
+    var hrs = (m / 60).toFixed(1).replace(/\\.0$/, "");
+    return "~" + hrs + " hr" + (m >= 90 ? "s" : "");
+  }
+
   function getLadderRungText(s) {
     var c = s.cats;
     var t = s.topics;
-    if (s.isSex) {
-      return "Each extra rung adds 3 topics to every category: 3 per category is 54 topics (~20 min), 6 is 108 (~40 min), 9 is 162 (~1 hr), 12 is 216 (~80 min), 15 is 270 (~100 min), 18 is 324 (~2 hrs), 21 covers the full 365-topic map in about 2.5 hours.";
+    var flN = s.firstLadder || Math.min(t, 6);
+    var flM = s.firstLadderMins || Math.max(1, Math.round(flN / 3));
+    var coreN = s.coreTotal || Math.min(3 * c, t);
+    var deeperN = s.deeperTotal || 0;
+    var parts = [
+      "Phase 1 (First Ladder) is " + flN + " topics (" + formatEstMins(flM) + ")",
+      "Phase 2 (Core Map, balanced round-robin to 3/category) reaches " + coreN + " topics (" + formatEstMins(coreN / 3) + ")"
+    ];
+    if (deeperN > coreN && deeperN < t) {
+      parts.push("Phase 3 (Deeper, 6/category) reaches " + deeperN + " topics (" + formatEstMins(deeperN / 3) + ")");
     }
-    var rungs = [3, 6, 9, 12, 15, 18, 21];
-    var parts = [];
-    for (var i = 0; i < rungs.length; i++) {
-      var r = rungs[i];
-      var count = r * c;
-      if (count < t) {
-        var mins = Math.max(5, Math.round(count * 0.38));
-        var timeStr = mins < 60 ? ("~" + mins + " min") : ("~" + (mins / 60).toFixed(1).replace(/\\.0$/, "") + " hr" + (mins >= 90 ? "s" : ""));
-        parts.push(r + " per category is " + count + " topics (" + timeStr + ")");
-      } else {
-        var fullMins = Math.max(8, Math.round(t * 0.38));
-        var fullTimeStr = fullMins < 60 ? ("~" + fullMins + " min") : ("~" + (fullMins / 60).toFixed(1).replace(/\\.0$/, "") + " hr" + (fullMins >= 90 ? "s" : ""));
-        parts.push("covering all " + t + " topics takes about " + fullTimeStr);
-        break;
+    parts.push("the full " + t + "-topic map takes " + formatEstMins(t / 3));
+    return "Guided Ladder milestones: " + parts.join("; ") + ".";
+  }
+
+  function renderProfilePhases(s) {
+    var section = document.getElementById("profile-phases");
+    if (!section) return;
+
+    var c = s.cats;
+    var t = s.topics;
+    var arch = s.archetypes || 0;
+    var flN = s.firstLadder || Math.min(t, 6);
+    var flM = s.firstLadderMins || Math.max(1, Math.round(flN / 3));
+    var pass1 = s.coreTotal || Math.min(3 * c, t);
+    var pass1M = Math.max(1, Math.round(pass1 / 3));
+    var pass2 = s.deeperTotal || 0;
+    var hasPass2 = pass2 > pass1 && pass2 < t;
+    var pass2M = Math.max(1, Math.round(pass2 / 3));
+    var fullM = Math.max(1, Math.round(t / 3));
+    var factorName = s.isSex ? "Kink Factor" : "Personal Depth Factor";
+    var archPhrase = arch > 1 ? ("all " + arch + " headline archetypes") : "the map’s archetypes";
+    var partnerWord = s.prefix === "dance" ? "dance partner" : s.prefix === "quest" ? "table" : "partner";
+
+    var ledeEl = document.getElementById("phases-lede");
+    if (ledeEl) {
+      ledeEl.textContent = "You don’t need to rate all " + t + " topics in one sitting. Guided Ladder feeds topics in real phases—matching the ticks on the phase-aware progress bar—so every minute unlocks a sharper profile.";
+    }
+
+    var phases = [
+      {
+        num: "Phase 01",
+        tag: "First Ladder",
+        metric: flN + " topics · " + formatEstMins(flM),
+        title: "First archetype projection",
+        body: "Rate the top " + flN + " topics—picked by the greedy orthogonal ladder to separate " + archPhrase + " in the fewest steps. Enough for your first “Which archetype am I?” projection."
+      },
+      {
+        num: "Phase 02",
+        tag: "3/cat · round-robin",
+        metric: pass1 + " topics total · " + formatEstMins(pass1M),
+        title: "Accurate projection & core map",
+        body: "Branch round-robin draws the sharpest pole splits (fault lines) across all " + c + " categories until every branch has at least 3 topics. Locks in an accurate archetype projection and a balanced map ready to compare with a " + partnerWord + "."
       }
+    ];
+
+    if (hasPass2) {
+      phases.push({
+        num: "Phase 03",
+        tag: "6/cat · round-robin",
+        metric: pass2 + " topics total · " + formatEstMins(pass2M),
+        title: "Deeper resolution",
+        body: "Continues round-robin across all " + c + " categories to 6 per branch—surfacing secondary fault lines so Scribe, Scene Setter, and group sync capture nuance beyond headline agreement."
+      });
     }
-    if (parts.length <= 1) {
-      return "Rating all " + t + " topics across its " + c + " categories takes about " + Math.max(8, Math.round(t * 0.38)) + " minutes in total.";
+
+    phases.push({
+      num: hasPass2 ? "Phase 04" : "Phase 03",
+      tag: "Full map",
+      metric: t + " topics · " + formatEstMins(fullM),
+      title: "Complete map",
+      body: "Every " + s.topicTerm + " on the map rated down through the popularity and alphabetical tail—maximum " + factorName + " and zero blind spots in " + partnerWord + " overlays."
+    });
+
+    var grid = document.getElementById("phases-grid");
+    if (grid) {
+      grid.classList.toggle("is-four", phases.length === 4);
+      grid.classList.toggle("is-three", phases.length === 3);
+      grid.innerHTML = phases.map(function (p) {
+        return '<article class="phase-card">' +
+          '<div class="phase-head">' +
+            '<span class="phase-num">' + p.num + '</span>' +
+            '<span class="phase-tag">' + p.tag + '</span>' +
+          '</div>' +
+          '<h3>' + p.title + '</h3>' +
+          '<p class="phase-metric">' + p.metric + '</p>' +
+          '<p class="phase-body">' + p.body + '</p>' +
+        '</article>';
+      }).join("");
     }
-    return "Each extra rung adds up to 3 topics to every category: " + parts.join(", ") + ".";
+
+    var cascadeList = document.getElementById("cascade-list");
+    if (cascadeList) {
+      var tiers = [
+        {
+          rank: "01",
+          name: "Greedy orthogonal first ladder",
+          detail: "Top " + flN + " topics chosen to maximize separation between the closest pair of headline archetypes."
+        },
+        {
+          rank: "02",
+          name: "Branch round-robin pole splits",
+          detail: "Balances all " + c + " categories evenly (to 3/cat" + (hasPass2 ? ", then 6/cat" : "") + "), drawing each branch’s sharpest archetype fault lines first."
+        },
+        {
+          rank: "03",
+          name: "Popularity",
+          detail: "Remaining topics ordered globally by community rating volume so widely relevant ones surface first."
+        },
+        {
+          rank: "04",
+          name: "Alphabetical",
+          detail: "Deterministic tie-breaker for the long tail so rows never jump while you rate."
+        }
+      ];
+      cascadeList.innerHTML = tiers.map(function (tier) {
+        return '<li class="cascade-step">' +
+          '<span class="cascade-rank">' + tier.rank + '</span>' +
+          '<div class="cascade-copy"><strong>' + tier.name + '</strong> — ' + tier.detail + '</div>' +
+        '</li>';
+      }).join("");
+    }
   }
 
   function skinHowItWorks(s) {
@@ -443,44 +817,47 @@ js_content = """/* docs-skin.js — skin-aware rendering for gate-linked docs, q
   function skinQuickstart(s) {
     if (!document.querySelector(".steps-section")) return;
 
-    var estMins = Math.max(8, Math.round(s.cats * 3 / 2.7));
+    var pass1 = s.coreTotal || Math.min(3 * s.cats, s.topics);
+    var estMins = Math.max(1, Math.round(pass1 / 3));
+    var flN = s.firstLadder || Math.min(s.topics, 6);
+    var flM = s.firstLadderMins || Math.max(1, Math.round(flN / 3));
 
     // Title & Meta
     document.title = s.name + " Quick Start";
     var metaDesc = document.querySelector('meta[name="description"]');
     if (metaDesc) {
-      metaDesc.setAttribute("content", "Get started with " + s.name + " in about " + estMins + " minutes: rate 3 " + s.topicsTerm + " per category in the Hot list, then compare your hypermap with a partner.");
+      metaDesc.setAttribute("content", "Get started with " + s.name + ": rate the top " + flN + " topics (~" + flM + " min) for your first archetype projection, or " + pass1 + " balanced topics (~" + estMins + " min) for a partner-ready core map.");
     }
 
     // Hero Section
     var introTitle = document.getElementById("intro-title");
     if (introTitle) introTitle.textContent = "Find what clicks—in about " + estMins + " minutes.";
     var timeEl = document.querySelector(".time");
-    if (timeEl) timeEl.textContent = "~" + estMins + " minutes";
+    if (timeEl) timeEl.textContent = "~" + flM + "m first projection · ~" + estMins + "m core map";
 
     // Hero Lede
     var ledes = document.querySelectorAll(".lede");
     var subcatStr = s.subcats ? (" (" + s.subcats + " subcategories)") : "";
     var ledeHtml = "";
     if (s.isSex) {
-      ledeHtml = "<strong>Sexcapades maps 365 kinks across 18 categories.</strong> You rate each one for giving and for receiving; when a partner rates theirs, the app overlays your two maps and colors every topic by how you match.";
+      ledeHtml = "<strong>Sexcapades maps " + s.topics + " kinks across " + s.cats + " categories.</strong> You rate each one for giving and for receiving; when a partner rates theirs, the app overlays your two maps and colors every topic by how you match.";
     } else if (s.prefix === "dance") {
-      ledeHtml = "<strong>Dancecapades maps 82 partner dances across 9 categories (6 subcategories).</strong> You rate each dance for leading and for following; when a dance partner rates theirs, the app overlays your two maps and colors every dance by your mutual groove and lead/follow fit.";
+      ledeHtml = "<strong>Dancecapades maps " + s.topics + " partner dances across " + s.cats + " categories" + subcatStr + ".</strong> You rate each dance for leading and for following; when a dance partner rates theirs, the app overlays your two maps and colors every dance by your mutual groove and lead/follow fit.";
     } else if (s.prefix === "quest") {
-      ledeHtml = "<strong>Questcapades maps 79 tabletop roleplaying games and styles across 8 categories.</strong> You rate each game for running (GMing) and for playing; when your table rates theirs, the app overlays your maps and highlights the systems where GM appetite meets player desire.";
+      ledeHtml = "<strong>Questcapades maps " + s.topics + " tabletop roleplaying games and styles across " + s.cats + " categories.</strong> You rate each game for running (GMing) and for playing; when your table rates theirs, the app overlays your maps and highlights the systems where GM appetite meets player desire.";
     } else if (s.prefix === "flex") {
-      ledeHtml = "<strong>Flexcapades maps 29 topics across 7 categories.</strong> How you use Flexcapades, and how you want it to grow: you rate each feature and open question on your stake in it; when a partner or team member rates theirs, the app overlays your two maps and colors every topic by how you match.";
+      ledeHtml = "<strong>Flexcapades maps " + s.topics + " topics across " + s.cats + " categories.</strong> How you use Flexcapades, and how you want it to grow: you rate each feature and open question on your stake in it; when a partner or team member rates theirs, the app overlays your two maps and colors every topic by how you match.";
     } else {
       ledeHtml = "<strong>" + s.name + " maps " + s.topics + " " + s.topicsTerm + " across " + s.cats + " categories" + subcatStr + ".</strong> " + s.aboutSummary + " You rate each " + s.topicTerm + " on your " + s.poles[0] + " and " + s.poles[1] + "; when a partner rates theirs, the app overlays your two maps and colors every topic by how you match.";
     }
     ledes.forEach(function (l) { l.innerHTML = ledeHtml; });
 
-    // Step 1: Hot list hierarchy
+    // Step 1: Hot list hierarchy & modes
     var hierHtml = "";
     if (s.subcats > 0) {
-      hierHtml = s.catsWithSub + " of the " + s.cats + " categories split into subcategories (" + s.subcats + " in total). A <strong>›</strong> beside a name means it is collapsed; tap it and the arrow turns down (<strong>⌄</strong>) as its contents expand in place.";
+      hierHtml = "In By Category view, " + s.catsWithSub + " of the " + s.cats + " categories split into subcategories (" + s.subcats + " in total). Tap any heading (<strong>›</strong>) to expand all of its topics in place.";
     } else {
-      hierHtml = "All " + s.cats + " categories are flat lists without subcategories for direct, rapid scanning. A <strong>›</strong> beside a category name collapses or expands its topics in place.";
+      hierHtml = "In By Category view, all " + s.cats + " categories are flat lists for rapid browsing. Tap any heading (<strong>›</strong>) to expand all of its topics in place.";
     }
     var step1HierEls = document.querySelectorAll(".steps .step:nth-child(1) p[data-sx-sex-only], .steps .step:nth-child(1) p[data-sx-vanilla-only]");
     if (step1HierEls.length > 0) {
@@ -490,7 +867,7 @@ js_content = """/* docs-skin.js — skin-aware rendering for gate-linked docs, q
       if (step1Ps.length >= 2) step1Ps[1].innerHTML = hierHtml;
     }
 
-    // Step 2: Rating sliders & Coverage
+    // Step 2: Rating sliders & Guided Ladder phases
     var sliderHtml = "";
     if (s.isSex) {
       sliderHtml = "Every topic has two sliders: <strong>give</strong> sits above the topic’s line, <strong>receive</strong> below it. Drag either one to set how much you want that side of it — the scale runs from Not Interested through Curious about to Want to do, and you can also flag a topic Hard Limit or Fantasy-only.";
@@ -509,15 +886,23 @@ js_content = """/* docs-skin.js — skin-aware rendering for gate-linked docs, q
       if (step2Ps.length >= 1) step2Ps[0].innerHTML = sliderHtml;
     }
 
-    var almostAll = (3 * s.cats >= s.topics) ? " (covering almost the entire map!)" : "";
-    var coverageText = "Stopping at 3 per category covers all " + s.cats + " categories — " + (3 * s.cats) + " topics in about " + estMins + " minutes" + almostAll + ".";
+    var step2FirstLi = document.getElementById("step2-first-ladder");
+    if (step2FirstLi) {
+      step2FirstLi.innerHTML = "<strong>Phase 1 — First Ladder (" + flN + " topics · " + formatEstMins(flM) + "):</strong> start with the top greedy-orthogonal topics to unlock your first archetype projection.";
+    }
+
+    var almostAll = (pass1 >= Math.round(s.topics * 0.7)) ? " (covering most of the map!)" : "";
+    var coverageText = "<strong>Phase 2 — Core map (" + pass1 + " topics total · " + formatEstMins(estMins) + "):</strong> branch round-robin balances all " + s.cats + " categories (3 per category)" + almostAll + " for an accurate archetype projection and partner comparison.";
     var step2CoverageLis = document.querySelectorAll(".steps .step:nth-child(2) ul li[data-sx-sex-only], .steps .step:nth-child(2) ul li[data-sx-vanilla-only]");
     if (step2CoverageLis.length > 0) {
       step2CoverageLis.forEach(function (li) { li.innerHTML = coverageText; });
     } else {
       var step2Lis = document.querySelectorAll(".steps .step:nth-child(2) ul li");
-      if (step2Lis.length >= 2) step2Lis[step2Lis.length - 1].innerHTML = coverageText;
+      if (step2Lis.length >= 2) step2Lis[1].innerHTML = coverageText;
     }
+
+    // Profile phases & 4-tier Hot List cascade
+    renderProfilePhases(s);
 
     // Step 3: Compare with partner
     var step3CompareEls = document.querySelectorAll(".steps .step:nth-child(3) p[data-sx-sex-only], .steps .step:nth-child(3) p[data-sx-vanilla-only]");

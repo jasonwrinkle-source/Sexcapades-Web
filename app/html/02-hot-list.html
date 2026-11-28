@@ -13,40 +13,41 @@
 </div>
 <header class="outline-head">
 <div class="outline-head-actions">
+<div aria-label="Hot List view mode" class="outline-mode-switch" role="group">
+<button aria-pressed="true" class="outline-mode-btn is-active" data-outline-mode="ladder" id="outlineModeLadder" type="button">Guided Ladder</button>
+<button aria-pressed="false" class="outline-mode-btn" data-outline-mode="category" id="outlineModeCategory" type="button">By Category</button>
+</div>
 <div class="outline-search-wrap">
 <input aria-label="Search topics in list" class="outline-search-input" type="search" id="outlineSearch" placeholder="Search topics in list…"/>
 </div>
 <label class="outline-show-rated" for="outlineShowRated">
 <input aria-describedby="outlineShowRatedTip" id="outlineShowRated" type="checkbox"/>
 <span>Show prior ratings</span>
-<span class="outline-show-rated-tip" id="outlineShowRatedTip" role="tooltip">Items you rate stay visible until their heading or subcategory is collapsed and reopened; after that, rated items are hidden from this list unless “Show prior ratings” is checked.</span>
+<span class="outline-show-rated-tip" id="outlineShowRatedTip" role="tooltip">Items you rate stay visible until their section is collapsed and reopened; after that, rated items are hidden from this list unless “Show prior ratings” is checked.</span>
 </label>
 <label class="outline-show-rated" for="outlineShowOnDeck">
 <input aria-describedby="outlineShowOnDeckTip" id="outlineShowOnDeck" type="checkbox"/>
 <span>Show On Deck</span>
 <span class="outline-show-rated-tip" id="outlineShowOnDeckTip" role="tooltip">Topics from imports that still need full ratings: broad branch matches, topics with only a mark or flag, topics rated in one direction only, coarse import values, and unreviewed test ratings. Items you finish stay visible until their heading is collapsed and reopened, or the list is closed. Topics with a hard limit are never listed.</span>
 </label>
-<div aria-label="Rating progress with topic-count and estimated-time milestones" class="outline-progress">
+<div aria-label="Phase progress with topic-count and estimated-time milestones" class="outline-progress">
 <div class="outline-progress-track" role="progressbar">
+<span aria-hidden="true" class="outline-progress-raw" id="outlineProgressRaw"></span>
 <span class="outline-progress-fill" id="outlineProgressBar"></span>
-<span aria-hidden="true" class="outline-ladder-mark" data-label="54 · ~18m" style="left:13.366%" title="54 topics · ~18 min"></span>
-<span aria-hidden="true" class="outline-ladder-mark" data-label="108 · ~36m" style="left:26.733%" title="108 topics · ~36 min"></span>
-<span aria-hidden="true" class="outline-ladder-mark" data-label="162 · ~54m" style="left:40.099%" title="162 topics · ~54 min"></span>
-<span aria-hidden="true" class="outline-ladder-mark" data-label="216 · ~72m" style="left:53.465%" title="216 topics · ~72 min"></span>
-<span aria-hidden="true" class="outline-ladder-mark" data-label="270 · ~90m" style="left:66.832%" title="270 topics · ~90 min"></span>
-<span aria-hidden="true" class="outline-ladder-mark" data-label="324 · ~108m" style="left:80.198%" title="324 topics · ~108 min"></span>
-<span aria-hidden="true" class="outline-ladder-mark" data-label="378 · ~126m" style="left:93.564%" title="378 topics · ~126 min"></span>
-<span aria-hidden="true" class="outline-ladder-mark outline-ladder-full" data-label="400+ · ~134m" title="Full map · 400+ topics · ~134 min"></span>
+<span aria-hidden="true" class="outline-ladder-mark outline-ladder-first" data-label="24 · ~7m" style="left:6.3%" title="Phase 1 · First Ladder"></span>
+<span aria-hidden="true" class="outline-ladder-mark" data-label="54 · ~18m" style="left:14.1%" title="Phase 2 · Core Map"></span>
+<span aria-hidden="true" class="outline-ladder-mark" data-label="108 · ~36m" style="left:28.3%" title="Phase 3 · Deeper"></span>
+<span aria-hidden="true" class="outline-ladder-mark outline-ladder-full" data-label="Full" title="Full map"></span>
 </div>
 </div>
-<output class="outline-header-count" id="outlineHeaderCount">0 of 400+ topics rated</output>
+<output class="outline-header-count" id="outlineHeaderCount">Phase 1: 0 rated</output>
 <div aria-label="List-rate timer controls" class="outline-progress-meta">
 <output id="outlineProgressText">00:00 elapsed</output>
 <button aria-label="Pause elapsed timer" class="outline-timer-toggle" id="outlineTimerToggle" title="Pause timer" type="button"><svg aria-hidden="true" class="outline-pause-icon" viewbox="0 0 16 16"><rect height="12" rx="1" width="4" x="3" y="2"></rect><rect height="12" rx="1" width="4" x="9" y="2"></rect></svg><svg aria-hidden="true" class="outline-resume-icon" viewbox="0 0 16 16"><path d="M4 2.5a1 1 0 0 1 1.53-.85l7.5 5.5a1 1 0 0 1 0 1.7l-7.5 5.5A1 1 0 0 1 4 13.5z"></path></svg></button>
 <button aria-label="Reset elapsed timer and start a new timed pass" class="outline-timer-toggle outline-timer-reset" id="outlineTimerReset" title="Reset timer and start" type="button">Reset</button>
 </div>
 </div>
-<div class="outline-quickstart-tip" hidden="" id="outlineQuickstartTip"><span><strong>Quick, high-value hypermap:</strong> Topics are sorted by popularity, so the first choices under each heading are the most useful ones for a first pass. Rate the top three under each heading (54 total), then submit what you’ve got.</span><button aria-label="Dismiss quick start tip" class="outline-quickstart-dismiss" id="outlineQuickstartDismiss" type="button">×</button></div>
+<div class="outline-quickstart-tip" hidden="" id="outlineQuickstartTip"><span><strong>Guided Ladder:</strong> Phase 1 separates the map’s archetypes first; Phase 2 balances every category round-robin for an accurate core map. Switch to <strong>By Category</strong> anytime to browse freely.</span><button aria-label="Dismiss quick start tip" class="outline-quickstart-dismiss" id="outlineQuickstartDismiss" type="button">×</button></div>
 </header>
 <div class="outline-sections" id="outlineSections"></div>
 </div>

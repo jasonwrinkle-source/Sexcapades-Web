@@ -249,11 +249,28 @@ tr.is-edited td{background:color-mix(in srgb,var(--focus) 7%,transparent)}
 #outlineDialog .outline-head{grid-template-columns:minmax(0,1fr);grid-template-rows:auto auto}
 #outlineDialog .outline-head-actions{grid-column:1;grid-row:1;display:flex;align-items:center;justify-content:flex-start;gap:8px 14px;flex-wrap:wrap;align-self:auto;min-width:0}
 #outlineDialog .outline-head-actions .outline-progress{display:block;flex:0 1 200px;max-width:220px;min-width:96px;margin:0;padding:9px 0 0;grid-column:auto;grid-row:auto}
-#outlineDialog .outline-head-actions .outline-progress-track{height:4px;margin:0}
+#outlineDialog .outline-head-actions .outline-progress-track{height:4px;margin:0;position:relative}
+#outlineDialog .outline-progress-raw{position:absolute;inset:0 auto 0 0;width:0;border-radius:inherit;background:color-mix(in srgb,var(--focus,#47d8f4) 28%,transparent);transition:width .2s ease;pointer-events:none}
+#outlineDialog .outline-progress-fill{position:relative;z-index:1}
 #outlineDialog .outline-head-actions .outline-ladder-mark{top:-2px;width:2px;height:8px}
+#outlineDialog .outline-head-actions .outline-ladder-mark.is-reached{background:var(--green,#4be29b)}
+#outlineDialog .outline-head-actions .outline-ladder-mark.is-reached:after{color:var(--green,#4be29b)}
 #outlineDialog .outline-head-actions .outline-ladder-mark:after{display:none;bottom:10px}
-#outlineDialog .outline-head-actions .outline-ladder-mark[data-label="54 · ~18m"]:after,#outlineDialog .outline-head-actions .outline-ladder-mark.outline-ladder-first:after,#outlineDialog .outline-head-actions .outline-ladder-mark.outline-ladder-full:after{display:block;font-size:8px}
+#outlineDialog .outline-head-actions .outline-ladder-mark.outline-ladder-first:after,#outlineDialog .outline-head-actions .outline-ladder-mark.outline-ladder-core:after,#outlineDialog .outline-head-actions .outline-ladder-mark.outline-ladder-full:after{display:block;font-size:8px}
 #outlineDialog .outline-head-actions .outline-progress-meta{justify-content:flex-start}
+#outlineDialog .outline-mode-switch{display:inline-flex;align-items:center;border:1px solid var(--line-strong,var(--line));border-radius:8px;overflow:hidden;background:var(--panel-2,var(--panel));flex:0 0 auto}
+#outlineDialog .outline-mode-btn{min-height:44px;padding:0 12px;border:0;background:transparent;color:var(--muted);font:inherit;font-size:12px;font-weight:700;cursor:pointer;white-space:nowrap;transition:background .15s ease,color .15s ease}
+#outlineDialog .outline-mode-btn+.outline-mode-btn{border-left:1px solid var(--line)}
+#outlineDialog .outline-mode-btn.is-active{background:color-mix(in srgb,var(--focus,#47d8f4) 18%,transparent);color:var(--ink)}
+#outlineDialog .outline-mode-btn:focus-visible{outline:2px solid var(--focus);outline-offset:-2px}
+#outlineDialog .outline-phase-title{display:flex;align-items:center;flex-wrap:wrap;gap:6px 10px}
+#outlineDialog .outline-phase-tag{display:inline-flex;align-items:center;padding:2px 8px;border-radius:999px;background:color-mix(in srgb,var(--focus,#47d8f4) 12%,transparent);color:var(--muted);font-size:11px;font-weight:600;white-space:nowrap}
+#outlineDialog .outline-phase-branch.is-phase-complete>summary .outline-branch-count{color:var(--green,#4be29b);font-weight:700}
+#outlineDialog .outline-phase-desc{margin:0;padding:8px 14px 4px;color:var(--muted);font-size:12px}
+#outlineDialog .outline-phase-banner{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px 12px;margin:6px 12px 10px;padding:10px 14px;border:1px solid color-mix(in srgb,var(--green,#4be29b) 45%,var(--line));border-radius:8px;background:color-mix(in srgb,var(--green,#4be29b) 10%,var(--panel));color:var(--ink);font-size:12.5px;font-weight:600}
+#outlineDialog .outline-phase-banner[hidden]{display:none}
+#outlineDialog .outline-phase-next-btn{min-height:36px;padding:4px 12px;font-size:12px}
+#outlineDialog .outline-topic-crumb{display:block;margin-top:2px;color:var(--muted);font-size:11px;line-height:1.25;opacity:.85}
 #outlineDialog .outline-quickstart-tip{grid-column:1;grid-row:2}
 /* The intro header already carries the view switch. The list's own
    title bar and topic controls scroll away with the sections. */

@@ -1,23 +1,233 @@
+        function sxSyncOutlineModeButtons() {
+            const isCat = window.__sxOutlineViewMode === "category";
+            const onDeck = Boolean(window.__sxOnDeck);
+            const btnLadder = e.byId("outlineModeLadder"), btnCat = e.byId("outlineModeCategory");
+            if (btnLadder) {
+                btnLadder.classList.toggle("is-active", !isCat && !onDeck);
+                btnLadder.setAttribute("aria-pressed", String(!isCat && !onDeck));
+            }
+            if (btnCat) {
+                btnCat.classList.toggle("is-active", isCat && !onDeck);
+                btnCat.setAttribute("aria-pressed", String(isCat && !onDeck));
+            }
+        }
+        window.__sxSyncOutlineModeButtons = sxSyncOutlineModeButtons;
+
+        function sxRenderGuidedLadder(t, opts = {}) {
+            const preserve = Boolean(opts.preserveDisclosure);
+            const prevOpen = preserve ? new Set(Array.from(Ro.querySelectorAll(".outline-phase-branch[open]")).map(el => el.dataset.outlinePhaseKey)) : null;
+            const prevLimits = preserve ? new Map(Array.from(Ro.querySelectorAll(".outline-phase-branch")).map(el => [ el.dataset.outlinePhaseKey, Number(el.dataset.outlineVisible) || 0 ])) : new Map;
+            const guided = sxComputeGuidedLadder();
+            const prog = sxComputePhaseProgress(t);
+            const statsByKey = new Map(prog.phases.map(p => [ p.key, p ]));
+            const activeKey = prog.currentPhase ? prog.currentPhase.key : (guided.phases[0]?.key || "");
+            const BATCH_THRESHOLD = 36, BATCH_STEP = 24;
+
+            Oo.textContent = (t === Et ? "New profile" : wt[t] || "Profile") + (yt[t] ? " *" : "");
+            Ro.replaceChildren();
+
+            const phaseEls = [];
+            guided.phases.forEach((phase, idx) => {
+                const st = statsByKey.get(phase.key) || { done: 0, total: phase.ids.length, complete: false };
+                const details = document.createElement("details");
+                details.className = "outline-branch outline-phase-branch" + (st.complete ? " is-phase-complete" : "");
+                details.dataset.outlineBranch = `phase:${phase.key}`;
+                details.dataset.outlinePhaseKey = phase.key;
+                details.open = preserve ? prevOpen.has(phase.key) : (phase.key === activeKey);
+
+                const summary = document.createElement("summary");
+                const disc = document.createElement("span");
+                disc.className = "outline-branch-disclosure";
+                disc.textContent = "›";
+                disc.tabIndex = 0;
+                disc.setAttribute("aria-expanded", String(details.open));
+
+                const titleWrap = document.createElement("span");
+                titleWrap.className = "outline-branch-title outline-phase-title";
+                titleWrap.setAttribute("role", "heading");
+                titleWrap.setAttribute("aria-level", "2");
+                const titleMain = document.createElement("span");
+                titleMain.textContent = `Phase ${phase.index} · ${phase.title}`;
+                const tag = document.createElement("span");
+                tag.className = "outline-phase-tag";
+                tag.textContent = `${phase.tag} · ~${phase.estMinutes}m`;
+                titleWrap.append(titleMain, tag);
+
+                const countEl = document.createElement("span");
+                countEl.className = "outline-branch-count";
+                countEl.textContent = st.complete ? `✓ ${st.total}/${st.total}` : `${st.done}/${st.total} rated`;
+
+                summary.append(disc, titleWrap, countEl);
+                details.append(summary);
+
+                const rowsWrap = document.createElement("div");
+                rowsWrap.className = "outline-rows";
+
+                const descP = document.createElement("p");
+                descP.className = "outline-phase-desc";
+                descP.textContent = phase.desc;
+                rowsWrap.append(descP);
+
+                // Inline phase unlock banner (shown when phase completes)
+                if (phase.key === "first" || phase.key === "core") {
+                    const banner = document.createElement("div");
+                    banner.className = "outline-phase-banner";
+                    banner.hidden = !st.complete;
+                    const msg = document.createElement("span");
+                    msg.textContent = phase.key === "first"
+                        ? "✓ First Ladder complete — your profile is ready for its first archetype projection."
+                        : "✓ Core Map complete — accurate archetype projection & partner-ready map unlocked.";
+                    banner.append(msg);
+                    if (idx + 1 < guided.phases.length) {
+                        const nextPhase = guided.phases[idx + 1];
+                        const nextBtn = document.createElement("button");
+                        nextBtn.type = "button";
+                        nextBtn.className = "action-btn outline-phase-next-btn";
+                        nextBtn.textContent = `Continue to Phase ${nextPhase.index} →`;
+                        nextBtn.addEventListener("click", ev => {
+                            ev.preventDefault();
+                            ev.stopPropagation();
+                            const targetEl = Ro.querySelector(`.outline-phase-branch[data-outline-phase-key="${nextPhase.key}"]`);
+                            if (targetEl) {
+                                details.open = false;
+                                targetEl.open = true;
+                                targetEl.scrollIntoView({ behavior: "smooth", block: "start" });
+                            }
+                        });
+                        banner.append(nextBtn);
+                    }
+                    rowsWrap.append(banner);
+                }
+
+                // Build rows in exact phase sequence with subtle category breadcrumb
+                phase.ids.forEach((tid, rankIdx) => {
+                    const rec = guided.topicMap.get(tid);
+                    if (!rec) return;
+                    const importedIds = sxListImportedChildIds(tid, t).filter(cid => (at[t] || {})[cid]);
+                    const row = sxBuildOutlineRow({
+                        id: tid,
+                        label: rec.label,
+                        branch: rec.branch,
+                        subName: rec.subName,
+                        showBreadcrumb: true,
+                        kind: "Topic",
+                        risk: rec.risk,
+                        expandable: importedIds.length > 0,
+                        expanded: false
+                    }, t);
+                    row.dataset.outlineBranch = rec.branch;
+                    row.dataset.outlineTopicRank = String(rankIdx);
+                    rowsWrap.append(row);
+                    importedIds.forEach(cid => {
+                        const childRec = (at[t] || {})[cid];
+                        const childRow = sxBuildOutlineRow({
+                            id: cid,
+                            label: childRec.label || cid,
+                            branch: rec.branch,
+                            kind: "Imported",
+                            risk: rec.risk,
+                            parentId: tid
+                        }, t);
+                        childRow.hidden = true;
+                        rowsWrap.append(childRow);
+                    });
+                });
+
+                // Only large phases (e.g., Full Map on Sexcapades) use global batch reveal
+                const useBatch = phase.ids.length > BATCH_THRESHOLD;
+                let visibleLimit = useBatch ? Math.max(BATCH_STEP, prevLimits.get(phase.key) || BATCH_STEP) : phase.ids.length;
+                const moreBtn = document.createElement("button");
+                moreBtn.type = "button";
+                moreBtn.className = "outline-more";
+                n(moreBtn, '<span class="outline-more-label"></span>');
+                rowsWrap.append(moreBtn);
+                details.append(rowsWrap);
+                Ro.append(details);
+                phaseEls.push(details);
+
+                const syncPhaseVisibility = (limitOverride) => {
+                    if (useBatch && Number.isFinite(limitOverride) && limitOverride > 0) {
+                        visibleLimit = Math.max(BATCH_STEP, limitOverride);
+                    }
+                    details.dataset.outlineVisible = String(visibleLimit);
+                    const topicRows = Array.from(rowsWrap.querySelectorAll(":scope > .outline-row[data-outline-topic-rank]"));
+                    const eligible = topicRows.filter(r => !sxIsOutlineRated(r.dataset.outlineId, t) || os.has(r.dataset.outlineId));
+                    const priorRated = Uo.checked ? topicRows.filter(r => sxIsOutlineRated(r.dataset.outlineId, t) && !os.has(r.dataset.outlineId)) : [];
+                    const shownSet = new Set(eligible.slice(0, useBatch ? visibleLimit : eligible.length).map(r => r.dataset.outlineId));
+                    priorRated.forEach(r => shownSet.add(r.dataset.outlineId));
+
+                    topicRows.forEach(r => {
+                        const shown = shownSet.has(r.dataset.outlineId);
+                        const isPrior = Uo.checked && priorRated.includes(r);
+                        r.hidden = !shown;
+                        r.style.order = isPrior ? "2" : "";
+                        const lbl = r.querySelector('.outline-topic-label[data-outline-expandable="true"]');
+                        const expanded = lbl && lbl.getAttribute("aria-expanded") !== "false";
+                        sxOutlineChildRows(rowsWrap, r.dataset.outlineId).forEach(cr => {
+                            cr.hidden = !shown || !expanded;
+                            cr.style.order = isPrior ? "2" : "";
+                        });
+                    });
+
+                    const remaining = eligible.filter(r => !shownSet.has(r.dataset.outlineId)).length;
+                    moreBtn.hidden = !useBatch || remaining <= 0;
+                    if (!moreBtn.hidden) {
+                        const stepN = Math.min(BATCH_STEP, remaining);
+                        const lblTxt = `Show next ${stepN} (${remaining} remaining)`;
+                        moreBtn.querySelector(".outline-more-label").textContent = lblTxt;
+                        moreBtn.setAttribute("aria-label", `${lblTxt} in Phase ${phase.index}`);
+                    }
+                    details.classList.toggle("is-expanded", details.open);
+                    disc.setAttribute("aria-expanded", String(details.open));
+                };
+
+                details._syncOutlineVisibility = syncPhaseVisibility;
+                details.addEventListener("toggle", () => {
+                    if (details.open) {
+                        getOutlineRows(details).forEach(r => os.delete(r.dataset.outlineId));
+                    }
+                    syncPhaseVisibility();
+                });
+                moreBtn.addEventListener("click", ev => {
+                    ev.preventDefault();
+                    ev.stopPropagation();
+                    const prevHidden = new Set(Array.from(rowsWrap.querySelectorAll(":scope > .outline-row[data-outline-topic-rank]")).filter(r => r.hidden));
+                    syncPhaseVisibility(visibleLimit + BATCH_STEP);
+                    const firstNew = Array.from(rowsWrap.querySelectorAll(":scope > .outline-row[data-outline-topic-rank]")).find(r => prevHidden.has(r) && !r.hidden)?.querySelector(".outline-topic-label");
+                    firstNew?.focus({ preventScroll: true });
+                });
+                syncPhaseVisibility();
+            });
+
+            sxApplyOutlineSearch();
+            sxRefreshHotListStatus();
+        }
+
         function sxRenderHotList(e = {}) {
             const t = Go;
             if (!t || t !== Et && !vt[t]) return;
             os.clear();
+            sxSyncOutlineModeButtons();
             if (window.__sxOnDeck) return __sxRenderOnDeck(t), void sxRefreshHotListStatus();
             // Build 2026-10-18_1549 — FetLife review mode (armed by the
             // post-import summary's “Rate the categories your kinks map
             // to” button): render only the mapped branches, collapsed.
             const sxReview = window.__sxFetLifeReview instanceof Set && window.__sxFetLifeReview.size ? window.__sxFetLifeReview : null;
-            const i = Boolean(e.preserveDisclosure), a = i ? new Set(Array.from(Ro.querySelectorAll(".outline-branch[open]")).map(e => e.dataset.outlineBranch)) : null, r = i ? new Set(Array.from(Ro.querySelectorAll(".outline-branch.is-expanded")).map(e => e.dataset.outlineBranch)) : null, o = i ? new Set(Array.from(Ro.querySelectorAll('.outline-subcategory[data-subcategory-expanded="true"]')).map(e => e.dataset.outlineSubcategory)) : null, s = i ? new Set(Array.from(Ro.querySelectorAll('.outline-topic-label[data-outline-expandable="true"][aria-expanded="true"]')).map(e => __sxClosestAction(e, "outlineRow")?.dataset.outlineId).filter(Boolean)) : null, l = i ? new Map(Array.from(Ro.querySelectorAll(".outline-branch")).map(e => [ e.dataset.outlineBranch, Number(e.dataset.outlineVisible) || 3 ])) : new Map, c = i ? new Map(Array.from(Ro.querySelectorAll(".outline-subcategory")).map(e => [ e.dataset.outlineSubcategory, Number(e.dataset.outlineSubcategoryVisible) ]).filter(([, e]) => Number.isFinite(e) && e > 0)) : new Map;
+            const sxHits = window.__sxOutlineHits && window.__sxOutlineHits.size ? window.__sxOutlineHits : null;
+            if (!sxReview && !sxHits && window.__sxOutlineViewMode !== "category") {
+                return sxRenderGuidedLadder(t, e);
+            }
+            const i = Boolean(e.preserveDisclosure), a = i ? new Set(Array.from(Ro.querySelectorAll(".outline-branch[open]")).map(e => e.dataset.outlineBranch)) : null, o = i ? new Set(Array.from(Ro.querySelectorAll('.outline-subcategory[data-subcategory-expanded="true"]')).map(e => e.dataset.outlineSubcategory)) : null, s = i ? new Set(Array.from(Ro.querySelectorAll('.outline-topic-label[data-outline-expandable="true"][aria-expanded="true"]')).map(e => __sxClosestAction(e, "outlineRow")?.dataset.outlineId).filter(Boolean)) : null;
             Oo.textContent = (t === Et ? "New profile" : wt[t] || "Profile") + (yt[t] ? " *" : ""), Ro.replaceChildren(),
-            sxSortedOutlineTree(t).forEach(e => {
+            sxSortedOutlineTree(t).forEach((e, branchIdx) => {
                 const d = e.name, sxCatHit = Boolean(sxReview && sxReview.has(catId(d))), sxSubHit = Boolean(sxReview && (e.subcategories || []).some(s => sxReview.has(sxResolveSubcategoryId(d, s.name))));
                 if (sxReview && !sxCatHit && !sxSubHit) return;
                 const u = Boolean(e.risk), p = document.createElement("details");
-                p.className = "outline-branch", p.dataset.outlineBranch = d, p.open = sxReview && !i ? !1 : !i || a.has(d);
-                const h = document.createElement("summary"), g = document.createElement("span"), m = document.createElement("span"), f = document.createElement("span"), y = "Collapse or expand this branch. The topic total stays fixed for this list session.";
+                p.className = "outline-branch", p.dataset.outlineBranch = d, p.open = sxReview && !i ? !1 : (i ? a.has(d) : branchIdx === 0);
+                const h = document.createElement("summary"), g = document.createElement("span"), m = document.createElement("span"), f = document.createElement("span"), y = "Collapse or expand this category.";
                 if (g.className = "outline-branch-disclosure", g.textContent = "›", g.tabIndex = 0,
                 g.dataset.tooltipTapFirst = "", g.dataset.outlineDisclosureTooltip = y, g.setAttribute("aria-label", y),
-                g.setAttribute("aria-expanded", "false"), m.className = "outline-branch-title outline-description-trigger", m.setAttribute("role", "heading"), m.setAttribute("aria-level", "2"),
+                g.setAttribute("aria-expanded", String(p.open)), m.className = "outline-branch-title outline-description-trigger", m.setAttribute("role", "heading"), m.setAttribute("aria-level", "2"),
                 m.textContent = d, m.dataset.outlineDescription = sxPlacardAboutText({
                     id: catId(d),
                     label: d,
@@ -38,227 +248,153 @@
                 b && (h.classList.add("has-popularity-icon"), g.after(b));
                 const v = document.createElement("div");
                 v.className = "outline-rows";
-                const w = new Map, k = new Map, x = function(e = {}) {
-                    const t = {
-                        limit: Math.max(3, Number(e.limit) || 3),
-                        categoryExpanded: Boolean(e.categoryExpanded),
-                        eligibleIds: new Set,
-                        expandedSubcategories: new Set(e.expandedSubcategoryIds || []),
-                        subcategoryLimits: new Map(e.subcategoryLimits || []),
-                        subcategoryOverviewLimits: new Map
-                    };
-                    return {
-                        get limit() {
-                            return t.limit;
-                        },
-                        isCategoryExpanded: () => t.categoryExpanded,
-                        setCategoryExpanded: e => (t.categoryExpanded = Boolean(e), t.categoryExpanded),
-                        setLimit: e => (t.limit = Math.max(3, Number(e) || 3), t.limit),
-                        advance() {
-                            return this.setLimit(t.limit + 3);
-                        },
-                        eligibleIds: e => (t.eligibleIds = new Set(e()), t.eligibleIds),
-                        isSubcategoryExpanded: e => t.expandedSubcategories.has(e),
-                        refreshSubcategoryOverview(e, n) {
-                            t.subcategoryOverviewLimits.set(e, n), t.expandedSubcategories.has(e) || t.subcategoryLimits.set(e, n);
-                        },
-                        subcategoryLimit: e => t.subcategoryLimits.get(e) || 0,
-                        setSubcategoryLimit: (e, n) => (t.subcategoryLimits.set(e, Math.max(0, Number(n) || 0)), t.subcategoryLimits.get(e) || 0),
-                        toggleSubcategory: (e, n) => t.expandedSubcategories.has(e) ? (t.expandedSubcategories.delete(e),
-                        t.subcategoryLimits.set(e, t.subcategoryOverviewLimits.get(e) ?? 0), !1) : (t.expandedSubcategories.add(e),
-                        t.subcategoryLimits.set(e, n), !0)
-                    };
-                }({
-                    limit: l.get(d),
-                    categoryExpanded: !!r && r.has(d),
-                    expandedSubcategoryIds: Array.from(o || []),
-                    subcategoryLimits: c
-                });
+                const w = new Map, k = new Map;
+                const expandedSubs = new Set(o || []);
                 e.topics.forEach((n, a) => {
                     const r = sxFindTopicSubcategory(e, sxName(n));
                     let o = v, l = null;
                     if (r) {
-                        const e = sxResolveSubcategoryId(d, r.name);
-                        if (l = e, !w.has(e)) {
-                            const t = document.createElement("div"), n = document.createElement("div"), i = document.createElement("span"), a = document.createElement("span"), o = document.createElement("span"), s = document.createElement("div"), l = "Shows the most popular kinks. Click to expand and show all kinks in this subcategory.";
-                            t.className = "outline-subcategory", t.dataset.outlineSubcategory = e, t.dataset.subcategoryExpanded = x.isSubcategoryExpanded(e) ? "true" : "false",
-                            x.isSubcategoryExpanded(e) && t.classList.add("is-expanded"), i.className = "outline-branch-disclosure outline-subcategory-disclosure",
-                            i.textContent = "›", i.tabIndex = 0, i.dataset.tooltipTapFirst = "", i.dataset.outlineDisclosureTooltip = l,
-                            i.setAttribute("aria-label", l), i.setAttribute("role", "button"), i.setAttribute("aria-expanded", x.isSubcategoryExpanded(e) ? "true" : "false"),
-                            a.className = "outline-subcategory-title outline-description-trigger", a.textContent = r.name,
-                            a.dataset.outlineDescription = sxPlacardAboutText({
-                                id: e,
+                        const subId = sxResolveSubcategoryId(d, r.name);
+                        if (l = subId, !w.has(subId)) {
+                            const grp = document.createElement("div"), sum = document.createElement("div"), disc = document.createElement("span"), ttl = document.createElement("span"), cnt = document.createElement("span"), subRows = document.createElement("div"), tip = "Collapse or expand this subcategory.";
+                            const subOpen = !i || expandedSubs.has(subId);
+                            if (subOpen) expandedSubs.add(subId);
+                            grp.className = "outline-subcategory" + (subOpen ? " is-expanded" : ""), grp.dataset.outlineSubcategory = subId, grp.dataset.subcategoryExpanded = String(subOpen),
+                            disc.className = "outline-branch-disclosure outline-subcategory-disclosure",
+                            disc.textContent = "›", disc.tabIndex = 0, disc.dataset.tooltipTapFirst = "", disc.dataset.outlineDisclosureTooltip = tip,
+                            disc.setAttribute("aria-label", tip), disc.setAttribute("role", "button"), disc.setAttribute("aria-expanded", String(subOpen)),
+                            ttl.className = "outline-subcategory-title outline-description-trigger", ttl.textContent = r.name,
+                            ttl.dataset.outlineDescription = sxPlacardAboutText({
+                                id: subId,
                                 label: r.name,
                                 branch: d,
                                 kind: "Subcategory"
-                            }), o.className = "outline-subcategory-count", o.textContent = `0 of ${r.topics.length} shown`,
-                            n.className = "outline-subcategory-summary", n.setAttribute("role", "button"), n.tabIndex = 0,
-                            n.setAttribute("aria-expanded", x.isSubcategoryExpanded(e) ? "true" : "false"),
-                            s.className = "outline-subcategory-rows", n.append(i, a, o), t.append(n, s), v.append(t),
-                            w.set(e, {
-                                group: t,
-                                summary: n,
-                                rows: s,
-                                count: o,
+                            }), cnt.className = "outline-subcategory-count", cnt.textContent = `0 / ${r.topics.length} rated`,
+                            sum.className = "outline-subcategory-summary", sum.setAttribute("role", "button"), sum.tabIndex = 0,
+                            sum.setAttribute("aria-expanded", String(subOpen)),
+                            subRows.className = "outline-subcategory-rows", sum.append(disc, ttl, cnt), grp.append(sum, subRows), v.append(grp),
+                            w.set(subId, {
+                                group: grp,
+                                summary: sum,
+                                rows: subRows,
+                                count: cnt,
                                 name: r.name
                             });
-                            const c = sxMakePopularityIcon(sxHubIcon(r.name, d), {
-                                id: e,
+                            const icon = sxMakePopularityIcon(sxHubIcon(r.name, d), {
+                                id: subId,
                                 label: r.name,
                                 branch: d,
                                 kind: "Subcategory",
                                 topics: r.topics
                             });
-                            c && (n.classList.add("has-popularity-icon"), i.after(c));
+                            icon && (sum.classList.add("has-popularity-icon"), disc.after(icon));
                         }
-                        o = w.get(e).rows;
+                        o = w.get(subId).rows;
                     }
-                    const c = sxResolveTopicId(n), p = function(e, t = e => e) {
+                    const c = sxResolveTopicId(n), pList = function(e, t = e => e) {
                         return sxSortByScore(e, e => sxTopicPopularity(e, t(e)?.label), e => {
                             const n = t(e) || e;
                             return n?.label || e;
                         });
-                    }(sxListImportedChildIds(c, t).filter(e => (at[t] || {})[e]), e => (at[t] || {})[e]), h = i ? s.has(c) : (sxReview ? !1 : function(e, t) {
+                    }(sxListImportedChildIds(c, t).filter(e => (at[t] || {})[e]), e => (at[t] || {})[e]), hExp = i ? s.has(c) : (sxReview ? !1 : function(e, t) {
                         if (!e.length) return !1;
                         let n = !1, i = !0;
                         return e.forEach(e => {
                             const a = sxDecodeTopicStance(e, t), keys = (a.keys && Array.isArray(a.keys)) ? a.keys : [ "give", "receive" ], r = keys.map(k => Boolean(a[k + "Known"]));
                             r.some(Boolean) && (n = !0), r.every(Boolean) || (i = !1);
                         }), n && !i;
-                    }(p, t)), g = sxBuildOutlineRow({
+                    }(pList, t)), gRow = sxBuildOutlineRow({
                         id: c,
                         label: n,
                         branch: d,
                         kind: "Topic",
                         risk: Boolean(((e.topics || []).find(topic => sxName(topic) === sxName(n)) || {}).risk),
-                        expandable: p.length > 0,
-                        expanded: h
+                        expandable: pList.length > 0,
+                        expanded: hExp
                     }, t);
-                    if (g.dataset.outlineBranch = d, g.dataset.outlineTopicRank = String(e.outlineTopicRanks?.get(c) ?? a),
+                    if (gRow.dataset.outlineBranch = d, gRow.dataset.outlineTopicRank = String(e.outlineTopicRanks?.get(c) ?? a),
                     l) {
                         const e = k.get(l) || 0;
-                        g.dataset.outlineSubcategoryRank = String(e), k.set(l, e + 1);
+                        gRow.dataset.outlineSubcategoryRank = String(e), k.set(l, e + 1);
                     }
-                    o.append(g), p.forEach(e => {
-                        const n = sxBuildOutlineRow({
-                            id: e,
-                            label: (at[t] || {})[e].label || e,
+                    o.append(gRow), pList.forEach(cid => {
+                        const nRow = sxBuildOutlineRow({
+                            id: cid,
+                            label: (at[t] || {})[cid].label || cid,
                             branch: d,
                             kind: "Imported",
                             risk: Boolean(((e.topics || []).find(topic => sxName(topic) === sxName(n)) || {}).risk),
                             parentId: c
                         }, t);
-                        n.hidden = !h, o.append(n);
+                        nRow.hidden = !hExp, o.append(nRow);
                     });
                 });
-                const S = document.createElement("button");
-                S.type = "button", S.className = "outline-more", n(S, '<span class="outline-more-label"></span>'),
-                v.append(S), p.append(v), Ro.append(p);
-                const $ = e => {
-                    const n = Array.from(v.querySelectorAll(".outline-row[data-outline-topic-rank]")).sort((e, t) => Number(e.dataset.outlineTopicRank) - Number(t.dataset.outlineTopicRank)), i = Array.from(v.querySelectorAll(".outline-row[data-outline-id]")), a = x.setLimit(e);
-                    p.dataset.outlineVisible = String(a);
-                    const r = x.eligibleIds(() => i.filter(e => !sxIsOutlineRated(e.dataset.outlineId, t) || os.has(e.dataset.outlineId)).map(e => e.dataset.outlineId)), o = n.filter(e => r.has(e.dataset.outlineId)), s = Math.min(o.length, a), l = new Set(o.slice(0, s).map(e => e.dataset.outlineId)), priorRated = Uo.checked ? n.filter(e => sxIsOutlineRated(e.dataset.outlineId, t) && !os.has(e.dataset.outlineId)) : [], c = new Set(o.slice(0, 3).map(e => e.dataset.outlineId));
-                    priorRated.forEach(e => l.add(e.dataset.outlineId));
-                    w.forEach((e, t) => {
-                        const n = Array.from(e.rows.querySelectorAll(":scope > .outline-row[data-outline-topic-rank]")).sort((e, t) => Number(e.dataset.outlineSubcategoryRank) - Number(t.dataset.outlineSubcategoryRank)), i = x.isSubcategoryExpanded(t) ? n : n.filter(e => r.has(e.dataset.outlineId)), a = i.filter(e => c.has(e.dataset.outlineId)).length;
-                        x.refreshSubcategoryOverview(t, a), i.slice(0, Math.min(i.length, x.subcategoryLimit(t))).forEach(e => l.add(e.dataset.outlineId)),
-                        e.localRows = n, e.localEligible = i;
-                    }), n.forEach(e => {
-                        const t = l.has(e.dataset.outlineId), isPriorRating = Uo.checked && priorRated.includes(e);
-                        e.hidden = !t, e.style.order = isPriorRating ? "2" : "";
-                        const n = e.querySelector('.outline-topic-label[data-outline-expandable="true"]'), i = n && "false" !== n.getAttribute("aria-expanded");
-                        sxOutlineChildRows(v, e.dataset.outlineId).forEach(e => {
-                            e.hidden = !t || !i || !r.has(e.dataset.outlineId), e.style.order = isPriorRating ? "2" : "";
+                p.append(v), Ro.append(p);
+                const syncCatVisibility = () => {
+                    const allRows = Array.from(v.querySelectorAll(".outline-row[data-outline-topic-rank]"));
+                    const priorRated = Uo.checked ? allRows.filter(r => sxIsOutlineRated(r.dataset.outlineId, t) && !os.has(r.dataset.outlineId)) : [];
+                    const ratedTotal = allRows.filter(r => sxIsOutlineRated(r.dataset.outlineId, t)).length;
+                    allRows.forEach(r => {
+                        const isRated = sxIsOutlineRated(r.dataset.outlineId, t);
+                        const isPrior = Uo.checked && isRated && !os.has(r.dataset.outlineId);
+                        const subGrp = r.closest(".outline-subcategory");
+                        const subCollapsed = subGrp && !expandedSubs.has(subGrp.dataset.outlineSubcategory);
+                        const visible = !subCollapsed && (!isRated || os.has(r.dataset.outlineId) || Uo.checked);
+                        r.hidden = !visible;
+                        r.style.order = isPrior ? "2" : "";
+                        const lbl = r.querySelector('.outline-topic-label[data-outline-expandable="true"]');
+                        const expanded = lbl && lbl.getAttribute("aria-expanded") !== "false";
+                        sxOutlineChildRows(v, r.dataset.outlineId).forEach(cr => {
+                            cr.hidden = !visible || !expanded;
+                            cr.style.order = isPrior ? "2" : "";
                         });
                     });
-                    const u = n.filter(e => !e.hidden), h = o.filter(e => !l.has(e.dataset.outlineId)).length;
-                    f.textContent = `${u.length} of ${n.length} shown`;
-                    const m = x.isCategoryExpanded();
-                    p.classList.toggle("is-expanded", m), g.setAttribute("aria-expanded", String(m)),
-                    w.forEach((e, t) => {
-                        const n = e.localRows.filter(e => !e.hidden).length;
-                        e.localEligible.filter(e => !l.has(e.dataset.outlineId)).length, e.count.textContent = `${n} of ${e.localRows.length} shown`,
-                        e.group.dataset.outlineSubcategoryVisible = String(x.subcategoryLimit(t));
-                        const i = x.isSubcategoryExpanded(t);
-                        e.group.dataset.subcategoryExpanded = i ? "true" : "false", e.group.classList.toggle("is-expanded", i),
-                        e.summary.setAttribute("aria-expanded", String(i)), e.summary.querySelector(".outline-subcategory-disclosure")?.setAttribute("aria-expanded", String(i)),
-                        e.group.hidden = !i && 0 === n;
-                    }), S.hidden = h <= 0, S.dataset.outlineVisible = String(a), S.setAttribute("aria-label", h > 0 ? `${ss} topics in ${d}` : `All available topics shown in ${d}`),
-                    S.querySelector(".outline-more-label").textContent = h > 0 ? ss : "";
-                };
-                w.forEach((e, t) => {
-                    const n = () => {
-                        const n = e.rows.querySelectorAll(":scope > .outline-row[data-outline-topic-rank]").length;
-                        x.isSubcategoryExpanded(t) || getOutlineRows(e.rows).forEach(e => os.delete(e.dataset.outlineId)),
-                        x.toggleSubcategory(t, window.__sxFetLifeReview ? Math.min(3, n) : n), $(x.limit);
-                    };
-                    e.summary.addEventListener("click", e => {
-                        e.preventDefault(), n();
-                    }), e.summary.addEventListener("keydown", e => {
-                        "Enter" !== e.key && " " !== e.key || __sxClosestAction(e.target, "outlineSubcategoryDisclosure") || (e.preventDefault(),
-                        n());
-                    });
-                }), p._syncOutlineVisibility = $, p.addEventListener("toggle", () => {
-                    p.open ? (getOutlineRows(p).forEach(e => os.delete(e.dataset.outlineId)),
-                    $(x.limit)) : (p.classList.remove("is-expanded"), g.setAttribute("aria-expanded", "false"));
-                });
-                const E = () => {
-                    if (p.open || (p.open = !0), x.isCategoryExpanded()) x.setCategoryExpanded(!1),
-                    w.forEach((e, t) => {
-                        x.isSubcategoryExpanded(t) && x.toggleSubcategory(t, 0);
-                    }), $(3); else {
-                        x.setCategoryExpanded(!0), getOutlineRows(p).forEach(e => os.delete(e.dataset.outlineId));
-                        const e = v.querySelectorAll(".outline-row[data-outline-topic-rank]").length;
-                        $(Math.max(e, 3));
-                    }
-                };
-                p._toggleOutlineCategory = E, h.addEventListener("click", e => {
-                    e.preventDefault(), Rs && e.target instanceof Element && __sxClosestAction(e.target, "outlineDescTrigger") === Rs || E();
-                }), $(x.limit), S.addEventListener("click", e => {
-                    e.preventDefault(), e.stopPropagation();
-                    const t = new Set(Array.from(v.querySelectorAll(".outline-row[data-outline-topic-rank]")).filter(e => e.hidden));
-                    $(x.advance());
-                    const n = Array.from(v.querySelectorAll(".outline-row[data-outline-topic-rank]")).sort((e, t) => Number(e.dataset.outlineTopicRank) - Number(t.dataset.outlineTopicRank)).find(e => t.has(e) && !e.hidden)?.querySelector(".outline-topic-label");
-                    n?.focus({
-                        preventScroll: !0
-                    });
-                });
-                const sxHits = window.__sxOutlineHits;
-                if (sxHits && sxHits.size && !sxReview) {
-                    sxHits.has(catId(d)) && (p.open = !0);
+                    f.textContent = `${ratedTotal}/${allRows.length} rated`;
+                    p.classList.toggle("is-expanded", p.open);
+                    g.setAttribute("aria-expanded", String(p.open));
                     w.forEach((grp, subId) => {
-                        if (!sxHits.has(subId)) return;
-                        p.open = !0, x.isSubcategoryExpanded(subId) ? x.setSubcategoryLimit(subId, Math.max(3, x.subcategoryLimit(subId))) : x.toggleSubcategory(subId, 3);
-                        const total = grp.rows.querySelectorAll(":scope > .outline-row[data-outline-topic-rank]").length;
-                        if (total > 3) {
-                            const btn = document.createElement("button");
-                            btn.type = "button", btn.className = "outline-more outline-more-subcategory", btn.setAttribute("aria-label", `Show the next three popular topics in ${grp.name}`), n(btn, '<span class="outline-more-label">+3 more</span>'), btn.hidden = x.subcategoryLimit(subId) >= total, btn.addEventListener("click", ev => {
-                                ev.preventDefault(), ev.stopPropagation(), x.setSubcategoryLimit(subId, Math.min(total, x.subcategoryLimit(subId) + 3)), $(x.limit), btn.hidden = x.subcategoryLimit(subId) >= total;
-                            }), grp.rows.append(btn);
+                        const subTopicRows = Array.from(grp.rows.querySelectorAll(":scope > .outline-row[data-outline-topic-rank]"));
+                        const subRated = subTopicRows.filter(r => sxIsOutlineRated(r.dataset.outlineId, t)).length;
+                        const isSubOpen = expandedSubs.has(subId);
+                        grp.count.textContent = `${subRated}/${subTopicRows.length} rated`;
+                        grp.group.dataset.subcategoryExpanded = String(isSubOpen);
+                        grp.group.classList.toggle("is-expanded", isSubOpen);
+                        grp.summary.setAttribute("aria-expanded", String(isSubOpen));
+                        grp.summary.querySelector(".outline-subcategory-disclosure")?.setAttribute("aria-expanded", String(isSubOpen));
+                    });
+                };
+                w.forEach((grp, subId) => {
+                    const toggleSub = () => {
+                        if (expandedSubs.has(subId)) expandedSubs.delete(subId);
+                        else {
+                            expandedSubs.add(subId);
+                            getOutlineRows(grp.rows).forEach(r => os.delete(r.dataset.outlineId));
                         }
-                    }), $(x.limit);
+                        syncCatVisibility();
+                    };
+                    grp.summary.addEventListener("click", ev => { ev.preventDefault(); toggleSub(); });
+                    grp.summary.addEventListener("keydown", ev => {
+                        ("Enter" !== ev.key && " " !== ev.key) || __sxClosestAction(ev.target, "outlineSubcategoryDisclosure") || (ev.preventDefault(), toggleSub());
+                    });
+                });
+                p._syncOutlineVisibility = syncCatVisibility;
+                p.addEventListener("toggle", () => {
+                    if (p.open) getOutlineRows(p).forEach(r => os.delete(r.dataset.outlineId));
+                    syncCatVisibility();
+                });
+                if (sxHits && !sxReview) {
+                    if (sxHits.has(catId(d))) p.open = !0;
+                    w.forEach((grp, subId) => {
+                        if (sxHits.has(subId)) { p.open = !0; expandedSubs.add(subId); }
+                    });
                 }
                 if (sxReview) {
-                    // Review mode: branches stay collapsed (no auto-expand).
-                    // When only some subcategories of this category were
-                    // hit, hide the other subcategory groups and the
-                    // category's own direct topic rows; hit subcategories
-                    // get the same top-3 “+3 more” stepper the auto-expand
-                    // path uses, revealed when the user expands them.
-                    if (!sxCatHit) w.forEach((grp, subId) => {
-                        sxReview.has(subId) || (grp.group.style.display = "none");
-                    }), Array.from(v.querySelectorAll(":scope > .outline-row")).forEach(r => r.style.display = "none");
-                    w.forEach((grp, subId) => {
-                        if (!sxCatHit && !sxReview.has(subId)) return;
-                        const total = grp.rows.querySelectorAll(":scope > .outline-row[data-outline-topic-rank]").length;
-                        if (total > 3) {
-                            const btn = document.createElement("button");
-                            btn.type = "button", btn.className = "outline-more outline-more-subcategory", btn.setAttribute("aria-label", `Show the next three popular topics in ${grp.name}`), n(btn, '<span class="outline-more-label">+3 more</span>'), btn.hidden = x.subcategoryLimit(subId) >= total, btn.addEventListener("click", ev => {
-                                ev.preventDefault(), ev.stopPropagation(), x.setSubcategoryLimit(subId, Math.min(total, x.subcategoryLimit(subId) + 3)), $(x.limit), btn.hidden = x.subcategoryLimit(subId) >= total;
-                            }), grp.rows.append(btn);
-                        }
-                    });
+                    if (!sxCatHit) {
+                        w.forEach((grp, subId) => { sxReview.has(subId) || (grp.group.style.display = "none"); });
+                        Array.from(v.querySelectorAll(":scope > .outline-row")).forEach(r => r.style.display = "none");
+                    }
                 }
+                syncCatVisibility();
             }), sxApplyOutlineSearch(), sxRefreshHotListStatus();
         }
         /* Hot List skin rebuild (2026-11-18, gate → Hot List defect):

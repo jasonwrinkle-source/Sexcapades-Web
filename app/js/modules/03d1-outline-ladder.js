@@ -1,55 +1,47 @@
-        /* Hot List ladder (2026-11-27):
-           The first tick mark is the skin's Greedy Orthogonal First Ladder
-           (spend ~N min rating top M topics to separate the archetypes, with
-           a 6-topic soft floor). Subsequent ticks mark category passes
-           (3 per category across all categories), followed by the full-list
-           end cap. */
+        /* Hot List phase-aware progress ladder (2026-11-27):
+           Ticks mark real profile phases from sxComputeGuidedLadder():
+             - Phase 1: First Ladder (greedy orthogonal archetype separator)
+             - Phase 2: Core Map (Branch Round-Robin to 3/cat)
+             - Phase 3: Deeper (Branch Round-Robin to 6/cat, non-compact maps)
+             - Final:   Full Map end cap
+           Each tick receives .is-reached ONLY when that phase's actual topics
+           are rated (not merely when raw total rated crosses the count). */
         let sxLadderKey = "";
-        function sxPaintOutlineLadder() {
+        function sxPaintOutlineLadder(phaseProgress = null) {
             const track = qo && qo.parentElement;
             if (!track) return;
-            const total = window.__SX_SKIN_TOPIC_COUNT || 403;
-            const cats = Math.max(1, (h && h.length) || 18);
-            const fl = "function" == typeof window.__SX_FIRST_LADDER ? window.__SX_FIRST_LADDER() : null;
-            const firstN = fl && fl.count > 0 && fl.count < total ? fl.count : 0;
-            const firstM = fl && fl.estMinutes > 0 ? fl.estMinutes : Math.max(1, Math.round(firstN / 3));
-            const key = total + ":" + cats + ":" + firstN + ":" + firstM;
-            if (key === sxLadderKey) return;
-            sxLadderKey = key;
-            track.querySelectorAll(".outline-ladder-mark").forEach(el => el.remove());
-            const step = cats * 3, mins = n => Math.max(1, Math.round(n / 3));
-            const marks = [];
-            if (firstN > 0) {
-                marks.push({
-                    label: `${firstN} · ~${firstM}m`,
-                    title: `First ladder · rate top ${firstN} topics (~${firstM} min) to find your archetype`,
-                    left: (100 * firstN / total).toFixed(3) + "%",
-                    first: true
+            const guided = "function" == typeof window.__SX_GUIDED_LADDER ? window.__SX_GUIDED_LADDER() : null;
+            const total = (guided && guided.totalTopics) || window.__SX_SKIN_TOPIC_COUNT || 382;
+            const phases = (guided && guided.phases) || [];
+            const key = total + ":" + phases.map(p => p.key + "=" + p.cumEnd + "@" + p.cumMinutes).join("|");
+            if (key !== sxLadderKey) {
+                sxLadderKey = key;
+                track.querySelectorAll(".outline-ladder-mark").forEach(el => el.remove());
+                phases.forEach(p => {
+                    const isFull = p.key === "full" || p.cumEnd >= total;
+                    const s = document.createElement("span");
+                    s.setAttribute("aria-hidden", "true");
+                    s.className = "outline-ladder-mark" +
+                        (isFull ? " outline-ladder-full" : p.key === "first" ? " outline-ladder-first" : p.key === "core" ? " outline-ladder-core" : "");
+                    s.dataset.phaseKey = p.key;
+                    s.dataset.label = `${p.cumEnd} · ~${p.cumMinutes}m`;
+                    s.title = `Phase ${p.index} (${p.shortLabel}) · ${p.cumEnd} topics · ~${p.cumMinutes} min`;
+                    if (!isFull) s.style.left = (100 * p.cumEnd / total).toFixed(3) + "%";
+                    track.appendChild(s);
                 });
             }
-            const firstPct = firstN > 0 ? (100 * firstN / total) : -99;
-            for (let n = step; n < total; n += step) {
-                const pct = 100 * n / total;
-                if (firstN > 0 && Math.abs(pct - firstPct) < 6) continue;
-                const m = mins(n);
-                marks.push({ label: `${n} · ~${m}m`, title: `${n} topics · ~${m} min`, left: pct.toFixed(3) + "%" });
+            if (phaseProgress && Array.isArray(phaseProgress.phases)) {
+                const byKey = new Map(phaseProgress.phases.map(p => [p.key, p]));
+                let priorOk = true;
+                track.querySelectorAll(".outline-ladder-mark").forEach(el => {
+                    const st = byKey.get(el.dataset.phaseKey);
+                    const reached = Boolean(priorOk && st && st.complete);
+                    el.classList.toggle("is-reached", reached);
+                    if (!reached) priorOk = false;
+                });
             }
-            const fm = mins(total);
-            marks.push(total === 403
-                ? { label: "400+ · ~134m", title: "Full map · 400+ topics · ~134 min", full: true }
-                : { label: `${total} · ~${fm}m`, title: `Full list · ${total} topics · ~${fm} min`, full: true });
-            marks.forEach((m, i) => {
-                const s = document.createElement("span");
-                s.setAttribute("aria-hidden", "true");
-                const isFirst = Boolean(m.first) || (!firstN && i === 0 && !m.full);
-                s.className = "outline-ladder-mark" + (m.full ? " outline-ladder-full" : isFirst ? " outline-ladder-first" : "");
-                s.dataset.label = m.label;
-                s.title = m.title;
-                if (!m.full) s.style.left = m.left;
-                track.appendChild(s);
-            });
         }
         window.__SX_SYNC_OUTLINE_LADDER = function () {
             sxLadderKey = "";
-            sxPaintOutlineLadder();
+            sxPaintOutlineLadder(Go && "function" == typeof window.__SX_PHASE_PROGRESS ? window.__SX_PHASE_PROGRESS(Go) : null);
         };
