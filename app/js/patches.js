@@ -2103,6 +2103,26 @@ __sxInit(function initSceneSetterAi() {
       return;
     }
 
+    // Scene consent gate — PER-PROFILE (Jason, 2026-11-28, RULING): the
+    // scene does not play until EACH participant has e-signed ONE OR THE
+    // OTHER form — the written guide or the conversation record.
+    // Moderation plans are discussions, not scenes, so the gate applies
+    // to play (Sex) only. It does not block generating, copying, or
+    // downloading — only playback.
+    if (!setterIsModeration() && typeof negGuideSceneUnlockState === "function") {
+      var gate = negGuideSceneUnlockState();
+      if (!gate.unlocked) {
+        var signedNames = gate.perProfile.filter(function(p) { return p.signed; }).map(function(p) {
+          var formLabel = p.form === "both" ? "both forms" : (p.form === "guide" ? "written guide" : "conversation record");
+          return p.name + " (" + formLabel + ")";
+        });
+        var msg = "Before the scene plays, each participant must e-sign one of the two forms — the written guide or the conversation record. Still to sign: " + gate.missing.map(function(p) { return p.name; }).join(", ") + ". They can sign either form.";
+        if (signedNames.length) msg += " Already signed: " + signedNames.join(", ") + ".";
+        alert(msg);
+        return;
+      }
+    }
+
     var text = (guideText ? guideText.value : "").trim();
     if (!text && st && st.queuedText) {
       text = st.queuedText.trim();
@@ -2153,6 +2173,12 @@ __sxInit(function initSceneSetterAi() {
     var dot = document.getElementById("setterPlayDot");
     var live = document.getElementById("setterLivePlayStatus");
 
+    // Conversation-complete detection: if the discussion plan played
+    // through in Sentinel, the e-signature opens (end of conversation).
+    if (typeof negGuideCheckPlanPlayedThrough === "function") {
+      try { negGuideCheckPlanPlayedThrough(st); } catch (_) {}
+    }
+
     var mm = String(Math.floor(st.elapsedSec / 60)).padStart(2, "0");
     var ss = String(st.elapsedSec % 60).padStart(2, "0");
     var timeStr = mm + ":" + ss;
@@ -2160,6 +2186,7 @@ __sxInit(function initSceneSetterAi() {
     if (st.on && !st.paused) {
       if (sPlayBtn) sPlayBtn.textContent = "⏸ Pause (" + timeStr + ")";
       if (pgPlayBtn) pgPlayBtn.textContent = "⏸ Pause Guide";
+      if (negGuidePlayBtn) negGuidePlayBtn.textContent = "⏸ Pause Plan";
       if (dot) {
         dot.style.background = "#22c55e";
         dot.style.boxShadow = "0 0 8px #22c55e";
@@ -2173,6 +2200,7 @@ __sxInit(function initSceneSetterAi() {
     } else if (st.on && st.paused) {
       if (sPlayBtn) sPlayBtn.textContent = "▶ Resume (" + timeStr + ")";
       if (pgPlayBtn) pgPlayBtn.textContent = "▶ Resume Guide";
+      if (negGuidePlayBtn) negGuidePlayBtn.textContent = "▶ Resume Plan";
       if (dot) {
         dot.style.background = "#facc15";
         dot.style.boxShadow = "0 0 6px #facc15";
@@ -2184,6 +2212,7 @@ __sxInit(function initSceneSetterAi() {
     } else {
       if (sPlayBtn) sPlayBtn.textContent = setterIsModeration() ? "▶ Run" : "▶ Play";
       if (pgPlayBtn) pgPlayBtn.textContent = setterIsModeration() ? "▶ Run in Scene Sentinel" : "▶ Play in Scene Sentinel";
+      if (negGuidePlayBtn) negGuidePlayBtn.textContent = setterIsModeration() ? "▶ Run in Scene Sentinel" : "▶ Play in Scene Sentinel";
       if (dot) {
         dot.style.background = "#64748b";
         dot.style.boxShadow = "none";
@@ -2193,6 +2222,31 @@ __sxInit(function initSceneSetterAi() {
         live.style.color = "#cbd5e1";
       }
     }
+
+    // Consent-gate hint on the scene Play buttons (per-profile): name who
+    // still needs to sign and which form each person signed, so the block
+    // is never silent. Only when a written guide exists (no guide —
+    // nothing to sign, no gate).
+    try {
+      if (typeof negGuideSceneUnlockState === "function" && !setterIsModeration()) {
+        var gateHint = negGuideSceneUnlockState();
+        if (gateHint.names.length) {
+          var signedHint = gateHint.perProfile.filter(function(p) { return p.signed; }).map(function(p) {
+            var formLabel = p.form === "both" ? "both forms" : (p.form === "guide" ? "written guide" : "conversation record");
+            return p.name + " (" + formLabel + ")";
+          });
+          var hint;
+          if (gateHint.unlocked) {
+            hint = "All participants have signed — scene unlocked. Signed: " + signedHint.join(", ") + ".";
+          } else {
+            hint = "Scene locked — still to sign (either form): " + gateHint.missing.map(function(p) { return p.name; }).join(", ") + ".";
+            if (signedHint.length) hint += " Signed: " + signedHint.join(", ") + ".";
+          }
+          if (sPlayBtn) sPlayBtn.title = hint;
+          if (pgPlayBtn) pgPlayBtn.title = hint;
+        }
+      }
+    } catch (_) {}
   }
 
   setInterval(syncSentinelPlayStatus, 500);
@@ -2220,6 +2274,7 @@ __sxInit(function initSceneSetterAi() {
   var negGuideStatus = document.getElementById("negGuideStatus");
   var negGuideCopyBtn = document.getElementById("negGuideCopyBtn");
   var negGuideDownloadBtn = document.getElementById("negGuideDownloadBtn");
+  var negGuidePlayBtn = document.getElementById("negGuidePlayBtn");
   var negGuideProviderSelect = document.getElementById("negGuideAiProvider");
   var negGuideGetKeyLink = document.getElementById("negGuideGetKeyLink");
   var negGuideModePlanBtn = document.getElementById("negGuideModePlanBtn");
@@ -2235,6 +2290,7 @@ __sxInit(function initSceneSetterAi() {
   var negGuideLastGuideText = "";
   var negGuidePlanSigNames = "";
   var negGuideLastPlanText = "";
+  var negGuideLastCompleteKey = "";
   var negGuideSigState = {};
   var negGuidePlanSigState = {};
 
@@ -2314,6 +2370,9 @@ __sxInit(function initSceneSetterAi() {
     if (negGuidePlanSigSection) {
       negGuidePlanSigSection.hidden = !(negGuideMode === "plan" && negGuideOutputs.plan && negGuideOutputs.plan.trim());
     }
+    // Only the discussion plan is timed and playable in Scene Sentinel;
+    // the readable version has no timecodes.
+    if (negGuidePlayBtn) negGuidePlayBtn.hidden = negGuideMode !== "plan";
     negGuideSyncGenerateLabel();
   }
 
@@ -2372,6 +2431,41 @@ __sxInit(function initSceneSetterAi() {
       setTimeout(function() { URL.revokeObjectURL(url); }, 0);
     });
   }
+
+  // Discussion plan playback (Jason, 2026-11-28): the timed discussion
+  // plan plays in Scene Sentinel like a play guide. Sentinel's parser
+  // accepts any step name before the dash and CHECK-IN EVERY is
+  // optional (defaults to the panel's 5-min pulse), so the play-side
+  // plan needs no format change; the moderation side already carries
+  // CHECK-IN EVERY. Only the plan mode is playable — the readable
+  // version has no timecodes.
+  function handleNegGuidePlayToggle() {
+    var st = typeof window.__sxGetGuidePlayState === "function" ? window.__sxGetGuidePlayState() : null;
+    if (st && st.on) {
+      if (typeof window.__sxToggleGuidePlay === "function") {
+        window.__sxToggleGuidePlay();
+      }
+      return;
+    }
+    if (negGuideMode !== "plan") {
+      alert("Playback is for the discussion plan. Switch to Discussion plan mode first.");
+      return;
+    }
+    var text = (negGuideText ? negGuideText.value : "").trim();
+    if (!text) {
+      alert("Please generate a discussion plan first before starting playback.");
+      return;
+    }
+    if (negGuideContainer) negGuideContainer.hidden = false;
+    if (typeof window.__sxQueueAndPlayGuide === "function") {
+      var ok = window.__sxQueueAndPlayGuide(text, true);
+      if (!ok) {
+        alert("Could not parse timed steps from the discussion plan. Ensure the plan contains timecodes like [00:00-05:00].");
+        return;
+      }
+    }
+  }
+  if (negGuidePlayBtn) negGuidePlayBtn.addEventListener("click", handleNegGuidePlayToggle);
 
   if (negGuideStopBtn) {
     negGuideStopBtn.addEventListener("click", function() {
@@ -2499,8 +2593,9 @@ __sxInit(function initSceneSetterAi() {
   if (negGuideKeyInput) negGuideKeyInput.addEventListener("input", negGuideSyncGenerateLabel);
   if (negGuideText) negGuideText.addEventListener("input", function() {
     if (negGuideOutputKind) negGuideOutputs[negGuideOutputKind] = negGuideText.value;
-    // Editing the discussion plan text after signing voids its signatures.
-    if (negGuideOutputKind === "plan" && Object.keys(negGuidePlanSigState).length && negGuideText.value !== negGuideLastPlanText) {
+    // Editing the discussion plan text voids its signatures and its
+    // conversation completion (the text the signatures covered changed).
+    if (negGuideOutputKind === "plan" && negGuideText.value !== negGuideLastPlanText) {
       Object.keys(negGuidePlanSigState).forEach(function(n) { delete negGuidePlanSigState[n]; });
       refreshNegGuidePlanSignatures();
     }
@@ -2519,11 +2614,24 @@ __sxInit(function initSceneSetterAi() {
   // the agreement or plan text changes afterwards, the signatures
   // are cleared and the participants sign the updated version.
   // --------------------------------------------------------------------------
+  // Two distinct signed documents (Jason, 2026-11-28), THREE attestations:
+  // the written guide carries "I agree to this guide" (the binding
+  // record); the conversation-time document carries BOTH "adequate time
+  // was given to discuss the guide's aspects" AND "the timings of the
+  // verbal conversation were gone over" (Jason, 2026-11-28 — the
+  // discussion plan's timed steps are a third thing e-signed, to confirm
+  // they were reviewed). Both documents are signed only at the end of
+  // the conversation (see the gating below), but they attest different things.
+  // NOTE (Jason, 2026-11-28): the playback gate (all signatures before
+  // Sentinel plays the scene) was NOT his requirement — it "might be
+  // good" but was not the point. No gate is implemented here; the Play
+  // buttons are ungated. The core requirement is the e-sign covering
+  // the timings, not the gate.
   function negGuideSignatureStatement(isPlan) {
-    if (isPlan) return "By signing, I confirm I have read this discussion plan and agree to follow it as the plan for our conversation.";
+    if (isPlan) return "By signing, I confirm that adequate time was given to discuss the aspects of the dry, precise written document, and that the timings of the verbal conversation (the timed steps in this document) were gone over, following this discussion plan.";
     return setterIsModeration()
-      ? "By signing, I confirm I have read this discussion agreement and agree to its terms and ground rules."
-      : "By signing, I confirm I have read this negotiation guide and agree to its terms, limits, and safewords.";
+      ? "By signing, I confirm I have read this dry, precise written discussion agreement and agree to its terms and ground rules."
+      : "By signing, I confirm I have read this dry, precise written negotiation guide and agree to its terms, limits, and safewords.";
   }
   function negGuideTodayISO() {
     var d = new Date();
@@ -2534,6 +2642,218 @@ __sxInit(function initSceneSetterAi() {
   function negGuideNowStamp() {
     var d = new Date();
     return d.toLocaleDateString() + " " + d.toLocaleTimeString();
+  }
+  // Conversation-complete gating (Jason, 2026-11-28): the e-signature is
+  // the closing step of the conversation, not an "I agree" available any
+  // time. The signature unlocks when the discussion plan has played
+  // through in Scene Sentinel, or when the participants mark the
+  // conversation complete by hand (for talks held without the timer).
+  // The completion is keyed to the exact text it covers: if the plan or
+  // guide text changes afterwards, the completion is void and the
+  // conversation must be completed again for the updated text.
+  // Detection note: Sentinel's elapsed clock reads 0 when playback is
+  // off, so completion is caught while playing (elapsed at/past the
+  // last step's end) or, on stop, from the furthest elapsed observed
+  // while playing (within 2s of the end — one poll cycle of slack).
+  var negGuideConversationDoneKey = "";
+  var negGuidePlanMaxElapsed = 0;
+  function negGuidePlanKey() { return "plan:" + (negGuideOutputs.plan || ""); }
+  function negGuideGuideKey() {
+    var p = document.getElementById("negotiationPanel");
+    return "guide:" + (p ? (p.dataset.negotiationGuide || "") : "");
+  }
+  function negGuideIsConversationComplete() {
+    if (!negGuideConversationDoneKey) return false;
+    return negGuideConversationDoneKey === negGuidePlanKey() || negGuideConversationDoneKey === negGuideGuideKey();
+  }
+  function negGuideMarkConversationComplete(kind) {
+    negGuideConversationDoneKey = kind === "guide" ? negGuideGuideKey() : negGuidePlanKey();
+    refreshNegGuidePlanSignatures();
+    refreshNegGuideSignatures();
+  }
+  function negGuideCheckPlanPlayedThrough(st) {
+    if (!st || typeof negGuideOutputs === "undefined" || !negGuideOutputs || !negGuideOutputs.plan || !negGuideOutputs.plan.trim()) return;
+    if (negGuideIsConversationComplete()) return;
+    var planText = negGuideOutputs.plan.trim();
+    var queued = (st.queuedText || "").trim();
+    if (queued !== planText) { negGuidePlanMaxElapsed = 0; return; }
+    if (!st.steps || !st.steps.length) return;
+    var lastEnd = st.steps[st.steps.length - 1].end;
+    if (st.on) {
+      if (st.elapsedSec > negGuidePlanMaxElapsed) negGuidePlanMaxElapsed = st.elapsedSec;
+      if (st.elapsedSec >= lastEnd) {
+        negGuideConversationDoneKey = negGuidePlanKey();
+        negGuidePlanMaxElapsed = 0;
+        refreshNegGuidePlanSignatures();
+        refreshNegGuideSignatures();
+      }
+    } else if (negGuidePlanMaxElapsed > 0 && negGuidePlanMaxElapsed >= lastEnd - 2) {
+      // Playback stopped after reaching (within 2s of) the end — the
+      // conversation ran through to its closing step.
+      negGuideConversationDoneKey = negGuidePlanKey();
+      negGuidePlanMaxElapsed = 0;
+      refreshNegGuidePlanSignatures();
+      refreshNegGuideSignatures();
+    }
+  }
+  // Scene consent gate — PER-PROFILE (Jason, 2026-11-28, RULING,
+  // supersedes the earlier per-form OR gate): EACH participant must have
+  // signed ONE OR THE OTHER form — the written guide (form 1) OR the
+  // conversation record (form 2: conversation-time attestation + the
+  // timings gone over). The scene unlocks when EVERY profile has signed
+  // at least one form. This is NOT "either form signed by all" — it is
+  // "each person signed something." The girl (or the shyest/most
+  // reserved one) can do the verbal going-over privately and sign the
+  // conversation record, while others separately sign the written guide.
+  // The verbal going-over itself does not require other participants to
+  // be present — the conversation record can be signed by one person
+  // after a private/one-on-one verbal going-over. The gate applies to
+  // playing the SCENE (play guide) only, not to the discussion plan
+  // (the conversation itself — gating it would deadlock, since the
+  // signatures happen at its end), and not to moderation plans (which
+  // are discussions, not scenes). If there is no written guide (no
+  // negotiation happened), there is nothing to sign and the gate does
+  // not block.
+  function negGuideSceneUnlockState() {
+    var names = (typeof negGuideParticipantNames === "function") ? negGuideParticipantNames() : [];
+    var guideState = (typeof negGuideSigState !== "undefined" && negGuideSigState) || {};
+    var planState = (typeof negGuidePlanSigState !== "undefined" && negGuidePlanSigState) || {};
+    if (!names.length) return { unlocked: true, names: [], perProfile: [], missing: [] };
+    var perProfile = names.map(function(n) {
+      var guideSigned = !!guideState[n];
+      var planSigned = !!planState[n];
+      return {
+        name: n,
+        guideSigned: guideSigned,
+        planSigned: planSigned,
+        signed: guideSigned || planSigned,
+        form: guideSigned ? (planSigned ? "both" : "guide") : (planSigned ? "plan" : "none")
+      };
+    });
+    var missing = perProfile.filter(function(p) { return !p.signed; });
+    return { unlocked: missing.length === 0, names: names, perProfile: perProfile, missing: missing };
+  }
+  // Signed PDFs (Jason, 2026-11-28): two signed documents — the written
+  // guide (the agreement + the agreed plan) and the conversation-time
+  // attestation. Generated as genuine PDFs with the app's existing
+  // lazy-loaded jsPDF (vendor/jspdf.umd.min.js, already used by the map
+  // export) — no new dependency was added. The .txt download remains as
+  // a fallback. jsPDF's built-in fonts use WinAnsi, so text is
+  // sanitised: pair/arrow/check/star glyphs the font lacks are mapped
+  // to plain equivalents, anything else outside WinAnsi becomes "?".
+  var NEG_GUIDE_PDF_WINANSI = {};
+  [0x20AC,0x201A,0x0192,0x201E,0x2026,0x2020,0x2021,0x02C6,0x2030,0x0160,0x2039,0x0152,0x017D,0x2018,0x2019,0x201C,0x201D,0x2022,0x2013,0x2014,0x02DC,0x2122,0x0161,0x203A,0x0153,0x017E,0x0178].forEach(function(cp) { NEG_GUIDE_PDF_WINANSI[cp] = true; });
+  function negGuidePdfSafeText(s) {
+    var map = { "⋈": "X", "⊙": "O", "⊖": "-", "✓": "[x]", "★": "*", "☁": "", "○": "o" };
+    return String(s == null ? "" : s).split("").map(function(ch) {
+      if (map[ch]) return map[ch];
+      var cp = ch.charCodeAt(0);
+      if (cp < 0x80) return ch;
+      if (cp >= 0xA0 && cp <= 0xFF) return ch;
+      if (NEG_GUIDE_PDF_WINANSI[cp]) return ch;
+      return "?";
+    }).join("");
+  }
+  async function negGuideBuildSignedPdf(opts) {
+    try {
+      if (!window.jspdf || !window.jspdf.jsPDF) {
+        if (typeof window.__loadPdfLibs !== "function") throw new Error("PDF library is not available in this app.");
+        await window.__loadPdfLibs();
+      }
+      if (!window.jspdf || !window.jspdf.jsPDF) throw new Error("PDF library did not load.");
+      var JsPDF = window.jspdf.jsPDF;
+      var doc = new JsPDF({ unit: "mm", format: "a4", orientation: "portrait", compress: true });
+      var pageW = 210, pageH = 297, margin = 18, maxW = pageW - margin * 2, y = margin;
+      function ensureSpace(need) {
+        if (y + need > pageH - margin) { doc.addPage(); y = margin; }
+      }
+      function writeLines(text, fontSize, lineH, bold) {
+        doc.setFont("helvetica", bold ? "bold" : "normal");
+        doc.setFontSize(fontSize);
+        String(text || "").split(/\r?\n/).forEach(function(raw) {
+          var line = negGuidePdfSafeText(raw).trim();
+          if (!line) { y += lineH * 0.6; return; }
+          doc.splitTextToSize(line, maxW).forEach(function(l) {
+            ensureSpace(lineH + 1);
+            doc.text(l, margin, y);
+            y += lineH;
+          });
+        });
+      }
+      doc.setFont("helvetica", "bold"); doc.setFontSize(16);
+      ensureSpace(10);
+      doc.text(negGuidePdfSafeText(opts.title), margin, y); y += 10;
+      if (opts.subtitle) {
+        writeLines(opts.subtitle, 11, 6, false);
+        y += 3;
+      }
+      // The body. For the conversation-time document the body is the
+      // timed conversation script, headed as the timings that were gone
+      // over (Jason, 2026-11-28 — the timings are a third e-signed
+      // thing). For the written guide the body is the agreement itself.
+      if (opts.bodyHeading) {
+        ensureSpace(10);
+        doc.setFont("helvetica", "bold"); doc.setFontSize(12);
+        doc.text(negGuidePdfSafeText(opts.bodyHeading), margin, y); y += 8;
+      }
+      // The written guide itself (the dry, precise agreement).
+      writeLines(opts.bodyText, 10, 5.5, false);
+      // The agreed plan (Jason, 2026-11-28): the Play guide timings and
+      // prompts, written up as WHAT AGREED HAPPENED — the agreed plan
+      // recorded in the signed document. Only the written-guide PDF
+      // carries it; the conversation-time PDF stays the attestation.
+      // If no play guide was generated, say so rather than inventing one.
+      if (opts.agreedPlan !== undefined && opts.agreedPlan !== null) {
+        y += 6;
+        ensureSpace(12);
+        doc.setFont("helvetica", "bold"); doc.setFontSize(12);
+        doc.text("Agreed plan — what was agreed to happen", margin, y); y += 8;
+        if (opts.agreedPlan) {
+          writeLines(opts.agreedPlan, 10, 5.5, false);
+        } else {
+          doc.setFont("helvetica", "normal"); doc.setFontSize(10);
+          ensureSpace(6);
+          doc.text("No play guide generated yet.", margin, y); y += 6;
+        }
+      }
+      // Signatures.
+      y += 6;
+      ensureSpace(20);
+      doc.setFont("helvetica", "bold"); doc.setFontSize(12);
+      doc.text("Signatures", margin, y); y += 8;
+      writeLines(opts.statement, 10, 6, false);
+      y += 3;
+      (opts.names || []).forEach(function(n) {
+        var s = (opts.state || {})[n];
+        var line = s ? (n + " — " + s.typed + ", signed " + s.date + " " + s.stamp) : (n + " — not signed");
+        writeLines(line, 10, 6, false);
+      });
+      y += 5;
+      ensureSpace(6);
+      doc.setFont("helvetica", "normal"); doc.setFontSize(9);
+      doc.text("This form records agreement; it does not assert legal enforceability.", margin, y);
+      doc.save(opts.filename);
+      return true;
+    } catch (err) {
+      console.error("[Negotiation Guide PDF Error]", err);
+      if (opts.statusEl) opts.statusEl.textContent = "PDF failed: " + (err.message || "could not generate the PDF") + ". Use Download .txt instead.";
+      return false;
+    }
+  }
+  function negGuideAgreedPlanText() {
+    // The generated Play guide (timed steps + prompts) as the agreed
+    // plan. For moderation skins this is the moderation plan — the same
+    // panel holds it. The stored dataset copy is the PROMPT, not the
+    // agreed plan, so only the generated text counts.
+    var t = "";
+    try {
+      var gt = (typeof guideText !== "undefined" && guideText) ? guideText.value : "";
+      t = (gt || "").trim();
+    } catch (_) { t = ""; }
+    return t;
+  }
+  function negGuideSignedPdfFilename(suffix) {
+    return negGuideSignedFilename(suffix).replace(/\.txt$/, ".pdf");
   }
   function negGuideCaptureSigInputs(container) {
     var prev = {};
@@ -2566,6 +2886,30 @@ __sxInit(function initSceneSetterAi() {
       empty.textContent = "Select two profiles in Scene Setter to sign.";
       empty.style.cssText = "font-size: 12px; color: #94a3b8; margin: 0;";
       container.appendChild(empty);
+      return;
+    }
+    if (opts.locked) {
+      // The signature is the closing step: it opens only once the
+      // conversation is complete (plan played through in Scene
+      // Sentinel, or marked complete by hand). Show the statement and
+      // the way to complete — no sign inputs yet.
+      var lockNote = document.createElement("p");
+      lockNote.textContent = opts.lockedNote || "Sign at the end of the conversation — play the discussion plan in Scene Sentinel, or mark the conversation complete below.";
+      lockNote.style.cssText = "font-size: 12px; color: #fbbf24; margin: 0 0 10px 0;";
+      container.appendChild(lockNote);
+      var markBtn = document.createElement("button");
+      markBtn.type = "button";
+      markBtn.textContent = "Mark conversation complete";
+      markBtn.className = "action-btn primary";
+      markBtn.style.cssText = "padding: 6px 14px; font-size: 13px; margin-bottom: 10px;";
+      markBtn.addEventListener("click", function() {
+        if (typeof opts.onMarkComplete === "function") opts.onMarkComplete();
+      });
+      container.appendChild(markBtn);
+      var lockLegal = document.createElement("p");
+      lockLegal.textContent = "This form records agreement; it does not assert legal enforceability.";
+      lockLegal.style.cssText = "font-size: 11px; color: #94a3b8; margin: 0;";
+      container.appendChild(lockLegal);
       return;
     }
     var list = document.createElement("div");
@@ -2665,6 +3009,38 @@ __sxInit(function initSceneSetterAi() {
       if (opts.statusEl) opts.statusEl.textContent = "Signed document downloaded.";
     });
     foot.appendChild(dlBtn);
+    // Signed PDF (Jason, 2026-11-28): a genuine PDF of the signed
+    // document, built with the app's existing lazy-loaded jsPDF. Gated
+    // on all signatures like the .txt download; the .txt stays as fallback.
+    if (typeof opts.getPdfDoc === "function" && opts.pdfFilename) {
+      var pdfBtn = document.createElement("button");
+      pdfBtn.type = "button";
+      pdfBtn.textContent = opts.pdfLabel || "Download signed PDF (.pdf)";
+      pdfBtn.className = "action-btn primary";
+      pdfBtn.style.cssText = "padding: 6px 12px; font-size: 12px; background: #059669;";
+      pdfBtn.disabled = !allSigned;
+      pdfBtn.style.opacity = allSigned ? "1" : "0.5";
+      pdfBtn.addEventListener("click", async function() {
+        pdfBtn.disabled = true;
+        if (opts.statusEl) opts.statusEl.textContent = "Generating signed PDF…";
+        var doc = opts.getPdfDoc();
+        var ok = await negGuideBuildSignedPdf({
+          title: doc.title,
+          subtitle: doc.subtitle,
+          bodyHeading: doc.bodyHeading,
+          bodyText: doc.bodyText,
+          agreedPlan: doc.agreedPlan,
+          statement: opts.statement,
+          names: names,
+          state: state,
+          filename: opts.pdfFilename,
+          statusEl: opts.statusEl
+        });
+        pdfBtn.disabled = !allSigned;
+        if (ok && opts.statusEl) opts.statusEl.textContent = "Signed PDF downloaded.";
+      });
+      foot.appendChild(pdfBtn);
+    }
     var note = document.createElement("span");
     note.textContent = "This form records agreement; it does not assert legal enforceability.";
     note.style.cssText = "font-size: 11px; color: #94a3b8;";
@@ -2682,19 +3058,27 @@ __sxInit(function initSceneSetterAi() {
     var guideText = panel ? (panel.dataset.negotiationGuide || "") : "";
     var key = names.join(" + ");
     var docChanged = guideText !== negGuideLastGuideText;
-    if (key === negGuideLastSigNames && !docChanged && negGuideSigSection.children.length) return;
-    negGuideLastSigNames = key;
     if (docChanged) {
-      // The agreement text changed — earlier signatures no longer apply.
+      // The agreement text changed — earlier signatures no longer apply,
+      // and a completion keyed to the old text is void.
+      if (negGuideConversationDoneKey === "guide:" + negGuideLastGuideText) negGuideConversationDoneKey = "";
       Object.keys(negGuideSigState).forEach(function(n) { delete negGuideSigState[n]; });
       negGuideLastGuideText = guideText;
     }
+    var complete = negGuideIsConversationComplete();
+    var completeChanged = negGuideConversationDoneKey !== negGuideLastCompleteKey;
+    if (key === negGuideLastSigNames && !docChanged && !completeChanged && negGuideSigSection.children.length) return;
+    negGuideLastSigNames = key;
+    negGuideLastCompleteKey = negGuideConversationDoneKey;
     Object.keys(negGuideSigState).forEach(function(n) {
       if (names.indexOf(n) < 0) delete negGuideSigState[n];
     });
     renderNegGuideSignatureBlock(negGuideSigSection, {
       title: setterIsModeration() ? "Sign the discussion agreement" : "Sign the negotiation guide",
       statement: negGuideSignatureStatement(false),
+      locked: !complete,
+      lockedNote: "Sign at the end of the conversation — play the discussion plan in Scene Sentinel, or mark the conversation complete below.",
+      onMarkComplete: function() { negGuideMarkConversationComplete("guide"); },
       names: names,
       getDocText: function() {
         var p = document.getElementById("negotiationPanel");
@@ -2702,6 +3086,17 @@ __sxInit(function initSceneSetterAi() {
       },
       filename: negGuideSignedFilename(setterIsModeration() ? "signed-discussion-agreement" : "signed-negotiation-guide"),
       downloadLabel: setterIsModeration() ? "Download signed discussion agreement" : "Download signed negotiation guide",
+      getPdfDoc: function() {
+        var p = document.getElementById("negotiationPanel");
+        return {
+          title: setterIsModeration() ? "Discussion Agreement" : "Negotiation Guide",
+          subtitle: names.join(" + ") + " · " + negGuideTodayISO(),
+          bodyText: p ? (p.dataset.negotiationGuide || "") : "",
+          agreedPlan: negGuideAgreedPlanText()
+        };
+      },
+      pdfFilename: negGuideSignedPdfFilename(setterIsModeration() ? "signed-discussion-agreement" : "signed-negotiation-guide"),
+      pdfLabel: "Download signed guide PDF (.pdf)",
       state: negGuideSigState,
       statusEl: document.getElementById("negotiationGuideStatus")
     });
@@ -2714,14 +3109,21 @@ __sxInit(function initSceneSetterAi() {
       negGuidePlanSigSection.hidden = true;
       return;
     }
-    if (planText !== negGuideLastPlanText) {
-      // The plan text changed — earlier signatures no longer apply.
+    var planChanged = planText !== negGuideLastPlanText;
+    if (planChanged) {
+      // The plan text changed — earlier signatures no longer apply, and
+      // a completion keyed to the old text is void.
+      if (negGuideConversationDoneKey === "plan:" + negGuideLastPlanText) negGuideConversationDoneKey = "";
       Object.keys(negGuidePlanSigState).forEach(function(n) { delete negGuidePlanSigState[n]; });
+      negGuidePlanMaxElapsed = 0;
       negGuideLastPlanText = planText;
     }
+    var complete = negGuideIsConversationComplete();
+    var completeChanged = negGuideConversationDoneKey !== negGuideLastCompleteKey;
     var key = names.join(" + ");
-    if (key === negGuidePlanSigNames && negGuidePlanSigSection.children.length && !negGuidePlanSigSection.hidden) return;
+    if (key === negGuidePlanSigNames && !planChanged && !completeChanged && negGuidePlanSigSection.children.length && !negGuidePlanSigSection.hidden) return;
     negGuidePlanSigNames = key;
+    negGuideLastCompleteKey = negGuideConversationDoneKey;
     Object.keys(negGuidePlanSigState).forEach(function(n) {
       if (names.indexOf(n) < 0) delete negGuidePlanSigState[n];
     });
@@ -2729,10 +3131,23 @@ __sxInit(function initSceneSetterAi() {
     renderNegGuideSignatureBlock(negGuidePlanSigSection, {
       title: "Sign the discussion plan",
       statement: negGuideSignatureStatement(true),
+      locked: !complete,
+      lockedNote: "Sign at the end of the conversation — play this discussion plan in Scene Sentinel, or mark the conversation complete below.",
+      onMarkComplete: function() { negGuideMarkConversationComplete("plan"); },
       names: names,
       getDocText: function() { return negGuideOutputs.plan || ""; },
       filename: negGuideSignedFilename("signed-discussion-plan"),
       downloadLabel: "Download signed discussion plan",
+      getPdfDoc: function() {
+        return {
+          title: "Conversation Time Attestation",
+          subtitle: names.join(" + ") + " · " + negGuideTodayISO(),
+          bodyHeading: "Timed conversation script — the timings gone over",
+          bodyText: negGuideOutputs.plan || ""
+        };
+      },
+      pdfFilename: negGuideSignedPdfFilename("conversation-time-attestation"),
+      pdfLabel: "Download conversation-time PDF (.pdf)",
       state: negGuidePlanSigState,
       statusEl: negGuideStatus
     });
