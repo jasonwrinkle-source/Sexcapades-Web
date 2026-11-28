@@ -37,7 +37,9 @@
       "action": "/",
       "accept": {
         "application/json": [
-          ".hypermap"
+          ".hypermap",
+          ".CapadesIO",
+          ".roster"
         ]
       },
       "launch_type": "single-client"

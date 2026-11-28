@@ -822,7 +822,7 @@
             if (!sxProfileRatings[e] || !sxCanRunProfileAction(e, "exporting this profile", () => sxExportProfileHypermap(e, t))) return;
             const includeInfo = Boolean(t.includeProfileInfo), blind = Boolean(t.blind), allowedIds = t.allowedIds instanceof Set ? t.allowedIds : new Set(t.allowedIds || []);
             const label = includeInfo ? (sxProfileNames[e] || "Profile") : "Shared profile";
-            const job = sxStartExportJob(`Hypermap profile · ${sxFirstWordText(label)}`, "Packaging your .hypermap profile file…", {
+            const job = sxStartExportJob(`Hypermap profile · ${sxFirstWordText(label)}`, "Packaging your .CapadesIO profile file…", {
                 profileId: e
             });
             try {
@@ -835,18 +835,18 @@
                 if (job !== vf) return;
                 sxOfferReadyDownload(blob, filename, {
                     title: `Hypermap profile · ${label}`,
-                    subtitle: "Compact JSON profile file (.hypermap). Pure data with no scripts — safe to share, wave, or back up, and ready to re-import.",
-                    downloadLabel: "Download .hypermap",
-                    downloadTitle: "Downloads the .hypermap profile file.",
-                    readyDetail: "Profile file ready. Choose Download .hypermap to save it.",
+                    subtitle: "Compact JSON profile file (.CapadesIO). Pure data with no scripts — safe to share, wave, or back up, and ready to re-import.",
+                    downloadLabel: "Download .CapadesIO",
+                    downloadTitle: "Downloads the .CapadesIO profile file.",
+                    readyDetail: "Profile file ready. Choose Download .CapadesIO to save it.",
                     preparedJob: job,
                     profileId: e
                 });
             } catch (err) {
                 if (job !== vf) return;
-                Bm.textContent = "Could not create .hypermap file",
+                Bm.textContent = "Could not create .CapadesIO file",
                 tf.textContent = String(err && err.message || err),
-                sxFailExportProgress(job, "The .hypermap file could not be completed. Close this window and try again."),
+                sxFailExportProgress(job, "The .CapadesIO file could not be completed. Close this window and try again."),
                 console.error("Hypermap profile export failed.", err);
             }
         }

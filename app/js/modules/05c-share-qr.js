@@ -851,9 +851,19 @@
             return t ? n : n.split(" ")[0] || "Profile";
         }
         function sxExportFileNames(e) {
-            const t = String(e || "Profile").replace(/[\\/:*?"<>|\u0000-\u001f]+/g, " ").replace(/\s+/g, "-").replace(/^-+|-+$/g, "") || "Profile", n = t.toLowerCase(), prefix = "function" == typeof sxSkinDownloadPrefix ? sxSkinDownloadPrefix() : "Sexcapades";
+            const t = String(e || "Profile").replace(/[\\/:*?"<>|\u0000-\u001f]+/g, " ").replace(/\s+/g, "-").replace(/^-+|-+$/g, "") || "Profile", n = t.toLowerCase();
+            const skinShort = (function () {
+                /* Item 43 (2026-11-27): {ProfileName}-{SkinShort}.CapadesIO.
+                   The skin short name is the catalog prefix (quest/sex/
+                   polis, …), capitalized — NOT sxSkinDownloadPrefix(),
+                   which returns the full "Questcapades". */
+                var id = String((typeof window !== "undefined" && window.__SX_ACTIVE_SKIN) || "sexcapades");
+                var prefix = (typeof window !== "undefined" && window.__SX_SKIN_SUBDOMAIN && window.__SX_SKIN_SUBDOMAIN[id]) || "";
+                if (!prefix) prefix = id.replace(/capades$/, "") || "sex";
+                return prefix.charAt(0).toUpperCase() + prefix.slice(1);
+            })();
             return {
-                hypermap: `${prefix}-${t}.hypermap`,
+                hypermap: `${t}-${skinShort}.CapadesIO`,
                 map: `Sexcapades-${t}-visible-map.png`,
                 zoom: `Sexcapades-${t}-low-res-visible-map.png`,
                 card: `Sexcapades-${t}-sync-card-front.png`,
