@@ -2274,6 +2274,7 @@ __sxInit(function initSceneSetterAi() {
   var negGuideStatus = document.getElementById("negGuideStatus");
   var negGuideCopyBtn = document.getElementById("negGuideCopyBtn");
   var negGuideDownloadBtn = document.getElementById("negGuideDownloadBtn");
+  var negGuideDownloadPdfsBtn = document.getElementById("negGuideDownloadPdfsBtn");
   var negGuidePlayBtn = document.getElementById("negGuidePlayBtn");
   var negGuideProviderSelect = document.getElementById("negGuideAiProvider");
   var negGuideGetKeyLink = document.getElementById("negGuideGetKeyLink");
@@ -2430,6 +2431,14 @@ __sxInit(function initSceneSetterAi() {
       a.remove();
       setTimeout(function() { URL.revokeObjectURL(url); }, 0);
     });
+  }
+
+  // "Download PDFs" (Jason, 2026-11-28): one ungated click downloads
+  // both PDFs — the written guide and the conversation record — whether
+  // or not everyone has signed. Never gated on signing; each PDF is
+  // marked DRAFT when its document is not fully signed.
+  if (negGuideDownloadPdfsBtn) {
+    negGuideDownloadPdfsBtn.addEventListener("click", function() { negGuideDownloadBothPdfs(); });
   }
 
   // Discussion plan playback (Jason, 2026-11-28): the timed discussion
@@ -2783,6 +2792,18 @@ __sxInit(function initSceneSetterAi() {
       doc.setFont("helvetica", "bold"); doc.setFontSize(16);
       ensureSpace(10);
       doc.text(negGuidePdfSafeText(opts.title), margin, y); y += 10;
+      // DRAFT marker (Jason, 2026-11-28): the ungated "Download PDFs"
+      // option must never be mistaken for the final signed record. A
+      // document that is not fully signed gets a bold red DRAFT line
+      // right under the title, so it is the first thing seen. The
+      // signed path passes no draft flag, so its output is unchanged.
+      if (opts.draft) {
+        doc.setFont("helvetica", "bold"); doc.setFontSize(13);
+        doc.setTextColor(180, 0, 0);
+        ensureSpace(10);
+        doc.text(negGuidePdfSafeText("DRAFT — NOT FULLY SIGNED"), margin, y); y += 9;
+        doc.setTextColor(0, 0, 0);
+      }
       if (opts.subtitle) {
         writeLines(opts.subtitle, 11, 6, false);
         y += 3;
@@ -2823,6 +2844,17 @@ __sxInit(function initSceneSetterAi() {
       doc.text("Signatures", margin, y); y += 8;
       writeLines(opts.statement, 10, 6, false);
       y += 3;
+      if (opts.draft) {
+        // The draft states its own status plainly, so a partially
+        // signed PDF can never pass as the final record.
+        writeLines("This document is a draft — not all participants have signed yet. It is not the final signed record.", 10, 6, false);
+        y += 3;
+      }
+      if (!(opts.names || []).length) {
+        // Only reachable on the draft path: the signed path requires
+        // names (allSigned needs participants).
+        writeLines("No participants selected — no signatures recorded.", 10, 6, false);
+      }
       (opts.names || []).forEach(function(n) {
         var s = (opts.state || {})[n];
         var line = s ? (n + " — " + s.typed + ", signed " + s.date + " " + s.stamp) : (n + " — not signed");
@@ -2854,6 +2886,88 @@ __sxInit(function initSceneSetterAi() {
   }
   function negGuideSignedPdfFilename(suffix) {
     return negGuideSignedFilename(suffix).replace(/\.txt$/, ".pdf");
+  }
+  // "Download PDFs" (Jason, 2026-11-28): ONE ungated action that
+  // downloads BOTH PDFs — the written guide and the conversation
+  // record — whether or not everyone has signed. The per-document
+  // signed-record buttons stay gated on full signing for that
+  // document; this one never is, so the PDFs can be reviewed, printed,
+  // or signed offline before signing is complete. Each PDF honestly
+  // reflects its own signature state, reusing the existing
+  // per-participant signature records (negGuideSigState /
+  // negGuidePlanSigState): fully signed for that document → the signed
+  // record, same content and filename as the gated download; not
+  // fully signed → marked DRAFT in the title area, in the Signatures
+  // section, and in the filename, with a per-participant signed /
+  // not-signed list, so a partial PDF can never be mistaken for the
+  // final record. A document with no content yet (no guide built, or
+  // no discussion plan generated) is skipped and named in the status
+  // line instead of downloaded empty.
+  async function negGuideDownloadBothPdfs() {
+    var btn = negGuideDownloadPdfsBtn;
+    var statusEl = document.getElementById("negotiationGuideStatus");
+    var panel = document.getElementById("negotiationPanel");
+    var guideText = panel ? (panel.dataset.negotiationGuide || "") : "";
+    var planText = negGuideOutputs.plan || "";
+    var names = negGuideParticipantNames();
+    var subtitle = names.length ? (names.join(" + ") + " · " + negGuideTodayISO()) : negGuideTodayISO();
+    var guideAllSigned = names.length > 0 && names.every(function(n) { return Boolean(negGuideSigState[n]); });
+    var planAllSigned = names.length > 0 && names.every(function(n) { return Boolean(negGuidePlanSigState[n]); });
+    if (btn) btn.disabled = true;
+    if (statusEl) statusEl.textContent = "Generating PDFs…";
+    var downloaded = [];
+    var missing = [];
+    var anyFailed = false;
+    if (guideText.trim()) {
+      var guideOk = await negGuideBuildSignedPdf({
+        title: setterIsModeration() ? "Discussion Agreement" : "Negotiation Guide",
+        subtitle: subtitle,
+        bodyText: guideText,
+        agreedPlan: negGuideAgreedPlanText(),
+        statement: negGuideSignatureStatement(false),
+        names: names,
+        state: negGuideSigState,
+        draft: !guideAllSigned,
+        filename: negGuideSignedPdfFilename(setterIsModeration()
+          ? (guideAllSigned ? "signed-discussion-agreement" : "draft-discussion-agreement")
+          : (guideAllSigned ? "signed-negotiation-guide" : "draft-negotiation-guide")),
+        statusEl: statusEl
+      });
+      if (guideOk) downloaded.push(guideAllSigned ? "signed guide" : "guide (draft)");
+      else anyFailed = true;
+    } else {
+      missing.push("negotiation guide");
+    }
+    if (planText.trim()) {
+      var planOk = await negGuideBuildSignedPdf({
+        title: "Conversation Time Attestation",
+        subtitle: subtitle,
+        bodyHeading: "Timed conversation script — the timings gone over",
+        bodyText: planText,
+        statement: negGuideSignatureStatement(true),
+        names: names,
+        state: negGuidePlanSigState,
+        draft: !planAllSigned,
+        filename: negGuideSignedPdfFilename(planAllSigned ? "conversation-time-attestation" : "draft-conversation-time-attestation"),
+        statusEl: statusEl
+      });
+      if (planOk) downloaded.push(planAllSigned ? "conversation record (signed)" : "conversation record (draft)");
+      else anyFailed = true;
+    } else {
+      missing.push("discussion plan");
+    }
+    if (btn) btn.disabled = false;
+    // On a generation failure the builder's specific error stays
+    // visible (do not overwrite it with a summary).
+    if (statusEl && !anyFailed) {
+      if (!downloaded.length) {
+        statusEl.textContent = "Nothing to download yet — build the negotiation guide first, then generate the discussion plan.";
+      } else {
+        statusEl.textContent = "Downloaded " + downloaded.join(" + ") + (missing.length
+          ? (missing[0] === "discussion plan" ? ". No discussion plan yet — generate one to include it." : ". No negotiation guide yet.")
+          : ".");
+      }
+    }
   }
   function negGuideCaptureSigInputs(container) {
     var prev = {};
