@@ -57,7 +57,10 @@
     priceUSD: 5,
     /* Patreon OAuth (PKCE). Real IDs (live 2026-11-27).
        - OAuth app "Capades Roster": https://www.patreon.com/portal/registration/register-clients
-         Redirect URIs registered: https://flex.capades.io/ , https://sex.capades.io/ , https://capades.io/
+         Redirect URIs registered (6, fixed 2026-11-27 — the app page
+         itself is the redirect, and Patreon needs an exact match):
+         https://flex.capades.io/ , https://sex.capades.io/ , https://capades.io/ ,
+         https://flex.capades.io/hosted/app.html , https://sex.capades.io/hosted/app.html , https://capades.io/hosted/app.html
          (the app page URL below must match one of them).
        - One-off product "Roster Registration Window (30 days)", $5:
          https://www.patreon.com/posts/roster-window-30-176571871
