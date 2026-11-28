@@ -134,9 +134,9 @@
                 const host = document.createElement("div");
                 host.className = "outline-cross-host";
                 h.append(host);
-                const stance = sxDualPlacements(e.id);
-                const fl = stance ? ["advocacy", "receptivity"] : ["give", "receive"];
-                const keys = i.keys;
+                const cfg = sxCrossSliderConfigFor(e.id, i);
+                const fl = cfg.flanks;
+                const keys = cfg.keys;
                 const getFlank = (dir) => sxCrossFlankState(sxDecodeTopicStance(e.id, Go), dir, keys);
                 let pair = null;
                 const renderPair = () => { if (pair) { pair.first.render(); pair.second.render(); } };
@@ -146,9 +146,13 @@
                 };
                 const finishGesture = () => { sxSyncOutlineRow(n); };
                 pair = {
-                    first: sxCreateCrossSlider({ dir: fl[0], compact: true, get: () => getFlank(fl[0]), onChange: v => writeFlank(fl[0], v), onRelease: () => finishGesture() }),
-                    second: sxCreateCrossSlider({ dir: fl[1], compact: true, get: () => getFlank(fl[1]), onChange: v => writeFlank(fl[1], v), onRelease: () => finishGesture() })
+                    first: sxCreateCrossSlider({ dir: fl[0], label: cfg.firstLabel, leftLabel: cfg.leftLabel, rightLabel: cfg.rightLabel, isPoles: cfg.isPoles, topicId: e.id, poleKeys: keys, compact: true, get: () => getFlank(fl[0]), onChange: v => writeFlank(fl[0], v), onRelease: () => finishGesture() }),
+                    second: sxCreateCrossSlider({ dir: fl[1], label: cfg.secondLabel, leftLabel: cfg.leftLabel, rightLabel: cfg.rightLabel, isPoles: cfg.isPoles, topicId: e.id, poleKeys: keys, compact: true, get: () => getFlank(fl[1]), onChange: v => writeFlank(fl[1], v), onRelease: () => finishGesture() })
                 };
+                if (typeof sxSetPoleTip === "function") {
+                    if (cfg.firstTipKey) sxSetPoleTip(pair.first.labelEl, e.id, cfg.firstTipKey);
+                    if (cfg.secondTipKey) sxSetPoleTip(pair.second.labelEl, e.id, cfg.secondTipKey);
+                }
                 host.appendChild(pair.first.root);
                 host.appendChild(pair.second.root);
                 n.__sxCrossPair = pair;

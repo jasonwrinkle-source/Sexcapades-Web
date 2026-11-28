@@ -57,17 +57,18 @@
         function sxSyncCrossSliderPlacard(shape) {
             sxBindCrossSliderPlacard();
             if (!sxCrossPlacard) return;
-            sxCrossPlacardKeys = (shape && shape.keys) || null;
-            var fl = sxCrossPlacardFlanks();
+            var cfg = sxCrossSliderConfigFor(Qr, shape);
+            sxCrossPlacardKeys = cfg.keys;
+            var fl = cfg.flanks;
             sxCrossPlacard.first.setDir(fl[0], () => sxCrossPlacardState(fl[0]), v => sxCrossPlacardWrite(fl[0], v));
             sxCrossPlacard.second.setDir(fl[1], () => sxCrossPlacardState(fl[1]), v => sxCrossPlacardWrite(fl[1], v));
-            var firstName = (shape && shape.labels && shape.labels[0]) || (fl[0].charAt(0).toUpperCase() + fl[0].slice(1));
-            var secondName = (shape && shape.labels && shape.labels[1]) || (fl[1].charAt(0).toUpperCase() + fl[1].slice(1));
-            sxCrossPlacard.first.setLabel(firstName);
-            sxCrossPlacard.second.setLabel(secondName);
+            sxCrossPlacard.first.setLabel(cfg.firstLabel);
+            sxCrossPlacard.second.setLabel(cfg.secondLabel);
+            sxCrossPlacard.first.setScale(cfg.leftLabel, cfg.rightLabel, { isPoles: cfg.isPoles, topicId: Qr, keys: cfg.keys });
+            sxCrossPlacard.second.setScale(cfg.leftLabel, cfg.rightLabel, { isPoles: cfg.isPoles, topicId: Qr, keys: cfg.keys });
             if (typeof sxSetPoleTip === "function" && Qr) {
-                sxSetPoleTip(sxCrossPlacard.first.labelEl, Qr, fl[0]);
-                sxSetPoleTip(sxCrossPlacard.second.labelEl, Qr, fl[1]);
+                sxSetPoleTip(sxCrossPlacard.first.labelEl, Qr, cfg.firstTipKey);
+                sxSetPoleTip(sxCrossPlacard.second.labelEl, Qr, cfg.secondTipKey);
             }
             sxCrossPlacard.first.render();
             sxCrossPlacard.second.render();

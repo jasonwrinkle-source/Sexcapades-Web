@@ -45,16 +45,15 @@
         // stores one OBJECT per flank -- {poleA, poleB, intensity} --
         // not a single number, so Number(rec[dir]) is NaN and reads 0.
         // With keys (the shape's two pole keys) the leaning is the
-        // spectrum position between the poles: (v0 - v1) / 2. The poles
-        // are opposites on one axis in the generated data, so this
-        // equals the first pole's value there; when a user rates the
-        // poles independently it is the honest midpoint. Appetite is
-        // the placement's stored intensity.
+        // spectrum position between the poles: (v1 - v0) / 2, so
+        // keys[0] sits on the LEFT (-100) and keys[1] sits on the
+        // RIGHT (+100), matching trilinear-line and hovertip order.
+        // Appetite is the placement's stored intensity.
         function sxCrossFlankState(rec, dir, keys) {
             if (!rec || !rec[dir + "Known"]) return null;
             if (keys && keys.length >= 2 && rec[dir] && typeof rec[dir] === "object") {
                 var v0 = Number(rec[dir][keys[0]]) || 0, v1 = Number(rec[dir][keys[1]]) || 0;
-                var lean = sxCrossClamp(Math.round((v0 - v1) / 2), -100, 100);
+                var lean = sxCrossClamp(Math.round((v1 - v0) / 2), -100, 100);
                 var app = null;
                 if (rec[dir + "IntensityKnown"] && Number.isFinite(Number(rec[dir + "Intensity"]))) app = sxCrossClamp(Number(rec[dir + "Intensity"]), -100, 100);
                 else if (Number.isFinite(Number(rec[dir].intensity))) app = sxCrossClamp(Number(rec[dir].intensity), -100, 100);
@@ -77,8 +76,9 @@
         // flat setter would store a bare number under the flank key and
         // destroy the per-pole placement object on re-read. The write
         // preserves the placement's common level -- c = (v0 + v1) / 2 --
-        // and moves only the spectrum position, so a drag never silently
-        // drops how much the user holds both poles.
+        // and moves only the spectrum position (left = keys[0],
+        // right = keys[1]), so a drag never silently drops how much
+        // the user holds both poles.
         function sxCrossWriteFlank(topicId, dir, value, profileId, keys) {
             if (!topicId) return;
             var isPlacement = !!(keys && keys.length >= 2 && typeof sxDualPlacements === "function" && sxDualPlacements(topicId));
@@ -97,14 +97,57 @@
                 var c1 = placement ? (Number(placement[keys[1]]) || 0) : 0;
                 var common = (c0 + c1) / 2;
                 var vals = {};
-                vals[keys[0]] = sxCrossClamp(Math.round(common + lean), -100, 100);
-                vals[keys[1]] = sxCrossClamp(Math.round(common - lean), -100, 100);
+                vals[keys[0]] = sxCrossClamp(Math.round(common - lean), -100, 100);
+                vals[keys[1]] = sxCrossClamp(Math.round(common + lean), -100, 100);
                 sxPersistAdvocacyReceptivity(topicId, dir, vals, app, profileId || null);
                 return;
             }
             if (typeof sxStoreFlankRating !== "function") return;
             sxStoreFlankRating(topicId, dir, lean, !1, profileId || null);
             sxStoreFlankRating(topicId, dir + "Intensity", app, !1, profileId || null);
+        }
+
+        // Resolve header labels, track-end pole labels, and tooltip keys
+        // for any pair topic across all three surfaces (Hot List row,
+        // placard, Hot List widget popup). On stance skins each row is
+        // Advocacy / Receptivity spanning pole[0] (left) .. pole[1] (right).
+        // On classic skins each row is the give / receive role label
+        // spanning Lean out (left) .. Lean in (right).
+        function sxCrossSliderConfigFor(topicId, shape) {
+            var stance = typeof sxDualPlacements === "function" && sxDualPlacements(topicId);
+            var fl = stance ? ["advocacy", "receptivity"] : ["give", "receive"];
+            var keys = (shape && shape.keys && shape.keys.length >= 2) ? shape.keys : fl;
+            var labels = (shape && shape.labels && shape.labels.length >= 2) ? shape.labels : null;
+            if (stance) {
+                var left = (labels && labels[0]) || keys[0] || "Lean out";
+                var right = (labels && labels[1]) || keys[1] || "Lean in";
+                return {
+                    stance: true,
+                    flanks: fl,
+                    keys: keys,
+                    firstLabel: "Advocacy",
+                    secondLabel: "Receptivity",
+                    leftLabel: left,
+                    rightLabel: right,
+                    isPoles: Boolean(labels && (labels[0] || labels[1])),
+                    firstTipKey: null,
+                    secondTipKey: null
+                };
+            }
+            var l0 = labels && labels[0] ? (labels[0] === "give" ? "Give" : labels[0]) : "Give";
+            var l1 = labels && labels[1] ? (labels[1] === "receive" ? "Receive" : labels[1]) : "Receive";
+            return {
+                stance: false,
+                flanks: fl,
+                keys: keys,
+                firstLabel: l0,
+                secondLabel: l1,
+                leftLabel: "Lean out",
+                rightLabel: "Lean in",
+                isPoles: false,
+                firstTipKey: keys[0] || "give",
+                secondTipKey: keys[1] || "receive"
+            };
         }
 
         function sxCreateCrossSlider(opts) {
@@ -115,6 +158,9 @@
             var onChange = opts.onChange || function () {};
             var onRelease = opts.onRelease || function () {};
             var label = opts.label || (dir.charAt(0).toUpperCase() + dir.slice(1));
+            var leftLabel = opts.leftLabel || "Lean out";
+            var rightLabel = opts.rightLabel || "Lean in";
+            var scaleIsPoles = !!opts.isPoles;
             var inset = compact ? 34 : 38;
             var overW = compact ? 24 : 28; // overshoot allowance past the track end (px) — no visible run-off is drawn; the drag past the end is what unrates.
             var root = document.createElement("div");
@@ -131,7 +177,7 @@
                         '<div class="xs-puck" tabindex="0" role="slider"></div>' +
                     '</div>' +
                     '<div class="xs-bubble"></div>' +
-                    '<div class="xs-scale"><span>Lean out</span><span>Lean in</span></div>' +
+                    '<div class="xs-scale"><span class="xs-scale-left"></span><span class="xs-scale-right"></span></div>' +
                 '</div>';
             var stage = root.querySelector(".xs-stage");
             var track = root.querySelector(".xs-track");
@@ -141,8 +187,43 @@
             var bubble = root.querySelector(".xs-bubble");
             var vals = root.querySelector(".xs-vals");
             var labelEl = root.querySelector(".xs-label");
+            var scaleEl = root.querySelector(".xs-scale");
+            var leftScaleEl = root.querySelector(".xs-scale-left");
+            var rightScaleEl = root.querySelector(".xs-scale-right");
+            function clearTipAttrs(el) {
+                if (!el) return;
+                el.removeAttribute("data-ui-tooltip");
+                el.removeAttribute("data-tooltip-name");
+                el.removeAttribute("data-tooltip-definition");
+                el.removeAttribute("data-tooltip-tap-first");
+                el.removeAttribute("data-tooltip-name-color");
+                el.removeAttribute("tabindex");
+                delete el.dataset.ratingTooltip;
+            }
+            function syncPuckAriaLabel() {
+                puck.setAttribute("aria-label", scaleIsPoles ? (label + ": " + leftLabel + " to " + rightLabel + ", and appetite") : (label + " leaning and appetite"));
+            }
+            function applyScale(left, right, scaleOpts) {
+                scaleOpts = scaleOpts || {};
+                leftLabel = left || "Lean out";
+                rightLabel = right || "Lean in";
+                scaleIsPoles = !!scaleOpts.isPoles;
+                leftScaleEl.textContent = leftLabel;
+                rightScaleEl.textContent = rightLabel;
+                scaleEl.classList.toggle("is-poles", scaleIsPoles);
+                if (scaleIsPoles && scaleOpts.topicId && scaleOpts.keys && scaleOpts.keys.length >= 2 && typeof sxSetPoleTip === "function") {
+                    sxSetPoleTip(leftScaleEl, scaleOpts.topicId, scaleOpts.keys[0]);
+                    sxSetPoleTip(rightScaleEl, scaleOpts.topicId, scaleOpts.keys[1]);
+                    leftScaleEl.tabIndex = 0;
+                    rightScaleEl.tabIndex = 0;
+                } else {
+                    clearTipAttrs(leftScaleEl);
+                    clearTipAttrs(rightScaleEl);
+                }
+                syncPuckAriaLabel();
+            }
             labelEl.textContent = label;
-            puck.setAttribute("aria-label", label + " leaning and appetite");
+            applyScale(leftLabel, rightLabel, { isPoles: scaleIsPoles, topicId: opts.topicId, keys: opts.poleKeys });
             [-100, -50, 0, 50, 100].forEach(function (t) {
                 var el = document.createElement("div");
                 el.className = "xs-tick" + (t === 0 ? " zero" : "");
@@ -190,7 +271,10 @@
                 puck.style.left = pct + "%";
                 fill.style.width = pct + "%";
                 root.style.setProperty("--dir-color", sxCrossColor(app));
-                puck.setAttribute("aria-valuetext", "Leaning " + Math.round(lean) + " of 100, appetite " + (app > 0 ? "+" : "") + Math.round(app));
+                var leanText = scaleIsPoles
+                    ? (lean < 0 ? (Math.abs(Math.round(lean)) + " toward " + leftLabel) : lean > 0 ? (Math.round(lean) + " toward " + rightLabel) : ("Balanced between " + leftLabel + " and " + rightLabel))
+                    : ("Leaning " + Math.round(lean) + " of 100");
+                puck.setAttribute("aria-valuetext", leanText + ", appetite " + (app > 0 ? "+" : "") + Math.round(app));
                 var puckX = inset + (pct / 100) * Math.max(40, stageW - inset * 2);
                 arm.style.left = puckX + "px";
                 if (!root.classList.contains("off-end")) {
@@ -383,11 +467,16 @@
             return {
                 root: root,
                 labelEl: labelEl,
+                leftScaleEl: leftScaleEl,
+                rightScaleEl: rightScaleEl,
                 render: render,
                 setLabel: function (name) {
                     label = name || label;
                     labelEl.textContent = label;
-                    puck.setAttribute("aria-label", label + " leaning and appetite");
+                    syncPuckAriaLabel();
+                },
+                setScale: function (left, right, scaleOpts) {
+                    applyScale(left, right, scaleOpts);
                 },
                 // Re-point this instance at a different flank (the
                 // placard creates one pair and re-points it on every
