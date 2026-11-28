@@ -764,6 +764,7 @@
     var communities = {};
     var popularity = {};
     var readings = {};
+    var research = {};
     var topicGlyphs = {};
     var count = 0;
     data.categories.forEach(function (cat) {
@@ -802,6 +803,12 @@
         if (t.communities && t.communities.length) communities[t.id] = t.communities;
         if (t.popularity) popularity[t.id] = t.popularity;
         if (t.poleReading) readings[t.id] = { reading: t.poleReading, enemies: t.poleEnemies || [] };
+        /* Research backing (Polis Scribe wiring, 2026-11-28): per-topic
+           reasons/statistics from the skin topic's `research` field
+           ({poleKey: {reasons, statistic, move}}). The Scribe reads it
+           to ground each stance's reasons in the prompt; skins whose
+           topics carry no research simply register nothing. */
+        if (t.research) research[t.id] = t.research;
         count += 1;
       });
     });
@@ -812,6 +819,7 @@
     window.__SX_SKIN_COMMUNITIES = communities;
     window.__SX_SKIN_POPULARITY = popularity;
     window.__SX_POLE_READINGS = readings;
+    window.__SX_TOPIC_RESEARCH = research;
     window.__SX_SKIN_TOPIC_GLYPHS = topicGlyphs;
     return count;
   }
@@ -842,6 +850,18 @@
   };
   window.__SX_POPULARITY_FOR_TOPIC = function (topicId) {
     var reg = window.__SX_SKIN_POPULARITY;
+    if (reg && reg[topicId]) return reg[topicId];
+    return null;
+  };
+
+  /* Research lookup. __SX_RESEARCH_FOR_TOPIC returns the topic's
+     research map ({poleKey: {reasons, statistic, move}}) from the
+     skin JSON's topic `research` field, or null. The Scribe reads
+     it to ground each stance's reasons and statistics in the
+     prompt; a topic (or skin) without research returns null and
+     the Scribe adds nothing. */
+  window.__SX_RESEARCH_FOR_TOPIC = function (topicId) {
+    var reg = window.__SX_TOPIC_RESEARCH;
     if (reg && reg[topicId]) return reg[topicId];
     return null;
   };

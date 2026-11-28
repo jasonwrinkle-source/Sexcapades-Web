@@ -89,7 +89,7 @@
     "catsWithSub": 7,
     "subcats": 21,
     "topics": 110,
-    "archetypes": 9,
+    "archetypes": 20,
     "firstLadder": 6,
     "firstLadderMins": 2,
     "coreTotal": 24,
