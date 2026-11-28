@@ -15,6 +15,22 @@ ErrorDocument 404 /404.html
 # Clean URLs for SEO (rewrite /app -> /hosted/app.html, etc.)
 RewriteEngine On
 
+# Per-host PWA manifest (2026-11-27): the app page hardcodes the shared
+# /manifest.json (the Flex manifest) and only swaps to the per-skin file in
+# JavaScript, which can run after the browser has already read the manifest
+# — and fast/bio/lingua had no per-skin manifest at all, so installing from
+# those hosts installed the Flex PWA and the installed app always opened
+# flex.capades.io (which also made the Patreon OAuth return land on flex).
+# Answer /manifest.json with this host's own skin manifest instead, so the
+# installed PWA is the skin the user is on regardless of JS timing. The -f
+# guard means unknown hosts (www, apex, legacy sexcapades.io, any prefix
+# without a manifests/<prefix>.json) fall through to the real /manifest.json
+# (Flex) exactly as before. Internal rewrite ([L], no redirect): the
+# manifest URL stays /manifest.json and the query string is preserved.
+RewriteCond %{HTTP_HOST} ^([a-z]+)\.capades\.io$ [NC]
+RewriteCond %{DOCUMENT_ROOT}/manifests/%1.json -f
+RewriteRule ^manifest\.json$ /manifests/%1.json [L]
+
 # Root link-preview fix (2026-11-18): serve the real page per hostname at
 # the root, so link-preview crawlers (which do not run JavaScript) read the
 # correct static preview tags instead of the router page's Flexcapades tags.
