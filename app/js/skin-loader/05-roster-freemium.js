@@ -43,6 +43,29 @@
    productId }. The 30-day clock starts on first use (first add/re-open
    on a roster), and expiresAt = startsAt + 30 days. */
 
+  /* rosterToast (2026-11-27): this module runs at top level, AFTER the
+     shared IIFE (01 opens it, 04 closes it) that holds 02's rosterToast,
+     so 02's is out of scope here and every call threw ReferenceError —
+     swallowed silently by the boot catch, which is why the OAuth return
+     showed no message at all. This is the same implementation as 02's,
+     so the freemium's messages actually show. */
+  function rosterToast(msg) {
+    try {
+      var el = document.getElementById("sxRosterToast");
+      if (!el) {
+        el = document.createElement("div");
+        el.id = "sxRosterToast";
+        el.setAttribute("role", "status");
+        el.style.cssText = "position:fixed;left:50%;bottom:24px;transform:translateX(-50%);z-index:9999;max-width:min(92vw,480px);background:#14181c;color:#f2f4f6;border:1px solid #3a4550;border-radius:10px;padding:10px 14px;font:14px/1.45 system-ui,sans-serif;box-shadow:0 8px 28px rgba(0,0,0,.45);";
+        document.body.appendChild(el);
+      }
+      el.textContent = msg;
+      el.style.display = "block";
+      clearTimeout(rosterToast._t);
+      rosterToast._t = setTimeout(function () { el.style.display = "none"; }, 7000);
+    } catch (e) { /* a toast must never break the app */ }
+  }
+
   /* ---- Config: ONE location. Change the cap and the Patreon IDs here. ---- */
   var SX_ROSTER_FREEMIUM_CONFIG = {
     /* Free roster size cap, in INDIVIDUALS. 5 from the start (RULED
@@ -568,5 +591,5 @@
 
   /* Boot: handle a Patreon OAuth return (if this load came back from
      Patreon with ?code=...) and make sure the buy button exists. */
-  try { sxPatreonHandleOAuthReturn(); } catch (e) { /* OAuth return is best-effort */ }
+  try { sxPatreonHandleOAuthReturn(); } catch (e) { try { console.error("[roster-freemium] OAuth return handler failed:", e); } catch (_) { /* best-effort: never break boot */ } }
   try { sxRosterEnsureBuyButton(); } catch (e) { /* the menu may not exist yet; refreshSampleMenu rebuilds it */ }
