@@ -38110,9 +38110,19 @@ var _u = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ $%*+-./:";
             return t ? n : n.split(" ")[0] || "Profile";
         }
         function sxExportFileNames(e) {
-            const t = String(e || "Profile").replace(/[\\/:*?"<>|\u0000-\u001f]+/g, " ").replace(/\s+/g, "-").replace(/^-+|-+$/g, "") || "Profile", n = t.toLowerCase(), prefix = "function" == typeof sxSkinDownloadPrefix ? sxSkinDownloadPrefix() : "Sexcapades";
+            const t = String(e || "Profile").replace(/[\\/:*?"<>|\u0000-\u001f]+/g, " ").replace(/\s+/g, "-").replace(/^-+|-+$/g, "") || "Profile", n = t.toLowerCase();
+            const skinShort = (function () {
+                /* Item 43 (2026-11-27): {ProfileName}-{SkinShort}.CapadesIO.
+                   The skin short name is the catalog prefix (quest/sex/
+                   polis, …), capitalized — NOT sxSkinDownloadPrefix(),
+                   which returns the full "Questcapades". */
+                var id = String((typeof window !== "undefined" && window.__SX_ACTIVE_SKIN) || "sexcapades");
+                var prefix = (typeof window !== "undefined" && window.__SX_SKIN_SUBDOMAIN && window.__SX_SKIN_SUBDOMAIN[id]) || "";
+                if (!prefix) prefix = id.replace(/capades$/, "") || "sex";
+                return prefix.charAt(0).toUpperCase() + prefix.slice(1);
+            })();
             return {
-                hypermap: `${prefix}-${t}.hypermap`,
+                hypermap: `${t}-${skinShort}.CapadesIO`,
                 map: `Sexcapades-${t}-visible-map.png`,
                 zoom: `Sexcapades-${t}-low-res-visible-map.png`,
                 card: `Sexcapades-${t}-sync-card-front.png`,
@@ -38961,7 +38971,7 @@ var _u = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ $%*+-./:";
             if (!sxProfileRatings[e] || !sxCanRunProfileAction(e, "exporting this profile", () => sxExportProfileHypermap(e, t))) return;
             const includeInfo = Boolean(t.includeProfileInfo), blind = Boolean(t.blind), allowedIds = t.allowedIds instanceof Set ? t.allowedIds : new Set(t.allowedIds || []);
             const label = includeInfo ? (sxProfileNames[e] || "Profile") : "Shared profile";
-            const job = sxStartExportJob(`Hypermap profile · ${sxFirstWordText(label)}`, "Packaging your .hypermap profile file…", {
+            const job = sxStartExportJob(`Hypermap profile · ${sxFirstWordText(label)}`, "Packaging your .CapadesIO profile file…", {
                 profileId: e
             });
             try {
@@ -38974,18 +38984,18 @@ var _u = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ $%*+-./:";
                 if (job !== vf) return;
                 sxOfferReadyDownload(blob, filename, {
                     title: `Hypermap profile · ${label}`,
-                    subtitle: "Compact JSON profile file (.hypermap). Pure data with no scripts — safe to share, wave, or back up, and ready to re-import.",
-                    downloadLabel: "Download .hypermap",
-                    downloadTitle: "Downloads the .hypermap profile file.",
-                    readyDetail: "Profile file ready. Choose Download .hypermap to save it.",
+                    subtitle: "Compact JSON profile file (.CapadesIO). Pure data with no scripts — safe to share, wave, or back up, and ready to re-import.",
+                    downloadLabel: "Download .CapadesIO",
+                    downloadTitle: "Downloads the .CapadesIO profile file.",
+                    readyDetail: "Profile file ready. Choose Download .CapadesIO to save it.",
                     preparedJob: job,
                     profileId: e
                 });
             } catch (err) {
                 if (job !== vf) return;
-                Bm.textContent = "Could not create .hypermap file",
+                Bm.textContent = "Could not create .CapadesIO file",
                 tf.textContent = String(err && err.message || err),
-                sxFailExportProgress(job, "The .hypermap file could not be completed. Close this window and try again."),
+                sxFailExportProgress(job, "The .CapadesIO file could not be completed. Close this window and try again."),
                 console.error("Hypermap profile export failed.", err);
             }
         }
@@ -42335,7 +42345,7 @@ var kg = e.byId("testResultLoaderDialog"), xg = e.byId("testResultLoaderStatus")
         }
         function sxShowImportFailure(e, t, n = "read") {
             let i = yx.errorMessage(e, "The file could not be read.");
-            "json" === n && /Unexpected token|JSON|position \d+/i.test(i) ? i = "The selected profile file (.hypermap / JSON) is malformed." : /does not contain (?:complete )?Sexcapades profile data/i.test(i) ? i = `No embedded Sexcapades profile data or readable profile QR was found in ${t.name}.` : /does not contain a readable Sexcapades profile-data QR code/i.test(i) && (i = `No readable Sexcapades profile QR was found in ${t.name}.`),
+            "json" === n && /Unexpected token|JSON|position \d+/i.test(i) ? i = "The selected profile file (.CapadesIO / JSON) is malformed." : /does not contain (?:complete )?Sexcapades profile data/i.test(i) ? i = `No embedded Sexcapades profile data or readable profile QR was found in ${t.name}.` : /does not contain a readable Sexcapades profile-data QR code/i.test(i) && (i = `No readable Sexcapades profile QR was found in ${t.name}.`),
             sxSetImportStatus(`Import failed: ${i}`, "error", !0);
         }
 var Lg = e.byId("importedContactDialog"), Tg = e.byId("importedContactDetails"), Fg = e.byId("addImportedContact"), Ng = e.byId("importedContactStatus"), _g = e.byId("profileDetailsDialog"), Dg = e.byId("profileDetailsBody"), Rg = e.byId("profileDialogAbout"), Og = e.byId("profileDialogPhoto"), Bg = e.byId("profileDialogIdentity"), jg = e.byId("profileDialogRatings"), qg = e.byId("profileDialogSiteLinks"), Hg = e.byId("profileDetailsName"), Wg = e.byId("profileDetailsGender"), Ug = e.byId("profileDetailsSexuality"), Gg = e.byId("profileDetailsRole"), Kg = e.byId("profileDetailsAge"), Pz = e.byId("profileDetailsPronouns"), zg = e.byId("profileDetailsLocation"), Vg = e.byId("profileDetailsFetLife"), Yg = e.byId("profileDetailsPhone"), Xg = e.byId("profileDetailsTelegram"), Zg = e.byId("profileDetailsEmail"), Qg = e.byId("profileDetailsLinktree"), Jg = e.byId("profileDetailsChaturbate"), em = e.byId("profileDetailsX"), tm = e.byId("profileDetailsXhamster"), nm = e.byId("profileDetailsXvideos"), im = e.byId("profileDetailsAbout"), am = e.byId("profileDetailsAboutCount"), rm = e.byId("profileDetailsTerms"), om = e.byId("profileDetailsTermsCount"), sm = e.byId("profileDetailsStatus"), lm = e.byId("profilePhotoInput"), cm = e.byId("profilePhotoList"), dm = e.byId("profilePhotoCount"), um = e.byId("profilePhotoDialog"), pm = e.byId("profilePhotoFull"), hm = e.byId("profilePhotoViewer"), gm = e.byId("profilePhotoStage"), mm = e.byId("profilePhotoPosition"), fm = e.byId("profilePhotoZoomValue"), ym = e.byId("closeProfileDialog"), bm = e.byId("closeProfileTitle"), vm = e.byId("saveClosingProfile"), wm = e.byId("discardProfileDetailsDialog"), km = e.byId("profileExportDialog"), xm = e.byId("profileExportTitle"), Sm = e.byId("profileExportSubtitle"), $m = e.byId("profileExportDataNote"), Em = e.byId("includeContactInfo"), Am = e.byId("includeContactInfoHelp"), Cm = e.byId("blindProfileExport"), Mm = e.byId("exportAboutMe"), Im = e.byId("exportAboutMeCount"), Pm = e.byId("lowResPhotoDialog"), Lm = e.byId("lowResPhotoTitle"), Tm = e.byId("lowResPhotoGrid"), Fm = e.byId("lowResPhotoSummary"), exportPhotoGrid = e.byId("exportPhotoGrid"), exportPhotoSummary = e.byId("exportPhotoSummary"), Nm = e.byId("secondaryFile"), _m = e.byId("secondaryImage"), Dm = e.byId("secondaryFileName"), Rm = e.byId("secondaryFileLink"), Om = e.byId("fileDialog"), Bm = e.byId("fileDialogTitle"), jm = e.byId("fileDialogSubtitle"), qm = e.byId("fileReady"), Hm = e.byId("fileName"), Wm = e.byId("fileHelp"), Um = e.byId("preparedImage"), Gm = e.byId("preparedImageLink"), Km = e.byId("ninjaTransferLink"), zm = e.byId("ninjaTransferHint"), Vm = e.byId("preparedImageToolbar"), Ym = e.byId("preparedImageViewport"), Xm = e.byId("preparedImageStage"), Zm = e.byId("preparedZoomValue"), Qm = e.byId("preparedZoomIn"), Jm = e.byId("preparedZoomOut"), ef = e.byId("preparedZoomFit"), tf = e.byId("fileStatus"), nf = e.byId("fileProgress"), af = e.byId("fileProgressStage"), rf = e.byId("fileProgressValue"), of = e.byId("fileProgressTrack"), sf = e.byId("fileProgressBar"), lf = e.byId("fileProgressPortrait"), cf = e.byId("fileProgressInitials"), df = e.byId("fileProgressDetail");
@@ -42512,7 +42522,7 @@ var Df = new Map;
 var exportFormatSelect = e.byId("profileExportFormat"), exportFormatDesc = e.byId("profileExportFormatDesc"), exportBackgroundRow = e.byId("exportBackgroundRow"), syncCardPaperSizeRow = e.byId("syncCardPaperSizeRow"), runProfileExportBtn = e.byId("runProfileExport"), exportFetlifeLink = e.byId("exportFetlifeLink");
 var SX_EXPORT_FORMATS = {
             hypermap: {
-                buttonLabel: "Download .hypermap",
+                buttonLabel: "Download .CapadesIO",
                 description: "Preferred format for sharing, waving, and backups. Compact JSON profile data — pure data with no scripts, safe to open anywhere, and ready to re-import.",
                 usesBackground: !1,
                 usesPaperSize: !1
@@ -48695,7 +48705,7 @@ var Xx, Zx = 0;
                             u = "qr", await sxImportEmbeddedQr(t, new Error("This SVG does not contain embedded Sexcapades profile data."), n);
                         }
                     } else {
-                        if (!d) throw new Error("Choose a .hypermap file, or a current Sexcapades SVG, SVGZ, PNG, PDF, sync card or profile-QR image, or profile JSON file.");
+                        if (!d) throw new Error("Choose a .CapadesIO file, or a current Sexcapades SVG, SVGZ, PNG, PDF, sync card or profile-QR image, or profile JSON file.");
                         if (r) {
                             let e = null;
                             try {
@@ -48800,10 +48810,10 @@ var sxLaunchQueueInstalled = !1;
                 }
                 const importedId = sxMergeAsShared(parsed);
                 const label = importedId && sxProfileNames[importedId] ? sxProfileNames[importedId] : (name || "profile");
-                sxShowStatusToast(`Imported ${label} from ${name || ".hypermap"}`);
+                sxShowStatusToast(`Imported ${label} from ${name || ".CapadesIO"}`);
             } catch (err) {
-                const msg = yx.errorMessage(err, "The .hypermap file could not be imported.");
-                sxShowStatusToast(`Import failed (${name || ".hypermap"}): ${msg}`, {
+                const msg = yx.errorMessage(err, "The .CapadesIO file could not be imported.");
+                sxShowStatusToast(`Import failed (${name || ".CapadesIO"}): ${msg}`, {
                     tone: "error",
                     persistent: !0
                 });
@@ -48930,7 +48940,7 @@ var sxLaunchQueueInstalled = !1;
                             }
                         } catch (err) {
                             __sxErrLog("launch-queue-file", err);
-                            sxShowStatusToast(`Could not open ${handle && handle.name ? handle.name : ".hypermap file"}.`, {
+                            sxShowStatusToast(`Could not open ${handle && handle.name ? handle.name : ".CapadesIO file"}.`, {
                                 tone: "error",
                                 persistent: !0
                             });

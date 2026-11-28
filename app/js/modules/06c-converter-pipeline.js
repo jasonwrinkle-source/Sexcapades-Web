@@ -625,7 +625,7 @@
                             u = "qr", await sxImportEmbeddedQr(t, new Error("This SVG does not contain embedded Sexcapades profile data."), n);
                         }
                     } else {
-                        if (!d) throw new Error("Choose a .hypermap file, or a current Sexcapades SVG, SVGZ, PNG, PDF, sync card or profile-QR image, or profile JSON file.");
+                        if (!d) throw new Error("Choose a .CapadesIO file, or a current Sexcapades SVG, SVGZ, PNG, PDF, sync card or profile-QR image, or profile JSON file.");
                         if (r) {
                             let e = null;
                             try {
@@ -730,10 +730,10 @@
                 }
                 const importedId = sxMergeAsShared(parsed);
                 const label = importedId && sxProfileNames[importedId] ? sxProfileNames[importedId] : (name || "profile");
-                sxShowStatusToast(`Imported ${label} from ${name || ".hypermap"}`);
+                sxShowStatusToast(`Imported ${label} from ${name || ".CapadesIO"}`);
             } catch (err) {
-                const msg = yx.errorMessage(err, "The .hypermap file could not be imported.");
-                sxShowStatusToast(`Import failed (${name || ".hypermap"}): ${msg}`, {
+                const msg = yx.errorMessage(err, "The .CapadesIO file could not be imported.");
+                sxShowStatusToast(`Import failed (${name || ".CapadesIO"}): ${msg}`, {
                     tone: "error",
                     persistent: !0
                 });
@@ -860,7 +860,7 @@
                             }
                         } catch (err) {
                             __sxErrLog("launch-queue-file", err);
-                            sxShowStatusToast(`Could not open ${handle && handle.name ? handle.name : ".hypermap file"}.`, {
+                            sxShowStatusToast(`Could not open ${handle && handle.name ? handle.name : ".CapadesIO file"}.`, {
                                 tone: "error",
                                 persistent: !0
                             });
