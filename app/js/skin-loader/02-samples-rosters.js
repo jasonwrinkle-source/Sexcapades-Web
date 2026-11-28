@@ -143,7 +143,12 @@
      on its own skin — ratings keyed to another skin's topics would be
      meaningless here. */
   var ROSTER_FORMAT = "flexcapades-roster";
-  function rosterToast(msg) {
+  function rosterToast(msg, link) {
+    /* msg is plain text; link (optional) is {href, text} and is rendered
+       as a real anchor (DOM-built, never innerHTML) after the message.
+       A toast that carries a link does NOT auto-hide — it stays until
+       the user taps it (the toast dismisses on tap, including on the
+       link itself, which still opens Patreon in a new tab). */
     try {
       var el = document.getElementById("sxRosterToast");
       if (!el) {
@@ -151,12 +156,32 @@
         el.id = "sxRosterToast";
         el.setAttribute("role", "status");
         el.style.cssText = "position:fixed;left:50%;bottom:24px;transform:translateX(-50%);z-index:9999;max-width:min(92vw,480px);background:#14181c;color:#f2f4f6;border:1px solid #3a4550;border-radius:10px;padding:10px 14px;font:14px/1.45 system-ui,sans-serif;box-shadow:0 8px 28px rgba(0,0,0,.45);";
+        /* Tap to dismiss: the only dismiss path for a link toast (which
+           never auto-hides); harmless on a plain toast, which also
+           still auto-hides after 7s. */
+        el.addEventListener("click", function () {
+          try { clearTimeout(rosterToast._t); } catch (_) {}
+          el.style.display = "none";
+        });
         document.body.appendChild(el);
       }
       el.textContent = msg;
+      if (link && link.href) {
+        var a = document.createElement("a");
+        a.href = link.href;
+        a.target = "_blank";
+        a.rel = "noopener";
+        a.textContent = link.text || link.href;
+        a.style.color = "#a8d8ff";
+        a.style.textDecoration = "underline";
+        el.appendChild(document.createTextNode(" "));
+        el.appendChild(a);
+      }
       el.style.display = "block";
       clearTimeout(rosterToast._t);
-      rosterToast._t = setTimeout(function () { el.style.display = "none"; }, 7000);
+      if (!link || !link.href) {
+        rosterToast._t = setTimeout(function () { el.style.display = "none"; }, 7000);
+      }
     } catch (e) { /* a toast must never break the app */ }
   }
   function cleanRosterEntry(raw) {

@@ -1447,6 +1447,17 @@ path.rating-track-hit:not(.map-line-ring-hit).active-rating{pointer-events:strok
 .profile-add-menu button:hover,.profile-add-menu button:focus-visible{background:color-mix(in srgb,var(--paper) 12%,transparent);outline:2px solid var(--focus);outline-offset:-2px}
 .profile-add-menu button:disabled{cursor:default;opacity:.48}
 .profile-add-menu button:disabled:hover{background:transparent;outline:0}
+/* Registration window split row (two-step Buy then Verify, 2026-11-27):
+   the buy link takes the row's width, the Verify toggle is a fixed
+   button beside it. Mirrors .saved-profile-row's 1fr/auto split. The
+   buy link is an anchor, so it carries the button's look explicitly. */
+.profile-add-menu .roster-window-row{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:4px;align-items:stretch}
+.profile-add-menu a.roster-window-buy{display:flex;align-items:center;min-height:40px;padding:8px 10px;border-radius:6px;color:var(--paper);text-align:left;font-weight:700;text-decoration:none}
+.profile-add-menu a.roster-window-buy:hover,.profile-add-menu a.roster-window-buy:focus-visible{background:color-mix(in srgb,var(--paper) 12%,transparent);outline:2px solid var(--focus);outline-offset:-2px}
+.profile-add-menu a.roster-window-buy.is-disabled{cursor:default;opacity:.48}
+.profile-add-menu a.roster-window-buy.is-disabled:hover{background:transparent;outline:0}
+.profile-add-menu .roster-window-verify-toggle{position:relative;min-width:48px;padding-right:26px}
+.profile-add-menu .roster-window-verify-toggle:after{content:"\203a";position:absolute;right:9px;font-size:19px;line-height:1}
 .first-visit-cta{display:flex;align-items:center;justify-content:center;gap:11px;padding:10px 12px;border:1px solid color-mix(in srgb,var(--focus) 58%,var(--line));border-radius:10px;background:color-mix(in srgb,var(--focus) 10%,var(--panel))}
 .first-visit-cta[hidden]{display:none}
 .first-visit-cta .action-btn{min-height:44px;padding:9px 18px;border-color:var(--focus);background:var(--focus);color:#091112;font-size:16px;font-weight:800;box-shadow:0 5px 16px #0003}
@@ -1803,6 +1814,7 @@ path.rating-track-hit:not(.map-line-ring-hit).active-rating{pointer-events:strok
 #profileLoadMenu{left:10px;right:10px;top:auto;bottom:max(10px,env(safe-area-inset-bottom));width:auto;max-height:min(72dvh,520px);padding:8px}
 #profileSampleMenu{right:auto;bottom:auto;width:min(300px,calc(100dvw - 20px));max-height:calc(100dvh - 20px);padding:8px}
 .profile-add-menu button{min-height:48px}
+.profile-add-menu a.roster-window-buy{min-height:48px}
 .first-visit-cta{align-items:stretch;flex-direction:column;gap:7px;text-align:center}
 .first-visit-cta .action-btn{width:100%;min-height:50px;font-size:17px}
 .header-search-row{display:grid;grid-template-columns:minmax(82px,1fr) minmax(92px,1.1fr);gap:5px}

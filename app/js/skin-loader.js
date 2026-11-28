@@ -269,7 +269,12 @@
      on its own skin — ratings keyed to another skin's topics would be
      meaningless here. */
   var ROSTER_FORMAT = "flexcapades-roster";
-  function rosterToast(msg) {
+  function rosterToast(msg, link) {
+    /* msg is plain text; link (optional) is {href, text} and is rendered
+       as a real anchor (DOM-built, never innerHTML) after the message.
+       A toast that carries a link does NOT auto-hide — it stays until
+       the user taps it (the toast dismisses on tap, including on the
+       link itself, which still opens Patreon in a new tab). */
     try {
       var el = document.getElementById("sxRosterToast");
       if (!el) {
@@ -277,12 +282,32 @@
         el.id = "sxRosterToast";
         el.setAttribute("role", "status");
         el.style.cssText = "position:fixed;left:50%;bottom:24px;transform:translateX(-50%);z-index:9999;max-width:min(92vw,480px);background:#14181c;color:#f2f4f6;border:1px solid #3a4550;border-radius:10px;padding:10px 14px;font:14px/1.45 system-ui,sans-serif;box-shadow:0 8px 28px rgba(0,0,0,.45);";
+        /* Tap to dismiss: the only dismiss path for a link toast (which
+           never auto-hides); harmless on a plain toast, which also
+           still auto-hides after 7s. */
+        el.addEventListener("click", function () {
+          try { clearTimeout(rosterToast._t); } catch (_) {}
+          el.style.display = "none";
+        });
         document.body.appendChild(el);
       }
       el.textContent = msg;
+      if (link && link.href) {
+        var a = document.createElement("a");
+        a.href = link.href;
+        a.target = "_blank";
+        a.rel = "noopener";
+        a.textContent = link.text || link.href;
+        a.style.color = "#a8d8ff";
+        a.style.textDecoration = "underline";
+        el.appendChild(document.createTextNode(" "));
+        el.appendChild(a);
+      }
       el.style.display = "block";
       clearTimeout(rosterToast._t);
-      rosterToast._t = setTimeout(function () { el.style.display = "none"; }, 7000);
+      if (!link || !link.href) {
+        rosterToast._t = setTimeout(function () { el.style.display = "none"; }, 7000);
+      }
     } catch (e) { /* a toast must never break the app */ }
   }
   function cleanRosterEntry(raw) {
@@ -2360,7 +2385,12 @@
      swallowed silently by the boot catch, which is why the OAuth return
      showed no message at all. This is the same implementation as 02's,
      so the freemium's messages actually show. */
-  function rosterToast(msg) {
+  function rosterToast(msg, link) {
+    /* msg is plain text; link (optional) is {href, text} and is rendered
+       as a real anchor (DOM-built, never innerHTML) after the message.
+       A toast that carries a link does NOT auto-hide — it stays until
+       the user taps it (the toast dismisses on tap, including on the
+       link itself, which still opens Patreon in a new tab). */
     try {
       var el = document.getElementById("sxRosterToast");
       if (!el) {
@@ -2368,12 +2398,32 @@
         el.id = "sxRosterToast";
         el.setAttribute("role", "status");
         el.style.cssText = "position:fixed;left:50%;bottom:24px;transform:translateX(-50%);z-index:9999;max-width:min(92vw,480px);background:#14181c;color:#f2f4f6;border:1px solid #3a4550;border-radius:10px;padding:10px 14px;font:14px/1.45 system-ui,sans-serif;box-shadow:0 8px 28px rgba(0,0,0,.45);";
+        /* Tap to dismiss: the only dismiss path for a link toast (which
+           never auto-hides); harmless on a plain toast, which also
+           still auto-hides after 7s. */
+        el.addEventListener("click", function () {
+          try { clearTimeout(rosterToast._t); } catch (_) {}
+          el.style.display = "none";
+        });
         document.body.appendChild(el);
       }
       el.textContent = msg;
+      if (link && link.href) {
+        var a = document.createElement("a");
+        a.href = link.href;
+        a.target = "_blank";
+        a.rel = "noopener";
+        a.textContent = link.text || link.href;
+        a.style.color = "#a8d8ff";
+        a.style.textDecoration = "underline";
+        el.appendChild(document.createTextNode(" "));
+        el.appendChild(a);
+      }
       el.style.display = "block";
       clearTimeout(rosterToast._t);
-      rosterToast._t = setTimeout(function () { el.style.display = "none"; }, 7000);
+      if (!link || !link.href) {
+        rosterToast._t = setTimeout(function () { el.style.display = "none"; }, 7000);
+      }
     } catch (e) { /* a toast must never break the app */ }
   }
 
@@ -2408,6 +2458,10 @@
        Do NOT put a client secret anywhere in this file. */
     patreonClientId: "MYH16SFh3pcPlxr9wx7y9R7e_XlUDUx7JNs0Q8SAmDe9XeDRGJ9f5kCxMS0AqFVm",
     patreonProductId: "176571871",
+    /* Direct link to buy the $5 window (the first step of the two-step
+       flow, 2026-11-27): the add-menu buy link and the purchase-framed
+       error toasts all point here. */
+    patreonProductUrl: "https://www.patreon.com/posts/roster-window-30-176571871",
     /* Redirect URI: the app page itself. This exact value must be
        registered in the Patreon OAuth app, or Patreon refuses the login. */
     patreonRedirectUri: "",
@@ -2801,6 +2855,13 @@
       })
       .catch(function () { return { bought: false, userId: null }; });
   }
+  /* The buy link for the two-step flow (2026-11-27): the purchase-framed
+     error toasts point here so the user can buy the $5 window on
+     Patreon, then come back and verify. */
+  function sxRosterBuyLink() {
+    var cfg = sxRosterFreemiumConfig();
+    return { href: cfg.patreonProductUrl || "https://www.patreon.com/posts/roster-window-30-176571871", text: "Buy the $5 window on Patreon" };
+  }
   function sxPatreonHandleOAuthReturn() {
     /* Called at boot. If the app loaded with ?code=...&state=... from
        Patreon, verify the state, exchange the code, check the purchase,
@@ -2813,7 +2874,7 @@
     var savedState = null;
     try { savedState = sessionStorage.getItem(SX_ROSTER_OAUTH_STATE_KEY); } catch (e) { savedState = null; }
     if (!state || !savedState || state !== savedState) {
-      rosterToast("That Patreon login did not check out — try again.");
+      rosterToast("That Patreon login did not confirm a $5 registration window purchase. Buy the $5 window on Patreon first, then try again.", sxRosterBuyLink());
       return;
     }
     var cleanUrl = function () {
@@ -2826,7 +2887,7 @@
     };
     sxPatreonExchangeCode(code).then(function (token) {
       cleanUrl();
-      if (!token) { rosterToast("Patreon would not confirm that login — try again."); return; }
+      if (!token) { rosterToast("Patreon would not confirm a $5 registration window purchase for that login. Buy the $5 window on Patreon first, then try again.", sxRosterBuyLink()); return; }
       return sxPatreonCheckPurchase(token);
     }).then(function (res) {
       if (!res) return;
@@ -2835,16 +2896,51 @@
         rosterToast("Registration window bought — 30 days, starting when you first use it on a roster. Add members or re-open a roster to use it.");
         if (typeof sxRosterRefreshBuyButton === "function") sxRosterRefreshBuyButton();
       } else {
-        rosterToast("Patreon did not show that $5 registration window purchase — if you just bought it, wait a moment and try the login again.");
+        rosterToast("Patreon did not show that $5 registration window purchase. If you just bought it, wait a moment and try the login again — or buy the $5 window on Patreon first.", sxRosterBuyLink());
       }
     });
   }
 
-  /* ---- UI: buy button + status (in the add menu, beside Export/Import) ---- */
+  /* ---- UI: buy link + verify submenu (two-step, 2026-11-27, Jason) ----
+     The add menu carries a split row: the buy link itself (an anchor to
+     the Patreon product) plus a "Verify…" toggle that opens a drill-in
+     submenu with "Verify my purchase" (the OAuth check). Buying comes
+     first, verifying second — the old single button ran the OAuth check
+     before the user had bought anything, which read backwards. The row
+     is a grid item in #profileAddMenu; the submenu is a sibling of the
+     add menu (like the roster submenus) and is registered in
+     window.__SX_SAMPLE_SUBMENUS so 06d's close/refresh paths treat it
+     like the others. The row is destroyed by menu rebuilds, so ensure
+     drops the orphaned submenu too and recreates the pair fresh — the
+     wire hook then binds exactly once per element pair. */
   function sxRosterBuyButtonEl() { return document.getElementById("rosterWindowChoice"); }
+  function sxRosterVerifyToggleEl() { return document.getElementById("rosterWindowVerifyToggle"); }
+  function sxRosterWindowMenuEl() { return document.getElementById("rosterWindowMenu"); }
+  function sxRosterWindowMenuBackEl() { return document.getElementById("rosterWindowMenuBack"); }
+  function sxRosterRemoveRosterWindowMenu(menu) {
+    menu = menu || sxRosterWindowMenuEl();
+    if (!menu) return;
+    var reg = window.__SX_SAMPLE_SUBMENUS || [];
+    var ix = reg.indexOf(menu);
+    if (ix >= 0) reg.splice(ix, 1);
+    if (menu.parentElement) menu.remove();
+  }
+  function sxRosterWireRosterWindowMenu() {
+    var toggle = sxRosterVerifyToggleEl();
+    var menu = sxRosterWindowMenuEl();
+    var back = sxRosterWindowMenuBackEl();
+    if (!toggle || !menu || menu.__sxRosterWired) return;
+    var wire = (typeof window.__SX_WIRE_SAMPLE_SUBMENU === "function") ? window.__SX_WIRE_SAMPLE_SUBMENU : null;
+    if (!wire) return;
+    menu.__sxTrigger = toggle;
+    wire(toggle, menu, back);
+    menu.__sxRosterWired = true;
+  }
   function sxRosterRefreshBuyButton() {
-    var btn = sxRosterBuyButtonEl();
-    if (!btn) return;
+    var link = sxRosterBuyButtonEl();
+    if (!link) return;
+    var toggle = sxRosterVerifyToggleEl();
+    var verifyBtn = document.getElementById("rosterWindowVerify");
     var cfg = sxRosterFreemiumConfig();
     var store = sxRosterReadWindows();
     var now = sxRosterNow();
@@ -2854,26 +2950,86 @@
       if (w.startsAt && sxRosterWindowActive(w, now)) active = w;
       else if (!w.startsAt && sxRosterWindowActive(w, now)) ready = w;
     });
-    if (active) btn.textContent = "Registration window: " + sxRosterWindowLabel(active);
-    else if (ready) btn.textContent = "Registration window ready — 30 days, starts on first use";
-    else btn.textContent = "Get a registration window — $" + cfg.priceUSD + " · " + cfg.windowDays + " days";
-    btn.disabled = Boolean(active || ready);
+    var label, disabled;
+    if (active) { label = "Registration window: " + sxRosterWindowLabel(active); disabled = true; }
+    else if (ready) { label = "Registration window ready — 30 days, starts on first use"; disabled = true; }
+    else { label = "Buy a registration window — $" + cfg.priceUSD + " · " + cfg.windowDays + " days"; disabled = false; }
+    link.textContent = label;
+    if (disabled) { link.setAttribute("aria-disabled", "true"); link.classList.add("is-disabled"); }
+    else { link.removeAttribute("aria-disabled"); link.classList.remove("is-disabled"); }
+    if (toggle) toggle.disabled = disabled;
+    if (verifyBtn) verifyBtn.disabled = disabled;
   }
   function sxRosterEnsureBuyButton() {
     var addMenu = document.getElementById("profileAddMenu");
-    if (!addMenu || document.getElementById("rosterWindowChoice")) { sxRosterRefreshBuyButton(); return; }
-    var btn = document.createElement("button");
-    btn.type = "button";
-    btn.id = "rosterWindowChoice";
-    btn.setAttribute("role", "menuitem");
-    btn.addEventListener("click", function () { sxPatreonStartOAuth(); });
-    addMenu.appendChild(btn);
+    if (!addMenu) { sxRosterRefreshBuyButton(); return; }
+    if (document.getElementById("rosterWindowChoice")) {
+      sxRosterWireRosterWindowMenu();
+      sxRosterRefreshBuyButton();
+      return;
+    }
+    /* The row was destroyed by a menu rebuild. Drop the orphaned
+       submenu too (its trigger is gone) so the pair is recreated
+       fresh with exactly-once wiring. */
+    sxRosterRemoveRosterWindowMenu();
+    var cfg = sxRosterFreemiumConfig();
+    var productUrl = cfg.patreonProductUrl || "https://www.patreon.com/posts/roster-window-30-176571871";
+    var row = document.createElement("div");
+    row.id = "rosterWindowRow";
+    row.className = "roster-window-row";
+    var link = document.createElement("a");
+    link.id = "rosterWindowChoice";
+    link.className = "roster-window-buy";
+    link.setAttribute("role", "menuitem");
+    link.href = productUrl;
+    link.target = "_blank";
+    link.rel = "noopener";
+    link.addEventListener("click", function (e) {
+      if (link.getAttribute("aria-disabled") === "true") e.preventDefault();
+    });
+    var toggle = document.createElement("button");
+    toggle.type = "button";
+    toggle.id = "rosterWindowVerifyToggle";
+    toggle.className = "roster-window-verify-toggle";
+    toggle.setAttribute("role", "menuitem");
+    toggle.setAttribute("aria-haspopup", "menu");
+    toggle.setAttribute("aria-expanded", "false");
+    toggle.textContent = "Verify…";
+    row.appendChild(link);
+    row.appendChild(toggle);
+    addMenu.appendChild(row);
+    /* Drill-in submenu: "Verify my purchase" (the OAuth check). */
+    var menu = document.createElement("div");
+    menu.id = "rosterWindowMenu";
+    menu.className = "profile-add-menu profile-sample-menu";
+    menu.setAttribute("role", "menu");
+    menu.setAttribute("aria-label", "Registration window");
+    menu.hidden = true;
+    var back = document.createElement("button");
+    back.type = "button";
+    back.id = "rosterWindowMenuBack";
+    back.className = "sample-menu-back";
+    back.setAttribute("role", "menuitem");
+    back.textContent = "‹ Back";
+    menu.appendChild(back);
+    var verify = document.createElement("button");
+    verify.type = "button";
+    verify.id = "rosterWindowVerify";
+    verify.setAttribute("role", "menuitem");
+    verify.textContent = "Verify my purchase";
+    verify.addEventListener("click", function () { sxPatreonStartOAuth(); });
+    menu.appendChild(verify);
+    if (addMenu.parentElement) addMenu.parentElement.appendChild(menu);
+    else document.body.appendChild(menu);
+    menu.__sxTrigger = toggle;
+    (window.__SX_SAMPLE_SUBMENUS = window.__SX_SAMPLE_SUBMENUS || []).push(menu);
+    sxRosterWireRosterWindowMenu();
     sxRosterRefreshBuyButton();
   }
   function sxRosterBlockedToast(gate) {
     /* The gate blocked a membership change. Show the reason and offer
        the purchase as the way through (a second click starts OAuth). */
-    rosterToast(gate.reason + " Tap “Get a registration window” in the add menu to buy one.");
+    rosterToast(gate.reason + " Open “Buy a registration window” in the add menu — buy it on Patreon, then choose “Verify my purchase” there.");
   }
 
   /* ---- Public API (called from 02-samples-rosters.js, 03-taxonomy-loader-layout.js, 06d3-profile-about.js) ---- */
