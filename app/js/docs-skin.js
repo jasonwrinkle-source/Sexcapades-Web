@@ -34,7 +34,10 @@
     "cats": 18,
     "catsWithSub": 16,
     "subcats": 72,
-    "topics": 370
+    "topics": 382,
+    "archetypes": 36,
+    "firstLadder": 24,
+    "firstLadderMins": 7
   },
   "flex": {
     "id": "flexcapades",
@@ -56,7 +59,10 @@
     "cats": 7,
     "catsWithSub": 0,
     "subcats": 0,
-    "topics": 32
+    "topics": 32,
+    "archetypes": 7,
+    "firstLadder": 6,
+    "firstLadderMins": 2
   },
   "polis": {
     "id": "poliscapades",
@@ -78,7 +84,10 @@
     "cats": 8,
     "catsWithSub": 7,
     "subcats": 21,
-    "topics": 110
+    "topics": 110,
+    "archetypes": 9,
+    "firstLadder": 6,
+    "firstLadderMins": 2
   },
   "fores": {
     "id": "forescapades",
@@ -100,7 +109,10 @@
     "cats": 7,
     "catsWithSub": 6,
     "subcats": 22,
-    "topics": 118
+    "topics": 118,
+    "archetypes": 17,
+    "firstLadder": 6,
+    "firstLadderMins": 2
   },
   "chem": {
     "id": "chemcapades",
@@ -122,7 +134,10 @@
     "cats": 8,
     "catsWithSub": 0,
     "subcats": 0,
-    "topics": 76
+    "topics": 76,
+    "archetypes": 13,
+    "firstLadder": 6,
+    "firstLadderMins": 2
   },
   "aesth": {
     "id": "aesthcapades",
@@ -144,7 +159,10 @@
     "cats": 7,
     "catsWithSub": 1,
     "subcats": 3,
-    "topics": 50
+    "topics": 50,
+    "archetypes": 8,
+    "firstLadder": 6,
+    "firstLadderMins": 2
   },
   "experi": {
     "id": "expericapades",
@@ -166,7 +184,10 @@
     "cats": 6,
     "catsWithSub": 0,
     "subcats": 0,
-    "topics": 73
+    "topics": 73,
+    "archetypes": 11,
+    "firstLadder": 6,
+    "firstLadderMins": 2
   },
   "dharma": {
     "id": "dharmacapades",
@@ -188,7 +209,10 @@
     "cats": 6,
     "catsWithSub": 0,
     "subcats": 0,
-    "topics": 43
+    "topics": 43,
+    "archetypes": 11,
+    "firstLadder": 6,
+    "firstLadderMins": 2
   },
   "matter": {
     "id": "mattercapades",
@@ -210,7 +234,10 @@
     "cats": 6,
     "catsWithSub": 0,
     "subcats": 0,
-    "topics": 72
+    "topics": 72,
+    "archetypes": 16,
+    "firstLadder": 10,
+    "firstLadderMins": 4
   },
   "philo": {
     "id": "philoscapades",
@@ -232,7 +259,10 @@
     "cats": 6,
     "catsWithSub": 0,
     "subcats": 0,
-    "topics": 29
+    "topics": 29,
+    "archetypes": 8,
+    "firstLadder": 6,
+    "firstLadderMins": 2
   },
   "praxi": {
     "id": "praxicapades",
@@ -254,7 +284,10 @@
     "cats": 6,
     "catsWithSub": 0,
     "subcats": 0,
-    "topics": 75
+    "topics": 75,
+    "archetypes": 13,
+    "firstLadder": 7,
+    "firstLadderMins": 3
   },
   "quanta": {
     "id": "quantacapades",
@@ -276,7 +309,10 @@
     "cats": 6,
     "catsWithSub": 0,
     "subcats": 0,
-    "topics": 70
+    "topics": 70,
+    "archetypes": 15,
+    "firstLadder": 6,
+    "firstLadderMins": 2
   },
   "simul": {
     "id": "simulcapades",
@@ -298,7 +334,10 @@
     "cats": 6,
     "catsWithSub": 0,
     "subcats": 0,
-    "topics": 80
+    "topics": 80,
+    "archetypes": 16,
+    "firstLadder": 6,
+    "firstLadderMins": 2
   },
   "tech": {
     "id": "techcapades",
@@ -320,7 +359,10 @@
     "cats": 6,
     "catsWithSub": 0,
     "subcats": 0,
-    "topics": 40
+    "topics": 40,
+    "archetypes": 6,
+    "firstLadder": 6,
+    "firstLadderMins": 2
   },
   "theori": {
     "id": "theoricapades",
@@ -342,7 +384,10 @@
     "cats": 6,
     "catsWithSub": 0,
     "subcats": 0,
-    "topics": 74
+    "topics": 74,
+    "archetypes": 18,
+    "firstLadder": 7,
+    "firstLadderMins": 3
   },
   "voca": {
     "id": "vocapades",
@@ -364,7 +409,10 @@
     "cats": 6,
     "catsWithSub": 0,
     "subcats": 0,
-    "topics": 34
+    "topics": 34,
+    "archetypes": 7,
+    "firstLadder": 6,
+    "firstLadderMins": 2
   },
   "nous": {
     "id": "nouscapades",
@@ -386,7 +434,10 @@
     "cats": 8,
     "catsWithSub": 0,
     "subcats": 0,
-    "topics": 55
+    "topics": 55,
+    "archetypes": 7,
+    "firstLadder": 6,
+    "firstLadderMins": 2
   },
   "bio": {
     "id": "biocapades",
@@ -408,7 +459,10 @@
     "cats": 8,
     "catsWithSub": 0,
     "subcats": 0,
-    "topics": 46
+    "topics": 46,
+    "archetypes": 6,
+    "firstLadder": 6,
+    "firstLadderMins": 2
   },
   "lingua": {
     "id": "linguacapades",
@@ -430,7 +484,10 @@
     "cats": 7,
     "catsWithSub": 0,
     "subcats": 0,
-    "topics": 40
+    "topics": 40,
+    "archetypes": 5,
+    "firstLadder": 6,
+    "firstLadderMins": 2
   },
   "fast": {
     "id": "fastcapades",
@@ -452,7 +509,10 @@
     "cats": 7,
     "catsWithSub": 0,
     "subcats": 0,
-    "topics": 33
+    "topics": 33,
+    "archetypes": 5,
+    "firstLadder": 6,
+    "firstLadderMins": 2
   },
   "dance": {
     "id": "dancecapades",
@@ -474,7 +534,10 @@
     "cats": 9,
     "catsWithSub": 6,
     "subcats": 15,
-    "topics": 85
+    "topics": 86,
+    "archetypes": 10,
+    "firstLadder": 8,
+    "firstLadderMins": 3
   },
   "quest": {
     "id": "questcapades",
@@ -496,7 +559,10 @@
     "cats": 8,
     "catsWithSub": 4,
     "subcats": 12,
-    "topics": 82
+    "topics": 82,
+    "archetypes": 12,
+    "firstLadder": 10,
+    "firstLadderMins": 3
   }
 };
 
@@ -538,6 +604,9 @@
     catsWithSub: rawSkin.catsWithSub,
     subcats: rawSkin.subcats,
     topics: rawSkin.topics,
+    archetypes: rawSkin.archetypes || 0,
+    firstLadder: rawSkin.firstLadder || 0,
+    firstLadderMins: rawSkin.firstLadderMins || 0,
     host: prefix + ".capades.io",
     isSex: prefix === "sex",
     hasCompare: !!COMPARE_SKINS[prefix]
@@ -605,32 +674,144 @@
     for (var i = 0; i < node.childNodes.length; i++) walk(node.childNodes[i]);
   }
 
+  function formatEstMins(mins) {
+    var m = Math.max(1, Math.round(mins));
+    if (m < 60) return "~" + m + " min";
+    var hrs = (m / 60).toFixed(1).replace(/\.0$/, "");
+    return "~" + hrs + " hr" + (m >= 90 ? "s" : "");
+  }
+
   function getLadderRungText(s) {
     var c = s.cats;
     var t = s.topics;
-    if (s.isSex) {
-      return "Each extra rung adds 3 topics to every category: 3 per category is 54 topics (~20 min), 6 is 108 (~40 min), 9 is 162 (~1 hr), 12 is 216 (~80 min), 15 is 270 (~100 min), 18 is 324 (~2 hrs), 21 covers the full 365-topic map in about 2.5 hours.";
-    }
+    var flN = s.firstLadder || Math.min(t, 6);
+    var flM = s.firstLadderMins || Math.max(1, Math.round(flN / 3));
+    var prefixStr = "First Ladder is " + flN + " topics (" + formatEstMins(flM) + ") for your first archetype projection. ";
     var rungs = [3, 6, 9, 12, 15, 18, 21];
     var parts = [];
     for (var i = 0; i < rungs.length; i++) {
       var r = rungs[i];
       var count = r * c;
       if (count < t) {
-        var mins = Math.max(5, Math.round(count * 0.38));
-        var timeStr = mins < 60 ? ("~" + mins + " min") : ("~" + (mins / 60).toFixed(1).replace(/\.0$/, "") + " hr" + (mins >= 90 ? "s" : ""));
-        parts.push(r + " per category is " + count + " topics (" + timeStr + ")");
+        parts.push(r + " per category is " + count + " topics (" + formatEstMins(count / 3) + ")");
       } else {
-        var fullMins = Math.max(8, Math.round(t * 0.38));
-        var fullTimeStr = fullMins < 60 ? ("~" + fullMins + " min") : ("~" + (fullMins / 60).toFixed(1).replace(/\.0$/, "") + " hr" + (fullMins >= 90 ? "s" : ""));
-        parts.push("covering all " + t + " topics takes about " + fullTimeStr);
+        parts.push("all " + t + " topics take " + formatEstMins(t / 3));
         break;
       }
     }
     if (parts.length <= 1) {
-      return "Rating all " + t + " topics across its " + c + " categories takes about " + Math.max(8, Math.round(t * 0.38)) + " minutes in total.";
+      return prefixStr + "Rating all " + t + " topics across " + c + " categories takes " + formatEstMins(t / 3) + " in total.";
     }
-    return "Each extra rung adds up to 3 topics to every category: " + parts.join(", ") + ".";
+    return prefixStr + "After that, each rung adds up to 3 topics per category: " + parts.join(", ") + ".";
+  }
+
+  function renderProfilePhases(s) {
+    var section = document.getElementById("profile-phases");
+    if (!section) return;
+
+    var c = s.cats;
+    var t = s.topics;
+    var arch = s.archetypes || 0;
+    var flN = s.firstLadder || Math.min(t, 6);
+    var flM = s.firstLadderMins || Math.max(1, Math.round(flN / 3));
+    var pass1 = Math.min(3 * c, t);
+    var pass1M = Math.max(1, Math.round(pass1 / 3));
+    var pass2 = 6 * c;
+    var hasPass2 = pass2 <= Math.floor(t * 0.8) && pass2 > pass1;
+    var pass2M = Math.max(1, Math.round(pass2 / 3));
+    var fullM = Math.max(1, Math.round(t / 3));
+    var factorName = s.isSex ? "Kink Factor" : "Personal Depth Factor";
+    var archPhrase = arch > 1 ? ("all " + arch + " headline archetypes") : "the map’s archetypes";
+    var partnerWord = s.prefix === "dance" ? "dance partner" : s.prefix === "quest" ? "table" : "partner";
+
+    var ledeEl = document.getElementById("phases-lede");
+    if (ledeEl) {
+      ledeEl.textContent = "You don’t need to rate all " + t + " topics in one sitting. The Hot List orders topics by signal strength—matching the milestone ticks on its progress bar—so every phase unlocks a sharper profile.";
+    }
+
+    var phases = [
+      {
+        num: "Phase 01",
+        tag: "First Ladder",
+        metric: flN + " topics · " + formatEstMins(flM),
+        title: "First archetype projection",
+        body: "Rate the top " + flN + " topics—picked by the greedy orthogonal ladder to separate " + archPhrase + " in the fewest steps. Enough for your first “Which archetype am I?” projection."
+      },
+      {
+        num: "Phase 02",
+        tag: "3 per category",
+        metric: pass1 + " topics · " + formatEstMins(pass1M),
+        title: "Accurate projection & core map",
+        body: "First full pass across all " + c + " categories, pulling the sharpest pole splits (fault lines) from every branch. Locks in an accurate archetype projection and a balanced map ready to compare with a " + partnerWord + "."
+      }
+    ];
+
+    if (hasPass2) {
+      phases.push({
+        num: "Phase 03",
+        tag: "6 per category",
+        metric: pass2 + " topics · " + formatEstMins(pass2M),
+        title: "Deeper resolution",
+        body: "Second pass across all " + c + " categories—surfacing secondary fault lines and subtler preferences so Scribe, Scene Setter, and group sync capture nuance beyond headline agreement."
+      });
+    }
+
+    phases.push({
+      num: hasPass2 ? "Phase 04" : "Phase 03",
+      tag: "Full map",
+      metric: t + " topics · " + formatEstMins(fullM),
+      title: "Complete map",
+      body: "Every " + s.topicTerm + " on the map rated down through the popularity and alphabetical tail—maximum " + factorName + " and zero blind spots in " + partnerWord + " overlays."
+    });
+
+    var grid = document.getElementById("phases-grid");
+    if (grid) {
+      grid.classList.toggle("is-four", phases.length === 4);
+      grid.classList.toggle("is-three", phases.length === 3);
+      grid.innerHTML = phases.map(function (p) {
+        return '<article class="phase-card">' +
+          '<div class="phase-head">' +
+            '<span class="phase-num">' + p.num + '</span>' +
+            '<span class="phase-tag">' + p.tag + '</span>' +
+          '</div>' +
+          '<h3>' + p.title + '</h3>' +
+          '<p class="phase-metric">' + p.metric + '</p>' +
+          '<p class="phase-body">' + p.body + '</p>' +
+        '</article>';
+      }).join("");
+    }
+
+    var cascadeList = document.getElementById("cascade-list");
+    if (cascadeList) {
+      var tiers = [
+        {
+          rank: "01",
+          name: "Greedy orthogonal first ladder",
+          detail: "Top " + flN + " topics chosen to maximize separation between the closest pair of headline archetypes."
+        },
+        {
+          rank: "02",
+          name: "Biggest pole split (fault lines)",
+          detail: "Next come the topics where archetypes diverge most sharply across poles."
+        },
+        {
+          rank: "03",
+          name: "Popularity",
+          detail: "Remaining topics ordered by community rating volume so widely relevant ones surface first."
+        },
+        {
+          rank: "04",
+          name: "Alphabetical",
+          detail: "Deterministic tie-breaker for the long tail so rows never jump while you rate."
+        }
+      ];
+      cascadeList.innerHTML = tiers.map(function (tier) {
+        return '<li class="cascade-step">' +
+          '<span class="cascade-rank">' + tier.rank + '</span>' +
+          '<div class="cascade-copy"><strong>' + tier.name + '</strong> — ' + tier.detail + '</div>' +
+        '</li>';
+      }).join("");
+    }
   }
 
   function skinHowItWorks(s) {
@@ -727,39 +908,42 @@
   function skinQuickstart(s) {
     if (!document.querySelector(".steps-section")) return;
 
-    var estMins = Math.max(8, Math.round(s.cats * 3 / 2.7));
+    var pass1 = Math.min(3 * s.cats, s.topics);
+    var estMins = Math.max(1, Math.round(pass1 / 3));
+    var flN = s.firstLadder || Math.min(s.topics, 6);
+    var flM = s.firstLadderMins || Math.max(1, Math.round(flN / 3));
 
     // Title & Meta
     document.title = s.name + " Quick Start";
     var metaDesc = document.querySelector('meta[name="description"]');
     if (metaDesc) {
-      metaDesc.setAttribute("content", "Get started with " + s.name + " in about " + estMins + " minutes: rate 3 " + s.topicsTerm + " per category in the Hot list, then compare your hypermap with a partner.");
+      metaDesc.setAttribute("content", "Get started with " + s.name + ": rate the top " + flN + " topics (~" + flM + " min) for your first archetype projection, or 3 per category (~" + estMins + " min) for a partner-ready core map.");
     }
 
     // Hero Section
     var introTitle = document.getElementById("intro-title");
     if (introTitle) introTitle.textContent = "Find what clicks—in about " + estMins + " minutes.";
     var timeEl = document.querySelector(".time");
-    if (timeEl) timeEl.textContent = "~" + estMins + " minutes";
+    if (timeEl) timeEl.textContent = "~" + flM + "m first projection · ~" + estMins + "m core map";
 
     // Hero Lede
     var ledes = document.querySelectorAll(".lede");
     var subcatStr = s.subcats ? (" (" + s.subcats + " subcategories)") : "";
     var ledeHtml = "";
     if (s.isSex) {
-      ledeHtml = "<strong>Sexcapades maps 365 kinks across 18 categories.</strong> You rate each one for giving and for receiving; when a partner rates theirs, the app overlays your two maps and colors every topic by how you match.";
+      ledeHtml = "<strong>Sexcapades maps " + s.topics + " kinks across " + s.cats + " categories.</strong> You rate each one for giving and for receiving; when a partner rates theirs, the app overlays your two maps and colors every topic by how you match.";
     } else if (s.prefix === "dance") {
-      ledeHtml = "<strong>Dancecapades maps 82 partner dances across 9 categories (6 subcategories).</strong> You rate each dance for leading and for following; when a dance partner rates theirs, the app overlays your two maps and colors every dance by your mutual groove and lead/follow fit.";
+      ledeHtml = "<strong>Dancecapades maps " + s.topics + " partner dances across " + s.cats + " categories" + subcatStr + ".</strong> You rate each dance for leading and for following; when a dance partner rates theirs, the app overlays your two maps and colors every dance by your mutual groove and lead/follow fit.";
     } else if (s.prefix === "quest") {
-      ledeHtml = "<strong>Questcapades maps 79 tabletop roleplaying games and styles across 8 categories.</strong> You rate each game for running (GMing) and for playing; when your table rates theirs, the app overlays your maps and highlights the systems where GM appetite meets player desire.";
+      ledeHtml = "<strong>Questcapades maps " + s.topics + " tabletop roleplaying games and styles across " + s.cats + " categories.</strong> You rate each game for running (GMing) and for playing; when your table rates theirs, the app overlays your maps and highlights the systems where GM appetite meets player desire.";
     } else if (s.prefix === "flex") {
-      ledeHtml = "<strong>Flexcapades maps 29 topics across 7 categories.</strong> How you use Flexcapades, and how you want it to grow: you rate each feature and open question on your stake in it; when a partner or team member rates theirs, the app overlays your two maps and colors every topic by how you match.";
+      ledeHtml = "<strong>Flexcapades maps " + s.topics + " topics across " + s.cats + " categories.</strong> How you use Flexcapades, and how you want it to grow: you rate each feature and open question on your stake in it; when a partner or team member rates theirs, the app overlays your two maps and colors every topic by how you match.";
     } else {
       ledeHtml = "<strong>" + s.name + " maps " + s.topics + " " + s.topicsTerm + " across " + s.cats + " categories" + subcatStr + ".</strong> " + s.aboutSummary + " You rate each " + s.topicTerm + " on your " + s.poles[0] + " and " + s.poles[1] + "; when a partner rates theirs, the app overlays your two maps and colors every topic by how you match.";
     }
     ledes.forEach(function (l) { l.innerHTML = ledeHtml; });
 
-    // Step 1: Hot list hierarchy
+    // Step 1: Hot list hierarchy & ordering
     var hierHtml = "";
     if (s.subcats > 0) {
       hierHtml = s.catsWithSub + " of the " + s.cats + " categories split into subcategories (" + s.subcats + " in total). A <strong>›</strong> beside a name means it is collapsed; tap it and the arrow turns down (<strong>⌄</strong>) as its contents expand in place.";
@@ -774,7 +958,7 @@
       if (step1Ps.length >= 2) step1Ps[1].innerHTML = hierHtml;
     }
 
-    // Step 2: Rating sliders & Coverage
+    // Step 2: Rating sliders & Ladder coverage
     var sliderHtml = "";
     if (s.isSex) {
       sliderHtml = "Every topic has two sliders: <strong>give</strong> sits above the topic’s line, <strong>receive</strong> below it. Drag either one to set how much you want that side of it — the scale runs from Not Interested through Curious about to Want to do, and you can also flag a topic Hard Limit or Fantasy-only.";
@@ -793,8 +977,13 @@
       if (step2Ps.length >= 1) step2Ps[0].innerHTML = sliderHtml;
     }
 
-    var almostAll = (3 * s.cats >= s.topics) ? " (covering almost the entire map!)" : "";
-    var coverageText = "Stopping at 3 per category covers all " + s.cats + " categories — " + (3 * s.cats) + " topics in about " + estMins + " minutes" + almostAll + ".";
+    var step2FirstLi = document.getElementById("step2-first-ladder");
+    if (step2FirstLi) {
+      step2FirstLi.innerHTML = "<strong>First Ladder (" + flN + " topics · " + formatEstMins(flM) + "):</strong> rate the top topics first to get your first archetype projection — marked on the Hot List progress bar.";
+    }
+
+    var almostAll = (pass1 >= Math.round(s.topics * 0.7)) ? " (covering most of the map!)" : "";
+    var coverageText = "<strong>Core map (" + pass1 + " topics · " + formatEstMins(estMins) + "):</strong> stopping at 3 per category covers all " + s.cats + " categories" + almostAll + " for an accurate archetype projection and partner comparison.";
     var step2CoverageLis = document.querySelectorAll(".steps .step:nth-child(2) ul li[data-sx-sex-only], .steps .step:nth-child(2) ul li[data-sx-vanilla-only]");
     if (step2CoverageLis.length > 0) {
       step2CoverageLis.forEach(function (li) { li.innerHTML = coverageText; });
@@ -802,6 +991,9 @@
       var step2Lis = document.querySelectorAll(".steps .step:nth-child(2) ul li");
       if (step2Lis.length >= 2) step2Lis[step2Lis.length - 1].innerHTML = coverageText;
     }
+
+    // Profile phases & 4-tier Hot List cascade
+    renderProfilePhases(s);
 
     // Step 3: Compare with partner
     var step3CompareEls = document.querySelectorAll(".steps .step:nth-child(3) p[data-sx-sex-only], .steps .step:nth-child(3) p[data-sx-vanilla-only]");
