@@ -257,6 +257,62 @@
 <p id="negotiationGuideOutputDesc">The completed checklist as a finished, standalone agreement document — not an AI prompt.</p>
 <div class="setter-output-actions"><button class="action-btn primary" id="copyNegotiationGuide" type="button">Copy negotiation guide</button><button class="action-btn" id="downloadNegotiationGuide" type="button">Download negotiation guide (.txt)</button></div>
 <span class="copy-status" id="negotiationGuideStatus" role="status"></span>
+<div class="scribe-ai-panel setter-ai-panel" id="negGuideAiPanel" style="margin-top: 16px; padding: 16px; background: rgba(15, 23, 42, 0.7); border: 1px solid #334155; border-radius: 8px;">
+<div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; flex-wrap: wrap; gap: 8px;">
+<h4 style="margin: 0; color: #67e8f9; font-size: 15px; font-weight: 700; display: flex; align-items: center; gap: 8px;">
+<span>Direct AI Discussion Plan &amp; Readable Version</span>
+<span style="font-size: 10px; text-transform: uppercase; padding: 2px 6px; background: rgba(103, 232, 249, 0.15); border: 1px solid rgba(103, 232, 249, 0.4); border-radius: 4px; color: #67e8f9; font-family: monospace;">BYOK</span>
+</h4>
+<a id="negGuideGetKeyLink" href="https://aistudio.google.com/app/apikey" target="_blank" rel="noopener noreferrer" style="font-size: 12px; color: #38bdf8; text-decoration: underline;">Get free Google AI Studio key ↗</a>
+</div>
+<p style="font-size: 12px; color: #94a3b8; margin: 0 0 12px 0;">Use your personal API key (Google Gemini, xAI Grok, or OpenAI) to turn this negotiation guide into a discussion plan for the verbal negotiation, or a plain-language readable version of the agreement. Keys are saved only in your browser’s local storage and shared with Scribe and the play guide.</p>
+<div style="display: flex; gap: 10px; align-items: center; flex-wrap: wrap; margin-bottom: 12px;">
+<label style="font-size: 12px; color: #cbd5e1; display: flex; align-items: center; gap: 6px;">
+<span>Provider:</span>
+<select id="negGuideAiProvider" style="padding: 6px 10px; background: #0f172a; border: 1px solid #334155; border-radius: 6px; color: #f8fafc; font-size: 12px;">
+<option value="gemini" selected>Google Gemini (Free tier)</option>
+<option value="grok">xAI Grok (Erotica / Unfiltered)</option>
+<option value="openai">OpenAI (ChatGPT)</option>
+</select>
+</label>
+</div>
+<div style="display: flex; gap: 8px; align-items: center; flex-wrap: wrap; margin-bottom: 12px;">
+<input type="password" id="negGuideGeminiKey" placeholder="Paste Gemini API key (AIzaSy...)" autocomplete="off" style="flex: 1 1 240px; min-width: 200px; padding: 8px 12px; background: #0f172a; border: 1px solid #334155; border-radius: 6px; color: #f8fafc; font-family: monospace; font-size: 13px;" />
+<button type="button" class="action-btn" id="negGuideSaveKeyBtn" style="padding: 8px 14px; font-size: 13px;">Save Key</button>
+<button type="button" class="action-btn" id="negGuideClearKeyBtn" style="padding: 8px 12px; font-size: 13px; opacity: 0.8;">Clear</button>
+</div>
+<p id="negGuideKeyStatus" style="font-size: 11px; margin: -6px 0 12px 0; color: #94a3b8;"></p>
+<div style="display: flex; gap: 10px; align-items: center; flex-wrap: wrap;">
+<label style="font-size: 12px; color: #cbd5e1; display: flex; align-items: center; gap: 6px;">
+<span>Model:</span>
+<select id="negGuideGeminiModel" style="padding: 6px 10px; background: #0f172a; border: 1px solid #334155; border-radius: 6px; color: #f8fafc; font-size: 12px; min-width: 180px;">
+<option value="gemini-flash-latest" selected>gemini-flash-latest (Recommended)</option>
+<option value="gemini-3.7-flash">gemini-3.7-flash</option>
+<option value="gemini-pro-latest">gemini-pro-latest</option>
+</select>
+</label>
+</div>
+<div style="display: flex; gap: 8px; align-items: center; flex-wrap: wrap; margin: 12px 0;">
+<span style="font-size: 12px; color: #cbd5e1;">Generate:</span>
+<button type="button" class="action-btn primary" id="negGuideModePlanBtn" aria-pressed="true" style="padding: 8px 14px; font-size: 13px;">Discussion plan</button>
+<button type="button" class="action-btn" id="negGuideModeReadableBtn" aria-pressed="false" style="padding: 8px 14px; font-size: 13px;">Readable version</button>
+<button type="button" class="action-btn primary" id="negGuideGenerateBtn" style="padding: 8px 16px; font-size: 13px; font-weight: 700; background: #0284c7;">✨ Generate Discussion Plan with AI</button>
+<button type="button" class="action-btn" id="negGuideStopBtn" hidden style="padding: 8px 14px; font-size: 13px; color: #f87171; border-color: #f87171;">Stop</button>
+</div>
+<div id="negGuideOutputContainer" hidden style="margin-top: 16px; padding-top: 16px; border-top: 1px solid rgba(148, 163, 184, 0.15);">
+<div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; flex-wrap: wrap; gap: 8px;">
+<span id="negGuideStatus" style="font-size: 12px; font-weight: 600; color: #38bdf8;">Ready</span>
+<div style="display: flex; gap: 8px; flex-wrap: wrap;">
+<button type="button" class="action-btn" id="negGuideCopyBtn" style="padding: 6px 12px; font-size: 12px;">Copy</button>
+<button type="button" class="action-btn" id="negGuideDownloadBtn" style="padding: 6px 12px; font-size: 12px;">Download .txt</button>
+</div>
+</div>
+<textarea id="negGuideOutputText" rows="12" placeholder="Your generated discussion plan or readable version will stream here in real time…" style="width: 100%; box-sizing: border-box; padding: 14px; background: #0b1120; border: 1px solid #1e293b; border-radius: 6px; color: #e2e8f0; font-family: monospace, monospace; font-size: 13px; line-height: 1.5; resize: vertical;"></textarea>
+<p style="font-size: 11px; color: #94a3b8; margin: 6px 0 0 0;">You can edit the text here before copying or downloading.</p>
+<div id="negGuidePlanSignatureSection" hidden style="margin-top: 12px;"></div>
+</div>
+</div>
+<div id="negGuideSignatureSection" style="margin-top: 16px;"></div>
 </section>
 <section aria-labelledby="playGuideOutputTitle" class="setter-output-card">
 <h4 id="playGuideOutputTitle">Play guide</h4>
