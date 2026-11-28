@@ -94,7 +94,7 @@
                     opField.hidden = false;
                     const minusLabel = e.byId("scribeOpMinusLabel");
                     if (minusLabel) {
-                        minusLabel.textContent = t.length >= 3 ? "Polylectic (⊖)" : "Dialectic (⊖)";
+                        minusLabel.textContent = t.length >= 3 ? "Polylectic (⊖)" : "Indaba (⊖)";
                     }
                     const isDisc = typeof sxScribeIsDiscussion === "function" && sxScribeIsDiscussion();
                     const defaultOp = isDisc ? "full_arc" : "cross";

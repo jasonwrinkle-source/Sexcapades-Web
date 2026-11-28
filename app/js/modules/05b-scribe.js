@@ -774,10 +774,10 @@
             const curCountText = f && f.budgeted && f.totalCurious > f.curious.length
                 ? `Top ${f.curious.length} of ${f.totalCurious} curious`
                 : `${f.curious.length} curious`;
-            const opLabel = s ? "" : "full_arc" === scribeOperation ? "Full arc (⋈⊙⊖)" : "minus" === scribeOperation ? (o.length >= 3 ? "Polylectic (⊖)" : "Dialectic (⊖)") : "straight" === scribeOperation ? "Common ground (⊙)" : "Communion (⋈)";
+            const opLabel = s ? "" : "full_arc" === scribeOperation ? "Full arc (⋈⊙⊖)" : "minus" === scribeOperation ? (o.length >= 3 ? "Polylectic (⊖)" : "Indaba (⊖)") : "straight" === scribeOperation ? "Common ground (⊙)" : "Communion (⋈)";
             n(e.byId("sceneBriefMeta"), `<span>${sxEscapeHtmlText(b)}</span>${opLabel ? `<span>${sxEscapeHtmlText(opLabel)}</span>` : ""}<span>${u ? (isDisc ? "Informed discussion" : targetInfo.storyMeta) : `${k} play guide`}</span><span>Target ${sxEscapeHtmlText(scribeLengthValue)} ${unitWord(scribeLengthValue, scribeLengthUnit)} · ${sxEscapeHtmlText("detailed" === scribeDetailLevel ? "high detail" : "concise" === scribeDetailLevel ? "concise" : "balanced detail")}</span>${s ? "" : `<span>Cast ${sxWriterLeniency}</span>`}<span>${estCountText}</span><span>${curCountText}</span>${g.length ? `<span>${g.length} ${sxMarkLabel("fantasyonly").label.toLowerCase()} ${u ? (isDisc ? "kept as ideas" : "kept fictional") : "excluded"}</span>` : ""}${m.length ? `<span>${m.length} ${sxMarkLabel("alreadytried").label.toLowerCase()}</span>` : ""}<span>${f.limits} ${sxMarkLabel("limit").label.toLowerCase()}${1 === f.limits ? "" : "s"} excluded</span>`);
             const establishedLabels = f.established.map(e => e.label).join(" · ") || "None recorded", curiousLabels = f.curious.map(e => e.label).join(" · ") || "None recorded";
-            e.byId("sceneNegotiationTitle").textContent = u ? (isDisc ? ("minus" === scribeOperation ? (o.length >= 3 ? "Polylectic debate ingredients" : "Dialectic debate ingredients") : "straight" === scribeOperation ? "Common ground ingredients" : "full_arc" === scribeOperation ? "Full arc ingredients (3 movements)" : "Discussion ingredients") : ("minus" === scribeOperation ? "Contrasting story ingredients" : "Story ingredients")) : "Negotiation notes";
+            e.byId("sceneNegotiationTitle").textContent = u ? (isDisc ? ("minus" === scribeOperation ? (o.length >= 3 ? "Polylectic debate ingredients" : "Indaba ingredients") : "straight" === scribeOperation ? "Common ground ingredients" : "full_arc" === scribeOperation ? "Full arc ingredients (3 movements)" : "Discussion ingredients") : ("minus" === scribeOperation ? "Contrasting story ingredients" : "Story ingredients")) : "Negotiation notes";
             const roleDynamicItem = p.length ? `<li><strong>Established role dynamic</strong><span>${sxEscapeHtmlText(h)} Keep these dominant/submissive roles stable; do not suggest switching them.</span></li>` : "";
             if (u) n(e.byId("sceneNegotiation"), `<li><strong>Cast</strong><span>${sxEscapeHtmlText(s ? (isDisc ? d : d + " with an unnamed adult partner") : w)}</span></li>${roleDynamicItem}<li><strong>${isDisc ? "Established stances" : "Want to do"}</strong><span>${sxEscapeHtmlText(establishedLabels)}</span></li><li><strong>${isDisc ? "Curious stances" : "Curious about"}</strong><span>${sxEscapeHtmlText(curiousLabels)}</span></li>${g.length ? `<li><strong>${sxMarkLabel("fantasyonly").label}</strong><span>${sxEscapeHtmlText(g.map(e => e.label).join(" · "))}. ${isDisc ? "Keep these as ideas; they do not signal a real-world position." : "Keep these fictional; they do not signal real-world willingness."}</span></li>` : ""}${m.length ? `<li><strong>${sxMarkLabel("alreadytried").label}</strong><span>${sxEscapeHtmlText(m.map(e => e.label).join(" · "))}. Past experience may shape the story without inventing details.</span></li>` : ""}`); else {
                 const t = s ? `<li><strong>Source profile</strong><span>${sxEscapeHtmlText(d)} only. A partner’s preferences are not assumed.</span></li>` : `<li><strong>Group profiles</strong><span>${sxEscapeHtmlText(w)}</span></li>`;
@@ -835,7 +835,7 @@
         function sxScribeCounts(precomputed, ids, isSingle) {
             const l = precomputed || sxScribeMatchData(ids, isSingle), c = l.established.length, d = l.curious.length, u = ids.filter(e => sxMissingDetailKeys(e).length), p = c + d;
             const op = isSingle ? "cross" : (scribeOperation || "cross");
-            const opName = op === "minus" ? (ids.length >= 3 ? "polylectic" : "dialectic") : op === "straight" ? "common ground" : op === "full_arc" ? "full-arc" : "communion";
+            const opName = op === "minus" ? (ids.length >= 3 ? "polylectic" : "indaba") : op === "straight" ? "common ground" : op === "full_arc" ? "full-arc" : "communion";
             return {
                 data: l,
                 established: c,
@@ -872,7 +872,7 @@
                     opField.hidden = false;
                     const minusLabel = e.byId("scribeOpMinusLabel");
                     if (minusLabel) {
-                        minusLabel.textContent = n.length >= 3 ? "Polylectic (⊖)" : "Dialectic (⊖)";
+                        minusLabel.textContent = n.length >= 3 ? "Polylectic (⊖)" : "Indaba (⊖)";
                     }
                     const isDisc = sxScribeIsDiscussion();
                     const defaultOp = isDisc ? "full_arc" : "cross";
