@@ -21,7 +21,7 @@
     "brand": "Sex.Capades.IO",
     "desc": "kink & sexuality (18+)",
     "domain": "Intimacy, Eroticism, BDSM, Power Exchange & Relational Geometries",
-    "about": "Intimacy, eroticism, BDSM, power exchange, and relational geometries.",
+    "about": "Sexcapades is an interactive hypermap for rating and visualizing what you want in bed \u2014 power exchange, bondage, sensation, roleplay, the acts and positions themselves \u2014 and comparing your desires with another person's, give and receive, on the same picture. Build a personal profile, see where you meet and where you part, use Scribe to draft the story you'd live, and Scene Setter to plan the scene \u2014 all in the same shared vocabulary.",
     "aboutSummary": "Intimacy, eroticism, BDSM, power exchange, and relational geometries.",
     "meter": "interest",
     "type": "activity",

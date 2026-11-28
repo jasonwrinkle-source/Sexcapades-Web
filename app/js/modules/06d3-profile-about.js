@@ -49,7 +49,7 @@
             archEl && (archEl.innerHTML = "");
             gw = "about" === t ? "about" : "edit", Dg.dataset.profileMode = gw, _g.dataset.profileMode = gw,
             Rg.hidden = "about" !== gw, "about" === gw && Hy ? (function(t) {
-                const i = String(nt[t] || "").trim(), a = String(it[t] || "").trim(), r = sxClonePhotoRecords(dt[t])[0], o = sxGlanceBucketsFor(t), s = o.green.length + o.yellow.length + o.red.length, l = sxNormalizeContactRecord(ut[t]), c = sxListContactLinks(l);
+                const i = String(nt[t] || "").trim(), a = String(it[t] || "").trim(), r = sxClonePhotoRecords(dt[t])[0], o = sxGlanceBucketsFor(t), s = o.green.length + o.yellow.length + o.red.length, l = sxNormalizeContactRecord(ut[t]), c = sxListContactLinks(l), sxAboutYear = (typeof window !== "undefined" && "function" === typeof window.__SX_SAMPLE_YEAR_BADGE) ? window.__SX_SAMPLE_YEAR_BADGE(t) : "";
                 l.phone && c.unshift({
                     label: "Phone",
                     user: l.phone,
@@ -58,7 +58,7 @@
                     label: "Email",
                     user: l.email,
                     href: `mailto:${l.email}`
-                }), Og.hidden = !r, n(Og, r ? `<img src="${sxEscapeHtmlText(r.data)}" alt="${sxEscapeHtmlText(wt[t] || "Profile")} profile photo"><svg class="profile-glance-rings" viewBox="0 0 120 120" role="img" aria-label="At a glance: ${o.percentages.green}% green, ${o.percentages.yellow}% yellow, ${o.percentages.red}% red"><title>${o.percentages.green}% green · ${o.percentages.yellow}% yellow · ${o.percentages.red}% red</title><circle class="ring-track" cx="60" cy="60" r="56"/><circle class="ring-green" cx="60" cy="60" r="56" pathLength="100" stroke-dasharray="${o.percentages.green} 100"/><circle class="ring-yellow" cx="60" cy="60" r="50" pathLength="100" stroke-dasharray="${o.percentages.yellow} 100"/><circle class="ring-red" cx="60" cy="60" r="44" pathLength="100" stroke-dasharray="${o.percentages.red} 100"/></svg>` : ""),
+                }), Og.hidden = !r, n(Og, r ? `<span class="sx-emblem-wrap"><img src="${sxEscapeHtmlText(r.data)}" alt="${sxEscapeHtmlText(wt[t] || "Profile")} profile photo">` + (sxAboutYear ? `<span class="sx-emblem-year-badge" aria-hidden="true">${sxEscapeHtmlText(sxAboutYear)}</span>` : "") + `</span><svg class="profile-glance-rings" viewBox="0 0 120 120" role="img" aria-label="At a glance: ${o.percentages.green}% green, ${o.percentages.yellow}% yellow, ${o.percentages.red}% red"><title>${o.percentages.green}% green · ${o.percentages.yellow}% yellow · ${o.percentages.red}% red</title><circle class="ring-track" cx="60" cy="60" r="56"/><circle class="ring-green" cx="60" cy="60" r="56" pathLength="100" stroke-dasharray="${o.percentages.green} 100"/><circle class="ring-yellow" cx="60" cy="60" r="50" pathLength="100" stroke-dasharray="${o.percentages.yellow} 100"/><circle class="ring-red" cx="60" cy="60" r="44" pathLength="100" stroke-dasharray="${o.percentages.red} 100"/></svg>` : ""),
                 Bg.textContent = sxIdentityPlacardText(t), n(jg, `<span class="profile-dialog-rating-total">${s} rated topic${1 === s ? "" : "s"}</span>`);
                 const d = e.byId("profileDialogAboutSection"), u = e.byId("profileDialogTermsSection"), p = e.byId("profileDialogContactSection");
                 d.hidden = !i, e.byId("profileDialogAboutText").textContent = i, u.hidden = !a,

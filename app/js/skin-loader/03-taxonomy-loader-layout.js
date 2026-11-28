@@ -897,7 +897,23 @@
           img.decoding = "async";
           img.loading = "lazy";
           img.src = entry.photo || entry.emblem;
-          btn.appendChild(img);
+          var yearBadge = emblemYearBadgeText(entry);
+          if (yearBadge) {
+            /* Palimpsest year badge (2026-11-28): the year as a small
+               inset number on the shared emblem (the emblem file is
+               shared across dated layers, so the year is drawn here). */
+            var wrap = document.createElement("span");
+            wrap.className = "sx-emblem-wrap";
+            wrap.appendChild(img);
+            var badge = document.createElement("span");
+            badge.className = "sx-emblem-year-badge";
+            badge.setAttribute("aria-hidden", "true");
+            badge.textContent = yearBadge;
+            wrap.appendChild(badge);
+            btn.appendChild(wrap);
+          } else {
+            btn.appendChild(img);
+          }
         }
         var strong = document.createElement("strong");
         strong.textContent = entry.name || key;
@@ -1147,6 +1163,24 @@
     var n = parseFloat(d);
     return isNaN(n) ? Infinity : n;
   }
+
+  /* Palimpsest year badge (2026-11-28): dated samples (dated layers
+     of one archetype) share ONE emblem file, so the year is drawn by
+     the app as a small inset number on top of the shared emblem.
+     Returns the badge text or "" (no badge). A plain 4-digit year
+     shows as 2 digits ("08", "12", "20"); a non-plain date (a range
+     or longer string) shows its full text if it fits (up to 4
+     characters). "present" and undated samples get no badge.
+     Exposed on window so the map center and profile sheet (which
+     live in the app bundle, a separate file) reuse the same rule. */
+  function emblemYearBadgeText(entry) {
+    var d = entry && entry.date != null ? String(entry.date).trim() : "";
+    if (!d || d.toLowerCase() === "present") return "";
+    if (/^\d{4}$/.test(d)) return d.slice(2);
+    return d.length <= 4 ? d : "";
+  }
+  if (typeof window !== "undefined") window.__SX_EMBLEM_YEAR_TEXT = emblemYearBadgeText;
+
 
   /* Stack submenu elements, created by rebuildSampleMenu and kept
      in this registry across rebuilds (keyed by stack key) — the

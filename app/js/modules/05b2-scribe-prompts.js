@@ -193,7 +193,7 @@
                 excludeFantasy: !u
             }), B = [ D, R, O, s ? "" : sxIndividualProfileTexts(o, f, {
                 excludeFantasy: !u
-            }) ].filter(Boolean).join("  "), j = unitWord(scribeLengthValue, scribeLengthUnit), z = "concise" === scribeDetailLevel ? "Keep the document concise: short phase notes and only essential check-ins." : "detailed" === scribeDetailLevel ? "Use high detail: specific phase timing, transitions, role cues, check-ins, stop options, and aftercare steps." : "Use balanced detail: enough timing, transitions, role cues, check-ins, and aftercare to follow without over-scripting.", budgetNote = f && f.budgeted ? ` Prioritized the top ${M.length} established ${u ? "interests" : "activities"} and top ${I.length} curious topics for this ${scribeLengthValue}-${j} ${u ? "story" : "guide"} (selected by preference strength).` : "", q = !u ? `- Plan approximately ${scribeLengthValue} ${j}, with flexible phase pacing that adds up to that target while allowing check-ins, pauses, or stopping. ${z}${budgetNote}` : `- Target approximately ${scribeLengthValue} ${j} of story text. Return only the finished story directly as plain text. ${z}${budgetNote}`, H = [ "", `CAST, GENDER & SEXUALITY: ${A}${C}`, s ? "" : ` ${B}`, "", `RATED PREFERENCE DETAIL: ${F}`, "", `HARD-EXCLUDED LIMITS: ${_}` ];
+            }) ].filter(Boolean).join("  "), j = unitWord(scribeLengthValue, scribeLengthUnit), z = "concise" === scribeDetailLevel ? "Keep the document concise: short phase notes and only essential check-ins." : "detailed" === scribeDetailLevel ? "Use high detail: specific phase timing, transitions, role cues, check-ins, stop options, and aftercare steps." : "Use balanced detail: enough timing, transitions, role cues, check-ins, and aftercare to follow without over-scripting.", budgetNote = f && f.budgeted ? ` Prioritized the top ${M.length} established ${u ? "interests" : "activities"} and top ${I.length} curious topics for this ${scribeLengthValue}-${j} ${u ? "story" : "guide"} (selected by preference strength).` : "", q = !u ? `- Plan approximately ${scribeLengthValue} ${j}, with flexible phase pacing that adds up to that target while allowing check-ins, pauses, or stopping. ${z}${budgetNote}` : `- Target approximately ${scribeLengthValue} ${j} of story text. Return only the finished story directly as plain text. ${z}${budgetNote}`, H = [ "", `CAST, GENDER & SEXUALITY: ${A}${C}`, s ? "" : ` ${B}`, "", `RATED PREFERENCE DETAIL: ${F}`, "", `HARD-EXCLUDED LIMITS: ${_}`, u ? sxSexResearchBackgroundText(M.concat(I), o) : "" ];
             return { A: A, C: C, M: M, I: I, F: F, _: _, D: D, R: R, O: O, B: B, j: j, q: q, H: H };
         }
         // Story composer (refactor F1): assembles the story-mode
@@ -520,6 +520,65 @@
                 return text;
             });
             return ` [RESEARCH — WHY EACH SIDE HOLDS ITS POSITION: ${parts.join(" | ")}]`;
+        }
+        /* Sex research background texture for story prompts
+           (2026-11-28): the reasons behind the activities in the
+           story, from the skin topic's `research` field, as a
+           BACKGROUND section the model uses ONLY to inform how the
+           characters feel — it must never state, paraphrase, or
+           explain these reasons, and must never cite a statistic.
+           Reasons only: no statistic, no "move" line (those would
+           read as explanation). Only activities actually in the
+           story (established + curious) and only the directions the
+           characters hold. Returns "" when nothing qualifies, so a
+           story without research is unchanged and nothing is
+           invented. */
+        function sxSexResearchBackgroundText(topics, profileIds) {
+            const list = (topics || []).map(e => {
+                const research = (typeof window !== "undefined" && typeof window.__SX_RESEARCH_FOR_TOPIC === "function") ? window.__SX_RESEARCH_FOR_TOPIC(e.id) : null;
+                if (!research || "object" !== typeof research) return null;
+                const w = (typeof sxWidgetConfig === "function") ? sxWidgetConfig(e.id) : null;
+                const seen = new Set(), keys = [];
+                const addKey = k => { if (k && research[k] && !seen.has(k)) { seen.add(k); keys.push(k); } };
+                if (research.self) addKey("self");
+                (profileIds || []).forEach(pid => {
+                    let st = null;
+                    try { st = sxDecodeTopicStance(e.id, pid); } catch (err) { st = null; }
+                    if (!st) return;
+                    if (w && 1 === (w.keys || []).length && "line" === w.keys[0] && st.lineKnown) {
+                        const v = Number(st.line) || 0, pk = w.poleKeys || [];
+                        if (v > 20 && pk[2]) addKey(pk[2]);
+                        else if (v < -20 && pk[0]) addKey(pk[0]);
+                        else if (pk[1]) addKey(pk[1]);
+                        return;
+                    }
+                    if (st.giveKnown && (Number(st.give) || 0) >= 20) addKey("give");
+                    if (st.receiveKnown && (Number(st.receive) || 0) >= 20) addKey("receive");
+                    if (w && Array.isArray(w.keys)) {
+                        w.keys.filter(k => "give" !== k && "receive" !== k && "line" !== k).forEach(k => {
+                            if (!st[k + "Known"]) return;
+                            const v = Number(st[k]) || 0;
+                            if (v > 20 || v < -35) addKey(k);
+                        });
+                    }
+                });
+                if (!keys.length) return null;
+                const keyList = (w && (w.poleKeys || w.keys)) || [], labels = (w && w.labels) || [];
+                const bits = keys.map(k => {
+                    let label;
+                    if ("give" === k) label = "Giving";
+                    else if ("receive" === k) label = "Receiving";
+                    else if ("self" === k) label = "Why this appeals";
+                    else {
+                        const idx = keyList.indexOf(k);
+                        label = (idx >= 0 && labels[idx]) || k;
+                    }
+                    return `${label} — ${research[k].reasons}`;
+                });
+                return `- ${e.label}: ${bits.join("; ")}`;
+            }).filter(Boolean);
+            if (!list.length) return "";
+            return `BACKGROUND — WHY THESE ACTIVITIES APPEAL (use only to inform how the characters feel; never state, paraphrase, or explain these reasons in the story; never cite a statistic; never explain why anyone wants anything — the reasons exist only so the rendered feeling is psychologically true rather than generic): ${list.join(" ")}`;
         }
         // Discussion composer (2026-11-16, Jason's ruling): on the
         // vanilla stance/belief maps Scribe writes an informed

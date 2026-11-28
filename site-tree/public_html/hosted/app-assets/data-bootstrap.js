@@ -23059,6 +23059,30 @@ var LabelRenderer = {
 
 
 /* --- Module: 03e4a-paint-preamble.js --- */
+        /* Palimpsest year badge for the map center (2026-11-28):
+           the year text for a profile that is a dated sample layer,
+           or "". The profile id is a slug of the profile name, not
+           the sample key, so the sample entry is found by matching
+           the profile's name against the bundled sample map. Works
+           for freshly loaded and restored profiles alike. Exposed
+           on window so the profile sheet can reuse it. */
+        function sxSampleYearBadgeForProfile(pid) {
+            if (typeof window === "undefined" || !window.SEXCAPADES_SAMPLE_PROFILES) return "";
+            const name = (typeof Xe !== "undefined" && Xe && Xe[pid]) || "";
+            if (!name) return "";
+            const badgeText = (typeof window.__SX_EMBLEM_YEAR_TEXT === "function") ? window.__SX_EMBLEM_YEAR_TEXT : entry => {
+                const d = entry && entry.date != null ? String(entry.date).trim() : "";
+                if (!d || "present" === d.toLowerCase()) return "";
+                return /^\d{4}$/.test(d) ? d.slice(2) : (d.length <= 4 ? d : "");
+            };
+            const samples = window.SEXCAPADES_SAMPLE_PROFILES, keys = Object.keys(samples);
+            for (let i = 0; i < keys.length; i++) {
+                const entry = samples[keys[i]];
+                if (entry && entry.name === name) return badgeText(entry) || "";
+            }
+            return "";
+        }
+        if (typeof window !== "undefined") window.__SX_SAMPLE_YEAR_BADGE = sxSampleYearBadgeForProfile;
         function* sxGenerateMapPaint(i = {}) {
             // JOB B GLIDE FIX - previous-positions capture: read the live
             // node positions BEFORE sxVaultCaptureCurrent() runs. The vault
@@ -23576,13 +23600,27 @@ var LabelRenderer = {
                     });
                 }
                 const sxCenterPhotos = `<g clip-path="url(#centerPhotoClip)">${e.map((e, t) => sxCroppedPhotoMarkup(e, r[t], "center-photo")).join("")}</g>`;
-                if (sxSplitIds.length < 2) return sxCenterPhotos;
+                /* Palimpsest year badge (2026-11-28): one small pill per
+                   center profile at the bottom-right of its slice,
+                   clamped onto the center circle so it sits on the
+                   emblem like a notification badge and never floats
+                   off it. Undated / "present" profiles get no badge. */
+                const sxCenterBadges = sxCenterIds.slice(0, 8).map((pid, t) => {
+                    const badge = sxSampleYearBadgeForProfile(pid);
+                    if (!badge || !r[t]) return "";
+                    const rect = r[t], bh = Math.max(16, Math.min(30, ea.photoRadius * .16)), bw = bh * (badge.length <= 2 ? 1.6 : 2.6);
+                    let bx = rect.x + rect.w - bw / 2 - 4, by = rect.y + rect.h - bh / 2 - 4;
+                    const dx = bx - 900, dy = by - 620, dist = Math.sqrt(dx * dx + dy * dy), maxDist = ea.photoRadius * .92;
+                    if (dist > maxDist && dist > 0) { bx = 900 + dx / dist * maxDist; by = 620 + dy / dist * maxDist; }
+                    return `<g class="sx-center-year-badge" aria-hidden="true"><rect class="sx-center-year-badge-bg" x="${(bx - bw / 2).toFixed(1)}" y="${(by - bh / 2).toFixed(1)}" width="${bw.toFixed(1)}" height="${bh.toFixed(1)}" rx="${(bh / 2).toFixed(1)}"/><text class="sx-center-year-badge-text" x="${bx.toFixed(1)}" y="${by.toFixed(1)}" style="font-size:${(bh * .62).toFixed(0)}px" dominant-baseline="middle">${sxEscapeHtmlText(badge)}</text></g>`;
+                }).join("");
+                if (sxSplitIds.length < 2) return sxCenterPhotos + sxCenterBadges;
                 const sxSplitOp = sxNormalizePairOp(sxSplitGrp.pairOp), sxSplitGlyph = sxPairJoin(sxSplitOp).trim(), sxSeamPlate = Math.max(120, ea.photoRadius * .17), sxSeamW = t / a, sxSeams = [];
                 for (let sxK = 1; sxK < a; sxK++) {
                     const sxSeamX = n + sxK * sxSeamW;
                     sxSeams.push(`<g class="center-split-seam"><circle cx="${sxSeamX.toFixed(1)}" cy="620" r="${sxSeamPlate.toFixed(1)}"/><text x="${sxSeamX.toFixed(1)}" y="620" style="font-size:${(sxSeamPlate * 1.05).toFixed(0)}px" text-anchor="middle" dominant-baseline="middle">${sxSplitGlyph}</text></g>`);
                 }
-                return sxCenterPhotos + `<g class="center-split-seams" data-split-center="pair" data-pair-op="${sxSplitOp}" data-split-count="${a}" aria-hidden="true">${sxSeams.join("")}</g>`;
+                return sxCenterPhotos + sxCenterBadges + `<g class="center-split-seams" data-split-center="pair" data-pair-op="${sxSplitOp}" data-split-count="${a}" aria-hidden="true">${sxSeams.join("")}</g>`;
             }()}<circle class="center-hit" cx="900" cy="620" r="${ea.photoRadius + 3}" tabindex="0" role="button" aria-label="${sxEscapeHtmlText(g)}. ${sxEscapeHtmlText(y)}."/>${function(e) {
                 const t = ea.photoRadius, n = Za.fitWithin(e, 22 * mapFontScale(), 15, 288, "center"), i = Za.fitAttr(e, n, "center", 288);
                 return `<g class="center-circumference-text"><path id="center-bottom-arc" class="center-arc-path" d="M ${(900 - t).toFixed(0)} 620 A ${t} ${t} 0 0 0 ${(900 + t).toFixed(0)} 620"/><text class="center-arc-text center-name-arc-text" style="font-size:${n.toFixed(2)}px" dy="-1"${i}><textPath href="#center-bottom-arc" xlink:href="#center-bottom-arc" startOffset="50%" text-anchor="middle">${sxEscapeHtmlText(e)}</textPath></text></g>`;
@@ -34630,7 +34668,7 @@ var sxScribeTargets = {
                 excludeFantasy: !u
             }), B = [ D, R, O, s ? "" : sxIndividualProfileTexts(o, f, {
                 excludeFantasy: !u
-            }) ].filter(Boolean).join("  "), j = unitWord(scribeLengthValue, scribeLengthUnit), z = "concise" === scribeDetailLevel ? "Keep the document concise: short phase notes and only essential check-ins." : "detailed" === scribeDetailLevel ? "Use high detail: specific phase timing, transitions, role cues, check-ins, stop options, and aftercare steps." : "Use balanced detail: enough timing, transitions, role cues, check-ins, and aftercare to follow without over-scripting.", budgetNote = f && f.budgeted ? ` Prioritized the top ${M.length} established ${u ? "interests" : "activities"} and top ${I.length} curious topics for this ${scribeLengthValue}-${j} ${u ? "story" : "guide"} (selected by preference strength).` : "", q = !u ? `- Plan approximately ${scribeLengthValue} ${j}, with flexible phase pacing that adds up to that target while allowing check-ins, pauses, or stopping. ${z}${budgetNote}` : `- Target approximately ${scribeLengthValue} ${j} of story text. Return only the finished story directly as plain text. ${z}${budgetNote}`, H = [ "", `CAST, GENDER & SEXUALITY: ${A}${C}`, s ? "" : ` ${B}`, "", `RATED PREFERENCE DETAIL: ${F}`, "", `HARD-EXCLUDED LIMITS: ${_}` ];
+            }) ].filter(Boolean).join("  "), j = unitWord(scribeLengthValue, scribeLengthUnit), z = "concise" === scribeDetailLevel ? "Keep the document concise: short phase notes and only essential check-ins." : "detailed" === scribeDetailLevel ? "Use high detail: specific phase timing, transitions, role cues, check-ins, stop options, and aftercare steps." : "Use balanced detail: enough timing, transitions, role cues, check-ins, and aftercare to follow without over-scripting.", budgetNote = f && f.budgeted ? ` Prioritized the top ${M.length} established ${u ? "interests" : "activities"} and top ${I.length} curious topics for this ${scribeLengthValue}-${j} ${u ? "story" : "guide"} (selected by preference strength).` : "", q = !u ? `- Plan approximately ${scribeLengthValue} ${j}, with flexible phase pacing that adds up to that target while allowing check-ins, pauses, or stopping. ${z}${budgetNote}` : `- Target approximately ${scribeLengthValue} ${j} of story text. Return only the finished story directly as plain text. ${z}${budgetNote}`, H = [ "", `CAST, GENDER & SEXUALITY: ${A}${C}`, s ? "" : ` ${B}`, "", `RATED PREFERENCE DETAIL: ${F}`, "", `HARD-EXCLUDED LIMITS: ${_}`, u ? sxSexResearchBackgroundText(M.concat(I), o) : "" ];
             return { A: A, C: C, M: M, I: I, F: F, _: _, D: D, R: R, O: O, B: B, j: j, q: q, H: H };
         }
         // Story composer (refactor F1): assembles the story-mode
@@ -34957,6 +34995,65 @@ var sxScribeTargets = {
                 return text;
             });
             return ` [RESEARCH — WHY EACH SIDE HOLDS ITS POSITION: ${parts.join(" | ")}]`;
+        }
+        /* Sex research background texture for story prompts
+           (2026-11-28): the reasons behind the activities in the
+           story, from the skin topic's `research` field, as a
+           BACKGROUND section the model uses ONLY to inform how the
+           characters feel — it must never state, paraphrase, or
+           explain these reasons, and must never cite a statistic.
+           Reasons only: no statistic, no "move" line (those would
+           read as explanation). Only activities actually in the
+           story (established + curious) and only the directions the
+           characters hold. Returns "" when nothing qualifies, so a
+           story without research is unchanged and nothing is
+           invented. */
+        function sxSexResearchBackgroundText(topics, profileIds) {
+            const list = (topics || []).map(e => {
+                const research = (typeof window !== "undefined" && typeof window.__SX_RESEARCH_FOR_TOPIC === "function") ? window.__SX_RESEARCH_FOR_TOPIC(e.id) : null;
+                if (!research || "object" !== typeof research) return null;
+                const w = (typeof sxWidgetConfig === "function") ? sxWidgetConfig(e.id) : null;
+                const seen = new Set(), keys = [];
+                const addKey = k => { if (k && research[k] && !seen.has(k)) { seen.add(k); keys.push(k); } };
+                if (research.self) addKey("self");
+                (profileIds || []).forEach(pid => {
+                    let st = null;
+                    try { st = sxDecodeTopicStance(e.id, pid); } catch (err) { st = null; }
+                    if (!st) return;
+                    if (w && 1 === (w.keys || []).length && "line" === w.keys[0] && st.lineKnown) {
+                        const v = Number(st.line) || 0, pk = w.poleKeys || [];
+                        if (v > 20 && pk[2]) addKey(pk[2]);
+                        else if (v < -20 && pk[0]) addKey(pk[0]);
+                        else if (pk[1]) addKey(pk[1]);
+                        return;
+                    }
+                    if (st.giveKnown && (Number(st.give) || 0) >= 20) addKey("give");
+                    if (st.receiveKnown && (Number(st.receive) || 0) >= 20) addKey("receive");
+                    if (w && Array.isArray(w.keys)) {
+                        w.keys.filter(k => "give" !== k && "receive" !== k && "line" !== k).forEach(k => {
+                            if (!st[k + "Known"]) return;
+                            const v = Number(st[k]) || 0;
+                            if (v > 20 || v < -35) addKey(k);
+                        });
+                    }
+                });
+                if (!keys.length) return null;
+                const keyList = (w && (w.poleKeys || w.keys)) || [], labels = (w && w.labels) || [];
+                const bits = keys.map(k => {
+                    let label;
+                    if ("give" === k) label = "Giving";
+                    else if ("receive" === k) label = "Receiving";
+                    else if ("self" === k) label = "Why this appeals";
+                    else {
+                        const idx = keyList.indexOf(k);
+                        label = (idx >= 0 && labels[idx]) || k;
+                    }
+                    return `${label} — ${research[k].reasons}`;
+                });
+                return `- ${e.label}: ${bits.join("; ")}`;
+            }).filter(Boolean);
+            if (!list.length) return "";
+            return `BACKGROUND — WHY THESE ACTIVITIES APPEAL (use only to inform how the characters feel; never state, paraphrase, or explain these reasons in the story; never cite a statistic; never explain why anyone wants anything — the reasons exist only so the rendered feeling is psychologically true rather than generic): ${list.join(" ")}`;
         }
         // Discussion composer (2026-11-16, Jason's ruling): on the
         // vanilla stance/belief maps Scribe writes an informed
@@ -37320,6 +37417,63 @@ var Au = new Map;
             const n = sxNodeRegistry[e] || sxNodeById(e) || t.map(t => (at[t] || {})[e]).find(Boolean);
             return n ? n.label : e;
         }
+        /* Sex research "why" (2026-11-28): the reasons behind an
+           activity, from the skin topic's `research` field, for the
+           negotiation document. Mirrors the Scribe's
+           sxTopicResearchText but for Sex research keys (give /
+           receive / self / pole keys) and returns a compact " Why: ..."
+           suffix for an activity line. Only reasons are included, plus
+           a real statistic (never the "No reliable statistic found"
+           placeholder). Returns "" when the topic carries no research
+           or nothing the cast holds, so topics without research add
+           nothing and nothing is invented. */
+        function sxSexResearchWhy(topicId, profileIds) {
+            const research = (typeof window !== "undefined" && typeof window.__SX_RESEARCH_FOR_TOPIC === "function") ? window.__SX_RESEARCH_FOR_TOPIC(topicId) : null;
+            if (!research || "object" !== typeof research) return "";
+            const w = (typeof sxWidgetConfig === "function") ? sxWidgetConfig(topicId) : null;
+            const seen = new Set(), keys = [];
+            const addKey = k => { if (k && research[k] && !seen.has(k)) { seen.add(k); keys.push(k); } };
+            if (research.self) addKey("self");
+            (profileIds || []).forEach(pid => {
+                let st = null;
+                try { st = sxDecodeTopicStance(topicId, pid); } catch (err) { st = null; }
+                if (!st) return;
+                if (w && 1 === (w.keys || []).length && "line" === w.keys[0] && st.lineKnown) {
+                    const v = Number(st.line) || 0, pk = w.poleKeys || [];
+                    if (v > 20 && pk[2]) addKey(pk[2]);
+                    else if (v < -20 && pk[0]) addKey(pk[0]);
+                    else if (pk[1]) addKey(pk[1]);
+                    return;
+                }
+                if (st.giveKnown && (Number(st.give) || 0) >= 20) addKey("give");
+                if (st.receiveKnown && (Number(st.receive) || 0) >= 20) addKey("receive");
+                if (w && Array.isArray(w.keys)) {
+                    w.keys.filter(k => "give" !== k && "receive" !== k && "line" !== k).forEach(k => {
+                        if (!st[k + "Known"]) return;
+                        const v = Number(st[k]) || 0;
+                        if (v > 20 || v < -35) addKey(k);
+                    });
+                }
+            });
+            if (!keys.length) return "";
+            const keyList = (w && (w.poleKeys || w.keys)) || [], labels = (w && w.labels) || [];
+            const parts = keys.map(k => {
+                const r = research[k];
+                let label;
+                if ("give" === k) label = "Giving";
+                else if ("receive" === k) label = "Receiving";
+                else if ("self" === k) label = "Why this appeals";
+                else {
+                    const idx = keyList.indexOf(k);
+                    label = (idx >= 0 && labels[idx]) || k;
+                }
+                let text = `${label} — Reasons: ${r.reasons}`;
+                const stat = r.statistic ? String(r.statistic).trim() : "";
+                if (stat && "No reliable statistic found." !== stat && !/^No reliable statistic/i.test(stat)) text += ` Statistic: ${stat}`;
+                return text;
+            });
+            return ` Why: ${parts.join(" | ")}`;
+        }
         function sxSceneNegotiationData(e, t = {}) {
             const sxCanon = e => {
                 try {
@@ -37342,7 +37496,7 @@ var Au = new Map;
                     s.receiveKnown && l.giveKnown && s.receive >= 36 && l.give <= -36 && d.push(`${i[r]} receives / ${i[o]} gives`), 
                     l.giveKnown && s.receiveKnown && l.give >= 36 && s.receive <= -36 && d.push(`${i[o]} gives / ${i[r]} receives`), 
                     l.receiveKnown && s.giveKnown && l.receive >= 36 && s.give <= -36 && d.push(`${i[o]} receives / ${i[r]} gives`), 
-                    d.length && c.push(`${sxSceneNodeLabel(e, n)} — ${d.join("; ")}`);
+                    d.length && c.push(`${sxSceneNodeLabel(e, n)} — ${d.join("; ")}${sxSexResearchWhy(e, n)}`);
                 });
             });
             const sxSettings = Object.fromEntries(n.map(id => [ id, { heat: sxHeatFor(id), veil: sxVeilFor(id) } ])), d = n.length > 2 ? sxMultiMatchData(n, sxSettings) : sxCastMatchData(n[0], n[1], sxSettings), sxTeasers = function() {
@@ -37376,7 +37530,7 @@ var Au = new Map;
                 return [ ...new Set(t.map(e => `${sxFirstName[e.giver] || e.giver} gives → ${sxFirstName[e.receiver] || e.receiver} receives`)) ].join("; ");
             }, sxIsFantasy = e => Boolean(e.fantasyOnly) || n.some(t => sxIsFantasyOnly(e.id, t)), sxRedFor = e => n.map((t, a) => sxDeepSets[a] && sxDeepSets[a].has(sxCanon(e.id)) ? i[a] : "").filter(Boolean), sxLineOf = e => {
                 const t = sxDirOf(e), a = sxRedFor(e);
-                return `${e.label}${t ? ` — ${t}` : ""}${a.length ? ` — red/no for ${a.join(" and ")}` : ""}`;
+                return `${e.label}${t ? ` — ${t}` : ""}${a.length ? ` — red/no for ${a.join(" and ")}` : ""}${sxSexResearchWhy(e.id, n)}`;
             }, u = e => e.filter(e => !o.has(e.id) && !sxIsFantasy(e)).map(sxLineOf), sxFantasySeen = new Set, sxFantasyOf = e => e.filter(e => !o.has(e.id) && sxIsFantasy(e) && !sxFantasySeen.has(e.id) && sxFantasySeen.add(e.id)).map(e => `☁ ${sxLineOf(e)}`), p = sxSceneCastPrefs(n), h = n.map(e => function(e, t, n = new Set) {
                 return sxAllTopicIds().filter(t => {
                     const i = sxNodeRegistry[t] || sxNodeById(t);
@@ -37385,7 +37539,7 @@ var Au = new Map;
                     return "favorite" === Qe[e]?.[t] || a.giveKnown && a.give > 35 || a.receiveKnown && a.receive > 35;
                 }).map(n => {
                     const i = sxDecodeTopicStance(n, e);
-                    return `${sxSceneNodeLabel(n, t)}${sxRatingProseText(i, n) ? ` — ${sxRatingProseText(i, n)}` : ""}`;
+                    return `${sxSceneNodeLabel(n, t)}${sxRatingProseText(i, n) ? ` — ${sxRatingProseText(i, n)}` : ""}${sxSexResearchWhy(n, [e])}`;
                 }).sort();
             }(e, n, t.hideExcludedNames ? o : new Set));
             return {
@@ -37602,7 +37756,10 @@ var SX_PLAY_GUIDE_FORMAT = [ "STRUCTURED PLAY GUIDE FORMAT — REQUIRED (Scene S
         function sxGroundRulesBlock(mod) {
             const spec = window.__SX_SETTER || null,
                 rules = (spec && Array.isArray(spec.groundRules)) ? spec.groundRules : [],
-                fmt = e => `- ${e.label} (${Math.round(e.score)}%${null != e.agreement ? `; agreement ${Math.round(e.agreement * 100)}%` : ""}): ${e.detail || ""}`,
+                // Research WHY appended after the detail, exactly as
+                // the Scribe discussion composer does - the moderator
+                // and the on-screen panel both see the reasons.
+                fmt = e => `- ${e.label} (${Math.round(e.score)}%${null != e.agreement ? `; agreement ${Math.round(e.agreement * 100)}%` : ""}): ${e.detail || ""}${sxTopicResearchText(e.id, mod.ids)}`,
                 lines = [ `GROUND RULES — BINDING — ${mod.names.join(" + ")}` ];
             // Each side's anchor stances: the strongest recorded
             // positions per profile, so the moderator knows what each
@@ -37610,7 +37767,7 @@ var SX_PLAY_GUIDE_FORMAT = [ "STRUCTURED PLAY GUIDE FORMAT — REQUIRED (Scene S
             // ground below carries the full overlap.
             mod.perPerson.forEach((p, i) => {
                 const top = (p.established || []).slice().sort((a, b) => Math.abs(b.score) - Math.abs(a.score)).slice(0, 5);
-                lines.push("", `${mod.names[i]} — STRONGEST RECORDED STANCES`, ...(top.length ? top.map(e => `- ${e.label} (${Math.round(e.score)}%): ${e.detail || ""}`) : [ "- No established stance recorded." ]));
+                lines.push("", `${mod.names[i]} — STRONGEST RECORDED STANCES`, ...(top.length ? top.map(e => `- ${e.label} (${Math.round(e.score)}%): ${e.detail || ""}${sxTopicResearchText(e.id, mod.ids)}`) : [ "- No established stance recorded." ]));
             });
             lines.push("", "WHERE THEY AGREE", ...(mod.agree.length ? mod.agree.map(fmt) : [ "- No shared established stance." ]));
             lines.push("", "WHERE THEY PART", ...(mod.part.length ? mod.part.map(fmt) : [ "- No shared established stance where they part." ]));
@@ -37641,8 +37798,13 @@ var SX_PLAY_GUIDE_FORMAT = [ "STRUCTURED PLAY GUIDE FORMAT — REQUIRED (Scene S
             // pair agreement - the same fmtStance the Scribe discussion
             // composer uses. The cast is by name only: gender,
             // orientation, and give/receive roles are Sexcapades data
-            // and have no meaning for a stance map.
-            const fmtStance = e => `- ${e.label} (${Math.round(e.score)}%${null != e.agreement ? `; agreement ${Math.round(e.agreement * 100)}%` : ""}): ${e.detail || ""}`,
+            // and have no meaning for a stance map. The research WHY
+            // is appended after the detail, exactly as the Scribe does
+            // (sxTopicResearchText, 05b2) - reasons + a real statistic
+            // + what would move a holder, for poles the cast holds;
+            // "" when the topic carries no research, so nothing is
+            // invented and an unresearched stance is unchanged.
+            const fmtStance = e => `- ${e.label} (${Math.round(e.score)}%${null != e.agreement ? `; agreement ${Math.round(e.agreement * 100)}%` : ""}): ${e.detail || ""}${sxTopicResearchText(e.id, mod.ids)}`,
                 stanceDetail = `ESTABLISHED STANCES: ${mod.established.map(fmtStance).join(" ") || "none recorded"}. CURIOUS STANCES: ${mod.curious.map(fmtStance).join(" ") || "none recorded"}.`;
             return [ "AI MODERATION-PLAN REQUEST", `${opening} targeting approximately ${a}. ${detailLine} Use DISCUSSION DATA as inspiration while treating GROUND RULES as binding. Give each side its strongest form before comparing, and never let one side speak for the other. Use only the named topics below as the positions in the discussion. Do not invent positions, sources, or facts beyond the supplied data. If a field is not filled out, leave a clear pre-discussion decision point instead of inventing an answer.`, "", `CAST: ${mod.names.join(" + ")} (by name only)`, "", `STANCE DETAIL: ${stanceDetail}`, "", sxDiscussionDataBlock(iuData), "", sxGroundRulesBlock(mod), "", sxTermsBlock(mod.ids, mod.names), "", `${sxIsVanillaSkin() ? "RED-LINE-EXCLUDED" : "HARD-EXCLUDED"} FROM DISCUSSION ${iuData.excluded.length ? iuData.excluded.map(x => `- ${x}`).join(" ") : iuData.mutuals.length ? "- no marked red lines; mutual deep-red exclusions follow" : iuData.terms && iuData.terms.some(Boolean) ? "- no marked red lines or mutual deep-red exclusions; red lines named in the Terms above still apply" : "- none marked"}${iuData.mutuals.length ? ` MUTUAL EXCLUSIONS — BOTH PARTNERS RATED DEEP-RED ${iuData.mutuals.map(x => `- ${x}`).join(" ")}` : ""}`, "", "Rules:", ...rules.map(r => `- ${r}`), rigorLine ? `- ${rigorLine}` : "" ].join(" ");
         }
@@ -37661,9 +37823,12 @@ var SX_PLAY_GUIDE_FORMAT = [ "STRUCTURED PLAY GUIDE FORMAT — REQUIRED (Scene S
             L.push("", "CAST", ...mod.names.map(n => `- ${n}`));
             mod.perPerson.forEach((p, i) => {
                 const top = (p.established || []).slice().sort((a, b) => Math.abs(b.score) - Math.abs(a.score)).slice(0, 10);
-                L.push("", `${mod.names[i]} — RECORDED STANCES`, ...(top.length ? top.map(e => `- ${e.label} (${Math.round(e.score)}%): ${e.detail || ""}`) : [ "- No established stance recorded." ]));
+                // Research WHY appended after the detail, exactly as
+                // the Scribe discussion composer does - the stored
+                // agreement carries the reasons for the humans who meet.
+                L.push("", `${mod.names[i]} — RECORDED STANCES`, ...(top.length ? top.map(e => `- ${e.label} (${Math.round(e.score)}%): ${e.detail || ""}${sxTopicResearchText(e.id, mod.ids)}`) : [ "- No established stance recorded." ]));
                 const cur = p.curious || [];
-                L.push("", `${mod.names[i]} — CURIOUS ABOUT`, ...(cur.length ? cur.slice(0, 5).map(e => `- ${e.label} (${Math.round(e.score)}%): ${e.detail || ""}`) : [ "- None recorded." ]));
+                L.push("", `${mod.names[i]} — CURIOUS ABOUT`, ...(cur.length ? cur.slice(0, 5).map(e => `- ${e.label} (${Math.round(e.score)}%): ${e.detail || ""}${sxTopicResearchText(e.id, mod.ids)}`) : [ "- None recorded." ]));
             });
             L.push("", "WHERE THEY AGREE", ...list(mod.agree.map(e => `${e.label} (${Math.round(e.score)}%; agreement ${Math.round((null == e.agreement ? 1 : e.agreement) * 100)}%)`), "No shared established stance."));
             L.push("", "WHERE THEY PART", ...list(mod.part.map(e => `${e.label} (${Math.round(e.score)}%; agreement ${Math.round((null == e.agreement ? 1 : e.agreement) * 100)}%)`), "No shared established stance where they part."));
@@ -37673,7 +37838,7 @@ var SX_PLAY_GUIDE_FORMAT = [ "STRUCTURED PLAY GUIDE FORMAT — REQUIRED (Scene S
             if ("compact" === sp.tier) {
                 L.push("", "PER-TOPIC DETAIL — FOLDED AT THIS LENGTH", `- Topic detail folded: ${iuData.warmup.length} opening, ${iuData.main.length} development, and ${iuData.aftercare.length} closing ideas are recorded.`);
             } else {
-                L.push("", "PER-TOPIC DETAIL — SHARED GROUND", "", "Where they agree", ...list(mod.agree.map(e => `- ${e.label}: ${e.detail || ""}`), "None."), "", "Where they part", ...list(mod.part.map(e => `- ${e.label}: ${e.detail || ""}`), "None."));
+                L.push("", "PER-TOPIC DETAIL — SHARED GROUND", "", "Where they agree", ...list(mod.agree.map(e => `- ${e.label}: ${e.detail || ""}${sxTopicResearchText(e.id, mod.ids)}`), "None."), "", "Where they part", ...list(mod.part.map(e => `- ${e.label}: ${e.detail || ""}${sxTopicResearchText(e.id, mod.ids)}`), "None."));
             }
             if ("full" === sp.tier) {
                 L.push("", "APPENDIX — PER-TOPIC DETAIL", "", "Opening", ...list(iuData.warmup, "Agree on a gentle opening together."), "", "Development", ...list(iuData.main, "No shared development topic is recorded."), "", "Closing", ...list(iuData.aftercare, "No shared closing topic is recorded."));
@@ -45021,7 +45186,7 @@ var gw = "edit";
             archEl && (archEl.innerHTML = "");
             gw = "about" === t ? "about" : "edit", Dg.dataset.profileMode = gw, _g.dataset.profileMode = gw,
             Rg.hidden = "about" !== gw, "about" === gw && Hy ? (function(t) {
-                const i = String(nt[t] || "").trim(), a = String(it[t] || "").trim(), r = sxClonePhotoRecords(dt[t])[0], o = sxGlanceBucketsFor(t), s = o.green.length + o.yellow.length + o.red.length, l = sxNormalizeContactRecord(ut[t]), c = sxListContactLinks(l);
+                const i = String(nt[t] || "").trim(), a = String(it[t] || "").trim(), r = sxClonePhotoRecords(dt[t])[0], o = sxGlanceBucketsFor(t), s = o.green.length + o.yellow.length + o.red.length, l = sxNormalizeContactRecord(ut[t]), c = sxListContactLinks(l), sxAboutYear = (typeof window !== "undefined" && "function" === typeof window.__SX_SAMPLE_YEAR_BADGE) ? window.__SX_SAMPLE_YEAR_BADGE(t) : "";
                 l.phone && c.unshift({
                     label: "Phone",
                     user: l.phone,
@@ -45030,7 +45195,7 @@ var gw = "edit";
                     label: "Email",
                     user: l.email,
                     href: `mailto:${l.email}`
-                }), Og.hidden = !r, n(Og, r ? `<img src="${sxEscapeHtmlText(r.data)}" alt="${sxEscapeHtmlText(wt[t] || "Profile")} profile photo"><svg class="profile-glance-rings" viewBox="0 0 120 120" role="img" aria-label="At a glance: ${o.percentages.green}% green, ${o.percentages.yellow}% yellow, ${o.percentages.red}% red"><title>${o.percentages.green}% green · ${o.percentages.yellow}% yellow · ${o.percentages.red}% red</title><circle class="ring-track" cx="60" cy="60" r="56"/><circle class="ring-green" cx="60" cy="60" r="56" pathLength="100" stroke-dasharray="${o.percentages.green} 100"/><circle class="ring-yellow" cx="60" cy="60" r="50" pathLength="100" stroke-dasharray="${o.percentages.yellow} 100"/><circle class="ring-red" cx="60" cy="60" r="44" pathLength="100" stroke-dasharray="${o.percentages.red} 100"/></svg>` : ""),
+                }), Og.hidden = !r, n(Og, r ? `<span class="sx-emblem-wrap"><img src="${sxEscapeHtmlText(r.data)}" alt="${sxEscapeHtmlText(wt[t] || "Profile")} profile photo">` + (sxAboutYear ? `<span class="sx-emblem-year-badge" aria-hidden="true">${sxEscapeHtmlText(sxAboutYear)}</span>` : "") + `</span><svg class="profile-glance-rings" viewBox="0 0 120 120" role="img" aria-label="At a glance: ${o.percentages.green}% green, ${o.percentages.yellow}% yellow, ${o.percentages.red}% red"><title>${o.percentages.green}% green · ${o.percentages.yellow}% yellow · ${o.percentages.red}% red</title><circle class="ring-track" cx="60" cy="60" r="56"/><circle class="ring-green" cx="60" cy="60" r="56" pathLength="100" stroke-dasharray="${o.percentages.green} 100"/><circle class="ring-yellow" cx="60" cy="60" r="50" pathLength="100" stroke-dasharray="${o.percentages.yellow} 100"/><circle class="ring-red" cx="60" cy="60" r="44" pathLength="100" stroke-dasharray="${o.percentages.red} 100"/></svg>` : ""),
                 Bg.textContent = sxIdentityPlacardText(t), n(jg, `<span class="profile-dialog-rating-total">${s} rated topic${1 === s ? "" : "s"}</span>`);
                 const d = e.byId("profileDialogAboutSection"), u = e.byId("profileDialogTermsSection"), p = e.byId("profileDialogContactSection");
                 d.hidden = !i, e.byId("profileDialogAboutText").textContent = i, u.hidden = !a,

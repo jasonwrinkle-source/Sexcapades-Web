@@ -1483,6 +1483,17 @@ path.rating-track-hit:not(.map-line-ring-hit).active-rating{pointer-events:strok
 .sample-profile-choice,.sample-stack-choice{display:grid;grid-template-columns:38px minmax(0,1fr) auto;align-items:center;gap:9px;width:100%}
 .sample-profile-choice:not(:has(img)),.sample-stack-choice{grid-template-columns:minmax(0,1fr) auto}
 .sample-profile-choice img{display:block;width:36px;height:36px;border:1px solid color-mix(in srgb,var(--paper) 24%,transparent);border-radius:50%;object-fit:cover}
+/* Palimpsest year badge (2026-11-28): the year as a small inset number
+   on the shared emblem (bottom-right, like a notification badge).
+   The wrapper is the emblem's box; the badge sits on its corner
+   without covering the glyph. The map-center SVG badge uses the
+   matching .sx-center-year-badge-* classes. */
+.sx-emblem-wrap{position:relative;display:inline-block;line-height:0;vertical-align:top}
+.sample-profile-choice .sx-emblem-wrap{width:36px;height:36px}
+.sample-profile-choice .sx-emblem-wrap img{width:100%;height:100%}
+.sx-emblem-year-badge{position:absolute;right:-3px;bottom:-3px;min-width:16px;height:14px;padding:0 3px;box-sizing:border-box;display:flex;align-items:center;justify-content:center;background:var(--ink);color:var(--paper);border:1px solid var(--panel);border-radius:8px;font-size:9.5px;font-weight:800;line-height:1;font-variant-numeric:tabular-nums;pointer-events:none;z-index:1}
+.sx-center-year-badge-bg{fill:var(--ink);stroke:var(--panel);stroke-width:1}
+.sx-center-year-badge-text{fill:var(--paper);font-weight:800;font-variant-numeric:tabular-nums;text-anchor:middle}
 .sample-profile-choice strong,.sample-stack-choice strong{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .sample-profile-choice small,.sample-stack-choice small{color:color-mix(in srgb,var(--paper) 66%,transparent);font-size:11px;font-weight:600;white-space:nowrap}
 .sample-profile-item{display:grid;gap:2px}

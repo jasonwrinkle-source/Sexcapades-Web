@@ -21,6 +21,63 @@
             const n = sxNodeRegistry[e] || sxNodeById(e) || t.map(t => (at[t] || {})[e]).find(Boolean);
             return n ? n.label : e;
         }
+        /* Sex research "why" (2026-11-28): the reasons behind an
+           activity, from the skin topic's `research` field, for the
+           negotiation document. Mirrors the Scribe's
+           sxTopicResearchText but for Sex research keys (give /
+           receive / self / pole keys) and returns a compact " Why: ..."
+           suffix for an activity line. Only reasons are included, plus
+           a real statistic (never the "No reliable statistic found"
+           placeholder). Returns "" when the topic carries no research
+           or nothing the cast holds, so topics without research add
+           nothing and nothing is invented. */
+        function sxSexResearchWhy(topicId, profileIds) {
+            const research = (typeof window !== "undefined" && typeof window.__SX_RESEARCH_FOR_TOPIC === "function") ? window.__SX_RESEARCH_FOR_TOPIC(topicId) : null;
+            if (!research || "object" !== typeof research) return "";
+            const w = (typeof sxWidgetConfig === "function") ? sxWidgetConfig(topicId) : null;
+            const seen = new Set(), keys = [];
+            const addKey = k => { if (k && research[k] && !seen.has(k)) { seen.add(k); keys.push(k); } };
+            if (research.self) addKey("self");
+            (profileIds || []).forEach(pid => {
+                let st = null;
+                try { st = sxDecodeTopicStance(topicId, pid); } catch (err) { st = null; }
+                if (!st) return;
+                if (w && 1 === (w.keys || []).length && "line" === w.keys[0] && st.lineKnown) {
+                    const v = Number(st.line) || 0, pk = w.poleKeys || [];
+                    if (v > 20 && pk[2]) addKey(pk[2]);
+                    else if (v < -20 && pk[0]) addKey(pk[0]);
+                    else if (pk[1]) addKey(pk[1]);
+                    return;
+                }
+                if (st.giveKnown && (Number(st.give) || 0) >= 20) addKey("give");
+                if (st.receiveKnown && (Number(st.receive) || 0) >= 20) addKey("receive");
+                if (w && Array.isArray(w.keys)) {
+                    w.keys.filter(k => "give" !== k && "receive" !== k && "line" !== k).forEach(k => {
+                        if (!st[k + "Known"]) return;
+                        const v = Number(st[k]) || 0;
+                        if (v > 20 || v < -35) addKey(k);
+                    });
+                }
+            });
+            if (!keys.length) return "";
+            const keyList = (w && (w.poleKeys || w.keys)) || [], labels = (w && w.labels) || [];
+            const parts = keys.map(k => {
+                const r = research[k];
+                let label;
+                if ("give" === k) label = "Giving";
+                else if ("receive" === k) label = "Receiving";
+                else if ("self" === k) label = "Why this appeals";
+                else {
+                    const idx = keyList.indexOf(k);
+                    label = (idx >= 0 && labels[idx]) || k;
+                }
+                let text = `${label} — Reasons: ${r.reasons}`;
+                const stat = r.statistic ? String(r.statistic).trim() : "";
+                if (stat && "No reliable statistic found." !== stat && !/^No reliable statistic/i.test(stat)) text += ` Statistic: ${stat}`;
+                return text;
+            });
+            return ` Why: ${parts.join(" | ")}`;
+        }
         function sxSceneNegotiationData(e, t = {}) {
             const sxCanon = e => {
                 try {
@@ -43,7 +100,7 @@
                     s.receiveKnown && l.giveKnown && s.receive >= 36 && l.give <= -36 && d.push(`${i[r]} receives / ${i[o]} gives`), 
                     l.giveKnown && s.receiveKnown && l.give >= 36 && s.receive <= -36 && d.push(`${i[o]} gives / ${i[r]} receives`), 
                     l.receiveKnown && s.giveKnown && l.receive >= 36 && s.give <= -36 && d.push(`${i[o]} receives / ${i[r]} gives`), 
-                    d.length && c.push(`${sxSceneNodeLabel(e, n)} — ${d.join("; ")}`);
+                    d.length && c.push(`${sxSceneNodeLabel(e, n)} — ${d.join("; ")}${sxSexResearchWhy(e, n)}`);
                 });
             });
             const sxSettings = Object.fromEntries(n.map(id => [ id, { heat: sxHeatFor(id), veil: sxVeilFor(id) } ])), d = n.length > 2 ? sxMultiMatchData(n, sxSettings) : sxCastMatchData(n[0], n[1], sxSettings), sxTeasers = function() {
@@ -77,7 +134,7 @@
                 return [ ...new Set(t.map(e => `${sxFirstName[e.giver] || e.giver} gives → ${sxFirstName[e.receiver] || e.receiver} receives`)) ].join("; ");
             }, sxIsFantasy = e => Boolean(e.fantasyOnly) || n.some(t => sxIsFantasyOnly(e.id, t)), sxRedFor = e => n.map((t, a) => sxDeepSets[a] && sxDeepSets[a].has(sxCanon(e.id)) ? i[a] : "").filter(Boolean), sxLineOf = e => {
                 const t = sxDirOf(e), a = sxRedFor(e);
-                return `${e.label}${t ? ` — ${t}` : ""}${a.length ? ` — red/no for ${a.join(" and ")}` : ""}`;
+                return `${e.label}${t ? ` — ${t}` : ""}${a.length ? ` — red/no for ${a.join(" and ")}` : ""}${sxSexResearchWhy(e.id, n)}`;
             }, u = e => e.filter(e => !o.has(e.id) && !sxIsFantasy(e)).map(sxLineOf), sxFantasySeen = new Set, sxFantasyOf = e => e.filter(e => !o.has(e.id) && sxIsFantasy(e) && !sxFantasySeen.has(e.id) && sxFantasySeen.add(e.id)).map(e => `☁ ${sxLineOf(e)}`), p = sxSceneCastPrefs(n), h = n.map(e => function(e, t, n = new Set) {
                 return sxAllTopicIds().filter(t => {
                     const i = sxNodeRegistry[t] || sxNodeById(t);
@@ -86,7 +143,7 @@
                     return "favorite" === Qe[e]?.[t] || a.giveKnown && a.give > 35 || a.receiveKnown && a.receive > 35;
                 }).map(n => {
                     const i = sxDecodeTopicStance(n, e);
-                    return `${sxSceneNodeLabel(n, t)}${sxRatingProseText(i, n) ? ` — ${sxRatingProseText(i, n)}` : ""}`;
+                    return `${sxSceneNodeLabel(n, t)}${sxRatingProseText(i, n) ? ` — ${sxRatingProseText(i, n)}` : ""}${sxSexResearchWhy(n, [e])}`;
                 }).sort();
             }(e, n, t.hideExcludedNames ? o : new Set));
             return {
@@ -303,7 +360,10 @@
         function sxGroundRulesBlock(mod) {
             const spec = window.__SX_SETTER || null,
                 rules = (spec && Array.isArray(spec.groundRules)) ? spec.groundRules : [],
-                fmt = e => `- ${e.label} (${Math.round(e.score)}%${null != e.agreement ? `; agreement ${Math.round(e.agreement * 100)}%` : ""}): ${e.detail || ""}`,
+                // Research WHY appended after the detail, exactly as
+                // the Scribe discussion composer does - the moderator
+                // and the on-screen panel both see the reasons.
+                fmt = e => `- ${e.label} (${Math.round(e.score)}%${null != e.agreement ? `; agreement ${Math.round(e.agreement * 100)}%` : ""}): ${e.detail || ""}${sxTopicResearchText(e.id, mod.ids)}`,
                 lines = [ `GROUND RULES — BINDING — ${mod.names.join(" + ")}` ];
             // Each side's anchor stances: the strongest recorded
             // positions per profile, so the moderator knows what each
@@ -311,7 +371,7 @@
             // ground below carries the full overlap.
             mod.perPerson.forEach((p, i) => {
                 const top = (p.established || []).slice().sort((a, b) => Math.abs(b.score) - Math.abs(a.score)).slice(0, 5);
-                lines.push("", `${mod.names[i]} — STRONGEST RECORDED STANCES`, ...(top.length ? top.map(e => `- ${e.label} (${Math.round(e.score)}%): ${e.detail || ""}`) : [ "- No established stance recorded." ]));
+                lines.push("", `${mod.names[i]} — STRONGEST RECORDED STANCES`, ...(top.length ? top.map(e => `- ${e.label} (${Math.round(e.score)}%): ${e.detail || ""}${sxTopicResearchText(e.id, mod.ids)}`) : [ "- No established stance recorded." ]));
             });
             lines.push("", "WHERE THEY AGREE", ...(mod.agree.length ? mod.agree.map(fmt) : [ "- No shared established stance." ]));
             lines.push("", "WHERE THEY PART", ...(mod.part.length ? mod.part.map(fmt) : [ "- No shared established stance where they part." ]));
@@ -342,8 +402,13 @@
             // pair agreement - the same fmtStance the Scribe discussion
             // composer uses. The cast is by name only: gender,
             // orientation, and give/receive roles are Sexcapades data
-            // and have no meaning for a stance map.
-            const fmtStance = e => `- ${e.label} (${Math.round(e.score)}%${null != e.agreement ? `; agreement ${Math.round(e.agreement * 100)}%` : ""}): ${e.detail || ""}`,
+            // and have no meaning for a stance map. The research WHY
+            // is appended after the detail, exactly as the Scribe does
+            // (sxTopicResearchText, 05b2) - reasons + a real statistic
+            // + what would move a holder, for poles the cast holds;
+            // "" when the topic carries no research, so nothing is
+            // invented and an unresearched stance is unchanged.
+            const fmtStance = e => `- ${e.label} (${Math.round(e.score)}%${null != e.agreement ? `; agreement ${Math.round(e.agreement * 100)}%` : ""}): ${e.detail || ""}${sxTopicResearchText(e.id, mod.ids)}`,
                 stanceDetail = `ESTABLISHED STANCES: ${mod.established.map(fmtStance).join(" ") || "none recorded"}. CURIOUS STANCES: ${mod.curious.map(fmtStance).join(" ") || "none recorded"}.`;
             return [ "AI MODERATION-PLAN REQUEST", `${opening} targeting approximately ${a}. ${detailLine} Use DISCUSSION DATA as inspiration while treating GROUND RULES as binding. Give each side its strongest form before comparing, and never let one side speak for the other. Use only the named topics below as the positions in the discussion. Do not invent positions, sources, or facts beyond the supplied data. If a field is not filled out, leave a clear pre-discussion decision point instead of inventing an answer.`, "", `CAST: ${mod.names.join(" + ")} (by name only)`, "", `STANCE DETAIL: ${stanceDetail}`, "", sxDiscussionDataBlock(iuData), "", sxGroundRulesBlock(mod), "", sxTermsBlock(mod.ids, mod.names), "", `${sxIsVanillaSkin() ? "RED-LINE-EXCLUDED" : "HARD-EXCLUDED"} FROM DISCUSSION ${iuData.excluded.length ? iuData.excluded.map(x => `- ${x}`).join(" ") : iuData.mutuals.length ? "- no marked red lines; mutual deep-red exclusions follow" : iuData.terms && iuData.terms.some(Boolean) ? "- no marked red lines or mutual deep-red exclusions; red lines named in the Terms above still apply" : "- none marked"}${iuData.mutuals.length ? ` MUTUAL EXCLUSIONS — BOTH PARTNERS RATED DEEP-RED ${iuData.mutuals.map(x => `- ${x}`).join(" ")}` : ""}`, "", "Rules:", ...rules.map(r => `- ${r}`), rigorLine ? `- ${rigorLine}` : "" ].join(" ");
         }
@@ -362,9 +427,12 @@
             L.push("", "CAST", ...mod.names.map(n => `- ${n}`));
             mod.perPerson.forEach((p, i) => {
                 const top = (p.established || []).slice().sort((a, b) => Math.abs(b.score) - Math.abs(a.score)).slice(0, 10);
-                L.push("", `${mod.names[i]} — RECORDED STANCES`, ...(top.length ? top.map(e => `- ${e.label} (${Math.round(e.score)}%): ${e.detail || ""}`) : [ "- No established stance recorded." ]));
+                // Research WHY appended after the detail, exactly as
+                // the Scribe discussion composer does - the stored
+                // agreement carries the reasons for the humans who meet.
+                L.push("", `${mod.names[i]} — RECORDED STANCES`, ...(top.length ? top.map(e => `- ${e.label} (${Math.round(e.score)}%): ${e.detail || ""}${sxTopicResearchText(e.id, mod.ids)}`) : [ "- No established stance recorded." ]));
                 const cur = p.curious || [];
-                L.push("", `${mod.names[i]} — CURIOUS ABOUT`, ...(cur.length ? cur.slice(0, 5).map(e => `- ${e.label} (${Math.round(e.score)}%): ${e.detail || ""}`) : [ "- None recorded." ]));
+                L.push("", `${mod.names[i]} — CURIOUS ABOUT`, ...(cur.length ? cur.slice(0, 5).map(e => `- ${e.label} (${Math.round(e.score)}%): ${e.detail || ""}${sxTopicResearchText(e.id, mod.ids)}`) : [ "- None recorded." ]));
             });
             L.push("", "WHERE THEY AGREE", ...list(mod.agree.map(e => `${e.label} (${Math.round(e.score)}%; agreement ${Math.round((null == e.agreement ? 1 : e.agreement) * 100)}%)`), "No shared established stance."));
             L.push("", "WHERE THEY PART", ...list(mod.part.map(e => `${e.label} (${Math.round(e.score)}%; agreement ${Math.round((null == e.agreement ? 1 : e.agreement) * 100)}%)`), "No shared established stance where they part."));
@@ -374,7 +442,7 @@
             if ("compact" === sp.tier) {
                 L.push("", "PER-TOPIC DETAIL — FOLDED AT THIS LENGTH", `- Topic detail folded: ${iuData.warmup.length} opening, ${iuData.main.length} development, and ${iuData.aftercare.length} closing ideas are recorded.`);
             } else {
-                L.push("", "PER-TOPIC DETAIL — SHARED GROUND", "", "Where they agree", ...list(mod.agree.map(e => `- ${e.label}: ${e.detail || ""}`), "None."), "", "Where they part", ...list(mod.part.map(e => `- ${e.label}: ${e.detail || ""}`), "None."));
+                L.push("", "PER-TOPIC DETAIL — SHARED GROUND", "", "Where they agree", ...list(mod.agree.map(e => `- ${e.label}: ${e.detail || ""}${sxTopicResearchText(e.id, mod.ids)}`), "None."), "", "Where they part", ...list(mod.part.map(e => `- ${e.label}: ${e.detail || ""}${sxTopicResearchText(e.id, mod.ids)}`), "None."));
             }
             if ("full" === sp.tier) {
                 L.push("", "APPENDIX — PER-TOPIC DETAIL", "", "Opening", ...list(iuData.warmup, "Agree on a gentle opening together."), "", "Development", ...list(iuData.main, "No shared development topic is recorded."), "", "Closing", ...list(iuData.aftercare, "No shared closing topic is recorded."));

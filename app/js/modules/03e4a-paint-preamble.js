@@ -1,3 +1,27 @@
+        /* Palimpsest year badge for the map center (2026-11-28):
+           the year text for a profile that is a dated sample layer,
+           or "". The profile id is a slug of the profile name, not
+           the sample key, so the sample entry is found by matching
+           the profile's name against the bundled sample map. Works
+           for freshly loaded and restored profiles alike. Exposed
+           on window so the profile sheet can reuse it. */
+        function sxSampleYearBadgeForProfile(pid) {
+            if (typeof window === "undefined" || !window.SEXCAPADES_SAMPLE_PROFILES) return "";
+            const name = (typeof Xe !== "undefined" && Xe && Xe[pid]) || "";
+            if (!name) return "";
+            const badgeText = (typeof window.__SX_EMBLEM_YEAR_TEXT === "function") ? window.__SX_EMBLEM_YEAR_TEXT : entry => {
+                const d = entry && entry.date != null ? String(entry.date).trim() : "";
+                if (!d || "present" === d.toLowerCase()) return "";
+                return /^\d{4}$/.test(d) ? d.slice(2) : (d.length <= 4 ? d : "");
+            };
+            const samples = window.SEXCAPADES_SAMPLE_PROFILES, keys = Object.keys(samples);
+            for (let i = 0; i < keys.length; i++) {
+                const entry = samples[keys[i]];
+                if (entry && entry.name === name) return badgeText(entry) || "";
+            }
+            return "";
+        }
+        if (typeof window !== "undefined") window.__SX_SAMPLE_YEAR_BADGE = sxSampleYearBadgeForProfile;
         function* sxGenerateMapPaint(i = {}) {
             // JOB B GLIDE FIX - previous-positions capture: read the live
             // node positions BEFORE sxVaultCaptureCurrent() runs. The vault
@@ -515,13 +539,27 @@
                     });
                 }
                 const sxCenterPhotos = `<g clip-path="url(#centerPhotoClip)">${e.map((e, t) => sxCroppedPhotoMarkup(e, r[t], "center-photo")).join("")}</g>`;
-                if (sxSplitIds.length < 2) return sxCenterPhotos;
+                /* Palimpsest year badge (2026-11-28): one small pill per
+                   center profile at the bottom-right of its slice,
+                   clamped onto the center circle so it sits on the
+                   emblem like a notification badge and never floats
+                   off it. Undated / "present" profiles get no badge. */
+                const sxCenterBadges = sxCenterIds.slice(0, 8).map((pid, t) => {
+                    const badge = sxSampleYearBadgeForProfile(pid);
+                    if (!badge || !r[t]) return "";
+                    const rect = r[t], bh = Math.max(16, Math.min(30, ea.photoRadius * .16)), bw = bh * (badge.length <= 2 ? 1.6 : 2.6);
+                    let bx = rect.x + rect.w - bw / 2 - 4, by = rect.y + rect.h - bh / 2 - 4;
+                    const dx = bx - 900, dy = by - 620, dist = Math.sqrt(dx * dx + dy * dy), maxDist = ea.photoRadius * .92;
+                    if (dist > maxDist && dist > 0) { bx = 900 + dx / dist * maxDist; by = 620 + dy / dist * maxDist; }
+                    return `<g class="sx-center-year-badge" aria-hidden="true"><rect class="sx-center-year-badge-bg" x="${(bx - bw / 2).toFixed(1)}" y="${(by - bh / 2).toFixed(1)}" width="${bw.toFixed(1)}" height="${bh.toFixed(1)}" rx="${(bh / 2).toFixed(1)}"/><text class="sx-center-year-badge-text" x="${bx.toFixed(1)}" y="${by.toFixed(1)}" style="font-size:${(bh * .62).toFixed(0)}px" dominant-baseline="middle">${sxEscapeHtmlText(badge)}</text></g>`;
+                }).join("");
+                if (sxSplitIds.length < 2) return sxCenterPhotos + sxCenterBadges;
                 const sxSplitOp = sxNormalizePairOp(sxSplitGrp.pairOp), sxSplitGlyph = sxPairJoin(sxSplitOp).trim(), sxSeamPlate = Math.max(120, ea.photoRadius * .17), sxSeamW = t / a, sxSeams = [];
                 for (let sxK = 1; sxK < a; sxK++) {
                     const sxSeamX = n + sxK * sxSeamW;
                     sxSeams.push(`<g class="center-split-seam"><circle cx="${sxSeamX.toFixed(1)}" cy="620" r="${sxSeamPlate.toFixed(1)}"/><text x="${sxSeamX.toFixed(1)}" y="620" style="font-size:${(sxSeamPlate * 1.05).toFixed(0)}px" text-anchor="middle" dominant-baseline="middle">${sxSplitGlyph}</text></g>`);
                 }
-                return sxCenterPhotos + `<g class="center-split-seams" data-split-center="pair" data-pair-op="${sxSplitOp}" data-split-count="${a}" aria-hidden="true">${sxSeams.join("")}</g>`;
+                return sxCenterPhotos + sxCenterBadges + `<g class="center-split-seams" data-split-center="pair" data-pair-op="${sxSplitOp}" data-split-count="${a}" aria-hidden="true">${sxSeams.join("")}</g>`;
             }()}<circle class="center-hit" cx="900" cy="620" r="${ea.photoRadius + 3}" tabindex="0" role="button" aria-label="${sxEscapeHtmlText(g)}. ${sxEscapeHtmlText(y)}."/>${function(e) {
                 const t = ea.photoRadius, n = Za.fitWithin(e, 22 * mapFontScale(), 15, 288, "center"), i = Za.fitAttr(e, n, "center", 288);
                 return `<g class="center-circumference-text"><path id="center-bottom-arc" class="center-arc-path" d="M ${(900 - t).toFixed(0)} 620 A ${t} ${t} 0 0 0 ${(900 + t).toFixed(0)} 620"/><text class="center-arc-text center-name-arc-text" style="font-size:${n.toFixed(2)}px" dy="-1"${i}><textPath href="#center-bottom-arc" xlink:href="#center-bottom-arc" startOffset="50%" text-anchor="middle">${sxEscapeHtmlText(e)}</textPath></text></g>`;
