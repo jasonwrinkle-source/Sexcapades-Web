@@ -38,7 +38,8 @@
       "accept": {
         "application/json": [
           ".hypermap",
-          ".CapadesIO"
+          ".CapadesIO",
+          ".roster"
         ]
       },
       "launch_type": "single-client"

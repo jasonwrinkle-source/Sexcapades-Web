@@ -276,7 +276,23 @@
       var blob = new Blob([JSON.stringify(pack, null, 2) + "\n"], { type: "application/json" });
       var a = document.createElement("a");
       a.href = URL.createObjectURL(blob);
-      a.download = skin + "-roster.json";
+      a.download = (function () {
+        /* Download filename (2026-11-27): {RosterName}-{SkinShort}.roster,
+           e.g. "Friday Knights-Quest.roster". The skin short name is the
+           catalog prefix (quest/sex/polis, …), capitalized — NOT
+           sxSkinDownloadPrefix(), which returns the full "Questcapades".
+           Sanitized the same way sxExportFileNames sanitizes a profile
+           name (illegal filename chars -> space, whitespace -> "-").
+           The pack JSON's name field itself is untouched. */
+        var skinShort = (function () {
+          var prefix = (window.__SX_SKIN_SUBDOMAIN && window.__SX_SKIN_SUBDOMAIN[skin]) || "";
+          if (!prefix) prefix = String(skin || "sexcapades").replace(/capades$/, "") || "sex";
+          return prefix.charAt(0).toUpperCase() + prefix.slice(1);
+        })();
+        var safeName = String((pack.name && String(pack.name).trim()) || "Roster")
+          .replace(/[\\/:*?"<>|\u0000-\u001f]+/g, " ").replace(/\s+/g, "-").replace(/^-+|-+$/g, "") || "Roster";
+        return safeName + "-" + skinShort + ".roster";
+      })();
       document.body.appendChild(a);
       a.click();
       setTimeout(function () { URL.revokeObjectURL(a.href); a.remove(); }, 400);
@@ -288,7 +304,7 @@
     if (!rosterFileInput) {
       rosterFileInput = document.createElement("input");
       rosterFileInput.type = "file";
-      rosterFileInput.accept = ".json,application/json";
+      rosterFileInput.accept = ".roster,.json,application/json";
       rosterFileInput.style.display = "none";
       rosterFileInput.addEventListener("change", function () {
         var f = rosterFileInput.files && rosterFileInput.files[0];
