@@ -468,6 +468,59 @@
         window.sxMinusMatchData = sxMinusMatchData;
         window.sxFullArcMatchData = sxFullArcMatchData;
 
+        // Research backing for a topic's stances (Polis Scribe wiring,
+        // 2026-11-28): the skin loader publishes each topic's `research`
+        // map ({poleKey: {reasons, statistic, move}}) as
+        // window.__SX_RESEARCH_FOR_TOPIC. For the poles the given
+        // profiles hold a recorded stance on — affirmed (>20) or
+        // explicitly rejected (<-35), the same two categories the
+        // receipt names — return one compact research line per pole:
+        // reasons, plus the statistic only when a real one was
+        // grounded, plus what would move a holder. The model then
+        // states WHY each side holds its position instead of listing
+        // bare labels. Returns "" when the topic carries no research
+        // (skins without research), when no held pole has research,
+        // or when the lookup is unavailable; the prompt is unchanged
+        // in those cases and nothing is invented. For a trilinear-line
+        // topic the line scalar points at one of the three poles
+        // (right / center / left); that pole's research is used.
+        function sxTopicResearchText(topicId, profileIds) {
+            const research = (typeof window !== "undefined" && typeof window.__SX_RESEARCH_FOR_TOPIC === "function") ? window.__SX_RESEARCH_FOR_TOPIC(topicId) : null;
+            if (!research || "object" !== typeof research) return "";
+            const w = (typeof sxWidgetConfig === "function") ? sxWidgetConfig(topicId) : null;
+            if (!w || !Array.isArray(w.keys) || w.single) return "";
+            const seen = new Set(), poleKeys = [];
+            const addKey = k => { if (k && research[k] && !seen.has(k)) { seen.add(k); poleKeys.push(k); } };
+            (profileIds || []).forEach(pid => {
+                let s = null;
+                try { s = sxDecodeTopicStance(topicId, pid); } catch (err) { s = null; }
+                if (!s) return;
+                if (1 === w.keys.length && "line" === w.keys[0] && s.lineKnown) {
+                    const v = Number(s.line) || 0, pk = w.poleKeys || [];
+                    if (v > 20 && pk[2]) addKey(pk[2]);
+                    else if (v < -20 && pk[0]) addKey(pk[0]);
+                    else if (pk[1]) addKey(pk[1]);
+                    return;
+                }
+                w.keys.filter(k => "give" !== k && "receive" !== k).forEach(k => {
+                    if (!s[k + "Known"]) return;
+                    const v = Number(s[k]) || 0;
+                    if (v > 20 || v < -35) addKey(k);
+                });
+            });
+            if (!poleKeys.length) return "";
+            const keyList = w.poleKeys || w.keys, labels = w.labels || [];
+            const parts = poleKeys.map(k => {
+                const r = research[k], idx = keyList.indexOf(k);
+                const label = (idx >= 0 && labels[idx]) || k;
+                let text = `"${label}" — Reasons: ${r.reasons}`;
+                const stat = r.statistic ? String(r.statistic).trim() : "";
+                if (stat && "No reliable statistic found." !== stat && !/^No reliable statistic/i.test(stat)) text += ` Statistic: ${stat}`;
+                if (r.move) text += ` What would move a holder: ${r.move}`;
+                return text;
+            });
+            return ` [RESEARCH — WHY EACH SIDE HOLDS ITS POSITION: ${parts.join(" | ")}]`;
+        }
         // Discussion composer (2026-11-16, Jason's ruling): on the
         // vanilla stance/belief maps Scribe writes an informed
         // discussion between the stances recorded on the map - or, for
@@ -485,33 +538,36 @@
             const spec = window.__SX_SCRIBE || null, pr = (spec && spec.prompt) || {};
             const op = s ? "cross" : (scribeOperation || "cross");
             const isGroup = o.length >= 3;
-            const minusTerm = isGroup ? "Polylectic" : "Dialectic";
+            const minusTerm = isGroup ? "Polylectic" : "Indaba";
             const castLine = s ? `${d} (one profile)` : w;
-            const fmtStance = e => `- ${e.label} (${Math.round(e.score)}%): ${sxAliasProfileOneText(e.detail)}`;
+            const fmtStance = e => `- ${e.label} (${Math.round(e.score)}%): ${sxAliasProfileOneText(e.detail)}${sxTopicResearchText(e.id, o)}`;
 
             let opening, rules, stanceDetail, sharedLine, boundaryRule;
 
             if ("minus" === op) {
                 opening = pr.opening || (isGroup
-                    ? `Write an informed polylectic discussion examining the sharpest divergence points and opposing convictions held across these profiles (${w}).`
-                    : `Write an informed dialectic discussion examining the sharpest divergence points and opposing convictions held between ${w}.`);
+                    ? `Write an informed indaba across these profiles (${w}) on their sharpest differences: a meeting to talk toward consensus, where each side is heard in its strongest form, with its reasons.`
+                    : `Write an informed indaba between ${w} on their sharpest differences: a meeting to talk toward consensus, where each side is heard in its strongest form, with its reasons.`);
                 stanceDetail = [
                     `LEAD DIVERGENCE STANCES (${minusTerm.toUpperCase()}): ${M.map(fmtStance).join(" ") || "none recorded"}.`,
                     `SECONDARY TENSIONS: ${I.map(fmtStance).join(" ") || "none recorded"}.`
                 ].join(" ");
                 rules = [
                     "- Explore the philosophical principles, practical rationale, trade-offs, and implications of each stance in depth, without introducing unlisted topics.",
-                    "- For each lead topic:",
-                    "  1. State one side's case, steelmanned, in its holders' terms.",
-                    "  2. State the opposing side's case, steelmanned, in its holders' terms.",
-                    "  3. Pinpoint where the split actually lives: the receipt-level fact, assumption, or conviction the disagreement turns on, and what, if anything, would move either side.",
-                    "- An honest impasse is a legitimate ending; do not manufacture artificial agreement or force a consensus where deep disagreement exists.",
-                    isGroup ? "- Polylectic discipline: run this steelmanning discipline per side, a side being a party or coalition of parties holding that stance, attributing each case to its holders." : "- Attribution is essential: always state clearly who holds which position and with what conviction (e.g. 'Party A holds X at strength Y; Party B holds Z at strength W').",
+                    "- INDABA FORM — shape every topic this way (indaba: a meeting to talk toward consensus):",
+                    "  1. Name the topic, then state EACH voice's position WITH the reasons behind it — the reasons are supplied in the stance detail; use them, do not invent others.",
+                    "  2. Name the meeting points: where the voices agree, or where their reasons overlap enough to meet.",
+                    "  3. Name the gaps: where they differ, and WHY — the reason, fact, or conviction the split turns on.",
+                    "  4. Close the topic with an open question: what would it take for this group to reach consensus here? Start from the 'what would move a holder' notes in the detail; do not invent others.",
+                    "- For each lead topic, state one side's case, steelmanned, in its holders' terms, then the opposing side's case, steelmanned, in its holders' terms — both sides, every topic. A topic is never presented from one voice alone.",
+                    "- An honest impasse is a legitimate ending; do not manufacture artificial agreement or force a consensus where deep disagreement exists. Name the gap plainly instead.",
+                    isGroup ? "- Polylectic discipline: run this indaba discipline per side, a side being a party or coalition of parties holding that stance, attributing each case to its holders." : "- Attribution is essential: always state clearly who holds which position, with what conviction, and for what reason (e.g. 'Party A holds X at strength Y because ...; Party B holds Z at strength W because ...').",
                     "- Discussion structure:",
-                    "  - Opening: state the core question and set out each participant's starting convictions.",
-                    "  - Development: argue the core tensions, objections, and counter-arguments in depth.",
-                    "  - Closing: draw threads together or clearly name and honor the unresolved impasse.",
-                    "- Pay strict attention to affirmed versus rejected stances: present each profile's affirmed convictions faithfully without inversion."
+                    "  - Opening: state the core question and set out each participant's starting convictions and their reasons.",
+                    "  - Development: work through the topics in indaba form — positions with reasons, meeting points, gaps, open questions.",
+                    "  - Closing: draw threads together, name the meeting points reached and the gaps that remain, and end with the open question for the group.",
+                    "- Pay strict attention to affirmed versus rejected stances: present each profile's affirmed convictions faithfully without inversion.",
+                    "- Use only the reasons, statistics, and facts supplied in the stance detail. Never invent a statistic, a source, or a reason a voice did not give."
                 ];
                 boundaryRule = "- Discuss the recorded divergence topics in this brief. Attribution is never flattened: pairwise and individual profiles shape the specific arguments and convictions of each participant.";
                 sharedLine = [
@@ -521,7 +577,7 @@
                     "- Explore the real friction and underlying philosophical commitments dividing the participants on each named topic."
                 ].join("\n");
             } else if ("full_arc" === op) {
-                opening = pr.opening || `Write an informed full-arc discussion between ${w}, structured across three movements: Communion, Common Ground, and ${minusTerm}.`;
+                opening = pr.opening || `Write an informed full-arc indaba between ${w}, structured across three movements: Communion, Common Ground, and ${minusTerm} — every topic presented from both (or all) sides, with reasons, meeting points, gaps, and an open question toward consensus.`;
                 const movs = f && f.movements ? f.movements : null;
                 const m1 = movs && movs.communion ? movs.communion : M.slice(0, Math.ceil(M.length / 3));
                 const m2 = movs && movs.commonGround ? movs.commonGround : M.slice(Math.ceil(M.length / 3), Math.ceil(M.length * 2 / 3));
@@ -534,34 +590,39 @@
                 ].join("\n\n");
                 rules = [
                     "- Explore the philosophical principles, practical rationale, trade-offs, and implications of each stance in depth, without introducing unlisted topics.",
+                    "- INDABA FORM — shape every topic this way (indaba: a meeting to talk toward consensus): name the topic, state EACH voice's position WITH the reasons behind it (the reasons are supplied in the stance detail; use them, do not invent others), name the meeting points where the voices agree or their reasons overlap, name the gaps where they differ and WHY, and close the topic with an open question: what would it take for this group to reach consensus here?",
+                    "- Present both (or all) sides of every topic — a topic is never listed from one voice alone. The arc runs in both directions.",
                     "- Organize the discussion into THREE DISTINCT MOVEMENTS under one unified introduction and one closing:",
                     "  - MOVEMENT 1 — COMMUNION (⋈): The synergistic completions, where each party's perspectives complement the others and fill each other's inquiries.",
                     "  - MOVEMENT 2 — COMMON GROUND (⊙): The shared likeness, core values, and conversational foundation where profiles align in agreement.",
-                    `  - MOVEMENT 3 — ${minusTerm.toUpperCase()} (⊖): The contested splits and opposing convictions. Steelman each side, pinpoint the receipt-level crux the disagreement turns on, and conclude with an honest impasse or synthesis.`,
-                    "  - CLOSING: Draw the threads of all three movements together into an insightful synthesis that honors both common ground and honest difference.",
+                    `  - MOVEMENT 3 — ${minusTerm.toUpperCase()} (⊖): The contested splits and opposing convictions. State each side in its strongest form with its reasons, pinpoint the crux the disagreement turns on, and conclude with an honest impasse or a meeting point — never a forced consensus.`,
+                    "  - CLOSING: Draw the threads of all three movements together into an insightful synthesis that honors both common ground and honest difference, and end with the open question for the group.",
                     "- Any topic that spans multiple registers is addressed in its primary movement and cross-referenced, never redundantly repeated.",
-                    "- Attribution is essential: always state clearly who holds which position and with what conviction."
+                    "- Attribution is essential: always state clearly who holds which position, with what conviction, and for what reason.",
+                    "- Use only the reasons, statistics, and facts supplied in the stance detail. Never invent a statistic, a source, or a reason a voice did not give."
                 ];
                 boundaryRule = "- Address each topic in its primary movement; pairwise and individual profiles supply character texture, nuances, and arguments within each movement.";
                 sharedLine = [
                     "FULL ARC MOVEMENTS — STRUCTURE",
                     "- Movement 1 explores mutual completion and complementary stances.",
                     "- Movement 2 explores foundational agreements and shared values.",
-                    `- Movement 3 explores the sharpest differences through steelmanned ${minusTerm.toLowerCase()} debate.`,
+                    "- Movement 3 explores the sharpest differences, each side stated in its strongest form with its reasons, toward an honest meeting point or a clearly named gap.",
                     "- The closing synthesizes the full arc without erasing genuine disagreements."
                 ].join("\n");
             } else if ("straight" === op) {
-                opening = pr.opening || `Write an informed common ground discussion exploring the shared convictions and common agreements between ${w}.`;
+                opening = pr.opening || `Write an informed indaba on the common ground between ${w}: where they agree, why they agree, and what would deepen that agreement.`;
                 stanceDetail = [
                     `ESTABLISHED COMMON GROUND: ${M.map(fmtStance).join(" ") || "none recorded"}.`,
                     `CURIOUS / MILD COMMON GROUND: ${I.map(fmtStance).join(" ") || "none recorded"}.`
                 ].join(" ");
                 rules = [
                     "- Explore the philosophical principles, practical rationale, trade-offs, and implications of each stance in depth, without introducing unlisted topics.",
-                    "- Focus on the shared ground: explore the principles, rationale, and shared convictions where the profiles align.",
+                    "- INDABA FORM — shape every topic this way: name the topic, state EACH voice's position WITH the reasons behind it (the reasons are supplied in the stance detail; use them, do not invent others), name the meeting points where the voices agree or their reasons overlap, name the gaps where the shared ground thins and why, and close with an open question: what would it take for this group to reach consensus here?",
+                    "- Focus on the shared ground: explore the principles, rationale, and shared convictions where the profiles align — and say WHY they align, using the supplied reasons.",
                     "- Explore the nuances, depth, and practical implications of these common agreements.",
-                    "- Attribution: present each party's contribution to the shared conversation, reflecting their recorded intensity.",
-                    "- Pay strict attention to affirmed versus rejected stances: present each profile's affirmed convictions faithfully without inversion."
+                    "- Attribution: present each party's contribution to the shared conversation, reflecting their recorded intensity and their reasons.",
+                    "- Pay strict attention to affirmed versus rejected stances: present each profile's affirmed convictions faithfully without inversion.",
+                    "- Use only the reasons, statistics, and facts supplied in the stance detail. Never invent a statistic, a source, or a reason a voice did not give."
                 ];
                 boundaryRule = "- Use the authoritative common ground above as the position boundary. Pairwise and individual profiles shape character texture and conversational style inside that boundary.";
                 sharedLine = [
@@ -574,7 +635,12 @@
             } else {
                 opening = pr.opening || "Write an informed discussion between the stances recorded on this map.";
                 const rawRules = Array.isArray(pr.rules) ? pr.rules : [];
-                rules = rawRules.map(r => r === "Do not invent positions, sources, or facts beyond the supplied data." ? "Explore the philosophical principles, practical rationale, trade-offs, and implications of each stance in depth, without introducing unlisted topics." : r);
+                rules = rawRules.map(r => r === "Do not invent positions, sources, or facts beyond the supplied data." ? "Explore the philosophical principles, practical rationale, trade-offs, and implications of each stance in depth, without introducing unlisted topics." : r).concat([
+                    "- INDABA FORM — shape every topic this way (indaba: a meeting to talk toward consensus): name the topic, state EACH voice's position WITH the reasons behind it (the reasons are supplied in the stance detail; use them, do not invent others), name the meeting points where the voices agree or their reasons overlap, name the gaps where they differ and WHY, and close with an open question: what would it take for this group to reach consensus here?",
+                    "- Present both (or all) sides of every topic — a topic is never listed from one voice alone.",
+                    "- Attribution is essential: always state clearly who holds which position, with what conviction, and for what reason.",
+                    "- Use only the reasons, statistics, and facts supplied in the stance detail. Never invent a statistic, a source, or a reason a voice did not give."
+                ]);
                 stanceDetail = [ `ESTABLISHED STANCES: ${M.map(fmtStance).join(" ") || "none recorded"}.`, `CURIOUS STANCES: ${I.map(fmtStance).join(" ") || "none recorded"}.` ].join(" ");
                 boundaryRule = s ? "- Use the one profile as the source of stance detail." : "- Use the authoritative shared ground above as the position boundary. Do not calculate the intersection yourself. Pairwise and individual profiles may shape character texture and dynamics only inside that boundary.";
                 sharedLine = s ? "" : [ "SHARED GROUND — THE COMMONALITIES", `- Established: ${M.map(e => `${e.label} (${Math.round(e.score)}%${null != e.agreement ? `; agreement ${Math.round(e.agreement * 100)}%` : ""})`).join("; ") || "none"}.`, `- Curious: ${I.map(e => `${e.label} (${Math.round(e.score)}%${null != e.agreement ? `; agreement ${Math.round(e.agreement * 100)}%` : ""})`).join("; ") || "none"}.`, "- This is the already-computed overlap for every selected profile. Treat it as authoritative. Do not calculate, infer, broaden, or recompute the intersection yourself.", "- Positions may come only from this shared ground. Pairwise and individual profiles add character texture and dynamics, not new positions." ].join(" ");
