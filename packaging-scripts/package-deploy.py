@@ -56,7 +56,7 @@ EXPECTED_MANIFEST_FILES = [
 SKIN_PREFIXES = [
     "sex", "flex", "polis", "fores", "chem", "aesth", "experi", "dharma",
     "matter", "philo", "praxi", "quanta", "simul", "tech", "theori", "voca", "nous",
-    "dance", "quest"
+    "dance", "quest", "fast", "bio", "lingua"
 ]
 
 
@@ -243,8 +243,8 @@ def package_all(build_num, out_tar_path, src_app_html):
         manifest_files = [manifest_shared] + [
             os.path.join(manifests_dir, f) for f in os.listdir(manifests_dir) if f.endswith(".json")
         ]
-        if len(manifest_files) - 1 != 19:
-            raise ValueError(f"Expected 19 per-skin manifests, found {len(manifest_files) - 1}")
+        if len(manifest_files) - 1 != len(SKIN_PREFIXES):
+            raise ValueError(f"Expected {len(SKIN_PREFIXES)} per-skin manifests, found {len(manifest_files) - 1}")
 
         for m_path in manifest_files:
             with open(m_path, "r", encoding="utf-8") as f:
@@ -477,8 +477,8 @@ def verify_all_tarball(tar_path, build_num):
 
         # Check manifests count and stamping
         skin_manifests = [n for n in names if re.match(r"^capades\.io/public_html/manifests/.*\.json$", n)]
-        if len(skin_manifests) != 19:
-            raise AssertionError(f"Per-skin manifest count {len(skin_manifests)} != 19")
+        if len(skin_manifests) != len(SKIN_PREFIXES):
+            raise AssertionError(f"Per-skin manifest count {len(skin_manifests)} != {len(SKIN_PREFIXES)}")
         for sm in skin_manifests:
             sm_txt = tar.extractfile(sm).read().decode("utf-8")
             if "__SX_CACHE__" in sm_txt:
@@ -492,7 +492,7 @@ def verify_all_tarball(tar_path, build_num):
         if "/icons/skins/flex-512.png" not in sm_txt or "/icons/icon-512.png" in sm_txt or "__SX_CACHE__" in sm_txt:
             raise AssertionError("Shared manifest invalid or carries old/unstamped paths")
 
-        # Check per-skin icons (17 skins * 2 = 34)
+        # Check per-skin icons (22 skins * 2 = 44)
         for p in SKIN_PREFIXES:
             for s in ("192", "512"):
                 icon_path = f"capades.io/public_html/icons/skins/{p}-{s}.png"
