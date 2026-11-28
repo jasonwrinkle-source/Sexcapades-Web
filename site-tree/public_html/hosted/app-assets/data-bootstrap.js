@@ -38110,9 +38110,19 @@ var _u = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ $%*+-./:";
             return t ? n : n.split(" ")[0] || "Profile";
         }
         function sxExportFileNames(e) {
-            const t = String(e || "Profile").replace(/[\\/:*?"<>|\u0000-\u001f]+/g, " ").replace(/\s+/g, "-").replace(/^-+|-+$/g, "") || "Profile", n = t.toLowerCase(), prefix = "function" == typeof sxSkinDownloadPrefix ? sxSkinDownloadPrefix() : "Sexcapades";
+            const t = String(e || "Profile").replace(/[\\/:*?"<>|\u0000-\u001f]+/g, " ").replace(/\s+/g, "-").replace(/^-+|-+$/g, "") || "Profile", n = t.toLowerCase();
+            const skinShort = (function () {
+                /* Item 43 (2026-11-27): {ProfileName}-{SkinShort}.CapadesIO.
+                   The skin short name is the catalog prefix (quest/sex/
+                   polis, …), capitalized — NOT sxSkinDownloadPrefix(),
+                   which returns the full "Questcapades". */
+                var id = String((typeof window !== "undefined" && window.__SX_ACTIVE_SKIN) || "sexcapades");
+                var prefix = (typeof window !== "undefined" && window.__SX_SKIN_SUBDOMAIN && window.__SX_SKIN_SUBDOMAIN[id]) || "";
+                if (!prefix) prefix = id.replace(/capades$/, "") || "sex";
+                return prefix.charAt(0).toUpperCase() + prefix.slice(1);
+            })();
             return {
-                hypermap: `${prefix}-${t}.hypermap`,
+                hypermap: `${t}-${skinShort}.CapadesIO`,
                 map: `Sexcapades-${t}-visible-map.png`,
                 zoom: `Sexcapades-${t}-low-res-visible-map.png`,
                 card: `Sexcapades-${t}-sync-card-front.png`,
@@ -38961,7 +38971,7 @@ var _u = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ $%*+-./:";
             if (!sxProfileRatings[e] || !sxCanRunProfileAction(e, "exporting this profile", () => sxExportProfileHypermap(e, t))) return;
             const includeInfo = Boolean(t.includeProfileInfo), blind = Boolean(t.blind), allowedIds = t.allowedIds instanceof Set ? t.allowedIds : new Set(t.allowedIds || []);
             const label = includeInfo ? (sxProfileNames[e] || "Profile") : "Shared profile";
-            const job = sxStartExportJob(`Hypermap profile · ${sxFirstWordText(label)}`, "Packaging your .hypermap profile file…", {
+            const job = sxStartExportJob(`Hypermap profile · ${sxFirstWordText(label)}`, "Packaging your .CapadesIO profile file…", {
                 profileId: e
             });
             try {
@@ -38974,18 +38984,18 @@ var _u = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ $%*+-./:";
                 if (job !== vf) return;
                 sxOfferReadyDownload(blob, filename, {
                     title: `Hypermap profile · ${label}`,
-                    subtitle: "Compact JSON profile file (.hypermap). Pure data with no scripts — safe to share, wave, or back up, and ready to re-import.",
-                    downloadLabel: "Download .hypermap",
-                    downloadTitle: "Downloads the .hypermap profile file.",
-                    readyDetail: "Profile file ready. Choose Download .hypermap to save it.",
+                    subtitle: "Compact JSON profile file (.CapadesIO). Pure data with no scripts — safe to share, wave, or back up, and ready to re-import.",
+                    downloadLabel: "Download .CapadesIO",
+                    downloadTitle: "Downloads the .CapadesIO profile file.",
+                    readyDetail: "Profile file ready. Choose Download .CapadesIO to save it.",
                     preparedJob: job,
                     profileId: e
                 });
             } catch (err) {
                 if (job !== vf) return;
-                Bm.textContent = "Could not create .hypermap file",
+                Bm.textContent = "Could not create .CapadesIO file",
                 tf.textContent = String(err && err.message || err),
-                sxFailExportProgress(job, "The .hypermap file could not be completed. Close this window and try again."),
+                sxFailExportProgress(job, "The .CapadesIO file could not be completed. Close this window and try again."),
                 console.error("Hypermap profile export failed.", err);
             }
         }
@@ -42335,7 +42345,7 @@ var kg = e.byId("testResultLoaderDialog"), xg = e.byId("testResultLoaderStatus")
         }
         function sxShowImportFailure(e, t, n = "read") {
             let i = yx.errorMessage(e, "The file could not be read.");
-            "json" === n && /Unexpected token|JSON|position \d+/i.test(i) ? i = "The selected profile file (.hypermap / JSON) is malformed." : /does not contain (?:complete )?Sexcapades profile data/i.test(i) ? i = `No embedded Sexcapades profile data or readable profile QR was found in ${t.name}.` : /does not contain a readable Sexcapades profile-data QR code/i.test(i) && (i = `No readable Sexcapades profile QR was found in ${t.name}.`),
+            "json" === n && /Unexpected token|JSON|position \d+/i.test(i) ? i = "The selected profile file (.CapadesIO / JSON) is malformed." : /does not contain (?:complete )?Sexcapades profile data/i.test(i) ? i = `No embedded Sexcapades profile data or readable profile QR was found in ${t.name}.` : /does not contain a readable Sexcapades profile-data QR code/i.test(i) && (i = `No readable Sexcapades profile QR was found in ${t.name}.`),
             sxSetImportStatus(`Import failed: ${i}`, "error", !0);
         }
 var Lg = e.byId("importedContactDialog"), Tg = e.byId("importedContactDetails"), Fg = e.byId("addImportedContact"), Ng = e.byId("importedContactStatus"), _g = e.byId("profileDetailsDialog"), Dg = e.byId("profileDetailsBody"), Rg = e.byId("profileDialogAbout"), Og = e.byId("profileDialogPhoto"), Bg = e.byId("profileDialogIdentity"), jg = e.byId("profileDialogRatings"), qg = e.byId("profileDialogSiteLinks"), Hg = e.byId("profileDetailsName"), Wg = e.byId("profileDetailsGender"), Ug = e.byId("profileDetailsSexuality"), Gg = e.byId("profileDetailsRole"), Kg = e.byId("profileDetailsAge"), Pz = e.byId("profileDetailsPronouns"), zg = e.byId("profileDetailsLocation"), Vg = e.byId("profileDetailsFetLife"), Yg = e.byId("profileDetailsPhone"), Xg = e.byId("profileDetailsTelegram"), Zg = e.byId("profileDetailsEmail"), Qg = e.byId("profileDetailsLinktree"), Jg = e.byId("profileDetailsChaturbate"), em = e.byId("profileDetailsX"), tm = e.byId("profileDetailsXhamster"), nm = e.byId("profileDetailsXvideos"), im = e.byId("profileDetailsAbout"), am = e.byId("profileDetailsAboutCount"), rm = e.byId("profileDetailsTerms"), om = e.byId("profileDetailsTermsCount"), sm = e.byId("profileDetailsStatus"), lm = e.byId("profilePhotoInput"), cm = e.byId("profilePhotoList"), dm = e.byId("profilePhotoCount"), um = e.byId("profilePhotoDialog"), pm = e.byId("profilePhotoFull"), hm = e.byId("profilePhotoViewer"), gm = e.byId("profilePhotoStage"), mm = e.byId("profilePhotoPosition"), fm = e.byId("profilePhotoZoomValue"), ym = e.byId("closeProfileDialog"), bm = e.byId("closeProfileTitle"), vm = e.byId("saveClosingProfile"), wm = e.byId("discardProfileDetailsDialog"), km = e.byId("profileExportDialog"), xm = e.byId("profileExportTitle"), Sm = e.byId("profileExportSubtitle"), $m = e.byId("profileExportDataNote"), Em = e.byId("includeContactInfo"), Am = e.byId("includeContactInfoHelp"), Cm = e.byId("blindProfileExport"), Mm = e.byId("exportAboutMe"), Im = e.byId("exportAboutMeCount"), Pm = e.byId("lowResPhotoDialog"), Lm = e.byId("lowResPhotoTitle"), Tm = e.byId("lowResPhotoGrid"), Fm = e.byId("lowResPhotoSummary"), exportPhotoGrid = e.byId("exportPhotoGrid"), exportPhotoSummary = e.byId("exportPhotoSummary"), Nm = e.byId("secondaryFile"), _m = e.byId("secondaryImage"), Dm = e.byId("secondaryFileName"), Rm = e.byId("secondaryFileLink"), Om = e.byId("fileDialog"), Bm = e.byId("fileDialogTitle"), jm = e.byId("fileDialogSubtitle"), qm = e.byId("fileReady"), Hm = e.byId("fileName"), Wm = e.byId("fileHelp"), Um = e.byId("preparedImage"), Gm = e.byId("preparedImageLink"), Km = e.byId("ninjaTransferLink"), zm = e.byId("ninjaTransferHint"), Vm = e.byId("preparedImageToolbar"), Ym = e.byId("preparedImageViewport"), Xm = e.byId("preparedImageStage"), Zm = e.byId("preparedZoomValue"), Qm = e.byId("preparedZoomIn"), Jm = e.byId("preparedZoomOut"), ef = e.byId("preparedZoomFit"), tf = e.byId("fileStatus"), nf = e.byId("fileProgress"), af = e.byId("fileProgressStage"), rf = e.byId("fileProgressValue"), of = e.byId("fileProgressTrack"), sf = e.byId("fileProgressBar"), lf = e.byId("fileProgressPortrait"), cf = e.byId("fileProgressInitials"), df = e.byId("fileProgressDetail");
@@ -42512,7 +42522,7 @@ var Df = new Map;
 var exportFormatSelect = e.byId("profileExportFormat"), exportFormatDesc = e.byId("profileExportFormatDesc"), exportBackgroundRow = e.byId("exportBackgroundRow"), syncCardPaperSizeRow = e.byId("syncCardPaperSizeRow"), runProfileExportBtn = e.byId("runProfileExport"), exportFetlifeLink = e.byId("exportFetlifeLink");
 var SX_EXPORT_FORMATS = {
             hypermap: {
-                buttonLabel: "Download .hypermap",
+                buttonLabel: "Download .CapadesIO",
                 description: "Preferred format for sharing, waving, and backups. Compact JSON profile data — pure data with no scripts, safe to open anywhere, and ready to re-import.",
                 usesBackground: !1,
                 usesPaperSize: !1
@@ -48695,7 +48705,7 @@ var Xx, Zx = 0;
                             u = "qr", await sxImportEmbeddedQr(t, new Error("This SVG does not contain embedded Sexcapades profile data."), n);
                         }
                     } else {
-                        if (!d) throw new Error("Choose a .hypermap file, or a current Sexcapades SVG, SVGZ, PNG, PDF, sync card or profile-QR image, or profile JSON file.");
+                        if (!d) throw new Error("Choose a .CapadesIO file, or a current Sexcapades SVG, SVGZ, PNG, PDF, sync card or profile-QR image, or profile JSON file.");
                         if (r) {
                             let e = null;
                             try {
@@ -48735,20 +48745,170 @@ var sxLaunchQueueInstalled = !1;
                 }, 60);
             });
         }
+        /* File-open skin stash (2026-11-27): the sessionStorage key the
+           launch consumer reads on boot. A file bound for Sexcapades is
+           stashed here BEFORE the gate redirect, so it survives the
+           gate round-trip (same origin) and imports on return. Appends
+           to any existing stash; never overwrites it. */
+        function sxStashLaunchFile(name, text) {
+            try {
+                const key = "sx_launch_hypermap_files";
+                let items = [];
+                try {
+                    const raw = window.sessionStorage && window.sessionStorage.getItem(key);
+                    if (raw) { const parsed = JSON.parse(raw); if (Array.isArray(parsed)) items = parsed; }
+                } catch (e) { items = []; }
+                items.push({ name: name, text: text });
+                if (window.sessionStorage) window.sessionStorage.setItem(key, JSON.stringify(items));
+            } catch (e) { /* stash is best-effort; the load still redirects */ }
+        }
         async function sxImportHypermapText(name, text) {
             await sxWaitForActiveSkinReady();
             try {
                 const parsed = yx.parse("json", String(text || ""));
+                /* Open in the file's own skin (2026-11-27): a .hypermap
+                   carries its skin id in parsed.skin. If it names a
+                   known skin different from the current one, switch in
+                   place first (FlexcapadesSkins.load), then import.
+                   Trade-off: the browser URL / PWA shell stays on the
+                   opening subdomain (e.g. flex.capades.io showing
+                   Polis) — a cross-subdomain redirect would need
+                   fragile file transport (sessionStorage is per-origin).
+                   If the skin is missing/unknown, or the switch fails,
+                   fall back to importing into the current skin. */
+                const targetSkin = parsed && typeof parsed.skin === "string" ? parsed.skin : null;
+                const currentSkin = (window.FlexcapadesSkins && typeof window.FlexcapadesSkins.active === "function")
+                    ? window.FlexcapadesSkins.active()
+                    : (window.__SX_ACTIVE_SKIN || null);
+                const catalog = window.__SX_SKINS || null;
+                const canSwitch = targetSkin && targetSkin !== currentSkin && catalog && catalog[targetSkin]
+                    && window.FlexcapadesSkins && typeof window.FlexcapadesSkins.load === "function";
+                if (canSwitch) {
+                    if (targetSkin === "sexcapades" && window.__SX_HAS_GATE_PASS && !window.__SX_HAS_GATE_PASS()) {
+                        /* Gate edge case: switching to Sexcapades without
+                           a pass redirects to the gate, which would drop
+                           this in-memory file. Stash it first, then load.
+                           The gate round-trip stays on this origin, so the
+                           stash survives and the file imports on return.
+                           Do NOT await the load and do NOT fall through:
+                           the redirect is synchronous, so awaiting would
+                           run the merge below into the wrong skin before
+                           navigation. */
+                        sxStashLaunchFile(name, text);
+                        try { window.FlexcapadesSkins.load(targetSkin); } catch (e) { /* stash covers the file */ }
+                        return;
+                    }
+                    try {
+                        await window.FlexcapadesSkins.load(targetSkin);
+                    } catch (err) {
+                        __sxErrLog("launch-queue-skin-switch", err);
+                        sxShowStatusToast("Could not switch to the file's skin — importing into the current skin.", {
+                            tone: "error",
+                            persistent: !0
+                        });
+                    }
+                }
                 const importedId = sxMergeAsShared(parsed);
                 const label = importedId && sxProfileNames[importedId] ? sxProfileNames[importedId] : (name || "profile");
-                sxShowStatusToast(`Imported ${label} from ${name || ".hypermap"}`);
+                sxShowStatusToast(`Imported ${label} from ${name || ".CapadesIO"}`);
             } catch (err) {
-                const msg = yx.errorMessage(err, "The .hypermap file could not be imported.");
-                sxShowStatusToast(`Import failed (${name || ".hypermap"}): ${msg}`, {
+                const msg = yx.errorMessage(err, "The .CapadesIO file could not be imported.");
+                sxShowStatusToast(`Import failed (${name || ".CapadesIO"}): ${msg}`, {
                     tone: "error",
                     persistent: !0
                 });
             }
+        }
+        /* Roster sniff (2026-11-27): a roster pack is JSON with
+           format "flexcapades-roster" (mirrors ROSTER_FORMAT in
+           02-samples-rosters.js) and a samples array. */
+        function sxIsRosterParsed(parsed) {
+            return !!(parsed && parsed.format === "flexcapades-roster" && Array.isArray(parsed.samples));
+        }
+        async function sxImportRosterText(name, text) {
+            await sxWaitForActiveSkinReady();
+            let parsed = null;
+            try {
+                parsed = yx.parse("json", String(text || ""));
+            } catch (err) {
+                const msg = yx.errorMessage(err, "That file could not be read as a roster pack.");
+                sxShowStatusToast(`Import failed (${name || ".roster"}): ${msg}`, {
+                    tone: "error",
+                    persistent: !0
+                });
+                return;
+            }
+            if (!sxIsRosterParsed(parsed)) {
+                /* Not a roster pack — importPack says so itself (its own
+                   "That file is not a roster pack." toast). */
+                if (window.__SX_ROSTER && typeof window.__SX_ROSTER.importPack === "function") {
+                    window.__SX_ROSTER.importPack(parsed, "file");
+                } else {
+                    sxShowStatusToast("That file is not a roster pack.", {
+                        tone: "error",
+                        persistent: !0
+                    });
+                }
+                return;
+            }
+            /* Skin switch (same pattern as the profile path): a roster
+               only loads on its own skin, and importPack rejects a
+               mismatched skin — so switch in place BEFORE importing. */
+            const targetSkin = typeof parsed.skin === "string" ? parsed.skin : null;
+            const currentSkin = (window.FlexcapadesSkins && typeof window.FlexcapadesSkins.active === "function")
+                ? window.FlexcapadesSkins.active()
+                : (window.__SX_ACTIVE_SKIN || null);
+            const catalog = window.__SX_SKINS || null;
+            const canSwitch = targetSkin && targetSkin !== currentSkin && catalog && catalog[targetSkin]
+                && window.FlexcapadesSkins && typeof window.FlexcapadesSkins.load === "function";
+            if (canSwitch) {
+                if (targetSkin === "sexcapades" && window.__SX_HAS_GATE_PASS && !window.__SX_HAS_GATE_PASS()) {
+                    /* Gate edge case: same as the profile path — stash
+                       first, load WITHOUT awaiting (it redirects to the
+                       gate), and return. The stash reader imports the
+                       roster on return. */
+                    sxStashLaunchFile(name, text);
+                    try { window.FlexcapadesSkins.load(targetSkin); } catch (e) { /* stash covers the file */ }
+                    return;
+                }
+                try {
+                    await window.FlexcapadesSkins.load(targetSkin);
+                } catch (err) {
+                    __sxErrLog("launch-queue-roster-skin-switch", err);
+                    sxShowStatusToast("Could not switch to the roster's skin — importing into the current skin.", {
+                        tone: "error",
+                        persistent: !0
+                    });
+                }
+            }
+            if (window.__SX_ROSTER && typeof window.__SX_ROSTER.importPack === "function") {
+                window.__SX_ROSTER.importPack(parsed, "file");
+            } else {
+                sxShowStatusToast("Roster packs are not available right now — reload and try again.", {
+                    tone: "error",
+                    persistent: !0
+                });
+            }
+        }
+        /* Shared file-open dispatch (2026-11-27): a launched file can be
+           a profile (.hypermap / .capadesIO / .json) or a roster pack
+           (.roster, or a .json whose content is a roster). A .roster
+           file routes to the roster import (extension wins); a .json
+           file is decided by the content sniff, so a roster .json is
+           not misread as a profile. Used by BOTH the launchQueue
+           consumer and the boot stash reader, so a stashed roster
+           (gate case) routes correctly too. */
+        async function sxImportLaunchFile(name, text) {
+            const isRosterExt = /\.(?:roster)$/i.test(name || "");
+            let parsed = null, parsedOk = false;
+            try { parsed = yx.parse("json", String(text || "")); parsedOk = true; } catch (e) { parsedOk = false; }
+            if (isRosterExt || (parsedOk && sxIsRosterParsed(parsed))) {
+                await sxImportRosterText(name, text);
+                return;
+            }
+            /* Not a roster — the profile path (it parses again and
+               reports its own errors for unreadable JSON). */
+            await sxImportHypermapText(name, text);
         }
         function sxInstallHypermapLaunchConsumer() {
             if (sxLaunchQueueInstalled) return;
@@ -48759,7 +48919,7 @@ var sxLaunchQueueInstalled = !1;
                     window.sessionStorage.removeItem("sx_launch_hypermap_files");
                     const items = JSON.parse(stashed);
                     Array.isArray(items) && items.forEach(item => {
-                        item && "string" == typeof item.text && sxImportHypermapText(item.name || "profile.hypermap", item.text);
+                        item && "string" == typeof item.text && sxImportLaunchFile(item.name || "profile.hypermap", item.text);
                     });
                 }
             } catch (err) {
@@ -48772,15 +48932,15 @@ var sxLaunchQueueInstalled = !1;
                         try {
                             const file = await handle.getFile();
                             if (!file) continue;
-                            if (/\.(?:hypermap|json)$/i.test(file.name) || "application/json" === file.type) {
+                            if (/\.(?:hypermap|capadesio|roster|json)$/i.test(file.name) || "application/json" === file.type) {
                                 const text = await file.text();
-                                await sxImportHypermapText(file.name, text);
+                                await sxImportLaunchFile(file.name, text);
                             } else {
                                 sxImportProfileFile(file);
                             }
                         } catch (err) {
                             __sxErrLog("launch-queue-file", err);
-                            sxShowStatusToast(`Could not open ${handle && handle.name ? handle.name : ".hypermap file"}.`, {
+                            sxShowStatusToast(`Could not open ${handle && handle.name ? handle.name : ".CapadesIO file"}.`, {
                                 tone: "error",
                                 persistent: !0
                             });
