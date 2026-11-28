@@ -167,6 +167,7 @@ def _compute_first_ladder(samples):
     ladder_count = 0
     est_sec = 0
 
+    ladder_ids = []
     for _ in range(max_cap):
         best_t = -1
         best_obj = -1e18
@@ -195,7 +196,8 @@ def _compute_first_ladder(samples):
             break
         used[best_t] = True
         ladder_count += 1
-        _, row, kl, is_multi = active[best_t]
+        tid, row, kl, is_multi = active[best_t]
+        ladder_ids.append(tid)
         est_sec += 25 if is_multi else 15
         min_snr = 1e9
         for p in range(pair_count):
@@ -209,7 +211,61 @@ def _compute_first_ladder(samples):
             break
 
     est_min = max(1, round(est_sec / 60.0)) if ladder_count else 0
-    return (n_arch, ladder_count, est_min)
+    return (n_arch, ladder_count, est_min, ladder_ids)
+
+
+def _compute_brr_totals(cats, ladder_ids, total_topics):
+    """Exact mirror of Phase 2 (BRR to 3/cat) and Phase 3 (BRR to 6/cat) cumulative totals."""
+    used = set()
+    topic_branch = {}
+    branch_counts = {}
+    branch_totals = {}
+    for c in cats:
+        bname = c.get("name") or ""
+        branch_counts[bname] = 0
+        tids = []
+        for t in (c.get("topics") or []) + (c.get("parentTopics") or []):
+            tid = t.get("id") if isinstance(t, dict) else None
+            if tid and tid not in topic_branch:
+                topic_branch[tid] = bname
+                tids.append(tid)
+        for s in (c.get("subcategories") or []):
+            for t in (s.get("topics") or []) + (s.get("parentTopics") or []):
+                tid = t.get("id") if isinstance(t, dict) else None
+                if tid and tid not in topic_branch:
+                    topic_branch[tid] = bname
+                    tids.append(tid)
+        branch_totals[bname] = len(tids)
+
+    p1 = 0
+    for tid in ladder_ids:
+        if tid in topic_branch and tid not in used:
+            used.add(tid)
+            branch_counts[topic_branch[tid]] += 1
+            p1 += 1
+
+    # Phase 2: BRR to 3 per category
+    p2_added = 0
+    for bname, tot in branch_totals.items():
+        need = max(0, min(3, tot) - branch_counts[bname])
+        branch_counts[bname] += need
+        p2_added += need
+    core_cum = p1 + p2_added
+
+    # Phase 3: BRR to 6 per category on non-compact maps
+    n_cats = len(cats)
+    allow_p3 = n_cats > 0 and (6 * n_cats <= int(total_topics * 0.8)) and (core_cum < int(total_topics * 0.8))
+    deeper_cum = 0
+    if allow_p3:
+        p3_added = 0
+        for bname, tot in branch_totals.items():
+            need = max(0, min(6, tot) - branch_counts[bname])
+            branch_counts[bname] += need
+            p3_added += need
+        if p3_added > 0:
+            deeper_cum = core_cum + p3_added
+
+    return (core_cum, deeper_cum)
 
 
 catalog = {}
@@ -237,7 +293,8 @@ for sid, pfx in prefixes:
             for s in subs:
                 topic_count += len(s.get("topics", [])) + len(s.get("parentTopics", []))
 
-    arch_count, first_ladder_count, first_ladder_mins = _compute_first_ladder(d.get("samples", {}))
+    arch_count, first_ladder_count, first_ladder_mins, ladder_ids = _compute_first_ladder(d.get("samples", {}))
+    core_total, deeper_total = _compute_brr_totals(cats, ladder_ids, topic_count)
 
     if sid == "sexcapades":
         poles = ["give", "receive"]
@@ -398,7 +455,9 @@ for sid, pfx in prefixes:
         "topics": topic_count,
         "archetypes": arch_count,
         "firstLadder": first_ladder_count,
-        "firstLadderMins": first_ladder_mins
+        "firstLadderMins": first_ladder_mins,
+        "coreTotal": core_total,
+        "deeperTotal": deeper_total
     }
 
 catalog_json_str = json.dumps(catalog, indent=2)
@@ -461,6 +520,8 @@ js_content = """/* docs-skin.js — skin-aware rendering for gate-linked docs, q
     archetypes: rawSkin.archetypes || 0,
     firstLadder: rawSkin.firstLadder || 0,
     firstLadderMins: rawSkin.firstLadderMins || 0,
+    coreTotal: rawSkin.coreTotal || 0,
+    deeperTotal: rawSkin.deeperTotal || 0,
     host: prefix + ".capades.io",
     isSex: prefix === "sex",
     hasCompare: !!COMPARE_SKINS[prefix]
@@ -540,23 +601,17 @@ js_content = """/* docs-skin.js — skin-aware rendering for gate-linked docs, q
     var t = s.topics;
     var flN = s.firstLadder || Math.min(t, 6);
     var flM = s.firstLadderMins || Math.max(1, Math.round(flN / 3));
-    var prefixStr = "First Ladder is " + flN + " topics (" + formatEstMins(flM) + ") for your first archetype projection. ";
-    var rungs = [3, 6, 9, 12, 15, 18, 21];
-    var parts = [];
-    for (var i = 0; i < rungs.length; i++) {
-      var r = rungs[i];
-      var count = r * c;
-      if (count < t) {
-        parts.push(r + " per category is " + count + " topics (" + formatEstMins(count / 3) + ")");
-      } else {
-        parts.push("all " + t + " topics take " + formatEstMins(t / 3));
-        break;
-      }
+    var coreN = s.coreTotal || Math.min(3 * c, t);
+    var deeperN = s.deeperTotal || 0;
+    var parts = [
+      "Phase 1 (First Ladder) is " + flN + " topics (" + formatEstMins(flM) + ")",
+      "Phase 2 (Core Map, balanced round-robin to 3/category) reaches " + coreN + " topics (" + formatEstMins(coreN / 3) + ")"
+    ];
+    if (deeperN > coreN && deeperN < t) {
+      parts.push("Phase 3 (Deeper, 6/category) reaches " + deeperN + " topics (" + formatEstMins(deeperN / 3) + ")");
     }
-    if (parts.length <= 1) {
-      return prefixStr + "Rating all " + t + " topics across " + c + " categories takes " + formatEstMins(t / 3) + " in total.";
-    }
-    return prefixStr + "After that, each rung adds up to 3 topics per category: " + parts.join(", ") + ".";
+    parts.push("the full " + t + "-topic map takes " + formatEstMins(t / 3));
+    return "Guided Ladder milestones: " + parts.join("; ") + ".";
   }
 
   function renderProfilePhases(s) {
@@ -568,10 +623,10 @@ js_content = """/* docs-skin.js — skin-aware rendering for gate-linked docs, q
     var arch = s.archetypes || 0;
     var flN = s.firstLadder || Math.min(t, 6);
     var flM = s.firstLadderMins || Math.max(1, Math.round(flN / 3));
-    var pass1 = Math.min(3 * c, t);
+    var pass1 = s.coreTotal || Math.min(3 * c, t);
     var pass1M = Math.max(1, Math.round(pass1 / 3));
-    var pass2 = 6 * c;
-    var hasPass2 = pass2 <= Math.floor(t * 0.8) && pass2 > pass1;
+    var pass2 = s.deeperTotal || 0;
+    var hasPass2 = pass2 > pass1 && pass2 < t;
     var pass2M = Math.max(1, Math.round(pass2 / 3));
     var fullM = Math.max(1, Math.round(t / 3));
     var factorName = s.isSex ? "Kink Factor" : "Personal Depth Factor";
@@ -580,7 +635,7 @@ js_content = """/* docs-skin.js — skin-aware rendering for gate-linked docs, q
 
     var ledeEl = document.getElementById("phases-lede");
     if (ledeEl) {
-      ledeEl.textContent = "You don’t need to rate all " + t + " topics in one sitting. The Hot List orders topics by signal strength—matching the milestone ticks on its progress bar—so every phase unlocks a sharper profile.";
+      ledeEl.textContent = "You don’t need to rate all " + t + " topics in one sitting. Guided Ladder feeds topics in real phases—matching the ticks on the phase-aware progress bar—so every minute unlocks a sharper profile.";
     }
 
     var phases = [
@@ -593,20 +648,20 @@ js_content = """/* docs-skin.js — skin-aware rendering for gate-linked docs, q
       },
       {
         num: "Phase 02",
-        tag: "3 per category",
-        metric: pass1 + " topics · " + formatEstMins(pass1M),
+        tag: "3/cat · round-robin",
+        metric: pass1 + " topics total · " + formatEstMins(pass1M),
         title: "Accurate projection & core map",
-        body: "First full pass across all " + c + " categories, pulling the sharpest pole splits (fault lines) from every branch. Locks in an accurate archetype projection and a balanced map ready to compare with a " + partnerWord + "."
+        body: "Branch round-robin draws the sharpest pole splits (fault lines) across all " + c + " categories until every branch has at least 3 topics. Locks in an accurate archetype projection and a balanced map ready to compare with a " + partnerWord + "."
       }
     ];
 
     if (hasPass2) {
       phases.push({
         num: "Phase 03",
-        tag: "6 per category",
-        metric: pass2 + " topics · " + formatEstMins(pass2M),
+        tag: "6/cat · round-robin",
+        metric: pass2 + " topics total · " + formatEstMins(pass2M),
         title: "Deeper resolution",
-        body: "Second pass across all " + c + " categories—surfacing secondary fault lines and subtler preferences so Scribe, Scene Setter, and group sync capture nuance beyond headline agreement."
+        body: "Continues round-robin across all " + c + " categories to 6 per branch—surfacing secondary fault lines so Scribe, Scene Setter, and group sync capture nuance beyond headline agreement."
       });
     }
 
@@ -645,13 +700,13 @@ js_content = """/* docs-skin.js — skin-aware rendering for gate-linked docs, q
         },
         {
           rank: "02",
-          name: "Biggest pole split (fault lines)",
-          detail: "Next come the topics where archetypes diverge most sharply across poles."
+          name: "Branch round-robin pole splits",
+          detail: "Balances all " + c + " categories evenly (to 3/cat" + (hasPass2 ? ", then 6/cat" : "") + "), drawing each branch’s sharpest archetype fault lines first."
         },
         {
           rank: "03",
           name: "Popularity",
-          detail: "Remaining topics ordered by community rating volume so widely relevant ones surface first."
+          detail: "Remaining topics ordered globally by community rating volume so widely relevant ones surface first."
         },
         {
           rank: "04",
@@ -762,7 +817,7 @@ js_content = """/* docs-skin.js — skin-aware rendering for gate-linked docs, q
   function skinQuickstart(s) {
     if (!document.querySelector(".steps-section")) return;
 
-    var pass1 = Math.min(3 * s.cats, s.topics);
+    var pass1 = s.coreTotal || Math.min(3 * s.cats, s.topics);
     var estMins = Math.max(1, Math.round(pass1 / 3));
     var flN = s.firstLadder || Math.min(s.topics, 6);
     var flM = s.firstLadderMins || Math.max(1, Math.round(flN / 3));
@@ -771,7 +826,7 @@ js_content = """/* docs-skin.js — skin-aware rendering for gate-linked docs, q
     document.title = s.name + " Quick Start";
     var metaDesc = document.querySelector('meta[name="description"]');
     if (metaDesc) {
-      metaDesc.setAttribute("content", "Get started with " + s.name + ": rate the top " + flN + " topics (~" + flM + " min) for your first archetype projection, or 3 per category (~" + estMins + " min) for a partner-ready core map.");
+      metaDesc.setAttribute("content", "Get started with " + s.name + ": rate the top " + flN + " topics (~" + flM + " min) for your first archetype projection, or " + pass1 + " balanced topics (~" + estMins + " min) for a partner-ready core map.");
     }
 
     // Hero Section
@@ -797,12 +852,12 @@ js_content = """/* docs-skin.js — skin-aware rendering for gate-linked docs, q
     }
     ledes.forEach(function (l) { l.innerHTML = ledeHtml; });
 
-    // Step 1: Hot list hierarchy & ordering
+    // Step 1: Hot list hierarchy & modes
     var hierHtml = "";
     if (s.subcats > 0) {
-      hierHtml = s.catsWithSub + " of the " + s.cats + " categories split into subcategories (" + s.subcats + " in total). A <strong>›</strong> beside a name means it is collapsed; tap it and the arrow turns down (<strong>⌄</strong>) as its contents expand in place.";
+      hierHtml = "In By Category view, " + s.catsWithSub + " of the " + s.cats + " categories split into subcategories (" + s.subcats + " in total). Tap any heading (<strong>›</strong>) to expand all of its topics in place.";
     } else {
-      hierHtml = "All " + s.cats + " categories are flat lists without subcategories for direct, rapid scanning. A <strong>›</strong> beside a category name collapses or expands its topics in place.";
+      hierHtml = "In By Category view, all " + s.cats + " categories are flat lists for rapid browsing. Tap any heading (<strong>›</strong>) to expand all of its topics in place.";
     }
     var step1HierEls = document.querySelectorAll(".steps .step:nth-child(1) p[data-sx-sex-only], .steps .step:nth-child(1) p[data-sx-vanilla-only]");
     if (step1HierEls.length > 0) {
@@ -812,7 +867,7 @@ js_content = """/* docs-skin.js — skin-aware rendering for gate-linked docs, q
       if (step1Ps.length >= 2) step1Ps[1].innerHTML = hierHtml;
     }
 
-    // Step 2: Rating sliders & Ladder coverage
+    // Step 2: Rating sliders & Guided Ladder phases
     var sliderHtml = "";
     if (s.isSex) {
       sliderHtml = "Every topic has two sliders: <strong>give</strong> sits above the topic’s line, <strong>receive</strong> below it. Drag either one to set how much you want that side of it — the scale runs from Not Interested through Curious about to Want to do, and you can also flag a topic Hard Limit or Fantasy-only.";
@@ -833,17 +888,17 @@ js_content = """/* docs-skin.js — skin-aware rendering for gate-linked docs, q
 
     var step2FirstLi = document.getElementById("step2-first-ladder");
     if (step2FirstLi) {
-      step2FirstLi.innerHTML = "<strong>First Ladder (" + flN + " topics · " + formatEstMins(flM) + "):</strong> rate the top topics first to get your first archetype projection — marked on the Hot List progress bar.";
+      step2FirstLi.innerHTML = "<strong>Phase 1 — First Ladder (" + flN + " topics · " + formatEstMins(flM) + "):</strong> start with the top greedy-orthogonal topics to unlock your first archetype projection.";
     }
 
     var almostAll = (pass1 >= Math.round(s.topics * 0.7)) ? " (covering most of the map!)" : "";
-    var coverageText = "<strong>Core map (" + pass1 + " topics · " + formatEstMins(estMins) + "):</strong> stopping at 3 per category covers all " + s.cats + " categories" + almostAll + " for an accurate archetype projection and partner comparison.";
+    var coverageText = "<strong>Phase 2 — Core map (" + pass1 + " topics total · " + formatEstMins(estMins) + "):</strong> branch round-robin balances all " + s.cats + " categories (3 per category)" + almostAll + " for an accurate archetype projection and partner comparison.";
     var step2CoverageLis = document.querySelectorAll(".steps .step:nth-child(2) ul li[data-sx-sex-only], .steps .step:nth-child(2) ul li[data-sx-vanilla-only]");
     if (step2CoverageLis.length > 0) {
       step2CoverageLis.forEach(function (li) { li.innerHTML = coverageText; });
     } else {
       var step2Lis = document.querySelectorAll(".steps .step:nth-child(2) ul li");
-      if (step2Lis.length >= 2) step2Lis[step2Lis.length - 1].innerHTML = coverageText;
+      if (step2Lis.length >= 2) step2Lis[1].innerHTML = coverageText;
     }
 
     // Profile phases & 4-tier Hot List cascade

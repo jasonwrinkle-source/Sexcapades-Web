@@ -1,4 +1,5 @@
-        const Do = e.byId("outlineDialog"), Ro = e.byId("outlineSections"), Oo = e.byId("outlineProfileName"), Bo = e.byId("outlineHeaderCount"), jo = e.byId("outlineProgressText"), qo = e.byId("outlineProgressBar"), Ho = e.byId("outlineTimerToggle"), Wo = e.byId("outlineTimerReset"), Uo = e.byId("outlineShowRated");
+        const Do = e.byId("outlineDialog"), Ro = e.byId("outlineSections"), Oo = e.byId("outlineProfileName"), Bo = e.byId("outlineHeaderCount"), jo = e.byId("outlineProgressText"), qo = e.byId("outlineProgressBar"), qoRaw = e.byId("outlineProgressRaw"), Ho = e.byId("outlineTimerToggle"), Wo = e.byId("outlineTimerReset"), Uo = e.byId("outlineShowRated");
+        window.__sxOutlineViewMode = window.__sxOutlineViewMode || "ladder";
         // P1 refactor (Build 2026-10-18_2227): outline-row DOM helpers.
         // getOutlineRow(el) returns the .outline-row containing an element;
         // getOutlineRow(id) returns the row for a topic id within the
@@ -310,21 +311,7 @@
         window.__sxSetOutlineSortMode = function(e) {
             sxOutlineSortMode = "interest" === e ? "interest" : "popularity";
         };
-        function sxSortedOutlineTree(e = Go) {
-            if ("interest" === sxOutlineSortMode && e && e !== Et) {
-                const sxScore = t => {
-                    const n = sxDecodeTopicStance(sxResolveTopicId(t), e);
-                    return n.giveKnown || n.receiveKnown ? n.giveKnown && n.receiveKnown ? (n.give + n.receive) / 2 : n.giveKnown ? n.give : n.receive : null;
-                };
-                return sxSortByScore(h, sxBranchMeanScore, e => e.name).map(e => {
-                    const t = sxOrderByScore(e.subcategories || [], sxSubcategoryMean), n = [ ...t.flatMap(e => sxOrderByScore(e.topics || [], sxScore)), ...sxOrderByScore(e.subcategories?.length ? e.parentTopics || e.topics.filter(t => !sxFindTopicSubcategory(e, t)) : e.topics, sxScore) ], i = sxOrderByScore(n, sxScore), a = new Map(i.map((e, t) => [ sxResolveTopicId(e), t ]));
-                    return Object.assign({}, e, {
-                        subcategories: t,
-                        topics: n,
-                        outlineTopicRanks: a
-                    });
-                });
-            }
+        function sxSignalSortedTree() {
             const cache = sxGetHotListCache(), faultMap = cache.faultMap, ladderMap = cache.ladder.rankMap;
             const sortTopics = list => (list || []).slice().sort((a, b) => sxCompareHotListIds(sxResolveTopicId(a), sxName(a), sxResolveTopicId(b), sxName(b), faultMap, ladderMap));
             const sortGroups = (list, topicsOf, popMeanOf) => (list || []).slice().sort((a, b) => {
@@ -354,6 +341,222 @@
                 });
             });
         }
+        function sxSortedOutlineTree(e = Go) {
+            if ("interest" === sxOutlineSortMode && e && e !== Et) {
+                const sxScore = t => {
+                    const n = sxDecodeTopicStance(sxResolveTopicId(t), e);
+                    return n.giveKnown || n.receiveKnown ? n.giveKnown && n.receiveKnown ? (n.give + n.receive) / 2 : n.giveKnown ? n.give : n.receive : null;
+                };
+                return sxSortByScore(h, sxBranchMeanScore, e => e.name).map(e => {
+                    const t = sxOrderByScore(e.subcategories || [], sxSubcategoryMean), n = [ ...t.flatMap(e => sxOrderByScore(e.topics || [], sxScore)), ...sxOrderByScore(e.subcategories?.length ? e.parentTopics || e.topics.filter(t => !sxFindTopicSubcategory(e, t)) : e.topics, sxScore) ], i = sxOrderByScore(n, sxScore), a = new Map(i.map((e, t) => [ sxResolveTopicId(e), t ]));
+                    return Object.assign({}, e, {
+                        subcategories: t,
+                        topics: n,
+                        outlineTopicRanks: a
+                    });
+                });
+            }
+            return sxSignalSortedTree();
+        }
+        // Guided Ladder with Branch Round-Robin (BRR) phase partitioning (2026-11-27):
+        //   Phase 1 — First Ladder (greedy orthogonal archetype separator)
+        //   Phase 2 — Core Balance (BRR to 3 topics per category, sharpest pole split first)
+        //   Phase 3 — Deeper Resolution (BRR to 6 per category when 6*cats <= 80% of map)
+        //   Final   — Full Map (remaining topics globally by pole split → popularity → alpha)
+        let __sxGuidedCacheSig = "", __sxGuidedCacheVal = null;
+        function sxComputeGuidedLadder() {
+            const cache = sxGetHotListCache(), faultMap = cache.faultMap, ladderMap = cache.ladder.rankMap;
+            const catNames = (h || []).map(b => b.name + ":" + (b.topics ? b.topics.length : 0)).join(",");
+            const sig = String(window.__SX_ACTIVE_SKIN || "") + "|" + cache.ladder.count + "|" + (cache.ladder.ids[0] || "") + "|" + catNames;
+            if (__sxGuidedCacheVal && __sxGuidedCacheSig === sig) return __sxGuidedCacheVal;
+
+            const tree = sxSignalSortedTree();
+            const topicMap = new Map();
+            const catQueues = new Map();
+            const catCount = new Map();
+            const seenInCatalog = new Set();
+            tree.forEach(branch => {
+                const bName = branch.name;
+                catCount.set(bName, 0);
+                const orderedIds = [];
+                // Order category's topics globally by signal cascade for BRR draw order
+                const rawTopics = (branch.topics || []).slice().sort((a, b) =>
+                    sxCompareHotListIds(sxResolveTopicId(a), sxName(a), sxResolveTopicId(b), sxName(b), faultMap, ladderMap)
+                );
+                rawTopics.forEach(top => {
+                    const tid = sxResolveTopicId(top);
+                    if (seenInCatalog.has(tid)) return;
+                    seenInCatalog.add(tid);
+                    const sub = sxFindTopicSubcategory(branch, sxName(top));
+                    const rec = {
+                        id: tid,
+                        label: sxName(top),
+                        branch: bName,
+                        subName: sub ? sub.name : "",
+                        kind: "Topic",
+                        risk: Boolean((branch.topics || []).find(t => sxName(t) === sxName(top))?.risk)
+                    };
+                    topicMap.set(tid, rec);
+                    orderedIds.push(tid);
+                });
+                catQueues.set(bName, orderedIds);
+            });
+
+            const totalTopics = topicMap.size;
+            const usedIds = new Set();
+
+            // Phase 1: Greedy Orthogonal First Ladder
+            const p1Ids = [];
+            (cache.ladder.ids || []).forEach(tid => {
+                if (topicMap.has(tid) && !usedIds.has(tid)) {
+                    usedIds.add(tid);
+                    p1Ids.push(tid);
+                    const rec = topicMap.get(tid);
+                    catCount.set(rec.branch, (catCount.get(rec.branch) || 0) + 1);
+                }
+            });
+
+            // Remove Phase 1 IDs from category queues
+            catQueues.forEach((q, bName) => {
+                catQueues.set(bName, q.filter(tid => !usedIds.has(tid)));
+            });
+
+            // Helper: Branch Round-Robin (BRR) up to targetDepth topics per category
+            const drawBRR = targetDepth => {
+                const picked = [];
+                for (let depth = 1; depth <= targetDepth; depth++) {
+                    tree.forEach(branch => {
+                        const bName = branch.name;
+                        const q = catQueues.get(bName) || [];
+                        while ((catCount.get(bName) || 0) < depth && q.length > 0) {
+                            const tid = q.shift();
+                            if (usedIds.has(tid)) continue;
+                            usedIds.add(tid);
+                            picked.push(tid);
+                            catCount.set(bName, (catCount.get(bName) || 0) + 1);
+                        }
+                    });
+                }
+                return picked;
+            };
+
+            // Phase 2: Core Balance (BRR to 3 per category)
+            const p2Ids = drawBRR(3);
+
+            // Phase 3: Deeper Resolution (BRR to 6 per category on non-compact maps)
+            const nCats = tree.length;
+            const allowPhase3 = nCats > 0 && (6 * nCats <= Math.floor(totalTopics * 0.8)) && ((p1Ids.length + p2Ids.length) < Math.floor(totalTopics * 0.8));
+            const p3Ids = allowPhase3 ? drawBRR(6) : [];
+
+            // Final Phase: Remaining topics globally sorted by fault-line → popularity → alpha
+            const restIds = [];
+            topicMap.forEach((rec, tid) => { if (!usedIds.has(tid)) restIds.push(tid); });
+            restIds.sort((a, b) => sxCompareHotListIds(a, topicMap.get(a).label, b, topicMap.get(b).label, faultMap, ladderMap));
+
+            const phases = [];
+            let cum = 0;
+            const estMins = n => Math.max(1, Math.round(n / 3));
+            if (p1Ids.length) {
+                cum += p1Ids.length;
+                phases.push({
+                    index: phases.length + 1,
+                    key: "first",
+                    title: "First archetype projection",
+                    shortLabel: "First Ladder",
+                    tag: "First Ladder",
+                    desc: "Greedy orthogonal topics that separate the map’s archetypes fastest.",
+                    ids: p1Ids,
+                    cumEnd: cum,
+                    estMinutes: cache.ladder.estMinutes || estMins(p1Ids.length),
+                    cumMinutes: cache.ladder.estMinutes || estMins(cum)
+                });
+            }
+            if (p2Ids.length) {
+                cum += p2Ids.length;
+                phases.push({
+                    index: phases.length + 1,
+                    key: "core",
+                    title: "Accurate projection & core map",
+                    shortLabel: "Core Map",
+                    tag: "3/cat · round-robin",
+                    desc: "Balances every category round-robin with its sharpest pole splits.",
+                    ids: p2Ids,
+                    cumEnd: cum,
+                    estMinutes: estMins(p2Ids.length),
+                    cumMinutes: estMins(cum)
+                });
+            }
+            if (p3Ids.length) {
+                cum += p3Ids.length;
+                phases.push({
+                    index: phases.length + 1,
+                    key: "deeper",
+                    title: "Deeper resolution",
+                    shortLabel: "Deeper",
+                    tag: "6/cat · round-robin",
+                    desc: "Secondary fault lines across every category for sharper Scribe & Scene Setter output.",
+                    ids: p3Ids,
+                    cumEnd: cum,
+                    estMinutes: estMins(p3Ids.length),
+                    cumMinutes: estMins(cum)
+                });
+            }
+            if (restIds.length) {
+                cum += restIds.length;
+                phases.push({
+                    index: phases.length + 1,
+                    key: "full",
+                    title: "Full map",
+                    shortLabel: "Full Map",
+                    tag: "Complete",
+                    desc: "Remaining topics ordered by pole split, popularity, and alphabetical tail.",
+                    ids: restIds,
+                    cumEnd: cum,
+                    estMinutes: estMins(restIds.length),
+                    cumMinutes: estMins(cum)
+                });
+            }
+
+            __sxGuidedCacheSig = sig;
+            __sxGuidedCacheVal = { phases: phases, totalTopics: totalTopics, catCount: nCats, topicMap: topicMap };
+            return __sxGuidedCacheVal;
+        }
+        function sxComputePhaseProgress(profileId) {
+            const guided = sxComputeGuidedLadder();
+            const total = guided.totalTopics || 0;
+            let totalRated = 0;
+            let honestCount = 0;
+            let hitIncomplete = false;
+            let currentPhase = null;
+            const phaseStats = guided.phases.map(p => {
+                let done = 0;
+                for (let i = 0; i < p.ids.length; i++) {
+                    if (profileId && sxIsOutlineRated(p.ids[i], profileId)) done++;
+                }
+                totalRated += done;
+                const complete = p.ids.length > 0 && done >= p.ids.length;
+                if (!hitIncomplete) {
+                    honestCount += done;
+                    if (!complete) {
+                        hitIncomplete = true;
+                        currentPhase = Object.assign({}, p, { done: done, total: p.ids.length, complete: false });
+                    }
+                }
+                return Object.assign({}, p, { done: done, total: p.ids.length, complete: complete });
+            });
+            return {
+                phases: phaseStats,
+                currentPhase: currentPhase,
+                allComplete: total > 0 && totalRated >= total,
+                honestCount: honestCount,
+                totalRated: totalRated,
+                totalTopics: total,
+                honestPct: total > 0 ? Math.min(100, (100 * honestCount) / total) : 0,
+                rawPct: total > 0 ? Math.min(100, (100 * totalRated) / total) : 0
+            };
+        }
+        window.__SX_GUIDED_LADDER = sxComputeGuidedLadder;
+        window.__SX_PHASE_PROGRESS = sxComputePhaseProgress;
         function sxOutlineTimerSeconds() {
             return Math.max(0, Math.floor((Yo + (Vo ? Date.now() - Vo : 0)) / 1e3));
         }
@@ -385,20 +588,41 @@
         function closeMilestoneCelebration() {
             sxCloseModalDialog(milestoneDialog), milestoneProfileId = null, milestoneValue = 0;
         }
-        function showMilestoneCelebration(t, n) {
+        function showMilestoneCelebration(t, n, phaseMeta = null) {
             if (!t || milestoneWasShown(t, n)) return;
-            if (403 === n) return void sxShowCompletionCelebration(t);
+            const guided = sxComputeGuidedLadder();
+            const fullTotal = guided.totalTopics || 403;
+            if (n >= fullTotal) return void sxShowCompletionCelebration(t);
             if (milestoneDialog.open || Eg.open) return;
-            markMilestoneShown(t, n), milestoneProfileId = t, milestoneValue = n, milestoneTitle.textContent = `${n} topics rated`, 
-            milestoneMessage.textContent = n < 162 ? "Your hypermap has enough detail to be useful now. You can keep building it or put it to work." : n < 324 ? "Your hypermap is getting richer. Keep going, compare it with a partner, or save a copy now." : "You’re close to the full map. Keep rating, compare what you have, or export a copy now.", 
+            markMilestoneShown(t, n), milestoneProfileId = t, milestoneValue = n;
+            if (phaseMeta && phaseMeta.key === "core") {
+                milestoneTitle.textContent = `Core map ready (${n} topics)`;
+                milestoneMessage.textContent = "You’ve covered every category with its sharpest fault lines — your archetype projection is accurate and your map is ready to compare with a partner.";
+            } else if (phaseMeta && phaseMeta.key === "deeper") {
+                milestoneTitle.textContent = `Deeper map reached (${n} topics)`;
+                milestoneMessage.textContent = "Your hypermap now captures secondary preferences across every category — ideal for Scribe, Scene Setter, or partner comparisons.";
+            } else {
+                milestoneTitle.textContent = `${n} topics rated`;
+                milestoneMessage.textContent = "Your hypermap has enough detail to be useful now. You can keep building it or put it to work.";
+            }
             sxOpenModalDialog(milestoneDialog), requestAnimationFrame(() => milestoneContinue.focus({
                 preventScroll: !0
             }));
         }
         function checkMilestoneTransition(e, t) {
             if (!e || !Number.isFinite(t)) return;
-            const n = sxOutlineRatedCounts(e).rated;
-            n > t && milestoneRungs.includes(n) && showMilestoneCelebration(e, n);
+            const prog = sxComputePhaseProgress(e);
+            if (prog.totalRated <= t) return;
+            for (let i = 0; i < prog.phases.length; i++) {
+                const p = prog.phases[i];
+                if ((p.key === "core" || p.key === "deeper") && p.complete && !milestoneWasShown(e, p.cumEnd)) {
+                    showMilestoneCelebration(e, p.cumEnd, p);
+                    return;
+                }
+            }
+            if (prog.allComplete && prog.totalTopics > 0 && !milestoneWasShown(e, prog.totalTopics)) {
+                sxShowCompletionCelebration(e);
+            }
         }
         function openMilestoneDestination(e) {
             const t = milestoneProfileId;

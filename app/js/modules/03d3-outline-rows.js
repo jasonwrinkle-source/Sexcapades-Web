@@ -15,7 +15,13 @@
             if (d.className = "outline-topic-label outline-description-trigger", d.textContent = e.label, 
             d.tabIndex = 0, d.setAttribute("role", "button"), d.setAttribute("aria-label", `${e.label}. ${a ? "Expand or collapse nested topics. " : ""}Press and hold for description.`), 
             d.dataset.outlineDescription = sxPlacardAboutText(e), a && (d.dataset.outlineExpandable = "true", 
-            d.setAttribute("aria-expanded", String(Boolean(e.expanded)))), c.append(d), "Imported" === e.kind) {
+            d.setAttribute("aria-expanded", String(Boolean(e.expanded)))), c.append(d), e.showBreadcrumb && e.branch) {
+                const crumb = document.createElement("small");
+                crumb.className = "outline-topic-crumb";
+                crumb.textContent = e.subName ? `${e.branch} › ${e.subName}` : e.branch;
+                c.append(crumb);
+            }
+            if ("Imported" === e.kind) {
                 const e = document.createElement("small");
                 e.className = "outline-imported-note", e.textContent = "added topic", c.append(e);
             }

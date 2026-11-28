@@ -69,23 +69,23 @@
         <article class="step">
           <span class="step-number">01</span>
           <h3>Open the Hot list</h3>
-          <p>The list is a three-level outline. <strong>Indentation shows the hierarchy:</strong> categories sit at the left edge, subcategories indent one level, and individual topics indent furthest. At every level, items are ordered by popularity — the most-rated category, subcategory, or topic comes first.</p>
-          <p data-sx-sex-only>7 of the 18 categories split into subcategories (44 in total). A <strong>›</strong> beside a name means it is collapsed; tap it and the arrow turns down (<strong>⌄</strong>) as its contents expand in place.</p>
-          <p data-sx-vanilla-only>Categories split into subcategories where applicable. A <strong>›</strong> beside a name means it is collapsed; tap it and the arrow turns down (<strong>⌄</strong>) as its contents expand in place.</p>
+          <p>The Hot list opens in <strong>Guided Ladder</strong> mode — one ordered stream organized into real profile phases, with a category tag under every topic. Switch to <strong>By Category</strong> anytime to browse the full outline freely.</p>
+          <p data-sx-sex-only>In By Category view, 7 of the 18 categories split into subcategories (44 in total). Tap any heading (<strong>›</strong>) to expand all of its topics in place.</p>
+          <p data-sx-vanilla-only>In By Category view, categories split into subcategories where applicable. Tap any heading (<strong>›</strong>) to expand all of its topics in place.</p>
           <p><strong>Already have a sync card?</strong> Use Scan in the app to import it — from the physical card or a QR photo someone sends you. You can also upload any exported file directly (SVG, PNG, PDF, or sync card).</p>
           <a class="text-link" href="/#app/listview" rel="noopener noreferrer">Go to the Hot list <span aria-hidden="true">→</span></a>
         </article>
 
         <article class="step">
           <span class="step-number">02</span>
-          <h3>Rate 3 topics per category</h3>
+          <h3>Climb the phases at your pace</h3>
           <p data-sx-sex-only>Every topic has two sliders: <strong>give</strong> sits above the topic’s line, <strong>receive</strong> below it. Drag either one to set how much you want that side of it — the scale runs from Not Interested through Curious about to Want to do, and you can also flag a topic Hard Limit or Fantasy-only.</p>
           <p data-sx-vanilla-only>Every topic presents its rating sliders or polygon canvas. Drag to set your position and receptivity across each pole or dimension — the scale runs from Not Interested through Curious about to Strongly aligned, and you can also flag Hard Limits or nuanced preferences.</p>
           <ul>
-            <li>Each category starts by showing only its 3 most popular topics.</li>
-            <li>Tap “Show the next three popular” to reveal 3 more. The ladder climbs 3 → 6 → 9 → 12 → 15 → 18 → 21 per category, and subcategories appear in place as the ladder reaches them.</li>
-            <li data-sx-sex-only>Stopping at 3 per category covers all 18 categories — 54 topics in about 20 minutes.</li>
-            <li data-sx-vanilla-only>Stopping at 3 per category covers the core branches in about 20 minutes.</li>
+            <li id="step2-first-ladder"><strong>Phase 1 — First Ladder:</strong> start with the top greedy-orthogonal topics to unlock your first archetype projection.</li>
+            <li data-sx-sex-only><strong>Phase 2 — Core map:</strong> round-robin fault-line topics balance all 18 categories (3 per category) in about 18 minutes for an accurate projection and partner-ready map.</li>
+            <li data-sx-vanilla-only><strong>Phase 2 — Core map:</strong> round-robin fault-line topics balance every category (3 per category) for an accurate projection and partner-ready map.</li>
+            <li><strong>Phase-aware progress bar:</strong> ticks light up only when you actually finish each phase’s topics, even if you explore out of order in By Category view.</li>
           </ul>
         </article>
 
@@ -117,9 +117,57 @@
       <aside class="quick-tips" aria-label="Good to know">
         <p class="mini-label">Good to know</p>
         <ul>
-          <li>Each extra rung adds 3 topics to every category: 6 per category is 108 topics (~40 min), 9 is 162 (~1 hr), 12 is 216 (~80 min), 15 is 270 (~100 min), 18 is 324 (~2 hrs), 21 is 378 (~2 hrs 20 min). Past 21, the full ~400-topic map takes about 2.5 hours.</li>
+          <li>First Ladder unlocks your first archetype projection; Phase 2 balances every category round-robin to 3 per category; deeper phases and the full map follow in signal order.</li>
           <li>New in 3.5: touch targets are now a comfortable 44px and dialogs are cleaner throughout.</li>
         </ul>
+      </aside>
+    </section>
+
+    <section class="phases-section" id="profile-phases" aria-labelledby="phases-title">
+      <div class="section-heading">
+        <h2 id="phases-title">Your profile in phases</h2>
+        <p class="time">Stop at any phase</p>
+      </div>
+      <p class="phases-lede" id="phases-lede">You don’t need to rate the whole map in one sitting. Guided Ladder feeds topics in real phases—matching the ticks on the phase-aware progress bar—so every minute unlocks a clearer profile.</p>
+
+      <div class="phases-grid is-three" id="phases-grid">
+        <article class="phase-card">
+          <div class="phase-head">
+            <span class="phase-num">Phase 01</span>
+            <span class="phase-tag">First Ladder</span>
+          </div>
+          <h3>First archetype projection</h3>
+          <p class="phase-metric">Top topics · ~2–7 min</p>
+          <p class="phase-body">Rate the top greedy orthogonal topics chosen to separate the map’s archetypes in the fewest steps. Enough for your first “Which archetype am I?” projection.</p>
+        </article>
+        <article class="phase-card">
+          <div class="phase-head">
+            <span class="phase-num">Phase 02</span>
+            <span class="phase-tag">3/cat · round-robin</span>
+          </div>
+          <h3>Accurate projection &amp; core map</h3>
+          <p class="phase-metric">Balanced across all categories</p>
+          <p class="phase-body">Draws the sharpest pole splits (fault lines) round-robin across every category until each branch has 3 topics. Locks in an accurate archetype projection and a partner-ready core map.</p>
+        </article>
+        <article class="phase-card">
+          <div class="phase-head">
+            <span class="phase-num">Phase 03</span>
+            <span class="phase-tag">Full map</span>
+          </div>
+          <h3>Complete map</h3>
+          <p class="phase-metric">All topics</p>
+          <p class="phase-body">Every topic on the map rated down through the popularity and alphabetical tail—maximum Personal Depth Factor and zero blind spots in partner overlays.</p>
+        </article>
+      </div>
+
+      <aside class="cascade-box" aria-label="How Guided Ladder orders topics">
+        <p class="mini-label">How Guided Ladder orders topics</p>
+        <ol class="cascade-steps" id="cascade-list">
+          <li class="cascade-step"><span class="cascade-rank">01</span><div class="cascade-copy"><strong>Greedy orthogonal first ladder</strong> — separates every headline archetype from every other in the fewest ratings.</div></li>
+          <li class="cascade-step"><span class="cascade-rank">02</span><div class="cascade-copy"><strong>Branch round-robin pole splits</strong> — balances every category evenly (to 3/cat, then 6/cat), drawing each branch’s sharpest archetype fault lines first.</div></li>
+          <li class="cascade-step"><span class="cascade-rank">03</span><div class="cascade-copy"><strong>Popularity</strong> — remaining topics ordered globally by community rating volume so widely relevant ones surface first.</div></li>
+          <li class="cascade-step"><span class="cascade-rank">04</span><div class="cascade-copy"><strong>Alphabetical</strong> — deterministic tie-breaker for the long tail so rows never jump while you rate.</div></li>
+        </ol>
       </aside>
     </section>
 
