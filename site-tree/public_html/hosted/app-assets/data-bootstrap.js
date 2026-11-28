@@ -48735,10 +48735,69 @@ var sxLaunchQueueInstalled = !1;
                 }, 60);
             });
         }
+        /* File-open skin stash (2026-11-27): the sessionStorage key the
+           launch consumer reads on boot. A file bound for Sexcapades is
+           stashed here BEFORE the gate redirect, so it survives the
+           gate round-trip (same origin) and imports on return. Appends
+           to any existing stash; never overwrites it. */
+        function sxStashLaunchFile(name, text) {
+            try {
+                const key = "sx_launch_hypermap_files";
+                let items = [];
+                try {
+                    const raw = window.sessionStorage && window.sessionStorage.getItem(key);
+                    if (raw) { const parsed = JSON.parse(raw); if (Array.isArray(parsed)) items = parsed; }
+                } catch (e) { items = []; }
+                items.push({ name: name, text: text });
+                if (window.sessionStorage) window.sessionStorage.setItem(key, JSON.stringify(items));
+            } catch (e) { /* stash is best-effort; the load still redirects */ }
+        }
         async function sxImportHypermapText(name, text) {
             await sxWaitForActiveSkinReady();
             try {
                 const parsed = yx.parse("json", String(text || ""));
+                /* Open in the file's own skin (2026-11-27): a .hypermap
+                   carries its skin id in parsed.skin. If it names a
+                   known skin different from the current one, switch in
+                   place first (FlexcapadesSkins.load), then import.
+                   Trade-off: the browser URL / PWA shell stays on the
+                   opening subdomain (e.g. flex.capades.io showing
+                   Polis) — a cross-subdomain redirect would need
+                   fragile file transport (sessionStorage is per-origin).
+                   If the skin is missing/unknown, or the switch fails,
+                   fall back to importing into the current skin. */
+                const targetSkin = parsed && typeof parsed.skin === "string" ? parsed.skin : null;
+                const currentSkin = (window.FlexcapadesSkins && typeof window.FlexcapadesSkins.active === "function")
+                    ? window.FlexcapadesSkins.active()
+                    : (window.__SX_ACTIVE_SKIN || null);
+                const catalog = window.__SX_SKINS || null;
+                const canSwitch = targetSkin && targetSkin !== currentSkin && catalog && catalog[targetSkin]
+                    && window.FlexcapadesSkins && typeof window.FlexcapadesSkins.load === "function";
+                if (canSwitch) {
+                    if (targetSkin === "sexcapades" && window.__SX_HAS_GATE_PASS && !window.__SX_HAS_GATE_PASS()) {
+                        /* Gate edge case: switching to Sexcapades without
+                           a pass redirects to the gate, which would drop
+                           this in-memory file. Stash it first, then load.
+                           The gate round-trip stays on this origin, so the
+                           stash survives and the file imports on return.
+                           Do NOT await the load and do NOT fall through:
+                           the redirect is synchronous, so awaiting would
+                           run the merge below into the wrong skin before
+                           navigation. */
+                        sxStashLaunchFile(name, text);
+                        try { window.FlexcapadesSkins.load(targetSkin); } catch (e) { /* stash covers the file */ }
+                        return;
+                    }
+                    try {
+                        await window.FlexcapadesSkins.load(targetSkin);
+                    } catch (err) {
+                        __sxErrLog("launch-queue-skin-switch", err);
+                        sxShowStatusToast("Could not switch to the file's skin — importing into the current skin.", {
+                            tone: "error",
+                            persistent: !0
+                        });
+                    }
+                }
                 const importedId = sxMergeAsShared(parsed);
                 const label = importedId && sxProfileNames[importedId] ? sxProfileNames[importedId] : (name || "profile");
                 sxShowStatusToast(`Imported ${label} from ${name || ".hypermap"}`);
@@ -48772,7 +48831,7 @@ var sxLaunchQueueInstalled = !1;
                         try {
                             const file = await handle.getFile();
                             if (!file) continue;
-                            if (/\.(?:hypermap|json)$/i.test(file.name) || "application/json" === file.type) {
+                            if (/\.(?:hypermap|capadesio|json)$/i.test(file.name) || "application/json" === file.type) {
                                 const text = await file.text();
                                 await sxImportHypermapText(file.name, text);
                             } else {

@@ -37,7 +37,8 @@
       "action": "/",
       "accept": {
         "application/json": [
-          ".hypermap"
+          ".hypermap",
+          ".CapadesIO"
         ]
       },
       "launch_type": "single-client"
