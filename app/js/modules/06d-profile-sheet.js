@@ -226,6 +226,22 @@
                 By.matches(":hover") || jy.matches(":hover") || jyA && jyA.matches(":hover") || (window.__SX_SAMPLE_SUBMENUS || []).some(m => m && m.matches(":hover")) || sxCloseSampleSubmenus();
             }, 180);
         };
+        // Hover-open delay (2026-11-28): the stack/roster flyouts
+        // opened the instant the pointer touched a parent row, so a
+        // diagonal move to a lower layer crossed the next row and
+        // swapped the flyout. A 200ms hover delay lets the pointer
+        // pass over a row without opening it; focus/click stay
+        // immediate. Only the hook below uses it (stack parents +
+        // roster entries); the main Samples/Archetypes triggers keep
+        // opening instantly.
+        let Hw = 0;
+        const Qw = () => {
+            Hw && (t.clear(Hw), Hw = 0);
+        }, Pw = fn => {
+            Qw(), Hw = t.setTimeout(() => {
+                Hw = 0, fn();
+            }, 200);
+        };
         _w.addEventListener("pointerenter", () => {
             Rw(), sxOpenSampleFlyout();
         }), _w.addEventListener("focus", () => sxOpenSampleFlyout()), _w.addEventListener("click", e => {
@@ -260,9 +276,11 @@
         window.__SX_WIRE_SAMPLE_SUBMENU = (entry, menu, back) => {
             if (!entry || !menu) return;
             entry.addEventListener("pointerenter", () => {
-                Rw(), sxOpenSampleFlyout({}, menu, entry);
-            }), entry.addEventListener("focus", () => sxOpenSampleFlyout({}, menu, entry)), entry.addEventListener("click", e => {
-                e.preventDefault(), sxOpenSampleFlyout({
+                Rw(), Pw(() => sxOpenSampleFlyout({}, menu, entry));
+            }), entry.addEventListener("pointerleave", Qw), entry.addEventListener("focus", () => {
+                Qw(), sxOpenSampleFlyout({}, menu, entry);
+            }), entry.addEventListener("click", e => {
+                Qw(), e.preventDefault(), sxOpenSampleFlyout({
                     focus: !0
                 }, menu, entry);
             }), menu.addEventListener("pointerleave", Ow), menu.addEventListener("pointerenter", Rw), menu.addEventListener("click", e => sxSampleMenuClick(menu, e)), menu.addEventListener("click", e => {
