@@ -57,10 +57,16 @@
     priceUSD: 5,
     /* Patreon OAuth (PKCE). Real IDs (live 2026-11-27).
        - OAuth app "Capades Roster": https://www.patreon.com/portal/registration/register-clients
-         Redirect URIs registered (6, fixed 2026-11-27 — the app page
-         itself is the redirect, and Patreon needs an exact match):
-         https://flex.capades.io/ , https://sex.capades.io/ , https://capades.io/ ,
-         https://flex.capades.io/hosted/app.html , https://sex.capades.io/hosted/app.html , https://capades.io/hosted/app.html
+         Redirect URIs registered (26, as of 2026-11-27 — the app page
+         itself is the redirect, and Patreon needs an exact match per
+         host, so EVERY skin subdomain needs its own listing):
+         3 roots: https://flex.capades.io/ , https://sex.capades.io/ , https://capades.io/
+         23 app pages (/hosted/app.html on each): capades.io + all 22
+         skin subdomains (dance, quest, sex, aesth, bio, chem, dharma,
+         experi, fast, fores, lingua, matter, flex, nous, philo, polis,
+         praxi, quanta, simul, tech, theori, voca). A new skin subdomain
+         needs its app-page URI added here AND on Patreon. The legacy
+         bare sexcapades.io is NOT registered (struck 2026-11-27).
          (the app page URL below must match one of them).
        - One-off product "Roster Registration Window (30 days)", $5:
          https://www.patreon.com/posts/roster-window-30-176571871
